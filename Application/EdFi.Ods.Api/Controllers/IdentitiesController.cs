@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using EdFi.Ods.Api.Models.Identity;
 using EdFi.Ods.Common.Exceptions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
