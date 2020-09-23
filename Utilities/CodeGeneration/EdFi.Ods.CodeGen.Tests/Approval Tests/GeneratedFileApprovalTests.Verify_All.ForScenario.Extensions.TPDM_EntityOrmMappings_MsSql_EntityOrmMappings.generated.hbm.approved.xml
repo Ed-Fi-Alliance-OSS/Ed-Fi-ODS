@@ -1129,7 +1129,7 @@
 
 
     <!-- Properties -->
-    <property name="AidAmount" column="AidAmount" type="decimal" />
+    <property name="AidAmount" column="AidAmount" type="Currency" />
     <property name="AidConditionDescription" column="AidConditionDescription" type="string" length="1024" />
     <property name="EndDate" column="EndDate" type="date" />
     <property name="PellGrantRecipient" column="PellGrantRecipient" type="bool" />
@@ -4511,7 +4511,7 @@
 
 
     <!-- Properties -->
-    <property name="AidAmount" column="AidAmount" type="decimal" />
+    <property name="AidAmount" column="AidAmount" type="Currency" />
     <property name="AidConditionDescription" column="AidConditionDescription" type="string" length="1024" />
     <property name="AidTypeDescriptorId" column="AidTypeDescriptorId" type="int" not-null="true" />
     <property name="BeginDate" column="BeginDate" type="date" not-null="true" />
@@ -5199,7 +5199,7 @@
 
 
     <!-- Properties -->
-    <property name="SalaryAmount" column="SalaryAmount" type="decimal" />
+    <property name="SalaryAmount" column="SalaryAmount" type="Currency" />
     <property name="SalaryMaxRange" column="SalaryMaxRange" type="int" />
     <property name="SalaryMinRange" column="SalaryMinRange" type="int" />
     <property name="SalaryTypeDescriptorId" column="SalaryTypeDescriptorId" type="int" />
@@ -6365,7 +6365,7 @@
     <property name="SexDescriptorId" column="SexDescriptorId" type="int" not-null="true" />
     <property name="SourceSystemDescriptorId" column="SourceSystemDescriptorId" type="int" />
     <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" />
-    <property name="TuitionCost" column="TuitionCost" type="decimal" />
+    <property name="TuitionCost" column="TuitionCost" type="Currency" />
 
     <!-- One-to-one child mappings -->
     <set name="TeacherCandidateBackgroundCheck" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
@@ -6611,7 +6611,7 @@
 
 
     <!-- Properties -->
-    <property name="AidAmount" column="AidAmount" type="decimal" />
+    <property name="AidAmount" column="AidAmount" type="Currency" />
     <property name="AidConditionDescription" column="AidConditionDescription" type="string" length="1024" />
     <property name="EndDate" column="EndDate" type="date" />
     <property name="PellGrantRecipient" column="PellGrantRecipient" type="bool" />

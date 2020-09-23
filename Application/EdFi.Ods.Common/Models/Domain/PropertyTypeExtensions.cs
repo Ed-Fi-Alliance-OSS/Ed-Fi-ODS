@@ -146,91 +146,6 @@ namespace EdFi.Ods.Common.Models.Domain
             return !_notNullableTypes.Contains(propertyType.ToCSharp());
         }
 
-        public static string ToDotNet(this PropertyType propertyType, bool includeNullability = false)
-        {
-            // Note: Comments with corresponding .NET types are left inline for possible future implementation.
-            string dotNetType = null;
-
-            switch (propertyType.DbType)
-            {
-                case DbType.Int64: // bigint
-                    dotNetType = "Int64";
-                    break;
-
-                case DbType.Byte: // tinyint
-                    dotNetType = "Byte";
-                    break;
-
-                case DbType.Int16: // smallint
-                    dotNetType = "Int16";
-                    break;
-
-                case DbType.Int32: // int
-                    dotNetType = "Int32";
-                    break;
-
-                case DbType.Guid: // uniqueidentifier
-                    dotNetType = "Guid";
-                    break;
-
-                case DbType.Date: // date
-                case DbType.DateTime: // smalldatetime, datetime
-                case DbType.DateTime2:
-                    dotNetType = "DateTime";
-                    break;
-
-                case DbType.Double: //float
-                    dotNetType = "Double";
-                    break;
-
-                case DbType.Single: // real
-                    dotNetType = "Single";
-                    break;
-
-                case DbType.Currency: // smallmoney, money
-                case DbType.Decimal: // numeric, decimal
-                    dotNetType = "Decimal";
-                    break;
-
-                case DbType.Boolean:
-                    dotNetType = "Boolean";
-                    break;
-
-                case DbType.Binary: // image, binary, varbinary, rowversion, timestamp
-                    dotNetType = "Byte[]";
-                    break;
-
-                case DbType.Time: // time
-                    dotNetType = "TimeSpan";
-                    break;
-
-                case DbType.AnsiString: // varchar
-                case DbType.String: // char, nvarchar, ntext, text
-                case DbType.AnsiStringFixedLength: // char
-                case DbType.StringFixedLength: // nchar
-                    dotNetType = "String";
-                    break;
-
-                case DbType.DateTimeOffset:
-                    dotNetType = "DateTimeOffset";
-                    break;
-
-                default:
-
-                    throw new NotSupportedException(
-                        string.Format(
-                            ".NET system type mapping from 'DbType.{0}' is not supported.",
-                            propertyType.DbType));
-            }
-
-            if (includeNullability && propertyType.IsNullable && dotNetType != "String" && dotNetType != "Byte[]")
-            {
-                return "Nullable<" + dotNetType + ">";
-            }
-
-            return dotNetType;
-        }
-
         /// <summary>
         /// Converts the provided <see cref="PropertyType"/> to the non-nullable (underlying, if necessary) <see cref="System.Type"/>, even if the property is nullable.
         /// </summary>
@@ -331,37 +246,6 @@ namespace EdFi.Ods.Common.Models.Domain
             return systemType;
         }
 
-        public static string ToSwagger(this PropertyType type)
-        {
-            string cSharpType = type.ToCSharp();
-
-            switch (cSharpType)
-            {
-                case "string":
-                    return "string";
-                case "bool":
-                    return "boolean";
-                case "short":
-                    return "integer";
-                case "int":
-                    return "integer";
-                case "long":
-                    return "long";
-                case "float":
-                case "double":
-                case "decimal":
-                    return "number";
-                case "DateTime":
-                    return "date-time";
-                case "TimeSpan":
-                    return "string";
-                case "Guid":
-                    return "string";
-                default:
-                    throw new Exception(string.Format("Unhandled .NET data type to Swagger conversion: '{0}'.", cSharpType));
-            }
-        }
-
         public static string ToOpenApiType(this PropertyType type)
         {
             string cSharpType = type.ToCSharp();
@@ -416,177 +300,73 @@ namespace EdFi.Ods.Common.Models.Domain
             }
         }
 
-        public static string ToSql(this PropertyType propertyType)
+        public static string ToNHibernateType(this PropertyType propertyType)
         {
             switch (propertyType.DbType)
             {
-                case DbType.Int64:
-                    return "bigint";
-
-                case DbType.Binary:
-                    return "varbinary"; // or binary, timestamp, rowversion, image
-
-                case DbType.Boolean:
-                    return "bit";
+                case DbType.AnsiString:
+                    return "AnsiString";
 
                 case DbType.AnsiStringFixedLength:
+                    return "char";
 
-                    return string.Format(
-                        "char({0})",
-                        propertyType.MaxLength > 0
-                            ? propertyType.MaxLength.ToString()
-                            : "Max");
+                case DbType.Binary:
+                    return "byte[]"; // Is this right? Should it be "binary"?
 
-                case DbType.String:
+                case DbType.Boolean:
+                    return "bool";
+                
+                case DbType.Byte:
+                    return "byte";
 
-                    return string.Format(
-                        "nvarchar({0})",
-                        propertyType.MaxLength > 0
-                            ? propertyType.MaxLength.ToString()
-                            : "Max");
-
-                // or ntext, text, varchar
-
+                case DbType.Currency:
+                    return "Currency";
+                
                 case DbType.Date:
                     return "date";
 
                 case DbType.DateTime:
-                    return "datetime";
+                    return "timestamp"; // Should we use DateTime?
 
                 case DbType.DateTime2:
-                    return "datetime2";
+                    return "UtcDateTime";
 
                 case DbType.DateTimeOffset:
                     return "datetimeoffset";
-
-                case DbType.Time:
-                    return "time";
-
-                case DbType.Currency:
-                    return "money";
-
+                
                 case DbType.Decimal:
-                    return string.Format("decimal({0},{1})", propertyType.Precision, propertyType.Scale);
-
-                // or money, smallmoney
-
+                    return "decimal";
+                
                 case DbType.Double:
-                    return "float";
+                    return "double";
+
+                case DbType.Guid:
+                    return "Guid";
+
+                case DbType.Int16:
+                    return "short";
 
                 case DbType.Int32:
                     return "int";
 
-                case DbType.Int16:
-                    return "smallint";
+                case DbType.Int64:
+                    return "long";
+
+                case DbType.Single:
+                    return "single";
+
+                case DbType.String:
+                    return "string";
 
                 case DbType.StringFixedLength:
+                    return "char";
 
-                    return string.Format(
-                        "nchar({0})",
-                        propertyType.MaxLength > 0
-                            ? propertyType.MaxLength.ToString()
-                            : "Max");
-
-                case DbType.Byte:
-                    return "tinyint";
-
-                case DbType.Guid:
-                    return "uniqueidentifier";
-
-                case DbType.AnsiString:
-
-                    return string.Format(
-                        "varchar({0})",
-                        propertyType.MaxLength > 0
-                            ? propertyType.MaxLength.ToString()
-                            : "Max");
-
-                case DbType.Xml:
-                    return "xml";
+                case DbType.Time:
+                    return "TimeAsTimeSpan";
 
                 default:
-
-                    throw new NotSupportedException(
-                        string.Format(
-                            "SQL Server type mapping from 'DbType.{0}' is not supported.",
-                            propertyType.DbType));
+                    throw new NotSupportedException($"NHibernate type mapping from DbType '{propertyType.DbType}' is not supported.");
             }
-        }
-
-        public static string ToNHibernateType(this PropertyType propertyType)
-        {
-            // TODO: Rewrite this logic to convert directly from DbType instead of through SQL Server datatype
-            string sqlType = propertyType.ToSql()
-                                         .Split('(')[0];
-
-            string nhType;
-
-            switch (sqlType)
-            {
-                case "bigint":
-                    nhType = "long";
-                    break;
-                case "tinyint":
-                case "smallint":
-                    nhType = "short";
-                    break;
-                case "int":
-                    nhType = "int";
-                    break;
-                case "uniqueidentifier":
-                    nhType = "Guid";
-                    break;
-                case "datetimeoffset":
-                    nhType = "datetimeoffset";
-                    break;
-                case "datetime2":
-                    nhType = "UtcDateTime";
-                    break;
-                case "smalldatetime":
-                case "datetime":
-                    nhType = "timestamp"; //"datetime";
-                    break;
-                case "date":
-                    nhType = "date";
-                    break;
-                case "float":
-                    nhType = "double";
-                    break;
-                case "real":
-                case "numeric":
-                case "smallmoney":
-                case "decimal":
-                case "money":
-                    nhType = "decimal";
-                    break;
-                case "bit":
-                    nhType = "bool";
-                    break;
-                case "image":
-                case "binary":
-                case "varbinary":
-                    nhType = "byte[]";
-                    break;
-                case "time":
-                    nhType = "TimeAsTimeSpan";
-                    break;
-                case "text":
-                case "varchar":
-                    nhType = "AnsiString";
-                    break;
-                case "ntext":
-                case "nvarchar":
-                    nhType = "string";
-                    break;
-                default:
-
-                    throw new NotSupportedException(
-                        string.Format(
-                            "NHibernate type mapping from SQL Server type '{0}' is not supported.",
-                            sqlType));
-            }
-
-            return nhType;
         }
     }
 }

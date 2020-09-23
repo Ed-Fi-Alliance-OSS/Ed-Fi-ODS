@@ -31,7 +31,7 @@ namespace EdFi.Ods.Common.Infrastructure.PostgreSql
 
                 if (string.IsNullOrWhiteSpace(configuredDriver))
                 {
-                    c.Driver<NpgsqlDriver>();
+                    c.Driver<EdFiNpgsqlDriver>();
                 }
             });
         }

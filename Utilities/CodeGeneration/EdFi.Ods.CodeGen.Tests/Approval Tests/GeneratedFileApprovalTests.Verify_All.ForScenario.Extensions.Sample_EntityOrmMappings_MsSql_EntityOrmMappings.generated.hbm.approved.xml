@@ -83,7 +83,7 @@
     <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
     <property name="ExpectedTransitTime" column="ExpectedTransitTime" type="string" length="30" not-null="true" />
     <property name="HoursPerWeek" column="HoursPerWeek" type="decimal" not-null="true" />
-    <property name="OperatingCost" column="OperatingCost" type="decimal" not-null="true" />
+    <property name="OperatingCost" column="OperatingCost" type="Currency" not-null="true" />
     <property name="OptimalCapacity" column="OptimalCapacity" type="decimal" />
     <property name="StaffClassificationDescriptorId" column="StaffClassificationDescriptorId" type="int" />
     <property name="StaffUSI" column="StaffUSI" type="int" />
@@ -543,7 +543,7 @@
     <!-- Properties -->
     <property name="AverageCarLineWait" column="AverageCarLineWait" type="string" length="30" />
     <property name="BecameParent" column="BecameParent" type="short" />
-    <property name="CoffeeSpend" column="CoffeeSpend" type="decimal" />
+    <property name="CoffeeSpend" column="CoffeeSpend" type="Currency" />
     <property name="CredentialFieldDescriptorId" column="CredentialFieldDescriptorId" type="int" />
     <property name="Duration" column="Duration" type="int" />
     <property name="GPA" column="GPA" type="decimal" />
@@ -1187,7 +1187,7 @@
     <!-- Properties -->
     <property name="CommencementTime" column="CommencementTime" type="TimeAsTimeSpan" />
     <property name="EffectiveDate" column="EffectiveDate" type="date" not-null="true" />
-    <property name="GraduationFee" column="GraduationFee" type="decimal" />
+    <property name="GraduationFee" column="GraduationFee" type="Currency" />
     <property name="HighSchoolDuration" column="HighSchoolDuration" type="string" length="30" />
     <property name="HoursPerWeek" column="HoursPerWeek" type="decimal" not-null="true" />
     <property name="IsActivePlan" column="IsActivePlan" type="bool" />
@@ -1698,7 +1698,7 @@
     <!-- Properties -->
     <property name="BedtimeReader" column="BedtimeReader" type="bool" not-null="true" />
     <property name="BedtimeReadingRate" column="BedtimeReadingRate" type="decimal" />
-    <property name="BookBudget" column="BookBudget" type="decimal" />
+    <property name="BookBudget" column="BookBudget" type="Currency" />
     <property name="BooksBorrowed" column="BooksBorrowed" type="int" />
     <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
     <property name="InterventionStudyIdentificationCode" column="InterventionStudyIdentificationCode" type="string" length="60" />
