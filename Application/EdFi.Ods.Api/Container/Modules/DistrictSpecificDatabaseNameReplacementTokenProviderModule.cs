@@ -9,7 +9,6 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;
 
-
 namespace EdFi.Ods.Api.Container.Modules
 {
     public class DistrictSpecificDatabaseNameReplacementTokenProviderModule : ConditionalModule
