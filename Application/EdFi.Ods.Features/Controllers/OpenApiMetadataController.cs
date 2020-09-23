@@ -19,7 +19,9 @@ using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 
 namespace EdFi.Ods.Features.Controllers
 {
@@ -67,11 +69,11 @@ namespace EdFi.Ods.Features.Controllers
             {
                 if (headerValue.EqualsIgnoreCase(eTag))
                 {
-                    return StatusCode((int) HttpStatusCode.NotModified);
+                    return StatusCode((int)HttpStatusCode.NotModified);
                 }
             }
 
-            Response.Headers[HeaderConstants.ETag] = eTag;
+            Response.GetTypedHeaders().ETag = new EntityTagHeaderValue(eTag);
 
             return Ok(content);
 

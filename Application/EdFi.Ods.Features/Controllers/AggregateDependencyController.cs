@@ -17,6 +17,7 @@ using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Models.Resource;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuickGraph;
 
@@ -47,12 +48,13 @@ namespace EdFi.Ods.Features.Controllers
             }
 
             try
-            {       
-                    return Request.Headers["Accept"].ToString().EqualsIgnoreCase(CustomMediaContentTypes.GraphML)
-                    ? Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()))
-                    : Ok(GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()));
+            {
+                return Request.GetTypedHeaders().Accept != null
+                    && Request.GetTypedHeaders().Accept.FirstOrDefault().MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML)
+                ? Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()))
+                : Ok(GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()));
 
-                     
+
             }
             catch (NonAcyclicGraphException e)
             {
@@ -71,7 +73,7 @@ namespace EdFi.Ods.Features.Controllers
             {
                 Id = "EdFi Dependencies",
                 Nodes = resourceGraph.Vertices
-                    .Select(r => new GraphMLNode {Id = GetNodeId(r)})
+                    .Select(r => new GraphMLNode { Id = GetNodeId(r) })
                     .OrderBy(n => n.Id)
                     .ToList(),
                 Edges = resourceGraph.Edges

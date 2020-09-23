@@ -252,7 +252,7 @@ namespace EdFi.Ods.Api.Controllers
                     case IdentityStatusCode.Success:
                         return Ok(result.Data);
                     case IdentityStatusCode.Incomplete:
-                        Response.Headers["Location"] = Request.GetDisplayUrl();
+                        Response.GetTypedHeaders().Location = new Uri(Request.GetDisplayUrl());
                         return Ok(result.Data);
                     case IdentityStatusCode.NotFound:
                         return NotFound("No identity search matching the provided search token was found.");

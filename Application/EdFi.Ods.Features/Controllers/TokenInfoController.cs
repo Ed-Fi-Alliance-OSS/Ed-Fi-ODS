@@ -14,7 +14,9 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.TokenInfo;
 using EdFi.Ods.Sandbox.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 
 namespace EdFi.Ods.Features.Controllers
 {
@@ -78,7 +80,7 @@ namespace EdFi.Ods.Features.Controllers
 
             var tokenInfo = await _tokenInfoProvider.GetTokenInfoAsync(apiContext);
 
-            Response.Headers.Add("Cache-Control", "no-cache");
+            Response.GetTypedHeaders().CacheControl = new CacheControlHeaderValue { NoCache = true };
             return Ok(tokenInfo);
         }
     }
