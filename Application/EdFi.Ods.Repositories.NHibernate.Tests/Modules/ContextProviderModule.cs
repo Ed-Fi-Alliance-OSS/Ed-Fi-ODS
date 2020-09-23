@@ -16,9 +16,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
         {
             builder.RegisterType<ApiKeyContextProvider>().As<IApiKeyContextProvider>().As<IHttpContextStorageTransferKeys>();
                 
-
-            builder.RegisterType<SchoolYearContextProvider>().As<ISchoolYearContextProvider>()
-                .As<IHttpContextStorageTransferKeys>();
+            builder.RegisterType<SchoolYearContextProvider>().As<ISchoolYearContextProvider>().As<IHttpContextStorageTransferKeys>();
         }
     }
 }
