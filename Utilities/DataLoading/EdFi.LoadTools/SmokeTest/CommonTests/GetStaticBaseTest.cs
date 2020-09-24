@@ -48,7 +48,7 @@ namespace EdFi.LoadTools.SmokeTest.CommonTests
                     };
                 }
 
-               try
+                try
                 {
                     var request = new HttpRequestMessage(HttpMethod.Get, uri);
                     var response = await _httpClient.SendAsync(request).ConfigureAwait(false);

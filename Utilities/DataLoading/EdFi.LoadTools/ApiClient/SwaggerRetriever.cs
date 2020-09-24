@@ -12,11 +12,6 @@ using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using EdFi.LoadTools.Engine;
 using log4net;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Swashbuckle.Swagger;
 
@@ -127,24 +122,11 @@ namespace EdFi.LoadTools.ApiClient
 
         private async Task<string> LoadJsonString(string localUrl)
         {
-            var hostBuilder = new HostBuilder()
-                .ConfigureWebHost(
-                    webHost =>
-                    {
-                        // Add TestServer
-                        webHost.UseTestServer();
-
-                        webHost.Configure(
-                            app => app.Run(
-                                async ctx =>
-                                    await ctx.Response.StartAsync().ConfigureAwait(false)));
-                    });
-
-            var host = await hostBuilder.StartAsync();
-           
-            using (var client = host.GetTestClient())
+            using (var client = new HttpClient
+                                {
+                                    Timeout = new TimeSpan(0, 0, 5, 0)
+                                })
             {
-               
                 var response = await client.GetAsync(
                                                 string.IsNullOrEmpty(localUrl)
                                                     ? _configuration.Url
