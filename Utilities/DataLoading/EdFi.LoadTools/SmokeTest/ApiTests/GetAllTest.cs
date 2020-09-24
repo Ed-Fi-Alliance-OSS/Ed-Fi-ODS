@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using Newtonsoft.Json.Linq;
@@ -19,20 +18,19 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
             Resource resource,
             Dictionary<string, JArray> resultsDictionary,
             IApiConfiguration configuration,
-            IOAuthTokenHandler tokenHandler,
-            HttpClient client = null)
-            : base(resource, resultsDictionary, configuration, tokenHandler, client) { }
+            IOAuthTokenHandler tokenHandler)
+            : base(resource, resultsDictionary, configuration, tokenHandler) { }
 
         protected override bool NoDataAvailableForTheResource => false;
 
         protected override bool ShouldPerformTest()
         {
             return !Operation
-                .parameters
-                .Any(
-                    p => "id".Equals(p.name, StringComparison.CurrentCultureIgnoreCase)
-                         && p.required == true
-                         && "path".Equals(p.@in, StringComparison.CurrentCultureIgnoreCase));
+                   .parameters
+                   .Any(
+                        p => "id".Equals(p.name, StringComparison.CurrentCultureIgnoreCase)
+                             && p.required == true
+                             && "path".Equals(p.@in, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }

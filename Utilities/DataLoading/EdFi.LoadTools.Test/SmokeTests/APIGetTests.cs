@@ -85,13 +85,13 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [OneTimeSetUp]
         public async Task Setup()
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                .AddJsonFile("appsettings.json", optional: true)
-                .AddEnvironmentVariables()
-                .Build();
+            //var config = new ConfigurationBuilder()
+            //    .SetBasePath(TestContext.CurrentContext.TestDirectory)
+            //    .AddJsonFile("appsettings.json", optional: true)
+            //    .AddEnvironmentVariables()
+            //    .Build();
 
-            Address = config.GetSection("TestingWebServerAddress").Value;
+            Address = "http://localhost:23456/"; //config.GetSection("TestingWebServerAddress").Value;
 
             _resource = new Resource
             {
@@ -181,7 +181,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
 
-            var subject = new GetAllTest(_resource, dictionary, configuration, tokenHandler, client);
+            var subject = new GetAllTest(_resource, dictionary, configuration, tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsNotNull(dictionary[ResourceName]);
@@ -191,12 +191,10 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public async Task GetSkipLimitTest_should_retrieve_second_objectAsync()
         {
-            var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
-            var client = Host.GetTestClient();
-            client.BaseAddress = new System.Uri(Address);
+            var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-            var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, tokenHandler, client);
+            var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
@@ -205,12 +203,12 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public async Task GetByIdTest_should_retrieve_single_objectAsync()
         {
-            var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
+            var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
             var client = Host.GetTestClient();
             client.BaseAddress = new System.Uri(Address);
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-            var subject = new GetByIdTest(_resource, dictionary, configuration, tokenHandler, client);
+            var subject = new GetByIdTest(_resource, dictionary, configuration, tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
@@ -219,12 +217,12 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [Test]
         public async Task GetByExampleTest_should_retrieve_arrayAsync()
         {
-            var dictionary = new Dictionary<string, JArray> {[ResourceName] = _data};
+            var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
             var client = Host.GetTestClient();
             client.BaseAddress = new System.Uri(Address);
 
             var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-            var subject = new GetByExampleTest(_resource, dictionary, configuration, tokenHandler, client);
+            var subject = new GetByExampleTest(_resource, dictionary, configuration, tokenHandler);
             var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
