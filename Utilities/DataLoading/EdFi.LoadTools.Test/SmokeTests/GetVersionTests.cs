@@ -22,6 +22,8 @@ namespace EdFi.LoadTools.Test.SmokeTests
     [TestFixture]
     public class GetVersionTests
     {
+        public static IHost Host { get; private set; }
+
         [Test]
         public async Task Should_succeed_against_a_running_serverAsync()
         {
@@ -33,25 +35,23 @@ namespace EdFi.LoadTools.Test.SmokeTests
 
             var address = config.GetSection("TestingWebServerAddress").Value;
 
-            var hostBuilder = new HostBuilder()
-                .ConfigureWebHost(
-                    webHost =>
+            // Create and start up the host
+            Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                .ConfigureWebHostDefaults(
+                    webBuilder =>
                     {
-                        // Add TestServer
-                        webHost.UseTestServer();
-
-                        webHost.Configure(
+                        webBuilder.UseUrls(address);
+                        webBuilder.Configure(
                             app => app.Run(
                                 async ctx =>
                                     await ctx.Response.WriteAsync("successful result")));
-                    });
+                    })
+                .Build();
 
-            var host = await hostBuilder.StartAsync();
-            var client = host.GetTestClient();
-            client.BaseAddress = new System.Uri(address);
+            await Host.StartAsync();
 
             var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == address);
-            var subject = new GetStaticVersionTest(configuration, client);
+            var subject = new GetStaticVersionTest(configuration);
             var result = await subject.PerformTest();
             Assert.IsTrue(result);
         }

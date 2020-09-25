@@ -15,12 +15,10 @@ namespace EdFi.LoadTools.SmokeTest.CommonTests
     public abstract class GetStaticBaseTest : ITest, ITestGenerator
     {
         private readonly string _url;
-        private static HttpClient _httpClient;
 
-        protected GetStaticBaseTest(string url, HttpClient client = null)
+        protected GetStaticBaseTest(string url)
         {
             _url = url;
-            _httpClient = client;
         }
 
         private ILog Log => LogManager.GetLogger(GetType().Name);
@@ -39,19 +37,16 @@ namespace EdFi.LoadTools.SmokeTest.CommonTests
 
             using (LogicalThreadContext.Stacks["NDC"].Push(uri.ToString()))
             {
-                if (_httpClient == null)
+                var client = new HttpClient
                 {
-                    _httpClient = new HttpClient
-                    {
-                        Timeout = new TimeSpan(0, 0, 5, 0),
-                        BaseAddress = uri
-                    };
-                }
+                    Timeout = new TimeSpan(0, 0, 5, 0),
+                    BaseAddress = uri
+                };
 
                 try
                 {
                     var request = new HttpRequestMessage(HttpMethod.Get, uri);
-                    var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
+                    var response = await client.SendAsync(request).ConfigureAwait(false);
 
                     if (response.IsSuccessStatusCode)
                     {
