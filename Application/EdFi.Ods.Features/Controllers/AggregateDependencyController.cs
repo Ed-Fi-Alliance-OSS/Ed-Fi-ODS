@@ -50,11 +50,9 @@ namespace EdFi.Ods.Features.Controllers
             try
             {
                 return Request.GetTypedHeaders().Accept != null
-                    && Request.GetTypedHeaders().Accept.FirstOrDefault().MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML)
+                    && Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML))
                 ? Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()))
                 : Ok(GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()));
-
-
             }
             catch (NonAcyclicGraphException e)
             {
