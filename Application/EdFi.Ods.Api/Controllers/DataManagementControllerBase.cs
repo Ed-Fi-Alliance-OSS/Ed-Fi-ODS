@@ -248,7 +248,7 @@ namespace EdFi.Ods.Api.Controllers
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
             return result.ResourceWasCreated
-                ? (IActionResult)Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), result.ResourceId)
+                ? (IActionResult) Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), result.ResourceId)
                 : NoContent();
         }
 
