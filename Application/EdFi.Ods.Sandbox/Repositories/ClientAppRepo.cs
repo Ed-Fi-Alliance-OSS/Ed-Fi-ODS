@@ -261,10 +261,8 @@ namespace EdFi.Ods.Sandbox.Repositories
                 // Convert this to ANSI SQL for PostgreSql support and don't use a SqlParameter.
                 // Be sure to write integration tests in project EdFi.Ods.Admin.Models.IntegrationTests.
                 context.ExecuteSqlCommandAsync(
-                        @"delete ClientAccessTokens where ApiClient_ApiClientId = @clientId; 
-delete ApiClients where ApiClientId = @clientId",
-                        new SqlParameter("@clientId", client.ApiClientId))
-                    .Wait();
+                    @"delete from dbo.ClientAccessTokens where ApiClient_ApiClientId = @p0; delete from dbo.ApiClients where ApiClientId = @p0",
+                    client.ApiClientId).Wait();
             }
         }
 

@@ -66,7 +66,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             using (var conn = CreateConnection())
             {
                 var results = await conn.QueryAsync<string>(
-                        $"SELECT datname FROM pg_database WHERE name like \"{_databaseNameBuilder.SandboxNameForKey("%")}\";",
+                        $"SELECT datname as name FROM pg_database WHERE datname like \'{_databaseNameBuilder.SandboxNameForKey("%")}\';",
                         commandTimeout: CommandTimeout)
                     .ConfigureAwait(false);
 
