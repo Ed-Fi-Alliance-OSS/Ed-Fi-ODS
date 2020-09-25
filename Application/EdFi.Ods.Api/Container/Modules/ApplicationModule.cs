@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETCOREAPP
 using System.Linq;
 using System.Reflection;
 using Autofac;
@@ -45,7 +46,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
 using Module = Autofac.Module;
 
-#if NETCOREAPP
 namespace EdFi.Ods.Api.Container.Modules
 {
     public class ApplicationModule : Module

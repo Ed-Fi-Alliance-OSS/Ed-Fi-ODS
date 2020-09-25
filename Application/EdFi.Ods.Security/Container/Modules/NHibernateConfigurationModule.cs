@@ -5,15 +5,19 @@
 
 #if NETSTANDARD
 using Autofac;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using Autofac.Core;
+using EdFi.Ods.Security.Authorization.Repositories;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class EducationOrganizationHierarchyModule : Module
+    public class NHibernateConfigurationModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<EducationOrganizationHierarchyProvider>().As<IEducationOrganizationHierarchyProvider>();
+            builder.RegisterType<NHibernateFilterTextProvider>()
+                .WithParameter(new ResolvedParameter((p, c) => p.GetType() == typeof(NHibernate.Cfg.Configuration),
+                    (p, c) => c.Resolve<NHibernate.Cfg.Configuration>()))
+                .As<INHibernateFilterTextProvider>();
         }
     }
 }

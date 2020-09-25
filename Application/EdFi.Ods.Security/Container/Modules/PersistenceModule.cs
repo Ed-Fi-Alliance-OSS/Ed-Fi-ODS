@@ -7,15 +7,21 @@
 using System;
 using System.Collections.Generic;
 using Autofac;
+using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
+using EdFi.Ods.Sandbox.Repositories;
+using EdFi.Ods.Security.Authorization;
 using EdFi.Ods.Security.Authorization.Pipeline;
 using EdFi.Ods.Security.Authorization.Repositories;
+using EdFi.Security.DataAccess.Contexts;
+using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class AuthorizationRepositoryDecoratorsModule : Module
+    public class PersistenceModule : Module
     {
         private readonly IDictionary<Type, Type> _genericServiceByAuthorizationDecorator = new Dictionary<Type, Type>
         {
@@ -55,6 +61,22 @@ namespace EdFi.Ods.Security.Container.Modules
             {
                 builder.RegisterDecorator(decoratorRegistration.Value, decoratorRegistration.Key);
             }
+
+            builder.RegisterType<EducationOrganizationCache>()
+                .WithParameter(new NamedParameter("synchronousInitialization", false))
+                .As<IEducationOrganizationCache>()
+                .AsSelf();
+
+            builder.RegisterType<EducationOrganizationCacheDataProvider>()
+                .As<IEducationOrganizationCacheDataProvider>()
+                .As<IEducationOrganizationIdentifiersValueMapper>()
+                .AsSelf();
+
+            builder.RegisterType<SecurityRepository>().As<ISecurityRepository>();
+            builder.RegisterType<ClientAppRepo>().As<IClientAppRepo>();
+            builder.RegisterType<AccessTokenClientRepo>().As<IAccessTokenClientRepo>();
+            builder.RegisterType<UsersContextFactory>().As<IUsersContextFactory>();
+            builder.RegisterType<SecurityContextFactory>().As<ISecurityContextFactory>();
         }
     }
 }
