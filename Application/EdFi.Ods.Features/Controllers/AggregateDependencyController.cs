@@ -71,7 +71,7 @@ namespace EdFi.Ods.Features.Controllers
             {
                 Id = "EdFi Dependencies",
                 Nodes = resourceGraph.Vertices
-                    .Select(r => new GraphMLNode { Id = GetNodeId(r) })
+                    .Select(r => new GraphMLNode {Id = GetNodeId(r)})
                     .OrderBy(n => n.Id)
                     .ToList(),
                 Edges = resourceGraph.Edges
