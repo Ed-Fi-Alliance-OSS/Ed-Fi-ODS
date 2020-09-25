@@ -208,7 +208,7 @@ namespace EdFi.Ods.Api.Controllers
 
             // Handle success result
             // Add ETag header for the resource
-            Response.Headers[HeaderConstants.ETag] = GetEtag(result.Resource.ETag).ToString();
+            Response.GetTypedHeaders().ETag = GetEtag(result.Resource.ETag);
 
             return Ok(result.Resource);
         }
@@ -245,7 +245,7 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
-            Response.Headers[HeaderConstants.ETag] = GetEtag(result.ETag).ToString();
+            Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
             return result.ResourceWasCreated
                 ? (IActionResult) Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), result.ResourceId)
@@ -282,7 +282,7 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception);
             }
 
-            Response.Headers[HeaderConstants.ETag] = GetEtag(result.ETag).ToString();
+            Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
             return result.ResourceWasCreated
                 ? (IActionResult) Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), result.ResourceId)

@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Helpers;
 using log4net;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Net.Http.Headers;
 
 namespace EdFi.Ods.Api.Middleware
 {
@@ -58,7 +59,7 @@ namespace EdFi.Ods.Api.Middleware
                 }
                 else
                 {
-                    context.Response.Headers[HeaderConstants.ETag] = etag;
+                    context.Response.GetTypedHeaders().ETag = new EntityTagHeaderValue(etag);
                     context.Response.StatusCode = StatusCodes.Status200OK;
                     context.Response.ContentType = GetContentType();
 
