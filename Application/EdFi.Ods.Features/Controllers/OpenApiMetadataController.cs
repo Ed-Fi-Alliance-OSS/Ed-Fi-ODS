@@ -69,7 +69,7 @@ namespace EdFi.Ods.Features.Controllers
             {
                 if (headerValue.EqualsIgnoreCase(eTag))
                 {
-                    return StatusCode((int)HttpStatusCode.NotModified);
+                    return StatusCode((int) HttpStatusCode.NotModified);
                 }
             }
 
