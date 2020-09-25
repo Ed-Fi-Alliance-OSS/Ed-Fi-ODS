@@ -20,6 +20,7 @@ using Microsoft.Net.Http.Headers;
 
 namespace EdFi.Ods.Features.Controllers
 {
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     [Route("oauth/token_info")]
