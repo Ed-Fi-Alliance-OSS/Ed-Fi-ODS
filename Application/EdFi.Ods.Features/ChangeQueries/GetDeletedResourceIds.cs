@@ -7,19 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Infrastructure.Pipelines;
-using EdFi.Ods.Features.SqlServer;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure;
-using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using NHibernate;
 using NHibernate.Transform;
 
-namespace EdFi.Ods.Features.NHibernate
+namespace EdFi.Ods.Features.ChangeQueries
 {
     public class GetDeletedResourceIds : NHibernateRepositoryOperationBase, IGetDeletedResourceIds
     {

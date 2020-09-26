@@ -9,27 +9,27 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.PostgreSql;
+using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Security.Authorization;
 
-namespace EdFi.Ods.Features.Container.Modules
+namespace EdFi.Ods.Api.Container.Modules
 {
-    public class PostgresSpecificModule : ConditionalModule
+    public class SqlServerSpecificModule : ConditionalModule
     {
-        public PostgresSpecificModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(PostgresSpecificModule)) { }
+        public SqlServerSpecificModule(ApiSettings apiSettings)
+            : base(apiSettings, nameof(SqlServerSpecificModule)) { }
 
-        public override bool IsSelected() => ApiSettings.GetDatabaseEngine() == DatabaseEngine.Postgres;
+        public override bool IsSelected() => ApiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer;
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<ParameterListSetter>()
+            builder.RegisterType<SqlServerTableValuedParameterListSetter>()
                 .As<IParameterListSetter>();
 
-            builder.RegisterType<PostgresAuthorizationSegmentSqlProvider>()
+            builder.RegisterType<SqlServerAuthorizationSegmentSqlProvider>()
                 .As<IAuthorizationSegmentsSqlProvider>();
 
-            builder.RegisterType<PostgreSqlDatabaseEngineNHibernateConfigurationActivity>()
+            builder.RegisterType<SqlServerDatabaseEngineNHibernateConfigurationActivity>()
                 .As<INHibernateConfigurationActivity>();
         }
     }

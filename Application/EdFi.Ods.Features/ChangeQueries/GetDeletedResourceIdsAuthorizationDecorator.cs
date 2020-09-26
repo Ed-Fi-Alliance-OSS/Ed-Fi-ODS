@@ -6,13 +6,12 @@
 using System.Collections.Generic;
 using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Security.Authorization.Repositories;
 using EdFi.Security.DataAccess.Repositories;
 
-namespace EdFi.Ods.Features.Security
+namespace EdFi.Ods.Features.ChangeQueries
 {
     public class GetDeletedResourceIdsAuthorizationDecorator<T>
         : RepositoryOperationAuthorizationDecoratorBase<T>, IGetDeletedResourceIds

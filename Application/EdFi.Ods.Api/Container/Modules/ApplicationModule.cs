@@ -27,6 +27,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
@@ -52,33 +53,52 @@ namespace EdFi.Ods.Api.Container.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SchoolYearContextFilter>().As<IFilterMetadata>();
+            builder.RegisterType<SchoolYearContextFilter>()
+                .As<IFilterMetadata>();
 
-            builder.RegisterType<EnterpriseApiVersionProvider>().As<IApiVersionProvider>();
+            builder.RegisterType<EnterpriseApiVersionProvider>()
+                .As<IApiVersionProvider>();
 
             // api model conventions should be singletons
-            builder.RegisterType<MvcOptionsConfigurator>().As<IConfigureOptions<MvcOptions>>().SingleInstance();
-            builder.RegisterType<DataManagementControllerRouteConvention>().As<IApplicationModelConvention>().SingleInstance();
+            builder.RegisterType<MvcOptionsConfigurator>()
+                .As<IConfigureOptions<MvcOptions>>()
+                .SingleInstance();
 
-            builder.RegisterType<ApiKeyContextProvider>().As<IApiKeyContextProvider>().As<IHttpContextStorageTransferKeys>()
+            builder.RegisterType<DataManagementControllerRouteConvention>()
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
+
+            builder.RegisterType<ApiKeyContextProvider>()
+                .As<IApiKeyContextProvider>()
+                .As<IHttpContextStorageTransferKeys>()
                 .AsSelf();
 
-            builder.RegisterType<SchoolYearContextProvider>().As<ISchoolYearContextProvider>()
-                .As<IHttpContextStorageTransferKeys>().AsSelf();
+            builder.RegisterType<SchoolYearContextProvider>()
+                .As<ISchoolYearContextProvider>()
+                .As<IHttpContextStorageTransferKeys>()
+                .AsSelf();
 
             // Primary context storage for ASP.NET web applications
-            builder.RegisterType<HttpContextStorage>().As<IContextStorage>().AsSelf();
+            builder.RegisterType<HttpContextStorage>()
+                .As<IContextStorage>()
+                .AsSelf();
 
             // Secondary context storage for background tasks running in ASP.NET web applications
             // Allows selected context to flow to worker Tasks (see IHttpContextStorageTransferKeys and IHttpContextStorageTransfer)
-            builder.RegisterType<CallContextStorage>().As<IContextStorage>().AsSelf();
+            builder.RegisterType<CallContextStorage>()
+                .As<IContextStorage>()
+                .AsSelf();
 
             // Features to transfer context from HttpContext to the secondary storage in ASP.NET applications
-            builder.RegisterType<HttpContextStorageTransfer>().As<IHttpContextStorageTransfer>();
+            builder.RegisterType<HttpContextStorageTransfer>()
+                .As<IHttpContextStorageTransfer>();
 
-            builder.RegisterType<DescriptorLookupProvider>().As<IDescriptorLookupProvider>().SingleInstance();
+            builder.RegisterType<DescriptorLookupProvider>()
+                .As<IDescriptorLookupProvider>()
+                .SingleInstance();
 
-            builder.RegisterType<DomainModelProvider>().As<IDomainModelProvider>();
+            builder.RegisterType<DomainModelProvider>()
+                .As<IDomainModelProvider>();
 
             // Schemas
             builder.Register(c => c.Resolve<IDomainModelProvider>().GetDomainModel().Schemas.ToArray())
@@ -89,10 +109,12 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<ISchemaNameMapProvider>();
 
             // Resource Model Provider
-            builder.RegisterType<ResourceModelProvider>().As<IResourceModelProvider>();
+            builder.RegisterType<ResourceModelProvider>()
+                .As<IResourceModelProvider>();
 
             // Validator for the domain model provider
-            builder.RegisterType<FluentValidationObjectValidator>().As<IExplicitObjectValidator>();
+            builder.RegisterType<FluentValidationObjectValidator>()
+                .As<IExplicitObjectValidator>();
 
             // Domain Models definitions provider
             builder.RegisterType<DomainModelDefinitionsJsonEmbeddedResourceProvider>()
@@ -102,24 +124,37 @@ namespace EdFi.Ods.Api.Container.Modules
                         (p, c) => c.Resolve<IAssembliesProvider>().GetAssemblies().SingleOrDefault(x => x.IsStandardAssembly())))
                 .As<IDomainModelDefinitionsProvider>();
 
-            builder.RegisterType<AssembliesProvider>().As<IAssembliesProvider>();
-            builder.RegisterType<FileSystemWrapper>().As<IFileSystem>();
-            builder.RegisterType<ConfigConnectionStringsProvider>().As<IConfigConnectionStringsProvider>();
-            builder.RegisterType<DefaultPageSizeLimitProvider>().As<IDefaultPageSizeLimitProvider>();
-            builder.RegisterType<SystemDateProvider>().As<ISystemDateProvider>();
+            builder.RegisterType<AssembliesProvider>()
+                .As<IAssembliesProvider>();
+
+            builder.RegisterType<FileSystemWrapper>()
+                .As<IFileSystem>();
+
+            builder.RegisterType<ConfigConnectionStringsProvider>()
+                .As<IConfigConnectionStringsProvider>();
+
+            builder.RegisterType<DefaultPageSizeLimitProvider>()
+                .As<IDefaultPageSizeLimitProvider>();
+
+            builder.RegisterType<SystemDateProvider>()
+                .As<ISystemDateProvider>();
 
             builder.RegisterType<ProfilePassthroughResourceModelProvider>()
                 .As<IProfileResourceModelProvider>()
                 .PreserveExistingDefaults();
 
-            builder.RegisterType<EdFiDescriptorReflectionProvider>().As<IEdFiDescriptorReflectionProvider>().SingleInstance();
+            builder.RegisterType<EdFiDescriptorReflectionProvider>()
+                .As<IEdFiDescriptorReflectionProvider>()
+                .SingleInstance();
 
             builder.RegisterType<EdFiOdsInstanceIdentificationProvider>()
                 .As<IEdFiOdsInstanceIdentificationProvider>();
 
-            builder.RegisterType<ETagProvider>().As<IETagProvider>();
+            builder.RegisterType<ETagProvider>()
+                .As<IETagProvider>();
 
-            builder.RegisterType<RESTErrorProvider>().As<IRESTErrorProvider>();
+            builder.RegisterType<RESTErrorProvider>()
+                .As<IRESTErrorProvider>();
 
             // All exception translators
             builder.RegisterAssemblyTypes(ThisAssembly)
@@ -127,15 +162,58 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IExceptionTranslator>()
                 .AsSelf();
 
-            builder.RegisterType<ClientCredentialsTokenRequestProvider>().As<ITokenRequestProvider>();
-            builder.RegisterType<OAuthTokenValidator>().As<IOAuthTokenValidator>();
-            builder.RegisterDecorator<CachingOAuthTokenValidatorDecorator, IOAuthTokenValidator>();
-            builder.RegisterType<AuthenticationProvider>().As<IAuthenticationProvider>();
+            builder.RegisterType<ClientCredentialsTokenRequestProvider>()
+                .As<ITokenRequestProvider>();
 
-            builder.RegisterType<PersonIdentifiersProvider>().As<IPersonIdentifiersProvider>();
+            builder.RegisterType<OAuthTokenValidator>()
+                .As<IOAuthTokenValidator>();
+
+            builder.RegisterDecorator<CachingOAuthTokenValidatorDecorator, IOAuthTokenValidator>();
+
+            builder.RegisterType<AuthenticationProvider>()
+                .As<IAuthenticationProvider>();
+
+            builder.RegisterType<PersonIdentifiersProvider>()
+                .As<IPersonIdentifiersProvider>();
 
             builder.RegisterType<PipelineFactory>()
                 .As<IPipelineFactory>();
+
+            builder.RegisterType<ApiClientAuthenticator>()
+                .As<IApiClientAuthenticator>();
+
+            builder.RegisterType<EdFiAdminApiClientIdentityProvider>()
+                .As<IApiClientIdentityProvider>()
+                .As<IApiClientSecretProvider>();
+
+            builder.RegisterType<PackedHashConverter>()
+                .As<IPackedHashConverter>();
+
+            builder.RegisterType<SecurePackedHashProvider>()
+                .As<ISecurePackedHashProvider>();
+
+            builder.RegisterType<DefaultHashConfigurationProvider>()
+                .As<IHashConfigurationProvider>();
+
+            builder.RegisterType<Pbkdf2HmacSha1SecureHasher>()
+                .As<ISecureHasher>();
+
+            builder.RegisterType<DataAnnotationsEntityValidator>()
+                .As<IEntityValidator>();
+
+            builder.RegisterType<DescriptorNamespaceValidator>()
+                .As<IValidator<IEdFiDescriptor>>();
+
+            builder.RegisterType<FluentValidationPutPostRequestResourceValidator>()
+                .As<IResourceValidator>();
+
+            builder.RegisterType<DataAnnotationsResourceValidator>()
+                .As<IResourceValidator>();
+
+            builder.RegisterType<NoEntityExtensionsFactory>()
+                .As<IEntityExtensionsFactory>()
+                .PreserveExistingDefaults()
+                .SingleInstance();
 
             RegisterPipeLineStepProviders();
             RegisterModels();
@@ -236,37 +314,6 @@ namespace EdFi.Ods.Api.Container.Modules
                     .As<IDeletePipelineStepsProvider>()
                     .As<IPipelineStepsProvider>();
             }
-
-            builder.RegisterType<ApiClientAuthenticator>()
-                .As<IApiClientAuthenticator>();
-
-            builder.RegisterType<EdFiAdminApiClientIdentityProvider>()
-                .As<IApiClientIdentityProvider>()
-                .As<IApiClientSecretProvider>();
-
-            builder.RegisterType<PackedHashConverter>()
-                .As<IPackedHashConverter>();
-
-            builder.RegisterType<SecurePackedHashProvider>()
-                .As<ISecurePackedHashProvider>();
-
-            builder.RegisterType<DefaultHashConfigurationProvider>()
-                .As<IHashConfigurationProvider>();
-
-            builder.RegisterType<Pbkdf2HmacSha1SecureHasher>()
-                .As<ISecureHasher>();
-
-            builder.RegisterType<DataAnnotationsEntityValidator>()
-                .As<IEntityValidator>();
-
-            builder.RegisterType<DescriptorNamespaceValidator>()
-                .As<IValidator<IEdFiDescriptor>>();
-
-            builder.RegisterType<FluentValidationPutPostRequestResourceValidator>()
-                .As<IResourceValidator>();
-
-            builder.RegisterType<DataAnnotationsResourceValidator>()
-                .As<IResourceValidator>();
         }
     }
 }

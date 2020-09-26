@@ -5,7 +5,7 @@
 
 using System.Runtime.Serialization;
 
-namespace EdFi.Ods.Features.Models
+namespace EdFi.Ods.Features.ChangeQueries
 {
     /// <summary>
     /// Contains the earliest (oldest) and most recent (newest) change versions available.

@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using Autofac;
+using Autofac.Core;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
@@ -18,10 +19,11 @@ using EdFi.Ods.Security.Authorization.Pipeline;
 using EdFi.Ods.Security.Authorization.Repositories;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Repositories;
+using NHibernate.Cfg;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class PersistenceModule : Module
+    public class SecurityPersistenceModule : Module
     {
         private readonly IDictionary<Type, Type> _genericServiceByAuthorizationDecorator = new Dictionary<Type, Type>
         {
@@ -72,11 +74,27 @@ namespace EdFi.Ods.Security.Container.Modules
                 .As<IEducationOrganizationIdentifiersValueMapper>()
                 .AsSelf();
 
-            builder.RegisterType<SecurityRepository>().As<ISecurityRepository>();
-            builder.RegisterType<ClientAppRepo>().As<IClientAppRepo>();
-            builder.RegisterType<AccessTokenClientRepo>().As<IAccessTokenClientRepo>();
-            builder.RegisterType<UsersContextFactory>().As<IUsersContextFactory>();
-            builder.RegisterType<SecurityContextFactory>().As<ISecurityContextFactory>();
+            builder.RegisterType<SecurityRepository>()
+                .As<ISecurityRepository>();
+
+            builder.RegisterType<ClientAppRepo>()
+                .As<IClientAppRepo>();
+
+            builder.RegisterType<AccessTokenClientRepo>()
+                .As<IAccessTokenClientRepo>();
+
+            builder.RegisterType<UsersContextFactory>()
+                .As<IUsersContextFactory>();
+
+            builder.RegisterType<SecurityContextFactory>()
+                .As<ISecurityContextFactory>();
+
+            builder.RegisterType<NHibernateFilterTextProvider>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.GetType() == typeof(Configuration),
+                        (p, c) => c.Resolve<Configuration>()))
+                .As<INHibernateFilterTextProvider>();
         }
     }
 }

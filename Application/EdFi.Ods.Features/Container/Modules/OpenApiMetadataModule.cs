@@ -20,10 +20,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
-    public class EnabledOpenApiMetadataModule : ConditionalModule
+    public class OpenApiMetadataModule : ConditionalModule
     {
-        public EnabledOpenApiMetadataModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(EnabledOpenApiMetadataModule)) { }
+        public OpenApiMetadataModule(ApiSettings apiSettings)
+            : base(apiSettings, nameof(OpenApiMetadataModule)) { }
 
         public override bool IsSelected() => IsFeatureEnabled(ApiFeature.OpenApiMetadata);
 

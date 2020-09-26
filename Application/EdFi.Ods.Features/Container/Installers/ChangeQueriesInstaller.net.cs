@@ -8,15 +8,13 @@ using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Ods.Api.Architecture;
-using EdFi.Ods.Api.Common.Infrastructure.Configuration;
-using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Ods.Features.ChangeQueries;
+using EdFi.Ods.Features.ChangeQueries.Providers;
 using Component = Castle.MicroKernel.Registration.Component;
-using EdFi.Ods.Features.NHibernate;
 using EdFi.Ods.Features.Providers;
 
 namespace EdFi.Ods.Features.Container.Installers

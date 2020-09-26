@@ -16,12 +16,12 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
 
-namespace EdFi.Ods.Features.Container.Modules
+namespace EdFi.Ods.Api.Container.Modules
 {
-    public class EnabledExtensionModule : ConditionalModule
+    public class ExtensionsModule : ConditionalModule
     {
-        public EnabledExtensionModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(EnabledExtensionModule)) { }
+        public ExtensionsModule(ApiSettings apiSettings)
+            : base(apiSettings, nameof(ExtensionsModule)) { }
 
         public override bool IsSelected() => IsFeatureEnabled(ApiFeature.Extensions);
 
@@ -34,7 +34,9 @@ namespace EdFi.Ods.Features.Container.Modules
                              ExtensionsConventions.GetProperCaseNameFromAssemblyName(a.GetName().Name), StringComparer.InvariantCultureIgnoreCase))
                 .ToList();
 
-            builder.RegisterType<EntityExtensionsFactory>().As<IEntityExtensionsFactory>().SingleInstance();
+            builder.RegisterType<EntityExtensionsFactory>()
+                .As<IEntityExtensionsFactory>()
+                .SingleInstance();
 
             builder.RegisterType<EntityExtensionRegistrar>()
                 .WithParameter(new TypedParameter(typeof(IEnumerable<Assembly>), installedExtensionAssemblies))

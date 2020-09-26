@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
-using EdFi.Ods.Features.SqlServer;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
@@ -12,7 +11,7 @@ using log4net;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
 
-namespace EdFi.Ods.Features.NHibernate
+namespace EdFi.Ods.Features.ChangeQueries
 {
     public class ChangeQueryMappingNHibernateConfigurationActivity : INHibernateBeforeBindMappingActivity
     {

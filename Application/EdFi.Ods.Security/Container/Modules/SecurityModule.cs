@@ -20,7 +20,7 @@ using EdFi.Ods.Security.Utilities;
 
 namespace EdFi.Ods.Security.Container.Modules
 {
-    public class ApplicationModule : Module
+    public class SecurityModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
