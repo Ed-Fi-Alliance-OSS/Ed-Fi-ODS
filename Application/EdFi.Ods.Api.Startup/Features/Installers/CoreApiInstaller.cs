@@ -75,6 +75,7 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
         {
             RegisterDomainModel(container);
             RegisterAuthenticationProvider(container);
+            RegisterBearerTokenHeaderProcessor(container);
             RegisterContextProviders(container);
             RegisterContextStorage(container);
             RegisterCacheProvider(container);
@@ -269,6 +270,13 @@ namespace EdFi.Ods.Api.Startup.Features.Installers
             container.Register(
                 Component.For<IAuthenticationProvider>()
                     .ImplementedBy<OAuthAuthenticationProvider>());
+        }
+        
+        private void RegisterBearerTokenHeaderProcessor(IWindsorContainer container)
+        {
+            container.Register(
+                Component.For<IBearerTokenHeaderProcessor>()
+                    .ImplementedBy<BearerTokenHeaderProcessor>());
         }
 
         private void RegisterTokenRequestHandlers(IWindsorContainer container)

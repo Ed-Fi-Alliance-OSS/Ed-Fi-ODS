@@ -142,6 +142,10 @@ namespace EdFi.Ods.WebService.Tests
             container.Register(
                 Component.For<IAuthenticationProvider>()
                          .ImplementedBy<OAuthAuthenticationProvider>());
+            
+            container.Register(
+                Component.For<IBearerTokenHeaderProcessor>()
+                         .ImplementedBy<BearerTokenHeaderProcessor>());
         }
 
         protected IOAuthTokenValidator CreateOAuthTokenValidator()

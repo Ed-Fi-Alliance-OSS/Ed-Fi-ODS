@@ -199,6 +199,7 @@ namespace EdFi.Ods.WebService.Tests.Owin
             ConfigureDelegatingHandlers(httpConfig, Container.ResolveAll<DelegatingHandler>());
             RegisterFilters(httpConfig);
             RegisterAuthenticationProvider(Container);
+            RegisterBearerTokenHeaderProcessor(Container);
 
             appBuilder.Use(
                     (context, next) =>
@@ -369,7 +370,8 @@ namespace EdFi.Ods.WebService.Tests.Owin
             config.Filters.Add(
                 new ProfilesAuthorizationFilter(
                     Container.Resolve<IApiKeyContextProvider>(),
-                    Container.Resolve<IProfileResourceNamesProvider>()));
+                    Container.Resolve<IProfileResourceNamesProvider>(),
+                    Container.Resolve<IBearerTokenHeaderProcessor>()));
         }
 
         protected virtual void RegisterAuthenticationProvider(IWindsorContainer container)
@@ -378,6 +380,13 @@ namespace EdFi.Ods.WebService.Tests.Owin
             container.Register(
                 Component.For<IAuthenticationProvider>()
                     .ImplementedBy<OAuthAuthenticationProvider>());
+        }
+        
+        protected virtual void RegisterBearerTokenHeaderProcessor(IWindsorContainer container)
+        {
+            container.Register(
+                Component.For<IBearerTokenHeaderProcessor>()
+                         .ImplementedBy<BearerTokenHeaderProcessor>());
         }
 
         private void IncludeAuthorizationRoute(HttpConfiguration config)

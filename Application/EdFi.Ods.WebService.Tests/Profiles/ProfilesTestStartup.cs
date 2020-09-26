@@ -17,6 +17,7 @@ using EdFi.Ods.Api;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Pipelines.Factories;
+using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Api.Startup;
@@ -113,6 +114,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             ConfigureDelegatingHandlers(httpConfig, Container.ResolveAll<DelegatingHandler>());
             RegisterFilters(httpConfig);
             RegisterAuthenticationProvider(Container);
+            RegisterBearerTokenHeaderProcessor(Container);
 
             appBuilder.UseWebApi(httpConfig);
 
@@ -305,7 +307,8 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             config.Filters.Add(
                 new ProfilesAuthorizationFilter(
                     Container.Resolve<IApiKeyContextProvider>(),
-                    Container.Resolve<IProfileResourceNamesProvider>()));
+                    Container.Resolve<IProfileResourceNamesProvider>(),
+                    Container.Resolve<IBearerTokenHeaderProcessor>()));
         }
 
         private ApiKeyContext GetSuppliedApiKeyContext()
