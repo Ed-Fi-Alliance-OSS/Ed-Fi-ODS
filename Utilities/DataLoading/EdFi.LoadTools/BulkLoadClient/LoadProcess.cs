@@ -148,6 +148,10 @@ namespace EdFi.LoadTools.BulkLoadClient
             container.RegisterSingleton<SwaggerRetriever>();
             container.RegisterSingleton<XsdStreamsRetriever>();
             container.RegisterSingleton<IFileContextProvider, FileContextProvider>();
+            container.RegisterSingleton<SchemaSetFactory>();
+            container.RegisterSingleton<OAuthTokenHandler>();
+            container.Register<FileImportPipeline>();
+            container.Register<ResourcePipeline>();
 
             container.RegisterSingleton<IEnumerable<JsonModelMetadata>>(
                 () => container.GetInstance<IMetadataFactory<JsonModelMetadata>>().GetMetadata().ToArray());
