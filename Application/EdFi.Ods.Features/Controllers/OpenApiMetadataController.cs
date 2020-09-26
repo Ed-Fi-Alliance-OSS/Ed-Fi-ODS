@@ -48,7 +48,7 @@ namespace EdFi.Ods.Features.Controllers
 
         [HttpGet]
         [Route("")]
-        public IActionResult Get([FromQuery] OpenApiMetadataSectionRequest request)
+        public IActionResult Get([FromRoute] OpenApiMetadataSectionRequest request)
         {
             if (!IsFeatureEnabled())
             {
