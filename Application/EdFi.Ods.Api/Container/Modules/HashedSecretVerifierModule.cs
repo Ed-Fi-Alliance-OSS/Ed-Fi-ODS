@@ -20,7 +20,9 @@ namespace EdFi.Ods.Api.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<SecureHashAwareSecretVerifier>().As<ISecretVerifier>();
+            builder.RegisterType<SecureHashAwareSecretVerifier>()
+                .As<ISecretVerifier>();
+
             builder.RegisterDecorator<AutoUpgradingHashedSecretVerifierDecorator, ISecretVerifier>();
         }
     }

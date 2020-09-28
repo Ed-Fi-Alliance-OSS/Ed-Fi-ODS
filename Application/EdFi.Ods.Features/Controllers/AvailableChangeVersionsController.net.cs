@@ -6,7 +6,7 @@
 #if NETFRAMEWORK
 using System.Web.Http;
 using EdFi.Ods.Api.Services.Authentication;
-using EdFi.Ods.Features.Providers;
+using EdFi.Ods.Features.ChangeQueries.Providers;
 using log4net;
 
 namespace EdFi.Ods.Features.Controllers

@@ -7,11 +7,11 @@
 using Autofac;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
-using EdFi.Ods.Features.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Features.ChangeQueries;
+using EdFi.Ods.Features.ChangeQueries.Providers;
 using EdFi.Ods.Features.RouteInformations;
 
 namespace EdFi.Ods.Features.Container.Modules

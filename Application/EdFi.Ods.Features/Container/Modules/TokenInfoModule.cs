@@ -21,7 +21,8 @@ namespace EdFi.Ods.Features.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<TokenInfoProvider>().As<ITokenInfoProvider>();
+            builder.RegisterType<TokenInfoProvider>()
+                .As<ITokenInfoProvider>();
         }
     }
 }

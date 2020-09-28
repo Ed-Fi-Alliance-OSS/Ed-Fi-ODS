@@ -5,9 +5,9 @@
 
 #if NETCOREAPP
 using System.Net.Mime;
-using EdFi.Ods.Features.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Features.ChangeQueries.Providers;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
