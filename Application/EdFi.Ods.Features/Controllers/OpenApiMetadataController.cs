@@ -55,6 +55,14 @@ namespace EdFi.Ods.Features.Controllers
                 return NotFound();
             }
 
+            if (Request.Query.ContainsKey("sdk"))
+            {
+                if (bool.TryParse(Request.Query["sdk"], out bool sdk))
+                {
+                    request.Sdk = sdk;
+                }
+            }
+
             var content = _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)
                 .OrderBy(x => x.Section)
                 .ThenBy(x => x.Name)
