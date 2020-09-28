@@ -35,7 +35,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .AddEnvironmentVariables()
                 .Build();
 
-            _address = config.GetSection("TestingWebServerAddress").Value;
+            _address = "http://localhost:4242";
 
             // Create and start up the host
             Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
@@ -58,7 +58,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         public async Task OneTmeTearDown()
         {
             await Host?.StopAsync();
-            Host.Dispose();
+            Host?.Dispose();
         }
 
         [Test]
