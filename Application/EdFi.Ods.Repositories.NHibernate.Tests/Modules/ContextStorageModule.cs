@@ -13,7 +13,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     public class ContextStorageModule : Module
     {
         protected override void Load(ContainerBuilder builder)
-        {        
+        {
+            // Primary context storage for ASP.NET web applications
+            builder.RegisterType<HttpContextStorage>().As<IContextStorage>();
+
             // Secondary context storage for background tasks running in ASP.NET web applications
             // Allows selected context to flow to worker Tasks (see IHttpContextStorageTransferKeys and IHttpContextStorageTransfer)
             builder.RegisterType<CallContextStorage>().As<IContextStorage>();
