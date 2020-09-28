@@ -161,8 +161,8 @@ namespace EdFi.LoadTools.Test.SmokeTests
         [OneTimeTearDown]
         public async Task Cleanup()
         {
-            await Host.StopAsync();
-            Host.Dispose();
+            await Host?.StopAsync();
+            Host?.Dispose();
         }
 
         [Test]

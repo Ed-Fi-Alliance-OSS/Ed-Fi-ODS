@@ -22,10 +22,12 @@ namespace EdFi.LoadTools.Test.SmokeTests
     [TestFixture]
     public class GetVersionTests
     {
+        private static string _address;
+
         public static IHost Host { get; private set; }
 
-        [Test]
-        public async Task Should_succeed_against_a_running_serverAsync()
+        [OneTimeSetUp]
+        public async Task OneTimeSetUpAsync()
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
@@ -33,14 +35,15 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .AddEnvironmentVariables()
                 .Build();
 
-            var address = config.GetSection("TestingWebServerAddress").Value;
+            _address = config.GetSection("TestingWebServerAddress").Value;
 
             // Create and start up the host
             Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
                 .ConfigureWebHostDefaults(
                     webBuilder =>
                     {
-                        webBuilder.UseUrls(address);
+                        webBuilder.UseUrls(_address);
+
                         webBuilder.Configure(
                             app => app.Run(
                                 async ctx =>
@@ -49,8 +52,19 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .Build();
 
             await Host.StartAsync();
+        }
 
-            var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == address);
+        [OneTimeTearDown]
+        public async Task OneTmeTearDown()
+        {
+            await Host?.StopAsync();
+            Host.Dispose();
+        }
+
+        [Test]
+        public async Task Should_succeed_against_a_running_serverAsync()
+        {
+            var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == _address);
             var subject = new GetStaticVersionTest(configuration);
             var result = await subject.PerformTest();
             Assert.IsTrue(result);
