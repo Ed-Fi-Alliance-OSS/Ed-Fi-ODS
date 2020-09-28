@@ -48,11 +48,19 @@ namespace EdFi.Ods.Features.Controllers
 
         [HttpGet]
         [Route("")]
-        public IActionResult Get([FromQuery] OpenApiMetadataSectionRequest request)
+        public IActionResult Get([FromRoute] OpenApiMetadataSectionRequest request)
         {
             if (!IsFeatureEnabled())
             {
                 return NotFound();
+            }
+
+            if (Request.Query.ContainsKey("sdk"))
+            {
+                if (bool.TryParse(Request.Query["sdk"], out bool sdk))
+                {
+                    request.Sdk = sdk;
+                }
             }
 
             var content = _openApiMetadataCacheProvider.GetAllSectionDocuments(request.Sdk)

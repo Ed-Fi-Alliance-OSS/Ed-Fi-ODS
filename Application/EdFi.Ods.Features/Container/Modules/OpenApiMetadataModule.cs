@@ -12,11 +12,13 @@ using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Features.Conventions;
 using EdFi.Ods.Features.OpenApiMetadata;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
 using EdFi.Ods.Features.RouteInformations;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace EdFi.Ods.Features.Container.Modules
 {
@@ -59,6 +61,9 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<OpenApiMetadataDocumentFactory>()
                 .As<IOpenApiMetadataDocumentFactory>();
+           
+            builder.RegisterType<OpenApiMetadataRouteConvention>()
+                .As<IApplicationModelConvention>();
         }
     }
 }
