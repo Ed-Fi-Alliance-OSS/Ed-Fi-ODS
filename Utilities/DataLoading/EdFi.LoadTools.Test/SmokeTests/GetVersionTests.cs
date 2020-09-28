@@ -35,7 +35,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
                 .AddEnvironmentVariables()
                 .Build();
 
-            _address = "http://localhost:4242";
+            _address = config.GetSection("TestingWebServerAddress").Value;
 
             // Create and start up the host
             Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
