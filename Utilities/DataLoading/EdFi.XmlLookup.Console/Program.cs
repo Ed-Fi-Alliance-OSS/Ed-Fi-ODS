@@ -126,7 +126,7 @@ namespace EdFi.XmlLookup.Console
             container.RegisterSingleton<IEnumerable<XmlModelMetadata>>(
                 () => container.GetInstance<IMetadataFactory<XmlModelMetadata>>().GetMetadata().ToArray());
 
-            container.RegisterCollection<ILookupPipelineStep>(
+            container.Collection.Register<ILookupPipelineStep>(
                 new[]
                 {
                     typeof(IdentifyResourceTypeStep), typeof(ComputeHashStep), typeof(DirectLookupToIdentityMappingStep),
@@ -148,7 +148,7 @@ namespace EdFi.XmlLookup.Console
                 Lifestyle.Singleton,
                 c => c.Consumer.ImplementationType == typeof(DirectLookupToIdentityMappingStep));
 
-            container.RegisterCollection<IMetadataMapper>(
+            container.Collection.Register<IMetadataMapper>(
                 new[]
                 {
                     typeof(PremappedLookupMetadataMapper), typeof(LookupDoNotMapPropertyMapper), typeof(DescriptorReferenceMetadataMapper),

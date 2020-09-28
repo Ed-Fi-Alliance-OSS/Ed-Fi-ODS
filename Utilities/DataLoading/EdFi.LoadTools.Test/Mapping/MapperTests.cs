@@ -73,23 +73,12 @@ namespace EdFi.LoadTools.Test.Mapping
             var mapper = config.CreateMapper();
 
             var source = new SourceA
-                         {
-                             PropertyA = "property A", SourceB = new SourceB
-                                                                 {
-                                                                     PropertyB = "property B"
-                                                                 },
-                             List = new List<SourceC>
-                                    {
-                                        new SourceC
-                                        {
-                                            PropertyC = "property C"
-                                        }
-                                    },
-                             SourceD = new SourceD
-                                       {
-                                           PropertyD = "property D"
-                                       }
-                         };
+            {
+                PropertyA = "property A",
+                SourceB = new SourceB {PropertyB = "property B"},
+                List = new List<SourceC> {new SourceC {PropertyC = "property C"}},
+                SourceD = new SourceD {PropertyD = "property D"}
+            };
 
             var target = mapper.Map<SourceA, TargetA>(source);
             Assert.AreEqual(source.PropertyA, target.PropertyA);

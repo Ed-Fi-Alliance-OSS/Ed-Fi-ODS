@@ -23,10 +23,14 @@ namespace EdFi.SmokeTest.Console
             c.RegisterSingleton<IOAuthTokenHandler, OAuthTokenHandler>();
             c.RegisterSingleton<ITokenRetriever, TokenRetriever>();
 
-            c.RegisterCollection<ITestGenerator>(
+            c.Collection.Register<ITestGenerator>(
                 new[]
                 {
-                    typeof(GetStaticVersionTest), typeof(GetStaticDependenciesTest), typeof(GetSwaggerMetadataGenerator), typeof(GetSessionTokenGenerator), typeof(GetMethodsGenerator)
+                    typeof(GetStaticVersionTest),
+                    typeof(GetStaticDependenciesTest),
+                    typeof(GetSwaggerMetadataGenerator),
+                    typeof(GetSessionTokenGenerator),
+                    typeof(GetMethodsGenerator)
                 });
 
             c.RegisterInstance<ITestFactory<Resource, ITest>>(

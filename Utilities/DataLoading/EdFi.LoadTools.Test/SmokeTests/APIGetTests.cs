@@ -3,26 +3,31 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.ApiTests;
-using Microsoft.Owin.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
 using Moq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Owin;
 using Swashbuckle.Swagger;
+using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
     [TestFixture]
     public class ApiGetTests
     {
+        public static IHost Host { get; private set; }
+
         private const string ResourceName = "testResource";
         private const string IdName = "id";
         private const string KeyName = "aKey";
@@ -55,7 +60,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
               }
             }}";
 
-        private static readonly string Address = ConfigurationManager.AppSettings["TestingWebServerAddress"];
+        private static string Address = string.Empty;
 
         private static readonly JObject Obj1 = new JObject(
             new JProperty(IdName, 1), new JProperty("aKey", "a"),
@@ -65,8 +70,6 @@ namespace EdFi.LoadTools.Test.SmokeTests
             new JProperty(IdName, 2), new JProperty("aKey", "b"),
             new JProperty("aProperty", "b"));
 
-        private readonly IApiConfiguration _configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
-
         private readonly JArray _data = new JArray(Obj1, Obj2);
         private readonly IOAuthSessionToken _token = Mock.Of<IOAuthSessionToken>(t => t.SessionToken == "something");
 
@@ -75,122 +78,139 @@ namespace EdFi.LoadTools.Test.SmokeTests
         private readonly IOAuthTokenHandler tokenHandler = Mock.Of<IOAuthTokenHandler>();
 
         private Resource _resource;
-        private IDisposable _webApp;
 
         [OneTimeSetUp]
-        public void Setup()
+        public async Task Setup()
         {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            Address = config.GetSection("TestingWebServerAddress").Value;
+
             _resource = new Resource
-                        {
-                            Name = ResourceName, BasePath = "", Path = Doc.paths.Values.First()
-                        };
+            {
+                Name = ResourceName,
+                BasePath = "",
+                Path = Doc.paths.Values.First()
+            };
 
-            _webApp = WebApp.Start(
-                Address, app =>
-                         {
-                             app.Run(
-                                 async context =>
-                                 {
-                                     context.Response.ContentType = "application/json";
-                                     var pathSegments = context.Request.Path.Value.Split('/');
+            // Create and start up the host
+            Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                .ConfigureWebHostDefaults(
+                    webBuilder =>
+                    {
+                        webBuilder.UseUrls(Address);
+                        webBuilder.Configure(
+                            app => app.Run(
+                                async context =>
+                                {
+                                    context.Response.ContentType = "application/json";
+                                    var pathSegments = context.Request.Path.Value.Split('/');
 
-                                     if (pathSegments.Last() != ResourceName)
-                                     {
-                                         var id = int.Parse(pathSegments.Last());
+                                    if (pathSegments.Last() != ResourceName)
+                                    {
+                                        var id = int.Parse(pathSegments.Last());
 
-                                         await context.Response.WriteAsync(
-                                             JsonConvert.SerializeObject(_data.SingleOrDefault(x => x[IdName].Value<int>() == id)));
-                                     }
-                                     else if (context.Request.Query["offset"] != null && context.Request.Query["limit"] != null)
-                                     {
-                                         var skip = int.Parse(context.Request.Query["offset"]);
-                                         var take = int.Parse(context.Request.Query["limit"]);
-                                         await context.Response.WriteAsync(JsonConvert.SerializeObject(_data.Skip(skip).Take(take)));
-                                     }
-                                     else if (context.Request.Query[KeyName] != null)
-                                     {
-                                         var keyValue = context.Request.Query[KeyName];
+                                        await context.Response.WriteAsync(
+                                            JsonConvert.SerializeObject(
+                                                _data.SingleOrDefault(x => x[IdName].Value<int>() == id)));
+                                    }
+                                    else if (!string.IsNullOrEmpty(context.Request.Query["offset"]) &&
+                                             !string.IsNullOrEmpty(context.Request.Query["limit"]))
+                                    {
+                                        var skip = int.Parse(context.Request.Query["offset"]);
+                                        var take = int.Parse(context.Request.Query["limit"]);
 
-                                         await context.Response.WriteAsync(
-                                             JsonConvert.SerializeObject(
-                                                 _data.SingleOrDefault(
-                                                     x =>
-                                                         x[KeyName].Value<string>() == keyValue)));
-                                     }
-                                     else if (context.Request.Query[PropertyName] != null)
-                                     {
-                                         var propertyValue = context.Request.Query[PropertyName];
+                                        await context.Response.WriteAsync(
+                                            JsonConvert.SerializeObject(_data.Skip(skip).Take(take)));
+                                    }
+                                    else if (!string.IsNullOrEmpty(context.Request.Query[KeyName]))
+                                    {
+                                        var keyValue = context.Request.Query[KeyName];
 
-                                         await context.Response.WriteAsync(
-                                             JsonConvert.SerializeObject(
-                                                 _data.Where(
-                                                     x =>
-                                                         x[PropertyName].Value<string>() == propertyValue)));
-                                     }
-                                     else
-                                     {
-                                         await context.Response.WriteAsync(JsonConvert.SerializeObject(_data));
-                                     }
-                                 });
-                         });
+                                        await context.Response.WriteAsync(
+                                            JsonConvert.SerializeObject(
+                                                _data.SingleOrDefault(
+                                                    x =>
+                                                        x[KeyName].Value<string>() == keyValue)));
+                                    }
+                                    else if (!string.IsNullOrEmpty(context.Request.Query[PropertyName]))
+                                    {
+                                        var propertyValue = context.Request.Query[PropertyName];
+
+                                        await context.Response.WriteAsync(
+                                            JsonConvert.SerializeObject(
+                                                _data.Where(
+                                                    x =>
+                                                        x[PropertyName].Value<string>() == propertyValue)));
+                                    }
+                                    else
+                                    {
+                                        await context.Response.WriteAsync(JsonConvert.SerializeObject(_data));
+                                    }
+                                }));
+                    })
+                .Build();
+
+            await Host.StartAsync();
         }
 
         [OneTimeTearDown]
-        public void Cleanup()
+        public async Task Cleanup()
         {
-            _webApp.Dispose();
+            await Host?.StopAsync();
+            Host?.Dispose();
         }
 
         [Test]
-        public void GetAll_should_store_results_in_dictionary()
+        public async Task GetAll_should_store_results_in_dictionaryAsync()
         {
             var dictionary = new Dictionary<string, JArray>();
 
-            var subject = new GetAllTest(_resource, dictionary, _configuration, tokenHandler);
-            var result = subject.PerformTest().Result;
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+
+            var subject = new GetAllTest(_resource, dictionary, configuration, tokenHandler);
+            var result = await subject.PerformTest();
 
             Assert.IsNotNull(dictionary[ResourceName]);
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void GetSkipLimitTest_should_retrieve_second_object()
+        public async Task GetSkipLimitTest_should_retrieve_second_objectAsync()
         {
-            var dictionary = new Dictionary<string, JArray>
-                             {
-                                 [ResourceName] = _data
-                             };
+            var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
-            var subject = new GetAllSkipLimitTest(_resource, dictionary, _configuration, tokenHandler);
-            var result = subject.PerformTest().Result;
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var subject = new GetAllSkipLimitTest(_resource, dictionary, configuration, tokenHandler);
+            var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void GetByIdTest_should_retrieve_single_object()
+        public async Task GetByIdTest_should_retrieve_single_objectAsync()
         {
-            var dictionary = new Dictionary<string, JArray>
-                             {
-                                 [ResourceName] = _data
-                             };
+            var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
-            var subject = new GetByIdTest(_resource, dictionary, _configuration, tokenHandler);
-            var result = subject.PerformTest().Result;
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var subject = new GetByIdTest(_resource, dictionary, configuration, tokenHandler);
+            var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void GetByExampleTest_should_retrieve_array()
+        public async Task GetByExampleTest_should_retrieve_arrayAsync()
         {
-            var dictionary = new Dictionary<string, JArray>
-                             {
-                                 [ResourceName] = _data
-                             };
+            var dictionary = new Dictionary<string, JArray> { [ResourceName] = _data };
 
-            var subject = new GetByExampleTest(_resource, dictionary, _configuration, tokenHandler);
-            var result = subject.PerformTest().Result;
+            var configuration = Mock.Of<IApiConfiguration>(cfg => cfg.Url == Address);
+            var subject = new GetByExampleTest(_resource, dictionary, configuration, tokenHandler);
+            var result = await subject.PerformTest();
 
             Assert.IsTrue(result);
         }

@@ -6,38 +6,77 @@
 using System.Configuration;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest.CommonTests;
-using Microsoft.Owin.Hosting;
 using NUnit.Framework;
 using Moq;
-using Owin;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using System.Net.Http;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace EdFi.LoadTools.Test.SmokeTests
 {
     [TestFixture]
     public class GetVersionTests
     {
-        [Test]
-        public void Should_succeed_against_a_running_server()
-        {
-            var address = ConfigurationManager.AppSettings["TestingWebServerAddress"];
+        private static string _address;
 
-            using (WebApp.Start(
-                address, app => { app.Run(async context => { await context.Response.WriteAsync("successful result"); }); }))
-            {
-                var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == address);
-                var subject = new GetStaticVersionTest(configuration);
-                var result = subject.PerformTest().Result;
-                Assert.IsTrue(result);
-            }
+        public static IHost Host { get; private set; }
+
+        [OneTimeSetUp]
+        public async Task OneTimeSetUpAsync()
+        {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(TestContext.CurrentContext.TestDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            _address = config.GetSection("TestingWebServerAddress").Value;
+
+            // Create and start up the host
+            Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                .ConfigureWebHostDefaults(
+                    webBuilder =>
+                    {
+                        webBuilder.UseUrls(_address);
+
+                        webBuilder.Configure(
+                            app => app.Run(
+                                async ctx =>
+                                    await ctx.Response.WriteAsync("successful result")));
+                    })
+                .Build();
+
+            await Host.StartAsync();
+        }
+
+        [OneTimeTearDown]
+        public async Task OneTmeTearDown()
+        {
+            await Host?.StopAsync();
+            Host?.Dispose();
         }
 
         [Test]
-        public void Should_fail_against_no_server()
+        public async Task Should_succeed_against_a_running_serverAsync()
+        {
+            var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == _address);
+            var subject = new GetStaticVersionTest(configuration);
+            var result = await subject.PerformTest();
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task Should_fail_against_no_serverAsync()
         {
             const string Url = "http://localhost:12345";
             var configuration = Mock.Of<IApiMetadataConfiguration>(cfg => cfg.Url == Url);
             var subject = new GetStaticVersionTest(configuration);
-            var result = subject.PerformTest().Result;
+            var result = await subject.PerformTest();
             Assert.IsFalse(result);
         }
     }

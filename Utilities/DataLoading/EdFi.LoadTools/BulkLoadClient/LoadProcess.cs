@@ -148,6 +148,10 @@ namespace EdFi.LoadTools.BulkLoadClient
             container.RegisterSingleton<SwaggerRetriever>();
             container.RegisterSingleton<XsdStreamsRetriever>();
             container.RegisterSingleton<IFileContextProvider, FileContextProvider>();
+            container.RegisterSingleton<SchemaSetFactory>();
+            container.RegisterSingleton<OAuthTokenHandler>();
+            container.Register<FileImportPipeline>();
+            container.Register<ResourcePipeline>();
 
             container.RegisterSingleton<IEnumerable<JsonModelMetadata>>(
                 () => container.GetInstance<IMetadataFactory<JsonModelMetadata>>().GetMetadata().ToArray());
@@ -180,19 +184,19 @@ namespace EdFi.LoadTools.BulkLoadClient
                 container.RegisterDecorator<IApiLoaderApplication, ApiLoaderApplicationTimerDecorator>();
             }
 
-            container.RegisterCollection<IFileImportPipelineStep>(
+            container.Collection.Register<IFileImportPipelineStep>(
                 new[]
                 {
                     typeof(FindReferencesStep), typeof(PreloadReferencesStep)
                 });
 
-            container.RegisterCollection<IResourcePipelineStep>(
+            container.Collection.Register<IResourcePipelineStep>(
                 new[]
                 {
                     typeof(ComputeHashStep), typeof(FilterResourceStep), typeof(ResolveReferenceStep), typeof(MapElementStep)
                 });
 
-            container.RegisterCollection<IMetadataMapper>(
+            container.Collection.Register<IMetadataMapper>(
                 new[]
                 {
                     typeof(ArrayMetadataMapper), typeof(DescriptorReferenceMetadataMapper), typeof(NameMatchingMetadataMapper)

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyName>EdFi.XmlLookup.Console</AssemblyName>
     <RootNamespace>EdFi.XmlLookup.Console</RootNamespace>
@@ -32,12 +32,12 @@
     <None Include="ReadMe.md" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" />
+    <PackageReference Include="FluentCommandLineParser-netstandard" Version="1.4.3.13" />
+    <PackageReference Include="log4net" Version="2.0.10" />
+    <PackageReference Include="SimpleInjector" Version="5.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" PrivateAssets="all" />
-    <PackageReference Include="FluentCommandLineParser" Version="1.4.3" PrivateAssets="all" />
-    <PackageReference Include="log4net" Version="2.0.8" PrivateAssets="all" />
-    <PackageReference Include="SimpleInjector" Version="4.1.0" PrivateAssets="all" />
+    <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
   </ItemGroup>
 </Project>
