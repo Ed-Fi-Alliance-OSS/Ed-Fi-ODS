@@ -27,9 +27,9 @@ namespace EdFi.Ods.Common.ChainOfResponsibility
 
         protected TService Next { get; set; }
 
-        public abstract bool CanHandleRequest(TRequest request);
+        protected abstract bool CanHandleRequest(TRequest request);
 
-        public abstract TResponse HandleRequest(TRequest request);
+        protected abstract TResponse HandleRequest(TRequest request);
 
         public virtual TResponse ProcessRequest(TRequest request)
         {
