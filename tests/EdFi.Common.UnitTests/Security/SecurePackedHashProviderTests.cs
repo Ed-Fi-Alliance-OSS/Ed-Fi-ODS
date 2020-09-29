@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using EdFi.Ods.Common.Security;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -40,6 +41,7 @@ namespace EdFi.Ods.Common.UnitTests.Security
 
                 var secureHasher = A.Fake<ISecureHasher>();
 
+                A.CallTo(() => secureHasher.GetAlgorithmHashCode).Returns(123);
                 A.CallTo(() => secureHasher.ComputeHash("MySecret", 123, 321, 3))
                     .Returns(packedHash);
 
@@ -48,7 +50,7 @@ namespace EdFi.Ods.Common.UnitTests.Security
                 A.CallTo(() => packedHashConverter.GetBase64String(packedHash))
                     .Returns("MyHashedSecret");
 
-                _securePackedHashProvider = new SecurePackedHashProvider(packedHashConverter, secureHasher);
+                _securePackedHashProvider = new SecurePackedHashProvider(packedHashConverter, new List<ISecureHasher> {secureHasher});
             }
 
             protected override void Act()

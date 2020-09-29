@@ -5,15 +5,15 @@
 
 #if NETCOREAPP
 using System;
-using EdFi.Ods.Sandbox.Security;
+using System.Collections.Generic;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Helpers;
-using NUnit.Framework;
 using EdFi.TestFixture;
 using FakeItEasy;
+using NUnit.Framework;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
+namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 {
     [TestFixture]
     public class AutoUpgradingHashedSecretVerifierDecoratorTests
@@ -470,10 +470,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
             {
                 var packedHashConverter = new PackedHashConverter();
 
+                var originalHashAlgorithm = 1495316179;
+
                 var packedHash = new PackedHash
                 {
                     Format = 0,
-                    HashAlgorithm = "GOOD".GetHashCode(), // simulation of a hash routine that used GetHashCode
+                    HashAlgorithm = originalHashAlgorithm,
                     HashBytes = new byte[]
                     {
                         246, 198, 84, 57, 46, 87, 69, 64, 36, 89, 195, 42, 154,
@@ -496,8 +498,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
 
                 _apiClientSecretProvider = Stub<IApiClientSecretProvider>();
 
-                var secureHasher = new Pbkdf2HmacSha1SecureHasher(null);
-                var next = new SecureHashAwareSecretVerifier(packedHashConverter, secureHasher);
+                var secureHasher = new Pbkdf2HmacSha1SecureHasher();
+                var originalHasher = A.Fake<ISecureHasher>();
+                A.CallTo(() => originalHasher.GetAlgorithmHashCode).Returns(originalHashAlgorithm);
+                A.CallTo(() => originalHasher.ComputeHash(A<string>._, A<int>._, A<int>._, A<byte[]>._)).Returns(packedHash);
+
+                var next = new SecureHashAwareSecretVerifier(
+                    packedHashConverter, new List<ISecureHasher>
+                    {
+                        secureHasher,
+                        originalHasher
+                    });
 
                 _securePackedHashProvider = Stub<ISecurePackedHashProvider>();
 

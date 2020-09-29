@@ -4,210 +4,237 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System;
+using System.Collections.Generic;
 using EdFi.Ods.Common.Security;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
+using Shouldly;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
+namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 {
-    namespace EdFi.Ods.Tests.EdFi.Ods.Sandbox.Security
+    [TestFixture]
+    public class SecureHasAwareSecretVerifierTests
     {
-        public class When_calling_SecureHashAwareSecretVerifier_VerifySecret
+        public class Using_a_valid_secret : TestFixtureBase
         {
-            public class Using_a_valid_secret
-                : TestFixtureBase
-            {
-                private bool _actualResponse;
-                private ISecretVerifier _secretVerifier;
+            private bool _actualResponse;
+            private ISecretVerifier _secretVerifier;
 
-                protected override void Arrange()
+            protected override void Arrange()
+            {
+                var packedHash = new PackedHash
                 {
-                    var packedHash = new PackedHash
+                    Format = 1,
+                    HashAlgorithm = 123,
+                    HashBytes = new byte[]
                     {
-                        Format = 1,
-                        HashAlgorithm = 123,
-                        HashBytes = new byte[]
-                     {
-                        111, 222, 200
-                     },
-                        Iterations = 321,
-                        Salt = new byte[]
-                     {
-                        100, 200, 201
-                     }
-                    };
+                        111,
+                        222,
+                        200
+                    },
+                    Iterations = 321,
+                    Salt = new byte[]
+                    {
+                        100,
+                        200,
+                        201
+                    }
+                };
 
-                    var packedHashConverter = Stub<IPackedHashConverter>();
+                var packedHashConverter = Stub<IPackedHashConverter>();
 
-                    A.CallTo(() => packedHashConverter.GetPackedHash("MyHashedSecret"))
-                        .Returns(packedHash);
+                A.CallTo(() => packedHashConverter.GetPackedHash("MyHashedSecret"))
+                    .Returns(packedHash);
 
-                    var secureHasher = Stub<ISecureHasher>();
-                    A.CallTo(() => secureHasher.ComputeHash(A<string>._, A<int>._, A<int>._, A<byte[]>._)).Returns(packedHash);
-                    _secretVerifier = A.Fake<SecureHashAwareSecretVerifier>(options => options.WithArgumentsForConstructor(new object[] { packedHashConverter, secureHasher }));
-                }
+                var secureHasher = Stub<ISecureHasher>();
+                A.CallTo(() => secureHasher.GetAlgorithmHashCode).Returns(123);
+                A.CallTo(() => secureHasher.ComputeHash(A<string>._, A<int>._, A<int>._, A<byte[]>._)).Returns(packedHash);
 
-                protected override void Act()
-                {
-                    _actualResponse = _secretVerifier.VerifySecret(
-                        "MyKey",
-                        "MySecret",
-                        new ApiClientSecret
+                _secretVerifier = A.Fake<SecureHashAwareSecretVerifier>(
+                    options => options.WithArgumentsForConstructor(
+                        new object[]
                         {
-                            Secret = "MyHashedSecret",
-                            IsHashed = true
-                        });
-                }
-
-                [Assert]
-                public void Should_return_true()
-                {
-                    Assert.That(_actualResponse, Is.True);
-                }
+                            packedHashConverter,
+                            new List<ISecureHasher> {secureHasher}
+                        }));
             }
 
-            public class Usning_a_invalid_secret
-                : TestFixtureBase
+            protected override void Act()
             {
-                private bool _actualResponse;
-                private ISecretVerifier _secretVerifier;
+                _actualResponse = _secretVerifier.VerifySecret(
+                    "MyKey",
+                    "MySecret",
+                    new ApiClientSecret
+                    {
+                        Secret = "MyHashedSecret",
+                        IsHashed = true
+                    });
+            }
 
-                protected override void Arrange()
-                {
-                    var packedHashConverter = Stub<IPackedHashConverter>();
+            [Test]
+            public void Should_return_true()
+            {
+                Assert.That(_actualResponse, Is.True);
+            }
+        }
 
-                    A.CallTo(() => packedHashConverter.GetPackedHash("MyHashedSecret"))
-                        .Returns(
-                            new PackedHash
+        public class Usning_a_invalid_secret : TestFixtureBase
+        {
+            private bool _actualResponse;
+            private ISecretVerifier _secretVerifier;
+
+            protected override void Arrange()
+            {
+                var packedHashConverter = Stub<IPackedHashConverter>();
+
+                A.CallTo(() => packedHashConverter.GetPackedHash("MyHashedSecret"))
+                    .Returns(
+                        new PackedHash
+                        {
+                            Format = 1,
+                            HashAlgorithm = 123,
+                            HashBytes = new byte[]
                             {
-                                Format = 1,
-                                HashAlgorithm = 123,
-                                HashBytes = new byte[]
-                                {
-                                100, 100, 100
-                                },
-                                Iterations = 321,
-                                Salt = new byte[]
-                                {
-                                100, 200, 201
-                                }
-                            });
-
-                    var secureHasher = Stub<ISecureHasher>();
-
-                    A.CallTo(
-                            () => secureHasher.ComputeHash(
-                                "MyDifferentSecret",
-                                123,
-                                321,
-                                new byte[]
-                                {
-                                100, 200, 201
-                                }))
-                        .Returns(
-                            new PackedHash
+                                100,
+                                100,
+                                100
+                            },
+                            Iterations = 321,
+                            Salt = new byte[]
                             {
-                                Format = 1,
-                                HashAlgorithm = 123,
-                                HashBytes = new byte[]
-                                {
-                                200, 200, 200
-                                },
-                                Iterations = 321,
-                                Salt = new byte[]
-                                {
-                                100, 200, 201
-                                }
-                            });
-
-                    _secretVerifier = new SecureHashAwareSecretVerifier(packedHashConverter, secureHasher);
-                }
-
-                protected override void Act()
-                {
-                    _actualResponse = _secretVerifier.VerifySecret(
-                        "MyKey",
-                        "MyDifferentSecret",
-                        new ApiClientSecret
-                        {
-                            Secret = "MyHashedSecret",
-                            IsHashed = true
+                                100,
+                                200,
+                                201
+                            }
                         });
-                }
 
-                [Assert]
-                public void Should_return_false()
-                {
-                    Assert.That(_actualResponse, Is.False);
-                }
+                var secureHasher = Stub<ISecureHasher>();
+
+                A.CallTo(
+                        () => secureHasher.ComputeHash(
+                            "MyDifferentSecret",
+                            123,
+                            321,
+                            new byte[]
+                            {
+                                100,
+                                200,
+                                201
+                            }))
+                    .Returns(
+                        new PackedHash
+                        {
+                            Format = 1,
+                            HashAlgorithm = 123,
+                            HashBytes = new byte[]
+                            {
+                                200,
+                                200,
+                                200
+                            },
+                            Iterations = 321,
+                            Salt = new byte[]
+                            {
+                                100,
+                                200,
+                                201
+                            }
+                        });
+
+                _secretVerifier = new SecureHashAwareSecretVerifier(
+                    packedHashConverter, new List<ISecureHasher> {secureHasher});
             }
 
-            public class When_handling_valid_non_hashed_secrets
-                : TestFixtureBase
+            protected override void Act()
             {
-                private bool _actualResponse;
-                private ISecretVerifier _secretVerifier;
-
-                protected override void Arrange()
-                {
-                    var packedHashConverter = Stub<IPackedHashConverter>();
-                    var secureHasher = Stub<ISecureHasher>();
-
-                    _secretVerifier = new SecureHashAwareSecretVerifier(packedHashConverter, secureHasher);
-                }
-
-                protected override void Act()
-                {
-                    _actualResponse = _secretVerifier.VerifySecret(
-                        "MyKey",
-                        "MySecret",
-                        new ApiClientSecret
-                        {
-                            Secret = "MySecret",
-                            IsHashed = false
-                        });
-                }
-
-                [Assert]
-                public void Should_return_true()
-                {
-                    Assert.That(_actualResponse, Is.True);
-                }
+                _actualResponse = _secretVerifier.VerifySecret(
+                    "MyKey",
+                    "MyDifferentSecret",
+                    new ApiClientSecret
+                    {
+                        Secret = "MyHashedSecret",
+                        IsHashed = true
+                    });
             }
 
-            public class When_handling_invalid_non_hashed_secrets
-                : TestFixtureBase
+            [Test]
+            public void Should_return_false()
             {
-                private bool _actualResponse;
-                private ISecretVerifier _secretVerifier;
+                _actualResponse.ShouldBeFalse();
+            }
 
-                protected override void Arrange()
-                {
-                    var packedHashConverter = Stub<IPackedHashConverter>();
-                    var secureHasher = Stub<ISecureHasher>();
+            [Test]
+            public void Should_throw_not_implemented_exception()
+            {
+                ActualException.ShouldBeOfType<NotImplementedException>();
+            }
+        }
 
-                    _secretVerifier = new SecureHashAwareSecretVerifier(packedHashConverter, secureHasher);
-                }
+        public class When_handling_valid_non_hashed_secrets : TestFixtureBase
+        {
+            private bool _actualResponse;
+            private ISecretVerifier _secretVerifier;
 
-                protected override void Act()
-                {
-                    _actualResponse = _secretVerifier.VerifySecret(
-                        "MyKey",
-                        "MySecret",
-                        new ApiClientSecret
-                        {
-                            Secret = "MyDifferentSecret",
-                            IsHashed = false
-                        });
-                }
+            protected override void Arrange()
+            {
+                var packedHashConverter = Stub<IPackedHashConverter>();
+                var secureHasher = Stub<ISecureHasher>();
 
-                [Assert]
-                public void Should_return_false()
-                {
-                    Assert.That(_actualResponse, Is.False);
-                }
+                _secretVerifier = new SecureHashAwareSecretVerifier(
+                    packedHashConverter, new List<ISecureHasher> {secureHasher});
+            }
+
+            protected override void Act()
+            {
+                _actualResponse = _secretVerifier.VerifySecret(
+                    "MyKey",
+                    "MySecret",
+                    new ApiClientSecret
+                    {
+                        Secret = "MySecret",
+                        IsHashed = false
+                    });
+            }
+
+            [Test]
+            public void Should_return_true()
+            {
+                Assert.That(_actualResponse, Is.True);
+            }
+        }
+
+        public class When_handling_invalid_non_hashed_secrets : TestFixtureBase
+        {
+            private bool _actualResponse;
+            private ISecretVerifier _secretVerifier;
+
+            protected override void Arrange()
+            {
+                var packedHashConverter = Stub<IPackedHashConverter>();
+                var secureHasher = Stub<ISecureHasher>();
+
+                _secretVerifier = new SecureHashAwareSecretVerifier(packedHashConverter, new List<ISecureHasher> {secureHasher});
+            }
+
+            protected override void Act()
+            {
+                _actualResponse = _secretVerifier.VerifySecret(
+                    "MyKey",
+                    "MySecret",
+                    new ApiClientSecret
+                    {
+                        Secret = "MyDifferentSecret",
+                        IsHashed = false
+                    });
+            }
+
+            [Test]
+            public void Should_return_false()
+            {
+                Assert.That(_actualResponse, Is.False);
             }
         }
     }
