@@ -3,6 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace EdFi.Ods.Common.Security
@@ -10,12 +13,12 @@ namespace EdFi.Ods.Common.Security
     public class SecureHashAwareSecretVerifier : ISecretVerifier
     {
         private readonly IPackedHashConverter _packedHashConverter;
-        private readonly ISecureHasher _secureHasher;
+        private readonly IList<ISecureHasher> _secureHashers;
 
-        public SecureHashAwareSecretVerifier(IPackedHashConverter packedHashConverter, ISecureHasher secureHasher)
+        public SecureHashAwareSecretVerifier(IPackedHashConverter packedHashConverter, IList<ISecureHasher> secureHashers)
         {
             _packedHashConverter = packedHashConverter;
-            _secureHasher = secureHasher;
+            _secureHashers = secureHashers;
         }
 
         public bool VerifySecret(string key, string presentedSecret, ApiClientSecret actualSecret)
@@ -26,7 +29,17 @@ namespace EdFi.Ods.Common.Security
             }
 
             var actualHash = _packedHashConverter.GetPackedHash(actualSecret.Secret);
-            var presentedHash = _secureHasher.ComputeHash(presentedSecret, actualHash.HashAlgorithm, actualHash.Iterations, actualHash.Salt);
+
+            var hasher = _secureHashers.SingleOrDefault(x => x.GetAlgorithmHashCode == actualHash.HashAlgorithm);
+
+            if (hasher == null)
+            {
+                throw new NotImplementedException(
+                    $"Secure hasher is not found for algorithm indicated by the packed hash => {actualHash.HashAlgorithm}");
+            }
+
+            var presentedHash = hasher
+                .ComputeHash(presentedSecret, actualHash.HashAlgorithm, actualHash.Iterations, actualHash.Salt);
 
             return ByteArraysEqual(actualHash.HashBytes, presentedHash.HashBytes);
         }
