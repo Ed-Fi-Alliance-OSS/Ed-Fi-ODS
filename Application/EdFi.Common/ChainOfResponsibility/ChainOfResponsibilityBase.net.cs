@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,9 @@ namespace EdFi.Ods.Common.ChainOfResponsibility
 
         protected TService Next { get; set; }
 
-        protected abstract bool CanHandleRequest(TRequest request);
+        public abstract bool CanHandleRequest(TRequest request);
 
-        protected abstract TResponse HandleRequest(TRequest request);
+        public abstract TResponse HandleRequest(TRequest request);
 
         public virtual TResponse ProcessRequest(TRequest request)
         {
@@ -159,3 +160,4 @@ namespace EdFi.Ods.Common.ChainOfResponsibility
         }
     }
 }
+#endif
