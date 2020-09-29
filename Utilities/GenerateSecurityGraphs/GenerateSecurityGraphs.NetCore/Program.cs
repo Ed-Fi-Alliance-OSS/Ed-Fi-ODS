@@ -601,7 +601,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
         private static void FormatVertex(object sender, FormatVertexEventArgs<Resource> e)
         {
-            var f = e.VertexFormatter;
+            var f = e.VertexFormat;
 
             string htmlLabel;
 
