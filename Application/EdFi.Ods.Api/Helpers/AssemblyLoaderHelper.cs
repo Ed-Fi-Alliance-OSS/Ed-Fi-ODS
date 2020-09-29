@@ -51,7 +51,7 @@ namespace EdFi.Ods.Api.Helpers
                 // however the assemblies are linked in the project.
                 var directoryInfo = new DirectoryInfo(
                     Path.GetDirectoryName(
-                        Assembly.GetExecutingAssembly()
+                        typeof(Marker_EdFi_Ods_Api).Assembly
                             .Location));
 
                 _logger.Debug($"Loaded assemblies from executing folder: {directoryInfo.FullName}");

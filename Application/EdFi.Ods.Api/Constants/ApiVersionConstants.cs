@@ -47,7 +47,7 @@ namespace EdFi.Ods.Api.Constants
         /// <summary>
         /// Assembly version of the ods api.
         /// </summary>
-        public static readonly string Build = Assembly.GetExecutingAssembly()
+        public static readonly string Build = typeof(Marker_EdFi_Ods_Api).Assembly
             .GetName()
             .Version.ToString();
     }
