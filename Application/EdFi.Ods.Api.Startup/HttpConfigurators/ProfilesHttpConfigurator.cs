@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using EdFi.Ods.Api.Architecture;
+using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Metadata;
@@ -16,12 +17,16 @@ namespace EdFi.Ods.Api.Startup.HttpConfigurators
 {
     public class ProfilesHttpConfigurator : IHttpConfigurator
     {
+        private readonly IBearerTokenHeaderProcessor _bearerTokenHeaderProcessor;
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly IProfileResourceNamesProvider _profileResourceNamesProvider;
 
-        public ProfilesHttpConfigurator(IApiKeyContextProvider apiKeyContextProvider,
-            IProfileResourceNamesProvider profileResourceNamesProvider)
+        public ProfilesHttpConfigurator(
+            IApiKeyContextProvider apiKeyContextProvider,
+            IProfileResourceNamesProvider profileResourceNamesProvider,
+            IBearerTokenHeaderProcessor bearerTokenHeaderProcessor)
         {
+            _bearerTokenHeaderProcessor = Preconditions.ThrowIfNull(bearerTokenHeaderProcessor, nameof(bearerTokenHeaderProcessor));
             _apiKeyContextProvider = Preconditions.ThrowIfNull(apiKeyContextProvider, nameof(apiKeyContextProvider));
 
             _profileResourceNamesProvider = Preconditions.ThrowIfNull(
@@ -56,7 +61,7 @@ namespace EdFi.Ods.Api.Startup.HttpConfigurators
 
         private void ConfigureProfilesAuthorizationFilter(HttpConfiguration config)
         {
-            config.Filters.Add(new ProfilesAuthorizationFilter(_apiKeyContextProvider, _profileResourceNamesProvider));
+            config.Filters.Add(new ProfilesAuthorizationFilter(_apiKeyContextProvider, _profileResourceNamesProvider, _bearerTokenHeaderProcessor));
         }
     }
 }

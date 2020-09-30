@@ -8,11 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using Castle.Components.DictionaryAdapter.Xml;
 using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Services.Authentication;
+using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Metadata;
@@ -25,11 +29,16 @@ namespace EdFi.Ods.Api.Services.Filters
     {
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly IProfileResourceNamesProvider _profileResourceNamesProvider;
+        private readonly IBearerTokenHeaderProcessor _bearerTokenHeaderProcessor;
 
-        public ProfilesAuthorizationFilter(IApiKeyContextProvider apiKeyContextProvider, IProfileResourceNamesProvider profileResourceNamesProvider)
+        public ProfilesAuthorizationFilter(
+            IApiKeyContextProvider apiKeyContextProvider, 
+            IProfileResourceNamesProvider profileResourceNamesProvider,
+            IBearerTokenHeaderProcessor bearerTokenHeaderProcessor)
         {
             _apiKeyContextProvider = apiKeyContextProvider;
             _profileResourceNamesProvider = profileResourceNamesProvider;
+            _bearerTokenHeaderProcessor = bearerTokenHeaderProcessor;
         }
 
         public bool AllowMultiple
@@ -37,28 +46,39 @@ namespace EdFi.Ods.Api.Services.Filters
             get { return false; }
         }
 
-        public Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
+        public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(
             HttpActionContext actionContext,
             CancellationToken cancellationToken,
             Func<Task<HttpResponseMessage>> continuation)
         {
             // check if the http method sent needs to be checked by this filter
             if (!(actionContext.Request.Method == HttpMethod.Put ||
-                  actionContext.Request.Method == HttpMethod.Post ||
-                  actionContext.Request.Method == HttpMethod.Get))
+                actionContext.Request.Method == HttpMethod.Post ||
+                actionContext.Request.Method == HttpMethod.Get))
             {
-                return continuation();
+                return await continuation();
             }
 
             // Try to get the current API key context
-            var assignedProfiles = new List<string>();
             var apiKeyContext = _apiKeyContextProvider.GetApiKeyContext();
 
-            // check that the ApiKeyContext is available so that we can get the assigned profiles
-            if (apiKeyContext != null && apiKeyContext != ApiKeyContext.Empty)
+            // If not present, try to establish it based on Bearer token on request
+            if (apiKeyContext.IsNullOrEmpty())
             {
-                assignedProfiles = _apiKeyContextProvider.GetApiKeyContext()
-                                                         .Profiles.ToList();
+                var tokenProcessingResult = await _bearerTokenHeaderProcessor.ProcessAsync(actionContext.Request, cancellationToken);
+
+                if (tokenProcessingResult.ApiClientDetails != null)
+                {
+                    apiKeyContext = EstablishApiKeyContext(tokenProcessingResult.ApiClientDetails);
+                }
+            }
+            
+            var assignedProfiles = new List<string>();
+
+            // check that the ApiKeyContext is available so that we can get the assigned profiles
+            if (!apiKeyContext.IsNullOrEmpty())
+            {
+                assignedProfiles = apiKeyContext.Profiles.ToList();
             }
 
             // declare profile content type variable because it can be retrieved from the 
@@ -82,7 +102,7 @@ namespace EdFi.Ods.Api.Services.Filters
             // profiles then allow the request to be processed (there is nothing left to check)
             if (string.IsNullOrEmpty(profileContentType) && !assignedProfiles.Any())
             {
-                return continuation();
+                return await continuation();
             }
 
             // If the caller has not specified a profile specific content type but the targeted 
@@ -92,9 +112,7 @@ namespace EdFi.Ods.Api.Services.Filters
             {
                 if (actionContext.Request.Method == HttpMethod.Get)
                 {
-                    return
-                        Task.FromResult(
-                            ForbiddenHttpResponseMessage(
+                    return ForbiddenHttpResponseMessage(
                                 actionContext,
                                 string.Format(
                                     "One of the following profile-specific content types is required when requesting this resource: '{0}'.",
@@ -104,39 +122,37 @@ namespace EdFi.Ods.Api.Services.Filters
                                             p => ProfilesContentTypeHelper.CreateContentType(
                                                 resourceCollectionName,
                                                 p,
-                                                ContentTypeUsage.Readable))))));
+                                                ContentTypeUsage.Readable)))));
                 }
 
                 // PUT or POST
-                return
-                    Task.FromResult(
-                        ForbiddenHttpResponseMessage(
+                return ForbiddenHttpResponseMessage(
                             actionContext,
                             string.Format(
                                 "Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: '{0}'.",
                                 string.Join(
                                     "', '",
                                     assignedProfiles.Select(
-                                        p => ProfilesContentTypeHelper.CreateContentType(resourceCollectionName, p, ContentTypeUsage.Writable))))));
+                                        p => ProfilesContentTypeHelper.CreateContentType(resourceCollectionName, p, ContentTypeUsage.Writable)))));
             }
 
             // if there is no profile specific content at this point there are no more checks to make so proceed with request processing
             if (string.IsNullOrEmpty(profileContentType))
             {
-                return continuation();
+                return await continuation();
             }
 
             // If the caller is "opting in" to a profile, and the targeted resource exists in the specified profile, proceed with request processing
             if (!assignedProfiles.Any()
                 && IsTheResourceInTheProfile(resourceItemName, profileContentTypeDetails.Profile))
             {
-                return continuation();
+                return await continuation();
             }
 
             // If the caller is not assigned any profiles that cover the targeted resource, then proceed with request processing.
             if (!AnyAssignedProfilesCoverTheResource(assignedProfiles, resourceItemName))
             {
-                return continuation();
+                return await continuation();
             }
 
             // Check if the resource is covered under an assigned profile that is not the profile content type sent
@@ -145,8 +161,7 @@ namespace EdFi.Ods.Api.Services.Filters
                 // create the response based on the method
                 if (actionContext.Request.Method == HttpMethod.Get)
                 {
-                    return Task.FromResult(
-                        ForbiddenHttpResponseMessage(
+                    return ForbiddenHttpResponseMessage(
                             actionContext,
                             string.Format(
                                 "One of the following profile-specific content types is required when requesting this resource: '{0}'.",
@@ -156,13 +171,12 @@ namespace EdFi.Ods.Api.Services.Filters
                                         assignedProfiles,
                                         resourceCollectionName,
                                         resourceItemName,
-                                        actionContext.Request.Method)))));
+                                        actionContext.Request.Method))));
                 }
 
                 if (actionContext.Request.Method == HttpMethod.Put || actionContext.Request.Method == HttpMethod.Post)
                 {
-                    return Task.FromResult(
-                        ForbiddenHttpResponseMessage(
+                    return ForbiddenHttpResponseMessage(
                             actionContext,
                             string.Format(
                                 "Based on the assigned profiles, one of the following profile-specific content types is required when updating this resource: '{0}'.",
@@ -172,11 +186,29 @@ namespace EdFi.Ods.Api.Services.Filters
                                         assignedProfiles,
                                         resourceCollectionName,
                                         resourceItemName,
-                                        actionContext.Request.Method)))));
+                                        actionContext.Request.Method))));
                 }
             }
 
-            return continuation();
+            return await continuation();
+        }
+
+        private ApiKeyContext EstablishApiKeyContext(ApiClientDetails apiClientDetails)
+        {
+            var apiKeyContext = new ApiKeyContext(
+                apiClientDetails.ApiKey,
+                apiClientDetails.ClaimSetName,
+                apiClientDetails.EducationOrganizationIds,
+                apiClientDetails.NamespacePrefixes,
+                apiClientDetails.Profiles,
+                apiClientDetails.StudentIdentificationSystemDescriptor,
+                apiClientDetails.CreatorOwnershipTokenId,
+                apiClientDetails.OwnershipTokenIds);
+            
+            // Store API key details into context
+            _apiKeyContextProvider.SetApiKeyContext(apiKeyContext);
+
+            return apiKeyContext;
         }
 
         //Returns true if there are any assigned profiles that cover the resource and profile sent as paramenters

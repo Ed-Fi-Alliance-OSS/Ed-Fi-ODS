@@ -2183,8 +2183,13 @@
 															"pm.test(\"Should return greater than or equal to one record for responseItems length\", () => {",
 															"   pm.expect(responseItems.length).to.be.gte(1);   ",
 															"});",
+															"",
+															"pm.test(\"Should return less than 100 records for responseItems length for test to be valid\", () => {",
+															"   pm.expect(responseItems.length).to.be.lt(100);   ",
+															"});",
+															"",
 															"const __ = require('lodash');",
-															"pm.test(\"Should return the maximum change version as the last item of the response\", () => {",
+															"pm.test(\"Should return the requested maximum change version as the last item of the response\", () => {",
 															"        const responseItems = pm.response.json();",
 															"        const scenarioId = pm.environment.get('scenarioId');",
 															"        pm.expect(__.last(responseItems).ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':newestChangeVersion1'));  ",
@@ -2217,7 +2222,7 @@
 													}
 												],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/deletes?maxChangeVersion={{known:{{scenarioId}}:newestChangeVersion1}}",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs/deletes?maxChangeVersion={{known:{{scenarioId}}:newestChangeVersion1}}&limit=100",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -2232,6 +2237,10 @@
 														{
 															"key": "maxChangeVersion",
 															"value": "{{known:{{scenarioId}}:newestChangeVersion1}}"
+														},
+														{
+															"key": "limit",
+															"value": "100"
 														}
 													]
 												}

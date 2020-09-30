@@ -10,6 +10,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Diagnostics;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
@@ -93,6 +94,11 @@ namespace EdFi.Ods.WebService.Tests.Owin
             InstallTestSpecificInstaller(container);
 
             container.Register(Component.For<DatabaseEngine>().UsingFactoryMethod(() => DatabaseEngine.SqlServer));
+
+            if (!container.Kernel.HasComponent(typeof(IBearerTokenHeaderProcessor)))
+            {
+                container.Register(Component.For<IBearerTokenHeaderProcessor>().ImplementedBy<BearerTokenHeaderProcessor>());
+            }
         }
 
         protected virtual void RegisterOdsDatabase(IWindsorContainer container)

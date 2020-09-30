@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -17,6 +17,7 @@ using EdFi.Ods.Api;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Pipelines.Factories;
+using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Authorization;
 using EdFi.Ods.Api.Services.Filters;
 using EdFi.Ods.Api.Startup;
@@ -92,6 +93,11 @@ namespace EdFi.Ods.WebService.Tests.Profiles
 
             InstallConfigurationSpecificInstaller(Container);
 
+            if (!Container.Kernel.HasComponent(typeof(IBearerTokenHeaderProcessor)))
+            {
+                Container.Register(Component.For<IBearerTokenHeaderProcessor>().ImplementedBy<BearerTokenHeaderProcessor>());
+            }
+
             // TODO: GKM - No NHibernate desired for testing
             // NHibernate initialization
             //(new NHibernateConfigurator()).Configure(Container);
@@ -113,6 +119,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             ConfigureDelegatingHandlers(httpConfig, Container.ResolveAll<DelegatingHandler>());
             RegisterFilters(httpConfig);
             RegisterAuthenticationProvider(Container);
+            RegisterBearerTokenHeaderProcessor(Container);
 
             appBuilder.UseWebApi(httpConfig);
 
@@ -305,7 +312,8 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             config.Filters.Add(
                 new ProfilesAuthorizationFilter(
                     Container.Resolve<IApiKeyContextProvider>(),
-                    Container.Resolve<IProfileResourceNamesProvider>()));
+                    Container.Resolve<IProfileResourceNamesProvider>(),
+                    Container.Resolve<IBearerTokenHeaderProcessor>()));
         }
 
         private ApiKeyContext GetSuppliedApiKeyContext()

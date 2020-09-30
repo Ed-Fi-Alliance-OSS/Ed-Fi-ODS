@@ -4287,7 +4287,13 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "IncludeNulls",
+												"value": "true",
+												"type": "text"
+											}
+										],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/MembersIncludeDisplayNames",
 											"host": [
@@ -6287,7 +6293,13 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "IncludeNulls",
+												"value": "true",
+												"type": "text"
+											}
+										],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentFlattenedReferenceWithUnflattenedReferences",
 											"host": [
@@ -6738,7 +6750,13 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "IncludeNulls",
+												"value": "true",
+												"type": "text"
+											}
+										],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/MembersIncludeDisplayNames/",
 											"host": [
@@ -8411,7 +8429,13 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "IncludeNulls",
+												"value": "true",
+												"type": "text"
+											}
+										],
 										"url": {
 											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/StudentFlattenedReferenceWithUnflattenedReferences/",
 											"host": [

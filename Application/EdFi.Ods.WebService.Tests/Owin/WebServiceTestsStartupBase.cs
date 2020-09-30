@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -199,6 +199,12 @@ namespace EdFi.Ods.WebService.Tests.Owin
             ConfigureDelegatingHandlers(httpConfig, Container.ResolveAll<DelegatingHandler>());
             RegisterFilters(httpConfig);
             RegisterAuthenticationProvider(Container);
+            RegisterBearerTokenHeaderProcessor(Container);
+
+            if (!Container.Kernel.HasComponent(typeof(IBearerTokenHeaderProcessor)))
+            {
+                Container.Register(Component.For<IBearerTokenHeaderProcessor>().ImplementedBy<BearerTokenHeaderProcessor>());
+            }
 
             appBuilder.Use(
                     (context, next) =>
@@ -369,7 +375,8 @@ namespace EdFi.Ods.WebService.Tests.Owin
             config.Filters.Add(
                 new ProfilesAuthorizationFilter(
                     Container.Resolve<IApiKeyContextProvider>(),
-                    Container.Resolve<IProfileResourceNamesProvider>()));
+                    Container.Resolve<IProfileResourceNamesProvider>(),
+                    Container.Resolve<IBearerTokenHeaderProcessor>()));
         }
 
         protected virtual void RegisterAuthenticationProvider(IWindsorContainer container)
@@ -378,6 +385,16 @@ namespace EdFi.Ods.WebService.Tests.Owin
             container.Register(
                 Component.For<IAuthenticationProvider>()
                     .ImplementedBy<OAuthAuthenticationProvider>());
+        }
+
+        protected virtual void RegisterBearerTokenHeaderProcessor(IWindsorContainer container)
+        {
+            if (!container.Kernel.HasComponent(typeof(IBearerTokenHeaderProcessor)))
+            {
+                container.Register(
+                    Component.For<IBearerTokenHeaderProcessor>()
+                        .ImplementedBy<BearerTokenHeaderProcessor>());
+            }
         }
 
         private void IncludeAuthorizationRoute(HttpConfiguration config)

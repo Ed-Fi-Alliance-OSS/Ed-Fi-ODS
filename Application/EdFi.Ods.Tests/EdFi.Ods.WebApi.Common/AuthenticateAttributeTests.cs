@@ -68,6 +68,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.WebApi.Common
                 Component.For<IAuthenticationProvider>()
                          .ImplementedBy<OAuthAuthenticationProvider>());
 
+            _container.Register(
+                Component.For<IBearerTokenHeaderProcessor>()
+                         .ImplementedBy<BearerTokenHeaderProcessor>());
+
             // Web API Dependency Injection
             _container.Register(
                 Component.For<IDependencyResolver>()
