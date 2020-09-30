@@ -36,7 +36,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.Register(c => new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>();
 
-            builder.RegisterType<MemoryCacheProvider>().AsSelf().As<ICacheProvider>();
+            builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider>();
             builder.RegisterType<ConcurrentDictionaryCacheProvider>().AsSelf().SingleInstance();
 
             builder.RegisterType<DescriptorsCache>()
