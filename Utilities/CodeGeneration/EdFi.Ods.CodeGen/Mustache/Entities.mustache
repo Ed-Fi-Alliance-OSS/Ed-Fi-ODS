@@ -365,7 +365,7 @@ namespace {{AggregateNamespace}}
         //                     Reference Data
         // -------------------------------------------------------------
         {{#AggregateReferences}}
-        public virtual {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName }} {{ReferenceDataPropertyName}} { get; set; }
+        public virtual {{ReferenceAggregateRelativeNamespace}}.{{ReferenceDataClassName}} {{ReferenceDataPropertyName}} { get; set; }
 
         {{#MappedReferenceDataHasDiscriminator}}
         /// <summary>
@@ -373,7 +373,16 @@ namespace {{AggregateNamespace}}
         /// </summary>
         string {{NamespacePrefix}}I{{ClassName}}.{{ReferenceAssociationName}}Discriminator
         {
-            get { return {{ReferenceDataPropertyName}}?.Discriminator; }
+            get 
+            { 
+                if ({{ReferenceDataPropertyName}}?.GetType().Name == "{{ReferenceDataClassName}}Proxy")
+                {
+                    {{ReferenceDataPropertyName}} = null;
+                    return null;
+                }
+
+                return {{ReferenceDataPropertyName}}?.Discriminator; 
+            }
             set { }
         }
 
@@ -383,7 +392,16 @@ namespace {{AggregateNamespace}}
         /// </summary>
         Guid? {{NamespacePrefix}}I{{ClassName}}.{{ReferenceAssociationName}}ResourceId
         {
-            get { return {{ReferenceDataPropertyName}}?.Id; }
+            get
+            {
+                if ({{ReferenceDataPropertyName}}?.GetType().Name == "{{ReferenceDataClassName}}Proxy")
+                {
+                    {{ReferenceDataPropertyName}} = null;
+                    return null;
+                }
+                    
+                return {{ReferenceDataPropertyName}}?.Id;
+            }
             set { }
         }
 
