@@ -9,7 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using EdFi.Common.Security;
 
-namespace EdFi.Ods.Common.Security
+namespace EdFi.Common.Security
 {
     public class SecureHashAwareSecretVerifier : ISecretVerifier
     {

@@ -5,6 +5,7 @@
 
 #if NETCOREAPP
 using System.Data.Entity;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using Npgsql;
 

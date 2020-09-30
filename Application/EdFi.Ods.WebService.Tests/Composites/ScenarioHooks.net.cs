@@ -5,6 +5,7 @@
 
 #if NETFRAMEWORK
 using Castle.Windsor;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using TechTalk.SpecFlow;
 

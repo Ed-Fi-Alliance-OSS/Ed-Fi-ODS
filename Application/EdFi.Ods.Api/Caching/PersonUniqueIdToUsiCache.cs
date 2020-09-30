@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Context;

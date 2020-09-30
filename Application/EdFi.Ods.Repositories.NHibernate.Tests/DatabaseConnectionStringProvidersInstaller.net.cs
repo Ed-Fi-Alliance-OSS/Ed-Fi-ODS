@@ -5,6 +5,7 @@
 
 #if NETFRAMEWORK
 using Castle.Windsor;
+using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Common._Installers;
 using EdFi.Ods.Common._Installers.ComponentNaming;
 using EdFi.Ods.Common.InversionOfControl;

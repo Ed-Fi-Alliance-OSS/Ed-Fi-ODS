@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace EdFi.Ods.Common
+namespace EdFi.Common
 {
     [Serializable]
     [DebuggerDisplay("{DisplayName} - {Value}")]

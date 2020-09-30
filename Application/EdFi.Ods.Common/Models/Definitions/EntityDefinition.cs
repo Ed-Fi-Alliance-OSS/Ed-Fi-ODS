@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Serialization;
 using Newtonsoft.Json;

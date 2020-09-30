@@ -6,6 +6,8 @@
 #if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
+using EdFi.Common;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 

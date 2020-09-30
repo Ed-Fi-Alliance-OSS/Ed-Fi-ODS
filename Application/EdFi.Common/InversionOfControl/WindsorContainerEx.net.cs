@@ -1,21 +1,21 @@
-﻿#if NETFRAMEWORK
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Linq;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Castle.Windsor.Configuration;
 
-namespace EdFi.Ods.Common.InversionOfControl
+namespace EdFi.Common.InversionOfControl
 {
     /// <summary>
-    /// Extended Windsor Container implementation that 
-    /// provides a Service Locator Interface and 
-    /// disallows self-injection 
+    /// Extended Windsor Container implementation that
+    /// provides a Service Locator Interface and
+    /// disallows self-injection
     /// </summary>
     public class WindsorContainerEx : WindsorContainer, IServiceLocator
     {

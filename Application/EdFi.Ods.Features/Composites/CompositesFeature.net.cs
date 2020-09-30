@@ -5,6 +5,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Castle.MicroKernel.Registration;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensibility;
 using EdFi.Ods.Features.Container.Installers;
@@ -20,7 +21,7 @@ namespace EdFi.Ods.Features.Composites
         /// Initializes a new instance of <see cref="CompositesFeature"/>
         /// </summary>
         /// <param name="configValueProvider">
-        /// An instance of <see cref="EdFi.Ods.Common.Configuration.IConfigValueProvider"/>, which is used to determine if the feature is enabled.
+        /// An instance of <see cref="IConfigValueProvider"/>, which is used to determine if the feature is enabled.
         /// </param>
         /// <param name="apiConfigurationProvider">An instance of a service providing API configuration details.</param>
         public CompositesFeature(IConfigValueProvider configValueProvider, IApiConfigurationProvider apiConfigurationProvider)

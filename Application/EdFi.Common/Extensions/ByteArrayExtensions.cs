@@ -5,7 +5,7 @@
 
 using System;
 
-namespace EdFi.Ods.Common.Extensions
+namespace EdFi.Common.Extensions
 {
     public static class ByteArrayExtensions
     {

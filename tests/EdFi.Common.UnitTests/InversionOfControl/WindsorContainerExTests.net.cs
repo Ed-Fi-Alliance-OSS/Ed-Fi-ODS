@@ -7,7 +7,7 @@
 using System;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Common.InversionOfControl;
 using NUnit.Framework;
 using Shouldly;
 

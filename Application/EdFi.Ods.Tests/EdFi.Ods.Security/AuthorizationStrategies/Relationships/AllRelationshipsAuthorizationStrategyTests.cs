@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;

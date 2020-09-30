@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace EdFi.Ods.Common.Security
+namespace EdFi.Common.Security
 {
     public class ApiClientIdentity
     {

@@ -9,6 +9,7 @@ using System.Transactions;
 using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.Configuration;
 using EdFi.Common.Database;
 using EdFi.Ods.Api._Installers;
 using EdFi.Ods.Api.Caching;
@@ -35,7 +36,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NUnit.Framework;
 using Test.Common._Stubs;
-using ApiConfigurationProvider = EdFi.Ods.Common.Configuration.ApiConfigurationProvider;
+using ApiConfigurationProvider = EdFi.Common.Configuration.ApiConfigurationProvider;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {

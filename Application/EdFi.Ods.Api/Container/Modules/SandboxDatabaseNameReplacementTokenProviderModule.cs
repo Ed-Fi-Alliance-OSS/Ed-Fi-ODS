@@ -5,6 +5,7 @@
 
 #if NETCOREAPP
 using Autofac;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;

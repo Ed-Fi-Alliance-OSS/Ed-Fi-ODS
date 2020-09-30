@@ -8,6 +8,7 @@ using System;
 using System.Globalization;
 using System.Net.Http;
 using System.Text;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.WebService.Tests.Owin;
 

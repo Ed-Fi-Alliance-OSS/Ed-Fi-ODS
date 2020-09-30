@@ -12,14 +12,14 @@ using Castle.DynamicProxy;
 using Castle.MicroKernel.Facilities;
 using Castle.MicroKernel.Registration;
 
-namespace EdFi.Ods.Common.ChainOfResponsibility
+namespace EdFi.Common.ChainOfResponsibility
 {
     /// <summary>
     /// Implements a Castle Windsor Facility that simplifies the process of implementing the
     /// Chain of Responsibility pattern by dynamically building Linq expressions to create the
-    /// request objects from the interface method arguments (required by the pattern abstraction), 
-    /// and eliminating boilerplate code by automatically invoking the ProcessRequest method of 
-    /// the <see cref="ChainOfResponsibilityBase{TService, TRequest, TResponse}"/> class.
+    /// request objects from the interface method arguments (required by the pattern abstraction),
+    /// and eliminating boilerplate code by automatically invoking the ProcessRequest method of
+    /// the <see cref="ChainOfResponsibilityBase{TService,TRequest,TResponse}"/> class.
     /// </summary>
     public class ChainOfResponsibilityFacility : AbstractFacility
     {
@@ -36,7 +36,7 @@ namespace EdFi.Ods.Common.ChainOfResponsibility
 
         private void OnComponentModelCreated(ComponentModel model)
         {
-            // Check the component registration for a property marking it as being initiated 
+            // Check the component registration for a property marking it as being initiated
             // from the ChainOfResponsibilityRegstrar, and then exit.
             if (model.ExtendedProperties.Contains("ChainOfResponsibilityRegistrar"))
             {
@@ -61,7 +61,7 @@ namespace EdFi.Ods.Common.ChainOfResponsibility
             // Has this interface already been established as being implemented using a Chain of Responsibility?
             if (IsInterfaceEstablishedAsUsingChainOfResponsibility(model))
             {
-                // If the current registration doesn't implement the Chain of Responsibility (and it's not the chain-terminating proxy) 
+                // If the current registration doesn't implement the Chain of Responsibility (and it's not the chain-terminating proxy)
                 if (!implementsChainOfResponsibility && !IsDynamicProxy(model.Implementation))
                 {
                     throw new Exception(
@@ -104,7 +104,7 @@ namespace EdFi.Ods.Common.ChainOfResponsibility
         }
 
         /// <summary>
-        /// Registers a dynamic proxy on the end of each chain of responsibility to automatically 
+        /// Registers a dynamic proxy on the end of each chain of responsibility to automatically
         /// handle the "unhandled request" scenario.
         /// </summary>
         /// <remarks>This method may be made obsolete by Castle Windsor 3.x's "IsDefault" feature on component registrations.</remarks>

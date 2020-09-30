@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.InversionOfControl;

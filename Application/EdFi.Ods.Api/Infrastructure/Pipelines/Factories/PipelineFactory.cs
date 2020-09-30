@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
 using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
@@ -15,7 +16,6 @@ using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
-using EdFi.Ods.Common.InversionOfControl;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
 {

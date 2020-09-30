@@ -6,6 +6,7 @@
 #if NETCOREAPP
 using System;
 using System.Threading;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
 using EdFi.Ods.Common;

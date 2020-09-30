@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using static System.Text.RegularExpressions.Regex;
 
-namespace EdFi.Ods.Common.Inflection
+namespace EdFi.Common.Inflection
 {
     // Done: GKM - Unify this with the instance in EdFi.Ods.CodeGen.
     // In the meantime, duplicate any changes made to this file in the corresponding class.

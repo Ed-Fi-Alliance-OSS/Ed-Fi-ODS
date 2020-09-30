@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web.Helpers;
 using Castle.Windsor;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Metadata.Schemas;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
@@ -118,7 +119,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             var container = FeatureContext.Current.Get<IWindsorContainer>();
             var getEntityById = container.Resolve<IGetEntityById<TEntity>>();
 
-            // Create two completely different entities (to enable us to use the 
+            // Create two completely different entities (to enable us to use the
             // DataComparer to create a list of all the properties for us)
             var entity1 = getEntityById.GetByIdAsync(Guid.NewGuid(), CancellationToken.None).GetResultSafely();
             var entity2 = getEntityById.GetByIdAsync(Guid.NewGuid(), CancellationToken.None).GetResultSafely();

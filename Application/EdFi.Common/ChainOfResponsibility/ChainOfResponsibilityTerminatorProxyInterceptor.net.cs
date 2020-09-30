@@ -7,7 +7,7 @@
 using System;
 using Castle.DynamicProxy;
 
-namespace EdFi.Ods.Common.ChainOfResponsibility
+namespace EdFi.Common.ChainOfResponsibility
 {
     /// <summary>
     /// Implements an <see cref="IInterceptor"/> that automatically handles the

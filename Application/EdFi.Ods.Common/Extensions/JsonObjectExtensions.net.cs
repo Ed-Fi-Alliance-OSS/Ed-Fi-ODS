@@ -6,6 +6,7 @@
 
 using System.Collections.Generic;
 using System.Reflection;
+using EdFi.Common.Extensions;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.Ods.Common.Extensions

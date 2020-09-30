@@ -5,6 +5,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
@@ -219,8 +221,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                     _openApiMetadataDefinitionsFactoryNamingStrategy.GetReferenceName(openApiMetadataResource.Resource, x))
                             }
 
-                            // NOTE: currently there is an open issue with openApiMetadata-ui to address 
-                            // objects showing up in the ui that have a reference and 
+                            // NOTE: currently there is an open issue with openApiMetadata-ui to address
+                            // objects showing up in the ui that have a reference and
                             // other properties within the schema. The standard at this time does
                             // not support this use case. (The error we get is:
                             // Sibling values are not allowed along side $refs.

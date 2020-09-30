@@ -7,7 +7,7 @@
 using System;
 using System.Linq.Expressions;
 
-namespace EdFi.Ods.Common.Utils.Extensions
+namespace EdFi.Common.Utils.Extensions
 {
     public static class ExpressionExtensions
     {

@@ -9,6 +9,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using EdFi.Common.Extensions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.Constants;

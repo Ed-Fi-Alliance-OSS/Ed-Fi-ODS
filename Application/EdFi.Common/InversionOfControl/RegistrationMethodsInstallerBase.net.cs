@@ -10,7 +10,7 @@ using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 
-namespace EdFi.Ods.Common.InversionOfControl
+namespace EdFi.Common.InversionOfControl
 {
     /// <summary>
     /// Provides an implementation of a Castle Windsor <see cref="IWindsorInstaller"/> that,

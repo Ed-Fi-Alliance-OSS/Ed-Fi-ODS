@@ -8,6 +8,8 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
+using EdFi.Common.Configuration;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Context;

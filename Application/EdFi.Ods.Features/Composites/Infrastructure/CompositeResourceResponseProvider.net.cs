@@ -12,6 +12,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Xml.Linq;
+using EdFi.Common;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;

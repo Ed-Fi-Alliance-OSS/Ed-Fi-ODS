@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Common.Extensions;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;

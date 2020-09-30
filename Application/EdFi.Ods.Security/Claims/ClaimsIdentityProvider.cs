@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Utils.Extensions;
@@ -84,7 +85,7 @@ namespace EdFi.Ods.Security.Claims
 
             // Add the claim set name
             claims.Add(new Claim(EdFiOdsApiClaimTypes.ClaimSetName, claimSetName));
-            
+
             return new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth);
         }
     }

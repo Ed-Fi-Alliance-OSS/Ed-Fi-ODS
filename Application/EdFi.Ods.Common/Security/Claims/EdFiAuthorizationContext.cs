@@ -6,6 +6,8 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Security.Claims;
+using EdFi.Common;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Ods.Common.Security.Claims
@@ -23,7 +25,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <param name="principal">The <see cref="ClaimsPrincipal" /> containing the claims.</param>
         /// <param name="resourceClaimUris">The URI representations of the resource claims being authorized.</param>
         /// <param name="action">The action being taken on the resource.</param>
-        /// <param name="data">An object containing the data available for authorization which implements one of the 
+        /// <param name="data">An object containing the data available for authorization which implements one of the
         /// model interfaces (e.g. IStudent).</param>
         public EdFiAuthorizationContext(
             ClaimsPrincipal principal,
@@ -40,7 +42,7 @@ namespace EdFi.Ods.Common.Security.Claims
             resourceClaimUris.ForEach(
                 resourceClaimUri =>
                     Resource.Add(new Claim(ClaimsName, resourceClaimUri)));
-            
+
             Action.Add(new Claim(ClaimsName, action));
 
             if (data != null)
@@ -48,7 +50,7 @@ namespace EdFi.Ods.Common.Security.Claims
                 Type = data.GetType();
             }
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EdFiAuthorizationContext"/> class using the principal, resource, action and Ed-Fi entity type.
         /// </summary>
@@ -65,21 +67,21 @@ namespace EdFi.Ods.Common.Security.Claims
             Preconditions.ThrowIfNull(resourceClaimUris, nameof(resourceClaimUris));
             Preconditions.ThrowIfNull(action, nameof(action));
             Preconditions.ThrowIfNull(type, nameof(type));
-            
+
             Principal = principal;
             Type = type;
 
             resourceClaimUris.ForEach(
                 resourceClaimUri =>
                     Resource.Add(new Claim(ClaimsName, resourceClaimUri)));
-            
+
             Action.Add(new Claim(ClaimsName, action));
         }
 
         public ClaimsPrincipal Principal { get; }
 
         /// <summary>
-        /// Gets an object containing the data available for authorization which implements one of 
+        /// Gets an object containing the data available for authorization which implements one of
         /// the model interfaces (e.g. IStudent).
         /// </summary>
         public object Data { get; }

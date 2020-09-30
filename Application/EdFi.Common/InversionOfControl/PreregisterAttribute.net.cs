@@ -6,7 +6,7 @@
 
 using System;
 
-namespace EdFi.Ods.Common.InversionOfControl
+namespace EdFi.Common.InversionOfControl
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class PreregisterAttribute : Attribute { }

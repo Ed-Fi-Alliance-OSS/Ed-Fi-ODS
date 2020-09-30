@@ -5,7 +5,7 @@
 
 #if NETCOREAPP
 using System.Linq;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Common.Inflection;
 using NUnit.Framework;
 
 namespace EdFi.Ods.Common.UnitTests.Inflection

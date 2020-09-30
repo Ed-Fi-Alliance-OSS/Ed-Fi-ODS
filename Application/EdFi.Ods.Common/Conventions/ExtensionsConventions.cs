@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
+using EdFi.Common.Extensions;
 #if NETFRAMEWORK
 using Castle.Core.Internal;
 #endif

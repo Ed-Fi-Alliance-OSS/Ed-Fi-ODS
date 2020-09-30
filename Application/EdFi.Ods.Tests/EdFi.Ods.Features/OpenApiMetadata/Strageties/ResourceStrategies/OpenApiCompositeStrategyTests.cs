@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
@@ -75,7 +76,7 @@ namespace EdFi.Ods.Common
 
         /// <summary>
         /// Returns a string that is converted to Uri-Segment format casing, by converting all composite
-        ///     terms (that are not 2 letter abbreviations) 
+        ///     terms (that are not 2 letter abbreviations)
         ///     to camel case (hyphenated text terms are processed individually).
         /// </summary>
         /// <param name="text">Mixed-case input.</param>

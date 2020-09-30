@@ -5,6 +5,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Web.Http;
+using EdFi.Common;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;

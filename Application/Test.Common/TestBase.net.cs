@@ -6,6 +6,7 @@
 #if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
+using EdFi.Common.Utils;
 using EdFi.Ods.Api.Common.ExceptionHandling;
 using EdFi.Ods.Api.Common.ExceptionHandling.EdFi;
 using EdFi.Ods.Api.ExceptionHandling;

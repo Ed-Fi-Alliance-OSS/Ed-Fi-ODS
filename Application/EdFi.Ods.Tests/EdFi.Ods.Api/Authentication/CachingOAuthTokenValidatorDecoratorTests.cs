@@ -6,6 +6,7 @@
 #if NETCOREAPP
 using System;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;

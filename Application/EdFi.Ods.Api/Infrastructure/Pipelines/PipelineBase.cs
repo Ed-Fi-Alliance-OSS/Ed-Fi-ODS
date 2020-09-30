@@ -5,6 +5,7 @@
 
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 

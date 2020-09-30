@@ -5,11 +5,11 @@
 
 #if NETCOREAPP
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Security.Helpers;
 using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;

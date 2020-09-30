@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
@@ -50,7 +51,7 @@ namespace EdFi.Ods.Api.IdentityValueMappers
                                 typeof(FluentValidationPutPostRequestResourceValidator).Name));
                     }
 
-                    // Assumption: Request classes are assumed to be derived directly from resource classes, 
+                    // Assumption: Request classes are assumed to be derived directly from resource classes,
                     // and the validator is generated with that class.
                     // TODO: Embedded convention (FluentValidator namespace and naming conventions used for Put/Post validation)
                     string validatorTypeName = string.Format(

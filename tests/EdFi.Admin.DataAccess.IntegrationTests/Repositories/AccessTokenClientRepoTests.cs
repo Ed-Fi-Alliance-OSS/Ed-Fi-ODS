@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 
 // ReSharper disable InconsistentNaming
@@ -41,15 +42,15 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
         {
             _transaction = new TransactionScope();
              Factory = Stub<IUsersContextFactory>();
-           
+
             var config = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
-           
+
             var connectionStringProvider = new ConfigConnectionStringsProvider(config);
-          
+
             A.CallTo(() => Factory.CreateContext())
                 .Returns(new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin")));
 

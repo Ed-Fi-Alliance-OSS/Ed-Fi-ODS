@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Common.Utils;
 using EdFi.Ods.Common.Utils;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Repositories;

@@ -6,6 +6,7 @@
 #if NETCOREAPP
 using System;
 using System.Collections.Generic;
+using EdFi.Common;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;

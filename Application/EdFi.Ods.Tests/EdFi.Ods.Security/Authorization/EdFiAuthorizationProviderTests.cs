@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Extensions;
@@ -991,7 +992,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                                     ClaimName = Resource4ClaimUri, ValidationRuleSetName = "RuleSetFor4",
 
                                     // We need an authorization strategy defined somewhere in the lineage
-                                    AuthorizationStrategy = "Fourth" 
+                                    AuthorizationStrategy = "Fourth"
                                 }
                             }
 

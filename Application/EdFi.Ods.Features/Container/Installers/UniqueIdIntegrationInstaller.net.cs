@@ -6,6 +6,7 @@
 
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Extensions;

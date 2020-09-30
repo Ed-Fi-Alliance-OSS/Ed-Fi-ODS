@@ -6,6 +6,7 @@
 
 using System;
 using Castle.MicroKernel.Registration;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensibility;
 

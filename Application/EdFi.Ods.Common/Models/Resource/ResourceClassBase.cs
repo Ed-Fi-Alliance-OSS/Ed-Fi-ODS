@@ -6,9 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Common.Models.Resource
@@ -565,7 +566,7 @@ namespace EdFi.Ods.Common.Models.Resource
                               .Concat(
                                    References
                                       .OrderByDescending(
-                                           r => (r.Association.IsIdentifying ? 100: 0) 
+                                           r => (r.Association.IsIdentifying ? 100: 0)
                                                 + (r.IsRequired ? 10 : 0))
                                       .SelectMany(r => r.Properties))
 

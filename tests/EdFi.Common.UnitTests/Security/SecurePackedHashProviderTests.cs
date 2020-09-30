@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Common.Security;
-using EdFi.Ods.Common.Security;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;

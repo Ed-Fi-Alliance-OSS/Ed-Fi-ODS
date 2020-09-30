@@ -8,6 +8,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Text.RegularExpressions;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Specifications;
 using EdFi.TestObjects;

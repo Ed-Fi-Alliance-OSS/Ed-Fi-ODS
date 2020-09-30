@@ -5,6 +5,7 @@
 
 #if NETCOREAPP
 using System;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Serialization;
 using Newtonsoft.Json;

@@ -6,8 +6,8 @@
 #if NETFRAMEWORK
 using System;
 using System.Collections.Generic;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Configuration;
+using EdFi.Common;
+using EdFi.Common.Configuration;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {

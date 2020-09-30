@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using EdFi.Ods.Common.Configuration;
+using EdFi.Common.Configuration;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;

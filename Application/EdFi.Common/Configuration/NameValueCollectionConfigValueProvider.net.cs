@@ -6,7 +6,7 @@
 
 using System.Collections.Specialized;
 
-namespace EdFi.Ods.Common.Configuration
+namespace EdFi.Common.Configuration
 {
     public class NameValueCollectionConfigValueProvider : IConfigValueProvider
     {

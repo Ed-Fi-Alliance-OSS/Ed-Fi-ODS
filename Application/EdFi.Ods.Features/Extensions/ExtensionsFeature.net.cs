@@ -5,6 +5,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Castle.MicroKernel.Registration;
+using EdFi.Common;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensibility;
@@ -17,8 +19,8 @@ namespace EdFi.Ods.Features.Extensions
         private readonly IAssembliesProvider _assembliesProvider;
 
         public ExtensionsFeature(
-            IConfigValueProvider configValueProvider, 
-            IApiConfigurationProvider apiConfigurationProvider, 
+            IConfigValueProvider configValueProvider,
+            IApiConfigurationProvider apiConfigurationProvider,
             IAssembliesProvider assembliesProvider)
             : base(configValueProvider, apiConfigurationProvider)
         {

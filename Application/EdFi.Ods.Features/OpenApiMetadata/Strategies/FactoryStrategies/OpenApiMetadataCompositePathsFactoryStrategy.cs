@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
@@ -260,7 +261,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
 
         private string ToSwaggerIdentifier(string identifier)
         {
-            // Ensures that Swagger identifiers use underscores (for code generation compatibility) 
+            // Ensures that Swagger identifiers use underscores (for code generation compatibility)
             // and the terms are individual camelcased.
             return string.Join(
                 "_",
@@ -371,7 +372,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
         {
             string routeTemplateToTest = routeDefinition.AttributeValue("relativeRouteTemplate");
 
-            // ASSUMPTION: Routes will only contain a single GUID parameter. If there are multiple parameters 
+            // ASSUMPTION: Routes will only contain a single GUID parameter. If there are multiple parameters
             // in the route, then the logic will have to be rewritten to drive off the route template's contents
             // to identify all the parameters that need to be defined in the specification, and fail to match the
             // route if any of the route's parameters aren't defined in the resource specification.

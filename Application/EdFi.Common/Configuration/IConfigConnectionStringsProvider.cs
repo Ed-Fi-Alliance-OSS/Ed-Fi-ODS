@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace EdFi.Ods.Common.Configuration
+namespace EdFi.Common.Configuration
 {
     /// <summary>
     /// Defines a facade for working with the connection strings section of an application configuration file.

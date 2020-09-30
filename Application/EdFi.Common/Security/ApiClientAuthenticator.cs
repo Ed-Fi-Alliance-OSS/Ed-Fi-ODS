@@ -6,7 +6,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace EdFi.Ods.Common.Security
+namespace EdFi.Common.Security
 {
     public class ApiClientAuthenticator : IApiClientAuthenticator
     {

@@ -6,7 +6,9 @@
 #if NETFRAMEWORK
 using System;
 using System.Configuration;
+using EdFi.Common.Configuration;
 using EdFi.Common.Database;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 

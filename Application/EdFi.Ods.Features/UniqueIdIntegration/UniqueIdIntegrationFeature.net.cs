@@ -5,6 +5,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Castle.MicroKernel.Registration;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensibility;
 using EdFi.Ods.Features.UniqueIdIntegration.Installers;

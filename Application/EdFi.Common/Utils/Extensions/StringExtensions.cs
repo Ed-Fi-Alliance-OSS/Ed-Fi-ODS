@@ -5,7 +5,7 @@
 
 using System;
 
-namespace EdFi.Ods.Common.Utils.Extensions
+namespace EdFi.Common.Utils.Extensions
 {
     public static class StringExtensions
     {

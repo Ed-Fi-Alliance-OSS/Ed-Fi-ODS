@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using EdFi.Common.Extensions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Resource;
@@ -101,7 +103,7 @@ namespace EdFi.Ods.Common.Models.Domain
                             continue;
                         }
 
-                        // Rather than use semantic model functionality here which can lead to unwanted reentry, 
+                        // Rather than use semantic model functionality here which can lead to unwanted reentry,
                         // use the raw properties that don't require additional processing
                         var coreAssociation = associations
                            .SingleOrDefault(x => x.AssociationType == AssociationViewType.FromCore);

@@ -5,7 +5,7 @@
 
 using System;
 using System.IO;
-using EdFi.Ods.Common.Utils.Resources;
+using EdFi.Common.Utils.Resources;
 using NUnit.Framework;
 using Shouldly;
 

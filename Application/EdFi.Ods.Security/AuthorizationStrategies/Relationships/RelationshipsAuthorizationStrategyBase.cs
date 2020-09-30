@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
@@ -116,7 +117,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 }
             }
 
-            // Validate all segments before throwing an exception if one or more segments are invalid. 
+            // Validate all segments before throwing an exception if one or more segments are invalid.
             if (multipleSegmentsErrorMessages.Any())
             {
                 throw new EdFiSecurityException(string.Join(" ", multipleSegmentsErrorMessages));

@@ -4,6 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Common;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
@@ -37,19 +39,19 @@ namespace EdFi.Ods.Security.Authorization
         public string[] GetResourceClaimUris(Type resourceType)
         {
             Preconditions.ThrowIfNull(resourceType, nameof(resourceType));
-            
+
             string schemaProperCaseName = resourceType.ParseResourceSchemaProperCaseName();
             string resourceName = resourceType.Name;
 
             string schemaUriSegment = _schemaNameMapProvider
                 .GetSchemaMapByProperCaseName(schemaProperCaseName)
                 .UriSegment;
-            
+
             return new []
             {
                 // Schema-based URI format
                 CreateSchemaBasedResourceClaimUri(schemaUriSegment, resourceName),
-                
+
                 // Legacy URI format
                 CreateLegacyResourceClaimUri(resourceName),
             };
@@ -63,17 +65,17 @@ namespace EdFi.Ods.Security.Authorization
         public string[] GetResourceClaimUris(Resource resource)
         {
             Preconditions.ThrowIfNull(resource, nameof(resource));
-            
+
             return new []
             {
                 // Schema-based URI format
                 CreateSchemaBasedResourceClaimUri(resource.SchemaUriSegment(), resource.Name),
-                
+
                 // Legacy URI format
                 CreateLegacyResourceClaimUri(resource.Name),
             };
         }
-        
+
         /// <summary>
         /// Gets the resource URIs for the specified Entity class using Ed-Fi schema-based and legacy URI conventions.
         /// </summary>
@@ -82,17 +84,17 @@ namespace EdFi.Ods.Security.Authorization
         public string[] GetResourceClaimUris(Entity entity)
         {
             Preconditions.ThrowIfNull(entity, nameof(entity));
-            
+
             return new []
             {
                 // Schema-based URI format
                 CreateSchemaBasedResourceClaimUri(entity.SchemaUriSegment(), entity.Name),
-                
+
                 // Legacy URI format
                 CreateLegacyResourceClaimUri(entity.Name),
             };
         }
-        
+
         /// <summary>
         /// Gets the resource URI for the supplied resource name, based on convention of the resource's schema URI segment followed by the camel-cased resource name as a suffix on the Ed-Fi resource URI base value.
         /// </summary>
@@ -116,7 +118,7 @@ namespace EdFi.Ods.Security.Authorization
 
         private static string CreateSegmentedClaimUri(string uriSegment, string resourceName)
         {
-            return $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/{uriSegment}/{resourceName.ToCamelCase()}"; 
-        } 
+            return $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/{uriSegment}/{resourceName.ToCamelCase()}";
+        }
     }
 }

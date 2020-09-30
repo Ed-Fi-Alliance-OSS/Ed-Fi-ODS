@@ -7,7 +7,7 @@ using System;
 using System.Configuration;
 using System.Data.Entity;
 using System.Transactions;
-using EdFi.Ods.Common;
+using EdFi.Common;
 
 namespace EdFi.Admin.DataAccess.Utils
 {

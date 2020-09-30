@@ -8,6 +8,7 @@ using System;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Api.Services.Authentication;
 using EdFi.Ods.Api.Services.Authentication.ClientCredentials;

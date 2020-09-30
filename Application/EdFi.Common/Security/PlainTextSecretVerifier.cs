@@ -5,7 +5,7 @@
 
 using System;
 
-namespace EdFi.Ods.Common.Security
+namespace EdFi.Common.Security
 {
     public class PlainTextSecretVerifier : ISecretVerifier
     {

@@ -6,6 +6,7 @@
 #if NETCOREAPP
 using System;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Extensions;
 using Microsoft.AspNetCore.Http;

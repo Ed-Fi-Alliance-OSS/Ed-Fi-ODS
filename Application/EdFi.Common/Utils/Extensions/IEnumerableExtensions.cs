@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EdFi.Ods.Common.Utils.Extensions
+namespace EdFi.Common.Utils.Extensions
 {
     public static class IEnumerableExtensions
     {

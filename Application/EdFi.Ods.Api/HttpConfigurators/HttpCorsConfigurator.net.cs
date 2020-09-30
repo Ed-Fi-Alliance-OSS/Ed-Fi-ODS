@@ -6,6 +6,7 @@
 #if NETFRAMEWORK
 using System.Web.Http;
 using System.Web.Http.Cors;
+using EdFi.Common;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Common;
 
