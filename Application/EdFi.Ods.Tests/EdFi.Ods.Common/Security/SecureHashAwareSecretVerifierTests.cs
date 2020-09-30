@@ -81,7 +81,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
             }
         }
 
-        public class Usning_a_invalid_secret : TestFixtureBase
+        public class Using_an_invalid_secret : TestFixtureBase
         {
             private bool _actualResponse;
             private ISecretVerifier _secretVerifier;
