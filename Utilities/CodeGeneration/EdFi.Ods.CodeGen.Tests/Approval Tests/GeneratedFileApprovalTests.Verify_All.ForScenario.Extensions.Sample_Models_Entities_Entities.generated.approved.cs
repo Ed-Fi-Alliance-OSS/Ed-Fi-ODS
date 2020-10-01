@@ -828,7 +828,16 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         /// </summary>
         string Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationDiscriminator
         {
-            get { return StaffEducationOrganizationAssignmentAssociationReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StaffEducationOrganizationAssignmentAssociationReferenceData?.GetType().Name == "StaffEducationOrganizationAssignmentAssociationReferenceDataProxy")
+                {
+                    StaffEducationOrganizationAssignmentAssociationReferenceData = null;
+                    return null;
+                }
+
+                return StaffEducationOrganizationAssignmentAssociationReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -837,7 +846,16 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         /// </summary>
         Guid? Entities.Common.Sample.IBusRoute.StaffEducationOrganizationAssignmentAssociationResourceId
         {
-            get { return StaffEducationOrganizationAssignmentAssociationReferenceData?.Id; }
+            get
+            {
+                if (StaffEducationOrganizationAssignmentAssociationReferenceData?.GetType().Name == "StaffEducationOrganizationAssignmentAssociationReferenceDataProxy")
+                {
+                    StaffEducationOrganizationAssignmentAssociationReferenceData = null;
+                    return null;
+                }
+                    
+                return StaffEducationOrganizationAssignmentAssociationReferenceData?.Id;
+            }
             set { }
         }
 
@@ -1665,7 +1683,16 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         /// </summary>
         string Entities.Common.Sample.IBusRouteProgram.ProgramDiscriminator
         {
-            get { return ProgramReferenceData?.Discriminator; }
+            get 
+            { 
+                if (ProgramReferenceData?.GetType().Name == "ProgramReferenceDataProxy")
+                {
+                    ProgramReferenceData = null;
+                    return null;
+                }
+
+                return ProgramReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -1674,7 +1701,16 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         /// </summary>
         Guid? Entities.Common.Sample.IBusRouteProgram.ProgramResourceId
         {
-            get { return ProgramReferenceData?.Id; }
+            get
+            {
+                if (ProgramReferenceData?.GetType().Name == "ProgramReferenceDataProxy")
+                {
+                    ProgramReferenceData = null;
+                    return null;
+                }
+                    
+                return ProgramReferenceData?.Id;
+            }
             set { }
         }
 
@@ -4040,7 +4076,16 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         /// </summary>
         string Entities.Common.Sample.IParentEducationContent.EducationContentDiscriminator
         {
-            get { return EducationContentReferenceData?.Discriminator; }
+            get 
+            { 
+                if (EducationContentReferenceData?.GetType().Name == "EducationContentReferenceDataProxy")
+                {
+                    EducationContentReferenceData = null;
+                    return null;
+                }
+
+                return EducationContentReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -4049,7 +4094,16 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         /// </summary>
         Guid? Entities.Common.Sample.IParentEducationContent.EducationContentResourceId
         {
-            get { return EducationContentReferenceData?.Id; }
+            get
+            {
+                if (EducationContentReferenceData?.GetType().Name == "EducationContentReferenceDataProxy")
+                {
+                    EducationContentReferenceData = null;
+                    return null;
+                }
+                    
+                return EducationContentReferenceData?.Id;
+            }
             set { }
         }
 
@@ -4505,7 +4559,16 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         /// </summary>
         Guid? Entities.Common.Sample.IParentStudentProgramAssociation.StudentProgramAssociationResourceId
         {
-            get { return StudentProgramAssociationReferenceData?.Id; }
+            get
+            {
+                if (StudentProgramAssociationReferenceData?.GetType().Name == "GeneralStudentProgramAssociationReferenceDataProxy")
+                {
+                    StudentProgramAssociationReferenceData = null;
+                    return null;
+                }
+                    
+                return StudentProgramAssociationReferenceData?.Id;
+            }
             set { }
         }
 
@@ -6062,7 +6125,16 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         /// </summary>
         string Entities.Common.Sample.ISchoolDirectlyOwnedBus.DirectlyOwnedBusDiscriminator
         {
-            get { return DirectlyOwnedBusReferenceData?.Discriminator; }
+            get 
+            { 
+                if (DirectlyOwnedBusReferenceData?.GetType().Name == "BusReferenceDataProxy")
+                {
+                    DirectlyOwnedBusReferenceData = null;
+                    return null;
+                }
+
+                return DirectlyOwnedBusReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -6071,7 +6143,16 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         /// </summary>
         Guid? Entities.Common.Sample.ISchoolDirectlyOwnedBus.DirectlyOwnedBusResourceId
         {
-            get { return DirectlyOwnedBusReferenceData?.Id; }
+            get
+            {
+                if (DirectlyOwnedBusReferenceData?.GetType().Name == "BusReferenceDataProxy")
+                {
+                    DirectlyOwnedBusReferenceData = null;
+                    return null;
+                }
+                    
+                return DirectlyOwnedBusReferenceData?.Id;
+            }
             set { }
         }
 
@@ -11722,7 +11803,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         /// </summary>
         string Entities.Common.Sample.IStudentGraduationPlanAssociation.GraduationPlanDiscriminator
         {
-            get { return GraduationPlanReferenceData?.Discriminator; }
+            get 
+            { 
+                if (GraduationPlanReferenceData?.GetType().Name == "GraduationPlanReferenceDataProxy")
+                {
+                    GraduationPlanReferenceData = null;
+                    return null;
+                }
+
+                return GraduationPlanReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -11731,7 +11821,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         /// </summary>
         Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.GraduationPlanResourceId
         {
-            get { return GraduationPlanReferenceData?.Id; }
+            get
+            {
+                if (GraduationPlanReferenceData?.GetType().Name == "GraduationPlanReferenceDataProxy")
+                {
+                    GraduationPlanReferenceData = null;
+                    return null;
+                }
+                    
+                return GraduationPlanReferenceData?.Id;
+            }
             set { }
         }
 
@@ -11742,7 +11841,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         /// </summary>
         string Entities.Common.Sample.IStudentGraduationPlanAssociation.StaffDiscriminator
         {
-            get { return StaffReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StaffReferenceData?.GetType().Name == "StaffReferenceDataProxy")
+                {
+                    StaffReferenceData = null;
+                    return null;
+                }
+
+                return StaffReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -11751,7 +11859,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         /// </summary>
         Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StaffResourceId
         {
-            get { return StaffReferenceData?.Id; }
+            get
+            {
+                if (StaffReferenceData?.GetType().Name == "StaffReferenceDataProxy")
+                {
+                    StaffReferenceData = null;
+                    return null;
+                }
+                    
+                return StaffReferenceData?.Id;
+            }
             set { }
         }
 
@@ -11762,7 +11879,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         /// </summary>
         string Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentDiscriminator
         {
-            get { return StudentReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StudentReferenceData?.GetType().Name == "StudentReferenceDataProxy")
+                {
+                    StudentReferenceData = null;
+                    return null;
+                }
+
+                return StudentReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -11771,7 +11897,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         /// </summary>
         Guid? Entities.Common.Sample.IStudentGraduationPlanAssociation.StudentResourceId
         {
-            get { return StudentReferenceData?.Id; }
+            get
+            {
+                if (StudentReferenceData?.GetType().Name == "StudentReferenceDataProxy")
+                {
+                    StudentReferenceData = null;
+                    return null;
+                }
+                    
+                return StudentReferenceData?.Id;
+            }
             set { }
         }
 
@@ -13809,7 +13944,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         /// </summary>
         string Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation.StudentParentAssociationDiscriminator
         {
-            get { return StudentParentAssociationReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StudentParentAssociationReferenceData?.GetType().Name == "StudentParentAssociationReferenceDataProxy")
+                {
+                    StudentParentAssociationReferenceData = null;
+                    return null;
+                }
+
+                return StudentParentAssociationReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -13818,7 +13962,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         /// </summary>
         Guid? Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation.StudentParentAssociationResourceId
         {
-            get { return StudentParentAssociationReferenceData?.Id; }
+            get
+            {
+                if (StudentParentAssociationReferenceData?.GetType().Name == "StudentParentAssociationReferenceDataProxy")
+                {
+                    StudentParentAssociationReferenceData = null;
+                    return null;
+                }
+                    
+                return StudentParentAssociationReferenceData?.Id;
+            }
             set { }
         }
 
@@ -15075,7 +15228,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         /// </summary>
         string Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation.StaffEducationOrganizationEmploymentAssociationDiscriminator
         {
-            get { return StaffEducationOrganizationEmploymentAssociationReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StaffEducationOrganizationEmploymentAssociationReferenceData?.GetType().Name == "StaffEducationOrganizationEmploymentAssociationReferenceDataProxy")
+                {
+                    StaffEducationOrganizationEmploymentAssociationReferenceData = null;
+                    return null;
+                }
+
+                return StaffEducationOrganizationEmploymentAssociationReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -15084,7 +15246,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         /// </summary>
         Guid? Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation.StaffEducationOrganizationEmploymentAssociationResourceId
         {
-            get { return StaffEducationOrganizationEmploymentAssociationReferenceData?.Id; }
+            get
+            {
+                if (StaffEducationOrganizationEmploymentAssociationReferenceData?.GetType().Name == "StaffEducationOrganizationEmploymentAssociationReferenceDataProxy")
+                {
+                    StaffEducationOrganizationEmploymentAssociationReferenceData = null;
+                    return null;
+                }
+                    
+                return StaffEducationOrganizationEmploymentAssociationReferenceData?.Id;
+            }
             set { }
         }
 
@@ -15612,7 +15783,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         /// </summary>
         string Entities.Common.Sample.IStudentParentAssociationExtension.InterventionStudyDiscriminator
         {
-            get { return InterventionStudyReferenceData?.Discriminator; }
+            get 
+            { 
+                if (InterventionStudyReferenceData?.GetType().Name == "InterventionStudyReferenceDataProxy")
+                {
+                    InterventionStudyReferenceData = null;
+                    return null;
+                }
+
+                return InterventionStudyReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -15621,7 +15801,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         /// </summary>
         Guid? Entities.Common.Sample.IStudentParentAssociationExtension.InterventionStudyResourceId
         {
-            get { return InterventionStudyReferenceData?.Id; }
+            get
+            {
+                if (InterventionStudyReferenceData?.GetType().Name == "InterventionStudyReferenceDataProxy")
+                {
+                    InterventionStudyReferenceData = null;
+                    return null;
+                }
+                    
+                return InterventionStudyReferenceData?.Id;
+            }
             set { }
         }
 

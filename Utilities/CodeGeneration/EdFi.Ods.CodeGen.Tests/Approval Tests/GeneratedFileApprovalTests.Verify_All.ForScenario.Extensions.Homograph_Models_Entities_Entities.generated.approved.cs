@@ -423,7 +423,16 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         /// </summary>
         string Entities.Common.Homograph.IParent.ParentNameDiscriminator
         {
-            get { return ParentNameReferenceData?.Discriminator; }
+            get 
+            { 
+                if (ParentNameReferenceData?.GetType().Name == "NameReferenceDataProxy")
+                {
+                    ParentNameReferenceData = null;
+                    return null;
+                }
+
+                return ParentNameReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -432,7 +441,16 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         /// </summary>
         Guid? Entities.Common.Homograph.IParent.ParentNameResourceId
         {
-            get { return ParentNameReferenceData?.Id; }
+            get
+            {
+                if (ParentNameReferenceData?.GetType().Name == "NameReferenceDataProxy")
+                {
+                    ParentNameReferenceData = null;
+                    return null;
+                }
+                    
+                return ParentNameReferenceData?.Id;
+            }
             set { }
         }
 
@@ -940,7 +958,16 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         /// </summary>
         string Entities.Common.Homograph.IParentStudentSchoolAssociation.StudentSchoolAssociationDiscriminator
         {
-            get { return StudentSchoolAssociationReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StudentSchoolAssociationReferenceData?.GetType().Name == "StudentSchoolAssociationReferenceDataProxy")
+                {
+                    StudentSchoolAssociationReferenceData = null;
+                    return null;
+                }
+
+                return StudentSchoolAssociationReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -949,7 +976,16 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         /// </summary>
         Guid? Entities.Common.Homograph.IParentStudentSchoolAssociation.StudentSchoolAssociationResourceId
         {
-            get { return StudentSchoolAssociationReferenceData?.Id; }
+            get
+            {
+                if (StudentSchoolAssociationReferenceData?.GetType().Name == "StudentSchoolAssociationReferenceDataProxy")
+                {
+                    StudentSchoolAssociationReferenceData = null;
+                    return null;
+                }
+                    
+                return StudentSchoolAssociationReferenceData?.Id;
+            }
             set { }
         }
 
@@ -1277,7 +1313,16 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         /// </summary>
         string Entities.Common.Homograph.ISchool.SchoolYearTypeDiscriminator
         {
-            get { return SchoolYearTypeReferenceData?.Discriminator; }
+            get 
+            { 
+                if (SchoolYearTypeReferenceData?.GetType().Name == "SchoolYearTypeReferenceDataProxy")
+                {
+                    SchoolYearTypeReferenceData = null;
+                    return null;
+                }
+
+                return SchoolYearTypeReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -1286,7 +1331,16 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         /// </summary>
         Guid? Entities.Common.Homograph.ISchool.SchoolYearTypeResourceId
         {
-            get { return SchoolYearTypeReferenceData?.Id; }
+            get
+            {
+                if (SchoolYearTypeReferenceData?.GetType().Name == "SchoolYearTypeReferenceDataProxy")
+                {
+                    SchoolYearTypeReferenceData = null;
+                    return null;
+                }
+                    
+                return SchoolYearTypeReferenceData?.Id;
+            }
             set { }
         }
 
@@ -2000,7 +2054,16 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         /// </summary>
         string Entities.Common.Homograph.IStaff.StaffNameDiscriminator
         {
-            get { return StaffNameReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StaffNameReferenceData?.GetType().Name == "NameReferenceDataProxy")
+                {
+                    StaffNameReferenceData = null;
+                    return null;
+                }
+
+                return StaffNameReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -2009,7 +2072,16 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         /// </summary>
         Guid? Entities.Common.Homograph.IStaff.StaffNameResourceId
         {
-            get { return StaffNameReferenceData?.Id; }
+            get
+            {
+                if (StaffNameReferenceData?.GetType().Name == "NameReferenceDataProxy")
+                {
+                    StaffNameReferenceData = null;
+                    return null;
+                }
+                    
+                return StaffNameReferenceData?.Id;
+            }
             set { }
         }
 
@@ -2515,7 +2587,16 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         /// </summary>
         string Entities.Common.Homograph.IStaffStudentSchoolAssociation.StudentSchoolAssociationDiscriminator
         {
-            get { return StudentSchoolAssociationReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StudentSchoolAssociationReferenceData?.GetType().Name == "StudentSchoolAssociationReferenceDataProxy")
+                {
+                    StudentSchoolAssociationReferenceData = null;
+                    return null;
+                }
+
+                return StudentSchoolAssociationReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -2524,7 +2605,16 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         /// </summary>
         Guid? Entities.Common.Homograph.IStaffStudentSchoolAssociation.StudentSchoolAssociationResourceId
         {
-            get { return StudentSchoolAssociationReferenceData?.Id; }
+            get
+            {
+                if (StudentSchoolAssociationReferenceData?.GetType().Name == "StudentSchoolAssociationReferenceDataProxy")
+                {
+                    StudentSchoolAssociationReferenceData = null;
+                    return null;
+                }
+                    
+                return StudentSchoolAssociationReferenceData?.Id;
+            }
             set { }
         }
 
@@ -2797,7 +2887,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         /// </summary>
         string Entities.Common.Homograph.IStudent.SchoolYearTypeDiscriminator
         {
-            get { return SchoolYearTypeReferenceData?.Discriminator; }
+            get 
+            { 
+                if (SchoolYearTypeReferenceData?.GetType().Name == "SchoolYearTypeReferenceDataProxy")
+                {
+                    SchoolYearTypeReferenceData = null;
+                    return null;
+                }
+
+                return SchoolYearTypeReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -2806,7 +2905,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         /// </summary>
         Guid? Entities.Common.Homograph.IStudent.SchoolYearTypeResourceId
         {
-            get { return SchoolYearTypeReferenceData?.Id; }
+            get
+            {
+                if (SchoolYearTypeReferenceData?.GetType().Name == "SchoolYearTypeReferenceDataProxy")
+                {
+                    SchoolYearTypeReferenceData = null;
+                    return null;
+                }
+                    
+                return SchoolYearTypeReferenceData?.Id;
+            }
             set { }
         }
 
@@ -2817,7 +2925,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         /// </summary>
         string Entities.Common.Homograph.IStudent.StudentNameDiscriminator
         {
-            get { return StudentNameReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StudentNameReferenceData?.GetType().Name == "NameReferenceDataProxy")
+                {
+                    StudentNameReferenceData = null;
+                    return null;
+                }
+
+                return StudentNameReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -2826,7 +2943,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         /// </summary>
         Guid? Entities.Common.Homograph.IStudent.StudentNameResourceId
         {
-            get { return StudentNameReferenceData?.Id; }
+            get
+            {
+                if (StudentNameReferenceData?.GetType().Name == "NameReferenceDataProxy")
+                {
+                    StudentNameReferenceData = null;
+                    return null;
+                }
+                    
+                return StudentNameReferenceData?.Id;
+            }
             set { }
         }
 
@@ -3349,7 +3475,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         /// </summary>
         string Entities.Common.Homograph.IStudentSchoolAssociation.SchoolDiscriminator
         {
-            get { return SchoolReferenceData?.Discriminator; }
+            get 
+            { 
+                if (SchoolReferenceData?.GetType().Name == "SchoolReferenceDataProxy")
+                {
+                    SchoolReferenceData = null;
+                    return null;
+                }
+
+                return SchoolReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -3358,7 +3493,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         /// </summary>
         Guid? Entities.Common.Homograph.IStudentSchoolAssociation.SchoolResourceId
         {
-            get { return SchoolReferenceData?.Id; }
+            get
+            {
+                if (SchoolReferenceData?.GetType().Name == "SchoolReferenceDataProxy")
+                {
+                    SchoolReferenceData = null;
+                    return null;
+                }
+                    
+                return SchoolReferenceData?.Id;
+            }
             set { }
         }
 
@@ -3369,7 +3513,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         /// </summary>
         string Entities.Common.Homograph.IStudentSchoolAssociation.StudentDiscriminator
         {
-            get { return StudentReferenceData?.Discriminator; }
+            get 
+            { 
+                if (StudentReferenceData?.GetType().Name == "StudentReferenceDataProxy")
+                {
+                    StudentReferenceData = null;
+                    return null;
+                }
+
+                return StudentReferenceData?.Discriminator; 
+            }
             set { }
         }
 
@@ -3378,7 +3531,16 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
         /// </summary>
         Guid? Entities.Common.Homograph.IStudentSchoolAssociation.StudentResourceId
         {
-            get { return StudentReferenceData?.Id; }
+            get
+            {
+                if (StudentReferenceData?.GetType().Name == "StudentReferenceDataProxy")
+                {
+                    StudentReferenceData = null;
+                    return null;
+                }
+                    
+                return StudentReferenceData?.Id;
+            }
             set { }
         }
 
