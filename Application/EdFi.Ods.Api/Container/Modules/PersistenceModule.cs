@@ -31,13 +31,19 @@ namespace EdFi.Ods.Api.Container.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AdminDatabaseConnectionStringProvider>().As<IAdminDatabaseConnectionStringProvider>()
+            builder.RegisterType<AdminDatabaseConnectionStringProvider>()
+                .As<IAdminDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
-            builder.Register(c => new MemoryCache(new MemoryCacheOptions())).As<IMemoryCache>();
+            builder.Register(c => new MemoryCache(new MemoryCacheOptions()))
+                .As<IMemoryCache>();
 
-            builder.RegisterType<MemoryCacheProvider>().As<ICacheProvider>();
-            builder.RegisterType<ConcurrentDictionaryCacheProvider>().AsSelf().SingleInstance();
+            builder.RegisterType<MemoryCacheProvider>()
+                .As<ICacheProvider>();
+
+            builder.RegisterType<ConcurrentDictionaryCacheProvider>()
+                .AsSelf()
+                .SingleInstance();
 
             builder.RegisterType<DescriptorsCache>()
                 .WithParameter(
