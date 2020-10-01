@@ -68,17 +68,23 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IApplicationModelConvention>()
                 .SingleInstance();
 
-            builder.RegisterType<ApiKeyContextProvider>().As<IApiKeyContextProvider>().As<IHttpContextStorageTransferKeys>();
+            builder.RegisterType<ApiKeyContextProvider>()
+                .As<IApiKeyContextProvider>()
+                .As<IHttpContextStorageTransferKeys>();
 
-            builder.RegisterType<SchoolYearContextProvider>().As<ISchoolYearContextProvider>().As<IHttpContextStorageTransferKeys>();
-  
+            builder.RegisterType<SchoolYearContextProvider>()
+                .As<ISchoolYearContextProvider>()
+                .As<IHttpContextStorageTransferKeys>();
+
             // Primary context storage for ASP.NET web applications
-            builder.RegisterType<HttpContextStorage>().As<IContextStorage>();
+            builder.RegisterType<HttpContextStorage>()
+                .As<IContextStorage>();
 
             // Secondary context storage for background tasks running in ASP.NET web applications
             // Allows selected context to flow to worker Tasks (see IHttpContextStorageTransferKeys and IHttpContextStorageTransfer)
-            builder.RegisterType<CallContextStorage>().As<IContextStorage>();
-         
+            builder.RegisterType<CallContextStorage>()
+                .As<IContextStorage>();
+
             // Features to transfer context from HttpContext to the secondary storage in ASP.NET applications
             builder.RegisterType<HttpContextStorageTransfer>()
                 .As<IHttpContextStorageTransfer>();
