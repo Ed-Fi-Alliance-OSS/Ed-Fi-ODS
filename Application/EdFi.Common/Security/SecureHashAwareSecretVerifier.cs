@@ -7,18 +7,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using EdFi.Common.Security;
 
 namespace EdFi.Ods.Common.Security
 {
     public class SecureHashAwareSecretVerifier : ISecretVerifier
     {
         private readonly IPackedHashConverter _packedHashConverter;
-        private readonly IList<ISecureHasher> _secureHashers;
+        private readonly ISecureHasherProvider _secureHasherProvider;
 
-        public SecureHashAwareSecretVerifier(IPackedHashConverter packedHashConverter, IList<ISecureHasher> secureHashers)
+
+        public SecureHashAwareSecretVerifier(IPackedHashConverter packedHashConverter, ISecureHasherProvider secureHasherProvider)
         {
             _packedHashConverter = packedHashConverter;
-            _secureHashers = secureHashers;
+            _secureHasherProvider = secureHasherProvider;
         }
 
         public bool VerifySecret(string key, string presentedSecret, ApiClientSecret actualSecret)
@@ -29,17 +31,10 @@ namespace EdFi.Ods.Common.Security
             }
 
             var actualHash = _packedHashConverter.GetPackedHash(actualSecret.Secret);
+            var hasher = _secureHasherProvider.GetHasher(actualHash.HashAlgorithm);
 
-            var hasher = _secureHashers.SingleOrDefault(x => x.GetAlgorithmHashCode == actualHash.HashAlgorithm);
-
-            if (hasher == null)
-            {
-                throw new NotImplementedException(
-                    $"Secure hasher is not found for algorithm indicated by the packed hash => {actualHash.HashAlgorithm}");
-            }
-
-            var presentedHash = hasher
-                .ComputeHash(presentedSecret, actualHash.HashAlgorithm, actualHash.Iterations, actualHash.Salt);
+            var presentedHash = hasher.ComputeHash(
+                presentedSecret, actualHash.HashAlgorithm, actualHash.Iterations, actualHash.Salt);
 
             return ByteArraysEqual(actualHash.HashBytes, presentedHash.HashBytes);
         }

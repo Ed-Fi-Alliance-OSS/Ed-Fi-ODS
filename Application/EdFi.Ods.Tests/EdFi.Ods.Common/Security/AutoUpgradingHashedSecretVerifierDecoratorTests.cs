@@ -6,6 +6,7 @@
 #if NETCOREAPP
 using System;
 using System.Collections.Generic;
+using EdFi.Common.Security;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Helpers;
@@ -500,15 +501,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 
                 var secureHasher = new Pbkdf2HmacSha1SecureHasher();
                 var originalHasher = A.Fake<ISecureHasher>();
-                A.CallTo(() => originalHasher.GetAlgorithmHashCode).Returns(originalHashAlgorithm);
+                A.CallTo(() => originalHasher.AlgorithmHashCode).Returns(originalHashAlgorithm);
                 A.CallTo(() => originalHasher.ComputeHash(A<string>._, A<int>._, A<int>._, A<byte[]>._)).Returns(packedHash);
 
                 var next = new SecureHashAwareSecretVerifier(
-                    packedHashConverter, new List<ISecureHasher>
-                    {
-                        secureHasher,
-                        originalHasher
-                    });
+                    packedHashConverter, new SecureHasherProvider(
+                        new List<ISecureHasher>
+                        {
+                            secureHasher,
+                            originalHasher
+                        }));
 
                 _securePackedHashProvider = Stub<ISecurePackedHashProvider>();
 

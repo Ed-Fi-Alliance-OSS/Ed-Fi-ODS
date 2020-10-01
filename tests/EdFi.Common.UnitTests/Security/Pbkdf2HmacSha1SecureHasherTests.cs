@@ -8,7 +8,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
-using EdFi.Ods.Common.Security.Helpers;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;
@@ -19,8 +18,8 @@ namespace EdFi.Ods.Common.UnitTests.Security
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class Pbkdf2HmacSha1SecureHasherTests
     {
-        protected const string Secret = "MyTestSecret";
-        protected const string Salt = "MyTestSalt";
+        private const string Secret = "MyTestSecret";
+        private const string Salt = "MyTestSalt";
 
         public class When_computing_a_valid_hash : TestFixtureBase
         {
@@ -34,16 +33,16 @@ namespace EdFi.Ods.Common.UnitTests.Security
             {
                 _secureHasher = new Pbkdf2HmacSha1SecureHasher();
 
-                _hashAlgorithm = HashHelper.GetSha256Hash(Pbkdf2HmacSha1SecureHasher.ConfigurationAlgorithmName).ToInt32();
+                _hashAlgorithm = _secureHasher.AlgorithmHashCode;
 
                 _salt = Encoding.UTF8.GetBytes(Salt);
 
-                _expectedBytes = "68EE9DC27ACD5C328D71D2D3096DE9D2833A11C6F1B5F4D14A70C38EC7AB20AB";
+                _expectedBytes = "9B0FEB3C38F75E8C65BD6516C162F20095F8C3FB6F2006241C17C4D194CF96BD";
             }
 
             protected override void Act()
             {
-                _actualResult = _secureHasher.ComputeHash(Secret, _hashAlgorithm, 100000, _salt);
+                _actualResult = _secureHasher.ComputeHash(Secret, _hashAlgorithm, 10000, _salt);
             }
 
             [Test]
@@ -62,14 +61,11 @@ namespace EdFi.Ods.Common.UnitTests.Security
         public class When_computing_an_invalid_hash : TestFixtureBase
         {
             private PackedHash _actualResult;
-            private SecureHashRequest _request;
             private Pbkdf2HmacSha1SecureHasher _secureHasher;
 
             protected override void Arrange()
             {
                 _secureHasher = new Pbkdf2HmacSha1SecureHasher();
-
-                _request = new SecureHashRequest {HashAlgorithm = 1234};
             }
 
             protected override void Act()

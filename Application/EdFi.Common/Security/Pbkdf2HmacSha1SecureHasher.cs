@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Security.Cryptography;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Helpers;
@@ -11,16 +12,23 @@ namespace EdFi.Ods.Common.Security
 {
     public class Pbkdf2HmacSha1SecureHasher : ISecureHasher
     {
+        private readonly Lazy<int> _algorithmHashCode;
+
         public const string ConfigurationAlgorithmName = "PBKDF2-HMACSHA1";
+
+        public Pbkdf2HmacSha1SecureHasher()
+        {
+            _algorithmHashCode = new Lazy<int>(() => HashHelper.GetSha256Hash(Algorithm).ToInt32());
+        }
 
         public string Algorithm
         {
             get => ConfigurationAlgorithmName;
         }
 
-        public int GetAlgorithmHashCode
+        public int AlgorithmHashCode
         {
-            get => HashHelper.GetSha256Hash(Algorithm).ToInt32();
+            get => _algorithmHashCode.Value;
         }
 
         public PackedHash ComputeHash(string secret, int hashAlgorithm, int iterations, byte[] salt)

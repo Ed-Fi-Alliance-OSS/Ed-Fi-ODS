@@ -6,6 +6,7 @@
 #if NETCOREAPP
 using System;
 using System.Collections.Generic;
+using EdFi.Common.Security;
 using EdFi.Ods.Common.Security;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -50,16 +51,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                     .Returns(packedHash);
 
                 var secureHasher = Stub<ISecureHasher>();
-                A.CallTo(() => secureHasher.GetAlgorithmHashCode).Returns(123);
+                A.CallTo(() => secureHasher.AlgorithmHashCode).Returns(123);
                 A.CallTo(() => secureHasher.ComputeHash(A<string>._, A<int>._, A<int>._, A<byte[]>._)).Returns(packedHash);
 
-                _secretVerifier = A.Fake<SecureHashAwareSecretVerifier>(
-                    options => options.WithArgumentsForConstructor(
-                        new object[]
-                        {
-                            packedHashConverter,
-                            new List<ISecureHasher> {secureHasher}
-                        }));
+                _secretVerifier = new SecureHashAwareSecretVerifier(
+                    packedHashConverter, new SecureHasherProvider(new List<ISecureHasher> {secureHasher}));
             }
 
             protected override void Act()
@@ -145,7 +141,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                         });
 
                 _secretVerifier = new SecureHashAwareSecretVerifier(
-                    packedHashConverter, new List<ISecureHasher> {secureHasher});
+                    packedHashConverter, new SecureHasherProvider( new List<ISecureHasher> {secureHasher}));
             }
 
             protected override void Act()
@@ -184,7 +180,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                 var secureHasher = Stub<ISecureHasher>();
 
                 _secretVerifier = new SecureHashAwareSecretVerifier(
-                    packedHashConverter, new List<ISecureHasher> {secureHasher});
+                    packedHashConverter, new SecureHasherProvider(new List<ISecureHasher> {secureHasher}));
             }
 
             protected override void Act()
@@ -216,7 +212,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
                 var packedHashConverter = Stub<IPackedHashConverter>();
                 var secureHasher = Stub<ISecureHasher>();
 
-                _secretVerifier = new SecureHashAwareSecretVerifier(packedHashConverter, new List<ISecureHasher> {secureHasher});
+                _secretVerifier = new SecureHashAwareSecretVerifier(
+                    packedHashConverter, new SecureHasherProvider(new List<ISecureHasher> {secureHasher}));
             }
 
             protected override void Act()

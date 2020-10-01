@@ -9,7 +9,7 @@ namespace EdFi.Ods.Common.Security
     {
         string Algorithm { get; }
 
-        int GetAlgorithmHashCode { get; }
+        int AlgorithmHashCode { get; }
 
         PackedHash ComputeHash(string secret, int hashAlgorithm, int iterations, byte[] salt);
 
