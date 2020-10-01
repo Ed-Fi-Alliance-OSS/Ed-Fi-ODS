@@ -36,7 +36,7 @@ namespace EdFi.Ods.Security.Container.Modules
 
             builder.RegisterType<AuthorizationSegmentsToFiltersConverter>().As<IAuthorizationSegmentsToFiltersConverter>();
 
-            var assembly = GetType().Assembly;
+            var assembly = typeof(Marker_EdFi_Ods_Security).Assembly;
 
             var strategyTypes = assembly.GetTypes()
                 .Where(t => typeof(IEdFiAuthorizationStrategy).IsAssignableFrom(t) && !t.IsAbstract).ToList();
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Security.Container.Modules
                 }
             }
 
-            builder.RegisterAssemblyTypes(GetType().Assembly)
+            builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Security).Assembly)
                 .Where(t => typeof(INHibernateFilterConfigurator).IsAssignableFrom(t))
                 .As<INHibernateFilterConfigurator>();
 
