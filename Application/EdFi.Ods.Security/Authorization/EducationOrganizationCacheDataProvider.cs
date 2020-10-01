@@ -13,9 +13,7 @@ using NHibernate.Transform;
 
 namespace EdFi.Ods.Security.Authorization
 {
-    public class EducationOrganizationCacheDataProvider
-        : IEducationOrganizationCacheDataProvider,
-            IEducationOrganizationIdentifiersValueMapper
+    public class EducationOrganizationCacheDataProvider : IEducationOrganizationCacheDataProvider, IEducationOrganizationIdentifiersValueMapper
     {
         private const string Sql = @"SELECT * FROM auth.EducationOrganizationIdentifiers";
         private readonly ISessionFactory _sessionFactory;
