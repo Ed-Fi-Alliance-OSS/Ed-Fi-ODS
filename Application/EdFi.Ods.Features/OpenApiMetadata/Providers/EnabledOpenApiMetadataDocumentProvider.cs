@@ -30,6 +30,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         private readonly IList<IOpenApiMetadataRouteInformation> _routeInformations;
         private readonly bool _useReverseProxyHeaders;
         private readonly Lazy<IReadOnlyList<SchemaNameMap>> _schemaNameMaps;
+        private readonly Regex _yearSpecificRegex = new Regex("^/.*/v\\d/(20\\d{2}).*$", RegexOptions.Compiled);
+        private readonly bool _isYearSpecific;
 
         public EnabledOpenApiMetadataDocumentProvider(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
@@ -42,6 +44,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _useReverseProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
 
             _schemaNameMaps = new Lazy<IReadOnlyList<SchemaNameMap>>(schemaNameMapProvider.GetSchemaNameMaps);
+            _isYearSpecific = apiSettings.GetApiMode().Equals(ApiMode.YearSpecific);
         }
 
         public bool TryGetSwaggerDocument(HttpRequest request, out string document)
@@ -65,7 +68,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
         private string GetMetadataForContent(OpenApiContent content, HttpRequest request)
         {
-            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath;
+            var match = _yearSpecificRegex.Match(request.Path);
+
+            var year = match.Success && _isYearSpecific
+                ? "/" + match.Groups[1].Value
+                : string.Empty;
+
+            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath + year;
 
             return content.Metadata
                 .Replace("%HOST%", Host())
