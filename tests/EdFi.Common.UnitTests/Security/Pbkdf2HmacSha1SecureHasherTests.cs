@@ -3,13 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
-using EdFi.Ods.Common.Security.Helpers;
 using EdFi.TestFixture;
 using NUnit.Framework;
+using Shouldly;
 
 namespace EdFi.Ods.Common.UnitTests.Security
 {
@@ -17,71 +18,71 @@ namespace EdFi.Ods.Common.UnitTests.Security
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class Pbkdf2HmacSha1SecureHasherTests
     {
-        protected const string Secret = "MyTestSecret";
-        protected const string Salt = "MyTestSalt";
+        private const string Secret = "MyTestSecret";
+        private const string Salt = "MyTestSalt";
 
         public class When_computing_a_valid_hash : TestFixtureBase
         {
             private PackedHash _actualResult;
             private string _expectedBytes;
-            private SecureHashRequest _request;
             private Pbkdf2HmacSha1SecureHasher _secureHasher;
+            private int _hashAlgorithm;
+            private byte[] _salt;
 
             protected override void Arrange()
             {
-                _secureHasher = new Pbkdf2HmacSha1SecureHasher(null);
+                _secureHasher = new Pbkdf2HmacSha1SecureHasher();
 
-                _request = new SecureHashRequest
-                {
-                    Secret = Secret,
-                    HashAlgorithm = HashHelper.GetSha256Hash(Pbkdf2HmacSha1SecureHasher.ConfigurationAlgorithmName).ToInt32(),
-                    Iterations = 10000,
-                    Salt = Encoding.UTF8.GetBytes(Salt)
-                };
+                _hashAlgorithm = _secureHasher.AlgorithmHashCode;
+
+                _salt = Encoding.UTF8.GetBytes(Salt);
 
                 _expectedBytes = "9B0FEB3C38F75E8C65BD6516C162F20095F8C3FB6F2006241C17C4D194CF96BD";
             }
 
             protected override void Act()
             {
-                _actualResult = _secureHasher.ProcessRequest(_request);
+                _actualResult = _secureHasher.ComputeHash(Secret, _hashAlgorithm, 10000, _salt);
             }
 
             [Test]
-            public virtual void Should_be_able_to_compute_hash()
+            public void Should_be_able_to_compute_hash()
             {
-                Assert.That(_actualResult.HashBytes.ToHexString(), Is.EqualTo(_expectedBytes));
+                _actualResult.HashBytes.ToHexString().ShouldBe(_expectedBytes);
             }
 
             [Test]
-            public virtual void Should_return_non_null_result()
+            public void Should_return_non_null_result()
             {
-                Assert.That(_actualResult, Is.Not.Null);
+                _actualResult.ShouldNotBeNull();
             }
         }
 
         public class When_computing_an_invalid_hash : TestFixtureBase
         {
             private PackedHash _actualResult;
-            private SecureHashRequest _request;
             private Pbkdf2HmacSha1SecureHasher _secureHasher;
 
             protected override void Arrange()
             {
-                _secureHasher = new Pbkdf2HmacSha1SecureHasher(null);
-
-                _request = new SecureHashRequest { HashAlgorithm = 1234 };
+                _secureHasher = new Pbkdf2HmacSha1SecureHasher();
             }
 
             protected override void Act()
             {
-                _actualResult = _secureHasher.ProcessRequest(_request);
+                _actualResult = _secureHasher.ComputeHash(null, 1234, 0, null);
             }
 
             [Test]
-            public virtual void Should_not_compute_hash_with_invalid_hash_algorithm()
+            public void Should_not_compute_hash_with_invalid_hash_algorithm()
             {
-                Assert.That(_actualResult, Is.Null);
+                _actualResult.ShouldBeNull();
+            }
+
+            [Test]
+            public void Should_throw_argument_null_exception()
+            {
+                ActualException.ShouldBeOfType<ArgumentNullException>();
             }
         }
     }

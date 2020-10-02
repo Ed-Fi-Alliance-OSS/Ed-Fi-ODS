@@ -3,19 +3,24 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using EdFi.Common.Security;
 
 namespace EdFi.Ods.Common.Security
 {
     public class SecureHashAwareSecretVerifier : ISecretVerifier
     {
         private readonly IPackedHashConverter _packedHashConverter;
-        private readonly ISecureHasher _secureHasher;
+        private readonly ISecureHasherProvider _secureHasherProvider;
 
-        public SecureHashAwareSecretVerifier(IPackedHashConverter packedHashConverter, ISecureHasher secureHasher)
+
+        public SecureHashAwareSecretVerifier(IPackedHashConverter packedHashConverter, ISecureHasherProvider secureHasherProvider)
         {
             _packedHashConverter = packedHashConverter;
-            _secureHasher = secureHasher;
+            _secureHasherProvider = secureHasherProvider;
         }
 
         public bool VerifySecret(string key, string presentedSecret, ApiClientSecret actualSecret)
@@ -26,7 +31,10 @@ namespace EdFi.Ods.Common.Security
             }
 
             var actualHash = _packedHashConverter.GetPackedHash(actualSecret.Secret);
-            var presentedHash = _secureHasher.ComputeHash(presentedSecret, actualHash.HashAlgorithm, actualHash.Iterations, actualHash.Salt);
+            var hasher = _secureHasherProvider.GetHasher(actualHash.HashAlgorithm);
+
+            var presentedHash = hasher.ComputeHash(
+                presentedSecret, actualHash.HashAlgorithm, actualHash.Iterations, actualHash.Salt);
 
             return ByteArraysEqual(actualHash.HashBytes, presentedHash.HashBytes);
         }

@@ -16,9 +16,11 @@ namespace EdFi.Ods.Common.Security
         public DefaultHashConfigurationProvider()
         {
             _hashConfiguration = new HashConfiguration
-                                 {
-                                     Algorithm = DefaultAlgorithm, Iterations = DefaultIterations, SaltSize = DefaultSaltSize
-                                 };
+            {
+                Algorithm = DefaultAlgorithm,
+                Iterations = DefaultIterations,
+                SaltSize = DefaultSaltSize
+            };
         }
 
         public HashConfiguration GetHashConfiguration()

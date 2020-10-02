@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Common.Security;
 using EdFi.Ods.Common.Security;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -10,6 +11,7 @@ using NUnit.Framework;
 
 namespace EdFi.Ods.Common.UnitTests.Security
 {
+    [TestFixture]
     public class SecurePackedHashProviderTests
     {
         public class When_handling_valid_secret : TestFixtureBase
@@ -43,12 +45,16 @@ namespace EdFi.Ods.Common.UnitTests.Security
                 A.CallTo(() => secureHasher.ComputeHash("MySecret", 123, 321, 3))
                     .Returns(packedHash);
 
+                var packedHashProvider = A.Fake<ISecureHasherProvider>();
+
+                A.CallTo(() => packedHashProvider.GetHasher(123)).Returns(secureHasher);
+
                 var packedHashConverter = A.Fake<IPackedHashConverter>();
 
                 A.CallTo(() => packedHashConverter.GetBase64String(packedHash))
                     .Returns("MyHashedSecret");
 
-                _securePackedHashProvider = new SecurePackedHashProvider(packedHashConverter, secureHasher);
+                _securePackedHashProvider = new SecurePackedHashProvider(packedHashConverter, packedHashProvider);
             }
 
             protected override void Act()
