@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,9 +14,11 @@ namespace EdFi.Ods.Common.Extensions
 {
     public static class TypeExtensions
     {
-        private static readonly Dictionary<Type, object> defaultValuesByType = new Dictionary<Type, object>();
+        private static readonly ConcurrentDictionary<Type, object>
+            _defaultValuesByType = new ConcurrentDictionary<Type, object>();
 
-        private static readonly Dictionary<Type, Type> itemTypesByGenericListType = new Dictionary<Type, Type>();
+        private static readonly ConcurrentDictionary<Type, Type> _itemTypesByGenericListType =
+            new ConcurrentDictionary<Type, Type>();
 
         public static T GetDefaultValue<T>()
         {
@@ -24,41 +27,25 @@ namespace EdFi.Ods.Common.Extensions
 
         public static object GetDefaultValue(this Type type)
         {
-            object value;
-
-            if (!defaultValuesByType.TryGetValue(type, out value))
-            {
-                lock (defaultValuesByType)
+            return _defaultValuesByType.GetOrAdd(
+                type,
+                t =>
                 {
                     if (type.IsValueType)
                     {
-                        value = Activator.CreateInstance(type);
+                        return Activator.CreateInstance(type);
                     }
                     else
                     {
-                        value = null;
+                        return null;
                     }
-
-                    defaultValuesByType[type] = value;
-                }
-            }
-
-            return value;
+                });
         }
 
         public static Type GetItemType(this Type type)
         {
-            Type itemType;
-
-            if (!itemTypesByGenericListType.TryGetValue(type, out itemType))
-            {
-                itemType = type.GetGenericArguments()
-                               .FirstOrDefault();
-
-                itemTypesByGenericListType[type] = itemType;
-            }
-
-            return itemTypesByGenericListType[type];
+            return _itemTypesByGenericListType.GetOrAdd(type, t =>
+                type.GetGenericArguments().FirstOrDefault());
         }
 
         public static bool IsNullable(this Type type)

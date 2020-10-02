@@ -24,21 +24,18 @@ namespace EdFi.Ods.Common.Context
         /// <param name="data">The object to store in the call context.</param>
         public static void SetData(string name, object data)
         {
-            var local = new AsyncLocal<object>(
-                a =>
-                {
-                    if (a.ThreadContextChanged && a.CurrentValue == null && a.PreviousValue != null)
-                    {
-                        _state[name].Value = a.PreviousValue;
-                    }
-                }) {Value = data};
-
-            _state.AddOrUpdate(
+            var asyncLocal = _state.GetOrAdd(
                 name,
-                local,
-                (k, v) => v != local
-                    ? local
-                    : v);
+                n => new AsyncLocal<object>(
+                    args =>
+                    {
+                        if (args.ThreadContextChanged && args.CurrentValue == null && args.PreviousValue != null)
+                        {
+                            _state[name].Value = args.PreviousValue;
+                        }
+                    }));
+
+            asyncLocal.Value = data;
         }
 
         /// <summary>
