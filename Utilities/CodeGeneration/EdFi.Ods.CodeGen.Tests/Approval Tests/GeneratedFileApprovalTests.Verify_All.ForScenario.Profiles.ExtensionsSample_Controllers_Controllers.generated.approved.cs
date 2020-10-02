@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;

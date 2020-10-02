@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using EdFi.Common;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Models.Templates;

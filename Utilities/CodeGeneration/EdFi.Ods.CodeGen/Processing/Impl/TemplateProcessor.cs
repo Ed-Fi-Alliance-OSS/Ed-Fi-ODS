@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Models.Application;
 using EdFi.Ods.CodeGen.Providers;

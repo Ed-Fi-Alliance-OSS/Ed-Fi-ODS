@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;

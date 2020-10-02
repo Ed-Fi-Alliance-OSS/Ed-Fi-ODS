@@ -7,11 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using EdFi.Common.Extensions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata.Schemas;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Utils.Extensions;
 using Resource = EdFi.Ods.Common.Metadata.Schemas.Resource;
 
 namespace EdFi.Ods.CodeGen.Metadata

@@ -6,6 +6,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using EdFi.Common;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Conventions;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;

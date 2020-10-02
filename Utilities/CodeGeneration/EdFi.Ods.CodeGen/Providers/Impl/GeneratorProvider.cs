@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common;
 using EdFi.Ods.CodeGen.Generators;
 using EdFi.Ods.Common;
 using log4net;

@@ -5,6 +5,7 @@
 
 using System;
 using System.IO;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Helpers;
 using EdFi.Ods.Common.Extensions;
 using log4net;

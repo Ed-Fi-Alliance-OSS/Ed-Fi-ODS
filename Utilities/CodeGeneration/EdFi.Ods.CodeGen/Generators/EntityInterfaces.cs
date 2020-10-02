@@ -5,6 +5,7 @@
 
 using System.Linq;
 using System.Text;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
