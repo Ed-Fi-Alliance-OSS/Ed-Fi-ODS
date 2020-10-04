@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <IsTestProject>true</IsTestProject>
     <NoWarn>CS0618</NoWarn>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
