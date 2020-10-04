@@ -1,0 +1,36 @@
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+where comp_aaa.Id = :Id AND (comp_aaa.StudentUSI IN (
+                            SELECT fltr_aab.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStudentUSI fltr_aab 
+                            WHERE fltr_aab.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.StudentUSI
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aab.EducationOrganizationId as PK2a_EducationOrganizationId,
+	comp_aab.SchoolYear as PK2a_SchoolYear,
+	comp_aab.TermDescriptorId as PK2a_TermDescriptorId,
+	comp_aab.CumulativeEarnedCredits as cumulativeEarnedCredits,
+	comp_aac.Namespace as termDescriptor__Namespace,
+	comp_aac.CodeValue as termDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentAcademicRecords comp_aab
+		left join comp_aab.TermDescriptor comp_aac 
+where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aab.EducationOrganizationId IN (
+                        SELECT fltr_aan.EducationOrganizationId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToLocalEducationAgencyId fltr_aan 
+                        WHERE fltr_aan.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aab.StudentUSI IN (
+                            SELECT fltr_aab.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStudentUSI fltr_aab 
+                            WHERE fltr_aab.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.StudentUSI,
+	comp_aab.EducationOrganizationId,
+	comp_aab.SchoolYear,
+	comp_aab.TermDescriptorId

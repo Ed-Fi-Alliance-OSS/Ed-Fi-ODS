@@ -1,0 +1,50 @@
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AssessmentIdentifier as PK1a_AssessmentIdentifier,
+	comp_aaa.Namespace as PK1a_Namespace,
+	comp_aaa.StudentAssessmentIdentifier as PK1a_StudentAssessmentIdentifier,
+	comp_aaa.StudentUSI as PK1a_StudentUSI
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ comp_aaa
+where comp_aaa.Id = :Id AND ((comp_aaa.Namespace IS NOT NULL AND comp_aaa.Namespace LIKE :Namespace))
+order by comp_aaa.AssessmentIdentifier,
+	comp_aaa.Namespace,
+	comp_aaa.StudentAssessmentIdentifier,
+	comp_aaa.StudentUSI
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AssessmentIdentifier as PK1a_AssessmentIdentifier,
+	comp_aaa.Namespace as PK1a_Namespace,
+	comp_aaa.StudentAssessmentIdentifier as PK1a_StudentAssessmentIdentifier,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aab.IdentificationCode as PK2a_IdentificationCode
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ comp_aaa
+	join comp_aaa.StudentAssessmentStudentObjectiveAssessments comp_aab
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.AssessmentIdentifier,
+	comp_aaa.Namespace,
+	comp_aaa.StudentAssessmentIdentifier,
+	comp_aaa.StudentUSI,
+	comp_aab.IdentificationCode
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.AssessmentIdentifier as PK1a_AssessmentIdentifier,
+	comp_aaa.Namespace as PK1a_Namespace,
+	comp_aaa.StudentAssessmentIdentifier as PK1a_StudentAssessmentIdentifier,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aab.IdentificationCode as PK2a_IdentificationCode,
+	comp_aac.MaxRawScore as maxRawScore
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAssessmentAggregate.EdFi.StudentAssessmentQ comp_aaa
+	join comp_aaa.StudentAssessmentStudentObjectiveAssessments comp_aab
+	join comp_aab.ObjectiveAssessment comp_aac
+where comp_aaa.Id IN (:BaseEntityId) AND ((comp_aac.Namespace IS NOT NULL AND comp_aac.Namespace LIKE :Namespace))
+order by comp_aaa.AssessmentIdentifier,
+	comp_aaa.Namespace,
+	comp_aaa.StudentAssessmentIdentifier,
+	comp_aaa.StudentUSI,
+	comp_aab.IdentificationCode

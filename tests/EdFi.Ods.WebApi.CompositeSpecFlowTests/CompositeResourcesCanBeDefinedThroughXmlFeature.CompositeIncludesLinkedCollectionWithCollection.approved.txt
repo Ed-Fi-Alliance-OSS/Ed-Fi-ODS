@@ -1,0 +1,43 @@
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+where comp_aaa.Id = :Id AND (comp_aaa.StudentUSI IN (
+                            SELECT fltr_aab.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStudentUSI fltr_aab 
+                            WHERE fltr_aab.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.StudentUSI
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aab.EducationOrganizationId as PK2a_EducationOrganizationId
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentEducationOrganizationAssociations comp_aab
+where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aab.EducationOrganizationId IN (
+                        SELECT fltr_aan.EducationOrganizationId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToLocalEducationAgencyId fltr_aan 
+                        WHERE fltr_aan.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aab.StudentUSI IN (
+                            SELECT fltr_aab.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStudentUSI fltr_aab 
+                            WHERE fltr_aab.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.StudentUSI,
+	comp_aab.EducationOrganizationId
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aab.EducationOrganizationId as PK2a_EducationOrganizationId,
+	comp_aac.ProgramTypeDescriptorId as PK3a_ProgramTypeDescriptorId,
+	comp_aac.BeginDate as beginDate
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentEducationOrganizationAssociations comp_aab
+	join comp_aab.StudentEducationOrganizationAssociationProgramParticipations comp_aac
+where comp_aaa.StudentUSI IN (:BaseEntityId)
+order by comp_aaa.StudentUSI,
+	comp_aab.EducationOrganizationId,
+	comp_aac.ProgramTypeDescriptorId

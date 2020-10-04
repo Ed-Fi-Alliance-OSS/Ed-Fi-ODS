@@ -1,0 +1,109 @@
+HQL:
+select distinct 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaa.Id as id,
+	comp_aaa.StudentUniqueId as studentUniqueId,
+	comp_aaa.PersonalTitlePrefix as personalTitlePrefix,
+	comp_aaa.FirstName as firstName,
+	comp_aaa.MiddleName as middleName,
+	comp_aaa.LastSurname as lastSurname,
+	comp_aaa.BirthDate as birthDate
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentSectionAssociations comp_aab
+	join comp_aab.Section comp_aac
+	join comp_aac.StaffSectionAssociations comp_aad
+	join comp_aad.Staff comp_aae
+where comp_aae.Id = :Staff_Id AND (comp_aaa.StudentUSI IN (
+                            SELECT fltr_aab.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStudentUSI fltr_aab 
+                            WHERE fltr_aab.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.StudentUSI
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaf.EntryDate as PK2a_EntryDate,
+	comp_aaf.SchoolId as PK2a_SchoolId,
+	comp_aag.Namespace as entryGradeLevelDescriptor__Namespace,
+	comp_aag.CodeValue as entryGradeLevelDescriptor,
+	comp_aaf.EntryDate as enrollmentBeginDate,
+	comp_aaf.ExitWithdrawDate as enrollmentEndDate,
+	comp_aah.Id as id,
+	comp_aah.SchoolId as schoolId,
+	comp_aah.NameOfInstitution as nameOfInstitution
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentSchoolAssociations comp_aaf
+		left join comp_aaf.EntryGradeLevelDescriptor comp_aag 
+	join comp_aaf.School comp_aah
+where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aaf.SchoolId IN (
+                        SELECT fltr_aar.SchoolId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToSchoolId fltr_aar 
+                        WHERE fltr_aar.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aaf.StudentUSI IN (
+                            SELECT fltr_aab.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStudentUSI fltr_aab 
+                            WHERE fltr_aab.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.StudentUSI,
+	comp_aaf.EntryDate,
+	comp_aaf.SchoolId
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaj.EducationOrganizationId as PK2b_EducationOrganizationId,
+	comp_aaj.LoginId as loginId,
+	comp_aak.Namespace as sexDescriptor__Namespace,
+	comp_aak.CodeValue as sexDescriptor,
+	comp_aaj.HispanicLatinoEthnicity as hispanicLatinoEthnicity,
+	comp_aal.Discriminator as educationOrganizationType__PassThrough,
+	comp_aal.EducationOrganizationId as educationOrganizationId
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentEducationOrganizationAssociations comp_aaj
+		left join comp_aaj.SexDescriptor comp_aak 
+	join comp_aaj.EducationOrganization comp_aal
+where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aaj.EducationOrganizationId IN (
+                        SELECT fltr_aan.EducationOrganizationId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToLocalEducationAgencyId fltr_aan 
+                        WHERE fltr_aan.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aaj.StudentUSI IN (
+                            SELECT fltr_aab.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStudentUSI fltr_aab 
+                            WHERE fltr_aab.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.StudentUSI,
+	comp_aaj.EducationOrganizationId
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaj.EducationOrganizationId as PK2b_EducationOrganizationId,
+	comp_aam.LanguageDescriptorId as PK3a_LanguageDescriptorId,
+	comp_aan.Namespace as languageDescriptor__Namespace,
+	comp_aan.CodeValue as languageDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentEducationOrganizationAssociations comp_aaj
+	join comp_aaj.StudentEducationOrganizationAssociationLanguages comp_aam
+		left join comp_aam.LanguageDescriptor comp_aan 
+where comp_aaa.StudentUSI IN (:BaseEntityId)
+order by comp_aaa.StudentUSI,
+	comp_aaj.EducationOrganizationId,
+	comp_aam.LanguageDescriptorId
+HQL:
+select 
+	comp_aaa.StudentUSI As __BaseEntityId__,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aaj.EducationOrganizationId as PK2b_EducationOrganizationId,
+	comp_aao.RaceDescriptorId as PK3b_RaceDescriptorId,
+	comp_aap.Namespace as raceDescriptor__Namespace,
+	comp_aap.CodeValue as raceDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
+	join comp_aaa.StudentEducationOrganizationAssociations comp_aaj
+	join comp_aaj.StudentEducationOrganizationAssociationRaces comp_aao
+		left join comp_aao.RaceDescriptor comp_aap 
+where comp_aaa.StudentUSI IN (:BaseEntityId)
+order by comp_aaa.StudentUSI,
+	comp_aaj.EducationOrganizationId,
+	comp_aao.RaceDescriptorId
