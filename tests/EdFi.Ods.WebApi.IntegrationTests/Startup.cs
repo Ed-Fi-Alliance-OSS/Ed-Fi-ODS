@@ -8,7 +8,7 @@ using EdFi.Ods.Api.Startup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace EdFi.Ods.WebService.Tests
+namespace EdFi.Ods.WebApi.IntegrationTests
 {
     public class Startup : OdsStartupBase
     {

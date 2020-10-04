@@ -7,22 +7,22 @@
 using System.Net.Http;
 using NUnit.Framework;
 
-namespace EdFi.Ods.WebService.Tests
+namespace EdFi.Ods.WebApi.IntegrationTests
 {
     public class HttpClientTestsBase
     {
-        protected HttpClient _httpClient;
+        protected HttpClient HttpClient { get; private set; }
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _httpClient = new HttpClient();
+            HttpClient = new HttpClient();
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _httpClient.Dispose();
+            HttpClient.Dispose();
         }
     }
 }
