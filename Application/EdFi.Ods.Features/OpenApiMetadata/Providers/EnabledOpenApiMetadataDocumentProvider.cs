@@ -58,14 +58,18 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 return false;
             }
 
-            document = GetMetadataForContent(openApiContent, request);
+            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYearFromRoute);
 
             return true;
         }
 
-        private string GetMetadataForContent(OpenApiContent content, HttpRequest request)
+        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, int? schoolYearFromRoute)
         {
-            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath;
+            var year = schoolYearFromRoute.HasValue
+                ? schoolYearFromRoute.Value.ToString()
+                : string.Empty;
+
+            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath.EnsureSuffixApplied("/") + year;
 
             return content.Metadata
                 .Replace("%HOST%", Host())
