@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Autofac.Core;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using log4net;
 
