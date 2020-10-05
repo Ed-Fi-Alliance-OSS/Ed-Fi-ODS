@@ -10,6 +10,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Api.Common.ExceptionHandling.EdFi;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.Providers;

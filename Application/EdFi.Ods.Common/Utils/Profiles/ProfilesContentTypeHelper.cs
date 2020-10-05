@@ -5,7 +5,7 @@
 
 using System;
 using System.Text.RegularExpressions;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Common.Inflection;
 
 namespace EdFi.Ods.Common.Utils.Profiles
 {

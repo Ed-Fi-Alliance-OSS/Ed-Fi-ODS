@@ -21,6 +21,8 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Common;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Providers.Criteria;

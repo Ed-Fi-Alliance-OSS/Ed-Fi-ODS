@@ -7,6 +7,7 @@
 using System;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.IO;

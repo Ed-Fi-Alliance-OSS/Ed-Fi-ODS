@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Models.Tokens;
 using EdFi.Ods.Common.Security;

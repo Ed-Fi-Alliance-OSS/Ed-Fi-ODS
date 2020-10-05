@@ -10,6 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Security.Claims;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
@@ -38,7 +39,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
         private readonly IEnumerable<Claim> _relevantClaims;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthorizationBuilder{TContextData}"/> class using the 
+        /// Initializes a new instance of the <see cref="AuthorizationBuilder{TContextData}"/> class using the
         /// specified <see cref="RelationshipsAuthorizationContextData"/> and collection of <see cref="Claim"/>s.
         /// </summary>
         /// <param name="relevantClaims">The claims that are applicable to the authorization decision.</param>
@@ -50,7 +51,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AuthorizationBuilder{TContextData}"/> class using the 
+        /// Initializes a new instance of the <see cref="AuthorizationBuilder{TContextData}"/> class using the
         /// specified <see cref="RelationshipsAuthorizationContextData"/> and collection of <see cref="Claim"/>s.
         /// </summary>
         /// <param name="relevantClaims">The claims that are applicable to the authorization decision.</param>
@@ -162,7 +163,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
         }
 
         /// <summary>
-        /// Indicates that the caller's claims must be associated with the values in the supplied property name 
+        /// Indicates that the caller's claims must be associated with the values in the supplied property name
         /// using the optional authorization path modifier, if supplied.
         /// </summary>
         /// <param name="propertyName">The names of the property with which the claim must be associated.</param>

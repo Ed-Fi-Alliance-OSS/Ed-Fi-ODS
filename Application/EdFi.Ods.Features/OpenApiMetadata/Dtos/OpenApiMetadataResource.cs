@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
 

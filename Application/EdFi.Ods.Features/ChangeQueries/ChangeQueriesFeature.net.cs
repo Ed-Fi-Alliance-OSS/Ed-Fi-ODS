@@ -5,6 +5,7 @@
 
 #if NETFRAMEWORK
 using Castle.MicroKernel.Registration;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensibility;
 using EdFi.Ods.Features.ChangeQueries;

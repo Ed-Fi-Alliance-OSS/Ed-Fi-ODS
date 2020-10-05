@@ -14,6 +14,8 @@ using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using EdFi.Ods.Common.InversionOfControl;
 using Castle.Windsor.Installer;
+using EdFi.Common.Configuration;
+using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.InversionOfControl

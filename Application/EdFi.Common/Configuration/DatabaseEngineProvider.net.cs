@@ -7,9 +7,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Extensions;
 
-namespace EdFi.Ods.Common.Configuration
+namespace EdFi.Common.Configuration
 {
     public class DatabaseEngineProvider: IDatabaseEngineProvider
     {

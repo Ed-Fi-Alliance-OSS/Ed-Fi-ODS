@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections;
+using EdFi.Common;
 using EdFi.Ods.Common;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure

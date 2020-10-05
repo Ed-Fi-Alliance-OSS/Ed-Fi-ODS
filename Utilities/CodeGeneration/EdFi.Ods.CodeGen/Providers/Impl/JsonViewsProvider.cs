@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using DatabaseSchemaReader.DataSchema;
+using EdFi.Common;
 using EdFi.Ods.Common;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl

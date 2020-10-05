@@ -5,12 +5,12 @@
 
 using System.IO;
 
-namespace EdFi.Ods.Common.Utils.Resources
+namespace EdFi.Common.Utils.Resources
 {
     public class EmbeddedResourceReader
     {
         /// <summary>
-        /// Get a resource stream for the embedded resource.  Using this signature, the resource should 
+        /// Get a resource stream for the embedded resource.  Using this signature, the resource should
         /// reside in the same assembly and namespace as TMarkerType
         /// </summary>
         /// <typeparam name="TMarkerType">A marker type that is a sibling to the embedded resource</typeparam>
@@ -25,7 +25,7 @@ namespace EdFi.Ods.Common.Utils.Resources
         }
 
         /// <summary>
-        /// Get a resource stream for the embedded resource.  Using this signature, the resource should 
+        /// Get a resource stream for the embedded resource.  Using this signature, the resource should
         /// reside in the same assembly and namespace as TMarkerType
         /// </summary>
         /// <typeparam name="TMarkerType">A marker type that is a sibling to the embedded resource</typeparam>

@@ -5,7 +5,7 @@
 
 using System;
 
-namespace EdFi.Ods.Common
+namespace EdFi.Common
 {
     public static class Preconditions
     {

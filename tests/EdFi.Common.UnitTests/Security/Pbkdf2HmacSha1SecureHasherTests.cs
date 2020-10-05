@@ -6,8 +6,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Security;
+using EdFi.Common.Extensions;
+using EdFi.Common.Security;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;

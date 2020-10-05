@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Utils.Extensions;
 using log4net;

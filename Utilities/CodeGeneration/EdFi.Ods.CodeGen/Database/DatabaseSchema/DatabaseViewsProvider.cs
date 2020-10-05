@@ -7,16 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using DatabaseSchemaReader;
 using DatabaseSchemaReader.DataSchema;
+using EdFi.Common;
 using EdFi.Common.Database;
 using EdFi.Ods.CodeGen.Providers;
-using EdFi.Ods.Common;
 
 namespace EdFi.Ods.CodeGen.Database.DatabaseSchema
 {
     public class DatabaseViewsProvider : IViewsProvider
     {
-        private readonly IDatabaseConnectionProvider _databaseConnectionProvider;
         private readonly string _connectionString;
+        private readonly IDatabaseConnectionProvider _databaseConnectionProvider;
         private List<DatabaseView> _views;
 
         public DatabaseViewsProvider(

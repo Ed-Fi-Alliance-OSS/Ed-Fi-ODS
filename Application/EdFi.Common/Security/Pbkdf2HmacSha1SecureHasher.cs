@@ -5,10 +5,9 @@
 
 using System;
 using System.Security.Cryptography;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Security.Helpers;
+using EdFi.Common.Extensions;
 
-namespace EdFi.Ods.Common.Security
+namespace EdFi.Common.Security
 {
     public class Pbkdf2HmacSha1SecureHasher : ISecureHasher
     {

@@ -6,7 +6,7 @@
 using System;
 using System.Linq;
 
-namespace EdFi.Ods.Common.Security
+namespace EdFi.Common.Security
 {
     /// <summary>
     /// Format (1 byte)

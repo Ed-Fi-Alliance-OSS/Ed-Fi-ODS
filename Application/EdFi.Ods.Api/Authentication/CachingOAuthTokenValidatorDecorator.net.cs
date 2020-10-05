@@ -6,6 +6,7 @@
 #if NETFRAMEWORK
 using System;
 using System.Threading.Tasks;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 

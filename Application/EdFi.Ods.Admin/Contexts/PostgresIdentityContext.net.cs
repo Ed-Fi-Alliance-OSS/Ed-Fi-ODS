@@ -10,6 +10,8 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using EdFi.Common;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Utils.Extensions;
 

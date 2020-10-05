@@ -7,6 +7,7 @@
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;

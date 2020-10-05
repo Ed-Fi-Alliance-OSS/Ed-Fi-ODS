@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
 using EdFi.Ods.CodeGen.Models.Templates;
 using EdFi.Ods.CodeGen.Providers;

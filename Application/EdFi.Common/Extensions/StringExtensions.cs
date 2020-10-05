@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace EdFi.Ods.Common.Extensions
+namespace EdFi.Common.Extensions
 {
     public static class StringExtensions
     {
@@ -352,7 +352,7 @@ namespace EdFi.Ods.Common.Extensions
 
         /// <summary>
         /// Converts the supplied string value to a boolean, returning the default value (false) if
-        /// the value cannot be parsed. 
+        /// the value cannot be parsed.
         /// </summary>
         /// <param name="value">The string value to be parsed to a boolean value.</param>
         /// <returns>The parsed boolean value if parseable; otherwise false.</returns>
@@ -362,7 +362,7 @@ namespace EdFi.Ods.Common.Extensions
             {
                 return boolValue;
             }
-            
+
             return default(bool);
         }
     }

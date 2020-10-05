@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Features;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
@@ -17,6 +18,7 @@ using EdFi.Ods.Features.ChangeQueries;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
+using IEnumerableExtensions = EdFi.Common.Utils.Extensions.IEnumerableExtensions;
 using Schema = EdFi.Ods.Features.OpenApiMetadata.Models.Schema;
 
 namespace EdFi.Ods.Features.OpenApiMetadata.Factories
@@ -219,13 +221,13 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
                 .ToList();
 
-            openApiMetadataResource.RequestProperties.ForEach(
-                x =>
+            IEnumerableExtensions.ForEach(
+                openApiMetadataResource.RequestProperties, x =>
                 {
                     parameterList.Add(
                         new Parameter
                         {
-                            name = x.PropertyName.ToCamelCase(),
+                            name = StringExtensions.ToCamelCase(x.PropertyName),
                             @in = openApiMetadataResource.IsPathParameter(x)
                                 ? "path"
                                 : "query",

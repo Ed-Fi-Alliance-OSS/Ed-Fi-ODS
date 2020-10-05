@@ -289,7 +289,7 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="AmountToDate" column="AmountToDate" type="decimal" not-null="true" />
+    <property name="AmountToDate" column="AmountToDate" type="Currency" not-null="true" />
 
     <!-- Aggregate references -->
     <many-to-one name="AccountReferenceData" class="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -1124,7 +1124,7 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="Amount" column="Amount" type="decimal" not-null="true" />
+    <property name="Amount" column="Amount" type="Currency" not-null="true" />
 
     <!-- Aggregate references -->
     <many-to-one name="AccountReferenceData" class="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -1640,7 +1640,7 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="AmountToDate" column="AmountToDate" type="decimal" not-null="true" />
+    <property name="AmountToDate" column="AmountToDate" type="Currency" not-null="true" />
 
     <!-- Aggregate references -->
     <many-to-one name="AccountReferenceData" class="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -5230,7 +5230,7 @@
 
     <!-- Properties -->
     <property name="CaseNumber" column="CaseNumber" type="string" length="20" />
-    <property name="IncidentCost" column="IncidentCost" type="decimal" />
+    <property name="IncidentCost" column="IncidentCost" type="Currency" />
     <property name="IncidentDate" column="IncidentDate" type="date" not-null="true" />
     <property name="IncidentDescription" column="IncidentDescription" type="string" length="1024" />
     <property name="IncidentLocationDescriptorId" column="IncidentLocationDescriptorId" type="int" />
@@ -5389,7 +5389,7 @@
     <!-- Properties -->
     <property name="AdditionalAuthorsIndicator" column="AdditionalAuthorsIndicator" type="bool" />
     <property name="ContentClassDescriptorId" column="ContentClassDescriptorId" type="int" />
-    <property name="Cost" column="Cost" type="decimal" />
+    <property name="Cost" column="Cost" type="Currency" />
     <property name="CostRateDescriptorId" column="CostRateDescriptorId" type="int" />
     <property name="Description" column="Description" type="string" length="1024" />
     <property name="InteractivityStyleDescriptorId" column="InteractivityStyleDescriptorId" type="int" />
@@ -9263,14 +9263,14 @@
 
 
     <!-- Properties -->
-    <property name="InnovativeDollarsSpent" column="InnovativeDollarsSpent" type="decimal" />
-    <property name="InnovativeDollarsSpentStrategicPriorities" column="InnovativeDollarsSpentStrategicPriorities" type="decimal" />
-    <property name="InnovativeProgramsFundsReceived" column="InnovativeProgramsFundsReceived" type="decimal" />
-    <property name="SchoolImprovementAllocation" column="SchoolImprovementAllocation" type="decimal" />
+    <property name="InnovativeDollarsSpent" column="InnovativeDollarsSpent" type="Currency" />
+    <property name="InnovativeDollarsSpentStrategicPriorities" column="InnovativeDollarsSpentStrategicPriorities" type="Currency" />
+    <property name="InnovativeProgramsFundsReceived" column="InnovativeProgramsFundsReceived" type="Currency" />
+    <property name="SchoolImprovementAllocation" column="SchoolImprovementAllocation" type="Currency" />
     <property name="SchoolImprovementReservedFundsPercentage" column="SchoolImprovementReservedFundsPercentage" type="decimal" />
     <property name="StateAssessmentAdministrationFunding" column="StateAssessmentAdministrationFunding" type="decimal" />
-    <property name="SupplementalEducationalServicesFundsSpent" column="SupplementalEducationalServicesFundsSpent" type="decimal" />
-    <property name="SupplementalEducationalServicesPerPupilExpenditure" column="SupplementalEducationalServicesPerPupilExpenditure" type="decimal" />
+    <property name="SupplementalEducationalServicesFundsSpent" column="SupplementalEducationalServicesFundsSpent" type="Currency" />
+    <property name="SupplementalEducationalServicesPerPupilExpenditure" column="SupplementalEducationalServicesPerPupilExpenditure" type="Currency" />
 
     <!-- Aggregate references -->
 
@@ -10133,7 +10133,7 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="AmountToDate" column="AmountToDate" type="decimal" not-null="true" />
+    <property name="AmountToDate" column="AmountToDate" type="Currency" not-null="true" />
 
     <!-- Aggregate references -->
     <many-to-one name="AccountReferenceData" class="EdFi.Ods.Entities.NHibernate.AccountAggregate.EdFi.AccountReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -12616,7 +12616,7 @@
     <property name="Department" column="Department" type="string" length="60" />
     <property name="EndDate" column="EndDate" type="date" />
     <property name="FullTimeEquivalency" column="FullTimeEquivalency" type="decimal" />
-    <property name="HourlyWage" column="HourlyWage" type="decimal" />
+    <property name="HourlyWage" column="HourlyWage" type="Currency" />
     <property name="OfferDate" column="OfferDate" type="date" />
     <property name="SeparationDescriptorId" column="SeparationDescriptorId" type="int" />
     <property name="SeparationReasonDescriptorId" column="SeparationReasonDescriptorId" type="int" />
@@ -12995,7 +12995,7 @@
 
 
     <!-- Properties -->
-    <property name="FederalProgramsFundingAllocation" column="FederalProgramsFundingAllocation" type="decimal" />
+    <property name="FederalProgramsFundingAllocation" column="FederalProgramsFundingAllocation" type="Currency" />
 
     <!-- Aggregate references -->
 

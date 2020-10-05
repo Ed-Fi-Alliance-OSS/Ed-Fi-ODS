@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
@@ -806,10 +807,10 @@ namespace EdFi.Ods.CodeGen.Generators
         /// <summary>
         /// Holds contextual information for the generation of the current NHibernate class mapping.
         /// </summary>
-        /// <remarks>Due to how the mappings need to be generated to handle certain special scenarios 
+        /// <remarks>Due to how the mappings need to be generated to handle certain special scenarios
         /// (e.g. concrete base classes and their children), multiple mappings are sometimes generated for
         /// the same tables (entities).  This context class captures the details pertinent to the variations
-        /// required for the specific mapping being generated so that a single template and template driver 
+        /// required for the specific mapping being generated so that a single template and template driver
         /// class can be used.</remarks>
         private class ClassContext
         {

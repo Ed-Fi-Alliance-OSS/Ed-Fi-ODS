@@ -18,6 +18,7 @@ using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using EdFi.Common.Database;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;

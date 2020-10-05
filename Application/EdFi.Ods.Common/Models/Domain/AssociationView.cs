@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using EdFi.Common.Extensions;
+using EdFi.Common.Inflection;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Utils.Extensions;
 
@@ -90,7 +92,7 @@ namespace EdFi.Ods.Common.Models.Domain
 
             _foreignKeyNameParts = new Lazy<ForeignKeyNameParts>(
                 () => GetForeignKeyNameParts(this));
-            
+
             _isSoftDependency = new Lazy<bool>(
                 () =>
                 {
@@ -306,7 +308,7 @@ namespace EdFi.Ods.Common.Models.Domain
         }
 
         /// <summary>
-        /// Gets the property mappings of the association whose values differ, and thus directly support the parent/child self-referencing 
+        /// Gets the property mappings of the association whose values differ, and thus directly support the parent/child self-referencing
         /// behavior.
         /// </summary>
         /// <returns>The list of self-referencing property mappings if the association is self-referencing; otherwise an empty list.</returns>
@@ -327,10 +329,10 @@ namespace EdFi.Ods.Common.Models.Domain
         }
 
         /// <summary>
-        /// Indicates whether the underlying <see cref="Association"/> represents the secondary role-named association 
+        /// Indicates whether the underlying <see cref="Association"/> represents the secondary role-named association
         /// which establishes the self-referencing many-to-many relationship.
         /// </summary>
-        /// <remarks>In order to fit the Ed-Fi composite key style of a self-many-to-many relationship, 
+        /// <remarks>In order to fit the Ed-Fi composite key style of a self-many-to-many relationship,
         /// the relationship must be identifying, and the relationship introducing the self-recursion
         /// must have a role name applied, while the "primary" relationship does not.
         /// </remarks>
@@ -343,7 +345,7 @@ namespace EdFi.Ods.Common.Models.Domain
                         ? AssociationViewType.OneToMany
                         : AssociationViewType.ManyToOne;
 
-                // In order to fit the Ed-Fi composite key style of a self-many-to-many relationship, 
+                // In order to fit the Ed-Fi composite key style of a self-many-to-many relationship,
                 // the relationship must be identifying, and have a role name applied
                 if (!IsIdentifying || string.IsNullOrEmpty(RoleName) || AssociationType != requiredAssociationViewType)
                 {
@@ -456,12 +458,12 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <summary>
         /// Indicates whether the association represents a <em>incoming</em> dependency from another aggregate where the association itself is not required
         /// to be present either because the association is optional or it is a member of a child entity that is not required to be present in the aggregate
-        /// (because the collection, or one the containing collections, is not a required collections). 
+        /// (because the collection, or one the containing collections, is not a required collections).
         /// </summary>
         public bool IsSoftDependency
         {
             get => _isSoftDependency.Value;
-        } 
+        }
 
         private void InitializeAssociationPropertyEntityBackReferences()
         {
@@ -517,10 +519,10 @@ namespace EdFi.Ods.Common.Models.Domain
             // For the purposes of avoiding breaking changes
             return ApplyRoleNameToReference(roleName, collectionName);
 
-            // TODO: GKM - ODS-1182 
+            // TODO: GKM - ODS-1182
             // Recommended implementation for collection names:
             // ------------------------------------------------------------------------------------------------------------------------------
-            // Sample Collection Name Changes: 
+            // Sample Collection Name Changes:
             //     AttemptedCourseTranscripts                 -->  CourseTranscriptsForAttemptedCreditType
             //     CumulativeAttemptedStudentAcademicRecords  -->  StudentAcademicRecordsForCumulativeAttemptedCreditType
             //     CumulativeEarnedStudentAcademicRecords     -->  StudentAcademicRecordsForCumulativeEarnedCreditType
@@ -571,8 +573,8 @@ namespace EdFi.Ods.Common.Models.Domain
                 {
                     // NOTE: When a role name is applied, some of the members of the association may be
                     // unified with the target entity's properties.  Usually this results in the role
-                    // name prefix disappearing from the target's property name (which is why we are 
-                    // looping through all the properties of the association looking for the role name). 
+                    // name prefix disappearing from the target's property name (which is why we are
+                    // looping through all the properties of the association looking for the role name).
                     // However, it is conceivable (but not currently an actual scenario anywhere in Ed-Fi)
                     // that a key unification could occur on a property that has already been role named
                     // by another association on the target entity.  In this case, this logic might
@@ -580,7 +582,7 @@ namespace EdFi.Ods.Common.Models.Domain
                     // and to fully support this remotely conceivable scenario would require some fairly
                     // careful logic to work with the interactions of all the other incoming associations
                     // on the target entity.  Since it is not currently an issue, nor is it likely to become
-                    // an issue, support for this scenario is not being added, and these notes are being left 
+                    // an issue, support for this scenario is not being added, and these notes are being left
                     // here for possible future maintenance work, should this ever actually be required.
 
                     string coreName = baseProperties[i]
@@ -604,9 +606,9 @@ namespace EdFi.Ods.Common.Models.Domain
                                     };
 
                         // We only need one-to-many associations to have a role name when there is more than one relationship
-                        // because often times the role name applied on the receiving end is for preventing an otherwise 
+                        // because often times the role name applied on the receiving end is for preventing an otherwise
                         // unified key property, but that role name only has meaning within the context of the target.  The only
-                        // time a role name is truly applicable on the one sie of a one-to-many is when we need to delineate 
+                        // time a role name is truly applicable on the one sie of a one-to-many is when we need to delineate
                         // between two different child collections.
                         if (associationView.AssociationType == AssociationViewType.OneToMany
                             && associationView.ThisEntity.OutgoingAssociations.Count(a => a.OtherEntity.Equals(associationView.OtherEntity)) < 2)

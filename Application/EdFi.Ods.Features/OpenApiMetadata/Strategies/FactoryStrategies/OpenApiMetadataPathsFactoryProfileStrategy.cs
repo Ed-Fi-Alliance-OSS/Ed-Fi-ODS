@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common.Utils.Profiles;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;

@@ -5,6 +5,8 @@
 
 #if NETCOREAPP
 using System.Linq;
+using EdFi.Common;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;

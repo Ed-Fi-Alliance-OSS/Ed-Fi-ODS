@@ -12,11 +12,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using Castle.Windsor;
+using EdFi.Common.Configuration;
+using EdFi.Common.Extensions;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.WebService.Tests.Extensions;
 using EdFi.Ods.WebService.Tests.Owin;
 using log4net;
@@ -33,9 +35,9 @@ namespace EdFi.Ods.WebService.Tests.Composites
         public const string CompositeSubjectResourceName = "CompositeSubjectResourceName";
         public const string PluralizedCompositeName = "pluralizedCompositeName";
         public const string CompositeMatchingRecordIds = "CompositeMatchingRecordIds";
-        public const string CompositeQueryParameterDictionary = "CompositeQueryParameterDictionary";        
+        public const string CompositeQueryParameterDictionary = "CompositeQueryParameterDictionary";
         public const string CompositeRangeQueries = "CompositeRangeQueries";
-        public const string RequestCorrelationId = "RequestCorrelationId";        
+        public const string RequestCorrelationId = "RequestCorrelationId";
         public const string CompositeQueryStringDescriptorParameter = "CompositeQueryStringDescriptorParameter";
         public const string RequestPattern = "RequestPattern";
         public const string RequestParameters = "RequestParameters";
@@ -70,7 +72,7 @@ namespace EdFi.Ods.WebService.Tests.Composites
             }
         }
 
-       
+
         [Given(@"the subject of the request is ""(.*)""( with invalid query)? where")]
         public void GivenTheSubjectOfTheRequestIsBaseResourceWhere(string baseResource, string invalidProperty, Table queryParameters)
         {
@@ -665,7 +667,7 @@ namespace EdFi.Ods.WebService.Tests.Composites
             }
         }
 
-    
+
         [When(@"a GET \(by (example|key|id)\) request is submitted to the (?:([a-z]+) )?""(.*)"" resource using the following parameters:")]
         public void WhenAGETByExampleRequestIsSubmittedToTheCompositeUsingTheFollowingParameters(
             string requestPattern,
@@ -857,7 +859,7 @@ namespace EdFi.Ods.WebService.Tests.Composites
             return correlationId;
         }
 
-      
+
 
         [When(@"a GET \(all\) request is submitted to the (?: ([a-z]+) )?""(.*)"" composite( with the query string filter)?")]
         public void WhenAGetAlldRequestIsSubmittedToTheCompositeWithAFilteredQuery(
@@ -884,7 +886,7 @@ namespace EdFi.Ods.WebService.Tests.Composites
             string queryStringParameterText = string.Join(
                 "&",
 
-                // Add the criteria 
+                // Add the criteria
                 queryParameterDictionary.Select(
                                              kvp =>
                                              {
@@ -923,14 +925,14 @@ namespace EdFi.Ods.WebService.Tests.Composites
             ScenarioContext.Current.Set(getResponseMessage);
         }
 
-     
+
         private string GetCompositeCategoryName(string providedName)
         {
             return string.IsNullOrWhiteSpace(providedName)
                 ? "test"
                 : providedName;
         }
-       
+
         private Dictionary<string, QueryParameterObject> CreateQueryStringParameterDictionaryByTypes(Table queryParameters)
         {
             var queryParameterDictionary = new Dictionary<string, QueryParameterObject>();
@@ -945,7 +947,7 @@ namespace EdFi.Ods.WebService.Tests.Composites
             return queryParameterDictionary;
         }
 
-       
+
         internal static SqlConnection CreateSqlConnection()
         {
             var conn = new SqlConnection(GlobalDatabaseSetupFixture.SpecFlowDatabaseConnectionString);

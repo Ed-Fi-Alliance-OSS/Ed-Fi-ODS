@@ -6,7 +6,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using EdFi.Ods.Common.Security;
+using EdFi.Common.Security;
 using EdFi.TestFixture;
 using NUnit.Framework;
 

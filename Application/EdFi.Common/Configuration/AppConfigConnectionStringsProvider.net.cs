@@ -1,18 +1,14 @@
-﻿#if NETFRAMEWORK
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Utils.Extensions;
 
-namespace EdFi.Ods.Common.Configuration
+namespace EdFi.Common.Configuration
 {
     /// <summary>
     /// Provides access to the configured connections strings using the <see cref="ConfigurationManager"/>.

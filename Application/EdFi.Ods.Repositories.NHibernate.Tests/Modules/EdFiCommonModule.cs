@@ -12,6 +12,7 @@ using EdFi.Ods.Common.IO;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using EdFi.Common.Configuration;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 {

@@ -6,7 +6,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EdFi.Ods.Common.Security.Helpers
+namespace EdFi.Common.Security
 {
     public static class HashHelper
     {

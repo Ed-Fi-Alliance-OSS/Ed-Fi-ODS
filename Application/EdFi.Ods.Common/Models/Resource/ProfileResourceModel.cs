@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml.Linq;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
@@ -22,7 +23,7 @@ namespace EdFi.Ods.Common.Models.Resource
         private readonly XElement _profileDefinition;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProfileResourceModel"/> class based on 
+        /// Initializes a new instance of the <see cref="ProfileResourceModel"/> class based on
         /// the provided profile definition obtaining resources from the provided <see cref="ResourceModel"/>.
         /// </summary>
         /// <param name="resourceModel">The backing <see cref="ResourceModel"/> for the Profile-constrained model.</param>

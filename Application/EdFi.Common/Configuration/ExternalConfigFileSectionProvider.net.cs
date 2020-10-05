@@ -6,7 +6,7 @@
 
 using System.Configuration;
 
-namespace EdFi.Ods.Common.Configuration
+namespace EdFi.Common.Configuration
 {
     /// <summary>
     /// Provides access to a specific external configuration file by filename.

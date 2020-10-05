@@ -6,7 +6,7 @@
 #if NETCOREAPP
 using System;
 using Autofac;
-using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Common.InversionOfControl;
 
 namespace EdFi.Ods.Api.InversionOfControl
 {

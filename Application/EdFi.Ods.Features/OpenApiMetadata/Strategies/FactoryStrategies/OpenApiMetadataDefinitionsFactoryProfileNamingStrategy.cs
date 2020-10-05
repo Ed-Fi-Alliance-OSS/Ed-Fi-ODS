@@ -4,8 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
+using EdFi.Common.Extensions;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;

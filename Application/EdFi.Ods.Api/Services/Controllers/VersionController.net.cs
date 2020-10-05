@@ -6,6 +6,8 @@
 #if NETFRAMEWORK
 using System.Linq;
 using System.Web.Http;
+using EdFi.Common;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;

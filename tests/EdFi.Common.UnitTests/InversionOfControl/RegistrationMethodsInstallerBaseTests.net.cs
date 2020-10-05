@@ -6,7 +6,7 @@
 #if NETFRAMEWORK
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Common.InversionOfControl;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;

@@ -5,6 +5,7 @@
 
 using System.Linq;
 using System.Reflection;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Security.AuthorizationStrategies.NHibernateConfiguration

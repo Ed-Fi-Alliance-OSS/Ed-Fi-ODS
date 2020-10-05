@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Dtos;

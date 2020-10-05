@@ -5,7 +5,7 @@
 
 using System.Threading.Tasks;
 
-namespace EdFi.Ods.Common.Extensions
+namespace EdFi.Common.Extensions
 {
     public static class TaskExtensions
     {

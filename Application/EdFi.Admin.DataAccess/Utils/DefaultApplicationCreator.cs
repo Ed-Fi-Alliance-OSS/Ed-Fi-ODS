@@ -10,7 +10,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Ods.Common;
+using EdFi.Common;
 using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Admin.DataAccess.Utils

@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
 using Antlr.Runtime.Misc;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models.GraphML;

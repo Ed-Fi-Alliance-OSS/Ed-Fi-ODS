@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETSTANDARD
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Common.Database {

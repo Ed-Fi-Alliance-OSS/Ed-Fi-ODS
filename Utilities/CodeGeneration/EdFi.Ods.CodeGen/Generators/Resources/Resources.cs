@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
@@ -296,7 +297,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                 av.OtherEntity.Name),
                             // Leaving this member definition inline as this entire method
                             // is to be deprecated in the future.
-                            ContextualReferenceIdentifier = 
+                            ContextualReferenceIdentifier =
                                 av.ThisProperties
                                     .Where(p => (p.IsUnified && p.IsIdentifying))
                                     .Select(

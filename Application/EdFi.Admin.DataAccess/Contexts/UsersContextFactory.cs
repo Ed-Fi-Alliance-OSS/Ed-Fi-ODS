@@ -7,8 +7,8 @@
 using System;
 using System.Collections.Generic;
 using EdFi.Admin.DataAccess.Providers;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common;
+using EdFi.Common;
+using EdFi.Common.Configuration;
 
 namespace EdFi.Admin.DataAccess.Contexts
 {

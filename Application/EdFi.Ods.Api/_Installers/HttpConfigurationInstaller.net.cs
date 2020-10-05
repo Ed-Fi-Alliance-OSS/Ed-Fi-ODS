@@ -8,6 +8,8 @@ using System.Web.Http.Dependencies;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using EdFi.Common;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Architecture;
 using EdFi.Ods.Api.HttpConfigurators;
 using EdFi.Ods.Api.HttpRouteConfigurations;

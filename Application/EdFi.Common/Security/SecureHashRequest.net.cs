@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETFRAMEWORK
-namespace EdFi.Ods.Common.Security
+namespace EdFi.Common.Security
 {
     public class SecureHashRequest
     {

@@ -5,7 +5,7 @@
 
 using System;
 
-namespace EdFi.Ods.Common.InversionOfControl
+namespace EdFi.Common.InversionOfControl
 {
     /// <summary>
     /// Provides methods for obtaining services in a decoupled fashion.

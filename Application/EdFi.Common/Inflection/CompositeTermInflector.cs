@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace EdFi.Ods.Common.Inflection
+namespace EdFi.Common.Inflection
 {
     public static class CompositeTermInflector
     {

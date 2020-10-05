@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace EdFi.Ods.Common.ChainOfResponsibility
+namespace EdFi.Common.ChainOfResponsibility
 {
     public abstract class ChainOfResponsibilityBase<TService, TRequest, TResponse>
         where TService : class

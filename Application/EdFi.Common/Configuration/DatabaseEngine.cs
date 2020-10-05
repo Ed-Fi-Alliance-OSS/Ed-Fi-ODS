@@ -5,9 +5,9 @@
 
 #if NETSTANDARD
 using System;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Common.Extensions;
 
-namespace EdFi.Ods.Common.Configuration
+namespace EdFi.Common.Configuration
 {
     public class DatabaseEngine : Enumeration<DatabaseEngine, string>
     {

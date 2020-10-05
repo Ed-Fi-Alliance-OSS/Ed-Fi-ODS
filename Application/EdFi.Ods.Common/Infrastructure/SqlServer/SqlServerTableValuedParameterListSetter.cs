@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using EdFi.Common;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using NHibernate;
 using NHibernate.Type;

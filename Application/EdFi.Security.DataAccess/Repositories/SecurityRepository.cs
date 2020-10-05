@@ -6,6 +6,7 @@
 using System;
 using System.Data.Entity;
 using System.Linq;
+using EdFi.Common;
 using EdFi.Ods.Common;
 using EdFi.Security.DataAccess.Contexts;
 

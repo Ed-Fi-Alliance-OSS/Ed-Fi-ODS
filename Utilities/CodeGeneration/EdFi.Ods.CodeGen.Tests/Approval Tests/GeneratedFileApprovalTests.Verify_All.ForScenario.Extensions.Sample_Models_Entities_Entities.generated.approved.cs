@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.Serialization;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Attributes;
 using EdFi.Ods.Common.Adapters;

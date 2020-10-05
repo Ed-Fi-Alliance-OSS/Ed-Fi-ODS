@@ -6,6 +6,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Common;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Utils.Extensions;
 
@@ -74,7 +76,7 @@ namespace EdFi.Ods.Api.Authentication
         /// Gets or sets the Student Identification System Descriptor
         /// </summary>
         public string StudentIdentificationSystemDescriptor { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the CreatorOwnershipTokenID for the given API client
         /// </summary>

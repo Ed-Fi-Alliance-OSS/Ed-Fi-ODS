@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.WebService.Tests.Owin;
 using Microsoft.Owin.Testing;

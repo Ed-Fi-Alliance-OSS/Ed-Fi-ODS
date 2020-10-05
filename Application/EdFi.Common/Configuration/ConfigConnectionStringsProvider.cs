@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 
-namespace EdFi.Ods.Common.Configuration
+namespace EdFi.Common.Configuration
 {
     public class ConfigConnectionStringsProvider : IConfigConnectionStringsProvider
     {

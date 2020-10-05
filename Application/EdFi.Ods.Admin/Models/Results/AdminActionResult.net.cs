@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Ods.Admin.Models.Results

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Common;
 using EdFi.Ods.CodeGen.Models.Configuration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models;

@@ -6,7 +6,7 @@
 #if NETFRAMEWORK
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using EdFi.Ods.Common.Configuration;
+using EdFi.Common.Configuration;
 using NUnit.Framework;
 using Shouldly;
 

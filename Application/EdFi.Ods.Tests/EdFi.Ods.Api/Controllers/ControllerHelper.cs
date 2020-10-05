@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Text;
+using EdFi.Common.Security;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {

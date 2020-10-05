@@ -5,6 +5,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Configuration;
+using EdFi.Common.Configuration;
 
 namespace EdFi.Ods.Common.Configuration
 {

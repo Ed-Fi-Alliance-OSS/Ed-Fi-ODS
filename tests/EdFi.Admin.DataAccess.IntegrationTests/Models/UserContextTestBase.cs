@@ -7,6 +7,7 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Transactions;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;

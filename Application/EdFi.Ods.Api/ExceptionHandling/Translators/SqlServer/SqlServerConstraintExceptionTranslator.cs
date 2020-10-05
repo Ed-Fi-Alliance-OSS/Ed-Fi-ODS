@@ -7,6 +7,7 @@ using System;
 using System.Data.SqlClient;
 using System.Net;
 using System.Text.RegularExpressions;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using NHibernate.Exceptions;
@@ -26,7 +27,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
          * ---------------------------------------------
          * The DELETE statement conflicted with the REFERENCE constraint "FK_DisciplineAction_DisciplineIncident_SchoolId". The conflict occurred in database "EdFi_Ods", table "edfi.DisciplineAction".
          * The statement has been terminated.
-         * 
+         *
          * Insert fails, single column parent reference
          * --------------------------------------------
          * The INSERT statement conflicted with the FOREIGN KEY constraint "FK_StudentAddress_AddressType_AddressTypeId". The conflict occurred in database "EdFi_Ods", table "edfi.AddressType", column 'AddressTypeId'.
@@ -36,7 +37,7 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
          * --------------------------------------------
          * The UPDATE statement conflicted with the FOREIGN KEY constraint "FK_Student_LimitedEnglishProficiencyType_LimitedEnglishProficiencyTypeId". The conflict occurred in database "EdFi_Ods", table "edfi.LimitedEnglishProficiencyType", column 'LimitedEnglishProficiencyTypeId'.
          * The statement has been terminated.
-         * 
+         *
          */
 
         private static readonly Regex _expression = new Regex(

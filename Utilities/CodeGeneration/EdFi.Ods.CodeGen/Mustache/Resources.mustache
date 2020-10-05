@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
@@ -1327,7 +1328,7 @@ namespace {{ResourceClassesNamespace}}
                 {{#UnifiedPropertyIsFromParent}}
                 // Obtain value from the parent
                 yield return Tuple.Create("{{UnifiedJsonPropertyName}} (from parent context)", (instance as {{NamespacePrefix}}I{{ResourceClassName}}).{{ParentResourceClassName}}.{{UnifiedPropertyName}});
-                    
+
                 {{/UnifiedPropertyIsFromParent}}
                 {{#References}}
                 // Obtain value from other references

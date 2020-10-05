@@ -5,7 +5,7 @@
 
 using log4net;
 
-namespace EdFi.Ods.Common.Security
+namespace EdFi.Common.Security
 {
     public class AutoUpgradingHashedSecretVerifierDecorator : ISecretVerifier
     {

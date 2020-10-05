@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;

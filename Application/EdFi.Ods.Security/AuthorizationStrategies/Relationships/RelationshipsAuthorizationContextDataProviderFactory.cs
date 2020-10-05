@@ -5,7 +5,7 @@
 
 using System;
 using System.Collections.Concurrent;
-using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Common.InversionOfControl;
 
 namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 {
@@ -16,7 +16,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
     /// <remarks>This interface is intended to be used as a non-generic invocation mechanism from within the
     /// <see cref="RelationshipsAuthorizationContextDataProviderFactory{TContextData}"/> for invoking the non-generic implementation
     /// after obtaining it from the <see cref="IServiceLocator"/>.  The crux of the issue is that the context
-    /// data providers are implemented and registered based on the model abstraction (e.g. IStudent) rather than 
+    /// data providers are implemented and registered based on the model abstraction (e.g. IStudent) rather than
     /// either of the concrete models (e.g. Student (resource) or Student (entity)).</remarks>
     public class RelationshipsAuthorizationContextDataProviderFactory<TContextData>
         : IRelationshipsAuthorizationContextDataProviderFactory<TContextData>
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
         /// <summary>
         /// Get the <see cref="IRelationshipsAuthorizationContextDataProvider{TContextData}"/> implementation appropriate for the
-        /// concrete model type specified (resolving to the IoC registration for the model's interface 
+        /// concrete model type specified (resolving to the IoC registration for the model's interface
         /// abstraction [e.g. IStudent]).
         /// </summary>
         ///// <typeparam name="TConcreteModel">The concrete model class type.</typeparam>

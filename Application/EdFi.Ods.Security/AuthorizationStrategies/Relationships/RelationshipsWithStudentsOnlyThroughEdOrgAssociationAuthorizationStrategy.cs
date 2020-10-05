@@ -5,6 +5,7 @@
 
 using System;
 using System.Linq;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Utils.Extensions;
 using EdFi.Ods.Security.Authorization;

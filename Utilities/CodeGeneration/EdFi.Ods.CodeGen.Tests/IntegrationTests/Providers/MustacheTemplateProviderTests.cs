@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autofac;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers;
 using EdFi.Ods.Common.Extensions;

@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common.Conventions;
@@ -72,7 +73,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                     templateContext.GetSchemaProperCaseNameForResource(resourceClass),
                                     templateContext.IsProfiles,
                                     templateContext.IsExtension),
-                            ReferencesWithUnifiedKey = 
+                            ReferencesWithUnifiedKey =
                                 resourceClass.References
                                     .Where(@ref => @ref.Properties.Any(rp => rp.IsUnified()))
                                     .Select(@ref => new

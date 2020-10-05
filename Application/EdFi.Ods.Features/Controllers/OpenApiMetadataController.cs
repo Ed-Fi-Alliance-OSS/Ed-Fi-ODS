@@ -7,6 +7,8 @@
 using System;
 using System.Linq;
 using System.Net;
+using EdFi.Common.Extensions;
+using EdFi.Common.Security;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Models;
@@ -14,7 +16,6 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Security.Helpers;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using log4net;

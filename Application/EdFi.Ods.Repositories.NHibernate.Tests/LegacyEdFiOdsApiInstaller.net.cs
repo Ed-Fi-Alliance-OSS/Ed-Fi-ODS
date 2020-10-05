@@ -7,6 +7,7 @@
 using System;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Common.Providers;
 using EdFi.Ods.Api.ETag;

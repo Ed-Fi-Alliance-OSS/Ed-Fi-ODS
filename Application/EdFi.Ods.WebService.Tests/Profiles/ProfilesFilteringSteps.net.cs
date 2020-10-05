@@ -15,8 +15,9 @@ using System.Threading;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Castle.Windsor;
+using EdFi.Common.Extensions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Inflection;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Utils.Extensions;
 using EdFi.Ods.Common.Utils.Profiles;
@@ -482,8 +483,8 @@ namespace EdFi.Ods.WebService.Tests.Profiles
                 var originalSchoolEntity = new SchoolEntity();
                 schoolEntityForUpdate.MapTo(originalSchoolEntity, null);
 
-                // Save into the ScenarioContext the targeted entity and the prepared school resource for 
-                // subsequent inspection to ensure values are synched to entity correctly, and existing 
+                // Save into the ScenarioContext the targeted entity and the prepared school resource for
+                // subsequent inspection to ensure values are synched to entity correctly, and existing
                 // values disallowed by the filter are intact on the entity.
                 ScenarioContext.Current.Set(
                     ((FakeRepository<SchoolEntity>) getSchoolEntityById).EntitiesById[id],
@@ -771,8 +772,8 @@ namespace EdFi.Ods.WebService.Tests.Profiles
                 var originalStudentAssessmentEntity = new StudentAssessment_Entity();
                 studentAssessmentForUpdate.MapTo(originalStudentAssessmentEntity, null);
 
-                // Save into the ScenarioContext the targeted entity and the prepared school resource for 
-                // subsequent inspection to ensure values are synched to entity correctly, and existing 
+                // Save into the ScenarioContext the targeted entity and the prepared school resource for
+                // subsequent inspection to ensure values are synched to entity correctly, and existing
                 // values disallowed by the filter are intact on the entity.
                 ScenarioContext.Current.Set(
                     ((FakeRepository<StudentAssessment_Entity>) getStudentAssessmentEntityById).EntitiesById[id],
@@ -794,7 +795,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             return putRequestContent;
         }
 
-      
+
         private static IList<XElement> GetFilteredCollectionElts(
             XElement profileElt,
             string resourceName,
@@ -825,7 +826,7 @@ namespace EdFi.Ods.WebService.Tests.Profiles
             return filteredCollectionElts;
         }
 
-       
+
 
         [StepArgumentTransformation(@"(conforming|non-conforming)")]
         public ConformanceType ConformanceTypeTransform(string conformanceTypeText)

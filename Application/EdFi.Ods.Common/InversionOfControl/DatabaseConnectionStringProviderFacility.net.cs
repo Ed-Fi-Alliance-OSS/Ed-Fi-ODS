@@ -8,6 +8,7 @@ using System.Linq;
 using Castle.Core;
 using Castle.MicroKernel.Facilities;
 using EdFi.Common.Database;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Extensions;
 

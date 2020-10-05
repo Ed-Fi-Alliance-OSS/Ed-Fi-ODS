@@ -5,7 +5,7 @@
 
 using System;
 
-namespace EdFi.Ods.Common.Utils
+namespace EdFi.Common.Utils
 {
     public static class SystemClock
     {

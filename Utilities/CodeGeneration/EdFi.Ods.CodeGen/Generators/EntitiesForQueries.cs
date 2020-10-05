@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
@@ -168,7 +169,7 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             return entity.NavigableChildren
 
-                // NOTE: This concatenation adds in self-many-to-many collections under "Collections", while removing the filter on 
+                // NOTE: This concatenation adds in self-many-to-many collections under "Collections", while removing the filter on
                 // GetMappedExternalCollectionAssociations will allow it to come in there, which is more appropriate, and then the following
                 // statement could be removed.
                 .Concat(
@@ -241,10 +242,10 @@ namespace EdFi.Ods.CodeGen.Generators
         /// <summary>
         /// Holds contextual information for the generation of the current NHibernate entity.
         /// </summary>
-        /// <remarks>Due to how the mappings need to be generated to handle certain special scenarios 
+        /// <remarks>Due to how the mappings need to be generated to handle certain special scenarios
         /// (e.g. concrete base classes and their children), multiple entities are sometimes generated for
         /// the same tables.  This context class captures the details pertinent to the variations
-        /// required for the specific mappings being generated so that a single template and template driver 
+        /// required for the specific mappings being generated so that a single template and template driver
         /// class can be used.</remarks>
         private class ClassContext
         {

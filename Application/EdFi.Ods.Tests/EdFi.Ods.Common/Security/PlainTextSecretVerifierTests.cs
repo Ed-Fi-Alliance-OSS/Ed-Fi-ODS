@@ -6,6 +6,7 @@
 #if NETCOREAPP
 using System;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Common.Security;
 using EdFi.Ods.Common.Security;
 using EdFi.TestFixture;
 using NUnit.Framework;

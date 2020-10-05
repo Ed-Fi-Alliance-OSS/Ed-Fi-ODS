@@ -1,9 +1,9 @@
-﻿#if NETFRAMEWORK
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+#if NETFRAMEWORK
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,12 +12,12 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Castle.DynamicProxy;
 
-namespace EdFi.Ods.Common.ChainOfResponsibility
+namespace EdFi.Common.ChainOfResponsibility
 {
     /// <summary>
     /// Implements an <see cref="IInterceptor"/> that handles the boilerplate code of calling
-    /// the <see cref="ChainOfResponsibilityBase{TService, TRequest, TResponse}.ProcessRequest"/> 
-    /// method for transferring control flow from the external interface to the Chain of Responsibility 
+    /// the <see cref="ChainOfResponsibilityBase{TService,TRequest,TResponse}.ProcessRequest"/>
+    /// method for transferring control flow from the external interface to the Chain of Responsibility
     /// processing.
     /// </summary>
     public class ChainOfResponsibilityLinkInterceptor : IInterceptor

@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETSTANDARD
-using EdFi.Ods.Common.Configuration;
+using EdFi.Common.Configuration;
 
 namespace EdFi.Admin.DataAccess.Providers
 {

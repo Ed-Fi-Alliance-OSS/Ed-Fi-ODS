@@ -6,6 +6,7 @@
 #if NETFRAMEWORK
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensibility;
 

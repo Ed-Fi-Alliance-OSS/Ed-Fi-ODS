@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Diagnostics.CodeAnalysis;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common;
@@ -16467,7 +16468,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             {
                 // Obtain value from the parent
                 yield return Tuple.Create("studentUniqueId (from parent context)", (instance as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).StudentGraduationPlanAssociation.StudentUniqueId);
-                    
+
                 // Obtain value from other references
                 var valueFromStudentParentAssociationReference = instance.StudentParentAssociationReference?.StudentUniqueId;
 

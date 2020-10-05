@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Common.Configuration;
 using FakeItEasy;
 using EdFi.Security.DataAccess.Contexts;
 using NUnit.Framework;

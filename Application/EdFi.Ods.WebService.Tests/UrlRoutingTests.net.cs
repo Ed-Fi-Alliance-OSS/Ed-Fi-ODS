@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api;
 using EdFi.Ods.Api.Common;
 using EdFi.Ods.Api.Services.Controllers;

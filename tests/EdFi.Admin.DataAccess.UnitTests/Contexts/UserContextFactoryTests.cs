@@ -7,9 +7,9 @@ using System;
 using FakeItEasy;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Providers;
+using EdFi.Common.Configuration;
 using NUnit.Framework;
 using Shouldly;
-using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Admin.DataAccess.UnitTests.Contexts
 {
