@@ -30,7 +30,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         private readonly IList<IOpenApiMetadataRouteInformation> _routeInformations;
         private readonly bool _useReverseProxyHeaders;
         private readonly Lazy<IReadOnlyList<SchemaNameMap>> _schemaNameMaps;
-        private readonly Regex _yearSpecificRegex = new Regex("^/.*/v\\d/(20\\d{2}).*$", RegexOptions.Compiled);
+        private readonly Regex _yearSpecificRegex = new Regex("^/.*/v\\d/(20\\d{2}).*$");
         private readonly bool _isYearSpecific;
 
         public EnabledOpenApiMetadataDocumentProvider(
