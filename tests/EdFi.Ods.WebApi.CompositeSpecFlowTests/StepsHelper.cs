@@ -25,6 +25,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             var client = new HttpClient();
             client.DefaultRequestHeaders.Add("IncludeNulls", new[] {"true"});
             client.Timeout = new TimeSpan(0, 0, 15, 0);
+            client.BaseAddress = new Uri(CompositesTestConstants.BaseUrl);
 
             // Set client's authorization header to an arbitrary value
             client.DefaultRequestHeaders.Authorization =
