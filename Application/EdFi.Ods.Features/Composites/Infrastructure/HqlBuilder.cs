@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using EdFi.Common;
+using EdFi.Common.Extensions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
@@ -793,7 +796,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     {
                         var id = _descriptorsCache.GetId(
                             targetProperty.LookupTypeName,
-                            queryStringParameter.Value.ToString());
+                            Convert.ToString(queryStringParameter.Value));
 
                         criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
                         parameterValue = id;
@@ -802,7 +805,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Handle UniqueId conversions
                     else if (UniqueIdSpecification.TryGetUniqueIdPersonType(targetProperty.PropertyName, out personType))
                     {
-                        int usi = _personUniqueIdToUsiCache.GetUsi(personType, queryStringParameter.Value.ToString());
+                        int usi = _personUniqueIdToUsiCache.GetUsi(personType, Convert.ToString(queryStringParameter.Value));
 
                         // TODO: Embedded convention - Convert UniqueId to USI from Resource model to query Entity model on Person entities
                         // The resource model maps uniqueIds to uniqueIds on the main entity(Student,Staff,Parent)
@@ -820,7 +823,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     else
                     {
                         criteriaPropertyName = targetProperty.PropertyName;
-                        parameterValue = ConvertParameterValueForProperty(targetProperty, queryStringParameter.Value.ToString());
+                        parameterValue = ConvertParameterValueForProperty(targetProperty, Convert.ToString(queryStringParameter.Value));
                     }
 
                     // Add criteria to the query
