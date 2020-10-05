@@ -30,8 +30,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         private readonly IList<IOpenApiMetadataRouteInformation> _routeInformations;
         private readonly bool _useReverseProxyHeaders;
         private readonly Lazy<IReadOnlyList<SchemaNameMap>> _schemaNameMaps;
-        private readonly Regex _yearSpecificRegex = new Regex("^/.*/v\\d/(20\\d{2}).*$");
-        private readonly bool _isYearSpecific;
 
         public EnabledOpenApiMetadataDocumentProvider(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
@@ -44,7 +42,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _useReverseProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
 
             _schemaNameMaps = new Lazy<IReadOnlyList<SchemaNameMap>>(schemaNameMapProvider.GetSchemaNameMaps);
-            _isYearSpecific = apiSettings.GetApiMode().Equals(ApiMode.YearSpecific);
         }
 
         public bool TryGetSwaggerDocument(HttpRequest request, out string document)
@@ -61,20 +58,18 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 return false;
             }
 
-            document = GetMetadataForContent(openApiContent, request);
+            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYearFromRoute);
 
             return true;
         }
 
-        private string GetMetadataForContent(OpenApiContent content, HttpRequest request)
+        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, int? schoolYearFromRoute)
         {
-            var match = _yearSpecificRegex.Match(request.Path);
-
-            var year = match.Success && _isYearSpecific
-                ? "/" + match.Groups[1].Value
+            var year = schoolYearFromRoute.HasValue
+                ? schoolYearFromRoute.Value.ToString()
                 : string.Empty;
 
-            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath + year;
+            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath.EnsureSuffixApplied("/") + year;
 
             return content.Metadata
                 .Replace("%HOST%", Host())
