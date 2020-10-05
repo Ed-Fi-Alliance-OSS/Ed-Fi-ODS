@@ -9,9 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using EdFi.Common;
-using EdFi.Common.Extensions;
-using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
@@ -796,7 +793,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     {
                         var id = _descriptorsCache.GetId(
                             targetProperty.LookupTypeName,
-                            (string) queryStringParameter.Value);
+                            queryStringParameter.Value.ToString());
 
                         criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
                         parameterValue = id;
@@ -805,7 +802,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Handle UniqueId conversions
                     else if (UniqueIdSpecification.TryGetUniqueIdPersonType(targetProperty.PropertyName, out personType))
                     {
-                        int usi = _personUniqueIdToUsiCache.GetUsi(personType, (string) queryStringParameter.Value);
+                        int usi = _personUniqueIdToUsiCache.GetUsi(personType, queryStringParameter.Value.ToString());
 
                         // TODO: Embedded convention - Convert UniqueId to USI from Resource model to query Entity model on Person entities
                         // The resource model maps uniqueIds to uniqueIds on the main entity(Student,Staff,Parent)
@@ -823,7 +820,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     else
                     {
                         criteriaPropertyName = targetProperty.PropertyName;
-                        parameterValue = ConvertParameterValueForProperty(targetProperty, queryStringParameter.Value);
+                        parameterValue = ConvertParameterValueForProperty(targetProperty, queryStringParameter.Value.ToString());
                     }
 
                     // Add criteria to the query
