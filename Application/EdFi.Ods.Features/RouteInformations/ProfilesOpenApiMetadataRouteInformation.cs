@@ -4,16 +4,25 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Routing;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Features.RouteInformations
 {
     public class ProfilesOpenApiMetadataRouteInformation : IOpenApiMetadataRouteInformation
     {
+
+        private readonly ApiSettings _apiSettings;
+
+        public ProfilesOpenApiMetadataRouteInformation(ApiSettings apiSettings)
+        {
+            _apiSettings = apiSettings;
+        }
         public RouteInformation GetRouteInformation()
             => new RouteInformation
             {
@@ -24,9 +33,14 @@ namespace EdFi.Ods.Features.RouteInformations
         private string CreateRoute()
         {
             //metadata/data/v3/profiles/test-profile-resource-includeonly/swagger.json
-            string prefix = $"metadata/data/v{ApiVersionConstants.Ods}/profiles/";
+            string prefix = $"metadata/data/v{ApiVersionConstants.Ods}/";
 
-            prefix += "{profileName}";
+            if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
+            {
+                prefix += RouteConstants.SchoolYearFromRoute;
+            }
+
+            prefix += "profiles/{profileName}";
 
             return prefix.TrimSuffix("/");
         }
