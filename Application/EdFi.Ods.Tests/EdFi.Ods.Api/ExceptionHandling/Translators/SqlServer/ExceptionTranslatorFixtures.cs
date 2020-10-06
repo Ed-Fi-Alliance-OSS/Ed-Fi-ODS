@@ -30,7 +30,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             _suppliedInsertException =
                 NHibernateExceptionBuilder.CreateException(
                     "could not execute batch command.[SQL: SQL not available]",
-                    "The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_StudentAddress_AddressType_AddressTypeId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.AddressType\", column 'AddressTypeId'.\r\nThe statement has been terminated.\r\n");
+                    $"The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_StudentAddress_AddressType_AddressTypeId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.AddressType\", column 'AddressTypeId'.{Environment.NewLine}The statement has been terminated.{Environment.NewLine}");
         }
 
         protected override void Act()
@@ -64,7 +64,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             _suppliedUpdateException = NHibernateExceptionBuilder.CreateException(
                 "could not update: [something-a-rather][SQL: SQL not available]",
-                "The UPDATE statement conflicted with the FOREIGN KEY constraint \"FK_Student_LimitedEnglishProficiencyType_LimitedEnglishProficiencyTypeId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.LimitedEnglishProficiencyType\", column 'LimitedEnglishProficiencyTypeId'.\r\nThe statement has been terminated.\r\n");
+                $"The UPDATE statement conflicted with the FOREIGN KEY constraint \"FK_Student_LimitedEnglishProficiencyType_LimitedEnglishProficiencyTypeId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.LimitedEnglishProficiencyType\", column 'LimitedEnglishProficiencyTypeId'.{Environment.NewLine}The statement has been terminated.{Environment.NewLine}");
         }
 
         protected override void Act()
@@ -99,7 +99,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             _suppliedUpdateException = NHibernateExceptionBuilder.CreateException(
                 "could not delete: [something-a-rather][SQL: SQL not available]",
-                "The DELETE statement conflicted with the REFERENCE constraint \"FK_DisciplineAction_DisciplineIncident_SchoolId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.DisciplineAction\".\r\nThe statement has been terminated.");
+                $"The DELETE statement conflicted with the REFERENCE constraint \"FK_DisciplineAction_DisciplineIncident_SchoolId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.DisciplineAction\".{Environment.NewLine}The statement has been terminated.");
         }
 
         protected override void Act()
@@ -135,7 +135,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             _suppliedUpdateException = NHibernateExceptionBuilder.CreateException(
                 "could not delete: [something-a-rather][SQL: SQL not available]",
-                "The DELETE statement conflicted with the REFERENCE constraint \"FK_CourseTranscript_CourseAttemptResultType_CourseAttemptResultTypeId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.CourseTranscript\", column 'CourseAttemptResultTypeId'.\r\nThe statement has been terminated.");
+                $"The DELETE statement conflicted with the REFERENCE constraint \"FK_CourseTranscript_CourseAttemptResultType_CourseAttemptResultTypeId\". The conflict occurred in database \"EdFi_Ods\", table \"edfi.CourseTranscript\", column 'CourseAttemptResultTypeId'.{Environment.NewLine}The statement has been terminated.");
         }
 
         protected override void Act()
@@ -173,7 +173,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             _suppliedUpdateException = NHibernateExceptionBuilder.CreateException(
                 "could not insert: [EdFi.Ods.Entities.AcademicHonorsTypeAggregate.AcademicHonorsType][SQL: INSERT INTO edfi.AcademicHonorsType (LastModifiedDate, CreateDate, Id, CodeValue, Description) VALUES (?, ?, ?, ?, ?); select SCOPE_IDENTITY()]",
-                "Cannot insert duplicate key row in object 'edfi.AcademicHonorsType' with unique index 'SomeIndexName'.\r\nThe statement has been terminated.");
+                $"Cannot insert duplicate key row in object 'edfi.AcademicHonorsType' with unique index 'SomeIndexName'.{Environment.NewLine}The statement has been terminated.");
 
             _suppliedMetadataProvider = A.Fake<IDatabaseMetadataProvider>();
 
@@ -219,7 +219,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             _suppliedUpdateException = NHibernateExceptionBuilder.CreateException(
                 "could not insert: [EdFi.Ods.Entities.AcademicHonorsTypeAggregate.AcademicHonorsType][SQL: INSERT INTO edfi.AcademicHonorsType (LastModifiedDate, CreateDate, Id, CodeValue, Description) VALUES (?, ?, ?, ?, ?); select SCOPE_IDENTITY()]",
-                "Cannot insert duplicate key row in object 'edfi.AcademicHonorsType' with unique index 'SomeIndexName'.\r\nThe statement has been terminated.");
+                $"Cannot insert duplicate key row in object 'edfi.AcademicHonorsType' with unique index 'SomeIndexName'.{Environment.NewLine}The statement has been terminated.");
 
             _suppliedMetadataProvider = A.Fake<IDatabaseMetadataProvider>();
 
@@ -271,7 +271,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
         {
             _suppliedUpdateException = NHibernateExceptionBuilder.CreateException(
                 "could not insert: [EdFi.Ods.Entities.AcademicHonorsTypeAggregate.AcademicHonorsType][SQL: INSERT INTO edfi.AcademicHonorsType (LastModifiedDate, CreateDate, Id, CodeValue, Description) VALUES (?, ?, ?, ?, ?); select SCOPE_IDENTITY()]",
-                "Cannot insert duplicate key row in object 'edfi.AcademicHonorsType' with unique index 'SomeIndexName'. The duplicate key value is (69).\r\nThe statement has been terminated.");
+                $"Cannot insert duplicate key row in object 'edfi.AcademicHonorsType' with unique index 'SomeIndexName'. The duplicate key value is (69).{Environment.NewLine}The statement has been terminated.");
 
             _suppliedMetadataProvider = A.Fake<IDatabaseMetadataProvider>();
 

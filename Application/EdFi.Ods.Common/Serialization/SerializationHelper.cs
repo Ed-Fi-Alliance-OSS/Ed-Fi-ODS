@@ -15,7 +15,7 @@ namespace EdFi.Ods.Common.Serialization
     {
         public static T DeserializeFromCompressedBase64<T>(string base64EncodedString)
         {
-            if (base64EncodedString.Contains("\n"))
+            if (base64EncodedString.Contains(Environment.NewLine))
             {
                 base64EncodedString = string.Join(string.Empty, base64EncodedString);
             }

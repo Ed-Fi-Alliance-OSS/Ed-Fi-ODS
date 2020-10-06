@@ -268,7 +268,7 @@ namespace EdFi.Ods.Security.Authorization
             catch (Exception ex)
             {
                 _logger.ErrorFormat(
-                    "An exception occurred while trying to warm the EducationOrganizationCache. EducationOrganizationIdentifiers will be retrieved individually.\r\n{0}",
+                    $"An exception occurred while trying to warm the EducationOrganizationCache. EducationOrganizationIdentifiers will be retrieved individually.{Environment.NewLine}{{0}}",
                     ex);
             }
         }

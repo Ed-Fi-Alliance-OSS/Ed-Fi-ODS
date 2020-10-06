@@ -68,7 +68,7 @@ namespace EdFi.TestFixture
             if (_actualException != null && !_actualExceptionInspected)
             {
                 Assert.Fail(
-                    $"The exception of type '{_actualException.GetType().Name}' was not inspected by the test:\r\n {_actualException}.");
+                    $"The exception of type '{_actualException.GetType().Name}' was not inspected by the test:{Environment.NewLine} {_actualException}.");
             }
         }
 

@@ -482,7 +482,7 @@ namespace EdFi.TestObjects
 
                             // This can happen when context is incorrectly used to set a similarly named property and the types are different
                             _logger.DebugFormat(
-                                "Normal value building will proceed for path '{0}' because the property '{1}' (of type '{2}') could not be set to value '{3}' (of type '{4}') on instance type '{5}' due to the following exception:\r\n{6}.",
+                                $"Normal value building will proceed for path '{{0}}' because the property '{{1}}' (of type '{{2}}') could not be set to value '{{3}}' (of type '{{4}}') on instance type '{{5}}' due to the following exception:{Environment.NewLine}{{6}}.",
                                 logicalPropertyPath,
                                 property.Name,
                                 property.PropertyType.Name,
@@ -575,7 +575,7 @@ namespace EdFi.TestObjects
                 {
                     throw new Exception(
                         string.Format(
-                            "The attempts to build the following properties have failed to make progress due to 'Defer' responses from the value builders:\r\n{0}.",
+                            $"The attempts to build the following properties have failed to make progress due to 'Defer' responses from the value builders:{Environment.NewLine}{{0}}.",
                             string.Join(", ", writableProperties.Select(p => p.Name))));
                 }
             }

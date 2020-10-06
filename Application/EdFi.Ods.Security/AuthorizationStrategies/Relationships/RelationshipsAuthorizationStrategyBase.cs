@@ -295,7 +295,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             if (_dependencyValidationResults.Any())
             {
                 string message = string.Format(
-                    "The following injected dependencies were not satisfied: \r\n{0}",
+                    $"The following injected dependencies were not satisfied: {Environment.NewLine}{{0}}",
                     _dependencyValidationResults.GetAllMessages(1));
 
                 throw new Exception(message);

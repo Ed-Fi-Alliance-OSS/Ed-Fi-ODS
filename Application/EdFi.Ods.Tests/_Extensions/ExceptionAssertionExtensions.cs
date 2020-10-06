@@ -25,7 +25,7 @@ namespace EdFi.Ods.Tests._Extensions
 
         private static string GetActualExceptionOutputMessage(Exception exception)
         {
-            return "Actual Exception: " + exception + "\r\n---------------------------------------------";
+            return "Actual Exception: " + exception + $"{Environment.NewLine}---------------------------------------------";
         }
 
         public static void MessageShouldContain(this Exception exception, string expectedSubstring)

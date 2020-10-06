@@ -57,7 +57,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         title = "Ed-Fi Operational Data Store API",
                         version = $"{ApiVersionConstants.Ods}",
                         description =
-                            "The Ed-Fi ODS / API enables applications to read and write education data stored in an Ed-Fi ODS through a secure REST interface. \n***\n > *Note: Consumers of ODS / API information should sanitize all data for display and storage. The ODS / API provides reasonable safeguards against cross-site scripting attacks and other malicious content, but the platform does not and cannot guarantee that the data it contains is free of all potentially harmful content.* \n***\n"
+                            $"The Ed-Fi ODS / API enables applications to read and write education data stored in an Ed-Fi ODS through a secure REST interface. {Environment.NewLine}***{Environment.NewLine} > *Note: Consumers of ODS / API information should sanitize all data for display and storage. The ODS / API provides reasonable safeguards against cross-site scripting attacks and other malicious content, but the platform does not and cannot guarantee that the data it contains is free of all potentially harmful content.* {Environment.NewLine}***{Environment.NewLine}"
                     },
                     host = "%HOST%",
                     basePath = "%BASE_PATH%",

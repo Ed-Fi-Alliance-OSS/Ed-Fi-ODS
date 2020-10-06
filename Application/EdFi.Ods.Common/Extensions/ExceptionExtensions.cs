@@ -9,8 +9,12 @@ namespace EdFi.Ods.Common.Extensions
 {
     public static class ExceptionExtensions
     {
-        public static string GetAllMessages(this Exception ex, string delimiter = "\r\n")
+        public static string GetAllMessages(this Exception ex, string delimiter = null)
         {
+            delimiter = delimiter == null
+                ? Environment.NewLine
+                : delimiter;
+
             string message = ex.Message;
 
             var currentException = ex.InnerException;

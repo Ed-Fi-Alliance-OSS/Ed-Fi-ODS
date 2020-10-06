@@ -113,10 +113,10 @@ namespace EdFi.Ods.Security.Authorization
                 {
                     throw new ValidationException(
                         string.Format(
-                            "Validation of '{0}' failed.\n{1}",
+                            $"Validation of '{{0}}' failed.{Environment.NewLine}{{1}}",
                             authorizationContext.Data.GetType()
                                                 .Name,
-                            string.Join("\n", validationResults.GetAllMessages(indentLevel: 1))));
+                            string.Join(Environment.NewLine, validationResults.GetAllMessages(indentLevel: 1))));
                 }
             }
 
