@@ -13,6 +13,7 @@ using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Common.Configuration;
 using EdFi.Common.InversionOfControl;
+using EdFi.Ods.Api.Authorization;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.ExceptionHandling;
@@ -34,6 +35,7 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -126,6 +128,21 @@ namespace EdFi.Ods.Api.Startup
 
             services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
                 .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
+
+            if (ApiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
+            {
+                services.AddAuthorization(config =>
+                {
+                    config.AddPolicy("UserPolicy", policyBuilder =>
+                    {
+                        policyBuilder.UserRequireCustomClaim(ClaimTypes.Email);
+                        policyBuilder.UserRequireCustomClaim(ClaimTypes.DateOfBirth);
+                    });
+                });
+            }
+            
+
+            services.AddScoped<IAuthorizationHandler, PoliciesAuthorizationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
