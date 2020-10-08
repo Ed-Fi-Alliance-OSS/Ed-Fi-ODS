@@ -8,7 +8,7 @@
     <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Client-side bulk load utility for the Ed-Fi ODS/API solution.</description>
-    <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
+    <Copyright></Copyright>
     <releaseNotes></releaseNotes>
     <license type="file">LICENSE.txt</license>
   </metadata>

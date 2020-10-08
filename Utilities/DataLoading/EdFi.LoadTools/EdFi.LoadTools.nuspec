@@ -9,6 +9,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>EdFi.LoadTools.</description>
     <releaseNotes></releaseNotes>
+    <Copyright></Copyright>
     <license type="file">LICENSE.txt</license>
   </metadata>
   <files>
