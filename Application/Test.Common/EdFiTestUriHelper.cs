@@ -3,41 +3,44 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.WebApi.IntegrationTests
+namespace Test.Common
 {
-    internal class UriHelper
+    public class EdFiTestUriHelper
     {
         private const string EdFiOrganizationCode = "ed-fi";
         private const string ApiVersion = "3";
         private const string CompositeVersion = "1";
-        private const string ChangeQueriesVersion = "1";
         private const string OdsArea = "data";
         private const string CompositesArea = "composites";
-        private const string IdentityArea = "identity";
-        private const string ChangeQueriesArea = "changequeries";
-        private const string UriWithoutSchema = "{0}/v{1}/{2}{3}";
-        private const string UriWithSchema = "{0}/v{1}/{2}/{3}{4}";
-        private const string UriWithSchoolYear = "{0}/v{1}/{2}{3}/{4}{5}";
-        private const string UriDependenciesWithoutSchema = "metadata/{0}/v{1}/{2}{3}";
-        private const string UriDependenciesWithSchema = "metadata/{0}/v{1}/{2}/{3}{4}";
-        private const string UriDependenciesWithSchoolYear = "metadata/{0}/v{1}/{2}{3}/{4}{5}";
 
-        internal static string BuildOdsUri(string resourceName, int? schoolYear = null, string queryString = null, bool metadata = false)
+        private readonly string _uriWithoutSchema;
+        private readonly string _uriWithSchema;
+
+        private readonly string _uriWithSchoolYear;
+        private readonly string _uriDependenciesWithoutSchema;
+        private readonly string _uriDependenciesWithSchema;
+        private readonly string _uriDependenciesWithSchoolYear;
+
+        public EdFiTestUriHelper(string baseUrl)
         {
-            return BuildApiUri(OdsArea, ApiVersion, resourceName, metadata ? "" : EdFiOrganizationCode, schoolYear, queryString, metadata);
+            _uriWithoutSchema = baseUrl + "{0}/v{1}/{2}{3}";
+            _uriWithSchema = baseUrl + "{0}/v{1}/{2}/{3}{4}";
+            _uriWithSchoolYear = baseUrl + "{0}/v{1}/{2}{3}/{4}{5}";
+            _uriDependenciesWithoutSchema = baseUrl + "metadata/{0}/v{1}/{2}{3}";
+            _uriDependenciesWithSchema = baseUrl + "{0}/v{1}/{2}/{3}{4}";
+            _uriDependenciesWithSchoolYear = baseUrl + "{0}/v{1}/{2}{3}/{4}{5}";
         }
 
-        internal static string BuildIdentityUri(string resourceName, int? schoolYear = null, string queryString = null)
+        public string BuildOdsUri(string resourceName, int? schoolYear = null, string queryString = null,
+            bool metadata = false)
         {
-            return BuildIdentityUri(resourceName, "2", schoolYear, queryString);
+            return BuildApiUri(
+                OdsArea, ApiVersion, resourceName, metadata
+                    ? ""
+                    : EdFiOrganizationCode, schoolYear, queryString, metadata);
         }
 
-        internal static string BuildIdentityUri(string resourceName, string version, int? schoolYear = null, string queryString = null)
-        {
-            return BuildApiUri(IdentityArea, version, resourceName, null, schoolYear, queryString);
-        }
-
-        internal static string BuildCompositeUri(
+        public string BuildCompositeUri(
             string compositeName,
             string organizationCode = EdFiOrganizationCode,
             int? schoolYear = null,
@@ -46,12 +49,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
             return BuildApiUri(CompositesArea, CompositeVersion, compositeName, organizationCode, schoolYear, queryString);
         }
 
-        internal static string CreateAvailableChangeVersionUri()
-        {
-            return string.Format(UriWithoutSchema, ChangeQueriesArea, ChangeQueriesVersion, "AvailableChangeVersions", string.Empty);
-        }
-
-        private static string BuildApiUri(
+        private string BuildApiUri(
             string area,
             string version,
             string resourceName,
@@ -61,7 +59,10 @@ namespace EdFi.Ods.WebApi.IntegrationTests
             bool metaData = false)
         {
             return schoolYear != null
-                ? string.Format(metaData ? UriDependenciesWithSchoolYear : UriWithSchoolYear,
+                ? string.Format(
+                    metaData
+                        ? _uriDependenciesWithSchoolYear
+                        : _uriWithSchoolYear,
                     area,
                     version,
                     schoolYear + (schema != null
@@ -73,14 +74,20 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                         ? ""
                         : "?" + queryString)
                 : string.IsNullOrWhiteSpace(schema)
-                    ? string.Format(metaData ? UriDependenciesWithoutSchema : UriWithoutSchema,
+                    ? string.Format(
+                        metaData
+                            ? _uriDependenciesWithoutSchema
+                            : _uriWithoutSchema,
                         area,
                         version,
                         resourceName,
                         string.IsNullOrWhiteSpace(queryString)
                             ? ""
                             : "?" + queryString)
-                    : string.Format(metaData ? UriDependenciesWithSchema : UriWithSchema,
+                    : string.Format(
+                        metaData
+                            ? _uriDependenciesWithSchema
+                            : _uriWithSchema,
                         area,
                         version,
                         schema,

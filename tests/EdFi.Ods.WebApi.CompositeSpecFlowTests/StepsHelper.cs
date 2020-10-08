@@ -44,23 +44,10 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         }
 
         public static string GetQueryString(string correlationId)
-        {
-            var sb = new StringBuilder();
+            => $"?{SpecialQueryStringParameters.CorrelationId}={correlationId}";
 
-            if (!string.IsNullOrEmpty(correlationId))
-            {
-                sb.AppendFormat("&{0}={1}", SpecialQueryStringParameters.CorrelationId, correlationId);
-            }
-
-            if (sb.Length > 0)
-            {
-                sb.Replace('&', '?', 0, 1);
-            }
-
-            return sb.ToString();
-        }
-
-        public static async Task<Guid> GetResourceIdAsync(string connectionString, string tableName, object keyValues, CancellationToken cancellationToken)
+        public static async Task<Guid> GetResourceIdAsync(string connectionString, string tableName, object keyValues,
+            CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -82,7 +69,6 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                   WHERE {whereClause}";
 
             return await conn.QuerySingleOrDefaultAsync<Guid>(query, cancellationToken);
-
         }
     }
 }

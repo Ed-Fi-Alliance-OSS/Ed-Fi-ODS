@@ -5,7 +5,9 @@
 
 #if NETCOREAPP
 using System.Net.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using NUnit.Framework;
+using Test.Common;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
 {
@@ -13,10 +15,13 @@ namespace EdFi.Ods.WebApi.IntegrationTests
     {
         protected HttpClient HttpClient { get; private set; }
 
+        protected EdFiTestUriHelper UriHelper { get; private set; }
+
         [OneTimeSetUp]
         public void Setup()
         {
             HttpClient = new HttpClient();
+            UriHelper = new EdFiTestUriHelper(TestConstants.BaseUrl);
         }
 
         [OneTimeTearDown]

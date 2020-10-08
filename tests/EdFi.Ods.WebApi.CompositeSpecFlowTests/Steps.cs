@@ -15,10 +15,12 @@ using ApprovalTests.Reporters;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.WebApi.CompositeSpecFlowTests.Dtos;
 using log4net;
 using log4net.Appender;
 using Shouldly;
 using TechTalk.SpecFlow;
+using Test.Common;
 
 // ReSharper disable InconsistentNaming
 namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
@@ -31,6 +33,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly Lazy<CancellationToken> _cancellationToken;
+        private EdFiTestUriHelper _edFiTestUriHelper;
 
         public Steps(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
@@ -49,6 +52,8 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
                     return provider;
                 });
+
+            _edFiTestUriHelper = new EdFiTestUriHelper(CompositesTestConstants.BaseUrl);
         }
 
         [Given(@"the subject of the request is a StudentEducationOrganizationAssociation")]
@@ -64,7 +69,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         public async Task GivenTheSubjectOfTheRequestIsASchoolWithStudentAndStaffAssociations()
         {
             const string query = @"
-                    SELECT  TOP 1 eo.Id, *
+                    SELECT  TOP 1 eo.Id
                     FROM edfi.School s
                     INNER JOIN edfi.EducationOrganization eo ON s.SchoolId = eo.EducationOrganizationId
                     INNER JOIN edfi.SchoolCategory sc ON s.SchoolId = sc.SchoolId
@@ -79,7 +84,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithAStudentAcademicRecord()
         {
             const string query = @"
-                    SELECT  TOP 1 s.Id, *
+                    SELECT  TOP 1 s.Id
                     FROM    edfi.Student s
                     INNER JOIN edfi.StudentAcademicRecord sar ON s.StudentUSI = sar.StudentUSI";
 
@@ -91,7 +96,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithValuesInAllNameProperties()
         {
             const string query = @"
-                    SELECT  TOP 1 Id, *
+                    SELECT  TOP 1 Id
                     FROM    edfi.Student
                     WHERE   PersonalTitlePrefix IS NOT NULL
                             AND FirstName IS NOT NULL
@@ -107,7 +112,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         public async Task GivenTheSubjectOfTheRequestIsAStudentSchoolAssociation()
         {
             const string query = @"
-                    SELECT  TOP 1 sa.Id, *
+                    SELECT  TOP 1 sa.Id
                     FROM    edfi.StudentSchoolAssociation sa ";
 
             await SetIdAsync(query);
@@ -125,7 +130,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     INNER JOIN edfi.StudentAssessment sa
                         ON ssa.StudentUSI = sa.StudentUSI";
 
-            await SetKeyInformationAsync(query);
+            await SetStudentSchoolAssociationKeyInformationAsync(query);
             SetResource("StudentSchoolAssociation");
         }
 
@@ -141,7 +146,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                             ON ssa.StudentUSI = stu.StudentUSI
                     WHERE LocalEducationAgencyId IS NOT NULL";
 
-            await SetKeyInformationAsync(query);
+            await SetStudentSchoolAssociationKeyInformationAsync(query);
             SetResource("StudentSchoolAssociation");
         }
 
@@ -187,7 +192,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithAStudentSchoolAssociation()
         {
             const string query = @"
-                    SELECT  TOP 1 s.Id, *
+                    SELECT  TOP 1 s.Id
                     FROM    edfi.Student s
                     INNER JOIN edfi.StudentSchoolAssociation ssa ON s.StudentUSI = ssa.StudentUSI";
 
@@ -199,7 +204,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithAStudentEducationOrganizationAssociation()
         {
             const string query = @"
-                    SELECT  TOP 1 s.Id, *
+                    SELECT  TOP 1 s.Id
                     FROM    edfi.Student s
                     INNER JOIN edfi.StudentEducationOrganizationAssociation ssa ON s.StudentUSI = ssa.StudentUSI";
 
@@ -222,7 +227,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     WHERE sc.LocalEducationAgencyId IS NOT NULL
                         AND sa.AssessmentIdentifier IS NOT NULL";
 
-            await SetKeyInformationAsync(query);
+            await SetStudentSchoolAssociationKeyInformationAsync(query);
             SetResource("StudentSchoolAssociation");
         }
 
@@ -242,7 +247,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
             SetCorrelationId(correlationId);
 
-            string requestUrl = OwinUriHelper.BuildCompositeUri(
+            string requestUrl = _edFiTestUriHelper.BuildCompositeUri(
                 $"{compositeCategoryName}/{pluralizedCompositeName}/{subjectId:n}{StepsHelper.GetQueryString(correlationId)}");
 
             var response = await httpClient.GetAsync(requestUrl, _cancellationToken.Value);
@@ -455,26 +460,18 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
             SetCorrelationId(correlationId);
 
-            requestUrl += string.Format("?{0}={1}", SpecialQueryStringParameters.CorrelationId, correlationId);
+            requestUrl += StepsHelper.GetQueryString(correlationId);
 
-            string uri = OwinUriHelper.BuildCompositeUri(requestUrl);
+            string uri = _edFiTestUriHelper.BuildCompositeUri(requestUrl);
 
             string json = null;
 
-            try
-            {
-                var httpClient = StepsHelper.GetHttpClient();
-                var response = await httpClient.GetAsync(uri, _cancellationToken.Value);
+            var httpClient = StepsHelper.GetHttpClient();
+            var response = await httpClient.GetAsync(uri, _cancellationToken.Value);
 
-                response.StatusCode.ShouldBe(HttpStatusCode.OK);
+            response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
-                json = await response.Content.ReadAsStringAsync();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            json = await response.Content.ReadAsStringAsync();
 
             var logger = LogManager.GetLogger(GetType());
             logger.DebugFormat($"JSON response:{Environment.NewLine}{json}");
@@ -519,9 +516,9 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         private void SetResource(string resourceName)
             => _scenarioContext.Set(resourceName, ScenarioContextKeys.CompositeSubjectResourceName);
 
-        private async Task SetKeyInformationAsync(string query)
+        private async Task SetStudentSchoolAssociationKeyInformationAsync(string query)
         {
-            var dto = await StepsHelper.GetAsync<KeyInformationDto>(
+            var dto = await StepsHelper.GetAsync<StudentSchoolKeyInformation>(
                 _connectionStringProvider.Value.GetConnectionString(), query, _cancellationToken.Value);
 
             dto.ShouldNotBeNull();
@@ -540,7 +537,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
         private async Task SetAssessmentKeyInformationAsync(string query)
         {
-            var dto = await StepsHelper.GetAsync<AssessmentKeyInformationDto>(
+            var dto = await StepsHelper.GetAsync<StudentAssessmentKeyInformation>(
                 _connectionStringProvider.Value.GetConnectionString(), query, _cancellationToken.Value);
 
             dto.ShouldNotBeNull();
@@ -560,7 +557,8 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
         private async Task SetIdAsync(string query)
         {
-            var id = await StepsHelper.GetAsync<Guid>(_connectionStringProvider.Value.GetConnectionString(), query, _cancellationToken.Value);
+            var id = await StepsHelper.GetAsync<Guid>(
+                _connectionStringProvider.Value.GetConnectionString(), query, _cancellationToken.Value);
 
             id.ShouldNotBeNull();
 

@@ -40,38 +40,30 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             ConfigureLogging(executableAbsoluteDirectory);
 
             // Create and start up the host
-            try
-            {
-                Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
-                    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                    .ConfigureWebHostDefaults(
-                        webBuilder =>
-                        {
-                            webBuilder.UseStartup<Startup>();
-                            webBuilder.UseUrls(CompositesTestConstants.BaseUrl);
-                        })
-                    .Build();
+            Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(
+                    webBuilder =>
+                    {
+                        webBuilder.UseStartup<Startup>();
+                        webBuilder.UseUrls(CompositesTestConstants.BaseUrl);
+                    })
+                .Build();
 
-                ServiceProvider = Host.Services;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            ServiceProvider = Host.Services;
 
             var configuration = (IConfigurationRoot) ServiceProvider.GetService(typeof(IConfiguration));
 
-            var PopulatedTemplateDatabaseName = configuration.GetSection("TestDatabaseTemplateName").Value;
+            var populatedTemplateDatabaseName = configuration.GetSection("TestDatabaseTemplateName").Value;
 
-            if (string.IsNullOrWhiteSpace(PopulatedTemplateDatabaseName))
+            if (string.IsNullOrWhiteSpace(populatedTemplateDatabaseName))
             {
                 throw new ApplicationException(
                     "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
             }
 
             DatabaseHelper = new DatabaseHelper(configuration);
-            DatabaseHelper.CopyDatabase(PopulatedTemplateDatabaseName, SpecFlowDatabaseName);
+            DatabaseHelper.CopyDatabase(populatedTemplateDatabaseName, SpecFlowDatabaseName);
 
             await Host.StartAsync();
         }

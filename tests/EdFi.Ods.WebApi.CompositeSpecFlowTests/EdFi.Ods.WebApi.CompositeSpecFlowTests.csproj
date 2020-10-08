@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="hibernate.cfg.xml">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Remove="*.approved.txt" />

@@ -16,34 +16,27 @@ namespace EdFi.Ods.Api.Helpers
 {
     public static class TypeHelper
     {
-        private static ILog _logger = LogManager.GetLogger(typeof(TypeHelper));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(TypeHelper));
 
         public static IEnumerable<Type> GetTypesWithModules()
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => a.GetTypes().Any(t => t.GetInterfaces().Contains(typeof(IModule))))
+            var allModules = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(
+                    a => a.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IModule)) && !t.IsAbstract)
+                        .Select(
+                            t => new
+                            {
+                                SourceAssembly = a,
+                                Type = t
+                            }))
                 .ToList();
 
-            _logger.Debug("Assemblies with modules:");
-            assemblies.ForEach(a => _logger.Debug($"{a.GetName().Name}"));
+            _logger.Debug($"Assemblies with modules: {string.Join(", ", allModules.Select(m => m.SourceAssembly.GetName().Name))}");
 
-            // force all test modules last
-            var overridingModules = assemblies
-                .Where(a => a.GetName().Name.Contains("Tests"))
-                .SelectMany(a => a.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IModule)) && !t.IsAbstract))
-                .ToList();
-
-            var allModules = assemblies
-                .Where(x => !x.GetName().Name.Contains("Tests"))
-                .SelectMany(a => a.GetTypes().Where(t => t.GetInterfaces().Contains(typeof(IModule)) && !t.IsAbstract))
-                .Concat(overridingModules)
-                .ToList();
-
-            // force modules that begin with "Override" to be installed last.
-            var overrideModules = allModules.Where(t => t.Name.StartsWithIgnoreCase("Override")).ToList();
-
-            return allModules.Where(t => !t.Name.StartsWithIgnoreCase("Override"))
-                .Concat(overrideModules);
+            // Anything with Override goes to the end of the list, then prioritize Tests modules
+            return allModules
+                .OrderBy(m => m.Type.Name.StartsWithIgnoreCase("Override"))
+                .Select(t => t.Type);
         }
     }
 }

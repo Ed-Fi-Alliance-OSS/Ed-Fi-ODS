@@ -5,9 +5,9 @@
 
 using System;
 
-namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
+namespace EdFi.Ods.WebApi.CompositeSpecFlowTests.Dtos
 {
-    public class AssessmentKeyInformationDto
+    public class StudentAssessmentKeyInformation
     {
         public Guid Id { get; set; }
 

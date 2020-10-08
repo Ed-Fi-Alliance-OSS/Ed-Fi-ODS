@@ -42,6 +42,7 @@
     <ProjectReference Include="..\..\Application\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
+    <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
 

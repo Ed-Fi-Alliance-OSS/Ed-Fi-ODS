@@ -29,7 +29,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Controllers
             HttpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
 
-            var response = await HttpClient.GetAsync(TestConstants.BaseUrl + UriHelper.BuildOdsUri("dependencies", null, null, true));
+            var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -50,7 +50,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Controllers
             HttpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
 
-            var response = await HttpClient.GetAsync(TestConstants.BaseUrl + UriHelper.BuildOdsUri("dependencies", null, null, true));
+            var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 

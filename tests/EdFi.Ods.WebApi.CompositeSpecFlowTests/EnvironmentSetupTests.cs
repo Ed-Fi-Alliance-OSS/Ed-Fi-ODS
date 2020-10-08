@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
+using EdFi.Ods.Common.Database;
 using NUnit.Framework;
 using Shouldly;
 
@@ -20,11 +21,14 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Test]
         public async Task ShouldBuildDbAndSetupWebServer()
         {
-            string connectionString =
-                $"Server=(local); Database={CompositesSpecFlowTestFixture.SpecFlowDatabaseName}; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;";
+            var connectionStringProvider = (IOdsDatabaseConnectionStringProvider)
+                CompositesSpecFlowTestFixture.ServiceProvider.GetService(typeof(IOdsDatabaseConnectionStringProvider));
+
+            connectionStringProvider.ShouldNotBeNull();
+            connectionStringProvider.GetConnectionString().ShouldContain(CompositesSpecFlowTestFixture.SpecFlowDatabaseName);
 
             var cancellationToken = new CancellationToken();
-            await using var conn = new SqlConnection(connectionString);
+            await using var conn = new SqlConnection(connectionStringProvider.GetConnectionString());
 
             await conn.OpenAsync(cancellationToken);
 

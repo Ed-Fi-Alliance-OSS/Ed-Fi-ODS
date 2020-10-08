@@ -9,11 +9,11 @@ using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 {
-    public class SpecFlowTestModule : Module
+    public class OverrideCompositesSpecFlowTestModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<FakedCompositesOdsConnectionStringProvider>().As<IOdsDatabaseConnectionStringProvider>()
+            builder.RegisterType<SpecFlowOdsConnectionStringProvider>().As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
             builder.RegisterType<FakedAuthenticationProvider>().As<IAuthenticationProvider>();
