@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using System;
 using System.Net;
 using System.Net.Http.Headers;
@@ -12,11 +11,10 @@ using ApprovalTests;
 using ApprovalTests.Reporters;
 using ApprovalTests.Reporters.TestFrameworks;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.WebService.Tests._Helpers;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.WebService.Tests.ApprovalTests
+namespace EdFi.Ods.WebApi.IntegrationTests.Controllers
 {
     [TestFixture]
     [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
@@ -25,13 +23,13 @@ namespace EdFi.Ods.WebService.Tests.ApprovalTests
         [Test]
         public async Task Should_Get_Dependencies()
         {
-            _httpClient.DefaultRequestHeaders.Accept.Clear();
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpClient.DefaultRequestHeaders.Accept.Clear();
+            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            _httpClient.DefaultRequestHeaders.Authorization =
+            HttpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
 
-            var response = await _httpClient.GetAsync(TestConstants.BaseUrl + UriHelper.BuildOdsUri("dependencies", null, null, true));
+            var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -46,13 +44,13 @@ namespace EdFi.Ods.WebService.Tests.ApprovalTests
         [Test]
         public async Task Should_Get_Dependencies_GraphML()
         {
-            _httpClient.DefaultRequestHeaders.Accept.Clear();
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(CustomMediaContentTypes.GraphML));
+            HttpClient.DefaultRequestHeaders.Accept.Clear();
+            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(CustomMediaContentTypes.GraphML));
 
-            _httpClient.DefaultRequestHeaders.Authorization =
+            HttpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString());
 
-            var response = await _httpClient.GetAsync(TestConstants.BaseUrl + UriHelper.BuildOdsUri("dependencies", null, null, true));
+            var response = await HttpClient.GetAsync(UriHelper.BuildOdsUri("dependencies", null, null, true));
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -65,4 +63,3 @@ namespace EdFi.Ods.WebService.Tests.ApprovalTests
         }
     }
 }
-#endif

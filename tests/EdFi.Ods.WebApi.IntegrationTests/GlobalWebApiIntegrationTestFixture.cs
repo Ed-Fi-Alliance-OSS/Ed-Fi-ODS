@@ -4,41 +4,33 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
 using log4net;
 using log4net.Config;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
 
-namespace EdFi.Ods.WebService.Tests
+namespace EdFi.Ods.WebApi.IntegrationTests
 {
     [SetUpFixture]
-    public class GlobalWebServiceFixture
+    public class GlobalWebApiIntegrationTestFixture
     {
         public static IHost Host { get; private set; }
 
         [OneTimeSetUp]
         public async Task SetupAsync()
         {
-            var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(GlobalWebServiceFixture).Assembly.Location);
+            var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(GlobalWebApiIntegrationTestFixture).Assembly.Location);
             ConfigureLogging(executableAbsoluteDirectory);
 
             // Create and start up the host
             Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
-                .ConfigureAppConfiguration(
-                    (hostBuilderContext, configBuilder) =>
-                    {
-                        string appSettingsPath = Path.Combine(executableAbsoluteDirectory, "appsettings.json");
-
-                        configBuilder.SetBasePath(executableAbsoluteDirectory)
-                            .AddJsonFile(appSettingsPath, optional: true, reloadOnChange: true)
-                            .AddEnvironmentVariables();
-                    })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
                     webBuilder =>
@@ -52,7 +44,7 @@ namespace EdFi.Ods.WebService.Tests
 
             static void ConfigureLogging(string executableAbsoluteDirectory)
             {
-                var assembly = typeof(GlobalWebServiceFixture).GetTypeInfo().Assembly;
+                var assembly = typeof(GlobalWebApiIntegrationTestFixture).GetTypeInfo().Assembly;
 
                 string configPath = Path.Combine(executableAbsoluteDirectory, "log4net.config");
 
@@ -66,11 +58,6 @@ namespace EdFi.Ods.WebService.Tests
             await Host.StopAsync();
             Host.Dispose();
         }
-    }
-
-    public static class TestConstants
-    {
-        public const string BaseUrl = "http://localhost:5449/";
     }
 }
 #endif

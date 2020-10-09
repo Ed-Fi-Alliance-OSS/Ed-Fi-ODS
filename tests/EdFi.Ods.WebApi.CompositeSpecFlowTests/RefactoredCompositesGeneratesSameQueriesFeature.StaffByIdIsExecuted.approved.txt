@@ -1,0 +1,126 @@
+HQL:
+select 
+	comp_aaa.StaffUSI As __BaseEntityId__,
+	comp_aaa.StaffUSI as PK1a_StaffUSI,
+	comp_aaa.Id as id,
+	comp_aaa.StaffUniqueId as staffUniqueId,
+	comp_aaa.PersonalTitlePrefix as personalTitlePrefix,
+	comp_aaa.FirstName as firstName,
+	comp_aaa.LastSurname as lastSurname,
+	comp_aaa.LoginId as loginId,
+	comp_aab.Namespace as sexDescriptor__Namespace,
+	comp_aab.CodeValue as sexDescriptor,
+	comp_aaa.HispanicLatinoEthnicity as hispanicLatinoEthnicity
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ comp_aaa
+		left join comp_aaa.SexDescriptor comp_aab 
+where comp_aaa.Id = :Id AND (comp_aaa.StaffUSI IN (
+                        SELECT fltr_aaf.StaffUSI 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStaffUSI fltr_aaf 
+                        WHERE fltr_aaf.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.StaffUSI
+HQL:
+select 
+	comp_aaa.StaffUSI As __BaseEntityId__,
+	comp_aaa.StaffUSI as PK1a_StaffUSI,
+	comp_aac.ElectronicMailAddress as PK2a_ElectronicMailAddress,
+	comp_aac.ElectronicMailTypeDescriptorId as PK2a_ElectronicMailTypeDescriptorId,
+	comp_aad.Namespace as electronicMailTypeDescriptor__Namespace,
+	comp_aad.CodeValue as electronicMailTypeDescriptor,
+	comp_aac.ElectronicMailAddress as electronicMailAddress
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ comp_aaa
+	join comp_aaa.StaffElectronicMails comp_aac
+		left join comp_aac.ElectronicMailTypeDescriptor comp_aad 
+where comp_aaa.StaffUSI IN (:BaseEntityId)
+order by comp_aaa.StaffUSI,
+	comp_aac.ElectronicMailAddress,
+	comp_aac.ElectronicMailTypeDescriptorId
+HQL:
+select 
+	comp_aaa.StaffUSI As __BaseEntityId__,
+	comp_aaa.StaffUSI as PK1a_StaffUSI,
+	comp_aae.StaffIdentificationSystemDescriptorId as PK2b_StaffIdentificationSystemDescriptorId,
+	comp_aaf.Namespace as staffIdentificationSystemDescriptor__Namespace,
+	comp_aaf.CodeValue as staffIdentificationSystemDescriptor,
+	comp_aae.IdentificationCode as identificationCode
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ comp_aaa
+	join comp_aaa.StaffIdentificationCodes comp_aae
+		left join comp_aae.StaffIdentificationSystemDescriptor comp_aaf 
+where comp_aaa.StaffUSI IN (:BaseEntityId)
+order by comp_aaa.StaffUSI,
+	comp_aae.StaffIdentificationSystemDescriptorId
+HQL:
+select 
+	comp_aaa.StaffUSI As __BaseEntityId__,
+	comp_aaa.StaffUSI as PK1a_StaffUSI,
+	comp_aag.LanguageDescriptorId as PK2c_LanguageDescriptorId,
+	comp_aah.Namespace as languageDescriptor__Namespace,
+	comp_aah.CodeValue as languageDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ comp_aaa
+	join comp_aaa.StaffLanguages comp_aag
+		left join comp_aag.LanguageDescriptor comp_aah 
+where comp_aaa.StaffUSI IN (:BaseEntityId)
+order by comp_aaa.StaffUSI,
+	comp_aag.LanguageDescriptorId
+HQL:
+select 
+	comp_aaa.StaffUSI As __BaseEntityId__,
+	comp_aaa.StaffUSI as PK1a_StaffUSI,
+	comp_aai.RaceDescriptorId as PK2d_RaceDescriptorId,
+	comp_aaj.Namespace as raceDescriptor__Namespace,
+	comp_aaj.CodeValue as raceDescriptor
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ comp_aaa
+	join comp_aaa.StaffRaces comp_aai
+		left join comp_aai.RaceDescriptor comp_aaj 
+where comp_aaa.StaffUSI IN (:BaseEntityId)
+order by comp_aaa.StaffUSI,
+	comp_aai.RaceDescriptorId
+HQL:
+select 
+	comp_aaa.StaffUSI As __BaseEntityId__,
+	comp_aaa.StaffUSI as PK1a_StaffUSI,
+	comp_aak.TelephoneNumber as PK2e_TelephoneNumber,
+	comp_aak.TelephoneNumberTypeDescriptorId as PK2e_TelephoneNumberTypeDescriptorId,
+	comp_aal.Namespace as telephoneNumberTypeDescriptor__Namespace,
+	comp_aal.CodeValue as telephoneNumberTypeDescriptor,
+	comp_aak.OrderOfPriority as orderOfPriority,
+	comp_aak.TelephoneNumber as telephoneNumber
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ comp_aaa
+	join comp_aaa.StaffTelephones comp_aak
+		left join comp_aak.TelephoneNumberTypeDescriptor comp_aal 
+where comp_aaa.StaffUSI IN (:BaseEntityId)
+order by comp_aaa.StaffUSI,
+	comp_aak.TelephoneNumber,
+	comp_aak.TelephoneNumberTypeDescriptorId
+HQL:
+select 
+	comp_aaa.StaffUSI As __BaseEntityId__,
+	comp_aaa.StaffUSI as PK1a_StaffUSI,
+	comp_aam.BeginDate as PK2f_BeginDate,
+	comp_aam.EducationOrganizationId as PK2f_EducationOrganizationId,
+	comp_aam.StaffClassificationDescriptorId as PK2f_StaffClassificationDescriptorId,
+	comp_aan.Namespace as staffClassificationDescriptor__Namespace,
+	comp_aan.CodeValue as staffClassificationDescriptor,
+	comp_aao.Discriminator as educationOrganizationType__PassThrough,
+	comp_aao.EducationOrganizationId as educationOrganizationId
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StaffAggregate.EdFi.StaffQ comp_aaa
+	join comp_aaa.StaffEducationOrganizationAssignmentAssociations comp_aam
+		left join comp_aam.StaffClassificationDescriptor comp_aan 
+	join comp_aam.EducationOrganization comp_aao
+where comp_aaa.StaffUSI IN (:BaseEntityId) AND (comp_aam.EducationOrganizationId IN (
+                        SELECT fltr_aan.EducationOrganizationId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToLocalEducationAgencyId fltr_aan 
+                        WHERE fltr_aan.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aam.StaffUSI IN (
+                        SELECT fltr_aaf.StaffUSI 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStaffUSI fltr_aaf 
+                        WHERE fltr_aaf.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.StaffUSI,
+	comp_aam.BeginDate,
+	comp_aam.EducationOrganizationId,
+	comp_aam.StaffClassificationDescriptorId

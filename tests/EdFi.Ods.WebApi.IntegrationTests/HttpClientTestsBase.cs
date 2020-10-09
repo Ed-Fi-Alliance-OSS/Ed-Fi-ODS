@@ -5,24 +5,29 @@
 
 #if NETCOREAPP
 using System.Net.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using NUnit.Framework;
+using Test.Common;
 
-namespace EdFi.Ods.WebService.Tests
+namespace EdFi.Ods.WebApi.IntegrationTests
 {
     public class HttpClientTestsBase
     {
-        protected HttpClient _httpClient;
+        protected HttpClient HttpClient { get; private set; }
+
+        protected EdFiTestUriHelper UriHelper { get; private set; }
 
         [OneTimeSetUp]
         public void Setup()
         {
-            _httpClient = new HttpClient();
+            HttpClient = new HttpClient();
+            UriHelper = new EdFiTestUriHelper(TestConstants.BaseUrl);
         }
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            _httpClient.Dispose();
+            HttpClient.Dispose();
         }
     }
 }

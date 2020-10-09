@@ -1,0 +1,34 @@
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.EntryDate as PK1a_EntryDate,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aaa.StudentUSI as PK1a_StudentUSI
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ comp_aaa
+	join comp_aaa.School comp_aab
+where comp_aaa.Id = :Id AND (comp_aaa.SchoolId IN (
+                        SELECT fltr_aar.SchoolId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToSchoolId fltr_aar 
+                        WHERE fltr_aar.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aaa.StudentUSI IN (
+                            SELECT fltr_aab.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStudentUSI fltr_aab 
+                            WHERE fltr_aab.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+order by comp_aaa.EntryDate,
+	comp_aaa.SchoolId,
+	comp_aaa.StudentUSI
+HQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.EntryDate as PK1a_EntryDate,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aad.EducationServiceCenterId as educationServiceCenterId
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ comp_aaa
+	join comp_aaa.School comp_aac
+	join comp_aac.LocalEducationAgency comp_aad
+where comp_aaa.Id IN (:BaseEntityId)
+order by comp_aaa.EntryDate,
+	comp_aaa.SchoolId,
+	comp_aaa.StudentUSI

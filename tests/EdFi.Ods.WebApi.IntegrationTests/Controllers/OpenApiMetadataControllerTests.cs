@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using System.Net;
 using System.Threading.Tasks;
 using ApprovalTests;
@@ -12,7 +11,7 @@ using ApprovalTests.Reporters.TestFrameworks;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.WebService.Tests
+namespace EdFi.Ods.WebApi.IntegrationTests.Controllers
 {
     [TestFixture]
     [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
@@ -21,7 +20,7 @@ namespace EdFi.Ods.WebService.Tests
         [Test]
         public async Task MetadataEndpointGetShouldBeValid()
         {
-            var response = await _httpClient.GetAsync(TestConstants.BaseUrl + "metadata/");
+            var response = await HttpClient.GetAsync(TestConstants.BaseUrl + "metadata/");
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -32,4 +31,3 @@ namespace EdFi.Ods.WebService.Tests
         }
     }
 }
-#endif

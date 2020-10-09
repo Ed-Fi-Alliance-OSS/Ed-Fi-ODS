@@ -5,18 +5,14 @@
 
 #if NETCOREAPP
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Threading;
 using System.Threading.Tasks;
-using ApprovalTests;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Common.Configuration;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.WebService.Tests
+namespace EdFi.Ods.WebApi.IntegrationTests.Controllers
 {
     [TestFixture]
     public class VersionControllerTests : HttpClientTestsBase
@@ -24,7 +20,7 @@ namespace EdFi.Ods.WebService.Tests
         [Test]
         public async Task VersionEndpointGetShouldBeValid()
         {
-            var response = await _httpClient.GetAsync(TestConstants.BaseUrl);
+            var response = await HttpClient.GetAsync(TestConstants.BaseUrl);
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
