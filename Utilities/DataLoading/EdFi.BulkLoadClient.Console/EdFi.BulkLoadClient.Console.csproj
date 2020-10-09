@@ -12,6 +12,7 @@
     <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/</PackageProjectUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageId>EdFi.BulkLoadClient.Console</PackageId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
