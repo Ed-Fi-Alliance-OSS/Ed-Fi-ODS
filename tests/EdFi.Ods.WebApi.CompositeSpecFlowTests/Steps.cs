@@ -474,7 +474,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             json = await response.Content.ReadAsStringAsync();
 
             var logger = LogManager.GetLogger(GetType());
-            logger.DebugFormat($"JSON response:{Environment.NewLine}{json}");
+            logger.Debug($"JSON response:{Environment.NewLine}{json}");
         }
 
         [Then(@"the queries generated should all match previously approved values")]
