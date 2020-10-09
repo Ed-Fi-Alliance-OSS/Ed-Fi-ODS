@@ -321,8 +321,8 @@ namespace EdFi.Ods.Api.Caching
             }
             catch (Exception ex)
             {
-                _logger.ErrorFormat(
-                    "An exception occurred while trying to warm the PersonCache. UniqueIds will be retrieved individually.\r\n{0}",
+                _logger.Error(
+                    "An exception occurred while trying to warm the PersonCache. UniqueIds will be retrieved individually.",
                     ex);
             }
         }

@@ -111,8 +111,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Arrange()
             {
-                const string mess =
-                    "Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). \r\nThe statement has been terminated.";
+                string mess =
+                    $"Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). {Environment.NewLine}The statement has been terminated.";
 
                 exception = NHibernateExceptionBuilder.CreateException("Generic SQL Exception message...", mess);
                 suppliedMetadataProvider = Stub<IDatabaseMetadataProvider>();
@@ -171,8 +171,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
 
             protected override void Arrange()
             {
-                const string mess =
-                    "Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). \r\nThe statement has been terminated.";
+                string mess =
+                    $"Violation of PRIMARY KEY constraint 'PK_Session'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). {Environment.NewLine}The statement has been terminated.";
 
                 exception = NHibernateExceptionBuilder.CreateException("Generic SQL Exception message...", mess);
                 suppliedMetadataProvider = Stub<IDatabaseMetadataProvider>();
@@ -212,7 +212,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.ExceptionHandling
             protected override void Arrange()
             {
                 var mess =
-                    "Violation of PRIMARY KEY constraint 'BackwardsPkName_PK'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). \r\nThe statement has been terminated.";
+                    $"Violation of PRIMARY KEY constraint 'BackwardsPkName_PK'. Cannot insert duplicate key in object 'edfi.Session'. The duplicate key value is (900007, 9, 2014). {Environment.NewLine}The statement has been terminated.";
 
                 exception = NHibernateExceptionBuilder.CreateException("Generic exception message", mess);
                 suppliedMetadataProvider = Stub<IDatabaseMetadataProvider>();

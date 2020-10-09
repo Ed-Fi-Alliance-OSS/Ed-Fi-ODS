@@ -98,7 +98,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
             builderContext.From
                 .AppendFormat(
-                    "\r\n\t{0}Q {1}",
+                    "{0}\t{1}Q {2}",
+                    Environment.NewLine,
                     $@"{aggregateNamespace}.{resource.Entity.Name}",
                     builderContext.CurrentAlias);
 
@@ -163,7 +164,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             thisFilterJoinAlias = builderContext.AliasGenerator.GetNextAlias();
 
                             builderContext.SpecificationFrom.AppendFormat(
-                                "\r\n\tjoin {0}.{1} {2}",
+                                "{0}\tjoin {1}.{2} {3}",
+                                Environment.NewLine,
                                 parentFilterJoinAlias,
                                 reference.Association.Name,
                                 thisFilterJoinAlias);
@@ -177,7 +179,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             thisFilterJoinAlias = builderContext.AliasGenerator.GetNextAlias();
 
                             builderContext.SpecificationFrom.AppendFormat(
-                                "\r\n\tjoin {0}.{1} {2}",
+                                "{0}\tjoin {1}.{2} {3}",
+                                Environment.NewLine,
                                 parentFilterJoinAlias,
                                 collection.PropertyName,
                                 thisFilterJoinAlias);
@@ -191,7 +194,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             thisFilterJoinAlias = builderContext.AliasGenerator.GetNextAlias();
 
                             builderContext.SpecificationFrom.AppendFormat(
-                                "\r\n\tjoin {0}.{1} {2}",
+                                "{0}\tjoin {1}.{2} {3}",
+                                Environment.NewLine,
                                 parentFilterJoinAlias,
                                 linkedCollection.PropertyName,
                                 thisFilterJoinAlias);
@@ -204,7 +208,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             thisFilterJoinAlias = builderContext.AliasGenerator.GetNextAlias();
 
                             builderContext.SpecificationFrom.AppendFormat(
-                                "\r\n\tjoin {0}.{1} {2}",
+                                "{0}\tjoin {1}.{2} {3}",
+                                Environment.NewLine,
                                 parentFilterJoinAlias,
                                 embeddedObject.PropertyName,
                                 thisFilterJoinAlias);
@@ -236,7 +241,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             builderContext.CurrentAlias = builderContext.AliasGenerator.GetNextAlias();
 
             builderContext.From.AppendFormat(
-                "\r\n\tjoin {0}.{1} {2}",
+                "{0}\tjoin {1}.{2} {3}",
+                Environment.NewLine,
                 builderContext.ParentAlias,
                 processorContext.EntityMemberName,
                 builderContext.CurrentAlias);
@@ -352,7 +358,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
             // Add the connective HQL join for processing the flattened reference
             builderContext.From.AppendFormat(
-                "\r\n\tjoin {0}.{1} {2}",
+                "{0}\tjoin {1}.{2} {3}",
+                Environment.NewLine,
                 builderContext.ParentAlias,
                 associationName,
                 builderContext.CurrentAlias);
@@ -544,7 +551,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                 p.DisplayName.ToCamelCase() ?? p.ResourceProperty.PropertyName.ToCamelCase());
 
                             builderContext.From.AppendFormat(
-                                "\r\n\t\tleft join {0}.{1} {2} ",
+                                "{0}\t\tleft join {1}.{2} {3} ",
+                                Environment.NewLine,
                                 builderContext.CurrentAlias,
                                 p.ResourceProperty.PropertyName,
                                 lookupAlias);
@@ -580,15 +588,15 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 "select " + (builderContext.NeedDistinct
                               ? "distinct "
                               : string.Empty)
-                          + "\r\n\t" + builderContext.Select
-                          + "\r\nfrom " + builderContext.From + builderContext.SpecificationFrom
+                          + $"{Environment.NewLine}\t" + builderContext.Select
+                          + $"{Environment.NewLine}from " + builderContext.From + builderContext.SpecificationFrom
                           + (builderContext.SpecificationWhere.Length > 0 || builderContext.Where.Length > 0
-                              ? "\r\nwhere " + builderContext.SpecificationWhere
-                                             + ConnectingAndIfNeeded(builderContext.SpecificationWhere, builderContext.Where) +
-                                             builderContext.Where
+                              ? $"{Environment.NewLine}where " + builderContext.SpecificationWhere
+                                                               + ConnectingAndIfNeeded(builderContext.SpecificationWhere, builderContext.Where) +
+                                                               builderContext.Where
                               : string.Empty)
                           + (builderContext.OrderBy.Length > 0
-                              ? "\r\norder by " + builderContext.OrderBy
+                              ? $"{Environment.NewLine}order by " + builderContext.OrderBy
                               : string.Empty);
 
             if (_logger.IsDebugEnabled)
@@ -598,11 +606,11 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 if (builderContext.QueryStringParameters.TryGetValue(
                     SpecialQueryStringParameters.CorrelationId, out correlationId))
                 {
-                    _logger.DebugFormat("HQL[{0}]:\r\n{1}", correlationId, hql);
+                    _logger.DebugFormat("HQL[{0}]:{1}{2}", correlationId, Environment.NewLine, hql);
                 }
                 else
                 {
-                    _logger.DebugFormat("HQL:\r\n{0}", hql);
+                    _logger.DebugFormat("HQL:{0}{1}", Environment.NewLine, hql);
                 }
             }
 
@@ -713,12 +721,12 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             CompositeDefinitionProcessorContext processorContext)
         {
             string hql =
-                "select \r\n\t" + builderContext.Select
-                                + "\r\nfrom " + builderContext.From
+                $"select {Environment.NewLine}\t" + builderContext.Select
+                                + $"{Environment.NewLine}from " + builderContext.From
                                 + (builderContext.Where.Length > 0
-                                    ? "\r\nwhere " + builderContext.Where
+                                    ? $"{Environment.NewLine}where " + builderContext.Where
                                     : string.Empty)
-                                + "\r\norder by " + builderContext.OrderBy;
+                                + $"{Environment.NewLine}order by " + builderContext.OrderBy;
 
             if (_logger.IsDebugEnabled)
             {
@@ -727,11 +735,11 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 if (builderContext.QueryStringParameters.TryGetValue(
                     SpecialQueryStringParameters.CorrelationId, out correlationId))
                 {
-                    _logger.DebugFormat("HQL[{0}]:\r\n{1}", correlationId, hql);
+                    _logger.DebugFormat("HQL[{0}]:{1}{2}", correlationId, Environment.NewLine, hql);
                 }
                 else
                 {
-                    _logger.DebugFormat("HQL:\r\n{0}", hql);
+                    _logger.DebugFormat("HQL:{0}{1}", Environment.NewLine, hql);
                 }
             }
 
@@ -1000,7 +1008,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         private static string CommaIfNeeded(StringBuilder orderBy)
         {
             return orderBy.Length > 0
-                ? ",\r\n\t"
+                ? $",{Environment.NewLine}\t"
                 : string.Empty;
         }
 
