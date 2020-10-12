@@ -32,6 +32,11 @@ namespace EdFi.Ods.CodeGen.Conventions
         /// </summary>
         public const string EdFiOdsImplementationFolderName = "Ed-Fi-ODS-Implementation";
 
+        ///<summary>
+        ///Extensions repository key
+        /// </summary>
+        public const string ExtensionsFolderName = "Ed-Fi-Extensions";
+
         /// <summary>
         /// Application folder
         /// </summary>

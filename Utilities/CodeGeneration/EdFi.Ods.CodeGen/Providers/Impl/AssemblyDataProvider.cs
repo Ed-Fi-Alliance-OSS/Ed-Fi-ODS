@@ -29,11 +29,12 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly IDomainModelDefinitionsProviderProvider _domainModelDefinitionsProviderProvider;
         private readonly IDictionary<string, IDomainModelDefinitionsProvider> _domainModelsDefinitionsProvidersByProjectName;
         private readonly IJsonFileProvider _jsonFileProvider;
-
+        private readonly IUsePluginsProvider _usePluginsProvider;
         public AssemblyDataProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
             IJsonFileProvider jsonFileProvider,
-            IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider)
+            IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider,
+            IUsePluginsProvider usePluginsProvider)
         {
             _codeRepositoryProvider = Preconditions.ThrowIfNull(codeRepositoryProvider, nameof(codeRepositoryProvider));
             _jsonFileProvider = Preconditions.ThrowIfNull(jsonFileProvider, nameof(jsonFileProvider));
@@ -43,28 +44,41 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             _domainModelsDefinitionsProvidersByProjectName =
                 domainModelDefinitionsProviderProvider.DomainModelDefinitionsProvidersByProjectName();
+
+            _usePluginsProvider = usePluginsProvider;
         }
 
         public IEnumerable<AssemblyData> Get()
         {
             _logger.Debug($"Getting all paths to assemblyMetadata.json");
 
-            // List of known assemblies with the assemblyMetaData.json file
             var assemblyDatas = Directory.GetFiles(
                     _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                        CodeRepositoryConventions.Implementation,
-                        CodeRepositoryConventions.Application),
+                        CodeRepositoryConventions.Ods,
+                        "Application"),
                     AssemblyMetadataSearchString,
                     SearchOption.AllDirectories)
-                .Concat(
-                    Directory.GetFiles(
-                        _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                            CodeRepositoryConventions.Ods,
-                            "Application"),
-                        AssemblyMetadataSearchString,
-                        SearchOption.AllDirectories))
                 .Select(Create)
                 .ToList();
+
+            if (_usePluginsProvider.UsePlugins())
+            {
+                var extensionsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                    CodeRepositoryConventions.ExtensionsFolderName,
+                    "Extensions");
+
+                if (Directory.Exists(extensionsPath))
+                {
+                    assemblyDatas.AddRange(
+                        Directory.GetFiles(
+                                extensionsPath,
+                                AssemblyMetadataSearchString,
+                                SearchOption.AllDirectories)
+                            .Select(Create)
+                            .ToList()
+                    );
+                }
+            }
 
             // Add database specific code generation... this is a code smell but is a convention. Sql generation should be done in metaed.
             assemblyDatas.Add(
