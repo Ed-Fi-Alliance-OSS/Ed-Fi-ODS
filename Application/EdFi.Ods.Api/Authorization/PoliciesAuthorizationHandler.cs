@@ -4,17 +4,18 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace EdFi.Ods.Api.Authorization
 {
-    public class PoliciesAuthorizationHandler : AuthorizationHandler<CustomUserRequireClaim>
+    public class PoliciesAuthorizationHandler : AuthorizationHandler<EdFiAuthorizationRequirement>
     {
         protected override Task HandleRequirementAsync(
             AuthorizationHandlerContext context,
-            CustomUserRequireClaim requirement)
+            EdFiAuthorizationRequirement requirement)
         {
             if (context.User == null || !context.User.Identity.IsAuthenticated)
             {
@@ -36,12 +37,13 @@ namespace EdFi.Ods.Api.Authorization
     }
 }
 
-public class CustomUserRequireClaim : IAuthorizationRequirement
+public class EdFiAuthorizationRequirement :IAuthorizationRequirement
 {
     public string ClaimType { get; }
-    public CustomUserRequireClaim(string claimType)
+    public EdFiAuthorizationRequirement(string claimType)
     {
         ClaimType = claimType;
     }
+
 }
 #endif

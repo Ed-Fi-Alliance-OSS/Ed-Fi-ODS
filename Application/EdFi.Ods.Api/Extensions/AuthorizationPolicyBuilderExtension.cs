@@ -6,14 +6,13 @@
 #if NETCOREAPP
 using Microsoft.AspNetCore.Authorization;
 
-namespace EdFi.Ods.Api.Authorization
+namespace EdFi.Ods.Api.Extensions.Authorization
 {
     public static class AuthorizationPolicyBuilderExtension
     {
-        public static AuthorizationPolicyBuilder UserRequireCustomClaim(this AuthorizationPolicyBuilder builder, string claimType)
+        public static AuthorizationPolicyBuilder UserRequireCustomClaim(this AuthorizationPolicyBuilder builder,string claimType)
         {
-            builder.AddRequirements(new CustomUserRequireClaim(claimType));
-            return builder;
+            return builder.AddRequirements(new EdFiAuthorizationRequirement(claimType));           
         }
     }
 }

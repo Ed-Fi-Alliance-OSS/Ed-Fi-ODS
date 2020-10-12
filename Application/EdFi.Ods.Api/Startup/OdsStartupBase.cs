@@ -11,9 +11,7 @@ using System.Security.Claims;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
-using EdFi.Common.Configuration;
-using EdFi.Common.InversionOfControl;
-using EdFi.Ods.Api.Authorization;
+using EdFi.Ods.Api.Extensions.Authorization;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.ExceptionHandling;
@@ -30,6 +28,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
+using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
@@ -46,12 +45,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using EdFi.Ods.Api.Authorization;
 
 namespace EdFi.Ods.Api.Startup
 {
     public abstract class OdsStartupBase
     {
         private const string CorsPolicyName = "_development_";
+        private const string ClaimBasedPolicyName = "claimbasedpolicyname";
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
@@ -92,7 +93,7 @@ namespace EdFi.Ods.Api.Startup
             // c.f. https://docs.microsoft.com/en-us/aspnet/core/migration/claimsprincipal-current?view=aspnetcore-3.1
             services.AddHttpContextAccessor();
 
-            // this is opening up all sites to connect to the server. this should probably be reviewed.
+           // this is opening up all sites to connect to the server. this should probably be reviewed.
             services.AddCors(
                 options =>
                 {
@@ -128,15 +129,14 @@ namespace EdFi.Ods.Api.Startup
 
             services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
                 .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
-
+     
             if (ApiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
             {
                 services.AddAuthorization(config =>
                 {
-                    config.AddPolicy("UserPolicy", policyBuilder =>
+                    config.AddPolicy(ClaimBasedPolicyName,policyBuilder =>
                     {
-                        policyBuilder.UserRequireCustomClaim(ClaimTypes.Email);
-                        policyBuilder.UserRequireCustomClaim(ClaimTypes.DateOfBirth);
+                        policyBuilder.UserRequireCustomClaim(ClaimTypes.Email);              
                     });
                 });
             }
@@ -203,7 +203,7 @@ namespace EdFi.Ods.Api.Startup
             app.UseRouting();
             app.UseStaticFiles();
 
-            app.UseCors(CorsPolicyName);
+           // app.UseCors(CorsPolicyName);
 
             app.UseAuthentication();
             app.UseAuthorization();

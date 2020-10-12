@@ -23,9 +23,12 @@ namespace EdFi.Ods.Api.Controllers
     /// Delegates implementation to the registered IIdentityService and IIdentityServiceAsync implementations
     /// </remarks>
     [Description("Retrieve or create Unique Ids for a Identity, and add or update their information")]
-    [Authorize(Policy = "Identity")]
-    // [ApiController]
+    [Authorize(Policy = "claimbasedpolicyname")]
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ApiController]
+    [Route("edfi/identity")]
     [Produces("application/json")]
+    [AllowAnonymous]
     public class IdentitiesController : ControllerBase
     {
         private const string InvalidServerResponse = "Invalid response from identity service: ";
