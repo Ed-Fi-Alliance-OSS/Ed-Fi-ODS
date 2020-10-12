@@ -52,7 +52,7 @@ namespace EdFi.Ods.Api.Startup
     public abstract class OdsStartupBase
     {
         private const string CorsPolicyName = "_development_";
-        private const string ClaimBasedPolicyName = "claimbasedpolicyname";
+
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
@@ -132,17 +132,14 @@ namespace EdFi.Ods.Api.Startup
      
             if (ApiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
             {
-                services.AddAuthorization(config =>
+                services.AddAuthorization(options =>
                 {
-                    config.AddPolicy(ClaimBasedPolicyName,policyBuilder =>
-                    {
-                        policyBuilder.UserRequireCustomClaim(ClaimTypes.Email);              
-                    });
+                    options.AddPolicy("IdentityManagement", policy =>
+                       policy.RequireAssertion(context =>
+                           context.User.HasClaim(c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity"));
                 });
             }
-            
 
-            services.AddScoped<IAuthorizationHandler, PoliciesAuthorizationHandler>();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

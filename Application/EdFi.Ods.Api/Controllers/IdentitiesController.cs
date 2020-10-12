@@ -23,7 +23,7 @@ namespace EdFi.Ods.Api.Controllers
     /// Delegates implementation to the registered IIdentityService and IIdentityServiceAsync implementations
     /// </remarks>
     [Description("Retrieve or create Unique Ids for a Identity, and add or update their information")]
-    [Authorize(Policy = "claimbasedpolicyname")]
+    [Authorize(Policy = "IdentityManagement")]
     [ApiExplorerSettings(IgnoreApi = true)]
     [ApiController]
     [Route("edfi/identity")]
