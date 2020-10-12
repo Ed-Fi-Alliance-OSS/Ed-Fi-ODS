@@ -12,6 +12,6 @@
   </metadata>
   <files>
     <file src="readme.md" target="" />
-    <file src="bin\$configuration$\net48\*.*" target="tools\" />
+    <file src="bin\$configuration$\netcoreapp3.1\*.*" target="tools\"/>
   </files>
 </package>
