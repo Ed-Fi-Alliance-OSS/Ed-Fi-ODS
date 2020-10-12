@@ -76,4 +76,44 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EdFi.Common\Context\" />
+    <Folder Include="EdFi.Common\InversionOfControl\" />
+    <Folder Include="EdFi.Ods.Admin\Extensions\" />
+    <Folder Include="EdFi.Ods.Admin\Models\" />
+    <Folder Include="EdFi.Ods.Admin\Services\" />
+    <Folder Include="EdFi.Ods.Api.Startup\ContainerBuilders\" />
+    <Folder Include="EdFi.Ods.Api.Startup\Features\" />
+    <Folder Include="EdFi.Ods.Api\Extensibility\" />
+    <Folder Include="EdFi.Ods.Api\NHibernate\Architecture\" />
+    <Folder Include="EdFi.Ods.Api\NHibernate\Composites\" />
+    <Folder Include="EdFi.Ods.Api\NHibernate\Filtering\" />
+    <Folder Include="EdFi.Ods.Api\Services\Authentication\ClientCredentials\" />
+    <Folder Include="EdFi.Ods.Api\Services\Authorization\" />
+    <Folder Include="EdFi.Ods.Api\Services\Controllers\" />
+    <Folder Include="EdFi.Ods.Api\Services\Filters\" />
+    <Folder Include="EdFi.Ods.Api\Services\Metadata\Controllers\" />
+    <Folder Include="EdFi.Ods.Api\Services\Metadata\Factories\" />
+    <Folder Include="EdFi.Ods.Api\Services\Metadata\Helpers\" />
+    <Folder Include="EdFi.Ods.Api\Services\Metadata\Strategies\FactoryStrategies\" />
+    <Folder Include="EdFi.Ods.Api\Services\Metadata\Strategies\ResourceStrategies\" />
+    <Folder Include="EdFi.Ods.Api\Services\Providers\" />
+    <Folder Include="EdFi.Ods.CommonUtils\Enumerations\" />
+    <Folder Include="EdFi.Ods.CommonUtils\Extensions\" />
+    <Folder Include="EdFi.Ods.CommonUtils\_Stubs\" />
+    <Folder Include="EdFi.Ods.Common\ExceptionHandling\" />
+    <Folder Include="EdFi.Ods.Entities.Common\Models\" />
+    <Folder Include="EdFi.Ods.Entities.Common\Validation\" />
+    <Folder Include="EdFi.Ods.Entities.NHibernate\" />
+    <Folder Include="EdFi.Ods.Features.UniqueIdIntegration\" />
+    <Folder Include="EdFi.Ods.Pipelines\Steps\" />
+    <Folder Include="EdFi.Ods.Repositories.NHibernate\Composites\" />
+    <Folder Include="EdFi.Ods.Sandbox\Security\" />
+    <Folder Include="EdFi.Ods.Security\Utilities\CastleWindsor\" />
+    <Folder Include="EdFi.Ods.WebApi.Common\" />
+    <Folder Include="EdFi.Ods.WebApi\Controllers\" />
+    <Folder Include="EdFi.Ods.WebApi\NHibernate\Architecture\" />
+    <Folder Include="EdFi.Security\Authorization\" />
+    <Folder Include="EdFi.Security\Claims\" />
+  </ItemGroup>
 </Project>

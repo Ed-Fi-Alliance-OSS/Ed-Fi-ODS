@@ -31,7 +31,7 @@ namespace EdFi.Ods.Tests._Extensions
         {
             Assert.That(exception?.Message, Does.Contain(expectedSubstring),
                 $@"Exception message does not contain the expected text.
-                                Actual Exception: {exception}");
+                Actual Exception: {exception}");
         }
 
         public static void ShouldBeNull(this Exception exception)
