@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Data;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
@@ -78,7 +79,7 @@ namespace EdFi.Ods.Tests.TestExtension
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
                                     new PT(DbType.Int32, 0, 10, 0, false),
-                                    "The code describing the type of leave taken, for example:\r\n        Sick\r\n        Personal\r\n        Vacation.",
+                                    $"The code describing the type of leave taken, for example:{Environment.NewLine}        Sick{Environment.NewLine}        Personal{Environment.NewLine}        Vacation.",
                                     true,
                                     false),
                                 new EP(
@@ -95,7 +96,7 @@ namespace EdFi.Ods.Tests.TestExtension
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
                                     new PT(DbType.Int32, 0, 10, 0, false),
-                                    "The code describing the type of leave taken, for example:\r\n        Sick\r\n        Personal\r\n        Vacation.",
+                                    $"The code describing the type of leave taken, for example:{Environment.NewLine}        Sick{Environment.NewLine}        Personal{Environment.NewLine}        Vacation.",
                                     true,
                                     false),
                                 new EP(
@@ -117,7 +118,7 @@ namespace EdFi.Ods.Tests.TestExtension
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
                                     new PT(DbType.Int32, 0, 10, 0, false),
-                                    "The code describing the type of leave taken, for example:\r\n        Sick\r\n        Personal\r\n        Vacation.",
+                                    $"The code describing the type of leave taken, for example:{Environment.NewLine}        Sick{Environment.NewLine}        Personal{Environment.NewLine}        Vacation.",
                                     true,
                                     false),
                                 new EP(
@@ -134,7 +135,7 @@ namespace EdFi.Ods.Tests.TestExtension
                                 new EP(
                                     "StaffLeaveEventCategoryTypeId",
                                     new PT(DbType.Int32, 0, 10, 0, false),
-                                    "The code describing the type of leave taken, for example:\r\n        Sick\r\n        Personal\r\n        Vacation.",
+                                    $"The code describing the type of leave taken, for example:{Environment.NewLine}        Sick{Environment.NewLine}        Personal{Environment.NewLine}        Vacation.",
                                     true,
                                     false),
                                 new EP(

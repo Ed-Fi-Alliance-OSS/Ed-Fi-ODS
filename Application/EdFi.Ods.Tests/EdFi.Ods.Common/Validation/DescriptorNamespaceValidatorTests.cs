@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using System;
 using System.Linq;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Entities.NHibernate.SexDescriptorAggregate.EdFi;
@@ -46,7 +47,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Validation
             {
                 var sexDescriptor = new SexDescriptor
                 {
-                    SexDescriptorId = 1, CodeValue = "CodeValue", Namespace = "\t \r\n"
+                    SexDescriptorId = 1, CodeValue = "CodeValue", Namespace = $"\t {Environment.NewLine}"
                 };
 
                 var validator = new DescriptorNamespaceValidator();
@@ -227,7 +228,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Validation
             {
                 var sexDescriptor = new SexDescriptor
                 {
-                    SexDescriptorId = 1, CodeValue = "\t \r\n", Namespace = "uri://ed-fi.org/SexDescriptor"
+                    SexDescriptorId = 1, CodeValue = $"\t {Environment.NewLine}", Namespace = "uri://ed-fi.org/SexDescriptor"
                 };
 
                 var validator = new DescriptorNamespaceValidator();

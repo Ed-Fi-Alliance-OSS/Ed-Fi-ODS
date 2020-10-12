@@ -119,7 +119,7 @@ namespace EdFi.Ods.Common.Expando
             {
                 Debug.Write(
                     "SerializeObject failed with : " + ex.GetBaseException()
-                                                         .Message + "\r\n" + (ex.InnerException != null
+                                                         .Message + Environment.NewLine + (ex.InnerException != null
                         ? ex.InnerException.Message
                         : ""),
                     "West Wind");

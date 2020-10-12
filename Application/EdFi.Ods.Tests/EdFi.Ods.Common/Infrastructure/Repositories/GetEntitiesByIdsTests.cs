@@ -98,8 +98,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Repositories
                                      .OrderBy(x => x)
                                      .ToList();
 
-                var expectedHqlQueriesText = string.Join("\r\n", expectedQueries);
-                var actualHqlQueriesText = string.Join("\r\n", _actualHqlQueries.Skip(1).OrderBy(x => x));
+                var expectedHqlQueriesText = string.Join(Environment.NewLine, expectedQueries);
+                var actualHqlQueriesText = string.Join(Environment.NewLine, _actualHqlQueries.Skip(1).OrderBy(x => x));
 
                 Assert.That(
                     actualHqlQueriesText,
@@ -184,8 +184,8 @@ Actual:
                                      .OrderBy(x => x)
                                      .ToList();
 
-                var expectedHqlQueriesText = string.Join("\r\n", expectedQueries);
-                var actualHqlQueriesText = string.Join("\r\n", _actualHqlQueries.Skip(1).OrderBy(x => x));
+                var expectedHqlQueriesText = string.Join(Environment.NewLine, expectedQueries);
+                var actualHqlQueriesText = string.Join(Environment.NewLine, _actualHqlQueries.Skip(1).OrderBy(x => x));
 
                 Assert.That(
                     actualHqlQueriesText,
