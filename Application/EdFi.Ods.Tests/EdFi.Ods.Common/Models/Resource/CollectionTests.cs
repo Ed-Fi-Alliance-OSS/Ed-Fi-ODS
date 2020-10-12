@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using EdFi.Ods.Common.Models.Domain;
@@ -87,4 +86,3 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
         }
     }
 }
-#endif

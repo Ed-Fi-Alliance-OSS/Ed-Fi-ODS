@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using System;
 using EdFi.Ods.Api.Common.Models;
 using EdFi.Ods.Api.Constants;
@@ -98,4 +97,3 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
         }
     }
 }
-#endif

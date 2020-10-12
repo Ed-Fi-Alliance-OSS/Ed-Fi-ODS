@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Models.Tokens;
@@ -1282,4 +1281,3 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         }
     }
 }
-#endif
