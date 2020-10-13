@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
-namespace EdFi.Ods.WebService.Tests
+namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
 {
     internal class UriHelper
     {

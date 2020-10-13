@@ -3,16 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.Api.Models.Identity;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.WebService.Tests._Helpers;
-using EdFi.Ods.WebService.Tests.Owin;
+using EdFi.Ods.WebApi.IntegrationTests.Helpers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -29,7 +25,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Test.Common;
 
-namespace EdFi.Ods.WebService.Tests.YearSpecificSharedInstanceTests
+namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
 {
     [TestFixture]
     public class When_putting_a_resource_to_a_shared_year_specific_instance
@@ -254,7 +250,7 @@ namespace EdFi.Ods.WebService.Tests.YearSpecificSharedInstanceTests
                 uniqueId2015 = await ExtractIdFromHttpResponse(uniqueId2015Response);
 
                 var create2015Response = await client.PostAsync(
-                                                    OwinUriHelper.BuildOdsUri("students", 2015),
+                                                    UriHelper.BuildOdsUri("students", 2015),
                                                     new StringContent(
                                                         ResourceHelper.CreateStudent(
                                                             uniqueId2015,
@@ -285,4 +281,3 @@ namespace EdFi.Ods.WebService.Tests.YearSpecificSharedInstanceTests
         }
     }
 }
-#endif

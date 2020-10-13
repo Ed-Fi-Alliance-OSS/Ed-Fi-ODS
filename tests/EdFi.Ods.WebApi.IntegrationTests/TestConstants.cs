@@ -6,4 +6,5 @@
 public static class TestConstants
 {
     public const string BaseUrl = "http://localhost:5449/";
+    public const string YearSpecificBaseUrl = "http://localhost:5555/";
 }
