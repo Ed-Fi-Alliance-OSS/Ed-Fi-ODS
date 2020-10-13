@@ -44,4 +44,8 @@
   <ItemGroup>
     <None Include="../../LICENSE.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\ConnectionProviders\" />
+    <Folder Include="InversionOfControl\" />
+  </ItemGroup>
 </Project>
