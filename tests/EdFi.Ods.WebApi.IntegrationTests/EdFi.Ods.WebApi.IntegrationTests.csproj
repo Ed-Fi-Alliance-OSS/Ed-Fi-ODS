@@ -41,12 +41,16 @@
     <ProjectReference Include="..\..\Application\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
+    <ProjectReference Include="..\..\Application\EdFi.TestObjects\EdFi.TestObjects.csproj" />
     <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="hibernate.cfg.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="log4net.config">

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
+  <session-factory>
+    <property name="connection.isolation">ReadCommitted</property>
+    <property name="default_schema">edfi</property>
+    <property name="current_session_context_class">async_local</property>
+    <property name="adonet.batch_size">100</property>
+    <!--
+        Disable the hbm2ddl keywords feature.
+         - The keywords feature causes the database to be hit as soon as the session factory is created.
+         - If tracing is enabled and a trace listener is added (for instance, in Azure), then controllers are instantiated outside of the request.
+         - Since we are calculating connection information based on headers in the request, we have no connection information during trace time, and NHibernate throws an exception.
+      -->
+    <property name="hbm2ddl.auto">none</property>
+    <property name="hbm2ddl.keywords">none</property>
+  </session-factory>
+</hibernate-configuration>

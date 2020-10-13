@@ -85,10 +85,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IHttpContextStorageTransferKeys>()
                 .SingleInstance();
 
-            builder.RegisterType<UnimplementedIdentityService>()
-                .As<IIdentityService>()
-                .As<IIdentityServiceAsync>();
-
             builder.RegisterType<CallContextStorage>()
                 .As<IContextStorage>()
                 .SingleInstance();
