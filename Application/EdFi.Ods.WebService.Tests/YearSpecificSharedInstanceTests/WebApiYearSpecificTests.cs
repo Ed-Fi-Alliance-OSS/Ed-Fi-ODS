@@ -161,8 +161,6 @@ namespace EdFi.Ods.WebService.Tests.YearSpecificSharedInstanceTests
         [Test]
         public async Task Should_update_specified_instance_db()
         {
-            string BaseUrl = "http://localhost:5555/";
-
             Trace.Listeners.Clear();
 
             var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(When_putting_a_resource_to_a_shared_year_specific_instance).Assembly.Location);
@@ -183,7 +181,7 @@ namespace EdFi.Ods.WebService.Tests.YearSpecificSharedInstanceTests
                     webBuilder =>
                     {
                         webBuilder.UseStartup<Startup>();
-                        webBuilder.UseUrls(BaseUrl);
+                        webBuilder.UseUrls(TestConstants.YearSpecificBaseUrl);
                         //webBuilder.ConfigureServices(services =>
                         //{
                         //    services.Configure<ApiSettings>(app =>
@@ -213,7 +211,7 @@ namespace EdFi.Ods.WebService.Tests.YearSpecificSharedInstanceTests
 
                 // create 2014
                 var uniqueId2014Response = await client.PostAsync(
-                                                      "http://localhost:5555/identity/v2/2014/identities",
+                                                      UriHelper.BuildIdentityUri("identities", 2014),
                                                       new StringContent(
                                                           JsonConvert.SerializeObject(
                                                               new IdentityCreateRequest
@@ -227,7 +225,7 @@ namespace EdFi.Ods.WebService.Tests.YearSpecificSharedInstanceTests
                 uniqueId2014 = await ExtractIdFromHttpResponse(uniqueId2014Response);
 
                 var create2014Response = await client.PostAsync(
-                                                    "http://localhost:5555/data/v3/2014/ed-fi/students",
+                                                    UriHelper.BuildOdsUri("students", 2014),
                                                     new StringContent(
                                                         ResourceHelper.CreateStudent(
                                                             uniqueId2014,
@@ -242,7 +240,7 @@ namespace EdFi.Ods.WebService.Tests.YearSpecificSharedInstanceTests
 
                 // create 2015
                 var uniqueId2015Response = await client.PostAsync(
-                                                      OwinUriHelper.BuildIdentityUri("identities", 2015),
+                                                      UriHelper.BuildIdentityUri("identities", 2015),
                                                       new StringContent(
                                                           JsonConvert.SerializeObject(
                                                               new IdentityCreateRequest
