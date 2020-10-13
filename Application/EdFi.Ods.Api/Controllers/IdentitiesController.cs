@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 
 namespace EdFi.Ods.Api.Controllers
 {
@@ -24,11 +25,9 @@ namespace EdFi.Ods.Api.Controllers
     /// </remarks>
     [Description("Retrieve or create Unique Ids for a Identity, and add or update their information")]
     [Authorize(Policy = "IdentityManagement")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     [ApiController]
-    [Route("edfi/identity")]
-    [Produces("application/json")]
-    [AllowAnonymous]
+    [Route("identities")]
+    [Produces("application/json")]    
     public class IdentitiesController : ControllerBase
     {
         private const string InvalidServerResponse = "Invalid response from identity service: ";
@@ -142,6 +141,7 @@ namespace EdFi.Ods.Api.Controllers
         /// <response code="501">The server does not support the requested function.</response>
         /// <response code="502">The underlying identity system returned an error.</response>
         [HttpPost]
+        [Route("find")]
         public async Task<IActionResult> Find([FromBody] string[] uniqueIds)
         {
             try
@@ -193,6 +193,7 @@ namespace EdFi.Ods.Api.Controllers
         /// <response code="501">The server does not support the requested function.</response>
         /// <response code="502">The underlying identity system returned an error.</response>
         [HttpPost]
+        [Route("search")]
         public async Task<IActionResult> Search([FromBody] IdentitySearchRequest[] criteria)
         {
             try

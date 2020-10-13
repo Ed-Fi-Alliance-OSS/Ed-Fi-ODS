@@ -22,6 +22,7 @@ using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
+using EdFi.Ods.Api.Models.Identity;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
@@ -69,6 +70,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IApplicationModelConvention>()
                 .SingleInstance();
 
+            builder.RegisterType<IdentitiesControllerRouteConvention>()
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
+
             builder.RegisterType<ApiKeyContextProvider>()
                 .As<IApiKeyContextProvider>()
                 .As<IHttpContextStorageTransferKeys>();
@@ -76,6 +81,10 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<SchoolYearContextProvider>()
                 .As<ISchoolYearContextProvider>()
                 .As<IHttpContextStorageTransferKeys>();
+
+            builder.RegisterType<UnimplementedIdentityService>()
+                .As<IIdentityService>()
+                .As<IIdentityServiceAsync>();
 
             // Primary context storage for ASP.NET web applications
             builder.RegisterType<HttpContextStorage>()
