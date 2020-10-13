@@ -47,5 +47,6 @@
   <ItemGroup>
     <Folder Include="Infrastructure\ConnectionProviders\" />
     <Folder Include="InversionOfControl\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 </Project>
