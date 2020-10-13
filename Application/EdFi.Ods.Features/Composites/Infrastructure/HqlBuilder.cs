@@ -796,7 +796,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     {
                         var id = _descriptorsCache.GetId(
                             targetProperty.LookupTypeName,
-                            (string) queryStringParameter.Value);
+                            Convert.ToString(queryStringParameter.Value));
 
                         criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
                         parameterValue = id;
@@ -805,7 +805,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Handle UniqueId conversions
                     else if (UniqueIdSpecification.TryGetUniqueIdPersonType(targetProperty.PropertyName, out personType))
                     {
-                        int usi = _personUniqueIdToUsiCache.GetUsi(personType, (string) queryStringParameter.Value);
+                        int usi = _personUniqueIdToUsiCache.GetUsi(personType, Convert.ToString(queryStringParameter.Value));
 
                         // TODO: Embedded convention - Convert UniqueId to USI from Resource model to query Entity model on Person entities
                         // The resource model maps uniqueIds to uniqueIds on the main entity(Student,Staff,Parent)
@@ -823,7 +823,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     else
                     {
                         criteriaPropertyName = targetProperty.PropertyName;
-                        parameterValue = ConvertParameterValueForProperty(targetProperty, queryStringParameter.Value);
+                        parameterValue = ConvertParameterValueForProperty(targetProperty, Convert.ToString(queryStringParameter.Value));
                     }
 
                     // Add criteria to the query
