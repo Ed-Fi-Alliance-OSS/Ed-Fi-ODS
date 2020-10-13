@@ -1,5 +1,4 @@
-﻿#if NETCOREAPP
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Tests.FakeExtension.Controllers
 {
@@ -7,4 +6,3 @@ namespace EdFi.Ods.Tests.FakeExtension.Controllers
     [Route("[FakeExtension/Test]")]
     public class TestController : ControllerBase { }
 }
-#endif

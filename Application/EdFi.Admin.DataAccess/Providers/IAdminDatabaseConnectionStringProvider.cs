@@ -5,9 +5,7 @@
 
 using EdFi.Common.Database;
 
-#if NETSTANDARD
 namespace EdFi.Admin.DataAccess.Providers
 {
     public interface IAdminDatabaseConnectionStringProvider : IDatabaseConnectionStringProvider { }
 }
-#endif

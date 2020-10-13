@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Providers
@@ -13,4 +12,3 @@ namespace EdFi.Ods.Api.Providers
         bool TryGetSwaggerDocument(HttpRequest request, out string document);
     }
 }
-#endif
