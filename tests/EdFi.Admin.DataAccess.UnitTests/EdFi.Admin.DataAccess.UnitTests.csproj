@@ -16,7 +16,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Common" Version="3.4.0" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="FakeItEasy" Version="6.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />

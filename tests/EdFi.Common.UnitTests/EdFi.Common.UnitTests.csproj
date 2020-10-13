@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net48</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Configurations>Debug;Release</Configurations>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RestorePackages>true</RestorePackages>
@@ -34,11 +34,6 @@
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.6" />
     <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="3.1.6" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
-    <PackageReference Include="Castle.Core" Version="4.4.0" />
-    <PackageReference Include="Castle.Windsor" Version="5.0.1" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
@@ -52,6 +47,11 @@
     <None Update="SampleExternal.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+    <Folder Include="InversionOfControl\" />
   </ItemGroup>
   <!-- START: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
