@@ -9,8 +9,6 @@ using FakeItEasy;
 using EdFi.Security.DataAccess.Contexts;
 using NUnit.Framework;
 using Shouldly;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Database;
 using EdFi.Security.DataAccess.Providers;
 
 namespace EdFi.Security.DataAccess.UnitTests.Contexts
