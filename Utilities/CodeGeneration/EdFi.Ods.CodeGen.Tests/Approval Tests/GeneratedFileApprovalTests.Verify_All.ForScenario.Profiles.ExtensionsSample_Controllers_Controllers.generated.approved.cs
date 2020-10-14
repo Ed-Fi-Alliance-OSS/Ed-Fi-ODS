@@ -1,4 +1,3 @@
-#if NETCOREAPP
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -790,4 +789,3 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Include_All
         }
     }
 }
-#endif

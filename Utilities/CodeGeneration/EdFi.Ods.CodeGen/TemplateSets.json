@@ -46,12 +46,7 @@
       "OutputPath": "Pipelines/CreateOrUpdatePipelines.generated.cs"
     },
     {
-      "Name": "Controllers.net",
-      "Driver": "Controllers",
-      "OutputPath": "Controllers/Controllers.net.generated.cs"
-    },
-    {
-      "Name": "Controllers.netcore",
+      "Name": "Controllers",
       "Driver": "Controllers",
       "OutputPath": "Controllers/Controllers.generated.cs"
     },
@@ -121,12 +116,7 @@
   ],
   "profile": [
     {
-      "Name": "Controllers.net",
-      "Driver": "Controllers",
-      "OutputPath": "Controllers/Controllers.net.generated.cs"
-    },
-    {
-      "Name": "Controllers.netcore",
+      "Name": "Controllers",
       "Driver": "Controllers",
       "OutputPath": "Controllers/Controllers.generated.cs"
     },
@@ -197,12 +187,7 @@
       "OutputPath": "Pipelines/CreateOrUpdatePipelines.generated.cs"
     },
     {
-      "Name": "Controllers.net",
-      "Driver": "Controllers",
-      "OutputPath": "Controllers/Controllers.net.generated.cs"
-    },
-    {
-      "Name": "Controllers.netcore",
+      "Name": "Controllers",
       "Driver": "Controllers",
       "OutputPath": "Controllers/Controllers.generated.cs"
     },

@@ -1,4 +1,3 @@
-#if NETCOREAPP
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -251,4 +250,3 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
         }
     }
 }
-#endif

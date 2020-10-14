@@ -1,17 +1,11 @@
-#if NETFRAMEWORK
 using System;
-using System.Web.Http.Description;
 using System.Diagnostics.CodeAnalysis;
-using System.Net;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Results;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Attributes;
-using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Services.Controllers;
-using EdFi.Ods.Api.Services.CustomActionResults;
+using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Models.Requests;
 using EdFi.Ods.Common.Models.Queries;
@@ -21,19 +15,27 @@ using EdFi.Ods.Entities.Common.{{ProperCaseName}};
 {{#IsExtensionContext}}
 using {{ControllersBaseNamespace}};
 {{/IsExtensionContext}}
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 {{#Controllers}}
 
 namespace {{ControllersNamespace}}
 {
     {{#NullRequests}}
-    [ProfileContentType("{{ContentType}}")]
     [ExcludeFromCodeCoverage]
     public class {{ClassName}} : NullRequestBase { }
 
     {{/NullRequests}}
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
-    public partial class {{ControllerClass}} : EdFiControllerBase<
+    [ApiController]
+    [Authorize]
+    {{#ProfileContentType}}
+    [ProfileContentType("{{ContentType}}")]
+    {{/ProfileContentType}}
+    [Route("{{RouteTemplate}}")]
+    public partial class {{ControllerClass}} : DataManagementControllerBase<
         {{ResourceReadModel}},
         {{ResourceWriteModel}},
         {{EntityInterface}},
@@ -52,7 +54,7 @@ namespace {{ControllersNamespace}}
         {
         {{#MapAllExpression}}
             {{#HasProperties}}
-                        // Copy all existing values
+            // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             {{/HasProperties}}
             {{#Properties}}
@@ -62,7 +64,7 @@ namespace {{ControllersNamespace}}
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
             {{/HasProperties}}
         {{/MapAllExpression}}
-                    }
+        }
 
         protected override string GetResourceCollectionName()
         {
@@ -77,13 +79,15 @@ namespace {{ControllersNamespace}}
         {{/ReadContentType}}
         {{#OverrideHttpFunctions}}
 
-        public override Task<IHttpActionResult> {{MethodName}}({{MethodParameters}})
+        [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
+        public override Task<IActionResult> {{MethodName}}({{MethodParameters}})
         {
-            return Task.FromResult(new StatusCodeResult(HttpStatusCode.MethodNotAllowed, this)
-                .WithError("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}."));
+            return Task.FromResult<IActionResult>(
+                StatusCode(StatusCodes.Status405MethodNotAllowed,
+                ErrorTranslator
+                    .GetErrorMessage("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}.")));
         }
         {{/OverrideHttpFunctions}}
     }
 }
 {{/Controllers}}
-#endif
