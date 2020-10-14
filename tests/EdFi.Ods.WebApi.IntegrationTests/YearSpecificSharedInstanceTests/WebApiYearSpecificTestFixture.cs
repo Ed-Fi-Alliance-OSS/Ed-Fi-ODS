@@ -28,45 +28,14 @@ using Test.Common;
 namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
 {
     [TestFixture]
-    public class When_putting_a_resource_to_a_shared_year_specific_instance
+    public class WebApiYearSpecificTestFixture
     {
-        private delegate string ResolveDatabaseDelegate();
-
-        private delegate string ResolveConnectionStringDelegate();
-
-        private static ISchoolYearContextProvider _schoolYearContextProvider;
-
         public IConfigurationRoot Configuration { get; set; }
 
-        //private static string ResolveConnectionString()
-        //{
-        //    var connectionString = Configuration.GetSection("ConnectionStrings:EdFi_Ods").Value;
-        //    var builder = new SqlConnectionStringBuilder(connectionString) { InitialCatalog = ResolveDatabase() };
-
-        //    return builder.ConnectionString;
-        //}
-
-        private static string ResolveDatabase()
-        {
-            int schoolYear = _schoolYearContextProvider.GetSchoolYear();
-
-            if (schoolYear == 2014)
-            {
-                return DatabaseName_2014;
-            }
-
-            if (schoolYear == 2015)
-            {
-                return DatabaseName_2015;
-            }
-
-            return string.Empty;
-        }
-
-        private const string DatabaseName_2014 =
+        public const string DatabaseName_2014 =
             "EdFi_Tests_When_putting_a_resource_to_a_shared_year_specific_instance_2014";
 
-        private const string DatabaseName_2015 =
+        public const string DatabaseName_2015 =
             "EdFi_Tests_When_putting_a_resource_to_a_shared_year_specific_instance_2015";
 
         private DatabaseHelper _databaseHelper;
@@ -114,7 +83,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
         public string GetConnectionString(int schoolYear)
         {
             var builder = new SqlConnectionStringBuilder(
-                Configuration.GetSection("ConnectionStrings:EdFi_Ods").Value);
+                Configuration.GetConnectionString("EdFi_Ods"));
 
             if (schoolYear == 2014)
             {
@@ -157,9 +126,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
         [Test]
         public async Task Should_update_specified_instance_db()
         {
-            Trace.Listeners.Clear();
-
-            var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(When_putting_a_resource_to_a_shared_year_specific_instance).Assembly.Location);
+            var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(WebApiYearSpecificTestFixture).Assembly.Location);
 
             // Create and start up the host
             var Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
@@ -178,13 +145,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
                     {
                         webBuilder.UseStartup<Startup>();
                         webBuilder.UseUrls(TestConstants.YearSpecificBaseUrl);
-                        //webBuilder.ConfigureServices(services =>
-                        //{
-                        //    services.Configure<ApiSettings>(app =>
-                        //    {
-                        //        app.Mode = "YearSpecific";
-                        //    });
-                        //});
                     })
                 .Build();
 
@@ -201,9 +161,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
                     "Bearer",
                     Guid.NewGuid()
                         .ToString());
-
-                var uniqueId2014Response1 = await client.GetAsync(
-                                                      "http://localhost:5555");
 
                 // create 2014
                 var uniqueId2014Response = await client.PostAsync(
