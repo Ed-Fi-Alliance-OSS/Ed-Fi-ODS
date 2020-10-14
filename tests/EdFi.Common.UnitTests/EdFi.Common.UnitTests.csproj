@@ -48,11 +48,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-    <Folder Include="InversionOfControl\" />
-  </ItemGroup>
   <!-- START: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
   <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
     <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.dll.config" />
