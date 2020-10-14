@@ -25,7 +25,7 @@ namespace EdFi.Ods.Api.Conventions
         public void Apply(ApplicationModel application)
         {
             var controller =
-                application.Controllers.FirstOrDefault(x => x.ControllerType == typeof(IdentitiesController).GetTypeInfo());
+                application.Controllers.SingleOrDefault(x => x.ControllerType == typeof(IdentitiesController)?.GetTypeInfo());
 
             if (controller != null)
             {
