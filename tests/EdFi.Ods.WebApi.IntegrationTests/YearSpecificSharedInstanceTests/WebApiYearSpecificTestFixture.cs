@@ -42,8 +42,10 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
 
         public static string PopulatedDatabaseName { get; set; }
 
+        public IHost Host { get; private set; }
+
         [OneTimeSetUp]
-        public void RunBeforeAnyTests()
+        public async Task RunBeforeAnyTests()
         {
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
@@ -56,11 +58,38 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
             _databaseHelper = new DatabaseHelper(Configuration);
             _databaseHelper.CopyDatabase(PopulatedDatabaseName, DatabaseName_2014);
             _databaseHelper.CopyDatabase(PopulatedDatabaseName, DatabaseName_2015);
+
+            var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(WebApiYearSpecificTestFixture).Assembly.Location);
+
+            // Create and start up the host
+            Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration(
+                    (hostBuilderContext, configBuilder) =>
+                    {
+                        string appSettingsPath = Path.Combine(executableAbsoluteDirectory, "appsettings.yearspecific.json");
+
+                        configBuilder.SetBasePath(executableAbsoluteDirectory)
+                            .AddJsonFile(appSettingsPath, optional: true, reloadOnChange: true)
+                            .AddEnvironmentVariables();
+                    })
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(
+                    webBuilder =>
+                    {
+                        webBuilder.UseStartup<Startup>();
+                        webBuilder.UseUrls(TestConstants.YearSpecificBaseUrl);
+                    })
+                .Build();
+
+            await Host.StartAsync();
         }
 
         [OneTimeTearDown]
-        public void RunAfterAnyTests()
+        public async Task RunAfterAnyTests()
         {
+            await Host.StopAsync();
+            Host.Dispose();
+
             _databaseHelper.DropDatabase(DatabaseName_2014);
             _databaseHelper.DropDatabase(DatabaseName_2015);
         }
@@ -126,30 +155,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
         [Test]
         public async Task Should_update_specified_instance_db()
         {
-            var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(WebApiYearSpecificTestFixture).Assembly.Location);
-
-            // Create and start up the host
-            var Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
-                .ConfigureAppConfiguration(
-                    (hostBuilderContext, configBuilder) =>
-                    {
-                        string appSettingsPath = Path.Combine(executableAbsoluteDirectory, "appsettings.yearspecific.json");
-
-                        configBuilder.SetBasePath(executableAbsoluteDirectory)
-                            .AddJsonFile(appSettingsPath, optional: true, reloadOnChange: true)
-                            .AddEnvironmentVariables();
-                    })
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureWebHostDefaults(
-                    webBuilder =>
-                    {
-                        webBuilder.UseStartup<Startup>();
-                        webBuilder.UseUrls(TestConstants.YearSpecificBaseUrl);
-                    })
-                .Build();
-
-            await Host.StartAsync();
-
             string uniqueId2014;
             string uniqueId2015;
 
@@ -232,9 +237,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecificSharedInstanceTests
 
             StudentExists(2015, uniqueId2015)
                .ShouldBeTrue();
-
-            await Host.StopAsync();
-            Host.Dispose();
         }
     }
 }
