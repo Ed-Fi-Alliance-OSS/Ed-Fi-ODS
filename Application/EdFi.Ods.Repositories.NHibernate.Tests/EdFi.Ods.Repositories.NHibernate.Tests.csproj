@@ -44,7 +44,7 @@
     <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.2" />
   </ItemGroup>
   <ItemGroup>

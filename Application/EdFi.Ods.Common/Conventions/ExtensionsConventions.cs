@@ -8,9 +8,6 @@ using System.Collections;
 using System.Linq;
 using System.Reflection;
 using EdFi.Common.Extensions;
-#if NETFRAMEWORK
-using Castle.Core.Internal;
-#endif
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 
@@ -238,16 +235,6 @@ namespace EdFi.Ods.Common.Conventions
             return $"{extensionName}_{roleName}{pluralName}";
         }
 
-#if NETFRAMEWORK
-        private static string GetExtensionClassTypeName(string @namespace, string extensionName, string className)
-        {
-            string extensionSegment = extensionName.IsNullOrEmpty()
-                ? string.Empty
-                : $".{extensionName}";
-
-            return $"{@namespace}{extensionSegment}.{GetExtensionClassName(className)}";
-        }
-#endif
         public static string GetExtensionClassName(string className)
         {
             return $"{className}{ExtensionSuffix}";

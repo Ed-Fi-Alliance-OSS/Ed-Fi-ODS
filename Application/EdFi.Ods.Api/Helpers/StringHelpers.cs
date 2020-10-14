@@ -3,8 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETSTANDARD
 using System;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Api.Common.Helpers
@@ -17,4 +17,3 @@ namespace EdFi.Ods.Api.Common.Helpers
             => $"{nameof(T)}.{Enum.GetName(typeof(TEnum), value)}.{apiMode.Value}";
     }
 }
-#endif

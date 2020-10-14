@@ -14,11 +14,7 @@ using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Extensions;
 using EdFi.Ods.Common;
-#if NETFRAMEWORK
-using EdFi.Ods.Common.Configuration;
-#elif NETSTANDARD
 using Microsoft.Extensions.Configuration;
-#endif
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Common;
 using EdFi.Common.Configuration;
@@ -39,31 +35,6 @@ namespace EdFi.Ods.Sandbox.Repositories
         private readonly Lazy<string> _defaultAppName;
         private readonly Lazy<string> _defaultClaimSetName;
 
-#if NETFRAMEWORK
-        public ClientAppRepo(
-            IUsersContextFactory contextFactory,
-            IConfigValueProvider configValueProvider)
-        {
-            _contextFactory = Preconditions.ThrowIfNull(contextFactory, nameof(contextFactory));
-            Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
-
-            _duration = new Lazy<int>(
-                () =>
-                {
-                    // Get the config value, defaulting to 1 hour
-                    if (!int.TryParse(configValueProvider.GetValue("BearerTokenTimeoutMinutes"), out int duration))
-                    {
-                        duration = DefaultDuration;
-                    }
-
-                    return duration;
-                });
-
-            _defaultOperationalContextUri = new Lazy<string>(() => configValueProvider.GetValue("DefaultOperationalContextUri"));
-            _defaultAppName = new Lazy<string>(() => configValueProvider.GetValue("DefaultApplicationName"));
-            _defaultClaimSetName = new Lazy<string>(() => configValueProvider.GetValue("DefaultClaimSetName"));
-        }
-#elif NETSTANDARD
         public ClientAppRepo(
             IUsersContextFactory contextFactory,
             IConfigurationRoot config)
@@ -98,7 +69,6 @@ namespace EdFi.Ods.Sandbox.Repositories
                 () => config.GetSection("DefaultClaimSetName")
                     .Value);
         }
-#endif
 
         private Profile GetOrCreateProfile(string profileName)
         {

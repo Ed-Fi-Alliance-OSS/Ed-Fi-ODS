@@ -198,7 +198,7 @@ namespace EdFi.Ods.Common.Extensions
             return value;
         }
 
-#if NETSTANDARD2_0 || NETFRAMEWORK
+#if NETSTANDARD2_0
         /// <summary>
         /// Gets the value of the entry for the specified key, or the default value for the type if not found.
         /// </summary>
