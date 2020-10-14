@@ -4,12 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Features.ChangeQueries;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Features.IdentityManagement;
 
 namespace EdFi.Ods.Features.RouteInformations
@@ -30,7 +30,7 @@ namespace EdFi.Ods.Features.RouteInformations
                 Template = CreateRoute() + "/swagger.json"
             };
 
-        private string CreateRoute()
+         string CreateRoute()
         {
             string prefix = $"metadata/{{other:regex(identity)}}/v{IdentityManagementConstants.FeatureVersion}/";
 

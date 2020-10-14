@@ -5,15 +5,9 @@
 
 #if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Infrastructure.Pipelines;
-using EdFi.Ods.Features.Conventions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Features.ChangeQueries;
-using EdFi.Ods.Features.ChangeQueries.Providers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.Providers;

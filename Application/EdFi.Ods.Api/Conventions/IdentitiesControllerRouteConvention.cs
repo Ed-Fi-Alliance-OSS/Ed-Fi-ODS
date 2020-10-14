@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 #if NETCOREAPP
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Common.Configuration;

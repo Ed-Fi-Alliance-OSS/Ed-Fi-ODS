@@ -18,5 +18,5 @@ namespace EdFi.Ods.Features.IdentityManagement
     public static readonly string IdentityMetadataRouteName = EdFiConventions.GetOpenApiMetadataRouteName(FeatureName);
 
     public static string SchoolYearTypesResourceName = "SchoolYearType";
-}
+    }
 }
