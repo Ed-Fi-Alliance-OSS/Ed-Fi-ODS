@@ -51,15 +51,15 @@
   "definitions": {
     "availableChangeVersion": {
       "required": [
-        "oldestChangeVersionId",
-        "newestChangeVersionId"
+        "OldestChangeVersionId",
+        "NewestChangeVersionId"
       ], 
       "properties": {
-        "oldestChangeVersionId": {
+        "OldestChangeVersionId": {
           "type": "integer",
           "format": "int64"
         },
-        "newestChangeVersionId": {
+        "NewestChangeVersionId": {
           "type": "integer",
           "format": "int64"
         }
