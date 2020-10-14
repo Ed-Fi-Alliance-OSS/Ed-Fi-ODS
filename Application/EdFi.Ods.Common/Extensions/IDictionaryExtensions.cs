@@ -197,48 +197,5 @@ namespace EdFi.Ods.Common.Extensions
 
             return value;
         }
-
-#if NETSTANDARD2_0
-        /// <summary>
-        /// Gets the value of the entry for the specified key, or the default value for the type if not found.
-        /// </summary>
-        /// <typeparam name="TKey">The Type used as the key in the dictionary.</typeparam>
-        /// <typeparam name="TValue">The Type of values stored in the dictionary.</typeparam>
-        /// <param name="source">The source dictionary.</param>
-        /// <param name="key">The value of the key for the item to be retrieved.</param>
-        /// <returns>The value of the entry for the specified key, or the default value for the type if not found.</returns>
-        public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> source, TKey key)
-        {
-            TValue value;
-
-            if (!source.TryGetValue(key, out value))
-            {
-                return default(TValue);
-            }
-
-            return value;
-        }
-
-        /// <summary>
-        /// Gets the value of the entry for the specified key, or the supplied "default" value if not found.
-        /// </summary>
-        /// <typeparam name="TKey">The Type used as the key in the dictionary.</typeparam>
-        /// <typeparam name="TValue">The Type of values stored in the dictionary.</typeparam>
-        /// <param name="source">The source dictionary.</param>
-        /// <param name="key">The value of the key for the item to be retrieved.</param>
-        /// <param name="defaultValue">The default value to be returned if the entry is not present.</param>
-        /// <returns>The value of the entry for the specified key, or the default value for the type if not found.</returns>
-        public static TValue GetValueOrDefault<TKey, TValue>(this IReadOnlyDictionary<TKey, TValue> source, TKey key, TValue defaultValue)
-        {
-            TValue value;
-
-            if (!source.TryGetValue(key, out value))
-            {
-                return defaultValue;
-            }
-
-            return value;
-        }
-#endif
     }
 }

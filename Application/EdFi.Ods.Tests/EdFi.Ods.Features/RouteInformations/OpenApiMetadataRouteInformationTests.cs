@@ -7,11 +7,10 @@ using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.RouteInformations;
-using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.NetCore.Tests
+namespace EdFi.Ods.Tests.EdFi.Ods.Features.RouteInformations
 {
     [TestFixture]
     public class OpenApiMetadataRouteInformationTests

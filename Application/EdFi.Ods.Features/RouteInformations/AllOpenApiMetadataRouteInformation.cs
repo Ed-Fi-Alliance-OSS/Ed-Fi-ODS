@@ -6,7 +6,8 @@
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
 
-namespace EdFi.Ods.Features.RouteInformations {
+namespace EdFi.Ods.Features.RouteInformations
+{
     public class AllOpenApiMetadataRouteInformation : OpenApiMetadataRouteInformationBase
     {
         public AllOpenApiMetadataRouteInformation(ApiSettings apiSettings)

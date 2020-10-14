@@ -39,18 +39,5 @@
     <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="NoAppSettings.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="SampleExternal.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <!-- START: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
-  <Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-    <Copy SourceFiles="App.config" DestinationFiles="$(OutDir)\testhost.dll.config" />
-  </Target>
   <!-- END: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
 </Project>
