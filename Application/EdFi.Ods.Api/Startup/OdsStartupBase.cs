@@ -90,7 +90,6 @@ namespace EdFi.Ods.Api.Startup
                     options.AddPolicy(
                         CorsPolicyName,
                         builder => builder
-                            .SetIsOriginAllowed(_ => true)
                             .AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod());
