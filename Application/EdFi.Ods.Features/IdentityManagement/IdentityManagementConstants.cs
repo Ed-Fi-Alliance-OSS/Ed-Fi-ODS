@@ -3,11 +3,20 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Conventions;
+
 namespace EdFi.Ods.Features.IdentityManagement
 {
     public class IdentityManagementConstants
     {
         public const string FeatureName = "IdentityManagement";
         public const string FeatureVersion = "1";
-    }
+    
+    /// <summary>
+    /// Metadata Route name for Change Queries
+    /// </summary>
+    public static readonly string IdentityMetadataRouteName = EdFiConventions.GetOpenApiMetadataRouteName(FeatureName);
+
+    public static string SchoolYearTypesResourceName = "SchoolYearType";
+}
 }

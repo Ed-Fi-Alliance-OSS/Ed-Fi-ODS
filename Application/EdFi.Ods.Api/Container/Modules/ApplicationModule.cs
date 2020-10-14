@@ -70,10 +70,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IApplicationModelConvention>()
                 .SingleInstance();
 
-            builder.RegisterType<IdentitiesControllerRouteConvention>()
-                .As<IApplicationModelConvention>()
-                .SingleInstance();
-
             builder.RegisterType<ApiKeyContextProvider>()
                 .As<IApiKeyContextProvider>()
                 .As<IHttpContextStorageTransferKeys>();
@@ -81,10 +77,6 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<SchoolYearContextProvider>()
                 .As<ISchoolYearContextProvider>()
                 .As<IHttpContextStorageTransferKeys>();
-
-            builder.RegisterType<UnimplementedIdentityService>()
-                .As<IIdentityService>()
-                .As<IIdentityServiceAsync>();
 
             // Primary context storage for ASP.NET web applications
             builder.RegisterType<HttpContextStorage>()
