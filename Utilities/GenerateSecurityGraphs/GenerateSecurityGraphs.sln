@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateSecurityGraphs", "GenerateSecurityGraphs\GenerateSecurityGraphs.csproj", "{B5861230-1AAB-4A86-B1DC-3C9942B27EC8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateSecurityGraphs.NetCore", "GenerateSecurityGraphs.NetCore\GenerateSecurityGraphs.NetCore.csproj", "{1A00BDB9-4A88-4023-B4C1-A142F839D751}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateSecurityGraphs", "GenerateSecurityGraphs\GenerateSecurityGraphs.csproj", "{1A00BDB9-4A88-4023-B4C1-A142F839D751}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B5861230-1AAB-4A86-B1DC-3C9942B27EC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5861230-1AAB-4A86-B1DC-3C9942B27EC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5861230-1AAB-4A86-B1DC-3C9942B27EC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5861230-1AAB-4A86-B1DC-3C9942B27EC8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A00BDB9-4A88-4023-B4C1-A142F839D751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A00BDB9-4A88-4023-B4C1-A142F839D751}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A00BDB9-4A88-4023-B4C1-A142F839D751}.Release|Any CPU.ActiveCfg = Release|Any CPU
