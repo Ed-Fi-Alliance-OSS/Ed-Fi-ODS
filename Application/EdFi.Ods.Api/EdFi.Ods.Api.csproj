@@ -42,24 +42,4 @@
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Architecture\" />
-    <Folder Include="ChangeQueries\" />
-    <Folder Include="ContainerBuilders\" />
-    <Folder Include="ETag\" />
-    <Folder Include="Features\" />
-    <Folder Include="HttpConfigurators\" />
-    <Folder Include="HttpRouteConfigurations\" />
-    <Folder Include="NHibernate\Architecture\" />
-    <Folder Include="Services\ActionFilters\" />
-    <Folder Include="Services\Authentication\ClientCredentials\" />
-    <Folder Include="Services\Authorization\" />
-    <Folder Include="Services\binders\" />
-    <Folder Include="Services\Controllers\IdentityManagement\" />
-    <Folder Include="Services\CustomActionResults\" />
-    <Folder Include="Services\Extensions\" />
-    <Folder Include="Services\Filters\" />
-    <Folder Include="Services\Metadata\" />
-    <Folder Include="_Installers\" />
-  </ItemGroup>
 </Project>
