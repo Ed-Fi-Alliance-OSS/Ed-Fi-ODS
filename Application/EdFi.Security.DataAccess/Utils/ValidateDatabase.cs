@@ -8,7 +8,6 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Transactions;
 using EdFi.Common;
-using EdFi.Ods.Common;
 
 namespace EdFi.Security.DataAccess.Utils
 {

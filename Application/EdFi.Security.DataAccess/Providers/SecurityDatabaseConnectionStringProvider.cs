@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Security.DataAccess.Providers {
     public class SecurityDatabaseConnectionStringProvider: ISecurityDatabaseConnectionStringProvider
