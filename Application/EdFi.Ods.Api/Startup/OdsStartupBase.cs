@@ -11,7 +11,8 @@ using System.Security.Claims;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
-using EdFi.Ods.Api.Extensions.Authorization;
+using EdFi.Common.Configuration;
+using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.ExceptionHandling;
@@ -28,13 +29,11 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
-using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -45,7 +44,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using EdFi.Ods.Api.Authorization;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -136,7 +134,7 @@ namespace EdFi.Ods.Api.Startup
                 {
                     options.AddPolicy("IdentityManagement", policy =>
                        policy.RequireAssertion(context =>
-                           context.User.HasClaim(c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity"));
+                           context.User.HasClaim(c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity")));
                 });
             }
 
@@ -200,7 +198,7 @@ namespace EdFi.Ods.Api.Startup
             app.UseRouting();
             app.UseStaticFiles();
 
-           // app.UseCors(CorsPolicyName);
+            app.UseCors(CorsPolicyName);
 
             app.UseAuthentication();
             app.UseAuthorization();
