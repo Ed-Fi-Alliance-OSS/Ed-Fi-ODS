@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using System;
 using Autofac;
 using EdFi.Common.InversionOfControl;
@@ -24,4 +23,3 @@ namespace EdFi.Ods.Api.InversionOfControl
         public T Resolve<T>() => _container.Value.Resolve<T>();
     }
 }
-#endif

@@ -5,9 +5,7 @@
 
 using EdFi.Common.Database;
 
-#if NETSTANDARD
 namespace EdFi.Ods.Common.Database
 {
     public interface IOdsDatabaseConnectionStringProvider : IDatabaseConnectionStringProvider { }
 }
-#endif

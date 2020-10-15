@@ -6,7 +6,6 @@
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Providers;
 
-#if NETCOREAPP
 namespace EdFi.Ods.Api.Providers
 {
     public class EdFiOdsInstanceIdentificationProvider : IEdFiOdsInstanceIdentificationProvider
@@ -24,4 +23,3 @@ namespace EdFi.Ods.Api.Providers
                 .GetHashCode();
     }
 }
-#endif

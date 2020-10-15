@@ -6,8 +6,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
-using QuickGraph.Graphviz;
-using QuickGraph.Graphviz.Dot;
+using QuikGraph.Graphviz;
+using QuikGraph.Graphviz.Dot;
 
 namespace GenerateSecurityGraphs
 {
@@ -54,7 +54,9 @@ namespace GenerateSecurityGraphs
                 Process.Start(
                     new ProcessStartInfo(@"C:\Program Files (x86)\Graphviz2.38\bin\unflatten.exe", unflattenArgs)
                     {
-                        UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true
                     });
 
                 outputFileName = outputFileName + ".unflattened";
@@ -78,7 +80,10 @@ namespace GenerateSecurityGraphs
                 Process.Start(
                     new ProcessStartInfo(@"C:\Program Files (x86)\Graphviz2.38\bin\dot.exe", args)
                     {
-                        UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true, WorkingDirectory = _assetsFolder
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        WorkingDirectory = _assetsFolder
                     });
             }
 

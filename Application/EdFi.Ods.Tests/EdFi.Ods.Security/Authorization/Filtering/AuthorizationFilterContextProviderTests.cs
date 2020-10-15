@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using System.Collections.Generic;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Security.Authorization;
@@ -72,4 +71,3 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Filtering
         }
     }
 }
-#endif

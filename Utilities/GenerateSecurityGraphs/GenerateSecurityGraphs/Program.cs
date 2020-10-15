@@ -15,9 +15,9 @@ using CommandLine;
 using CommandLine.Text;
 using GenerateSecurityGraphs.Models.AuthorizationMetadata;
 using GenerateSecurityGraphs.Models.Query;
-using QuickGraph;
-using QuickGraph.Graphviz;
-using QuickGraph.Graphviz.Dot;
+using QuikGraph;
+using QuikGraph.Graphviz;
+using QuikGraph.Graphviz.Dot;
 
 namespace GenerateSecurityGraphs
 {
@@ -38,14 +38,14 @@ namespace GenerateSecurityGraphs
         [Option('o', "out", Required = true, HelpText = "The path to the folder where the graphs should be generated.")]
         public string OutputFolder { get; set; }
 
-        [Option('f', "force", DefaultValue = false, HelpText = "Create a folder at that path if one doesn't already exist.")]
+        [Option('f', "force", Default = false, HelpText = "Create a folder at that path if one doesn't already exist.")]
         public bool Force { get; set; }
 
-        [Option('d', "database", DefaultValue = "EdFi_Security", HelpText = "The name of the database containing the authorization metadata.")]
+        [Option('d', "database", Default = "EdFi_Security", HelpText = "The name of the database containing the authorization metadata.")]
         public string Database { get; set; }
 
         [Option(
-            's', "server", DefaultValue = "(local)", HelpText = "The name of the SQL Server where the authorization metadata database is located.")]
+            's', "server", Default = "(local)", HelpText = "The name of the SQL Server where the authorization metadata database is located.")]
         public string Server { get; set; }
 
         [Option(
@@ -58,12 +58,12 @@ namespace GenerateSecurityGraphs
                 "The password to use for connecting to the authorization metadata database.  Leave username and password blank to use integrated security.")]
         public string Password { get; set; }
 
-        [HelpOption]
-        public string GetUsage()
+        //[HelpOption]
+        public string GetUsage(string[] args)
         {
-            return HelpText.AutoBuild(
-                this,
-                current => HelpText.DefaultParsingErrorsHandler(this, current));
+            var result = Parser.Default.ParseArguments<Options>(args);
+            return HelpText.AutoBuild<Options>(result,
+                current => HelpText.DefaultParsingErrorsHandler(result, current));
         }
     }
 
@@ -98,9 +98,13 @@ namespace GenerateSecurityGraphs
             // Parse the command line arguments
             var options = new Options();
 
-            if (!Parser.Default.ParseArgumentsStrict(args, options))
+            Parser.Default.ParseArguments<Options>(args)
+                .WithParsed(opt => options = opt)
+                .WithNotParsed(e => e.Output());
+
+            if (options == null)
             {
-                Console.WriteLine(options.GetUsage());
+                Console.WriteLine(options.GetUsage(args));
                 return;
             }
 
@@ -201,12 +205,14 @@ namespace GenerateSecurityGraphs
                     (from rootNode in rootNodes
                      let subgraph = GetSubgraph(resourceGraph, rootNode)
                      select new
-                            {
-                                Subgraph = subgraph, OutputFileName = Path.Combine(outputFolder, rootNode.Name), UnflattenToDepth =
+                     {
+                         Subgraph = subgraph,
+                         OutputFileName = Path.Combine(outputFolder, rootNode.Name),
+                         UnflattenToDepth =
                                     subgraph.Vertices.Count() < 20
                                         ? 0
                                         : subgraph.Vertices.Count() / 5
-                            })
+                     })
                    .ToList();
 
                 var subgraphsToCombine =
@@ -287,9 +293,10 @@ order by ClaimSetName, ResourceName, Action_ActionId
             var distinctMetadataEdges =
                 (from e in metadataEdges
                  select new
-                        {
-                            e.ResourceName, e.ParentResourceName
-                        }
+                 {
+                     e.ResourceName,
+                     e.ParentResourceName
+                 }
                 ).Distinct();
 
             // First process the segments into the graph
@@ -313,13 +320,15 @@ order by ClaimSetName, ResourceName, Action_ActionId
                 group e by e.ResourceName
                 into g
                 select new
-                       {
-                           ResourceName = g.Key, Actions = g.Select(
+                {
+                    ResourceName = g.Key,
+                    Actions = g.Select(
                                x => new
-                                    {
-                                        x.ActionName, StrategyName = x.AuthorizationStrategyName
-                                    })
-                       };
+                               {
+                                   x.ActionName,
+                                   StrategyName = x.AuthorizationStrategyName
+                               })
+                };
 
             // Augment each vertex with the actions/strategies
             foreach (var edge in edgesGroupedByResoureName)
@@ -329,9 +338,10 @@ order by ClaimSetName, ResourceName, Action_ActionId
                 vertex.ActionAndStrategyPairs.AddRange(
                     from e in edge.Actions
                     select new ActionAndStrategy
-                           {
-                               ActionName = e.ActionName, AuthorizationStrategy = e.StrategyName
-                           });
+                    {
+                        ActionName = e.ActionName,
+                        AuthorizationStrategy = e.StrategyName
+                    });
             }
 
             // Process claim set data
@@ -340,23 +350,26 @@ order by ClaimSetName, ResourceName, Action_ActionId
                  group c by c.ClaimSetName
                  into mainGroup
                  select new
-                        {
-                            ClaimSetName = mainGroup.Key, Resources =
+                 {
+                     ClaimSetName = mainGroup.Key,
+                     Resources =
                                 (from mg in mainGroup
                                  group mg by mg.ResourceName
                                  into subGroup
                                  select new
-                                        {
-                                            ResourceName = subGroup.Key, ActionStrategy =
+                                 {
+                                     ResourceName = subGroup.Key,
+                                     ActionStrategy =
                                                 (from sg in subGroup
                                                  where !string.IsNullOrEmpty(sg.ActionName)
                                                  select new
-                                                        {
-                                                            sg.ActionName, sg.StrategyName
-                                                        })
+                                                 {
+                                                     sg.ActionName,
+                                                     sg.StrategyName
+                                                 })
                                                .ToList()
-                                        }).ToList()
-                        }).ToList();
+                                 }).ToList()
+                 }).ToList();
 
             claimSetNames = claimsetMetadata.Select(x => x.ClaimSetName).ToList();
 
@@ -376,9 +389,9 @@ order by ClaimSetName, ResourceName, Action_ActionId
                         if (actionVertex == null)
                         {
                             var newAction = new ActionAndStrategy
-                                            {
-                                                ActionName = actionStrategyItem.ActionName
-                                            };
+                            {
+                                ActionName = actionStrategyItem.ActionName
+                            };
 
                             resourceVertex.ActionAndStrategyPairs.Add(newAction);
 
@@ -387,11 +400,11 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
                         // Make note that we've got metadata explicitly assigning this action
                         actionVertex.ExplicitActionAndStrategyByClaimSetName[claimSetName] = new ActionAndStrategy
-                                                                                             {
-                                                                                                 ActionName = actionStrategyItem.ActionName,
-                                                                                                 AuthorizationStrategy =
+                        {
+                            ActionName = actionStrategyItem.ActionName,
+                            AuthorizationStrategy =
                                                                                                      actionStrategyItem.StrategyName
-                                                                                             };
+                        };
                     }
                 }
 
@@ -588,7 +601,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
         private static void FormatVertex(object sender, FormatVertexEventArgs<Resource> e)
         {
-            var f = e.VertexFormatter;
+            var f = e.VertexFormat;
 
             string htmlLabel;
 
@@ -825,9 +838,10 @@ order by ClaimSetName, ResourceName, Action_ActionId
                  let pair = r.ActionAndStrategyPairs.SingleOrDefault(x => x.ActionName == actionName)
                  where pair != null
                  select new
-                        {
-                            OriginatingResourceName = r.Name, ActionAndStrategy = pair
-                        })
+                 {
+                     OriginatingResourceName = r.Name,
+                     ActionAndStrategy = pair
+                 })
                .Reverse()
                .ToList();
 
@@ -877,9 +891,10 @@ order by ClaimSetName, ResourceName, Action_ActionId
                  let claimsetPair = GetClaimSetSpecificActionAndStrategy(pair, claimSetName)
                  where claimsetPair != null
                  select new
-                        {
-                            OriginatingResourceName = r.Name, ActionAndStrategy = claimsetPair
-                        })
+                 {
+                     OriginatingResourceName = r.Name,
+                     ActionAndStrategy = claimsetPair
+                 })
                .ToList();
 
             foreach (var pair in claimsetOverridePermissions)

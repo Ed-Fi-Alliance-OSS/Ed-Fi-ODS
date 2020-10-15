@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Models.Tokens;
 using Microsoft.AspNetCore.Http;
@@ -25,4 +24,3 @@ namespace EdFi.Ods.Api.Models.ClientCredentials
         public Task ExecuteResultAsync(ActionContext context) => Task.FromResult(new BadRequestObjectResult(_errorResponse));
     }
 }
-#endif

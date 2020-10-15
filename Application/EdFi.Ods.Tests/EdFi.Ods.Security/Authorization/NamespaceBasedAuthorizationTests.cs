@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
@@ -181,8 +180,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
                 "Access to the resource could not be authorized because the caller did not have any NamespacePrefix claims ('"
                 + EdFiOdsApiClaimTypes.NamespacePrefix + "') or the claim values were all empty.");
 
-            //Assert
         }
     }
 }
-#endif

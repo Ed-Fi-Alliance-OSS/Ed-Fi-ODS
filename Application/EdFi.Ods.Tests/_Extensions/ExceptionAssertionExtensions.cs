@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using System;
 using NUnit.Framework;
 
@@ -32,7 +31,7 @@ namespace EdFi.Ods.Tests._Extensions
         {
             Assert.That(exception?.Message, Does.Contain(expectedSubstring),
                 $@"Exception message does not contain the expected text.
-Actual Exception: {exception}");
+                Actual Exception: {exception}");
         }
 
         public static void ShouldBeNull(this Exception exception)
@@ -41,4 +40,3 @@ Actual Exception: {exception}");
         }
     }
 }
-#endif
