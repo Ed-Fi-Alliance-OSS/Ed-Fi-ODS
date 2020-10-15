@@ -90,9 +90,10 @@ namespace EdFi.Ods.Api.Startup
                     options.AddPolicy(
                         CorsPolicyName,
                         builder => builder
-                            .WithOrigins("http://localhost:56641")
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
                             .AllowAnyHeader()
-                            .AllowAnyMethod());
+                            .WithExposedHeaders("*"));
                 });
 
             // will apply the MvcConfigurator at runtime.
