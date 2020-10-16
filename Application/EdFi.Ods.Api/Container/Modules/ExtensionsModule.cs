@@ -32,7 +32,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .Where(
                     a => a.IsExtensionAssembly()
                          && !ApiSettings.ExcludedExtensions.Contains(
-                             ExtensionsConventions.GetProperCaseNameFromAssemblyName(a.GetName().Name), StringComparer.InvariantCultureIgnoreCase)).Distinct(new AssemblyComparer())
+                             ExtensionsConventions.GetProperCaseNameFromAssemblyName(a.GetName().Name), StringComparer.InvariantCultureIgnoreCase))
+                .Distinct(new AssemblyComparer())
                 .ToList();
 
             builder.RegisterType<EntityExtensionsFactory>()
