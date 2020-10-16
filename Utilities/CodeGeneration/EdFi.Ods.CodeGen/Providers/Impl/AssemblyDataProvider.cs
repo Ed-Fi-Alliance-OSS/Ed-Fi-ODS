@@ -30,6 +30,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly IDictionary<string, IDomainModelDefinitionsProvider> _domainModelsDefinitionsProvidersByProjectName;
         private readonly IJsonFileProvider _jsonFileProvider;
         private readonly IIncludePluginsProvider _includeExtensionsProvider;
+        
         public AssemblyDataProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
             IJsonFileProvider jsonFileProvider,
