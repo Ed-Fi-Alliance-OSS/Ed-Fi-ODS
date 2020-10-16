@@ -169,8 +169,6 @@ namespace EdFi.Ods.Api.Helpers
                     {
                         yield return assembly.Location;
                     }
-                    
-
                 }
 
                 pluginFinderAssemblyContext.Unload();
