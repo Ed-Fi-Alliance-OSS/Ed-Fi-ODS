@@ -39,7 +39,10 @@ namespace EdFi.Ods.Api.Middleware
 
             try
             {
-                var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+                if (!AuthenticationHeaderValue.TryParse(Request.Headers["Authorization"], out AuthenticationHeaderValue authHeader))
+                {
+                    return AuthenticateResult.NoResult();
+                }
 
                 authenticationResult = await _authenticationProvider.GetAuthenticationResultAsync(authHeader);
 
