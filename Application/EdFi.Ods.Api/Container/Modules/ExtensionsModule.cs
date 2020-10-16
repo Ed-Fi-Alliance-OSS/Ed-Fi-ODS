@@ -97,6 +97,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
             return x.FullName == y.FullName;
         }
+
         public int GetHashCode(Assembly assembly)
         {
             if (ReferenceEquals(assembly, null)) return 0;
