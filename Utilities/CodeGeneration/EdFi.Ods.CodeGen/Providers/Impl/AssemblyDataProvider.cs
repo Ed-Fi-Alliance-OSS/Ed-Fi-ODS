@@ -29,12 +29,12 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly IDomainModelDefinitionsProviderProvider _domainModelDefinitionsProviderProvider;
         private readonly IDictionary<string, IDomainModelDefinitionsProvider> _domainModelsDefinitionsProvidersByProjectName;
         private readonly IJsonFileProvider _jsonFileProvider;
-        private readonly IIncludeExtensionsProvider _includeExtensionsProvider;
+        private readonly IIncludePluginsProvider _includeExtensionsProvider;
         public AssemblyDataProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
             IJsonFileProvider jsonFileProvider,
             IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider,
-            IIncludeExtensionsProvider includeExtensionsProvider)
+            IIncludePluginsProvider includeExtensionsProvider)
         {
             _codeRepositoryProvider = Preconditions.ThrowIfNull(codeRepositoryProvider, nameof(codeRepositoryProvider));
             _jsonFileProvider = Preconditions.ThrowIfNull(jsonFileProvider, nameof(jsonFileProvider));
@@ -69,7 +69,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 .Select(Create)
                 .ToList();
 
-            if (_includeExtensionsProvider.IncludeExtensions())
+            if (_includeExtensionsProvider.IncludePlugins())
             {
                 var extensionsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                     CodeRepositoryConventions.ExtensionsFolderName,

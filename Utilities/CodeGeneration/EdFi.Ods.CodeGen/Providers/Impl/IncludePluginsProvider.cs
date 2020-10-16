@@ -5,18 +5,18 @@
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
-    public class IncludeExtensionsProvider : IIncludeExtensionsProvider
+    public class IncludePluginsProvider : IIncludePluginsProvider
     {
-        private readonly bool _includeExtensions;
+        private readonly bool _includePlugins;
 
-        public IncludeExtensionsProvider(bool includeExtensions)
+        public IncludePluginsProvider(bool includePlugins)
         {
-            _includeExtensions = includeExtensions;
+            _includePlugins = includePlugins;
         }
 
-        public bool IncludeExtensions()
+        public bool IncludePlugins()
         {
-           return _includeExtensions;
+           return _includePlugins;
         }
     }
 }

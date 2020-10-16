@@ -5,8 +5,8 @@
 
 namespace EdFi.Ods.CodeGen.Providers
 {
-    public interface IIncludeExtensionsProvider
+    public interface IIncludePluginsProvider
     {
-        bool IncludeExtensions();
+        bool IncludePlugins();
     }
 }
