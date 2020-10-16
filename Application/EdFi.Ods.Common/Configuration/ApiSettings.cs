@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Common.Configuration
 {
@@ -50,8 +49,6 @@ namespace EdFi.Ods.Common.Configuration
         public int? BearerTokenTimeoutMinutes { get; set; }
 
         public bool? UseReverseProxyHeaders { get; set; }
-
-        public string PluginFolder { get; set; }
 
         public DatabaseEngine GetDatabaseEngine() => _databaseEngine.Value;
 

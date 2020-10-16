@@ -19,6 +19,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
         {
             private DomainModelDefinitionProvidersProvider _domainModelDefinitionProvidersProvider;
             private ICodeRepositoryProvider _codeRepositoryProvider;
+            private IIncludeExtensionsProvider _includeExtensionsProvider;
 
             protected override void Arrange()
             {
@@ -28,7 +29,10 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
                 A.CallTo(() => _codeRepositoryProvider.GetCodeRepositoryByName(A<string>._))
                     .Returns(codeRepositoryHelper[CodeRepositoryConventions.Implementation]);
 
-                _domainModelDefinitionProvidersProvider = new DomainModelDefinitionProvidersProvider(_codeRepositoryProvider);
+                A.CallTo(() => _includeExtensionsProvider.IncludeExtensions())
+                    .Returns(false);
+
+                _domainModelDefinitionProvidersProvider = new DomainModelDefinitionProvidersProvider(_codeRepositoryProvider, _includeExtensionsProvider);
             }
 
             protected override void Act() => _domainModelDefinitionProvidersProvider.DomainModelDefinitionProviders();

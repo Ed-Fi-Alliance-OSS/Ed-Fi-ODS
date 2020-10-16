@@ -57,12 +57,18 @@ namespace EdFi.Ods.Api.Startup
 
             ApiSettings = new ApiSettings();
 
+            Plugin = new Plugin();
+
             Configuration.Bind("ApiSettings", ApiSettings);
+
+            Configuration.Bind("Plugin", Plugin);
 
             _logger.Debug($"built configuration = {Configuration}");
         }
 
         public ApiSettings ApiSettings { get; }
+
+        public Plugin Plugin { get; }
 
         public IConfigurationRoot Configuration { get; }
 
@@ -242,7 +248,7 @@ namespace EdFi.Ods.Api.Startup
 
         private void LoadPlugins()
         {
-            var pluginFolder = ApiSettings.PluginFolder;
+            var pluginFolder = Plugin.Folder;
 
             _logger.Debug($"Loading plugins from folder {pluginFolder}.");
             AssemblyLoaderHelper.LoadPluginAssemblies(pluginFolder);

@@ -52,12 +52,20 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         {
             _logger.Debug($"Getting all paths to assemblyMetadata.json");
 
+            // List of known assemblies with the assemblyMetaData.json file
             var assemblyDatas = Directory.GetFiles(
                     _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                        CodeRepositoryConventions.Ods,
-                        "Application"),
+                        CodeRepositoryConventions.Implementation,
+                        CodeRepositoryConventions.Application),
                     AssemblyMetadataSearchString,
                     SearchOption.AllDirectories)
+                .Concat(
+                    Directory.GetFiles(
+                        _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                            CodeRepositoryConventions.Ods,
+                            "Application"),
+                        AssemblyMetadataSearchString,
+                        SearchOption.AllDirectories))
                 .Select(Create)
                 .ToList();
 

@@ -149,6 +149,8 @@ namespace EdFi.Ods.Api.Helpers
             public IEnumerable<string> FindAssemliesWithPlugins(string pluginFolder)
             {
                 // return no plugins to load if the folder does not exist
+                pluginFolder = Path.GetFullPath(pluginFolder);
+
                 if (!Directory.Exists(pluginFolder))
                 {
                     _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
@@ -167,6 +169,8 @@ namespace EdFi.Ods.Api.Helpers
                     {
                         yield return assembly.Location;
                     }
+                    
+
                 }
 
                 pluginFinderAssemblyContext.Unload();
