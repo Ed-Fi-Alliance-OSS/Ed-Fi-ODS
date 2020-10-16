@@ -22,10 +22,10 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private readonly string _solutionPath;
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
-        private readonly IIncludePluginsProvider _includeExtensionsProvider;
+        private readonly IIncludePluginsProvider _includePluginsProvider;
         private readonly string _extensionsPath;
 
-        public DomainModelDefinitionProvidersProvider(ICodeRepositoryProvider codeRepositoryProvider, IIncludePluginsProvider includeExtensionsProvider)
+        public DomainModelDefinitionProvidersProvider(ICodeRepositoryProvider codeRepositoryProvider, IIncludePluginsProvider includePluginsProvider)
         {
             _solutionPath = codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation)
                             + "\\Application";
@@ -37,7 +37,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             _domainModelDefinitionProvidersByProjectName =
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
 
-            _includeExtensionsProvider = includeExtensionsProvider;
+            _includePluginsProvider = includePluginsProvider;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 CodeRepositoryConventions.EdFiOdsImplementationFolderName,
                 CodeRepositoryConventions.EdFiOdsFolderName);
 
-            if (_includeExtensionsProvider.IncludePlugins() && Directory.Exists(_extensionsPath))
+            if (_includePluginsProvider.IncludePlugins() && Directory.Exists(_extensionsPath))
             {
                 directoriesToEvaluate =
                     GetProjectDirectoriesToEvaluate(edfiOdsImplementationApplicationPath)
