@@ -461,17 +461,16 @@ namespace EdFi.Ods.Sandbox.Repositories
 
         public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName)
         {
-            var namePrefix = "uri://" + userEmail.Split('@')[1]
-                .ToLower();
-
-            SetDefaultVendorOnUserFromEmailAndName(userEmail, userName, new List<string>(){ namePrefix });
+            var namespacePrefix = "uri://" + userEmail.Split('@')[1].ToLower();
+            
+            SetDefaultVendorOnUserFromEmailAndName(userEmail, userName, new List<string>{ namespacePrefix });
         }
 
         public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var vendor =  Vendor.Create(userName, namespacePrefixes);
+                var vendor = FindOrCreateVendorByDomainName(userName, namespacePrefixes);
 
                 var user = context.Users.SingleOrDefault(u => u.Email.Equals(userEmail));
 
@@ -509,28 +508,26 @@ namespace EdFi.Ods.Sandbox.Repositories
             }
         }
 
-        private Vendor FindOrCreateVendorByDomainName(IUsersContext context, string vendorName, string namePrefix)
+        private Vendor FindOrCreateVendorByDomainName(string vendorName, IEnumerable<string> namespacePrefixes)
         {
-            var vendor = context.Vendors.SingleOrDefault(v => v.VendorName == vendorName);
-
-            if (vendor == null)
+            using (var context = _contextFactory.CreateContext())
             {
-                vendor = new Vendor {VendorName = vendorName};
+                var vendor = context.Vendors.SingleOrDefault(v => v.VendorName == vendorName);
 
-                vendor.VendorNamespacePrefixes.Add(
-                    new VendorNamespacePrefix
-                    {
-                        Vendor = vendor,
-                        NamespacePrefix = namePrefix
-                    });
+                if (vendor != null)
+                {
+                    return vendor;
+                }
 
-                context.Vendors.AddOrUpdate(vendor);
+                var newVendor = Vendor.Create(vendorName, namespacePrefixes);
+
+                context.Vendors.AddOrUpdate(newVendor);
 
                 //TODO: DEA - Move this behavior to happen during client creation.  No need to do this in two places.  At a minimum, remove the duplicated code.
-                CreateDefaultApplicationForVendor(context, vendor);
-            }
+                CreateDefaultApplicationForVendor(newVendor);
 
-            return vendor;
+                return newVendor;
+            }
         }
 
         public Application CreateApplicationForVendor(int vendorId, string applicationName, string claimSetName)
@@ -564,25 +561,27 @@ namespace EdFi.Ods.Sandbox.Repositories
             }
         }
 
-        private void CreateDefaultApplicationForVendor(IUsersContext context, Vendor vendor)
+        private void CreateDefaultApplicationForVendor(Vendor vendor)
         {
-            var app =
-                context.Applications.SingleOrDefault(
+            using (var context = _contextFactory.CreateContext())
+            {
+                var app = context.Applications.SingleOrDefault(
                     a => a.ApplicationName == _defaultAppName.Value && a.Vendor.VendorId == vendor.VendorId);
 
-            if (app != null)
-            {
-                return;
-            }
-
-            context.Applications.AddOrUpdate(
-                new Application
+                if (app != null)
                 {
-                    ApplicationName = _defaultAppName.Value,
-                    Vendor = vendor,
-                    ClaimSetName = _defaultClaimSetName.Value,
-                    OperationalContextUri = _defaultOperationalContextUri.Value
-                });
+                    return;
+                }
+
+                context.Applications.AddOrUpdate(
+                    new Application
+                    {
+                        ApplicationName = _defaultAppName.Value,
+                        Vendor = vendor,
+                        ClaimSetName = _defaultClaimSetName.Value,
+                        OperationalContextUri = _defaultOperationalContextUri.Value
+                    });
+            }
         }
 
         public void AddLeaIdsToApplication(List<int> localEducationAgencyIds, int applicationId)
