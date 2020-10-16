@@ -23,17 +23,16 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly string _solutionPath;
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
         private readonly IIncludeExtensionsProvider _includeExtensionsProvider;
-        private readonly string extensionsPath;
+        private readonly string _extensionsPath;
 
         public DomainModelDefinitionProvidersProvider(ICodeRepositoryProvider codeRepositoryProvider, IIncludeExtensionsProvider includeExtensionsProvider)
         {
             _solutionPath = codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation)
                             + "\\Application";
 
-            extensionsPath = codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+            _extensionsPath = codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                 CodeRepositoryConventions.ExtensionsFolderName,
                 "Extensions");
-
 
             _domainModelDefinitionProvidersByProjectName =
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
@@ -69,12 +68,12 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 CodeRepositoryConventions.EdFiOdsImplementationFolderName,
                 CodeRepositoryConventions.EdFiOdsFolderName);
 
-            if (_includeExtensionsProvider.IncludeExtensions() && Directory.Exists(extensionsPath))
+            if (_includeExtensionsProvider.IncludeExtensions() && Directory.Exists(_extensionsPath))
             {
                 directoriesToEvaluate =
                     GetProjectDirectoriesToEvaluate(edfiOdsImplementationApplicationPath)
                         .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
-                        .Concat(GetProjectDirectoriesToEvaluate(extensionsPath))
+                        .Concat(GetProjectDirectoriesToEvaluate(_extensionsPath))
                         .ToArray();
             }
             else
