@@ -12,6 +12,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
@@ -36,6 +37,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             private IOAuthTokenValidator _decoratedValidator;
             private ICacheProvider _cacheProvider;
             private ApiSettings _apiSettings;
+            private IConfigurationRoot _configuration;
 
             protected override void Arrange()
             {
@@ -52,7 +54,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
 
                 _cacheProvider = Stub<ICacheProvider>();
                 _apiSettings = Stub<ApiSettings>();
-                _apiSettings.BearerTokenTimeoutMinutes = _suppliedDurationMinutes;
+                _configuration = Stub<IConfigurationRoot>();
+
+                A.CallTo(() => _configuration.GetSection("BearerTokenTimeoutMinutes").Value)
+                    .Returns(_suppliedDurationMinutes.ToString());
             }
 
             protected override void Act()
@@ -61,7 +66,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 var validator = new CachingOAuthTokenValidatorDecorator(
                     _decoratedValidator,
                     _cacheProvider,
-                    _apiSettings);
+                    _configuration);
 
                 _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedApiToken)
                                           .GetResultSafely();
@@ -111,6 +116,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             private IOAuthTokenValidator _decoratedValidator;
             private ICacheProvider _cacheProvider;
             private ApiSettings _apiSettings;
+            private IConfigurationRoot _configuration;
 
             protected override void Arrange()
             {
@@ -128,7 +134,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
 
                 // Mock config file to return duration
                 _apiSettings = Stub<ApiSettings>();
-                _apiSettings.BearerTokenTimeoutMinutes = _suppliedDurationMinutes;
+                _configuration = Stub<IConfigurationRoot>();
+
+                A.CallTo(() => _configuration.GetSection("BearerTokenTimeoutMinutes").Value)
+                    .Returns(_suppliedDurationMinutes.ToString());
             }
 
             protected override void Act()
@@ -137,7 +146,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 var validator = new CachingOAuthTokenValidatorDecorator(
                     _decoratedValidator,
                     _cacheProvider,
-                    _apiSettings);
+                    _configuration);
 
                 _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedInvalidApiToken)
                                           .GetResultSafely();
@@ -186,6 +195,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             private IOAuthTokenValidator _decoratedValidator;
             private ICacheProvider _cacheProvider;
             private ApiSettings _apiSettings;
+            private IConfigurationRoot _configuration;
 
             protected override void Arrange()
             {
@@ -201,7 +211,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
 
                 // Mock config file to return duration
                 _apiSettings = Stub<ApiSettings>();
-                _apiSettings.BearerTokenTimeoutMinutes = _suppliedDurationMinutes;
+                _configuration = Stub<IConfigurationRoot>();
+
+                A.CallTo(() => _configuration.GetSection("BearerTokenTimeoutMinutes").Value)
+                    .Returns(_suppliedDurationMinutes.ToString());
             }
 
             protected override void Act()
@@ -210,7 +223,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 var validator = new CachingOAuthTokenValidatorDecorator(
                     _decoratedValidator,
                     _cacheProvider,
-                    _apiSettings);
+                    _configuration);
 
                 _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedApiToken)
                                           .GetResultSafely();

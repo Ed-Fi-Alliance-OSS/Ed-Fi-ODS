@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Api.Authentication
 {
@@ -33,14 +34,16 @@ namespace EdFi.Ods.Api.Authentication
         public CachingOAuthTokenValidatorDecorator(
             IOAuthTokenValidator next,
             ICacheProvider cacheProvider,
-            ApiSettings apiSettings)
+            IConfigurationRoot configuration)
         {
             _next = next;
             _cacheProvider = cacheProvider;
 
             // Lazy initialization
             _bearerTokenTimeoutMinutes = new Lazy<int>(
-                () => apiSettings.BearerTokenTimeoutMinutes ?? 30);
+                () => int.TryParse(configuration.GetSection("BearerTokenTimeoutMinutes").Value, out int bearerTokenTimeoutMinutes)
+                    ? bearerTokenTimeoutMinutes
+                    : 30);
         }
 
         /// <summary>

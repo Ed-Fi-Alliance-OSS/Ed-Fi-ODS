@@ -46,8 +46,6 @@ namespace EdFi.Ods.Common.Configuration
 
         public List<string> ExcludedExtensions { get; set; } = new List<string>();
 
-        public int? BearerTokenTimeoutMinutes { get; set; }
-
         public bool? UseReverseProxyHeaders { get; set; }
 
         public DatabaseEngine GetDatabaseEngine() => _databaseEngine.Value;
