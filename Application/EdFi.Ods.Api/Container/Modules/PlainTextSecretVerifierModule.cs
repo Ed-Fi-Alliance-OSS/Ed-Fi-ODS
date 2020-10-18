@@ -16,7 +16,7 @@ namespace EdFi.Ods.Api.Container.Modules
         public PlainTextSecretVerifierModule(ApiSettings apiSettings)
             : base(apiSettings, nameof(PlainTextSecretVerifierModule)) { }
 
-        public override bool IsSelected() => ApiSettings.DecryptSecrets;
+        public override bool IsSelected() => ApiSettings.PlainTextSecrets;
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
