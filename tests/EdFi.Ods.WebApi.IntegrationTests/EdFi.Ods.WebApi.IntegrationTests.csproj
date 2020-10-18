@@ -32,7 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS-Implementation\Application\EdFi.Ods.Extensions.Sample\EdFi.Ods.Extensions.Sample.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Common\EdFi.Common.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />

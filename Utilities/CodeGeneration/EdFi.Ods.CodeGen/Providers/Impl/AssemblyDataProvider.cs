@@ -29,11 +29,13 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly IDomainModelDefinitionsProviderProvider _domainModelDefinitionsProviderProvider;
         private readonly IDictionary<string, IDomainModelDefinitionsProvider> _domainModelsDefinitionsProvidersByProjectName;
         private readonly IJsonFileProvider _jsonFileProvider;
-
+        private readonly IIncludePluginsProvider _includePluginsProvider;
+        
         public AssemblyDataProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
             IJsonFileProvider jsonFileProvider,
-            IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider)
+            IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider,
+            IIncludePluginsProvider includePluginsProvider)
         {
             _codeRepositoryProvider = Preconditions.ThrowIfNull(codeRepositoryProvider, nameof(codeRepositoryProvider));
             _jsonFileProvider = Preconditions.ThrowIfNull(jsonFileProvider, nameof(jsonFileProvider));
@@ -43,6 +45,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             _domainModelsDefinitionsProvidersByProjectName =
                 domainModelDefinitionsProviderProvider.DomainModelDefinitionsProvidersByProjectName();
+
+            _includePluginsProvider = includePluginsProvider;
         }
 
         public IEnumerable<AssemblyData> Get()
@@ -65,6 +69,25 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                         SearchOption.AllDirectories))
                 .Select(Create)
                 .ToList();
+
+            if (_includePluginsProvider.IncludePlugins())
+            {
+                var extensionsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                    CodeRepositoryConventions.ExtensionsFolderName,
+                    "Extensions");
+
+                if (Directory.Exists(extensionsPath))
+                {
+                    assemblyDatas.AddRange(
+                        Directory.GetFiles(
+                                extensionsPath,
+                                AssemblyMetadataSearchString,
+                                SearchOption.AllDirectories)
+                            .Select(Create)
+                            .ToList()
+                    );
+                }
+            }
 
             // Add database specific code generation... this is a code smell but is a convention. Sql generation should be done in metaed.
             assemblyDatas.Add(

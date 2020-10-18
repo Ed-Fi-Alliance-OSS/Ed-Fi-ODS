@@ -18,5 +18,8 @@ namespace EdFi.Ods.CodeGen
 
         [Option('v', "viewsFromDatabase", Required = false, HelpText = "Request view metadata from an existing empty database.", Default = false)]
         public bool ViewsFromDatabase { get; set; }
+
+        [Option('i', "includePlugins", Required = false, HelpText = "Flag to determine if plugin assemblies are included", Default = false)]
+        public bool IncludePlugins { get; set; }
     }
 }

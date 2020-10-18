@@ -38,6 +38,8 @@ namespace EdFi.Ods.CodeGen.Helpers
             _repositoryByName.Add(
                 CodeRepositoryConventions.Implementation,
                 Path.Combine(root, CodeRepositoryConventions.EdFiOdsImplementationFolderName));
+
+            _repositoryByName.Add(CodeRepositoryConventions.ExtensionsFolderName, Path.Combine(root, CodeRepositoryConventions.ExtensionsFolderName));
         }
 
         public string this[string key]

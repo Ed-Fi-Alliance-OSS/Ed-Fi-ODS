@@ -24,6 +24,10 @@ namespace EdFi.Ods.CodeGen.Modules
                     .As<ICodeRepositoryProvider>();
             }
 
+            builder.RegisterType<IncludePluginsProvider>()
+                .WithParameter(new NamedParameter("includePlugins", Options.IncludePlugins))
+                .As<IIncludePluginsProvider>();
+
             if (!Options.ViewsFromDatabase)
             {
                 builder.RegisterType<JsonViewsProvider>()

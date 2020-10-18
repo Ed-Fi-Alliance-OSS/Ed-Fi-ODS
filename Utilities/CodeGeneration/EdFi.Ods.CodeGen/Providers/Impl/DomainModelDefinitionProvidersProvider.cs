@@ -22,14 +22,22 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private readonly string _solutionPath;
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
+        private readonly IIncludePluginsProvider _includePluginsProvider;
+        private readonly string _extensionsPath;
 
-        public DomainModelDefinitionProvidersProvider(ICodeRepositoryProvider codeRepositoryProvider)
+        public DomainModelDefinitionProvidersProvider(ICodeRepositoryProvider codeRepositoryProvider, IIncludePluginsProvider includePluginsProvider)
         {
             _solutionPath = codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation)
                             + "\\Application";
 
+            _extensionsPath = codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                CodeRepositoryConventions.ExtensionsFolderName,
+                "Extensions");
+
             _domainModelDefinitionProvidersByProjectName =
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
+
+            _includePluginsProvider = includePluginsProvider;
         }
 
         /// <summary>
@@ -49,6 +57,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
         {
+            DirectoryInfo[] directoriesToEvaluate;
+            
             var domainModelDefinitionsByPath =
                 new Dictionary<string, IDomainModelDefinitionsProvider>(StringComparer.InvariantCultureIgnoreCase);
 
@@ -58,10 +68,21 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 CodeRepositoryConventions.EdFiOdsImplementationFolderName,
                 CodeRepositoryConventions.EdFiOdsFolderName);
 
-            var directoriesToEvaluate =
-                GetProjectDirectoriesToEvaluate(edfiOdsImplementationApplicationPath)
-                    .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
-                    .ToArray();
+            if (_includePluginsProvider.IncludePlugins() && Directory.Exists(_extensionsPath))
+            {
+                directoriesToEvaluate =
+                    GetProjectDirectoriesToEvaluate(edfiOdsImplementationApplicationPath)
+                        .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
+                        .Concat(GetProjectDirectoriesToEvaluate(_extensionsPath))
+                        .ToArray();
+            }
+            else
+            {
+                directoriesToEvaluate =
+                    GetProjectDirectoriesToEvaluate(edfiOdsImplementationApplicationPath)
+                        .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
+                        .ToArray();
+            }
 
             var modelProjects = directoriesToEvaluate
                 .Where(p => p.Name.IsExtensionAssembly() || p.Name.IsStandardAssembly());

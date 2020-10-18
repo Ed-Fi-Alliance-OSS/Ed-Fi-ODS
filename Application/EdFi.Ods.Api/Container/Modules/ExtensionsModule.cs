@@ -33,6 +33,7 @@ namespace EdFi.Ods.Api.Container.Modules
                     a => a.IsExtensionAssembly()
                          && !ApiSettings.ExcludedExtensions.Contains(
                              ExtensionsConventions.GetProperCaseNameFromAssemblyName(a.GetName().Name), StringComparer.InvariantCultureIgnoreCase))
+                .Distinct(new AssemblyComparer())
                 .ToList();
 
             builder.RegisterType<EntityExtensionsFactory>()
@@ -82,6 +83,29 @@ namespace EdFi.Ods.Api.Container.Modules
                         builder.RegisterType(closedServiceType).As(closedInterfaceType);
                     }
                 });
+        }
+    }
+
+    internal class AssemblyComparer : IEqualityComparer<Assembly>
+    {
+        public bool Equals(Assembly x, Assembly y)
+        {
+            if (ReferenceEquals(x, y)) return true;
+
+            if (x is null || ReferenceEquals(y, null))
+                return false;
+
+            return x.FullName == y.FullName;
+        }
+
+        public int GetHashCode(Assembly assembly)
+        {
+            if (ReferenceEquals(assembly, null)) return 0;
+
+            var fullNameHashCode = assembly.FullName == null
+                ? 0
+                : assembly.FullName.GetHashCode();
+            return fullNameHashCode ^ 32;
         }
     }
 }
