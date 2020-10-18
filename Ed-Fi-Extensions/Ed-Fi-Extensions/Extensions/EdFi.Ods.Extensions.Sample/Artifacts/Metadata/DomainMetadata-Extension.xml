@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AggregateExtensions logicalSchema="Sample" schema="sample">
+  <Aggregate root="ArtMediumDescriptor">
+    <Entity table="ArtMediumDescriptor" isA="Descriptor" schema="sample"/>
+  </Aggregate>
+  <Aggregate root="Bus">
+    <Entity table="Bus" schema="sample"/>
+  </Aggregate>
+  <Aggregate root="BusRoute">
+    <Entity table="BusRoute" schema="sample"/>
+    <Entity table="BusRouteBusYear" schema="sample"/>
+    <Entity table="BusRouteProgram" schema="sample"/>
+    <Entity table="BusRouteServiceAreaPostalCode" schema="sample" isRequiredCollection="true"/>
+    <Entity table="BusRouteStartTime" schema="sample" isRequiredCollection="true"/>
+    <Entity table="BusRouteTelephone" schema="sample" isRequiredCollection="true"/>
+  </Aggregate>
+  <Aggregate root="FavoriteBookCategoryDescriptor">
+    <Entity table="FavoriteBookCategoryDescriptor" isA="Descriptor" schema="sample"/>
+  </Aggregate>
+  <Aggregate root="MembershipTypeDescriptor">
+    <Entity table="MembershipTypeDescriptor" isA="Descriptor" schema="sample"/>
+  </Aggregate>
+  <Aggregate root="StudentArtProgramAssociation">
+    <Entity table="StudentArtProgramAssociation" isA="GeneralStudentProgramAssociation" schema="sample"/>
+    <Entity table="StudentArtProgramAssociationArtMedium" schema="sample"/>
+    <Entity table="StudentArtProgramAssociationPortfolioYears" schema="sample"/>
+    <Entity table="StudentArtProgramAssociationService" schema="sample"/>
+    <Entity table="StudentArtProgramAssociationStyle" schema="sample" isRequiredCollection="true"/>
+  </Aggregate>
+  <Aggregate root="StudentGraduationPlanAssociation">
+    <Entity table="StudentGraduationPlanAssociation" schema="sample"/>
+    <Entity table="StudentGraduationPlanAssociationAcademicSubject" schema="sample" isRequiredCollection="true"/>
+    <Entity table="StudentGraduationPlanAssociationCTEProgram" schema="sample"/>
+    <Entity table="StudentGraduationPlanAssociationCareerPathwayCode" schema="sample"/>
+    <Entity table="StudentGraduationPlanAssociationDescription" schema="sample"/>
+    <Entity table="StudentGraduationPlanAssociationDesignatedBy" schema="sample" isRequiredCollection="true"/>
+    <Entity table="StudentGraduationPlanAssociationIndustryCredential" schema="sample"/>
+    <Entity table="StudentGraduationPlanAssociationStudentParentAssociation" schema="sample"/>
+    <Entity table="StudentGraduationPlanAssociationYearsAttended" schema="sample" isRequiredCollection="true"/>
+  </Aggregate>
+  <AggregateExtension root="Parent">
+    <Entity table="ParentAddressSchoolDistrict" schema="sample" isRequiredCollection="true"/>
+    <Entity table="ParentAddressTerm" schema="sample"/>
+    <Entity table="ParentAuthor" schema="sample"/>
+    <Entity table="ParentCTEProgram" schema="sample"/>
+    <Entity table="ParentCeilingHeight" schema="sample"/>
+    <Entity table="ParentEducationContent" schema="sample"/>
+    <Entity table="ParentFavoriteBookTitle" schema="sample" isRequiredCollection="true"/>
+    <Entity table="ParentStudentProgramAssociation" schema="sample"/>
+    <Entity table="ParentTeacherConference" schema="sample"/>
+  </AggregateExtension>
+  <AggregateExtension root="School">
+    <Entity table="SchoolCTEProgram" schema="sample"/>
+    <Entity table="SchoolDirectlyOwnedBus" schema="sample"/>
+  </AggregateExtension>
+  <AggregateExtension root="Staff">
+    <Entity table="StaffPet" schema="sample"/>
+    <Entity table="StaffPetPreference" schema="sample"/>
+  </AggregateExtension>
+  <AggregateExtension root="Student">
+    <Entity table="StudentAquaticPet" schema="sample"/>
+    <Entity table="StudentFavoriteBook" schema="sample"/>
+    <Entity table="StudentFavoriteBookArtMedium" schema="sample"/>
+    <Entity table="StudentPet" schema="sample"/>
+    <Entity table="StudentPetPreference" schema="sample"/>
+  </AggregateExtension>
+  <AggregateExtension root="StudentEducationOrganizationAssociation">
+    <Entity table="StudentEducationOrganizationAssociationAddressSchoolDistrict" schema="sample" isRequiredCollection="true"/>
+    <Entity table="StudentEducationOrganizationAssociationAddressTerm" schema="sample"/>
+    <Entity table="StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed" schema="sample"/>
+  </AggregateExtension>
+  <AggregateExtension root="StudentParentAssociation">
+    <Entity table="StudentParentAssociationDiscipline" schema="sample"/>
+    <Entity table="StudentParentAssociationFavoriteBookTitle" schema="sample" isRequiredCollection="true"/>
+    <Entity table="StudentParentAssociationHoursPerWeek" schema="sample"/>
+    <Entity table="StudentParentAssociationPagesRead" schema="sample"/>
+    <Entity table="StudentParentAssociationStaffEducationOrganizationEmploymentAssociation" schema="sample"/>
+    <Entity table="StudentParentAssociationTelephone" schema="sample"/>
+  </AggregateExtension>
+</AggregateExtensions>
