@@ -14,7 +14,12 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 {
     public class NHibernateOdsConnectionProvider : DriverConnectionProvider
     {
-        public static IOdsDatabaseConnectionStringProvider ConnectionStringProvider { get; set; }
+        private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
+
+        public NHibernateOdsConnectionProvider(IOdsDatabaseConnectionStringProvider connectionStringProvider)
+        {
+            _connectionStringProvider = connectionStringProvider;
+        }
 
         public override DbConnection GetConnection()
         {
@@ -22,7 +27,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             try
             {
-                connection.ConnectionString = ConnectionStringProvider.GetConnectionString();
+                connection.ConnectionString = _connectionStringProvider.GetConnectionString();
                 connection.Open();
             }
             catch (Exception)
@@ -40,7 +45,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             try
             {
-                connection.ConnectionString = ConnectionStringProvider.GetConnectionString();
+                connection.ConnectionString = _connectionStringProvider.GetConnectionString();
                 await connection.OpenAsync(cancellationToken);
             }
             catch (Exception)

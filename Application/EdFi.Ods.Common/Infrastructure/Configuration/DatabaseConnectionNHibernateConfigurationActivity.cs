@@ -16,8 +16,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 {
                     // these fields need to have a value or nhibernate throws an exception. we default them to empty because
                     // we have a connection string provider
-                    c.ConnectionString = "";
-                    c.ConnectionStringName = "";
+                    c.ConnectionString = string.Empty;
+                    c.ConnectionStringName = string.Empty;
 
                     // this enables the connection to be dynamic based on routes
                     c.ConnectionProvider<NHibernateOdsConnectionProvider>();

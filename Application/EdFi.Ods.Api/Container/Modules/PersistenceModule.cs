@@ -176,6 +176,8 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<DatabaseConnectionNHibernateConfigurationActivity>()
                 .As<INHibernateConfigurationActivity>();
+
+            builder.RegisterType<NHibernateOdsConnectionProvider>().AsSelf();
         }
     }
 }

@@ -26,7 +26,6 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
@@ -246,8 +245,8 @@ namespace EdFi.Ods.Api.Startup
 
                 DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
 
-                // builds the correct session using the connection provider
-                NHibernateOdsConnectionProvider.ConnectionStringProvider = Container.Resolve<IOdsDatabaseConnectionStringProvider>();
+                // Set NHibernate to use Autofac to resolve its dependencies
+                NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
         }
 
