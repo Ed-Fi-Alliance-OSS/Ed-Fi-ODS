@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-#if NETCOREAPP
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Dtos;
@@ -32,7 +31,7 @@ namespace EdFi.Ods.Features.RouteInformations
 
          string CreateRoute()
         {
-            string prefix = $"metadata/{{other:regex(identity)}}/v{IdentityManagementConstants.FeatureVersion}/";
+            string prefix = $"metadata/{{other:(identity)}}/v{IdentityManagementConstants.FeatureVersion}/";
 
             if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
             {
@@ -43,4 +42,3 @@ namespace EdFi.Ods.Features.RouteInformations
         }
     }
 }
-#endif
