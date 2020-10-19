@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.ExceptionHandling
 
             var modelStateMessage = modelState
                 .ToDictionary(
-                    kvp => "request" + kvp.Key,
+                    kvp => "request." + kvp.Key,
                     kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
                 );
 
