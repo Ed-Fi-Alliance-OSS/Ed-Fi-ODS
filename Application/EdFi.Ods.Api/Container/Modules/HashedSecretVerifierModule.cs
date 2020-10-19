@@ -16,7 +16,7 @@ namespace EdFi.Ods.Api.Container.Modules
         public HashedSecretVerifierModule(ApiSettings apiSettings)
             : base(apiSettings, nameof(HashedSecretVerifierModule)) { }
 
-        public override bool IsSelected() => ApiSettings.EncryptSecrets;
+        public override bool IsSelected() => !ApiSettings.PlainTextSecrets;
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {

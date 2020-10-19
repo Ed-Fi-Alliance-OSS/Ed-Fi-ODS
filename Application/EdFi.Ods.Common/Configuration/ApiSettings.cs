@@ -38,7 +38,7 @@ namespace EdFi.Ods.Common.Configuration
 
         public string Engine { get; set; }
 
-        public bool EncryptSecrets { get; set; }
+        public bool PlainTextSecrets { get; set; }
 
         public int[] Years { get; set; }
 
