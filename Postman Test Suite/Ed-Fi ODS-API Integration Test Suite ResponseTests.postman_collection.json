@@ -6930,7 +6930,7 @@
 															"});",
 															"pm.test(\"Should return a message indicating that A non-empty request body is required\", () => {",
 															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.modelState["request."]).to.contains(\"A non-empty request body is required.\");",
+															"    pm.expect(responseItem.modelState["request"]).to.contains(\"A non-empty request body is required.\");",
 															"});",
 															""
 														],
