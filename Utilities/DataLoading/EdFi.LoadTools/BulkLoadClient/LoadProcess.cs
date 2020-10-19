@@ -21,6 +21,7 @@ using EdFi.LoadTools.Engine.MappingFactories;
 using EdFi.LoadTools.Engine.ResourcePipeline;
 using log4net;
 using SimpleInjector;
+using SimpleInjector.Lifestyles;
 
 namespace EdFi.LoadTools.BulkLoadClient
 {
@@ -45,6 +46,8 @@ namespace EdFi.LoadTools.BulkLoadClient
                 {
                     using (var container = new Container())
                     {
+                        container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+
                         LogConfiguration(configuration);
 
                         // configure DI container
