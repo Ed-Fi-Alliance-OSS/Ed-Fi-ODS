@@ -17,6 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="5.1.2" />
     <PackageReference Include="Antlr3.Runtime" Version="3.5.1" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="FakeItEasy" Version="6.2.0" />
@@ -42,9 +43,6 @@
     <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="5.1.2" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

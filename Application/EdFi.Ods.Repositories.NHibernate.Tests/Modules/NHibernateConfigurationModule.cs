@@ -78,6 +78,11 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
                             .OpenSession();
                     })
                 .SingleInstance();
+
+            builder.RegisterType<DatabaseConnectionNHibernateConfigurationActivity>()
+                .As<INHibernateConfigurationActivity>();
+
+            builder.RegisterType<NHibernateOdsConnectionProvider>().AsSelf();
         }
     }
 }

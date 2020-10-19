@@ -31,8 +31,7 @@ namespace EdFi.Ods.Api.Container.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AdminDatabaseConnectionStringProvider>()
-                .As<IAdminDatabaseConnectionStringProvider>()
-                .SingleInstance();
+                .As<IAdminDatabaseConnectionStringProvider>();
 
             builder.Register(c => new MemoryCache(new MemoryCacheOptions()))
                 .As<IMemoryCache>();
@@ -56,13 +55,11 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<DbConnectionStringBuilderAdapterFactory>()
-                .As<IDbConnectionStringBuilderAdapterFactory>()
-                .SingleInstance();
+                .As<IDbConnectionStringBuilderAdapterFactory>();
 
             builder.RegisterType<PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider>()
                 .WithParameter(new NamedParameter("prototypeConnectionStringName", "EdFi_Ods"))
-                .As<IOdsDatabaseConnectionStringProvider>()
-                .SingleInstance();
+                .As<IOdsDatabaseConnectionStringProvider>();
 
             builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
                 .As(typeof(IPagedAggregateIdsCriteriaProvider<>));
@@ -166,8 +163,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
                         return () => ctx.Resolve<ISessionFactory>()
                             .OpenStatelessSession();
-                    })
-                .SingleInstance();
+                    });
 
             builder.Register<Func<ISession>>(
                     c =>
@@ -176,8 +172,12 @@ namespace EdFi.Ods.Api.Container.Modules
 
                         return () => ctx.Resolve<ISessionFactory>()
                             .OpenSession();
-                    })
-                .SingleInstance();
+                    });
+
+            builder.RegisterType<DatabaseConnectionNHibernateConfigurationActivity>()
+                .As<INHibernateConfigurationActivity>();
+
+            builder.RegisterType<NHibernateOdsConnectionProvider>().AsSelf();
         }
     }
 }

@@ -112,9 +112,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             configuration.Configure(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "hibernate.cfg.xml"));
 
-            // NOTE: since we are using the connection string provider instead we just need to configure the connection string.
-            configuration.DataBaseIntegration(c => c.ConnectionString = _connectionStringProvider.GetConnectionString());
-
             // Add the configuration to the container
             configuration.BeforeBindMapping += Configuration_BeforeBindMapping;
 
