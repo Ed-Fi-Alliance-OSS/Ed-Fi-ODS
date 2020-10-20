@@ -28,20 +28,24 @@ namespace EdFi.Ods.Features.Container.Modules
             // only install the cache is one is not provided.
             builder.RegisterType<PersonUniqueIdToIdCache>()
                 .As<IPersonUniqueIdToIdCache>()
-                .IfNotRegistered(typeof(IPersonUniqueIdToIdCache));
+                .IfNotRegistered(typeof(IPersonUniqueIdToIdCache))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(PopulateIdFromUniqueIdOnPeople<,,,>))
-                .AsSelf();
+                .AsSelf()
+                .InstancePerLifetimeScope();
 
             builder.RegisterDecorator(
                 typeof(UniqueIdIntegrationPutPipelineStepsProviderDecorator),
                 typeof(IPutPipelineStepsProvider));
 
             builder.RegisterType<UniqueIdNotChangedEntityValidator>()
-                .As<IEntityValidator>();
+                .As<IEntityValidator>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<EnsureUniqueIdAlreadyExistsEntityValidator>()
-                .As<IEntityValidator>();
+                .As<IEntityValidator>()
+                .InstancePerLifetimeScope();
         }
     }
 }

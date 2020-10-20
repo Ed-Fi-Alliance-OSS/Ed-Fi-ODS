@@ -80,7 +80,8 @@ namespace EdFi.Ods.Api.Container.Modules
                             providerType
                                 .MakeGenericType(contextDataType);
 
-                        builder.RegisterType(closedServiceType).As(closedInterfaceType);
+                        builder.RegisterType(closedServiceType).As(closedInterfaceType)
+                            .SingleInstance();
                     }
                 });
         }

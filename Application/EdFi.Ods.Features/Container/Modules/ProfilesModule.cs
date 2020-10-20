@@ -25,14 +25,17 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<AdminProfileNamesPublisher>()
-                .As<IAdminProfileNamesPublisher>();
+                .As<IAdminProfileNamesPublisher>()
+                .SingleInstance();
 
             builder.RegisterType<ProfileResourceNamesProvider>()
                 .As<IProfileResourceNamesProvider>()
-                .As<IProfileMetadataProvider>();
+                .As<IProfileMetadataProvider>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<ProfileResourceModelProvider>()
-                .As<IProfileResourceModelProvider>();
+                .As<IProfileResourceModelProvider>()
+                .SingleInstance();
 
             builder.RegisterType<ProfileNamePublisher>()
                 .As<IExternalTask>()
