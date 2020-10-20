@@ -7,6 +7,7 @@ using System;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Exceptions;
 using EdFi.Ods.Common.Database;
 using NHibernate.Connection;
 
@@ -30,10 +31,10 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 connection.ConnectionString = _connectionStringProvider.GetConnectionString();
                 connection.Open();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 connection.Dispose();
-                throw;
+                throw new DatabaseConnectionException("Unable to open connection to the ODS database.", ex);
             }
 
             return connection;
