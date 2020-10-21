@@ -12,7 +12,6 @@ namespace EdFi.Ods.Common.Models.Validation
 {
     public class ApiModelExistsValidator : AbstractValidator<string>
     {
-
         public ApiModelExistsValidator()
         {
             var regex = new Regex(@"ApiModel.*.json");
