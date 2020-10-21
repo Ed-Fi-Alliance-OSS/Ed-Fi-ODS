@@ -22,6 +22,7 @@ using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using NHibernate;
 
 namespace EdFi.Ods.Api.Container.Modules
@@ -46,8 +47,14 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<DescriptorsCache>()
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.ParameterType == typeof(IDescriptorsCache),
-                        (p, c) => c.Resolve<ConcurrentDictionaryCacheProvider>()))
+                        (p, c) => p.ParameterType == typeof(ICacheProvider),
+                        (p, c) =>
+                        {
+                            var configuration = c.Resolve<IConfiguration>();
+
+                            int expirationPeriod = configuration.GetValue<int?>("Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
+                            return new ExpiringConcurrentDictionaryCacheProvider(new TimeSpan(expirationPeriod));
+                        }))
                 .As<IDescriptorsCache>()
                 .SingleInstance();
 
@@ -110,8 +117,22 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<PersonUniqueIdToUsiCache>()
                 .WithParameter(new NamedParameter("synchronousInitialization", false))
-                .WithParameter(new NamedParameter("slidingExpiration", TimeSpan.FromSeconds(14400)))
-                .WithParameter(new NamedParameter("absoluteExpirationPeriod", TimeSpan.FromSeconds(86400)))
+                .WithParameter(new ResolvedParameter((p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                    (p, c) =>
+                    {
+                        var configuration = c.Resolve<IConfiguration>();
+
+                        int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:SlidingExpirationSeconds") ?? 14400;
+                        return new TimeSpan(period);
+                    }))
+                .WithParameter(new ResolvedParameter((p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
+                    (p, c) =>
+                    {
+                        var configuration = c.Resolve<IConfiguration>();
+
+                        int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ?? 86400;
+                        return new TimeSpan(period);
+                    }))
                 .As<IPersonUniqueIdToUsiCache>().SingleInstance();
 
             builder.RegisterType<OrmMappingFileDataProvider>()
