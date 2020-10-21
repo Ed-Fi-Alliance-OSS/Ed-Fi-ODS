@@ -12,7 +12,6 @@ namespace EdFi.Ods.Common.Models.Validation
 {
     public class ApiModelExistsValidator : AbstractValidator<string>
     {
-
         public ApiModelExistsValidator()
         {
             var regex = new Regex(@"ApiModel.*.json");
@@ -22,12 +21,9 @@ namespace EdFi.Ods.Common.Models.Validation
                     e =>
                     {
                         var metaDataFolder = Path.Combine(e, "Artifacts", "Metadata");
-                        var files = Directory
+                        return Directory
                             .GetFiles(metaDataFolder)
-                            .Where(s => regex.IsMatch(s))
-                            .ToList();
-
-                        return files.Count > 0;
+                            .Any(s => regex.IsMatch(s));
                     }).WithMessage(m => "ApiModel file does not exists");
         }
     }
