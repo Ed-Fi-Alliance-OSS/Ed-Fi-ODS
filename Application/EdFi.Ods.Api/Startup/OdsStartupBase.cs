@@ -256,6 +256,12 @@ namespace EdFi.Ods.Api.Startup
 
             _logger.Debug($"Loading plugins from folder {pluginFolder}.");
             AssemblyLoaderHelper.LoadPluginAssemblies(pluginFolder);
+
+            // LoadPluginAssemblies method creates a pluginFinderAssemblyContext and loads assembles in it to
+            // determine plugins to load in the app domain. Need to force a garbage collection to unload
+            // the pluginFinderAssemblyContext immediately or else assemblies loaded in this context will 
+            // be in the current app domain.  
+            GC.Collect();
         }
     }
 }

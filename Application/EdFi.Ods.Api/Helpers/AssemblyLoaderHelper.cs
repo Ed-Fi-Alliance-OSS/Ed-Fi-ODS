@@ -183,7 +183,7 @@ namespace EdFi.Ods.Api.Helpers
                         else
                         {
                             var message = string.Join(",", validationResult);
-                            _logger.Warn(message);
+                            _logger.Warn($"Assembly: {assembly.GetName()} - {message}");
                         }
                     }
                 }
