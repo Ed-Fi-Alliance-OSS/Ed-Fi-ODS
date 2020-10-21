@@ -8,7 +8,6 @@
     <Icon>Template_Icon.png</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Ed-Fi</ProjectSubType>
-    <RequiredFrameworkVersion>4.6.2</RequiredFrameworkVersion>
     <SortOrder>1000</SortOrder>
     <TemplateID>fbab1877-e1da-4195-bfed-aaf14057e621</TemplateID>
     <CreateNewFolder>true</CreateNewFolder>
