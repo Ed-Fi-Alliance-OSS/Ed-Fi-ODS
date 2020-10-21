@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Api.Models.Identity
+namespace EdFi.Ods.Features.IdentityManagement.Models
 {
     public enum IdentityStatusCode
     {
@@ -11,17 +11,5 @@ namespace EdFi.Ods.Api.Models.Identity
         Incomplete,
         InvalidProperties,
         NotFound
-    }
-
-    public class IdentityResponseStatus<TResponse>
-    {
-        public TResponse Data { get; set; }
-
-        public IdentityStatusCode StatusCode { get; set; }
-    }
-
-    public class IdentityResponseErrorStatus<TResponse> : IdentityResponseStatus<TResponse>
-    {
-        public IdentityError[] Error { get; set; }
     }
 }

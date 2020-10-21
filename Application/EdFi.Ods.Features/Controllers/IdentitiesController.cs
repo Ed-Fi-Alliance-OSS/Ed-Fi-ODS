@@ -7,15 +7,14 @@ using System;
 using System.ComponentModel;
 using System.Net;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Models.Identity;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Features.IdentityManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 
-namespace EdFi.Ods.Api.Controllers
+namespace EdFi.Ods.Features.Controllers
 {
     /// <summary>
     /// Manage Identity identity, create and lookup people

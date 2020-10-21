@@ -3,15 +3,17 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Linq;
+using System.Reflection;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Features.IdentityManagement;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using System.Linq;
-using System.Reflection;
+using IdentitiesController = EdFi.Ods.Features.Controllers.IdentitiesController;
 
-namespace EdFi.Ods.Api.Conventions
+namespace EdFi.Ods.Features.Conventions
 {
     public class IdentitiesControllerRouteConvention : IApplicationModelConvention
     {
@@ -25,7 +27,7 @@ namespace EdFi.Ods.Api.Conventions
         public void Apply(ApplicationModel application)
         {
             var controller =
-                application.Controllers.SingleOrDefault(x => x.ControllerType == typeof(IdentitiesController)?.GetTypeInfo());
+                application.Controllers.SingleOrDefault(x => x.ControllerType == typeof(IdentitiesController).GetTypeInfo());
 
             if (controller != null)
             {
@@ -44,7 +46,7 @@ namespace EdFi.Ods.Api.Conventions
 
             string CreateRouteTemplate()
             {
-                string template = $"{RouteConstants.IdentityRoutePrefix}/";
+                string template = $"{IdentityManagementConstants.IdentityRoutePrefix}/";
 
                 if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
                 {
