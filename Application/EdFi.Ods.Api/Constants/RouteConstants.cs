@@ -7,11 +7,6 @@ namespace EdFi.Ods.Api.Constants
 {
     public static class RouteConstants
     {
-        public static string IdentityRoutePrefix
-        {
-            get => $"identity/v{ApiVersionConstants.Identity}";
-        }
-
         public static string DataManagementRoutePrefix
         {
             get => $"data/v{ApiVersionConstants.Ods}";

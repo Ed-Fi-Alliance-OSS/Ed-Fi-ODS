@@ -29,9 +29,9 @@ namespace EdFi.Ods.Features.RouteInformations
                 Template = CreateRoute() + "/swagger.json"
             };
 
-         string CreateRoute()
+        private string CreateRoute()
         {
-            string prefix = $"metadata/{{other:(identity)}}/v{IdentityManagementConstants.FeatureVersion}/";
+            string prefix = $"metadata/{{other:regex(identity)}}/v{IdentityManagementConstants.FeatureVersion}/";
 
             if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
             {

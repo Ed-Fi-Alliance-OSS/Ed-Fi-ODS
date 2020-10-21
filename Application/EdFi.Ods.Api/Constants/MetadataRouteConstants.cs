@@ -43,10 +43,5 @@ namespace EdFi.Ods.Api.Constants
         {
             get => EdFiConventions.GetOpenApiMetadataRouteName("Bulk");
         }
-
-        public static string Identity
-        {
-            get => EdFiConventions.GetOpenApiMetadataRouteName("Identity");
-        }
     }
 }

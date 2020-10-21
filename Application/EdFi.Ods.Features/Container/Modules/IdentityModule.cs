@@ -8,9 +8,9 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using EdFi.Ods.Api.Conventions;
-using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Api.Models.Identity;
+using EdFi.Ods.Features.Conventions;
+using EdFi.Ods.Features.IdentityManagement;
+using EdFi.Ods.Features.IdentityManagement.Models;
 
 namespace EdFi.Ods.Features.Container.Modules
 {

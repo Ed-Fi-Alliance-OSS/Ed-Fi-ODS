@@ -10,11 +10,12 @@ namespace EdFi.Ods.Features.IdentityManagement
     public class IdentityManagementConstants
     {
         public const string FeatureName = "IdentityManagement";
+        public const string DeprecatedFeatureName = "Identity";
 
-        public const string FeatureVersion = "1";
+        public const string FeatureVersion = "2";
   
-        public static readonly string IdentityMetadataRouteName = EdFiConventions.GetOpenApiMetadataRouteName(FeatureName);
+        public static readonly string IdentityMetadataRouteName = EdFiConventions.GetOpenApiMetadataRouteName(DeprecatedFeatureName);
 
-        public static string SchoolYearTypesResourceName = "SchoolYearType";
+        public static readonly string IdentityRoutePrefix = $"identity/v{FeatureVersion}";
     }
 }

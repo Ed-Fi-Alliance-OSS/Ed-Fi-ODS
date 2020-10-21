@@ -15,11 +15,6 @@ namespace EdFi.Ods.Api.Constants
         public const string Ods = "3";
 
         /// <summary>
-        /// Current version of the identity api.
-        /// </summary>
-        public const string Identity = "2";
-
-        /// <summary>
         /// Current version of the composite api.
         /// </summary>
         public const string Composite = "1";
