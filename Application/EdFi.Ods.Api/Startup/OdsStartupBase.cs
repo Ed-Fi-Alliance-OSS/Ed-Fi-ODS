@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using Autofac;
@@ -270,7 +271,7 @@ namespace EdFi.Ods.Api.Startup
 
         private void LoadPlugins()
         {
-            var pluginFolder = Plugin.Folder;
+            var pluginFolder = Path.GetFullPath(Plugin.Folder);
 
             _logger.Debug($"Loading plugins from folder {pluginFolder}.");
             AssemblyLoaderHelper.LoadPluginAssemblies(pluginFolder);
