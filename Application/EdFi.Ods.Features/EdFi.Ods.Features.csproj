@@ -21,9 +21,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\ChangeQueries.json" />
+    <None Remove="Resources\IdentityManagement.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ChangeQueries.json" />
+    <EmbeddedResource Include="Resources\IdentityManagement.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />

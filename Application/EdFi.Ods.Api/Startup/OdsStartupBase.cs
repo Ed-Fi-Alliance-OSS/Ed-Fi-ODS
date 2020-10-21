@@ -50,6 +50,7 @@ namespace EdFi.Ods.Api.Startup
     public abstract class OdsStartupBase
     {
         private const string CorsPolicyName = "_development_";
+
         private readonly ILog _logger = LogManager.GetLogger(typeof(OdsStartupBase));
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
@@ -90,7 +91,7 @@ namespace EdFi.Ods.Api.Startup
             // c.f. https://docs.microsoft.com/en-us/aspnet/core/migration/claimsprincipal-current?view=aspnetcore-3.1
             services.AddHttpContextAccessor();
 
-            // this is opening up all sites to connect to the server. this should probably be reviewed.
+           // this is opening up all sites to connect to the server. this should probably be reviewed.
             services.AddCors(
                 options =>
                 {
@@ -126,6 +127,17 @@ namespace EdFi.Ods.Api.Startup
 
             services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
                 .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
+     
+            if (ApiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
+            {
+                services.AddAuthorization(options =>
+                {
+                    options.AddPolicy("IdentityManagement", policy =>
+                       policy.RequireAssertion(context =>
+                           context.User.HasClaim(c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity")));
+                });
+            }
+
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

@@ -5,9 +5,9 @@
 
 using System;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Models.Identity;
+using EdFi.Ods.Features.IdentityManagement.Models;
 
-namespace EdFi.Ods.Api.Providers
+namespace EdFi.Ods.Features.IdentityManagement
 {
     public class UnimplementedIdentityService : IIdentityService, IIdentityServiceAsync
     {

@@ -8,8 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Models.Identity;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Features.IdentityManagement.Models;
 
 namespace EdFi.TestObjects
 {

@@ -10,17 +10,15 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Utils.Extensions;
-using OpenApiMetadataSections = EdFi.Ods.Api.Constants.OpenApiMetadataSections;
+using EdFi.Ods.Features.IdentityManagement;
 
-namespace EdFi.Ods.Features.IdentityManagement
+namespace EdFi.Ods.Features.OpenApiMetadataContentProviders
 {
     public class IdentityOpenApiContentProvider : IOpenApiContentProvider
     {
-        private const string Name = "Identity";
-
         public string RouteName
         {
-            get => MetadataRouteConstants.Identity;
+            get => IdentityManagementConstants.IdentityMetadataRouteName;
         }
 
         public IEnumerable<OpenApiContent> GetOpenApiContent()
@@ -29,13 +27,13 @@ namespace EdFi.Ods.Features.IdentityManagement
 
             return assembly
                 .GetManifestResourceNames()
-                .Where(x => x.EndsWith($"{Name}.json"))
+                .Where(x => x.EndsWith($"{IdentityManagementConstants.FeatureName}.json"))
                 .Select(
                     x => new OpenApiContent(
                         OpenApiMetadataSections.Other,
-                        Name,
+                        IdentityManagementConstants.DeprecatedFeatureName,
                         new Lazy<string>(() => assembly.ReadResource(x)),
-                        $"{Name}/v{ApiVersionConstants.Identity}",
+                        IdentityManagementConstants.IdentityRoutePrefix,
                         string.Empty));
         }
     }

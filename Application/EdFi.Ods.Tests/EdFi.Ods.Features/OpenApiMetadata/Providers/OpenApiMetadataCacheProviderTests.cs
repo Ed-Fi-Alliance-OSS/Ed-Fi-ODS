@@ -7,11 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
-using EdFi.Ods.Features;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
@@ -19,12 +17,12 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Composites.Test;
-using EdFi.Ods.Features.ChangeQueries;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Extensions;
 using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Providers;
+using EdFi.Ods.Features.OpenApiMetadataContentProviders;
 using EdFi.Ods.Features.RouteInformations;
 using EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers;
 using EdFi.TestFixture;
@@ -53,6 +51,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             yield return new ResourceTypeOpenMetadataRouteInformation(apiSettings);
             yield return new SchemaOpenApiMetadataRouteInformation(apiSettings);
             yield return new ChangeQueriesOpenApiMetadataRouteInformation(apiSettings);
+            yield return new IdentityOpenApiMetadataRouteInformation(apiSettings);
         }
 
         private static IConfiguration GetConfiguration()
@@ -94,6 +93,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                     new Feature
                     {
                         Name = "OpenApiMetadata",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = IdentityManagementConstants.FeatureName,
                         IsEnabled = true
                     }
                 }
@@ -177,6 +181,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
                     Is.EquivalentTo(
                         new[]
                         {
+                            "Other",
                             "SDKGen",
                             "Extensions",
                             "Composites"
@@ -256,7 +261,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
             }
         }
 
-        [Ignore("These tests are failed as the other feature is not implemented with openapi")]
         public class When_requesting_the_other_ui_section_from_the_cache : TestFixtureBase
         {
             private ICompositesMetadataProvider _compositesMetadataProvider;
@@ -353,9 +357,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
-                var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
+                var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(), defaultPageSieLimitProvider);
+                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(), defaultPageSizeLimitProvider);
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 

@@ -3,14 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Api.Models.Identity
+namespace EdFi.Ods.Features.IdentityManagement.Models
 {
-    public interface IUniqueIdentity
+    public enum IdentityStatusCode
     {
-        IIdentity Get(string uniqueId);
-
-        IIdentity[] Get(IIdentity identity);
-
-        IIdentity Post(IIdentity command);
+        Success,
+        Incomplete,
+        InvalidProperties,
+        NotFound
     }
 }
