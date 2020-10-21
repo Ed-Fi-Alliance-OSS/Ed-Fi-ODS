@@ -20,10 +20,14 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-    <Content Include="Artifacts\**\Database\*.sql">
+    <Content Include="Artifacts\**\MsSql\*.sql">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
+	<Content Include="Artifacts\**\PgSql\*.sql">
+	  <AutoGen>True</AutoGen>
+	  <DesignTime>True</DesignTime>
+	</Content>
     <Content Include="Artifacts\**\Schemas\*.xsd">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
