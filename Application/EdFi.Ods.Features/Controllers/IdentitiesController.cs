@@ -51,7 +51,8 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="502">The underlying identity system returned an error.</response>
         /// <returns>The identity information for the provided Unique Id</returns>
         [HttpGet]
-        public async Task<IActionResult> GetById([FromQuery(Name = "id")] string uniqueId)
+        [Route("{id}")]
+        public async Task<IActionResult> GetById([FromRoute(Name = "id")] string uniqueId)
         {
             try
             {
@@ -98,7 +99,6 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="501">The server does not support the requested function.</response>
         /// <response code="502">The underlying identity system returned an error.</response>
         [HttpPost]
-        [Produces("application/text")]
         public async Task<IActionResult> Create([FromBody] IdentityCreateRequest request)
         {
             try
@@ -239,7 +239,8 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="501">The server does not support the requested function.</response>
         /// <response code="502">The underlying identity system returned an error.</response>
         [HttpGet]
-        public async Task<IActionResult> Result([FromQuery(Name = "id")] string searchToken)
+        [Route("results/{id}")]
+        public async Task<IActionResult> Result([FromRoute(Name = "id")] string searchToken)
         {
             try
             {
