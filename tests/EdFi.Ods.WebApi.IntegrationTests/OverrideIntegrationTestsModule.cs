@@ -4,9 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Api.Models.Identity;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Features.IdentityManagement.Models;
 using EdFi.TestObjects;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
@@ -17,14 +17,16 @@ namespace EdFi.Ods.WebApi.IntegrationTests
         {
             builder.RegisterType<TestIdentitiesService>()
                 .As<IIdentityService>()
-                .As<IIdentityServiceAsync>();
+                .As<IIdentityServiceAsync>()
+                .SingleInstance();
 
             builder.RegisterType<IntegrationTestOdsConnectionStringProvider>()
                 .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
             builder.RegisterType<FakedAuthenticationProvider>()
-                .As<IAuthenticationProvider>();
+                .As<IAuthenticationProvider>()
+                .InstancePerLifetimeScope();
         }
     }
 }

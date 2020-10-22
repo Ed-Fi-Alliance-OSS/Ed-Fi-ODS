@@ -6,57 +6,60 @@
 using System;
 using System.Data.SqlClient;
 using System.Globalization;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
-using EdFi.Ods.Api.Models.Identity;
 using EdFi.Ods.WebApi.IntegrationTests.Helpers;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
-namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
+namespace EdFi.Ods.WebApi.IntegrationTests
 {
     [TestFixture]
-    public class SandboxTests
+    public class YearSpecificStudentTests
     {
         private string _connectionStringTemplate;
         private CancellationToken _cancellationToken;
         private EdFiTestUriHelper _uriHelper;
+        private HttpClient _httpClient;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
             var configuration =
-                (IConfiguration)GlobalWebApiIntegrationTestFixture.SandboxHost.Services.GetService(typeof(IConfiguration));
+                (IConfiguration) GlobalWebApiIntegrationTestFixture.YearSpecificHost.Services.GetService(typeof(IConfiguration));
 
             _connectionStringTemplate = configuration.GetConnectionString("EdFi_Ods");
             _cancellationToken = new CancellationToken();
-            _uriHelper = new EdFiTestUriHelper(TestConstants.BaseUrl);
+            _uriHelper = new EdFiTestUriHelper(TestConstants.YearSpecificBaseUrl);
+            _httpClient = new HttpClient {BaseAddress = new Uri(TestConstants.YearSpecificBaseUrl)};
+        }
+
+        [OneTimeTearDown]
+        public void OneTimeTeardown()
+        {
+            _httpClient.Dispose();
         }
 
         [Test]
         public async Task Should_update_specified_instance_db()
         {
-            string uniqueId1 = Guid.NewGuid().ToString("N");
-            string uniqueId2 = Guid.NewGuid().ToString("N");
+            string uniqueId2014 = Guid.NewGuid().ToString("N");
+            string uniqueId2015 = Guid.NewGuid().ToString("N");
 
-            using var client = new HttpClient();
+            _httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString("n"));
 
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString("n"));
-
-            var createResponse1 = await client.PostAsync(
-                _uriHelper.BuildOdsUri("students", null),
+            var create2014Response = await _httpClient.PostAsync(
+                _uriHelper.BuildOdsUri("students", 2014),
                 new StringContent(
                     ResourceHelper.CreateStudent(
-                        uniqueId1,
+                        uniqueId2014,
                         DateTime.Now.Ticks.ToString(
                             CultureInfo.InvariantCulture),
                         DateTime.Now.Ticks.ToString(
@@ -64,13 +67,13 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
                     Encoding.UTF8,
                     "application/json"), _cancellationToken);
 
-            createResponse1.EnsureSuccessStatusCode();
+            create2014Response.EnsureSuccessStatusCode();
 
-            var createResponse2 = await client.PostAsync(
-                _uriHelper.BuildOdsUri("students", null),
+            var create2015Response = await _httpClient.PostAsync(
+                _uriHelper.BuildOdsUri("students", 2015),
                 new StringContent(
                     ResourceHelper.CreateStudent(
-                        uniqueId2,
+                        uniqueId2015,
                         DateTime.Now.Ticks.ToString(
                             CultureInfo.InvariantCulture),
                         DateTime.Now.Ticks.ToString(
@@ -78,22 +81,23 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
                     Encoding.UTF8,
                     "application/json"), _cancellationToken);
 
-            createResponse2.EnsureSuccessStatusCode();
+            create2015Response.EnsureSuccessStatusCode();
 
-            int? exists1 = await StudentExistsAsync(uniqueId1);
-            int? notExists1 = await StudentExistsAsync(uniqueId1);
-            int? exists2 = await StudentExistsAsync(uniqueId2);
-            int? notExists2 = await StudentExistsAsync(uniqueId2);
+            int? exists2014 = await StudentExistsAsync(2014, uniqueId2014);
+            int? notExists2014 = await StudentExistsAsync(2015, uniqueId2014);
+            int? exists2015 = await StudentExistsAsync(2015, uniqueId2015);
+            int? notExists2015 = await StudentExistsAsync(2014, uniqueId2015);
 
-            exists1.ShouldNotBeNull();
-            notExists1.ShouldBeNull();
-            exists2.ShouldNotBeNull();
-            notExists2.ShouldBeNull();
+            exists2014.ShouldNotBeNull();
+            notExists2014.ShouldBeNull();
+            exists2015.ShouldNotBeNull();
+            notExists2015.ShouldBeNull();
         }
 
-        private async Task<int?> StudentExistsAsync(string uniqueId)
+        private async Task<int?> StudentExistsAsync(int schoolYear, string uniqueId)
         {
-            string connectionString = string.Format(_connectionStringTemplate, $"{GlobalWebApiIntegrationTestFixture.DatabaseName}");
+            string connectionString = string.Format(
+                _connectionStringTemplate, $"{GlobalWebApiIntegrationTestFixture.DatabaseName}_{schoolYear}");
 
             await using var conn = new SqlConnection(connectionString);
 

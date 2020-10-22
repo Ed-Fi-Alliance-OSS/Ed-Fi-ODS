@@ -1,5 +1,15 @@
 [
   {
+    "name": "Enrollment",
+    "endpointUri": "http://localhost:5449/metadata/composites/v1/ed-fi/enrollment/swagger.json",
+    "prefix": "Composites"
+  },
+  {
+    "name": "Identity",
+    "endpointUri": "http://localhost:5449/metadata/identity/v2/swagger.json",
+    "prefix": "Other"
+  },
+  {
     "name": "Descriptors",
     "endpointUri": "http://localhost:5449/metadata/data/v3/descriptors/swagger.json",
     "prefix": ""
