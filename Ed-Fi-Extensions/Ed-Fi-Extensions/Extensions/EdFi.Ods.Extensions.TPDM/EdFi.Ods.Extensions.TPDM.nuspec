@@ -14,6 +14,7 @@
   <files>
     <file src="../../../LICENSE.txt" />
     <file src="Artifacts/**/*.sql" target="."/>
+	<file src="Artifacts/**/*.json" target="."/>
     <file src="bin\$configuration$\netcoreapp3.1\EdFi.Ods.Extensions.TPDM.dll" target="."/>
   </files>
 </package>
