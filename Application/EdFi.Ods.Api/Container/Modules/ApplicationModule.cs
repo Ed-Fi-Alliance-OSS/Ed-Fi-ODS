@@ -55,10 +55,12 @@ namespace EdFi.Ods.Api.Container.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<SchoolYearContextFilter>()
-                .As<IFilterMetadata>();
+                .As<IFilterMetadata>()
+                .SingleInstance();
 
             builder.RegisterType<EnterpriseApiVersionProvider>()
-                .As<IApiVersionProvider>();
+                .As<IApiVersionProvider>()
+                .SingleInstance();
 
             // api model conventions should be singletons
             builder.RegisterType<MvcOptionsConfigurator>()
@@ -71,28 +73,29 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<ApiKeyContextProvider>()
                 .As<IApiKeyContextProvider>()
-                .As<IHttpContextStorageTransferKeys>();
+                .As<IHttpContextStorageTransferKeys>()
+                .SingleInstance();
 
             builder.RegisterType<SchoolYearContextProvider>()
                 .As<ISchoolYearContextProvider>()
                 .As<IHttpContextStorageTransferKeys>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             // Primary context storage for ASP.NET web applications
             builder.RegisterType<HttpContextStorage>()
                 .As<IContextStorage>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             // Secondary context storage for background tasks running in ASP.NET web applications
             // Allows selected context to flow to worker Tasks (see IHttpContextStorageTransferKeys and IHttpContextStorageTransfer)
             builder.RegisterType<CallContextStorage>()
                 .As<IContextStorage>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             // Features to transfer context from HttpContext to the secondary storage in ASP.NET applications
             builder.RegisterType<HttpContextStorageTransfer>()
                 .As<IHttpContextStorageTransfer>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<DescriptorLookupProvider>()
                 .As<IDescriptorLookupProvider>()
