@@ -58,7 +58,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<ExceptionHandlingFilter>()
-                .As<IFilterMetadata>();
+                .As<IFilterMetadata>()
+                .SingleInstance();
 
             builder.RegisterType<EnterpriseApiVersionProvider>()
                 .As<IApiVersionProvider>()
