@@ -135,7 +135,7 @@ namespace EdFi.Ods.Api.Startup
                 {
                     options.ApplicationVersion = ApiVersionConstants.Version;
                 });
-     
+
             if (ApiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
             {
                 services.AddAuthorization(options =>
@@ -271,15 +271,13 @@ namespace EdFi.Ods.Api.Startup
 
         private void LoadPlugins()
         {
-            var pluginFolder = Path.GetFullPath(Plugin.Folder);
-
-            _logger.Debug($"Loading plugins from folder {pluginFolder}.");
-            AssemblyLoaderHelper.LoadPluginAssemblies(pluginFolder);
+            _logger.Debug($"Loading plugins from folder {Plugin.Folder}.");
+            AssemblyLoaderHelper.LoadPluginAssemblies(Plugin.Folder);
 
             // LoadPluginAssemblies method creates a pluginFinderAssemblyContext and loads assembles in it to
             // determine plugins to load in the app domain. Need to force a garbage collection to unload
-            // the pluginFinderAssemblyContext immediately or else assemblies loaded in this context will 
-            // be in the current app domain.  
+            // the pluginFinderAssemblyContext immediately or else assemblies loaded in this context will
+            // be in the current app domain.
             GC.Collect();
         }
     }
