@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.WebApi.IntegrationTests.Controllers
+namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 {
     [TestFixture]
     public class VersionControllerTests : HttpClientTestsBase
@@ -19,7 +19,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Controllers
         [Test]
         public async Task VersionEndpointGetShouldBeValid()
         {
-            var response = await HttpClient.GetAsync(TestConstants.BaseUrl);
+            var response = await HttpClient.GetAsync(TestConstants.SandboxBaseUrl);
 
             response.StatusCode.ShouldBe(HttpStatusCode.OK);
 

@@ -4,11 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Net.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using NUnit.Framework;
 using Test.Common;
 
-namespace EdFi.Ods.WebApi.IntegrationTests
+namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 {
     public class HttpClientTestsBase
     {
@@ -20,7 +19,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
         public void Setup()
         {
             HttpClient = new HttpClient();
-            UriHelper = new EdFiTestUriHelper(TestConstants.BaseUrl);
+            UriHelper = new EdFiTestUriHelper(TestConstants.SandboxBaseUrl);
         }
 
         [OneTimeTearDown]
