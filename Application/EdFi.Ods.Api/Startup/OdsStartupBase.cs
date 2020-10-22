@@ -15,6 +15,7 @@ using EdFi.Common.Configuration;
 using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Configuration;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.ExternalTasks;
@@ -127,6 +128,12 @@ namespace EdFi.Ods.Api.Startup
 
             services.AddAuthentication(EdFiAuthenticationTypes.OAuth)
                 .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
+
+            services.AddApplicationInsightsTelemetry(
+                options =>
+                {
+                    options.ApplicationVersion = ApiVersionConstants.Version;
+                });
      
             if (ApiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
             {
@@ -137,7 +144,6 @@ namespace EdFi.Ods.Api.Startup
                            context.User.HasClaim(c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity")));
                 });
             }
-
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
