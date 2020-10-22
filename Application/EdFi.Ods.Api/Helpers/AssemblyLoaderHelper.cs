@@ -11,7 +11,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
+using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Extensibility;
+using EdFi.Ods.Common.Models.Validation;
+using EdFi.Ods.Common.Validation;
+using FluentValidation;
 using log4net;
 
 namespace EdFi.Ods.Api.Helpers
@@ -157,6 +161,8 @@ namespace EdFi.Ods.Api.Helpers
                     yield break;
                 }
 
+                var validator = GetValidator();
+
                 var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
 
                 var pluginFinderAssemblyContext = new PluginAssemblyLoadingContext();
@@ -167,13 +173,35 @@ namespace EdFi.Ods.Api.Helpers
 
                     if (HasPlugin(assembly))
                     {
-                        yield return assembly.Location;
+                        var extensionFolder = Path.GetDirectoryName(assemblyPath);
+                        var validationResult = validator.ValidateObject(extensionFolder);
+
+                        if (!validationResult.Any())
+                        {
+                            yield return assembly.Location;
+                        }
+                        else
+                        {
+                            var message = string.Join(",", validationResult);
+                            _logger.Warn($"Assembly: {assembly.GetName()} - {message}");
+                        }
                     }
                 }
 
                 pluginFinderAssemblyContext.Unload();
             }
 
+            private static FluentValidationObjectValidator GetValidator()
+            {
+                return new FluentValidationObjectValidator(
+                    new IValidator[]
+                    {
+                        new ApiModelExistsValidator(),
+                        new IsExtensionPluginValidator(),
+                        new IsApiVersionValidValidator(ApiVersionConstants.InformationalVersion)
+                    });
+
+            }
             private static bool HasPlugin(Assembly assembly)
             {
                 return assembly.GetTypes().Any(

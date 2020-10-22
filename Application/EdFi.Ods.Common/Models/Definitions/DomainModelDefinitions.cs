@@ -35,5 +35,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         public EntityDefinition[] EntityDefinitions { get; set; }
 
         public AssociationDefinition[] AssociationDefinitions { get; set; }
+
+        public string OdsApiVersion { get; set; }
     }
 }
