@@ -12,6 +12,7 @@ namespace Test.Common
         private const string CompositeVersion = "1";
         private const string OdsArea = "data";
         private const string CompositesArea = "composites";
+        private const string IdentityArea = "identity";
 
         private readonly string _uriWithoutSchema;
         private readonly string _uriWithSchema;
@@ -47,6 +48,16 @@ namespace Test.Common
             string queryString = null)
         {
             return BuildApiUri(CompositesArea, CompositeVersion, compositeName, organizationCode, schoolYear, queryString);
+        }
+
+        public string BuildIdentityUri(string resourceName, int? schoolYear = null, string queryString = null)
+        {
+            return BuildIdentityUri(resourceName, "2", schoolYear, queryString);
+        }
+
+        public string BuildIdentityUri(string resourceName, string version, int? schoolYear = null, string queryString = null)
+        {
+            return BuildApiUri(IdentityArea, version, resourceName, null, schoolYear, queryString);
         }
 
         private string BuildApiUri(

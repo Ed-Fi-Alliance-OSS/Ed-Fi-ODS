@@ -6,14 +6,17 @@
 using System;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
+using EdFi.Ods.Features.IdentityManagement.Models;
 using EdFi.Ods.WebApi.IntegrationTests.Helpers;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
@@ -46,11 +49,22 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
         [Test]
         public async Task Should_update_specified_instance_db()
         {
-            string uniqueId2014 = Guid.NewGuid().ToString("N");
-            string uniqueId2015 = Guid.NewGuid().ToString("N");
-
             _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", Guid.NewGuid().ToString("n"));
+
+            var uniqueId2014Response = await _httpClient.PostAsync(
+                _uriHelper.BuildIdentityUri("identities", 2014),
+                new StringContent(
+                    JsonConvert.SerializeObject(
+                        new IdentityCreateRequest
+                        {
+                            BirthDate = new DateTime(1995, 2, 3),
+                            SexType = "Male"
+                        }),
+                    Encoding.UTF8,
+                    "application/json"), _cancellationToken);
+
+            string uniqueId2014 = await ExtractIdFromHttpResponseAsync(uniqueId2014Response);
 
             var create2014Response = await _httpClient.PostAsync(
                 _uriHelper.BuildOdsUri("students", 2014),
@@ -65,6 +79,20 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
                     "application/json"), _cancellationToken);
 
             create2014Response.EnsureSuccessStatusCode();
+
+            var uniqueId2015Response = await _httpClient.PostAsync(
+                _uriHelper.BuildIdentityUri("identities", 2014),
+                new StringContent(
+                    JsonConvert.SerializeObject(
+                        new IdentityCreateRequest
+                        {
+                            BirthDate = new DateTime(1995, 2, 3),
+                            SexType = "Male"
+                        }),
+                    Encoding.UTF8,
+                    "application/json"), _cancellationToken);
+
+            string uniqueId2015 = await ExtractIdFromHttpResponseAsync(uniqueId2014Response);
 
             var create2015Response = await _httpClient.PostAsync(
                 _uriHelper.BuildOdsUri("students", 2015),
@@ -102,6 +130,31 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
 
             return await conn.QuerySingleOrDefaultAsync<int?>(
                 $"SELECT 1 FROM edfi.Student WHERE StudentUniqueId = '{uniqueId}'", _cancellationToken);
+        }
+
+        private async Task<string> ExtractIdFromHttpResponseAsync(HttpResponseMessage responseMessage)
+        {
+            var uniqueId = Guid.NewGuid()
+                .ToString("N");
+
+            if (!responseMessage.IsSuccessStatusCode)
+            {
+                return uniqueId;
+            }
+
+            var json = await responseMessage.Content.ReadAsStringAsync();
+            var identitySearchResponses = JsonConvert.DeserializeObject<IdentitySearchResponse>(json).SearchResponses.ToList();
+
+            if (!identitySearchResponses.Any())
+            {
+                return uniqueId;
+            }
+
+            var identityResponse = identitySearchResponses.Where(x => x.Responses.Any())
+                .SelectMany(x => x.Responses)
+                .FirstOrDefault();
+
+            return identityResponse.UniqueId ?? uniqueId;
         }
     }
 }
