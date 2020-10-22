@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <VSTemplate Version="3.0.0" Type="Project" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005"
             xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
@@ -8,7 +8,6 @@
     <Icon>Template_Icon.png</Icon>
     <ProjectType>CSharp</ProjectType>
     <ProjectSubType>Ed-Fi</ProjectSubType>
-    <RequiredFrameworkVersion>4.6.2</RequiredFrameworkVersion>
     <SortOrder>1000</SortOrder>
     <TemplateID>5a9c1e83-b718-40a5-90c4-f16a38e179e0</TemplateID>
     <CreateNewFolder>true</CreateNewFolder>
