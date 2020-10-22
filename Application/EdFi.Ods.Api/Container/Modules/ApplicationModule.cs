@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -11,7 +11,6 @@ using EdFi.Common.Configuration;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Configuration;
-using EdFi.Ods.Api.Context;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Filters;
@@ -81,20 +80,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IHttpContextStorageTransferKeys>()
                 .SingleInstance();
 
-            // Primary context storage for ASP.NET web applications
-            builder.RegisterType<HttpContextStorage>()
-                .As<IContextStorage>()
-                .SingleInstance();
-
-            // Secondary context storage for background tasks running in ASP.NET web applications
-            // Allows selected context to flow to worker Tasks (see IHttpContextStorageTransferKeys and IHttpContextStorageTransfer)
             builder.RegisterType<CallContextStorage>()
                 .As<IContextStorage>()
-                .SingleInstance();
-
-            // Features to transfer context from HttpContext to the secondary storage in ASP.NET applications
-            builder.RegisterType<HttpContextStorageTransfer>()
-                .As<IHttpContextStorageTransfer>()
                 .SingleInstance();
 
             builder.RegisterType<DescriptorLookupProvider>()

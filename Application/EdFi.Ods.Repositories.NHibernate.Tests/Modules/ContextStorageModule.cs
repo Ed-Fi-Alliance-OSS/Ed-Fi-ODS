@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Api.Context;
 using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
@@ -13,15 +12,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            // Primary context storage for ASP.NET web applications
-            builder.RegisterType<HttpContextStorage>().As<IContextStorage>();
-
-            // Secondary context storage for background tasks running in ASP.NET web applications
-            // Allows selected context to flow to worker Tasks (see IHttpContextStorageTransferKeys and IHttpContextStorageTransfer)
             builder.RegisterType<CallContextStorage>().As<IContextStorage>();
-
-            // Features to transfer context from HttpContext to the secondary storage in ASP.NET applications
-            builder.RegisterType<HttpContextStorageTransfer>().As<IHttpContextStorageTransfer>();
         }
     }
 }
