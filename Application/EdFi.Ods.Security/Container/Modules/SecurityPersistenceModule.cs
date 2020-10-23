@@ -66,34 +66,42 @@ namespace EdFi.Ods.Security.Container.Modules
             builder.RegisterType<EducationOrganizationCache>()
                 .WithParameter(new NamedParameter("synchronousInitialization", false))
                 .As<IEducationOrganizationCache>()
-                .AsSelf();
+                .AsSelf()
+                .SingleInstance();
 
             builder.RegisterType<EducationOrganizationCacheDataProvider>()
                 .As<IEducationOrganizationCacheDataProvider>()
                 .As<IEducationOrganizationIdentifiersValueMapper>()
-                .AsSelf();
+                .AsSelf()
+                .SingleInstance();
 
             builder.RegisterType<SecurityRepository>()
-                .As<ISecurityRepository>();
+                .As<ISecurityRepository>()
+                .SingleInstance();
 
             builder.RegisterType<ClientAppRepo>()
-                .As<IClientAppRepo>();
+                .As<IClientAppRepo>()
+                .SingleInstance();
 
             builder.RegisterType<AccessTokenClientRepo>()
-                .As<IAccessTokenClientRepo>();
+                .As<IAccessTokenClientRepo>()
+                .SingleInstance();
 
             builder.RegisterType<UsersContextFactory>()
-                .As<IUsersContextFactory>();
+                .As<IUsersContextFactory>()
+                .SingleInstance();
 
             builder.RegisterType<SecurityContextFactory>()
-                .As<ISecurityContextFactory>();
+                .As<ISecurityContextFactory>()
+                .SingleInstance();
 
             builder.RegisterType<NHibernateFilterTextProvider>()
                 .WithParameter(
                     new ResolvedParameter(
                         (p, c) => p.GetType() == typeof(Configuration),
                         (p, c) => c.Resolve<Configuration>()))
-                .As<INHibernateFilterTextProvider>();
+                .As<INHibernateFilterTextProvider>()
+                .SingleInstance();
         }
     }
 }

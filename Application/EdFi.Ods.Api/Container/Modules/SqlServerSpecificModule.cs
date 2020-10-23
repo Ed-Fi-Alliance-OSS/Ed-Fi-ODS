@@ -24,10 +24,12 @@ namespace EdFi.Ods.Api.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<SqlServerTableValuedParameterListSetter>()
-                .As<IParameterListSetter>();
+                .As<IParameterListSetter>()
+                .SingleInstance();
 
             builder.RegisterType<SqlServerAuthorizationSegmentSqlProvider>()
-                .As<IAuthorizationSegmentsSqlProvider>();
+                .As<IAuthorizationSegmentsSqlProvider>()
+                .SingleInstance();
 
             builder.RegisterType<SqlServerDatabaseEngineNHibernateConfigurationActivity>()
                 .As<INHibernateConfigurationActivity>();

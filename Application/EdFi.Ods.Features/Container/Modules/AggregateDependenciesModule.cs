@@ -23,10 +23,12 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<AggregateDependencyRouteConvention>()
-                .As<IApplicationModelConvention>();
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
 
             builder.RegisterType<ResourceLoadGraphFactory>()
-                .As<IResourceLoadGraphFactory>();
+                .As<IResourceLoadGraphFactory>()
+                .InstancePerLifetimeScope();
         }
     }
 }

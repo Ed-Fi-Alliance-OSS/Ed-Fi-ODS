@@ -27,31 +27,39 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<CompositesMetadataProvider>()
-                .As<ICompositesMetadataProvider>();
+                .As<ICompositesMetadataProvider>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(CompositeDefinitionProcessor<,>))
-                .As(typeof(ICompositeDefinitionProcessor<,>));
+                .As(typeof(ICompositeDefinitionProcessor<,>))
+                .SingleInstance();
 
             builder.RegisterType<ResourceJoinPathExpressionProcessor>()
-                .As<IResourceJoinPathExpressionProcessor>();
+                .As<IResourceJoinPathExpressionProcessor>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<FieldsExpressionParser>()
-                .As<IFieldsExpressionParser>();
+                .As<IFieldsExpressionParser>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<CompositesOpenApiContentProvider>()
-                .As<IOpenApiContentProvider>();
+                .As<IOpenApiContentProvider>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<HqlBuilder>()
-                .As<ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>>();
+                .As<ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>>()
+                .SingleInstance();
 
             builder
                 .RegisterDecorator<HqlBuilderAuthorizationDecorator, ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>>();
 
             builder.RegisterType<CompositeResourceResponseProvider>()
-                .As<ICompositeResourceResponseProvider>();
+                .As<ICompositeResourceResponseProvider>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<CompositesRouteConvention>()
-                .As<IApplicationModelConvention>();
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
         }
     }
 }

@@ -32,13 +32,16 @@ namespace EdFi.Ods.Api.Container.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<AdminDatabaseConnectionStringProvider>()
-                .As<IAdminDatabaseConnectionStringProvider>();
+                .As<IAdminDatabaseConnectionStringProvider>()
+                .SingleInstance();
 
             builder.Register(c => new MemoryCache(new MemoryCacheOptions()))
-                .As<IMemoryCache>();
+                .As<IMemoryCache>()
+                .SingleInstance();
 
             builder.RegisterType<MemoryCacheProvider>()
-                .As<ICacheProvider>();
+                .As<ICacheProvider>()
+                .SingleInstance();
 
             builder.RegisterType<ConcurrentDictionaryCacheProvider>()
                 .AsSelf()
@@ -62,17 +65,21 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<DbConnectionStringBuilderAdapterFactory>()
-                .As<IDbConnectionStringBuilderAdapterFactory>();
+                .As<IDbConnectionStringBuilderAdapterFactory>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider>()
                 .WithParameter(new NamedParameter("prototypeConnectionStringName", "EdFi_Ods"))
-                .As<IOdsDatabaseConnectionStringProvider>();
+                .As<IOdsDatabaseConnectionStringProvider>()
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
-                .As(typeof(IPagedAggregateIdsCriteriaProvider<>));
+                .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
+                .InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(TotalCountCriteriaProvider<>))
-                .As(typeof(ITotalCountCriteriaProvider<>));
+                .As(typeof(ITotalCountCriteriaProvider<>))
+                .InstancePerLifetimeScope();
 
             // This is a cache, and it needs to be a singleton
             builder.RegisterType<FilterCriteriaApplicatorProvider>()
@@ -80,39 +87,51 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
-                .As(typeof(IRepository<>));
+                .As(typeof(IRepository<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(CreateEntity<>))
-                .As(typeof(ICreateEntity<>));
+                .As(typeof(ICreateEntity<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(DeleteEntityById<>))
-                .As(typeof(IDeleteEntityById<>));
+                .As(typeof(IDeleteEntityById<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(DeleteEntityByKey<>))
-                .As(typeof(IDeleteEntityByKey<>));
+                .As(typeof(IDeleteEntityByKey<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntitiesByIds<>))
-                .As(typeof(IGetEntitiesByIds<>));
+                .As(typeof(IGetEntitiesByIds<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
-                .As(typeof(IGetEntitiesBySpecification<>));
+                .As(typeof(IGetEntitiesBySpecification<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntityById<>))
-                .As(typeof(IGetEntityById<>));
+                .As(typeof(IGetEntityById<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntityByKey<>))
-                .As(typeof(IGetEntityByKey<>));
+                .As(typeof(IGetEntityByKey<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(UpdateEntity<>))
-                .As(typeof(IUpdateEntity<>));
+                .As(typeof(IUpdateEntity<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(UpsertEntity<>))
-                .As(typeof(IUpsertEntity<>));
+                .As(typeof(IUpsertEntity<>))
+                .SingleInstance();
 
             builder.RegisterType<SecurityDatabaseConnectionStringProvider>()
-                .As<ISecurityDatabaseConnectionStringProvider>();
+                .As<ISecurityDatabaseConnectionStringProvider>()
+                .SingleInstance();
 
-            builder.RegisterType<UniqueIdToUsiValueMapper>().As<IUniqueIdToUsiValueMapper>().PreserveExistingDefaults()
+            builder.RegisterType<UniqueIdToUsiValueMapper>().As<IUniqueIdToUsiValueMapper>()
+                .PreserveExistingDefaults()
                 .SingleInstance();
 
             builder.RegisterType<PersonUniqueIdToUsiCache>()
@@ -184,7 +203,8 @@ namespace EdFi.Ods.Api.Container.Modules
 
                         return () => ctx.Resolve<ISessionFactory>()
                             .OpenStatelessSession();
-                    });
+                    })
+                .SingleInstance();
 
             builder.Register<Func<ISession>>(
                     c =>
@@ -193,12 +213,14 @@ namespace EdFi.Ods.Api.Container.Modules
 
                         return () => ctx.Resolve<ISessionFactory>()
                             .OpenSession();
-                    });
+                    })
+                .SingleInstance();
 
             builder.RegisterType<DatabaseConnectionNHibernateConfigurationActivity>()
                 .As<INHibernateConfigurationActivity>();
 
-            builder.RegisterType<NHibernateOdsConnectionProvider>().AsSelf();
+            builder.RegisterType<NHibernateOdsConnectionProvider>().AsSelf()
+                .InstancePerLifetimeScope();
         }
     }
 }

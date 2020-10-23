@@ -37,9 +37,7 @@ namespace EdFi.LoadTools.Engine.ResourcePipeline
                     resourceWorkItem.Json, resourceWorkItem.ElementName,
                     resourceWorkItem.ResourceSchemaName, refreshToken).ConfigureAwait(false))
                 {
-                    if (response.StatusCode.Equals(HttpStatusCode.Unauthorized)
-                        && response.ReasonPhrase.Equals("Invalid token")
-                        && !refreshToken)
+                    if (response.StatusCode.Equals(HttpStatusCode.Unauthorized) && !refreshToken)
                     {
                         _log.Info("Expired token detected, refreshing and retrying request.");
                         refreshToken = true;

@@ -39,30 +39,38 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<AllOpenApiMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>();
+                .As<IOpenApiMetadataRouteInformation>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<ResourceTypeOpenMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>();
+                .As<IOpenApiMetadataRouteInformation>()
+                .InstancePerLifetimeScope();
 
             // this is required to for ed-fi default
             builder.RegisterType<SchemaOpenApiMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>();
+                .As<IOpenApiMetadataRouteInformation>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<EdFiOpenApiContentProvider>()
-                .As<IOpenApiContentProvider>();
+                .As<IOpenApiContentProvider>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<EnabledOpenApiMetadataDocumentProvider>()
-                .As<IOpenApiMetadataDocumentProvider>();
+                .As<IOpenApiMetadataDocumentProvider>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<OpenApiMetadataMiddleware>()
                 .As<IMiddleware>()
-                .AsSelf();
+                .AsSelf()
+                .SingleInstance();
 
             builder.RegisterType<OpenApiMetadataDocumentFactory>()
-                .As<IOpenApiMetadataDocumentFactory>();
-           
+                .As<IOpenApiMetadataDocumentFactory>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<OpenApiMetadataRouteConvention>()
-                .As<IApplicationModelConvention>();
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
         }
     }
 }

@@ -24,7 +24,8 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<CompositesOpenApiMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>();
+                .As<IOpenApiMetadataRouteInformation>()
+                .InstancePerLifetimeScope();
         }
     }
 }

@@ -26,10 +26,12 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<ProfilesOpenApiContentProvider>()
-                .As<IOpenApiContentProvider>();
+                .As<IOpenApiContentProvider>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<ProfilesOpenApiMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>();
+                .As<IOpenApiMetadataRouteInformation>()
+                .InstancePerLifetimeScope();
         }
     }
 }

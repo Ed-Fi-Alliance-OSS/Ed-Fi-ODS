@@ -21,7 +21,8 @@ namespace EdFi.Ods.Api.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<PlainTextSecretVerifier>()
-                .As<ISecretVerifier>();
+                .As<ISecretVerifier>()
+                .InstancePerLifetimeScope();
         }
     }
 }

@@ -27,13 +27,25 @@ namespace EdFi.Ods.Security.Container.Modules
                 .As<IAuthorizationContextProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<AuthorizationFilterContextProvider>().As<IAuthorizationFilterContextProvider>();
+            builder.RegisterType<AuthorizationFilterContextProvider>()
+                .As<IAuthorizationFilterContextProvider>()
+                .InstancePerLifetimeScope();
 
-            builder.RegisterType<EdFiAuthorizationProvider>().As<IEdFiAuthorizationProvider>();
-            builder.RegisterType<AuthorizationSegmentsVerifier>().As<IAuthorizationSegmentsVerifier>();
-            builder.RegisterType<ResourceAuthorizationMetadataProvider>().As<IResourceAuthorizationMetadataProvider>();
+            builder.RegisterType<EdFiAuthorizationProvider>()
+                .As<IEdFiAuthorizationProvider>()
+                .SingleInstance();
 
-            builder.RegisterType<AuthorizationSegmentsToFiltersConverter>().As<IAuthorizationSegmentsToFiltersConverter>();
+            builder.RegisterType<AuthorizationSegmentsVerifier>()
+                .As<IAuthorizationSegmentsVerifier>()
+                .SingleInstance();
+
+            builder.RegisterType<ResourceAuthorizationMetadataProvider>()
+                .As<IResourceAuthorizationMetadataProvider>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<AuthorizationSegmentsToFiltersConverter>()
+                .As<IAuthorizationSegmentsToFiltersConverter>()
+                .SingleInstance();
 
             var assembly = typeof(Marker_EdFi_Ods_Security).Assembly;
 
@@ -48,46 +60,71 @@ namespace EdFi.Ods.Security.Container.Modules
                     // Property injection is used for RelationshipsAuthorizationStrategyBase<>
                     builder.RegisterType(strategyType.MakeGenericType(typeof(RelationshipsAuthorizationContextData)))
                         .PropertiesAutowired()
-                        .As<IEdFiAuthorizationStrategy>();
+                        .As<IEdFiAuthorizationStrategy>()
+                        .SingleInstance();
                 }
                 else
                 {
                     builder.RegisterType(strategyType)
-                        .As<IEdFiAuthorizationStrategy>();
+                        .As<IEdFiAuthorizationStrategy>()
+                        .SingleInstance();
                 }
             }
 
             builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Security).Assembly)
                 .Where(t => typeof(INHibernateFilterConfigurator).IsAssignableFrom(t))
-                .As<INHibernateFilterConfigurator>();
+                .As<INHibernateFilterConfigurator>()
+                .SingleInstance();
 
-            builder.RegisterType<AuthorizationViewsProvider>().As<IAuthorizationViewsProvider>();
+            builder.RegisterType<AuthorizationViewsProvider>()
+                .As<IAuthorizationViewsProvider>()
+                .SingleInstance();
 
-            builder.RegisterType<ClaimsIdentityProvider>().As<IClaimsIdentityProvider>();
-            builder.RegisterType<ResourceClaimUriProvider>().As<IResourceClaimUriProvider>();
+            builder.RegisterType<ClaimsIdentityProvider>()
+                .As<IClaimsIdentityProvider>()
+                .SingleInstance();
 
-            builder.RegisterType<EducationOrganizationHierarchyProvider>().As<IEducationOrganizationHierarchyProvider>();
+            builder.RegisterType<ResourceClaimUriProvider>()
+                .As<IResourceClaimUriProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<EducationOrganizationHierarchyProvider>()
+                .As<IEducationOrganizationHierarchyProvider>()
+                .SingleInstance();
 
             // RelationshipsAuthorizationContextDataProviderFactory
             builder.RegisterType(
-                typeof(RelationshipsAuthorizationContextDataProviderFactory<>).MakeGenericType(
-                    GetRelationshipBasedAuthorizationStrategyContextDataType())).As(
-                typeof(IRelationshipsAuthorizationContextDataProviderFactory<>).MakeGenericType(
-                    GetRelationshipBasedAuthorizationStrategyContextDataType()));
+                    typeof(RelationshipsAuthorizationContextDataProviderFactory<>).MakeGenericType(
+                        GetRelationshipBasedAuthorizationStrategyContextDataType())).As(
+                    typeof(IRelationshipsAuthorizationContextDataProviderFactory<>).MakeGenericType(
+                        GetRelationshipBasedAuthorizationStrategyContextDataType()))
+                .SingleInstance();
 
             // ConcreteEducationOrganizationIdAuthorizationContextDataTransformer
             builder.RegisterType(
-                typeof(ConcreteEducationOrganizationIdAuthorizationContextDataTransformer<>).MakeGenericType(
-                    GetRelationshipBasedAuthorizationStrategyContextDataType())).As(
-                typeof(IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<>).MakeGenericType(
-                    GetRelationshipBasedAuthorizationStrategyContextDataType()));
+                    typeof(ConcreteEducationOrganizationIdAuthorizationContextDataTransformer<>).MakeGenericType(
+                        GetRelationshipBasedAuthorizationStrategyContextDataType())).As(
+                    typeof(IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<>).MakeGenericType(
+                        GetRelationshipBasedAuthorizationStrategyContextDataType()))
+                .SingleInstance();
 
             Type GetRelationshipBasedAuthorizationStrategyContextDataType() => typeof(RelationshipsAuthorizationContextData);
 
-            builder.RegisterGeneric(typeof(SetAuthorizationContextForGet<,,,>)).AsSelf();
-            builder.RegisterGeneric(typeof(SetAuthorizationContextForPut<,,,>)).AsSelf();
-            builder.RegisterGeneric(typeof(SetAuthorizationContextForDelete<,,,>)).AsSelf();
-            builder.RegisterGeneric(typeof(SetAuthorizationContextForPost<,,,>)).AsSelf();
+            builder.RegisterGeneric(typeof(SetAuthorizationContextForGet<,,,>))
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterGeneric(typeof(SetAuthorizationContextForPut<,,,>))
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterGeneric(typeof(SetAuthorizationContextForDelete<,,,>))
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterGeneric(typeof(SetAuthorizationContextForPost<,,,>))
+                .AsSelf()
+                .SingleInstance();
         }
     }
 }

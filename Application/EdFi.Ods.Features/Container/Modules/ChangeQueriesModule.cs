@@ -27,16 +27,20 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<AvailableChangeVersionProvider>()
-                .As<IAvailableChangeVersionProvider>();
+                .As<IAvailableChangeVersionProvider>()
+                .InstancePerLifetimeScope();
 
             builder.RegisterType<GetDeletedResourceIds>()
-                .As<IGetDeletedResourceIds>();
+                .As<IGetDeletedResourceIds>()
+                .SingleInstance();
 
             builder.RegisterType<AvailableChangeVersionsRouteConvention>()
-                .As<IApplicationModelConvention>();
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
 
             builder.RegisterType<DeletesRouteConvention>()
-                .As<IApplicationModelConvention>();
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
 
             builder.RegisterType<ChangeQueryMappingNHibernateConfigurationActivity>()
                 .As<INHibernateBeforeBindMappingActivity>();
