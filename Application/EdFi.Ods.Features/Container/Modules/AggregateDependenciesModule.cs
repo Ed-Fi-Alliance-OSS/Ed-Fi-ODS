@@ -8,7 +8,9 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Models.Graphs;
+using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.Conventions;
+using EdFi.Ods.Security.Authorization;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace EdFi.Ods.Features.Container.Modules
@@ -29,6 +31,10 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<ResourceLoadGraphFactory>()
                 .As<IResourceLoadGraphFactory>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<PersonResourceLoadGraphTransformer>()
+                .As<IResourceLoadGraphTransformer>()
+                .SingleInstance();
         }
     }
 }
