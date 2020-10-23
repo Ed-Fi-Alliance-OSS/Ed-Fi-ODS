@@ -24,7 +24,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
         public static CancellationToken CancellationToken { get; private set; }
 
         [OneTimeSetUp]
-        public async Task SetupAsync()
+        public void Setup()
         {
             DatabaseName = _databasePrefix + Guid.NewGuid().ToString("N");
 
