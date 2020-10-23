@@ -3,16 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
-using Autofac.Extensions.DependencyInjection;
 using log4net;
 using log4net.Config;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using NUnit.Framework;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
@@ -20,26 +17,21 @@ namespace EdFi.Ods.WebApi.IntegrationTests
     [SetUpFixture]
     public class GlobalWebApiIntegrationTestFixture
     {
-        public static IHost Host { get; private set; }
+        private readonly string _databasePrefix = "EdFi_IntegrationTests_";
+
+        public static string DatabaseName { get; set; }
+
+        public static CancellationToken CancellationToken { get; private set; }
 
         [OneTimeSetUp]
         public async Task SetupAsync()
         {
+            DatabaseName = _databasePrefix + Guid.NewGuid().ToString("N");
+
+            CancellationToken = new CancellationToken();
+
             var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(GlobalWebApiIntegrationTestFixture).Assembly.Location);
             ConfigureLogging(executableAbsoluteDirectory);
-
-            // Create and start up the host
-            Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureWebHostDefaults(
-                    webBuilder =>
-                    {
-                        webBuilder.UseStartup<Startup>();
-                        webBuilder.UseUrls(TestConstants.BaseUrl);
-                    })
-                .Build();
-
-            await Host.StartAsync();
 
             static void ConfigureLogging(string executableAbsoluteDirectory)
             {
@@ -49,13 +41,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 
                 XmlConfigurator.Configure(LogManager.GetRepository(assembly), new FileInfo(configPath));
             }
-        }
-
-        [OneTimeTearDown]
-        public async Task TearDownAsync()
-        {
-            await Host.StopAsync();
-            Host.Dispose();
         }
     }
 }

@@ -11,10 +11,11 @@ using ApprovalTests;
 using ApprovalTests.Reporters;
 using ApprovalTests.Reporters.TestFrameworks;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.WebApi.IntegrationTests.Controllers
+namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 {
     [TestFixture]
     [UseReporter(typeof(DiffReporter), typeof(NUnitReporter))]
