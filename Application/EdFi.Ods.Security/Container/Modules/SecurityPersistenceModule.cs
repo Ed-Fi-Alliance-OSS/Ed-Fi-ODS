@@ -75,10 +75,6 @@ namespace EdFi.Ods.Security.Container.Modules
                 .AsSelf()
                 .SingleInstance();
 
-            builder.RegisterType<SecurityRepository>()
-                .As<ISecurityRepository>()
-                .SingleInstance();
-
             builder.RegisterType<ClientAppRepo>()
                 .As<IClientAppRepo>()
                 .SingleInstance();

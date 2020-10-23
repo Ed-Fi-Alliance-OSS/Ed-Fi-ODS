@@ -20,6 +20,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         public int? SchoolYearFromRoute { get; set; }
 
+        public string InstanceIdFromRoute { get; set; }
+
         public string OtherName { get; set; }
 
         public string GetFeedName()

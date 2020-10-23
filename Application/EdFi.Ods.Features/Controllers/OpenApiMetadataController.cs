@@ -93,7 +93,7 @@ namespace EdFi.Ods.Features.Controllers
                         new Uri(
                             new Uri(Request.RootUrl(_useProxyHeaders).EnsureSuffixApplied("/")),
                             "metadata/"),
-                        GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute));
+                        GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute, request.InstanceIdFromRoute));
 
                 return new OpenApiMetadataSectionDetails
                 {
@@ -107,7 +107,7 @@ namespace EdFi.Ods.Features.Controllers
                 };
             }
 
-            string GetMetadataUrlSegmentForCacheItem(OpenApiContent apiContent, int? schoolYear)
+            string GetMetadataUrlSegmentForCacheItem(OpenApiContent apiContent, int? schoolYear, string instanceId)
             {
                 // 'Other' sections (Identity) do not live under 'ods' as other metadata endpoints do.
                 // eg identity/v1/2017/swagger.json,
@@ -115,7 +115,7 @@ namespace EdFi.Ods.Features.Controllers
                 // SDKgen All
                 // eg data/v3/2017/swagger.json,
                 // eg data/v3/swagger.json,
-                var basePath = GetBasePath(apiContent, schoolYear);
+                var basePath = GetBasePath(apiContent, schoolYear, instanceId);
 
                 // Profiles and composites endpoints have an extra url segment (profiles or composites).
                 // eg data/v3/2017/profiles/assessment/swagger.json
@@ -129,9 +129,14 @@ namespace EdFi.Ods.Features.Controllers
                 return $"{basePath}/{relativeSectionUri}{OpenApiMetadataDocumentHelper.Json}".ToLowerInvariant();
             }
 
-            string GetBasePath(OpenApiContent apiContent, int? schoolYear)
+            string GetBasePath(OpenApiContent apiContent, int? schoolYear, string instanceId)
             {
                 string basePath = $"{apiContent.BasePath}";
+
+                if (!string.IsNullOrEmpty(instanceId))
+                {
+                    basePath += $"/{instanceId}";
+                }
 
                 if (schoolYear.HasValue)
                 {

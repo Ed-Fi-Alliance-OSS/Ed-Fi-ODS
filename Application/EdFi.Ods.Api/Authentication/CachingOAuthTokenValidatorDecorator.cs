@@ -5,8 +5,10 @@
 
 using System;
 using System.Threading.Tasks;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Context;
 using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Api.Authentication
@@ -17,6 +19,9 @@ namespace EdFi.Ods.Api.Authentication
     public class CachingOAuthTokenValidatorDecorator : IOAuthTokenValidator
     {
         private const string CacheKeyFormat = "OAuthTokenValidator.ApiClientDetails.{0}";
+
+        private readonly ApiSettings _apiSettings;
+        private readonly IInstanceIdContextProvider _instanceIdContextProvider;
 
         // Lazy initialized fields
         private readonly Lazy<int> _bearerTokenTimeoutMinutes;
@@ -30,12 +35,19 @@ namespace EdFi.Ods.Api.Authentication
         /// </summary>
         /// <param name="next">The decorated implementation.</param>
         /// <param name="cacheProvider">The cache provider.</param>
+        /// <param name="configuration"></param>
         /// <param name="apiSettings"></param>
+        /// <param name="instanceIdContextProvider"></param>
         public CachingOAuthTokenValidatorDecorator(
             IOAuthTokenValidator next,
             ICacheProvider cacheProvider,
-            IConfigurationRoot configuration)
+            IConfigurationRoot configuration,
+            ApiSettings apiSettings,
+            IInstanceIdContextProvider instanceIdContextProvider = null)
         {
+            _apiSettings = apiSettings;
+            _instanceIdContextProvider = instanceIdContextProvider;
+
             _next = next;
             _cacheProvider = cacheProvider;
 
@@ -53,7 +65,24 @@ namespace EdFi.Ods.Api.Authentication
         /// <returns>The <see cref="ApiClientDetails"/> associated with the token.</returns>
         public async Task<ApiClientDetails> GetClientDetailsForTokenAsync(string token)
         {
-            string cacheKey = string.Format(CacheKeyFormat, token);
+            string cacheKey;
+
+            if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+            {
+                const string InstanceCacheKeyFormat = "OAuthTokenValidator.ApiClientDetails.{0}.{1}";
+                var instanceId = _instanceIdContextProvider.GetInstanceId();
+
+                if (string.IsNullOrEmpty(instanceId))
+                {
+                    throw new InvalidOperationException("Expected instanceId is null or empty.");
+                }
+
+                cacheKey = string.Format(InstanceCacheKeyFormat, instanceId, token);
+            }
+            else
+            {
+                cacheKey = string.Format(CacheKeyFormat, token);
+            }
 
             // Try to load API client details from cache
             if (_cacheProvider.TryGetCachedObject(cacheKey, out object apiClientDetailsAsObject))
@@ -67,7 +96,8 @@ namespace EdFi.Ods.Api.Authentication
             // If token is valid, insert API client details into the cache for **half** the duration of the externally managed expiration period
             if (apiClientDetails.IsTokenValid)
             {
-                _cacheProvider.Insert(cacheKey, apiClientDetails, DateTime.Now.AddMinutes(_bearerTokenTimeoutMinutes.Value / 2.0), TimeSpan.Zero);
+                _cacheProvider.Insert(
+                    cacheKey, apiClientDetails, DateTime.Now.AddMinutes(_bearerTokenTimeoutMinutes.Value / 2.0), TimeSpan.Zero);
             }
 
             return apiClientDetails;

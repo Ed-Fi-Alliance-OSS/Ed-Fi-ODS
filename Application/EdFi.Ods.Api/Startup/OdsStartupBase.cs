@@ -34,6 +34,7 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Security.DataAccess.Caching;
 using log4net;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -254,6 +255,13 @@ namespace EdFi.Ods.Api.Startup
                 // Provide cache using a closure rather than repeated invocations to the container
                 IDescriptorsCache cache = null;
                 DescriptorsCache.GetCache = () => cache ??= Container.Resolve<IDescriptorsCache>();
+
+                if (ApiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+                {
+                    // Provide SecurityRepository cache using a closure rather than repeated invocations to the container
+                    IInstanceSecurityRepositoryCache instanceSecurityRepositoryCache = null;
+                    InstanceSecurityRepositoryCache.GetCache = () => instanceSecurityRepositoryCache ??= Container.Resolve<IInstanceSecurityRepositoryCache>();
+                }
 
                 ResourceModelHelper.ResourceModel =
                     new Lazy<ResourceModel>(
