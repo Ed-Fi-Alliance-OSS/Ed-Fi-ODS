@@ -50,14 +50,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
 
             var association = new StudentSchoolAssociation
             {
-                StudentReference = new StudentReference
-                {
-                    StudentUniqueId = uniqueId
-                },
-                SchoolReference = new SchoolReference
-                {
-                    SchoolId = schoolId
-                },
+                StudentReference = new StudentReference {StudentUniqueId = uniqueId},
+                SchoolReference = new SchoolReference {SchoolId = schoolId},
                 EntryDate = DateTime.Today.AddYears(-1),
                 EntryGradeLevelDescriptor = gradeLevelDescriptor
             };
@@ -80,22 +74,17 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
                 // required
                 AssessmentTitle = assessmentTitle,
                 AssessmentAcademicSubjects =
-                                     (academicSubjectDescriptors ?? new[]
-                                                                    {
-                                                                        KnownDescriptors.AcademicSubject.Mathematics
-                                                                    })
-                                    .Select(
-                                         d => new AssessmentAcademicSubject
-                                         {
-                                             AcademicSubjectDescriptor = d
-                                         })
-                                    .ToList()
+                    (academicSubjectDescriptors ?? new[] {KnownDescriptors.AcademicSubject.Mathematics})
+                    .Select(
+                        d => new AssessmentAcademicSubject {AcademicSubjectDescriptor = d})
+                    .ToList()
             };
 
             return JsonConvert.SerializeObject(assessment);
         }
 
-        public static string CreateAssessmentItem(string assessmentIdentifier, string assessmentNamespace, string identificationCode)
+        public static string CreateAssessmentItem(string assessmentIdentifier, string assessmentNamespace,
+            string identificationCode)
         {
             var assessmentItem = new AssessmentItem
             {
@@ -106,7 +95,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
             return JsonConvert.SerializeObject(assessmentItem);
         }
 
-        public static string CreateObjectiveAssessment(string assessmentIdentifier, string assessmentNamespace, string identificationCode)
+        public static string CreateObjectiveAssessment(string assessmentIdentifier, string assessmentNamespace,
+            string identificationCode)
         {
             var objectiveAssessment = new ObjectiveAssessment
             {
@@ -130,10 +120,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
                 StudentAssessmentIdentifier = studentAssessmentIdentifier,
                 AdministrationDate = administrationDate.GetValueOrDefault(DateTime.UtcNow),
                 StudentReference =
-                                            new StudentReference
-                                            {
-                                                StudentUniqueId = studentUniqueId
-                                            }
+                    new StudentReference {StudentUniqueId = studentUniqueId}
             };
 
             return JsonConvert.SerializeObject(studentAssessment);
@@ -158,8 +145,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
                 FirstName = firstName ?? string.Format("F{0}", ticks),
                 LastSurname = lastName ?? string.Format("L{0}", ticks),
                 SexDescriptor = ticks % 2 == 0
-                                 ? KnownDescriptors.Sex.Male
-                                 : KnownDescriptors.Sex.Female
+                    ? KnownDescriptors.Sex.Male
+                    : KnownDescriptors.Sex.Female
             };
 
             return JsonConvert.SerializeObject(parent);
@@ -175,14 +162,14 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
                 },
                 ProgramTypeDescriptor = KnownDescriptors.ProgramType.Athletics,
                 ProgramSponsors = new List<ProgramSponsor>
-                                                                                                                {
-                                                                                                                    new ProgramSponsor
-                                                                                                                    {
-                                                                                                                        ProgramSponsorDescriptor =
-                                                                                                                            KnownDescriptors
-                                                                                                                               .ProgramSponsor.School
-                                                                                                                    }
-                                                                                                                },
+                {
+                    new ProgramSponsor
+                    {
+                        ProgramSponsorDescriptor =
+                            KnownDescriptors
+                                .ProgramSponsor.School
+                    }
+                },
                 ProgramName = DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture),
                 ProgramId = DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture)
             };
@@ -200,14 +187,14 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
                 },
                 ProgramTypeDescriptor = KnownDescriptors.ProgramType.Athletics,
                 ProgramSponsors = new List<ProgramSponsor>
-                                                                                                                {
-                                                                                                                    new ProgramSponsor
-                                                                                                                    {
-                                                                                                                        ProgramSponsorDescriptor =
-                                                                                                                            KnownDescriptors
-                                                                                                                               .ProgramSponsor.School
-                                                                                                                    }
-                                                                                                                },
+                {
+                    new ProgramSponsor
+                    {
+                        ProgramSponsorDescriptor =
+                            KnownDescriptors
+                                .ProgramSponsor.School
+                    }
+                },
                 ProgramName = name,
                 ProgramId = DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture)
             };
@@ -225,21 +212,19 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Helpers
                 FirstName = firstName ?? string.Format("F{0}", ticks),
                 LastSurname = lastName ?? string.Format("L{0}", ticks),
                 SexDescriptor = ticks % 2 == 0
-                                ? KnownDescriptors.Sex.Male
-                                : KnownDescriptors.Sex.Female
+                    ? KnownDescriptors.Sex.Male
+                    : KnownDescriptors.Sex.Female
             };
 
             return JsonConvert.SerializeObject(staff);
         }
 
-        public static string CreateStaffEducationOrganizationEmploymentAssociation(string staffUniqueId, int educationOrganizationId)
+        public static string CreateStaffEducationOrganizationEmploymentAssociation(string staffUniqueId,
+            int educationOrganizationId)
         {
             var association = new StaffEducationOrganizationEmploymentAssociation
             {
-                StaffReference = new StaffReference
-                {
-                    StaffUniqueId = staffUniqueId
-                },
+                StaffReference = new StaffReference {StaffUniqueId = staffUniqueId},
                 EducationOrganizationReference = new EducationOrganizationReference
                 {
                     EducationOrganizationId = educationOrganizationId
