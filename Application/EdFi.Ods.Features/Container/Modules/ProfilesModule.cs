@@ -31,7 +31,7 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<ProfileResourceNamesProvider>()
                 .As<IProfileResourceNamesProvider>()
                 .As<IProfileMetadataProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<ProfileResourceModelProvider>()
                 .As<IProfileResourceModelProvider>()

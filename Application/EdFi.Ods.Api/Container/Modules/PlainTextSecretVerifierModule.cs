@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.Container.Modules
         {
             builder.RegisterType<PlainTextSecretVerifier>()
                 .As<ISecretVerifier>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
     }
 }

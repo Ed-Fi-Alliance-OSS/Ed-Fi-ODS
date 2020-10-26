@@ -33,7 +33,7 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterGeneric(typeof(PopulateIdFromUniqueIdOnPeople<,,,>))
                 .AsSelf()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterDecorator(
                 typeof(UniqueIdIntegrationPutPipelineStepsProviderDecorator),
@@ -41,11 +41,11 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<UniqueIdNotChangedEntityValidator>()
                 .As<IEntityValidator>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<EnsureUniqueIdAlreadyExistsEntityValidator>()
                 .As<IEntityValidator>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
     }
 }

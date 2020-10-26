@@ -28,7 +28,7 @@ namespace EdFi.Ods.Features.Container.Modules
         {
             builder.RegisterType<AvailableChangeVersionProvider>()
                 .As<IAvailableChangeVersionProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<GetDeletedResourceIds>()
                 .As<IGetDeletedResourceIds>()
@@ -43,7 +43,8 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<ChangeQueryMappingNHibernateConfigurationActivity>()
-                .As<INHibernateBeforeBindMappingActivity>();
+                .As<INHibernateBeforeBindMappingActivity>()
+                .SingleInstance();
         }
     }
 }

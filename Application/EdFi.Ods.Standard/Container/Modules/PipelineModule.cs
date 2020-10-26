@@ -14,7 +14,8 @@ namespace EdFi.Ods.Standard.Container.Modules
         {
             builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Standard).Assembly)
                 .Where(t => t.Name.EndsWith("CreateOrUpdatePipeline"))
-                .AsSelf();
+                .AsSelf()
+                .SingleInstance();
         }
     }
 }

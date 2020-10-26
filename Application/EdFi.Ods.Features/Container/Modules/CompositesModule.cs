@@ -28,7 +28,7 @@ namespace EdFi.Ods.Features.Container.Modules
         {
             builder.RegisterType<CompositesMetadataProvider>()
                 .As<ICompositesMetadataProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(CompositeDefinitionProcessor<,>))
                 .As(typeof(ICompositeDefinitionProcessor<,>))
@@ -36,15 +36,15 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<ResourceJoinPathExpressionProcessor>()
                 .As<IResourceJoinPathExpressionProcessor>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<FieldsExpressionParser>()
                 .As<IFieldsExpressionParser>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<CompositesOpenApiContentProvider>()
                 .As<IOpenApiContentProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<HqlBuilder>()
                 .As<ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>>()
@@ -55,7 +55,7 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<CompositeResourceResponseProvider>()
                 .As<ICompositeResourceResponseProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<CompositesRouteConvention>()
                 .As<IApplicationModelConvention>()

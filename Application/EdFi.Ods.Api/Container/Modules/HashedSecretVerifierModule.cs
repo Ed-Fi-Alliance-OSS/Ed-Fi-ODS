@@ -22,13 +22,13 @@ namespace EdFi.Ods.Api.Container.Modules
         {
             builder.RegisterType<SecureHashAwareSecretVerifier>()
                 .As<ISecretVerifier>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterDecorator<AutoUpgradingHashedSecretVerifierDecorator, ISecretVerifier>();
 
             builder.RegisterType<SecureHasherProvider>()
                 .As<ISecureHasherProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
     }
 }

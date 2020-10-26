@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -62,7 +62,7 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<DbConnectionStringBuilderAdapterFactory>()
                 .As<IDbConnectionStringBuilderAdapterFactory>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider>()
                 .WithParameter(new NamedParameter("prototypeConnectionStringName", "EdFi_Ods"))
@@ -71,11 +71,11 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
                 .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(TotalCountCriteriaProvider<>))
                 .As(typeof(ITotalCountCriteriaProvider<>))
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             // This is a cache, and it needs to be a singleton
             builder.RegisterType<FilterCriteriaApplicatorProvider>()
@@ -122,7 +122,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As(typeof(IUpsertEntity<>))
                 .SingleInstance();
 
-            builder.RegisterType<UniqueIdToUsiValueMapper>().As<IUniqueIdToUsiValueMapper>()
+            builder.RegisterType<UniqueIdToUsiValueMapper>()
+                .As<IUniqueIdToUsiValueMapper>()
                 .PreserveExistingDefaults()
                 .SingleInstance();
 
@@ -144,7 +145,8 @@ namespace EdFi.Ods.Api.Container.Modules
                         int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ?? 86400;
                         return new TimeSpan(period);
                     }))
-                .As<IPersonUniqueIdToUsiCache>().SingleInstance();
+                .As<IPersonUniqueIdToUsiCache>()
+                .SingleInstance();
 
             builder.RegisterType<OrmMappingFileDataProvider>()
                 .WithParameter(new NamedParameter("assemblyName", OrmMappingFileConventions.OrmMappingAssembly))
@@ -186,8 +188,8 @@ namespace EdFi.Ods.Api.Container.Modules
             // to dispose of the session when we're done.
             // ----------------------------------------------------------------------------------------------------
 
-            // The function is a singleton, not the session
             // Autofac needs to first resolve the context into a variable before it can assign the function.
+            // When resolving this function we need to use Owned<Func<T>> since they are scoped.
             builder.Register<Func<IStatelessSession>>(
                     c =>
                     {
@@ -209,9 +211,11 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<DatabaseConnectionNHibernateConfigurationActivity>()
-                .As<INHibernateConfigurationActivity>();
+                .As<INHibernateConfigurationActivity>()
+                .SingleInstance();
 
-            builder.RegisterType<NHibernateOdsConnectionProvider>().AsSelf()
+            builder.RegisterType<NHibernateOdsConnectionProvider>()
+                .AsSelf()
                 .InstancePerLifetimeScope();
         }
     }

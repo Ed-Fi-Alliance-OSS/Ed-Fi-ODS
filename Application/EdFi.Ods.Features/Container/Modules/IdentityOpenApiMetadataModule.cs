@@ -9,7 +9,6 @@ using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.OpenApiMetadataContentProviders;
 using EdFi.Ods.Features.RouteInformations;
 
@@ -27,10 +26,12 @@ namespace EdFi.Ods.Features.Container.Modules
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<IdentityOpenApiContentProvider>()
-                .As<IOpenApiContentProvider>();
+                .As<IOpenApiContentProvider>()
+                .SingleInstance();
 
             builder.RegisterType<IdentityOpenApiMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>();
+                .As<IOpenApiMetadataRouteInformation>()
+                .SingleInstance();
         }
     }
 }
