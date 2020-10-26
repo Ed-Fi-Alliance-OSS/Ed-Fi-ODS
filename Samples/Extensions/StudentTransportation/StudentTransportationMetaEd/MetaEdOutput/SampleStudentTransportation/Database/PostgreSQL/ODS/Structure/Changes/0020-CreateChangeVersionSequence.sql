@@ -5,7 +5,7 @@
 
 CREATE SEQUENCE IF NOT EXISTS changes.ChangeVersionSequence START WITH 1;
 
-CREATE FUNCTION changes.updateChangeVersion()
+CREATE OR REPLACE FUNCTION changes.updateChangeVersion()
     RETURNS trigger AS
 $BODY$
 BEGIN
