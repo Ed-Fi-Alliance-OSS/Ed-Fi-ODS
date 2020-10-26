@@ -80,23 +80,42 @@ namespace EdFi.Ods.Api.Controllers
             {
                 var currentYear = _systemDateProvider.GetDate().Year.ToString();
 
+                // since instance is dynamic and given through url, this value is just a place holder
+                var instance = "{instance}";
+
                 bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific);
+                bool isInstanceYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.InstanceYearSpecific);
+
+                //This also involves year itself, thus year needs to be true
+                if (isInstanceYearSpecific) isYearSpecific = true;
 
                 bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
 
                 var exposedUrls = new ExposedUrls
                 {
                     DependenciesUrl = Request.RootUrl(useReverseProxyHeaders) +
-                                      (isYearSpecific
-                                          ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + currentYear + "/dependencies"
-                                          : $"/metadata/data/v{ApiVersionConstants.Ods}/dependencies"),
+                                      (isInstanceYearSpecific
+                                          ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + $"{instance}/" + currentYear + "/dependencies" :
+                                          (isYearSpecific
+                                              ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + currentYear + "/dependencies"
+                                              : $"/metadata/data/v{ApiVersionConstants.Ods}/dependencies")),
                     MetaDataUrl = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
+                                  (isInstanceYearSpecific
+                                      ? $"{instance}/"
+                                      : string.Empty) +
                                   (isYearSpecific
                                       ? currentYear
                                       : string.Empty),
-                    OauthUrl = Request.RootUrl(useReverseProxyHeaders) + "/oauth/token",
+                    OauthUrl = Request.RootUrl(useReverseProxyHeaders) +
+                               (isInstanceYearSpecific
+                                   ? $"/{instance}"
+                                   : string.Empty) +
+                               "/oauth/token",
                     ApiUrl = Request.RootUrl(useReverseProxyHeaders) +
                              $"/data/v{ApiVersionConstants.Ods}/" +
+                             (isInstanceYearSpecific
+                                 ? $"{instance}/"
+                                 : string.Empty) +
                              (isYearSpecific
                                  ? currentYear
                                  : string.Empty)

@@ -9,6 +9,7 @@ namespace EdFi.Common.Configuration
     {
         public static readonly ApiMode Sandbox = new ApiMode(ApiConfigurationConstants.Sandbox, "Sandbox");
         public static readonly ApiMode YearSpecific = new ApiMode(ApiConfigurationConstants.YearSpecific, "Year Specific");
+        public static readonly ApiMode InstanceYearSpecific = new ApiMode(ApiConfigurationConstants.InstanceYearSpecific, "Instance Year Specific");
         public static readonly ApiMode SharedInstance = new ApiMode(ApiConfigurationConstants.SharedInstance, "Shared Instance");
         public static readonly ApiMode DistrictSpecific = new ApiMode(ApiConfigurationConstants.DistrictSpecific, "District Specific");
 

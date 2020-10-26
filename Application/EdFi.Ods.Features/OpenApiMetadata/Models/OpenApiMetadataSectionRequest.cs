@@ -10,5 +10,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
         public bool Sdk { get; set; }
 
         public int? SchoolYearFromRoute { get; set; }
+
+        public string InstanceIdFromRoute { get; set; }
     }
 }

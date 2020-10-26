@@ -5,6 +5,7 @@
 
 using System;
 using System.Threading.Tasks;
+using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Caching;
@@ -53,7 +54,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                               .Returns(Task.FromResult(_suppliedClientDetails));
 
                 _cacheProvider = Stub<ICacheProvider>();
-                _apiSettings = Stub<ApiSettings>();
+                _apiSettings =new ApiSettings { Engine = ApiConfigurationConstants.SqlServer, Mode = ApiConfigurationConstants.Sandbox };
                 _configuration = Stub<IConfigurationRoot>();
 
                 A.CallTo(() => _configuration.GetSection("BearerTokenTimeoutMinutes").Value)
@@ -66,7 +67,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 var validator = new CachingOAuthTokenValidatorDecorator(
                     _decoratedValidator,
                     _cacheProvider,
-                    _configuration);
+                    _configuration,
+                    _apiSettings);
 
                 _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedApiToken)
                                           .GetResultSafely();
@@ -133,7 +135,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 _cacheProvider = Stub<ICacheProvider>();
 
                 // Mock config file to return duration
-                _apiSettings = Stub<ApiSettings>();
+                _apiSettings =new ApiSettings { Engine = ApiConfigurationConstants.SqlServer, Mode = ApiConfigurationConstants.Sandbox };
                 _configuration = Stub<IConfigurationRoot>();
 
                 A.CallTo(() => _configuration.GetSection("BearerTokenTimeoutMinutes").Value)
@@ -146,7 +148,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 var validator = new CachingOAuthTokenValidatorDecorator(
                     _decoratedValidator,
                     _cacheProvider,
-                    _configuration);
+                    _configuration,
+                    _apiSettings);
 
                 _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedInvalidApiToken)
                                           .GetResultSafely();
@@ -210,7 +213,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 A.CallTo(()=> _cacheProvider.TryGetCachedObject(A<string>._,out outobject)).Returns(true);
 
                 // Mock config file to return duration
-                _apiSettings = Stub<ApiSettings>();
+                _apiSettings =new ApiSettings { Engine = ApiConfigurationConstants.SqlServer, Mode = ApiConfigurationConstants.Sandbox };
                 _configuration = Stub<IConfigurationRoot>();
 
                 A.CallTo(() => _configuration.GetSection("BearerTokenTimeoutMinutes").Value)
@@ -223,7 +226,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 var validator = new CachingOAuthTokenValidatorDecorator(
                     _decoratedValidator,
                     _cacheProvider,
-                    _configuration);
+                    _configuration,
+                    _apiSettings);
 
                 _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedApiToken)
                                           .GetResultSafely();

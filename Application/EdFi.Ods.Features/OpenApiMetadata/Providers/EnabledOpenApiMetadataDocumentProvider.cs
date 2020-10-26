@@ -57,25 +57,27 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 return false;
             }
 
-            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYearFromRoute);
+            document = GetMetadataForContent(openApiContent, request, openApiMetadataRequest.SchoolYearFromRoute, openApiMetadataRequest.InstanceIdFromRoute);
 
             return true;
         }
 
-        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, int? schoolYearFromRoute)
+        private string GetMetadataForContent(OpenApiContent content, HttpRequest request, int? schoolYearFromRoute, string instanceIdFromRoute)
         {
             var year = schoolYearFromRoute.HasValue
                 ? schoolYearFromRoute.Value.ToString()
                 : string.Empty;
 
-            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath.EnsureSuffixApplied("/") + year;
+            var instanceId = string.IsNullOrEmpty(instanceIdFromRoute) ? string.Empty : $"{instanceIdFromRoute}/";
+
+            string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath.EnsureSuffixApplied("/") + instanceId + year;
 
             return content.Metadata
                 .Replace("%HOST%", Host())
                 .Replace("%TOKEN_URL%", TokenUrl())
                 .Replace("%BASE_PATH%", basePath);
 
-            string TokenUrl() => $"{request.RootUrl(_useReverseProxyHeaders)}/oauth/token";
+            string TokenUrl() => $"{request.RootUrl(_useReverseProxyHeaders)}/{instanceId}oauth/token";
 
             string Host() => $"{request.Host(_useReverseProxyHeaders)}:{request.Port(_useReverseProxyHeaders)}";
         }
@@ -121,6 +123,17 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                         if (int.TryParse(schoolYear, out int schoolYearFromRoute))
                         {
                             openApiMetadataRequest.SchoolYearFromRoute = schoolYearFromRoute;
+                        }
+                    }
+
+                    if (values.ContainsKey("instanceIdFromRoute"))
+                    {
+                        var instance = values["instanceIdFromRoute"];
+                        var instanceId = instance as string;
+
+                        if (!string.IsNullOrEmpty(instanceId))
+                        {
+                            openApiMetadataRequest.InstanceIdFromRoute = instanceId;
                         }
                     }
 

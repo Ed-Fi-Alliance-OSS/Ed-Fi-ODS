@@ -39,6 +39,12 @@ namespace EdFi.Ods.Features.RouteInformations
                 prefix += RouteConstants.SchoolYearFromRoute;
             }
 
+            if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+            {
+                prefix += RouteConstants.InstanceIdFromRoute;
+                prefix += RouteConstants.SchoolYearFromRoute;
+            }
+
             prefix += "profiles/{profileName}";
 
             return prefix.TrimSuffix("/");

@@ -87,6 +87,12 @@ namespace EdFi.Ods.Features.Conventions
                     template += RouteConstants.SchoolYearFromRoute;
                 }
 
+                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+                {
+                    template += RouteConstants.InstanceIdFromRoute;
+                    template += RouteConstants.SchoolYearFromRoute;
+                }
+
                 var compositeCategoryNames = _compositesMetadataProvider
                     .GetAllCategories()
                     .Select(x => x.Name)

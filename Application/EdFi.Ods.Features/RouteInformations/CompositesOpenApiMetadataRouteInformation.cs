@@ -38,6 +38,12 @@ namespace EdFi.Ods.Features.RouteInformations
                 prefix += RouteConstants.SchoolYearFromRoute;
             }
 
+            if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+            {
+                prefix += RouteConstants.InstanceIdFromRoute;
+                prefix += RouteConstants.SchoolYearFromRoute;
+            }
+
             prefix += "{organizationCode}/{compositeCategoryName}";
 
             return prefix.TrimSuffix("/");

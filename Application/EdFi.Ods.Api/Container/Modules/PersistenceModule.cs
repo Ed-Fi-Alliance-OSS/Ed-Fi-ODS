@@ -31,10 +31,6 @@ namespace EdFi.Ods.Api.Container.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<AdminDatabaseConnectionStringProvider>()
-                .As<IAdminDatabaseConnectionStringProvider>()
-                .SingleInstance();
-
             builder.Register(c => new MemoryCache(new MemoryCacheOptions()))
                 .As<IMemoryCache>()
                 .SingleInstance();
@@ -124,10 +120,6 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterGeneric(typeof(UpsertEntity<>))
                 .As(typeof(IUpsertEntity<>))
-                .SingleInstance();
-
-            builder.RegisterType<SecurityDatabaseConnectionStringProvider>()
-                .As<ISecurityDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
             builder.RegisterType<UniqueIdToUsiValueMapper>().As<IUniqueIdToUsiValueMapper>()

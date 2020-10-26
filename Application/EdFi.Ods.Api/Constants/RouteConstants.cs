@@ -21,5 +21,10 @@ namespace EdFi.Ods.Api.Constants
         {
             get => @"{schoolYearFromRoute:regex(^\d{{4}}$)}/";
         }
+
+        public static string InstanceIdFromRoute
+        {
+            get => @"{instanceIdFromRoute:regex(^[[A-Za-z0-9-]]+$)}/";
+        }
     }
 }

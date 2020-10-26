@@ -7,17 +7,17 @@ using System.Linq;
 using System.Reflection;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Features.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace EdFi.Ods.Features.Conventions
+namespace EdFi.Ods.Api.Conventions
 {
-    public class OpenApiMetadataRouteConvention : IApplicationModelConvention
+    public class TokenControllerRouteConvention : IApplicationModelConvention
     {
         private readonly ApiSettings _apiSettings;
 
-        public OpenApiMetadataRouteConvention(ApiSettings apiSettings)
+        public TokenControllerRouteConvention(ApiSettings apiSettings)
         {
             _apiSettings = apiSettings;
         }
@@ -25,36 +25,31 @@ namespace EdFi.Ods.Features.Conventions
         public void Apply(ApplicationModel application)
         {
             var controller =
-                application.Controllers.FirstOrDefault(x => x.ControllerType == typeof(OpenApiMetadataController).GetTypeInfo());
+                application.Controllers.FirstOrDefault(x => x.ControllerType == typeof(TokenController).GetTypeInfo());
 
             if (controller != null)
             {
-                var routeSuffix = new AttributeRouteModel {Template = CreateRouteTemplate()};
+                var routePrefix = new AttributeRouteModel {Template = CreateRouteTemplate()};
 
                 foreach (var selector in controller.Selectors)
                 {
                     if (selector.AttributeRouteModel != null)
                     {
                         selector.AttributeRouteModel = AttributeRouteModel.CombineAttributeRouteModel(
-                            selector.AttributeRouteModel,
-                            routeSuffix);
+                            routePrefix,
+                            selector.AttributeRouteModel);
                     }
                 }
             }
 
             string CreateRouteTemplate()
             {
-                string template = string.Empty;
 
-                if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
-                {
-                    template += RouteConstants.SchoolYearFromRoute;
-                }
+                string template = "";
 
-                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+               if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
                 {
                     template += RouteConstants.InstanceIdFromRoute;
-                    template += RouteConstants.SchoolYearFromRoute;
                 }
 
                 return template;
