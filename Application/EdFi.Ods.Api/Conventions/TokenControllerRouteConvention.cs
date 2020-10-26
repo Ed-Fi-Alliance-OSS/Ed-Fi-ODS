@@ -44,7 +44,6 @@ namespace EdFi.Ods.Api.Conventions
 
             string CreateRouteTemplate()
             {
-
                 string template = "";
 
                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)

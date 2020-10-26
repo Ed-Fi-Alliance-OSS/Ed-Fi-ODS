@@ -4,18 +4,21 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using Autofac.Core;
+using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Conventions;
+using EdFi.Ods.Api.Database;
 using EdFi.Ods.Api.Filters;
-using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
 using EdFi.Security.DataAccess.Caching;
+using EdFi.Security.DataAccess.Providers;
 using EdFi.Security.DataAccess.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -35,20 +38,24 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<InstanceIdContextFilter>()
-                .As<IFilterMetadata>();
+                .As<IFilterMetadata>()
+                .SingleInstance();
 
             builder.RegisterType<InstanceIdContextProvider>()
                 .As<IInstanceIdContextProvider>()
-                .As<IHttpContextStorageTransferKeys>();
+                .As<IHttpContextStorageTransferKeys>()
+                .SingleInstance();
 
             builder.RegisterType<InstanceYearSpecificAdminDatabaseNameReplacementTokenProvider>()
                 .As<IAdminDatabaseNameReplacementTokenProvider>();
 
             builder.RegisterType<InstanceYearSpecificSecurityDatabaseNameReplacementTokenProvider>()
-                .As<ISecurityDatabaseNameReplacementTokenProvider>();
+                .As<ISecurityDatabaseNameReplacementTokenProvider>()
+                .SingleInstance();
 
             builder.RegisterType<InstanceYearSpecificDatabaseNameReplacementTokenProvider>()
-                .As<IDatabaseNameReplacementTokenProvider>();
+                .As<IDatabaseNameReplacementTokenProvider>()
+                .SingleInstance();
 
             builder.RegisterType<InstanceSecurityRepository>()
                 .As<ISecurityRepository>()
@@ -56,6 +63,19 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<InstanceSecurityRepositoryCache>()
                 .As<IInstanceSecurityRepositoryCache>()
+                .SingleInstance();
+
+            builder.RegisterType<InstanceYearSpecificMiddleware>()
+                .As<IMiddleware>()
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterType<InstanceAdminDatabaseNameTokenReplacementConnectionStringProvider>()
+                .As<IAdminDatabaseConnectionStringProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<InstanceSecurityDatabaseNameTokenReplacementConnectionStringProvider>()
+                .As<ISecurityDatabaseConnectionStringProvider>()
                 .SingleInstance();
         }
     }

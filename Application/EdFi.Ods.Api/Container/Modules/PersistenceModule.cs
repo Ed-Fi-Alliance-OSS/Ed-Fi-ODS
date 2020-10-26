@@ -31,6 +31,16 @@ namespace EdFi.Ods.Api.Container.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<AdminDatabaseConnectionStringProvider>()
+                .As<IAdminDatabaseConnectionStringProvider>()
+                .PreserveExistingDefaults()
+                .SingleInstance();
+
+            builder.RegisterType<SecurityDatabaseConnectionStringProvider>()
+                .As<ISecurityDatabaseConnectionStringProvider>()
+                .PreserveExistingDefaults()
+                .SingleInstance();
+
             builder.Register(c => new MemoryCache(new MemoryCacheOptions()))
                 .As<IMemoryCache>()
                 .SingleInstance();
@@ -51,7 +61,9 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            int expirationPeriod = configuration.GetValue<int?>("Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
+                            int expirationPeriod =
+                                configuration.GetValue<int?>("Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
+
                             return new ExpiringConcurrentDictionaryCacheProvider(new TimeSpan(expirationPeriod));
                         }))
                 .As<IDescriptorsCache>()
@@ -129,22 +141,30 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<PersonUniqueIdToUsiCache>()
                 .WithParameter(new NamedParameter("synchronousInitialization", false))
-                .WithParameter(new ResolvedParameter((p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
-                    (p, c) =>
-                    {
-                        var configuration = c.Resolve<IConfiguration>();
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var configuration = c.Resolve<IConfiguration>();
 
-                        int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:SlidingExpirationSeconds") ?? 14400;
-                        return new TimeSpan(period);
-                    }))
-                .WithParameter(new ResolvedParameter((p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
-                    (p, c) =>
-                    {
-                        var configuration = c.Resolve<IConfiguration>();
+                            int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:SlidingExpirationSeconds") ??
+                                         14400;
 
-                        int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ?? 86400;
-                        return new TimeSpan(period);
-                    }))
+                            return new TimeSpan(period);
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var configuration = c.Resolve<IConfiguration>();
+
+                            int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ??
+                                         86400;
+
+                            return new TimeSpan(period);
+                        }))
                 .As<IPersonUniqueIdToUsiCache>()
                 .SingleInstance();
 
