@@ -25,7 +25,7 @@ namespace EdFi.Ods.Features.Container.Modules
         {
             builder.RegisterType<CompositesOpenApiMetadataRouteInformation>()
                 .As<IOpenApiMetadataRouteInformation>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
     }
 }

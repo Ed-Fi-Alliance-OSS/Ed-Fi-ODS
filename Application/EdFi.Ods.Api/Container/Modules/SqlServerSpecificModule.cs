@@ -32,7 +32,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             builder.RegisterType<SqlServerDatabaseEngineNHibernateConfigurationActivity>()
-                .As<INHibernateConfigurationActivity>();
+                .As<INHibernateConfigurationActivity>()
+                .SingleInstance();
         }
     }
 }

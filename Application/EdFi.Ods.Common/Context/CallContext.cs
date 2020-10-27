@@ -24,17 +24,7 @@ namespace EdFi.Ods.Common.Context
         /// <param name="data">The object to store in the call context.</param>
         public static void SetData(string name, object data)
         {
-            var asyncLocal = _state.GetOrAdd(
-                name,
-                n => new AsyncLocal<object>(
-                    args =>
-                    {
-                        if (args.ThreadContextChanged && args.CurrentValue == null && args.PreviousValue != null)
-                        {
-                            _state[name].Value = args.PreviousValue;
-                        }
-                    }));
-
+            var asyncLocal = _state.GetOrAdd(name, n => new AsyncLocal<object>());
             asyncLocal.Value = data;
         }
 
@@ -45,9 +35,12 @@ namespace EdFi.Ods.Common.Context
         /// <returns>The object in the call context associated with the specified name, or <see langword="null"/> if not found.</returns>
         public static object GetData(string name)
         {
-            return _state.TryGetValue(name, out AsyncLocal<object> data)
-                ? data.Value
-                : null;
+            if (_state.TryGetValue(name, out AsyncLocal<object> data))
+            {
+                return data.Value;
+            }
+
+            return null;
         }
     }
 }

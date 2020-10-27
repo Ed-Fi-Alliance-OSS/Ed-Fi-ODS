@@ -13,7 +13,9 @@ namespace EdFi.Ods.Standard.Container.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<DatabaseMetadataProvider>().As<IDatabaseMetadataProvider>();
+            builder.RegisterType<DatabaseMetadataProvider>()
+                .As<IDatabaseMetadataProvider>()
+                .SingleInstance();
         }
     }
 }

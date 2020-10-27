@@ -29,7 +29,8 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<UnimplementedIdentityService>()
                .As<IIdentityService>()
-               .As<IIdentityServiceAsync>();
+               .As<IIdentityServiceAsync>()
+               .SingleInstance();
         }
     }
 }

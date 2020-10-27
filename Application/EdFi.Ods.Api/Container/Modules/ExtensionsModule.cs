@@ -52,11 +52,13 @@ namespace EdFi.Ods.Api.Container.Modules
 
                     builder.RegisterType<DomainModelDefinitionsJsonEmbeddedResourceProvider>()
                         .WithParameter("sourceAssembly", assembly)
-                        .As<IDomainModelDefinitionsProvider>();
+                        .As<IDomainModelDefinitionsProvider>()
+                        .SingleInstance();
 
                     builder.RegisterType<ExtensionNHibernateConfigurationProvider>()
                         .WithParameter("assemblyName", assemblyName)
-                        .As<IExtensionNHibernateConfigurationProvider>();
+                        .As<IExtensionNHibernateConfigurationProvider>()
+                        .SingleInstance();
 
                     var relationshipContextDataProviderTypes = assembly.GetTypes()
                         .Where(

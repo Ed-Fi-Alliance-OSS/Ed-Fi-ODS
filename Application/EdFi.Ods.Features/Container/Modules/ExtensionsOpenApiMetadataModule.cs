@@ -25,7 +25,7 @@ namespace EdFi.Ods.Features.Container.Modules
         {
             builder.RegisterType<ExtensionsOpenApiContentProvider>()
                 .As<IOpenApiContentProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
     }
 }

@@ -27,11 +27,11 @@ namespace EdFi.Ods.Features.Container.Modules
         {
             builder.RegisterType<ProfilesOpenApiContentProvider>()
                 .As<IOpenApiContentProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
 
             builder.RegisterType<ProfilesOpenApiMetadataRouteInformation>()
                 .As<IOpenApiMetadataRouteInformation>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
     }
 }

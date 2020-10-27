@@ -208,7 +208,12 @@ namespace EdFi.Ods.Api.Startup
 
             app.UseCors(CorsPolicyName);
 
-            app.UseAuthentication();
+            if (ApiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+            {
+                app.UseInstanceYearSpecific();
+            }
+
+            app.UseEdFiApiAuthentication();
             app.UseAuthorization();
 
             // Serves Open API Metadata json files when enabled.

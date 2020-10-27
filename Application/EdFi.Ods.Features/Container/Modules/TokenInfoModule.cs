@@ -22,7 +22,7 @@ namespace EdFi.Ods.Features.Container.Modules
         {
             builder.RegisterType<TokenInfoProvider>()
                 .As<ITokenInfoProvider>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
         }
     }
 }
