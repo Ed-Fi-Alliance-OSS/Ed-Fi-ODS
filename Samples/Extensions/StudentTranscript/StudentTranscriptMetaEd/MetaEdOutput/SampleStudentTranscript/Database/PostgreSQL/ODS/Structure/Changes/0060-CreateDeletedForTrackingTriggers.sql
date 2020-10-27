@@ -8,8 +8,8 @@ CREATE FUNCTION tracked_deletes_samplestudenttranscript.InstitutionControlDescri
 $BODY$
 BEGIN
     INSERT INTO tracked_deletes_samplestudenttranscript.InstitutionControlDescriptor(InstitutionControlDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.InstitutionControlDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-
+    SELECT OLD.InstitutionControlDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.InstitutionControlDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -22,8 +22,8 @@ CREATE FUNCTION tracked_deletes_samplestudenttranscript.InstitutionLevelDescript
 $BODY$
 BEGIN
     INSERT INTO tracked_deletes_samplestudenttranscript.InstitutionLevelDescriptor(InstitutionLevelDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.InstitutionLevelDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-
+    SELECT OLD.InstitutionLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.InstitutionLevelDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -37,7 +37,6 @@ $BODY$
 BEGIN
     INSERT INTO tracked_deletes_samplestudenttranscript.PostSecondaryOrganization(NameOfInstitution, Id, ChangeVersion)
     VALUES (OLD.NameOfInstitution, OLD.Id, nextval('changes.ChangeVersionSequence'));
-
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -50,8 +49,8 @@ CREATE FUNCTION tracked_deletes_samplestudenttranscript.SpecialEducationGraduati
 $BODY$
 BEGIN
     INSERT INTO tracked_deletes_samplestudenttranscript.SpecialEducationGraduationStatusDescriptor(SpecialEducationGraduationStatusDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.SpecialEducationGraduationStatusDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-
+    SELECT OLD.SpecialEducationGraduationStatusDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.SpecialEducationGraduationStatusDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -64,8 +63,8 @@ CREATE FUNCTION tracked_deletes_samplestudenttranscript.SubmissionCertificationD
 $BODY$
 BEGIN
     INSERT INTO tracked_deletes_samplestudenttranscript.SubmissionCertificationDescriptor(SubmissionCertificationDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.SubmissionCertificationDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-
+    SELECT OLD.SubmissionCertificationDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.SubmissionCertificationDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;

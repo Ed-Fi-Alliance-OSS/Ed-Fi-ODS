@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.0.0",
+  "odsApiVersion": "5.1.0",
   "schemaDefinition": {
     "logicalName": "Ed-Fi",
     "physicalName": "edfi",
@@ -6568,7 +6568,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The analyzed result of a student's response to an assessment item.. For example:\r\n    Correct\r\n    Incorrect\r\n    Met standard\r\n    ...",
+      "description": "The analyzed result of a student's response to an assessment item.. For example:\n    Correct\n    Incorrect\n    Met standard\n    ...",
       "tableNames": {
         "sqlServer": "AssessmentItemResultDescriptor",
         "postgreSql": "AssessmentItemResultDescriptor"
@@ -6693,7 +6693,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "Definition of the performance levels and the associated cut scores. Three styles are supported:\r\n        1. Specification of performance level by minimum and maximum score\r\n        2. Specification of performance level by cut score, using only minimum score\r\n        3. Specification of performance level without any mapping to scores.",
+      "description": "Definition of the performance levels and the associated cut scores. Three styles are supported:\n        1. Specification of performance level by minimum and maximum score\n        2. Specification of performance level by cut score, using only minimum score\n        3. Specification of performance level without any mapping to scores.",
       "tableNames": {
         "sqlServer": "AssessmentPerformanceLevel",
         "postgreSql": "AssessmentPerformanceLevel"
@@ -9571,7 +9571,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The result from the student's attempt to take the course, for example:\r\n    Pass\r\n    Fail\r\n    Incomplete\r\n    Withdrawn",
+      "description": "The result from the student's attempt to take the course, for example:\n    Pass\n    Fail\n    Incomplete\n    Withdrawn",
       "tableNames": {
         "sqlServer": "CourseAttemptResultDescriptor",
         "postgreSql": "CourseAttemptResultDescriptor"
@@ -13611,7 +13611,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\r\n                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\n                      'which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -21452,7 +21452,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "Definition of the performance levels and the associated cut scores. Three styles are supported:\r\n        1. Specification of performance level by minimum and maximum score\r\n        2. Specification of performance level by cut score, using only minimum score\r\n        3. Specification of performance level without any mapping to scores",
+      "description": "Definition of the performance levels and the associated cut scores. Three styles are supported:\n        1. Specification of performance level by minimum and maximum score\n        2. Specification of performance level by cut score, using only minimum score\n        3. Specification of performance level without any mapping to scores",
       "tableNames": {
         "sqlServer": "ObjectiveAssessmentPerformanceLevel",
         "postgreSql": "ObjectiveAssessmentPerformanceLevel"
@@ -22281,7 +22281,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\r\n                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\n                      'which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -24539,7 +24539,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The primary reason student is not tested. For example:\r\n    Absent\r\n    Refusal by parent\r\n    Refusal by student\r\n    Medical waiver\r\n    Illness\r\n    Disruptive behavior\r\n    LEP Exempt\r\n    '...",
+      "description": "The primary reason student is not tested. For example:\n    Absent\n    Refusal by parent\n    Refusal by student\n    Medical waiver\n    Illness\n    Disruptive behavior\n    LEP Exempt\n    '...",
       "tableNames": {
         "sqlServer": "ReasonNotTestedDescriptor",
         "postgreSql": "ReasonNotTestedDescriptor"
@@ -25132,7 +25132,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "Indicator of the response.  For example:\r\n    Nonscorable response\r\n    Ineffective response\r\n    Effective response\r\n    Partial response\r\n    ...",
+      "description": "Indicator of the response.  For example:\n    Nonscorable response\n    Ineffective response\n    Effective response\n    Partial response\n    ...",
       "tableNames": {
         "sqlServer": "ResponseIndicatorDescriptor",
         "postgreSql": "ResponseIndicatorDescriptor"
@@ -25451,7 +25451,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "Indicator if the test was retaken.  For example:\r\n    Primary administration\r\n    First retest\r\n    Second retest\r\n    ...",
+      "description": "Indicator if the test was retaken.  For example:\n    Primary administration\n    First retest\n    Second retest\n    ...",
       "tableNames": {
         "sqlServer": "RetestIndicatorDescriptor",
         "postgreSql": "RetestIndicatorDescriptor"
@@ -27144,7 +27144,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "This entity represents an individual who performs specified activities for any public or private education institution or agency that provides instructional and/or support services to students or staff at the early childhood level through high school completion. For example, this includes:\r\n    1. An \"employee\" who performs services under the direction of the employing institution or agency is compensated for such services by the employer and is eligible for employee benefits and wage or salary tax withholdings\r\n    2. A \"contractor\" or \"consultant\" who performs services for an agreed upon fee or an employee of a management service contracted to work on site\r\n    3. A \"volunteer\" who performs services on a voluntary and uncompensated basis\r\n    4. An in-kind service provider\r\n    5. An independent contractor or businessperson working at a school site.",
+      "description": "This entity represents an individual who performs specified activities for any public or private education institution or agency that provides instructional and/or support services to students or staff at the early childhood level through high school completion. For example, this includes:\n    1. An \"employee\" who performs services under the direction of the employing institution or agency is compensated for such services by the employer and is eligible for employee benefits and wage or salary tax withholdings\n    2. A \"contractor\" or \"consultant\" who performs services for an agreed upon fee or an employee of a management service contracted to work on site\n    3. A \"volunteer\" who performs services on a voluntary and uncompensated basis\n    4. An in-kind service provider\n    5. An independent contractor or businessperson working at a school site.",
       "tableNames": {
         "sqlServer": "Staff",
         "postgreSql": "Staff"
@@ -27458,7 +27458,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\r\n                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\n                      'which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -28411,7 +28411,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\r\n                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\n                      'which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -32917,7 +32917,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria. For example:\r\n        Braille\r\n        Enlarged monitor view\r\n        Extra time\r\n        Large Print\r\n        Setting\r\n        Oral Administration\r\n        ...",
+      "description": "The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria. For example:\n        Braille\n        Enlarged monitor view\n        Extra time\n        Large Print\n        Setting\n        Oral Administration\n        ...",
       "tableNames": {
         "sqlServer": "StudentAssessmentAccommodation",
         "postgreSql": "StudentAssessmentAccommodation"
@@ -33809,7 +33809,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Indicator that student participated in career and technical education at private agencies or institutions that are reported by the state for purposes of the Elementary and Secondary Education Act (ESEA).\r\nStudents in private institutions which do not receive Perkins funding are reported only in the state file.",
+          "description": "Indicator that student participated in career and technical education at private agencies or institutions that are reported by the state for purposes of the Elementary and Secondary Education Act (ESEA).\nStudents in private institutions which do not receive Perkins funding are reported only in the state file.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -34622,7 +34622,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\r\n                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\n                      'which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -35559,7 +35559,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "Reflects important characteristics of the student's home situation:\r\n        Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.",
+      "description": "Reflects important characteristics of the student's home situation:\n        Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.",
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAssociationStudentCharacteristic",
         "postgreSql": "StudentEducationOrganizationAssociationStudentCharacteristic"
@@ -39717,7 +39717,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Indicates whether the Student receiving special education and related services is:\r\n        1) in the age range of birth to 22 years, and\r\n        2) has a serious, ongoing illness or a chronic condition that has lasted or is anticipated to last at least 12 or more months or has required at least one month of hospitalization, and that requires daily, ongoing medical treatments and monitoring by appropriately trained personnel which may include parents or other family members, and\r\n        3) requires the routine use of medical device or of assistive technology to compensate for the loss of usefulness of a body function needed to participate in activities of daily living, and\r\n        4) lives with ongoing threat to his or her continued well-being.\r\n        Aligns with federal requirements.",
+          "description": "Indicates whether the Student receiving special education and related services is:\n        1) in the age range of birth to 22 years, and\n        2) has a serious, ongoing illness or a chronic condition that has lasted or is anticipated to last at least 12 or more months or has required at least one month of hospitalization, and that requires daily, ongoing medical treatments and monitoring by appropriately trained personnel which may include parents or other family members, and\n        3) requires the routine use of medical device or of assistive technology to compensate for the loss of usefulness of a body function needed to participate in activities of daily living, and\n        4) lives with ongoing threat to his or her continued well-being.\n        Aligns with federal requirements.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -44128,7 +44128,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The category of an assessment based on format and content. For example:\r\n        Achievement test\r\n        Advanced placement test\r\n        Alternate assessment/grade-level standards\r\n        Attitudinal test\r\n        Cognitive and perceptual skills test\r\n        ...",
+          "description": "The category of an assessment based on format and content. For example:\n        Achievement test\n        Advanced placement test\n        Alternate assessment/grade-level standards\n        Attitudinal test\n        Cognitive and perceptual skills test\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -45217,7 +45217,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Category or type of the AssessmentItem. For example:\r\n        Multiple choice\r\n        Analytic\r\n        Prose\r\n        ...",
+          "description": "Category or type of the AssessmentItem. For example:\n        Multiple choice\n        Analytic\n        Prose\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -53914,7 +53914,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:\n        Pass\n        Fail\n        Incomplete\n        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -54524,7 +54524,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:\n        Pass\n        Fail\n        Incomplete\n        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -54649,7 +54649,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:\n        Pass\n        Fail\n        Incomplete\n        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -54846,7 +54846,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:\n        Pass\n        Fail\n        Incomplete\n        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -54971,7 +54971,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:\n        Pass\n        Fail\n        Incomplete\n        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -55109,7 +55109,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:\n        Pass\n        Fail\n        Incomplete\n        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -55234,7 +55234,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:\n        Pass\n        Fail\n        Incomplete\n        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -55490,7 +55490,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:\n        Pass\n        Fail\n        Incomplete\n        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -55615,7 +55615,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:\n        Pass\n        Fail\n        Incomplete\n        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -58215,7 +58215,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Identifies where the DisciplineIncident occurred and whether or not it occurred on school, for example:\r\n        On school\r\n        Administrative offices area\r\n        Cafeteria area\r\n        Classroom\r\n        Hallway or stairs\r\n        ...",
+          "description": "Identifies where the DisciplineIncident occurred and whether or not it occurred on school, for example:\n        On school\n        Administrative offices area\n        Cafeteria area\n        Classroom\n        Hallway or stairs\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -58274,7 +58274,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Information on the type of individual who reported the DisciplineIncident. When known and/or if useful, use a more specific option code (e.g., \"Counselor\" rather than \"Professional Staff\"); for example:\r\n        Student\r\n        Parent/guardian\r\n        Law enforcement officer\r\n        Nonschool personnel\r\n        Representative of visiting school\r\n        ...",
+          "description": "Information on the type of individual who reported the DisciplineIncident. When known and/or if useful, use a more specific option code (e.g., \"Counselor\" rather than \"Professional Staff\"); for example:\n        Student\n        Parent/guardian\n        Law enforcement officer\n        Nonschool personnel\n        Representative of visiting school\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -78335,7 +78335,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract desired for the position; for example:\r\n        Probationary\r\n        Contractual\r\n        Substitute/temporary\r\n        Tenured or permanent\r\n        Volunteer/no contract\r\n        ...",
+          "description": "Reflects the type of employment or contract desired for the position; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -78453,7 +78453,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the program for which the OpenStaffPosition will be assigned; for example:\r\n        Regular education\r\n        Title I-Academic\r\n        Title I-Non-Academic\r\n        Special Education'\r\n        Bilingual/English as a Second Language.",
+          "description": "The name of the program for which the OpenStaffPosition will be assigned; for example:\n        Regular education\n        Title I-Academic\n        Title I-Non-Academic\n        Special Education'\n        Bilingual/English as a Second Language.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -88643,7 +88643,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The setting in which a child receives education and related services; for example:\r\n        Center-based instruction\r\n        Home-based instruction\r\n        Hospital class\r\n        Mainstream\r\n        Residential care and treatment facility\r\n        ...",
+          "description": "The setting in which a child receives education and related services; for example:\n        Center-based instruction\n        Home-based instruction\n        Hospital class\n        Mainstream\n        Residential care and treatment facility\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -88854,7 +88854,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The media through which teachers provide instruction to students and students and teachers communicate about instructional matters; for example:\r\n        Technology-based instruction in classroom\r\n        Correspondence instruction\r\n        Face-to-face instruction\r\n        Virtual/On-line Distance learning\r\n        Center-based instruction\r\n        ...",
+          "description": "The media through which teachers provide instruction to students and students and teachers communicate about instructional matters; for example:\n        Technology-based instruction in classroom\n        Correspondence instruction\n        Face-to-face instruction\n        Virtual/On-line Distance learning\n        Center-based instruction\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -88913,7 +88913,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The type of students the Section is offered and tailored to; for example:\r\n        Bilingual students\r\n        Remedial education students\r\n        Gifted and talented students\r\n        Career and Technical Education students\r\n        Special education students\r\n        ...",
+          "description": "The type of students the Section is offered and tailored to; for example:\n        Bilingual students\n        Remedial education students\n        Gifted and talented students\n        Career and Technical Education students\n        Special education students\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -92093,7 +92093,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Previous definition of Ethnicity combining Hispanic/Latino and race:\r\n        1 - American Indian or Alaskan Native\r\n        2 - Asian or Pacific Islander\r\n        3 - Black, not of Hispanic origin\r\n        4 - Hispanic\r\n        5 - White, not of Hispanic origin.",
+          "description": "Previous definition of Ethnicity combining Hispanic/Latino and race:\n        1 - American Indian or Alaskan Native\n        2 - Asian or Pacific Islander\n        3 - Black, not of Hispanic origin\n        4 - Hispanic\n        5 - White, not of Hispanic origin.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -93852,7 +93852,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:\r\n        Probationary\r\n        Contractual\r\n        Substitute/temporary\r\n        Tenured or permanent\r\n        Volunteer/no contract\r\n        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -93926,7 +93926,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Reflects the type of employment or contract; for example:\r\n        Probationary\r\n        Contractual\r\n        Substitute/temporary\r\n        Tenured or permanent\r\n        Volunteer/no contract\r\n        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -94965,7 +94965,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:\r\n        Probationary\r\n        Contractual\r\n        Substitute/temporary\r\n        Tenured or permanent\r\n        Volunteer/no contract\r\n        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -95024,7 +95024,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Type of employment separation; for example: Voluntary separation, Involuntary separation,\r\n        Mutual agreement\r\n        Other, etc.",
+          "description": "Type of employment separation; for example: Voluntary separation, Involuntary separation,\n        Mutual agreement\n        Other, etc.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -95083,7 +95083,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Reason for terminating the employment; for example:\r\n        Employment in education\r\n        Employment outside of education\r\n        Retirement\r\n        Family/personal relocation\r\n        Change of assignment.",
+          "description": "Reason for terminating the employment; for example:\n        Employment in education\n        Employment outside of education\n        Retirement\n        Family/personal relocation\n        Change of assignment.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -97318,7 +97318,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The name of the program for which the individual is assigned; for example:\r\n        Regular education\r\n        Title I-Academic\r\n        Title I-Non-Academic\r\n        Special Education\r\n        Bilingual/English as a Second Language.",
+          "description": "The name of the program for which the individual is assigned; for example:\n        Regular education\n        Title I-Academic\n        Title I-Non-Academic\n        Special Education\n        Bilingual/English as a Second Language.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -97590,7 +97590,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The name of the program for which the individual is assigned; for example:\r\n        Regular education\r\n        Title I-Academic\r\n        Title I-Non-Academic\r\n        Special Education\r\n        Bilingual/English as a Second Language.",
+          "description": "The name of the program for which the individual is assigned; for example:\n        Regular education\n        Title I-Academic\n        Title I-Non-Academic\n        Special Education\n        Bilingual/English as a Second Language.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -97647,7 +97647,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The name of the program for which the individual is assigned; for example:\r\n        Regular education\r\n        Title I-Academic\r\n        Title I-Non-Academic\r\n        Special Education\r\n        Bilingual/English as a Second Language.",
+          "description": "The name of the program for which the individual is assigned; for example:\n        Regular education\n        Title I-Academic\n        Title I-Non-Academic\n        Special Education\n        Bilingual/English as a Second Language.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -97776,7 +97776,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The name of the program for which the individual is assigned; for example:\r\n        Regular education\r\n        Title I-Academic\r\n        Title I-Non-Academic\r\n        Special Education\r\n        Bilingual/English as a Second Language.",
+          "description": "The name of the program for which the individual is assigned; for example:\n        Regular education\n        Title I-Academic\n        Title I-Non-Academic\n        Special Education\n        Bilingual/English as a Second Language.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -97833,7 +97833,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The name of the program for which the individual is assigned; for example:\r\n        Regular education\r\n        Title I-Academic\r\n        Title I-Non-Academic\r\n        Special Education\r\n        Bilingual/English as a Second Language.",
+          "description": "The name of the program for which the individual is assigned; for example:\n        Regular education\n        Title I-Academic\n        Title I-Non-Academic\n        Special Education\n        Bilingual/English as a Second Language.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -97926,7 +97926,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of position the Staff member holds in the specific class/section; for example:\r\n        Teacher of Record, Assistant Teacher, Support Teacher, Substitute Teacher...",
+          "description": "The type of position the Staff member holds in the specific class/section; for example:\n        Teacher of Record, Assistant Teacher, Support Teacher, Substitute Teacher...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -100188,7 +100188,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The level of diploma/credential that is awarded to a student in recognition of his/her completion of the curricular requirements.\r\n        Minimum high school program\r\n        Recommended high school program\r\n        Distinguished Achievement Program.",
+          "description": "The level of diploma/credential that is awarded to a student in recognition of his/her completion of the curricular requirements.\n        Minimum high school program\n        Recommended high school program\n        Distinguished Achievement Program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -101744,7 +101744,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The primary reason student is not tested. For example:\r\n        Absent\r\n        Refusal by parent\r\n        Refusal by student\r\n        Medical waiver\r\n        Illness\r\n        Disruptive behavior\r\n        LEP Exempt\r\n        ...",
+          "description": "The primary reason student is not tested. For example:\n        Absent\n        Refusal by parent\n        Refusal by student\n        Medical waiver\n        Illness\n        Disruptive behavior\n        LEP Exempt\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -101803,7 +101803,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Indicator if the test was retaken. For example:\r\n        Primary administration\r\n        First retest\r\n        Second retest\r\n        ...",
+          "description": "Indicator if the test was retaken. For example:\n        Primary administration\n        First retest\n        Second retest\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -101980,7 +101980,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria. For example:\r\n        Braille\r\n        Enlarged monitor view\r\n        Extra time\r\n        Large Print\r\n        Setting\r\n        Oral Administration\r\n        ...",
+          "description": "The specific type of special variation used in how an examination is presented, how it is administered, or how the test taker is allowed to respond. This generally refers to changes that do not substantially alter what the examination measures. The proper use of accommodations does not substantially change academic level or performance criteria. For example:\n        Braille\n        Enlarged monitor view\n        Extra time\n        Large Print\n        Setting\n        Oral Administration\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -102327,7 +102327,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The analyzed result of a student's response to an assessment item. For example:\r\n        Correct\r\n        Incorrect\r\n         Met standard\r\n        ...",
+          "description": "The analyzed result of a student's response to an assessment item. For example:\n        Correct\n        Incorrect\n         Met standard\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -102386,7 +102386,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Indicator of the response. For example:\r\n        Nonscorable response\r\n        Ineffective response\r\n        Effective response\r\n        Partial response\r\n        ...",
+          "description": "Indicator of the response. For example:\n        Nonscorable response\n        Ineffective response\n        Effective response\n        Partial response\n        ...",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -107441,7 +107441,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The role or type of participation of a student in a discipline incident; \r\n        for example:\r\n        Victim\r\n        Perpetrator\r\n        Witness\r\n        Reporter.",
+          "description": "The role or type of participation of a student in a discipline incident; \n        for example:\n        Victim\n        Perpetrator\n        Witness\n        Reporter.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -107804,7 +107804,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Previous definition of Ethnicity combining Hispanic/Latino and race:\r\n        1 - American Indian or Alaskan Native\r\n        2 - Asian or Pacific Islander\r\n        3 - Black, not of Hispanic origin\r\n        4 - Hispanic\r\n        5 - White, not of Hispanic origin.",
+          "description": "Previous definition of Ethnicity combining Hispanic/Latino and race:\n        1 - American Indian or Alaskan Native\n        2 - Asian or Pacific Islander\n        3 - Black, not of Hispanic origin\n        4 - Hispanic\n        5 - White, not of Hispanic origin.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -113509,7 +113509,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\r\n        Present\r\n        Unexcused absence\r\n        Excused absence\r\n        Tardy.",
+          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -117657,7 +117657,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The nature of an individual's relationship to a student; for example:\r\n        Father, Mother, Step Father, Step Mother, Foster Father, Foster Mother, Guardian, etc.",
+          "description": "The nature of an individual's relationship to a student; for example:\n        Father, Mother, Step Father, Step Mother, Foster Father, Foster Mother, Guardian, etc.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -118587,7 +118587,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\r\n        Present\r\n        Unexcused absence\r\n        Excused absence\r\n        Tardy.",
+          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -120175,7 +120175,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\r\n        Present\r\n        Unexcused absence\r\n        Excused absence\r\n        Tardy.",
+          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -121114,7 +121114,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "An indication as to whether a student has previously taken a given course.\r\n        Repeated, counted in grade point average\r\n        Repeated, not counted in grade point average\r\n        Not repeated\r\n        Other.",
+          "description": "An indication as to whether a student has previously taken a given course.\n        Repeated, counted in grade point average\n        Repeated, not counted in grade point average\n        Not repeated\n        Other.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -121427,7 +121427,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\r\n        Present\r\n        Unexcused absence\r\n        Excused absence\r\n        Tardy.",
+          "description": "A code describing the attendance event, for example:\n        Present\n        Unexcused absence\n        Excused absence\n        Tardy.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -123883,7 +123883,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "An indication of the type of Title I program, if any, in which the student is participating and by which the student is served:\r\n        Public Targeted Assistance Program\r\n        Public Schoolwide Program\r\n        Private School Students Participating\r\n        Local Neglected Program.",
+          "description": "An indication of the type of Title I program, if any, in which the student is participating and by which the student is served:\n        Public Targeted Assistance Program\n        Public Schoolwide Program\n        Private School Students Participating\n        Local Neglected Program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
