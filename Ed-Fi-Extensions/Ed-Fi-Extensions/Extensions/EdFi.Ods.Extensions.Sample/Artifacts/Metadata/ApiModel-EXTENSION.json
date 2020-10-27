@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.0.0",
+  "odsApiVersion": "5.1.0",
   "schemaDefinition": {
     "logicalName": "Sample",
     "physicalName": "sample",
@@ -13476,7 +13476,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:\r\n        Probationary\r\n        Contractual\r\n        Substitute/temporary\r\n        Tenured or permanent\r\n        Volunteer/no contract\r\n        ...",
+          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -13550,7 +13550,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:\r\n        Probationary\r\n        Contractual\r\n        Substitute/temporary\r\n        Tenured or permanent\r\n        Volunteer/no contract\r\n        ...",
+          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {

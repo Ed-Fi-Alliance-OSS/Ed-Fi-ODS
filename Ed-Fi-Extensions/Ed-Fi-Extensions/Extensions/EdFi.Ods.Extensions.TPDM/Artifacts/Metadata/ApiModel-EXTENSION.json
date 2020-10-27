@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.0.0",
+  "odsApiVersion": "5.1.0",
   "schemaDefinition": {
     "logicalName": "TPDM",
     "physicalName": "tpdm",
@@ -3525,7 +3525,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The general racial category which most clearly reflects the individual's\r\n                   recognition of his or her community or with which the individual most\r\n                   identifies. The data model allows for multiple entries so that each individual\r\n                   can specify all appropriate races.",
+      "description": "The general racial category which most clearly reflects the individual's                   recognition of his or her community or with which the individual most                   identifies. The data model allows for multiple entries so that each individual                   can specify all appropriate races.",
       "tableNames": {
         "sqlServer": "AnonymizedStudentRace",
         "postgreSql": "AnonymizedStudentRace"
@@ -4120,7 +4120,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\r\n                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -4586,7 +4586,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "Reflects important characteristics of the applicant's home situation:\r\n      Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.",
+      "description": "Reflects important characteristics of the applicant's home situation:      Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.",
       "tableNames": {
         "sqlServer": "ApplicantCharacteristic",
         "postgreSql": "ApplicantCharacteristic"
@@ -19055,7 +19055,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\r\n                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -19520,7 +19520,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "Reflects important characteristics of the teacher candidate's home situation:\r\n      Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.",
+      "description": "Reflects important characteristics of the teacher candidate's home situation:      Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.",
       "tableNames": {
         "sqlServer": "TeacherCandidateCharacteristic",
         "postgreSql": "TeacherCandidateCharacteristic"
@@ -27211,7 +27211,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The general racial category which most clearly reflects the individual's\r\n                   recognition of his or her community or with which the individual most\r\n                   identifies. The data model allows for multiple entries so that each individual\r\n                   can specify all appropriate races.",
+          "description": "The general racial category which most clearly reflects the individual's                   recognition of his or her community or with which the individual most                   identifies. The data model allows for multiple entries so that each individual                   can specify all appropriate races.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -43126,7 +43126,7 @@
             "isNullable": false
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "PersonId",
@@ -43143,7 +43143,7 @@
             "isNullable": false
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "SourceSystemDescriptorId",
@@ -43157,42 +43157,42 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ReviewerPersonId",
+          "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
-            "isNullable": true
+            "isNullable": false
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ReviewerPersonId",
-            "postgreSql": "ReviewerPersonId"
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
           }
         },
         {
-          "propertyName": "ReviewerSourceSystemDescriptorId",
+          "propertyName": "SourceSystemDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": false
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ReviewerSourceSystemDescriptorId",
-            "postgreSql": "ReviewerSourceSystemDescriptorId"
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
           }
         }
       ],
-      "isIdentifying": false,
-      "isRequired": false,
+      "isIdentifying": true,
+      "isRequired": true,
       "constraintNames": {
         "sqlServer": "FK_EvaluationRatingReviewer_Person",
         "postgreSql": "FK_2d29eb_Person"
@@ -49139,7 +49139,7 @@
             "isNullable": false
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "PersonId",
@@ -49156,7 +49156,7 @@
             "isNullable": false
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "SourceSystemDescriptorId",
@@ -49170,42 +49170,42 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ReviewerPersonId",
+          "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
-            "isNullable": true
+            "isNullable": false
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ReviewerPersonId",
-            "postgreSql": "ReviewerPersonId"
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
           }
         },
         {
-          "propertyName": "ReviewerSourceSystemDescriptorId",
+          "propertyName": "SourceSystemDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": false
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ReviewerSourceSystemDescriptorId",
-            "postgreSql": "ReviewerSourceSystemDescriptorId"
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
           }
         }
       ],
-      "isIdentifying": false,
-      "isRequired": false,
+      "isIdentifying": true,
+      "isRequired": true,
       "constraintNames": {
         "sqlServer": "FK_PerformanceEvaluationRatingReviewer_Person",
         "postgreSql": "FK_477526_Person"
@@ -49914,7 +49914,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:\r\n       Present\r\n       Unexcused absence\r\n       Excused absence\r\n       Tardy.",
+          "description": "A code describing the attendance event, for example:       Present       Unexcused absence       Excused absence       Tardy.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -60770,7 +60770,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Previous definition of Ethnicity combining Hispanic/Latino and race:\r\n      1 - American Indian or Alaskan Native\r\n      2 - Asian or Pacific Islander\r\n      3 - Black, not of Hispanic origin\r\n      4 - Hispanic\r\n      5 - White, not of Hispanic origin.",
+          "description": "Previous definition of Ethnicity combining Hispanic/Latino and race:      1 - American Indian or Alaskan Native      2 - Asian or Pacific Islander      3 - Black, not of Hispanic origin      4 - Hispanic      5 - White, not of Hispanic origin.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -62306,7 +62306,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The level of diploma/credential that is awarded to a student in recognition of his/her completion of the curricular requirements.\r\n        Minimum high school program\r\n        Recommended high school program\r\n        Distinguished Achievement Program.",
+          "description": "The level of diploma/credential that is awarded to a student in recognition of his/her completion of the curricular requirements.        Minimum high school program        Recommended high school program        Distinguished Achievement Program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -64291,7 +64291,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:        Pass        Fail        Incomplete        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -64901,7 +64901,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:        Pass        Fail        Incomplete        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -65026,7 +65026,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The result from the student's attempt to take the course, for example:\r\n        Pass\r\n        Fail\r\n        Incomplete\r\n        Withdrawn.",
+          "description": "The result from the student's attempt to take the course, for example:        Pass        Fail        Incomplete        Withdrawn.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
