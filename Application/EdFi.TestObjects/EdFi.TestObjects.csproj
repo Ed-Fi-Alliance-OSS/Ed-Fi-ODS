@@ -15,6 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.0.0" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.1.0-pre0695" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="NUnit" Version="3.12.0" />
@@ -24,7 +25,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />

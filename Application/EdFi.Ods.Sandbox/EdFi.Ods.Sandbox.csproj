@@ -13,6 +13,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.1.0-pre0695" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />
     <PackageReference Include="Dapper" Version="2.0.35" />
@@ -29,7 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
-    <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@
     <PackageReference Include="Autofac.Extras.FakeItEasy" Version="6.0.0" />
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="CompareNETObjects" Version="4.65.0" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.1.0-pre0695" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="EntityFrameworkTesting.FakeItEasy" Version="1.3.0" />
     <PackageReference Include="FakeItEasy" Version="6.2.0" />
@@ -49,7 +50,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj" />
     <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
-    <ProjectReference Include="..\EdFi.Common\EdFi.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
     <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
