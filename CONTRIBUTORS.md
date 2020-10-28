@@ -9,3 +9,6 @@ contributors
 graph](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/graphs/contributors).
 New contributors should add their name and e-mail address or link to GitHub
 profile to this file with their first pull request.
+
+* **[Jean-Francois Guertin, EdWire](https://github.com/frenchyjef)**
+* **[Mansoor Khalid, EdWire](https://github.com/Mansoor-Khalid)**
