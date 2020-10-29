@@ -5,6 +5,7 @@
 
 using System.Threading.Tasks;
 using EdFi.Ods.Api.ExceptionHandling;
+using log4net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -14,6 +15,8 @@ namespace EdFi.Ods.Api.Filters
     {
         private readonly IRESTErrorProvider _restErrorProvider;
 
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ExceptionHandlingFilter));
+        
         public ExceptionHandlingFilter(IRESTErrorProvider restErrorProvider)
         {
             _restErrorProvider = restErrorProvider;
@@ -21,9 +24,11 @@ namespace EdFi.Ods.Api.Filters
 
         public void OnException(ExceptionContext context)
         {
+            _logger.Error($"Unhandled exception caught by {nameof(ExceptionHandlingFilter)}: {context.Exception}");
+
             var restError = _restErrorProvider.GetRestErrorFromException(context.Exception);
 
-            context.Result = new ObjectResult(restError)
+            context.Result = new ObjectResult(new { Message = restError.Message })
             {
                 StatusCode = restError.Code,
             };

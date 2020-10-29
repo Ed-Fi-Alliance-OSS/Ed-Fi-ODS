@@ -10,7 +10,7 @@ using EdFi.Ods.Extensions.Publishing.Feature.SnapshotContext;
 using EdFi.Ods.Features.Publishing.Repositories;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace EdFi.Ods.Extensions.Publishing.Feature
+namespace EdFi.Ods.Features.Container.Modules
 {
     public class PublishingModule : ConditionalModule
     {
@@ -22,7 +22,7 @@ namespace EdFi.Ods.Extensions.Publishing.Feature
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<SnapshotContextProvider>()
-                    .As<ISnapshotContextProvider>();
+                .As<ISnapshotContextProvider>();
 
             builder.RegisterType<SnapshotContextActionFilter>()
                 .As<IFilterMetadata>()
