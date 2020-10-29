@@ -17,7 +17,7 @@
     <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="EdFi.Suite3.Common" Version="5.1.0-pre0695" />
     <PackageReference Include="EntityFramework" Version="6.4.0" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
       <PrivateAssets>all</PrivateAssets>
