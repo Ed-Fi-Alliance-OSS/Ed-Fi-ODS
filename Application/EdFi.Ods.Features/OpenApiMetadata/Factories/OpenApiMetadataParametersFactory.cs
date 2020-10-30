@@ -43,7 +43,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         @in = "query",
                         type = "integer",
                         format = "int32",
-                        minimum = 1,
+                        minimum = 0,
                         maximum  = _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit(),
                         required = false,
                         @default = 25

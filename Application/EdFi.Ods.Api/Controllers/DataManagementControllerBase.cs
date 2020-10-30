@@ -141,7 +141,7 @@ namespace EdFi.Ods.Api.Controllers
         {
             //respond quickly to DOS style requests (should we catch these earlier?  e.g. attribute filter?)
             if (urlQueryParametersRequest.Limit != null &&
-                (urlQueryParametersRequest.Limit <= 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
+                (urlQueryParametersRequest.Limit < 0 || urlQueryParametersRequest.Limit > _defaultPageLimitSize))
             {
                 return BadRequest(
                     ErrorTranslator.GetErrorMessage(
