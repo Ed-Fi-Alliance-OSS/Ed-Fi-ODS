@@ -2,7 +2,7 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011"
                  xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="EdFi.ProjectTemplates" Version="1.3.0" Language="en-US" Publisher="Ed-Fi Alliance" />
+        <Identity Id="EdFi.ProjectTemplates" Version="1.4.0" Language="en-US" Publisher="Ed-Fi Alliance" />
         <DisplayName>Ed-Fi Alliance Project Templates</DisplayName>
         <Description xml:space="preserve">Ed-Fi Alliance API C# project templates for creating composites, profiles, and/or extensions using the 3.2 data model.</Description>
         <MoreInfo>https://www.ed-fi.org</MoreInfo>
