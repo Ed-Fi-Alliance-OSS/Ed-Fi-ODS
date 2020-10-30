@@ -12,3 +12,4 @@ profile to this file with their first pull request.
 
 * **[Jean-Francois Guertin, EdWire](https://github.com/frenchyjef)**
 * **[Mansoor Khalid, EdWire](https://github.com/Mansoor-Khalid)**
+* **[Google Cloud](https://cloud.google.com/) / [Innive](https://innive.com/)**
