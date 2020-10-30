@@ -77,14 +77,25 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
 
             async Task<SpecificationResult> GetPagedAggregateIdsAsync()
             {
-                var idQueryCriteria = _pagedAggregateIdsCriteriaProvider.GetCriteriaQuery(specification, queryParameters);
-                SetChangeQueriesCriteria(idQueryCriteria);
+                // Short circuit any work if no items requested, and no count to perform. 
+                if (!ItemsRequested() && !CountRequested())
+                {
+                    return new SpecificationResult { Ids = new Guid[0] };
+                }
 
-                var queryBatch = Session.CreateQueryBatch()
-                    .Add<Guid>(idQueryCriteria);
+                var queryBatch = Session.CreateQueryBatch();
+
+                // If any items requested, get the requested page of Ids
+                if (ItemsRequested())
+                {
+                    var idQueryCriteria = _pagedAggregateIdsCriteriaProvider.GetCriteriaQuery(specification, queryParameters);
+                    SetChangeQueriesCriteria(idQueryCriteria);
+
+                    queryBatch.Add<Guid>(idQueryCriteria);
+                }
 
                 // If requested, get a total count of available records
-                if (queryParameters.TotalCount)
+                if (CountRequested())
                 {
                     var countQueryCriteria = _totalCountCriteriaProvider.GetCriteriaQuery(specification, queryParameters);
                     SetChangeQueriesCriteria(countQueryCriteria);
@@ -92,14 +103,21 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     queryBatch.Add<long>(countQueryCriteria);
                 }
 
-                // Get final, paged list of Ids based on order
-                var ids = await queryBatch.GetResultAsync<Guid>(0, cancellationToken);
-
-                var totalCount = queryParameters.TotalCount
-                    ? (await queryBatch.GetResultAsync<long>(1, cancellationToken)).First()
+                int resultIndex = 0;
+                
+                var ids = ItemsRequested()
+                    ? await queryBatch.GetResultAsync<Guid>(resultIndex++, cancellationToken)
+                    : new Guid[0];
+                
+                var totalCount = CountRequested()
+                    ? (await queryBatch.GetResultAsync<long>(resultIndex, cancellationToken)).First()
                     : 0;
 
-                return new SpecificationResult { Ids = ids, TotalCount = totalCount};
+                return new SpecificationResult
+                {
+                    Ids = ids, 
+                    TotalCount = totalCount
+                };
 
                 void SetChangeQueriesCriteria(ICriteria criteria)
                 {
@@ -114,6 +132,10 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     }
                 }
             }
+
+            bool ItemsRequested() => !(queryParameters.Limit == 0);
+
+            bool CountRequested() => queryParameters.TotalCount;
         }
 
         private class SpecificationResult
