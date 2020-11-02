@@ -310,7 +310,7 @@ namespace EdFi.Ods.Api.Startup
             if (string.IsNullOrWhiteSpace(Plugin.Folder))
             {
                 _logger.Debug($"Plugin folder is not set. No plugins will be loaded.");
-                return new PluginInfo[0];
+                return Enumerable.Empty<PluginInfo>();
             }
 
             _logger.Debug($"Loading plugins from folder '{Plugin.Folder}'.");
