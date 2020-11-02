@@ -599,70 +599,6 @@
 							"name": "GetAll_400_Tests",
 							"item": [
 								{
-									"name": "When_Given_a_limit_0_Should_return_400",
-									"item": [
-										{
-											"name": "When_Given_a_limit_0_Should_return_400",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"id": "875e4f6b-c45d-4874-b21b-6dd6425cee75",
-														"exec": [
-															"",
-															"pm.test(\"Status code is 400\", () => {",
-															"    pm.expect(pm.response.code).to.equal(400);",
-															"});",
-															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 1 and defaultPageSizeLimit\", () => {",
-															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).\");",
-															"});",
-															""
-														],
-														"type": "text/javascript"
-													}
-												},
-												{
-													"listen": "prerequest",
-													"script": {
-														"id": "ab5f78dc-201e-4ebe-af7f-b88dc927ac4c",
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courses?limit=0",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"courses"
-													],
-													"query": [
-														{
-															"key": "limit",
-															"value": "0"
-														}
-													]
-												}
-											},
-											"response": []
-										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
-								},
-								{
 									"name": "When_Given_a_limit_101_or_more_Should_return_400",
 									"item": [
 										{
@@ -1792,24 +1728,17 @@
 									],
 									"protocolProfileBehavior": {},
 									"_postman_isSubFolder": true
-								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
-						},
-						{
-							"name": "GetByExample_400_Tests",
-							"item": [
+								},
 								{
-									"name": "When_Given_a_limit_0_Should_return_400",
+									"name": "When_Given_a_limit_0_Should_return_200",
 									"item": [
 										{
-											"name": "When_Given_a_limit_0_Should_return_400",
+											"name": "When_Given_a_limit_0_Should_return_200_with_empty_array",
 											"event": [
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "55eba469-b6f2-46e2-8161-468997f13b38",
+														"id": "7c8acecb-df83-43b6-a63c-19cad8de53f9",
 														"exec": [
 															""
 														],
@@ -1819,16 +1748,19 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "92571b9f-5917-4868-b69c-a08dc382d61f",
+														"id": "c300d641-8c43-4e94-ba0f-ee3b59255c3b",
 														"exec": [
-															"pm.test(\"Status code is 400\", () => {",
-															"    pm.expect(pm.response.code).to.equal(400);",
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
 															"});",
 															"",
+															"pm.test(\"Should return an empty array\", () => {",
+															"    const responseItems = pm.response.json();",
+															"    pm.expect(responseItems.length).to.equal(0);",
+															"});",
 															"",
-															"pm.test(\"Should return a message indicating that the limit must be omitted or set to a value between 1 and defaultPageSizeLimit\", () => {",
-															"    const responseItem = pm.response.json();",
-															"    pm.expect(responseItem.message).to.equal(\"Limit must be omitted or set to a value between 1 and max value defined in configuration file (defaultPageSizeLimit).\");",
+															"pm.test(\"Should not return a Total-Count header\", () => {",
+															"    pm.expect(pm.response.headers.has(\"Total-Count\")).to.be.false;",
 															"});",
 															""
 														],
@@ -1840,7 +1772,7 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?LastSurname=kj34lk3j4lk3j4&limit=0",
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=0",
 													"host": [
 														"{{ApiBaseUrl}}"
 													],
@@ -1852,12 +1784,79 @@
 													],
 													"query": [
 														{
-															"key": "LastSurname",
-															"value": "kj34lk3j4lk3j4"
-														},
+															"key": "limit",
+															"value": "0"
+														}
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "When_Given_a_limit_0_and_TotalCount_Should_return_200_with_empty_array_and_total_count_header",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"id": "e4569961-d351-4b2e-a7e4-f2b3b2c42c80",
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"id": "f10ff0ed-efbd-4b94-8c38-b3039575a2d6",
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"pm.test(\"Should return an empty array\", () => {",
+															"    const responseItems = pm.response.json();",
+															"    pm.expect(responseItems.length).to.equal(0);",
+															"});",
+															"",
+															"pm.test(\"Should return a Total-Count header\", () => {",
+															"    pm.expect(pm.response.headers.has(\"Total-Count\")).to.be.true;",
+															"});",
+															"",
+															"pm.test(\"Should return a Total-Count header value greater than 0\", () => {",
+															"    const totalCountHeaderValue = parseInt(pm.response.headers.get(\"Total-Count\"));",
+															"    ",
+															"    pm.expect(totalCountHeaderValue).to.be.greaterThan(0);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?limit=0&totalCount=true",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"students"
+													],
+													"query": [
 														{
 															"key": "limit",
 															"value": "0"
+														},
+														{
+															"key": "totalCount",
+															"value": "true"
 														}
 													]
 												},
@@ -1868,7 +1867,14 @@
 									],
 									"protocolProfileBehavior": {},
 									"_postman_isSubFolder": true
-								},
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "GetByExample_400_Tests",
+							"item": [
 								{
 									"name": "When_Given_a_limit_101_or_more_Should_return_400",
 									"item": [
