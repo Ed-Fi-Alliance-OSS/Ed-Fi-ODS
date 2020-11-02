@@ -158,15 +158,21 @@ namespace EdFi.Ods.Api.Helpers
 
             pluginFinderAssemblyContext.Unload();
 
-            bool IsPluginFolderNameSupplied()
+            bool IsSuppliedPluginFolderName()
             {
-                if (!string.IsNullOrEmpty(pluginFolder) && !string.IsNullOrWhiteSpace(pluginFolder))
+                if (string.IsNullOrEmpty(pluginFolder))
                 {
-                    return true;
+                    _logger.Debug($"Plugin folder is null or empty so no plugins will be loaded.");
+                    return false;
                 }
 
-                _logger.Debug($"Plugin folder was not specified so no plugins will be loaded.");
-                return false;
+                if (string.IsNullOrWhiteSpace(pluginFolder))
+                {
+                    _logger.Debug($"Plugin folder is null or whitespace so no plugins will be loaded.");
+                    return false;
+                }
+
+                return true;
             }
 
             static FluentValidationObjectValidator GetValidator()
@@ -191,7 +197,7 @@ namespace EdFi.Ods.Api.Helpers
         private class PluginAssemblyLoadingContext : AssemblyLoadContext
         {
             public PluginAssemblyLoadingContext()
-                : base(isCollectible: true) { }
+                : base(true) { }
         }
     }
 }
