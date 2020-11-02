@@ -23,9 +23,9 @@ namespace EdFi.Ods.Features.Publishing.Controllers
         private readonly ILog _logger = LogManager.GetLogger(typeof(SnapshotsController));
         private readonly bool _isEnabled;
 
-        // Until controllers are loaded from the container, the optional dependency is necessary
-        // to be able to return a 404 Not Found instead of a 500 Internal Server Error if the route
-        // is requested by the API client when the feature is disabled.
+        // NOTE: The optional dependency is necessary to be able to return a 404 Not Found
+        // instead of a 500 Internal Server Error if the route is requested by the API client
+        // when the feature is disabled (and the IGetSnapshots service is not registered).
         public SnapshotsController(ApiSettings apiSettings, IGetSnapshots getSnapshots = null)
         {
             _getSnapshots = getSnapshots;
@@ -48,6 +48,34 @@ namespace EdFi.Ods.Features.Publishing.Controllers
 
             var snapshots = await _getSnapshots.GetAllAsync(new QueryParameters(urlQueryParametersRequest));
             return Ok(snapshots);
+        }
+
+        [HttpGet("{id}")]
+        public virtual async Task<IActionResult> Get(Guid id)
+        {
+            if (!_isEnabled)
+            {
+                _logger.Debug($"{nameof(SnapshotsController)} was matched to handle the request, but the '{ApiFeature.Publishing}' feature is disabled.");
+
+                // Not Found
+                return new ObjectResult(null)
+                {
+                    StatusCode = (int) HttpStatusCode.NotFound,
+                };
+            }
+
+            var snapshot = await _getSnapshots.GetByIdAsync(id);
+
+            if (snapshot == null)
+            {
+                // Not Found
+                return new ObjectResult(null)
+                {
+                    StatusCode = (int) HttpStatusCode.NotFound,
+                };
+            }
+            
+            return Ok(snapshot);
         }
     }
 }

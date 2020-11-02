@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Common.Configuration;
@@ -18,6 +19,8 @@ namespace EdFi.Ods.Features.Publishing.Repositories
     public interface IGetSnapshots
     {
         Task<IList<Snapshot>> GetAllAsync(IQueryParameters queryParameters);
+
+        Task<Snapshot> GetByIdAsync(Guid id);
     }
 
     public class GetSnapshots : NHibernateRepositoryOperationBase, IGetSnapshots
@@ -45,6 +48,23 @@ ORDER BY SnapshotDateTime DESC";
                     .SetResultTransformer(Transformers.AliasToBean<Snapshot>());
 
                 return await query.ListAsync<Snapshot>();
+            }
+        }
+
+        public async Task<Snapshot> GetByIdAsync(Guid id)
+        {
+            var cmdSql = $@"
+SELECT   Id, SnapshotIdentifier, SnapshotDateTime
+FROM     publishing.Snapshot
+WHERE    Id = :id";
+            
+            using (var sessionScope = new SessionScope(_sessionFactory))
+            {
+                var query = sessionScope.Session.CreateSQLQuery(cmdSql)
+                    .SetGuid("id", id)
+                    .SetResultTransformer(Transformers.AliasToBean<Snapshot>());
+
+                return await query.UniqueResultAsync<Snapshot>();
             }
         }
     }
