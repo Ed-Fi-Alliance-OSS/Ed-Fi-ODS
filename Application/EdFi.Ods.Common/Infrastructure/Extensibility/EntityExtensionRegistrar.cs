@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -53,7 +53,9 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
         /// <param name="aggregateExtensionEntity">The <see cref="EdFi.Ods.Common.Models.Domain.Entity" /> representing the Ed-Fi extension entity added to an Ed-Fi standard aggregate.</param>
         private void RegisterAggregateExtensionEntity(Type edFiStandardEntityType, Entity aggregateExtensionEntity)
         {
-            _logger.Debug($"updating {nameof(edFiStandardEntityType)} with aggregate extension {aggregateExtensionEntity.FullName}");
+            _logger.Debug(
+                $"updating {nameof(edFiStandardEntityType)} with aggregate extension {aggregateExtensionEntity.FullName}");
+
             if (!edFiStandardEntityType.IsSubclassOf(typeof(EntityWithCompositeKey)))
             {
                 throw new ArgumentException(
@@ -68,7 +70,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
             _aggregateExtensionEntityNamesByType.AddOrUpdate(
                 edFiStandardEntityType,
-                t => new List<string> { ExtensionsConventions.GetAggregateExtensionMemberName(aggregateExtensionEntity) },
+                t => new List<string> {ExtensionsConventions.GetAggregateExtensionMemberName(aggregateExtensionEntity)},
                 (t, n) =>
                 {
                     string extensionCollectionName =
@@ -93,6 +95,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             bool isRequired)
         {
             _logger.Debug($"updating {nameof(edFiStandardEntityType)} with extension {extensionName}");
+
             if (string.IsNullOrWhiteSpace(extensionName))
             {
                 throw new ArgumentNullException($"{nameof(extensionName)} cannot be null or empty.", nameof(extensionName));
@@ -145,12 +148,12 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
         {
             try
             {
-                string extensionAssemblyName = assembly.GetName()
-                    .Name;
+                string extensionAssemblyName = assembly.GetName().Name;
 
                 _logger.Debug($"Registering extensions in assembly {extensionAssemblyName}");
 
-                var extensionSchemaProperCaseName = ExtensionsConventions.GetProperCaseNameFromAssemblyName(extensionAssemblyName);
+                var extensionSchemaProperCaseName =
+                    ExtensionsConventions.GetProperCaseNameFromAssemblyName(extensionAssemblyName);
 
                 string schemaPhysicalName = _domainModel.SchemaNameMapProvider
                     .GetSchemaMapByProperCaseName(extensionSchemaProperCaseName)
@@ -158,7 +161,8 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
                 var extensionsByStandardEntity = _domainModel
                     .Entities
-                    .Where(e => e.Schema.Equals(schemaPhysicalName) && (e.IsEntityExtension || e.IsAggregateExtensionTopLevelEntity))
+                    .Where(
+                        e => e.Schema.Equals(schemaPhysicalName) && (e.IsEntityExtension || e.IsAggregateExtensionTopLevelEntity))
                     .Select(
                         e => new
                         {
@@ -205,6 +209,12 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                     string extensionTypeName = entityExtension.Entity.EntityTypeFullName(extensionSchemaProperCaseName);
                     var extensionType = Type.GetType($"{extensionTypeName}, {extensionAssemblyName}");
 
+                    if (extensionType == null)
+                    {
+                        throw new ApplicationException(
+                            $"Unable to find extension type {extensionAssemblyName} in assembly {assembly.FullName}");
+                    }
+
                     RegisterEntityExtensionType(
                         standardType,
                         extensionSchemaProperCaseName,
@@ -226,6 +236,12 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
                         ExtensionsConventions.GetExtensionClassAssemblyQualifiedName(standardType, extensionSchemaProperCaseName);
 
                     var extensionType = Type.GetType(extensionClassAssemblyQualifiedName);
+
+                    if (extensionType == null)
+                    {
+                        throw new ApplicationException(
+                            $"Unable to find extension type {extensionClassAssemblyQualifiedName} in assembly {assembly.FullName}");
+                    }
 
                     RegisterEntityExtensionType(standardType, extensionSchemaProperCaseName, extensionType, isRequired: true);
                 }
