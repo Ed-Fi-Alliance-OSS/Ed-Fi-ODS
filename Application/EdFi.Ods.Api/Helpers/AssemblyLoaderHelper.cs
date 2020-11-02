@@ -107,7 +107,7 @@ namespace EdFi.Ods.Api.Helpers
                    && !assemblyName.StartsWith("Autofac", StringComparison.CurrentCultureIgnoreCase);
         }
 
-        public static void LoadPluginAssemblies(string pluginFolder, bool includeFramework = false)
+        public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false)
         {
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
             IDictionary<string, bool> loaded = new ConcurrentDictionary<string, bool>();
@@ -116,17 +116,46 @@ namespace EdFi.Ods.Api.Helpers
 
             if (!IsSuppliedPluginFolderName())
             {
-                return;
+                yield break;
             }
 
-            var pluginFinder = new PluginFinder<IPluginMarker>();
+            pluginFolder = Path.GetFullPath(pluginFolder);
 
-            foreach (var assemblyFile in pluginFinder.FindAssemliesWithPlugins(pluginFolder))
+            if (!Directory.Exists(pluginFolder))
             {
-                var assembly = Assembly.LoadFile(assemblyFile);
-
-                LoadReferencedAssembly(assembly, loaded, includeFramework);
+                _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
+                yield break;
             }
+
+            var validator = GetValidator();
+
+            var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
+
+            var pluginFinderAssemblyContext = new PluginAssemblyLoadingContext();
+
+            foreach (var assemblyPath in assemblies)
+            {
+                var assembly = pluginFinderAssemblyContext.LoadFromAssemblyPath(assemblyPath);
+
+                if (!HasPlugin(assembly))
+                {
+                    continue;
+                }
+
+                string extensionFolder = Path.GetDirectoryName(assemblyPath);
+                var validationResult = validator.ValidateObject(extensionFolder);
+
+                if (!validationResult.Any())
+                {
+                    yield return assembly.Location;
+                }
+                else
+                {
+                    _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
+                }
+            }
+
+            pluginFinderAssemblyContext.Unload();
 
             bool IsSuppliedPluginFolderName()
             {
@@ -144,54 +173,8 @@ namespace EdFi.Ods.Api.Helpers
 
                 return true;
             }
-        }
 
-        private class PluginFinder<TPlugin>
-        {
-            private static readonly ILog _logger = LogManager.GetLogger(typeof(PluginFinder<>));
-
-            public IEnumerable<string> FindAssemliesWithPlugins(string pluginFolder)
-            {
-                // return no plugins to load if the folder does not exist
-                pluginFolder = Path.GetFullPath(pluginFolder);
-
-                if (!Directory.Exists(pluginFolder))
-                {
-                    _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
-                    yield break;
-                }
-
-                var validator = GetValidator();
-
-                var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
-
-                var pluginFinderAssemblyContext = new PluginAssemblyLoadingContext();
-
-                foreach (var assemblyPath in assemblies)
-                {
-                    var assembly = pluginFinderAssemblyContext.LoadFromAssemblyPath(assemblyPath);
-
-                    if (HasPlugin(assembly))
-                    {
-                        var extensionFolder = Path.GetDirectoryName(assemblyPath);
-                        var validationResult = validator.ValidateObject(extensionFolder);
-
-                        if (!validationResult.Any())
-                        {
-                            yield return assembly.Location;
-                        }
-                        else
-                        {
-                            var message = string.Join(",", validationResult);
-                            _logger.Warn($"Assembly: {assembly.GetName()} - {message}");
-                        }
-                    }
-                }
-
-                pluginFinderAssemblyContext.Unload();
-            }
-
-            private static FluentValidationObjectValidator GetValidator()
+            static FluentValidationObjectValidator GetValidator()
             {
                 return new FluentValidationObjectValidator(
                     new IValidator[]
@@ -200,20 +183,20 @@ namespace EdFi.Ods.Api.Helpers
                         new IsExtensionPluginValidator(),
                         new IsApiVersionValidValidator(ApiVersionConstants.InformationalVersion)
                     });
-
             }
-            private static bool HasPlugin(Assembly assembly)
+
+            static bool HasPlugin(Assembly assembly)
             {
                 return assembly.GetTypes().Any(
                     t => t.GetInterfaces()
-                        .Any(i => i.AssemblyQualifiedName == typeof(TPlugin).AssemblyQualifiedName));
+                        .Any(i => i.AssemblyQualifiedName == typeof(IPluginMarker).AssemblyQualifiedName));
             }
+        }
 
-            private class PluginAssemblyLoadingContext : AssemblyLoadContext
-            {
-                public PluginAssemblyLoadingContext()
-                    : base(true) { }
-            }
+        private class PluginAssemblyLoadingContext : AssemblyLoadContext
+        {
+            public PluginAssemblyLoadingContext()
+                : base(true) { }
         }
     }
 }
