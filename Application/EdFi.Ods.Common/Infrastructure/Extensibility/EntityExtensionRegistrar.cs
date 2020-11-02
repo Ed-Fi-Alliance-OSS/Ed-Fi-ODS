@@ -54,7 +54,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
         private void RegisterAggregateExtensionEntity(Type edFiStandardEntityType, Entity aggregateExtensionEntity)
         {
             _logger.Debug(
-                $"updating '{nameof(edFiStandardEntityType)}' with aggregate extension '{aggregateExtensionEntity.FullName}'");
+                $"updating {nameof(edFiStandardEntityType)} with aggregate extension {aggregateExtensionEntity.FullName}");
 
             if (!edFiStandardEntityType.IsSubclassOf(typeof(EntityWithCompositeKey)))
             {
@@ -211,8 +211,8 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
                     if (extensionType == null)
                     {
-                        throw new Exception(
-                            $"Unable to find extension type '{extensionAssemblyName}' in assembly '{assembly.FullName}'");
+                        throw new ApplicationException(
+                            $"Unable to find extension type {extensionAssemblyName} in assembly {assembly.FullName}");
                     }
 
                     RegisterEntityExtensionType(
@@ -239,8 +239,8 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
                     if (extensionType == null)
                     {
-                        throw new Exception(
-                            $"Unable to find extension type '{extensionClassAssemblyQualifiedName}' in assembly '{assembly.FullName}'");
+                        throw new ApplicationException(
+                            $"Unable to find extension type {extensionClassAssemblyQualifiedName} in assembly {assembly.FullName}");
                     }
 
                     RegisterEntityExtensionType(standardType, extensionSchemaProperCaseName, extensionType, isRequired: true);
