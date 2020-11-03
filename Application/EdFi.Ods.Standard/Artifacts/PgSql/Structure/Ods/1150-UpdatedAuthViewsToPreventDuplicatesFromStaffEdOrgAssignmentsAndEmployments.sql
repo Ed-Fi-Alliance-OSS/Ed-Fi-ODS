@@ -3,6 +3,9 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+-- Drop dependent views
+DROP VIEW auth.EducationOrganizationIdToStaffUSI;
+
 DROP VIEW IF EXISTS auth.CommunityProviderIdToStaffUSI;
 
 CREATE VIEW auth.CommunityProviderIdToStaffUSI
@@ -140,3 +143,16 @@ AS
     FROM tpdm.University u
         INNER JOIN auth.EducationOrganizationToStaffUSI_Assignment assgn
             ON u.UniversityId = assgn.EducationOrganizationId;
+
+-- Recreate dependent views
+CREATE VIEW auth.EducationOrganizationIdToStaffUSI
+AS
+    SELECT SchoolId AS EducationOrganizationId
+         ,StaffUSI
+    FROM auth.SchoolIdToStaffUSI
+
+    UNION ALL
+
+    SELECT LocalEducationAgencyId AS EducationOrganizationId
+         ,StaffUSI
+    FROM auth.LocalEducationAgencyIdToStaffUSI;
