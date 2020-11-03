@@ -54,7 +54,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
         private void RegisterAggregateExtensionEntity(Type edFiStandardEntityType, Entity aggregateExtensionEntity)
         {
             _logger.Debug(
-                $"updating {nameof(edFiStandardEntityType)} with aggregate extension {aggregateExtensionEntity.FullName}");
+                $"updating '{nameof(edFiStandardEntityType)}' with aggregate extension '{aggregateExtensionEntity.FullName}'");
 
             if (!edFiStandardEntityType.IsSubclassOf(typeof(EntityWithCompositeKey)))
             {
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
             if (!aggregateExtensionEntity.IsAggregateExtension)
             {
-                throw new Exception($"{nameof(aggregateExtensionEntity)} is not an aggregate extension entity.");
+                throw new Exception($"'{nameof(aggregateExtensionEntity)}' is not an aggregate extension entity.");
             }
 
             _aggregateExtensionEntityNamesByType.AddOrUpdate(
@@ -94,11 +94,11 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             Type extensionType,
             bool isRequired)
         {
-            _logger.Debug($"updating {nameof(edFiStandardEntityType)} with extension {extensionName}");
+            _logger.Debug($"updating '{nameof(edFiStandardEntityType)}' with extension '{extensionName}'");
 
             if (string.IsNullOrWhiteSpace(extensionName))
             {
-                throw new ArgumentNullException($"{nameof(extensionName)} cannot be null or empty.", nameof(extensionName));
+                throw new ArgumentNullException($"'{nameof(extensionName)}' cannot be null or empty.", nameof(extensionName));
             }
 
             if (!edFiStandardEntityType.IsSubclassOf(typeof(EntityWithCompositeKey)))
@@ -150,7 +150,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
             {
                 string extensionAssemblyName = assembly.GetName().Name;
 
-                _logger.Debug($"Registering extensions in assembly {extensionAssemblyName}");
+                _logger.Debug($"Registering extensions in assembly '{extensionAssemblyName}'");
 
                 var extensionSchemaProperCaseName =
                     ExtensionsConventions.GetProperCaseNameFromAssemblyName(extensionAssemblyName);
@@ -211,8 +211,8 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
                     if (extensionType == null)
                     {
-                        throw new ApplicationException(
-                            $"Unable to find extension type {extensionAssemblyName} in assembly {assembly.FullName}");
+                        throw new InvalidOperationException(
+                            $"Unable to find extension type '{extensionAssemblyName}' in assembly '{assembly.FullName}'");
                     }
 
                     RegisterEntityExtensionType(
@@ -239,8 +239,8 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
                     if (extensionType == null)
                     {
-                        throw new ApplicationException(
-                            $"Unable to find extension type {extensionClassAssemblyQualifiedName} in assembly {assembly.FullName}");
+                        throw new InvalidOperationException(
+                            $"Unable to find extension type '{extensionClassAssemblyQualifiedName}' in assembly '{assembly.FullName}'");
                     }
 
                     RegisterEntityExtensionType(standardType, extensionSchemaProperCaseName, extensionType, isRequired: true);

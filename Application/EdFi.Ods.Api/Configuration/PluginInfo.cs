@@ -9,7 +9,7 @@ namespace EdFi.Ods.Api.Configuration
 {
     public class PluginInfo
     {
-        public string AssemblyFile { get; set; }
+        public string AssemblyFileName { get; set; }
 
         public Assembly Assembly { get; set; }
     }

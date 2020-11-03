@@ -49,7 +49,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Environment = NHibernate.Cfg.Environment;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -91,7 +90,7 @@ namespace EdFi.Ods.Api.Startup
 
             AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
 
-            var pluginInfos = LoadPlugins().ToList();
+            var pluginInfos = LoadPlugins().ToArray();
 
             services.AddSingleton(pluginInfos);
 
@@ -127,7 +126,7 @@ namespace EdFi.Ods.Api.Startup
                     });
 
             // Add controllers for the plugins
-            foreach (PluginInfo pluginInfo in pluginInfos)
+            foreach (var pluginInfo in pluginInfos)
             {
                 var pluginAssembly = pluginInfo.Assembly;
 
@@ -161,12 +160,10 @@ namespace EdFi.Ods.Api.Startup
                 services.AddAuthorization(
                     options =>
                     {
-                        options.AddPolicy(
-                            "IdentityManagement", policy =>
-                                policy.RequireAssertion(
-                                    context =>
-                                        context.User.HasClaim(
-                                            c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity")));
+                        options.AddPolicy("IdentityManagement",
+                            policy => policy.RequireAssertion(
+                                context => context.User
+                                    .HasClaim(c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity")));
                     });
             }
         }
@@ -300,7 +297,7 @@ namespace EdFi.Ods.Api.Startup
                 DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
 
                 // Set NHibernate to use Autofac to resolve its dependencies
-                Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
+                NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
         }
 
@@ -335,7 +332,7 @@ namespace EdFi.Ods.Api.Startup
             return assemblyFiles.Select(
                 assemblyFile => new PluginInfo
                 {
-                    AssemblyFile = assemblyFile,
+                    AssemblyFileName = assemblyFile,
                     Assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyFile)
                 });
         }

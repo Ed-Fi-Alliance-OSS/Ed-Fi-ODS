@@ -109,8 +109,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             // NOTE: the NHibernate documentation states that this file would be automatically loaded, however in testings this was not the case.
             // The expectation is that this file will be in the binaries location.
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
             configuration.Configure(
                 Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "hibernate.cfg.xml"));
 
