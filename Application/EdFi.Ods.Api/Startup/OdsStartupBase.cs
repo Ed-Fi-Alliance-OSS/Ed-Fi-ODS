@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Runtime.Loader;
 using System.Security.Claims;
 using Autofac;
 using Autofac.Core;
@@ -28,6 +29,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
@@ -41,6 +43,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -86,15 +89,18 @@ namespace EdFi.Ods.Api.Startup
             services.AddSingleton(ApiSettings);
             services.AddSingleton(Configuration);
 
-            LoadPlugins();
             AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
+
+            var pluginInfos = LoadPlugins();
+
+            services.AddSingleton(pluginInfos);
 
             // this allows the solution to resolve the claims principal. this is not best practice defined by the
             // netcore team, as the claims principal is on the controllers.
             // c.f. https://docs.microsoft.com/en-us/aspnet/core/migration/claimsprincipal-current?view=aspnetcore-3.1
             services.AddHttpContextAccessor();
 
-           // this is opening up all sites to connect to the server. this should probably be reviewed.
+            // this is opening up all sites to connect to the server. this should probably be reviewed.
             services.AddCors(
                 options =>
                 {
@@ -108,7 +114,8 @@ namespace EdFi.Ods.Api.Startup
                 });
 
             // will apply the MvcConfigurator at runtime.
-            services.AddControllers(options => options.OutputFormatters.Add(new GraphMLMediaTypeOutputFormatter()))
+            var mvcBuilder = services
+                .AddControllers(options => options.OutputFormatters.Add(new GraphMLMediaTypeOutputFormatter()))
                 .AddNewtonsoftJson(
                     options =>
                     {
@@ -117,8 +124,23 @@ namespace EdFi.Ods.Api.Startup
                         options.SerializerSettings.DateParseHandling = DateParseHandling.None;
                         options.SerializerSettings.Formatting = Formatting.Indented;
                         options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    })
-                .AddControllersAsServices();
+                    });
+
+            // Add controllers for the plugins
+            foreach (var pluginInfo in pluginInfos)
+            {
+                var pluginAssembly = pluginInfo.Assembly;
+
+                // This loads MVC application parts from plugin assemblies
+                var partFactory = ApplicationPartFactory.GetApplicationPartFactory(pluginAssembly);
+
+                foreach (var part in partFactory.GetApplicationParts(pluginAssembly))
+                {
+                    mvcBuilder.PartManager.ApplicationParts.Add(part);
+                }
+            }
+
+            mvcBuilder.AddControllersAsServices();
 
             services.AddMvc()
                 .ConfigureApiBehaviorOptions(
@@ -132,19 +154,18 @@ namespace EdFi.Ods.Api.Startup
                 .AddScheme<AuthenticationSchemeOptions, EdFiOAuthAuthenticationHandler>(EdFiAuthenticationTypes.OAuth, null);
 
             services.AddApplicationInsightsTelemetry(
-                options =>
-                {
-                    options.ApplicationVersion = ApiVersionConstants.Version;
-                });
+                options => { options.ApplicationVersion = ApiVersionConstants.Version; });
 
             if (ApiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
             {
-                services.AddAuthorization(options =>
-                {
-                    options.AddPolicy("IdentityManagement", policy =>
-                       policy.RequireAssertion(context =>
-                           context.User.HasClaim(c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity")));
-                });
+                services.AddAuthorization(
+                    options =>
+                    {
+                        options.AddPolicy("IdentityManagement",
+                            policy => policy.RequireAssertion(
+                                context => context.User
+                                    .HasClaim(c => c.Type == $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/domains/identity")));
+                    });
             }
         }
 
@@ -169,9 +190,6 @@ namespace EdFi.Ods.Api.Startup
 
             void RegisterModulesDynamically()
             {
-                var assemblies = AppDomain.CurrentDomain.GetAssemblies()
-                    .ToList();
-
                 _logger.Debug("Installing modules:");
 
                 foreach (var type in TypeHelper.GetTypesWithModules())
@@ -180,11 +198,11 @@ namespace EdFi.Ods.Api.Startup
 
                     if (type.IsSubclassOf(typeof(ConditionalModule)))
                     {
-                        builder.RegisterModule((IModule)Activator.CreateInstance(type, ApiSettings));
+                        builder.RegisterModule((IModule) Activator.CreateInstance(type, ApiSettings));
                     }
                     else
                     {
-                        builder.RegisterModule((IModule)Activator.CreateInstance(type));
+                        builder.RegisterModule((IModule) Activator.CreateInstance(type));
                     }
                 }
             }
@@ -265,7 +283,9 @@ namespace EdFi.Ods.Api.Startup
                 {
                     // Provide SecurityRepository cache using a closure rather than repeated invocations to the container
                     IInstanceSecurityRepositoryCache instanceSecurityRepositoryCache = null;
-                    InstanceSecurityRepositoryCache.GetCache = () => instanceSecurityRepositoryCache ??= Container.Resolve<IInstanceSecurityRepositoryCache>();
+
+                    InstanceSecurityRepositoryCache.GetCache = ()
+                        => instanceSecurityRepositoryCache ??= Container.Resolve<IInstanceSecurityRepositoryCache>();
                 }
 
                 ResourceModelHelper.ResourceModel =
@@ -282,16 +302,47 @@ namespace EdFi.Ods.Api.Startup
             }
         }
 
-        private void LoadPlugins()
+        private PluginInfo[] LoadPlugins()
         {
-            _logger.Debug($"Loading plugins from folder {Plugin.Folder}.");
-            AssemblyLoaderHelper.LoadPluginAssemblies(Plugin.Folder);
+            if (string.IsNullOrWhiteSpace(Plugin.Folder))
+            {
+                _logger.Debug($"Plugin folder is not set. No plugins will be loaded.");
+                return new PluginInfo[0];
+            }
 
-            // LoadPluginAssemblies method creates a pluginFinderAssemblyContext and loads assembles in it to
-            // determine plugins to load in the app domain. Need to force a garbage collection to unload
-            // the pluginFinderAssemblyContext immediately or else assemblies loaded in this context will
-            // be in the current app domain.
-            GC.Collect();
+            _logger.Debug($"Loading plugins from folder '{Plugin.Folder}'.");
+
+            var pluginFolder = Path.GetFullPath(Plugin.Folder);
+
+            if (!Directory.Exists(pluginFolder))
+            {
+                _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
+                return new PluginInfo[0];
+            }
+
+            try
+            {
+                _logger.Debug($"Loading plugins from folder {Plugin.Folder}.");
+                var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(Plugin.Folder);
+
+                // IMPORTANT: Load the plug-in assembly into the Default context
+                return assemblyFiles
+                    .Select(
+                        assemblyFile => new PluginInfo
+                        {
+                            AssemblyFileName = assemblyFile,
+                            Assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyFile)
+                        })
+                    .ToArray();
+            }
+            finally
+            {
+                // LoadPluginAssemblies method creates a pluginFinderAssemblyContext and loads assembles in it to
+                // determine plugins to load in the app domain. Need to force a garbage collection to unload
+                // the pluginFinderAssemblyContext immediately or else assemblies loaded in this context will
+                // be in the current app domain.
+                GC.Collect();
+            }
         }
     }
 }

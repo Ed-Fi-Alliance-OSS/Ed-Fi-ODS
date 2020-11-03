@@ -109,8 +109,8 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             // NOTE: the NHibernate documentation states that this file would be automatically loaded, however in testings this was not the case.
             // The expectation is that this file will be in the binaries location.
-            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            configuration.Configure(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "hibernate.cfg.xml"));
+            configuration.Configure(
+                Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "hibernate.cfg.xml"));
 
             // Add the configuration to the container
             configuration.BeforeBindMapping += Configuration_BeforeBindMapping;
@@ -195,8 +195,12 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 // assembly. Setting the AssemblyResolve event fixes this. c.f. https://nhibernate.jira.com/browse/NH-2063 for further details.
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-                AppDomain.CurrentDomain.AssemblyResolve += (s, e)
-                    => assemblies.FirstOrDefault(a => a.GetName().Name.EqualsIgnoreCase(e.Name));
+                AppDomain.CurrentDomain.AssemblyResolve += (s, e) =>
+                {
+                    var assemblyName = e.Name.Split(",")[0];
+
+                    return assemblies.FirstOrDefault(a => a.GetName().Name.EqualsIgnoreCase(assemblyName));
+                };
             }
         }
 
@@ -252,7 +256,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                             $"The subclass extension to entity '{entityName}' could not be applied because the class mapping could not be found.");
                     }
 
-                    var hbmSubclasses = _extensionDerivedEntityByEntityName[entityName].Select(x => (object)x).ToArray();
+                    var hbmSubclasses = _extensionDerivedEntityByEntityName[entityName].Select(x => (object) x).ToArray();
 
                     classMapping.Items1 = (classMapping.Items1 ?? new object[0]).Concat(hbmSubclasses).ToArray();
                 }
@@ -271,7 +275,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                     }
 
                     var hbmJoinedSubclasses = _extensionDescriptorByEntityName[entityName]
-                        .Select(x => (object)x)
+                        .Select(x => (object) x)
                         .ToArray();
 
                     classMapping.Items1 = (classMapping.Items1 ?? new object[0]).Concat(hbmJoinedSubclasses)
@@ -302,7 +306,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                     {
                         name = AggregateExtensionMemberName,
                         Items = _aggregateExtensionHbmBagsByEntityName[entityName]
-                            .Select(x => (object)x)
+                            .Select(x => (object) x)
                             .ToArray()
                     };
 
@@ -347,7 +351,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                     {
                         name = EntityExtensionMemberName,
                         Items = _entityExtensionHbmBagsByEntityName[entityName]
-                            .Select(x => (object)x)
+                            .Select(x => (object) x)
                             .ToArray()
                     };
 
