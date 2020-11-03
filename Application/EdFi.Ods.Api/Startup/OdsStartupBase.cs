@@ -29,6 +29,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Dependencies;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
@@ -90,7 +91,7 @@ namespace EdFi.Ods.Api.Startup
 
             AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
 
-            var pluginInfos = LoadPlugins().ToArray();
+            var pluginInfos = LoadPlugins();
 
             services.AddSingleton(pluginInfos);
 
@@ -163,7 +164,7 @@ namespace EdFi.Ods.Api.Startup
                         options.AddPolicy("IdentityManagement",
                             policy => policy.RequireAssertion(
                                 context => context.User
-                                    .HasClaim(c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity")));
+                                    .HasClaim(c => c.Type == $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/domains/identity")));
                     });
             }
         }
@@ -301,12 +302,12 @@ namespace EdFi.Ods.Api.Startup
             }
         }
 
-        private IEnumerable<PluginInfo> LoadPlugins()
+        private PluginInfo[] LoadPlugins()
         {
             if (string.IsNullOrWhiteSpace(Plugin.Folder))
             {
                 _logger.Debug($"Plugin folder is not set. No plugins will be loaded.");
-                return Enumerable.Empty<PluginInfo>();
+                return new PluginInfo[0];
             }
 
             _logger.Debug($"Loading plugins from folder '{Plugin.Folder}'.");
@@ -316,25 +317,32 @@ namespace EdFi.Ods.Api.Startup
             if (!Directory.Exists(pluginFolder))
             {
                 _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
-                return Enumerable.Empty<PluginInfo>();
+                return new PluginInfo[0];
             }
 
-            _logger.Debug($"Loading plugins from folder {Plugin.Folder}.");
-            var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(Plugin.Folder);
+            try
+            {
+                _logger.Debug($"Loading plugins from folder {Plugin.Folder}.");
+                var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(Plugin.Folder);
 
-            // LoadPluginAssemblies method creates a pluginFinderAssemblyContext and loads assembles in it to
-            // determine plugins to load in the app domain. Need to force a garbage collection to unload
-            // the pluginFinderAssemblyContext immediately or else assemblies loaded in this context will
-            // be in the current app domain.
-            GC.Collect();
-
-            // IMPORTANT: Load the plug-in assembly into the Default context
-            return assemblyFiles.Select(
-                assemblyFile => new PluginInfo
-                {
-                    AssemblyFileName = assemblyFile,
-                    Assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyFile)
-                });
+                // IMPORTANT: Load the plug-in assembly into the Default context
+                return assemblyFiles
+                    .Select(
+                        assemblyFile => new PluginInfo
+                        {
+                            AssemblyFileName = assemblyFile,
+                            Assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyFile)
+                        })
+                    .ToArray();
+            }
+            finally
+            {
+                // LoadPluginAssemblies method creates a pluginFinderAssemblyContext and loads assembles in it to
+                // determine plugins to load in the app domain. Need to force a garbage collection to unload
+                // the pluginFinderAssemblyContext immediately or else assemblies loaded in this context will
+                // be in the current app domain.
+                GC.Collect();
+            }
         }
     }
 }
