@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -28,7 +29,8 @@ namespace EdFi.Ods.Api.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            var installedExtensionAssemblies = AppDomain.CurrentDomain.GetAssemblies()
+            var installedExtensionAssemblies =
+                AssemblyLoadContext.Default.Assemblies
                 .Where(
                     a => a.IsExtensionAssembly()
                          && !ApiSettings.ExcludedExtensions.Contains(
