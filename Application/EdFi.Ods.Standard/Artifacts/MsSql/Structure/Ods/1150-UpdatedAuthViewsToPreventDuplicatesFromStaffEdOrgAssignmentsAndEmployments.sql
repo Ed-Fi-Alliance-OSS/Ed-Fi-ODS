@@ -4,6 +4,7 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 PRINT N'Altering [auth].[CommunityProviderIdToStaffUSI]...';
+GO
 
 ALTER VIEW [auth].[CommunityProviderIdToStaffUSI]
 AS
@@ -24,9 +25,10 @@ AS
             ON cp.CommunityProviderId = assgn.EducationOrganizationId;
 GO
 
-PRINT N'Altering auth.LocalEducationAgencyIdToStaffUSI...';
+PRINT N'Altering [auth].[LocalEducationAgencyIdToStaffUSI]...';
+GO
 
-ALTER VIEW auth.LocalEducationAgencyIdToStaffUSI
+ALTER VIEW [auth].[LocalEducationAgencyIdToStaffUSI]
 AS
     -- LEA to Staff (through LEA employment)
     SELECT emp.EducationOrganizationId AS LocalEducationAgencyId
@@ -64,6 +66,7 @@ AS
 GO
 
 PRINT N'Altering [auth].[PostSecondaryInstitutionIdToStaffUSI]...';
+GO
 
 ALTER VIEW [auth].[PostSecondaryInstitutionIdToStaffUSI]
 AS
@@ -85,6 +88,7 @@ AS
 GO
 
 PRINT N'Altering [auth].[SchoolIdToStaffUSI]...';
+GO
 
 ALTER VIEW [auth].[SchoolIdToStaffUSI]
 AS
