@@ -143,16 +143,19 @@ namespace EdFi.Ods.Api.Helpers
                     continue;
                 }
 
-                string extensionFolder = Path.GetDirectoryName(assemblyPath);
-                var validationResult = validator.ValidateObject(extensionFolder);
+                if (assemblyPath.Contains("Extensions"))
+                {
+                    string extensionFolder = Path.GetDirectoryName(assemblyPath);
+                    var validationResult = validator.ValidateObject(extensionFolder);
 
-                if (!validationResult.Any())
-                {
-                    yield return assembly.Location;
-                }
-                else
-                {
-                    _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
+                    if (!validationResult.Any())
+                    {
+                        yield return assembly.Location;
+                    }
+                    else
+                    {
+                        _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
+                    }
                 }
             }
 
