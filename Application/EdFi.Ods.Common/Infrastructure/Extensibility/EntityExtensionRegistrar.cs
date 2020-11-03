@@ -211,7 +211,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
                     if (extensionType == null)
                     {
-                        throw new InvalidOperationException(
+                        throw new Exception(
                             $"Unable to find extension type '{extensionAssemblyName}' in assembly '{assembly.FullName}'");
                     }
 
@@ -239,7 +239,7 @@ namespace EdFi.Ods.Common.Infrastructure.Extensibility
 
                     if (extensionType == null)
                     {
-                        throw new InvalidOperationException(
+                        throw new Exception(
                             $"Unable to find extension type '{extensionClassAssemblyQualifiedName}' in assembly '{assembly.FullName}'");
                     }
 
