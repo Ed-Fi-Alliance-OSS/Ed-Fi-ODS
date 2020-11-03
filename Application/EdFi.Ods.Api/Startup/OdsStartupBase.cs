@@ -50,7 +50,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Environment = NHibernate.Cfg.Environment;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -62,7 +61,7 @@ namespace EdFi.Ods.Api.Startup
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
         {
-            Configuration = (IConfigurationRoot) configuration;
+            Configuration = (IConfigurationRoot)configuration;
 
             ApiSettings = new ApiSettings();
 
@@ -92,7 +91,7 @@ namespace EdFi.Ods.Api.Startup
 
             AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
 
-            var pluginInfos = LoadPlugins().ToList();
+            var pluginInfos = LoadPlugins();
 
             services.AddSingleton(pluginInfos);
 
@@ -128,7 +127,7 @@ namespace EdFi.Ods.Api.Startup
                     });
 
             // Add controllers for the plugins
-            foreach (PluginInfo pluginInfo in pluginInfos)
+            foreach (var pluginInfo in pluginInfos)
             {
                 var pluginAssembly = pluginInfo.Assembly;
 
@@ -162,12 +161,10 @@ namespace EdFi.Ods.Api.Startup
                 services.AddAuthorization(
                     options =>
                     {
-                        options.AddPolicy(
-                            "IdentityManagement", policy =>
-                                policy.RequireAssertion(
-                                    context =>
-                                        context.User.HasClaim(
-                                            c => c.Type == "http://ed-fi.org/ods/identity/claims/domains/identity")));
+                        options.AddPolicy("IdentityManagement",
+                            policy => policy.RequireAssertion(
+                                context => context.User
+                                    .HasClaim(c => c.Type == $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/domains/identity")));
                     });
             }
         }
@@ -201,11 +198,11 @@ namespace EdFi.Ods.Api.Startup
 
                     if (type.IsSubclassOf(typeof(ConditionalModule)))
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type, ApiSettings));
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type, ApiSettings));
                     }
                     else
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type));
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type));
                     }
                 }
             }
@@ -301,16 +298,16 @@ namespace EdFi.Ods.Api.Startup
                 DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
 
                 // Set NHibernate to use Autofac to resolve its dependencies
-                Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
+                NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
         }
 
-        private IEnumerable<PluginInfo> LoadPlugins()
+        private PluginInfo[] LoadPlugins()
         {
             if (string.IsNullOrWhiteSpace(Plugin.Folder))
             {
                 _logger.Debug($"Plugin folder is not set. No plugins will be loaded.");
-                return Enumerable.Empty<PluginInfo>();
+                return new PluginInfo[0];
             }
 
             _logger.Debug($"Loading plugins from folder '{Plugin.Folder}'.");
@@ -325,18 +322,8 @@ namespace EdFi.Ods.Api.Startup
 
             try
             {
-            _logger.Debug($"Loading plugins from folder '{Plugin.Folder}'.");
-
-            var pluginFolder = Path.GetFullPath(Plugin.Folder);
-
-            if (!Directory.Exists(pluginFolder))
-            {
-                _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
-                return Enumerable.Empty<PluginInfo>();
-            }
-
                 _logger.Debug($"Loading plugins from folder {Plugin.Folder}.");
-            var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(Plugin.Folder);
+                var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(Plugin.Folder);
 
                 // IMPORTANT: Load the plug-in assembly into the Default context
                 return assemblyFiles
@@ -355,14 +342,7 @@ namespace EdFi.Ods.Api.Startup
                 // the pluginFinderAssemblyContext immediately or else assemblies loaded in this context will
                 // be in the current app domain.
                 GC.Collect();
-
-            // IMPORTANT: Load the plug-in assembly into the Default context
-            return assemblyFiles.Select(
-                assemblyFile => new PluginInfo
-                {
-                    AssemblyFile = assemblyFile,
-                    Assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyFile)
-                });
+            }
         }
     }
 }
