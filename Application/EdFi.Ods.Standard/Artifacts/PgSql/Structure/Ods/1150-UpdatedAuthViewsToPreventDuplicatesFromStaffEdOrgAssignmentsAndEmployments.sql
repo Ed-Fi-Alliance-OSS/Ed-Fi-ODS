@@ -4,7 +4,7 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 -- Drop dependent views
-DROP VIEW auth.EducationOrganizationIdToStaffUSI;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToStaffUSI;
 
 DROP VIEW IF EXISTS auth.CommunityProviderIdToStaffUSI;
 
