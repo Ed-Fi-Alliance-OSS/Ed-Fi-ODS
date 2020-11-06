@@ -103,7 +103,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             public void Should_contain_a_definition_for_all_resources_and_children()
             {
                 Assert.That(
-                    _actualDefinitions.Keys.Except(new[] {"link"}), Is.EquivalentTo(_expectedPropertyNamesByDefinitionName.Keys));
+                    _actualDefinitions.Keys.Except(new[] {"link", "deletedResource" }), Is.EquivalentTo(_expectedPropertyNamesByDefinitionName.Keys));
             }
 
             [Assert]
@@ -250,7 +250,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             public void Should_return_a_list_of_definitions_with_a_content_type_usage_appended_to_name()
             {
                 AssertHelper.All(
-                    _actualDefinitions.Keys.Where(k => !k.EndsWith("Reference")).Except(new[] {"link"}).Select(
+                    _actualDefinitions.Keys.Where(k => !k.EndsWith("Reference")).Except(new[] {"link", "deletedResource" }).Select(
                         k => (Action) (() => Assert.That(
                             k.EndsWithIgnoreCase($"_{ContentTypeUsage.Readable}") ||
                             k.EndsWithIgnoreCase($"_{ContentTypeUsage.Writable}"), Is.True,
