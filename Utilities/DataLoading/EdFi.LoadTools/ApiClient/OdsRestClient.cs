@@ -12,9 +12,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using EdFi.Common.Inflection;
 using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
-using EdFi.Ods.Common.Inflection;
 using log4net;
 
 namespace EdFi.LoadTools.ApiClient

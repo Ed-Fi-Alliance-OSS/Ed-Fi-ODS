@@ -48,7 +48,7 @@
       <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
       <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
       <PackageReference Include="JsonSubTypes" Version="1.7.0" />
-      <PackageReference Include="log4net" Version="2.0.10" />
+      <PackageReference Include="log4net" Version="2.0.12" />
       <PackageReference Include="Microsoft.AspNetCore.Owin" Version="3.1.8" />
       <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.8" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />

@@ -9,8 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using EdFi.Common.Inflection;
 using EdFi.LoadTools.Engine;
-using EdFi.Ods.Common.Inflection;
 using log4net;
 using Newtonsoft.Json;
 

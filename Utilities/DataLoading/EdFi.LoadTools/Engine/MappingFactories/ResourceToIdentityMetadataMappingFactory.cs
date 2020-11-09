@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine.Mapping;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Common.Inflection;
 
 namespace EdFi.LoadTools.Engine.MappingFactories
 {

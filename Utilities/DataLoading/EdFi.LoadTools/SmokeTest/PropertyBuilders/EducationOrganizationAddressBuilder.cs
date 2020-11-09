@@ -7,8 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using EdFi.Common.Inflection;
 using EdFi.LoadTools.Common;
-using EdFi.Ods.Common.Inflection;
+
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {

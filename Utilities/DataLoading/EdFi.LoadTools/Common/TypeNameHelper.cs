@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Common.Inflection;
 
 namespace EdFi.LoadTools.Common
 {

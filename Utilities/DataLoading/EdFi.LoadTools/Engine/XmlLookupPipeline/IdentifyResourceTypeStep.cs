@@ -6,7 +6,7 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using EdFi.LoadTools.Common;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Common.Inflection;
 
 namespace EdFi.LoadTools.Engine.XmlLookupPipeline
 {
