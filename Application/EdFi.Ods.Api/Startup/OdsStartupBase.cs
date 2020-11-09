@@ -71,7 +71,7 @@ namespace EdFi.Ods.Api.Startup
 
             Configuration.Bind("Plugin", Plugin);
 
-            _logger.Debug($"built configuration = {Configuration}");
+            _logger.Info($"Configuration:{Environment.NewLine}{Configuration.GetDebugView()}");
         }
 
         public ApiSettings ApiSettings { get; }
