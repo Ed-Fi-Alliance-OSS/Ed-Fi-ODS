@@ -6,7 +6,7 @@
 CREATE OR REPLACE FUNCTION util.GetEdFiOdsVersion()
 RETURNS VARCHAR(60) AS $$
 BEGIN	
-   RETURN '5.0.0';
+   RETURN '5.1.0';
 END;
 $$ LANGUAGE plpgsql;
 
