@@ -22,8 +22,8 @@
     <None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.0.0" />
-    <PackageReference Include="log4net" Version="2.0.10" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.1.0" />
+    <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.11.5" />

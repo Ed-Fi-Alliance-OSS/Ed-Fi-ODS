@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Common.Inflection;
 using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.SmokeTest

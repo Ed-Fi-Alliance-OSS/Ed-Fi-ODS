@@ -13,7 +13,6 @@ using EdFi.LoadTools.BulkLoadClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.FileImportPipeline;
 using EdFi.LoadTools.Engine.ResourcePipeline;
-using EdFi.Ods.Common.Utils.Extensions;
 using log4net;
 
 namespace EdFi.LoadTools

@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Common;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Common.Inflection;
 using log4net;
 using Swashbuckle.Swagger;
 
