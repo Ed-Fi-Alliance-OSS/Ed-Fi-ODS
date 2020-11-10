@@ -10,7 +10,6 @@ using System.Reflection;
 using EdFi.Common.Inflection;
 using EdFi.LoadTools.Common;
 
-
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
     public class EducationOrganizationAddressBuilder : BaseBuilder
