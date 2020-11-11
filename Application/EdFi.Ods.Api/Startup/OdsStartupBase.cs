@@ -302,28 +302,67 @@ namespace EdFi.Ods.Api.Startup
             }
         }
 
-        private PluginInfo[] LoadPlugins()
+        private string GetPluginFolder()
         {
             if (string.IsNullOrWhiteSpace(Plugin.Folder))
             {
-                _logger.Debug($"Plugin folder is not set. No plugins will be loaded.");
+                return string.Empty;
+            }
+
+            if (Path.IsPathRooted(Plugin.Folder))
+            {
+                return Plugin.Folder;
+            }
+
+            // in a developer environment the plugin folder is relative to the WebApi project
+            // "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi\bin\Debug\netcoreapp3.1\..\..\..\" => "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi"
+            var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "..\\..\\..\\"));
+            var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, Plugin.Folder));
+            if (Directory.Exists(relativeToProject))
+            {
+                return relativeToProject;
+            }
+
+            // in a deployment environment the plugin folder is relative to the executable
+            // "C:\inetpub\Ed-Fi\WebApi"
+            var relativeToExecutable = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, Plugin.Folder));
+            if (Directory.Exists(relativeToExecutable))
+            {
+                return relativeToExecutable;
+            }
+
+            // last attempt to get directory relative to the working directory
+            var relativeToWorkingDirectory = Path.GetFullPath(Plugin.Folder);
+            if (Directory.Exists(relativeToWorkingDirectory))
+            {
+                return relativeToWorkingDirectory;
+            }
+
+            return Plugin.Folder;
+        }
+
+        private PluginInfo[] LoadPlugins()
+        {
+            var pluginFolder = GetPluginFolder();
+            var pluginFolderSettingsName = $"{nameof(Plugin)}:{nameof(Plugin.Folder)}";
+
+            if (string.IsNullOrWhiteSpace(pluginFolder))
+            {
+                _logger.Info($"'{pluginFolderSettingsName}' setting not configured. No plugins will be loaded.");
                 return new PluginInfo[0];
             }
 
-            _logger.Debug($"Loading plugins from folder '{Plugin.Folder}'.");
-
-            var pluginFolder = Path.GetFullPath(Plugin.Folder);
-
             if (!Directory.Exists(pluginFolder))
             {
-                _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
+                _logger.Warn($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
+                _logger.Warn($"To configure plugins update the '{pluginFolderSettingsName}' setting with either an absolute path, a path relative to the 'Ed-Fi-ODS-Implementation\\Application\\EdFi.Ods.WebApi\', or a path relative to the deployed EdFi.Ods.WebApi executable.");
                 return new PluginInfo[0];
             }
 
             try
             {
-                _logger.Debug($"Loading plugins from folder {Plugin.Folder}.");
-                var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(Plugin.Folder);
+                _logger.Info($"Loading plugins from: '{pluginFolder}'");
+                var assemblyFiles = AssemblyLoaderHelper.FindPluginAssemblies(pluginFolder);
 
                 // IMPORTANT: Load the plug-in assembly into the Default context
                 return assemblyFiles
