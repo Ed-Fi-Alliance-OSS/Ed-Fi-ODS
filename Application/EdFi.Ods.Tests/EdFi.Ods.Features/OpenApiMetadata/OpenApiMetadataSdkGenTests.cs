@@ -291,7 +291,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                         x.Name)
                                     .ToUpperInvariant())
                             .Concat(
-                                new[] {"LINK"}));
+                                new[] {"LINK", "DELETEDRESOURCE" }));
 
                 Assert.That(nonBelongingDefinitions, Is.Empty);
             }
@@ -341,7 +341,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                 AssertHelper.All(
                     _actualDefinitions.Keys
                         .Except(
-                            new[] {"link"})
+                            new[] {"link", "deletedResource" })
                         .Select(
                             d =>
                                 (Action)
@@ -432,7 +432,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                             !d.EndsWithIgnoreCase(
                                 "Extensions"))
                     .Except(
-                        new[] {"link"})
+                        new[] {"link", "deletedResource" })
                     .Select(
                         d => d.Split('_')
                             .First())

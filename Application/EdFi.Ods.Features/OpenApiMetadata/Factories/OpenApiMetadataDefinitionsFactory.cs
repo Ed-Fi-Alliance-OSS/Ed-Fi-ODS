@@ -315,6 +315,29 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             }
                         }
                     }
+                },
+                {
+                    "deletedResource", new Schema
+                    {
+                        type = "object",
+                        properties = new Dictionary<string, Schema>
+                        {
+                            {
+                                "id", new Schema
+                                {
+                                    type = "string",
+                                    description = "Resource identifier"
+                                }
+                            },
+                            {
+                                "changeVersion", new Schema
+                                {
+                                    type = "number",
+                                    description = "Change version"
+                                }
+                            }
+                        }
+                    }
                 }
             };
         }

@@ -23,6 +23,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         public const string Json = "swagger.json";
 
+        private const string DeletedResource = "deletedResource";
+
         public static string GetResourcePluralName(ResourceClassBase resourceClassBase) => resourceClassBase.PluralName;
 
         public static string GetResourceItemName(Resource resource) => resource.Name;
@@ -176,7 +178,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
         }
 
-        public static Dictionary<string, Response> GetReadOperationResponses(string resourceName, bool isArray)
+        public static Dictionary<string, Response> GetReadOperationResponses(string resourceName, bool isArray, bool isChangeQueryDeletes = false)
         {
             var schema = isArray
                 ? new Schema
@@ -184,12 +186,16 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     type = "array",
                     items = new Schema
                     {
-                        @ref = GetDefinitionReference(resourceName)
+                        @ref = isChangeQueryDeletes ? 
+                            GetDefinitionReference(DeletedResource) : 
+                            GetDefinitionReference(resourceName)
                     }
                 }
                 : new Schema
                 {
-                    @ref = GetDefinitionReference(resourceName)
+                    @ref = isChangeQueryDeletes ? 
+                        GetDefinitionReference(DeletedResource) :
+                        GetDefinitionReference(resourceName)
                 };
 
             return new Dictionary<string, Response>

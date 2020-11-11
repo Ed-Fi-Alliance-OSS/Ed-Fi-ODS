@@ -334,7 +334,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 },
                 responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
                     _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
-                    true)
+                    true, true)
             };
         }
 
