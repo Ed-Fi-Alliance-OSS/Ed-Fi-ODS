@@ -15,7 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Marker_EdFi_Ods_Test_TestExtension.cs">
