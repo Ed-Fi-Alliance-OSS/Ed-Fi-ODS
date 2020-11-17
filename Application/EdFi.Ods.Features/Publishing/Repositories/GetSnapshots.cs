@@ -16,13 +16,6 @@ using NHibernate.Transform;
 
 namespace EdFi.Ods.Features.Publishing.Repositories
 {
-    public interface IGetSnapshots
-    {
-        Task<IList<Snapshot>> GetAllAsync(IQueryParameters queryParameters);
-
-        Task<Snapshot> GetByIdAsync(Guid id);
-    }
-
     public class GetSnapshots : NHibernateRepositoryOperationBase, IGetSnapshots
     {
         private readonly ISessionFactory _sessionFactory;
@@ -47,7 +40,7 @@ ORDER BY SnapshotDateTime DESC";
                     .SetMaxResults(queryParameters.Limit ?? 25)
                     .SetResultTransformer(Transformers.AliasToBean<Snapshot>());
 
-                return await query.ListAsync<Snapshot>();
+                return await query.ListAsync<Snapshot>().ConfigureAwait(false);
             }
         }
 
@@ -64,7 +57,7 @@ WHERE    Id = :id";
                     .SetGuid("id", id)
                     .SetResultTransformer(Transformers.AliasToBean<Snapshot>());
 
-                return await query.UniqueResultAsync<Snapshot>();
+                return await query.UniqueResultAsync<Snapshot>().ConfigureAwait(false);
             }
         }
     }

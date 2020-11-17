@@ -2,7 +2,6 @@
 CREATE TABLE [publishing].[Snapshot] (
     [SnapshotIdentifier] [NVARCHAR](32) NOT NULL,
     [SnapshotDateTime] [DATETIME2](7) NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
