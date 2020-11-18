@@ -2,7 +2,6 @@
 CREATE TABLE publishing.Snapshot (
     SnapshotIdentifier VARCHAR(32) NOT NULL,
     SnapshotDateTime TIMESTAMP NOT NULL,
-    Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
