@@ -12,10 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Features.Publishing.Controllers
 {
-    [ApiExplorerSettings(IgnoreApi = true)]
-    [ExcludeFromCodeCoverage]
-    [ApiController]
     [Authorize]
+    [ApiController]
+    [Produces("application/json")]
     [Route("data/v3/publishing/snapshots")]
     public class SnapshotsController : ControllerBase
     {
