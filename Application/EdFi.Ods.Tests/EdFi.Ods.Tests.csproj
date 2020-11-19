@@ -42,10 +42,10 @@
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.23" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
-    <PackageReference Include="Shouldly" Version="4.0.0" />
+    <PackageReference Include="Shouldly" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj" />

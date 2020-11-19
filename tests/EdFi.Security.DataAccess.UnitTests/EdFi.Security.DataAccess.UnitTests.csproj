@@ -27,7 +27,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.23" />
-    <PackageReference Include="Shouldly" Version="4.0.0" />
+    <PackageReference Include="Shouldly" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />

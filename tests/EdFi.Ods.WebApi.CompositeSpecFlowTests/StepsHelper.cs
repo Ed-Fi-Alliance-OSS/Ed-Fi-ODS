@@ -18,7 +18,7 @@ using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 {
-    public static class StepsHelper 
+    public static class StepsHelper
     {
         public static HttpClient GetHttpClient()
         {
