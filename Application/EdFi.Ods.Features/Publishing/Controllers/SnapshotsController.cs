@@ -15,7 +15,7 @@ namespace EdFi.Ods.Features.Publishing.Controllers
     [Authorize]
     [ApiController]
     [Produces("application/json")]
-    [Route("data/v3/publishing/snapshots")]
+    [Route("snapshots")]
     public class SnapshotsController : ControllerBase
     {
         private readonly IGetSnapshots _getSnapshots;
