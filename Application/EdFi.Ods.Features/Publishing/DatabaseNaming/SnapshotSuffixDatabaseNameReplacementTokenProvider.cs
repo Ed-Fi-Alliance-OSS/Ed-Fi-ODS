@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.Extensions.Publishing.Feature.SnapshotContext;
+using EdFi.Ods.Features.Publishing.SnapshotContext;
 
-namespace EdFi.Ods.Extensions.Publishing.Feature.DatabaseNaming
+namespace EdFi.Ods.Features.Publishing.DatabaseNaming
 {
     /// <summary>
     /// Implements a decorator that appends a snapshot-specific suffix to the database name

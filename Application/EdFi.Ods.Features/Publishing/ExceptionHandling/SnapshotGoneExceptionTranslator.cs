@@ -5,10 +5,10 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Exceptions;
 using EdFi.Ods.Api.Models;
-using EdFi.Ods.Extensions.Publishing.Feature.SnapshotContext;
+using EdFi.Ods.Features.Publishing.SnapshotContext;
 using NHibernate.Exceptions;
 
-namespace EdFi.Ods.Extensions.Publishing.Feature.ExceptionHandling
+namespace EdFi.Ods.Features.Publishing.ExceptionHandling
 {
     /// <summary>
     /// Implements an exception translator that looks for the custom <see cref="DatabaseConnectionException" />

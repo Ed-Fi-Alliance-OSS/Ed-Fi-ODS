@@ -7,7 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Extensions.Publishing.Feature.ActionResults
+namespace EdFi.Ods.Features.Publishing.ActionResults
 {
     /// <summary>
     /// Represents an action result providing a message indicating that the snapshots are
