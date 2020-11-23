@@ -7,8 +7,8 @@ using System;
 using System.Data.Common;
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.Exceptions;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Exceptions;
 using NHibernate.Connection;
 
 namespace EdFi.Ods.Common.Infrastructure.Configuration

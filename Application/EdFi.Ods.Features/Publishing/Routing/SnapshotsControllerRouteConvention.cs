@@ -8,8 +8,6 @@ using System.Reflection;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Features.Controllers;
-using EdFi.Ods.Features.IdentityManagement;
 using EdFi.Ods.Features.Publishing.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
@@ -53,9 +51,14 @@ namespace EdFi.Ods.Features.Publishing.Routing
                     template += RouteConstants.SchoolYearFromRoute;
                 }
 
+                if (_apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+                {
+                    template += RouteConstants.InstanceIdFromRoute;
+                    template += RouteConstants.SchoolYearFromRoute;
+                }
+
                 return template;
             }
         }
     }
-
 }
