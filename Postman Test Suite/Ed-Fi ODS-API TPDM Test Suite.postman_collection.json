@@ -1,0 +1,3212 @@
+{
+	"info": {
+		"_postman_id": "225dc980-d6eb-492c-9a6a-eabd0bdc30e4",
+		"name": "Ed-Fi ODS/API TPDM Test Suite",
+		"description": "Localhost integration testing using Postman Scripts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Initial Setup",
+			"item": [
+				{
+					"name": "Initialize Education Organization Ids",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8c8eb868-bd38-45f3-b700-49c8e6ec090e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "cf3272a8-a7ba-49b1-bcda-ab2896ae11e4",
+								"exec": [
+									"pm.environment.set('known:schoolId',255901001);\r",
+									"pm.environment.set('known:educationOrganizationId',255901);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   teacherPreparationProgramTypeDescriptors",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "03fd3a1d-c26d-4ab2-9b41-57b37f7e4e42",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c5c256b8-168e-4a7a-ab59-99c42fd8b999",
+								"exec": [
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const descriptorList=['A1','A2','A3','A4'];",
+									"    const __ = require('lodash');",
+									"     ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/teacherPreparationProgramTypeDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/tpdm/teacherPreparationProgramTypeDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProgramTypeDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProgramTypeDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   tppProgramPathwayDescriptor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b5ede12a-e09c-48c3-ac79-786ebab0936a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "e92f021c-2edc-4dc8-9364-9cd043155985",
+								"exec": [
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const descriptorList=['A1','A2','A3','A4'];",
+									"    const __ = require('lodash');",
+									"     ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/tppProgramPathwayDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/tpdm/tppProgramPathwayDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/tppProgramPathwayDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"tppProgramPathwayDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initiailze   tppDegreeTypeDescriptor",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1a992b08-9e05-4fb5-8fc3-8df8e6029110",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "47e4b11f-91e2-48ac-94bb-e5db672257f9",
+								"exec": [
+									"    pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"    ",
+									"    const descriptorList=['A1','A2','A3','A4'];",
+									"    const __ = require('lodash');",
+									"     ",
+									"        \t__.each(descriptorList, eachDescriptor => {",
+									"        \t    ",
+									"            \t    let payload = { ",
+									"                    codeValue: eachDescriptor ,",
+									"                    description: eachDescriptor ,",
+									"                    namespace: 'uri://ed-fi.org/tppDegreeTypeDescriptor' ,",
+									"                    shortDescription: eachDescriptor",
+									"                };",
+									"    ",
+									"                let  descriptorPostRequest = {",
+									"                  url:pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/tpdm/tppDegreeTypeDescriptors\",",
+									"                  method:'POST',",
+									"                  header: {",
+									"                        \"Authorization\":'bearer '+pm.environment.get(\"AccessToken_255901\"),",
+									"                        \"Content-Type\": \"application/json\"",
+									"                    },",
+									"                  body: {",
+									"                        mode: 'raw',",
+									"                        raw: JSON.stringify(payload)",
+									"                    }",
+									"                };",
+									"    ",
+									"        ",
+									"                 pm.sendRequest(descriptorPostRequest, function (err, descriptor) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {",
+									"                            console.log(descriptor);",
+									"                        }",
+									"                });",
+									"        ",
+									"        ",
+									"         \t});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/tppDegreeTypeDescriptors",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"tppDegreeTypeDescriptors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize  University",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fa7f7c13-9e36-4eaf-a940-d20f4dd2d1a4",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"pm.environment.set(\"supplied:universityId\",999);\r",
+									"pm.environment.set(\"supplied:nameOfInstitution\",\"University of British Columbia\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7668a2a5-16f1-438f-9aed-bcc680372cee",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:universityGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"universityId\": \"{{supplied:universityId}}\",\r\n  \"nameOfInstitution\": \"{{supplied:nameOfInstitution}}\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"shortNameOfInstitution\": \"UBC\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Post Secondary Institution\"\r\n    }\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/universities",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"universities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize  teacherPreparationProviders",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "055252da-5d08-45a0-805e-4fbe714ffa6f",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"pm.environment.set(\"supplied:teacherPreparationProviderId\",__.random(1000).toString());"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "42846370-7f12-4def-975d-1e3b9338c2cc",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:teacherPreparationProviderGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Post Secondary Institution\"\r\n    }\r\n  ],\r\n  \"teacherPreparationProviderId\": \"{{supplied:teacherPreparationProviderId}}\",\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"universityReference\": {\r\n    \"universityId\":\"{{supplied:universityId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"{{supplied:nameOfInstitution}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviders",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize  students",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "908ddc4a-248a-4039-99be-8498b0d55b17",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f23a9c30-c1d9-41f4-b641-fe1b6ed7dfa1",
+								"exec": [
+									"const __ = require('lodash');",
+									"const responseItems = pm.response.json();",
+									"console.log(__.first(responseItems)[\"studentUniqueId\"]);",
+									"pm.environment.set('known:studentUniqueId', __.first(responseItems)[\"studentUniqueId\"]);   "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize  staffs",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f0a0d084-e27a-46f4-92d9-aee79b006266",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d30c8b6e-d186-4efa-92ec-c17aed49cb12",
+								"exec": [
+									"const __ = require('lodash');",
+									"const responseItems = pm.response.json();",
+									"console.log(__.first(responseItems)[\"staffUniqueId\"]);",
+									"pm.environment.set('known:staffUniqueId', __.first(responseItems)[\"staffUniqueId\"]);   "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/staffs",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"staffs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize  teacherCandidate",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b56db062-a938-4257-8752-1a6db64a6800",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"pm.environment.set(\"supplied:teacherCandidateIdentifier\",__.random(1000).toString());"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc3697eb-8a76-49ef-ad7e-b0edfe33f9ef",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"teacherCandidateIdentifier\": \"{{supplied:teacherCandidateIdentifier}}\",\r\n  \"tppProgramDegrees\": [\r\n    {\r\n      \"academicSubjectDescriptor\": \"uri://ed-fi.org/AcademicSubjectDescriptor#English\",\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\",\r\n      \"tppDegreeTypeDescriptor\": \"uri://ed-fi.org/tppDegreeTypeDescriptor#A1\"\r\n    }\r\n  ],\r\n    \"studentReference\": {\r\n    \"studentUniqueId\": \"{{known:studentUniqueId}}\"\r\n  },\r\n  \"birthDate\": \"2000-11-30\",\r\n  \"firstName\": \"Julie\",\r\n  \"lastSurname\": \"Randolph\",\r\n  \"sexDescriptor\": \"uri://ed-fi.org/SexDescriptor#Male\"\r\n  }"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidates",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Initialize teacherPreparationProviderPrograms",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a90e8ea1-2790-47e1-bfa6-42907c4d9810",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d214a699-3e2f-49b3-be8e-55c7fa3b05a6",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:teacherPreparationProviderProgramGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"programName\": \"Regular Education\",\r\n  \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Regular Education\",\r\n  \"educationOrganizationReference\": {\r\n  \"educationOrganizationId\":\"{{known:schoolId}}\"\r\n  },\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Early Education\"\r\n    }\r\n  ],\r\n  \"teacherPreparationProgramTypeDescriptor\": \"uri://ed-fi.org/teacherPreparationProgramTypeDescriptor#A1\",\r\n  \"tppProgramPathwayDescriptor\": \"uri://ed-fi.org/tppProgramPathwayDescriptor#A1\"\r\n }"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviderPrograms",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviderPrograms"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "University",
+			"item": [
+				{
+					"name": "Create a new  University",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f395fa80-e3f8-436e-9396-5b074b54ea47",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"pm.environment.set(\"universityId\",__.random(1000).toString());\r",
+									"pm.environment.set(\"nameOfInstitution\",\"University of British Columbia\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d765b153-9caf-4335-a768-2838fa2e6d7f",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:universityGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"universityId\": \"{{universityId}}\",\r\n  \"nameOfInstitution\": \"{{nameOfInstitution}}\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"shortNameOfInstitution\": \"UBC\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Post Secondary Institution\"\r\n    }\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/universities",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"universities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a University",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "72426e1a-7237-44c2-b475-b2e0d995ee4e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "87460343-7bf7-44b4-82be-f8bea55de20d",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.nameOfInstitution).to.be.equal(pm.environment.get(\"nameOfInstitution\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/universities/{{known:universityGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"universities",
+								"{{known:universityGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update  a new  University",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8952cec8-4fd6-4aad-9ca9-16ada2030625",
+								"exec": [
+									"pm.environment.set(\"nameOfInstitution\",\"University of Indiana\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "22d5d66e-c5e4-4562-8f26-f8d7a1aacc90",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"}); "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nameOfInstitution\": \"{{nameOfInstitution}}\",\r\n  \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n  \"shortNameOfInstitution\": \"UBC\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Post Secondary Institution\"\r\n    }\r\n  ]\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/universities/{{known:universityGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"universities",
+								"{{known:universityGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a University by nameOfInstitution",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a59037a8-b419-4c03-9efe-3a1c4a775faf",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "003fef77-7b10-465b-ab8d-e1055a87ec7e",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.nameOfInstitution).to.be.equal(pm.environment.get(\"nameOfInstitution\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/universities/{{known:universityGUID}}?nameOfInstitution={{nameOfInstitution}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"universities",
+								"{{known:universityGUID}}"
+							],
+							"query": [
+								{
+									"key": "nameOfInstitution",
+									"value": "{{nameOfInstitution}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  a University",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0d4f93c9-b1ac-469e-85a8-c4df32e323eb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "cab319e8-e813-4443-b311-daf4009a6be9",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/universities/{{known:universityGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"universities",
+								"{{known:universityGUID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TeacherPreparationProvider",
+			"item": [
+				{
+					"name": "Create a new  teacherPreparationProviders",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "80d43f42-b90c-4faa-b5b8-58a15940c1da",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"pm.environment.set(\"teacherPreparationProviderId\",__.random(1000).toString());\r",
+									"pm.environment.set(\"nameOfInstitution\",\"University of British Columbia\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a017004b-d36b-42de-be78-785a2514d3c1",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:teacherPreparationProviderGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Post Secondary Institution\"\r\n    }\r\n  ],\r\n  \"teacherPreparationProviderId\": {{teacherPreparationProviderId}},\r\n  \"schoolReference\": {\r\n    \"schoolId\": 255901001\r\n  },\r\n  \"universityReference\": {\r\n    \"universityId\":\"{{supplied:universityId}}\"\r\n  },\r\n  \"nameOfInstitution\": \"{{nameOfInstitution}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviders",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a teacherPreparationProviders",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "bb7141b2-53dc-4077-b377-25a1c61c1073",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f5eee11-5e5d-4580-82a6-d4d56bebb9b1",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.nameOfInstitution).to.be.equal(pm.environment.get(\"nameOfInstitution\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviders/{{known:teacherPreparationProviderGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviders",
+								"{{known:teacherPreparationProviderGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update  a  teacherPreparationProvider",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "00778d53-d3f5-4173-a44b-58b4a162cfba",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"pm.environment.set(\"nameOfInstitution\",\"University of America\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a2348d9-a479-4b68-b14c-f97004f6dc63",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Post Secondary Institution\"\r\n    }\r\n  ],\r\n    \"nameOfInstitution\": \"{{nameOfInstitution}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviders/{{known:teacherPreparationProviderGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviders",
+								"{{known:teacherPreparationProviderGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a teacherPreparationProvider by nameOfInstitution",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5374437c-3bf3-49cc-8b0b-e5e403e53f5f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1c98d65e-b0eb-4c66-82c5-37eb9f690963",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.nameOfInstitution).to.be.equal(pm.environment.get(\"nameOfInstitution\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviders/{{known:teacherPreparationProviderGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviders",
+								"{{known:teacherPreparationProviderGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  a teacherPreparationProviders",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9ded52af-e254-4bf9-bafa-7a2b2ab05479",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "23eebd05-73cd-4a6e-a025-1e7a69f44811",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviders/{{known:teacherPreparationProviderGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviders",
+								"{{known:teacherPreparationProviderGUID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "44f51823-030a-4a20-8f61-2cd579f56928",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a25e24d7-33ba-40b4-a720-91402e5b1983",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TeacherPreparationProviderProgram",
+			"item": [
+				{
+					"name": "Clean up  teacherCandidateTeacherPreparationProviderProgramAssociation Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "94502ded-5c3f-4c98-97ad-a0f519702c9b",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "da1242c5-9e4c-4a93-a4cc-eb512fa7972c",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"const responseItems = pm.response.json();",
+									"",
+									"pm.test('Delete all programs', () => {",
+									"",
+									"           responseItems.forEach(responseItem => {",
+									"            ",
+									"            if(isNaN(responseItem.id))",
+									"            {",
+									"                let ProgramDeleteRequest = {",
+									"                        url: pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociations/\" + responseItem.id,",
+									"                        method: 'DELETE',",
+									"                        header: 'Authorization:bearer ' + pm.environment.get(\"AccessToken_255901\"),",
+									"                        body: {}",
+									"                };",
+									"    ",
+									"                pm.sendRequest(ProgramDeleteRequest, function (err, ProgramDelete) {",
+									"                        if (err) {",
+									"                            console.log(err);",
+									"                        } else {}",
+									"                    });",
+									"           }",
+									"        });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociations/",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderProgramAssociations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new  teacherPreparationProviderPrograms",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "acea9772-9dd4-451c-b6e0-28a5c3f20e53",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "886d505c-2dd2-476f-b2a6-adbea9be6ce1",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:teacherPreparationProviderProgramGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"programName\": \"Vocational Education\",\r\n  \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Athletics\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\":\"{{known:educationOrganizationId}}\"\r\n  },\r\n  \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Early Education\"\r\n    }\r\n  ],\r\n\r\n  \"teacherPreparationProgramTypeDescriptor\": \"uri://ed-fi.org/teacherPreparationProgramTypeDescriptor#A1\",\r\n  \"tppProgramPathwayDescriptor\": \"uri://ed-fi.org/tppProgramPathwayDescriptor#A1\"\r\n }"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviderPrograms",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviderPrograms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a teacherPreparationProviderPrograms",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5580447a-7bae-4650-a281-a93942cb721e",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "94d0f4eb-ad46-4551-8785-4a38a86b7fcb",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.length).to.be.at.least(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviderPrograms",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviderPrograms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update  a teacherPreparationProviderPrograms",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "27682757-bf36-480c-ad30-5343c062700c",
+								"exec": [
+									"pm.environment.set(\"teacherPreparationProgramTypeDescriptor\",\"uri://ed-fi.org/teacherPreparationProgramTypeDescriptor#A2\");\r",
+									"pm.environment.set(\"tppProgramPathwayDescriptor\",\"uri://ed-fi.org/tppProgramPathwayDescriptor#A2\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5be0c396-5cd4-4270-a23f-ace52ea34e09",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"teacherPreparationProgramTypeDescriptor\": \"{{teacherPreparationProgramTypeDescriptor}}\",\r\n  \"tppProgramPathwayDescriptor\": \"{{tppProgramPathwayDescriptor}}\"\r\n }"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviderPrograms/{{known:teacherPreparationProviderProgramGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviderPrograms",
+								"{{known:teacherPreparationProviderProgramGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a teacherPreparationProviderPrograms",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0ea875e2-47ae-478d-9552-1fd27bee94fc",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5dcf28ba-eb9e-401e-bd32-f54730856a03",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.teacherPreparationProgramTypeDescriptor).to.be.equal(pm.environment.get(\"teacherPreparationProgramTypeDescriptor\"));",
+									"     pm.expect(responseItems.tppProgramPathwayDescriptor).to.be.equal(pm.environment.get(\"tppProgramPathwayDescriptor\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviderPrograms/{{known:teacherPreparationProviderProgramGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviderPrograms",
+								"{{known:teacherPreparationProviderProgramGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  a teacherPreparationProviderPrograms",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "9e4522c0-822a-4258-b411-1fcebb4b9e7a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "7b6c36b7-fd7e-4c72-86cb-fa788a64a6af",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviderPrograms/{{known:teacherPreparationProviderProgramGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherPreparationProviderPrograms",
+								"{{known:teacherPreparationProviderProgramGUID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "fdcf9fb1-bfc3-43c0-ab95-784884d2b437",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "09972f29-ecc0-4824-86dd-d50a370cb640",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TeacherCandidateTeacherPreparationProviderAssociations",
+			"item": [
+				{
+					"name": "Create a new  teacherCandidateTeacherPreparationProviderAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a80f8c69-d1ef-4c82-ab08-47abf2b41e2a",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"const moment = require('moment'); \r",
+									"let entryDate=new Date();\r",
+									"entryDate = entryDate.addMonths(__.random(50));\r",
+									"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");\r",
+									"pm.environment.set(\"entryDate\",entryDate);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "69cb8c5f-65af-42e0-aa8a-8345e802a822",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:teacherCandidateTeacherPreparationProviderAssociationGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"entryDate\": \"{{entryDate}}\",\r\n    \"teacherCandidateReference\": {\r\n    \"teacherCandidateIdentifier\": \"{{supplied:teacherCandidateIdentifier}}\"\r\n  },\r\n  \"teacherPreparationProviderReference\": {\r\n    \"teacherPreparationProviderId\": \"{{supplied:teacherPreparationProviderId}}\"\r\n  }  \r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a teacherCandidateTeacherPreparationProviderAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2f142c46-5b7e-49bc-a189-8a472485c783",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "63b95963-5c16-438f-814b-f5627a50e799",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.entryDate).to.be.equal(pm.environment.get(\"entryDate\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderAssociations/{{known:teacherCandidateTeacherPreparationProviderAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderAssociations",
+								"{{known:teacherCandidateTeacherPreparationProviderAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update  a teacherCandidateTeacherPreparationProviderAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "828cdf9e-7dcc-45a2-8e37-fee3c3cae92f",
+								"exec": [
+									"pm.environment.set(\"entryTypeDescriptor\",\"uri://ed-fi.org/EntryTypeDescriptor#Transfer\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8b8a12ab-ff17-4076-b22f-b58fc8a5c8f6",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"entryTypeDescriptor\": \"{{entryTypeDescriptor}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderAssociations/{{known:teacherCandidateTeacherPreparationProviderAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderAssociations",
+								"{{known:teacherCandidateTeacherPreparationProviderAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a teacherCandidateTeacherPreparationProviderAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a61401b5-b26d-4f26-a3a2-2570e276471a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ba51c167-2a65-456d-a9b1-a82c9365bd6b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.entryTypeDescriptor).to.be.equal(pm.environment.get(\"entryTypeDescriptor\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderAssociations/{{known:teacherCandidateTeacherPreparationProviderAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderAssociations",
+								"{{known:teacherCandidateTeacherPreparationProviderAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  a teacherCandidateTeacherPreparationProviderAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "add52288-5ab0-4040-addd-d305ee2d6e5a",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "dd8e285e-9348-4328-940c-f6d86e67ab8a",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderAssociations/{{known:teacherCandidateTeacherPreparationProviderAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderAssociations",
+								"{{known:teacherCandidateTeacherPreparationProviderAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2a195ba4-fd90-4b53-a5ad-9168141e8c87",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c86713fd-cd66-4755-8194-45540eefee4e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TeacherCandidateTeacherPreparationProviderProgramAssociation",
+			"item": [
+				{
+					"name": "Create a new  teacherCandidateTeacherPreparationProviderAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "efe151b0-a147-4a2c-b23a-5465e9996492",
+								"exec": [
+									"const moment = require('moment'); \r",
+									"const __ = require('lodash');\r",
+									"let beginDate=new Date();\r",
+									"beginDate = beginDate.addMonths(__.random(50));\r",
+									"beginDate= moment(beginDate).format(\"YYYY-MM-DD\");\r",
+									"pm.environment.set(\"beginDate\",beginDate);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "51bcfbf7-8e04-4d7d-8dd0-9a01a400f7ef",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:teacherCandidateTeacherPreparationProviderProgramAssociationGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n  \"beginDate\": \"{{beginDate}}\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"teacherCandidateReference\": {\r\n    \"teacherCandidateIdentifier\": \"{{supplied:teacherCandidateIdentifier}}\"\r\n  },\r\n  \"teacherPreparationProviderProgramReference\": {\r\n  \"educationOrganizationId\": \"{{known:schoolId}}\",\r\n  \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Regular Education\",\r\n  \"programName\": \"Regular Education\"\r\n  }  \r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderProgramAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a teacherCandidateTeacherPreparationProviderProgramAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1ff7a1e6-c272-4bee-8ede-7048a362e321",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6e43132-ed8c-4065-a6fa-c48f80ed4319",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.beginDate).to.be.equal(pm.environment.get(\"beginDate\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociations/{{known:teacherCandidateTeacherPreparationProviderProgramAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderProgramAssociations",
+								"{{known:teacherCandidateTeacherPreparationProviderProgramAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update  a teacherCandidateTeacherPreparationProviderProgramAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d946c76b-c1b2-4736-a38e-1a5d8aec08ea",
+								"exec": [
+									"const moment = require('moment'); \r",
+									"const __ = require('lodash');\r",
+									"let endDate=new Date();\r",
+									"endDate = endDate.addMonths(__.random(50));\r",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");\r",
+									"pm.environment.set(\"endDate\",endDate);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f747f3cd-f12e-46cc-95f0-53f6f91f8ef8",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"endDate\": \"{{endDate}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociations/{{known:teacherCandidateTeacherPreparationProviderProgramAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderProgramAssociations",
+								"{{known:teacherCandidateTeacherPreparationProviderProgramAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a teacherCandidateTeacherPreparationProviderProgramAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "91f24293-65e4-48a9-9dca-f89cc8ddcdac",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "2e06fb2c-bf20-407a-8af3-2b64943856cb",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.endDate).to.be.equal(pm.environment.get(\"endDate\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociations/{{known:teacherCandidateTeacherPreparationProviderProgramAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderProgramAssociations",
+								"{{known:teacherCandidateTeacherPreparationProviderProgramAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  a teacherCandidateTeacherPreparationProviderProgramAssociations",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "14a89510-e693-4cce-a300-4515defc6040",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1403c2c9-e3e4-45f5-a34d-4291f4a6157f",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociations/{{known:teacherCandidateTeacherPreparationProviderProgramAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"teacherCandidateTeacherPreparationProviderProgramAssociations",
+								"{{known:teacherCandidateTeacherPreparationProviderProgramAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "390a3d43-8ec1-41ee-bc10-47b6dc14bd02",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "257bf4cf-14d5-4e51-8739-182ef5006b7a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "StaffTeacherPreparationProviderAssociation",
+			"item": [
+				{
+					"name": "Create a new  StaffTeacherPreparationProviderAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3997371d-0123-4897-9ab7-93dd76858bbc",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "51b45036-7a67-47aa-b67f-82d3b512d52e",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:StaffTeacherPreparationProviderAssociationsGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"schoolYearTypeReference\": {\r\n    \"schoolYear\": 1991\r\n   },\r\n  \"staffReference\": {\r\n    \"staffUniqueId\": \"{{known:staffUniqueId}}\"\r\n   },\r\n  \"teacherPreparationProviderReference\": {\r\n    \"teacherPreparationProviderId\": \"{{supplied:teacherPreparationProviderId}}\"\r\n  },\r\n  \r\n  \"programAssignmentDescriptor\": \"uri://ed-fi.org/ProgramAssignmentDescriptor#Special Education\"\r\n  \r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a StaffTeacherPreparationProviderAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c0f5222a-862f-4488-87d2-3cf810658364",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "44b732bc-5b3a-4ff3-b417-f9d27696793e",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.staffReference.staffUniqueId).to.be.equal(pm.environment.get(\"known:staffUniqueId\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderAssociations/{{known:StaffTeacherPreparationProviderAssociationsGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderAssociations",
+								"{{known:StaffTeacherPreparationProviderAssociationsGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update  a StaffTeacherPreparationProviderAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b74c231d-f375-4ea5-bb9c-c7b914d6e340",
+								"exec": [
+									"pm.environment.set(\"gradeLevelDescriptor\",\"uri://ed-fi.org/GradeLevelDescriptor#Adult Education\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6bab9c5e-c30d-4612-89ab-e38a1ec459c1",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\": \"{{gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n   \"programAssignmentDescriptor\": \"uri://ed-fi.org/ProgramAssignmentDescriptor#Special Education\",\r\n    \"schoolYearTypeReference\": {\r\n    \"schoolYear\": 1991\r\n   }\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderAssociations/{{known:StaffTeacherPreparationProviderAssociationsGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderAssociations",
+								"{{known:StaffTeacherPreparationProviderAssociationsGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a StaffTeacherPreparationProviderAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "49eba89f-b11b-4f84-ad07-0545bb66dfe1",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1d355378-3326-46dc-a127-533ea04f1d86",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.gradeLevels[0].gradeLevelDescriptor).to.be.equal(pm.environment.get(\"gradeLevelDescriptor\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderAssociations/{{known:StaffTeacherPreparationProviderAssociationsGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderAssociations",
+								"{{known:StaffTeacherPreparationProviderAssociationsGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  a StaffTeacherPreparationProviderAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2110f447-b359-4032-b75c-f09a0398f41d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "319cb1f5-1926-42b6-9019-3d98cc4fa81b",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderAssociations/{{known:StaffTeacherPreparationProviderAssociationsGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderAssociations",
+								"{{known:StaffTeacherPreparationProviderAssociationsGUID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8f91bf25-5a5a-485b-8f2b-496bbf0bb921",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1320bd39-ee7d-4923-80b7-c89225357396",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "StaffTeacherPreparationProviderProgramAssociation",
+			"item": [
+				{
+					"name": "Create a new  StaffTeacherPreparationProviderProgramAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f727f5ea-ee09-4cb0-9fa3-ef8a90a2248d",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"const moment = require('moment'); \r",
+									"let beginDate=new Date();\r",
+									"beginDate = beginDate.addMonths(__.random(50));\r",
+									"beginDate= moment(beginDate).format(\"YYYY-MM-DD\");\r",
+									"pm.environment.set(\"beginDate\",beginDate);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d57e1687-ef40-41fa-98bb-6ed18cd696a9",
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"pm.environment.set('known:StaffTeacherPreparationProviderProgramAssociationGUID',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"staffReference\": {\r\n    \"staffUniqueId\": \"{{known:staffUniqueId}}\"\r\n  },\r\n  \"teacherPreparationProviderProgramReference\": {\r\n     \"programName\": \"Regular Education\",\r\n     \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Regular Education\",\r\n     \"educationOrganizationId\":\"{{known:schoolId}}\"  \r\n  },\r\n  \"beginDate\": \"{{beginDate}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderProgramAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderProgramAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a StaffTeacherPreparationProviderProgramAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fc37ad24-63a3-435e-958e-192157c6a211",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "77e4b68e-c3ec-413a-9070-ba11957ebf6b",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"     pm.expect(responseItems.staffReference.staffUniqueId).to.be.equal(pm.environment.get(\"known:staffUniqueId\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderProgramAssociations/{{known:StaffTeacherPreparationProviderProgramAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderProgramAssociations",
+								"{{known:StaffTeacherPreparationProviderProgramAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update  a StaffTeacherPreparationProviderProgramAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "8713c2f5-40d2-43c7-b83b-699db7ebc4e6",
+								"exec": [
+									"const __ = require('lodash');\r",
+									"const moment = require('moment'); \r",
+									"let endDate=new Date();\r",
+									"pm.environment.set(\"beginDate\",endDate);\r",
+									"endDate = endDate.addMonths(__.random(50));\r",
+									"endDate= moment(endDate).format(\"YYYY-MM-DD\");\r",
+									"pm.environment.set(\"endDate\",endDate);\r",
+									"\r",
+									"let beginDate=new Date();\r",
+									"beginDate = beginDate.addMonths(__.random(10));\r",
+									"beginDate= moment(beginDate).format(\"YYYY-MM-DD\");\r",
+									"pm.environment.set(\"beginDate\",beginDate);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "810416fb-5678-4744-978d-61cbe31991ae",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"beginDate\": \"{{beginDate}}\",\r\n   \"endDate\": \"{{endDate}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderProgramAssociations/{{known:StaffTeacherPreparationProviderProgramAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderProgramAssociations",
+								"{{known:StaffTeacherPreparationProviderProgramAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a StaffTeacherPreparationProviderProgramAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d6478947-6572-4495-9b46-5fc94e835f24",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "311d9fd0-e463-45d5-8f8b-078c2d967a34",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"        pm.expect(pm.response.code).to.equal(200);",
+									"    });",
+									"",
+									"pm.test(\"Should return some data for verification\", () => {",
+									"    var responseItems = pm.response.json();",
+									"    pm.expect(responseItems.beginDate).to.be.equal(pm.environment.get(\"beginDate\"));",
+									"    pm.expect(responseItems.endDate).to.be.equal(pm.environment.get(\"endDate\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderProgramAssociations/{{known:StaffTeacherPreparationProviderProgramAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderProgramAssociations",
+								"{{known:StaffTeacherPreparationProviderProgramAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  a StaffTeacherPreparationProviderProgramAssociation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "23ee735b-d7a0-4142-beea-64608cc32363",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "55d4624e-3213-4ccb-a384-f21bded868a2",
+								"exec": [
+									"pm.test(\"Status code is 204\", () => {",
+									"        pm.expect(pm.response.code).to.equal(204);",
+									"    });",
+									"pm.test(\"Response body should be empty\", () =>  {",
+									"    pm.expect(pm.response.text().length).to.equal(0);",
+									"});    "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/StaffTeacherPreparationProviderProgramAssociations/{{known:StaffTeacherPreparationProviderProgramAssociationGUID}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"tpdm",
+								"StaffTeacherPreparationProviderProgramAssociations",
+								"{{known:StaffTeacherPreparationProviderProgramAssociationGUID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "03ce37a3-4fec-417e-8a5c-22ae31059a78",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f0af95c-8b86-467f-b6b7-ab6a1c6638d8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken_255901}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f043859b-0e19-44bd-8e20-90d7c4920e40",
+				"type": "text/javascript",
+				"exec": [
+					"CreateAccessToken(\"TokenExpiry_255901\",",
+					"                  \"AccessToken_255901\",",
+					"                  \"ApiKey_255901\", ",
+					"                  \"ApiSecret_255901\")",
+					"                  ",
+					"CreateAccessToken(\"TokenExpiry_MultipleEdorg_255901001_5001\",",
+					"                  \"AccessToken_MultipleEdorg_255901001_5001\",",
+					"                  \"ApiKey_MultipleEdorg_255901001_5001\", ",
+					"                  \"ApiSecret_MultipleEdorg_255901001_5001\")   ",
+					"",
+					"CreateAccessToken(\"TokenExpiry_MultipleEdorg_5001_51\",",
+					"                  \"AccessToken_MultipleEdorg_5001_51\",",
+					"                  \"ApiKey_MultipleEdorg_5001_51\", ",
+					"                  \"ApiSecret_MultipleEdorg_5001_51\")             ",
+					"",
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
+					"function CreateAccessToken(TokenExpiry,AccessToken,ApiKey, ApiSecret)",
+					"                  {",
+					"let tokenExpiration = pm.environment.get(TokenExpiry);",
+					"let currentToken = pm.environment.get(AccessToken);",
+					"let  getToken = true;",
+					"if (!tokenExpiration || ",
+					"    !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"} else {",
+					"    getToken = false;",
+					"    console.log('Token and expiration date are still valid');",
+					"}",
+					"if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get(ApiKey);",
+					"    let clientSecret = pm.environment.get(ApiSecret);",
+					"    let grantType = 'client_credentials';",
+					"    ",
+					"    let getTokenRequest = {",
+					"        method: 'POST',",
+					"        url: tokenUrl,",
+					"        auth: {",
+					"            type: \"basic\",",
+					"            basic: [",
+					"                { key: \"username\", value: clientId },",
+					"                { key: \"password\", value: clientSecret }",
+					"            ]",
+					"        },",
+					"        header: [",
+					"            \"content-type:application/json\"",
+					"        ],",
+					"        body: {",
+					"            mode: \"raw\",",
+					"            raw: JSON.stringify({ Grant_type: grantType })",
+					"        }",
+					"    };",
+					"    ",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"        let jsonResponse = response.json(),",
+					"            newAccessToken = jsonResponse.access_token;",
+					"    ",
+					"        console.log({ err, jsonResponse, newAccessToken })",
+					"    ",
+					"        pm.environment.set(AccessToken, newAccessToken);",
+					"    ",
+					"        let expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"        pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"    });",
+					"}",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "db06df55-b635-47b1-a769-b631b584831b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
