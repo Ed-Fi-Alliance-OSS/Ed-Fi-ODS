@@ -293,7 +293,7 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         [Produces(MediaTypeNames.Application.Json)]
-        public async Task<IActionResult> Delete(Guid id)
+        public virtual async Task<IActionResult> Delete(Guid id)
         {
             // Read the If-Match header and populate the delete context based on the value (or lack of one)
             var enforceOptimisticLock = Request.TryGetRequestHeader(HeaderConstants.IfMatch, out string etag);

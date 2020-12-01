@@ -23,12 +23,12 @@ namespace EdFi.Ods.Common.Database
         {
             if (_databaseEngine == DatabaseEngine.Postgres)
             {
-                return Activator.CreateInstance<NpgsqlConnectionStringBuilderAdapter>();
+                return new NpgsqlConnectionStringBuilderAdapter();
             }
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
-                return Activator.CreateInstance<SqlConnectionStringBuilderAdapter>();
+                return new SqlConnectionStringBuilderAdapter();
             }
 
             throw new ArgumentException("Unknown database engine specified");

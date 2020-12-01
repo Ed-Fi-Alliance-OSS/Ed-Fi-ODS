@@ -39,11 +39,12 @@ namespace EdFi.Ods.Api.ExceptionHandling
 
             // Default exception message is to just return all the messages in the exception stack as an Internal Server Error
             var response = new RESTError
-                           {
-                               // This class translates into a serialized output that matches inBloom's approach to error handling.
-                               Code = (int) HttpStatusCode.InternalServerError, Type = "Internal Server Error",
-                               Message = "An unexpected error occurred on the server."
-                           };
+            {
+                // This class translates into a serialized output that matches inBloom's approach to error handling.
+                Code = (int) HttpStatusCode.InternalServerError,
+                Type = "Internal Server Error",
+                Message = "An unexpected error occurred on the server."
+            };
 
             return response;
         }
