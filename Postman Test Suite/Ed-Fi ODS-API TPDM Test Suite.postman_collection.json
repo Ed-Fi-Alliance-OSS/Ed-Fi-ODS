@@ -1075,8 +1075,8 @@
 									"    });",
 									"",
 									"pm.test(\"Should return some data for verification\", () => {",
-									"    var responseItems = pm.response.json();",
-									"     pm.expect(responseItems.nameOfInstitution).to.be.equal(pm.environment.get(\"nameOfInstitution\"));",
+									"    var responseItem = pm.response.json();",
+									"     pm.expect(responseItem.nameOfInstitution).to.be.equal(pm.environment.get(\"nameOfInstitution\"));",
 									"});"
 								],
 								"type": "text/javascript"
