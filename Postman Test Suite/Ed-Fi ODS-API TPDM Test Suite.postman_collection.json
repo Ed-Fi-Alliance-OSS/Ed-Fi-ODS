@@ -2842,8 +2842,8 @@
 									"    });",
 									"",
 									"pm.test(\"Should return some data for verification\", () => {",
-									"    var responseItems = pm.response.json();",
-									"     pm.expect(responseItems.staffReference.staffUniqueId).to.be.equal(pm.environment.get(\"known:staffUniqueId\"));",
+									"    var responseItem = pm.response.json();",
+									"     pm.expect(responseItem.staffReference.staffUniqueId).to.be.equal(pm.environment.get(\"known:staffUniqueId\"));",
 									"});"
 								],
 								"type": "text/javascript"
