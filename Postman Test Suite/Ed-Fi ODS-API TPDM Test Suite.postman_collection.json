@@ -1611,9 +1611,9 @@
 									"    });",
 									"",
 									"pm.test(\"Should return some data for verification\", () => {",
-									"    var responseItems = pm.response.json();",
-									"     pm.expect(responseItems.teacherPreparationProgramTypeDescriptor).to.be.equal(pm.environment.get(\"teacherPreparationProgramTypeDescriptor\"));",
-									"     pm.expect(responseItems.tppProgramPathwayDescriptor).to.be.equal(pm.environment.get(\"tppProgramPathwayDescriptor\"));",
+									"    var responseItem = pm.response.json();",
+									"     pm.expect(responseItem.teacherPreparationProgramTypeDescriptor).to.be.equal(pm.environment.get(\"teacherPreparationProgramTypeDescriptor\"));",
+									"     pm.expect(responseItem.tppProgramPathwayDescriptor).to.be.equal(pm.environment.get(\"tppProgramPathwayDescriptor\"));",
 									"});"
 								],
 								"type": "text/javascript"
