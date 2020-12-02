@@ -2627,8 +2627,8 @@
 									"    });",
 									"",
 									"pm.test(\"Should return some data for verification\", () => {",
-									"    var responseItems = pm.response.json();",
-									"     pm.expect(responseItems.gradeLevels[0].gradeLevelDescriptor).to.be.equal(pm.environment.get(\"gradeLevelDescriptor\"));",
+									"    var responseItem = pm.response.json();",
+									"     pm.expect(responseItem.gradeLevels[0].gradeLevelDescriptor).to.be.equal(pm.environment.get(\"gradeLevelDescriptor\"));",
 									"});"
 								],
 								"type": "text/javascript"
