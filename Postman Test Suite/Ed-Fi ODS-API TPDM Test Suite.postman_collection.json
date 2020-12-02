@@ -1828,8 +1828,8 @@
 									"    });",
 									"",
 									"pm.test(\"Should return some data for verification\", () => {",
-									"    var responseItems = pm.response.json();",
-									"     pm.expect(responseItems.entryDate).to.be.equal(pm.environment.get(\"entryDate\"));",
+									"    var responseItem = pm.response.json();",
+									"     pm.expect(responseItem.entryDate).to.be.equal(pm.environment.get(\"entryDate\"));",
 									"});"
 								],
 								"type": "text/javascript"
