@@ -1951,8 +1951,8 @@
 									"    });",
 									"",
 									"pm.test(\"Should return some data for verification\", () => {",
-									"    var responseItems = pm.response.json();",
-									"     pm.expect(responseItems.entryTypeDescriptor).to.be.equal(pm.environment.get(\"entryTypeDescriptor\"));",
+									"    var responseItem = pm.response.json();",
+									"     pm.expect(responseItem.entryTypeDescriptor).to.be.equal(pm.environment.get(\"entryTypeDescriptor\"));",
 									"});"
 								],
 								"type": "text/javascript"
