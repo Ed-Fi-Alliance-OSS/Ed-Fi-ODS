@@ -2976,9 +2976,9 @@
 									"    });",
 									"",
 									"pm.test(\"Should return some data for verification\", () => {",
-									"    var responseItems = pm.response.json();",
-									"    pm.expect(responseItems.beginDate).to.be.equal(pm.environment.get(\"beginDate\"));",
-									"    pm.expect(responseItems.endDate).to.be.equal(pm.environment.get(\"endDate\"));",
+									"    var responseItem = pm.response.json();",
+									"    pm.expect(responseItem.beginDate).to.be.equal(pm.environment.get(\"beginDate\"));",
+									"    pm.expect(responseItem.endDate).to.be.equal(pm.environment.get(\"endDate\"));",
 									"});"
 								],
 								"type": "text/javascript"
