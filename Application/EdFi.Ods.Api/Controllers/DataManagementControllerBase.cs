@@ -330,19 +330,25 @@ namespace EdFi.Ods.Api.Controllers
             {
                 try
                 {
-                    var urlBuilder = new UriBuilder
-                    {
-                        Scheme = Request.Scheme,
-                        Host = Request.Host.Host,
-                        Path = Request.Path
-                    };
+                    //var urlBuilder = new UriBuilder
+                    //{
+                    //    Scheme = Request.Scheme,
+                    //    Host = Request.Host.Host,
+                    //    Path = Request.Path
+                    //};
 
-                    if (Request.Host.Port.HasValue)
-                    {
-                        urlBuilder.Port = Request.Host.Port.Value;
-                    }
+                    var urlBuilder = new UriBuilder(
+                        Request.Scheme(true),
+                        Request.Host(true),
+                        Request.Port(true),
+                        $"{Request.PathBase}{Request.Path}");
 
-                    _applicationUrl = $"{urlBuilder.Uri}{GetResourceCollectionName()}";
+                    //if (Request.Host.Port.HasValue)
+                    //{
+                    //    urlBuilder.Port = Request.Host.Port.Value;
+                    //}
+
+                    _applicationUrl = $"{urlBuilder.Uri}";//{GetResourceCollectionName()}"
                 }
                 catch (Exception ex)
                 {

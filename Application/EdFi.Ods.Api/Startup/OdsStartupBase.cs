@@ -213,6 +213,8 @@ namespace EdFi.Ods.Api.Startup
         {
             loggerFactory.AddLog4Net();
 
+            app.UsePathBase("/odsapi");
+
             Container = app.ApplicationServices.GetAutofacRoot();
 
             if (env.IsDevelopment())
