@@ -209,11 +209,17 @@ namespace EdFi.Ods.Api.Startup
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ApiSettings apiSettings)
         {
             loggerFactory.AddLog4Net();
 
-            app.UsePathBase("/odsapi");
+            var virtualPathEnabled = apiSettings.VirtualPathEnabled ?? false;
+
+            if (virtualPathEnabled)
+            {
+                app.UsePathBase("/odsapi");
+            }
+            
 
             Container = app.ApplicationServices.GetAutofacRoot();
 
