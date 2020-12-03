@@ -22,72 +22,74 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace {{ControllersNamespace}}
 {
-    {{#NullRequests}}
+{{#NullRequests}}
     [ExcludeFromCodeCoverage]
     public class {{ClassName}} : NullRequestBase { }
 
-    {{/NullRequests}}
+{{/NullRequests}}
     [ApiExplorerSettings(IgnoreApi = true)]
     [ExcludeFromCodeCoverage]
     [ApiController]
     [Authorize]
-    {{#ProfileContentType}}
+{{#ProfileContentType}}
     [ProfileContentType("{{ContentType}}")]
-    {{/ProfileContentType}}
+{{/ProfileContentType}}
     [Route("{{RouteTemplate}}")]
     public partial class {{ControllerClass}} : DataManagementControllerBase<
-        {{ResourceReadModel}},
-        {{ResourceWriteModel}},
-        {{EntityInterface}},
-        {{AggregateRoot}},
-        {{PutRequest}},
-        {{PostRequest}},
-        {{DeleteRequest}},
-        {{GetByExampleRequest}}>
+{{ResourceReadModel}},
+{{ResourceWriteModel}},
+{{EntityInterface}},
+{{AggregateRoot}},
+{{PutRequest}},
+{{PostRequest}},
+{{DeleteRequest}},
+{{GetByExampleRequest}}>
     {
-        public {{ControllerClass}}(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public {{ControllerClass}}(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
         protected override void MapAll({{GetByExampleRequest}} request, {{ExtensionNamespacePrefix}}I{{ResourceName}} specification)
         {
-        {{#MapAllExpression}}
-            {{#HasProperties}}
+{{#MapAllExpression}}
+{{#HasProperties}}
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            {{/HasProperties}}
-            {{#Properties}}
+{{/HasProperties}}
+{{#Properties}}
             specification.{{SpecificationProperty}} = request.{{RequestProperty}};
-            {{/Properties}}
-            {{^HasProperties}}
+{{/Properties}}
+{{^HasProperties}}
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
-            {{/HasProperties}}
-        {{/MapAllExpression}}
+{{/HasProperties}}
+{{/MapAllExpression}}
         }
 
         protected override string GetResourceCollectionName()
         {
             return "{{ResourceCollectionName}}";
         }
-        {{#ReadContentType}}
+{{#ReadContentType}}
 
         protected override string GetReadContentType()
         {
             return "{{ReadContentType}}";
         }
-        {{/ReadContentType}}
-        {{#OverrideHttpFunctions}}
+{{/ReadContentType}}
+{{#OverrideHttpFunctions}}
 
         [ProducesResponseType(StatusCodes.Status405MethodNotAllowed)]
-        public override Task<IActionResult> {{MethodName}}({{MethodParameters}})
-        {
-            return Task.FromResult<IActionResult>(
-                StatusCode(StatusCodes.Status405MethodNotAllowed,
-                ErrorTranslator
-                    .GetErrorMessage("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}.")));
+        public override Task<IActionResult>
+    {{MethodName}}({{MethodParameters}})
+    {
+    return Task.FromResult<IActionResult>
+        (
+        StatusCode(StatusCodes.Status405MethodNotAllowed,
+        ErrorTranslator
+        .GetErrorMessage("The allowed methods for this resource with the '{{ProfileName}}' profile are {{AllowedHttpMethods}}.")));
         }
         {{/OverrideHttpFunctions}}
-    }
-}
-{{/Controllers}}
+        }
+        }
+        {{/Controllers}}
