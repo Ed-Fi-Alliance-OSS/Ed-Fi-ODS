@@ -11,8 +11,7 @@
     <releaseNotes></releaseNotes>
   </metadata>
   <files>
-    <file src="Artifacts/**/*.sql" target="."/>
-    <file src="Artifacts/**/*.json" target="."/>
+		<file src="assemblyMetadata.json" target="."/>
     <file src="bin\$configuration$\netcoreapp3.1\EdFi.Ods.Extensions.ExtensionName.dll" target="."/>
   </files>
 </package>
