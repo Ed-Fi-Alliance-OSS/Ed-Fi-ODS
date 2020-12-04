@@ -13,18 +13,25 @@ using System.Reflection;
 using System.Runtime.Loader;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Conventions;
+using EdFi.Ods.Api.Models;
+using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensibility;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Common.Validation;
 using FluentValidation;
 using log4net;
+using log4net.Repository.Hierarchy;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Helpers
 {
     public static class AssemblyLoaderHelper
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
-
+        private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
         public static void LoadAssembliesFromExecutingFolder(bool includeFramework = false)
         {
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
@@ -127,9 +134,7 @@ namespace EdFi.Ods.Api.Helpers
                 _logger.Debug($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
                 yield break;
             }
-
-            var validator = GetValidator();
-
+            
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
 
             var pluginFinderAssemblyContext = new PluginAssemblyLoadingContext();
@@ -142,23 +147,20 @@ namespace EdFi.Ods.Api.Helpers
                 {
                     continue;
                 }
-
-                if (assemblyPath.Contains("Extensions"))
+                
+                string extensionFolder = Path.GetDirectoryName(assemblyPath);
+                if (Directory.Exists(extensionFolder))
                 {
-                    string extensionFolder = Path.GetDirectoryName(assemblyPath);
-                    var validationResult = validator.ValidateObject(extensionFolder);
-
-                    if (!validationResult.Any())
+                    string[] assemblyMetadataPath = Directory.GetFiles(
+                        extensionFolder, AssemblyMetadataSearchString, SearchOption.AllDirectories);
+                        
+                    if (IsExtensionInAssemblyModelType(assemblyMetadataPath[0]))
                     {
                         yield return assembly.Location;
                     }
-                    else
-                    {
-                        _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
-                    }
                 }
-            }
 
+            }
             pluginFinderAssemblyContext.Unload();
 
             bool IsPluginFolderNameSupplied()
@@ -171,18 +173,7 @@ namespace EdFi.Ods.Api.Helpers
                 _logger.Debug($"Plugin folder was not specified so no plugins will be loaded.");
                 return false;
             }
-
-            static FluentValidationObjectValidator GetValidator()
-            {
-                return new FluentValidationObjectValidator(
-                    new IValidator[]
-                    {
-                        new ApiModelExistsValidator(),
-                        new IsExtensionPluginValidator(),
-                        new IsApiVersionValidValidator(ApiVersionConstants.InformationalVersion)
-                    });
-            }
-
+            
             static bool HasPlugin(Assembly assembly)
             {
                 return assembly.GetTypes().Any(
@@ -191,6 +182,30 @@ namespace EdFi.Ods.Api.Helpers
             }
         }
 
+        private static bool IsExtensionInAssemblyModelType(string assemblyMetadataPath)
+        {
+            var assemblyMetadata = Load(assemblyMetadataPath);
+
+            return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(TemplateSetConventions.Extension);
+        }
+        
+        public static AssemblyMetadata Load(string fileFullName)
+       {
+           if (!File.Exists(fileFullName))
+           {
+               throw new FileNotFoundException($"Non-existent file path provided. Expected location {fileFullName}.");
+           }
+
+           _logger.Debug($"Deserializing object type {typeof(AssemblyMetadata)} from file {fileFullName}.");
+
+           using (StreamReader file = File.OpenText(fileFullName))
+           {
+               JsonSerializer serializer = new JsonSerializer();
+               return (AssemblyMetadata)serializer.Deserialize(file, typeof(AssemblyMetadata));
+           }
+       }
+
+       
         private class PluginAssemblyLoadingContext : AssemblyLoadContext
         {
             public PluginAssemblyLoadingContext()
