@@ -29,9 +29,7 @@ namespace EdFi.LoadTools.Test.MappingFactories
             _xmlMetadata = xfactory.GetMetadata().ToList();
 
             var factory =
-                new LookupToIdentityMetadataMappingFactory(
-                    _xmlMetadata.AsEnumerable(),
-                    new NameMatchingMetadataMapper());
+                new LookupToIdentityMetadataMappingFactory(_xmlMetadata, new NameMatchingMetadataMapper());
 
             _mappings = factory.GetMetadataMappings().ToArray();
         }
