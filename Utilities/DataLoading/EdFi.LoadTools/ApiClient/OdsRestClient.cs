@@ -39,7 +39,12 @@ namespace EdFi.LoadTools.ApiClient
             _tokenHandler = tokenHandler;
             _schemaNames = schemaNames;
 
-            _httpClient = new HttpClient
+            HttpClientHandler handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
+
+            _httpClient = new HttpClient(handler)
                           {
                               Timeout = new TimeSpan(0, 0, 5, 0), BaseAddress = new Uri(_configuration.Url.TrimEnd('/'))
                           };

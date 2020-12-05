@@ -64,11 +64,13 @@ namespace EdFi.LoadTools.Common
             }
 
             details = new ProfileContentTypeDetails
-                      {
-                          Implementation = match.Groups["Implementation"].Value, Resource = match.Groups["Resource"].Value,
-                          Profile = match.Groups["Profile"].Value, Usage =
-                              (ContentTypeUsage) Enum.Parse(typeof(ContentTypeUsage), match.Groups["Usage"].Value, true)
-                      };
+            {
+                Implementation = match.Groups["Implementation"].Value,
+                Resource = match.Groups["Resource"].Value,
+                Profile = match.Groups["Profile"].Value,
+                Usage =
+                    (ContentTypeUsage) Enum.Parse(typeof(ContentTypeUsage), match.Groups["Usage"].Value, true)
+            };
 
             return true;
         }

@@ -129,7 +129,12 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
         {
             var contentType = BuildJsonMimeType(Inflector.MakeSingular(Resource.Name));
 
-            var client = new HttpClient
+            HttpClientHandler handler = new HttpClientHandler
+            {
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
+
+            var client = new HttpClient(handler)
                          {
                              Timeout = new TimeSpan(0, 0, 5, 0), BaseAddress = new Uri(Configuration.Url)
                          };

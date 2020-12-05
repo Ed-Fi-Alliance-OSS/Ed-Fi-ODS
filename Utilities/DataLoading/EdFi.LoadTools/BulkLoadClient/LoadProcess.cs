@@ -1,64 +1,54 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Security;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
-using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.BulkLoadClient.Application;
-using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Factories;
-using EdFi.LoadTools.Engine.FileImportPipeline;
-using EdFi.LoadTools.Engine.Mapping;
-using EdFi.LoadTools.Engine.MappingFactories;
-using EdFi.LoadTools.Engine.ResourcePipeline;
 using log4net;
-using SimpleInjector;
-using SimpleInjector.Lifestyles;
 
 namespace EdFi.LoadTools.BulkLoadClient
 {
-    public static class LoadProcess
+    public class LoadProcess : ILoadProcess
     {
         private static readonly ILog _log = LogManager.GetLogger(nameof(LoadProcess));
+        private readonly IApiLoaderApplication _application;
+        private readonly Configuration _configuration;
 
-        public static int Run(Configuration configuration)
+        public LoadProcess(Configuration configuration, IApiLoaderApplication application)
+        {
+            _configuration = configuration;
+            _application = application;
+        }
+
+        public async Task<int> Run()
         {
             ConfigureTls();
 
             int exitCode;
 
-            if (!configuration.IsValid)
+            if (!_configuration.IsValid)
             {
                 exitCode = 1;
-                _log.Error(configuration.ErrorText);
+                _log.Error(_configuration.ErrorText);
             }
             else
             {
                 try
                 {
-                    using (var container = new Container())
-                    {
-                        container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+                    LogConfiguration(_configuration);
 
-                        LogConfiguration(configuration);
-
-                        // configure DI container
-                        ConfigureCompositionRoot(container, configuration);
-
-                        // retrieve application
-                        var application = container.GetInstance<IApiLoaderApplication>();
-
-                        // run application
-                        exitCode = application.Run().Result;
-                    }
+                    // run application
+                    exitCode = await _application.Run();
                 }
                 catch (AggregateException ex)
                 {
@@ -70,6 +60,7 @@ namespace EdFi.LoadTools.BulkLoadClient
                     }
                 }
             }
+
             return exitCode;
         }
 
@@ -96,10 +87,7 @@ namespace EdFi.LoadTools.BulkLoadClient
                                       XmlSchemaValidationFlags.ProcessIdentityConstraints
                 };
 
-                xmlReaderSettings.ValidationEventHandler += (s, e) =>
-                {
-                    validationErrors.Add(e.Message);
-                };
+                xmlReaderSettings.ValidationEventHandler += (s, e) => { validationErrors.Add(e.Message); };
 
                 using (var fileStream = new FileStream(fileToImport, FileMode.Open, FileAccess.Read))
                 {
@@ -107,7 +95,8 @@ namespace EdFi.LoadTools.BulkLoadClient
                     {
                         while (reader.Read())
                         {
-                            if (reader.NodeType == XmlNodeType.Element && unsupportedInterchanges.Any(i => i.Equals(reader.Name, StringComparison.InvariantCultureIgnoreCase)))
+                            if (reader.NodeType == XmlNodeType.Element && unsupportedInterchanges.Any(
+                                i => i.Equals(reader.Name, StringComparison.InvariantCultureIgnoreCase)))
                             {
                                 validationErrors.Add($"Import of data for {reader.Name} is not supported");
                             }
@@ -115,6 +104,7 @@ namespace EdFi.LoadTools.BulkLoadClient
 
                         reader.Close();
                     }
+
                     fileStream.Close();
                 }
             }
@@ -133,82 +123,6 @@ namespace EdFi.LoadTools.BulkLoadClient
             _log.Info($"Working Folder:           {configuration.WorkingFolder}");
             _log.Info($"Xsd Folder:               {configuration.XsdFolder}");
             _log.Info($"Dependencies Url:         {configuration.DependenciesUrl}");
-        }
-
-        private static void ConfigureCompositionRoot(Container container, Configuration configuration)
-        {
-            container.RegisterSingleton<IApiConfiguration>(() => configuration);
-            container.RegisterSingleton<IApiMetadataConfiguration>(() => configuration);
-            container.RegisterSingleton<IHashCacheConfiguration>(() => configuration);
-            container.RegisterSingleton<IDataConfiguration>(() => configuration);
-            container.RegisterSingleton<IOAuthTokenConfiguration>(() => configuration);
-            container.RegisterSingleton<IXsdConfiguration>(() => configuration);
-            container.RegisterSingleton<IInterchangeOrderConfiguration>(() => configuration);
-            container.RegisterSingleton<IThrottleConfiguration>(() => configuration);
-            container.RegisterSingleton<IBulkLoadClientResult, BulkLoadClientResult>();
-            container.RegisterSingleton<DependenciesRetriever>();
-            container.RegisterSingleton<SwaggerMetadataRetriever>();
-            container.RegisterSingleton<SwaggerRetriever>();
-            container.RegisterSingleton<XsdStreamsRetriever>();
-            container.RegisterSingleton<IFileContextProvider, FileContextProvider>();
-            container.RegisterSingleton<SchemaSetFactory>();
-            container.RegisterSingleton<OAuthTokenHandler>();
-            container.Register<FileImportPipeline>();
-            container.Register<ResourcePipeline>();
-
-            container.RegisterSingleton<IEnumerable<JsonModelMetadata>>(
-                () => container.GetInstance<IMetadataFactory<JsonModelMetadata>>().GetMetadata().ToArray());
-
-            container.RegisterSingleton<IEnumerable<XmlModelMetadata>>(
-                () => container.GetInstance<IMetadataFactory<XmlModelMetadata>>().GetMetadata().ToArray());
-
-            var xmlReferenceCacheFactoryRegistration =
-                Lifestyle.Singleton.CreateRegistration<XmlReferenceCacheFactory>(container);
-
-            container.AddRegistration(typeof(IXmlReferenceCacheFactory), xmlReferenceCacheFactoryRegistration);
-            container.AddRegistration(typeof(IXmlReferenceCacheProvider), xmlReferenceCacheFactoryRegistration);
-
-            container.RegisterSingleton(() => container.GetInstance<SchemaSetFactory>().GetSchemaSet());
-
-            container.RegisterSingleton<IHashProvider, HashProvider>();
-            container.RegisterSingleton<IResourceHashCache, ResourceHashCache>();
-            container.RegisterSingleton<IMetadataFactory<JsonModelMetadata>, JsonMetadataFactory>();
-            container.RegisterSingleton<IMetadataFactory<XmlModelMetadata>, XsdApiTypesMetadataFactory>();
-            container.RegisterSingleton<IMetadataMappingFactory, ResourceToResourceMetadataMappingFactory>();
-            container.RegisterSingleton<ITokenRetriever, TokenRetriever>();
-            container.Register<IOdsRestClient, OdsRestClient>();
-            container.Register<ISubmitResource, SubmitResource>();
-            container.Register<IApiLoaderApplication, ApiLoaderApplication>();
-
-            if (configuration.IncludeStats)
-            {
-                container.RegisterSingleton<IResourceStatistic, ResourceStatistic>();
-                container.RegisterDecorator<ISubmitResource, SubmitResourceTimingDecorator>();
-                container.RegisterDecorator<IApiLoaderApplication, ApiLoaderApplicationTimerDecorator>();
-            }
-
-            container.Collection.Register<IFileImportPipelineStep>(
-                new[]
-                {
-                    typeof(FindReferencesStep), typeof(PreloadReferencesStep)
-                });
-
-            container.Collection.Register<IResourcePipelineStep>(
-                new[]
-                {
-                    typeof(ComputeHashStep), typeof(FilterResourceStep), typeof(ResolveReferenceStep), typeof(MapElementStep)
-                });
-
-            container.Collection.Register<IMetadataMapper>(
-                new[]
-                {
-                    typeof(ArrayMetadataMapper), typeof(DescriptorReferenceMetadataMapper), typeof(NameMatchingMetadataMapper)
-                });
-
-            // Holds unique schema names
-            container.RegisterSingleton(() => new List<string>());
-
-            container.Verify();
         }
 
         /// <summary>

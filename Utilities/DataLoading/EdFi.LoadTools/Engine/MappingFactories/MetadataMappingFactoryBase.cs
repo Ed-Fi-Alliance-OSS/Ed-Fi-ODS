@@ -15,18 +15,18 @@ namespace EdFi.LoadTools.Engine.MappingFactories
     {
         protected readonly List<JsonModelMetadata> JsonMetadata;
         protected readonly ILog Log;
-        protected readonly IEnumerable<IMetadataMapper> MappingStrategies;
+        protected readonly List<IMetadataMapper> MappingStrategies;
         protected readonly List<XmlModelMetadata> XmlMetadata;
 
         protected MetadataMappingFactoryBase(
-            IEnumerable<XmlModelMetadata> xmlMetadata,
-            IEnumerable<JsonModelMetadata> jsonMetadata,
-            IEnumerable<IMetadataMapper> mappingStrategies)
+            List<XmlModelMetadata> xmlMetadata,
+            List<JsonModelMetadata> jsonMetadata,
+            List<IMetadataMapper> mappingStrategies)
         {
             Log = LogManager.GetLogger(GetType().Name);
             MappingStrategies = mappingStrategies;
-            JsonMetadata = jsonMetadata.ToList();
-            XmlMetadata = xmlMetadata.ToList();
+            JsonMetadata = jsonMetadata;
+            XmlMetadata = xmlMetadata;
         }
 
         protected virtual IList<XmlModelMetadata> FilteredXmlMetadata => XmlMetadata;

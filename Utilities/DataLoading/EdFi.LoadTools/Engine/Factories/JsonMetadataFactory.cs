@@ -20,15 +20,19 @@ namespace EdFi.LoadTools.Engine.Factories
 
         public IEnumerable<JsonModelMetadata> GetMetadata()
         {
-            return _swaggerMetadata.GetMetadata().Result
-                                   .Where(
-                                        j => j.Property != "_etag"
-                                             && j.Property != "id"
-                                             && j.Property != "link"
-                                             && j.Property != "priorDescriptorId"
-                                             && !(j.Model.EndsWith("Descriptor") && j.Property == $"{j.Model}Id")
-                                    )
-                                   .Distinct(new ModelMetadataEqualityComparer<JsonModelMetadata>());
+            var task = _swaggerMetadata.GetMetadata().ConfigureAwait(false);
+
+            var result = task.GetAwaiter().GetResult().ToList();
+
+            return result
+                .Where(
+                    j => j.Property != "_etag"
+                         && j.Property != "id"
+                         && j.Property != "link"
+                         && j.Property != "priorDescriptorId"
+                         && !(j.Model.EndsWith("Descriptor") && j.Property == $"{j.Model}Id")
+                )
+                .Distinct(new ModelMetadataEqualityComparer<JsonModelMetadata>());
         }
     }
 }

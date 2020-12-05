@@ -5,17 +5,22 @@
 
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Autofac;
 using EdFi.BulkLoadClient.Console.Application;
+using EdFi.BulkLoadClient.Console.Modules;
+using EdFi.LoadTools.BulkLoadClient;
+using EdFi.LoadTools.Engine;
 using log4net;
 using log4net.Config;
 
 namespace EdFi.BulkLoadClient.Console
 {
-    public class Program
+    public static class Program
     {
         private static readonly ILog _log = LogManager.GetLogger(nameof(Program));
 
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             XmlConfigurator.Configure();
 
@@ -40,18 +45,20 @@ namespace EdFi.BulkLoadClient.Console
                 Environment.Exit(Environment.ExitCode);
             }
 
+
             try
             {
-                Environment.ExitCode = LoadTools.BulkLoadClient.LoadProcess.Run(p.Object);
+                var container = RegisterContainer();
+                await using var scope = container.BeginLifetimeScope();
+
+                var loadProcess = container.Resolve<ILoadProcess>();
+
+                Environment.ExitCode = await loadProcess.Run();
             }
-            catch (AggregateException ex)
+            catch (Exception ex)
             {
                 Environment.ExitCode = 1;
-
-                foreach (var e in ex.InnerExceptions)
-                {
-                    _log.Error(e);
-                }
+                _log.Error(ex);
             }
             finally
             {
@@ -64,6 +71,32 @@ namespace EdFi.BulkLoadClient.Console
                 }
 
                 Environment.Exit(Environment.ExitCode);
+            }
+
+            ILifetimeScope RegisterContainer()
+            {
+                var builder = new ContainerBuilder();
+
+                builder.RegisterInstance(p.Object)
+                    .As<IApiConfiguration>()
+                    .As<IHashCacheConfiguration>()
+                    .As<IDataConfiguration>()
+                    .As<IOAuthTokenConfiguration>()
+                    .As<IApiMetadataConfiguration>()
+                    .As<IXsdConfiguration>()
+                    .As<IInterchangeOrderConfiguration>()
+                    .As<IThrottleConfiguration>()
+                    .AsSelf()
+                    .SingleInstance();
+
+                builder.RegisterModule(new LoadToolsModule());
+
+                if (p.Object.IncludeStats)
+                {
+                    builder.RegisterModule(new IncludeStatsModule());
+                }
+
+                return builder.Build();
             }
         }
     }
