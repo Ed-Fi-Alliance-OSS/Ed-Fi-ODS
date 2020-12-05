@@ -6,22 +6,22 @@
 using System;
 using System.Diagnostics;
 using System.Net;
+using System.Threading.Tasks;
+using Autofac;
 using EdFi.LoadTools;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.SmokeTest;
 using EdFi.SmokeTest.Console.Application;
 using log4net;
 using log4net.Config;
-using SimpleInjector;
 
 namespace EdFi.SmokeTest.Console
 {
     public partial class Program
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
-        private static Container _container;
 
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             XmlConfigurator.Configure();
             ConfigureTls();
@@ -38,11 +38,12 @@ namespace EdFi.SmokeTest.Console
             {
                 try
                 {
-                    using (_container = new Container())
-                    {
-                        ConfigureCommandLineContainer(_container, parser.Object);
-                        StartCommandLine(_container);
-                    }
+                    var container = RegisterContainer();
+                    await using var scope = container.BeginLifetimeScope();
+
+                    var application = container.Resolve<ISmokeTestApplication>();
+
+                    Environment.ExitCode = await application.Run();
                 }
                 catch (AggregateException ex)
                 {
@@ -60,7 +61,8 @@ namespace EdFi.SmokeTest.Console
                 }
                 finally
                 {
-                    _container.Dispose();
+                    Log.Info($"Exit Code is {Environment.ExitCode}");
+
                     if (Debugger.IsAttached)
                     {
                         System.Console.WriteLine("Press enter to continue.");
@@ -68,41 +70,41 @@ namespace EdFi.SmokeTest.Console
                     }
                 }
             }
-        }
 
-        private static void StartCommandLine(Container container)
-        {
-            var application = container.GetInstance<ISmokeTestApplication>();
-            Environment.ExitCode = application.Run().Result;
-            Log.Info($"Exit Code is {Environment.ExitCode}");
-        }
-
-        private static void ConfigureCommandLineContainer(Container container, Configuration configuration)
-        {
-            container.RegisterInstance<IApiConfiguration>(configuration);
-            container.RegisterInstance<IApiMetadataConfiguration>(configuration);
-            container.RegisterInstance<IOAuthTokenConfiguration>(configuration);
-            container.RegisterInstance<IOAuthSessionToken>(configuration);
-            container.RegisterInstance<ISdkLibraryConfiguration>(configuration);
-            container.RegisterInstance<IDestructiveTestConfiguration>(configuration);
-            container.Register<ISmokeTestApplication, SmokeTestApplicationNoBlocks>();
-
-            switch (configuration.TestSet)
+            ILifetimeScope RegisterContainer()
             {
-                case TestSet.NonDestructiveApi:
-                    ConfigureNonDestructiveApi(container);
-                    break;
-                case TestSet.NonDestructiveSdk:
-                    ConfigureNonDestructiveSdk(container);
-                    break;
-                case TestSet.DestructiveSdk:
-                    ConfigureDestructiveSdk(container);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                var builder = new ContainerBuilder();
 
-            container.Verify();
+                builder.RegisterInstance(parser.Object)
+                    .As<IApiConfiguration>()
+                    .As<IApiMetadataConfiguration>()
+                    .As<IOAuthTokenConfiguration>()
+                    .As<IOAuthSessionToken>()
+                    .As<ISdkLibraryConfiguration>()
+                    .As<IDestructiveTestConfiguration>()
+                    .SingleInstance();
+
+                builder.RegisterModule(new SmokeTestsModule());
+
+                switch (parser.Object.TestSet)
+                {
+                    case TestSet.NonDestructiveApi:
+                        builder.RegisterModule(new SmokeTestsApiModule());
+                        break;
+                    case TestSet.NonDestructiveSdk:
+                        builder.RegisterModule(new SmokeTestsSdkModule());
+                        builder.RegisterModule(new SmokeTestsNonDestructiveSdkModule());
+                        break;
+                    case TestSet.DestructiveSdk:
+                        builder.RegisterModule(new SmokeTestsSdkModule());
+                        builder.RegisterModule(new SmokeTestsDestructiveSdkModule());
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                return builder.Build();
+            }
         }
 
         /// <summary>
