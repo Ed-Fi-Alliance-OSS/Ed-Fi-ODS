@@ -37,12 +37,7 @@ namespace EdFi.LoadTools.SmokeTest.CommonTests
 
             using (LogicalThreadContext.Stacks["NDC"].Push(uri.ToString()))
             {
-                HttpClientHandler handler = new HttpClientHandler
-                {
-                    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-                };
-
-                var client = new HttpClient(handler)
+                var client = new HttpClient
                 {
                     Timeout = new TimeSpan(0, 0, 5, 0),
                     BaseAddress = uri

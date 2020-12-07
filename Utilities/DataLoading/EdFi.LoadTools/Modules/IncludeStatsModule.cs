@@ -4,10 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.LoadTools;
 using EdFi.LoadTools.Engine.ResourcePipeline;
 
-namespace EdFi.BulkLoadClient.Console.Modules
+namespace EdFi.LoadTools.Modules
 {
     public class IncludeStatsModule : Module
     {

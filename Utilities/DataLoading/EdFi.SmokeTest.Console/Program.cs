@@ -17,7 +17,7 @@ using log4net.Config;
 
 namespace EdFi.SmokeTest.Console
 {
-    public partial class Program
+    public class Program
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
 

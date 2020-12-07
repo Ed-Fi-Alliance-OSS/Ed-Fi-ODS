@@ -5,6 +5,7 @@
 
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using Autofac;
 using EdFi.LoadTools;
 using EdFi.LoadTools.Engine;
@@ -18,7 +19,7 @@ namespace EdFi.XmlLookup.Console
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Program).Name);
 
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             XmlConfigurator.Configure();
             ConfigureTls();
@@ -46,18 +47,17 @@ namespace EdFi.XmlLookup.Console
             {
                 try
                 {
+                    // configure DI container
                     var container = RegisterContainer();
-                    using var scope = container.BeginLifetimeScope();
+                    await using var scope = container.BeginLifetimeScope();
 
                     LogConfiguration(p.Object);
-
-                    // configure DI container
 
                     // retrieve application
                     var application = container.Resolve<XmlLookupApplication>();
 
                     // run application
-                    exitCode = application.Run().Result;
+                    exitCode = await application.Run();
                 }
                 catch (Exception ex)
                 {

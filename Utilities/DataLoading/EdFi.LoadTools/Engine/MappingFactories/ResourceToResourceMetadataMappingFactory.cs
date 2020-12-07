@@ -12,6 +12,7 @@ namespace EdFi.LoadTools.Engine.MappingFactories
 {
     public class ResourceToResourceMetadataMappingFactory : MetadataMappingFactoryBase
     {
+        //TODO To be fixed on ODS-4721 -- need to sort out the factory generation
         public ResourceToResourceMetadataMappingFactory(
             IEnumerable<XmlModelMetadata> xmlMetadata,
             IEnumerable<JsonModelMetadata> jsonMetadata,

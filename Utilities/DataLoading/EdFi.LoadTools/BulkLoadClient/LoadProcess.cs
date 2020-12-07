@@ -12,43 +12,42 @@ using System.Net.Security;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
+using Autofac;
 using EdFi.LoadTools.BulkLoadClient.Application;
+using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Factories;
+using EdFi.LoadTools.Modules;
 using log4net;
 
 namespace EdFi.LoadTools.BulkLoadClient
 {
-    public class LoadProcess : ILoadProcess
+    public static class LoadProcess
     {
         private static readonly ILog _log = LogManager.GetLogger(nameof(LoadProcess));
-        private readonly IApiLoaderApplication _application;
-        private readonly Configuration _configuration;
 
-        public LoadProcess(Configuration configuration, IApiLoaderApplication application)
-        {
-            _configuration = configuration;
-            _application = application;
-        }
-
-        public async Task<int> Run()
+        public static async Task<int> Run(Configuration configuration)
         {
             ConfigureTls();
 
             int exitCode;
 
-            if (!_configuration.IsValid)
+            if (!configuration.IsValid)
             {
                 exitCode = 1;
-                _log.Error(_configuration.ErrorText);
+                _log.Error(configuration.ErrorText);
             }
             else
             {
                 try
                 {
-                    LogConfiguration(_configuration);
+                    var container = RegisterContainer();
+
+                    await using var scope = container.BeginLifetimeScope();
+
+                    LogConfiguration(configuration);
 
                     // run application
-                    exitCode = await _application.Run();
+                    exitCode = await container.Resolve<IApiLoaderApplication>().Run();
                 }
                 catch (AggregateException ex)
                 {
@@ -62,6 +61,32 @@ namespace EdFi.LoadTools.BulkLoadClient
             }
 
             return exitCode;
+
+            ILifetimeScope RegisterContainer()
+            {
+                var builder = new ContainerBuilder();
+
+                builder.RegisterInstance(configuration)
+                    .As<IApiConfiguration>()
+                    .As<IHashCacheConfiguration>()
+                    .As<IDataConfiguration>()
+                    .As<IOAuthTokenConfiguration>()
+                    .As<IApiMetadataConfiguration>()
+                    .As<IXsdConfiguration>()
+                    .As<IInterchangeOrderConfiguration>()
+                    .As<IThrottleConfiguration>()
+                    .AsSelf()
+                    .SingleInstance();
+
+                builder.RegisterModule(new LoadToolsModule());
+
+                if (configuration.IncludeStats)
+                {
+                    builder.RegisterModule(new IncludeStatsModule());
+                }
+
+                return builder.Build();
+            }
         }
 
         private static IEnumerable<string> GetFilesToImport(Configuration configuration)

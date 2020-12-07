@@ -42,12 +42,7 @@ namespace EdFi.LoadTools.ApiClient
 
         private static HttpClient GetHttpClient(string url)
         {
-            HttpClientHandler handler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-            };
-
-            var client = new HttpClient(handler)
+            var client = new HttpClient
                          {
                              Timeout = new TimeSpan(0, 0, 5, 0), BaseAddress = new Uri(url)
                          };

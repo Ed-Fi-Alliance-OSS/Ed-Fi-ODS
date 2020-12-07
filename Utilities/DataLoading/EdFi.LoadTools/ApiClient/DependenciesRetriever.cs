@@ -106,12 +106,7 @@ namespace EdFi.LoadTools.ApiClient
 
         private async Task<string> LoadJsonStringAsync(string dependenciesUrl)
         {
-            HttpClientHandler handler = new HttpClientHandler
-            {
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
-            };
-
-            using var client = new HttpClient(handler)
+            using var client = new HttpClient
             {
                 Timeout = new TimeSpan(0, 0, 5, 0)
             };

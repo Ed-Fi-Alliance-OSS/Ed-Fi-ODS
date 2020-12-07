@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using Autofac;
-using EdFi.LoadTools;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.BulkLoadClient;
 using EdFi.LoadTools.Engine;
@@ -15,7 +14,7 @@ using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.MappingFactories;
 using EdFi.LoadTools.Engine.ResourcePipeline;
 
-namespace EdFi.BulkLoadClient.Console.Modules
+namespace EdFi.LoadTools.Modules
 {
     public class LoadToolsModule : Module
     {
@@ -107,9 +106,6 @@ namespace EdFi.BulkLoadClient.Console.Modules
             // Holds unique schema names
             builder.RegisterInstance(new List<string>())
                 .SingleInstance();
-
-            builder.RegisterType<LoadProcess>()
-                .As<ILoadProcess>();
 
             void RegisterMappers()
             {
