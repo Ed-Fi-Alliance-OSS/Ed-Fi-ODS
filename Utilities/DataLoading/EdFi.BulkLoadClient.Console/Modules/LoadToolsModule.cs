@@ -19,7 +19,6 @@ namespace EdFi.BulkLoadClient.Console.Modules
 {
     public class LoadToolsModule : Module
     {
-
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<BulkLoadClientResult>()
