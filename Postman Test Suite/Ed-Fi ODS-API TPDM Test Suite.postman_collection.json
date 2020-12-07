@@ -815,18 +815,10 @@
 									"pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
 									"    });",
-									"const __ = require('lodash');",
-									"var isFlag= false;",
+									"",
 									"pm.test(\"Should return some data for verification\", () => {",
-									"    var responseItems = pm.response.json();",
-									"    __.each(responseItems, (responseItem) => {",
-									"            if(responseItem.id===pm.environment.get('known:universityGUID'))",
-									"            {   ",
-									"                isFlag=true;     ",
-									"                pm.expect(responseItem.nameOfInstitution).to.be.equal(pm.environment.get(\"nameOfInstitution\").toString());",
-									"            }",
-									"    });",
-									"    pm.expect(isFlag).to.equal(true);",
+									"    var responseItem = pm.response.json();",
+									"     pm.expect(responseItem.nameOfInstitution).to.be.equal(pm.environment.get(\"nameOfInstitution\").toString());   ",
 									"});"
 								],
 								"type": "text/javascript"
@@ -851,7 +843,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/universities/",
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/universities/{{known:universityGUID}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -860,7 +852,7 @@
 								"v3",
 								"tpdm",
 								"universities",
-								""
+								"{{known:universityGUID}}"
 							]
 						}
 					},
@@ -1120,7 +1112,7 @@
 					"response": []
 				},
 				{
-					"name": "Get a teacherPreparationProvider by nameOfInstitution",
+					"name": "Get a teacherPreparationProvider",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -1140,19 +1132,9 @@
 									"pm.test(\"Status code is 200\", () => {",
 									"        pm.expect(pm.response.code).to.equal(200);",
 									"    });",
-									"const __ = require('lodash');",
-									"var isFlag= false;",
 									"pm.test(\"Should return some data for verification\", () => {",
-									"    var responseItems = pm.response.json(); ",
-									"    __.each(responseItems, (responseItem) => {",
-									"            if(responseItem.id===pm.environment.get('known:teacherPreparationProviderGUID'))",
-									"            {   ",
-									"                isFlag=true;     ",
-									"                var nameOfInstitution=pm.environment.get(\"nameOfInstitution\");",
-									"                pm.expect(responseItem.nameOfInstitution).to.be.equal(nameOfInstitution);",
-									"            }",
-									"    });",
-									"    pm.expect(isFlag).to.equal(true);",
+									"    var responseItem = pm.response.json();",
+									"     pm.expect(responseItem.nameOfInstitution).to.be.equal(pm.environment.get(\"nameOfInstitution\"));",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1177,7 +1159,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviders/",
+							"raw": "{{ApiBaseUrl}}/data/v3/tpdm/teacherPreparationProviders/{{known:teacherPreparationProviderGUID}}",
 							"host": [
 								"{{ApiBaseUrl}}"
 							],
@@ -1186,7 +1168,7 @@
 								"v3",
 								"tpdm",
 								"teacherPreparationProviders",
-								""
+								"{{known:teacherPreparationProviderGUID}}"
 							]
 						}
 					},
