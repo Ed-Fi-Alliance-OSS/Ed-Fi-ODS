@@ -217,9 +217,12 @@ namespace EdFi.Ods.Api.Startup
 
             if (virtualPathEnabled)
             {
-                app.UsePathBase("/odsapi");
+                var pathBase = !string.IsNullOrEmpty(apiSettings.PathBase)
+                    ? apiSettings.PathBase
+                    : "/odsapi";
+
+                app.UsePathBase(pathBase);
             }
-            
 
             Container = app.ApplicationServices.GetAutofacRoot();
 
