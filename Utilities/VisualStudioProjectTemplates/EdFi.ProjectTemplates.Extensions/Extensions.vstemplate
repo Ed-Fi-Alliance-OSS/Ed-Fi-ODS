@@ -18,6 +18,9 @@
     <Project File="Template_Project.csproj" TargetFileName="$safeprojectname$.csproj" ReplaceParameters="true">
       <!-- Project supporting files -->
 
+      <!-- Nuspec file  for new extension -->
+      <ProjectItem ReplaceParameters="true" OpenInEditor="true">EdFi.Ods.Extensions.ExtensionName.nuspec</ProjectItem>
+
       <!-- Template files requiring parameter replacement -->
       <ProjectItem ReplaceParameters="true" OpenInEditor="true">Marker_EdFi_Ods_Extensions_ExtensionName.cs</ProjectItem>
 

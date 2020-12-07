@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Marker_EdFi_Ods_Extensions_ExtensionName.cs" />
+    <Content Include="EdFi.Ods.Extensions.ExtensionName.nuspec" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -86,7 +87,6 @@
     <None Include="Artifacts\PgSql\Data\EdFi\ThisFileMustExist.txt" />
     <None Include="Artifacts\PgSql\Structure\EdFi\ThisFileMustExist.txt" />
     <None Include="Artifacts\Schemas\ThisFileMustExist.txt" />
-    <None Include="EdFi.Ods.Extensions.ExtensionName.nuspec" />
     <None Include="Template_Project.csproj">
       <SubType>Designer</SubType>
     </None>
