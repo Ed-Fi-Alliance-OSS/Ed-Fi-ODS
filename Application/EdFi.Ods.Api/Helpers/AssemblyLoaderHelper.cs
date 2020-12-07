@@ -156,12 +156,36 @@ namespace EdFi.Ods.Api.Helpers
                         
                     if (IsExtensionInAssemblyModelType(assemblyMetadataPath[0]))
                     {
-                        yield return assembly.Location;
+                        var validator = GetValidator();
+                        var validationResult = validator.ValidateObject(extensionFolder);
+                        if (!validationResult.Any())
+                        {
+                            yield return assembly.Location;
+                        }
+                        else
+                        {
+                            _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
+                        }
+                    }
+                    else
+                    {
+                       yield return assembly.Location;
                     }
                 }
 
             }
             pluginFinderAssemblyContext.Unload();
+
+            static FluentValidationObjectValidator GetValidator()
+            {
+                return new FluentValidationObjectValidator(
+                    new IValidator[]
+                    {
+                        new ApiModelExistsValidator(),
+                        new IsExtensionPluginValidator(),
+                        new IsApiVersionValidValidator(ApiVersionConstants.InformationalVersion)
+                    });
+            }
 
             bool IsPluginFolderNameSupplied()
             {

@@ -7,7 +7,7 @@
 <owners>Ed-Fi Alliance</owners>
 <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</projectUrl>
 <requireLicenseAcceptance>false</requireLicenseAcceptance>
-<description>EdFi.Ods.Extensions.SampleStudentTransportation</description>
+<description>EdFi.Suite3.Ods.Profiles.Sample</description>
 <releaseNotes></releaseNotes>
 </metadata>
 <files>
