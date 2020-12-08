@@ -154,7 +154,7 @@ namespace EdFi.Ods.Api.Helpers
                     string[] assemblyMetadataPath = Directory.GetFiles(
                         extensionFolder, AssemblyMetadataSearchString, SearchOption.AllDirectories);
                         
-                    if (IsExtensionInAssemblyModelType(assemblyMetadataPath[0]))
+                    if (assemblyMetadataPath.Length>0 && IsExtensionInAssemblyModelType(assemblyMetadataPath[0]))
                     {
                         var validator = GetValidator();
                         var validationResult = validator.ValidateObject(extensionFolder);
@@ -167,7 +167,7 @@ namespace EdFi.Ods.Api.Helpers
                             _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
                         }
                     }
-                    else
+                    else if (assemblyMetadataPath.Length > 0 && IsProfileInAssemblyModelType(assemblyMetadataPath[0]))
                     {
                        yield return assembly.Location;
                     }
@@ -212,7 +212,14 @@ namespace EdFi.Ods.Api.Helpers
 
             return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(TemplateSetConventions.Extension);
         }
-        
+
+        private static bool IsProfileInAssemblyModelType(string assemblyMetadataPath)
+        {
+            var assemblyMetadata = Load(assemblyMetadataPath);
+
+            return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(TemplateSetConventions.Profile);
+        }
+
         public static AssemblyMetadata Load(string fileFullName)
        {
            if (!File.Exists(fileFullName))
