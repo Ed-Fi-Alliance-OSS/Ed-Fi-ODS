@@ -7,6 +7,7 @@ PRINT N'Altering [auth].[ParentUSIToSchoolId]...';
 GO
 
 ALTER VIEW [auth].[ParentUSIToSchoolId]
+    WITH SCHEMABINDING
 AS
     -- School to Parent USI
     SELECT ssa.SchoolId
