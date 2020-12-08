@@ -106,16 +106,15 @@ namespace EdFi.LoadTools.ApiClient
 
         private async Task<string> LoadJsonStringAsync(string dependenciesUrl)
         {
-            using (var client = new HttpClient
+            using var client = new HttpClient
             {
                 Timeout = new TimeSpan(0, 0, 5, 0)
-            })
-            {
-                var response = await client.GetAsync(dependenciesUrl).ConfigureAwait(false);
+            };
 
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
+            var response = await client.GetAsync(dependenciesUrl).ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         }
     }
 }

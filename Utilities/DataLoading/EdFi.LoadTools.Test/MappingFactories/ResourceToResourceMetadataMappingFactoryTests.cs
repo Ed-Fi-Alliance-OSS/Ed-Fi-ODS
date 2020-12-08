@@ -40,14 +40,12 @@ namespace EdFi.LoadTools.Test.MappingFactories
             var jfactory = new JsonMetadataFactory(metadataRetriever);
             _jsonMetadata = jfactory.GetMetadata().ToList();
 
-            var strategies = new IMetadataMapper[]
+            var strategies = new List<IMetadataMapper>
                              {
                                  new ArrayMetadataMapper(), new DescriptorReferenceMetadataMapper(), new NameMatchingMetadataMapper()
                              };
 
-            var factory = new ResourceToResourceMetadataMappingFactory(
-                _xmlMetadata.AsEnumerable(),
-                _jsonMetadata.AsEnumerable(), strategies);
+            var factory = new ResourceToResourceMetadataMappingFactory(_xmlMetadata, _jsonMetadata, strategies);
 
             _mappings = factory.GetMetadataMappings().ToArray();
         }

@@ -18,9 +18,9 @@ namespace EdFi.LoadTools.Engine.MappingFactories
         private readonly Regex _typeRegex = new Regex(Constants.IdentityTypeRegex);
 
         public ResourceToIdentityMetadataMappingFactory(
-            IEnumerable<XmlModelMetadata> xmlMetadata,
-            IEnumerable<JsonModelMetadata> jsonMetadata,
-            IEnumerable<IMetadataMapper> mappingStrategies)
+            List<XmlModelMetadata> xmlMetadata,
+            List<JsonModelMetadata> jsonMetadata,
+            List<IMetadataMapper> mappingStrategies)
             : base(xmlMetadata, jsonMetadata, mappingStrategies) { }
 
         protected override IList<XmlModelMetadata> FilteredXmlMetadata => XmlMetadata.Where(x => !x.Type.EndsWith("ReferenceType")).ToList();

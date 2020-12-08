@@ -5,17 +5,19 @@
 
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using EdFi.BulkLoadClient.Console.Application;
+using EdFi.LoadTools.BulkLoadClient;
 using log4net;
 using log4net.Config;
 
 namespace EdFi.BulkLoadClient.Console
 {
-    public class Program
+    public static class Program
     {
         private static readonly ILog _log = LogManager.GetLogger(nameof(Program));
 
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             XmlConfigurator.Configure();
 
@@ -42,16 +44,12 @@ namespace EdFi.BulkLoadClient.Console
 
             try
             {
-                Environment.ExitCode = LoadTools.BulkLoadClient.LoadProcess.Run(p.Object);
+                Environment.ExitCode = await LoadProcess.Run(p.Object);
             }
-            catch (AggregateException ex)
+            catch (Exception ex)
             {
                 Environment.ExitCode = 1;
-
-                foreach (var e in ex.InnerExceptions)
-                {
-                    _log.Error(e);
-                }
+                _log.Error(ex);
             }
             finally
             {

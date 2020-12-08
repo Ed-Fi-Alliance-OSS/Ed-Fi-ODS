@@ -122,20 +122,24 @@ namespace EdFi.LoadTools.ApiClient
 
         private async Task<string> LoadJsonString(string localUrl)
         {
-            using (var client = new HttpClient
-                                {
-                                    Timeout = new TimeSpan(0, 0, 5, 0)
-                                })
+            HttpClientHandler handler = new HttpClientHandler
             {
-                var response = await client.GetAsync(
-                                                string.IsNullOrEmpty(localUrl)
-                                                    ? _configuration.Url
-                                                    : localUrl)
-                                           .ConfigureAwait(false);
+                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+            };
 
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
+            using var client = new HttpClient(handler)
+            {
+                Timeout = new TimeSpan(0, 0, 5, 0)
+            };
+
+            var response = await client.GetAsync(
+                    string.IsNullOrEmpty(localUrl)
+                        ? _configuration.Url
+                        : localUrl)
+                .ConfigureAwait(false);
+
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         }
 
         private class OperationRef

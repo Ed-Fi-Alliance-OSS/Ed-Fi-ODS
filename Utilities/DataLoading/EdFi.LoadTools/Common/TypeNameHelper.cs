@@ -13,7 +13,7 @@ namespace EdFi.LoadTools.Common
     public static class TypeNameHelper
     {
         public static bool CompareTypeNames(string resource, string key, string separator,
-                                            IEnumerable<string> schemaNames = null)
+            IEnumerable<string> schemaNames = null)
         {
             var resourceName = CompositeTermInflector.MakeSingular(resource.Split('/').Last());
 

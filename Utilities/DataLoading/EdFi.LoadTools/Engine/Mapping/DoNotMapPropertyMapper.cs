@@ -16,7 +16,7 @@ namespace EdFi.LoadTools.Engine.Mapping
         protected abstract UnmappedProperty[] XmlProperties { get; }
 
         public void CreateMetadataMappings(MetadataMapping mapping, List<ModelMetadata> sourceModels,
-                                           List<ModelMetadata> targetModels)
+            List<ModelMetadata> targetModels)
         {
             targetModels.RemoveAll(
                 j =>

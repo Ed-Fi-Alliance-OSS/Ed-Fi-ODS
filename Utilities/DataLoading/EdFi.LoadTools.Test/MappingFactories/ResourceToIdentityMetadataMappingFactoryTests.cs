@@ -38,7 +38,7 @@ namespace EdFi.LoadTools.Test.MappingFactories
             var xfactory = new XsdMetadataFactory(ssbuilder.GetSchemaSet());
             _xmlMetadata = xfactory.GetMetadata().ToList();
 
-            var strategies = new IMetadataMapper[]
+            var strategies = new List<IMetadataMapper>
                              {
                                  //new DiminishingMetadataMapper(),
                                  new PremappedLookupMetadataMapper(), new LookupDoNotMapPropertyMapper(),

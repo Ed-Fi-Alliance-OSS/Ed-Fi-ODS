@@ -12,7 +12,7 @@ namespace EdFi.LoadTools.Engine.Mapping
     public abstract class PremappedMetadataMapper : IMetadataMapper
     {
         public void CreateMetadataMappings(MetadataMapping mapping, List<ModelMetadata> sourceModels,
-                                           List<ModelMetadata> targetModels)
+            List<ModelMetadata> targetModels)
         {
             var mappings = GetPrematchedMappings().SelectMany(
                 p1 => p1.PropertyMappings.Select(
@@ -24,11 +24,14 @@ namespace EdFi.LoadTools.Engine.Mapping
                         if (xmlMap != null && jsonMap != null)
                         {
                             return new PropertyMapping
-                                   {
-                                       SourceName = xmlMap.PropertyPath, SourceType = xmlMap.Type,
-                                       TargetName = jsonMap.PropertyPath, TargetType = jsonMap.Type,
-                                       IsArray = xmlMap.IsArray, MappingStrategy = p1.MappingStrategy
-                                   };
+                            {
+                                SourceName = xmlMap.PropertyPath,
+                                SourceType = xmlMap.Type,
+                                TargetName = jsonMap.PropertyPath,
+                                TargetType = jsonMap.Type,
+                                IsArray = xmlMap.IsArray,
+                                MappingStrategy = p1.MappingStrategy
+                            };
                         }
 
                         //log exception

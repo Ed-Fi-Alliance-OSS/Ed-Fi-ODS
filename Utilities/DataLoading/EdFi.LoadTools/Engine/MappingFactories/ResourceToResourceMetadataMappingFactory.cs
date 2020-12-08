@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -12,11 +12,12 @@ namespace EdFi.LoadTools.Engine.MappingFactories
 {
     public class ResourceToResourceMetadataMappingFactory : MetadataMappingFactoryBase
     {
+        //TODO To be fixed on ODS-4721 -- need to sort out the factory generation
         public ResourceToResourceMetadataMappingFactory(
             IEnumerable<XmlModelMetadata> xmlMetadata,
             IEnumerable<JsonModelMetadata> jsonMetadata,
             IEnumerable<IMetadataMapper> mappingStrategies)
-            : base(xmlMetadata, jsonMetadata, mappingStrategies) { }
+            : base(xmlMetadata.ToList(), jsonMetadata.ToList(), mappingStrategies.ToList()) { }
 
         protected override IEnumerable<MetadataMapping> CreateMappings()
         {

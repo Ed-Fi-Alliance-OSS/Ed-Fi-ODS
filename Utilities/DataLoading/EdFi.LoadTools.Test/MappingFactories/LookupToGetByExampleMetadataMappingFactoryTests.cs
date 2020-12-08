@@ -40,7 +40,7 @@ namespace EdFi.LoadTools.Test.MappingFactories
             var xfactory = new XsdMetadataFactory(ssbuilder.GetSchemaSet());
             _xmlMetadata = xfactory.GetMetadata().ToList();
 
-            var strategies = new IMetadataMapper[]
+            var strategies = new List<IMetadataMapper>
                              {
                                  //new DiminishingMetadataMapper(),
                                  new PremappedLookupMetadataMapper(), new LookupDoNotMapPropertyMapper(),
@@ -51,9 +51,7 @@ namespace EdFi.LoadTools.Test.MappingFactories
                                  //new SchoolIdBugFixMetadataMapper()
                              };
 
-            var factory = new LookupToGetByExampleMetadataMappingFactory(
-                _xmlMetadata.AsEnumerable(),
-                _jsonMetadata.AsEnumerable(), strategies);
+            var factory = new LookupToGetByExampleMetadataMappingFactory(_xmlMetadata, _jsonMetadata, strategies);
 
             _mappings = factory.GetMetadataMappings().ToArray();
         }
