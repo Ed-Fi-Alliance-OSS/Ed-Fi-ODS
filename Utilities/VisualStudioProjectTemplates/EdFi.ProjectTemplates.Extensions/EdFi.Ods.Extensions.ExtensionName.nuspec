@@ -13,6 +13,6 @@
   <files>
     <file src="Artifacts/**" target="."/>
     <file src="assemblyMetadata.json" target="."/>
-    <file src="bin\$configuration$\netcoreapp3.1\EdFi.Ods.Extensions.ExtensionName.dll" target="."/>
+    <file src="bin\$configuration$\netcoreapp3.1\$safeprojectname$.dll" target="."/>
   </files>
 </package>
