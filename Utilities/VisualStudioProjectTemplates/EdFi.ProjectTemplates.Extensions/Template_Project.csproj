@@ -38,7 +38,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-	<Content Include="Marker_EdFi_Ods_Extensions_ExtensionName.cs">
+    <Content Include="Marker_EdFi_Ods_Extensions_ExtensionName.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
