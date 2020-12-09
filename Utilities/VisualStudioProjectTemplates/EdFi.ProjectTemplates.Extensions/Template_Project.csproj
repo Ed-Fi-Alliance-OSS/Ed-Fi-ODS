@@ -34,6 +34,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EdFi.Ods.Extensions.ExtensionName.nuspec">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
     <Content Include="Marker_EdFi_Ods_Extensions_ExtensionName.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

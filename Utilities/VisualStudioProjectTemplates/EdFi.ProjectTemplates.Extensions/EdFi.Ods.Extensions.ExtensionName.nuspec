@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>$safeprojectname$</id>
+    <version>1.0.0</version>
+    <authors>Ed-Fi Alliance</authors>
+    <owners>Ed-Fi Alliance</owners>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$safeprojectname$</description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src="Artifacts/**" target="."/>
+    <file src="assemblyMetadata.json" target="."/>
+    <file src="bin\$configuration$\netcoreapp3.1\$safeprojectname$.dll" target="."/>
+  </files>
+</package>
