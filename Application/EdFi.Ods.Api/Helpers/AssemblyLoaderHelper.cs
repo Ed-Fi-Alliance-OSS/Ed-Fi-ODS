@@ -153,18 +153,18 @@ namespace EdFi.Ods.Api.Helpers
                 string assemblyMetadataPath = Directory.GetFiles(
                         extensionFolder, AssemblyMetadataSearchString, SearchOption.AllDirectories).SingleOrDefault();
 
+                if (assemblyMetadataPath == null)
+                {
+                    // No metadata file found, skip to next assembly.
+                    continue;
+                }
+
                 var assemblyMetadata = LoadAssemblyMetadata(assemblyMetadataPath);
 
                 if (IsExtensionAssembly(assemblyMetadata))
                 {
                      var validator = GetExtensionValidator();
                      var validationResult = validator.ValidateObject(extensionFolder);
-
-                     if (assemblyMetadataPath == null)
-                     {
-                         // No metadata file found, skip to next assembly.
-                         continue;
-                     }
 
                      if (!validationResult.Any())
                      {
