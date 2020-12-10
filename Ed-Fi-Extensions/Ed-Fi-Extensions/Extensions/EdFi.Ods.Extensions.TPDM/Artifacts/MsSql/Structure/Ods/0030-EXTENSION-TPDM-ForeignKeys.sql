@@ -744,31 +744,6 @@ CREATE NONCLUSTERED INDEX [FK_ApplicantStaffIdentificationCode_StaffIdentificati
 ON [tpdm].[ApplicantStaffIdentificationCode] ([StaffIdentificationSystemDescriptorId] ASC)
 GO
 
-ALTER TABLE [tpdm].[ApplicantTeacherPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_ApplicantTeacherPreparationProgram_Applicant] FOREIGN KEY ([ApplicantIdentifier])
-REFERENCES [tpdm].[Applicant] ([ApplicantIdentifier])
-ON DELETE CASCADE
-GO
-
-CREATE NONCLUSTERED INDEX [FK_ApplicantTeacherPreparationProgram_Applicant]
-ON [tpdm].[ApplicantTeacherPreparationProgram] ([ApplicantIdentifier] ASC)
-GO
-
-ALTER TABLE [tpdm].[ApplicantTeacherPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_ApplicantTeacherPreparationProgram_LevelOfDegreeAwardedDescriptor] FOREIGN KEY ([LevelOfDegreeAwardedDescriptorId])
-REFERENCES [tpdm].[LevelOfDegreeAwardedDescriptor] ([LevelOfDegreeAwardedDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_ApplicantTeacherPreparationProgram_LevelOfDegreeAwardedDescriptor]
-ON [tpdm].[ApplicantTeacherPreparationProgram] ([LevelOfDegreeAwardedDescriptorId] ASC)
-GO
-
-ALTER TABLE [tpdm].[ApplicantTeacherPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_ApplicantTeacherPreparationProgram_TeacherPreparationProgramTypeDescriptor] FOREIGN KEY ([TeacherPreparationProgramTypeDescriptorId])
-REFERENCES [tpdm].[TeacherPreparationProgramTypeDescriptor] ([TeacherPreparationProgramTypeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_ApplicantTeacherPreparationProgram_TeacherPreparationProgramTypeDescriptor]
-ON [tpdm].[ApplicantTeacherPreparationProgram] ([TeacherPreparationProgramTypeDescriptorId] ASC)
-GO
-
 ALTER TABLE [tpdm].[ApplicantTelephone] WITH CHECK ADD CONSTRAINT [FK_ApplicantTelephone_Applicant] FOREIGN KEY ([ApplicantIdentifier])
 REFERENCES [tpdm].[Applicant] ([ApplicantIdentifier])
 ON DELETE CASCADE
@@ -1337,6 +1312,60 @@ ON [tpdm].[CredentialStudentAcademicRecord] ([EducationOrganizationId] ASC, [Sch
 GO
 
 ALTER TABLE [tpdm].[DegreeDescriptor] WITH CHECK ADD CONSTRAINT [FK_DegreeDescriptor_Descriptor] FOREIGN KEY ([DegreeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [tpdm].[EducatorPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_EducatorPreparationProgram_AccreditationStatusDescriptor] FOREIGN KEY ([AccreditationStatusDescriptorId])
+REFERENCES [tpdm].[AccreditationStatusDescriptor] ([AccreditationStatusDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_EducatorPreparationProgram_AccreditationStatusDescriptor]
+ON [tpdm].[EducatorPreparationProgram] ([AccreditationStatusDescriptorId] ASC)
+GO
+
+ALTER TABLE [tpdm].[EducatorPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_EducatorPreparationProgram_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
+REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_EducatorPreparationProgram_EducationOrganization]
+ON [tpdm].[EducatorPreparationProgram] ([EducationOrganizationId] ASC)
+GO
+
+ALTER TABLE [tpdm].[EducatorPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_EducatorPreparationProgram_EducatorPreparationProgramTypeDescriptor] FOREIGN KEY ([EducatorPreparationProgramTypeDescriptorId])
+REFERENCES [tpdm].[EducatorPreparationProgramTypeDescriptor] ([EducatorPreparationProgramTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_EducatorPreparationProgram_EducatorPreparationProgramTypeDescriptor]
+ON [tpdm].[EducatorPreparationProgram] ([EducatorPreparationProgramTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [tpdm].[EducatorPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_EducatorPreparationProgram_ProgramTypeDescriptor] FOREIGN KEY ([ProgramTypeDescriptorId])
+REFERENCES [edfi].[ProgramTypeDescriptor] ([ProgramTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_EducatorPreparationProgram_ProgramTypeDescriptor]
+ON [tpdm].[EducatorPreparationProgram] ([ProgramTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [tpdm].[EducatorPreparationProgramGradeLevel] WITH CHECK ADD CONSTRAINT [FK_EducatorPreparationProgramGradeLevel_EducatorPreparationProgram] FOREIGN KEY ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
+REFERENCES [tpdm].[EducatorPreparationProgram] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
+ON DELETE CASCADE
+GO
+
+CREATE NONCLUSTERED INDEX [FK_EducatorPreparationProgramGradeLevel_EducatorPreparationProgram]
+ON [tpdm].[EducatorPreparationProgramGradeLevel] ([EducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [tpdm].[EducatorPreparationProgramGradeLevel] WITH CHECK ADD CONSTRAINT [FK_EducatorPreparationProgramGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
+REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_EducatorPreparationProgramGradeLevel_GradeLevelDescriptor]
+ON [tpdm].[EducatorPreparationProgramGradeLevel] ([GradeLevelDescriptorId] ASC)
+GO
+
+ALTER TABLE [tpdm].[EducatorPreparationProgramTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_EducatorPreparationProgramTypeDescriptor_Descriptor] FOREIGN KEY ([EducatorPreparationProgramTypeDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -2779,29 +2808,12 @@ REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [tpdm].[StaffTeacherPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_StaffTeacherPreparationProgram_LevelOfDegreeAwardedDescriptor] FOREIGN KEY ([LevelOfDegreeAwardedDescriptorId])
-REFERENCES [tpdm].[LevelOfDegreeAwardedDescriptor] ([LevelOfDegreeAwardedDescriptorId])
+ALTER TABLE [tpdm].[StaffTeacherPreparationProviderProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffTeacherPreparationProviderProgramAssociation_EducatorPreparationProgram] FOREIGN KEY ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
+REFERENCES [tpdm].[EducatorPreparationProgram] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_StaffTeacherPreparationProgram_LevelOfDegreeAwardedDescriptor]
-ON [tpdm].[StaffTeacherPreparationProgram] ([LevelOfDegreeAwardedDescriptorId] ASC)
-GO
-
-ALTER TABLE [tpdm].[StaffTeacherPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_StaffTeacherPreparationProgram_Staff] FOREIGN KEY ([StaffUSI])
-REFERENCES [edfi].[Staff] ([StaffUSI])
-ON DELETE CASCADE
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffTeacherPreparationProgram_Staff]
-ON [tpdm].[StaffTeacherPreparationProgram] ([StaffUSI] ASC)
-GO
-
-ALTER TABLE [tpdm].[StaffTeacherPreparationProgram] WITH CHECK ADD CONSTRAINT [FK_StaffTeacherPreparationProgram_TeacherPreparationProgramTypeDescriptor] FOREIGN KEY ([TeacherPreparationProgramTypeDescriptorId])
-REFERENCES [tpdm].[TeacherPreparationProgramTypeDescriptor] ([TeacherPreparationProgramTypeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffTeacherPreparationProgram_TeacherPreparationProgramTypeDescriptor]
-ON [tpdm].[StaffTeacherPreparationProgram] ([TeacherPreparationProgramTypeDescriptorId] ASC)
+CREATE NONCLUSTERED INDEX [FK_StaffTeacherPreparationProviderProgramAssociation_EducatorPreparationProgram]
+ON [tpdm].[StaffTeacherPreparationProviderProgramAssociation] ([EducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC)
 GO
 
 ALTER TABLE [tpdm].[StaffTeacherPreparationProviderProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffTeacherPreparationProviderProgramAssociation_Staff] FOREIGN KEY ([StaffUSI])
@@ -2810,14 +2822,6 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_StaffTeacherPreparationProviderProgramAssociation_Staff]
 ON [tpdm].[StaffTeacherPreparationProviderProgramAssociation] ([StaffUSI] ASC)
-GO
-
-ALTER TABLE [tpdm].[StaffTeacherPreparationProviderProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StaffTeacherPreparationProviderProgramAssociation_TeacherPreparationProviderProgram] FOREIGN KEY ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
-REFERENCES [tpdm].[TeacherPreparationProviderProgram] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffTeacherPreparationProviderProgramAssociation_TeacherPreparationProviderProgram]
-ON [tpdm].[StaffTeacherPreparationProviderProgramAssociation] ([EducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC)
 GO
 
 ALTER TABLE [tpdm].[StateEducationAgencyExtension] WITH CHECK ADD CONSTRAINT [FK_StateEducationAgencyExtension_FederalLocaleCodeDescriptor] FOREIGN KEY ([FederalLocaleCodeDescriptorId])
@@ -2844,25 +2848,17 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [tpdm].[SurveyResponseExtension] WITH CHECK ADD CONSTRAINT [FK_SurveyResponseExtension_Applicant] FOREIGN KEY ([ApplicantIdentifier])
-REFERENCES [tpdm].[Applicant] ([ApplicantIdentifier])
+ALTER TABLE [tpdm].[SurveyResponseExtension] WITH CHECK ADD CONSTRAINT [FK_SurveyResponseExtension_Person] FOREIGN KEY ([PersonId], [SourceSystemDescriptorId])
+REFERENCES [edfi].[Person] ([PersonId], [SourceSystemDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_SurveyResponseExtension_Applicant]
-ON [tpdm].[SurveyResponseExtension] ([ApplicantIdentifier] ASC)
+CREATE NONCLUSTERED INDEX [FK_SurveyResponseExtension_Person]
+ON [tpdm].[SurveyResponseExtension] ([PersonId] ASC, [SourceSystemDescriptorId] ASC)
 GO
 
 ALTER TABLE [tpdm].[SurveyResponseExtension] WITH CHECK ADD CONSTRAINT [FK_SurveyResponseExtension_SurveyResponse] FOREIGN KEY ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier])
 REFERENCES [edfi].[SurveyResponse] ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier])
 ON DELETE CASCADE
-GO
-
-ALTER TABLE [tpdm].[SurveyResponseExtension] WITH CHECK ADD CONSTRAINT [FK_SurveyResponseExtension_TeacherCandidate] FOREIGN KEY ([TeacherCandidateIdentifier])
-REFERENCES [tpdm].[TeacherCandidate] ([TeacherCandidateIdentifier])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_SurveyResponseExtension_TeacherCandidate]
-ON [tpdm].[SurveyResponseExtension] ([TeacherCandidateIdentifier] ASC)
 GO
 
 ALTER TABLE [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] WITH CHECK ADD CONSTRAINT [FK_SurveyResponseTeacherCandidateTargetAssociation_SurveyResponse] FOREIGN KEY ([Namespace], [SurveyIdentifier], [SurveyResponseIdentifier])
@@ -3815,6 +3811,14 @@ CREATE NONCLUSTERED INDEX [FK_TeacherCandidateTeacherPreparationProviderProgramA
 ON [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] ([EducationOrganizationId] ASC)
 GO
 
+ALTER TABLE [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_EducatorPreparationProgram] FOREIGN KEY ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
+REFERENCES [tpdm].[EducatorPreparationProgram] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_EducatorPreparationProgram]
+ON [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] ([EducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC)
+GO
+
 ALTER TABLE [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_ReasonExitedDescriptor] FOREIGN KEY ([ReasonExitedDescriptorId])
 REFERENCES [edfi].[ReasonExitedDescriptor] ([ReasonExitedDescriptorId])
 GO
@@ -3829,14 +3833,6 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_TeacherCandidate]
 ON [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] ([TeacherCandidateIdentifier] ASC)
-GO
-
-ALTER TABLE [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_TeacherPreparationProviderProgram] FOREIGN KEY ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
-REFERENCES [tpdm].[TeacherPreparationProviderProgram] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_TeacherPreparationProviderProgram]
-ON [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] ([EducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC)
 GO
 
 ALTER TABLE [tpdm].[TeacherCandidateTelephone] WITH CHECK ADD CONSTRAINT [FK_TeacherCandidateTelephone_TeacherCandidate] FOREIGN KEY ([TeacherCandidateIdentifier])
@@ -3904,60 +3900,6 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_TeacherCandidateVisa_VisaDescriptor]
 ON [tpdm].[TeacherCandidateVisa] ([VisaDescriptorId] ASC)
-GO
-
-ALTER TABLE [tpdm].[TeacherPreparationProgramTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_TeacherPreparationProgramTypeDescriptor_Descriptor] FOREIGN KEY ([TeacherPreparationProgramTypeDescriptorId])
-REFERENCES [edfi].[Descriptor] ([DescriptorId])
-ON DELETE CASCADE
-GO
-
-ALTER TABLE [tpdm].[TeacherPreparationProviderProgram] WITH CHECK ADD CONSTRAINT [FK_TeacherPreparationProviderProgram_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
-REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_TeacherPreparationProviderProgram_EducationOrganization]
-ON [tpdm].[TeacherPreparationProviderProgram] ([EducationOrganizationId] ASC)
-GO
-
-ALTER TABLE [tpdm].[TeacherPreparationProviderProgram] WITH CHECK ADD CONSTRAINT [FK_TeacherPreparationProviderProgram_ProgramTypeDescriptor] FOREIGN KEY ([ProgramTypeDescriptorId])
-REFERENCES [edfi].[ProgramTypeDescriptor] ([ProgramTypeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_TeacherPreparationProviderProgram_ProgramTypeDescriptor]
-ON [tpdm].[TeacherPreparationProviderProgram] ([ProgramTypeDescriptorId] ASC)
-GO
-
-ALTER TABLE [tpdm].[TeacherPreparationProviderProgram] WITH CHECK ADD CONSTRAINT [FK_TeacherPreparationProviderProgram_TeacherPreparationProgramTypeDescriptor] FOREIGN KEY ([TeacherPreparationProgramTypeDescriptorId])
-REFERENCES [tpdm].[TeacherPreparationProgramTypeDescriptor] ([TeacherPreparationProgramTypeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_TeacherPreparationProviderProgram_TeacherPreparationProgramTypeDescriptor]
-ON [tpdm].[TeacherPreparationProviderProgram] ([TeacherPreparationProgramTypeDescriptorId] ASC)
-GO
-
-ALTER TABLE [tpdm].[TeacherPreparationProviderProgram] WITH CHECK ADD CONSTRAINT [FK_TeacherPreparationProviderProgram_TPPProgramPathwayDescriptor] FOREIGN KEY ([TPPProgramPathwayDescriptorId])
-REFERENCES [tpdm].[TPPProgramPathwayDescriptor] ([TPPProgramPathwayDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_TeacherPreparationProviderProgram_TPPProgramPathwayDescriptor]
-ON [tpdm].[TeacherPreparationProviderProgram] ([TPPProgramPathwayDescriptorId] ASC)
-GO
-
-ALTER TABLE [tpdm].[TeacherPreparationProviderProgramGradeLevel] WITH CHECK ADD CONSTRAINT [FK_TeacherPreparationProviderProgramGradeLevel_GradeLevelDescriptor] FOREIGN KEY ([GradeLevelDescriptorId])
-REFERENCES [edfi].[GradeLevelDescriptor] ([GradeLevelDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_TeacherPreparationProviderProgramGradeLevel_GradeLevelDescriptor]
-ON [tpdm].[TeacherPreparationProviderProgramGradeLevel] ([GradeLevelDescriptorId] ASC)
-GO
-
-ALTER TABLE [tpdm].[TeacherPreparationProviderProgramGradeLevel] WITH CHECK ADD CONSTRAINT [FK_TeacherPreparationProviderProgramGradeLevel_TeacherPreparationProviderProgram] FOREIGN KEY ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
-REFERENCES [tpdm].[TeacherPreparationProviderProgram] ([EducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId])
-ON DELETE CASCADE
-GO
-
-CREATE NONCLUSTERED INDEX [FK_TeacherPreparationProviderProgramGradeLevel_TeacherPreparationProviderProgram]
-ON [tpdm].[TeacherPreparationProviderProgramGradeLevel] ([EducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC)
 GO
 
 ALTER TABLE [tpdm].[TPPDegreeTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_TPPDegreeTypeDescriptor_Descriptor] FOREIGN KEY ([TPPDegreeTypeDescriptorId])

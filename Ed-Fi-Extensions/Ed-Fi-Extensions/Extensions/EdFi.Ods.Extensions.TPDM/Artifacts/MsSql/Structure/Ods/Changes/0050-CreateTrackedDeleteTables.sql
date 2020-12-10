@@ -355,6 +355,24 @@ CREATE TABLE [tracked_deletes_tpdm].[DegreeDescriptor]
        CONSTRAINT PK_DegreeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
+CREATE TABLE [tracked_deletes_tpdm].[EducatorPreparationProgram]
+(
+       EducationOrganizationId [INT] NOT NULL,
+       ProgramName [NVARCHAR](255) NOT NULL,
+       ProgramTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_EducatorPreparationProgram PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_tpdm].[EducatorPreparationProgramTypeDescriptor]
+(
+       EducatorPreparationProgramTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_EducatorPreparationProgramTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
 CREATE TABLE [tracked_deletes_tpdm].[EducatorRoleDescriptor]
 (
        EducatorRoleDescriptorId [INT] NOT NULL,
@@ -1175,24 +1193,6 @@ CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateTeacherPreparationProviderP
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_TeacherCandidateTeacherPreparationProviderProgramAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[TeacherPreparationProgramTypeDescriptor]
-(
-       TeacherPreparationProgramTypeDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_TeacherPreparationProgramTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[TeacherPreparationProviderProgram]
-(
-       EducationOrganizationId [INT] NOT NULL,
-       ProgramName [NVARCHAR](255) NOT NULL,
-       ProgramTypeDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_TeacherPreparationProviderProgram PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_tpdm].[ValueTypeDescriptor]

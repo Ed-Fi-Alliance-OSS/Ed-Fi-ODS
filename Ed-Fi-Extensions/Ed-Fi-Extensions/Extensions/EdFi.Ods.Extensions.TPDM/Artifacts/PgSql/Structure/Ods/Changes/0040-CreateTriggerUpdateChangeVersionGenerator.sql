@@ -52,6 +52,9 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CompleterAsStaffAssocia
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CredentialEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EducatorPreparationProgram
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EmploymentEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
@@ -170,8 +173,5 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateStudent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherPreparationProviderProgram
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 

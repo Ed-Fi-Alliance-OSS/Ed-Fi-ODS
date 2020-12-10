@@ -107,6 +107,12 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducatorPreparationProgram') AND name = N'UX_EducatorPreparationProgram_ChangeVersion')
+    CREATE INDEX [UX_EducatorPreparationProgram_ChangeVersion] ON [tpdm].[EducatorPreparationProgram] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EmploymentEvent') AND name = N'UX_EmploymentEvent_ChangeVersion')
     CREATE INDEX [UX_EmploymentEvent_ChangeVersion] ON [tpdm].[EmploymentEvent] ([ChangeVersion] ASC)
     GO
@@ -343,12 +349,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation') AND name = N'UX_TeacherCandidateTeacherPreparationProviderProgramAssociation_ChangeVersion')
     CREATE INDEX [UX_TeacherCandidateTeacherPreparationProviderProgramAssociation_ChangeVersion] ON [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherPreparationProviderProgram') AND name = N'UX_TeacherPreparationProviderProgram_ChangeVersion')
-    CREATE INDEX [UX_TeacherPreparationProviderProgram_ChangeVersion] ON [tpdm].[TeacherPreparationProviderProgram] ([ChangeVersion] ASC)
     GO
 COMMIT
 

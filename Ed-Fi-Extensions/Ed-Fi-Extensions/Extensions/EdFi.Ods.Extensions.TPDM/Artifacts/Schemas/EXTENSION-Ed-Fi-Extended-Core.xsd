@@ -405,11 +405,6 @@
               <xs:documentation>Applicant background check history and disposition.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="TeacherPreparationProgram" type="EXTENSION-TeacherPreparationProgram" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The Teacher Preparation Program(s) completed by the teacher.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="Gender" type="EXTENSION-GenderDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The gender with which a person associates.</xs:documentation>
@@ -1028,6 +1023,67 @@
           <xs:element name="StudentAcademicRecordReference" type="StudentAcademicRecordReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>Reference to the person's Student Academic Records for the school(s) with which the Credential is associated.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EducatorPreparationProgram">
+    <xs:annotation>
+      <xs:documentation>The Educator Preparation Program is designed to prepare students to become licensed educators.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>Relates the program to an EducationOrganization.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramId" type="ProgramId" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramName" type="EXTENSION-EducatorPreparationProgramName">
+            <xs:annotation>
+              <xs:documentation>The name of the Educator Preparation Program.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramType" type="ProgramTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The type of program.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ProgramTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GradeLevel" type="GradeLevelDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The grade levels served at the EPP Program.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>GradeLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducatorPreparationProgramType" type="EXTENSION-EducatorPreparationProgramTypeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The descriptor holds the type of educator prep program (e.g., college, alternative, TFA, etc.).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EducatorPreparationProgramTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AccreditationStatus" type="EXTENSION-AccreditationStatusDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The current accreditation status of the Educator Preparation Program (e.g., active, pending, revoked,...).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-AccreditationStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2361,17 +2417,22 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="SchoolStatus" type="EXTENSION-SchoolStatusDescriptorReferenceType" minOccurs="0">
+          <xs:element name="PostSecondaryInstitutionReference" type="PostSecondaryInstitutionReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The status of school e.g. priority or focus.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-SchoolStatusDescriptor</ann:Descriptor>
-              </xs:appinfo>
+              <xs:documentation>The postsecondary institution or university associated as an organization component for the School, if applicable</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="ImprovingSchool" type="xs:boolean" minOccurs="0">
             <xs:annotation>
               <xs:documentation>An indication of whether a school is identified as an improving school.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AccreditationStatus" type="EXTENSION-AccreditationStatusDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Accreditation Status for a Education Preparation Provider.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-AccreditationStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2409,11 +2470,6 @@
           <xs:element name="Seniority" type="EXTENSION-Seniority" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>Entries of job experience contributing to computations of seniority.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="TeacherPreparationProgram" type="EXTENSION-TeacherPreparationProgram" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The Teacher Preparation Program(s) completed by the teacher.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="Tenured" type="xs:boolean" minOccurs="0">
@@ -2600,14 +2656,9 @@
     <xs:complexContent>
       <xs:extension base="SurveyResponse">
         <xs:sequence>
-          <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType" minOccurs="0">
+          <xs:element name="PersonReference" type="PersonReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The teacher candidate responding to a survey.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ApplicantReference" type="EXTENSION-ApplicantReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The applicant responding to a survey.</xs:documentation>
+              <xs:documentation>Relates the survey response to a generic person.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -3222,154 +3273,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherPreparationProvider">
-    <xs:annotation>
-      <xs:documentation>This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="EducationOrganization">
-        <xs:sequence>
-          <xs:element name="FederalLocaleCode" type="EXTENSION-FederalLocaleCodeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The federal locale code associated with an education organization.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-FederalLocaleCodeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="TeacherPreparationProviderId" type="xs:int">
-            <xs:annotation>
-              <xs:documentation>The unique identification code for the Teacher Preparation Provider</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AccreditationStatus" type="EXTENSION-AccreditationStatusDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Accreditation Status for a Teacher Preparation Provider.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-AccreditationStatusDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="UniversityReference" type="EXTENSION-UniversityReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The post secondary institution of which the teacher preparation provider is a component of.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SchoolReference" type="SchoolReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Captures a SchoolId of an equivalent "school" created to allow the teacher preparation provider to be used in Ed-Fi core domains that are school- rather than education organization-centric (i.e. bell schedule, discipline, enrollment, gradebook, graduation, report card, school calendar, sections and programs, special education, staff, student attendance, student cohort, teaching and learning).  This is a different ID than TeacherPreparationProviderId.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherPreparationProviderProgram">
-    <xs:annotation>
-      <xs:documentation>This entity represents information regarding a teacher preparation provider program.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-            <xs:annotation>
-              <xs:documentation>Relates the program to an EducationOrganization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProgramId" type="ProgramId" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProgramName" type="EXTENSION-TeacherPreparationProgramName">
-            <xs:annotation>
-              <xs:documentation>The name of the Teacher Preparation Program.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProgramType" type="ProgramTypeDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>The type of program.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>ProgramTypeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="GradeLevel" type="GradeLevelDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The grade levels served at the TPP Program.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>GradeLevelDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="MajorSpecialization" type="EXTENSION-Specialization" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The major area for a degree or area of specialization for a certificate.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="MinorSpecialization" type="EXTENSION-Specialization" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The minor area for a degree or area of specialization for a certificate.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="TeacherPreparationProgramType" type="EXTENSION-TeacherPreparationProgramTypeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The descriptor holds the type of teacher prep program (e.g., college, alternative, TFA, etc.).</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-TeacherPreparationProgramTypeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="TPPProgramPathway" type="EXTENSION-TPPProgramPathwayDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>A code for describing the program pathway, for example: Residency, Internship, Traditional</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-TPPProgramPathwayDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-University">
-    <xs:annotation>
-      <xs:documentation>This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="EducationOrganization">
-        <xs:sequence>
-          <xs:element name="FederalLocaleCode" type="EXTENSION-FederalLocaleCodeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The federal locale code associated with an education organization.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-FederalLocaleCodeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="UniversityId" type="xs:int">
-            <xs:annotation>
-              <xs:documentation>The unique identification code of the University</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SchoolReference" type="SchoolReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Captures a SchoolId of an equivalent "school" created to allow the university to be used in Ed-Fi core domains that are school- rather than education organization-centric (i.e. bell schedule, discipline, enrollment, gradebook, graduation, report card, school calendar, sections and programs, special education, staff, student attendance, student cohort, teaching and learning).  This is a different ID than UniversityId.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:annotation>
     <xs:documentation>===== Descriptors =====</xs:documentation>
   </xs:annotation>
@@ -3563,6 +3466,17 @@
   <xs:complexType name="EXTENSION-DegreeDescriptor">
     <xs:annotation>
       <xs:documentation>The minimum level of degree, if any, required for Certification.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EducatorPreparationProgramTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The descriptor holds the type of educator prep program (e.g., college, alternative, TFA, etc.).</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -3945,17 +3859,6 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-SchoolStatusDescriptor">
-    <xs:annotation>
-      <xs:documentation>The descriptor holds the status of a school e.g. priority or focus.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Descriptor</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="DescriptorType" />
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-StudentGrowthTypeDescriptor">
     <xs:annotation>
       <xs:documentation>Identification of the type of score that was used to determine student growth</xs:documentation>
@@ -3970,17 +3873,6 @@
   <xs:complexType name="EXTENSION-TeacherCandidateCharacteristicDescriptor">
     <xs:annotation>
       <xs:documentation>The characteristic designated for the TeacherCandidate.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Descriptor</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="DescriptorType" />
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherPreparationProgramTypeDescriptor">
-    <xs:annotation>
-      <xs:documentation>The descriptor holds the type of teacher prep program (e.g., college, alternative, TFA, etc.).</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -4427,59 +4319,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffTeacherPreparationProviderAssociation">
-    <xs:annotation>
-      <xs:documentation>Information about the association between the Staff and the TeacherPreparationProvider</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Association</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="StaffReference" type="StaffReferenceType">
-            <xs:annotation>
-              <xs:documentation>Staff reference for the association</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="TeacherPreparationProviderReference" type="EXTENSION-TeacherPreparationProviderReferenceType">
-            <xs:annotation>
-              <xs:documentation>The TeacherPreparationProvider for the association</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SchoolYear" type="SchoolYearType">
-            <xs:annotation>
-              <xs:documentation>Identifier for a school year.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProgramAssignment" type="ProgramAssignmentDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>Program Assignment for the association</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>ProgramAssignmentDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="GradeLevel" type="GradeLevelDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The grade levels for the association.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>GradeLevelDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AcademicSubject" type="AcademicSubjectDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a degree.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>AcademicSubjectDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-StaffTeacherPreparationProviderProgramAssociation">
     <xs:annotation>
       <xs:documentation>This association indicates the Staff associated with a teacher preparation provider program.</xs:documentation>
@@ -4495,7 +4334,7 @@
               <xs:documentation>The Staff associated with the Program.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="TeacherPreparationProviderProgramReference" type="EXTENSION-TeacherPreparationProviderProgramReferenceType">
+          <xs:element name="EducatorPreparationProgramReference" type="EXTENSION-EducatorPreparationProgramReferenceType">
             <xs:annotation>
               <xs:documentation>The Program associated to the Staff.</xs:documentation>
             </xs:annotation>
@@ -4703,69 +4542,9 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateTeacherPreparationProviderAssociation">
-    <xs:annotation>
-      <xs:documentation>Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Association</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType">
-            <xs:annotation>
-              <xs:documentation>Teacher Candidate for the association</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="TeacherPreparationProviderReference" type="EXTENSION-TeacherPreparationProviderReferenceType">
-            <xs:annotation>
-              <xs:documentation>Teacher Preparation Provider for the association</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SchoolYear" type="SchoolYearType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>School Year for the association</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EntryDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>Entry date for the association</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EntryType" type="EntryTypeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Entry Type for the association</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EntryTypeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ExitWithdrawDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Exit date for the association</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ExitWithdrawType" type="ExitWithdrawTypeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Exit type for the association</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>ExitWithdrawTypeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ClassOfSchoolYear" type="SchoolYearType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>School Year cohort for the association</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-TeacherCandidateTeacherPreparationProviderProgramAssociation">
     <xs:annotation>
-      <xs:documentation>Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram</xs:documentation>
+      <xs:documentation>Information about the association between the Teacher Candidate and the EducatorPreparationProgram</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Association</ann:TypeGroup>
       </xs:appinfo>
@@ -4778,7 +4557,7 @@
               <xs:documentation>TeacherCandidate for the association.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="TeacherPreparationProviderProgramReference" type="EXTENSION-TeacherPreparationProviderProgramReferenceType">
+          <xs:element name="EducatorPreparationProgramReference" type="EXTENSION-EducatorPreparationProgramReferenceType">
             <xs:annotation>
               <xs:documentation>The Program associated to the Staff.</xs:documentation>
             </xs:annotation>
@@ -5583,6 +5362,53 @@
           <xs:element name="CredentialEventIdentity" type="EXTENSION-CredentialEventIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a CredentialEvent.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EducatorPreparationProgramIdentityType">
+    <xs:annotation>
+      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an EducatorPreparationProgram.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+        <xs:annotation>
+          <xs:documentation>Relates the program to an EducationOrganization.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProgramName" type="EXTENSION-EducatorPreparationProgramName">
+        <xs:annotation>
+          <xs:documentation>The name of the Educator Preparation Program.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProgramType" type="ProgramTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The type of program.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>ProgramTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EducatorPreparationProgramReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for an EducatorPreparationProgram. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="EducatorPreparationProgramIdentity" type="EXTENSION-EducatorPreparationProgramIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an EducatorPreparationProgram.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -6712,45 +6538,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffTeacherPreparationProviderAssociationIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a StaffTeacherPreparationProviderAssociation.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="StaffReference" type="StaffReferenceType">
-        <xs:annotation>
-          <xs:documentation>Staff reference for the association</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TeacherPreparationProviderReference" type="EXTENSION-TeacherPreparationProviderReferenceType">
-        <xs:annotation>
-          <xs:documentation>The TeacherPreparationProvider for the association</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffTeacherPreparationProviderAssociationReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a StaffTeacherPreparationProviderAssociation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="StaffTeacherPreparationProviderAssociationIdentity" type="EXTENSION-StaffTeacherPreparationProviderAssociationIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a StaffTeacherPreparationProviderAssociation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-StaffTeacherPreparationProviderProgramAssociationIdentityType">
     <xs:annotation>
       <xs:documentation>Identity of a StaffTeacherPreparationProviderProgramAssociation.</xs:documentation>
@@ -6764,7 +6551,7 @@
           <xs:documentation>The Staff associated with the Program.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="TeacherPreparationProviderProgramReference" type="EXTENSION-TeacherPreparationProviderProgramReferenceType">
+      <xs:element name="EducatorPreparationProgramReference" type="EXTENSION-EducatorPreparationProgramReferenceType">
         <xs:annotation>
           <xs:documentation>The Program associated to the Staff.</xs:documentation>
         </xs:annotation>
@@ -7249,50 +7036,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateTeacherPreparationProviderAssociationIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a TeacherCandidateTeacherPreparationProviderAssociation.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType">
-        <xs:annotation>
-          <xs:documentation>Teacher Candidate for the association</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TeacherPreparationProviderReference" type="EXTENSION-TeacherPreparationProviderReferenceType">
-        <xs:annotation>
-          <xs:documentation>Teacher Preparation Provider for the association</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EntryDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>Entry date for the association</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateTeacherPreparationProviderAssociationReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a TeacherCandidateTeacherPreparationProviderAssociation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="TeacherCandidateTeacherPreparationProviderAssociationIdentity" type="EXTENSION-TeacherCandidateTeacherPreparationProviderAssociationIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a TeacherCandidateTeacherPreparationProviderAssociation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-TeacherCandidateTeacherPreparationProviderProgramAssociationIdentityType">
     <xs:annotation>
       <xs:documentation>Identity of a TeacherCandidateTeacherPreparationProviderProgramAssociation.</xs:documentation>
@@ -7306,7 +7049,7 @@
           <xs:documentation>TeacherCandidate for the association.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="TeacherPreparationProviderProgramReference" type="EXTENSION-TeacherPreparationProviderProgramReferenceType">
+      <xs:element name="EducatorPreparationProgramReference" type="EXTENSION-EducatorPreparationProgramReferenceType">
         <xs:annotation>
           <xs:documentation>The Program associated to the Staff.</xs:documentation>
         </xs:annotation>
@@ -7336,121 +7079,6 @@
           <xs:element name="TeacherCandidateTeacherPreparationProviderProgramAssociationIdentity" type="EXTENSION-TeacherCandidateTeacherPreparationProviderProgramAssociationIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a TeacherCandidateTeacherPreparationProviderProgramAssociation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherPreparationProviderIdentityType">
-    <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a TeacherPreparationProvider.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="TeacherPreparationProviderId" type="xs:int">
-        <xs:annotation>
-          <xs:documentation>The unique identification code for the Teacher Preparation Provider</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherPreparationProviderProgramIdentityType">
-    <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a TeacherPreparationProviderProgram.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-        <xs:annotation>
-          <xs:documentation>Relates the program to an EducationOrganization.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ProgramName" type="EXTENSION-TeacherPreparationProgramName">
-        <xs:annotation>
-          <xs:documentation>The name of the Teacher Preparation Program.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ProgramType" type="ProgramTypeDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The type of program.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>ProgramTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherPreparationProviderProgramReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a TeacherPreparationProviderProgram. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="TeacherPreparationProviderProgramIdentity" type="EXTENSION-TeacherPreparationProviderProgramIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a TeacherPreparationProviderProgram.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherPreparationProviderReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a TeacherPreparationProvider. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="TeacherPreparationProviderIdentity" type="EXTENSION-TeacherPreparationProviderIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a TeacherPreparationProvider.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-UniversityIdentityType">
-    <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an University.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="UniversityId" type="xs:int">
-        <xs:annotation>
-          <xs:documentation>The unique identification code of the University</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-UniversityReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for an University. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="UniversityIdentity" type="EXTENSION-UniversityIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an University.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -7616,6 +7244,15 @@
   <xs:simpleType name="EXTENSION-DegreeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The minimum level of degree, if any, required for Certification.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EducatorPreparationProgramTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The descriptor holds the type of educator prep program (e.g., college, alternative, TFA, etc.).</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -7928,15 +7565,6 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
-  <xs:simpleType name="EXTENSION-SchoolStatusDescriptorReferenceType">
-    <xs:annotation>
-      <xs:documentation>The descriptor holds the status of a school e.g. priority or focus.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="DescriptorReferenceType" />
-  </xs:simpleType>
   <xs:simpleType name="EXTENSION-StudentGrowthTypeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>Identification of the type of score that was used to determine student growth</xs:documentation>
@@ -7949,15 +7577,6 @@
   <xs:simpleType name="EXTENSION-TeacherCandidateCharacteristicDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The characteristic designated for the TeacherCandidate.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="DescriptorReferenceType" />
-  </xs:simpleType>
-  <xs:simpleType name="EXTENSION-TeacherPreparationProgramTypeDescriptorReferenceType">
-    <xs:annotation>
-      <xs:documentation>The descriptor holds the type of teacher prep program (e.g., college, alternative, TFA, etc.).</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -8718,57 +8337,6 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherPreparationProgram">
-    <xs:annotation>
-      <xs:documentation>The Teacher Preparation Program(s) completed by the teacher.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="TeacherPreparationProgramName" type="EXTENSION-TeacherPreparationProgramName">
-        <xs:annotation>
-          <xs:documentation>The name of the Teacher Preparation Program.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TeacherPreparationProgramIdentifier" type="EXTENSION-TeacherPreparationProgramIdentifier" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>An identifier assigned to the teacher preparation program.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TeacherPreparationProgramType" type="EXTENSION-TeacherPreparationProgramTypeDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The type of teacher prep program (e.g., college, alternative, TFA, etc.).</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-TeacherPreparationProgramTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="NameOfInstitution" type="NameOfInstitution">
-        <xs:annotation>
-          <xs:documentation>The name of the organization providing the teacher preparation program.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="MajorSpecialization" type="EXTENSION-Specialization">
-        <xs:annotation>
-          <xs:documentation>The major area for a degree or area of specialization for a certificate.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="GPA" type="GPA" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The final GPA the teacher achieved in the program.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="LevelOfDegreeAwarded" type="EXTENSION-LevelOfDegreeAwardedDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The level of degree awarded by the teacher preparation program to the person (e.g., Certificate Only, Bachelor's, Master's, etc.).</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-LevelOfDegreeAwardedDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-Touchpoint">
     <xs:annotation>
       <xs:documentation>Content associated with different touchpoints with the prospect.</xs:documentation>
@@ -8947,6 +8515,18 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="1" />
       <xs:maxLength value="30" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EducatorPreparationProgramName">
+    <xs:annotation>
+      <xs:documentation>The name of the Educator Preparation Program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="255" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-EvaluationElementTitle">
@@ -9232,18 +8812,6 @@
     <xs:restriction base="xs:string">
       <xs:minLength value="1" />
       <xs:maxLength value="75" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="EXTENSION-TeacherPreparationProgramName">
-    <xs:annotation>
-      <xs:documentation>The name of the Teacher Preparation Program.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Simple</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="xs:string">
-      <xs:minLength value="1" />
-      <xs:maxLength value="255" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-TouchpointContent">

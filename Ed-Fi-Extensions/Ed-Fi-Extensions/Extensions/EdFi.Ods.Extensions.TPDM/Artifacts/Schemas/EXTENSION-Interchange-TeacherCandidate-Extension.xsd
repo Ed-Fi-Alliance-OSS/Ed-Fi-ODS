@@ -24,7 +24,6 @@
         <xs:element name="CompleterAsStaffAssociation" type="EXTENSION-CompleterAsStaffAssociation" />
         <xs:element name="FieldworkExperienceSectionAssociation" type="EXTENSION-FieldworkExperienceSectionAssociation" />
         <xs:element name="TeacherCandidateStaffAssociation" type="EXTENSION-TeacherCandidateStaffAssociation" />
-        <xs:element name="TeacherCandidateTeacherPreparationProviderAssociation" type="EXTENSION-TeacherCandidateTeacherPreparationProviderAssociation" />
         <xs:element name="TeacherCandidateTeacherPreparationProviderProgramAssociation" type="EXTENSION-TeacherCandidateTeacherPreparationProviderProgramAssociation" />
         <xs:element name="StudentSchoolAssociation" type="StudentSchoolAssociation" />
         <xs:element name="StudentEducationOrganizationAssociation" type="StudentEducationOrganizationAssociation" />

@@ -52,6 +52,9 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 ALTER TABLE tpdm.CredentialEvent
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
+ALTER TABLE tpdm.EducatorPreparationProgram
+ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
+
 ALTER TABLE tpdm.EmploymentEvent
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
@@ -170,8 +173,5 @@ ALTER TABLE tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
 ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.TeacherPreparationProviderProgram
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 

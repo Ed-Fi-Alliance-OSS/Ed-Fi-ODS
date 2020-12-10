@@ -34,6 +34,8 @@ CREATE INDEX IF NOT EXISTS UX_447e8f_ChangeVersion ON tpdm.CompleterAsStaffAssoc
 
 CREATE INDEX IF NOT EXISTS UX_3d6d96_ChangeVersion ON tpdm.CredentialEvent(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_195935_ChangeVersion ON tpdm.EducatorPreparationProgram(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_786774_ChangeVersion ON tpdm.EmploymentEvent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_f51cef_ChangeVersion ON tpdm.EmploymentSeparationEvent(ChangeVersion);
@@ -113,6 +115,4 @@ CREATE INDEX IF NOT EXISTS UX_22b9a4_ChangeVersion ON tpdm.TeacherCandidateStude
 CREATE INDEX IF NOT EXISTS UX_b8b1b0_ChangeVersion ON tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_81475b_ChangeVersion ON tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_aceeb9_ChangeVersion ON tpdm.TeacherPreparationProviderProgram(ChangeVersion);
 

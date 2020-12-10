@@ -205,6 +205,7 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="CredentialEventTypeDescriptor" type="EXTENSION-CredentialEventTypeDescriptor" />
         <xs:element name="CredentialStatusDescriptor" type="EXTENSION-CredentialStatusDescriptor" />
         <xs:element name="DegreeDescriptor" type="EXTENSION-DegreeDescriptor" />
+        <xs:element name="EducatorPreparationProgramTypeDescriptor" type="EXTENSION-EducatorPreparationProgramTypeDescriptor" />
         <xs:element name="EducatorRoleDescriptor" type="EXTENSION-EducatorRoleDescriptor" />
         <xs:element name="EmploymentEventTypeDescriptor" type="EXTENSION-EmploymentEventTypeDescriptor" />
         <xs:element name="EmploymentSeparationReasonDescriptor" type="EXTENSION-EmploymentSeparationReasonDescriptor" />
@@ -239,10 +240,8 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="RecruitmentEventTypeDescriptor" type="EXTENSION-RecruitmentEventTypeDescriptor" />
         <xs:element name="RubricRatingLevelDescriptor" type="EXTENSION-RubricRatingLevelDescriptor" />
         <xs:element name="SalaryTypeDescriptor" type="EXTENSION-SalaryTypeDescriptor" />
-        <xs:element name="SchoolStatusDescriptor" type="EXTENSION-SchoolStatusDescriptor" />
         <xs:element name="StudentGrowthTypeDescriptor" type="EXTENSION-StudentGrowthTypeDescriptor" />
         <xs:element name="TeacherCandidateCharacteristicDescriptor" type="EXTENSION-TeacherCandidateCharacteristicDescriptor" />
-        <xs:element name="TeacherPreparationProgramTypeDescriptor" type="EXTENSION-TeacherPreparationProgramTypeDescriptor" />
         <xs:element name="TPPDegreeTypeDescriptor" type="EXTENSION-TPPDegreeTypeDescriptor" />
         <xs:element name="TPPProgramPathwayDescriptor" type="EXTENSION-TPPProgramPathwayDescriptor" />
         <xs:element name="ValueTypeDescriptor" type="EXTENSION-ValueTypeDescriptor" />

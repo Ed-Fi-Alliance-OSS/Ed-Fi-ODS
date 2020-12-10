@@ -178,6 +178,16 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [tpdm].[tpdm_EducatorPreparationProgram_TR_UpdateChangeVersion] ON [tpdm].[EducatorPreparationProgram] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[EducatorPreparationProgram]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[EducatorPreparationProgram] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_EmploymentEvent_TR_UpdateChangeVersion] ON [tpdm].[EmploymentEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -574,16 +584,6 @@ BEGIN
     UPDATE [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherPreparationProviderProgram_TR_UpdateChangeVersion] ON [tpdm].[TeacherPreparationProviderProgram] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[TeacherPreparationProviderProgram]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[TeacherPreparationProviderProgram] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

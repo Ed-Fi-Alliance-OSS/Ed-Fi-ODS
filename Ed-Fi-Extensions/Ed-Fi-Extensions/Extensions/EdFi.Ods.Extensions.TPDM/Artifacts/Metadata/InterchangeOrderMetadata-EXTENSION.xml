@@ -6,6 +6,7 @@
 -->
 <Interchanges>
   <Interchange name="Descriptors" order="10">
+    <Element name="TPPProgramPathwayDescriptor" />
     <Element name="SalaryTypeDescriptor" />
     <Element name="LevelOfDegreeAwardedDescriptor" />
     <Element name="BackgroundCheckTypeDescriptor" />
@@ -130,8 +131,7 @@
     <Element name="SeparationReasonDescriptor" />
     <Element name="SeparationDescriptor" />
     <Element name="EmploymentStatusDescriptor" />
-    <Element name="TPPProgramPathwayDescriptor" />
-    <Element name="TeacherPreparationProgramTypeDescriptor" />
+    <Element name="EducatorPreparationProgramTypeDescriptor" />
     <Element name="PostSecondaryInstitutionLevelDescriptor" />
     <Element name="MediumOfInstructionDescriptor" />
     <Element name="LicenseTypeDescriptor" />
@@ -286,7 +286,7 @@
     <Element name="LearningObjective" />
   </Interchange>
   <Interchange name="EducationOrganization" order="50">
-    <Element name="TeacherPreparationProviderProgram" />
+    <Element name="EducatorPreparationProgram" />
     <Element name="PostSecondaryInstitution" />
     <Element name="CommunityOrganization" />
     <Element name="CommunityProvider" />

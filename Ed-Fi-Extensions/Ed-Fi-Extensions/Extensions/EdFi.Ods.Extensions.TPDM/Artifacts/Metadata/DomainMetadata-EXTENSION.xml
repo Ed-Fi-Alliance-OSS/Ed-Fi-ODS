@@ -57,7 +57,6 @@
     <Entity table="ApplicantPersonalIdentificationDocument" schema="tpdm"/>
     <Entity table="ApplicantRace" schema="tpdm"/>
     <Entity table="ApplicantStaffIdentificationCode" schema="tpdm"/>
-    <Entity table="ApplicantTeacherPreparationProgram" schema="tpdm"/>
     <Entity table="ApplicantTelephone" schema="tpdm"/>
     <Entity table="ApplicantVisa" schema="tpdm"/>
   </Aggregate>
@@ -139,6 +138,13 @@
   </Aggregate>
   <Aggregate root="DegreeDescriptor">
     <Entity table="DegreeDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EducatorPreparationProgram">
+    <Entity table="EducatorPreparationProgram" schema="tpdm"/>
+    <Entity table="EducatorPreparationProgramGradeLevel" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EducatorPreparationProgramTypeDescriptor">
+    <Entity table="EducatorPreparationProgramTypeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="EducatorRoleDescriptor">
     <Entity table="EducatorRoleDescriptor" isA="Descriptor" schema="tpdm"/>
@@ -433,13 +439,6 @@
   <Aggregate root="TeacherCandidateTeacherPreparationProviderProgramAssociation">
     <Entity table="TeacherCandidateTeacherPreparationProviderProgramAssociation" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="TeacherPreparationProgramTypeDescriptor">
-    <Entity table="TeacherPreparationProgramTypeDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherPreparationProviderProgram">
-    <Entity table="TeacherPreparationProviderProgram" schema="tpdm"/>
-    <Entity table="TeacherPreparationProviderProgramGradeLevel" schema="tpdm"/>
-  </Aggregate>
   <Aggregate root="ValueTypeDescriptor">
     <Entity table="ValueTypeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
@@ -458,6 +457,5 @@
     <Entity table="StaffSalary" schema="tpdm"/>
     <Entity table="StaffSeniority" schema="tpdm"/>
     <Entity table="StaffTeacherEducatorResearch" schema="tpdm"/>
-    <Entity table="StaffTeacherPreparationProgram" schema="tpdm"/>
   </AggregateExtension>
 </AggregateExtensions>

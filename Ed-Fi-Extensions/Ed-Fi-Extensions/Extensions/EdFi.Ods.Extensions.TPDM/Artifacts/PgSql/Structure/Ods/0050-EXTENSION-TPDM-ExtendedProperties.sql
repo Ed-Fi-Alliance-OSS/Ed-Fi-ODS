@@ -355,17 +355,6 @@ COMMENT ON COLUMN tpdm.ApplicantStaffIdentificationCode.StaffIdentificationSyste
 COMMENT ON COLUMN tpdm.ApplicantStaffIdentificationCode.IdentificationCode IS 'A unique number or alphanumeric code assigned to a staff member by a school, school system, a state, or other agency or entity.';
 COMMENT ON COLUMN tpdm.ApplicantStaffIdentificationCode.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the staff Identification Code.';
 
--- Extended Properties [tpdm].[ApplicantTeacherPreparationProgram] --
-COMMENT ON TABLE tpdm.ApplicantTeacherPreparationProgram IS 'The Teacher Preparation Program(s) completed by the teacher.';
-COMMENT ON COLUMN tpdm.ApplicantTeacherPreparationProgram.ApplicantIdentifier IS 'Identifier assigned to a person making formal application for an open staff position.';
-COMMENT ON COLUMN tpdm.ApplicantTeacherPreparationProgram.TeacherPreparationProgramName IS 'The name of the Teacher Preparation Program.';
-COMMENT ON COLUMN tpdm.ApplicantTeacherPreparationProgram.TeacherPreparationProgramIdentifier IS 'An identifier assigned to the teacher preparation program.';
-COMMENT ON COLUMN tpdm.ApplicantTeacherPreparationProgram.TeacherPreparationProgramTypeDescriptorId IS 'The type of teacher prep program (e.g., college, alternative, TFA, etc.).';
-COMMENT ON COLUMN tpdm.ApplicantTeacherPreparationProgram.NameOfInstitution IS 'The name of the organization providing the teacher preparation program.';
-COMMENT ON COLUMN tpdm.ApplicantTeacherPreparationProgram.MajorSpecialization IS 'The major area for a degree or area of specialization for a certificate.';
-COMMENT ON COLUMN tpdm.ApplicantTeacherPreparationProgram.GPA IS 'The final GPA the teacher achieved in the program.';
-COMMENT ON COLUMN tpdm.ApplicantTeacherPreparationProgram.LevelOfDegreeAwardedDescriptorId IS 'The level of degree awarded by the teacher preparation program to the person (e.g., Certificate Only, Bachelor''s, Master''s, etc.).';
-
 -- Extended Properties [tpdm].[ApplicantTelephone] --
 COMMENT ON TABLE tpdm.ApplicantTelephone IS 'The 10-digit telephone number, including the area code, for the person.';
 COMMENT ON COLUMN tpdm.ApplicantTelephone.ApplicantIdentifier IS 'Identifier assigned to a person making formal application for an open staff position.';
@@ -612,6 +601,26 @@ COMMENT ON COLUMN tpdm.CredentialStudentAcademicRecord.TermDescriptorId IS 'The 
 -- Extended Properties [tpdm].[DegreeDescriptor] --
 COMMENT ON TABLE tpdm.DegreeDescriptor IS 'The minimum level of degree, if any, required for Certification.';
 COMMENT ON COLUMN tpdm.DegreeDescriptor.DegreeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[EducatorPreparationProgram] --
+COMMENT ON TABLE tpdm.EducatorPreparationProgram IS 'The Educator Preparation Program is designed to prepare students to become licensed educators.';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgram.ProgramName IS 'The name of the Educator Preparation Program.';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgram.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgram.ProgramId IS 'A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgram.EducatorPreparationProgramTypeDescriptorId IS 'The descriptor holds the type of educator prep program (e.g., college, alternative, TFA, etc.).';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgram.AccreditationStatusDescriptorId IS 'The current accreditation status of the Educator Preparation Program (e.g., active, pending, revoked,...).';
+
+-- Extended Properties [tpdm].[EducatorPreparationProgramGradeLevel] --
+COMMENT ON TABLE tpdm.EducatorPreparationProgramGradeLevel IS 'The grade levels served at the EPP Program.';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgramGradeLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgramGradeLevel.GradeLevelDescriptorId IS 'The grade levels served at the EPP Program.';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgramGradeLevel.ProgramName IS 'The name of the Educator Preparation Program.';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgramGradeLevel.ProgramTypeDescriptorId IS 'The type of program.';
+
+-- Extended Properties [tpdm].[EducatorPreparationProgramTypeDescriptor] --
+COMMENT ON TABLE tpdm.EducatorPreparationProgramTypeDescriptor IS 'The descriptor holds the type of educator prep program (e.g., college, alternative, TFA, etc.).';
+COMMENT ON COLUMN tpdm.EducatorPreparationProgramTypeDescriptor.EducatorPreparationProgramTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[EducatorRoleDescriptor] --
 COMMENT ON TABLE tpdm.EducatorRoleDescriptor IS 'The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.';
@@ -1542,21 +1551,10 @@ COMMENT ON COLUMN tpdm.StaffTeacherEducatorResearch.ResearchExperienceDate IS 'M
 COMMENT ON COLUMN tpdm.StaffTeacherEducatorResearch.ResearchExperienceTitle IS 'The title of the research experience.';
 COMMENT ON COLUMN tpdm.StaffTeacherEducatorResearch.ResearchExperienceDescription IS 'The description of the research experience.';
 
--- Extended Properties [tpdm].[StaffTeacherPreparationProgram] --
-COMMENT ON TABLE tpdm.StaffTeacherPreparationProgram IS 'The Teacher Preparation Program(s) completed by the teacher.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.TeacherPreparationProgramName IS 'The name of the Teacher Preparation Program.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.TeacherPreparationProgramIdentifier IS 'An identifier assigned to the teacher preparation program.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.TeacherPreparationProgramTypeDescriptorId IS 'The type of teacher prep program (e.g., college, alternative, TFA, etc.).';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.NameOfInstitution IS 'The name of the organization providing the teacher preparation program.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.MajorSpecialization IS 'The major area for a degree or area of specialization for a certificate.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.GPA IS 'The final GPA the teacher achieved in the program.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.LevelOfDegreeAwardedDescriptorId IS 'The level of degree awarded by the teacher preparation program to the person (e.g., Certificate Only, Bachelor''s, Master''s, etc.).';
-
 -- Extended Properties [tpdm].[StaffTeacherPreparationProviderProgramAssociation] --
 COMMENT ON TABLE tpdm.StaffTeacherPreparationProviderProgramAssociation IS 'This association indicates the Staff associated with a teacher preparation provider program.';
 COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderProgramAssociation.ProgramName IS 'The name of the Teacher Preparation Program.';
+COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderProgramAssociation.ProgramName IS 'The name of the Educator Preparation Program.';
 COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderProgramAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderProgramAssociation.BeginDate IS 'Start date for the association of staff to this program.';
@@ -1591,8 +1589,8 @@ COMMENT ON TABLE tpdm.SurveyResponseExtension IS '';
 COMMENT ON COLUMN tpdm.SurveyResponseExtension.Namespace IS 'Namespace for the Survey.';
 COMMENT ON COLUMN tpdm.SurveyResponseExtension.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
 COMMENT ON COLUMN tpdm.SurveyResponseExtension.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
-COMMENT ON COLUMN tpdm.SurveyResponseExtension.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
-COMMENT ON COLUMN tpdm.SurveyResponseExtension.ApplicantIdentifier IS 'Identifier assigned to a person making formal application for an open staff position.';
+COMMENT ON COLUMN tpdm.SurveyResponseExtension.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.SurveyResponseExtension.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 
 -- Extended Properties [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] --
 COMMENT ON TABLE tpdm.SurveyResponseTeacherCandidateTargetAssociation IS 'The association provides information about the survey being taken and who the survey is about.';
@@ -2095,10 +2093,10 @@ COMMENT ON COLUMN tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation.Be
 COMMENT ON COLUMN tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation.EndDate IS 'The end date for the association';
 
 -- Extended Properties [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] --
-COMMENT ON TABLE tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation IS 'Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram';
+COMMENT ON TABLE tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation IS 'Information about the association between the Teacher Candidate and the EducatorPreparationProgram';
 COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation.BeginDate IS 'The begin date for the association.';
 COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation.ProgramName IS 'The name of the Teacher Preparation Program.';
+COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation.ProgramName IS 'The name of the Educator Preparation Program.';
 COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
 COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation.EndDate IS 'The end date for the association.';
@@ -2124,28 +2122,6 @@ COMMENT ON COLUMN tpdm.TeacherCandidateTPPProgramDegree.TPPDegreeTypeDescriptorI
 COMMENT ON TABLE tpdm.TeacherCandidateVisa IS 'An indicator of a non-US citizen''s Visa type.';
 COMMENT ON COLUMN tpdm.TeacherCandidateVisa.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
 COMMENT ON COLUMN tpdm.TeacherCandidateVisa.VisaDescriptorId IS 'An indicator of a non-US citizen''s Visa type.';
-
--- Extended Properties [tpdm].[TeacherPreparationProgramTypeDescriptor] --
-COMMENT ON TABLE tpdm.TeacherPreparationProgramTypeDescriptor IS 'The descriptor holds the type of teacher prep program (e.g., college, alternative, TFA, etc.).';
-COMMENT ON COLUMN tpdm.TeacherPreparationProgramTypeDescriptor.TeacherPreparationProgramTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [tpdm].[TeacherPreparationProviderProgram] --
-COMMENT ON TABLE tpdm.TeacherPreparationProviderProgram IS 'This entity represents information regarding a teacher preparation provider program.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgram.ProgramName IS 'The name of the Teacher Preparation Program.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgram.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgram.ProgramId IS 'A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgram.MajorSpecialization IS 'The major area for a degree or area of specialization for a certificate.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgram.MinorSpecialization IS 'The minor area for a degree or area of specialization for a certificate.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgram.TeacherPreparationProgramTypeDescriptorId IS 'The descriptor holds the type of teacher prep program (e.g., college, alternative, TFA, etc.).';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgram.TPPProgramPathwayDescriptorId IS 'A code for describing the program pathway, for example: Residency, Internship, Traditional';
-
--- Extended Properties [tpdm].[TeacherPreparationProviderProgramGradeLevel] --
-COMMENT ON TABLE tpdm.TeacherPreparationProviderProgramGradeLevel IS 'The grade levels served at the TPP Program.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgramGradeLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgramGradeLevel.GradeLevelDescriptorId IS 'The grade levels served at the TPP Program.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgramGradeLevel.ProgramName IS 'The name of the Teacher Preparation Program.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgramGradeLevel.ProgramTypeDescriptorId IS 'The type of program.';
 
 -- Extended Properties [tpdm].[TPPDegreeTypeDescriptor] --
 COMMENT ON TABLE tpdm.TPPDegreeTypeDescriptor IS 'The descriptor holds the degree that a teacher candidate accomplishes.';

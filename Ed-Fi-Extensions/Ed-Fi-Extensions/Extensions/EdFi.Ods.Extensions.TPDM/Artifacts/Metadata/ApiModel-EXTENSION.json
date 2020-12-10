@@ -238,10 +238,6 @@
         },
         {
           "schema": "tpdm",
-          "name": "ApplicantTeacherPreparationProgram"
-        },
-        {
-          "schema": "tpdm",
           "name": "ApplicantTelephone"
         },
         {
@@ -563,6 +559,34 @@
         {
           "schema": "tpdm",
           "name": "DegreeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgram"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "tpdm",
+          "name": "EducatorPreparationProgram"
+        },
+        {
+          "schema": "tpdm",
+          "name": "EducatorPreparationProgramGradeLevel"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgramTypeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "tpdm",
+          "name": "EducatorPreparationProgramTypeDescriptor"
         }
       ]
     },
@@ -1717,34 +1741,6 @@
     {
       "aggregateRootEntityName": {
         "schema": "tpdm",
-        "name": "TeacherPreparationProgramTypeDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "tpdm",
-          "name": "TeacherPreparationProgramTypeDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgram"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "tpdm",
-          "name": "TeacherPreparationProviderProgram"
-        },
-        {
-          "schema": "tpdm",
-          "name": "TeacherPreparationProviderProgramGradeLevel"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "tpdm",
         "name": "TPPDegreeTypeDescriptor"
       },
       "aggregateEntityNames": [
@@ -1841,10 +1837,6 @@
         {
           "schema": "tpdm",
           "name": "StaffTeacherEducatorResearch"
-        },
-        {
-          "schema": "tpdm",
-          "name": "StaffTeacherPreparationProgram"
         }
       ]
     }
@@ -5453,135 +5445,6 @@
     },
     {
       "schema": "tpdm",
-      "name": "ApplicantTeacherPreparationProgram",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "GPA",
-          "propertyType": {
-            "dbType": "Decimal",
-            "maxLength": 0,
-            "precision": 18,
-            "scale": 4,
-            "isNullable": true
-          },
-          "description": "The final GPA the teacher achieved in the program.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "GPA",
-            "postgreSql": "GPA"
-          }
-        },
-        {
-          "propertyName": "MajorSpecialization",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The major area for a degree or area of specialization for a certificate.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "MajorSpecialization",
-            "postgreSql": "MajorSpecialization"
-          }
-        },
-        {
-          "propertyName": "NameOfInstitution",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the organization providing the teacher preparation program.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "NameOfInstitution",
-            "postgreSql": "NameOfInstitution"
-          }
-        },
-        {
-          "propertyName": "TeacherPreparationProgramIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "An identifier assigned to the teacher preparation program.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramIdentifier",
-            "postgreSql": "TeacherPreparationProgramIdentifier"
-          }
-        },
-        {
-          "propertyName": "TeacherPreparationProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the Teacher Preparation Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramName",
-            "postgreSql": "TeacherPreparationProgramName"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "ApplicantTeacherPreparationProgram_PK",
-          "identifyingPropertyNames": [
-            "ApplicantIdentifier",
-            "TeacherPreparationProgramName"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "ApplicantTeacherPreparationProgram_PK",
-            "postgreSql": "ApplicantTeacherPreparationProgram_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The Teacher Preparation Program(s) completed by the teacher.",
-      "tableNames": {
-        "sqlServer": "ApplicantTeacherPreparationProgram",
-        "postgreSql": "ApplicantTeacherPreparationProgram"
-      }
-    },
-    {
-      "schema": "tpdm",
       "name": "ApplicantTelephone",
       "locallyDefinedProperties": [
         {
@@ -7843,6 +7706,202 @@
       "tableNames": {
         "sqlServer": "DegreeDescriptor",
         "postgreSql": "DegreeDescriptor"
+      }
+    },
+    {
+      "schema": "tpdm",
+      "name": "EducatorPreparationProgram",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "ProgramId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramId",
+            "postgreSql": "ProgramId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the Educator Preparation Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "EducatorPreparationProgram_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "ProgramName",
+            "ProgramTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "EducatorPreparationProgram_PK",
+            "postgreSql": "EducatorPreparationProgram_PK"
+          }
+        },
+        {
+          "identifierName": "UX_EducatorPreparationProgram_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_EducatorPreparationProgram_Id",
+            "postgreSql": "UX_195935_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The Educator Preparation Program is designed to prepare students to become licensed educators.",
+      "tableNames": {
+        "sqlServer": "EducatorPreparationProgram",
+        "postgreSql": "EducatorPreparationProgram"
+      }
+    },
+    {
+      "schema": "tpdm",
+      "name": "EducatorPreparationProgramGradeLevel",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "EducatorPreparationProgramGradeLevel_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "GradeLevelDescriptorId",
+            "ProgramName",
+            "ProgramTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "EducatorPreparationProgramGradeLevel_PK",
+            "postgreSql": "EducatorPreparationProgramGradeLevel_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The grade levels served at the EPP Program.",
+      "tableNames": {
+        "sqlServer": "EducatorPreparationProgramGradeLevel",
+        "postgreSql": "EducatorPreparationProgramGradeLevel"
+      }
+    },
+    {
+      "schema": "tpdm",
+      "name": "EducatorPreparationProgramTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "EducatorPreparationProgramTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "EducatorPreparationProgramTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "EducatorPreparationProgramTypeDescriptor_PK",
+            "postgreSql": "EducatorPreparationProgramTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The descriptor holds the type of educator prep program (e.g., college, alternative, TFA, etc.).",
+      "tableNames": {
+        "sqlServer": "EducatorPreparationProgramTypeDescriptor",
+        "postgreSql": "EducatorPreparationProgramTypeDescriptor"
       }
     },
     {
@@ -16052,135 +16111,6 @@
     },
     {
       "schema": "tpdm",
-      "name": "StaffTeacherPreparationProgram",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "GPA",
-          "propertyType": {
-            "dbType": "Decimal",
-            "maxLength": 0,
-            "precision": 18,
-            "scale": 4,
-            "isNullable": true
-          },
-          "description": "The final GPA the teacher achieved in the program.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "GPA",
-            "postgreSql": "GPA"
-          }
-        },
-        {
-          "propertyName": "MajorSpecialization",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The major area for a degree or area of specialization for a certificate.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "MajorSpecialization",
-            "postgreSql": "MajorSpecialization"
-          }
-        },
-        {
-          "propertyName": "NameOfInstitution",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the organization providing the teacher preparation program.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "NameOfInstitution",
-            "postgreSql": "NameOfInstitution"
-          }
-        },
-        {
-          "propertyName": "TeacherPreparationProgramIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "An identifier assigned to the teacher preparation program.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramIdentifier",
-            "postgreSql": "TeacherPreparationProgramIdentifier"
-          }
-        },
-        {
-          "propertyName": "TeacherPreparationProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the Teacher Preparation Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramName",
-            "postgreSql": "TeacherPreparationProgramName"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StaffTeacherPreparationProgram_PK",
-          "identifyingPropertyNames": [
-            "StaffUSI",
-            "TeacherPreparationProgramName"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StaffTeacherPreparationProgram_PK",
-            "postgreSql": "StaffTeacherPreparationProgram_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The Teacher Preparation Program(s) completed by the teacher.",
-      "tableNames": {
-        "sqlServer": "StaffTeacherPreparationProgram",
-        "postgreSql": "StaffTeacherPreparationProgram"
-      }
-    },
-    {
-      "schema": "tpdm",
       "name": "StaffTeacherPreparationProviderProgramAssociation",
       "locallyDefinedProperties": [
         {
@@ -21815,7 +21745,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram",
+      "description": "Information about the association between the Teacher Candidate and the EducatorPreparationProgram",
       "tableNames": {
         "sqlServer": "TeacherCandidateTeacherPreparationProviderProgramAssociation",
         "postgreSql": "TeacherCandidateTeacherPreparationProviderProgramAssociation"
@@ -22022,236 +21952,6 @@
       "tableNames": {
         "sqlServer": "TeacherCandidateVisa",
         "postgreSql": "TeacherCandidateVisa"
-      }
-    },
-    {
-      "schema": "tpdm",
-      "name": "TeacherPreparationProgramTypeDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "TeacherPreparationProgramTypeDescriptor_PK",
-          "identifyingPropertyNames": [
-            "TeacherPreparationProgramTypeDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "TeacherPreparationProgramTypeDescriptor_PK",
-            "postgreSql": "TeacherPreparationProgramTypeDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The descriptor holds the type of teacher prep program (e.g., college, alternative, TFA, etc.).",
-      "tableNames": {
-        "sqlServer": "TeacherPreparationProgramTypeDescriptor",
-        "postgreSql": "TeacherPreparationProgramTypeDescriptor"
-      }
-    },
-    {
-      "schema": "tpdm",
-      "name": "TeacherPreparationProviderProgram",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "Id",
-          "propertyType": {
-            "dbType": "Guid",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "Id",
-            "postgreSql": "Id"
-          }
-        },
-        {
-          "propertyName": "LastModifiedDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastModifiedDate",
-            "postgreSql": "LastModifiedDate"
-          }
-        },
-        {
-          "propertyName": "MajorSpecialization",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The major area for a degree or area of specialization for a certificate.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "MajorSpecialization",
-            "postgreSql": "MajorSpecialization"
-          }
-        },
-        {
-          "propertyName": "MinorSpecialization",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 75,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The minor area for a degree or area of specialization for a certificate.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "MinorSpecialization",
-            "postgreSql": "MinorSpecialization"
-          }
-        },
-        {
-          "propertyName": "ProgramId",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 20,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramId",
-            "postgreSql": "ProgramId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the Teacher Preparation Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "TeacherPreparationProviderProgram_PK",
-          "identifyingPropertyNames": [
-            "EducationOrganizationId",
-            "ProgramName",
-            "ProgramTypeDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "TeacherPreparationProviderProgram_PK",
-            "postgreSql": "TeacherPreparationProviderProgram_PK"
-          }
-        },
-        {
-          "identifierName": "UX_TeacherPreparationProviderProgram_Id",
-          "identifyingPropertyNames": [
-            "Id"
-          ],
-          "isPrimary": false,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "UX_TeacherPreparationProviderProgram_Id",
-            "postgreSql": "UX_aceeb9_Id"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "This entity represents information regarding a teacher preparation provider program.",
-      "tableNames": {
-        "sqlServer": "TeacherPreparationProviderProgram",
-        "postgreSql": "TeacherPreparationProviderProgram"
-      }
-    },
-    {
-      "schema": "tpdm",
-      "name": "TeacherPreparationProviderProgramGradeLevel",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "TeacherPreparationProviderProgramGradeLevel_PK",
-          "identifyingPropertyNames": [
-            "EducationOrganizationId",
-            "GradeLevelDescriptorId",
-            "ProgramName",
-            "ProgramTypeDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "TeacherPreparationProviderProgramGradeLevel_PK",
-            "postgreSql": "TeacherPreparationProviderProgramGradeLevel_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The grade levels served at the TPP Program.",
-      "tableNames": {
-        "sqlServer": "TeacherPreparationProviderProgramGradeLevel",
-        "postgreSql": "TeacherPreparationProviderProgramGradeLevel"
       }
     },
     {
@@ -30065,183 +29765,6 @@
     {
       "fullName": {
         "schema": "tpdm",
-        "name": "FK_ApplicantTeacherPreparationProgram_Applicant"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "Applicant"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ApplicantIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 32,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Identifier assigned to a person making formal application for an open staff position.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ApplicantIdentifier",
-            "postgreSql": "ApplicantIdentifier"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "ApplicantTeacherPreparationProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ApplicantIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 32,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Identifier assigned to a person making formal application for an open staff position.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ApplicantIdentifier",
-            "postgreSql": "ApplicantIdentifier"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ApplicantTeacherPreparationProgram_Applicant",
-        "postgreSql": "FK_468674_Applicant"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_ApplicantTeacherPreparationProgram_LevelOfDegreeAwardedDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "LevelOfDegreeAwardedDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "LevelOfDegreeAwardedDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LevelOfDegreeAwardedDescriptorId",
-            "postgreSql": "LevelOfDegreeAwardedDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "ApplicantTeacherPreparationProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "LevelOfDegreeAwardedDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The level of degree awarded by the teacher preparation program to the person (e.g., Certificate Only, Bachelor's, Master's, etc.).",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LevelOfDegreeAwardedDescriptorId",
-            "postgreSql": "LevelOfDegreeAwardedDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ApplicantTeacherPreparationProgram_LevelOfDegreeAwardedDescriptor",
-        "postgreSql": "FK_468674_LevelOfDegreeAwardedDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_ApplicantTeacherPreparationProgram_TeacherPreparationProgramTypeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProgramTypeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramTypeDescriptorId",
-            "postgreSql": "TeacherPreparationProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "ApplicantTeacherPreparationProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of teacher prep program (e.g., college, alternative, TFA, etc.).",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramTypeDescriptorId",
-            "postgreSql": "TeacherPreparationProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ApplicantTeacherPreparationProgram_TeacherPreparationProgramTypeDescriptor",
-        "postgreSql": "FK_468674_TeacherPreparationProgramTypeDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
         "name": "FK_ApplicantTelephone_Applicant"
       },
       "cardinality": "OneToZeroOrMore",
@@ -35664,6 +35187,487 @@
       "constraintNames": {
         "sqlServer": "FK_DegreeDescriptor_Descriptor",
         "postgreSql": "FK_0700f5_Descriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_EducatorPreparationProgram_AccreditationStatusDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "AccreditationStatusDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "AccreditationStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AccreditationStatusDescriptorId",
+            "postgreSql": "AccreditationStatusDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgram"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "AccreditationStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The current accreditation status of the Educator Preparation Program (e.g., active, pending, revoked,...).",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AccreditationStatusDescriptorId",
+            "postgreSql": "AccreditationStatusDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_EducatorPreparationProgram_AccreditationStatusDescriptor",
+        "postgreSql": "FK_195935_AccreditationStatusDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_EducatorPreparationProgram_EducationOrganization"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganization"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgram"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_EducatorPreparationProgram_EducationOrganization",
+        "postgreSql": "FK_195935_EducationOrganization"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_EducatorPreparationProgram_EducatorPreparationProgramTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgramTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducatorPreparationProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducatorPreparationProgramTypeDescriptorId",
+            "postgreSql": "EducatorPreparationProgramTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgram"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducatorPreparationProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The descriptor holds the type of educator prep program (e.g., college, alternative, TFA, etc.).",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducatorPreparationProgramTypeDescriptorId",
+            "postgreSql": "EducatorPreparationProgramTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_EducatorPreparationProgram_EducatorPreparationProgramTypeDescriptor",
+        "postgreSql": "FK_195935_EducatorPreparationProgramTypeDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_EducatorPreparationProgram_ProgramTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "ProgramTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgram"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_EducatorPreparationProgram_ProgramTypeDescriptor",
+        "postgreSql": "FK_195935_ProgramTypeDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_EducatorPreparationProgramGradeLevel_EducatorPreparationProgram"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgram"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the Educator Preparation Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgramGradeLevel"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the Educator Preparation Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_EducatorPreparationProgramGradeLevel_EducatorPreparationProgram",
+        "postgreSql": "FK_d3a222_EducatorPreparationProgram"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_EducatorPreparationProgramGradeLevel_GradeLevelDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "GradeLevelDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "GradeLevelDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GradeLevelDescriptorId",
+            "postgreSql": "GradeLevelDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgramGradeLevel"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "GradeLevelDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The grade levels served at the EPP Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GradeLevelDescriptorId",
+            "postgreSql": "GradeLevelDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_EducatorPreparationProgramGradeLevel_GradeLevelDescriptor",
+        "postgreSql": "FK_d3a222_GradeLevelDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_EducatorPreparationProgramTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgramTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducatorPreparationProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "EducatorPreparationProgramTypeDescriptorId",
+            "postgreSql": "EducatorPreparationProgramTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_EducatorPreparationProgramTypeDescriptor_Descriptor",
+        "postgreSql": "FK_1a08e2_Descriptor"
       }
     },
     {
@@ -56907,16 +56911,16 @@
     {
       "fullName": {
         "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProgram_LevelOfDegreeAwardedDescriptor"
+        "name": "FK_StaffTeacherPreparationProviderProgramAssociation_EducatorPreparationProgram"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "tpdm",
-        "name": "LevelOfDegreeAwardedDescriptor"
+        "name": "EducatorPreparationProgram"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "LevelOfDegreeAwardedDescriptorId",
+          "propertyName": "EducationOrganizationId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -56924,22 +56928,56 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "LevelOfDegreeAwardedDescriptorId",
-            "postgreSql": "LevelOfDegreeAwardedDescriptorId"
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the Educator Preparation Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
           }
         }
       ],
       "secondaryEntityFullName": {
         "schema": "tpdm",
-        "name": "StaffTeacherPreparationProgram"
+        "name": "StaffTeacherPreparationProviderProgramAssociation"
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "LevelOfDegreeAwardedDescriptorId",
+          "propertyName": "EducationOrganizationId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -56947,138 +56985,54 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The level of degree awarded by the teacher preparation program to the person (e.g., Certificate Only, Bachelor's, Master's, etc.).",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LevelOfDegreeAwardedDescriptorId",
-            "postgreSql": "LevelOfDegreeAwardedDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProgram_LevelOfDegreeAwardedDescriptor",
-        "postgreSql": "FK_41a331_LevelOfDegreeAwardedDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProgram_Staff"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Staff"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
+          "description": "The identifier assigned to an education organization.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the Educator Preparation Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
           }
         }
       ],
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProgram_Staff",
-        "postgreSql": "FK_41a331_Staff"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProgram_TeacherPreparationProgramTypeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProgramTypeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramTypeDescriptorId",
-            "postgreSql": "TeacherPreparationProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of teacher prep program (e.g., college, alternative, TFA, etc.).",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramTypeDescriptorId",
-            "postgreSql": "TeacherPreparationProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProgram_TeacherPreparationProgramTypeDescriptor",
-        "postgreSql": "FK_41a331_TeacherPreparationProgramTypeDescriptor"
+        "sqlServer": "FK_StaffTeacherPreparationProviderProgramAssociation_EducatorPreparationProgram",
+        "postgreSql": "FK_5bac62_EducatorPreparationProgram"
       }
     },
     {
@@ -57138,133 +57092,6 @@
       "constraintNames": {
         "sqlServer": "FK_StaffTeacherPreparationProviderProgramAssociation_Staff",
         "postgreSql": "FK_5bac62_Staff"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProviderProgramAssociation_TeacherPreparationProviderProgram"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgram"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the Teacher Preparation Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderProgramAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the Teacher Preparation Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProviderProgramAssociation_TeacherPreparationProviderProgram",
-        "postgreSql": "FK_5bac62_TeacherPreparationProviderProgram"
       }
     },
     {
@@ -57778,16 +57605,16 @@
     {
       "fullName": {
         "schema": "tpdm",
-        "name": "FK_SurveyResponseExtension_Applicant"
+        "name": "FK_SurveyResponseExtension_Person"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "Applicant"
+        "schema": "edfi",
+        "name": "Person"
       },
       "primaryEntityProperties": [
         {
-          "propertyName": "ApplicantIdentifier",
+          "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
             "maxLength": 32,
@@ -57795,12 +57622,29 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Identifier assigned to a person making formal application for an open staff position.",
+          "description": "A unique alphanumeric code assigned to a person.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ApplicantIdentifier",
-            "postgreSql": "ApplicantIdentifier"
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
+          }
+        },
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "This descriptor defines the originating record source system for the person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
           }
         }
       ],
@@ -57810,7 +57654,7 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "ApplicantIdentifier",
+          "propertyName": "PersonId",
           "propertyType": {
             "dbType": "String",
             "maxLength": 32,
@@ -57818,20 +57662,37 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Identifier assigned to a person making formal application for an open staff position.",
+          "description": "A unique alphanumeric code assigned to a person.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ApplicantIdentifier",
-            "postgreSql": "ApplicantIdentifier"
+            "sqlServer": "PersonId",
+            "postgreSql": "PersonId"
+          }
+        },
+        {
+          "propertyName": "SourceSystemDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "This descriptor defines the originating record source system for the person.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SourceSystemDescriptorId",
+            "postgreSql": "SourceSystemDescriptorId"
           }
         }
       ],
       "isIdentifying": false,
       "isRequired": false,
       "constraintNames": {
-        "sqlServer": "FK_SurveyResponseExtension_Applicant",
-        "postgreSql": "FK_fa906d_Applicant"
+        "sqlServer": "FK_SurveyResponseExtension_Person",
+        "postgreSql": "FK_fa906d_Person"
       }
     },
     {
@@ -57959,65 +57820,6 @@
       "constraintNames": {
         "sqlServer": "FK_SurveyResponseExtension_SurveyResponse",
         "postgreSql": "FK_fa906d_SurveyResponse"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_SurveyResponseExtension_TeacherCandidate"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherCandidate"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "TeacherCandidateIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 32,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a teacher candidate.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherCandidateIdentifier",
-            "postgreSql": "TeacherCandidateIdentifier"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "SurveyResponseExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TeacherCandidateIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 32,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "A unique alphanumeric code assigned to a teacher candidate.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherCandidateIdentifier",
-            "postgreSql": "TeacherCandidateIdentifier"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_SurveyResponseExtension_TeacherCandidate",
-        "postgreSql": "FK_fa906d_TeacherCandidate"
       }
     },
     {
@@ -67680,6 +67482,133 @@
     {
       "fullName": {
         "schema": "tpdm",
+        "name": "FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_EducatorPreparationProgram"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EducatorPreparationProgram"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the Educator Preparation Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "TeacherCandidateTeacherPreparationProviderProgramAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The name of the Educator Preparation Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_EducatorPreparationProgram",
+        "postgreSql": "FK_81475b_EducatorPreparationProgram"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
         "name": "FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_ReasonExitedDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -67793,133 +67722,6 @@
       "constraintNames": {
         "sqlServer": "FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_TeacherCandidate",
         "postgreSql": "FK_81475b_TeacherCandidate"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_TeacherPreparationProviderProgram"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgram"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the Teacher Preparation Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherCandidateTeacherPreparationProviderProgramAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the Teacher Preparation Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_TeacherPreparationProviderProgram",
-        "postgreSql": "FK_81475b_TeacherPreparationProviderProgram"
       }
     },
     {
@@ -68392,487 +68194,6 @@
       "constraintNames": {
         "sqlServer": "FK_TeacherCandidateVisa_VisaDescriptor",
         "postgreSql": "FK_d72a7b_VisaDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProgramTypeDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProgramTypeDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramTypeDescriptorId",
-            "postgreSql": "TeacherPreparationProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProgramTypeDescriptor_Descriptor",
-        "postgreSql": "FK_18e97d_Descriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProviderProgram_EducationOrganization"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "EducationOrganization"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProviderProgram_EducationOrganization",
-        "postgreSql": "FK_aceeb9_EducationOrganization"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProviderProgram_ProgramTypeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "ProgramTypeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProviderProgram_ProgramTypeDescriptor",
-        "postgreSql": "FK_aceeb9_ProgramTypeDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProviderProgram_TeacherPreparationProgramTypeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProgramTypeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramTypeDescriptorId",
-            "postgreSql": "TeacherPreparationProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The descriptor holds the type of teacher prep program (e.g., college, alternative, TFA, etc.).",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProgramTypeDescriptorId",
-            "postgreSql": "TeacherPreparationProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProviderProgram_TeacherPreparationProgramTypeDescriptor",
-        "postgreSql": "FK_aceeb9_TeacherPreparationProgramTypeDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProviderProgram_TPPProgramPathwayDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TPPProgramPathwayDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "TPPProgramPathwayDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TPPProgramPathwayDescriptorId",
-            "postgreSql": "TPPProgramPathwayDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgram"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TPPProgramPathwayDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "A code for describing the program pathway, for example: Residency, Internship, Traditional",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TPPProgramPathwayDescriptorId",
-            "postgreSql": "TPPProgramPathwayDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProviderProgram_TPPProgramPathwayDescriptor",
-        "postgreSql": "FK_aceeb9_TPPProgramPathwayDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProviderProgramGradeLevel_GradeLevelDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "GradeLevelDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "GradeLevelDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "GradeLevelDescriptorId",
-            "postgreSql": "GradeLevelDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgramGradeLevel"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "GradeLevelDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The grade levels served at the TPP Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "GradeLevelDescriptorId",
-            "postgreSql": "GradeLevelDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProviderProgramGradeLevel_GradeLevelDescriptor",
-        "postgreSql": "FK_f3e683_GradeLevelDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProviderProgramGradeLevel_TeacherPreparationProviderProgram"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgram"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the Teacher Preparation Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProviderProgramGradeLevel"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The name of the Teacher Preparation Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProviderProgramGradeLevel_TeacherPreparationProviderProgram",
-        "postgreSql": "FK_f3e683_TeacherPreparationProviderProgram"
       }
     },
     {

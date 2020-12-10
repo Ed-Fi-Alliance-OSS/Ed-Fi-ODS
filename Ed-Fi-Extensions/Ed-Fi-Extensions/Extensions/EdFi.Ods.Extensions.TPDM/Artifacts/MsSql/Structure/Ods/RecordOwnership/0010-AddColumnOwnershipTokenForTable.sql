@@ -62,6 +62,8 @@ ALTER TABLE [tpdm].[CertificationExamResult] ADD [CreatedByOwnershipTokenId] SMA
 
 ALTER TABLE [tpdm].[CredentialEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
+ALTER TABLE [tpdm].[EducatorPreparationProgram] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
 ALTER TABLE [tpdm].[EmploymentEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [tpdm].[EmploymentSeparationEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
@@ -113,6 +115,4 @@ ALTER TABLE [tpdm].[TeacherCandidateAcademicRecord] ADD [CreatedByOwnershipToken
 ALTER TABLE [tpdm].[TeacherCandidateCourseTranscript] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [tpdm].[TeacherCandidateStudentGrowthMeasure] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
-
-ALTER TABLE [tpdm].[TeacherPreparationProviderProgram] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 

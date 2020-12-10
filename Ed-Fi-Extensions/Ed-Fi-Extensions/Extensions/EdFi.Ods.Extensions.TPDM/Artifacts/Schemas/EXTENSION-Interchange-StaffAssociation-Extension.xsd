@@ -31,7 +31,6 @@
         <xs:element name="CertificationExamResult" type="EXTENSION-CertificationExamResult" />
         <xs:element name="CredentialEvent" type="EXTENSION-CredentialEvent" />
         <xs:element name="FieldworkExperienceSectionAssociation" type="EXTENSION-FieldworkExperienceSectionAssociation" />
-        <xs:element name="StaffTeacherPreparationProviderAssociation" type="EXTENSION-StaffTeacherPreparationProviderAssociation" />
         <xs:element name="StaffTeacherPreparationProviderProgramAssociation" type="EXTENSION-StaffTeacherPreparationProviderProgramAssociation" />
       </xs:choice>
     </xs:complexType>
