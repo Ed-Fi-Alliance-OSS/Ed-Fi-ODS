@@ -215,7 +215,9 @@ namespace EdFi.Ods.Api.Startup
 
             if (!string.IsNullOrEmpty(apiSettings.PathBase))
             {
-                app.UsePathBase(apiSettings.PathBase);
+                var pathBase = apiSettings.PathBase.Replace("/", "");
+                pathBase = "/" + pathBase;
+                app.UsePathBase(pathBase);
             }
 
             Container = app.ApplicationServices.GetAutofacRoot();
