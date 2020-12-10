@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE TRIGGER [tpdm].[tpdm_AccreditationStatusDescriptor_TR_DeleteTracking] ON [tpdm].[AccreditationStatusDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -1602,24 +1597,6 @@ ALTER TABLE [tpdm].[SalaryTypeDescriptor] ENABLE TRIGGER [tpdm_SalaryTypeDescrip
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_SchoolStatusDescriptor_TR_DeleteTracking] ON [tpdm].[SchoolStatusDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[SchoolStatusDescriptor](SchoolStatusDescriptorId, Id, ChangeVersion)
-    SELECT  d.SchoolStatusDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.SchoolStatusDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [tpdm].[SchoolStatusDescriptor] ENABLE TRIGGER [tpdm_SchoolStatusDescriptor_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [tpdm].[tpdm_StaffApplicantAssociation_TR_DeleteTracking] ON [tpdm].[StaffApplicantAssociation] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -1719,23 +1696,6 @@ END
 GO
 
 ALTER TABLE [tpdm].[StaffStudentGrowthMeasure] ENABLE TRIGGER [tpdm_StaffStudentGrowthMeasure_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffTeacherPreparationProviderAssociation_TR_DeleteTracking] ON [tpdm].[StaffTeacherPreparationProviderAssociation] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffTeacherPreparationProviderAssociation](StaffUSI, TeacherPreparationProviderId, Id, ChangeVersion)
-    SELECT  StaffUSI, TeacherPreparationProviderId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffTeacherPreparationProviderAssociation] ENABLE TRIGGER [tpdm_StaffTeacherPreparationProviderAssociation_TR_DeleteTracking]
 GO
 
 
@@ -1998,23 +1958,6 @@ ALTER TABLE [tpdm].[TeacherCandidateStudentGrowthMeasure] ENABLE TRIGGER [tpdm_T
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateTeacherPreparationProviderAssociation_TR_DeleteTracking] ON [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[TeacherCandidateTeacherPreparationProviderAssociation](EntryDate, TeacherCandidateIdentifier, TeacherPreparationProviderId, Id, ChangeVersion)
-    SELECT  EntryDate, TeacherCandidateIdentifier, TeacherPreparationProviderId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] ENABLE TRIGGER [tpdm_TeacherCandidateTeacherPreparationProviderAssociation_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateTeacherPreparationProviderProgramAssociation_TR_DeleteTracking] ON [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -2081,42 +2024,6 @@ END
 GO
 
 ALTER TABLE [tpdm].[TeacherPreparationProviderProgram] ENABLE TRIGGER [tpdm_TeacherPreparationProviderProgram_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherPreparationProvider_TR_DeleteTracking] ON [tpdm].[TeacherPreparationProvider] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[TeacherPreparationProvider](TeacherPreparationProviderId, Id, ChangeVersion)
-    SELECT  d.TeacherPreparationProviderId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.EducationOrganization b ON d.TeacherPreparationProviderId = b.EducationOrganizationId
-END
-GO
-
-ALTER TABLE [tpdm].[TeacherPreparationProvider] ENABLE TRIGGER [tpdm_TeacherPreparationProvider_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_University_TR_DeleteTracking] ON [tpdm].[University] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[University](UniversityId, Id, ChangeVersion)
-    SELECT  d.UniversityId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.EducationOrganization b ON d.UniversityId = b.EducationOrganizationId
-END
-GO
-
-ALTER TABLE [tpdm].[University] ENABLE TRIGGER [tpdm_University_TR_DeleteTracking]
 GO
 
 

@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE FUNCTION tracked_deletes_tpdm.AccreditationStatusDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -1238,20 +1233,6 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SalaryTypeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SalaryTypeDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.SchoolStatusDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.SchoolStatusDescriptor(SchoolStatusDescriptorId, Id, ChangeVersion)
-    SELECT OLD.SchoolStatusDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.SchoolStatusDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SchoolStatusDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SchoolStatusDescriptor_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_tpdm.StaffApplicantAssociation_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -1329,19 +1310,6 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffStudentGrowthMeasure 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffStudentGrowthMeasure_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffTeacherPreparationProviderAssociation_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffTeacherPreparationProviderAssociation(StaffUSI, TeacherPreparationProviderId, Id, ChangeVersion)
-    VALUES (OLD.StaffUSI, OLD.TeacherPreparationProviderId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffTeacherPreparationProviderAssociation 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffTeacherPreparationProviderAssociation_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.StaffTeacherPreparationProviderProgramAssociation_TR_DelTrkg()
     RETURNS trigger AS
@@ -1542,19 +1510,6 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TeacherCandidateStudentGrowthMeasure 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TeacherCandidateStudentGrowthMeasure_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.TeacherCandidateTeacherPreparationProviderAss_0dff08_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.TeacherCandidateTeacherPreparationProviderAssociation(EntryDate, TeacherCandidateIdentifier, TeacherPreparationProviderId, Id, ChangeVersion)
-    VALUES (OLD.EntryDate, OLD.TeacherCandidateIdentifier, OLD.TeacherPreparationProviderId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TeacherCandidateTeacherPreparationProviderAssociation 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TeacherCandidateTeacherPreparationProviderAss_0dff08_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_tpdm.TeacherCandidateTeacherPreparationProviderPro_81475b_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -1607,34 +1562,6 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TeacherPreparationProviderProgram 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TeacherPreparationProviderProgram_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.TeacherPreparationProvider_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.TeacherPreparationProvider(TeacherPreparationProviderId, Id, ChangeVersion)
-    SELECT OLD.TeacherPreparationProviderId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.EducationOrganization WHERE EducationOrganizationId = OLD.TeacherPreparationProviderId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TeacherPreparationProvider 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TeacherPreparationProvider_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.University_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.University(UniversityId, Id, ChangeVersion)
-    SELECT OLD.UniversityId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.EducationOrganization WHERE EducationOrganizationId = OLD.UniversityId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.University 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.University_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.ValueTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS

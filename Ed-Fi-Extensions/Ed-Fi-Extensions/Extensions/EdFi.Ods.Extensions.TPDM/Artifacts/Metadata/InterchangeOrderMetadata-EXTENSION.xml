@@ -132,7 +132,6 @@
     <Element name="EmploymentStatusDescriptor" />
     <Element name="TPPProgramPathwayDescriptor" />
     <Element name="TeacherPreparationProgramTypeDescriptor" />
-    <Element name="AccreditationStatusDescriptor" />
     <Element name="PostSecondaryInstitutionLevelDescriptor" />
     <Element name="MediumOfInstructionDescriptor" />
     <Element name="LicenseTypeDescriptor" />
@@ -150,7 +149,7 @@
     <Element name="CourseDefinedByDescriptor" />
     <Element name="CourseGPAApplicabilityDescriptor" />
     <Element name="CourseLevelCharacteristicDescriptor" />
-    <Element name="SchoolStatusDescriptor" />
+    <Element name="AccreditationStatusDescriptor" />
     <Element name="CharterApprovalAgencyTypeDescriptor" />
     <Element name="InternetAccessDescriptor" />
     <Element name="AdministrativeFundingControlDescriptor" />
@@ -168,10 +167,10 @@
     <Element name="TribalAffiliationDescriptor" />
     <Element name="ResidencyStatusDescriptor" />
     <Element name="EducationPlanDescriptor" />
-    <Element name="EntryGradeLevelReasonDescriptor" />
-    <Element name="ReasonExitedDescriptor" />
     <Element name="ExitWithdrawTypeDescriptor" />
     <Element name="EntryTypeDescriptor" />
+    <Element name="EntryGradeLevelReasonDescriptor" />
+    <Element name="ReasonExitedDescriptor" />
     <Element name="CredentialEventTypeDescriptor" />
     <Element name="CertificationExamStatusDescriptor" />
     <Element name="CertificationExamTypeDescriptor" />
@@ -302,8 +301,6 @@
     <Element name="LocalEducationAgency" />
     <Element name="AccountabilityRating" />
     <Element name="School" />
-    <Element name="University" />
-    <Element name="TeacherPreparationProvider" />
     <Element name="ClassPeriod" />
     <Element name="Location" />
     <Element name="FeederSchoolAssociation" />
@@ -341,7 +338,6 @@
     <Element name="CredentialEvent" />
     <Element name="FieldworkExperience" />
     <Element name="StudentSchoolAssociation" />
-    <Element name="TeacherCandidateTeacherPreparationProviderAssociation" />
     <Element name="TeacherCandidateAcademicRecord" />
     <Element name="TeacherCandidateCourseTranscript" />
     <Element name="FieldworkExperienceSectionAssociation" />
@@ -378,7 +374,6 @@
     <Element name="StaffEducationOrganizationAssignmentAssociation" />
     <Element name="CredentialEvent" />
     <Element name="StaffSchoolAssociation" />
-    <Element name="StaffTeacherPreparationProviderAssociation" />
     <Element name="FieldworkExperience" />
     <Element name="OpenStaffPosition" />
     <Element name="OpenStaffPositionEvent" />

@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE TABLE tracked_deletes_tpdm.AccreditationStatusDescriptor
 (
        AccreditationStatusDescriptorId INT NOT NULL,
@@ -919,14 +914,6 @@ CREATE TABLE tracked_deletes_tpdm.SalaryTypeDescriptor
        CONSTRAINT SalaryTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.SchoolStatusDescriptor
-(
-       SchoolStatusDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT SchoolStatusDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_tpdm.StaffApplicantAssociation
 (
        ApplicantIdentifier VARCHAR(32) NOT NULL,
@@ -995,15 +982,6 @@ CREATE TABLE tracked_deletes_tpdm.StaffStudentGrowthMeasureSectionAssociation
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT StaffStudentGrowthMeasureSectionAssociation_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffTeacherPreparationProviderAssociation
-(
-       StaffUSI INT NOT NULL,
-       TeacherPreparationProviderId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffTeacherPreparationProviderAssociation_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.StaffTeacherPreparationProviderProgramAssociation
@@ -1187,16 +1165,6 @@ CREATE TABLE tracked_deletes_tpdm.TeacherCandidateStudentGrowthMeasureSectionAss
        CONSTRAINT TeacherCandidateStudentGrowthMeasureSectionAssociation_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.TeacherCandidateTeacherPreparationProviderAssociation
-(
-       EntryDate DATE NOT NULL,
-       TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-       TeacherPreparationProviderId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT TeacherCandidateTeacherPreparationProviderAssociation_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation
 (
        BeginDate DATE NOT NULL,
@@ -1217,14 +1185,6 @@ CREATE TABLE tracked_deletes_tpdm.TeacherPreparationProgramTypeDescriptor
        CONSTRAINT TeacherPreparationProgramTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.TeacherPreparationProvider
-(
-       TeacherPreparationProviderId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT TeacherPreparationProvider_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_tpdm.TeacherPreparationProviderProgram
 (
        EducationOrganizationId INT NOT NULL,
@@ -1233,14 +1193,6 @@ CREATE TABLE tracked_deletes_tpdm.TeacherPreparationProviderProgram
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT TeacherPreparationProviderProgram_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.University
-(
-       UniversityId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT University_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.ValueTypeDescriptor

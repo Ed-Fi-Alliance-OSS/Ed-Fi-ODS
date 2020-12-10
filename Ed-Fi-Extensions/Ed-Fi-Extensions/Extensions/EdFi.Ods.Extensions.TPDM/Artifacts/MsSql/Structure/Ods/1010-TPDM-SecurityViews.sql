@@ -11,8 +11,6 @@ SELECT  edorg.EducationOrganizationId,
             WHEN cp.CommunityProviderId IS NOT NULL THEN N'CommunityProvider'
             WHEN co.CommunityOrganizationId IS NOT NULL THEN N'CommunityOrganization'
             WHEN psi.PostSecondaryInstitutionId IS NOT NULL THEN N'PostSecondaryInstitution'
-            WHEN u.UniversityId IS NOT NULL THEN 'University'
-            WHEN tpp.TeacherPreparationProviderId IS NOT NULL THEN 'TeacherPreparationProvider'
         END AS EducationOrganizationType,
         COALESCE(sea.StateEducationAgencyId, esc.StateEducationAgencyId, lea.StateEducationAgencyId, lea_sch.StateEducationAgencyId) AS StateEducationAgencyId,
         COALESCE(esc.EducationServiceCenterId, lea.EducationServiceCenterId, lea_sch.EducationServiceCenterId) AS EducationServiceCenterId,
@@ -22,9 +20,7 @@ SELECT  edorg.EducationOrganizationId,
         psi.PostSecondaryInstitutionId,
         sch.SchoolId,
         edorg.Discriminator AS FullEducationOrganizationType,
-        edorg.NameOfInstitution,
-        u.UniversityId,
-        tpp.TeacherPreparationProviderId
+        edorg.NameOfInstitution
 FROM    edfi.EducationOrganization edorg
         LEFT JOIN edfi.StateEducationAgency sea
             ON edorg.EducationOrganizationId = sea.StateEducationAgencyId
@@ -44,10 +40,6 @@ FROM    edfi.EducationOrganization edorg
             ON cp.CommunityOrganizationId = cp_co.CommunityOrganizationId
         LEFT JOIN edfi.PostSecondaryInstitution psi
             ON edorg.EducationOrganizationId = psi.PostSecondaryInstitutionId
-        LEFT JOIN tpdm.University u
-            ON edorg.EducationOrganizationId = u.UniversityId
-        LEFT JOIN tpdm.TeacherPreparationProvider tpp
-            ON edorg.EducationOrganizationId = tpp.TeacherPreparationProviderId
 WHERE   --Use same CASE as above to eliminate non-institutions (e.g. Networks)
         CASE
             WHEN sea.StateEducationAgencyId IS NOT NULL THEN N'StateEducationAgency'
@@ -57,55 +49,5 @@ WHERE   --Use same CASE as above to eliminate non-institutions (e.g. Networks)
             WHEN co.CommunityOrganizationId IS NOT NULL THEN N'CommunityOrganization'
             WHEN cp.CommunityProviderId IS NOT NULL THEN N'CommunityProvider'
             WHEN psi.PostSecondaryInstitutionId IS NOT NULL THEN N'PostSecondaryInstitution'
-            WHEN u.UniversityId IS NOT NULL THEN 'University'
-            WHEN tpp.TeacherPreparationProviderId IS NOT NULL THEN 'TeacherPreparationProvider'
         END IS NOT NULL
-GO
-
-CREATE VIEW [auth].[EducationOrganizationIdToUniversityId]
-AS
-    SELECT UniversityId
-          ,UniversityId AS EducationOrganizationId
-    FROM tpdm.University
-GO
-
-CREATE VIEW [auth].[EducationOrganizationIdToTeacherPreparationProviderId]
-AS
-    SELECT TeacherPreparationProviderId
-          ,TeacherPreparationProviderId AS EducationOrganizationId
-    FROM tpdm.TeacherPreparationProvider
-GO
-
-CREATE VIEW [auth].[StaffUSIToTeacherPreparationProviderId]
-AS
-    SELECT emp.EducationOrganizationId AS TeacherPreparationProviderId
-          ,emp.StaffUSI
-    FROM tpdm.TeacherPreparationProvider tpp
-        INNER JOIN auth.EducationOrganizationToStaffUSI_Employment emp ON
-        tpp.TeacherPreparationProviderId = emp.EducationOrganizationId
-
-    UNION ALL
-
-    SELECT assgn.EducationOrganizationId AS TeacherPreparationProviderId
-          ,assgn.StaffUSI
-    FROM tpdm.TeacherPreparationProvider tpp
-             INNER JOIN auth.EducationOrganizationToStaffUSI_Assignment assgn ON
-        tpp.TeacherPreparationProviderId = assgn.EducationOrganizationId
-GO
-
-CREATE VIEW [auth].[StaffUSIToUniversityId]
-AS
-    SELECT emp.EducationOrganizationId AS UniversityId
-          ,emp.StaffUSI
-    FROM tpdm.University u
-        INNER JOIN auth.EducationOrganizationToStaffUSI_Employment emp ON
-        u.UniversityId = emp.EducationOrganizationId
-
-    UNION ALL
-
-    SELECT assgn.EducationOrganizationId AS UniversityId
-          ,assgn.StaffUSI
-    FROM tpdm.University u
-             INNER JOIN auth.EducationOrganizationToStaffUSI_Assignment assgn ON
-        u.UniversityId = assgn.EducationOrganizationId
 GO

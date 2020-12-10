@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.AnonymizedStudent') AND name = N'UX_AnonymizedStudent_ChangeVersion')
     CREATE INDEX [UX_AnonymizedStudent_ChangeVersion] ON [tpdm].[AnonymizedStudent] ([ChangeVersion] ASC)
@@ -274,12 +269,6 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffTeacherPreparationProviderAssociation') AND name = N'UX_StaffTeacherPreparationProviderAssociation_ChangeVersion')
-    CREATE INDEX [UX_StaffTeacherPreparationProviderAssociation_ChangeVersion] ON [tpdm].[StaffTeacherPreparationProviderAssociation] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffTeacherPreparationProviderProgramAssociation') AND name = N'UX_StaffTeacherPreparationProviderProgramAssociation_ChangeVersion')
     CREATE INDEX [UX_StaffTeacherPreparationProviderProgramAssociation_ChangeVersion] ON [tpdm].[StaffTeacherPreparationProviderProgramAssociation] ([ChangeVersion] ASC)
     GO
@@ -348,12 +337,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation') AND name = N'UX_TeacherCandidateStudentGrowthMeasureSectionAssociation_ChangeVersion')
     CREATE INDEX [UX_TeacherCandidateStudentGrowthMeasureSectionAssociation_ChangeVersion] ON [tpdm].[TeacherCandidateStudentGrowthMeasureSectionAssociation] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherCandidateTeacherPreparationProviderAssociation') AND name = N'UX_TeacherCandidateTeacherPreparationProviderAssociation_ChangeVersion')
-    CREATE INDEX [UX_TeacherCandidateTeacherPreparationProviderAssociation_ChangeVersion] ON [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] ([ChangeVersion] ASC)
     GO
 COMMIT
 

@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE TRIGGER [tpdm].[tpdm_AnonymizedStudent_TR_UpdateChangeVersion] ON [tpdm].[AnonymizedStudent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -453,16 +448,6 @@ BEGIN
 END	
 GO
 
-CREATE TRIGGER [tpdm].[tpdm_StaffTeacherPreparationProviderAssociation_TR_UpdateChangeVersion] ON [tpdm].[StaffTeacherPreparationProviderAssociation] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffTeacherPreparationProviderAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffTeacherPreparationProviderAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
 CREATE TRIGGER [tpdm].[tpdm_StaffTeacherPreparationProviderProgramAssociation_TR_UpdateChangeVersion] ON [tpdm].[StaffTeacherPreparationProviderProgramAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -579,16 +564,6 @@ BEGIN
     UPDATE [tpdm].[TeacherCandidateStudentGrowthMeasureSectionAssociation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[TeacherCandidateStudentGrowthMeasureSectionAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateTeacherPreparationProviderAssociation_TR_UpdateChangeVersion] ON [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

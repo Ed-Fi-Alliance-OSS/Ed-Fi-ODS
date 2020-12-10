@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Table tpdm.AccreditationStatusDescriptor --
 CREATE TABLE tpdm.AccreditationStatusDescriptor (
     AccreditationStatusDescriptorId INT NOT NULL,
@@ -2122,18 +2117,13 @@ CREATE TABLE tpdm.SalaryTypeDescriptor (
 CREATE TABLE tpdm.SchoolExtension (
     SchoolId INT NOT NULL,
     FederalLocaleCodeDescriptorId INT NULL,
-    SchoolStatusDescriptorId INT NULL,
+    PostSecondaryInstitutionId INT NULL,
     ImprovingSchool BOOLEAN NULL,
+    AccreditationStatusDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT SchoolExtension_PK PRIMARY KEY (SchoolId)
 ); 
 ALTER TABLE tpdm.SchoolExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SchoolStatusDescriptor --
-CREATE TABLE tpdm.SchoolStatusDescriptor (
-    SchoolStatusDescriptorId INT NOT NULL,
-    CONSTRAINT SchoolStatusDescriptor_PK PRIMARY KEY (SchoolStatusDescriptorId)
-); 
 
 -- Table tpdm.StaffApplicantAssociation --
 CREATE TABLE tpdm.StaffApplicantAssociation (
@@ -2367,42 +2357,6 @@ CREATE TABLE tpdm.StaffTeacherPreparationProgram (
     CONSTRAINT StaffTeacherPreparationProgram_PK PRIMARY KEY (StaffUSI, TeacherPreparationProgramName)
 ); 
 ALTER TABLE tpdm.StaffTeacherPreparationProgram ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffTeacherPreparationProviderAssociation --
-CREATE TABLE tpdm.StaffTeacherPreparationProviderAssociation (
-    StaffUSI INT NOT NULL,
-    TeacherPreparationProviderId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    ProgramAssignmentDescriptorId INT NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffTeacherPreparationProviderAssociation_PK PRIMARY KEY (StaffUSI, TeacherPreparationProviderId)
-); 
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject --
-CREATE TABLE tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject (
-    AcademicSubjectDescriptorId INT NOT NULL,
-    StaffUSI INT NOT NULL,
-    TeacherPreparationProviderId INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffTeacherPreparationProviderAssociationAcademicSubject_PK PRIMARY KEY (AcademicSubjectDescriptorId, StaffUSI, TeacherPreparationProviderId)
-); 
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffTeacherPreparationProviderAssociationGradeLevel --
-CREATE TABLE tpdm.StaffTeacherPreparationProviderAssociationGradeLevel (
-    GradeLevelDescriptorId INT NOT NULL,
-    StaffUSI INT NOT NULL,
-    TeacherPreparationProviderId INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffTeacherPreparationProviderAssociationGradeLevel_PK PRIMARY KEY (GradeLevelDescriptorId, StaffUSI, TeacherPreparationProviderId)
-); 
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociationGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.StaffTeacherPreparationProviderProgramAssociation --
 CREATE TABLE tpdm.StaffTeacherPreparationProviderProgramAssociation (
@@ -3163,26 +3117,6 @@ ALTER TABLE tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation ALTER CO
 ALTER TABLE tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
--- Table tpdm.TeacherCandidateTeacherPreparationProviderAssociation --
-CREATE TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation (
-    EntryDate DATE NOT NULL,
-    TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-    TeacherPreparationProviderId INT NOT NULL,
-    SchoolYear SMALLINT NULL,
-    EntryTypeDescriptorId INT NULL,
-    ExitWithdrawDate DATE NULL,
-    ExitWithdrawTypeDescriptorId INT NULL,
-    ClassOfSchoolYear SMALLINT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT TeacherCandidateTeacherPreparationProviderAssociation_PK PRIMARY KEY (EntryDate, TeacherCandidateIdentifier, TeacherPreparationProviderId)
-); 
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
 -- Table tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation --
 CREATE TABLE tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation (
     BeginDate DATE NOT NULL,
@@ -3241,16 +3175,6 @@ CREATE TABLE tpdm.TeacherPreparationProgramTypeDescriptor (
     CONSTRAINT TeacherPreparationProgramTypeDescriptor_PK PRIMARY KEY (TeacherPreparationProgramTypeDescriptorId)
 ); 
 
--- Table tpdm.TeacherPreparationProvider --
-CREATE TABLE tpdm.TeacherPreparationProvider (
-    TeacherPreparationProviderId INT NOT NULL,
-    FederalLocaleCodeDescriptorId INT NULL,
-    AccreditationStatusDescriptorId INT NULL,
-    UniversityId INT NULL,
-    SchoolId INT NULL,
-    CONSTRAINT TeacherPreparationProvider_PK PRIMARY KEY (TeacherPreparationProviderId)
-); 
-
 -- Table tpdm.TeacherPreparationProviderProgram --
 CREATE TABLE tpdm.TeacherPreparationProviderProgram (
     EducationOrganizationId INT NOT NULL,
@@ -3292,14 +3216,6 @@ CREATE TABLE tpdm.TPPDegreeTypeDescriptor (
 CREATE TABLE tpdm.TPPProgramPathwayDescriptor (
     TPPProgramPathwayDescriptorId INT NOT NULL,
     CONSTRAINT TPPProgramPathwayDescriptor_PK PRIMARY KEY (TPPProgramPathwayDescriptorId)
-); 
-
--- Table tpdm.University --
-CREATE TABLE tpdm.University (
-    UniversityId INT NOT NULL,
-    FederalLocaleCodeDescriptorId INT NULL,
-    SchoolId INT NULL,
-    CONSTRAINT University_PK PRIMARY KEY (UniversityId)
 ); 
 
 -- Table tpdm.ValueTypeDescriptor --

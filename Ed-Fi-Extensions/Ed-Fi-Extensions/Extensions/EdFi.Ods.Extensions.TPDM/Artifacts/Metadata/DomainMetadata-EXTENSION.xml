@@ -332,9 +332,6 @@
   <Aggregate root="SalaryTypeDescriptor">
     <Entity table="SalaryTypeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="SchoolStatusDescriptor">
-    <Entity table="SchoolStatusDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
   <Aggregate root="StaffApplicantAssociation">
     <Entity table="StaffApplicantAssociation" schema="tpdm"/>
   </Aggregate>
@@ -354,11 +351,6 @@
   </Aggregate>
   <Aggregate root="StaffStudentGrowthMeasureSectionAssociation">
     <Entity table="StaffStudentGrowthMeasureSectionAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="StaffTeacherPreparationProviderAssociation">
-    <Entity table="StaffTeacherPreparationProviderAssociation" schema="tpdm"/>
-    <Entity table="StaffTeacherPreparationProviderAssociationAcademicSubject" schema="tpdm"/>
-    <Entity table="StaffTeacherPreparationProviderAssociationGradeLevel" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="StaffTeacherPreparationProviderProgramAssociation">
     <Entity table="StaffTeacherPreparationProviderProgramAssociation" schema="tpdm"/>
@@ -438,24 +430,15 @@
   <Aggregate root="TeacherCandidateStudentGrowthMeasureSectionAssociation">
     <Entity table="TeacherCandidateStudentGrowthMeasureSectionAssociation" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="TeacherCandidateTeacherPreparationProviderAssociation">
-    <Entity table="TeacherCandidateTeacherPreparationProviderAssociation" schema="tpdm"/>
-  </Aggregate>
   <Aggregate root="TeacherCandidateTeacherPreparationProviderProgramAssociation">
     <Entity table="TeacherCandidateTeacherPreparationProviderProgramAssociation" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="TeacherPreparationProgramTypeDescriptor">
     <Entity table="TeacherPreparationProgramTypeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="TeacherPreparationProvider">
-    <Entity table="TeacherPreparationProvider" isA="EducationOrganization" schema="tpdm"/>
-  </Aggregate>
   <Aggregate root="TeacherPreparationProviderProgram">
     <Entity table="TeacherPreparationProviderProgram" schema="tpdm"/>
     <Entity table="TeacherPreparationProviderProgramGradeLevel" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="University">
-    <Entity table="University" isA="EducationOrganization" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="ValueTypeDescriptor">
     <Entity table="ValueTypeDescriptor" isA="Descriptor" schema="tpdm"/>

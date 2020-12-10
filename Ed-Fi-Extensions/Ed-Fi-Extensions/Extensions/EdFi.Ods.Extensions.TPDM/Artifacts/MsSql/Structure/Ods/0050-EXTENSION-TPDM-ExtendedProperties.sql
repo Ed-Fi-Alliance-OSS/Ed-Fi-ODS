@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Extended Properties [tpdm].[AccreditationStatusDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Accreditation Status for a Teacher Preparation Provider.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'AccreditationStatusDescriptor'
 GO
@@ -2500,15 +2495,11 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The federal locale code associated with an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolExtension', @level2type=N'COLUMN', @level2name=N'FederalLocaleCodeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The status of school e.g. priority or focus.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolExtension', @level2type=N'COLUMN', @level2name=N'SchoolStatusDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The ID of the post secondary institution.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolExtension', @level2type=N'COLUMN', @level2name=N'PostSecondaryInstitutionId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether a school is identified as an improving school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolExtension', @level2type=N'COLUMN', @level2name=N'ImprovingSchool'
 GO
-
--- Extended Properties [tpdm].[SchoolStatusDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor holds the status of a school e.g. priority or focus.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolStatusDescriptor'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolStatusDescriptor', @level2type=N'COLUMN', @level2name=N'SchoolStatusDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Accreditation Status for a Education Preparation Provider.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolExtension', @level2type=N'COLUMN', @level2name=N'AccreditationStatusDescriptorId'
 GO
 
 -- Extended Properties [tpdm].[StaffApplicantAssociation] --
@@ -2755,38 +2746,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The final GPA the teacher achieved in the program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProgram', @level2type=N'COLUMN', @level2name=N'GPA'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The level of degree awarded by the teacher preparation program to the person (e.g., Certificate Only, Bachelor''s, Master''s, etc.).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProgram', @level2type=N'COLUMN', @level2name=N'LevelOfDegreeAwardedDescriptorId'
-GO
-
--- Extended Properties [tpdm].[StaffTeacherPreparationProviderAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information about the association between the Staff and the TeacherPreparationProvider', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociation'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identification code for the Teacher Preparation Provider', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'TeacherPreparationProviderId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier for a school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Program Assignment for the association', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'ProgramAssignmentDescriptorId'
-GO
-
--- Extended Properties [tpdm].[StaffTeacherPreparationProviderAssociationAcademicSubject] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a degree.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociationAcademicSubject'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a degree.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociationAcademicSubject', @level2type=N'COLUMN', @level2name=N'AcademicSubjectDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociationAcademicSubject', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identification code for the Teacher Preparation Provider', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociationAcademicSubject', @level2type=N'COLUMN', @level2name=N'TeacherPreparationProviderId'
-GO
-
--- Extended Properties [tpdm].[StaffTeacherPreparationProviderAssociationGradeLevel] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade levels for the association.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociationGradeLevel'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade levels for the association.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociationGradeLevel', @level2type=N'COLUMN', @level2name=N'GradeLevelDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociationGradeLevel', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identification code for the Teacher Preparation Provider', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffTeacherPreparationProviderAssociationGradeLevel', @level2type=N'COLUMN', @level2name=N'TeacherPreparationProviderId'
 GO
 
 -- Extended Properties [tpdm].[StaffTeacherPreparationProviderProgramAssociation] --
@@ -3763,26 +3722,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The end date for the association', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateStudentGrowthMeasureSectionAssociation', @level2type=N'COLUMN', @level2name=N'EndDate'
 GO
 
--- Extended Properties [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderAssociation'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Entry date for the association', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'EntryDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'TeacherCandidateIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identification code for the Teacher Preparation Provider', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'TeacherPreparationProviderId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'School Year for the association', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Entry Type for the association', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'EntryTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Exit date for the association', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'ExitWithdrawDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Exit type for the association', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'ExitWithdrawTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'School Year cohort for the association', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderAssociation', @level2type=N'COLUMN', @level2name=N'ClassOfSchoolYear'
-GO
-
 -- Extended Properties [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateTeacherPreparationProviderProgramAssociation'
 GO
@@ -3843,20 +3782,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProgramTypeDescriptor', @level2type=N'COLUMN', @level2name=N'TeacherPreparationProgramTypeDescriptorId'
 GO
 
--- Extended Properties [tpdm].[TeacherPreparationProvider] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identification code for the Teacher Preparation Provider', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider', @level2type=N'COLUMN', @level2name=N'TeacherPreparationProviderId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The federal locale code associated with an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider', @level2type=N'COLUMN', @level2name=N'FederalLocaleCodeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Accreditation Status for a Teacher Preparation Provider.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider', @level2type=N'COLUMN', @level2name=N'AccreditationStatusDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identification code of the University', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider', @level2type=N'COLUMN', @level2name=N'UniversityId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider', @level2type=N'COLUMN', @level2name=N'SchoolId'
-GO
-
 -- Extended Properties [tpdm].[TeacherPreparationProviderProgram] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity represents information regarding a teacher preparation provider program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProviderProgram'
 GO
@@ -3899,16 +3824,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor holds the program pathways available at TPP''s.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TPPProgramPathwayDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TPPProgramPathwayDescriptor', @level2type=N'COLUMN', @level2name=N'TPPProgramPathwayDescriptorId'
-GO
-
--- Extended Properties [tpdm].[University] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'University'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identification code of the University', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'University', @level2type=N'COLUMN', @level2name=N'UniversityId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The federal locale code associated with an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'University', @level2type=N'COLUMN', @level2name=N'FederalLocaleCodeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'University', @level2type=N'COLUMN', @level2name=N'SchoolId'
 GO
 
 -- Extended Properties [tpdm].[ValueTypeDescriptor] --

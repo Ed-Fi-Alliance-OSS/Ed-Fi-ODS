@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE TABLE [tracked_deletes_tpdm].[AccreditationStatusDescriptor]
 (
        AccreditationStatusDescriptorId [INT] NOT NULL,
@@ -919,14 +914,6 @@ CREATE TABLE [tracked_deletes_tpdm].[SalaryTypeDescriptor]
        CONSTRAINT PK_SalaryTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
-CREATE TABLE [tracked_deletes_tpdm].[SchoolStatusDescriptor]
-(
-       SchoolStatusDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_SchoolStatusDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
 CREATE TABLE [tracked_deletes_tpdm].[StaffApplicantAssociation]
 (
        ApplicantIdentifier [NVARCHAR](32) NOT NULL,
@@ -995,15 +982,6 @@ CREATE TABLE [tracked_deletes_tpdm].[StaffStudentGrowthMeasureSectionAssociation
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StaffStudentGrowthMeasureSectionAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[StaffTeacherPreparationProviderAssociation]
-(
-       StaffUSI [INT] NOT NULL,
-       TeacherPreparationProviderId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_StaffTeacherPreparationProviderAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_tpdm].[StaffTeacherPreparationProviderProgramAssociation]
@@ -1187,16 +1165,6 @@ CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateStudentGrowthMeasureSection
        CONSTRAINT PK_TeacherCandidateStudentGrowthMeasureSectionAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
-CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateTeacherPreparationProviderAssociation]
-(
-       EntryDate [DATE] NOT NULL,
-       TeacherCandidateIdentifier [NVARCHAR](32) NOT NULL,
-       TeacherPreparationProviderId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_TeacherCandidateTeacherPreparationProviderAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
 CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation]
 (
        BeginDate [DATE] NOT NULL,
@@ -1217,14 +1185,6 @@ CREATE TABLE [tracked_deletes_tpdm].[TeacherPreparationProgramTypeDescriptor]
        CONSTRAINT PK_TeacherPreparationProgramTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
-CREATE TABLE [tracked_deletes_tpdm].[TeacherPreparationProvider]
-(
-       TeacherPreparationProviderId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_TeacherPreparationProvider PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
 CREATE TABLE [tracked_deletes_tpdm].[TeacherPreparationProviderProgram]
 (
        EducationOrganizationId [INT] NOT NULL,
@@ -1233,14 +1193,6 @@ CREATE TABLE [tracked_deletes_tpdm].[TeacherPreparationProviderProgram]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_TeacherPreparationProviderProgram PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[University]
-(
-       UniversityId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_University PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_tpdm].[ValueTypeDescriptor]

@@ -1337,18 +1337,6 @@
     {
       "aggregateRootEntityName": {
         "schema": "tpdm",
-        "name": "SchoolStatusDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "tpdm",
-          "name": "SchoolStatusDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "tpdm",
         "name": "StaffApplicantAssociation"
       },
       "aggregateEntityNames": [
@@ -1423,26 +1411,6 @@
         {
           "schema": "tpdm",
           "name": "StaffStudentGrowthMeasureSectionAssociation"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociation"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "tpdm",
-          "name": "StaffTeacherPreparationProviderAssociation"
-        },
-        {
-          "schema": "tpdm",
-          "name": "StaffTeacherPreparationProviderAssociationAcademicSubject"
-        },
-        {
-          "schema": "tpdm",
-          "name": "StaffTeacherPreparationProviderAssociationGradeLevel"
         }
       ]
     },
@@ -1737,18 +1705,6 @@
     {
       "aggregateRootEntityName": {
         "schema": "tpdm",
-        "name": "TeacherCandidateTeacherPreparationProviderAssociation"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "tpdm",
-          "name": "TeacherCandidateTeacherPreparationProviderAssociation"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "tpdm",
         "name": "TeacherCandidateTeacherPreparationProviderProgramAssociation"
       },
       "aggregateEntityNames": [
@@ -1767,18 +1723,6 @@
         {
           "schema": "tpdm",
           "name": "TeacherPreparationProgramTypeDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProvider"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "tpdm",
-          "name": "TeacherPreparationProvider"
         }
       ]
     },
@@ -1819,18 +1763,6 @@
         {
           "schema": "tpdm",
           "name": "TPPProgramPathwayDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "tpdm",
-        "name": "University"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "tpdm",
-          "name": "University"
         }
       ]
     },
@@ -14669,31 +14601,6 @@
     },
     {
       "schema": "tpdm",
-      "name": "SchoolStatusDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "SchoolStatusDescriptor_PK",
-          "identifyingPropertyNames": [
-            "SchoolStatusDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "SchoolStatusDescriptor_PK",
-            "postgreSql": "SchoolStatusDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The descriptor holds the status of a school e.g. priority or focus.",
-      "tableNames": {
-        "sqlServer": "SchoolStatusDescriptor",
-        "postgreSql": "SchoolStatusDescriptor"
-      }
-    },
-    {
-      "schema": "tpdm",
       "name": "StaffApplicantAssociation",
       "locallyDefinedProperties": [
         {
@@ -16270,186 +16177,6 @@
       "tableNames": {
         "sqlServer": "StaffTeacherPreparationProgram",
         "postgreSql": "StaffTeacherPreparationProgram"
-      }
-    },
-    {
-      "schema": "tpdm",
-      "name": "StaffTeacherPreparationProviderAssociation",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "Id",
-          "propertyType": {
-            "dbType": "Guid",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "Id",
-            "postgreSql": "Id"
-          }
-        },
-        {
-          "propertyName": "LastModifiedDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastModifiedDate",
-            "postgreSql": "LastModifiedDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StaffTeacherPreparationProviderAssociation_PK",
-          "identifyingPropertyNames": [
-            "StaffUSI",
-            "TeacherPreparationProviderId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StaffTeacherPreparationProviderAssociation_PK",
-            "postgreSql": "StaffTeacherPreparationProviderAssociation_PK"
-          }
-        },
-        {
-          "identifierName": "UX_StaffTeacherPreparationProviderAssociation_Id",
-          "identifyingPropertyNames": [
-            "Id"
-          ],
-          "isPrimary": false,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "UX_StaffTeacherPreparationProviderAssociation_Id",
-            "postgreSql": "UX_7bf40b_Id"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "Information about the association between the Staff and the TeacherPreparationProvider",
-      "tableNames": {
-        "sqlServer": "StaffTeacherPreparationProviderAssociation",
-        "postgreSql": "StaffTeacherPreparationProviderAssociation"
-      }
-    },
-    {
-      "schema": "tpdm",
-      "name": "StaffTeacherPreparationProviderAssociationAcademicSubject",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StaffTeacherPreparationProviderAssociationAcademicSubject_PK",
-          "identifyingPropertyNames": [
-            "AcademicSubjectDescriptorId",
-            "StaffUSI",
-            "TeacherPreparationProviderId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StaffTeacherPreparationProviderAssociationAcademicSubject_PK",
-            "postgreSql": "StaffTeacherPreparationProviderAssociationAcademicSubject_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a degree.",
-      "tableNames": {
-        "sqlServer": "StaffTeacherPreparationProviderAssociationAcademicSubject",
-        "postgreSql": "StaffTeacherPreparationProviderAssociationAcademicSubject"
-      }
-    },
-    {
-      "schema": "tpdm",
-      "name": "StaffTeacherPreparationProviderAssociationGradeLevel",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StaffTeacherPreparationProviderAssociationGradeLevel_PK",
-          "identifyingPropertyNames": [
-            "GradeLevelDescriptorId",
-            "StaffUSI",
-            "TeacherPreparationProviderId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StaffTeacherPreparationProviderAssociationGradeLevel_PK",
-            "postgreSql": "StaffTeacherPreparationProviderAssociationGradeLevel_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The grade levels for the association.",
-      "tableNames": {
-        "sqlServer": "StaffTeacherPreparationProviderAssociationGradeLevel",
-        "postgreSql": "StaffTeacherPreparationProviderAssociationGradeLevel"
       }
     },
     {
@@ -21969,131 +21696,6 @@
     },
     {
       "schema": "tpdm",
-      "name": "TeacherCandidateTeacherPreparationProviderAssociation",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "EntryDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Entry date for the association",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EntryDate",
-            "postgreSql": "EntryDate"
-          }
-        },
-        {
-          "propertyName": "ExitWithdrawDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Exit date for the association",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ExitWithdrawDate",
-            "postgreSql": "ExitWithdrawDate"
-          }
-        },
-        {
-          "propertyName": "Id",
-          "propertyType": {
-            "dbType": "Guid",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "Id",
-            "postgreSql": "Id"
-          }
-        },
-        {
-          "propertyName": "LastModifiedDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastModifiedDate",
-            "postgreSql": "LastModifiedDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "TeacherCandidateTeacherPreparationProviderAssociation_PK",
-          "identifyingPropertyNames": [
-            "EntryDate",
-            "TeacherCandidateIdentifier",
-            "TeacherPreparationProviderId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "TeacherCandidateTeacherPreparationProviderAssociation_PK",
-            "postgreSql": "TeacherCandidateTeacherPreparationProviderAssociation_PK"
-          }
-        },
-        {
-          "identifierName": "UX_TeacherCandidateTeacherPreparationProviderAssociation_Id",
-          "identifyingPropertyNames": [
-            "Id"
-          ],
-          "isPrimary": false,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "UX_TeacherCandidateTeacherPreparationProviderAssociation_Id",
-            "postgreSql": "UX_0dff08_Id"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram",
-      "tableNames": {
-        "sqlServer": "TeacherCandidateTeacherPreparationProviderAssociation",
-        "postgreSql": "TeacherCandidateTeacherPreparationProviderAssociation"
-      }
-    },
-    {
-      "schema": "tpdm",
       "name": "TeacherCandidateTeacherPreparationProviderProgramAssociation",
       "locallyDefinedProperties": [
         {
@@ -22449,31 +22051,6 @@
     },
     {
       "schema": "tpdm",
-      "name": "TeacherPreparationProvider",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "TeacherPreparationProvider_PK",
-          "identifyingPropertyNames": [
-            "TeacherPreparationProviderId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "TeacherPreparationProvider_PK",
-            "postgreSql": "TeacherPreparationProvider_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.",
-      "tableNames": {
-        "sqlServer": "TeacherPreparationProvider",
-        "postgreSql": "TeacherPreparationProvider"
-      }
-    },
-    {
-      "schema": "tpdm",
       "name": "TeacherPreparationProviderProgram",
       "locallyDefinedProperties": [
         {
@@ -22725,31 +22302,6 @@
       "tableNames": {
         "sqlServer": "TPPProgramPathwayDescriptor",
         "postgreSql": "TPPProgramPathwayDescriptor"
-      }
-    },
-    {
-      "schema": "tpdm",
-      "name": "University",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "University_PK",
-          "identifyingPropertyNames": [
-            "UniversityId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "University_PK",
-            "postgreSql": "University_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.",
-      "tableNames": {
-        "sqlServer": "University",
-        "postgreSql": "University"
       }
     },
     {
@@ -43126,7 +42678,7 @@
             "isNullable": false
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "PersonId",
@@ -43143,7 +42695,7 @@
             "isNullable": false
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "SourceSystemDescriptorId",
@@ -43157,42 +42709,42 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "PersonId",
+          "propertyName": "ReviewerPersonId",
           "propertyType": {
             "dbType": "String",
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "PersonId",
-            "postgreSql": "PersonId"
+            "sqlServer": "ReviewerPersonId",
+            "postgreSql": "ReviewerPersonId"
           }
         },
         {
-          "propertyName": "SourceSystemDescriptorId",
+          "propertyName": "ReviewerSourceSystemDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "SourceSystemDescriptorId",
-            "postgreSql": "SourceSystemDescriptorId"
+            "sqlServer": "ReviewerSourceSystemDescriptorId",
+            "postgreSql": "ReviewerSourceSystemDescriptorId"
           }
         }
       ],
-      "isIdentifying": true,
-      "isRequired": true,
+      "isIdentifying": false,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_EvaluationRatingReviewer_Person",
         "postgreSql": "FK_2d29eb_Person"
@@ -49139,7 +48691,7 @@
             "isNullable": false
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "PersonId",
@@ -49156,7 +48708,7 @@
             "isNullable": false
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "SourceSystemDescriptorId",
@@ -49170,42 +48722,42 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "PersonId",
+          "propertyName": "ReviewerPersonId",
           "propertyType": {
             "dbType": "String",
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "PersonId",
-            "postgreSql": "PersonId"
+            "sqlServer": "ReviewerPersonId",
+            "postgreSql": "ReviewerPersonId"
           }
         },
         {
-          "propertyName": "SourceSystemDescriptorId",
+          "propertyName": "ReviewerSourceSystemDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "SourceSystemDescriptorId",
-            "postgreSql": "SourceSystemDescriptorId"
+            "sqlServer": "ReviewerSourceSystemDescriptorId",
+            "postgreSql": "ReviewerSourceSystemDescriptorId"
           }
         }
       ],
-      "isIdentifying": true,
-      "isRequired": true,
+      "isIdentifying": false,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_PerformanceEvaluationRatingReviewer_Person",
         "postgreSql": "FK_477526_Person"
@@ -54474,6 +54026,65 @@
     {
       "fullName": {
         "schema": "tpdm",
+        "name": "FK_SchoolExtension_AccreditationStatusDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "AccreditationStatusDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "AccreditationStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AccreditationStatusDescriptorId",
+            "postgreSql": "AccreditationStatusDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "SchoolExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "AccreditationStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Accreditation Status for a Education Preparation Provider.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AccreditationStatusDescriptorId",
+            "postgreSql": "AccreditationStatusDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_SchoolExtension_AccreditationStatusDescriptor",
+        "postgreSql": "FK_2199be_AccreditationStatusDescriptor"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
         "name": "FK_SchoolExtension_FederalLocaleCodeDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -54533,6 +54144,65 @@
     {
       "fullName": {
         "schema": "tpdm",
+        "name": "FK_SchoolExtension_PostSecondaryInstitution"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "PostSecondaryInstitution"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "PostSecondaryInstitutionId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The ID of the post secondary institution.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostSecondaryInstitutionId",
+            "postgreSql": "PostSecondaryInstitutionId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "SchoolExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "PostSecondaryInstitutionId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The ID of the post secondary institution.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostSecondaryInstitutionId",
+            "postgreSql": "PostSecondaryInstitutionId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_SchoolExtension_PostSecondaryInstitution",
+        "postgreSql": "FK_2199be_PostSecondaryInstitution"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
         "name": "FK_SchoolExtension_School"
       },
       "cardinality": "OneToOneExtension",
@@ -54587,124 +54257,6 @@
       "constraintNames": {
         "sqlServer": "FK_SchoolExtension_School",
         "postgreSql": "FK_2199be_School"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_SchoolExtension_SchoolStatusDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "SchoolStatusDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SchoolStatusDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolStatusDescriptorId",
-            "postgreSql": "SchoolStatusDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "SchoolExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SchoolStatusDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The status of school e.g. priority or focus.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolStatusDescriptorId",
-            "postgreSql": "SchoolStatusDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_SchoolExtension_SchoolStatusDescriptor",
-        "postgreSql": "FK_2199be_SchoolStatusDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_SchoolStatusDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "SchoolStatusDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SchoolStatusDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "SchoolStatusDescriptorId",
-            "postgreSql": "SchoolStatusDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_SchoolStatusDescriptor_Descriptor",
-        "postgreSql": "FK_3bd25e_Descriptor"
       }
     },
     {
@@ -57527,546 +57079,6 @@
       "constraintNames": {
         "sqlServer": "FK_StaffTeacherPreparationProgram_TeacherPreparationProgramTypeDescriptor",
         "postgreSql": "FK_41a331_TeacherPreparationProgramTypeDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProviderAssociation_ProgramAssignmentDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "ProgramAssignmentDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ProgramAssignmentDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramAssignmentDescriptorId",
-            "postgreSql": "ProgramAssignmentDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ProgramAssignmentDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Program Assignment for the association",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramAssignmentDescriptorId",
-            "postgreSql": "ProgramAssignmentDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProviderAssociation_ProgramAssignmentDescriptor",
-        "postgreSql": "FK_7bf40b_ProgramAssignmentDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProviderAssociation_SchoolYearType"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "SchoolYearType"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Key for School Year",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolYear",
-            "postgreSql": "SchoolYear"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Identifier for a school year.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolYear",
-            "postgreSql": "SchoolYear"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProviderAssociation_SchoolYearType",
-        "postgreSql": "FK_7bf40b_SchoolYearType"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProviderAssociation_Staff"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Staff"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProviderAssociation_Staff",
-        "postgreSql": "FK_7bf40b_Staff"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProviderAssociation_TeacherPreparationProvider"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProvider"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProviderId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code for the Teacher Preparation Provider",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProviderId",
-            "postgreSql": "TeacherPreparationProviderId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProviderId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code for the Teacher Preparation Provider",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProviderId",
-            "postgreSql": "TeacherPreparationProviderId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProviderAssociation_TeacherPreparationProvider",
-        "postgreSql": "FK_7bf40b_TeacherPreparationProvider"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProviderAssociationAcademicSubject_AcademicSubjectDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "AcademicSubjectDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "AcademicSubjectDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "AcademicSubjectDescriptorId",
-            "postgreSql": "AcademicSubjectDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociationAcademicSubject"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "AcademicSubjectDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a degree.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "AcademicSubjectDescriptorId",
-            "postgreSql": "AcademicSubjectDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProviderAssociationAcademicSubject_AcademicSubjectDescriptor",
-        "postgreSql": "FK_32c1aa_AcademicSubjectDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProviderAssociationAcademicSubject_StaffTeacherPreparationProviderAssociation"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        },
-        {
-          "propertyName": "TeacherPreparationProviderId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code for the Teacher Preparation Provider",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProviderId",
-            "postgreSql": "TeacherPreparationProviderId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociationAcademicSubject"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        },
-        {
-          "propertyName": "TeacherPreparationProviderId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code for the Teacher Preparation Provider",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProviderId",
-            "postgreSql": "TeacherPreparationProviderId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProviderAssociationAcademicSubject_StaffTeacherPreparationProviderAssociation",
-        "postgreSql": "FK_32c1aa_StaffTeacherPreparationProviderAssociation"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProviderAssociationGradeLevel_GradeLevelDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "GradeLevelDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "GradeLevelDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "GradeLevelDescriptorId",
-            "postgreSql": "GradeLevelDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociationGradeLevel"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "GradeLevelDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The grade levels for the association.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "GradeLevelDescriptorId",
-            "postgreSql": "GradeLevelDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProviderAssociationGradeLevel_GradeLevelDescriptor",
-        "postgreSql": "FK_e2901f_GradeLevelDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_StaffTeacherPreparationProviderAssociationGradeLevel_StaffTeacherPreparationProviderAssociation"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        },
-        {
-          "propertyName": "TeacherPreparationProviderId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code for the Teacher Preparation Provider",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProviderId",
-            "postgreSql": "TeacherPreparationProviderId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "StaffTeacherPreparationProviderAssociationGradeLevel"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        },
-        {
-          "propertyName": "TeacherPreparationProviderId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code for the Teacher Preparation Provider",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProviderId",
-            "postgreSql": "TeacherPreparationProviderId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffTeacherPreparationProviderAssociationGradeLevel_StaffTeacherPreparationProviderAssociation",
-        "postgreSql": "FK_e2901f_StaffTeacherPreparationProviderAssociation"
       }
     },
     {
@@ -68609,360 +67621,6 @@
     {
       "fullName": {
         "schema": "tpdm",
-        "name": "FK_TeacherCandidateTeacherPreparationProviderAssociation_EntryTypeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "EntryTypeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EntryTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EntryTypeDescriptorId",
-            "postgreSql": "EntryTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherCandidateTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "EntryTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Entry Type for the association",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EntryTypeDescriptorId",
-            "postgreSql": "EntryTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherCandidateTeacherPreparationProviderAssociation_EntryTypeDescriptor",
-        "postgreSql": "FK_0dff08_EntryTypeDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherCandidateTeacherPreparationProviderAssociation_ExitWithdrawTypeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "ExitWithdrawTypeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ExitWithdrawTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ExitWithdrawTypeDescriptorId",
-            "postgreSql": "ExitWithdrawTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherCandidateTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ExitWithdrawTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Exit type for the association",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ExitWithdrawTypeDescriptorId",
-            "postgreSql": "ExitWithdrawTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherCandidateTeacherPreparationProviderAssociation_ExitWithdrawTypeDescriptor",
-        "postgreSql": "FK_0dff08_ExitWithdrawTypeDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherCandidateTeacherPreparationProviderAssociation_SchoolYearType"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "SchoolYearType"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Key for School Year",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolYear",
-            "postgreSql": "SchoolYear"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherCandidateTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "School Year for the association",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolYear",
-            "postgreSql": "SchoolYear"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherCandidateTeacherPreparationProviderAssociation_SchoolYearType",
-        "postgreSql": "FK_0dff08_SchoolYearType"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherCandidateTeacherPreparationProviderAssociation_SchoolYearType1"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "SchoolYearType"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Key for School Year",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolYear",
-            "postgreSql": "SchoolYear"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherCandidateTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ClassOfSchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "School Year cohort for the association",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ClassOfSchoolYear",
-            "postgreSql": "ClassOfSchoolYear"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherCandidateTeacherPreparationProviderAssociation_SchoolYearType1",
-        "postgreSql": "FK_0dff08_SchoolYearType1"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherCandidateTeacherPreparationProviderAssociation_TeacherCandidate"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherCandidate"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "TeacherCandidateIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 32,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a teacher candidate.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherCandidateIdentifier",
-            "postgreSql": "TeacherCandidateIdentifier"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherCandidateTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TeacherCandidateIdentifier",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 32,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a teacher candidate.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherCandidateIdentifier",
-            "postgreSql": "TeacherCandidateIdentifier"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherCandidateTeacherPreparationProviderAssociation_TeacherCandidate",
-        "postgreSql": "FK_0dff08_TeacherCandidate"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherCandidateTeacherPreparationProviderAssociation_TeacherPreparationProvider"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProvider"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProviderId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code for the Teacher Preparation Provider",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProviderId",
-            "postgreSql": "TeacherPreparationProviderId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherCandidateTeacherPreparationProviderAssociation"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProviderId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code for the Teacher Preparation Provider",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProviderId",
-            "postgreSql": "TeacherPreparationProviderId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherCandidateTeacherPreparationProviderAssociation_TeacherPreparationProvider",
-        "postgreSql": "FK_0dff08_TeacherPreparationProvider"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
         "name": "FK_TeacherCandidateTeacherPreparationProviderProgramAssociation_EducationOrganization"
       },
       "cardinality": "OneToZeroOrMore",
@@ -69798,301 +68456,6 @@
     {
       "fullName": {
         "schema": "tpdm",
-        "name": "FK_TeacherPreparationProvider_AccreditationStatusDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "AccreditationStatusDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "AccreditationStatusDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "AccreditationStatusDescriptorId",
-            "postgreSql": "AccreditationStatusDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProvider"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "AccreditationStatusDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Accreditation Status for a Teacher Preparation Provider.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "AccreditationStatusDescriptorId",
-            "postgreSql": "AccreditationStatusDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProvider_AccreditationStatusDescriptor",
-        "postgreSql": "FK_ea8f5b_AccreditationStatusDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProvider_EducationOrganization"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "EducationOrganization"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProvider"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "TeacherPreparationProviderId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code for the Teacher Preparation Provider",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "TeacherPreparationProviderId",
-            "postgreSql": "TeacherPreparationProviderId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProvider_EducationOrganization",
-        "postgreSql": "FK_ea8f5b_EducationOrganization"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProvider_FederalLocaleCodeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "FederalLocaleCodeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "FederalLocaleCodeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FederalLocaleCodeDescriptorId",
-            "postgreSql": "FederalLocaleCodeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProvider"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "FederalLocaleCodeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The federal locale code associated with an education organization.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FederalLocaleCodeDescriptorId",
-            "postgreSql": "FederalLocaleCodeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProvider_FederalLocaleCodeDescriptor",
-        "postgreSql": "FK_ea8f5b_FederalLocaleCodeDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProvider_School"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "School"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SchoolId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to a school.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolId",
-            "postgreSql": "SchoolId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProvider"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SchoolId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The identifier assigned to a school.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolId",
-            "postgreSql": "SchoolId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProvider_School",
-        "postgreSql": "FK_ea8f5b_School"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_TeacherPreparationProvider_University"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "University"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "UniversityId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code of the University",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "UniversityId",
-            "postgreSql": "UniversityId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "TeacherPreparationProvider"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "UniversityId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The unique identification code of the University",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "UniversityId",
-            "postgreSql": "UniversityId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_TeacherPreparationProvider_University",
-        "postgreSql": "FK_ea8f5b_University"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
         "name": "FK_TeacherPreparationProviderProgram_EducationOrganization"
       },
       "cardinality": "OneToZeroOrMore",
@@ -70628,183 +68991,6 @@
       "constraintNames": {
         "sqlServer": "FK_TPPProgramPathwayDescriptor_Descriptor",
         "postgreSql": "FK_1807ea_Descriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_University_EducationOrganization"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "EducationOrganization"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "University"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "UniversityId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The unique identification code of the University",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "UniversityId",
-            "postgreSql": "UniversityId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_University_EducationOrganization",
-        "postgreSql": "FK_9d3844_EducationOrganization"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_University_FederalLocaleCodeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "FederalLocaleCodeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "FederalLocaleCodeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FederalLocaleCodeDescriptorId",
-            "postgreSql": "FederalLocaleCodeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "University"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "FederalLocaleCodeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The federal locale code associated with an education organization.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FederalLocaleCodeDescriptorId",
-            "postgreSql": "FederalLocaleCodeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_University_FederalLocaleCodeDescriptor",
-        "postgreSql": "FK_9d3844_FederalLocaleCodeDescriptor"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "tpdm",
-        "name": "FK_University_School"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "School"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SchoolId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to a school.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolId",
-            "postgreSql": "SchoolId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "tpdm",
-        "name": "University"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SchoolId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The identifier assigned to a school.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolId",
-            "postgreSql": "SchoolId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_University_School",
-        "postgreSql": "FK_9d3844_School"
       }
     },
     {

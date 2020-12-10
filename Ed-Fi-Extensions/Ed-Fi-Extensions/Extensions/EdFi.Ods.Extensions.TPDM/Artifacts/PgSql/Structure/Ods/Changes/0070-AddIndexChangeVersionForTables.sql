@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE INDEX IF NOT EXISTS UX_91a31b_ChangeVersion ON tpdm.AnonymizedStudent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_a5aeb2_ChangeVersion ON tpdm.AnonymizedStudentAcademicRecord(ChangeVersion);
@@ -93,8 +88,6 @@ CREATE INDEX IF NOT EXISTS UX_120788_ChangeVersion ON tpdm.StaffStudentGrowthMea
 
 CREATE INDEX IF NOT EXISTS UX_fbfeb4_ChangeVersion ON tpdm.StaffStudentGrowthMeasureSectionAssociation(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_7bf40b_ChangeVersion ON tpdm.StaffTeacherPreparationProviderAssociation(ChangeVersion);
-
 CREATE INDEX IF NOT EXISTS UX_5bac62_ChangeVersion ON tpdm.StaffTeacherPreparationProviderProgramAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_049bd0_ChangeVersion ON tpdm.SurveyResponseTeacherCandidateTargetAssociation(ChangeVersion);
@@ -118,8 +111,6 @@ CREATE INDEX IF NOT EXISTS UX_512fab_ChangeVersion ON tpdm.TeacherCandidateStude
 CREATE INDEX IF NOT EXISTS UX_22b9a4_ChangeVersion ON tpdm.TeacherCandidateStudentGrowthMeasureEducationOrganizatio_22b9a4(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_b8b1b0_ChangeVersion ON tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_0dff08_ChangeVersion ON tpdm.TeacherCandidateTeacherPreparationProviderAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_81475b_ChangeVersion ON tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation(ChangeVersion);
 

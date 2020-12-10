@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Table [tpdm].[AccreditationStatusDescriptor] --
 CREATE TABLE [tpdm].[AccreditationStatusDescriptor] (
     [AccreditationStatusDescriptorId] [INT] NOT NULL,
@@ -3211,8 +3206,9 @@ GO
 CREATE TABLE [tpdm].[SchoolExtension] (
     [SchoolId] [INT] NOT NULL,
     [FederalLocaleCodeDescriptorId] [INT] NULL,
-    [SchoolStatusDescriptorId] [INT] NULL,
+    [PostSecondaryInstitutionId] [INT] NULL,
     [ImprovingSchool] [BIT] NULL,
+    [AccreditationStatusDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [SchoolExtension_PK] PRIMARY KEY CLUSTERED (
         [SchoolId] ASC
@@ -3220,15 +3216,6 @@ CREATE TABLE [tpdm].[SchoolExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [tpdm].[SchoolExtension] ADD CONSTRAINT [SchoolExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SchoolStatusDescriptor] --
-CREATE TABLE [tpdm].[SchoolStatusDescriptor] (
-    [SchoolStatusDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [SchoolStatusDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [SchoolStatusDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
 GO
 
 -- Table [tpdm].[StaffApplicantAssociation] --
@@ -3576,61 +3563,6 @@ CREATE TABLE [tpdm].[StaffTeacherPreparationProgram] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [tpdm].[StaffTeacherPreparationProgram] ADD CONSTRAINT [StaffTeacherPreparationProgram_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[StaffTeacherPreparationProviderAssociation] --
-CREATE TABLE [tpdm].[StaffTeacherPreparationProviderAssociation] (
-    [StaffUSI] [INT] NOT NULL,
-    [TeacherPreparationProviderId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [ProgramAssignmentDescriptorId] [INT] NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [StaffTeacherPreparationProviderAssociation_PK] PRIMARY KEY CLUSTERED (
-        [StaffUSI] ASC,
-        [TeacherPreparationProviderId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffTeacherPreparationProviderAssociation] ADD CONSTRAINT [StaffTeacherPreparationProviderAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[StaffTeacherPreparationProviderAssociation] ADD CONSTRAINT [StaffTeacherPreparationProviderAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[StaffTeacherPreparationProviderAssociation] ADD CONSTRAINT [StaffTeacherPreparationProviderAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[StaffTeacherPreparationProviderAssociationAcademicSubject] --
-CREATE TABLE [tpdm].[StaffTeacherPreparationProviderAssociationAcademicSubject] (
-    [AcademicSubjectDescriptorId] [INT] NOT NULL,
-    [StaffUSI] [INT] NOT NULL,
-    [TeacherPreparationProviderId] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StaffTeacherPreparationProviderAssociationAcademicSubject_PK] PRIMARY KEY CLUSTERED (
-        [AcademicSubjectDescriptorId] ASC,
-        [StaffUSI] ASC,
-        [TeacherPreparationProviderId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffTeacherPreparationProviderAssociationAcademicSubject] ADD CONSTRAINT [StaffTeacherPreparationProviderAssociationAcademicSubject_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[StaffTeacherPreparationProviderAssociationGradeLevel] --
-CREATE TABLE [tpdm].[StaffTeacherPreparationProviderAssociationGradeLevel] (
-    [GradeLevelDescriptorId] [INT] NOT NULL,
-    [StaffUSI] [INT] NOT NULL,
-    [TeacherPreparationProviderId] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StaffTeacherPreparationProviderAssociationGradeLevel_PK] PRIMARY KEY CLUSTERED (
-        [GradeLevelDescriptorId] ASC,
-        [StaffUSI] ASC,
-        [TeacherPreparationProviderId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffTeacherPreparationProviderAssociationGradeLevel] ADD CONSTRAINT [StaffTeacherPreparationProviderAssociationGradeLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [tpdm].[StaffTeacherPreparationProviderProgramAssociation] --
@@ -4731,34 +4663,6 @@ GO
 ALTER TABLE [tpdm].[TeacherCandidateStudentGrowthMeasureSectionAssociation] ADD CONSTRAINT [TeacherCandidateStudentGrowthMeasureSectionAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
--- Table [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] --
-CREATE TABLE [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] (
-    [EntryDate] [DATE] NOT NULL,
-    [TeacherCandidateIdentifier] [NVARCHAR](32) NOT NULL,
-    [TeacherPreparationProviderId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NULL,
-    [EntryTypeDescriptorId] [INT] NULL,
-    [ExitWithdrawDate] [DATE] NULL,
-    [ExitWithdrawTypeDescriptorId] [INT] NULL,
-    [ClassOfSchoolYear] [SMALLINT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [TeacherCandidateTeacherPreparationProviderAssociation_PK] PRIMARY KEY CLUSTERED (
-        [EntryDate] ASC,
-        [TeacherCandidateIdentifier] ASC,
-        [TeacherPreparationProviderId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] ADD CONSTRAINT [TeacherCandidateTeacherPreparationProviderAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] ADD CONSTRAINT [TeacherCandidateTeacherPreparationProviderAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] ADD CONSTRAINT [TeacherCandidateTeacherPreparationProviderAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
 -- Table [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] --
 CREATE TABLE [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] (
     [BeginDate] [DATE] NOT NULL,
@@ -4848,19 +4752,6 @@ CREATE TABLE [tpdm].[TeacherPreparationProgramTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [tpdm].[TeacherPreparationProvider] --
-CREATE TABLE [tpdm].[TeacherPreparationProvider] (
-    [TeacherPreparationProviderId] [INT] NOT NULL,
-    [FederalLocaleCodeDescriptorId] [INT] NULL,
-    [AccreditationStatusDescriptorId] [INT] NULL,
-    [UniversityId] [INT] NULL,
-    [SchoolId] [INT] NULL,
-    CONSTRAINT [TeacherPreparationProvider_PK] PRIMARY KEY CLUSTERED (
-        [TeacherPreparationProviderId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 -- Table [tpdm].[TeacherPreparationProviderProgram] --
 CREATE TABLE [tpdm].[TeacherPreparationProviderProgram] (
     [EducationOrganizationId] [INT] NOT NULL,
@@ -4921,17 +4812,6 @@ CREATE TABLE [tpdm].[TPPProgramPathwayDescriptor] (
     [TPPProgramPathwayDescriptorId] [INT] NOT NULL,
     CONSTRAINT [TPPProgramPathwayDescriptor_PK] PRIMARY KEY CLUSTERED (
         [TPPProgramPathwayDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
--- Table [tpdm].[University] --
-CREATE TABLE [tpdm].[University] (
-    [UniversityId] [INT] NOT NULL,
-    [FederalLocaleCodeDescriptorId] [INT] NULL,
-    [SchoolId] [INT] NULL,
-    CONSTRAINT [University_PK] PRIMARY KEY CLUSTERED (
-        [UniversityId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 ALTER TABLE tpdm.AccreditationStatusDescriptor ADD CONSTRAINT FK_69de81_Descriptor FOREIGN KEY (AccreditationStatusDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -2247,6 +2242,13 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE tpdm.SchoolExtension ADD CONSTRAINT FK_2199be_AccreditationStatusDescriptor FOREIGN KEY (AccreditationStatusDescriptorId)
+REFERENCES tpdm.AccreditationStatusDescriptor (AccreditationStatusDescriptorId)
+;
+
+CREATE INDEX FK_2199be_AccreditationStatusDescriptor
+ON tpdm.SchoolExtension (AccreditationStatusDescriptorId ASC);
+
 ALTER TABLE tpdm.SchoolExtension ADD CONSTRAINT FK_2199be_FederalLocaleCodeDescriptor FOREIGN KEY (FederalLocaleCodeDescriptorId)
 REFERENCES tpdm.FederalLocaleCodeDescriptor (FederalLocaleCodeDescriptorId)
 ;
@@ -2254,20 +2256,15 @@ REFERENCES tpdm.FederalLocaleCodeDescriptor (FederalLocaleCodeDescriptorId)
 CREATE INDEX FK_2199be_FederalLocaleCodeDescriptor
 ON tpdm.SchoolExtension (FederalLocaleCodeDescriptorId ASC);
 
+ALTER TABLE tpdm.SchoolExtension ADD CONSTRAINT FK_2199be_PostSecondaryInstitution FOREIGN KEY (PostSecondaryInstitutionId)
+REFERENCES edfi.PostSecondaryInstitution (PostSecondaryInstitutionId)
+;
+
+CREATE INDEX FK_2199be_PostSecondaryInstitution
+ON tpdm.SchoolExtension (PostSecondaryInstitutionId ASC);
+
 ALTER TABLE tpdm.SchoolExtension ADD CONSTRAINT FK_2199be_School FOREIGN KEY (SchoolId)
 REFERENCES edfi.School (SchoolId)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.SchoolExtension ADD CONSTRAINT FK_2199be_SchoolStatusDescriptor FOREIGN KEY (SchoolStatusDescriptorId)
-REFERENCES tpdm.SchoolStatusDescriptor (SchoolStatusDescriptorId)
-;
-
-CREATE INDEX FK_2199be_SchoolStatusDescriptor
-ON tpdm.SchoolExtension (SchoolStatusDescriptorId ASC);
-
-ALTER TABLE tpdm.SchoolStatusDescriptor ADD CONSTRAINT FK_3bd25e_Descriptor FOREIGN KEY (SchoolStatusDescriptorId)
-REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
@@ -2507,64 +2504,6 @@ REFERENCES tpdm.TeacherPreparationProgramTypeDescriptor (TeacherPreparationProgr
 
 CREATE INDEX FK_41a331_TeacherPreparationProgramTypeDescriptor
 ON tpdm.StaffTeacherPreparationProgram (TeacherPreparationProgramTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociation ADD CONSTRAINT FK_7bf40b_ProgramAssignmentDescriptor FOREIGN KEY (ProgramAssignmentDescriptorId)
-REFERENCES edfi.ProgramAssignmentDescriptor (ProgramAssignmentDescriptorId)
-;
-
-CREATE INDEX FK_7bf40b_ProgramAssignmentDescriptor
-ON tpdm.StaffTeacherPreparationProviderAssociation (ProgramAssignmentDescriptorId ASC);
-
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociation ADD CONSTRAINT FK_7bf40b_SchoolYearType FOREIGN KEY (SchoolYear)
-REFERENCES edfi.SchoolYearType (SchoolYear)
-;
-
-CREATE INDEX FK_7bf40b_SchoolYearType
-ON tpdm.StaffTeacherPreparationProviderAssociation (SchoolYear ASC);
-
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociation ADD CONSTRAINT FK_7bf40b_Staff FOREIGN KEY (StaffUSI)
-REFERENCES edfi.Staff (StaffUSI)
-;
-
-CREATE INDEX FK_7bf40b_Staff
-ON tpdm.StaffTeacherPreparationProviderAssociation (StaffUSI ASC);
-
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociation ADD CONSTRAINT FK_7bf40b_TeacherPreparationProvider FOREIGN KEY (TeacherPreparationProviderId)
-REFERENCES tpdm.TeacherPreparationProvider (TeacherPreparationProviderId)
-;
-
-CREATE INDEX FK_7bf40b_TeacherPreparationProvider
-ON tpdm.StaffTeacherPreparationProviderAssociation (TeacherPreparationProviderId ASC);
-
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject ADD CONSTRAINT FK_32c1aa_AcademicSubjectDescriptor FOREIGN KEY (AcademicSubjectDescriptorId)
-REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
-;
-
-CREATE INDEX FK_32c1aa_AcademicSubjectDescriptor
-ON tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject (AcademicSubjectDescriptorId ASC);
-
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject ADD CONSTRAINT FK_32c1aa_StaffTeacherPreparationProviderAssociation FOREIGN KEY (StaffUSI, TeacherPreparationProviderId)
-REFERENCES tpdm.StaffTeacherPreparationProviderAssociation (StaffUSI, TeacherPreparationProviderId)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_32c1aa_StaffTeacherPreparationProviderAssociation
-ON tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject (StaffUSI ASC, TeacherPreparationProviderId ASC);
-
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociationGradeLevel ADD CONSTRAINT FK_e2901f_GradeLevelDescriptor FOREIGN KEY (GradeLevelDescriptorId)
-REFERENCES edfi.GradeLevelDescriptor (GradeLevelDescriptorId)
-;
-
-CREATE INDEX FK_e2901f_GradeLevelDescriptor
-ON tpdm.StaffTeacherPreparationProviderAssociationGradeLevel (GradeLevelDescriptorId ASC);
-
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociationGradeLevel ADD CONSTRAINT FK_e2901f_StaffTeacherPreparationProviderAssociation FOREIGN KEY (StaffUSI, TeacherPreparationProviderId)
-REFERENCES tpdm.StaffTeacherPreparationProviderAssociation (StaffUSI, TeacherPreparationProviderId)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_e2901f_StaffTeacherPreparationProviderAssociation
-ON tpdm.StaffTeacherPreparationProviderAssociationGradeLevel (StaffUSI ASC, TeacherPreparationProviderId ASC);
 
 ALTER TABLE tpdm.StaffTeacherPreparationProviderProgramAssociation ADD CONSTRAINT FK_5bac62_Staff FOREIGN KEY (StaffUSI)
 REFERENCES edfi.Staff (StaffUSI)
@@ -3452,48 +3391,6 @@ REFERENCES tpdm.TeacherCandidateStudentGrowthMeasure (FactAsOfDate, SchoolYear, 
 CREATE INDEX FK_b8b1b0_TeacherCandidateStudentGrowthMeasure
 ON tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation (FactAsOfDate ASC, SchoolYear ASC, TeacherCandidateIdentifier ASC, TeacherCandidateStudentGrowthMeasureIdentifier ASC);
 
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation ADD CONSTRAINT FK_0dff08_EntryTypeDescriptor FOREIGN KEY (EntryTypeDescriptorId)
-REFERENCES edfi.EntryTypeDescriptor (EntryTypeDescriptorId)
-;
-
-CREATE INDEX FK_0dff08_EntryTypeDescriptor
-ON tpdm.TeacherCandidateTeacherPreparationProviderAssociation (EntryTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation ADD CONSTRAINT FK_0dff08_ExitWithdrawTypeDescriptor FOREIGN KEY (ExitWithdrawTypeDescriptorId)
-REFERENCES edfi.ExitWithdrawTypeDescriptor (ExitWithdrawTypeDescriptorId)
-;
-
-CREATE INDEX FK_0dff08_ExitWithdrawTypeDescriptor
-ON tpdm.TeacherCandidateTeacherPreparationProviderAssociation (ExitWithdrawTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation ADD CONSTRAINT FK_0dff08_SchoolYearType FOREIGN KEY (SchoolYear)
-REFERENCES edfi.SchoolYearType (SchoolYear)
-;
-
-CREATE INDEX FK_0dff08_SchoolYearType
-ON tpdm.TeacherCandidateTeacherPreparationProviderAssociation (SchoolYear ASC);
-
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation ADD CONSTRAINT FK_0dff08_SchoolYearType1 FOREIGN KEY (ClassOfSchoolYear)
-REFERENCES edfi.SchoolYearType (SchoolYear)
-;
-
-CREATE INDEX FK_0dff08_SchoolYearType1
-ON tpdm.TeacherCandidateTeacherPreparationProviderAssociation (ClassOfSchoolYear ASC);
-
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation ADD CONSTRAINT FK_0dff08_TeacherCandidate FOREIGN KEY (TeacherCandidateIdentifier)
-REFERENCES tpdm.TeacherCandidate (TeacherCandidateIdentifier)
-;
-
-CREATE INDEX FK_0dff08_TeacherCandidate
-ON tpdm.TeacherCandidateTeacherPreparationProviderAssociation (TeacherCandidateIdentifier ASC);
-
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation ADD CONSTRAINT FK_0dff08_TeacherPreparationProvider FOREIGN KEY (TeacherPreparationProviderId)
-REFERENCES tpdm.TeacherPreparationProvider (TeacherPreparationProviderId)
-;
-
-CREATE INDEX FK_0dff08_TeacherPreparationProvider
-ON tpdm.TeacherCandidateTeacherPreparationProviderAssociation (TeacherPreparationProviderId ASC);
-
 ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation ADD CONSTRAINT FK_81475b_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 ;
@@ -3586,39 +3483,6 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.TeacherPreparationProvider ADD CONSTRAINT FK_ea8f5b_AccreditationStatusDescriptor FOREIGN KEY (AccreditationStatusDescriptorId)
-REFERENCES tpdm.AccreditationStatusDescriptor (AccreditationStatusDescriptorId)
-;
-
-CREATE INDEX FK_ea8f5b_AccreditationStatusDescriptor
-ON tpdm.TeacherPreparationProvider (AccreditationStatusDescriptorId ASC);
-
-ALTER TABLE tpdm.TeacherPreparationProvider ADD CONSTRAINT FK_ea8f5b_EducationOrganization FOREIGN KEY (TeacherPreparationProviderId)
-REFERENCES edfi.EducationOrganization (EducationOrganizationId)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.TeacherPreparationProvider ADD CONSTRAINT FK_ea8f5b_FederalLocaleCodeDescriptor FOREIGN KEY (FederalLocaleCodeDescriptorId)
-REFERENCES tpdm.FederalLocaleCodeDescriptor (FederalLocaleCodeDescriptorId)
-;
-
-CREATE INDEX FK_ea8f5b_FederalLocaleCodeDescriptor
-ON tpdm.TeacherPreparationProvider (FederalLocaleCodeDescriptorId ASC);
-
-ALTER TABLE tpdm.TeacherPreparationProvider ADD CONSTRAINT FK_ea8f5b_School FOREIGN KEY (SchoolId)
-REFERENCES edfi.School (SchoolId)
-;
-
-CREATE INDEX FK_ea8f5b_School
-ON tpdm.TeacherPreparationProvider (SchoolId ASC);
-
-ALTER TABLE tpdm.TeacherPreparationProvider ADD CONSTRAINT FK_ea8f5b_University FOREIGN KEY (UniversityId)
-REFERENCES tpdm.University (UniversityId)
-;
-
-CREATE INDEX FK_ea8f5b_University
-ON tpdm.TeacherPreparationProvider (UniversityId ASC);
-
 ALTER TABLE tpdm.TeacherPreparationProviderProgram ADD CONSTRAINT FK_aceeb9_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 ;
@@ -3671,25 +3535,6 @@ ALTER TABLE tpdm.TPPProgramPathwayDescriptor ADD CONSTRAINT FK_1807ea_Descriptor
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
-
-ALTER TABLE tpdm.University ADD CONSTRAINT FK_9d3844_EducationOrganization FOREIGN KEY (UniversityId)
-REFERENCES edfi.EducationOrganization (EducationOrganizationId)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.University ADD CONSTRAINT FK_9d3844_FederalLocaleCodeDescriptor FOREIGN KEY (FederalLocaleCodeDescriptorId)
-REFERENCES tpdm.FederalLocaleCodeDescriptor (FederalLocaleCodeDescriptorId)
-;
-
-CREATE INDEX FK_9d3844_FederalLocaleCodeDescriptor
-ON tpdm.University (FederalLocaleCodeDescriptorId ASC);
-
-ALTER TABLE tpdm.University ADD CONSTRAINT FK_9d3844_School FOREIGN KEY (SchoolId)
-REFERENCES edfi.School (SchoolId)
-;
-
-CREATE INDEX FK_9d3844_School
-ON tpdm.University (SchoolId ASC);
 
 ALTER TABLE tpdm.ValueTypeDescriptor ADD CONSTRAINT FK_7111a6_Descriptor FOREIGN KEY (ValueTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)

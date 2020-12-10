@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 ALTER TABLE tpdm.AnonymizedStudent
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
@@ -138,9 +133,6 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 ALTER TABLE tpdm.StaffStudentGrowthMeasureSectionAssociation
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
-ALTER TABLE tpdm.StaffTeacherPreparationProviderAssociation
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
 ALTER TABLE tpdm.StaffTeacherPreparationProviderProgramAssociation
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
@@ -175,9 +167,6 @@ ALTER TABLE tpdm.TeacherCandidateStudentGrowthMeasureEducationOrganizatio_22b9a4
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
 ALTER TABLE tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
 ALTER TABLE tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation

@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Extended Properties [tpdm].[AccreditationStatusDescriptor] --
 COMMENT ON TABLE tpdm.AccreditationStatusDescriptor IS 'Accreditation Status for a Teacher Preparation Provider.';
 COMMENT ON COLUMN tpdm.AccreditationStatusDescriptor.AccreditationStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -1415,12 +1410,9 @@ COMMENT ON COLUMN tpdm.SalaryTypeDescriptor.SalaryTypeDescriptorId IS 'A unique 
 COMMENT ON TABLE tpdm.SchoolExtension IS '';
 COMMENT ON COLUMN tpdm.SchoolExtension.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN tpdm.SchoolExtension.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
-COMMENT ON COLUMN tpdm.SchoolExtension.SchoolStatusDescriptorId IS 'The status of school e.g. priority or focus.';
+COMMENT ON COLUMN tpdm.SchoolExtension.PostSecondaryInstitutionId IS 'The ID of the post secondary institution.';
 COMMENT ON COLUMN tpdm.SchoolExtension.ImprovingSchool IS 'An indication of whether a school is identified as an improving school.';
-
--- Extended Properties [tpdm].[SchoolStatusDescriptor] --
-COMMENT ON TABLE tpdm.SchoolStatusDescriptor IS 'The descriptor holds the status of a school e.g. priority or focus.';
-COMMENT ON COLUMN tpdm.SchoolStatusDescriptor.SchoolStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+COMMENT ON COLUMN tpdm.SchoolExtension.AccreditationStatusDescriptorId IS 'Accreditation Status for a Education Preparation Provider.';
 
 -- Extended Properties [tpdm].[StaffApplicantAssociation] --
 COMMENT ON TABLE tpdm.StaffApplicantAssociation IS 'Associated applicant(s) represented by this staff member.';
@@ -1560,25 +1552,6 @@ COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.NameOfInstitution IS 'The 
 COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.MajorSpecialization IS 'The major area for a degree or area of specialization for a certificate.';
 COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.GPA IS 'The final GPA the teacher achieved in the program.';
 COMMENT ON COLUMN tpdm.StaffTeacherPreparationProgram.LevelOfDegreeAwardedDescriptorId IS 'The level of degree awarded by the teacher preparation program to the person (e.g., Certificate Only, Bachelor''s, Master''s, etc.).';
-
--- Extended Properties [tpdm].[StaffTeacherPreparationProviderAssociation] --
-COMMENT ON TABLE tpdm.StaffTeacherPreparationProviderAssociation IS 'Information about the association between the Staff and the TeacherPreparationProvider';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociation.TeacherPreparationProviderId IS 'The unique identification code for the Teacher Preparation Provider';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociation.SchoolYear IS 'Identifier for a school year.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociation.ProgramAssignmentDescriptorId IS 'Program Assignment for the association';
-
--- Extended Properties [tpdm].[StaffTeacherPreparationProviderAssociationAcademicSubject] --
-COMMENT ON TABLE tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a degree.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a degree.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociationAcademicSubject.TeacherPreparationProviderId IS 'The unique identification code for the Teacher Preparation Provider';
-
--- Extended Properties [tpdm].[StaffTeacherPreparationProviderAssociationGradeLevel] --
-COMMENT ON TABLE tpdm.StaffTeacherPreparationProviderAssociationGradeLevel IS 'The grade levels for the association.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociationGradeLevel.GradeLevelDescriptorId IS 'The grade levels for the association.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociationGradeLevel.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffTeacherPreparationProviderAssociationGradeLevel.TeacherPreparationProviderId IS 'The unique identification code for the Teacher Preparation Provider';
 
 -- Extended Properties [tpdm].[StaffTeacherPreparationProviderProgramAssociation] --
 COMMENT ON TABLE tpdm.StaffTeacherPreparationProviderProgramAssociation IS 'This association indicates the Staff associated with a teacher preparation provider program.';
@@ -2121,17 +2094,6 @@ COMMENT ON COLUMN tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation.Te
 COMMENT ON COLUMN tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation.BeginDate IS 'Begin date for the association';
 COMMENT ON COLUMN tpdm.TeacherCandidateStudentGrowthMeasureSectionAssociation.EndDate IS 'The end date for the association';
 
--- Extended Properties [tpdm].[TeacherCandidateTeacherPreparationProviderAssociation] --
-COMMENT ON TABLE tpdm.TeacherCandidateTeacherPreparationProviderAssociation IS 'Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram';
-COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderAssociation.EntryDate IS 'Entry date for the association';
-COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderAssociation.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
-COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderAssociation.TeacherPreparationProviderId IS 'The unique identification code for the Teacher Preparation Provider';
-COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderAssociation.SchoolYear IS 'School Year for the association';
-COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderAssociation.EntryTypeDescriptorId IS 'Entry Type for the association';
-COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderAssociation.ExitWithdrawDate IS 'Exit date for the association';
-COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderAssociation.ExitWithdrawTypeDescriptorId IS 'Exit type for the association';
-COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderAssociation.ClassOfSchoolYear IS 'School Year cohort for the association';
-
 -- Extended Properties [tpdm].[TeacherCandidateTeacherPreparationProviderProgramAssociation] --
 COMMENT ON TABLE tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation IS 'Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram';
 COMMENT ON COLUMN tpdm.TeacherCandidateTeacherPreparationProviderProgramAssociation.BeginDate IS 'The begin date for the association.';
@@ -2167,14 +2129,6 @@ COMMENT ON COLUMN tpdm.TeacherCandidateVisa.VisaDescriptorId IS 'An indicator of
 COMMENT ON TABLE tpdm.TeacherPreparationProgramTypeDescriptor IS 'The descriptor holds the type of teacher prep program (e.g., college, alternative, TFA, etc.).';
 COMMENT ON COLUMN tpdm.TeacherPreparationProgramTypeDescriptor.TeacherPreparationProgramTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[TeacherPreparationProvider] --
-COMMENT ON TABLE tpdm.TeacherPreparationProvider IS 'This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProvider.TeacherPreparationProviderId IS 'The unique identification code for the Teacher Preparation Provider';
-COMMENT ON COLUMN tpdm.TeacherPreparationProvider.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProvider.AccreditationStatusDescriptorId IS 'Accreditation Status for a Teacher Preparation Provider.';
-COMMENT ON COLUMN tpdm.TeacherPreparationProvider.UniversityId IS 'The unique identification code of the University';
-COMMENT ON COLUMN tpdm.TeacherPreparationProvider.SchoolId IS 'The identifier assigned to a school.';
-
 -- Extended Properties [tpdm].[TeacherPreparationProviderProgram] --
 COMMENT ON TABLE tpdm.TeacherPreparationProviderProgram IS 'This entity represents information regarding a teacher preparation provider program.';
 COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -2200,12 +2154,6 @@ COMMENT ON COLUMN tpdm.TPPDegreeTypeDescriptor.TPPDegreeTypeDescriptorId IS 'A u
 -- Extended Properties [tpdm].[TPPProgramPathwayDescriptor] --
 COMMENT ON TABLE tpdm.TPPProgramPathwayDescriptor IS 'The descriptor holds the program pathways available at TPP''s.';
 COMMENT ON COLUMN tpdm.TPPProgramPathwayDescriptor.TPPProgramPathwayDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [tpdm].[University] --
-COMMENT ON TABLE tpdm.University IS 'This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups.';
-COMMENT ON COLUMN tpdm.University.UniversityId IS 'The unique identification code of the University';
-COMMENT ON COLUMN tpdm.University.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
-COMMENT ON COLUMN tpdm.University.SchoolId IS 'The identifier assigned to a school.';
 
 -- Extended Properties [tpdm].[ValueTypeDescriptor] --
 COMMENT ON TABLE tpdm.ValueTypeDescriptor IS 'The type (i.e. actual or projected) of value.';
