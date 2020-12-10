@@ -213,14 +213,9 @@ namespace EdFi.Ods.Api.Startup
         {
             loggerFactory.AddLog4Net();
 
-            var virtualPathEnabled = apiSettings.VirtualPathEnabled ?? false;
-
-            if (virtualPathEnabled)
+            if (!string.IsNullOrEmpty(apiSettings.PathBase))
             {
-                var pathBase = !string.IsNullOrEmpty(apiSettings.PathBase)
-                    ? apiSettings.PathBase
-                    : "/odsapi";
-
+                var pathBase = apiSettings.PathBase.Replace("/", string.Empty);
                 app.UsePathBase(pathBase);
             }
 
