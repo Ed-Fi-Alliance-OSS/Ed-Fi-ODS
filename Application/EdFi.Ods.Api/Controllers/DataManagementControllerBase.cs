@@ -57,7 +57,6 @@ namespace EdFi.Ods.Api.Controllers
         private readonly IRESTErrorProvider _restErrorProvider;
         private readonly int _defaultPageLimitSize;
         private string _applicationUrl;
-        private readonly ApiSettings _apiSettings;
 
         private ILog _logger;
         protected Lazy<DeletePipeline> DeletePipeline;
@@ -75,11 +74,9 @@ namespace EdFi.Ods.Api.Controllers
             IPipelineFactory pipelineFactory,
             ISchoolYearContextProvider schoolYearContextProvider,
             IRESTErrorProvider restErrorProvider,
-            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
-            ApiSettings apiSettings)
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
         {
             //this.repository = repository;
-            _apiSettings = apiSettings;
             SchoolYearContextProvider = schoolYearContextProvider;
             _restErrorProvider = restErrorProvider;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
@@ -331,17 +328,21 @@ namespace EdFi.Ods.Api.Controllers
         {
             if (_applicationUrl == null)
             {
-                bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
-
                 try
                 {
-                    var urlBuilder = new UriBuilder(
-                        Request.Scheme(useReverseProxyHeaders),
-                        Request.Host(useReverseProxyHeaders),
-                        Request.Port(useReverseProxyHeaders),
-                        $"{Request.PathBase}{Request.Path}");
+                    var urlBuilder = new UriBuilder
+                    {
+                        Scheme = Request.Scheme,
+                        Host = Request.Host.Host,
+                        Path = Request.Path
+                    };
 
-                    _applicationUrl = $"{urlBuilder.Uri}";
+                    if (Request.Host.Port.HasValue)
+                    {
+                        urlBuilder.Port = Request.Host.Port.Value;
+                    }
+
+                    _applicationUrl = $"{urlBuilder.Uri}{GetResourceCollectionName()}";
                 }
                 catch (Exception ex)
                 {
