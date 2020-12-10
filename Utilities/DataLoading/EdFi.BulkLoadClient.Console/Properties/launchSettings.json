@@ -2,7 +2,7 @@
   "profiles": {
     "EdFi.BulkLoadClient.Console": {
       "commandName": "Project",
-      "commandLineArgs": "-a \"http://localhost:54746/data/v3/\" -r 0 -d \"..\\\\..\\\\..\\\\..\\\\..\\\\..\\\\..\\\\Ed-Fi-Standard\\\\\" -m \"http://localhost:54746/metadata\" -o \"http://localhost:54746/\"  -w \"C:/temp/data/Output/\" -x \"..\\\\..\\\\..\\\\..\\\\..\\\\..\\\\..\\Ed-Fi-Standard\\\\Schemas\\\\Bulk\\\\\" -t 50 -c 50 -k 2a0mUReqJZY3bdzH14KXV -s zJbD8HeCdLw0vIScugxME -l 1 -n --include-stats -g \"http://localhost:54746/metadata/data/v3/dependencies\""
+      "commandLineArgs": "-r 0 -d \"../../../../../../../Ed-Fi-Standard\" -b \"http://localhost:54746/\"  -w \"C:/tmp/data/Output/\" -x \"../../../../../../../Ed-Fi-Standard/Schemas/Bulk/\" -t 50 -c 50 -k Wlt9zjpUZniDvBQJXNEcx -s Z0sKQmB2r7RpG5NC9vS6Y -l 1  --include-stats --force --novalidation"
     }
   }
 }

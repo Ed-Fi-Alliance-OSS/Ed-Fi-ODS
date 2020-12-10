@@ -2,11 +2,11 @@
 
 | Short Option |   Long Option    | Description                                                                                               |
 |:------------:|:----------------:|:----------------------------------------------------------------------------------------------------------|
+|      b       |      base        | The base web API URL (e.g., http://server) **_REQUIRED_**                                               |
 |      a       |      apiurl      | The web API URL (e.g., http://server/data/v3)                                                             |
 |      c       | connectionlimit  | Maximum concurrent connections to api                                                                     |
 |      d       |       data       | Path to folder containing the data files to be submitted                                                  |
 |      f       |      force       | Force reload of metadata from metadata url                                                                |
-|      i       | interchangeorder | Path to a folder containing the Ed-Fi ODS / API Interchange Order metadata files                          |
 |      k       |       key        | The web API OAuth key                                                                                     |
 |      l       |   maxRequests    | Max number of simultaneous API requests                                                                   |
 |      m       |   metadataurl    | The metadata URL (e.g., http://server/metadata)                                                           |
@@ -20,5 +20,10 @@
 |      x       |       xsd        | Path to a folder containing the Ed-Fi Data Standard XSD Schema files                                      |
 |      y       |       year       | The target school year for the web API (e.g., 2018)                                                       |
 
+## New for 5.2.0
+* Passing in the base url to the Ods/Api is now required.
+* The application will use the base url and determine the endpoints for ApiUrl, MetadataUrl, and OAuthUrl. 
+* Settings can be set in the appsettings.json and/or passed in by command line arguments. Command line arguments will override any settings in the appsettings.json.
+
 ## Sample for running the SampleXML files
--a "http://localhost:54746/data/v3/" -r 1 -d "C:\Projects\Certica\Ed-Fi-Standard\v3.1\Samples\Sample XML" -m "http://localhost:54746/metadata" -o "http://localhost:54746"  -w "C:\temp\data\Output" -x "C:\Projects\Certica\Ed-Fi-Standard\v3.1\Schemas\Bulk" -t 50 -n -c 5 -k populatedSandbox -s populatedSandboxSecret
+-b "http://localhost:54746" -r 1 -d "c:/Ed-Fi-Standard/Samples/Sample XML" -w "C:/temp/data/Output" -x "C:/Ed-Fi-Standard/Schemas/Bulk" -k populatedSandbox -s populatedSandboxSecret

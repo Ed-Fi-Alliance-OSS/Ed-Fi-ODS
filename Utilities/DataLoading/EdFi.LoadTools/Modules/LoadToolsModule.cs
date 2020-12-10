@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Autofac;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.BulkLoadClient;
+using EdFi.LoadTools.BulkLoadClient.Application;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Factories;
 using EdFi.LoadTools.Engine.FileImportPipeline;
@@ -91,11 +92,19 @@ namespace EdFi.LoadTools.Modules
                 .As<IOdsRestClient>()
                 .SingleInstance();
 
+            builder.RegisterType<OdsVersionRetriever>()
+                .As<IOdsVersionRetriever>()
+                .SingleInstance();
+
             builder.RegisterType<SubmitResource>()
                 .As<ISubmitResource>();
 
             builder.RegisterType<ApiLoaderApplication>()
                 .As<IApiLoaderApplication>();
+
+            builder.RegisterType<BulkLoadClientConfigurationValidator>()
+                .As<IBulkLoadClientConfigurationValidator>()
+                .SingleInstance();
 
             RegisterFileImportPipelineSteps();
 

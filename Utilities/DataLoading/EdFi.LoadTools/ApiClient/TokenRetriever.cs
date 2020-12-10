@@ -23,46 +23,32 @@ namespace EdFi.LoadTools.ApiClient
     public class TokenRetriever
         : ITokenRetriever
     {
-        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog _log = LogManager.GetLogger(typeof(TokenRetriever));
         private readonly IOAuthTokenConfiguration _configuration;
+        private readonly HttpClient _client;
 
         public TokenRetriever(IOAuthTokenConfiguration configuration)
         {
             _configuration = configuration;
+
+            _client = new HttpClient {Timeout = new TimeSpan(0, 0, 5, 0)};
+
+            _client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
         }
 
         public async Task<BearerToken> ObtainNewBearerToken()
         {
-            var oauthKey = _configuration.Key;
-            var oauthSecret = _configuration.Secret;
-            var client = GetHttpClient(_configuration.Url);
-
-            return await GetAccessToken(client, oauthKey, oauthSecret).ConfigureAwait(false);
-        }
-
-        private static HttpClient GetHttpClient(string url)
-        {
-            var client = new HttpClient
-                         {
-                             Timeout = new TimeSpan(0, 0, 5, 0), BaseAddress = new Uri(url)
-                         };
-
-            client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
-            return client;
-        }
-
-        private static async Task<BearerToken> GetAccessToken(HttpClient client, string clientKey, string clientSecret)
-        {
-            var plainTextBytes = Encoding.UTF8.GetBytes($"{clientKey}:{clientSecret}");
+            var plainTextBytes = Encoding.UTF8.GetBytes($"{_configuration.Key}:{_configuration.Secret}");
             var bearerToken = Convert.ToBase64String(plainTextBytes);
             var authHeader = $"Basic {bearerToken}";
 
-            client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
+            _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
 
             var form = "Grant_type=client_credentials";
             var content = new StringContent(form, Encoding.UTF8, "application/x-www-form-urlencoded");
 
-            var response = await client.PostAsync("oauth/token", content).ConfigureAwait(false);
+            _log.Debug($"Post bearer token to '{_configuration.Url}'");
+            var response = await _client.PostAsync(_configuration.Url, content).ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
 

@@ -9,10 +9,10 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Schema;
+using EdFi.Common.Extensions;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine.XmlLookupPipeline;
 using Newtonsoft.Json.Linq;
-using RestSharp.Extensions;
 
 namespace EdFi.LoadTools.Engine
 {
@@ -61,10 +61,10 @@ namespace EdFi.LoadTools.Engine
                         {
                             // Replace EducationOrganizationId with correct Id for type.  SchoolId, LocalEducationAgencyId etc.
                             var educationOrganizationId =
-                                (string) jObject[$"{element.Name}Id".ToCamelCase(CultureInfo.CurrentCulture)];
+                                (string) jObject[$"{element.Name}Id".ToCamelCase()];
 
                             jObject.Add(new JProperty("educationOrganizationId", educationOrganizationId));
-                            jObject.Remove($"{element.Name}Id".ToCamelCase(CultureInfo.CurrentCulture));
+                            jObject.Remove($"{element.Name}Id".ToCamelCase());
                             educationOrganizations.Add(jObject);
                         }
 

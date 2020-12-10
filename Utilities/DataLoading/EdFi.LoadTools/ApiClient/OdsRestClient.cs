@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -50,7 +49,7 @@ namespace EdFi.LoadTools.ApiClient
             var contentType = BuildJsonMimeType(elementName);
             var resource = CompositeTermInflector.MakePlural(elementName);
 
-            var uriBuilder = new UriBuilder(Path.Combine(_configuration.Url, resource, $"?offset={offset}"));
+            var uriBuilder = new UriBuilder($"{_configuration.Url.TrimEnd('/')}/{resource}?offset={offset}");
 
             return await Get(uriBuilder, contentType);
         }
@@ -60,7 +59,7 @@ namespace EdFi.LoadTools.ApiClient
             var contentType = BuildJsonMimeType(elementName);
             var resource = CompositeTermInflector.MakePlural(elementName);
 
-            var uriBuilder = new UriBuilder(Path.Combine(_configuration.Url, resource))
+            var uriBuilder = new UriBuilder($"{_configuration.Url.TrimEnd('/')}/{resource}")
                              {
                                  Query = Utilities.ConvertJsonToQueryString(json)
                              };
@@ -110,8 +109,11 @@ namespace EdFi.LoadTools.ApiClient
 
             try
             {
-                var uriBuilder =
-                    new UriBuilder(Path.Combine(_configuration.Url, GetResourcePath(resource, elementSchemaName)));
+                string uri = $"{_configuration.Url.TrimEnd('/')}/{GetResourcePath(resource, elementSchemaName)}";
+
+                _log.Debug($"Posting to {uri}");
+
+                var uriBuilder = new UriBuilder(uri);
 
                 var request = new HttpRequestMessage(HttpMethod.Post, uriBuilder.Uri)
                               {

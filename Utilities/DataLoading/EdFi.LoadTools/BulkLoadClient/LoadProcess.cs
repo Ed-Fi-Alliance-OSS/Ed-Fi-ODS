@@ -8,16 +8,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Security;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
 using Autofac;
+using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.BulkLoadClient.Application;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Factories;
 using EdFi.LoadTools.Modules;
 using log4net;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.LoadTools.BulkLoadClient
 {
@@ -25,76 +26,111 @@ namespace EdFi.LoadTools.BulkLoadClient
     {
         private static readonly ILog _log = LogManager.GetLogger(nameof(LoadProcess));
 
-        public static async Task<int> Run(Configuration configuration)
+        public static async Task<int> Run(IConfiguration configuration)
         {
-            ConfigureTls();
-
             int exitCode;
 
-            if (!configuration.IsValid)
+            try
+            {
+                ConfigureTls();
+
+                await SetOdsEndpoints(configuration);
+
+                var container = RegisterContainer(configuration);
+
+                await using var scope = container.BeginLifetimeScope();
+
+                var validator = container.Resolve<IBulkLoadClientConfigurationValidator>();
+
+                if (!validator.IsValid())
+                {
+                    throw new InvalidOperationException(validator.ErrorText);
+                }
+
+                // run application
+                exitCode = await container.Resolve<IApiLoaderApplication>().Run();
+            }
+            catch (Exception ex)
             {
                 exitCode = 1;
-                _log.Error(configuration.ErrorText);
-            }
-            else
-            {
-                try
-                {
-                    var container = RegisterContainer();
-
-                    await using var scope = container.BeginLifetimeScope();
-
-                    LogConfiguration(configuration);
-
-                    // run application
-                    exitCode = await container.Resolve<IApiLoaderApplication>().Run();
-                }
-                catch (AggregateException ex)
-                {
-                    exitCode = 1;
-
-                    foreach (var e in ex.InnerExceptions)
-                    {
-                        _log.Error(e);
-                    }
-                }
+                _log.Error(ex);
             }
 
             return exitCode;
-
-            ILifetimeScope RegisterContainer()
-            {
-                var builder = new ContainerBuilder();
-
-                builder.RegisterInstance(configuration)
-                    .As<IApiConfiguration>()
-                    .As<IHashCacheConfiguration>()
-                    .As<IDataConfiguration>()
-                    .As<IOAuthTokenConfiguration>()
-                    .As<IApiMetadataConfiguration>()
-                    .As<IXsdConfiguration>()
-                    .As<IInterchangeOrderConfiguration>()
-                    .As<IThrottleConfiguration>()
-                    .AsSelf()
-                    .SingleInstance();
-
-                builder.RegisterModule(new LoadToolsModule());
-
-                if (configuration.IncludeStats)
-                {
-                    builder.RegisterModule(new IncludeStatsModule());
-                }
-
-                return builder.Build();
-            }
         }
 
-        private static IEnumerable<string> GetFilesToImport(Configuration configuration)
+        private static async Task SetOdsEndpoints(IConfiguration configuration)
+        {
+            if (string.IsNullOrEmpty(configuration["OdsApi:Url"]))
+            {
+                throw new ArgumentException("OdsApi:Url is null or empty");
+            }
+
+            // get api version information.
+            var apiVersionInformation = await new OdsVersionRetriever(configuration).GetApiVersionInformationAsync()
+                .ConfigureAwait(false);
+
+            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:ApiUrl")))
+            {
+                configuration["OdsApi:ApiUrl"] = apiVersionInformation.Urls["dataManagementApi"];
+            }
+
+            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:MetadataUrl")))
+            {
+                configuration["OdsApi:MetadataUrl"] = apiVersionInformation.Urls["openApiMetadata"];
+            }
+
+            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:DependenciesUrl")))
+            {
+                configuration["OdsApi:DependenciesUrl"] = apiVersionInformation.Urls["dependencies"];
+            }
+
+            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:OAuthUrl")))
+            {
+                configuration["OdsApi:OAuthUrl"] = apiVersionInformation.Urls["oauth"];
+            }
+
+            configuration["OdsApi:ApiMode"] = apiVersionInformation.ApiMode;
+        }
+
+        private static ILifetimeScope RegisterContainer(IConfiguration configuration)
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterInstance(configuration)
+                .As<IConfiguration>()
+                .As<IConfigurationRoot>()
+                .SingleInstance();
+
+            builder.RegisterInstance(BulkLoadClientConfiguration.Create(configuration))
+                .As<IApiConfiguration>()
+                .As<IHashCacheConfiguration>()
+                .As<IDataConfiguration>()
+                .As<IOAuthTokenConfiguration>()
+                .As<IApiMetadataConfiguration>()
+                .As<IXsdConfiguration>()
+                .As<IInterchangeOrderConfiguration>()
+                .As<IThrottleConfiguration>()
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterModule(new LoadToolsModule());
+
+            if (configuration.GetValue<bool>("IncludeStats"))
+            {
+                builder.RegisterModule(new IncludeStatsModule());
+            }
+
+            return builder.Build();
+        }
+
+        private static IEnumerable<string> GetFilesToImport(BulkLoadClientConfiguration configuration)
         {
             return Directory.EnumerateFiles(configuration.DataFolder);
         }
 
-        public static BulkLoadValidationResult ValidateXmlFile(Configuration configuration, string[] unsupportedInterchanges)
+        public static BulkLoadValidationResult ValidateXmlFile(BulkLoadClientConfiguration configuration,
+            string[] unsupportedInterchanges)
         {
             var validationErrors = new BulkLoadValidationResult();
             var streamsRetriever = new XsdStreamsRetriever(configuration);
@@ -135,19 +171,6 @@ namespace EdFi.LoadTools.BulkLoadClient
             }
 
             return validationErrors;
-        }
-
-        private static void LogConfiguration(Configuration configuration)
-        {
-            _log.Info($"Api Url:                  {configuration.ApiUrl}");
-            _log.Info($"School Year:              {configuration.SchoolYear}");
-            _log.Info($"Retries:                  {configuration.Retries}");
-            _log.Info($"Oauth Key:                {configuration.OauthKey}");
-            _log.Info($"Metadata Url:             {configuration.MetadataUrl}");
-            _log.Info($"Data Folder:              {configuration.DataFolder}");
-            _log.Info($"Working Folder:           {configuration.WorkingFolder}");
-            _log.Info($"Xsd Folder:               {configuration.XsdFolder}");
-            _log.Info($"Dependencies Url:         {configuration.DependenciesUrl}");
         }
 
         /// <summary>
