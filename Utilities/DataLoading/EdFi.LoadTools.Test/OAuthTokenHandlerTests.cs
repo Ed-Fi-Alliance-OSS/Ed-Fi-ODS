@@ -4,8 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 using EdFi.LoadTools.ApiClient;
-using EdFi.LoadTools.Test.Properties;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
@@ -16,16 +19,27 @@ namespace EdFi.LoadTools.Test
     [TestFixture]
     public class OAuthTokenHandlerTests
     {
+        private IConfigurationRoot _configuration;
+
+        [SetUp]
+        public void Setup()
+        {
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+        }
+
         [Test]
         [Category("Run Manually")]
         public void ShouldSuccessfullyRetrieveBearerToken()
         {
-            var sandboxCredentials = SandboxCredentialsHelper.GetMinimalSandboxCredential();
-
             var config = new TestOAuthConfiguration
-                         {
-                             Url = Settings.Default.OauthUrl, Key = sandboxCredentials.Key, Secret = sandboxCredentials.Secret
-                         };
+            {
+                Url = _configuration["OdsApi:OAuthUrl"],
+                Key = _configuration["OdsApi:Key"],
+                Secret = _configuration["OdsApi:Secret"]
+            };
 
             Console.WriteLine(config.Url);
             Console.WriteLine($"key:    {config.Key}");

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <AssemblyName>EdFi.LoadTools.Test</AssemblyName>
@@ -14,22 +14,6 @@
         <DebugSymbols>true</DebugSymbols>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Update="Properties\Resources.Designer.cs">
-            <AutoGen>True</AutoGen>
-            <DesignTime>True</DesignTime>
-            <DependentUpon>Resources.resx</DependentUpon>
-        </Compile>
-        <Compile Update="Properties\Settings.Designer.cs">
-            <AutoGen>True</AutoGen>
-            <DesignTimeSharedInput>True</DesignTimeSharedInput>
-            <DependentUpon>Settings.settings</DependentUpon>
-        </Compile>
-    </ItemGroup>
-    <ItemGroup>
-        <None Include="Properties\Settings.settings">
-            <Generator>SettingsSingleFileGenerator</Generator>
-            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-        </None>
         <None Include="ReadMe.md" />
     </ItemGroup>
     <ItemGroup>
@@ -47,15 +31,15 @@
       <PackageReference Include="EdFi.Suite3.OdsApi.TestSdk" Version="5.1.0" />
       <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
       <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
-      <PackageReference Include="JsonSubTypes" Version="1.7.0" />
       <PackageReference Include="log4net" Version="2.0.12" />
-      <PackageReference Include="Microsoft.AspNetCore.Owin" Version="3.1.8" />
       <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.8" />
+      <PackageReference Include="Microsoft.Extensions.Primitives" Version="3.1.10" />
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
       <PackageReference Include="Moq" Version="4.14.5" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
       <PackageReference Include="NUnit" Version="3.12.0" />
       <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+      <PackageReference Include="Shouldly" Version="4.0.1" />
     </ItemGroup>
     <ItemGroup>
       <None Update="appsettings.json">
