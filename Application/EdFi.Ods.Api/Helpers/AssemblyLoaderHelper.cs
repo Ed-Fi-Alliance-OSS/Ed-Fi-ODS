@@ -32,6 +32,7 @@ namespace EdFi.Ods.Api.Helpers
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
         private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
+
         public static void LoadAssembliesFromExecutingFolder(bool includeFramework = false)
         {
             // Storage to ensure not loading the same assembly twice and optimize calls to GetAssemblies()
@@ -149,34 +150,39 @@ namespace EdFi.Ods.Api.Helpers
                 }
                 
                 string extensionFolder = Path.GetDirectoryName(assemblyPath);
-                if (Directory.Exists(extensionFolder))
-                {
-                    string[] assemblyMetadataPath = Directory.GetFiles(
-                        extensionFolder, AssemblyMetadataSearchString, SearchOption.AllDirectories);
-                        
-                    if (assemblyMetadataPath.Length>0 && IsExtensionInAssemblyModelType(assemblyMetadataPath[0]))
-                    {
-                        var validator = GetValidator();
-                        var validationResult = validator.ValidateObject(extensionFolder);
-                        if (!validationResult.Any())
-                        {
-                            yield return assembly.Location;
-                        }
-                        else
-                        {
-                            _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
-                        }
-                    }
-                    else if (assemblyMetadataPath.Length > 0 && IsProfileInAssemblyModelType(assemblyMetadataPath[0]))
-                    {
-                       yield return assembly.Location;
-                    }
-                }
+                string assemblyMetadataPath = Directory.GetFiles(
+                        extensionFolder, AssemblyMetadataSearchString, SearchOption.AllDirectories).SingleOrDefault();
 
+                var assemblyMetadata = LoadAssemblyMetadata(assemblyMetadataPath);
+
+                if (IsExtensionAssembly(assemblyMetadata))
+                {
+                     var validator = GetExtensionValidator();
+                     var validationResult = validator.ValidateObject(extensionFolder);
+
+                     if (assemblyMetadataPath == null)
+                     {
+                         // No metadata file found, skip to next assembly.
+                         continue;
+                     }
+
+                     if (!validationResult.Any())
+                     {
+                          yield return assembly.Location;
+                     }
+                     else
+                     {
+                          _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
+                     }
+                }
+                else if (IsProfileAssembly(assemblyMetadata))
+                {
+                     yield return assembly.Location;
+                }
             }
             pluginFinderAssemblyContext.Unload();
 
-            static FluentValidationObjectValidator GetValidator()
+            static FluentValidationObjectValidator GetExtensionValidator()
             {
                 return new FluentValidationObjectValidator(
                     new IValidator[]
@@ -189,7 +195,7 @@ namespace EdFi.Ods.Api.Helpers
 
             bool IsPluginFolderNameSupplied()
             {
-                if (!string.IsNullOrEmpty(pluginFolder) && !string.IsNullOrWhiteSpace(pluginFolder))
+                if  (!string.IsNullOrWhiteSpace(pluginFolder))
                 {
                     return true;
                 }
@@ -206,38 +212,30 @@ namespace EdFi.Ods.Api.Helpers
             }
         }
 
-        private static bool IsExtensionInAssemblyModelType(string assemblyMetadataPath)
+        private static bool IsExtensionAssembly(AssemblyMetadata assemblyMetadata)
         {
-            var assemblyMetadata = Load(assemblyMetadataPath);
-
             return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(TemplateSetConventions.Extension);
         }
 
-        private static bool IsProfileInAssemblyModelType(string assemblyMetadataPath)
+        private static bool IsProfileAssembly(AssemblyMetadata assemblyMetadata)
         {
-            var assemblyMetadata = Load(assemblyMetadataPath);
-
             return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(TemplateSetConventions.Profile);
         }
 
-        public static AssemblyMetadata Load(string fileFullName)
-       {
-           if (!File.Exists(fileFullName))
+        private static AssemblyMetadata LoadAssemblyMetadata(string assemblyMetadataPath)
+        {
+           if (!File.Exists(assemblyMetadataPath))
            {
-               throw new FileNotFoundException($"Non-existent file path provided. Expected location {fileFullName}.");
+               throw new FileNotFoundException($"Assembly metadata file '{assemblyMetadataPath}' not found.");
            }
 
-           _logger.Debug($"Deserializing object type {typeof(AssemblyMetadata)} from file {fileFullName}.");
+           _logger.Debug($"Deserializing object type {typeof(AssemblyMetadata)} from file '{assemblyMetadataPath }'.");
 
-           using (StreamReader file = File.OpenText(fileFullName))
-           {
-               JsonSerializer serializer = new JsonSerializer();
-               return (AssemblyMetadata)serializer.Deserialize(file, typeof(AssemblyMetadata));
-           }
-       }
+            string json = File.ReadAllText(assemblyMetadataPath);
+           return JsonConvert.DeserializeObject<AssemblyMetadata>(json);
+        }
 
-       
-        private class PluginAssemblyLoadingContext : AssemblyLoadContext
+       private class PluginAssemblyLoadingContext : AssemblyLoadContext
         {
             public PluginAssemblyLoadingContext()
                 : base(isCollectible: true) { }
