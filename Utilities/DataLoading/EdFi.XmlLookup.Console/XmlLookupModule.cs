@@ -4,15 +4,18 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using Autofac;
 using Autofac.Core;
+using EdFi.LoadTools;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Factories;
 using EdFi.LoadTools.Engine.Mapping;
 using EdFi.LoadTools.Engine.MappingFactories;
 using EdFi.LoadTools.Engine.XmlLookupPipeline;
+using EdFi.XmlLookup.Console.Application;
 
 namespace EdFi.XmlLookup.Console
 {
@@ -20,6 +23,39 @@ namespace EdFi.XmlLookup.Console
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<OdsRestClient>()
+                .As<IOdsRestClient>()
+                .SingleInstance();
+
+            builder.RegisterType<OAuthTokenHandler>()
+                .As<IOAuthTokenHandler>()
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterType<SchemaSetFactory>()
+                .SingleInstance()
+                .AsSelf();
+
+            builder.RegisterType<XmlLookupConfigurationValidator>()
+                .As<IXmlLookupConfigurationValidator>()
+                .SingleInstance();
+
+            builder.RegisterType<XmlLookupPipelineProcessor>()
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterType<XmlLookupToResourceProcessor>()
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterType<XmlToWorkItemsProcessor>()
+                .AsSelf()
+                .SingleInstance();
+
+            builder.RegisterType<XmlLookupApplication>()
+                .AsSelf()
+                .SingleInstance();
+
             builder.RegisterType<SwaggerMetadataRetriever>()
                 .AsSelf()
                 .SingleInstance();
@@ -59,7 +95,11 @@ namespace EdFi.XmlLookup.Console
             builder.Register(c => c.Resolve<SchemaSetFactory>().GetSchemaSet())
                 .SingleInstance();
 
-            builder.RegisterInstance(new ConcurrentDictionary<string, XElement>()).SingleInstance()
+            builder.RegisterInstance(new ConcurrentDictionary<string, XElement>())
+                .As<IDictionary<string, XElement>>()
+                .SingleInstance();
+
+            builder.RegisterInstance(new List<string>())
                 .SingleInstance();
 
             builder.Register(c => c.Resolve<IMetadataFactory<JsonModelMetadata>>().GetMetadata())
@@ -83,14 +123,17 @@ namespace EdFi.XmlLookup.Console
 
             builder.RegisterType<LookupToGetByExampleMetadataMappingFactory>()
                 .Named<IMetadataMappingFactory>(nameof(LookupToIdentityMetadataMappingFactory))
+                .As<IMetadataMappingFactory>()
                 .SingleInstance();
 
             builder.RegisterType<ResourceToIdentityMetadataMappingFactory>()
                 .Named<IMetadataMappingFactory>(nameof(ResourceToIdentityMetadataMappingFactory))
+                .As<IMetadataMappingFactory>()
                 .SingleInstance();
 
             builder.RegisterType<LookupToIdentityMetadataMappingFactory>()
                 .Named<IMetadataMappingFactory>(nameof(LookupToIdentityMetadataMappingFactory))
+                .As<IMetadataMappingFactory>()
                 .SingleInstance();
 
             foreach (var pipelineStep in pipelineSteps)

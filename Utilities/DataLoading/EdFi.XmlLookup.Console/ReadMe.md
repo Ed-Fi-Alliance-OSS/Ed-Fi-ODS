@@ -20,9 +20,10 @@ If an identity is provided, it is assumed to be correct.
 
 ## Command Line arguments
 The command line syntax may be retrieved by providing a /? --Help command line argument. The available command line arguments are:
+
 | Short Argument | Long Argument | Purpose | Example |
 | --- | --- |:--- | --- |
-| -a | --apiurl | The ODS API Base Url | http://server/v3 |
+| -b | --base | The ODS API Base Url | http://server/v3 |
 | -y | --year | The target school year for the ODS API | 2016 |
 | -k | --key | Your ODS API OAuth Key | |
 | -s | --secret | Your ODS API OAuth Secret | |
