@@ -220,7 +220,7 @@ namespace EdFi.Ods.Api.Helpers
             
             if (resourceName == null)
             {
-                throw new FileNotFoundException($"Assembly metadata file '{assembly.GetManifestResourceNames()}' not found for this project.");
+                throw new Exception($"Assembly metadata file '{AssemblyMetadataSearchString}' not found for this assembly.");
             }
             var stream = assembly.GetManifestResourceStream(resourceName);
 
