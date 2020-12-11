@@ -215,7 +215,7 @@ namespace EdFi.Ods.Api.Startup
 
             if (!string.IsNullOrEmpty(apiSettings.PathBase))
             {
-                var pathBase = apiSettings.PathBase.Replace("/", "");
+                var pathBase = apiSettings.PathBase.Trim('/');
                 pathBase = "/" + pathBase;
                 app.UsePathBase(pathBase);
             }
