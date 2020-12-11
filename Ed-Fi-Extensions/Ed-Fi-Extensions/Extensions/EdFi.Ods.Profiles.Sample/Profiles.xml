@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+  <Profile name="Test-Profile-Resource-ExcludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="ExcludeOnly">
+        <!-- Inherited property -->
+        <Property name="NameOfInstitution" />
+        <!-- Inherited Descriptor property -->
+        <Property name="OperationalStatusDescriptor" />
+        <!-- Property -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />
+        <!-- Descriptor property -->
+        <Property name="SchoolTypeDescriptor" />
+        <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />
+        <!-- Inherited Collection -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" />
+        <!-- Collection -->
+        <Collection name="SchoolCategories" memberSelection="IncludeAll" />
+      </ReadContentType>
+      <WriteContentType memberSelection="ExcludeOnly">
+        <!-- Inherited property -->
+        <Property name="ShortNameOfInstitution" />
+        <!-- Inherited Descriptor property -->
+        <Property name="OperationalStatusDescriptor" />
+        <!-- Property -->
+        <Property name="WebSite" />
+        <!-- Descriptor property -->
+        <Property name="CharterStatusDescriptor" />
+        <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />
+        <!-- Inherited Collection -->
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="IncludeAll" />
+        <!-- Collection -->
+        <Collection name="SchoolGradeLevels" memberSelection="IncludeAll" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+  <Profile name="Test-Profile-Resource-IncludeOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeOnly">
+        <!-- Inherited property -->
+        <Property name="NameOfInstitution" />
+        <!-- Inherited Descriptor property -->
+        <Property name="OperationalStatusDescriptor" />
+        <!-- Property -->
+        <Property name="CharterApprovalSchoolYearTypeReference" />
+        <!-- Descriptor property -->
+        <Property name="SchoolTypeDescriptor" />
+        <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />
+        <!-- Inherited Collection -->
+        <Collection name="EducationOrganizationAddresses" memberSelection="IncludeAll" />
+        <!-- Collection -->
+        <Collection name="SchoolCategories" memberSelection="IncludeAll" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeOnly">
+        <!-- Inherited property -->
+        <Property name="ShortNameOfInstitution" />
+        <!-- Inherited Descriptor property -->
+        <Property name="OperationalStatusDescriptor" />
+        <!-- Property -->
+        <Property name="WebSite" />
+        <!-- Descriptor property -->
+        <Property name="CharterStatusDescriptor" />
+        <!-- Descriptor property -->
+        <Property name="AdministrativeFundingControlDescriptor" />
+        <!-- Inherited Collection -->
+        <Collection name="EducationOrganizationInternationalAddresses" memberSelection="IncludeAll" />
+        <!-- Collection -->
+        <Collection name="SchoolGradeLevels" memberSelection="IncludeAll" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+  <Profile name="Test-Profile-Resource-ReadOnly">
+    <Resource name="School">
+      <ReadContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+  <Profile name="Test-Profile-Resource-WriteOnly">
+    <Resource name="School">
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+  
+</Profiles>
