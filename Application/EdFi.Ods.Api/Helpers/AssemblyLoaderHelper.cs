@@ -205,12 +205,12 @@ namespace EdFi.Ods.Api.Helpers
 
         private static bool IsExtensionAssembly(AssemblyMetadata assemblyMetadata)
         {
-            return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(TemplateSetConventions.Extension);
+            return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(PluginConventions.Extension);
         }
 
         private static bool IsProfileAssembly(AssemblyMetadata assemblyMetadata)
         {
-            return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(TemplateSetConventions.Profile);
+            return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(PluginConventions.Profile);
         }
 
         private static AssemblyMetadata LoadAssemblyMetadata(Assembly assembly)

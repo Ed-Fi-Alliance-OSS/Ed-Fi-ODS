@@ -5,7 +5,7 @@
 
 namespace EdFi.Ods.Api.Conventions
 {
-    public static class TemplateSetConventions
+    public static class PluginConventions
     {
         public const string Extension = "extension";
         public const string Profile = "profile";
