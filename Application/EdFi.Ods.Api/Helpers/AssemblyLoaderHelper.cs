@@ -216,7 +216,7 @@ namespace EdFi.Ods.Api.Helpers
         private static AssemblyMetadata LoadAssemblyMetadata(Assembly assembly)
         {
             var resourceName = assembly.GetManifestResourceNames()
-                .SingleOrDefault(p => p.EndsWith(AssemblyMetadataSearchString));
+                .FirstOrDefault(p => p.EndsWith(AssemblyMetadataSearchString));
 
             if (resourceName == null)
             {
