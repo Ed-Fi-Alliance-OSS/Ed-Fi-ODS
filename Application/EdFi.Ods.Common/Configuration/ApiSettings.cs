@@ -48,6 +48,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public bool? UseReverseProxyHeaders { get; set; }
 
+        public string PathBase { get; set; }
+
         public DatabaseEngine GetDatabaseEngine() => _databaseEngine.Value;
 
         public ApiMode GetApiMode() => _apiMode.Value;
