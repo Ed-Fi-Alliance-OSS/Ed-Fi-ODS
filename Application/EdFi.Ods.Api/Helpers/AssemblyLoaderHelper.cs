@@ -13,17 +13,20 @@ using System.Reflection;
 using System.Runtime.Loader;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Common.Extensibility;
 using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Common.Validation;
 using FluentValidation;
 using log4net;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Helpers
 {
     public static class AssemblyLoaderHelper
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssemblyLoaderHelper));
+        private const string AssemblyMetadataSearchString = "assemblyMetadata.json";
 
         public static void LoadAssembliesFromExecutingFolder(bool includeFramework = false)
         {
@@ -128,51 +131,50 @@ namespace EdFi.Ods.Api.Helpers
                 yield break;
             }
 
-            var validator = GetValidator();
-
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
 
-            var pluginFinderAssemblyContext = new PluginAssemblyLoadingContext();
+            var pluginAssemblyLoadContext = new PluginAssemblyLoadContext();
 
-            foreach (var assemblyPath in assemblies)
+            try
             {
-                var assembly = pluginFinderAssemblyContext.LoadFromAssemblyPath(assemblyPath);
-
-                if (!HasPlugin(assembly))
+                foreach (var assemblyPath in assemblies)
                 {
-                    continue;
-                }
+                    var assembly = pluginAssemblyLoadContext.LoadFromAssemblyPath(assemblyPath);
 
-                if (assemblyPath.Contains("Extensions"))
-                {
-                    string extensionFolder = Path.GetDirectoryName(assemblyPath);
-                    var validationResult = validator.ValidateObject(extensionFolder);
+                    if (!HasPlugin(assembly))
+                    {
+                        continue;
+                    }
 
-                    if (!validationResult.Any())
+                    string assemblyDirectory = Path.GetDirectoryName(assemblyPath);
+                    var assemblyMetadata = ReadAssemblyMetadata(assembly);
+
+                    if (IsExtensionAssembly(assemblyMetadata))
+                    {
+                        var validator = GetExtensionValidator();
+                        var validationResult = validator.ValidateObject(assemblyDirectory);
+
+                        if (!validationResult.Any())
+                        {
+                            yield return assembly.Location;
+                        }
+                        else
+                        {
+                            _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
+                        }
+                    }
+                    else if (IsProfileAssembly(assemblyMetadata))
                     {
                         yield return assembly.Location;
                     }
-                    else
-                    {
-                        _logger.Warn($"Assembly: {assembly.GetName()} - {string.Join(",", validationResult)}");
-                    }
                 }
             }
-
-            pluginFinderAssemblyContext.Unload();
-
-            bool IsPluginFolderNameSupplied()
+            finally
             {
-                if (!string.IsNullOrEmpty(pluginFolder) && !string.IsNullOrWhiteSpace(pluginFolder))
-                {
-                    return true;
-                }
-
-                _logger.Debug($"Plugin folder was not specified so no plugins will be loaded.");
-                return false;
+                pluginAssemblyLoadContext.Unload();
             }
-
-            static FluentValidationObjectValidator GetValidator()
+            
+            static FluentValidationObjectValidator GetExtensionValidator()
             {
                 return new FluentValidationObjectValidator(
                     new IValidator[]
@@ -183,6 +185,17 @@ namespace EdFi.Ods.Api.Helpers
                     });
             }
 
+            bool IsPluginFolderNameSupplied()
+            {
+                if (!string.IsNullOrWhiteSpace(pluginFolder))
+                {
+                    return true;
+                }
+
+                _logger.Debug($"Plugin folder was not specified so no plugins will be loaded.");
+                return false;
+            }
+
             static bool HasPlugin(Assembly assembly)
             {
                 return assembly.GetTypes().Any(
@@ -191,10 +204,47 @@ namespace EdFi.Ods.Api.Helpers
             }
         }
 
-        private class PluginAssemblyLoadingContext : AssemblyLoadContext
+        private static bool IsExtensionAssembly(AssemblyMetadata assemblyMetadata)
         {
-            public PluginAssemblyLoadingContext()
+            return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(PluginConventions.Extension);
+        }
+
+        private static bool IsProfileAssembly(AssemblyMetadata assemblyMetadata)
+        {
+            return assemblyMetadata.AssemblyModelType.EqualsIgnoreCase(PluginConventions.Profile);
+        }
+
+        private static AssemblyMetadata ReadAssemblyMetadata(Assembly assembly)
+        {
+            var resourceName = assembly.GetManifestResourceNames()
+                .FirstOrDefault(p => p.EndsWith(AssemblyMetadataSearchString));
+
+            if (resourceName == null)
+            {
+                throw new Exception($"Assembly metadata embedded resource '{AssemblyMetadataSearchString}' not found in assembly '{Path.GetFileName(assembly.Location)}'.");
+            }
+
+            var stream = assembly.GetManifestResourceStream(resourceName);
+
+            using var reader = new StreamReader(stream);
+
+            string jsonFile = reader.ReadToEnd();
+
+            _logger.Debug($"Deserializing object type '{typeof(AssemblyMetadata)}' from embedded resource '{resourceName}'.");
+
+            return JsonConvert.DeserializeObject<AssemblyMetadata>(jsonFile);
+        }
+
+        private class PluginAssemblyLoadContext : AssemblyLoadContext
+        {
+            public PluginAssemblyLoadContext()
                 : base(isCollectible: true) { }
+        }
+
+        private class AssemblyMetadata
+        {
+            public string AssemblyModelType { get; set; }
+            public string AssemblyMetadataFormatVersion { get; set; }
         }
     }
 }
