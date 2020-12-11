@@ -230,7 +230,7 @@ namespace EdFi.Ods.Api.Helpers
                 jsonFile = reader.ReadToEnd();
             }
 
-            _logger.Debug($"Deserializing object type '{typeof(AssemblyMetadata)}' from file '{resourceName}'.");
+            _logger.Debug($"Deserializing object type '{typeof(AssemblyMetadata)}' from embedded resource '{resourceName}'.");
 
             return JsonConvert.DeserializeObject<AssemblyMetadata>(jsonFile);
         }
