@@ -15,6 +15,5 @@
     <file src="../../../LICENSE.txt" />
     <file src="Artifacts/**" target="."/>
     <file src="bin\$configuration$\netcoreapp3.1\EdFi.Ods.Extensions.TPDM.dll" target="."/>
-	<file src="assemblyMetadata.json" target="."/>
   </files>
 </package>
