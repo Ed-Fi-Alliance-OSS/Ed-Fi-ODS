@@ -37,7 +37,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-    <Content Include="assemblyMetadata.json" />
+    <EmbeddedResource Include="assemblyMetadata.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Artifacts\Metadata\**\ApiModel-EXTENSION.json">
