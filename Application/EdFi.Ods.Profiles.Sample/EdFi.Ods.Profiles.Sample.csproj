@@ -35,3 +35,4 @@
     <ProjectReference Include="$(SolutionDir)..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
 </Project>
+
