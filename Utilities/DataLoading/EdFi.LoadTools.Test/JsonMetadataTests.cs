@@ -106,7 +106,7 @@ namespace EdFi.LoadTools.Test
 
             public string Folder
             {
-                get => _configuration["Folders:"];
+                get => _configuration["Folders:Interchange"];
             }
         }
     }

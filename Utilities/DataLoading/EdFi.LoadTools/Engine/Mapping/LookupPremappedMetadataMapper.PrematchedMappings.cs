@@ -10,18 +10,18 @@ namespace EdFi.LoadTools.Engine.Mapping
         protected override PrematchedMapping[] GetPrematchedMappings()
         {
             return new PrematchedMapping[]
-                   {
-                       new PrematchedMapping<CopySimplePropertyMappingStrategy>(
-                           "AssessmentFamilyLookupType",
-                           "getAssessmentFamiliesByExample",
-                           new PropertyMap("AssessmentFamilyTitle", "title"),
-                           new PropertyMap("AssessmentCategory/CodeValue", "assessmentCategoryDescriptor"),
-                           new PropertyMap("AssessmentCategory/Namespace", "namespace")),
-                       new PrematchedMapping<CopySimplePropertyMappingStrategy>(
-                           "AssessmentIdentityType",
-                           "assessment",
-                           new PropertyMap("AssessmentTitle", "title"))
-                   };
+            {
+                new PrematchedMapping<CopySimplePropertyMappingStrategy>(
+                    "AssessmentFamilyLookupType",
+                    "getAssessmentFamiliesByExample",
+                    new PropertyMap("AssessmentFamilyTitle", "title"),
+                    new PropertyMap("AssessmentCategory/CodeValue", "assessmentCategoryDescriptor"),
+                    new PropertyMap("AssessmentCategory/Namespace", "namespace")),
+                new PrematchedMapping<CopySimplePropertyMappingStrategy>(
+                    "AssessmentIdentityType",
+                    "assessment",
+                    new PropertyMap("AssessmentTitle", "title"))
+            };
         }
     }
 }

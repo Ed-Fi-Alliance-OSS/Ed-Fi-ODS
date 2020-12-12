@@ -133,7 +133,7 @@ namespace EdFi.XmlLookup.Console.Application
         {
             string currentDirectory = Directory.GetCurrentDirectory();
 
-            var apiMode = ApiMode.Parse(configuration.GetValue<string>("OdsApi:ApiMode"));
+            ApiMode.TryParse(configuration.GetValue<string>("OdsApi:ApiMode"), out ApiMode apiMode);
 
             return new XmlLookupConfiguration
             {

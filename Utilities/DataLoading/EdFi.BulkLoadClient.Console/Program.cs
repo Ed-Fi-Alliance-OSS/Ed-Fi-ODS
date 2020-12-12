@@ -60,7 +60,7 @@ namespace EdFi.BulkLoadClient.Console
                     configRoot["IncludeStats"] = "true";
                 }
 
-                if (args.Contains("-novalidation") || args.Contains("-n"))
+                if (args.Contains("--novalidation") || args.Contains("-n"))
                 {
                     configRoot["ForceMetadata"] = "true";
                 }

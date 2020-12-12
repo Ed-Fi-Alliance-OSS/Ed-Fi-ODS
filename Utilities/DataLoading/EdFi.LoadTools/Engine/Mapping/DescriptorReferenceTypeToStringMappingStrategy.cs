@@ -18,10 +18,7 @@ namespace EdFi.LoadTools.Engine.Mapping
         public override void ReverseMapElement(XElement source, string path, XElement target)
         {
             var values = source.Value.Split(
-                new[]
-                {
-                    '/'
-                }, StringSplitOptions.None);
+                new[] {'/'}, StringSplitOptions.None);
 
             if (values.Length == 1)
             {

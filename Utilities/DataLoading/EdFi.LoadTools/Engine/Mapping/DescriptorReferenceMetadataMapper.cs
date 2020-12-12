@@ -13,18 +13,19 @@ namespace EdFi.LoadTools.Engine.Mapping
     public class DescriptorReferenceMetadataMapper : IMetadataMapper
     {
         public void CreateMetadataMappings(MetadataMapping mapping, List<ModelMetadata> sourceModels,
-                                           List<ModelMetadata> targetModels)
+            List<ModelMetadata> targetModels)
         {
             var xModels = sourceModels
-                         .Where(x => x.TypeName != null && x.TypeName.EndsWith("DescriptorReferenceType"))
-                         .Select(
-                              x => new
-                                   {
-                                       model = x, properties = sourceModels.Where(
-                                           y =>
-                                               y.Model == x.Type && y.PropertyPath.StartsWith(x.PropertyPath))
-                                   })
-                         .ToList();
+                .Where(x => x.TypeName != null && x.TypeName.EndsWith("DescriptorReferenceType"))
+                .Select(
+                    x => new
+                    {
+                        model = x,
+                        properties = sourceModels.Where(
+                            y =>
+                                y.Model == x.Type && y.PropertyPath.StartsWith(x.PropertyPath))
+                    })
+                .ToList();
 
             var jModels = targetModels.Where(
                 j =>
@@ -32,15 +33,17 @@ namespace EdFi.LoadTools.Engine.Mapping
                     j.Type == Constants.JsonTypes.String).ToList();
 
             var maps = xModels.SelectMany(
-                                   x => jModels.Select(
-                                       j =>
-                                           new
-                                           {
-                                               x, j, m = ExtensionMethods.PropertyPathPercentMatchTo(x.model.PropertyPath, j.PropertyPath)
-                                           }))
-                              .Where(o => o.m > 0)
-                              .OrderByDescending(o => o.m)
-                              .ToList();
+                    x => jModels.Select(
+                        j =>
+                            new
+                            {
+                                x,
+                                j,
+                                m = ExtensionMethods.PropertyPathPercentMatchTo(x.model.PropertyPath, j.PropertyPath)
+                            }))
+                .Where(o => o.m > 0)
+                .OrderByDescending(o => o.m)
+                .ToList();
 
             while (maps.Count > 0)
             {
@@ -49,8 +52,11 @@ namespace EdFi.LoadTools.Engine.Mapping
                 mapping.Properties.Add(
                     new PropertyMapping
                     {
-                        SourceName = map.x.model.PropertyPath, SourceType = map.x.model.Type, TargetName = map.j.PropertyPath,
-                        TargetType = map.j.Type, IsArray = map.x.model.IsArray,
+                        SourceName = map.x.model.PropertyPath,
+                        SourceType = map.x.model.Type,
+                        TargetName = map.j.PropertyPath,
+                        TargetType = map.j.Type,
+                        IsArray = map.x.model.IsArray,
                         MappingStrategy = new DescriptorReferenceTypeToStringMappingStrategy()
                     });
 
@@ -59,8 +65,12 @@ namespace EdFi.LoadTools.Engine.Mapping
                         p =>
                             new PropertyMapping
                             {
-                                SourceName = p.PropertyPath, SourceType = p.Type, TargetName = "{none}", TargetType = "{none}",
-                                IsArray = p.IsArray, MappingStrategy = new NoOperationMappingStrategy()
+                                SourceName = p.PropertyPath,
+                                SourceType = p.Type,
+                                TargetName = "{none}",
+                                TargetType = "{none}",
+                                IsArray = p.IsArray,
+                                MappingStrategy = new NoOperationMappingStrategy()
                             }));
 
                 sourceModels.RemoveAll(x => x == map.x.model || map.x.properties.Any(p => p == x));

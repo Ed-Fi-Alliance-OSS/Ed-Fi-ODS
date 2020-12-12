@@ -50,16 +50,16 @@ namespace EdFi.XmlLookup.Console.Application
 
             if (string.IsNullOrEmpty(_configuration.OAuthKey))
             {
-                sb.AppendLine("Option 'k:key' parse error. missing value.");
+                sb.AppendLine("Option 'k:key' parse error. Missing value.");
             }
 
             if (string.IsNullOrEmpty(_configuration.OAuthSecret))
             {
-                sb.AppendLine("Option 's:secret' parse error. missing value.");
+                sb.AppendLine("Option 's:secret' parse error. Missing value.");
             }
 
-            if (string.IsNullOrEmpty(_configuration.ApiUrl) ||
-                !Uri.IsWellFormedUriString(_configuration.ApiUrl, UriKind.Absolute))
+            if (string.IsNullOrEmpty(_configuration.ApiUrl)
+                || !Uri.IsWellFormedUriString(_configuration.ApiUrl, UriKind.Absolute))
             {
                 sb.AppendLine("Option 'a:apiurl' parse error. Provided value is not a url.");
             }
@@ -69,14 +69,14 @@ namespace EdFi.XmlLookup.Console.Application
                 sb.AppendLine("Option 'd:data' parse error. Provided value is not a directory.");
             }
 
-            if (string.IsNullOrEmpty(_configuration.MetadataUrl) ||
-                !Uri.IsWellFormedUriString(_configuration.MetadataUrl, UriKind.Absolute))
+            if (string.IsNullOrEmpty(_configuration.MetadataUrl)
+                || !Uri.IsWellFormedUriString(_configuration.MetadataUrl, UriKind.Absolute))
             {
                 sb.AppendLine("Option 'metadataurl' parse error. Provided value is not a url.");
             }
 
-            if (string.IsNullOrEmpty(_configuration.OAuthUrl) ||
-                !Uri.IsWellFormedUriString(_configuration.OAuthUrl, UriKind.Absolute))
+            if (string.IsNullOrEmpty(_configuration.OAuthUrl)
+                || !Uri.IsWellFormedUriString(_configuration.OAuthUrl, UriKind.Absolute))
             {
                 sb.AppendLine("Option 'o:oauthurl' parse error. Provided value is not a url.");
             }

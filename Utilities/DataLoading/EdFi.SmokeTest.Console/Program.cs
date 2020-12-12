@@ -148,7 +148,8 @@ namespace EdFi.SmokeTest.Console
             {
                 if (string.IsNullOrEmpty(configuration["OdsApi:Url"]))
                 {
-                    throw new ArgumentException("OdsApi:Url is null or empty");
+                    Log.Warn("OdsApi:Url is null or empty");
+                    return;
                 }
 
                 // get api version information.

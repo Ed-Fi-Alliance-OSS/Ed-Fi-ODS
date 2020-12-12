@@ -9,9 +9,9 @@ namespace EdFi.LoadTools.SmokeTest
 {
     public class TestSet : Enumeration<TestSet, string>
     {
-         public static readonly TestSet NonDestructiveApi = new TestSet("NonDestructiveApi", "NonDestructiveApi");
-         public static readonly TestSet NonDestructiveSdk = new TestSet("NonDestructiveSdk", "NonDestructiveSdk");
-         public static readonly TestSet DestructiveSdk = new TestSet("DestructiveSdk", "DestructiveSdk");
+        public static readonly TestSet NonDestructiveApi = new TestSet("NonDestructiveApi", "NonDestructiveApi");
+        public static readonly TestSet NonDestructiveSdk = new TestSet("NonDestructiveSdk", "NonDestructiveSdk");
+        public static readonly TestSet DestructiveSdk = new TestSet("DestructiveSdk", "DestructiveSdk");
 
         public TestSet(string value, string displayName)
             : base(value, displayName) { }

@@ -37,7 +37,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 && Uri.IsWellFormedUriString(_configuration.MetadataUrl, UriKind.Absolute)
                 && Uri.IsWellFormedUriString(_configuration.OauthUrl, UriKind.Absolute);
 
-
             if (_configuration.ApiMode == ApiMode.YearSpecific)
             {
                 result = result && _configuration.SchoolYear.HasValue;
@@ -57,39 +56,40 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
 
             if (string.IsNullOrEmpty(_configuration.OAuthKey))
             {
-                sb.AppendLine("Option 'k:key' parse error. missing value.");
+                sb.AppendLine("Option 'k:key' parse error. Missing value.");
             }
 
             if (string.IsNullOrEmpty(_configuration.OAuthSecret))
             {
-                sb.AppendLine("Option 's:secret' parse error. missing value.");
+                sb.AppendLine("Option 's:secret' parse error. Missing value.");
             }
 
-            if (string.IsNullOrEmpty(_configuration.ApiUrl) || !Uri.IsWellFormedUriString(_configuration.ApiUrl, UriKind.Absolute))
+            if (string.IsNullOrEmpty(_configuration.ApiUrl) ||
+                !Uri.IsWellFormedUriString(_configuration.ApiUrl, UriKind.Absolute))
             {
-                sb.AppendLine($"Option 'a:apiurl' parse error. \"{_configuration.ApiUrl}\" is not a url.");
+                sb.AppendLine($"Option 'a:apiurl' parse error. '{_configuration.ApiUrl}' is not a url.");
             }
 
             if (string.IsNullOrEmpty(_configuration.DataFolder) || !Directory.Exists(_configuration.DataFolder))
             {
-                sb.AppendLine($"Option 'd:data' parse error. \"{_configuration.DataFolder}\" is not a directory.");
+                sb.AppendLine($"Option 'd:data' parse error. '{_configuration.DataFolder}' is not a directory.");
             }
 
             if (string.IsNullOrEmpty(_configuration.MetadataUrl) ||
                 !Uri.IsWellFormedUriString(_configuration.MetadataUrl, UriKind.Absolute))
             {
-                sb.AppendLine($"Option 'metadataurl' parse error. \"{_configuration.MetadataUrl}\" is not a url.");
+                sb.AppendLine($"Option 'metadataurl' parse error. '{_configuration.MetadataUrl}' is not a url.");
             }
 
             if (string.IsNullOrEmpty(_configuration.OauthUrl) ||
                 !Uri.IsWellFormedUriString(_configuration.OauthUrl, UriKind.Absolute))
             {
-                sb.AppendLine($"Option 'o:oauthurl' parse error. \"{_configuration.OauthUrl}\" is not a url.");
+                sb.AppendLine($"Option 'o:oauthurl' parse error. '{_configuration.OauthUrl}' is not a url.");
             }
 
             if (string.IsNullOrEmpty(_configuration.WorkingFolder) || !Directory.Exists(_configuration.WorkingFolder))
             {
-                sb.AppendLine($"Option 'w:working' parse error. \"{_configuration.WorkingFolder}\" is not a directory.");
+                sb.AppendLine($"Option 'w:working' parse error. '{_configuration.WorkingFolder}' is not a directory.");
             }
 
             if (_configuration.ApiMode == ApiMode.YearSpecific && !_configuration.SchoolYear.HasValue)

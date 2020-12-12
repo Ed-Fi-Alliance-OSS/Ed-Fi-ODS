@@ -18,6 +18,7 @@ namespace EdFi.SmokeTest.Console.Application
         IOAuthSessionToken, ISdkLibraryConfiguration, IDestructiveTestConfiguration
     {
         public ApiMode ApiMode { get; set; }
+
         public string ApiUrl { get; set; }
 
         public string OAuthKey { get; set; }
@@ -119,7 +120,7 @@ namespace EdFi.SmokeTest.Console.Application
                 throw new ArgumentException($"Unknown TestSet '{configuration.GetValue<string>("TestSet")}'");
             }
 
-            var apiMode = ApiMode.Parse(configuration.GetValue<string>("OdsApi:ApiMode"));
+            ApiMode.TryParse(configuration.GetValue<string>("OdsApi:ApiMode"), out ApiMode apiMode);
 
             return new SmokeTestsConfiguration
             {

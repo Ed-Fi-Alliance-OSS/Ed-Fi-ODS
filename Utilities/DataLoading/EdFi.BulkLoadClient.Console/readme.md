@@ -2,7 +2,7 @@
 
 | Short Option |   Long Option    | Description                                                                                               |
 |:------------:|:----------------:|:----------------------------------------------------------------------------------------------------------|
-|      b       |      base        | The base web API URL (e.g., http://server) **_REQUIRED_**                                               |
+|      b       |      base        | The base web API URL (e.g., http://server)                                                                |
 |      a       |      apiurl      | The web API URL (e.g., http://server/data/v3)                                                             |
 |      c       | connectionlimit  | Maximum concurrent connections to api                                                                     |
 |      d       |       data       | Path to folder containing the data files to be submitted                                                  |
@@ -21,7 +21,7 @@
 |      y       |       year       | The target school year for the web API (e.g., 2018)                                                       |
 
 ## New for 5.2.0
-* Passing in the base url to the Ods/Api is now required.
+* Passing in the base url to the Ods/Api will now obtain information from the ODS/API version endpoint.
 * The application will use the base url and determine the endpoints for ApiUrl, MetadataUrl, and OAuthUrl. 
 * Settings can be set in the appsettings.json and/or passed in by command line arguments. Command line arguments will override any settings in the appsettings.json.
 

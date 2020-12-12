@@ -63,7 +63,8 @@ namespace EdFi.LoadTools.BulkLoadClient
         {
             if (string.IsNullOrEmpty(configuration["OdsApi:Url"]))
             {
-                throw new ArgumentException("OdsApi:Url is null or empty");
+                _log.Warn("OdsApi:Url is null or empty");
+                return;
             }
 
             // get api version information.
