@@ -5,9 +5,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
-using EdFi.LoadTools.Test.Properties;
+using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
 namespace EdFi.LoadTools.Test
@@ -15,19 +16,24 @@ namespace EdFi.LoadTools.Test
     [TestFixture]
     public class JsonMetadataTests
     {
+        private static readonly IConfiguration _configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .Build();
+
         public static IApiMetadataConfiguration ApiMetadataConfiguration
         {
-            get { return new TestApiMetadataConfiguration(); }
+            get => new TestApiMetadataConfiguration(_configuration);
         }
 
         public static IXsdConfiguration XmlMetadataConfiguration
         {
-            get { return new TestApiMetadataConfiguration(); }
+            get => new TestApiMetadataConfiguration(_configuration);
         }
 
         public static IInterchangeOrderConfiguration InterchangeOrderConfiguration
         {
-            get { return new TestInterchangeOrderConfiguration(); }
+            get => new TestInterchangeOrderConfiguration(_configuration);
         }
 
         [Test]
@@ -51,19 +57,26 @@ namespace EdFi.LoadTools.Test
 
         private class TestApiMetadataConfiguration : IApiMetadataConfiguration, IXsdConfiguration
         {
+            private readonly IConfiguration _configuration;
+
+            public TestApiMetadataConfiguration(IConfiguration configuration)
+            {
+                _configuration = configuration;
+            }
+
             public bool Force
             {
-                get { return false; }
+                get => false;
             }
 
             string IApiMetadataConfiguration.Folder
             {
-                get { return Settings.Default.WorkingFolder; }
+                get => TestContext.CurrentContext.TestDirectory;
             }
 
             public string Url
             {
-                get { return Settings.Default.SwaggerUrl; }
+                get => _configuration["OdsApi:MetadataUrl"];
             }
 
             bool IXsdConfiguration.DoNotValidateXml
@@ -73,9 +86,9 @@ namespace EdFi.LoadTools.Test
 
             string IXsdConfiguration.Folder
             {
-                get { return Settings.Default.XsdFolder; }
+                get => _configuration["Folders:Xsd"];
             }
-            
+
             string IApiMetadataConfiguration.DependenciesUrl
             {
                 get => null;
@@ -84,9 +97,16 @@ namespace EdFi.LoadTools.Test
 
         private class TestInterchangeOrderConfiguration : IInterchangeOrderConfiguration
         {
+            private readonly IConfiguration _configuration;
+
+            public TestInterchangeOrderConfiguration(IConfiguration configuration)
+            {
+                _configuration = configuration;
+            }
+
             public string Folder
             {
-                get { return Settings.Default.InterchangeOrderFolder; }
+                get => _configuration["Folders:Interchange"];
             }
         }
     }

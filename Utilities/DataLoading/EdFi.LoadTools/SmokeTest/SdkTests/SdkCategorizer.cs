@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using EdFi.LoadTools.Engine;
 using Newtonsoft.Json;
-using RestSharp;
+using RestSharp.Portable;
 
 namespace EdFi.LoadTools.SmokeTest.SdkTests
 {
@@ -93,10 +93,10 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                         methods.Select(m => JsonConvert.SerializeObject(m, Formatting.Indented)));
 
                     string message = $"Multiple matching Post methods were found on type '{ApiType.FullName}'. Candidates are:{Environment.NewLine}{methodsList}";
-                    
+
                     throw new Exception(message);
                 }
-                
+
                 return methods.SingleOrDefault();
             }
         }

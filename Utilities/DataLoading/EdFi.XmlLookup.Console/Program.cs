@@ -4,75 +4,102 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Autofac;
+using CommandLine;
 using EdFi.LoadTools;
+using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine;
 using EdFi.XmlLookup.Console.Application;
 using log4net;
 using log4net.Config;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.XmlLookup.Console
 {
     public class Program
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(Program).Name);
+        private static readonly ILog Log = LogManager.GetLogger(nameof(Program));
 
         private static async Task Main(string[] args)
         {
-            XmlConfigurator.Configure();
+            ConfigureLogging();
             ConfigureTls();
 
-            //BasicConfigurator.Configure();
-            int exitCode;
-            var p = new CommandLineParser();
+            CommandLineOverrides commandLineOverrides = null;
 
-            p.SetupHelp("?", "Help").Callback(
-                text =>
+            var parser = new Parser(
+                    config =>
+                    {
+                        config.CaseInsensitiveEnumValues = true;
+                        config.CaseSensitive = false;
+                        config.HelpWriter = System.Console.Out;
+                        config.IgnoreUnknownArguments = true;
+                    })
+                .ParseArguments<CommandLineOverrides>(args)
+                .WithParsed(overrides => commandLineOverrides = overrides)
+                .WithNotParsed(
+                    errs =>
+                    {
+                        System.Console.WriteLine("Invalid options were entered.");
+                        System.Console.WriteLine(errs.ToString());
+                        Environment.ExitCode = 1;
+                        Environment.Exit(Environment.ExitCode);
+                    });
+
+            int exitCode = 0;
+
+            try
+            {
+                var configRoot = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .AddCommandLine(args, CommandLineOverrides.SwitchingMapping())
+                    .Build();
+
+                await SetOdsEndpoints(configRoot);
+
+                // configure DI container
+                var container = RegisterContainer(configRoot);
+                await using var scope = container.BeginLifetimeScope();
+
+                var validator = container.Resolve<IXmlLookupConfigurationValidator>();
+
+                if (!validator.IsValid())
                 {
-                    System.Console.WriteLine(text);
-                    Environment.Exit(0);
-                });
+                    throw new InvalidOperationException(validator.ErrorText);
+                }
 
-            var result = p.Parse(args);
+                LogConfiguration(container.Resolve<XmlLookupConfiguration>());
 
-            if (result.HasErrors || !p.Object.IsValid)
+                // retrieve application
+                var application = container.Resolve<XmlLookupApplication>();
+
+                // run application
+                exitCode = await application.Run();
+            }
+            catch (Exception ex)
             {
                 exitCode = 1;
-                System.Console.Write(result.ErrorText);
-                System.Console.Write(p.Object.ErrorText);
+                Log.Error(ex);
             }
-            else
+            finally
             {
-                try
-                {
-                    // configure DI container
-                    var container = RegisterContainer();
-                    await using var scope = container.BeginLifetimeScope();
-
-                    LogConfiguration(p.Object);
-
-                    // retrieve application
-                    var application = container.Resolve<XmlLookupApplication>();
-
-                    // run application
-                    exitCode = await application.Run();
-                }
-                catch (Exception ex)
-                {
-                    exitCode = 1;
-                    Log.Error(ex);
-                }
+                Environment.Exit(exitCode);
             }
 
-            Environment.Exit(exitCode);
-
-            ILifetimeScope RegisterContainer()
+            ILifetimeScope RegisterContainer(IConfiguration configuration)
             {
                 var builder = new ContainerBuilder();
 
-                builder.RegisterInstance(p.Object)
+                builder.RegisterInstance(configuration)
+                    .As<IConfiguration>()
+                    .As<IConfigurationRoot>()
+                    .SingleInstance();
+
+                builder.RegisterInstance(XmlLookupConfiguration.Create(configuration))
                     .As<IApiConfiguration>()
                     .As<IDataConfiguration>()
                     .As<IOAuthTokenConfiguration>()
@@ -85,17 +112,60 @@ namespace EdFi.XmlLookup.Console
 
                 return builder.Build();
             }
+
+            static void ConfigureLogging()
+            {
+                var assembly = typeof(Program).GetType().Assembly;
+
+                string configPath = Path.Combine(AppContext.BaseDirectory, "log4net.config");
+
+                XmlConfigurator.Configure(LogManager.GetRepository(assembly), new FileInfo(configPath));
+            }
+
+            async Task SetOdsEndpoints(IConfigurationRoot configuration)
+            {
+                if (string.IsNullOrEmpty(configuration["OdsApi:Url"]))
+                {
+                    throw new ArgumentException("OdsApi:Url is null or empty");
+                }
+
+                // get api version information.
+                var apiVersionInformation = await new OdsVersionRetriever(configuration).GetApiVersionInformationAsync()
+                    .ConfigureAwait(false);
+
+                if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:ApiUrl")))
+                {
+                    configuration["OdsApi:ApiUrl"] = apiVersionInformation.Urls["dataManagementApi"];
+                }
+
+                if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:MetadataUrl")))
+                {
+                    configuration["OdsApi:MetadataUrl"] = apiVersionInformation.Urls["openApiMetadata"];
+                }
+
+                if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:DependenciesUrl")))
+                {
+                    configuration["OdsApi:DependenciesUrl"] = apiVersionInformation.Urls["dependencies"];
+                }
+
+                if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:OAuthUrl")))
+                {
+                    configuration["OdsApi:OAuthUrl"] = apiVersionInformation.Urls["oauth"];
+                }
+
+                configuration["OdsApi:ApiMode"] = apiVersionInformation.ApiMode;
+            }
         }
 
-        private static void LogConfiguration(Configuration configuration)
+        private static void LogConfiguration(XmlLookupConfiguration xmlLookupConfiguration)
         {
-            Log.Info($"Api Url:        {configuration.ApiUrl}");
-            Log.Info($"School Year:    {configuration.SchoolYear}");
-            Log.Info($"Oauth Key:      {configuration.OauthKey}");
-            Log.Info($"Metadata Url:   {configuration.MetadataUrl}");
-            Log.Info($"Data Folder:    {configuration.DataFolder}");
-            Log.Info($"Working Folder: {configuration.WorkingFolder}");
-            Log.Info($"Xsd Folder:     {configuration.XsdFolder}");
+            Log.Info($"Api Url:        {xmlLookupConfiguration.ApiUrl}");
+            Log.Info($"School Year:    {xmlLookupConfiguration.SchoolYear}");
+            Log.Info($"Oauth Key:      {xmlLookupConfiguration.OAuthKey}");
+            Log.Info($"Metadata Url:   {xmlLookupConfiguration.MetadataUrl}");
+            Log.Info($"Data Folder:    {xmlLookupConfiguration.DataFolder}");
+            Log.Info($"Working Folder: {xmlLookupConfiguration.WorkingFolder}");
+            Log.Info($"Xsd Folder:     {xmlLookupConfiguration.XsdFolder}");
         }
 
         /// <summary>

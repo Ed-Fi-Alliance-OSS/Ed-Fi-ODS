@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using EdFi.Common.Extensions;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.Engine.Mapping;
-using RestSharp.Extensions;
 
 namespace EdFi.LoadTools.Engine.MappingFactories
 {
@@ -34,7 +34,7 @@ namespace EdFi.LoadTools.Engine.MappingFactories
                 x => new MetadataMapping
                      {
                          RootName = _lookupTypeRegex.Match(x).Groups["TypeName"].Value, SourceName = x, TargetName =
-                             $"edFi_{_lookupTypeRegex.Match(x).Groups["TypeName"].Value.ToCamelCase(CultureInfo.CurrentCulture)}"
+                             $"edFi_{_lookupTypeRegex.Match(x).Groups["TypeName"].Value.ToCamelCase()}"
                      }).ToArray();
 
             return mappings;

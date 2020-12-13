@@ -7,19 +7,21 @@ namespace EdFi.LoadTools.Engine.Mapping
 {
     public class LookupDoNotMapPropertyMapper : DoNotMapPropertyMapper
     {
-        protected override UnmappedProperty[] XmlProperties => new[]
-                                                               {
-                                                                   new UnmappedProperty(
-                                                                       "AssessmentFamilyLookupType", "AssessmentCategory",
-                                                                       "AssessmentFamilyIdentificationCode")
-                                                               };
+        protected override UnmappedProperty[] XmlProperties
+            => new[]
+            {
+                new UnmappedProperty(
+                    "AssessmentFamilyLookupType", "AssessmentCategory",
+                    "AssessmentFamilyIdentificationCode")
+            };
 
-        protected override UnmappedProperty[] JsonProperties => new[]
-                                                                {
-                                                                    new UnmappedProperty(
-                                                                        "getAssessmentFamiliesByExample", "academicSubjectDescriptor", "nomenclature",
-                                                                        "lowestAssessedGradeLevelDescriptor", "assessedGradeLevelDescriptor",
-                                                                        "parentAssessmentFamilyTitle")
-                                                                };
+        protected override UnmappedProperty[] JsonProperties
+            => new[]
+            {
+                new UnmappedProperty(
+                    "getAssessmentFamiliesByExample", "academicSubjectDescriptor", "nomenclature",
+                    "lowestAssessedGradeLevelDescriptor", "assessedGradeLevelDescriptor",
+                    "parentAssessmentFamilyTitle")
+            };
     }
 }

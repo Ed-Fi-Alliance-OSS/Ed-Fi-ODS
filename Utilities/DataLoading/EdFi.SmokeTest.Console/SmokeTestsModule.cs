@@ -6,6 +6,7 @@
 using Autofac;
 using EdFi.LoadTools;
 using EdFi.LoadTools.ApiClient;
+using EdFi.SmokeTest.Console.Application;
 
 namespace EdFi.SmokeTest.Console
 {
@@ -26,6 +27,10 @@ namespace EdFi.SmokeTest.Console
 
             builder.RegisterType<SwaggerRetriever>()
                 .AsSelf();
+
+            builder.RegisterType<SmokeTestConfigurationValidator>()
+                .As<ISmokeTestConfigurationValidator>()
+                .SingleInstance();
         }
     }
 }

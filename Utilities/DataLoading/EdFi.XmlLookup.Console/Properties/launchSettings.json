@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "EdFi.XmlLookup.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "-k QyNmM0uDkvKcWtrU4RXLa -s WkHPCr4cGuBXK6zxIMib7 -b \"http://localhost:54746\"  --data \"../../../../../../../Ed-Fi-Standard\" -w \"C:/tmp/data/Output/\" -x \"../../../../../../../Ed-Fi-Standard/Schemas/Bulk/\""
+    }
+  }
+}

@@ -18,7 +18,7 @@ namespace EdFi.LoadTools.Engine.MappingFactories
         private readonly XmlModelMetadata[] _xmlMetadata;
 
         public LookupToIdentityMetadataMappingFactory(
-            List<XmlModelMetadata> xmlMetadata,
+            IEnumerable<XmlModelMetadata> xmlMetadata,
             NameMatchingMetadataMapper metadataMapper)
         {
             _xmlMetadata = xmlMetadata

@@ -3,7 +3,7 @@
   "profiles": {
     "EdFi.SmokeTests.Console": {
       "commandName": "Project",
-      "commandLineArgs": "-k S32r0mMd6OsFI9pqvz7nf -s BpAruKxCY6EO18vUwWa7d -a \"http://localhost:54746/data/v3\" -o \"http://localhost:54746/\" -t NonDestructiveApi -m \"http://localhost:54746/metadata\""
+      "commandLineArgs": "-k QyNmM0uDkvKcWtrU4RXLa -s WkHPCr4cGuBXK6zxIMib7 -b \"http://localhost:54746\"  -t NonDestructiveApi"
     }
   }
 }
