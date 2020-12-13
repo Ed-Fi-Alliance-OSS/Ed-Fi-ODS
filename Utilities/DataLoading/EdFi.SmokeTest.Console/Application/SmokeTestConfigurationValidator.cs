@@ -73,27 +73,27 @@ namespace EdFi.SmokeTest.Console.Application
 
             if (!ValidApiUrl)
             {
-                sb.AppendLine("'a: apiurl is not a valid URL");
+                sb.AppendLine("'a:apiurl is not a valid URL");
             }
 
             if (!ValidOAuthUrl)
             {
-                sb.AppendLine("o: oauthurl is not a valid URL");
+                sb.AppendLine("o:oauthurl is not a valid URL");
             }
 
             if (!ValidMetadataUrl)
             {
-                sb.AppendLine("m: metadataurl is not a valid URL");
+                sb.AppendLine("m:metadataurl is not a valid URL");
             }
 
             if (!ValidSdkLibraryPath)
             {
-                sb.AppendLine("l: library is not a valid file path");
+                sb.AppendLine("l:library is not a valid file path");
             }
 
             if (!ValidNamespacePrefix)
             {
-                sb.AppendLine("n: namespace is not a valid URI");
+                sb.AppendLine("n:namespace is not a valid URI");
             }
 
             if (_configuration.ApiMode == ApiMode.YearSpecific && !_configuration.SchoolYear.HasValue)
