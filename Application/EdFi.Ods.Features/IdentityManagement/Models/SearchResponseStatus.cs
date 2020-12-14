@@ -2,7 +2,7 @@
 {
     public enum SearchResponseStatus
     {
-        Incomplete,
-        Complete
+        Incomplete = 1,
+        Complete = 2
     }
 }
