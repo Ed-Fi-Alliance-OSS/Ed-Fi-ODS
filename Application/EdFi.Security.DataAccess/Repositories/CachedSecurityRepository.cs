@@ -35,28 +35,38 @@ namespace EdFi.Security.DataAccess.Repositories
             _lastCacheUpdate = SystemClock.Now();
         }
 
-        public override Action GetActionByHttpVerb(string httpVerb) => VerifyCacheAndExecute(() => base.GetActionByHttpVerb(httpVerb));
+        private bool ShouldUpdateCache
+        {
+            get => _lastCacheUpdate.IsDefaultValue() || SystemClock.Now() >= _lastCacheUpdate.AddMinutes(_cacheTimeoutInMinutes);
+        }
 
-        public override Action GetActionByName(string actionName) => VerifyCacheAndExecute(() => base.GetActionByName(actionName));
+        public override Action GetActionByHttpVerb(string httpVerb)
+            => VerifyCacheAndExecute(() => base.GetActionByHttpVerb(httpVerb));
 
-        public override AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName) => VerifyCacheAndExecute(() => base.GetAuthorizationStrategyByName(authorizationStrategyName));
+        public override Action GetActionByName(string actionName)
+            => VerifyCacheAndExecute(() => base.GetActionByName(actionName));
 
-        public override IEnumerable<ClaimSetResourceClaim> GetClaimsForClaimSet(string claimSetName) => VerifyCacheAndExecute(() => base.GetClaimsForClaimSet(claimSetName));
+        public override AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
+            => VerifyCacheAndExecute(() => base.GetAuthorizationStrategyByName(authorizationStrategyName));
 
-        public override IEnumerable<string> GetResourceClaimLineage(string resourceUri) => VerifyCacheAndExecute(() => base.GetResourceClaimLineage(resourceUri));
+        public override IEnumerable<ClaimSetResourceClaim> GetClaimsForClaimSet(string claimSetName)
+            => VerifyCacheAndExecute(() => base.GetClaimsForClaimSet(claimSetName));
 
-        public override IEnumerable<ResourceClaimAuthorizationMetadata> GetResourceClaimLineageMetadata(string resourceClaimUri, string action) => VerifyCacheAndExecute(() => base.GetResourceClaimLineageMetadata(resourceClaimUri, action));
+        public override IEnumerable<string> GetResourceClaimLineage(string resourceUri)
+            => VerifyCacheAndExecute(() => base.GetResourceClaimLineage(resourceUri));
 
-        public override ResourceClaim GetResourceByResourceName(string resourceName) => VerifyCacheAndExecute(() => base.GetResourceByResourceName(resourceName));
+        public override IEnumerable<ResourceClaimAuthorizationMetadata>
+            GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
+            => VerifyCacheAndExecute(() => base.GetResourceClaimLineageMetadata(resourceClaimUri, action));
+
+        public override ResourceClaim GetResourceByResourceName(string resourceName)
+            => VerifyCacheAndExecute(() => base.GetResourceByResourceName(resourceName));
 
         private T VerifyCacheAndExecute<T>(Func<T> executionFunction)
         {
             RefreshCacheIfNeeded();
             return executionFunction();
         }
-
-        private bool ShouldUpdateCache
-            => _lastCacheUpdate.IsDefaultValue() || SystemClock.Now() >= _lastCacheUpdate.AddMinutes(_cacheTimeoutInMinutes);
 
         private void RefreshCacheIfNeeded()
         {
