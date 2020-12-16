@@ -10,7 +10,6 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.Database;
 using EdFi.Ods.Api.Filters;
-using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Context;
@@ -18,7 +17,6 @@ using EdFi.Ods.Common.Database;
 using EdFi.Security.DataAccess.Caching;
 using EdFi.Security.DataAccess.Providers;
 using EdFi.Security.DataAccess.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -63,11 +61,6 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<InstanceSecurityRepositoryCache>()
                 .As<IInstanceSecurityRepositoryCache>()
-                .SingleInstance();
-
-            builder.RegisterType<InstanceYearSpecificMiddleware>()
-                .As<IMiddleware>()
-                .AsSelf()
                 .SingleInstance();
 
             builder.RegisterType<InstanceAdminDatabaseNameTokenReplacementConnectionStringProvider>()

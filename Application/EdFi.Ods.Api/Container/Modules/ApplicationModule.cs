@@ -16,11 +16,8 @@ using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Filters;
 using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
-using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
-using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
-using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
-using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Steps;
+using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Validation;
 using EdFi.Ods.Common;
@@ -29,9 +26,6 @@ using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
-using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
-using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Common.IO;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -41,6 +35,7 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Validation;
 using EdFi.Ods.Sandbox.Security;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -53,9 +48,7 @@ namespace EdFi.Ods.Api.Container.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<SchoolYearContextFilter>()
-                .As<IFilterMetadata>()
-                .SingleInstance();
+            RegisterMiddleware();
 
             builder.RegisterType<ExceptionHandlingFilter>()
                 .As<IFilterMetadata>()
@@ -316,6 +309,19 @@ namespace EdFi.Ods.Api.Container.Modules
                 builder.RegisterType<DeletePipelineStepsProvider>()
                     .As<IDeletePipelineStepsProvider>()
                     .As<IPipelineStepsProvider>()
+                    .SingleInstance();
+            }
+
+            void RegisterMiddleware()
+            {
+                builder.RegisterType<SchoolYearRouteContextMiddleware>()
+                    .As<IMiddleware>()
+                    .AsSelf()
+                    .SingleInstance();
+
+                builder.RegisterType<InstanceSpecificRouteContextMiddleware>()
+                    .As<IMiddleware>()
+                    .AsSelf()
                     .SingleInstance();
             }
         }
