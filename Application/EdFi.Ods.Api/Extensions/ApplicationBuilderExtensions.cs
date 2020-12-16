@@ -3,7 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Common.Configuration;
 using Microsoft.AspNetCore.Builder;
 
 namespace EdFi.Ods.Api.Extensions
@@ -21,7 +23,26 @@ namespace EdFi.Ods.Api.Extensions
         public static IApplicationBuilder UseEdFiApiAuthentication(this IApplicationBuilder builder)
             => builder.UseMiddleware<EdFiApiAuthenticationMiddleware>();
 
-        public static IApplicationBuilder UseInstanceYearSpecific(this IApplicationBuilder builder)
-            => builder.UseMiddleware<InstanceYearSpecificMiddleware>();
+        public static IApplicationBuilder UseSchoolYearRouteContext(this IApplicationBuilder builder, ApiSettings apiSettings)
+        {
+            var apiMode = apiSettings.GetApiMode();
+
+            if (apiMode == ApiMode.YearSpecific || apiMode == ApiMode.InstanceYearSpecific)
+            {
+                builder.UseMiddleware<SchoolYearRouteContextMiddleware>();
+            }
+
+            return builder;
+        }
+
+        public static IApplicationBuilder UseInstanceSpecificRouteContext(this IApplicationBuilder builder, ApiSettings apiSettings)
+        {
+            if (apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+            {
+                builder.UseMiddleware<InstanceSpecificRouteContextMiddleware>();
+            }
+
+            return builder;
+        }
     }
 }

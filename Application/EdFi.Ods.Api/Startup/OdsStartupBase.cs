@@ -233,10 +233,8 @@ namespace EdFi.Ods.Api.Startup
 
             app.UseCors(CorsPolicyName);
 
-            if (ApiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-            {
-                app.UseInstanceYearSpecific();
-            }
+            app.UseSchoolYearRouteContext(ApiSettings);
+            app.UseInstanceSpecificRouteContext(ApiSettings);
 
             app.UseEdFiApiAuthentication();
             app.UseAuthorization();
