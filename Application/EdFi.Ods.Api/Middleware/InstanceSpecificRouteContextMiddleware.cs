@@ -29,7 +29,7 @@ namespace EdFi.Ods.Api.Middleware
 
                 if (!string.IsNullOrEmpty(instanceId))
                 {
-                    //check that the character's are allowed
+                    // check that the character's are allowed
                     Match match = Regex.Match(instanceId, Pattern);
 
                     if (match.Success)
