@@ -22,9 +22,13 @@ namespace EdFi.Ods.Api.Middleware
         {
             if (context.Request.RouteValues.TryGetValue("schoolYearFromRoute", out object year))
             {
-                if (int.TryParse(year.ToString(), out int schoolYear))
+                if (year != null)
                 {
-                    _schoolYearContextProvider.SetSchoolYear(schoolYear);
+                    // boxing is intentional here
+                    if (int.TryParse(year.ToString(), out int schoolYear))
+                    {
+                        _schoolYearContextProvider.SetSchoolYear(schoolYear);
+                    }
                 }
             }
 
