@@ -31,7 +31,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         (p, c) =>
                         {
                             var configuration = c.Resolve<IConfiguration>();
-                            int period = configuration.GetValue<int?>("Caching:Security:AbsoluteExpirationMinutes") ?? 0;
+                            int period = configuration.GetValue<int?>("Caching:Security:AbsoluteExpirationMinutes") ?? 10;
 
                             return period;
                         }))

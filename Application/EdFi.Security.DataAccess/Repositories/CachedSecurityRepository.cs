@@ -24,7 +24,7 @@ namespace EdFi.Security.DataAccess.Repositories
         public CachedSecurityRepository(ISecurityContextFactory securityContextFactory, int cacheTimeoutInMinutes)
             : base(securityContextFactory)
         {
-            if (cacheTimeoutInMinutes < 0)
+            if (cacheTimeoutInMinutes <= 0)
             {
                 throw new ArgumentException("Cache Timeout in minutes must be a positive number.", nameof(cacheTimeoutInMinutes));
             }
