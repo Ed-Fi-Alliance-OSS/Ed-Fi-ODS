@@ -51,7 +51,10 @@ namespace EdFi.Ods.CodeGen.Processing.Impl
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            string template = _templatesByTemplateName.Value[codeGenTemplateWriterData.TemplateSet.Name];
+            if (!_templatesByTemplateName.Value.TryGetValue(codeGenTemplateWriterData.TemplateSet.Name, out string template))
+            {
+                throw new Exception($"Template '{codeGenTemplateWriterData.TemplateSet.Name}' not found. Possible templates are: {Environment.NewLine}{string.Join(Environment.NewLine, _templatesByTemplateName.Value.Keys)}");
+            }
 
             _logger.Debug($"Rendering {codeGenTemplateWriterData.TemplateSet.Name}.");
 
