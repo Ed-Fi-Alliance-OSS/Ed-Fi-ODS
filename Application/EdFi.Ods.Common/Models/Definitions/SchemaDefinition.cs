@@ -30,5 +30,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         public string PhysicalName { get; set; }
 
         public string Version { get; set; }
+
+        public override string ToString() => PhysicalName;
     }
 }

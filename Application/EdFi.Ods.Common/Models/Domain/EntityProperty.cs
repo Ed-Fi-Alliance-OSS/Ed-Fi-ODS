@@ -263,5 +263,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// Indicates reasons over the property when it is deprecated.
         /// </summary>
         public string[] DeprecationReasons { get; set; }
+
+        public override string ToString() => PropertyName;
     }
 }

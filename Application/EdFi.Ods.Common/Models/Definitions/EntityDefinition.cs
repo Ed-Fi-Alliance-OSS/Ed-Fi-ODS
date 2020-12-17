@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -89,5 +90,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         public bool IsDeprecated { get; set; }
 
         public string[] DeprecationReasons { get; set; }
+
+        public override string ToString() => new FullName(Schema, Name).ToString();
     }
 }

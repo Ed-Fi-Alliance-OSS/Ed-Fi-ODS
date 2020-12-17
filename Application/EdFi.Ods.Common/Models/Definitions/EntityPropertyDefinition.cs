@@ -81,5 +81,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         public bool IsDeprecated { get; set; }
 
         public string[] DeprecationReasons { get; set; }
+
+        public override string ToString() => PropertyName;
     }
 }

@@ -70,5 +70,42 @@ namespace EdFi.Ods.Common.Models.Definitions
         public bool IsRequired { get; set; }
 
         public IDictionary<string, string> ConstraintNames { get; set; }
+
+        public override string ToString()
+        {
+            string cardinality;
+
+            switch (Cardinality)
+            {
+                case Cardinality.OneToZeroOrMore:
+                    cardinality = "(1)-->(*)";
+                    break;
+
+                case Cardinality.OneToOneOrMore:
+                    cardinality = "(1)-->(+)";
+                    break;
+
+                case Cardinality.OneToOne:
+                    cardinality = "(1)-->(1)";
+                    break;
+
+                case Cardinality.OneToOneInheritance:
+                    cardinality = "<|---";
+                    break;
+
+                case Cardinality.OneToOneExtension:
+                    cardinality = "(1)-->(1X)";
+                    break;
+
+                case Cardinality.OneToZeroOrOneExtension:
+                    cardinality = "(1)-->(1X?)";
+                    break;
+
+                default:
+                    throw new NotImplementedException($"Unimplemented cardinality: '{Cardinality}.");
+            }
+
+            return $"{PrimaryEntityFullName}{cardinality}{SecondaryEntityFullName}";
+        }
     }
 }
