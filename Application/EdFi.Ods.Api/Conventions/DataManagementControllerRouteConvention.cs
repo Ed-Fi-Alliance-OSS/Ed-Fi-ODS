@@ -3,10 +3,15 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Linq;
+using System.Reflection;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Features.DataManagement;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace EdFi.Ods.Api.Conventions
@@ -24,22 +29,21 @@ namespace EdFi.Ods.Api.Conventions
         {
             var routePrefix = new AttributeRouteModel {Template = CreateRouteTemplate()};
 
-            foreach (ControllerModel controller in application.Controllers)
-            {
-                // apply only to data management controllers
-                if (!controller.IsDataManagementController())
-                {
-                    continue;
-                }
+            var dataManagementController = application.Controllers
+                .FirstOrDefault(x => x.ControllerType == typeof(DataManagementResourceController).GetTypeInfo());
 
-                foreach (var selector in controller.Selectors)
+            if (dataManagementController == null)
+            {
+                throw new Exception($"Controller '{nameof(DataManagementResourceController)}' not found.");
+            }
+
+            foreach (var selector in dataManagementController.Selectors)
+            {
+                if (selector.AttributeRouteModel != null)
                 {
-                    if (selector.AttributeRouteModel != null)
-                    {
-                        selector.AttributeRouteModel = AttributeRouteModel.CombineAttributeRouteModel(
-                            routePrefix,
-                            selector.AttributeRouteModel);
-                    }
+                    selector.AttributeRouteModel = AttributeRouteModel.CombineAttributeRouteModel(
+                        routePrefix,
+                        selector.AttributeRouteModel);
                 }
             }
 
