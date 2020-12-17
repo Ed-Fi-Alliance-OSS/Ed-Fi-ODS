@@ -42,6 +42,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
@@ -161,10 +162,22 @@ namespace EdFi.Ods.Api.Startup
                 services.AddAuthorization(
                     options =>
                     {
-                        options.AddPolicy("IdentityManagement",
+                        options.AddPolicy(
+                            "IdentityManagement",
                             policy => policy.RequireAssertion(
                                 context => context.User
                                     .HasClaim(c => c.Type == $"{EdFiConventions.EdFiOdsResourceClaimBaseUri}/domains/identity")));
+                    });
+            }
+
+            if (ApiSettings.UseReverseProxyHeaders.HasValue && ApiSettings.UseReverseProxyHeaders.Value)
+            {
+                services.Configure<ForwardedHeadersOptions>(
+                    options =>
+                    {
+                        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
+                                                   & ForwardedHeaders.XForwardedHost
+                                                   & ForwardedHeaders.XForwardedProto;
                     });
             }
         }
@@ -325,6 +338,7 @@ namespace EdFi.Ods.Api.Startup
             // "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi\bin\Debug\netcoreapp3.1\..\..\..\" => "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi"
             var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "..\\..\\..\\"));
             var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, Plugin.Folder));
+
             if (Directory.Exists(relativeToProject))
             {
                 return relativeToProject;
@@ -333,6 +347,7 @@ namespace EdFi.Ods.Api.Startup
             // in a deployment environment the plugin folder is relative to the executable
             // "C:\inetpub\Ed-Fi\WebApi"
             var relativeToExecutable = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, Plugin.Folder));
+
             if (Directory.Exists(relativeToExecutable))
             {
                 return relativeToExecutable;
@@ -340,6 +355,7 @@ namespace EdFi.Ods.Api.Startup
 
             // last attempt to get directory relative to the working directory
             var relativeToWorkingDirectory = Path.GetFullPath(Plugin.Folder);
+
             if (Directory.Exists(relativeToWorkingDirectory))
             {
                 return relativeToWorkingDirectory;
@@ -362,7 +378,10 @@ namespace EdFi.Ods.Api.Startup
             if (!Directory.Exists(pluginFolder))
             {
                 _logger.Warn($"Plugin folder '{pluginFolder}' does not exist. No plugins will be loaded.");
-                _logger.Warn($"To configure plugins update the '{pluginFolderSettingsName}' setting with either an absolute path, a path relative to the 'Ed-Fi-ODS-Implementation\\Application\\EdFi.Ods.WebApi\', or a path relative to the deployed EdFi.Ods.WebApi executable.");
+
+                _logger.Warn(
+                    $"To configure plugins update the '{pluginFolderSettingsName}' setting with either an absolute path, a path relative to the 'Ed-Fi-ODS-Implementation\\Application\\EdFi.Ods.WebApi\', or a path relative to the deployed EdFi.Ods.WebApi executable.");
+
                 return new PluginInfo[0];
             }
 
