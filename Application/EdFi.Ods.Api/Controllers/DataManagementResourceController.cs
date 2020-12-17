@@ -7,46 +7,42 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using System.Web.Http.Results;
-using Castle.Core;
 using Dapper;
-using EdFi.Ods.Api.NHibernate;
-using EdFi.Ods.Api.Services.Authentication;
-using EdFi.Ods.Api.Services.Controllers.DataManagement;
-using EdFi.Ods.Api.Services.Queries;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Database;
+using EdFi.Common.Database;
+using EdFi.Common.Extensions;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Utils.Profiles;
+using EdFi.Ods.Features.DataManagement;
 using log4net;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
-namespace EdFi.Ods.Api.Services.Controllers
+namespace EdFi.Ods.Api.Controllers
 {
     [ApiExplorerSettings(IgnoreApi = true)]
-    [Authenticate]
-    public partial class DataManagementResourceController : ApiController
+    [Authorize]
+    [Produces("application/json")]
+    [ApiController]
+    [Route("{schema}/{resource}")]
+    public class DataManagementResourceController : ControllerBase
     {
         private readonly IDatabaseConnectionStringProvider _connectionStringProvider;
         private readonly IResourceModelProvider _resourceModelProvider;
-        private readonly IApiConfigurationProvider _apiConfigurationProvider;
         private readonly IProfileResourceModelProvider _profileResourceModelProvider;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementResourceController));
@@ -54,17 +50,15 @@ namespace EdFi.Ods.Api.Services.Controllers
         public DataManagementResourceController(
             IDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IResourceModelProvider resourceModelProvider,
-            IApiConfigurationProvider apiConfigurationProvider,
             IProfileResourceModelProvider profileResourceModelProvider)
         {
             _connectionStringProvider = odsDatabaseConnectionStringProvider;
             _resourceModelProvider = resourceModelProvider;
-            _apiConfigurationProvider = apiConfigurationProvider;
             _profileResourceModelProvider = profileResourceModelProvider;
         }
         
         // Collection operations
-        public virtual async Task<HttpResponseMessage> GetAll([FromUri] UrlQueryParametersRequest urlQueryParametersRequest)
+        public virtual async Task<HttpResponseMessage> GetAll(/*[FromUri]*/ UrlQueryParametersRequest urlQueryParametersRequest)
         {
             Resource resource = GetResourceForRequest();
 
@@ -142,8 +136,8 @@ namespace EdFi.Ods.Api.Services.Controllers
 
         private Resource GetResourceForRequest()
         {
-            string schemaUriSegment = (string) Request.GetRouteData().Values["schema"];
-            string resourceCollectionName = (string) Request.GetRouteData().Values["resourceCollection"];
+            string schemaUriSegment = (string) Request.RouteValues["schema"];
+            string resourceCollectionName = (string) Request.RouteValues["resourceCollection"];
 
             var resourceModel = _resourceModelProvider.GetResourceModel();
             var schemaNameMapProvider = resourceModel.SchemaNameMapProvider; // _domainModelProvider.GetDomainModel().SchemaNameMapProvider;
@@ -170,27 +164,25 @@ namespace EdFi.Ods.Api.Services.Controllers
             return resourceModel.GetResourceByFullName(resourceFullName);
         }
 
-        private bool TryGetProfileContentType(HttpRequestMessage request, out string profileContentType)
+        private bool TryGetProfileContentType(HttpRequest request, out string profileContentType)
         {
             profileContentType = null;
 
-            //if the method is get then retrieve the contenttype from the accept header if it is a profile content type
-            if (request.Method == HttpMethod.Get)
+            // If the method is get then retrieve the contenttype from the accept header if it is a profile content type
+            if (request.Method.EqualsIgnoreCase(HttpMethod.Get.ToString()))
             {
-                if (request.Headers.Accept.Any(x => x.MediaType.StartsWith("application/vnd.ed-fi")))
+                if (request.Headers.TryGetValue("Accept", out var acceptValues))
                 {
-                    profileContentType = request.Headers.Accept.First(x => x.MediaType.StartsWith("application/vnd.ed-fi"))
-                        .ToString();
+                    profileContentType = acceptValues.FirstOrDefault(x => x.StartsWith("application/vnd.ed-fi"));
                 }
             }
 
             //if the method is put or post then retrieve the contenttype from the contenttype header if it is a profile type
-            if (request.Method == HttpMethod.Put || request.Method == HttpMethod.Post)
+            if (request.Method.EqualsIgnoreCase(HttpMethod.Put.Method) || request.Method.EqualsIgnoreCase(HttpMethod.Post.Method))
             {
-                if (request.Content.Headers.ContentType != null && request.Content.Headers.ContentType.ToString()
-                    .StartsWith("application/vnd.ed-fi"))
+                if (request.ContentType.StartsWith("application/vnd.ed-fi"))
                 {
-                    profileContentType = request.Content.Headers.ContentType.MediaType;
+                    profileContentType = request.ContentType;
                 }
             }
 
@@ -610,14 +602,13 @@ FETCH NEXT @limit ROWS ONLY",
             sqlBuilder.InnerJoin(@join);
         }
 
-        public virtual async Task<IHttpActionResult> Post([FromBody] JObject jsonData)
+        public virtual async Task<IActionResult> Post([FromBody] JObject jsonData)
         {
             var resource = GetResourceForRequest();
 
             if (resource == null)
             {
-                return new NotFoundResult(Request);
-                // return new HttpResponseMessage(HttpStatusCode.NotFound);
+                return NotFound();
             }
 
             // Get the primary key of the resource
@@ -814,18 +805,21 @@ FETCH NEXT @limit ROWS ONLY",
             return Ok();
         }
 
-        // Item operations
-        public virtual async Task<IHttpActionResult> Get([FromUri] Guid id)
+        // Item-level operations
+        [Route("{id}")]
+        public virtual async Task<IActionResult> Get(/*[FromUri]*/ Guid id)
         {
             return Ok(new {hello = "world"});
         }
         
-        public virtual async Task<IHttpActionResult> Put([FromUri] Guid id)
+        [Route("{id}")]
+        public virtual async Task<IActionResult> Put(/*[FromUri]*/ Guid id)
         {
             return Ok(new {hello = "world"});
         }
 
-        public async Task<IHttpActionResult> Delete([FromUri] Guid id)
+        [Route("{id}")]
+        public async Task<IActionResult> Delete(/*[FromUri]*/ Guid id)
         {
             return Ok(new {hello = "world"});
         }
