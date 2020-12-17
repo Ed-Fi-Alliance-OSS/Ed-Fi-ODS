@@ -39,6 +39,14 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         /// <returns></returns>
         IReadOnlyList<Resource> GetAllResources();
+
+        /// <summary>
+        /// Gets the Resource using the schema and collection name representation as used on the API.
+        /// </summary>
+        /// <param name="schemaUriSegment">The URI representation of the schema of the resource.</param>
+        /// <param name="resourceCollectionName">The pluralized collection name of the resource.</param>
+        /// <returns>The matching resource.</returns>
+        Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
     }
 
     /// <summary>
