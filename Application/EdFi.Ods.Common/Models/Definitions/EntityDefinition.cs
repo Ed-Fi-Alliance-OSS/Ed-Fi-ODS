@@ -45,7 +45,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         {
             Schema = schema;
             Name = name;
-            TableNames = tableNameByDatabaseEngine ?? new Dictionary<DatabaseEngine, string>();
+            TableNames = tableNameByDatabaseEngine ?? new Dictionary<DatabaseEngine, string> { { DatabaseEngine.SqlServer, name } };
             LocallyDefinedProperties = locallyDefinedProperties;
             Identifiers = identifiers;
             IsAbstract = isAbstract;
@@ -58,8 +58,25 @@ namespace EdFi.Ods.Common.Models.Definitions
 
         public string Name { get; set; }
 
+        private IDictionary<DatabaseEngine, string> _tableNames;
+
         [JsonConverter(typeof(DictionaryStringByDatabaseEngine))]
-        public IDictionary<DatabaseEngine, string> TableNames { get; set; }
+        public IDictionary<DatabaseEngine, string> TableNames
+        {
+            get
+            {
+                if (_tableNames == null)
+                {
+                    _tableNames = new Dictionary<DatabaseEngine, string> {{DatabaseEngine.SqlServer, Name}};
+                }
+
+                return _tableNames;
+            }
+            set
+            {
+                _tableNames = value;
+            }
+        }
 
         public EntityPropertyDefinition[] LocallyDefinedProperties { get; set; }
 
