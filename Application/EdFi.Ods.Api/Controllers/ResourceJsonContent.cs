@@ -12,13 +12,14 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Inflection;
+using EdFi.Common.Extensions;
+using EdFi.Common.Inflection;
+using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.Api.Services.Controllers.DataManagement
+namespace EdFi.Ods.Features.DataManagement
 {
     public class ResourceJsonContent : HttpContent
     {
