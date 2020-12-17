@@ -9,97 +9,6 @@
       "Name": "DatabaseViews",
       "Driver": "DatabaseViews",
       "OutputPath": "Artifacts/Metadata/DatabaseViews.generated.json"
-    },
-    {
-      "Name": "Entities",
-      "Driver": "Entities",
-      "OutputPath": "Models/Entities/Entities.generated.cs"
-    },
-    {
-      "Name": "EntitiesForQueries",
-      "Driver": "EntitiesForQueries",
-      "OutputPath": "Models/Entities/EntitiesForQueries.generated.cs"
-    },
-    {
-      "Name": "EntitiesForQueriesViews",
-      "Driver": "EntitiesForQueriesViews",
-      "OutputPath": "Models/Entities/EntitiesForQueriesViews.generated.cs"
-    },
-    {
-      "Name": "EntityInterfaces",
-      "Driver": "EntityInterfaces",
-      "OutputPath": "Models/Interfaces/EntityInterfaces.generated.cs"
-    },
-    {
-      "Name": "EntityRecordInterfaces",
-      "Driver": "EntityRecordInterfaces",
-      "OutputPath": "Models/Interfaces/EntityRecordInterfaces.generated.cs"
-    },
-    {
-      "Name": "EntityMapper",
-      "Driver": "EntityMapper",
-      "OutputPath": "Models/Mappers/EntityMapper.generated.cs"
-    },
-    {
-      "Name": "CreateOrUpdatePipelines",
-      "Driver": "CreateOrUpdatePipelines",
-      "OutputPath": "Pipelines/CreateOrUpdatePipelines.generated.cs"
-    },
-    {
-      "Name": "Controllers",
-      "Driver": "Controllers",
-      "OutputPath": "Controllers/Controllers.generated.cs"
-    },
-    {
-      "Name": "Requests",
-      "Driver": "Requests",
-      "OutputPath": "Requests/Requests.generated.cs"
-    },
-    {
-      "Name": "Resources",
-      "Driver": "Resources",
-      "OutputPath": "Resources/Resources.generated.cs"
-    },
-    {
-      "Name": "EntityAuthorizationContextProviders",
-      "Driver": "EntityAuthorizationContextProviders",
-      "OutputPath": "Security/Authorization/EntityAuthorizationContextProviders.generated.cs"
-    },
-    {
-      "Name": "EntityOrmMappings",
-      "Driver": "EntityOrmMappings",
-      "DatabaseEngine": "sqlServer",
-      "OutputPath": "EntityOrmMappings/MsSql/EntityOrmMappings.generated.hbm.xml"
-    },
-    {
-      "Name": "EntityOrmMappings",
-      "Driver": "EntityOrmMappingsForQueries",
-      "DatabaseEngine": "sqlServer",
-      "OutputPath": "EntityOrmMappings/MsSql/EntityOrmMappingsForQueries.generated.hbm.xml"
-    },
-    {
-      "Name": "EntityOrmMappings",
-      "Driver": "EntityOrmMappingsForViews",
-      "DatabaseEngine": "sqlServer",
-      "OutputPath": "EntityOrmMappings/MsSql/EntityOrmMappingsForViews.generated.hbm.xml"
-    },
-    {
-      "Name": "EntityOrmMappings",
-      "Driver": "EntityOrmMappings",
-      "DatabaseEngine": "postgreSql",
-      "OutputPath": "EntityOrmMappings/PgSql/EntityOrmMappings.generated.hbm.xml"
-    },
-    {
-      "Name": "EntityOrmMappings",
-      "Driver": "EntityOrmMappingsForQueries",
-      "DatabaseEngine": "postgreSql",
-      "OutputPath": "EntityOrmMappings/PgSql/EntityOrmMappingsForQueries.generated.hbm.xml"
-    },
-    {
-      "Name": "EntityOrmMappings",
-      "Driver": "EntityOrmMappingsForViews",
-      "DatabaseEngine": "postgreSql",
-      "OutputPath": "EntityOrmMappings/PgSql/EntityOrmMappingsForViews.generated.hbm.xml"
     }
   ],
   "database": [
@@ -114,92 +23,12 @@
       "OutputPath": "PgSql/Data/Security/0001-ResourceClaimMetadata_generated.sql"
     }
   ],
-  "profile": [
-    {
-      "Name": "Controllers",
-      "Driver": "Controllers",
-      "OutputPath": "Controllers/Controllers.generated.cs"
-    },
-    {
-      "Name": "CreateOrUpdatePipelines",
-      "Driver": "CreateOrUpdatePipelines",
-      "OutputPath": "Pipelines/CreateOrUpdatePipelines.generated.cs"
-    },
-    {
-      "Name": "Requests",
-      "Driver": "Requests",
-      "OutputPath": "Requests/Requests.generated.cs"
-    },
-    {
-      "Name": "Resources",
-      "Driver": "Resources",
-      "OutputPath": "Resources/Resources.generated.cs"
-    }
-  ],
+  "profile": [],
   "extension": [
-    {
-      "Name": "EntityAuthorizationContextProviders",
-      "Driver": "EntityAuthorizationContextProviders",
-      "OutputPath": "Authorization/EntityAuthorizationContextProviders.generated.cs"
-    },
-    {
-      "Name": "EntityOrmMappings",
-      "Driver": "EntityOrmMappings",
-      "DatabaseEngine": "sqlServer",
-      "OutputPath": "EntityOrmMappings/MsSql/EntityOrmMappings.generated.hbm.xml"
-    },
-    {
-      "Name": "EntityOrmMappings",
-      "Driver": "EntityOrmMappings",
-      "DatabaseEngine": "postgreSql",
-      "OutputPath": "EntityOrmMappings/PgSql/EntityOrmMappings.generated.hbm.xml"
-    },
     {
       "Name": "DatabaseMetadata",
       "Driver": "DatabaseMetadataProvider",
       "OutputPath": "ExceptionHandling/DatabaseMetadata.generated.cs"
-    },
-    {
-      "Name": "Entities",
-      "Driver": "Entities",
-      "OutputName": "Entities.generated.cs",
-      "OutputPath": "Models/Entities/Entities.generated.cs"
-    },
-    {
-      "Name": "EntityInterfaces",
-      "Driver": "EntityInterfaces",
-      "OutputPath": "Models/Interfaces/EntityInterfaces.generated.cs"
-    },
-    {
-      "Name": "EntityRecordInterfaces",
-      "Driver": "EntityRecordInterfaces",
-      "OutputPath": "Models/Interfaces/EntityRecordInterfaces.generated.cs"
-    },
-    {
-      "Name": "EntityMapper",
-      "Driver": "EntityMapper",
-      "OutputName": "EntityMapper.generated.cs",
-      "OutputPath": "Models/Mappers/EntityMapper.generated.cs"
-    },
-    {
-      "Name": "CreateOrUpdatePipelines",
-      "Driver": "CreateOrUpdatePipelines",
-      "OutputPath": "Pipelines/CreateOrUpdatePipelines.generated.cs"
-    },
-    {
-      "Name": "Controllers",
-      "Driver": "Controllers",
-      "OutputPath": "Controllers/Controllers.generated.cs"
-    },
-    {
-      "Name": "Requests",
-      "Driver": "Requests",
-      "OutputPath": "Requests/Requests.generated.cs"
-    },
-    {
-      "Name": "Resources",
-      "Driver": "Resources",
-      "OutputPath": "Resources/Resources.generated.cs"
     }
   ]
 }
