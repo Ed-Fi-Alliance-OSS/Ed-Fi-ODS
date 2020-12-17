@@ -13,10 +13,15 @@ namespace EdFi.Ods.Common.Models.Resource
     public class ResourceSelector : IResourceSelector
     {
         private readonly IDictionary<FullName, Resource> _resourceByFullName;
+        private readonly Dictionary<FullName, Resource> _resourceByCollectionName;
 
         public ResourceSelector(IDictionary<FullName, Resource> resourceByFullName)
         {
             _resourceByFullName = resourceByFullName;
+
+            _resourceByCollectionName = resourceByFullName.ToDictionary(
+                kvp => new FullName(kvp.Value.SchemaUriSegment(), kvp.Value.PluralName.ToCamelCase()),
+                kvp => kvp.Value);
         }
 
         public IReadOnlyList<Resource> GetAll()
@@ -27,6 +32,11 @@ namespace EdFi.Ods.Common.Models.Resource
         public Resource GetByName(FullName fullName)
         {
             return _resourceByFullName.GetValueOrThrow(fullName, "FullName {0} was not located in ResourceSelector.");
+        }
+
+        public Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
+        {
+            return _resourceByCollectionName.GetValueOrThrow(new FullName(schemaUriSegment, resourceCollectionName), $"Resource collection for /{schemaUriSegment}/{resourceCollectionName} was not located in ResourceSelector.");
         }
 
         public Resource GetBySchemaProperCaseNameAndName(string properCaseName, string name)

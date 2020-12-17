@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -36,12 +37,22 @@ namespace EdFi.Ods.Common.Models.Resource
             ProfileName = _profileDefinition.AttributeValue("name");
 
             // Removed the lazy reference so that the tests will pass
-            ResourceByName = new ReadOnlyDictionary<FullName, ProfileResourceContentTypes>(CreateResourceByName(resourceModel));
+            ResourceByName = new ReadOnlyDictionary<FullName, ProfileResourceContentTypes>(
+                CreateResourceByName(
+                    resourceModel, 
+                    r => r.FullName));
+            
+            ResourceByApiCollectionName = new ReadOnlyDictionary<FullName, ProfileResourceContentTypes>(
+                CreateResourceByName(
+                    resourceModel, 
+                    r => new FullName(r.SchemaUriSegment(), r.PluralName.ToCamelCase())));
         }
 
         public string ProfileName { get; }
 
         public IReadOnlyDictionary<FullName, ProfileResourceContentTypes> ResourceByName { get; }
+        
+        internal IReadOnlyDictionary<FullName, ProfileResourceContentTypes> ResourceByApiCollectionName { get; }
 
         public IReadOnlyList<ProfileResourceContentTypes> Resources => ResourceByName.Values.ToList();
 
@@ -70,7 +81,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         /// <param name="resourceModel"></param>
         /// <returns></returns>
-        private Dictionary<FullName, ProfileResourceContentTypes> CreateResourceByName(ResourceModel resourceModel)
+        private Dictionary<FullName, ProfileResourceContentTypes> CreateResourceByName(ResourceModel resourceModel, Func<Resource, FullName> createKey)
         {
             var resourceElts = _profileDefinition.Elements("Resource");
 
@@ -94,7 +105,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     var fullName = new FullName(physicalName, resourceName);
                     var sourceResource = ResourceModel.DefaultResourceSelector.GetByName(fullName);
 
-                    resources[fullName] = new ProfileResourceContentTypes(sourceResource, resourceElt);
+                    resources[createKey(sourceResource)] = new ProfileResourceContentTypes(sourceResource, resourceElt);
                 });
 
             return resources;

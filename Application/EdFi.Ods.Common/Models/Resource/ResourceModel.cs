@@ -31,6 +31,14 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         /// <returns></returns>
         IReadOnlyList<Resource> GetAllResources();
+
+        /// <summary>
+        /// Gets the Resource using the schema and collection name representation as used on the API.
+        /// </summary>
+        /// <param name="schemaUriSegment">The URI representation of the schema of the resource.</param>
+        /// <param name="resourceCollectionName">The pluralized collection name of the resource.</param>
+        /// <returns>The matching resource.</returns>
+        Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
     }
 
     /// <summary>
@@ -57,13 +65,13 @@ namespace EdFi.Ods.Common.Models.Resource
             _domainModel = domainModel;
             _resourceByName = new Dictionary<FullName, Resource>();
 
-            DefaultResourceSelector = new ResourceSelector(_resourceByName);
-
             // Add all aggregate roots to the resource model
             domainModel
-               .Entities
-               .Where(a => a.IsAggregateRoot)
-               .ForEach(AddResource);
+                .Entities
+                .Where(a => a.IsAggregateRoot)
+                .ForEach(AddResource);
+            
+            DefaultResourceSelector = new ResourceSelector(_resourceByName);
         }
 
         internal IResourceSelector DefaultResourceSelector { get; }
@@ -92,6 +100,11 @@ namespace EdFi.Ods.Common.Models.Resource
         public Resource GetResourceByFullName(FullName fullName)
         {
             return ResourceSelector.GetByName(fullName);
+        }
+
+        public Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
+        {
+            return ResourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
         }
 
         public IReadOnlyList<Resource> GetAllResources()
