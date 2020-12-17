@@ -17,7 +17,6 @@ using EdFi.Ods.Security.Authorization;
 using EdFi.Ods.Security.Authorization.Pipeline;
 using EdFi.Ods.Security.Authorization.Repositories;
 using EdFi.Security.DataAccess.Contexts;
-using EdFi.Security.DataAccess.Repositories;
 using NHibernate.Cfg;
 
 namespace EdFi.Ods.Security.Container.Modules

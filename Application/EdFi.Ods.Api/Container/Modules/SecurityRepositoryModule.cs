@@ -4,25 +4,37 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using Autofac.Core;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Container;
 using EdFi.Security.DataAccess.Repositories;
+using Microsoft.Extensions.Configuration;
 
-namespace EdFi.Ods.Security.Container.Modules
+namespace EdFi.Ods.Api.Container.Modules
 {
     public class SecurityRepositoryModule : ConditionalModule
     {
         public SecurityRepositoryModule(ApiSettings apiSettings)
             : base(apiSettings, nameof(SecurityRepositoryModule)) { }
 
-        //Only if the ApiMode is not InstanceYearSpecific
+        // Only if the ApiMode is not InstanceYearSpecific
         public override bool IsSelected() => !(ApiSettings.GetApiMode() == ApiMode.InstanceYearSpecific);
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<SecurityRepository>()
+            builder.RegisterType<CachedSecurityRepository>()
                 .As<ISecurityRepository>()
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name == "cacheTimeoutInMinutes",
+                        (p, c) =>
+                        {
+                            var configuration = c.Resolve<IConfiguration>();
+                            int period = configuration.GetValue<int?>("Caching:Security:AbsoluteExpirationMinutes") ?? 10;
+
+                            return period;
+                        }))
                 .SingleInstance();
         }
     }
