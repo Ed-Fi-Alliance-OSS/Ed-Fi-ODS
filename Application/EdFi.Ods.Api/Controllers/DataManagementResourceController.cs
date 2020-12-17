@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,6 +18,7 @@ using Dapper;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
@@ -30,6 +32,8 @@ using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace EdFi.Ods.Api.Controllers
@@ -37,8 +41,7 @@ namespace EdFi.Ods.Api.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     [Authorize]
     [Produces("application/json")]
-    [ApiController]
-    [Route("{schema}/{resource}")]
+    [Route("{schema}/{resourceCollection}/")]
     public class DataManagementResourceController : ControllerBase
     {
         private readonly IDatabaseConnectionStringProvider _connectionStringProvider;
@@ -48,7 +51,7 @@ namespace EdFi.Ods.Api.Controllers
         private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementResourceController));
         
         public DataManagementResourceController(
-            IDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
+            IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IResourceModelProvider resourceModelProvider,
             IProfileResourceModelProvider profileResourceModelProvider)
         {
@@ -58,13 +61,14 @@ namespace EdFi.Ods.Api.Controllers
         }
         
         // Collection operations
-        public virtual async Task<HttpResponseMessage> GetAll(/*[FromUri]*/ UrlQueryParametersRequest urlQueryParametersRequest)
+        [HttpGet]
+        public virtual async Task<IActionResult> GetAll(/*[FromUri]*/ UrlQueryParametersRequest urlQueryParametersRequest)
         {
             Resource resource = GetResourceForRequest();
 
             if (resource == null)
             {
-                return new HttpResponseMessage(HttpStatusCode.NotFound);
+                return NotFound();
             }
 
             int offset = urlQueryParametersRequest.Offset ?? 0;
@@ -72,7 +76,192 @@ namespace EdFi.Ods.Api.Controllers
             
             List<ResourceClassQuery> resourceClassQueries = await GetResourceData(resource, offset: offset, limit: limit);
 
-            return new HttpResponseMessage {Content = new ResourceJsonContent(resourceClassQueries)};
+            var memoryStream = new MemoryStream();
+            WriteJsonContentToStream(memoryStream);
+            memoryStream.Position = 0;
+
+            return new FileStreamResult(memoryStream, MediaTypeHeaderValue.Parse("application/json"));
+
+            void WriteJsonContentToStream(Stream stream)
+            {
+                var jw = new JsonTextWriter(new StreamWriter(stream))
+                {
+                    Formatting = Formatting.Indented,
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
+
+                    // Date
+                };
+
+                jw.WriteStartArray();
+
+                var resourceClassQuery = resourceClassQueries[0];
+
+                var parentContext = new Dictionary<string, object>();
+                var resourceClass = resourceClassQuery.ResourceClass;
+
+                foreach (IDictionary<string, object> item in resourceClassQuery.Results)
+                {
+                    WriteObject(jw, resourceClass, item);
+                }
+
+                jw.WriteEndArray();
+
+                jw.Flush();
+
+                void WriteObject(JsonTextWriter jw, ResourceClassBase resourceClass, IDictionary<string, object> item)
+                {
+                    jw.WriteStartObject();
+
+                    // Write the id 
+
+                    // Write the properties
+                    foreach (var resourceProperty in resourceClass.Properties)
+                    {
+                        WriteResourceProperty(jw, resourceProperty, item);
+                    }
+
+                    // Write the references
+                    foreach (var reference in resourceClass.References)
+                    {
+                        WriteReference(jw, reference, item);
+                    }
+
+                    // Write the collections
+                    foreach (var collection in resourceClass.Collections)
+                    {
+                        var resourceClassQuery = resourceClassQueries.SingleOrDefault(rcq => collection.ItemType == rcq.ResourceClass);
+
+                        if (resourceClassQuery == null)
+                        {
+                            continue;
+                        }
+                
+                        WriteCollection(jw, item, resourceClassQuery.Results, collection);
+                    }
+
+                    jw.WriteEndObject(); // item
+                }
+                
+                void WriteCollection(
+                    JsonTextWriter jw,
+                    IDictionary<string, object> parentItem,
+                    List<object> collectionItems,
+                    Collection collection)
+                {
+                    jw.WritePropertyName(collection.JsonPropertyName);
+                    jw.WriteStartArray();
+
+                    foreach (IDictionary<string, object> collectionItem in collectionItems)
+                    {
+                        bool isIncluded = IsChildItemIncluded(parentItem, collectionItem, collection.ItemType);
+
+                        if (!isIncluded)
+                        {
+                            continue;
+                        }
+
+                        WriteObject(jw, collection.ItemType, collectionItem);
+                    }
+
+                    jw.WriteEndArray(); // collection items
+                }
+                
+                void WriteReference(JsonTextWriter jw, Reference reference, IDictionary<string, object> item)
+                {
+                    var id = (Guid?) item[$"{reference.PropertyName}_Id"];
+
+                    if (id == null)
+                    {
+                        return;
+                    }
+
+                    jw.WritePropertyName(reference.JsonPropertyName);
+                    jw.WriteStartObject();
+
+                    foreach (var resourceProperty in reference.Properties)
+                    {
+                        WriteResourceProperty(jw, resourceProperty, item);
+                    }
+
+                    jw.WritePropertyName("link");
+
+                    jw.WriteStartObject();
+                    jw.WritePropertyName("rel");
+
+                    string discriminator;
+                    string referencedCollectionName;
+            
+                    if (reference.Association.OtherEntity.IsAbstract)
+                    {
+                        // Write the reference's Discriminator
+                        discriminator = ((string) item[$"{reference.PropertyName}_Discriminator"]).Split(',')[1];
+                        jw.WriteValue(discriminator);
+                        referencedCollectionName = CompositeTermInflector.MakePlural(discriminator).ToCamelCase();
+                    }
+                    else
+                    {
+                        jw.WriteValue(reference.Association.OtherEntity.Name);
+                        referencedCollectionName = reference.Association.OtherEntity.PluralName.ToCamelCase();
+                    }
+
+                    jw.WritePropertyName("href");
+
+                    jw.WriteValue($"/{reference.Association.OtherEntity.SchemaUriSegment()}/{referencedCollectionName}/{id:N}");
+
+                    jw.WriteEndObject(); // link
+                    jw.WriteEndObject(); // reference object
+                }
+                
+                void WriteResourceProperty(
+                    JsonTextWriter jw,
+                    ResourceProperty resourceProperty,
+                    IDictionary<string, object> item)
+                {
+                    var value = item[resourceProperty.EntityProperty.PropertyName];
+
+                    // Don't write null values
+                    if (value == null)
+                    {
+                        return;
+                    }
+            
+                    jw.WritePropertyName(resourceProperty.JsonPropertyName);
+            
+                    if (resourceProperty.IsLookup)
+                    {
+                        jw.WriteValue(
+                            $"{item[$"{resourceProperty.PropertyName}_Namespace"]}#{item[$"{resourceProperty.PropertyName}_CodeValue"]}");
+                    }
+                    else if (resourceProperty.PropertyType.DbType == DbType.Date)
+                    {
+                        jw.WriteValue(((DateTime) value).ToString("yyyy-MM-dd"));
+                    }
+                    else if (resourceProperty.PropertyType.DbType == DbType.Guid)
+                    {
+                        jw.WriteValue(((Guid) value).ToString("n"));
+                    }
+                    else
+                    {
+                        jw.WriteValue(value);
+                    }
+                }
+                
+                bool IsChildItemIncluded(
+                    IDictionary<string, object> parentItem,
+                    IDictionary<string, object> collectionItem,
+                    ResourceClassBase childResourceClass)
+                {
+                    foreach (var propertyMapping in childResourceClass.Entity.ParentAssociation.PropertyMappings)
+                    {
+                        if (!collectionItem[propertyMapping.ThisProperty.PropertyName].Equals(parentItem[propertyMapping.OtherProperty.PropertyName]))
+                        {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
+            }
         }
 
         private async Task<List<ResourceClassQuery>> GetResourceData(Resource resource, 
@@ -602,6 +791,7 @@ FETCH NEXT @limit ROWS ONLY",
             sqlBuilder.InnerJoin(@join);
         }
 
+        [HttpPost]
         public virtual async Task<IActionResult> Post([FromBody] JObject jsonData)
         {
             var resource = GetResourceForRequest();
@@ -806,20 +996,23 @@ FETCH NEXT @limit ROWS ONLY",
         }
 
         // Item-level operations
+        [HttpGet]
         [Route("{id}")]
         public virtual async Task<IActionResult> Get(/*[FromUri]*/ Guid id)
         {
             return Ok(new {hello = "world"});
         }
         
+        [HttpPut]
         [Route("{id}")]
         public virtual async Task<IActionResult> Put(/*[FromUri]*/ Guid id)
         {
             return Ok(new {hello = "world"});
         }
 
+        [HttpDelete]
         [Route("{id}")]
-        public async Task<IActionResult> Delete(/*[FromUri]*/ Guid id)
+        public virtual async Task<IActionResult> Delete(/*[FromUri]*/ Guid id)
         {
             return Ok(new {hello = "world"});
         }
