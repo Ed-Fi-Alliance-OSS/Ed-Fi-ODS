@@ -21,6 +21,7 @@ namespace EdFi.Ods.Common.Models.Domain
     {
         private Lazy<Entity> _lookupEntity;
         private Lazy<bool> _isUnified;
+        private Lazy<EntityProperty> _definingProperty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityProperty" /> class using the specified property definition.
@@ -66,6 +67,8 @@ namespace EdFi.Ods.Common.Models.Domain
             _isUnified = new Lazy<bool>(
                 () => IncomingAssociations.Count > 1);
 
+            _definingProperty = new Lazy<EntityProperty>(GetDefiningProperty);
+            
             _lookupEntity = new Lazy<Entity>(
                 () =>
                 {
@@ -254,6 +257,34 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </summary>
         public bool IsLocallyDefined { get; internal set; }
 
+        /// <summary>
+        /// Gets the <see cref="EntityProperty" /> where the property was originally defined (will be a property associated with
+        /// a different <see cref="Entity" /> if the property is part of a foreign key relationship). 
+        /// </summary>
+        public EntityProperty DefiningProperty
+        {
+            get => _definingProperty.Value;
+        }
+
+        private EntityProperty GetDefiningProperty()
+        {
+            if (IsLocallyDefined)
+            {
+                return this;
+            }
+            
+            var currentProperty = this;
+
+            while (currentProperty.IncomingAssociations.Any())
+            {
+                currentProperty = currentProperty.IncomingAssociations.First()
+                    .PropertyMappingByThisName[currentProperty.PropertyName]
+                    .OtherProperty;
+            }
+
+            return currentProperty;
+        }
+        
         /// <summary>
         /// Indicates whether the current property is deprecated.
         /// </summary>
