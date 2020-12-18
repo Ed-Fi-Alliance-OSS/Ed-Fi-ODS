@@ -11,6 +11,9 @@ using EdFi.Common.Configuration;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Configuration;
+using EdFi.Ods.Api.Controllers;
+using EdFi.Ods.Api.Controllers.DataManagement;
+using EdFi.Ods.Api.Controllers.DataManagement.QueryBuilding;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Filters;
@@ -104,6 +107,15 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IResourceModelProvider>()
                 .SingleInstance();
 
+            // Request resource resolver
+            builder.RegisterType<RequestResourceResolver>()
+                .As<IRequestResourceResolver>()
+                .SingleInstance();
+            
+            builder.RegisterType<PagedAggregateIdsQueryBuilder>()
+                .As<IPagedAggregateIdsQueryBuilder>()
+                .SingleInstance();
+            
             // Validator for the domain model provider
             builder.RegisterType<FluentValidationObjectValidator>()
                 .As<IExplicitObjectValidator>()
