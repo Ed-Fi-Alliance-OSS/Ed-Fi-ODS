@@ -40,7 +40,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         }
 
         [Test]
-        public async Task Should_Not_Parse_InValid_School_Year()
+        public async Task Should_Not_Parse_Invalid_School_Year()
         {
             _httpContext.Request.RouteValues.Add("schoolYearFromRoute", "abc");
 
