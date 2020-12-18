@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Middleware
 {
-    public class InstanceSpecificRouteContextMiddleware : IMiddleware
+    public class InstanceIdSpecificRouteContextMiddleware : IMiddleware
     {
         private const string Pattern = @"^[A-Za-z0-9-]+$";
         private readonly IInstanceIdContextProvider _instanceIdContextProvider;
 
-        public InstanceSpecificRouteContextMiddleware(IInstanceIdContextProvider instanceIdContextProvider)
+        public InstanceIdSpecificRouteContextMiddleware(IInstanceIdContextProvider instanceIdContextProvider)
         {
             _instanceIdContextProvider = instanceIdContextProvider;
         }

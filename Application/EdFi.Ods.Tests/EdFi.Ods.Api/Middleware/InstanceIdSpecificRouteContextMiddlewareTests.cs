@@ -14,10 +14,11 @@ using NUnit.Framework;
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 {
     [TestFixture]
-    public class InstanceSpecificRouteContextMiddlewareTests
+    public class InstanceIdSpecificRouteContextMiddlewareTests
     {
         private IInstanceIdContextProvider _instanceIdContextProvider;
         private HttpContext _httpContext;
+        private InstanceIdSpecificRouteContextMiddleware _sut;
 
         [SetUp]
         public void SetUp()
@@ -25,6 +26,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
             _instanceIdContextProvider = A.Fake<IInstanceIdContextProvider>();
 
             _httpContext = HttpContextHelper.GetActionContext().HttpContext;
+
+            _sut = new InstanceIdSpecificRouteContextMiddleware(_instanceIdContextProvider);
         }
 
         [Test]
@@ -32,9 +35,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         {
             _httpContext.Request.RouteValues.Add("instanceIdFromRoute", null);
 
-            var sut = new InstanceSpecificRouteContextMiddleware(_instanceIdContextProvider);
-
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
             A.CallTo(() => _instanceIdContextProvider.SetInstanceId(A<string>._)).MustNotHaveHappened();
         }
@@ -44,9 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         {
             _httpContext.Request.RouteValues.Add("instanceIdFromRoute", string.Empty);
 
-            var sut = new InstanceSpecificRouteContextMiddleware(_instanceIdContextProvider);
-
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
             A.CallTo(() => _instanceIdContextProvider.SetInstanceId(A<string>._)).MustNotHaveHappened();
         }
@@ -56,9 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         {
             _httpContext.Request.RouteValues.Add("instanceIdFromRoute", " ");
 
-            var sut = new InstanceSpecificRouteContextMiddleware(_instanceIdContextProvider);
-
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
             A.CallTo(() => _instanceIdContextProvider.SetInstanceId(A<string>._)).MustNotHaveHappened();
         }
@@ -70,11 +67,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 
             _httpContext.Request.RouteValues.Add("instanceIdFromRoute", instanceId);
 
-            var sut = new InstanceSpecificRouteContextMiddleware(_instanceIdContextProvider);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
-
-            A.CallTo(() => _instanceIdContextProvider.SetInstanceId(instanceId)).MustHaveHappened();
+            A.CallTo(() => _instanceIdContextProvider.SetInstanceId(instanceId)).MustHaveHappenedOnceExactly();
         }
     }
 }

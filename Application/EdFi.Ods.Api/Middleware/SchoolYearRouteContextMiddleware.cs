@@ -24,7 +24,8 @@ namespace EdFi.Ods.Api.Middleware
             {
                 if (year != null)
                 {
-                    // boxing is intentional here
+                    // conversion to string is intentional
+                    // this test is from the replaced filter.
                     if (int.TryParse(year.ToString(), out int schoolYear))
                     {
                         _schoolYearContextProvider.SetSchoolYear(schoolYear);

@@ -23,26 +23,10 @@ namespace EdFi.Ods.Api.Extensions
         public static IApplicationBuilder UseEdFiApiAuthentication(this IApplicationBuilder builder)
             => builder.UseMiddleware<EdFiApiAuthenticationMiddleware>();
 
-        public static IApplicationBuilder UseSchoolYearRouteContext(this IApplicationBuilder builder, ApiSettings apiSettings)
-        {
-            var apiMode = apiSettings.GetApiMode();
+        public static IApplicationBuilder UseSchoolYearRouteContext(this IApplicationBuilder builder)
+            => builder.UseMiddleware<SchoolYearRouteContextMiddleware>();
 
-            if (apiMode == ApiMode.YearSpecific || apiMode == ApiMode.InstanceYearSpecific)
-            {
-                builder.UseMiddleware<SchoolYearRouteContextMiddleware>();
-            }
-
-            return builder;
-        }
-
-        public static IApplicationBuilder UseInstanceSpecificRouteContext(this IApplicationBuilder builder, ApiSettings apiSettings)
-        {
-            if (apiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
-            {
-                builder.UseMiddleware<InstanceSpecificRouteContextMiddleware>();
-            }
-
-            return builder;
-        }
+        public static IApplicationBuilder UseInstanceIdSpecificRouteContext(this IApplicationBuilder builder)
+            => builder.UseMiddleware<InstanceIdSpecificRouteContextMiddleware>();
     }
 }

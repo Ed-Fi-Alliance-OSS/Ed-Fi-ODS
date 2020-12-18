@@ -18,6 +18,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
     {
         private ISchoolYearContextProvider _schoolYearContextProvider;
         private HttpContext _httpContext;
+        private SchoolYearRouteContextMiddleware _sut;
 
         [SetUp]
         public void SetUp()
@@ -25,6 +26,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
             _schoolYearContextProvider = A.Fake<ISchoolYearContextProvider>();
 
             _httpContext = HttpContextHelper.GetActionContext().HttpContext;
+
+            _sut = new SchoolYearRouteContextMiddleware(_schoolYearContextProvider);
         }
 
         [Test]
@@ -32,9 +35,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         {
             _httpContext.Request.RouteValues.Add("schoolYearFromRoute", "2010, 2011");
 
-            var sut = new SchoolYearRouteContextMiddleware(_schoolYearContextProvider);
-
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
             A.CallTo(() => _schoolYearContextProvider.SetSchoolYear(A<int>._)).MustNotHaveHappened();
         }
@@ -44,9 +45,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         {
             _httpContext.Request.RouteValues.Add("schoolYearFromRoute", "abc");
 
-            var sut = new SchoolYearRouteContextMiddleware(_schoolYearContextProvider);
-
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
             A.CallTo(() => _schoolYearContextProvider.SetSchoolYear(A<int>._)).MustNotHaveHappened();
         }
@@ -56,9 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         {
             _httpContext.Request.RouteValues.Add("schoolYearFromRoute", null);
 
-            var sut = new SchoolYearRouteContextMiddleware(_schoolYearContextProvider);
-
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
             A.CallTo(() => _schoolYearContextProvider.SetSchoolYear(A<int>._)).MustNotHaveHappened();
         }
@@ -66,11 +63,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         [Test]
         public async Task Should_Not_Parse_An_Empty_School_Year()
         {
-            _httpContext.Request.RouteValues.Add("schoolYearFromRoute", null);
+            _httpContext.Request.RouteValues.Add("schoolYearFromRoute", string.Empty);
 
-            var sut = new SchoolYearRouteContextMiddleware(_schoolYearContextProvider);
-
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
             A.CallTo(() => _schoolYearContextProvider.SetSchoolYear(A<int>._)).MustNotHaveHappened();
         }
@@ -80,9 +75,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
         {
             _httpContext.Request.RouteValues.Add("schoolYearFromRoute", " ");
 
-            var sut = new SchoolYearRouteContextMiddleware(_schoolYearContextProvider);
-
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
             A.CallTo(() => _schoolYearContextProvider.SetSchoolYear(A<int>._)).MustNotHaveHappened();
         }
@@ -93,11 +86,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
             var year = DateTime.Now.Year;
             _httpContext.Request.RouteValues.Add("schoolYearFromRoute", year);
 
-            var sut = new SchoolYearRouteContextMiddleware(_schoolYearContextProvider);
+            await _sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
 
-            await sut.InvokeAsync(_httpContext, context => Task.CompletedTask);
-
-            A.CallTo(() => _schoolYearContextProvider.SetSchoolYear(year)).MustHaveHappened();
+            A.CallTo(() => _schoolYearContextProvider.SetSchoolYear(year)).MustHaveHappenedOnceExactly();
         }
     }
 }

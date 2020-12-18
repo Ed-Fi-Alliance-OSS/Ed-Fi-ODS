@@ -319,7 +319,7 @@ namespace EdFi.Ods.Api.Container.Modules
                     .AsSelf()
                     .SingleInstance();
 
-                builder.RegisterType<InstanceSpecificRouteContextMiddleware>()
+                builder.RegisterType<InstanceIdSpecificRouteContextMiddleware>()
                     .As<IMiddleware>()
                     .AsSelf()
                     .SingleInstance();
