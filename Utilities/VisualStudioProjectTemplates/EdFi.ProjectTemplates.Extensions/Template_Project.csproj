@@ -28,7 +28,7 @@
 	  <AutoGen>True</AutoGen>
 	  <DesignTime>True</DesignTime>
 	</Content>
-		<EmbeddedResource Include="Artifacts\**\Schemas\*.xsd">
+    <EmbeddedResource Include="Artifacts\**\Schemas\*.xsd">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <SubType>Designer</SubType>
