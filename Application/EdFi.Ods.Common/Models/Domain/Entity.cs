@@ -399,6 +399,24 @@ namespace EdFi.Ods.Common.Models.Domain
         public AssociationView EdFiStandardEntityAssociation => _edFiStandardEntityAssociation.Value;
 
         /// <summary>
+        /// Gets the alternate key identifiers logically inherited from the entity's base type hierarchy. 
+        /// </summary>
+        public IReadOnlyList<EntityIdentifier> InheritedAlternateIdentifiers
+        {
+            get
+            {
+                if (BaseEntity == null)
+                {
+                    return new EntityIdentifier[0];
+                }
+
+                return BaseEntity.InheritedAlternateIdentifiers
+                    .Concat(BaseEntity.AlternateIdentifiers)
+                    .ToList();
+            }
+        }
+        
+        /// <summary>
         /// Gets all the properties logically inherited via the entity's base type hierarchy, with the identifying properties first, followed by non-identifying properties.
         /// </summary>
         public IReadOnlyList<EntityProperty> InheritedProperties
