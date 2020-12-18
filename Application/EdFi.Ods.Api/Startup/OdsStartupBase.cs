@@ -246,9 +246,16 @@ namespace EdFi.Ods.Api.Startup
 
             app.UseCors(CorsPolicyName);
 
-            if (ApiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+            var apiMode = ApiSettings.GetApiMode();
+
+            if (apiMode == ApiMode.YearSpecific || apiMode == ApiMode.InstanceYearSpecific)
             {
-                app.UseInstanceYearSpecific();
+                app.UseSchoolYearRouteContext();
+            }
+
+            if (apiMode == ApiMode.InstanceYearSpecific)
+            {
+                app.UseInstanceIdSpecificRouteContext();
             }
 
             app.UseEdFiApiAuthentication();
@@ -299,7 +306,7 @@ namespace EdFi.Ods.Api.Startup
                 IDescriptorsCache cache = null;
                 DescriptorsCache.GetCache = () => cache ??= Container.Resolve<IDescriptorsCache>();
 
-                if (ApiSettings.GetApiMode() == ApiMode.InstanceYearSpecific)
+                if (apiMode == ApiMode.InstanceYearSpecific)
                 {
                     // Provide SecurityRepository cache using a closure rather than repeated invocations to the container
                     IInstanceSecurityRepositoryCache instanceSecurityRepositoryCache = null;

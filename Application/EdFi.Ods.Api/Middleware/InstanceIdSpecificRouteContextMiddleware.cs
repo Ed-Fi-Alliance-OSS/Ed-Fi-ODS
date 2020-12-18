@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Middleware
 {
-    public class InstanceYearSpecificMiddleware : IMiddleware
+    public class InstanceIdSpecificRouteContextMiddleware : IMiddleware
     {
         private const string Pattern = @"^[A-Za-z0-9-]+$";
         private readonly IInstanceIdContextProvider _instanceIdContextProvider;
 
-        public InstanceYearSpecificMiddleware(IInstanceIdContextProvider instanceIdContextProvider)
+        public InstanceIdSpecificRouteContextMiddleware(IInstanceIdContextProvider instanceIdContextProvider)
         {
             _instanceIdContextProvider = instanceIdContextProvider;
         }
@@ -26,11 +26,12 @@ namespace EdFi.Ods.Api.Middleware
             {
                 // Convert the object value to a string and see if it is empty
                 var instanceId = instance as string;
+
                 if (!string.IsNullOrEmpty(instanceId))
                 {
-
-                    //check that the character's are allowed
+                    // check that the character's are allowed
                     Match match = Regex.Match(instanceId, Pattern);
+
                     if (match.Success)
                     {
                         // If we're still here, set the context value

@@ -345,7 +345,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         _connectionStringProvider.Value.GetConnectionString(),
                         "Staff",
-                        new {StaffUniqueId = 207268},
+                        new {StaffUniqueId = "207268"},
                         _cancellationToken.Value);
 
                     requestUrl = $"enrollment/staffs/{resourceId}/sections";
@@ -400,7 +400,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         _connectionStringProvider.Value.GetConnectionString(),
                         "Student",
-                        new {StudentUniqueId = 605042},
+                        new {StudentUniqueId = "605042"},
                         _cancellationToken.Value);
 
                     requestUrl = $"enrollment/students/{resourceId}";
@@ -444,7 +444,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     resourceId = await StepsHelper.GetResourceIdAsync(
                         _connectionStringProvider.Value.GetConnectionString(),
                         "Staff",
-                        new {StaffUniqueId = 207268},
+                        new {StaffUniqueId = "207268"},
                         _cancellationToken.Value);
 
                     requestUrl = $"enrollment/staffs/{resourceId}/students";
