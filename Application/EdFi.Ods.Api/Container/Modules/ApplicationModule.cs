@@ -13,7 +13,8 @@ using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Controllers.DataManagement;
-using EdFi.Ods.Api.Controllers.DataManagement.QueryBuilding;
+using EdFi.Ods.Api.Controllers.DataManagement.PagedQueryBuilding;
+using EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQueryBuilding;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Filters;
@@ -114,6 +115,15 @@ namespace EdFi.Ods.Api.Container.Modules
             
             builder.RegisterType<PagedAggregateIdsQueryBuilder>()
                 .As<IPagedAggregateIdsQueryBuilder>()
+                .SingleInstance();
+
+            builder.RegisterType<ResourceQueryBuilder>()
+                .As<IResourceQueryBuilder>()
+                .SingleInstance();
+            
+            builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
+                .Where(t => typeof(IResourceQueryBuilderPropertyExpansion).IsAssignableFrom(t))
+                .As<IResourceQueryBuilderPropertyExpansion>()
                 .SingleInstance();
             
             // Validator for the domain model provider
