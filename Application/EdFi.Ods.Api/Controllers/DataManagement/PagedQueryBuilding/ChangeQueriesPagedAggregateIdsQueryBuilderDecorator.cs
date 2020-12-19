@@ -8,7 +8,7 @@ using EdFi.Ods.Api.Controllers.DataManagement.Utilities;
 using EdFi.Ods.Common.Models.Domain;
 using Microsoft.AspNetCore.Http;
 
-namespace EdFi.Ods.Api.Controllers.DataManagement.QueryBuilding
+namespace EdFi.Ods.Api.Controllers.DataManagement.PagedQueryBuilding
 {
     public class ChangeQueriesPagedAggregateIdsQueryBuilderDecorator : IPagedAggregateIdsQueryBuilder
     {

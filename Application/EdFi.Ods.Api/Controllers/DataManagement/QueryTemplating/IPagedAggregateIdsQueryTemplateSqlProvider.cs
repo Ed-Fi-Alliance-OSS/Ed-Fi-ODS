@@ -3,7 +3,7 @@ using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Api.Controllers.DataManagement.QueryTemplating
 {
-    public interface IPagedAggregateIdsQueryTemplateProvider
+    public interface IPagedAggregateIdsQueryTemplateSqlProvider
     {
         /// <summary>
         /// Gets the content of the template for use with the Dapper <see cref="SqlBuilder" />.

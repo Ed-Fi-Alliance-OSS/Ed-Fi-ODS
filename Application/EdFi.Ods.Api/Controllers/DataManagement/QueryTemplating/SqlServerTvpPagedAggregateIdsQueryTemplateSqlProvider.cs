@@ -3,11 +3,11 @@ using EdFi.Ods.Common.Models.Domain;
 
 namespace EdFi.Ods.Api.Controllers.DataManagement.QueryTemplating
 {
-    public class SqlServerTvpPagedAggregateIdsQueryTemplateProvider : IPagedAggregateIdsQueryTemplateProvider
+    public class SqlServerTvpPagedAggregateIdsQueryTemplateSqlProvider : IPagedAggregateIdsQueryTemplateSqlProvider
     {
         private readonly IDatabaseArtifactPhysicalNameProvider _physicalNameProvider;
 
-        public SqlServerTvpPagedAggregateIdsQueryTemplateProvider(IDatabaseArtifactPhysicalNameProvider databaseArtifactPhysicalNameProvider)
+        public SqlServerTvpPagedAggregateIdsQueryTemplateSqlProvider(IDatabaseArtifactPhysicalNameProvider databaseArtifactPhysicalNameProvider)
         {
             _physicalNameProvider = databaseArtifactPhysicalNameProvider;
         }

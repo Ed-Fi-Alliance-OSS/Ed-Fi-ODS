@@ -2,7 +2,7 @@ using Dapper;
 using EdFi.Ods.Common.Models.Domain;
 using Microsoft.AspNetCore.Http;
 
-namespace EdFi.Ods.Api.Controllers.DataManagement.QueryBuilding
+namespace EdFi.Ods.Api.Controllers.DataManagement.PagedQueryBuilding
 {
     public interface IPagedAggregateIdsQueryBuilder
     {

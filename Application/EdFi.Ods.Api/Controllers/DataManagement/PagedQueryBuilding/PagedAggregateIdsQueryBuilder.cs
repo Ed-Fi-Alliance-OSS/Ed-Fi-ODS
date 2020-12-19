@@ -3,14 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Linq;
 using Dapper;
 using EdFi.Ods.Api.Controllers.DataManagement.PhysicalNaming;
 using EdFi.Ods.Api.Controllers.DataManagement.Utilities;
 using EdFi.Ods.Common.Models.Domain;
 using Microsoft.AspNetCore.Http;
 
-namespace EdFi.Ods.Api.Controllers.DataManagement.QueryBuilding
+namespace EdFi.Ods.Api.Controllers.DataManagement.PagedQueryBuilding
 {
     public class PagedAggregateIdsQueryBuilder : IPagedAggregateIdsQueryBuilder
     {
