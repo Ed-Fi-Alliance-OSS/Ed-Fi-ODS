@@ -41,8 +41,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IDatabaseArtifactPhysicalNameProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<SqlServerTvpPagedAggregateIdsQueryTemplateProvider>()
-                .As<IPagedAggregateIdsQueryTemplateProvider>()
+            builder.RegisterType<SqlServerTvpPagedAggregateIdsQueryTemplateSqlProvider>()
+                .As<IPagedAggregateIdsQueryTemplateSqlProvider>()
                 .SingleInstance();
         }
     }
