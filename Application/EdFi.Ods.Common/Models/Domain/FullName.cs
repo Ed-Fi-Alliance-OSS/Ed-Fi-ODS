@@ -13,11 +13,34 @@ namespace EdFi.Ods.Common.Models.Domain
     /// </summary>
     public struct FullName : IComparable<FullName>, IEquatable<FullName>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FullName" /> class using the supplied schema and name.
+        /// </summary>
+        /// <param name="schema">The schema portion of the full name.</param>
+        /// <param name="name">The name portion of the full name.</param>
         public FullName(string schema, string name)
             : this()
         {
             Schema = schema;
             Name = name;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FullName" /> class using the supplied fully-qualified name in the format of <i>{schema}.{name}</i>.
+        /// </summary>
+        /// <param name="fullyQualifiedName">The fully-qualified name in the format of <i>{schema}.{name}</i>.</param>
+        public FullName(string fullyQualifiedName)
+            : this()
+        {
+            var parts = fullyQualifiedName.Split('.', 2);
+
+            if (parts.Length != 2)
+            {
+                throw new ArgumentException($"{nameof(fullyQualifiedName)} parameter is expected to be in the format of '{{schema}}.{{name}}'.");
+            }
+
+            Schema = parts[0];
+            Name = parts[1];
         }
 
         /// <summary>

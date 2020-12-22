@@ -1,0 +1,35 @@
+@startuml
+
+class DataManagementResourceController
+
+DataManagementResourceController -> IResourceDataProvider
+
+interface IResourceDataProvider {
+    ResourceData GetResourceData
+}
+
+ResourceDataProvider --|> IResourceDataProvider
+ResourceDataProvider -> IPagedAggregateIdsQueryBuilder
+
+class ResourceData {
+    IList<ResourceClassQueryResults> Results
+    string ToJson()
+}
+
+class ResourceClassQueryResults {
+    ResourceClassBase ResourceClass,
+    List<object> Results
+}
+
+interface IPagedAggregateIdsQueryBuilder {
+    SqlBuilder BuildQuery(Entity entity, IQueryCollection query)
+    void ApplyParameters(DynamicParameters parameters, IQueryCollection query)
+}
+
+class PagedAggregateIdsQueryBuilder
+
+interface IPagedAggregateIdsQueryTemplateSqlProvider
+
+
+PagedAggregateIdsQueryBuilder --|> IPagedAggregateIdsQueryBuilder
+@enduml

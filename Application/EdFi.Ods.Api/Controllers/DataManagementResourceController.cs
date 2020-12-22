@@ -15,23 +15,14 @@ using Dapper;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Controllers.DataManagement;
-using EdFi.Ods.Api.Controllers.DataManagement.PagedQueryBuilding;
-using EdFi.Ods.Api.Controllers.DataManagement.PhysicalNaming;
-using EdFi.Ods.Api.Controllers.DataManagement.QueryTemplating;
-using EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQueryBuilding;
-using EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding;
-using EdFi.Ods.Api.Controllers.DataManagement.Utilities;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Infrastructure.Filtering;
-using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Specifications;
+using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Security.Authorization;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
@@ -44,31 +35,26 @@ namespace EdFi.Ods.Api.Controllers
     public class DataManagementResourceController : ControllerBase
     {
         private readonly IDatabaseConnectionStringProvider _connectionStringProvider;
-        private readonly IResourceModelProvider _resourceModelProvider;
         private readonly IRequestResourceResolver _requestResourceResolver;
-        private readonly IPagedAggregateIdsQueryBuilder _pagedAggregateIdsQueryBuilder;
-        private readonly IPagedAggregateIdsQueryTemplateSqlProvider _pagedAggregateIdsQueryTemplateSqlProvider;
-        private readonly IDatabaseArtifactPhysicalNameProvider _physicalNameProvider;
-        private readonly IResourceQueryBuilder _resourceQueryBuilder;
+        private readonly IResourceDataProvider _resourceDataProvider;
+        private readonly IAuthorizationContextProvider _authorizationContextProvider;
+        private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementResourceController));
         
         public DataManagementResourceController(
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
-            IResourceModelProvider resourceModelProvider,
             IRequestResourceResolver requestResourceResolver,
-            IPagedAggregateIdsQueryBuilder pagedAggregateIdsQueryBuilder,
-            IPagedAggregateIdsQueryTemplateSqlProvider pagedAggregateIdsQueryTemplateSqlProvider,
-            IDatabaseArtifactPhysicalNameProvider physicalNameProvider,
-            IResourceQueryBuilder resourceQueryBuilder)
+            IResourceDataProvider resourceDataProvider,
+            // Authorization-related
+            IAuthorizationContextProvider authorizationContextProvider,
+            IResourceClaimUriProvider resourceClaimUriProvider)
         {
             _connectionStringProvider = odsDatabaseConnectionStringProvider;
-            _resourceModelProvider = resourceModelProvider;
             _requestResourceResolver = requestResourceResolver;
-            _pagedAggregateIdsQueryBuilder = pagedAggregateIdsQueryBuilder;
-            _pagedAggregateIdsQueryTemplateSqlProvider = pagedAggregateIdsQueryTemplateSqlProvider;
-            _physicalNameProvider = physicalNameProvider;
-            _resourceQueryBuilder = resourceQueryBuilder;
+            _resourceDataProvider = resourceDataProvider;
+            _authorizationContextProvider = authorizationContextProvider;
+            _resourceClaimUriProvider = resourceClaimUriProvider;
         }
         
         // Collection operations
@@ -82,7 +68,10 @@ namespace EdFi.Ods.Api.Controllers
                 return StatusCode(error.Code, new { error.Message });
             }
 
-            var resourceData = await GetResourceData(resource, Request.Query);
+            // TODO: Simple API - This *may* be better refactored out into a separate component, or possibly passed along as a parameter rather than using context here 
+            SetAuthorizationContext(resource, ReadUri);
+
+            var resourceData = await _resourceDataProvider.GetResourceData(resource, Request.Query);
 
             return new ContentResult
             {
@@ -90,76 +79,6 @@ namespace EdFi.Ods.Api.Controllers
                 ContentType = "application/json",
                 Content = resourceData.ToJson(),
             };
-        }
-
-        private async Task<ResourceData> GetResourceData(
-            Resource resource, 
-            IQueryCollection query,
-            IDictionary<string, object> primaryKeyValues = null)
-        {
-            var batchSqlStringBuilder = new StringBuilder();
-            var parameters = new DynamicParameters();
-
-            // Build the SQL elements for the paged query
-            var pagedQuerySqlBuilder = _pagedAggregateIdsQueryBuilder.BuildQuery(resource.Entity, query);
-            _pagedAggregateIdsQueryBuilder.ApplyParameters(parameters, query);
-            
-            // Add the primary key values as parameters, if supplied
-            if (primaryKeyValues != null)
-            {
-                parameters.AddDynamicParams(primaryKeyValues);
-            }
-            
-            // Apply the database-specific SQL template
-            string sqlTemplate = _pagedAggregateIdsQueryTemplateSqlProvider.GetSqlTemplate(resource.Entity);
-            var template = pagedQuerySqlBuilder.AddTemplate(sqlTemplate);
-
-            // If the paged query is batchable, just include it in the string builder
-            if (_pagedAggregateIdsQueryTemplateSqlProvider.IsBatchable)
-            {
-                batchSqlStringBuilder.AppendLine(template.RawSql);
-            }
-            else
-            {
-                // TODO: Simple API - Execute first round-trip query to obtain Ids for page (need to investigate Postgres arrays as possible way to avoid this completely)
-                throw new NotImplementedException("Separate round-trip query to obtain Ids for paged resource results has not yet been implemented.");
-                // Pseudo code: parameters = new DynamicParameters(ids);
-            }
-            
-            // Build the remaining resource queries
-            // TODO: Simple API - May need to also pass the "ids" array here as well (if batched, single-trip SQL isn't possible for Postgres)
-            var resourceClassQueries = _resourceQueryBuilder.BuildQueries(resource, primaryKeyValues).ToList();
-
-            // Add all the raw SQL for the queries to the batch SQL query
-            foreach (var resourceClassQuery in resourceClassQueries)
-            {
-                batchSqlStringBuilder.Append(resourceClassQuery.Template.RawSql);
-            }
-
-            // TODO: Simple API - Establish database-specific connection
-            using (var conn = new SqlConnection(_connectionStringProvider.GetConnectionString()))
-            {
-                await conn.OpenAsync();
-
-                _logger.Debug($"SQL: {batchSqlStringBuilder}");
-
-                string batchSql = batchSqlStringBuilder.ToString();
-                
-                var results = new List<ResourceClassQueryResults>();
-                
-                using (var multipleResults = await conn.QueryMultipleAsync(batchSql, parameters))
-                {
-                    int i = 0;
-
-                    while (!multipleResults.IsConsumed)
-                    {
-                        var result = await multipleResults.ReadAsync();
-                        results.Add(new ResourceClassQueryResults(resourceClassQueries[i++].ResourceClass, (List<object>) result));
-                    }
-                }
-
-                return new ResourceData(results);
-            }
         }
 
         [HttpPost]
@@ -178,7 +97,7 @@ namespace EdFi.Ods.Api.Controllers
                     rp => rp.PropertyName, 
                     rp => (object) jsonData[rp.JsonPropertyName].Value<JValue>().Value);
             
-            var resourceData = await GetResourceData(resource, Request.Query, primaryKeyValues);
+            var resourceData = await _resourceDataProvider.GetResourceData(resource, Request.Query, primaryKeyValues);
 
             var dataByFullName = resourceData.Results.ToDictionary(
                 x => x.ResourceClass.FullName,
@@ -295,8 +214,6 @@ namespace EdFi.Ods.Api.Controllers
                     {
                         using (var multipleResults = await conn.QueryMultipleAsync(sql, parameters))
                         {
-                            int i = 0;
-
                             // Skip the first result
                             var readerField = typeof(SqlMapper.GridReader).GetField("reader", BindingFlags.Instance | BindingFlags.NonPublic);
                             var reader = (IDataReader) readerField.GetValue(multipleResults);
@@ -333,35 +250,6 @@ namespace EdFi.Ods.Api.Controllers
                 }
             }
 
-            // var requestStream = await Request.Content.ReadAsStreamAsync();
-            // var jsonReader = new JsonTextReader(new StreamReader(requestStream));
-
-            // var sqlBuilder = new Dapper.SqlBuilder();
-            //
-            // foreach (var property in entity.Properties)
-            // {
-            //     sqlBuilder.Select(property.PropertyName);
-            // }
-            //
-            // foreach (var property in entity.Identifier.Properties)
-            // {
-            //     sqlBuilder.OrderBy(property.PropertyName);
-            // }
-            //
-            // var builderTemplate = sqlBuilder.AddTemplate(
-            //     $"Select /**select**/ from {entity.FullName} /**innerjoin**/ /**where**/ /**orderby**/ ");
-            //
-            // int count;
-            //
-            // using (var conn = new SqlConnection(_connectionStringProvider.GetConnectionString()))
-            // {
-            //     await conn.OpenAsync();
-            //
-            //     var results = (IEnumerable<IDictionary<string, object>>) await conn.QueryAsync(builderTemplate.RawSql);
-            //
-            //     return Ok(results);
-            // }
-            //
             return Ok();
         }
 
@@ -385,6 +273,20 @@ namespace EdFi.Ods.Api.Controllers
         public virtual async Task<IActionResult> Delete(/*[FromUri]*/ Guid id)
         {
             return Ok(new {hello = "world"});
+        }
+        
+        // TODO: Simple API - This needs to be somewhere else (where Create vs Update can be determined after initial GetByKey (POST) or GetById (PUT))
+        private const string CreateUri = "http://ed-fi.org/odsapi/actions/create"; 
+        private const string ReadUri = "http://ed-fi.org/odsapi/actions/read"; 
+        private const string UpdateUri = "http://ed-fi.org/odsapi/actions/update"; 
+        private const string DeleteUri = "http://ed-fi.org/odsapi/actions/delete"; 
+            
+        private void SetAuthorizationContext(Resource resource, string actionUri)
+        {
+            _authorizationContextProvider.SetResourceUris(
+                _resourceClaimUriProvider.GetResourceClaimUris(resource));
+
+            _authorizationContextProvider.SetAction(actionUri);
         }
     }
 }

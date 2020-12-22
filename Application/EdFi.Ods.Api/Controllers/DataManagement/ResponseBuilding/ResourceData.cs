@@ -59,10 +59,19 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding
             jw.WriteStartObject();
 
             // TODO: Write the id first 
-
+            if (resourceClass is Resource)
+            {
+                WriteResourceProperty(jw, resourceClass.PropertyByName["Id"], item);
+            }
+            
             // Write the properties
             foreach (var resourceProperty in resourceClass.Properties)
             {
+                if (resourceProperty.PropertyName.EqualsIgnoreCase("Id"))
+                {
+                    continue;
+                }
+                
                 WriteResourceProperty(jw, resourceProperty, item);
             }
 
@@ -163,7 +172,22 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding
             ResourceProperty resourceProperty,
             IDictionary<string, object> item)
         {
-            var value = item[resourceProperty.EntityProperty.PropertyName];
+            object value = null;
+
+            if (resourceProperty.IsLookup)
+            {
+                var descriptorNamespace = item[$"{resourceProperty.PropertyName}_Namespace"];
+                var descriptorCodeValue = item[$"{resourceProperty.PropertyName}_CodeValue"];
+
+                if (descriptorNamespace != null && descriptorCodeValue != null)
+                {
+                    value = $"{descriptorNamespace}#{descriptorCodeValue}";
+                }
+            }
+            else
+            {
+                value = item[resourceProperty.PropertyName];
+            }
 
             // Don't write null values
             if (value == null)
@@ -173,19 +197,20 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding
 
             jw.WritePropertyName(resourceProperty.JsonPropertyName);
 
-            if (resourceProperty.IsLookup)
-            {
-                jw.WriteValue(
-                    $"{item[$"{resourceProperty.PropertyName}_Namespace"]}#{item[$"{resourceProperty.PropertyName}_CodeValue"]}");
-            }
-            else if (resourceProperty.PropertyType.DbType == DbType.Date)
+            var propertyType = resourceProperty.PropertyType;
+
+            if (propertyType.DbType == DbType.Date)
             {
                 jw.WriteValue(((DateTime) value).ToString("yyyy-MM-dd"));
             }
-            else if (resourceProperty.PropertyType.DbType == DbType.Guid)
+            else if (propertyType.DbType == DbType.Guid)
             {
                 jw.WriteValue(((Guid) value).ToString("n"));
             }
+            // else if (propertyType.DbType == DbType.Decimal)
+            // {
+            //     jw.WriteRawValue(((Decimal) value).ToString($"F{propertyType.Scale}"));
+            // }
             else
             {
                 jw.WriteValue(value);

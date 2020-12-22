@@ -13,8 +13,14 @@ using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Controllers.DataManagement;
-using EdFi.Ods.Api.Controllers.DataManagement.PagedQueryBuilding;
-using EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQueryBuilding;
+using EdFi.Ods.Api.Controllers.DataManagement.Authorization;
+using EdFi.Ods.Api.Controllers.DataManagement.Authorization.Claims;
+using EdFi.Ods.Api.Controllers.DataManagement.Authorization.Details;
+using EdFi.Ods.Api.Controllers.DataManagement.Authorization.SecurityMetadata;
+using EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.RelationshipBased;
+using EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQuery;
+using EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQueryTemplating;
+using EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Filters;
@@ -108,13 +114,20 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IResourceModelProvider>()
                 .SingleInstance();
 
+            // ---------------------------
+            // Start API Simplification
+            // ---------------------------
             // Request resource resolver
             builder.RegisterType<RequestResourceResolver>()
                 .As<IRequestResourceResolver>()
                 .SingleInstance();
-            
-            builder.RegisterType<PagedAggregateIdsQueryBuilder>()
-                .As<IPagedAggregateIdsQueryBuilder>()
+
+            builder
+                .RegisterDecorator<ResourcePageQueryBuilderAuthorizationDecorator, 
+                    IResourcePageQueryBuilder>();
+                
+            builder.RegisterType<ResourcePageQueryBuilder>()
+                .As<IResourcePageQueryBuilder>()
                 .SingleInstance();
 
             builder.RegisterType<ResourceQueryBuilder>()
@@ -122,9 +135,55 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
             
             builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
-                .Where(t => typeof(IResourceQueryBuilderPropertyExpansion).IsAssignableFrom(t))
+                .AssignableTo<IResourceQueryBuilderPropertyExpansion>()
                 .As<IResourceQueryBuilderPropertyExpansion>()
                 .SingleInstance();
+            
+            builder.RegisterType<SqlServerSecurityMetadataProvider>()
+                .As<ISecurityMetadataProvider>()
+                .SingleInstance();
+
+            builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
+                .AssignableTo<IAuthorizationFilterHandler>()
+                .As<IAuthorizationFilterHandler>()
+                .SingleInstance();
+            
+            builder.RegisterType<RequestAuthorizationDetailsProviders>()
+                .As<IRequestAuthorizationDetailsProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<EducationOrganizationDiscriminatorProvider>()
+                .As<IEducationOrganizationDiscriminatorProvider>()
+                .SingleInstance();
+            
+            builder.RegisterType<EducationOrganizationClaimsProvider>()
+                .As<IEducationOrganizationClaimsProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<SqlServerRelationshipBasedAuthorizationViewJoinApplicator>()
+                .As<IRelationshipBasedAuthorizationViewJoinApplicator>()
+                .SingleInstance();
+
+            builder
+                .RegisterDecorator<RelationshipBasedAuthorizationResourcePageQuerySqlProviderDecorator,
+                    IResourcePageQuerySqlProvider>();
+            
+            builder.RegisterType<SqlServerSecurityMetadataProvider>()
+                .As<ISecurityMetadataProvider>()
+                .SingleInstance();
+
+            builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
+                .AssignableTo<IRelationshipBasedAuthorizationFilterHandler>()
+                .As<IRelationshipBasedAuthorizationFilterHandler>()
+                .SingleInstance();
+                
+            builder.RegisterType<ResourceDataProvider>()
+                .As<IResourceDataProvider>()
+                .SingleInstance();
+            
+            // -------------------------
+            // End API Simplification
+            // -------------------------
             
             // Validator for the domain model provider
             builder.RegisterType<FluentValidationObjectValidator>()

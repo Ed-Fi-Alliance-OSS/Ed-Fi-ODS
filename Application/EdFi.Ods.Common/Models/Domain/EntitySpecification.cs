@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Common.Models.Domain
@@ -24,7 +25,7 @@ namespace EdFi.Ods.Common.Models.Domain
         {
             return PersonEntitySpecification.IsPersonEntity(entity.Name);
         }
-
+        
         public static bool HasServerAssignedSurrogateId(this Entity entity)
         {
             //People and the base descriptors have server assigned surrogate ids.

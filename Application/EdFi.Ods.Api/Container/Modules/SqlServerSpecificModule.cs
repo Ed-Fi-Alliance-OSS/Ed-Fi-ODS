@@ -5,8 +5,8 @@
 
 using Autofac;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Api.Controllers.DataManagement.PhysicalNaming;
-using EdFi.Ods.Api.Controllers.DataManagement.QueryTemplating;
+using EdFi.Ods.Api.Controllers.DataManagement.PhysicalNames;
+using EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQueryTemplating;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Activities;
@@ -37,12 +37,12 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<INHibernateConfigurationActivity>()
                 .SingleInstance();
 
-            builder.RegisterType<SqlServerDatabaseArtifactPhysicalNameProvider>()
-                .As<IDatabaseArtifactPhysicalNameProvider>()
+            builder.RegisterType<SqlServerPhysicalNamesProvider>()
+                .As<IPhysicalNamesProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<SqlServerTvpPagedAggregateIdsQueryTemplateSqlProvider>()
-                .As<IPagedAggregateIdsQueryTemplateSqlProvider>()
+            builder.RegisterType<SqlServerResourcePageQuerySqlProvider>()
+                .As<IResourcePageQuerySqlProvider>()
                 .SingleInstance();
         }
     }

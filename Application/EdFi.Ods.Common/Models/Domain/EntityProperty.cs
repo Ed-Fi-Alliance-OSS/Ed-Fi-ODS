@@ -275,9 +275,9 @@ namespace EdFi.Ods.Common.Models.Domain
             
             var currentProperty = this;
 
-            while (currentProperty.IncomingAssociations.Any())
+            while (currentProperty.IncomingAssociations.Any(a => a.AssociationType != AssociationViewType.FromBase))
             {
-                currentProperty = currentProperty.IncomingAssociations.First()
+                currentProperty = currentProperty.IncomingAssociations.First(a => a.AssociationType != AssociationViewType.FromBase)
                     .PropertyMappingByThisName[currentProperty.PropertyName]
                     .OtherProperty;
             }

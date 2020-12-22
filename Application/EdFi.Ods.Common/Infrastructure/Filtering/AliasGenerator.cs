@@ -16,8 +16,9 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
     /// <remarks>The generator uses the Monostate Pattern where each instance uses shared state.</remarks>
     public class AliasGenerator
     {
-        private static readonly ConcurrentDictionary<string, IEnumerator<string>> AliasesByPrefix =
+        private static readonly ConcurrentDictionary<string, IEnumerator<string>> _aliasesByPrefix =
             new ConcurrentDictionary<string, IEnumerator<string>>(StringComparer.InvariantCultureIgnoreCase);
+        
         private readonly bool _useSharedState;
 
         private readonly IEnumerator<string> _aliases;
@@ -25,16 +26,26 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         public AliasGenerator()
             : this(string.Empty, false) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AliasGenerator" /> class using the supplied prefix.
+        /// </summary>
+        /// <param name="prefix">The prefix to apply to each alias generated.</param>
         public AliasGenerator(string prefix)
             : this(prefix, useSharedState: false) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AliasGenerator" /> class using the supplied prefix and a flag
+        /// indicating whether to use the static shared state (i.e. to gain access to the global Monostate-based alias generator).
+        /// </summary>
+        /// <param name="prefix">The prefix to apply to each alias generated.</param>
+        /// <param name="useSharedState">Indicates whether to access the static shared state generator (i.e. which uses the Monostate Pattern).</param>
         public AliasGenerator(string prefix, bool useSharedState)
         {
             _useSharedState = useSharedState;
 
             if (useSharedState)
             {
-                _aliases = AliasesByPrefix.GetOrAdd(prefix, p => new AliasEnumerator(p));
+                _aliases = _aliasesByPrefix.GetOrAdd(prefix, p => new AliasEnumerator(p));
             }
             else
             {
