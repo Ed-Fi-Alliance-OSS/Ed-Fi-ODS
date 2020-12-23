@@ -34,5 +34,10 @@
       <DesignTime>True</DesignTime>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Artifacts\**\Schemas\*.xsd">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
