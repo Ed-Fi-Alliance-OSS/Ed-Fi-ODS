@@ -15,7 +15,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Utilities
             // Sort results ascending by primary key
             foreach (var property in entity.Identifier.Properties)
             {
-                sqlBuilder.OrderBy($"e.{physicalNamesProvider.GetColumnName(property)}");
+                sqlBuilder.OrderBy($"e.{physicalNamesProvider.Column(property)}");
             }
         }
         
@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Utilities
             string joinCriteria = string.Join(
                 " AND ",
                 entity.BaseAssociation.PropertyMappings.Select(
-                    pm => $"e.{physicalNamesProvider.GetColumnName(pm.ThisProperty)} = b.{physicalNamesProvider.GetColumnName(pm.OtherProperty)}"));
+                    pm => $"e.{physicalNamesProvider.Column(pm.ThisProperty)} = b.{physicalNamesProvider.Column(pm.OtherProperty)}"));
 
             string join = $"{entity.BaseEntity.FullName} AS b ON {joinCriteria}";
 

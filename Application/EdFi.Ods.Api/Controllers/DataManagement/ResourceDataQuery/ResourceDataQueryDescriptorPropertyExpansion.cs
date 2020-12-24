@@ -10,7 +10,7 @@ using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
 {
-    public class ResourceQueryBuilderDescriptorPropertyExpansion : IResourceQueryBuilderPropertyExpansion
+    public class ResourceDataQueryDescriptorPropertyExpansion : IResourceDataQueryPropertyExpansion
     {
         public void Process(ResourceClassBase resourceClass, string resourceAlias, SqlBuilder sqlBuilder, AliasGenerator aliasGenerator)
         {

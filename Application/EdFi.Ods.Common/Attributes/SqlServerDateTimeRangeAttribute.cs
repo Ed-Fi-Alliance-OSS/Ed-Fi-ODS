@@ -40,12 +40,7 @@ namespace EdFi.Ods.Common.Attributes
 
             return
                 new ValidationResult(
-                    string.Format(
-                        "{0} : '{1}' must be within SQL datetime range ('{2}' to '{3}')",
-                        contextualDisplayName,
-                        value,
-                        SqlDateTime.MinValue.Value,
-                        SqlDateTime.MaxValue.Value));
+                    $"{contextualDisplayName} : '{value}' must be within SQL datetime range ('{SqlDateTime.MinValue.Value}' to '{SqlDateTime.MaxValue.Value}')");
         }
     }
 }

@@ -99,9 +99,9 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Relat
                         {
                             ClaimEducationOrganizationEntityName = claimEducationOrganizationEntityFullName,
                             ClaimEducationOrganizationIds = claimEducationOrganizationIds,
-                            ClaimViewColumnName = _physicalNamesProvider.GetColumnName(claimEducationOrganizationIdProperty),
-                            TargetEntityColumnName = _physicalNamesProvider.GetColumnName(p),
-                            TargetViewColumnName = _physicalNamesProvider.GetColumnName(p.DefiningProperty),
+                            ClaimViewColumnName = _physicalNamesProvider.Column(claimEducationOrganizationIdProperty),
+                            TargetEntityColumnName = _physicalNamesProvider.Column(p),
+                            TargetViewColumnName = _physicalNamesProvider.Column(p.DefiningProperty),
                             TargetDefiningProperty = p.DefiningProperty,
                             ViewName = $"{viewBaseName}{viewModifier}",
                         };

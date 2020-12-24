@@ -36,7 +36,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Names
         {
             if (entity.PropertyByName.TryGetValue("Namespace", out var namespaceProperty))
             {
-                string namespaceColumnName = _physicalNamesProvider.GetColumnName(namespaceProperty);
+                string namespaceColumnName = _physicalNamesProvider.Column(namespaceProperty);
 
                 var namespacePrefixes = _apiKeyContextProvider.GetApiKeyContext().NamespacePrefixes;
 

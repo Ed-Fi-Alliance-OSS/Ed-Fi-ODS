@@ -4,10 +4,14 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.PhysicalNames
 {
     public class SqlServerPhysicalNamesProvider : IPhysicalNamesProvider
     {
-        public string GetSchemaName(Entity entity) => entity.Schema;
+        public string Schema(Entity entity) => entity.Schema;
 
-        public string GetTableName(Entity entity) => entity.FullName.Name;
+        public string Table(Entity entity) => entity.Name;
 
-        public string GetColumnName(EntityProperty property) => property.PropertyName;
+        public string FullName(Entity entity) => entity.FullName.ToString();
+
+        public string Column(EntityProperty property) => property.PropertyName;
+
+        public string Identifier(string suggestedName) => suggestedName;
     }
 }

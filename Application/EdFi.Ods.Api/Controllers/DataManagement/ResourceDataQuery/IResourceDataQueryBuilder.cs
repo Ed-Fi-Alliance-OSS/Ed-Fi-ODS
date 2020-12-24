@@ -9,7 +9,10 @@ using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
 {
-    public interface IResourceQueryBuilder
+    /// <summary>
+    /// Defines a method for building the queries needed to retrieve all the data for specified resource.
+    /// </summary>
+    public interface IResourceDataQueryBuilder
     {
         IEnumerable<ResourceClassQuery> BuildQueries(
             Resource resource,

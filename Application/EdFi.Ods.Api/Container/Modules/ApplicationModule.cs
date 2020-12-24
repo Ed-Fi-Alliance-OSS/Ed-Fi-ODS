@@ -21,6 +21,7 @@ using EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Relations
 using EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQuery;
 using EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQueryTemplating;
 using EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery;
+using EdFi.Ods.Api.Controllers.DataManagement.Validation;
 using EdFi.Ods.Api.Conventions;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Filters;
@@ -130,13 +131,13 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IResourcePageQueryBuilder>()
                 .SingleInstance();
 
-            builder.RegisterType<ResourceQueryBuilder>()
-                .As<IResourceQueryBuilder>()
+            builder.RegisterType<ResourceDataQueryBuilder>()
+                .As<IResourceDataQueryBuilder>()
                 .SingleInstance();
             
             builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
-                .AssignableTo<IResourceQueryBuilderPropertyExpansion>()
-                .As<IResourceQueryBuilderPropertyExpansion>()
+                .AssignableTo<IResourceDataQueryPropertyExpansion>()
+                .As<IResourceDataQueryPropertyExpansion>()
                 .SingleInstance();
             
             builder.RegisterType<SqlServerSecurityMetadataProvider>()
@@ -179,6 +180,11 @@ namespace EdFi.Ods.Api.Container.Modules
                 
             builder.RegisterType<ResourceDataProvider>()
                 .As<IResourceDataProvider>()
+                .SingleInstance();
+
+            builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
+                .AssignableTo<IEntityPropertyValidator>()
+                .As<IEntityPropertyValidator>()
                 .SingleInstance();
             
             // -------------------------

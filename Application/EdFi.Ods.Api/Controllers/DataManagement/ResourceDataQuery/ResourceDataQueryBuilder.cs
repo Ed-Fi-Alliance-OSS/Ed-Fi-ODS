@@ -9,6 +9,7 @@ using Dapper;
 using EdFi.Ods.Api.Controllers.DataManagement.PhysicalNames;
 using EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding;
 using EdFi.Ods.Api.Controllers.DataManagement.Utilities;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -17,16 +18,16 @@ using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
 {
-    public class ResourceQueryBuilder : IResourceQueryBuilder
+    public class ResourceDataQueryBuilder : IResourceDataQueryBuilder
     {
         private readonly IResourceModelProvider _resourceModelProvider;
         private readonly IPhysicalNamesProvider _physicalNamesProvider;
-        private readonly IResourceQueryBuilderPropertyExpansion[] _propertyExpansions;
+        private readonly IResourceDataQueryPropertyExpansion[] _propertyExpansions;
 
-        public ResourceQueryBuilder(
+        public ResourceDataQueryBuilder(
             IResourceModelProvider resourceModelProvider,
             IPhysicalNamesProvider physicalNamesProvider,
-            IResourceQueryBuilderPropertyExpansion[] propertyExpansions)
+            IResourceDataQueryPropertyExpansion[] propertyExpansions)
         {
             _resourceModelProvider = resourceModelProvider;
             _physicalNamesProvider = physicalNamesProvider;
@@ -57,6 +58,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
                 // Filter results for a page of data
                 if (primaryKeyValues == null)
                 {
+                    // TODO: Simple API - Consider refactoring this as a database-specific action, to approach this using an inner join to the TVP in SQL Server
                     sqlBuilder.Where("b.Id IN (SELECT Id FROM @ids)");
                 }
 
@@ -70,6 +72,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
             {
                 if (primaryKeyValues == null)
                 {
+                    // TODO: Simple API - Consider refactoring this as a database-specific action, to approach this using an inner join to the TVP in SQL Server
                     sqlBuilder.Where("e.Id IN (SELECT Id FROM @ids)");
                 }
             }
@@ -82,7 +85,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
             var query = sqlBuilder.AddTemplate(
                 $@"
 SELECT /**select**/ 
-FROM {resource.FullName} AS e
+FROM {_physicalNamesProvider.FullName(resource.Entity)} AS e
     /**innerjoin**/
     /**leftjoin**/
 /**where**/
@@ -96,7 +99,7 @@ FROM {resource.FullName} AS e
             }
         }
 
-        private static void ApplyRootResourcePrimaryKeyCriteria(
+        private void ApplyRootResourcePrimaryKeyCriteria(
             SqlBuilder sqlBuilder,
             AliasGenerator aliasGenerator,
             ResourceClassBase resourceClass,
@@ -106,8 +109,8 @@ FROM {resource.FullName} AS e
                 ? "e"
                 : "r";
 
-            // TODO: Semantic model candidate
-            bool isInheritedChild = (resourceClass.Entity.Aggregate.AggregateRoot != resourceClass.ResourceRoot.Entity);
+            // TODO: Semantic model candidate ResourceClass.IsInheritedChild
+            bool isInheritedChild = (resourceClass as ResourceChildItem)?.IsInheritedChildItem == true; // (resourceClass.Entity.Aggregate.AggregateRoot != resourceClass.ResourceRoot.Entity);
 
             foreach (var resourceProperty in resourceClass.ResourceRoot.AllIdentifyingProperties)
             {
@@ -123,28 +126,34 @@ FROM {resource.FullName} AS e
                     string descriptorAlias = aliasGenerator.GetNextAlias();
 
                     sqlBuilder.InnerJoin(
-                        $"edfi.Descriptor AS {descriptorAlias} ON {rootAlias}.{entityProperty.PropertyName} = {descriptorAlias}.DescriptorId");
+                        $"{EdFiConventions.PhysicalSchemaName}.Descriptor AS {descriptorAlias} ON {rootAlias}.{_physicalNamesProvider.Column(entityProperty)} = {descriptorAlias}.DescriptorId");
+
+                    var namespaceParameterName = $"{descriptorAlias}_Namespace";
+                    var codeValueParameterName = $"{descriptorAlias}_CodeValue";
 
                     var parameters = new DynamicParameters();
-                    parameters.Add($"{descriptorAlias}_Namespace", descriptorParts[0]);
-                    parameters.Add($"{descriptorAlias}_CodeValue", descriptorParts[1]);
+                    parameters.Add(namespaceParameterName, descriptorParts[0]);
+                    parameters.Add(codeValueParameterName, descriptorParts[1]);
 
                     sqlBuilder.Where(
-                        $"{descriptorAlias}.Namespace = @{descriptorAlias}_Namespace AND {descriptorAlias}.CodeValue = @{descriptorAlias}_CodeValue",
+                        $"{descriptorAlias}.Namespace = @{namespaceParameterName} AND {descriptorAlias}.CodeValue = @{codeValueParameterName}",
                         parameters);
                 }
-                else if (UniqueIdSpecification.IsUniqueId(resourceProperty.PropertyName))
+                else if (!entityProperty.Entity.IsPersonEntity() && entityProperty.DefiningProperty.Entity.IsPersonEntity())
                 {
                     // TODO: UniqueId requires join to corresponding Person table
-                    var personType = UniqueIdSpecification.GetUSIPersonType(entityProperty.PropertyName);
+                    var personType = entityProperty.DefiningProperty.Entity.Name; 
 
-                    string personTypeUsiName = $"{personType}USI"; // TODO: Embedded convention - PersonUSI name
-                    string personTypeUniqueName = $"{personType}UniqueId"; // TODO: Embedded convention - PersonUniqueId name
+                    // TODO: Simple API - Replace embedded convention with semantic model usage - PersonUSI name
+                    string personTypeUsiName = $"{personType}USI"; 
+                    
+                    // TODO: Simple API - Replace embedded convention with semantic model usage - PersonUniqueId name
+                    string personTypeUniqueName = $"{personType}UniqueId";
 
                     string personAlias = aliasGenerator.GetNextAlias();
 
                     sqlBuilder.InnerJoin(
-                        $"edfi.{personType} AS {personAlias} ON e.{entityProperty.PropertyName} = {personAlias}.{personTypeUsiName}");
+                        $"{EdFiConventions.PhysicalSchemaName}.{personType} AS {personAlias} ON e.{_physicalNamesProvider.Column(entityProperty)} = {personAlias}.{personTypeUsiName}");
 
                     var parameters = new DynamicParameters();
                     parameters.Add(personAlias, primaryKeyValues[resourceProperty.PropertyName]);
@@ -154,10 +163,15 @@ FROM {resource.FullName} AS e
                 else
                 {
                     var parameters = new DynamicParameters();
-                    parameters.Add(resourceProperty.PropertyName, primaryKeyValues[resourceProperty.EntityProperty.PropertyName]);
+
+                    string parameterName = _physicalNamesProvider.Identifier(entityProperty.PropertyName);
+                    
+                    parameters.Add(
+                        parameterName, 
+                        primaryKeyValues[_physicalNamesProvider.Column(entityProperty)]);
 
                     sqlBuilder.Where(
-                        $"{entityProperty.PropertyName} = @{resourceProperty.EntityProperty.PropertyName}",
+                        $"{rootAlias}.{_physicalNamesProvider.Column(entityProperty)} = @{parameterName}",
                         parameters);
                 }
             }
@@ -209,15 +223,15 @@ FROM {resource.FullName} AS e
 
             sqlBuilder.Select("e.*");
 
+            // Join child entity to root entity
+            var aggregateRoot = entity.Aggregate.AggregateRoot;
+
+            sqlBuilder.InnerJoin(
+                $"{_physicalNamesProvider.FullName(aggregateRoot.IsDerived ? aggregateRoot.BaseEntity : aggregateRoot)} r on {JoinCriteriaToRoot(entity)}");
+
             // Apply root criteria
             if (rootPrimaryKeyValues == null)
             {
-                // Join child entity to root entity
-                var aggregateRoot = entity.Aggregate.AggregateRoot;
-
-                sqlBuilder.InnerJoin(
-                    $"{(aggregateRoot.IsDerived ? aggregateRoot.BaseEntity.FullName : aggregateRoot.FullName)} r on {JoinCriteriaToRoot(entity)}");
-
                 sqlBuilder.Where("r.Id IN (SELECT Id FROM @ids)");
             }
             else
@@ -228,7 +242,7 @@ FROM {resource.FullName} AS e
             // Sort results by PK
             foreach (var property in entity.Identifier.Properties)
             {
-                sqlBuilder.OrderBy($"e.{property.PropertyName}");
+                sqlBuilder.OrderBy($"e.{_physicalNamesProvider.Column(property)}");
             }
 
             ProcessPropertyExpansions(resourceChildItem, "e", sqlBuilder, aliasGenerator);
@@ -236,7 +250,7 @@ FROM {resource.FullName} AS e
             var template = sqlBuilder.AddTemplate(
                 $@"
 SELECT /**select**/
-FROM {entity.FullName} e
+FROM {_physicalNamesProvider.FullName(entity)} e
     /**innerjoin**/
     /**leftjoin**/
 /**where**/

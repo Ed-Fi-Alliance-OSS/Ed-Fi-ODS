@@ -26,7 +26,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement
         private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
         private readonly IResourcePageQueryBuilder _resourcePageQueryBuilder;
         private readonly IResourcePageQuerySqlProvider _resourcePageQuerySqlProvider;
-        private readonly IResourceQueryBuilder _resourceQueryBuilder;
+        private readonly IResourceDataQueryBuilder _resourceDataQueryBuilder;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(ResourceDataProvider));
         
@@ -34,12 +34,12 @@ namespace EdFi.Ods.Api.Controllers.DataManagement
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IResourcePageQueryBuilder resourcePageQueryBuilder,
             IResourcePageQuerySqlProvider resourcePageQuerySqlProvider,
-            IResourceQueryBuilder resourceQueryBuilder)
+            IResourceDataQueryBuilder resourceDataQueryBuilder)
         {
             _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
             _resourcePageQueryBuilder = resourcePageQueryBuilder;
             _resourcePageQuerySqlProvider = resourcePageQuerySqlProvider;
-            _resourceQueryBuilder = resourceQueryBuilder;
+            _resourceDataQueryBuilder = resourceDataQueryBuilder;
         }
         
         public async Task<ResourceData> GetResourceData(
@@ -77,8 +77,8 @@ namespace EdFi.Ods.Api.Controllers.DataManagement
             }
             
             // Build the remaining resource queries
-            // TODO: Simple API - May need to also pass the "ids" array here as well (if batched, single-trip SQL isn't possible for Postgres)
-            var resourceClassQueries = _resourceQueryBuilder.BuildQueries(resource, primaryKeyValues).ToList();
+            // TODO: Simple API - May need to also pass the "ids" array here as well (i.e., Postgres or other DB supported in future may not support a TVP-equivalent mechanism for a single-trip SQL batch)
+            var resourceClassQueries = _resourceDataQueryBuilder.BuildQueries(resource, primaryKeyValues).ToList();
 
             // Add all the raw SQL for the queries to the batch SQL query
             foreach (var resourceClassQuery in resourceClassQueries)

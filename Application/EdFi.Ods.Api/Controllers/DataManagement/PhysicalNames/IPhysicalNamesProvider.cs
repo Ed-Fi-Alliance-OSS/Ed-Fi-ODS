@@ -7,10 +7,19 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.PhysicalNames
     /// </summary>
     public interface IPhysicalNamesProvider
     {
-        string GetSchemaName(Entity entity);
+        string Schema(Entity entity);
 
-        string GetTableName(Entity entity);
+        string Table(Entity entity);
 
-        string GetColumnName(EntityProperty property);
+        /// <summary>
+        /// Gets the fully-qualified table name consisting of the schema and table name.
+        /// </summary>
+        /// <param name="entity">The Entity for which the fully qualified name should be returned.</param>
+        /// <returns>The fully qualified name.</returns>
+        string FullName(Entity entity);
+
+        string Column(EntityProperty property);
+
+        string Identifier(string suggestedName);
     }
 }

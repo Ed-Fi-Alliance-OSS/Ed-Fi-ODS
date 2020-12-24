@@ -15,8 +15,12 @@ using Dapper;
 using EdFi.Common.Database;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Controllers.DataManagement;
+using EdFi.Ods.Api.Controllers.DataManagement.PhysicalNames;
+using EdFi.Ods.Api.Controllers.DataManagement.Validation;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
@@ -37,8 +41,10 @@ namespace EdFi.Ods.Api.Controllers
         private readonly IDatabaseConnectionStringProvider _connectionStringProvider;
         private readonly IRequestResourceResolver _requestResourceResolver;
         private readonly IResourceDataProvider _resourceDataProvider;
+        private readonly IPhysicalNamesProvider _physicalNamesProvider;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
+        private readonly IEntityPropertyValidator[] _propertyValidators;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(DataManagementResourceController));
         
@@ -46,15 +52,20 @@ namespace EdFi.Ods.Api.Controllers
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IRequestResourceResolver requestResourceResolver,
             IResourceDataProvider resourceDataProvider,
-            // Authorization-related
+            IPhysicalNamesProvider physicalNamesProvider,
+            // GET Authorization-related
             IAuthorizationContextProvider authorizationContextProvider,
-            IResourceClaimUriProvider resourceClaimUriProvider)
+            IResourceClaimUriProvider resourceClaimUriProvider,
+            // Validation related
+            IEntityPropertyValidator[] propertyValidators)
         {
             _connectionStringProvider = odsDatabaseConnectionStringProvider;
             _requestResourceResolver = requestResourceResolver;
             _resourceDataProvider = resourceDataProvider;
+            _physicalNamesProvider = physicalNamesProvider;
             _authorizationContextProvider = authorizationContextProvider;
             _resourceClaimUriProvider = resourceClaimUriProvider;
+            _propertyValidators = propertyValidators;
         }
         
         // Collection operations
@@ -81,6 +92,18 @@ namespace EdFi.Ods.Api.Controllers
             };
         }
 
+        // TODO: Simple API - Consider introducing the following class and passing it down through the call chain in favor of the context pattern.
+        // public class DataManagementRequestContext
+        // {
+        //     public Resource Resource { get; }
+        //
+        //     public string HttpMethod { get; set; }
+        //
+        //     public IQueryCollection Query { get; }
+        //     
+        //     public JObject Data { get; }
+        // }
+
         [HttpPost]
         public virtual async Task<IActionResult> Post([FromBody] JObject jsonData)
         {
@@ -91,32 +114,40 @@ namespace EdFi.Ods.Api.Controllers
                 return StatusCode(error.Code, new { error.Message });
             }
 
+            // TODO: Simple API - This *may* be better refactored out into a separate component, or possibly passed along the call chain as a DataManagementRequestContext parameter rather than using context here 
+            SetAuthorizationContext(resource, UpdateUri);
+
             // Get the primary key of the resource
             var primaryKeyValues = resource.AllIdentifyingProperties
                 .ToDictionary(
                     rp => rp.PropertyName, 
-                    rp => (object) jsonData[rp.JsonPropertyName].Value<JValue>().Value);
+                    rp => (object) jsonData[rp.JsonPropertyName]?.Value<JValue>().Value);
             
+            // Get the ODS data for the entire resource
             var resourceData = await _resourceDataProvider.GetResourceData(resource, Request.Query, primaryKeyValues);
 
-            var dataByFullName = resourceData.Results.ToDictionary(
+            // Group the data by resource class name
+            var dataByResourceName = resourceData.Results
+                .ToDictionary(
                 x => x.ResourceClass.FullName,
                 x => (List<object>) x.Results);
 
             // Process root resource class
-            var odsData = dataByFullName[resource.FullName];
+            var resourceRootData = dataByResourceName[resource.FullName];
             
             // Process identifying properties
-            IDictionary<string,object> odsRow = (IDictionary<string,object>) odsData[0];
+            IDictionary<string,object> resourceRootRecord = (IDictionary<string,object>) resourceRootData[0];
 
+            // If resource is derived, create/update the base entity first.
             if (resource.IsDerived)
             {
                 await Update(resource, resource.Entity.BaseEntity, jsonData);
             }
 
+            // Update the table for the resource root
             await Update(resource, resource.Entity, jsonData);
 
-            async Task Update(ResourceClassBase resourceClass, Entity entity, JObject sourceData)
+            async Task Update(ResourceClassBase resourceClass, Entity entity, JObject jsonData)
             {
                 var sqlSetBuilder = new StringBuilder();
                 var sqlFromBuilder = new StringBuilder();
@@ -126,74 +157,111 @@ namespace EdFi.Ods.Api.Controllers
                 
                 var parameters = new Dictionary<string, object>();
 
+                // Build the WHERE clause for the UPDATE
                 foreach (var identifyingProperty in resourceClass.AllIdentifyingProperties)
                 {
-                    string entityPropertyName = identifyingProperty.EntityProperty.PropertyName;
-                    parameters.Add(entityPropertyName, odsRow[entityPropertyName]);
-                    sqlWhereBuilder.Append($"AND {entityPropertyName} = @{entityPropertyName}");
+                    string parameterName = _physicalNamesProvider.Identifier(identifyingProperty.EntityProperty.PropertyName);
+                    string columnName = _physicalNamesProvider.Column(identifyingProperty.EntityProperty);
+                    
+                    parameters.Add(parameterName, resourceRootRecord[columnName]);
+                    sqlWhereBuilder.Append($"AND {columnName} = @{parameterName}");
                 }
 
                 string jsonPathBase = resourceClass.JsonPath + ".";
 
+                // Descriptor index used for simple descriptor table aliasing
                 int descriptorIndex = 1;
+                
                 var attemptedDescriptors = new List<ValueTuple<string, string, string>>();
                 
+                var coercionMessages = new List<string>();
+                var validationMessages = new List<string>();
+
                 // Process non-identifying properties
-                foreach (var property in resourceClass.NonIdentifyingProperties
-                        .Where(p => p.PropertyName != "Id")
+                foreach (var resourceProperty in resourceClass.NonIdentifyingProperties
+                        .Where(p => !p.IsResourceIdentifier())
                         .Where(p => p.EntityProperty.Entity == entity))
                 {
-                    string entityPropertyName = property.EntityProperty.PropertyName;
+                    var entityProperty = resourceProperty.EntityProperty;
 
-                    string relativeJsonPath = property.JsonPath.TrimPrefix(jsonPathBase);
+                    string relativeJsonPath = resourceProperty.JsonPath.TrimPrefix(jsonPathBase);
                     
-                    // var existingValue = odsRow[entityPropertyName];
-                    var proposedValue = jsonData.SelectToken(relativeJsonPath)?.Value<JValue>()?.Value; // [property.JsonPropertyName]?.Value<object>();
+                    var proposedValueAsObject = jsonData.SelectToken(relativeJsonPath)?.Value<JValue>()?.Value; // [property.JsonPropertyName]?.Value<object>();
 
-                    // var proposedValue = Convert.ChangeType(proposedValueAsObject, TypeCode.Int32); // property.PropertyType.GetTypeCode())
+                    var coercedValue = CoerceProposedValue(resourceProperty, proposedValueAsObject, coercionMessages); 
+                    ValidateProperty(entityProperty, coercedValue, resourceProperty.JsonPropertyName, validationMessages);
 
-                    if (property.EntityProperty.IsLookup)
+                    // If there are any errors, don't do additional work related to the query.
+                    if (coercionMessages.Any() || validationMessages.Any())
+                        continue;
+                    
+                    // Handle descriptor updates
+                    if (entityProperty.IsLookup)
                     {
-                        if (proposedValue == null)
+                        var proposedDescriptorValue = proposedValueAsObject as string;
+
+                        if (proposedDescriptorValue == null)
                         {
-                            //parameters.Add(entityPropertyName, proposedValue);
-                            sqlSetBuilder.Append($", {entityPropertyName} = NULL");
+                            // TODO: Simple API - May want to consider using a parameter here rather than literal SQL --> parameters.Add(entityPropertyName, proposedValue);
+                            sqlSetBuilder.Append($", {_physicalNamesProvider.Column(entityProperty)} = NULL");
                         }
                         else
                         {
-                            sqlFromBuilder.Append($", edfi.Descriptor d{descriptorIndex}");
+                            sqlFromBuilder.Append($", {EdFiConventions.PhysicalSchemaName}.Descriptor d{descriptorIndex}");
                             
-                            var descriptorParts = (proposedValue as string)?.Split('#');
+                            int delimiterPos = proposedDescriptorValue?.IndexOf('#') ?? -1;
 
-                            sqlSetBuilder.Append($", {entityPropertyName} = COALESCE(d{descriptorIndex}.DescriptorId, 0)");
+                            if (delimiterPos < 0 || delimiterPos == proposedDescriptorValue.Length)
+                            {
+                                throw new Exception("Format of descriptor value is incorrect.");
+                            }
+                            
+                            var descriptorNamespace = proposedDescriptorValue.Substring(0, delimiterPos);
+                            var descriptorCodeValue = proposedDescriptorValue.Substring(delimiterPos + 1);
+
+                            // TODO: Simple API - This implementation is SQL Server specific (needs a seam)
+                            sqlSetBuilder.Append($", {_physicalNamesProvider.Column(entityProperty)} = COALESCE(d{descriptorIndex}.DescriptorId, 0)");
 
                             sqlWhereBuilder.Append(
                                 $" AND (d{descriptorIndex}.Namespace = @d{descriptorIndex}Namespace AND d{descriptorIndex}.CodeValue = @d{descriptorIndex}CodeValue)");
                             
-                            parameters.Add($"d{descriptorIndex}Namespace", descriptorParts[0]);
-                            parameters.Add($"d{descriptorIndex}CodeValue", descriptorParts[1]);
+                            parameters.Add($"d{descriptorIndex}Namespace", descriptorNamespace);
+                            parameters.Add($"d{descriptorIndex}CodeValue", descriptorCodeValue);
 
                             descriptorWhereBuilder.Append(
                                 $" OR (Namespace = @d{descriptorIndex}Namespace AND CodeValue = @d{descriptorIndex}CodeValue)");
                             
-                            attemptedDescriptors.Add((property.LookupTypeName, descriptorParts[0], descriptorParts[1]));
+                            attemptedDescriptors.Add((resourceProperty.LookupTypeName, descriptorNamespace, descriptorCodeValue));
 
                             descriptorIndex++;
                         }
                     }
-                    else // if (!proposedValue.Equals(existingValue))
+                    else // TODO: Simple API - Consider "dirty" checking and only updating modified columns --> if (!proposedValue.Equals(existingValue))
                     {
-                        parameters.Add(entityPropertyName, proposedValue);
-                        sqlSetBuilder.Append($", {entityPropertyName} = @{entityPropertyName}");
+                        string parameterName = _physicalNamesProvider.Identifier(entityProperty.PropertyName);
+                        
+                        parameters.Add(parameterName, proposedValueAsObject);
+                        sqlSetBuilder.Append($", {_physicalNamesProvider.Column(entityProperty)} = @{parameterName}");
                     }
                 }
 
+                // If there are any errors, don't do additional work related to the query.
+                if (coercionMessages.Any() || validationMessages.Any())
+                {
+                    string validationMessage =
+                        $"Validation failed:\n{string.Join("\\n", coercionMessages.Concat(validationMessages))}";
+                        
+                    // TODO: Simple API - Report this in the response.
+                    throw new Exception(validationMessage);
+                }
+                
+                // TODO: Simple API - Obtain database-specific connection
                 using (var conn = new SqlConnection(_connectionStringProvider.GetConnectionString()))
                 {
                     await conn.OpenAsync();
 
                     string from = sqlFromBuilder.Length > 0
-                        ? $"FROM {resourceClass.FullName.Schema}.{resourceClass.FullName.Name}{sqlFromBuilder.ToString()}"
+                        ? $"FROM {resourceClass.FullName.Schema}.{resourceClass.FullName.Name}{sqlFromBuilder}"
                         : null;
 
                     string descriptorDiagnostics = descriptorWhereBuilder.Length > 0
@@ -204,13 +272,13 @@ namespace EdFi.Ods.Api.Controllers
                         : null;
                     
                     string sql = $@"
-    UPDATE {entity.FullName.Schema}.{entity.FullName.Name}
+    UPDATE {_physicalNamesProvider.FullName(entity)}
     SET {sqlSetBuilder.ToString(2, sqlSetBuilder.Length - 2)}
-    {@from}
+    {from}
     WHERE {sqlWhereBuilder.ToString(4, sqlWhereBuilder.Length - 4)}
     {descriptorDiagnostics}";
 
-                    if (descriptorDiagnostics.Length > 0)
+                    if (descriptorDiagnostics?.Length > 0)
                     {
                         using (var multipleResults = await conn.QueryMultipleAsync(sql, parameters))
                         {
@@ -253,6 +321,86 @@ namespace EdFi.Ods.Api.Controllers
             return Ok();
         }
 
+        private object CoerceProposedValue(ResourceProperty resourceProperty, object proposedValueAsObject, IList<string> coercionFailureMessages)
+        {
+            // No coercion performed on null values  
+            if (proposedValueAsObject == null)
+            {
+                return null;
+            }
+            
+            // Ensure proposed value is not the default value
+            switch (resourceProperty.PropertyType.DbType)
+            {
+                case DbType.Boolean:
+                    return Convert.ToBoolean(proposedValueAsObject);
+                
+                case DbType.Currency:
+                case DbType.Decimal:
+                    // TODO: Simple API - Convert class may be too quietly forgiving of bad data.
+                    return Convert.ToDecimal(proposedValueAsObject);
+                    
+                case DbType.Double:
+                    return Convert.ToDouble(proposedValueAsObject);
+                
+                case DbType.Single:
+                    return Convert.ToSingle(proposedValueAsObject);
+
+                case DbType.Int16:
+                    return Convert.ToInt16(proposedValueAsObject);
+
+                case DbType.Int32:
+                    return Convert.ToInt32(proposedValueAsObject);
+                
+                case DbType.Int64:
+                    return Convert.ToInt64(proposedValueAsObject);
+
+                case DbType.AnsiString:
+                case DbType.String:
+                case DbType.StringFixedLength:
+                case DbType.AnsiStringFixedLength:
+                    return Convert.ToString(proposedValueAsObject);
+
+                case DbType.Guid:
+                    if (!Guid.TryParse(Convert.ToString(proposedValueAsObject), out var guidValue))
+                    {
+                        coercionFailureMessages.Add($"Unable to convert value for property '{resourceProperty.JsonPropertyName}' to a {nameof(Guid)}.");
+                        return null;
+                    }
+
+                    return guidValue;
+
+                case DbType.Byte:
+                    return Convert.ToByte(proposedValueAsObject);
+                
+                case DbType.Date:
+                case DbType.DateTime:
+                case DbType.DateTime2:
+                    // TODO: Simple API - Needs more attention for proper ISO date/time formats here
+                    if (!DateTime.TryParse(Convert.ToString(proposedValueAsObject), out var dateTimeValue))
+                    {
+                        coercionFailureMessages.Add($"Unable to convert value for property '{resourceProperty.JsonPropertyName}' to a {nameof(DateTime)}.");
+                        return null;
+                    }
+
+                    return dateTimeValue;
+            }
+            
+            throw new NotImplementedException($"Coercion of property with {nameof(DbType)}.{resourceProperty.PropertyType.DbType.ToString()} has not yet been implemented.");
+        }
+
+        private void ValidateProperty(
+            EntityProperty entityProperty,
+            object proposedValueAsObject,
+            string jsonPropertyName,
+            List<string> validationMessages)
+        {
+            foreach (var validator in _propertyValidators)
+            {
+                validator.Validate(entityProperty, proposedValueAsObject, jsonPropertyName, validationMessages);
+            }
+        }
+        
         // Item-level operations
         [HttpGet]
         [Route("{id}")]
@@ -275,7 +423,7 @@ namespace EdFi.Ods.Api.Controllers
             return Ok(new {hello = "world"});
         }
         
-        // TODO: Simple API - This needs to be somewhere else (where Create vs Update can be determined after initial GetByKey (POST) or GetById (PUT))
+        // TODO: Simple API - These constants needs to be defined and used only closer to the database operations (where Create vs Update can be determined after initial GetByKey (POST) or GetById (PUT))
         private const string CreateUri = "http://ed-fi.org/odsapi/actions/create"; 
         private const string ReadUri = "http://ed-fi.org/odsapi/actions/read"; 
         private const string UpdateUri = "http://ed-fi.org/odsapi/actions/update"; 

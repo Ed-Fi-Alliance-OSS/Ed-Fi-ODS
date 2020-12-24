@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQueryTemplating
             => $@"DECLARE @ids as dbo.UniqueIdentifierTable
 
 INSERT INTO @ids
-SELECT /**select**/ FROM {_physicalNamesProvider.GetSchemaName(entity)}.{_physicalNamesProvider.GetTableName(entity)} AS e
+SELECT /**select**/ FROM {_physicalNamesProvider.FullName(entity)} AS e
     /**innerjoin**/
     /**leftjoin**/
 /**where**/

@@ -30,11 +30,7 @@ namespace EdFi.Ods.Common.Attributes
                     if (!enumerableHashSet.Add(item))
                     {
                         return
-                            new ValidationResult(
-                                string.Format(
-                                    "{0} enumerable contains duplicate at index: {1}",
-                                    validationContext.DisplayName,
-                                    i));
+                            new ValidationResult($"{validationContext.DisplayName} enumerable contains duplicate at index: {i}");
                     }
                 }
 

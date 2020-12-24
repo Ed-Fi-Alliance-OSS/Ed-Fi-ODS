@@ -16,10 +16,14 @@ namespace EdFi.Ods.Common.Models.Resource
     {
         private readonly ResourceMemberBase _containingMember;
 
+        private Lazy<bool> _isInheritedChild;
+        
         internal ResourceChildItem(IResourceModel resourceModel, Entity entity, FilterContext childContext, ResourceClassBase parentResource)
             : base(resourceModel, entity, childContext)
         {
             Parent = parentResource;
+
+            _isInheritedChild = InitializeIsInheritedChild();
         }
 
         internal ResourceChildItem(
@@ -35,6 +39,8 @@ namespace EdFi.Ods.Common.Models.Resource
             _containingMember = containingMember;
             
             Parent = parentResource;
+
+            _isInheritedChild = InitializeIsInheritedChild();
         }
 
         internal ResourceChildItem(ResourceChildItem[] resourceChildItems, ResourceClassBase parentResource)
@@ -43,6 +49,8 @@ namespace EdFi.Ods.Common.Models.Resource
                                   .ToArray())
         {
             Parent = parentResource;
+            
+            _isInheritedChild = InitializeIsInheritedChild();
         }
 
         /// <summary>
@@ -55,6 +63,8 @@ namespace EdFi.Ods.Common.Models.Resource
             : base(name)
         {
             Parent = parentResource;
+            
+            _isInheritedChild = InitializeIsInheritedChild();
         }
 
         public ResourceChildItem(
@@ -70,8 +80,43 @@ namespace EdFi.Ods.Common.Models.Resource
             _containingMember = containingMember;
             
             Parent = parentResource;
+            
+            _isInheritedChild = InitializeIsInheritedChild();
         }
 
+        private Lazy<bool> InitializeIsInheritedChild()
+        {
+            return new Lazy<bool>(() =>
+            {
+                // TODO: Simple API - Consider the following line as an alternative implementation
+                // return (resourceClass.Entity.Aggregate.AggregateRoot != resourceClass.ResourceRoot.Entity)
+                
+                // Get the lineage from bottom to top, leaving out the root resource class
+                var lineage = GetLineage()
+                    .Skip(1)
+                    .Reverse()
+                    .Cast<ResourceChildItem>();
+
+                // Iterate up the lineage looking for evidence of divergence in the reported "Parent" names (between the underlying Entities and Resource classes)
+                foreach (var resourceClass in lineage)
+                {
+                    // Quit looking if this is a child of an entity extension
+                    if (resourceClass.Parent.IsResourceExtensionClass)
+                    {
+                        break;
+                    }
+
+                    // Are the parents' names different between the resource and the underlying entity? This is the indication that this is a child from a base resource.
+                    if (resourceClass.Entity != null && resourceClass.Parent.FullName != resourceClass.Entity.Parent.FullName)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            });
+        }
+        
         public ResourceMemberBase ContainingMember
         {
             get => _containingMember;
@@ -140,32 +185,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// </summary>
         public bool IsInheritedChildItem
         {
-            get
-            {
-                // Get the lineage from bottom to top, leaving out the root resource class
-                var lineage = GetLineage()
-                             .Skip(1)
-                             .Reverse()
-                             .Cast<ResourceChildItem>();
-
-                // Iterate up the lineage looking for evidence of divergence in the reported "Parent" names (between the underlying Entities and Resource classes)
-                foreach (var resourceClass in lineage)
-                {
-                    // Quit looking if this is a child of an entity extension
-                    if (resourceClass.Parent.IsResourceExtensionClass)
-                    {
-                        break;
-                    }
-
-                    // Are the parents' names different between the resource and the underlying entity? This is the indication that this is a child from a base resource.
-                    if (resourceClass.Entity != null && resourceClass.Parent.FullName != resourceClass.Entity.Parent.FullName)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
+            get => _isInheritedChild.Value;
         }
 
         public ResourceClassBase Parent { get; }

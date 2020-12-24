@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Extensions
@@ -45,6 +46,16 @@ namespace EdFi.Ods.Common.Extensions
             return resourceProperty.EntityProperty.Entity.DomainModel.SchemaNameMapProvider
                                    .GetSchemaMapByPhysicalName(resourceProperty.EntityProperty.Entity.Schema)
                                    .ProperCaseName;
+        }
+
+        /// <summary>
+        /// Indicates whether or not the property is the resource identifier (i.e. Id) property.
+        /// </summary>
+        /// <param name="resourceProperty">The property to be evaluated.</param>
+        /// <returns><b>true</b> if the property's name is "Id"; otherwise <b>false</b>.</returns>
+        public static bool IsResourceIdentifier(this ResourceProperty resourceProperty)
+        {
+            return resourceProperty.PropertyName.EqualsIgnoreCase("Id");
         }
     }
 }
