@@ -6,31 +6,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Dapper;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Exceptions;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Common.Utils.Extensions;
 using log4net;
-using NHibernate;
-using NHibernate.Exceptions;
-using NHibernate.Transform;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure
 {
     public class HqlBuilder : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
+        private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
+        
         private const string BaseEntityIdName = "__BaseEntityId__";
 
         private static readonly Dictionary<string, string> RangeOperatorBySymbol = new Dictionary<string, string>
@@ -45,30 +43,20 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         private static readonly Regex _rangeRegex = new Regex(
             @"(?<PropertyName>\w+):(?<BeginRangeSymbol>[\[\{])((?<BeginValue>[0-9]{4}-[0-9]{1,2}-[0-9]{1,2})(\.\.\.|\.\.|…)(?<EndValue>[0-9]{4}-[0-9]{1,2}-[0-9]{1,2})|(?<BeginValue>[0-9\.]+?)(\.\.\.|\.\.|…)(?<EndValue>[0-9\.]+?))(?<EndRangeSymbol>[\}\]])",
             RegexOptions.Compiled);
-        private readonly IDescriptorsCache _descriptorsCache;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(HqlBuilder));
-        private readonly IPersonUniqueIdToUsiCache _personUniqueIdToUsiCache;
         private readonly IResourceJoinPathExpressionProcessor _resourceJoinPathExpressionProcessor;
-        private readonly IParameterListSetter _parameterListSetter;
-
-        private readonly ISessionFactory _sessionFactory;
 
         public HqlBuilder(
-            ISessionFactory sessionFactory,
-            IDescriptorsCache descriptorsCache,
-            IPersonUniqueIdToUsiCache personUniqueIdToUsiCache,
-            IResourceJoinPathExpressionProcessor resourceJoinPathExpressionProcessor,
-            IParameterListSetter parameterListSetter)
+            IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
+            IResourceJoinPathExpressionProcessor resourceJoinPathExpressionProcessor
+            )
         {
-            _sessionFactory = Preconditions.ThrowIfNull(sessionFactory, nameof(sessionFactory));
-            _descriptorsCache = Preconditions.ThrowIfNull(descriptorsCache, nameof(descriptorsCache));
-            _personUniqueIdToUsiCache = Preconditions.ThrowIfNull(personUniqueIdToUsiCache, nameof(personUniqueIdToUsiCache));
+            _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
 
             _resourceJoinPathExpressionProcessor = Preconditions.ThrowIfNull(
-                resourceJoinPathExpressionProcessor, nameof(resourceJoinPathExpressionProcessor));
-
-            _parameterListSetter = Preconditions.ThrowIfNull(parameterListSetter, nameof(parameterListSetter));
+                resourceJoinPathExpressionProcessor,
+                nameof(resourceJoinPathExpressionProcessor));
         }
 
         /// <summary>
@@ -85,36 +73,18 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             builderContext.SpecificationFrom = new StringBuilder();
             builderContext.SpecificationWhere = new StringBuilder();
 
-            // Fully qualified entity name is required to perform hql queries for an entity
-            // This requirement was added in phase 3 when multiple entity extensions were added to the same entity
-            var properCaseName =
-                resource.Entity.DomainModel.SchemaNameMapProvider.GetSchemaMapByPhysicalName(
-                        resource.Entity.Schema)
-                    .ProperCaseName;
-
-            // Root level queries start with the "Q" version of the model
-            var aggregateNamespace = Namespaces.Entities.NHibernate.QueryModels
-                .GetAggregateNamespace(resource.Entity.Name, properCaseName);
-
-            builderContext.From
-                .AppendFormat(
-                    "{0}\t{1}Q {2}",
-                    Environment.NewLine,
-                    $@"{aggregateNamespace}.{resource.Entity.Name}",
-                    builderContext.CurrentAlias);
+            builderContext.From.Append(
+                $"\r\n\t{resource.Entity.Schema}.{resource.Entity.Name} AS {builderContext.CurrentAlias}");
 
             // Add the selection of the main query Id
             if (resource.IdentifyingProperties.Count > 1)
             {
-                builderContext.Select.AppendFormat("{0}.Id As {1}", builderContext.CurrentAlias, BaseEntityIdName);
+                builderContext.Select.Append($"{builderContext.CurrentAlias}.Id As {BaseEntityIdName}");
             }
             else
             {
-                builderContext.Select.AppendFormat(
-                    "{0}.{1} As {2}",
-                    builderContext.CurrentAlias,
-                    resource.Entity.Identifier.Properties.Single(),
-                    BaseEntityIdName);
+                builderContext.Select.Append(
+                    $"{builderContext.CurrentAlias}.{resource.Entity.Identifier.Properties.Single()} As {BaseEntityIdName}");
             }
 
             if (builderContext.FilterCriteria.Count > 0)
@@ -147,12 +117,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             // Add property to where clause
                             string parameterName = key.Replace(".", "_");
 
-                            builderContext.SpecificationWhere.AppendFormat(
-                                "{0}{1}.{2} = :{3}",
-                                AndIfNeeded(builderContext.SpecificationWhere),
-                                parentFilterJoinAlias,
-                                pathPart,
-                                parameterName);
+                            builderContext.SpecificationWhere.Append(
+                                $"{AndIfNeeded(builderContext.SpecificationWhere)}{parentFilterJoinAlias}.{pathPart} = @{parameterName}");
 
                             builderContext.ParameterValueByName.Add(parameterName, value);
                         },
@@ -163,12 +129,10 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             // Add a join
                             thisFilterJoinAlias = builderContext.AliasGenerator.GetNextAlias();
 
-                            builderContext.SpecificationFrom.AppendFormat(
-                                "{0}\tjoin {1}.{2} {3}",
-                                Environment.NewLine,
-                                parentFilterJoinAlias,
-                                reference.Association.Name,
-                                thisFilterJoinAlias);
+                            builderContext.SpecificationFrom.Append(
+                                // $"\r\n\tinner join {parentFilterJoinAlias}.{reference.Association.Name} AS {thisFilterJoinAlias}");
+                                $"\r\n\tinner join {reference.Association.OtherEntity.Schema}.{reference.Association.OtherEntity.Name} AS {thisFilterJoinAlias}"
+                                + $" ON {CreateJoinCriteria(reference.Association, parentFilterJoinAlias, thisFilterJoinAlias)}");
                         },
                         (collection, pathPart) =>
                         {
@@ -178,12 +142,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             // Add a join
                             thisFilterJoinAlias = builderContext.AliasGenerator.GetNextAlias();
 
-                            builderContext.SpecificationFrom.AppendFormat(
-                                "{0}\tjoin {1}.{2} {3}",
-                                Environment.NewLine,
-                                parentFilterJoinAlias,
-                                collection.PropertyName,
-                                thisFilterJoinAlias);
+                            builderContext.SpecificationFrom.Append(
+                                $"\r\n\tinner join {collection.Association.OtherEntity.Schema}.{collection.Association.OtherEntity.Name} AS {thisFilterJoinAlias}"
+                                + $" ON {CreateJoinCriteria(collection.Association, parentFilterJoinAlias, thisFilterJoinAlias)}");
                         },
                         (linkedCollection, pathPart) =>
                         {
@@ -193,12 +154,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             // Add a join
                             thisFilterJoinAlias = builderContext.AliasGenerator.GetNextAlias();
 
-                            builderContext.SpecificationFrom.AppendFormat(
-                                "{0}\tjoin {1}.{2} {3}",
-                                Environment.NewLine,
-                                parentFilterJoinAlias,
-                                linkedCollection.PropertyName,
-                                thisFilterJoinAlias);
+                            builderContext.SpecificationFrom.Append(
+                                $"\r\n\tinner join {linkedCollection.Association.OtherEntity.Schema}.{linkedCollection.Association.OtherEntity.Name} AS {thisFilterJoinAlias}"
+                                + $" ON {CreateJoinCriteria(linkedCollection.Association, parentFilterJoinAlias, thisFilterJoinAlias)}");
                         },
                         (embeddedObject, pathPart) =>
                         {
@@ -207,12 +165,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             // Add a join
                             thisFilterJoinAlias = builderContext.AliasGenerator.GetNextAlias();
 
-                            builderContext.SpecificationFrom.AppendFormat(
-                                "{0}\tjoin {1}.{2} {3}",
-                                Environment.NewLine,
-                                parentFilterJoinAlias,
-                                embeddedObject.PropertyName,
-                                thisFilterJoinAlias);
+                            builderContext.SpecificationFrom.Append(
+                                $"\r\n\tinner join {embeddedObject.Association.OtherEntity.Schema}.{embeddedObject.Association.OtherEntity.Name} AS {thisFilterJoinAlias}"
+                                + $" ON {CreateJoinCriteria(embeddedObject.Association, parentFilterJoinAlias, thisFilterJoinAlias)}");
                         });
                 }
             }
@@ -234,18 +189,27 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             }
         }
 
-        public void ApplyChildResource(
-            HqlBuilderContext builderContext,
-            CompositeDefinitionProcessorContext processorContext)
+        private string CreateJoinCriteria(AssociationView association, string parentJoinAlias, string thisJoinAlias)
+        {
+            return string.Join(" AND ", association.PropertyMappings.Select(
+                pm
+                    => $"{parentJoinAlias}.{pm.ThisProperty.PropertyName} = {thisJoinAlias}.{pm.OtherProperty.PropertyName}"));
+        }
+
+        private string CreateJoinCriteria(string parentJoinAlias, string thisJoinAlias, params PropertyMapping[] propertyMappings)
+        {
+            return string.Join(" AND ", propertyMappings.Select(
+                pm
+                    => $"{parentJoinAlias}.{pm.ThisProperty.PropertyName} = {thisJoinAlias}.{pm.OtherProperty.PropertyName}"));
+        }
+
+        public void ApplyChildResource(HqlBuilderContext builderContext, CompositeDefinitionProcessorContext processorContext)
         {
             builderContext.CurrentAlias = builderContext.AliasGenerator.GetNextAlias();
 
-            builderContext.From.AppendFormat(
-                "{0}\tjoin {1}.{2} {3}",
-                Environment.NewLine,
-                builderContext.ParentAlias,
-                processorContext.EntityMemberName,
-                builderContext.CurrentAlias);
+            builderContext.From.Append(
+                $"\r\n\tinner join {processorContext.JoinAssociation.OtherEntity.Schema}.{processorContext.JoinAssociation.OtherEntity.Name} AS {builderContext.CurrentAlias}"
+                + $" ON {CreateJoinCriteria(processorContext.JoinAssociation, builderContext.ParentAlias, builderContext.CurrentAlias)}");
 
             var collection = processorContext.CurrentResourceMember as Collection;
 
@@ -255,57 +219,48 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
                 foreach (var valueFilter in collection.ValueFilters)
                 {
-                    // Get the actual filter to which the property applies
-                    var filterProperty = collection.ItemType.AllPropertyByName[valueFilter.PropertyName];
-
-                    string parameterName =
-                        builderContext.CurrentAlias
-                        + "_" + valueFilter.PropertyName
-                        + "_" + (valueFilter.FilterMode == ItemFilterMode.ExcludeOnly
-                            ? "0"
-                            : "1");
+                    // TODO: Simple API - Implement support for collection value filtering
+                    // // Get the actual filter to which the property applies
+                    // var filterProperty = collection.ItemType.AllPropertyByName[valueFilter.PropertyName];
+                    //
+                    // string parameterName = builderContext.CurrentAlias
+                    //     + "_"
+                    //     + valueFilter.PropertyName
+                    //     + "_"
+                    //     + (valueFilter.FilterMode == ItemFilterMode.ExcludeOnly
+                    //         ? "0"
+                    //         : "1");
 
                     // Set the filter values
-                    object parametersAsObject;
+                    // object parametersAsObject;
 
+                    // ------------------------------------------------------------------------
+                    // TODO: Simple API - Need to replace use of descriptor cache here
+                    // ------------------------------------------------------------------------
                     // Is this a first time parameter value assignment?
-                    if (!builderContext.CurrentQueryFilterParameterValueByName.TryGetValue(parameterName, out parametersAsObject))
-                    {
-                        // Process filters into the query
-                        filterWhere.AppendFormat(
-                            "{0}{1}.{2}Id {3} (:{4})",
-                            OrIfNeeded(filterWhere),
-                            builderContext.CurrentAlias,
-                            valueFilter.PropertyName,
-                            valueFilter.FilterMode == ItemFilterMode.ExcludeOnly
-                                ? "NOT IN"
-                                : "IN",
-                            parameterName);
-
-                        // Set the parameter values
-                        builderContext.CurrentQueryFilterParameterValueByName[parameterName]
-                            = valueFilter.Values
-                                .Select(x => _descriptorsCache.GetId(filterProperty.LookupTypeName, x))
-                                .ToArray();
-                    }
-                    else
-                    {
-                        // Concatenate the current filter's values to the existing parameter list
-                        builderContext.CurrentQueryFilterParameterValueByName[parameterName]
-                            = (parametersAsObject as int[])
-                            .Concat(
-                                valueFilter.Values
-                                    .Select(x => _descriptorsCache.GetId(filterProperty.LookupTypeName, x))
-                            )
-                            .ToArray();
-                    }
+                    // if (!builderContext.CurrentQueryFilterParameterValueByName.TryGetValue(parameterName, out parametersAsObject))
+                    // {
+                    //     // Process filters into the query
+                    //     filterWhere.Append(
+                    //         $"{OrIfNeeded(filterWhere)}{builderContext.CurrentAlias}.{valueFilter.PropertyName}Id {(valueFilter.FilterMode == ItemFilterMode.ExcludeOnly ? "NOT IN" : "IN")} (@{parameterName})");
+                    //
+                    //     // Set the parameter values
+                    //     builderContext.CurrentQueryFilterParameterValueByName[parameterName] = valueFilter.Values
+                    //         .Select(x => _descriptorsCache.GetId(filterProperty.LookupTypeName, x))
+                    //         .ToArray();
+                    // }
+                    // else
+                    // {
+                    //     // Concatenate the current filter's values to the existing parameter list
+                    //     builderContext.CurrentQueryFilterParameterValueByName[parameterName] = (parametersAsObject as int[])
+                    //         .Concat(valueFilter.Values.Select(x => _descriptorsCache.GetId(filterProperty.LookupTypeName, x)))
+                    //         .ToArray();
+                    // }
+                    // ------------------------------------------------------------------------
                 }
 
                 // Apply all the filters using an AND clause
-                builderContext.Where.AppendFormat(
-                    "{0}({1})",
-                    AndIfNeeded(builderContext.Where),
-                    filterWhere);
+                builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}({filterWhere})");
             }
         }
 
@@ -327,8 +282,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 null,
                 null,
                 null,
-                builderContext.AliasGenerator
-            );
+                builderContext.AliasGenerator);
 
             flattenedBuilderContext.PropertyProjections = builderContext.PropertyProjections;
 
@@ -340,29 +294,23 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         /// </summary>
         /// <param name="member">The flattened ReferencedResource or EmbeddedObject to be applied to the build result.</param>
         /// <param name="builderContext">The builder context.</param>
-        public void ApplyFlattenedMember(
-            ResourceMemberBase member,
-            HqlBuilderContext builderContext)
+        public void ApplyFlattenedMember(ResourceMemberBase member, HqlBuilderContext builderContext)
         {
             var downCastedReference = member as Reference;
             var downCastedEmbeddedObject = member as EmbeddedObject;
             var downCastedResourceProperty = member as ResourceProperty;
 
-            string associationName =
-                downCastedReference?.Association?.Name
-                ?? downCastedEmbeddedObject?.Association?.Name
-                ?? downCastedResourceProperty?.PropertyName;
+            var association = downCastedReference != null
+                ? downCastedReference.Association
+                : downCastedEmbeddedObject.Association;
 
             // Create a new alias
             builderContext.CurrentAlias = builderContext.AliasGenerator.GetNextAlias();
 
             // Add the connective HQL join for processing the flattened reference
-            builderContext.From.AppendFormat(
-                "{0}\tjoin {1}.{2} {3}",
-                Environment.NewLine,
-                builderContext.ParentAlias,
-                associationName,
-                builderContext.CurrentAlias);
+            builderContext.From.Append(
+                $"\r\n\tinner join {association.OtherEntity.Schema}.{association.OtherEntity.Name} AS {builderContext.CurrentAlias}" 
+                + $" ON {CreateJoinCriteria(association, builderContext.ParentAlias, builderContext.CurrentAlias)}");
         }
 
         /// <summary>
@@ -380,23 +328,22 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             locallyDefinedIdentifyingProperties.ForEach(
                 pk =>
                 {
-                    builderContext.Select.AppendFormat(
-                        "{0}{1}.{2} as PK{3}{4}_{2}",
-                        CommaIfNeeded(builderContext.Select),
-                        builderContext.CurrentAlias,
-                        pk.PropertyName,
-                        builderContext.Depth,
-                        (char) (processorContext.ChildIndex + 'a'));
+                    string commaIfNeeded = CommaIfNeeded(builderContext.Select);
+                    int depth = builderContext.Depth;
+                    char depthModifier = (char) (processorContext.ChildIndex + 'a');
+
+                    builderContext.Select.Append(
+                        $"{commaIfNeeded}{builderContext.CurrentAlias}.{pk.PropertyName} as PK{depth}{depthModifier}_{pk.PropertyName}");
                 });
 
             // Add ORDER BY for the primary keys
             locallyDefinedIdentifyingProperties.ForEach(
                 pk =>
-                    builderContext.OrderBy.AppendFormat(
-                        "{0}{1}.{2}",
-                        CommaIfNeeded(builderContext.OrderBy),
-                        builderContext.CurrentAlias,
-                        pk.PropertyName));
+                {
+                    string commaIfNeeded = CommaIfNeeded(builderContext.OrderBy);
+                    
+                    builderContext.OrderBy.Append($"{commaIfNeeded}{builderContext.CurrentAlias}.{pk.PropertyName}");
+                });
         }
 
         /// <summary>
@@ -519,54 +466,48 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             {
                 string discriminatorDisplayName = processorContext.CurrentResourceClass.Name.ToCamelCase() + "Type";
 
-                builderContext.Select.AppendFormat(
-                    "{0}{1}.{2} as {3}__PassThrough",
-                    CommaIfNeeded(builderContext.Select),
-                    builderContext.CurrentAlias,
-                    "Discriminator",
-                    discriminatorDisplayName);
+                string commaIfNeeded = CommaIfNeeded(builderContext.Select);
+
+                builderContext.Select.Append(
+                    $"{commaIfNeeded}{builderContext.CurrentAlias}.Discriminator as {discriminatorDisplayName}__PassThrough");
             }
 
-            propertyProjections
-               .ForEach(
-                    p =>
+            propertyProjections.ForEach(
+                p =>
+                {
+                    builderContext.PropertyProjections.Add(p);
+
+                    if (p.ResourceProperty.EntityProperty.IsLookup)
                     {
-                        builderContext.PropertyProjections.Add(p);
+                        string lookupAlias = builderContext.AliasGenerator.GetNextAlias();
+                        string commaIfNeeded = CommaIfNeeded(builderContext.Select);
+                        string namespaceColumnAlias = p.DisplayName.ToCamelCase() ?? p.ResourceProperty.PropertyName.ToCamelCase();
 
-                        if (p.ResourceProperty.EntityProperty.IsLookup)
-                        {
-                            string lookupAlias = builderContext.AliasGenerator.GetNextAlias();
+                        builderContext.Select.Append(
+                            $"{commaIfNeeded}{lookupAlias}.Namespace as {namespaceColumnAlias}__Namespace");
 
-                            builderContext.Select.AppendFormat(
-                                "{0}{1}.Namespace as {2}__Namespace",
-                                CommaIfNeeded(builderContext.Select),
-                                lookupAlias,
-                                p.DisplayName.ToCamelCase() ?? p.ResourceProperty.PropertyName.ToCamelCase());
+                        string columnIfNeeded2 = CommaIfNeeded(builderContext.Select);
+                        string codeValueAlias = p.DisplayName.ToCamelCase() ?? p.ResourceProperty.PropertyName.ToCamelCase();
 
-                            builderContext.Select.AppendFormat(
-                                "{0}{1}.{2} as {3}",
-                                CommaIfNeeded(builderContext.Select),
-                                lookupAlias,
-                                "CodeValue",
-                                p.DisplayName.ToCamelCase() ?? p.ResourceProperty.PropertyName.ToCamelCase());
+                        builderContext.Select.Append($"{columnIfNeeded2}{lookupAlias}.CodeValue as {codeValueAlias}");
 
-                            builderContext.From.AppendFormat(
-                                "{0}\t\tleft join {1}.{2} {3} ",
-                                Environment.NewLine,
-                                builderContext.CurrentAlias,
-                                p.ResourceProperty.PropertyName,
-                                lookupAlias);
-                        }
-                        else
-                        {
-                            builderContext.Select.AppendFormat(
-                                "{0}{1}.{2} as {3}",
-                                CommaIfNeeded(builderContext.Select),
-                                builderContext.CurrentAlias,
-                                p.ResourceProperty.EntityProperty.PropertyName,
-                                p.DisplayName.ToCamelCase() ?? p.ResourceProperty.EntityProperty.PropertyName.ToCamelCase());
-                        }
-                    });
+                        var descriptorEntity = p.ResourceProperty.EntityProperty.LookupEntity.BaseEntity;
+
+                        builderContext.From.Append(
+                            $"\r\n\t\tleft join {descriptorEntity.Schema}.{descriptorEntity.Name} AS {lookupAlias}"
+                            + $" ON {CreateJoinCriteria(builderContext.CurrentAlias, lookupAlias, new PropertyMapping(p.ResourceProperty.EntityProperty, descriptorEntity.Identifier.Properties.Single()))}");
+                    }
+                    else
+                    {
+                        string commaIfNeeded = CommaIfNeeded(builderContext.Select);
+
+                        string columnName = p.ResourceProperty.EntityProperty.PropertyName;
+                        string columnAlias = p.DisplayName.ToCamelCase() ?? p.ResourceProperty.EntityProperty.PropertyName.ToCamelCase();
+
+                        builderContext.Select.Append(
+                            $"{commaIfNeeded}{builderContext.CurrentAlias}.{columnName} as {columnAlias}");
+                    }
+                });
         }
 
         /// <summary>
@@ -584,38 +525,43 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             rootCompositeQuery = null;
 
             // If this is the main query, execute the query and get the Ids and use as criteria for child queries.
-            string hql =
-                "select " + (builderContext.NeedDistinct
-                              ? "distinct "
-                              : string.Empty)
-                          + $"{Environment.NewLine}\t" + builderContext.Select
-                          + $"{Environment.NewLine}from " + builderContext.From + builderContext.SpecificationFrom
-                          + (builderContext.SpecificationWhere.Length > 0 || builderContext.Where.Length > 0
-                              ? $"{Environment.NewLine}where " + builderContext.SpecificationWhere
-                                                               + ConnectingAndIfNeeded(builderContext.SpecificationWhere, builderContext.Where) +
-                                                               builderContext.Where
-                              : string.Empty)
-                          + (builderContext.OrderBy.Length > 0
-                              ? $"{Environment.NewLine}order by " + builderContext.OrderBy
-                              : string.Empty);
+            string hql = "select "
+                + (builderContext.NeedDistinct
+                    ? "distinct "
+                    : string.Empty)
+                + "\r\n\t"
+                + builderContext.Select
+                + "\r\nfrom "
+                + builderContext.From
+                + builderContext.SpecificationFrom
+                + (builderContext.SpecificationWhere.Length > 0 || builderContext.Where.Length > 0
+                    ? "\r\nwhere "
+                    + builderContext.SpecificationWhere
+                    + ConnectingAndIfNeeded(builderContext.SpecificationWhere, builderContext.Where)
+                    + builderContext.Where
+                    : string.Empty)
+                + (builderContext.OrderBy.Length > 0
+                    ? "\r\norder by " + builderContext.OrderBy
+                    : string.Empty);
 
             if (_logger.IsDebugEnabled)
             {
                 object correlationId;
 
                 if (builderContext.QueryStringParameters.TryGetValue(
-                    SpecialQueryStringParameters.CorrelationId, out correlationId))
+                    SpecialQueryStringParameters.CorrelationId,
+                    out correlationId))
                 {
-                    _logger.DebugFormat("HQL[{0}]:{1}{2}", correlationId, Environment.NewLine, hql);
+                    _logger.DebugFormat("SQL[{0}]:\r\n{1}", correlationId, hql);
                 }
                 else
                 {
-                    _logger.DebugFormat("HQL:{0}{1}", Environment.NewLine, hql);
+                    _logger.DebugFormat("SQL:\r\n{0}", hql);
                 }
             }
 
-            var session = _sessionFactory.GetCurrentSession();
-            var query = session.CreateQuery(hql);
+            // var session = _sessionFactory.GetCurrentSession();
+            // var query = session.CreateQuery(hql);
 
             object offsetParameterObject = 0;
             object limitParameterObject = 0;
@@ -639,73 +585,85 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 }
             }
 
-            query.SetFirstResult(offset);
+            int actualLimit = (limit == 0)
+                ? 25
+                : limit;
+            
+            hql += $" OFFSET {offset} ROWS FETCH NEXT {actualLimit} ROWS ONLY";
 
-            query.SetMaxResults(
-                limit == 0
-                    ? 25
-                    : limit);
-
-            SetQueryParameters(query, builderContext.ParameterValueByName);
-            SetQueryParameters(query, builderContext.CurrentQueryFilterParameterValueByName);
-
-            // Append the where clause for Id selection
-            // Add the selection of the main query Id
-            if (processorContext.CurrentResourceClass.IdentifyingProperties.Count > 1)
+            using (var conn = new SqlConnection(_odsDatabaseConnectionStringProvider.GetConnectionString()))
             {
-                builderContext.ParentingContext.Where.AppendFormat(
-                    "{0}{1}.Id IN (:BaseEntityId)",
-                    AndIfNeeded(builderContext.ParentingContext.Where),
-                    builderContext.CurrentAlias);
+                conn.Open();
+
+                DynamicParameters parameters = new DynamicParameters();
+            
+                // parameters.AddDynamicParams(builderContext.ParameterValueByName);
+                // parameters.AddDynamicParams(builderContext.CurrentQueryFilterParameterValueByName);
+                SetQueryParameters(parameters, builderContext.ParameterValueByName);
+                SetQueryParameters(parameters, builderContext.CurrentQueryFilterParameterValueByName);
+
+                // SetQueryParameters(query, builderContext.ParameterValueByName);
+                // SetQueryParameters(query, builderContext.CurrentQueryFilterParameterValueByName);
+
+                // Append the where clause for Id selection
+                // Add the selection of the main query Id
+                if (processorContext.CurrentResourceClass.IdentifyingProperties.Count > 1)
+                {
+                    builderContext.ParentingContext.Where.AppendFormat(
+                        "{0}{1}.Id IN @BaseEntityId",
+                        AndIfNeeded(builderContext.ParentingContext.Where),
+                        builderContext.CurrentAlias);
+                }
+                else
+                {
+                    builderContext.ParentingContext.Where.AppendFormat(
+                        "{0}{1}.{2} IN @BaseEntityId",
+                        AndIfNeeded(builderContext.ParentingContext.Where),
+                        builderContext.CurrentAlias,
+                        processorContext.CurrentResourceClass.Entity.Identifier.Properties.Single().PropertyName);
+                }
+
+                // This is the main/base query, so execute the query and get the Ids and use as criteria for child queries.
+
+                List<IDictionary<string, object>> queryResults = null;
+
+                try
+                {
+                    var queryResults1 = conn.Query(hql, parameters);
+
+                    queryResults = queryResults1.Cast<IDictionary<string, object>>().ToList();
+
+                    // queryResults = query.SetResultTransformer(Transformers.AliasToEntityMap).List<object>();
+                }
+                catch (Exception ex)
+                {
+                    _logger.Error("Query execution failed (likely due to invalid parameter values). ", ex);
+
+                    throw new ArgumentException("Query execution failed (likely due to invalid parameter values).", ex);
+                }
+
+                // Get the Ids and assign to the parameters
+                var mainQueryIds = queryResults.Cast<IDictionary<string, object>>().Select(ht => ht[BaseEntityIdName]).ToList();
+
+                if (!mainQueryIds.Any())
+                {
+                    return false;
+                }
+
+                builderContext.ParameterValueByName[BaseEntityIdName] = mainQueryIds;
+
+                var thisQuery = new CompositeQuery(
+                    processorContext.MemberDisplayName,
+                    builderContext.PropertyProjections
+                        .Select(x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase())
+                        .ToArray(),
+                    queryResults,
+                    builderContext.IsSingleItemResult);
+
+                rootCompositeQuery = thisQuery;
+
+                return true;
             }
-            else
-            {
-                builderContext.ParentingContext.Where.AppendFormat(
-                    "{0}{1}.{2} IN (:BaseEntityId)",
-                    AndIfNeeded(builderContext.ParentingContext.Where),
-                    builderContext.CurrentAlias,
-                    processorContext.CurrentResourceClass.Entity.Identifier.Properties.Single()
-                        .PropertyName);
-            }
-
-            // This is the main/base query, so execute the query and get the Ids and use as criteria for child queries.
-
-            IList<object> queryResults = null;
-
-            try
-            {
-                queryResults = query
-                    .SetResultTransformer(Transformers.AliasToEntityMap)
-                    .List<object>();
-            }
-            catch (GenericADOException ex)
-            {
-                _logger.Error("Query execution failed (likely due to invalid parameter values). ", ex);
-                throw new ArgumentException("Query execution failed (likely due to invalid parameter values).");
-            }
-
-            // Get the Ids and assign to the parameters
-            var mainQueryIds = queryResults.Cast<Hashtable>()
-                .Select(ht => ht[BaseEntityIdName])
-                .ToList();
-
-            if (!mainQueryIds.Any())
-            {
-                return false;
-            }
-
-            builderContext.ParameterValueByName[BaseEntityIdName] = mainQueryIds;
-
-            var thisQuery = new CompositeQuery(
-                processorContext.MemberDisplayName,
-                builderContext.PropertyProjections.Select(
-                        x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase())
-                    .ToArray(),
-                queryResults,
-                builderContext.IsSingleItemResult);
-
-            rootCompositeQuery = thisQuery;
-            return true;
         }
 
         /// <summary>
@@ -720,62 +678,74 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             HqlBuilderContext builderContext,
             CompositeDefinitionProcessorContext processorContext)
         {
-            string hql =
-                $"select {Environment.NewLine}\t" + builderContext.Select
-                                + $"{Environment.NewLine}from " + builderContext.From
-                                + (builderContext.Where.Length > 0
-                                    ? $"{Environment.NewLine}where " + builderContext.Where
-                                    : string.Empty)
-                                + $"{Environment.NewLine}order by " + builderContext.OrderBy;
+            string hql = "select \r\n\t"
+                + builderContext.Select
+                + "\r\nfrom "
+                + builderContext.From
+                + (builderContext.Where.Length > 0
+                    ? "\r\nwhere " + builderContext.Where
+                    : string.Empty)
+                + "\r\norder by "
+                + builderContext.OrderBy;
 
             if (_logger.IsDebugEnabled)
             {
                 object correlationId;
 
                 if (builderContext.QueryStringParameters.TryGetValue(
-                    SpecialQueryStringParameters.CorrelationId, out correlationId))
+                    SpecialQueryStringParameters.CorrelationId,
+                    out correlationId))
                 {
-                    _logger.DebugFormat("HQL[{0}]:{1}{2}", correlationId, Environment.NewLine, hql);
+                    _logger.DebugFormat("SQL[{0}]:\r\n{1}", correlationId, hql);
                 }
                 else
                 {
-                    _logger.DebugFormat("HQL:{0}{1}", Environment.NewLine, hql);
+                    _logger.DebugFormat("SQL:\r\n{0}", hql);
                 }
             }
 
-            var session = _sessionFactory.GetCurrentSession();
-            var query = session.CreateQuery(hql);
-
-            object idValues;
-
-            if (builderContext.ParameterValueByName.TryGetValue(BaseEntityIdName, out idValues))
+            // var session = _sessionFactory.GetCurrentSession();
+            // var query = session.CreateQuery(hql);
+            using (var conn = new SqlConnection(_odsDatabaseConnectionStringProvider.GetConnectionString()))
             {
-                _parameterListSetter.SetParameterList(query, "BaseEntityId", idValues as IEnumerable);
+                conn.Open();
+                
+                object idValues;
+
+                DynamicParameters parameters = new DynamicParameters();
+                
+                if (builderContext.ParameterValueByName.TryGetValue(BaseEntityIdName, out idValues))
+                {
+                    parameters.Add("BaseEntityId", idValues as IEnumerable);
+                    // _parameterListSetter.SetParameterList(query, "BaseEntityId", idValues as IEnumerable);
+                }
+
+                // Apply current query's filter parameters.
+                // parameters.AddDynamicParams(builderContext.CurrentQueryFilterParameterValueByName);
+                SetQueryParameters(parameters, builderContext.CurrentQueryFilterParameterValueByName);
+                // SetQueryParameters(query, builderContext.CurrentQueryFilterParameterValueByName);
+
+                bool isSingleItemResult = processorContext.IsReferenceResource() || processorContext.IsEmbeddedObject();
+
+                var thisQuery = new CompositeQuery(
+                    parentResult,
+                    processorContext.MemberDisplayName.ToCamelCase(),
+                    builderContext.PropertyProjections
+                        .Select(x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase())
+                        .ToArray(),
+                    //query.SetResultTransformer(Transformers.AliasToEntityMap).Future<object>(),
+                    conn.Query(hql, parameters).Cast<IDictionary<string, object>>(),
+                    isSingleItemResult);
+
+                parentResult.ChildQueries.Add(thisQuery);
+
+                return thisQuery;
             }
-
-            // Apply current query's filter parameters.
-            SetQueryParameters(query, builderContext.CurrentQueryFilterParameterValueByName);
-
-            bool isSingleItemResult =
-                processorContext.IsReferenceResource()
-                || processorContext.IsEmbeddedObject();
-
-            var thisQuery = new CompositeQuery(
-                parentResult,
-                processorContext.MemberDisplayName.ToCamelCase(),
-                builderContext.PropertyProjections.Select(x => x.DisplayName.ToCamelCase() ?? x.ResourceProperty.PropertyName.ToCamelCase())
-                              .ToArray(),
-                query
-                   .SetResultTransformer(Transformers.AliasToEntityMap)
-                   .Future<object>(),
-                isSingleItemResult);
-
-            parentResult.ChildQueries.Add(thisQuery);
-
-            return thisQuery;
         }
 
-        private void ProcessQueryStringParameters(HqlBuilderContext builderContext, CompositeDefinitionProcessorContext processorContext)
+        private void ProcessQueryStringParameters(
+            HqlBuilderContext builderContext,
+            CompositeDefinitionProcessorContext processorContext)
         {
             // Get all non "special" query string parameter for property value equality processing
             var queryStringParameters = GetCriteriaQueryStringParameters(builderContext);
@@ -785,40 +755,46 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 ResourceProperty targetProperty;
 
                 // TODO: Embedded convention. Types and descriptors at the top level
-                if (processorContext.CurrentResourceClass.AllPropertyByName.TryGetValue(queryStringParameter.Key, out targetProperty))
+                if (processorContext.CurrentResourceClass.AllPropertyByName.TryGetValue(
+                    queryStringParameter.Key,
+                    out targetProperty))
                 {
-                    string criteriaPropertyName;
-                    object parameterValue;
+                    string criteriaPropertyName = null;
+                    object parameterValue = null;
                     string personType;
 
                     // Handle Lookup conversions
                     if (targetProperty.IsLookup)
                     {
-                        var id = _descriptorsCache.GetId(
-                            targetProperty.LookupTypeName,
-                            Convert.ToString(queryStringParameter.Value));
-
-                        criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
-                        parameterValue = id;
+                        // ------------------------------------------------------------------------
+                        // TODO: SimpleAPI - Need to replace use of descriptor cache here
+                        // ------------------------------------------------------------------------
+                        // var id = _descriptorsCache.GetId(targetProperty.LookupTypeName, (string) queryStringParameter.Value);
+                        //
+                        // criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
+                        // parameterValue = id;
                     }
 
                     // Handle UniqueId conversions
                     else if (UniqueIdSpecification.TryGetUniqueIdPersonType(targetProperty.PropertyName, out personType))
                     {
-                        int usi = _personUniqueIdToUsiCache.GetUsi(personType, Convert.ToString(queryStringParameter.Value));
-
-                        // TODO: Embedded convention - Convert UniqueId to USI from Resource model to query Entity model on Person entities
-                        // The resource model maps uniqueIds to uniqueIds on the main entity(Student,Staff,Parent)
-                        if (PersonEntitySpecification.IsPersonEntity(targetProperty.ParentFullName.Name))
-                        {
-                            criteriaPropertyName = targetProperty.EntityProperty.PropertyName.Replace("UniqueId", "USI");
-                        }
-                        else
-                        {
-                            criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
-                        }
-
-                        parameterValue = usi;
+                        // ------------------------------------------------------------------------
+                        // TODO: SimpleAPI - Need to replace use of Person cache here
+                        // ------------------------------------------------------------------------
+                        // int usi = _personUniqueIdToUsiCache.GetUsi(personType, (string) queryStringParameter.Value);
+                        //
+                        // // TODO: Embedded convention - Convert UniqueId to USI from Resource model to query Entity model on Person entities
+                        // // The resource model maps uniqueIds to uniqueIds on the main entity(Student,Staff,Parent)
+                        // if (PersonEntitySpecification.IsPersonEntity(targetProperty.ParentFullName.Name))
+                        // {
+                        //     criteriaPropertyName = targetProperty.EntityProperty.PropertyName.Replace("UniqueId", "USI");
+                        // }
+                        // else
+                        // {
+                        //     criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
+                        // }
+                        //
+                        // parameterValue = usi;
                     }
                     else
                     {
@@ -826,12 +802,15 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         parameterValue = ConvertParameterValueForProperty(targetProperty, Convert.ToString(queryStringParameter.Value));
                     }
 
+                    // TODO: SimpleAPI - This is guard condition to prevent unsupported scenarios from commented sections above from blowing up, and should eventually be removed
+                    if (criteriaPropertyName == null || parameterValue == null)
+                        return;
+                    
                     // Add criteria to the query
-                    builderContext.SpecificationWhere.AppendFormat(
-                        "{0}{1}.{2} = :{2}",
-                        AndIfNeeded(builderContext.SpecificationWhere),
-                        builderContext.CurrentAlias,
-                        criteriaPropertyName);
+                    string andIfNeeded = AndIfNeeded(builderContext.SpecificationWhere);
+
+                    builderContext.SpecificationWhere.Append(
+                        $"{andIfNeeded}{builderContext.CurrentAlias}.{criteriaPropertyName} = @{criteriaPropertyName}");
 
                     if (builderContext.CurrentQueryFilterParameterValueByName.ContainsKey(criteriaPropertyName))
                     {
@@ -841,8 +820,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                 criteriaPropertyName));
                     }
 
-                    builderContext.CurrentQueryFilterParameterValueByName[criteriaPropertyName] =
-                        parameterValue;
+                    builderContext.CurrentQueryFilterParameterValueByName[criteriaPropertyName] = parameterValue;
                 }
                 else
                 {
@@ -854,8 +832,8 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         private static List<KeyValuePair<string, object>> GetCriteriaQueryStringParameters(HqlBuilderContext builderContext)
         {
             var queryStringParameters = builderContext.QueryStringParameters
-                                                      .Where(p => !SpecialQueryStringParameters.Names.Contains(p.Key))
-                                                      .ToList();
+                .Where(p => !SpecialQueryStringParameters.Names.Contains(p.Key))
+                .ToList();
 
             return queryStringParameters;
         }
@@ -879,9 +857,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         $"Invalid query string parameter value provided.  The value for parameter '{targetProperty.PropertyName}' could not be processed as a GUID.");
                 }
 
-                var convertedValue = Convert.ChangeType(
-                    rawValue,
-                    targetType);
+                var convertedValue = Convert.ChangeType(rawValue, targetType);
 
                 return convertedValue;
             }
@@ -897,8 +873,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             // Prevent any sort of nefarious injection into the response message, while still providing a helpful message to the caller
             if (Regex.IsMatch(attemptedPropertyName, @"^\w+$"))
             {
-                throw new BadRequestException(
-                    $"The property '{attemptedPropertyName}' does not exist or is not available.");
+                throw new BadRequestException($"The property '{attemptedPropertyName}' does not exist or is not available.");
             }
 
             throw new BadRequestException("Invalid query string parameter.");
@@ -923,8 +898,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         "The query filter expression was invalid. Currently, only numeric and date range expressions are supported.");
                 }
 
-                string targetPropertyName = rangeQueryMatch.Groups["PropertyName"]
-                                                           .Value;
+                string targetPropertyName = rangeQueryMatch.Groups["PropertyName"].Value;
 
                 ResourceProperty targetProperty;
 
@@ -939,17 +913,11 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 // Add the value to the parameter value collection
                 builderContext.CurrentQueryFilterParameterValueByName.Add(
                     rangeBeginParameterName,
-                    ConvertParameterValueForProperty(
-                        targetProperty,
-                        rangeQueryMatch.Groups["BeginValue"]
-                                       .Value));
+                    ConvertParameterValueForProperty(targetProperty, rangeQueryMatch.Groups["BeginValue"].Value));
 
                 builderContext.CurrentQueryFilterParameterValueByName.Add(
                     rangeEndParameterName,
-                    ConvertParameterValueForProperty(
-                        targetProperty,
-                        rangeQueryMatch.Groups["EndValue"]
-                                       .Value));
+                    ConvertParameterValueForProperty(targetProperty, rangeQueryMatch.Groups["EndValue"].Value));
 
                 // Add the query criteria to the HQL query
                 builderContext.SpecificationWhere.AppendFormat(
@@ -957,18 +925,16 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     AndIfNeeded(builderContext.SpecificationWhere),
                     builderContext.CurrentAlias,
                     targetProperty.PropertyName,
-                    RangeOperatorBySymbol[rangeQueryMatch.Groups["BeginRangeSymbol"]
-                                                         .Value],
+                    RangeOperatorBySymbol[rangeQueryMatch.Groups["BeginRangeSymbol"].Value],
                     rangeBeginParameterName,
-                    RangeOperatorBySymbol[rangeQueryMatch.Groups["EndRangeSymbol"]
-                                                         .Value],
+                    RangeOperatorBySymbol[rangeQueryMatch.Groups["EndRangeSymbol"].Value],
                     rangeEndParameterName);
 
                 n++;
             }
         }
 
-        private void SetQueryParameters(IQuery query, IDictionary<string, object> parameterValueByName)
+        private void SetQueryParameters(DynamicParameters parameters, IDictionary<string, object> parameterValueByName)
         {
             foreach (var kvp in parameterValueByName)
             {
@@ -978,15 +944,18 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 if (parameterName.EndsWith("_Id"))
                 {
                     // Parameter is a GUID resource Id
-                    query.SetParameter(parameterName, new Guid((string) value));
+                    parameters.Add(parameterName, new Guid((string) value));
+                    //query.SetParameter(parameterName, new Guid((string) value));
                 }
                 else if (!(value is string) && value is IEnumerable)
                 {
-                    _parameterListSetter.SetParameterList(query, parameterName, value as IEnumerable);
+                    parameters.Add(parameterName, value as IEnumerable);
+                    // _parameterListSetter.SetParameterList(query, parameterName, value as IEnumerable);
                 }
                 else
                 {
-                    query.SetParameter(parameterName, value);
+                    parameters.Add(parameterName, value);
+                    // query.SetParameter(parameterName, value);
                 }
             }
         }

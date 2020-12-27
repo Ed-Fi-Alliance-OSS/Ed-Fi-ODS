@@ -112,80 +112,87 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             configuration.Configure(
                 Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "hibernate.cfg.xml"));
 
-            // Add the configuration to the container
-            configuration.BeforeBindMapping += Configuration_BeforeBindMapping;
-
-            // Get all the filter definitions from all the configurators
-            var allFilterDetails = _authorizationStrategyConfigurators
-                .SelectMany(c => c.GetFilters())
-                .Distinct()
-                .ToList();
-
-            // Group the filters by name first (there can only be 1 "default" filter, but flexibility
-            // to apply same filter name with same parameters to different entities should be supported
-            // (and is in fact supported below when filters are applied to individual entity mappings)
-            var allFilterDetailsGroupedByName = allFilterDetails
-                .GroupBy(f => f.FilterDefinition.FilterName)
-                .Select(g => g);
-
-            // Add all the filter definitions to the NHibernate configuration
-            foreach (var filterDetails in allFilterDetailsGroupedByName)
-            {
-                configuration.AddFilterDefinition(
-                    filterDetails.First()
-                        .FilterDefinition);
-            }
-
-            // Configure the mappings
-            var ormMappingFileData = _ormMappingFileDataProvider.OrmMappingFileData();
-            configuration.AddResources(ormMappingFileData.MappingFileFullNames, ormMappingFileData.Assembly);
-
-            //Resolve all extension assemblies and add to NHibernate configuration
-            _extensionConfigurationProviders.ForEach(
-                e => configuration.AddResources(e.OrmMappingFileData.MappingFileFullNames, e.OrmMappingFileData.Assembly));
-
-            // Invoke configuration activities
-            foreach (var configurationActivity in _configurationActivities)
-            {
-                configurationActivity.Execute(configuration);
-            }
-
-            // Apply the previously defined filters to the mappings
-            foreach (var mapping in configuration.ClassMappings)
-            {
-                Type entityType = mapping.MappedClass;
-                var properties = entityType.GetProperties();
-
-                var applicableFilters = allFilterDetails
-                    .Where(filterDetails => filterDetails.ShouldApply(entityType, properties))
-                    .ToList();
-
-                foreach (var filter in applicableFilters)
-                {
-                    var filterDefinition = filter.FilterDefinition;
-
-                    // Save the filter criteria applicators
-                    _filterCriteriaApplicatorProvider.AddCriteriaApplicator(
-                        filterDefinition.FilterName,
-                        entityType,
-                        filter.CriteriaApplicator);
-
-                    mapping.AddFilter(
-                        filterDefinition.FilterName,
-                        filterDefinition.DefaultFilterCondition);
-
-                    var metaAttribute = new MetaAttribute(filterDefinition.FilterName);
-                    metaAttribute.AddValue(filter.HqlConditionFormatString);
-
-                    mapping.MetaAttributes.Add(
-                        "HqlFilter_" + filterDefinition.FilterName,
-                        metaAttribute);
-                }
-            }
-
-            configuration.AddCreateDateHooks();
-
+            // TODO: SimpleAPI - Don't do anything. We shouldn't be here. This should be deleted.
             return configuration;
+
+            #region API Simplification - Obsolete code
+
+            // // Add the configuration to the container
+            // configuration.BeforeBindMapping += Configuration_BeforeBindMapping;
+            //
+            // // Get all the filter definitions from all the configurators
+            // var allFilterDetails = _authorizationStrategyConfigurators
+            //     .SelectMany(c => c.GetFilters())
+            //     .Distinct()
+            //     .ToList();
+            //
+            // // Group the filters by name first (there can only be 1 "default" filter, but flexibility
+            // // to apply same filter name with same parameters to different entities should be supported
+            // // (and is in fact supported below when filters are applied to individual entity mappings)
+            // var allFilterDetailsGroupedByName = allFilterDetails
+            //     .GroupBy(f => f.FilterDefinition.FilterName)
+            //     .Select(g => g);
+            //
+            // // Add all the filter definitions to the NHibernate configuration
+            // foreach (var filterDetails in allFilterDetailsGroupedByName)
+            // {
+            //     configuration.AddFilterDefinition(
+            //         filterDetails.First()
+            //             .FilterDefinition);
+            // }
+            //
+            // // Configure the mappings
+            // var ormMappingFileData = _ormMappingFileDataProvider.OrmMappingFileData();
+            // configuration.AddResources(ormMappingFileData.MappingFileFullNames, ormMappingFileData.Assembly);
+            //
+            // //Resolve all extension assemblies and add to NHibernate configuration
+            // _extensionConfigurationProviders.ForEach(
+            //     e => configuration.AddResources(e.OrmMappingFileData.MappingFileFullNames, e.OrmMappingFileData.Assembly));
+            //
+            // // Invoke configuration activities
+            // foreach (var configurationActivity in _configurationActivities)
+            // {
+            //     configurationActivity.Execute(configuration);
+            // }
+            //
+            // // Apply the previously defined filters to the mappings
+            // foreach (var mapping in configuration.ClassMappings)
+            // {
+            //     Type entityType = mapping.MappedClass;
+            //     var properties = entityType.GetProperties();
+            //
+            //     var applicableFilters = allFilterDetails
+            //         .Where(filterDetails => filterDetails.ShouldApply(entityType, properties))
+            //         .ToList();
+            //
+            //     foreach (var filter in applicableFilters)
+            //     {
+            //         var filterDefinition = filter.FilterDefinition;
+            //
+            //         // Save the filter criteria applicators
+            //         _filterCriteriaApplicatorProvider.AddCriteriaApplicator(
+            //             filterDefinition.FilterName,
+            //             entityType,
+            //             filter.CriteriaApplicator);
+            //
+            //         mapping.AddFilter(
+            //             filterDefinition.FilterName,
+            //             filterDefinition.DefaultFilterCondition);
+            //
+            //         var metaAttribute = new MetaAttribute(filterDefinition.FilterName);
+            //         metaAttribute.AddValue(filter.HqlConditionFormatString);
+            //
+            //         mapping.MetaAttributes.Add(
+            //             "HqlFilter_" + filterDefinition.FilterName,
+            //             metaAttribute);
+            //     }
+            // }
+            //
+            // configuration.AddCreateDateHooks();
+            //
+            // return configuration;
+
+            #endregion
 
             void SetAssemblyBinding()
             {

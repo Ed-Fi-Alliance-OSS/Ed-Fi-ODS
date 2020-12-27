@@ -17,7 +17,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         private readonly Lazy<IEnumeratorWithCompletion> _futureQueryEnumerator;
         private readonly Lazy<string[]> _keyFields;
         private readonly CompositeQuery _parentCompositeQuery;
-        private readonly Lazy<IDictionary<string, List<Hashtable>>> _dataByParentKey;
+        private readonly Lazy<IDictionary<string, List<IDictionary<string, object>>>> _dataByParentKey;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompositeQuery"/> class for a
@@ -59,7 +59,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             _keyFields = new Lazy<string[]>(() => GetKeyFields(_futureQueryEnumerator.Value));
             _dataFields = new Lazy<string[]>(() => GetDataFields(_futureQueryEnumerator.Value));
 
-            _dataByParentKey = new Lazy<IDictionary<string, List<Hashtable>>>(() => GetDataByParentKey(_futureQueryEnumerator.Value));
+            _dataByParentKey = new Lazy<IDictionary<string, List<IDictionary<string, object>>>>(() => GetDataByParentKey(_futureQueryEnumerator.Value));
 
             _futureQueryEnumerator = new Lazy<IEnumeratorWithCompletion>(
                 () =>
@@ -101,25 +101,25 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             }
         }
 
-        private Dictionary<string, List<Hashtable>> GetDataByParentKey(IEnumerator enumerator)
+        private Dictionary<string, List<IDictionary<string, object>>> GetDataByParentKey(IEnumerator enumerator)
         {
             if (_parentCompositeQuery == null)
             {
-                return new Dictionary<string, List<Hashtable>>();
+                return new Dictionary<string, List<IDictionary<string, object>>>();
             }
 
-            var rows = new List<Hashtable>();
+            var rows = new List<IDictionary<string, object>>();
 
             // Handle empty resultset
             if (enumerator.Current == null)
             {
-                return new Dictionary<string, List<Hashtable>>();
+                return new Dictionary<string, List<IDictionary<string, object>>>();
             }
 
             // Load all data from the query into memory
             do
             {
-                rows.Add((Hashtable) enumerator.Current);
+                rows.Add((IDictionary<string, object>) enumerator.Current);
             }
             while (enumerator.MoveNext());
 
@@ -131,7 +131,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         private static string[] GetDataFields(IEnumerator enumerator)
         {
-            var hashMap = enumerator?.Current as Hashtable;
+            var hashMap = enumerator?.Current as IDictionary<string, object>;
 
             return hashMap == null
                 ? new string[0]
@@ -143,7 +143,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         private static string[] GetKeyFields(IEnumerator enumerator)
         {
-            var hashMap = enumerator?.Current as Hashtable;
+            var hashMap = enumerator?.Current as IDictionary<string, object>;
 
             return hashMap == null
                 ? new string[0]
@@ -154,14 +154,14 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                          .ToArray();
         }
 
-        private string GetParentKey(Hashtable row)
+        private string GetParentKey(IDictionary<string, object> row)
         {
             return _parentCompositeQuery == null
                 ? null
                 : string.Join("|", _parentCompositeQuery.KeyFields.Select(kf => row[kf]));
         }
 
-        public IEnumeratorWithCompletion GetEnumerator(Hashtable parentRow)
+        public IEnumeratorWithCompletion GetEnumerator(IDictionary<string, object> parentRow)
         {
             // For results that are in order for correct processing, the request for
             // the enumerator always returns the underlying result enumerator

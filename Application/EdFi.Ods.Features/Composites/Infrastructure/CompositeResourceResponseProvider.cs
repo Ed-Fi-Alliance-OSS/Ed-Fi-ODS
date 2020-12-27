@@ -27,8 +27,8 @@ using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Utils.Profiles;
 using log4net;
 using Newtonsoft.Json;
-using NHibernate;
-using NHibernate.Context;
+// using NHibernate;
+// using NHibernate.Context;
 
 namespace EdFi.Ods.Features.Composites.Infrastructure
 {
@@ -47,23 +47,23 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
               };
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(CompositeResourceResponseProvider));
-        private readonly IPersonUniqueIdToUsiCache _personUniqueIdToUsiCache;
+        // private readonly IPersonUniqueIdToUsiCache _personUniqueIdToUsiCache;
         private readonly IProfileResourceModelProvider _profileResourceModelProvider;
         private readonly IResourceModelProvider _resourceModelProvider;
-        private readonly ISessionFactory _sessionFactory;
+        // private readonly ISessionFactory _sessionFactory;
 
         public CompositeResourceResponseProvider(
-            ISessionFactory sessionFactory,
+            // ISessionFactory sessionFactory,
             ICompositeDefinitionProcessor<HqlBuilderContext, CompositeQuery> compositeDefinitionProcessor,
             IResourceModelProvider resourceModelProvider,
-            IPersonUniqueIdToUsiCache personUniqueIdToUsiCache,
+            // IPersonUniqueIdToUsiCache personUniqueIdToUsiCache,
             IFieldsExpressionParser fieldsExpressionParser,
             IProfileResourceModelProvider profileResourceModelProvider)
         {
-            _sessionFactory = sessionFactory;
+            // _sessionFactory = sessionFactory;
             _compositeDefinitionProcessor = compositeDefinitionProcessor;
             _resourceModelProvider = resourceModelProvider;
-            _personUniqueIdToUsiCache = personUniqueIdToUsiCache;
+            // _personUniqueIdToUsiCache = personUniqueIdToUsiCache;
             _fieldsExpressionParser = fieldsExpressionParser;
             _profileResourceModelProvider = profileResourceModelProvider;
         }
@@ -84,11 +84,11 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
             try
             {
-                if (!CurrentSessionContext.HasBind(_sessionFactory))
-                {
-                    CurrentSessionContext.Bind(_sessionFactory.OpenSession());
-                    closeSession = true;
-                }
+                // if (!CurrentSessionContext.HasBind(_sessionFactory))
+                // {
+                //     CurrentSessionContext.Bind(_sessionFactory.OpenSession());
+                //     closeSession = true;
+                // }
 
                 var fieldSelections = GetFieldSelections(queryStringParameters);
 
@@ -127,8 +127,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             {
                 if (closeSession)
                 {
-                    _sessionFactory.GetCurrentSession()
-                                   .Close();
+                    // _sessionFactory.GetCurrentSession().Close();
                 }
             }
 
@@ -160,25 +159,28 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         private IResourceModel GetResourceModel()
         {
+            // ---------------------------------------------------------------------------
+            // TODO: SimpleAPI - Need to re-instate once API client claims are reinstated
+            // ---------------------------------------------------------------------------
             // Determine caller's assigned profiles
-            var assignedProfileNames =
-                ClaimsPrincipal.Current.Claims
-                               .Where(c => c.Type == EdFiOdsApiClaimTypes.Profile)
-                               .Select(c => c.Value)
-                               .ToArray();
-
-            if (assignedProfileNames.Any())
-            {
-                // Get all the Profile-specific versions of the Resource Model (which also separates models for read/write content types)
-                var profileResourceModels = assignedProfileNames
-                    .Select(_profileResourceModelProvider.GetProfileResourceModel)
-                    .ToArray();
-
-                // Get to an IResourceModel that applies all currently assigned filters
-                return new ProfilesAppliedResourceModel(
-                    ContentTypeUsage.Readable,
-                    profileResourceModels);
-            }
+            // var assignedProfileNames =
+            //     ClaimsPrincipal.Current.Claims
+            //                    .Where(c => c.Type == EdFiOdsApiClaimTypes.Profile)
+            //                    .Select(c => c.Value)
+            //                    .ToArray();
+            //
+            // if (assignedProfileNames.Any())
+            // {
+            //     // Get all the Profile-specific versions of the Resource Model (which also separates models for read/write content types)
+            //     var profileResourceModels = assignedProfileNames
+            //         .Select(_profileResourceModelProvider.GetProfileResourceModel)
+            //         .ToArray();
+            //
+            //     // Get to an IResourceModel that applies all currently assigned filters
+            //     return new ProfilesAppliedResourceModel(
+            //         ContentTypeUsage.Readable,
+            //         profileResourceModels);
+            // }
 
             return _resourceModelProvider.GetResourceModel();
         }
@@ -233,7 +235,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         public IList<IDictionary> ProcessResults(
             CompositeQuery query,
-            Hashtable parentRow,
+            IDictionary<string, object> parentRow,
             string[] parentKeys,
             IReadOnlyList<SelectedResourceMember> fieldSelections,
             NullValueHandling nullValueHandling)
@@ -251,7 +253,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                 }
 
                 // Get current row
-                var currentRow = (Hashtable) currentEnumerator.Current;
+                var currentRow = (IDictionary<string, object>) currentEnumerator.Current;
 
                 if (currentRow == null)
                 {
@@ -305,7 +307,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         }
 
         private IDictionary GetItem(
-            Hashtable sourceRow,
+            IDictionary<string, object> sourceRow,
             string[] keys,
             string[] orderedFieldNames,
             IReadOnlyList<SelectedResourceMember> fieldSelections,
@@ -362,7 +364,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         }
 
         private IEnumerable<KeyValuePair<string, object>> EnumerateKeyValuePairs(
-            Hashtable sourceRow,
+            IDictionary<string, object> sourceRow,
             NullValueHandling nullValueHandling,
             IEnumerable<string> keysToProcess,
             Dictionary<string, object> descriptorNamespaceByKey,
@@ -411,7 +413,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                                 && UniqueIdSpecification.TryGetUSIPersonTypeAndRoleName(key, out string personType, out string roleName))
                             {
                                 // Translate to UniqueId
-                                string uniqueId = _personUniqueIdToUsiCache.GetUniqueId(personType, (int) sourceRow[key]);
+                                string uniqueId = $"USI-{(int) sourceRow[key]}"; //_personUniqueIdToUsiCache.GetUniqueId(personType, (int) sourceRow[key]);
                                 string uniqueIdKey = (roleName + personType + CompositeDefinitionHelper.UniqueId).ToCamelCase();
 
                                 renamedKey = uniqueIdKey;
@@ -433,7 +435,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
             }
         }
 
-        private bool IsChildRow(string[] parentKeys, Hashtable parentRow, Hashtable currentRow)
+        private bool IsChildRow(string[] parentKeys, IDictionary<string, object> parentRow, IDictionary<string, object> currentRow)
         {
             // Match values based on name.
             return parentKeys.All(k => Equals(parentRow[k], currentRow[k]));
