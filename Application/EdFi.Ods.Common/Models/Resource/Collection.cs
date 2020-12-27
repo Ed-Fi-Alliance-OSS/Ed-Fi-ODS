@@ -19,7 +19,7 @@ namespace EdFi.Ods.Common.Models.Resource
             Association = association;
             FilterContext = filterContext ?? FilterContext.NullFilterContext;
 
-            ItemType = new ResourceChildItem(resourceClass.ResourceModel, association.OtherEntity, FilterContext, resourceClass);
+            ItemType = new ResourceChildItem(this, resourceClass.ResourceModel, association.OtherEntity, FilterContext, resourceClass);
 
             if (FilterContext.Definition != null)
             {

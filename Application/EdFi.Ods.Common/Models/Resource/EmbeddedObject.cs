@@ -18,7 +18,7 @@ namespace EdFi.Ods.Common.Models.Resource
             : base(resourceClass, association.Name)
         {
             Association = association;
-            ObjectType = new ResourceChildItem(resourceClass.ResourceModel, association.OtherEntity, childFilterContext, resourceClass);
+            ObjectType = new ResourceChildItem(this, resourceClass.ResourceModel, association.OtherEntity, childFilterContext, resourceClass);
 
             _parentFullName = Association.ThisEntity.FullName;
         }

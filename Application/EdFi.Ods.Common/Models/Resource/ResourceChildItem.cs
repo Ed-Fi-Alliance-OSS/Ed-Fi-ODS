@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models.Domain;
 
@@ -18,9 +19,11 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private Lazy<bool> _isInheritedChild;
         
-        internal ResourceChildItem(IResourceModel resourceModel, Entity entity, FilterContext childContext, ResourceClassBase parentResource)
+        internal ResourceChildItem(ResourceMemberBase containingMember, IResourceModel resourceModel, Entity entity, FilterContext childContext, ResourceClassBase parentResource)
             : base(resourceModel, entity, childContext)
         {
+            _containingMember = Preconditions.ThrowIfNull(containingMember, nameof(containingMember));
+
             Parent = parentResource;
 
             _isInheritedChild = InitializeIsInheritedChild();
@@ -36,7 +39,7 @@ namespace EdFi.Ods.Common.Models.Resource
             Func<IEnumerable<AssociationView>> embeddedObjectAssociations)
             : base(resourceModel, entity, childContext, collectionAssociations, embeddedObjectAssociations)
         {
-            _containingMember = containingMember;
+            _containingMember = Preconditions.ThrowIfNull(containingMember, nameof(containingMember));
             
             Parent = parentResource;
 
@@ -77,7 +80,7 @@ namespace EdFi.Ods.Common.Models.Resource
             FilterContext filterContext)
             : base(resourceModel, fullName, collectionAssociations, embeddedObjectAssociations, filterContext)
         {
-            _containingMember = containingMember;
+            _containingMember = Preconditions.ThrowIfNull(containingMember, nameof(containingMember));
             
             Parent = parentResource;
             
