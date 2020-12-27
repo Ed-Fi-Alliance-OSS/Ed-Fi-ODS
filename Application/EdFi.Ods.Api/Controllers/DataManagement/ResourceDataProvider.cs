@@ -71,13 +71,13 @@ namespace EdFi.Ods.Api.Controllers.DataManagement
             }
             else
             {
-                // TODO: Simple API - Execute first round-trip query to obtain Ids for page (need to investigate Postgres arrays as possible way to avoid this completely)
+                // TODO: API Simplification - Execute first round-trip query to obtain Ids for page (need to investigate Postgres arrays as possible way to avoid this completely)
                 throw new NotImplementedException("Separate round-trip query to obtain Ids for paged resource results has not yet been implemented.");
                 // Pseudo code: parameters = new DynamicParameters(ids);
             }
             
             // Build the remaining resource queries
-            // TODO: Simple API - May need to also pass the "ids" array here as well (i.e., Postgres or other DB supported in future may not support a TVP-equivalent mechanism for a single-trip SQL batch)
+            // TODO: API Simplification - May need to also pass the "ids" array here as well (i.e., Postgres or other DB supported in future may not support a TVP-equivalent mechanism for a single-trip SQL batch)
             var resourceClassQueries = _resourceDataQueryBuilder.BuildQueries(resource, primaryKeyValues).ToList();
 
             // Add all the raw SQL for the queries to the batch SQL query
@@ -86,7 +86,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement
                 batchSqlStringBuilder.Append(resourceClassQuery.Template.RawSql);
             }
 
-            // TODO: Simple API - Establish database-specific connection
+            // TODO: API Simplification - Establish database-specific connection
             using (var conn = new SqlConnection(_odsDatabaseConnectionStringProvider.GetConnectionString()))
             {
                 await conn.OpenAsync();

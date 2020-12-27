@@ -26,7 +26,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Relat
         
         public string GetSqlTemplate(Entity entity)
         {
-            // TODO: Simple API - Revisit: How to make it so this only runs for the relationship-based authorization strategy?
+            // TODO: API Simplification - Revisit: How to make it so this only runs for the relationship-based authorization strategy?
             
             // Get the page query's SQL template
             string pagedQuerySqlTemplate = _resourcePageQuerySqlProvider.GetSqlTemplate(entity);
@@ -44,7 +44,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Relat
                 // Insert the EdOrgIds into the TVP
                 foreach (int claimEducationOrganizationId in educationOrganizationClaims.EducationOrganizationIds)
                 {
-                    // TODO: Simple API - May (or may not) want to consider Dapper's built-in support for TVP's described here: https://stackoverflow.com/a/43128585/368847
+                    // TODO: API Simplification - May (or may not) want to consider Dapper's built-in support for TVP's described here: https://stackoverflow.com/a/43128585/368847
                     sqlStringBuilder.AppendLine($"INSERT INTO {tvpName} VALUES ({claimEducationOrganizationId})");
                 }
 

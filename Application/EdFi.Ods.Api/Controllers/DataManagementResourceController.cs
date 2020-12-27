@@ -87,7 +87,7 @@ namespace EdFi.Ods.Api.Controllers
                 return StatusCode(error.Code, new { error.Message });
             }
 
-            // TODO: Simple API - This *may* be better refactored out into a separate component, or possibly passed along as a parameter rather than using context here 
+            // TODO: API Simplification - This *may* be better refactored out into a separate component, or possibly passed along as a parameter rather than using context here 
             SetAuthorizationContext(resource, ReadUri);
 
             var resourceData = await _resourceDataProvider.GetResourceData(resource, Request.Query);
@@ -100,7 +100,7 @@ namespace EdFi.Ods.Api.Controllers
             };
         }
 
-        // TODO: Simple API - Consider introducing the following class and passing it down through the call chain in favor of the context pattern.
+        // TODO: API Simplification - Consider introducing the following class and passing it down through the call chain in favor of the context pattern.
         // public class DataManagementRequestContext
         // {
         //     public Resource Resource { get; }
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Api.Controllers
                 return StatusCode(error.Code, new { error.Message });
             }
 
-            // TODO: Simple API - This *may* be better refactored out into a separate component, or possibly passed along the call chain as a DataManagementRequestContext parameter rather than using context here 
+            // TODO: API Simplification - This *may* be better refactored out into a separate component, or possibly passed along the call chain as a DataManagementRequestContext parameter rather than using context here 
             SetAuthorizationContext(resource, UpdateUri);
 
             // Get the primary key of the resource
@@ -134,7 +134,7 @@ namespace EdFi.Ods.Api.Controllers
             // Get the ODS data for the entire resource
             var resourceData = await _resourceDataProvider.GetResourceData(resource, Request.Query, primaryKeyValues);
 
-            // TODO: Simple API - Obtain database-specific connection
+            // TODO: API Simplification - Obtain database-specific connection
             await using var connection = new SqlConnection(_connectionStringProvider.GetConnectionString());
             await connection.OpenAsync();
             using IDbTransaction transaction = await connection.BeginTransactionAsync();
@@ -250,7 +250,7 @@ namespace EdFi.Ods.Api.Controllers
                 // Process children
                 foreach (var collection in resourceClass.Collections.Where(c => c.ItemType.Name == "StaffElectronicMail"))
                 {
-                    // TODO: Simple API - Handle validations
+                    // TODO: API Simplification - Handle validations
                     var collectionValidationFailures = await ProcessResource(
                         primaryKeyValues,
                         connection,
@@ -347,7 +347,7 @@ namespace EdFi.Ods.Api.Controllers
                 // EXECUTION LOGIC
                 parameters.Add(parameterName, record[columnName]);
 
-                // TODO: Simple API - Need to handle primary key updates in secondary follow-up transaction
+                // TODO: API Simplification - Need to handle primary key updates in secondary follow-up transaction
             }
 
             // Descriptor index used for simple descriptor table aliasing
@@ -392,7 +392,7 @@ namespace EdFi.Ods.Api.Controllers
                     // EXECUTION LOGIC
                     if (proposedDescriptorValue == null)
                     {
-                        // TODO: Simple API - May want to consider using a parameter here rather than literal SQL --> parameters.Add(entityPropertyName, proposedValue);
+                        // TODO: API Simplification - May want to consider using a parameter here rather than literal SQL --> parameters.Add(entityPropertyName, proposedValue);
                         string columnName = _physicalNamesProvider.Column(entityProperty);
                         string parameterName = _physicalNamesProvider.Identifier(entityProperty.PropertyName);
 
@@ -418,7 +418,7 @@ namespace EdFi.Ods.Api.Controllers
                         var descriptorNamespace = proposedDescriptorValue.Substring(0, delimiterPos);
                         var descriptorCodeValue = proposedDescriptorValue.Substring(delimiterPos + 1);
 
-                        // TODO: Simple API - This implementation is SQL Server specific (needs a seam)
+                        // TODO: API Simplification - This implementation is SQL Server specific (needs a seam)
                         sqlSetBuilder.Append(
                             $", {_physicalNamesProvider.Column(entityProperty)} = COALESCE(d{descriptorIndex}.DescriptorId, 0)");
 
@@ -435,7 +435,7 @@ namespace EdFi.Ods.Api.Controllers
                         record[namespaceIdentifier] = descriptorNamespace;
                         record[codeValueIdentifier] = descriptorCodeValue;
 
-                        // TODO: Simple API - Remove the descriptor id from the record (for validation)?
+                        // TODO: API Simplification - Remove the descriptor id from the record (for validation)?
 
                         // parameterSources.Add(new ParameterSource($"d{descriptorIndex}Namespace", ));
 
@@ -447,7 +447,7 @@ namespace EdFi.Ods.Api.Controllers
                         descriptorIndex++;
                     }
                 }
-                else // TODO: Simple API - Consider "dirty" checking and only updating modified columns --> if (!proposedValue.Equals(existingValue))
+                else // TODO: API Simplification - Consider "dirty" checking and only updating modified columns --> if (!proposedValue.Equals(existingValue))
                 {
                     string parameterName = _physicalNamesProvider.Identifier(entityProperty.PropertyName);
                     string columnName = _physicalNamesProvider.Column(entityProperty);
@@ -459,13 +459,13 @@ namespace EdFi.Ods.Api.Controllers
                 }
             } // Non-identifying properties
 
-            // TODO: Simple API - Perform custom record validation
+            // TODO: API Simplification - Perform custom record validation
             ValidateRecord(entity, record, validationMessages);
 
             // If there are any errors, don't do additional work related to the query.
             if (coercionMessages.Any() || validationMessages.Any())
             {
-                // TODO: Simple API - Report this in the method response as validation errors matching existing behavior
+                // TODO: API Simplification - Report this in the method response as validation errors matching existing behavior
                 return coercionMessages.Concat(validationMessages).ToList();
             }
 
@@ -575,7 +575,7 @@ namespace EdFi.Ods.Api.Controllers
                 // Only use properties for the entity being created (in the case of a resource for a derived entity)
                 .Where(p => p.EntityProperty.Entity == entity))
             {
-                // TODO: Simple API - Need primary key values for passing to child contexts 
+                // TODO: API Simplification - Need primary key values for passing to child contexts 
 
                 var entityProperty = resourceProperty.EntityProperty;
 
@@ -588,7 +588,7 @@ namespace EdFi.Ods.Api.Controllers
                 // EXECUTION LOGIC
                 var coercedValue = CoerceProposedValue(resourceProperty, proposedValueAsObject, coercionMessages);
 
-                // TODO: Simple API - Validate property expansions properly
+                // TODO: API Simplification - Validate property expansions properly
                 ValidateProperty(entityProperty, coercedValue, resourceProperty.JsonPropertyName, validationMessages);
 
                 // EXECUTION LOGIC
@@ -611,7 +611,7 @@ namespace EdFi.Ods.Api.Controllers
                     // EXECUTION LOGIC
                     if (proposedDescriptorValue == null)
                     {
-                        // TODO: Simple API - May want to consider using a parameter here rather than literal SQL --> parameters.Add(entityPropertyName, proposedValue);
+                        // TODO: API Simplification - May want to consider using a parameter here rather than literal SQL --> parameters.Add(entityPropertyName, proposedValue);
                         string parameterName = _physicalNamesProvider.Identifier(entityProperty.PropertyName);
 
                         parameters.Add(parameterName, null);
@@ -658,7 +658,7 @@ namespace EdFi.Ods.Api.Controllers
                     }
                 }
 
-                // TODO: Simple API - Provide a semantic model extension method for determining this easily -- and better
+                // TODO: API Simplification - Provide a semantic model extension method for determining this easily -- and better
                 else if (resourceProperty.PropertyName.EndsWith("UniqueId")
                     && resourceProperty.EntityProperty.PropertyName.EndsWith("USI"))
                 {
@@ -710,7 +710,7 @@ namespace EdFi.Ods.Api.Controllers
                     // sqlValues.Add(parameterName);
                 }
 
-                // TODO: Simple API - May need to deal with property "un" expansions here.
+                // TODO: API Simplification - May need to deal with property "un" expansions here.
                 // parameters.Add(parameterName, jsonData[resourceProperty]?.ToValueAsObject());
             }
 
@@ -720,7 +720,7 @@ namespace EdFi.Ods.Api.Controllers
             // If there are any errors, don't do additional work related to the query.
             if (coercionMessages.Any() || validationMessages.Any())
             {
-                // TODO: Simple API - Report this in the method response as validation errors matching existing behavior
+                // TODO: API Simplification - Report this in the method response as validation errors matching existing behavior
                 return coercionMessages.Concat(validationMessages).ToList();
             }
 
@@ -744,14 +744,14 @@ namespace EdFi.Ods.Api.Controllers
                 sql += $"SELECT SCOPE_IDENTITY() AS {identityColumnName}";
             }
 
-            // TODO: Simple API - Need to do some property expansion error reporting
+            // TODO: API Simplification - Need to do some property expansion error reporting
             // For example:
             // (SELECT StaffUSI FROM edfi.Staff WHERE StaffUniqueId = '207283'), 
             // (SELECT DescriptorId as ElectronicMailTypeDescriptorId FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/ElectronicMailTypeDescriptor' AND CodeValue = 'Worky'),
 
             // IDictionary<string, object> primaryKeyValues = null;
             
-            if (entity.HasServerAssignedIdentity()) // TODO: Simple API --> entity.Properties.Any(p => p.IsLookup))
+            if (entity.HasServerAssignedIdentity()) // TODO: API Simplification --> entity.Properties.Any(p => p.IsLookup))
             {
                 using (var multipleResults = await connection.QueryMultipleAsync(sql, parameters, transaction))
                 {
@@ -769,7 +769,7 @@ namespace EdFi.Ods.Api.Controllers
                         }
                         else
                         {
-                            // TODO: Simple API - Deal with diagnosing missing descriptor references and throwing validation 
+                            // TODO: API Simplification - Deal with diagnosing missing descriptor references and throwing validation 
                         }
 
                         // results.Add(new ResourceClassQueryResults(resourceClassQueries[i++].ResourceClass, (List<object>) result));
@@ -779,7 +779,7 @@ namespace EdFi.Ods.Api.Controllers
             }
             else
             {
-                // TODO: Simple API - Need to establish primary key values for current entity
+                // TODO: API Simplification - Need to establish primary key values for current entity
                 // Should be parent primary keys + locally established primary key values
                 // --> if (parentPrimaryKeyValues != null) --> primaryKeyValues = new Dictionary<string, object>(parentPrimaryKeyValues, StringComparer.OrdinalIgnoreCase);
                 // --> Add locally defined column names and values from parameter values extraction (TODO)
@@ -851,7 +851,7 @@ namespace EdFi.Ods.Api.Controllers
                 
                 case DbType.Currency:
                 case DbType.Decimal:
-                    // TODO: Simple API - Convert class may be too quietly forgiving of bad data.
+                    // TODO: API Simplification - Convert class may be too quietly forgiving of bad data.
                     return Convert.ToDecimal(proposedValueAsObject);
                     
                 case DbType.Double:
@@ -890,7 +890,7 @@ namespace EdFi.Ods.Api.Controllers
                 case DbType.Date:
                 case DbType.DateTime:
                 case DbType.DateTime2:
-                    // TODO: Simple API - Needs more attention for proper ISO date/time formats here
+                    // TODO: API Simplification - Needs more attention for proper ISO date/time formats here
                     if (!DateTime.TryParse(Convert.ToString(proposedValueAsObject), out var dateTimeValue))
                     {
                         coercionFailureMessages.Add($"Unable to convert value for property '{resourceProperty.JsonPropertyName}' to a {nameof(DateTime)}.");
@@ -937,7 +937,7 @@ namespace EdFi.Ods.Api.Controllers
             return Ok(new {hello = "world"});
         }
         
-        // TODO: Simple API - These constants needs to be defined and used only closer to the database operations (where Create vs Update can be determined after initial GetByKey (POST) or GetById (PUT))
+        // TODO: API Simplification - These constants needs to be defined and used only closer to the database operations (where Create vs Update can be determined after initial GetByKey (POST) or GetById (PUT))
         private const string CreateUri = "http://ed-fi.org/odsapi/actions/create"; 
         private const string ReadUri = "http://ed-fi.org/odsapi/actions/read"; 
         private const string UpdateUri = "http://ed-fi.org/odsapi/actions/update"; 

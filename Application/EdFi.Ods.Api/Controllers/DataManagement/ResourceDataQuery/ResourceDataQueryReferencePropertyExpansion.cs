@@ -14,7 +14,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
     {
         public void Process(ResourceClassBase resourceClass, string resourceAlias, SqlBuilder sqlBuilder, AliasGenerator aliasGenerator)
         {
-            // TODO: Simple API - Needs Fix: Processing a reference containing a property that also has an expansion (e.g. StudentUSI) will cause 2 INNER JOINs to be genereated.
+            // TODO: API Simplification - Needs Fix: Processing a reference containing a property that also has an expansion (e.g. StudentUSI) will cause 2 INNER JOINs to be genereated.
             
             // Process joins for references from this entity/class only (for identifying properties and resource Ids)
             foreach (var reference in resourceClass.References.Where(r => !r.IsInherited))

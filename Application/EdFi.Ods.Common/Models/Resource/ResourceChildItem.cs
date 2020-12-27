@@ -91,7 +91,7 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             return new Lazy<bool>(() =>
             {
-                // TODO: Simple API - Consider the following line as an alternative implementation
+                // TODO: API Simplification - Consider the following line as an alternative implementation
                 // return (resourceClass.Entity.Aggregate.AggregateRoot != resourceClass.ResourceRoot.Entity)
                 
                 // Get the lineage from bottom to top, leaving out the root resource class

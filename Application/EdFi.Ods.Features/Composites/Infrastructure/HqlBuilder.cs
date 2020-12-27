@@ -219,7 +219,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
                 foreach (var valueFilter in collection.ValueFilters)
                 {
-                    // TODO: Simple API - Implement support for collection value filtering
+                    // TODO: API Simplification - Implement support for collection value filtering
                     // // Get the actual filter to which the property applies
                     // var filterProperty = collection.ItemType.AllPropertyByName[valueFilter.PropertyName];
                     //
@@ -235,7 +235,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // object parametersAsObject;
 
                     // ------------------------------------------------------------------------
-                    // TODO: Simple API - Need to replace use of descriptor cache here
+                    // TODO: API Simplification - Need to replace use of descriptor cache here
                     // ------------------------------------------------------------------------
                     // Is this a first time parameter value assignment?
                     // if (!builderContext.CurrentQueryFilterParameterValueByName.TryGetValue(parameterName, out parametersAsObject))
@@ -766,9 +766,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Handle Lookup conversions
                     if (targetProperty.IsLookup)
                     {
-                        // ------------------------------------------------------------------------
-                        // TODO: SimpleAPI - Need to replace use of descriptor cache here
-                        // ------------------------------------------------------------------------
+                        // ---------------------------------------------------------------------------------------------------------------------------------
+                        // TODO: API Simplification - Need to eliminate use of descriptor cache here for descriptor criteria, using instead the URI format
+                        // ---------------------------------------------------------------------------------------------------------------------------------
                         // var id = _descriptorsCache.GetId(targetProperty.LookupTypeName, (string) queryStringParameter.Value);
                         //
                         // criteriaPropertyName = targetProperty.EntityProperty.PropertyName;
@@ -778,9 +778,9 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     // Handle UniqueId conversions
                     else if (UniqueIdSpecification.TryGetUniqueIdPersonType(targetProperty.PropertyName, out personType))
                     {
-                        // ------------------------------------------------------------------------
-                        // TODO: SimpleAPI - Need to replace use of Person cache here
-                        // ------------------------------------------------------------------------
+                        // ---------------------------------------------------------------------------------------------------------------
+                        // TODO: API Simplification - Need to replace use of Person cache here and apply criteria using UniqueId values
+                        // ---------------------------------------------------------------------------------------------------------------
                         // int usi = _personUniqueIdToUsiCache.GetUsi(personType, (string) queryStringParameter.Value);
                         //
                         // // TODO: Embedded convention - Convert UniqueId to USI from Resource model to query Entity model on Person entities
@@ -802,7 +802,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         parameterValue = ConvertParameterValueForProperty(targetProperty, Convert.ToString(queryStringParameter.Value));
                     }
 
-                    // TODO: SimpleAPI - This is guard condition to prevent unsupported scenarios from commented sections above from blowing up, and should eventually be removed
+                    // TODO: API Simplification - This is guard condition to prevent unsupported scenarios from commented sections above from blowing up, and should eventually be removed
                     if (criteriaPropertyName == null || parameterValue == null)
                         return;
                     

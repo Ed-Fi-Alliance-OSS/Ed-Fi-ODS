@@ -159,28 +159,25 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
 
         private IResourceModel GetResourceModel()
         {
-            // ---------------------------------------------------------------------------
-            // TODO: SimpleAPI - Need to re-instate once API client claims are reinstated
-            // ---------------------------------------------------------------------------
             // Determine caller's assigned profiles
-            // var assignedProfileNames =
-            //     ClaimsPrincipal.Current.Claims
-            //                    .Where(c => c.Type == EdFiOdsApiClaimTypes.Profile)
-            //                    .Select(c => c.Value)
-            //                    .ToArray();
-            //
-            // if (assignedProfileNames.Any())
-            // {
-            //     // Get all the Profile-specific versions of the Resource Model (which also separates models for read/write content types)
-            //     var profileResourceModels = assignedProfileNames
-            //         .Select(_profileResourceModelProvider.GetProfileResourceModel)
-            //         .ToArray();
-            //
-            //     // Get to an IResourceModel that applies all currently assigned filters
-            //     return new ProfilesAppliedResourceModel(
-            //         ContentTypeUsage.Readable,
-            //         profileResourceModels);
-            // }
+            var assignedProfileNames =
+                ClaimsPrincipal.Current.Claims
+                               .Where(c => c.Type == EdFiOdsApiClaimTypes.Profile)
+                               .Select(c => c.Value)
+                               .ToArray();
+            
+            if (assignedProfileNames.Any())
+            {
+                // Get all the Profile-specific versions of the Resource Model (which also separates models for read/write content types)
+                var profileResourceModels = assignedProfileNames
+                    .Select(_profileResourceModelProvider.GetProfileResourceModel)
+                    .ToArray();
+            
+                // Get to an IResourceModel that applies all currently assigned filters
+                return new ProfilesAppliedResourceModel(
+                    ContentTypeUsage.Readable,
+                    profileResourceModels);
+            }
 
             return _resourceModelProvider.GetResourceModel();
         }

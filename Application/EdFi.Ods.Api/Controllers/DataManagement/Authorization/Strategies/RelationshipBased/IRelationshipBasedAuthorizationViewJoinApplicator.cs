@@ -8,7 +8,7 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 
 namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.RelationshipBased
 {
-    // TODO: Simple API - Need better name to distinguish from IRelationshipBasedAuthorizationFilterApplicator
+    // TODO: API Simplification - Need better name to distinguish from IRelationshipBasedAuthorizationFilterApplicator
     public interface IRelationshipBasedAuthorizationViewJoinApplicator
     {
         void ApplyAuthorizationViewJoin(

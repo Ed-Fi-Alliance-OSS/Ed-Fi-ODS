@@ -47,11 +47,11 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Relat
             var educationOrganizationIdsGroupedByFullName =
                 _educationOrganizationClaimsProvider.GetEducationOrganizationClaims();
 
-            // TODO: Simple API - Remove when support for authorizing claims with multiple EdOrg types is implemented
+            // TODO: API Simplification - Remove when support for authorizing claims with multiple EdOrg types is implemented
             // ---------------------------------------------------------------------------------------------
             if (educationOrganizationIdsGroupedByFullName.Count() > 1)
             {
-                // TODO: Simple API - Support authorization with API client associated with multiple ed org types.
+                // TODO: API Simplification - Support authorization with API client associated with multiple ed org types.
                 throw new NotImplementedException("Support for multiple EdOrg types has not yet been implemented.");
             }
             // ---------------------------------------------------------------------------------------------

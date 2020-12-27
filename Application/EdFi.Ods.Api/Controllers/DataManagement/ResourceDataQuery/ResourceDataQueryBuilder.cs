@@ -58,11 +58,11 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
                 // Filter results for a page of data
                 if (primaryKeyValues == null)
                 {
-                    // TODO: Simple API - Consider refactoring this as a database-specific action, to approach this using an inner join to the TVP in SQL Server
+                    // TODO: API Simplification - Consider refactoring this as a database-specific action, to approach this using an inner join to the TVP in SQL Server
                     sqlBuilder.Where("b.Id IN (SELECT Id FROM @ids)");
                 }
 
-                // TODO: Simple API - Semantic model property candidate: Resource.BaseResource to obtain Resource for base, profile-constrained when appropriate
+                // TODO: API Simplification - Semantic model property candidate: Resource.BaseResource to obtain Resource for base, profile-constrained when appropriate
                 var baseFullName = resource.Entity.BaseEntity.FullName;
                 var baseResource = _resourceModelProvider.GetResourceModel().GetResourceByFullName(baseFullName);
 
@@ -72,7 +72,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
             {
                 if (primaryKeyValues == null)
                 {
-                    // TODO: Simple API - Consider refactoring this as a database-specific action, to approach this using an inner join to the TVP in SQL Server
+                    // TODO: API Simplification - Consider refactoring this as a database-specific action, to approach this using an inner join to the TVP in SQL Server
                     sqlBuilder.Where("e.Id IN (SELECT Id FROM @ids)");
                 }
             }
@@ -89,7 +89,7 @@ FROM {_physicalNamesProvider.FullName(resource.Entity)} AS e
     /**innerjoin**/
     /**leftjoin**/
 /**where**/
-/**orderby**/"); // TODO: Simple API - Consider optimizing response output generation by using the sort order (as with composites), or removing sorting on all child queries
+/**orderby**/"); // TODO: API Simplification - Consider optimizing response output generation by using the sort order (as with composites), or removing sorting on all child queries
 
             yield return new ResourceClassQuery(resource, query);
 
@@ -144,10 +144,10 @@ FROM {_physicalNamesProvider.FullName(resource.Entity)} AS e
                     // TODO: UniqueId requires join to corresponding Person table
                     var personType = entityProperty.DefiningProperty.Entity.Name; 
 
-                    // TODO: Simple API - Replace embedded convention with semantic model usage - PersonUSI name
+                    // TODO: API Simplification - Replace embedded convention with semantic model usage - PersonUSI name
                     string personTypeUsiName = $"{personType}USI"; 
                     
-                    // TODO: Simple API - Replace embedded convention with semantic model usage - PersonUniqueId name
+                    // TODO: API Simplification - Replace embedded convention with semantic model usage - PersonUniqueId name
                     string personTypeUniqueName = $"{personType}UniqueId";
 
                     string personAlias = aliasGenerator.GetNextAlias();

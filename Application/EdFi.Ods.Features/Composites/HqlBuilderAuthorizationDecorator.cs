@@ -56,9 +56,9 @@ namespace EdFi.Ods.Features.Composites
         /// <returns><b>true</b> if the resource can be processed; otherwise <b>false</b>.</returns>
         public bool TryIncludeResource(CompositeDefinitionProcessorContext processorContext, HqlBuilderContext builderContext)
         {
-            // ------------------------------------------------------------------------
-            // TODO: SimpleAPI - Reinstate for authorization
-            // ------------------------------------------------------------------------
+            // --------------------------------------------------------------------------------------
+            // TODO: API Simplification - Reimplement authorization access to resource appropriately
+            // --------------------------------------------------------------------------------------
             return true;
             
             // var resourceClass = processorContext.CurrentResourceClass;
@@ -136,9 +136,9 @@ namespace EdFi.Ods.Features.Composites
             CompositeDefinitionProcessorContext processorContext,
             out CompositeQuery buildResult)
         {
-            // ------------------------------------------------------------------------
-            // TODO: SimpleAPI - Reinstate for authorization
-            // ------------------------------------------------------------------------
+            // --------------------------------------------------------------------------------------
+            // TODO: API Simplification - Reimplement authorization access to resource appropriately
+            // --------------------------------------------------------------------------------------
             // ApplyFilters(processorContext, builderContext);
 
             return _next.TryBuildForRootResource(builderContext, processorContext, out buildResult);
@@ -156,9 +156,9 @@ namespace EdFi.Ods.Features.Composites
             HqlBuilderContext builderContext,
             CompositeDefinitionProcessorContext processorContext)
         {
-            // ------------------------------------------------------------------------
-            // TODO: SimpleAPI - Reinstate for authorization
-            // ------------------------------------------------------------------------
+            // --------------------------------------------------------------------------------------
+            // TODO: API Simplification - Reimplement authorization access to resource appropriately
+            // --------------------------------------------------------------------------------------
             // ApplyFilters(processorContext, builderContext);
 
             return _next.BuildForChildResource(parentResult, builderContext, processorContext);
@@ -300,9 +300,9 @@ namespace EdFi.Ods.Features.Composites
                 });
         }
 
-        // ------------------------------------------------------------------------
-        // TODO: SimpleAPI - Reinstate for authorization
-        // ------------------------------------------------------------------------
+        // --------------------------------------------------------------------------------------
+        // TODO: API Simplification - Reimplement authorization access to resource appropriately
+        // --------------------------------------------------------------------------------------
         // private void ApplyFilters(
         //     CompositeDefinitionProcessorContext processorContext,
         //     HqlBuilderContext builderContext)

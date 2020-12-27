@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement
                 return (null, new RESTError {Code = 404});
             }
             
-            // TODO: Simple API - Move this to a decorator
+            // TODO: API Simplification - Move this to a decorator
             if (TryGetProfileContentType(request, out string profileContentType))
             {
                 var contentTypeDetails = profileContentType.GetContentTypeDetails();

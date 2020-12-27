@@ -33,7 +33,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
                 return;
             }
             
-            // TODO: Simple API - Need to handle UniqueId properties that are resource-level expansions from USIs on the entity
+            // TODO: API Simplification - Need to handle UniqueId properties that are resource-level expansions from USIs on the entity
             
             // Ensure proposed value is not the default value for the target type
             switch (property.PropertyType.DbType)

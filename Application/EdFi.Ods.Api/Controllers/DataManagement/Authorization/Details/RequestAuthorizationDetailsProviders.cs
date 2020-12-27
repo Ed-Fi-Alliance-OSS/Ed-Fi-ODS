@@ -82,7 +82,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Details
         {
             string resourceClaimUri = targetResourceClaim.Attribute("name")?.Value;
             
-            // TODO: Simple API - Need to implement logic to iterate up this set of nodes if information isn't found on first one
+            // TODO: API Simplification - Need to implement logic to iterate up this set of nodes if information isn't found on first one
             // Look up the claims hierarchy for a Claim with explicit permissions defined for the claim set
             var permissionsResourceClaim = targetResourceClaim.XPathSelectElements(
                     $"ancestor-or-self::Claim[ClaimSets/ClaimSet[@name='{claimSetName}']]")
@@ -105,14 +105,14 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Details
             if (actionElement == null)
             {
                 // No permissions defined for this action
-                // TODO: Simple API - If at first you don't succeed, keep looking up the hierarchy.
+                // TODO: API Simplification - If at first you don't succeed, keep looking up the hierarchy.
                 return null;
             }
 
             // Determine if there's an authorization strategy override defined at this level
             string authorizationStrategy = actionElement.Attribute("authorizationStrategyOverride")?.Value;
 
-            XElement claimWithDefaultAuthorizationStrategy = null; // TODO: Simple API - Iterate on this until all levels exhausted
+            XElement claimWithDefaultAuthorizationStrategy = null; // TODO: API Simplification - Iterate on this until all levels exhausted
 
             if (authorizationStrategy == null)
             {
@@ -146,11 +146,11 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Details
 
             return new RequestAuthorizationDetails(
                 authorizationStrategy,
-                null, // TODO: Simple API - Need to add support for validation rule sets
+                null, // TODO: API Simplification - Need to add support for validation rule sets
                 new RequestAuthorizationDetails.Diagnostics(
                     permissionsResourceClaim.Attribute("name")?.Value,
                     claimWithDefaultAuthorizationStrategy?.Attribute("name")?.Value),
-                null); // TODO: Simple API - Need to add support for validation rule sets diagnostics
+                null); // TODO: API Simplification - Need to add support for validation rule sets diagnostics
         }
     }
 }

@@ -47,7 +47,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Names
             }
             else
             {
-                // TODO: Simple API - Review existing implementation for appropriate exception message
+                // TODO: API Simplification - Review existing implementation for appropriate exception message
                 throw new ApiSecurityConfigurationException($"Entity '{entity.FullName}' was configured to use authorization strategy '{NamespaceBasedAuthorizationStrategyName}', but the entity does not contain a 'Namespace' property.");
             }
         }

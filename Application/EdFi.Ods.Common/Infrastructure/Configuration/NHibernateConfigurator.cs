@@ -112,7 +112,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             configuration.Configure(
                 Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "hibernate.cfg.xml"));
 
-            // TODO: SimpleAPI - Don't do anything. We shouldn't be here. This should be deleted.
+            // TODO: API Simplification - Don't do anything. We shouldn't be here. This code will be obsolete.
             return configuration;
 
             #region API Simplification - Obsolete code

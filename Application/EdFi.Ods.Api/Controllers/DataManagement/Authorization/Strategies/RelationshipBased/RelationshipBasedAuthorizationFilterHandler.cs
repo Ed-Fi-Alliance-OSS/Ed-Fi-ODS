@@ -52,7 +52,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Relat
         }
     }
 
-    // TODO: Simple API - This might be needed in future if we use parameter-based TVPs from Dapper instead of SQL template-based TVPs 
+    // TODO: API Simplification - This might be needed in future if we use parameter-based TVPs from Dapper instead of SQL template-based TVPs 
     #region Possibly useful in future
     // public class RelationshipBasedAuthorizationStrategyFilterParameterApplicator : IAuthorizationStrategyFilterParameterApplicator
     // {

@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Relat
             var claimEntityName = authorizationFilterDetails.ClaimEducationOrganizationEntityName;
             string claimViewColumnName = authorizationFilterDetails.ClaimViewColumnName;
 
-            // TODO: Simple API - May want to revisit the approach here, and use an inner join to the TVP rather than a sub-SELECT.
+            // TODO: API Simplification - May want to revisit the approach here, and use an inner join to the TVP rather than a sub-SELECT.
             sqlBuilder.Where(
                 $"{authViewAlias}.{claimViewColumnName} IN (SELECT Id FROM @{claimEntityName.Schema}_{claimEntityName.Name}Ids)");
         }
