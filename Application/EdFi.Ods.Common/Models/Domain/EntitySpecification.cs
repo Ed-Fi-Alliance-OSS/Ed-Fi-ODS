@@ -26,8 +26,15 @@ namespace EdFi.Ods.Common.Models.Domain
             return PersonEntitySpecification.IsPersonEntity(entity.Name);
         }
         
+        /// <summary>
+        /// TO BE DEPRECATED.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        /// <seealso cref="EntityExtensions.HasServerAssignedIdentity"/>
         public static bool HasServerAssignedSurrogateId(this Entity entity)
         {
+            // NOTE: This method has somewhat dubious logic and should be reviewed if used again before being removed.
             //People and the base descriptors have server assigned surrogate ids.
             return entity.Identifier.Properties.Any(
                 p =>

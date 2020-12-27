@@ -186,6 +186,11 @@ namespace EdFi.Ods.Api.Container.Modules
                 .AssignableTo<IEntityPropertyValidator>()
                 .As<IEntityPropertyValidator>()
                 .SingleInstance();
+
+            builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
+                .AssignableTo<IEntityRecordValidator>()
+                .As<IEntityRecordValidator>()
+                .SingleInstance();
             
             // -------------------------
             // End API Simplification

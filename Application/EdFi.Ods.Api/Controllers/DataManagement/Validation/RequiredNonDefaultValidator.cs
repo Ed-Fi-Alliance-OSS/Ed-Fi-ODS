@@ -22,6 +22,19 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
                 return;
             }
 
+            // Handle descriptors specially since they are handled as strings for validation purposes
+            if (property.IsLookup)
+            {
+                if (string.IsNullOrEmpty((string) proposedValueAsObject))
+                {
+                    AddRequiredValidationFailure();
+                }
+
+                return;
+            }
+            
+            // TODO: Simple API - Need to handle UniqueId properties that are resource-level expansions from USIs on the entity
+            
             // Ensure proposed value is not the default value for the target type
             switch (property.PropertyType.DbType)
             {

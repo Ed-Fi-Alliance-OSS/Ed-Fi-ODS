@@ -173,6 +173,24 @@ namespace EdFi.Ods.Common.Models.Domain
         }
 
         /// <summary>
+        /// Indicates whether the specified entity's primary key is entirely determined by the server (i.e. using an IDENTITY
+        /// column or SEQUENCE value), whether on the entity itself or for derived entities, on the base entity.
+        /// </summary>
+        /// <param name="entity">The entity to be evaluated.</param>
+        /// <returns><b>true</b> if the value in the primary key column is determined by the server; otherwise <b>false</b>.</returns>
+        /// <seealso cref="EntitySpecification.HasServerAssignedSurrogateId"/>
+        public static bool HasServerAssignedIdentity(this Entity entity)
+        {
+            if (entity.IsDerived)
+            {
+                return HasServerAssignedIdentity(entity.BaseEntity);
+            }
+            
+            return (entity.Identifier.Properties.Count == 1 
+                && entity.Identifier.Properties.Single().IsServerAssigned);
+        }
+
+        /// <summary>
         /// Indicates whether the specified entity can be the target of a reference in the API resource models.
         /// </summary>
         /// <param name="entity"></param>
@@ -231,7 +249,7 @@ namespace EdFi.Ods.Common.Models.Domain
             => PredefinedProperties.Contains(propertyName);
 
         /// <summary>
-        /// Generates the column name for a property
+        /// Retrieves the predefined physical column name supplied in the API model definitions for a property based on the specified database engine.
         /// </summary>
         /// <param name="property"></param>
         /// <param name="databaseEngine"></param>
@@ -247,7 +265,7 @@ namespace EdFi.Ods.Common.Models.Domain
         }
 
         /// <summary>
-        /// Gets the database-specific table name for the entity.
+        /// Retrieves the predefined physical table name supplied in the API model definitions for an entity based on the specified database engine.
         /// </summary>
         /// <param name="entity">The entity for which to obtain the physical table name.</param>
         /// <param name="databaseEngine">The key representing the database engine.</param>
