@@ -11,10 +11,10 @@ namespace EdFi.Ods.Common.Extensions
     public static class EntityPropertyExtensions
     {
         /// <summary>
-        /// Gets the UniqueId property for the supplied USI property on a Person entity.
+        /// Gets the UniqueId property for the supplied USI property on a person-type entity.
         /// </summary>
-        /// <param name="entityProperty"></param>
-        /// <returns></returns>
+        /// <param name="entityProperty">The USI property on a person-type entity.</param>
+        /// <returns>The corresponding UniqueId property.</returns>
         /// <exception cref="ArgumentException">Occurs when the <paramref name="entityProperty"/> supplied is not the USI property.</exception>
         /// <exception cref="Exception">Occurs when the corresponding UniqueId property cannot be found using the expected naming convention.</exception>
         public static EntityProperty CorrespondingUniqueIdProperty(this EntityProperty entityProperty)
