@@ -6,7 +6,6 @@
 using System;
 using System.Net;
 using EdFi.Ods.Api.Models;
-using NHibernate;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators
 {
@@ -16,7 +15,8 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
         {
             webServiceError = null;
 
-            if (ex is StaleObjectStateException)
+            // TODO: API Simplification - Needs to be converted appropriately for use with Dapper
+            if (ex == null) // is StaleObjectStateException)
             {
                 webServiceError = new RESTError
                                   {

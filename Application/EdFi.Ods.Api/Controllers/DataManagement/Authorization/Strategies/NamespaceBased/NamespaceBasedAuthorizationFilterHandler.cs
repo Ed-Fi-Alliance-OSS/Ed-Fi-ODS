@@ -41,7 +41,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Names
                 var namespacePrefixes = _apiKeyContextProvider.GetApiKeyContext().NamespacePrefixes;
 
                 var namespaceClauses = namespacePrefixes.Select((ns, i) 
-                    => $"e.{namespaceColumnName} LIKE @namespacePrefix{i}");
+                    => $"e.{namespaceColumnName} IS NOT NULL AND e.{namespaceColumnName} LIKE @namespacePrefix{i}");
 
                 sqlBuilder.Where($"({string.Join(" OR ", namespaceClauses)})");
             }

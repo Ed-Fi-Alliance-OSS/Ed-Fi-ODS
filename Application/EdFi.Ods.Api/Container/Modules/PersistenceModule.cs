@@ -4,26 +4,17 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Data;
 using Autofac;
-using Autofac.Core;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Database;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.IdentityValueMappers;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.Repositories;
-using EdFi.Ods.Common.Providers;
-using EdFi.Ods.Common.Providers.Criteria;
-using EdFi.Ods.Common.Repositories;
 using EdFi.Security.DataAccess.Providers;
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
-using NHibernate;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -53,22 +44,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .AsSelf()
                 .SingleInstance();
 
-            builder.RegisterType<DescriptorsCache>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.ParameterType == typeof(ICacheProvider),
-                        (p, c) =>
-                        {
-                            var configuration = c.Resolve<IConfiguration>();
-
-                            int expirationPeriod =
-                                configuration.GetValue<int?>("Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
-
-                            return new ExpiringConcurrentDictionaryCacheProvider(new TimeSpan(expirationPeriod));
-                        }))
-                .As<IDescriptorsCache>()
-                .SingleInstance();
-
             builder.Register(c => c.Resolve<ApiSettings>().GetDatabaseEngine())
                 .SingleInstance();
 
@@ -81,115 +56,7 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
-            builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
-                .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(TotalCountCriteriaProvider<>))
-                .As(typeof(ITotalCountCriteriaProvider<>))
-                .SingleInstance();
-
-            // This is a cache, and it needs to be a singleton
-            builder.RegisterType<FilterCriteriaApplicatorProvider>()
-                .As<IFilterCriteriaApplicatorProvider>()
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(NHibernateRepository<>))
-                .As(typeof(IRepository<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(CreateEntity<>))
-                .As(typeof(ICreateEntity<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(DeleteEntityById<>))
-                .As(typeof(IDeleteEntityById<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(DeleteEntityByKey<>))
-                .As(typeof(IDeleteEntityByKey<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(GetEntitiesByIds<>))
-                .As(typeof(IGetEntitiesByIds<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
-                .As(typeof(IGetEntitiesBySpecification<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(GetEntityById<>))
-                .As(typeof(IGetEntityById<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(GetEntityByKey<>))
-                .As(typeof(IGetEntityByKey<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(UpdateEntity<>))
-                .As(typeof(IUpdateEntity<>))
-                .SingleInstance();
-
-            builder.RegisterGeneric(typeof(UpsertEntity<>))
-                .As(typeof(IUpsertEntity<>))
-                .SingleInstance();
-
-            builder.RegisterType<UniqueIdToUsiValueMapper>()
-                .As<IUniqueIdToUsiValueMapper>()
-                .PreserveExistingDefaults()
-                .SingleInstance();
-
-            builder.RegisterType<PersonUniqueIdToUsiCache>()
-                .WithParameter(new NamedParameter("synchronousInitialization", false))
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.Equals("slidingExpiration", StringComparison.InvariantCultureIgnoreCase),
-                        (p, c) =>
-                        {
-                            var configuration = c.Resolve<IConfiguration>();
-
-                            int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:SlidingExpirationSeconds") ??
-                                         14400;
-
-                            return new TimeSpan(period);
-                        }))
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name.Equals("absoluteExpirationPeriod", StringComparison.InvariantCultureIgnoreCase),
-                        (p, c) =>
-                        {
-                            var configuration = c.Resolve<IConfiguration>();
-
-                            int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ??
-                                         86400;
-
-                            return new TimeSpan(period);
-                        }))
-                .As<IPersonUniqueIdToUsiCache>()
-                .SingleInstance();
-
-            builder.RegisterType<OrmMappingFileDataProvider>()
-                .WithParameter(new NamedParameter("assemblyName", OrmMappingFileConventions.OrmMappingAssembly))
-                .As<IOrmMappingFileDataProvider>()
-                .SingleInstance();
-
-            builder.RegisterType<NHibernateConfigurator>()
-                .As<INHibernateConfigurator>()
-                .SingleInstance();
-
-            builder.Register(
-                    c => c.Resolve<INHibernateConfigurator>()
-                        .Configure())
-                .As<NHibernate.Cfg.Configuration>()
-                .AsSelf()
-                .SingleInstance();
-
-            builder.Register(
-                    c => c.Resolve<NHibernate.Cfg.Configuration>()
-                        .BuildSessionFactory())
-                .As<ISessionFactory>()
-                .SingleInstance();
-
+            // TODO: API Simplification - Review this comment for relevance after converting from NHibernate to Dapper 
             // ----------------------------------------------------------------------------------------------------
             // NOTE: Sometimes ISessionFactory cannot be injected, so we're injecting a Func<IStatelessSession> rather
             // than the ISessionFactory or IStatelessSession (the latter of which can result in a memory leak).
@@ -210,33 +77,17 @@ namespace EdFi.Ods.Api.Container.Modules
 
             // Autofac needs to first resolve the context into a variable before it can assign the function.
             // When resolving this function we need to use Owned<Func<T>> since they are scoped.
-            builder.Register<Func<IStatelessSession>>(
-                    c =>
-                    {
-                        var ctx = c.Resolve<IComponentContext>();
 
-                        return () => ctx.Resolve<ISessionFactory>()
-                            .OpenStatelessSession();
-                    })
-                .SingleInstance();
-
-            builder.Register<Func<ISession>>(
-                    c =>
-                    {
-                        var ctx = c.Resolve<IComponentContext>();
-
-                        return () => ctx.Resolve<ISessionFactory>()
-                            .OpenSession();
-                    })
-                .SingleInstance();
-
-            builder.RegisterType<DatabaseConnectionNHibernateConfigurationActivity>()
-                .As<INHibernateConfigurationActivity>()
-                .SingleInstance();
-
-            builder.RegisterType<NHibernateOdsConnectionProvider>()
-                .AsSelf()
-                .InstancePerLifetimeScope();
+            // TODO: API Simplification - Convert from ISessionFactory to ADO.NET
+            // builder.Register<Func<IDbConnection>>(
+            //         c =>
+            //         {
+            //             var ctx = c.Resolve<IComponentContext>();
+            //
+            //             return () => ctx.Resolve<DbProviderFactory(?)>()
+            //                 .OpenSession();
+            //         })
+            //     .SingleInstance();
         }
     }
 }

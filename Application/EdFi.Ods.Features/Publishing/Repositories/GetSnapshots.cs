@@ -8,57 +8,58 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Infrastructure;
-using EdFi.Ods.Common.Infrastructure.Repositories;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Features.Publishing.Resources;
-using NHibernate;
-using NHibernate.Transform;
 
 namespace EdFi.Ods.Features.Publishing.Repositories
 {
-    public class GetSnapshots : NHibernateRepositoryOperationBase, IGetSnapshots
+    public class GetSnapshots : IGetSnapshots
     {
-        private readonly ISessionFactory _sessionFactory;
+        private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
 
-        public GetSnapshots(ISessionFactory sessionFactory, DatabaseEngine databaseEngine)
-            : base(sessionFactory)
+        public GetSnapshots(DatabaseEngine databaseEngine, IOdsDatabaseConnectionStringProvider connectionStringProvider)
         {
-            _sessionFactory = sessionFactory;
+            _connectionStringProvider = connectionStringProvider;
         }
 
-        public async Task<IList<Snapshot>> GetAllAsync(IQueryParameters queryParameters)
+        public Task<IList<Snapshot>> GetAllAsync(IQueryParameters queryParameters)
         {
             var cmdSql = $@"
 SELECT   Id, SnapshotIdentifier, SnapshotDateTime
 FROM     publishing.Snapshot
 ORDER BY SnapshotDateTime DESC";
 
-            using (var sessionScope = new SessionScope(_sessionFactory))
-            {
-                var query = sessionScope.Session.CreateSQLQuery(cmdSql)
-                    .SetFirstResult(queryParameters.Offset ?? 0)
-                    .SetMaxResults(queryParameters.Limit ?? 25)
-                    .SetResultTransformer(Transformers.AliasToBean<Snapshot>());
-
-                return await query.ListAsync<Snapshot>().ConfigureAwait(false);
-            }
+            // TODO: API Simplification - Needs to be converted to use Dapper
+            throw new NotImplementedException("Needs conversion from NHibernate to Dapper.");
+            // using (var sessionScope = new SessionScope(_sessionFactory))
+            // {
+            //     var query = sessionScope.Session.CreateSQLQuery(cmdSql)
+            //         .SetFirstResult(queryParameters.Offset ?? 0)
+            //         .SetMaxResults(queryParameters.Limit ?? 25)
+            //         .SetResultTransformer(Transformers.AliasToBean<Snapshot>());
+            //
+            //     return await query.ListAsync<Snapshot>().ConfigureAwait(false);
+            // }
         }
 
-        public async Task<Snapshot> GetByIdAsync(Guid id)
+        public Task<Snapshot> GetByIdAsync(Guid id)
         {
             var cmdSql = $@"
 SELECT   Id, SnapshotIdentifier, SnapshotDateTime
 FROM     publishing.Snapshot
 WHERE    Id = :id";
             
-            using (var sessionScope = new SessionScope(_sessionFactory))
-            {
-                var query = sessionScope.Session.CreateSQLQuery(cmdSql)
-                    .SetGuid("id", id)
-                    .SetResultTransformer(Transformers.AliasToBean<Snapshot>());
-
-                return await query.UniqueResultAsync<Snapshot>().ConfigureAwait(false);
-            }
+            // TODO: API Simplification - Needs to be converted to use Dapper
+            throw new NotImplementedException("Needs conversion from NHibernate to Dapper.");
+            //
+            // using (var sessionScope = new SessionScope(_sessionFactory))
+            // {
+            //     var query = sessionScope.Session.CreateSQLQuery(cmdSql)
+            //         .SetGuid("id", id)
+            //         .SetResultTransformer(Transformers.AliasToBean<Snapshot>());
+            //
+            //     return await query.UniqueResultAsync<Snapshot>().ConfigureAwait(false);
+            // }
         }
     }
 }

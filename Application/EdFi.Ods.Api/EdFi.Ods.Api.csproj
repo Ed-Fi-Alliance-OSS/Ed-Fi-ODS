@@ -29,7 +29,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.10" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="Npgsql" Version="4.1.5" />
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
@@ -43,5 +42,8 @@
     <ProjectReference Include="..\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure" />
   </ItemGroup>
 </Project>

@@ -8,32 +8,27 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Infrastructure;
-using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
-using NHibernate;
-using NHibernate.Transform;
 
 namespace EdFi.Ods.Features.ChangeQueries
 {
-    public class GetDeletedResourceIds : NHibernateRepositoryOperationBase, IGetDeletedResourceIds
+    public interface IGetDeletedResourceIds
     {
-        private readonly ISessionFactory _sessionFactory;
+        IReadOnlyList<DeletedResource> Execute(string schema, string resource, IQueryParameters queryParameters);
+    }
+    
+    public class GetDeletedResourceIds : IGetDeletedResourceIds
+    {
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly DatabaseEngine _databaseEngine;
 
         public GetDeletedResourceIds(
-            ISessionFactory sessionFactory,
             IDomainModelProvider domainModelProvider,
             DatabaseEngine databaseEngine)
-            : base(sessionFactory)
         {
-            _sessionFactory = sessionFactory;
             _domainModelProvider = domainModelProvider;
             _databaseEngine = databaseEngine;
         }
@@ -69,15 +64,17 @@ namespace EdFi.Ods.Features.ChangeQueries
 
             cmdSql += $" ORDER BY {ChangeQueriesDatabaseConstants.ChangeVersionColumnName}";
 
-            using (var sessionScope = new SessionScope(_sessionFactory))
-            {
-                var query = sessionScope.Session.CreateSQLQuery(cmdSql)
-                                        .SetFirstResult(queryParameters.Offset ?? 0)
-                                        .SetMaxResults(queryParameters.Limit ?? 25)
-                                        .SetResultTransformer(Transformers.AliasToBean<DeletedResource>());
-
-                return query.List<DeletedResource>().ToReadOnlyList();
-            }
+            // TODO: API Simplification - Needs to be converted to use Dapper
+            throw new NotImplementedException("Needs conversion from NHibernate to Dapper.");
+            // using (var sessionScope = new SessionScope(_sessionFactory))
+            // {
+            //     var query = sessionScope.Session.CreateSQLQuery(cmdSql)
+            //                             .SetFirstResult(queryParameters.Offset ?? 0)
+            //                             .SetMaxResults(queryParameters.Limit ?? 25)
+            //                             .SetResultTransformer(Transformers.AliasToBean<DeletedResource>());
+            //
+            //     return query.List<DeletedResource>().ToReadOnlyList();
+            // }
         }
     }
 }

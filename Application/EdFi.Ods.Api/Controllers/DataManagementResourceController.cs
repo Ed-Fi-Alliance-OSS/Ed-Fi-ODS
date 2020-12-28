@@ -31,7 +31,6 @@ using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
-using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Api.Controllers
 {

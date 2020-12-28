@@ -31,8 +31,6 @@ using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Dependencies;
-using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
@@ -296,16 +294,6 @@ namespace EdFi.Ods.Api.Startup
                 ClaimsPrincipal.ClaimsPrincipalSelector = () => Container.Resolve<IHttpContextAccessor>()
                     .HttpContext?.User;
 
-                // Provide cache using a closure rather than repeated invocations to the container
-                IPersonUniqueIdToUsiCache personUniqueIdToUsiCache = null;
-
-                PersonUniqueIdToUsiCache.GetCache = ()
-                    => personUniqueIdToUsiCache ??= Container.Resolve<IPersonUniqueIdToUsiCache>();
-
-                // Provide cache using a closure rather than repeated invocations to the container
-                IDescriptorsCache cache = null;
-                DescriptorsCache.GetCache = () => cache ??= Container.Resolve<IDescriptorsCache>();
-
                 if (apiMode == ApiMode.InstanceYearSpecific)
                 {
                     // Provide SecurityRepository cache using a closure rather than repeated invocations to the container
@@ -320,12 +308,7 @@ namespace EdFi.Ods.Api.Startup
                         () => Container.Resolve<IResourceModelProvider>()
                             .GetResourceModel());
 
-                EntityExtensionsFactory.Instance = Container.Resolve<IEntityExtensionsFactory>();
-
                 DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
-
-                // Set NHibernate to use Autofac to resolve its dependencies
-                NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
         }
 

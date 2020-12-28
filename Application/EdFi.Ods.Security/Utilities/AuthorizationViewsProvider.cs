@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using EdFi.Ods.Common.Extensions;
-using NHibernate;
+using System.Data.SqlClient;
+using System.Linq;
+using Dapper;
+using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Security.Utilities
 {
@@ -12,12 +13,12 @@ namespace EdFi.Ods.Security.Utilities
     public class AuthorizationViewsProvider : IAuthorizationViewsProvider
     {
         private readonly Lazy<IList<string>> _authorizationViews;
-        private readonly ISessionFactory _sessionFactory;
+        private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
 
-        public AuthorizationViewsProvider(ISessionFactory sessionFactory)
+        public AuthorizationViewsProvider(IOdsDatabaseConnectionStringProvider connectionStringProvider)
         {
             _authorizationViews = new Lazy<IList<string>>(LoadAuthorizationViews);
-            _sessionFactory = sessionFactory;
+            _connectionStringProvider = connectionStringProvider;
         }
 
         /// <summary>
@@ -31,11 +32,15 @@ namespace EdFi.Ods.Security.Utilities
 
         private IList<string> LoadAuthorizationViews()
         {
-            using (var session = _sessionFactory.OpenStatelessSession())
+            // TODO: API Simplification - Need to use generic mechanism for obtaining database connection
+            using (var connection = new SqlConnection(_connectionStringProvider.GetConnectionString()))
             {
-                return session.CreateSQLQuery(
-                        "SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_SCHEMA = 'auth'")
-                    .List<string>();
+                connection.Open();
+                
+                return connection.Query(
+                        "SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) AS ViewName FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_SCHEMA = 'auth'")
+                    .Select(x => (string) x.ViewName)
+                    .ToList();
             }
         }
     }

@@ -7,9 +7,6 @@ using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Infrastructure.Activities;
-using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.PostgreSql;
 using EdFi.Ods.Security.Authorization;
 
 namespace EdFi.Ods.Api.Container.Modules
@@ -23,16 +20,8 @@ namespace EdFi.Ods.Api.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<ParameterListSetter>()
-                .As<IParameterListSetter>()
-                .SingleInstance();
-
             builder.RegisterType<PostgresAuthorizationSegmentSqlProvider>()
                 .As<IAuthorizationSegmentsSqlProvider>()
-                .SingleInstance();
-
-            builder.RegisterType<PostgreSqlDatabaseEngineNHibernateConfigurationActivity>()
-                .As<INHibernateConfigurationActivity>()
                 .SingleInstance();
         }
     }

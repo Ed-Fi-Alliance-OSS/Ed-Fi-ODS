@@ -9,10 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
-using EdFi.Ods.Common;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
-using NHibernate;
 
 namespace EdFi.Ods.Security.Authorization
 {
@@ -22,23 +19,17 @@ namespace EdFi.Ods.Security.Authorization
     public class AuthorizationSegmentsVerifier : IAuthorizationSegmentsVerifier
     {
         private readonly IAuthorizationSegmentsSqlProvider _authorizationSegmentsSqlProvider;
-        private readonly ISessionFactory _sessionFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationSegmentsVerifier"/> class using
         /// the supplied connection string provider.
         /// </summary>
-        /// <param name="sessionFactory">NHibernate session factory</param>
         /// <param name="authorizationSegmentsSqlProvider">Authorization sql provider</param>
-        public AuthorizationSegmentsVerifier(
-            ISessionFactory sessionFactory,
-            IAuthorizationSegmentsSqlProvider authorizationSegmentsSqlProvider)
+        public AuthorizationSegmentsVerifier(IAuthorizationSegmentsSqlProvider authorizationSegmentsSqlProvider)
         {
             _authorizationSegmentsSqlProvider = Preconditions.ThrowIfNull(
                 authorizationSegmentsSqlProvider,
                 nameof(authorizationSegmentsSqlProvider));
-
-            _sessionFactory = Preconditions.ThrowIfNull(sessionFactory, nameof(sessionFactory));
         }
 
         /// <summary>
@@ -46,7 +37,7 @@ namespace EdFi.Ods.Security.Authorization
         /// </summary>
         /// <param name="authorizationSegments">The segments to be verified.</param>
         /// <param name="cancellationToken"></param>
-        public async Task VerifyAsync(
+        public Task VerifyAsync(
             IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments,
             CancellationToken cancellationToken)
         {
@@ -60,29 +51,32 @@ namespace EdFi.Ods.Security.Authorization
                 throw new ArgumentException("No authorization segments have been defined.");
             }
 
-            using (var session = _sessionFactory.OpenStatelessSession())
-            {
-                var cmd = session.Connection.CreateCommand();
-
-                int parameterIndex = 0;
-
-                var queryMetadata =
-                    _authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex);
-
-                cmd.CommandText = queryMetadata.Sql;
-
-                cmd.Parameters.AddRange(queryMetadata.Parameters);
-
-                var result = (int?)await cmd.ExecuteScalarAsync(cancellationToken);
-
-                cmd.Parameters.Clear();
-
-                if (result == null)
-                {
-                    throw new EdFiSecurityException(
-                        "Authorization denied.  The claim does not have any established relationships with the requested resource.");
-                }
-            }
+            throw new NotImplementedException("Not yet re-implemented for API Simplification.");
+            
+            // TODO: API Simplification - Convert to use ADO.NET connection, if not obsolete
+            // using (var session = _sessionFactory.OpenStatelessSession())
+            // {
+            //     var cmd = session.Connection.CreateCommand();
+            //
+            //     int parameterIndex = 0;
+            //
+            //     var queryMetadata =
+            //         _authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex);
+            //
+            //     cmd.CommandText = queryMetadata.Sql;
+            //
+            //     cmd.Parameters.AddRange(queryMetadata.Parameters);
+            //
+            //     var result = (int?)await cmd.ExecuteScalarAsync(cancellationToken);
+            //
+            //     cmd.Parameters.Clear();
+            //
+            //     if (result == null)
+            //     {
+            //         throw new EdFiSecurityException(
+            //             "Authorization denied.  The claim does not have any established relationships with the requested resource.");
+            //     }
+            // }
         }
     }
 }

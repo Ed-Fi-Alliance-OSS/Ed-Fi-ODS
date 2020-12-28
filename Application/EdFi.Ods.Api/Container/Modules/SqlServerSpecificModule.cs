@@ -9,9 +9,6 @@ using EdFi.Ods.Api.Controllers.DataManagement.PhysicalNames;
 using EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQueryTemplating;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Infrastructure.Activities;
-using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Security.Authorization;
 
 namespace EdFi.Ods.Api.Container.Modules
@@ -25,18 +22,11 @@ namespace EdFi.Ods.Api.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<SqlServerTableValuedParameterListSetter>()
-                .As<IParameterListSetter>()
-                .SingleInstance();
-
             builder.RegisterType<SqlServerAuthorizationSegmentSqlProvider>()
                 .As<IAuthorizationSegmentsSqlProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<SqlServerDatabaseEngineNHibernateConfigurationActivity>()
-                .As<INHibernateConfigurationActivity>()
-                .SingleInstance();
-
+            // API Simplification components 
             builder.RegisterType<SqlServerPhysicalNamesProvider>()
                 .As<IPhysicalNamesProvider>()
                 .SingleInstance();

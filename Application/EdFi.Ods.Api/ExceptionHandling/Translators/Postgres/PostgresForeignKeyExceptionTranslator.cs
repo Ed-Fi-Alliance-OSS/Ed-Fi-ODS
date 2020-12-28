@@ -7,7 +7,6 @@ using System;
 using System.Net;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Api.Models;
-using NHibernate.Exceptions;
 using Npgsql;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
@@ -23,9 +22,10 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.Postgres
         {
             webServiceError = null;
 
-            var exception = ex is GenericADOException
-                ? ex.InnerException
-                : ex;
+            // TODO: API Simplification - Needs to be converted to use Dapper
+            var exception = ex; // is GenericADOException
+            // ? ex.InnerException
+            // : ex;
 
             if (exception is PostgresException postgresException)
             {

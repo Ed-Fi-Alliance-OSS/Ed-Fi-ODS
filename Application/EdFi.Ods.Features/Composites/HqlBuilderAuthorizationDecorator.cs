@@ -6,20 +6,13 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Text;
 using EdFi.Common;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Common.Security;
-using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Security.Authorization;
-using EdFi.Ods.Security.Authorization.Repositories;
 using log4net;
 
 namespace EdFi.Ods.Features.Composites

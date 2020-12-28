@@ -9,9 +9,7 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Features.UniqueIdIntegration.Caching;
-using EdFi.Ods.Features.UniqueIdIntegration.Pipeline;
 using EdFi.Ods.Features.UniqueIdIntegration.Validation;
 
 namespace EdFi.Ods.Features.Container.Modules
@@ -30,14 +28,6 @@ namespace EdFi.Ods.Features.Container.Modules
                 .As<IPersonUniqueIdToIdCache>()
                 .IfNotRegistered(typeof(IPersonUniqueIdToIdCache))
                 .SingleInstance();
-
-            builder.RegisterGeneric(typeof(PopulateIdFromUniqueIdOnPeople<,,,>))
-                .AsSelf()
-                .SingleInstance();
-
-            builder.RegisterDecorator(
-                typeof(UniqueIdIntegrationPutPipelineStepsProviderDecorator),
-                typeof(IPutPipelineStepsProvider));
 
             builder.RegisterType<UniqueIdNotChangedEntityValidator>()
                 .As<IEntityValidator>()

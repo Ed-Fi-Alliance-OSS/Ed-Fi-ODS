@@ -13,10 +13,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -38,15 +35,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .Distinct(new AssemblyComparer())
                 .ToList();
 
-            builder.RegisterType<EntityExtensionsFactory>()
-                .As<IEntityExtensionsFactory>()
-                .SingleInstance();
-
-            builder.RegisterType<EntityExtensionRegistrar>()
-                .WithParameter(new TypedParameter(typeof(IEnumerable<Assembly>), installedExtensionAssemblies))
-                .As<IEntityExtensionRegistrar>()
-                .SingleInstance();
-
             installedExtensionAssemblies.ForEach(
                 assembly =>
                 {
@@ -56,37 +44,6 @@ namespace EdFi.Ods.Api.Container.Modules
                         .WithParameter("sourceAssembly", assembly)
                         .As<IDomainModelDefinitionsProvider>()
                         .SingleInstance();
-
-                    builder.RegisterType<ExtensionNHibernateConfigurationProvider>()
-                        .WithParameter("assemblyName", assemblyName)
-                        .As<IExtensionNHibernateConfigurationProvider>()
-                        .SingleInstance();
-
-                    var relationshipContextDataProviderTypes = assembly.GetTypes()
-                        .Where(
-                            t => !t.IsAbstract && typeof(IRelationshipsAuthorizationContextDataProvider<,>).IsAssignableFromGeneric(t))
-                        .ToList();
-
-                    var contextDataType = typeof(RelationshipsAuthorizationContextData);
-                    foreach (var providerType in relationshipContextDataProviderTypes)
-                    {
-                        var partiallyClosedInterfaceType =
-                            providerType.GetInterfaces()
-                                .SingleOrDefault(i => i.Name == typeof(IRelationshipsAuthorizationContextDataProvider<,>).Name);
-
-                        var modelType = partiallyClosedInterfaceType?.GetGenericArguments()[0];
-
-                        var closedInterfaceType =
-                            typeof(IRelationshipsAuthorizationContextDataProvider<,>)
-                                .MakeGenericType(modelType, contextDataType);
-
-                        var closedServiceType =
-                            providerType
-                                .MakeGenericType(contextDataType);
-
-                        builder.RegisterType(closedServiceType).As(closedInterfaceType)
-                            .SingleInstance();
-                    }
                 });
         }
     }

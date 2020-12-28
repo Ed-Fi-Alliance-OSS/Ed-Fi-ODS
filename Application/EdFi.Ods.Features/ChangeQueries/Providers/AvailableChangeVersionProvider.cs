@@ -3,9 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Common.Infrastructure;
-using NHibernate;
-using NHibernate.Transform;
+using System;
+using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Features.ChangeQueries.Providers
 {
@@ -16,11 +15,11 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
     /// </summary>
     public class AvailableChangeVersionProvider : IAvailableChangeVersionProvider
     {
-        private readonly ISessionFactory _sessionFactory;
+        private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
 
-        public AvailableChangeVersionProvider(ISessionFactory sessionFactory)
+        public AvailableChangeVersionProvider(IOdsDatabaseConnectionStringProvider connectionStringProvider)
         {
-            _sessionFactory = sessionFactory;
+            _connectionStringProvider = connectionStringProvider;
         }
 
         /// <summary>
@@ -32,18 +31,20 @@ namespace EdFi.Ods.Features.ChangeQueries.Providers
             var cmdSql =
                 $@"SELECT {ChangeQueriesDatabaseConstants.SchemaName}.GetMaxChangeVersion() as NewestChangeVersion";
 
-            AvailableChangeVersion result;
+            // AvailableChangeVersion result;
 
-            using (var sessionScope = new SessionScope(_sessionFactory))
-            {
-                result = sessionScope.Session.CreateSQLQuery(cmdSql)
-                                     .SetResultTransformer(Transformers.AliasToBean<AvailableChangeVersion>())
-                                     .UniqueResult<AvailableChangeVersion>();
-            }
-
-            result.OldestChangeVersion = 0;
-
-            return result;
+            // TODO: API Simplification - Needs to be converted to use Dapper
+            throw new NotImplementedException("Needs conversion from NHibernate to Dapper.");
+            // using (var sessionScope = new SessionScope(_sessionFactory))
+            // {
+            //     result = sessionScope.Session.CreateSQLQuery(cmdSql)
+            //                          .SetResultTransformer(Transformers.AliasToBean<AvailableChangeVersion>())
+            //                          .UniqueResult<AvailableChangeVersion>();
+            // }
+            //
+            // result.OldestChangeVersion = 0;
+            //
+            // return result;
         }
     }
 }

@@ -11,8 +11,6 @@ using System.Text.RegularExpressions;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common.Extensions;
-using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
 {
@@ -33,9 +31,10 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators.SqlServer
         {
             webServiceError = null;
 
-            var exception = ex is GenericADOException
-                ? ex.InnerException
-                : ex;
+            // TODO: API Simplification - Needs to be converted to use Dapper
+            var exception = ex; // is GenericADOException
+            // ? ex.InnerException
+            // : ex;
 
             if (exception is SqlException)
             {

@@ -7,7 +7,6 @@ using System;
 using System.Net;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Api.Models;
-using NHibernate;
 
 namespace EdFi.Ods.Api.ExceptionHandling.Translators
 {
@@ -20,7 +19,8 @@ namespace EdFi.Ods.Api.ExceptionHandling.Translators
         {
             webServiceError = null;
 
-            if (ex is NonUniqueObjectException)
+            // TODO: API Simplification - Needs to be converted appropriately for use with Dapper
+            if (ex  == null) // is NonUniqueObjectException)
             {
                 var match = Regex.Match(ex.Message, ExpectedExceptionPattern);
 

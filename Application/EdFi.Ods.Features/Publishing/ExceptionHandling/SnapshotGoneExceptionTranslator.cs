@@ -11,7 +11,6 @@ using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Features.Publishing.SnapshotContext;
-using NHibernate.Exceptions;
 
 namespace EdFi.Ods.Features.Publishing.ExceptionHandling
 {
@@ -41,9 +40,11 @@ namespace EdFi.Ods.Features.Publishing.ExceptionHandling
             webServiceError = null;
 
             // Unwrap the NHibernate generic exception if it is present
-            var exception = ex is GenericADOException
-                ? ex.InnerException
-                : ex;
+            // TODO: API Simplification - If necessary, catch the correct exception here from Dapper instead of NHibernate
+            var exception = 
+                // ex is GenericADOException
+                // ? ex.InnerException :
+                ex;
 
             if (exception is DatabaseConnectionException
                 && _snapshotContextProvider.GetSnapshotContext() != null)
