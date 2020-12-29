@@ -10,20 +10,16 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
 {
     public class NoOverExperiencedStaffValidator : IEntityRecordValidator
     {
-        private readonly FullName _supportedEntityName = new FullName("edfi", "Staff");
-        
-        public FullName SupportedEntityName
-        {
-            get => _supportedEntityName;
-        }
+        public FullName SupportedEntityName { get; } = new FullName("edfi", "Staff");
 
         public void Validate(Entity entity, IDictionary<string, object> proposedValues, IList<string> validationMessages)
         {
             var experience = (decimal?) proposedValues["YearsOfPriorProfessionalExperience"];
-            
+
             if (experience > 50.0M)
             {
-                validationMessages.Add($"Staff has too much experience. Experience value of {experience} must be less than or equal to 50.");
+                validationMessages.Add(
+                    $"Staff has too much experience. Experience value of {experience} must be less than or equal to 50.");
             }
         }
     }

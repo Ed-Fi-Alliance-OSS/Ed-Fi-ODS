@@ -417,7 +417,7 @@ namespace EdFi.Ods.Api.Controllers
                         var descriptorNamespace = proposedDescriptorValue.Substring(0, delimiterPos);
                         var descriptorCodeValue = proposedDescriptorValue.Substring(delimiterPos + 1);
 
-                        // TODO: API Simplification - This implementation is SQL Server specific (needs a seam)
+                        // TODO: API Simplification - Does this implementation work for Postgres as well as SQL Server (do we need to consider a seam here?)
                         sqlSetBuilder.Append(
                             $", {_physicalNamesProvider.Column(entityProperty)} = COALESCE(d{descriptorIndex}.DescriptorId, 0)");
 

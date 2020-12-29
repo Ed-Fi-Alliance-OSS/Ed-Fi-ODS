@@ -10,7 +10,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQueryTemplating
         /// </summary>
         /// <param name="entity">The aggregate root entity.</param>
         /// <returns>The content of the SQL template.</returns>
-        string GetSqlTemplate(Entity entity);
+        string GetTemplateSql(Entity entity);
         
         /// <summary>
         /// Indicates whether the resulting query can be batched with the other queries for the resource data

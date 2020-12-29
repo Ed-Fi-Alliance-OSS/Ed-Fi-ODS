@@ -11,7 +11,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
     public interface IEntityRecordValidator
     {
         FullName SupportedEntityName { get; }
-            
+
         void Validate(Entity entity, IDictionary<string, object> proposedValues, IList<string> validationMessages);
     }
 }

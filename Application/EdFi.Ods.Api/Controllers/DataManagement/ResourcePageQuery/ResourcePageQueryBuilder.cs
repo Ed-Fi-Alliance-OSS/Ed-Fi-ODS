@@ -22,23 +22,23 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQuery
         
         public SqlBuilder BuildQuery(Entity entity, IQueryCollection query)
         {
-            var pagedIdsQueryBuilder = new SqlBuilder();
+            var pagedIdsQuerySqlBuilder = new SqlBuilder();
             
             // Sort results by primary key
-            pagedIdsQueryBuilder.OrderByPrimaryKey(entity, _physicalNamesProvider);
+            pagedIdsQuerySqlBuilder.OrderByPrimaryKey(entity, _physicalNamesProvider);
 
             // Handle inheritance (single-level only is supported)
             if (entity.IsDerived)
             {
-                pagedIdsQueryBuilder.Select("b.Id");
-                pagedIdsQueryBuilder.ApplyJoinToBaseEntity(entity, _physicalNamesProvider);
+                pagedIdsQuerySqlBuilder.Select("b.Id");
+                pagedIdsQuerySqlBuilder.ApplyJoinToBaseEntity(entity, _physicalNamesProvider);
             }
             else
             {
-                pagedIdsQueryBuilder.Select("e.Id");
+                pagedIdsQuerySqlBuilder.Select("e.Id");
             }
 
-            return pagedIdsQueryBuilder;
+            return pagedIdsQuerySqlBuilder;
         }
 
         public void ApplyParameters(DynamicParameters parameters, IQueryCollection query)

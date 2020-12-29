@@ -13,7 +13,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourcePageQueryTemplating
         }
         
         /// <inheritdoc />
-        public string GetSqlTemplate(Entity entity)
+        public string GetTemplateSql(Entity entity)
             => $@"DECLARE @ids as dbo.UniqueIdentifierTable
 
 INSERT INTO @ids

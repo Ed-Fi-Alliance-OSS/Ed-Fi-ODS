@@ -94,6 +94,8 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding
                 WriteCollection(jw, item, resourceClassQuery.Results, collection);
             }
 
+            // TODO: API Simplification - Add support for serializing EmbeddedObjects
+            
             jw.WriteEndObject(); // item
         }
 

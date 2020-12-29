@@ -39,9 +39,6 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.SecurityMetadata
             using var reader = cmd.ExecuteXmlReader();
             var xml = XDocument.Load(reader);
 
-            // using var fs = File.OpenRead(@"C:\temp\junk.xml");
-            // var xml = XDocument.Load(fs);
-
             return xml;
         }
     }

@@ -18,7 +18,7 @@ namespace EdFi.Ods.Common.Attributes
             if (enumerable == null || !enumerable.Cast<object>()
                                                  .Any())
             {
-                return new ValidationResult(string.Format("{0} requires at least one object in the collection.", validationContext.DisplayName));
+                return new ValidationResult($"{validationContext.DisplayName} requires at least one object in the collection.");
             }
 
             return ValidationResult.Success;

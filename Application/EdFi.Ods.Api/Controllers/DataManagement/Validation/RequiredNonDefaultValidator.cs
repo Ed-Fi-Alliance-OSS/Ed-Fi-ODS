@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,14 +12,18 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
 {
     public class RequiredNonDefaultValidator : IEntityPropertyValidator
     {
-        public void Validate(EntityProperty property, object proposedValueAsObject, string resourcePropertyName, IList<string> validationMessages)
+        public void Validate(
+            EntityProperty property,
+            object proposedValueAsObject,
+            string resourcePropertyName,
+            IList<string> validationMessages)
         {
             // Validation only applies to non-nullable values
             if (property.PropertyType.IsNullable)
             {
                 return;
             }
-            
+
             if (proposedValueAsObject == null)
             {
                 AddRequiredValidationFailure();
@@ -32,9 +41,9 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
 
                 return;
             }
-            
+
             // TODO: API Simplification - Need to handle UniqueId properties that are resource-level expansions from USIs on the entity
-            
+
             // Ensure proposed value is not the default value for the target type
             switch (property.PropertyType.DbType)
             {
@@ -46,7 +55,6 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
                     // Default values on these types are deemed acceptable
                     return;
 
-                
                 case DbType.Int16:
                     if ((short) proposedValueAsObject == default)
                     {
@@ -62,7 +70,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
                     }
 
                     return;
-                
+
                 case DbType.Int64:
                     if ((long) proposedValueAsObject == default)
                     {
@@ -81,7 +89,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
                     }
 
                     return;
-                
+
                 case DbType.Guid:
                     if ((Guid) proposedValueAsObject == default)
                     {
@@ -97,7 +105,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Validation
                     }
 
                     return;
-                
+
                 case DbType.Date:
                 case DbType.DateTime:
                 case DbType.DateTime2:

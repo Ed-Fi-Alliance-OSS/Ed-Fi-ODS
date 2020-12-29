@@ -61,7 +61,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement
             }
             
             // Apply the database-specific SQL template
-            string sqlTemplate = _resourcePageQuerySqlProvider.GetSqlTemplate(resource.Entity);
+            string sqlTemplate = _resourcePageQuerySqlProvider.GetTemplateSql(resource.Entity);
             var template = pagedQuerySqlBuilder.AddTemplate(sqlTemplate);
 
             // If the paged query is batchable, just include it in the string builder

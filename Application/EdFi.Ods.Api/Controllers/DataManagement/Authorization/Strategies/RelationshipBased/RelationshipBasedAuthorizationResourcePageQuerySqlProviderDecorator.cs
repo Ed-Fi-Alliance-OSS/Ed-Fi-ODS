@@ -24,12 +24,12 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.Authorization.Strategies.Relat
             _educationOrganizationClaimsProvider = educationOrganizationClaimsProvider;
         }
         
-        public string GetSqlTemplate(Entity entity)
+        public string GetTemplateSql(Entity entity)
         {
-            // TODO: API Simplification - Revisit: How to make it so this only runs for the relationship-based authorization strategy?
+            // TODO: API Simplification - Revisit: Need to make this so it only runs for the relationship-based authorization strategy
             
             // Get the page query's SQL template
-            string pagedQuerySqlTemplate = _resourcePageQuerySqlProvider.GetSqlTemplate(entity);
+            string pagedQuerySqlTemplate = _resourcePageQuerySqlProvider.GetTemplateSql(entity);
             
             var sqlStringBuilder = new StringBuilder();
 
