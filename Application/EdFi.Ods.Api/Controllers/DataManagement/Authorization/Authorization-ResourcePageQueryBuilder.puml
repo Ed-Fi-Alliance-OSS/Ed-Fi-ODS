@@ -1,0 +1,59 @@
+@startuml
+left to right direction
+
+interface IResourcePageQueryBuilder {
+    SqlBuilder BuildQuery(Entity entity, IQueryCollection query)
+    void ApplyParameters(DynamicParameters parameters, IQueryCollection query)
+}
+
+class ResourcePageQueryBuilderAuthorizationDecorator {
+    - IResourcePageQueryBuilder _next
+    - IAuthorizationFilterHandler[] _authorizationFilterHandlers
+    --
+    SqlBuilder BuildQuery(Entity entity, IQueryCollection query)
+    void ApplyParameters(DynamicParameters parameters, IQueryCollection query)
+}
+
+interface IRequestAuthorizationDetailsProvider {
+    RequestAuthorizationDetails GetRequestAuthorizationDetails()
+}
+
+ResourcePageQueryBuilderAuthorizationDecorator --|> IResourcePageQueryBuilder
+
+interface IAuthorizationFilterHandler {
+    bool CanHandle(string authorizationStrategyName)
+    void ApplyFilter(string authorizationStrategyName, SqlBuilder sqlBuilder, Entity entity)
+    void ApplyParameters(string authorizationStrategyName, DynamicParameters parameters, IQueryCollection query)
+}
+
+ResourcePageQueryBuilderAuthorizationDecorator -> IAuthorizationFilterHandler 
+ResourcePageQueryBuilderAuthorizationDecorator -> IRequestAuthorizationDetailsProvider
+
+class NamespaceBasedAuthorizationFilterHandler
+NamespaceBasedAuthorizationFilterHandler --|> IAuthorizationFilterHandler
+
+class NoFurtherAuthorizationRequiredFilterHandler
+NoFurtherAuthorizationRequiredFilterHandler --|> IAuthorizationFilterHandler
+
+class RelationshipBasedAuthorizationFilterHandler
+RelationshipBasedAuthorizationFilterHandler --|> IAuthorizationFilterHandler
+
+class RequestAuthorizationDetailsProvider {
+    RequestAuthorizationDetails GetRequestAuthorizationDetails()
+}
+
+RequestAuthorizationDetailsProvider --|> IRequestAuthorizationDetailsProvider
+
+interface ISecurityMetadataProvider {
+    XDocument GetSecurityMetadata()
+}
+
+RequestAuthorizationDetailsProvider -> ISecurityMetadataProvider
+
+interface IAuthorizationContextProvider
+interface IApiKeyContextProvider
+
+RequestAuthorizationDetailsProvider -> IAuthorizationContextProvider
+RequestAuthorizationDetailsProvider -> IApiKeyContextProvider
+
+@enduml

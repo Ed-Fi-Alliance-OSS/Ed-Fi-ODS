@@ -1,0 +1,45 @@
+@startuml
+left to right direction
+
+class DataManagementResourceController {
+    Get(Guid id)
+    GetAll()
+    Post(JObject jsonData)
+    Put(Guid id)
+    Delete(Guid id)
+}
+
+DataManagementResourceController -> IResourceDataProvider
+
+interface IResourceDataProvider {
+    ResourceData GetResourceData()
+}
+
+class ResourceDataProvider {
+     ResourceData GetResourceData()
+}
+
+ResourceDataProvider --|> IResourceDataProvider
+ResourceDataProvider -> IResourcePageQueryBuilder
+ResourceDataProvider -> IResourcePageQuerySqlProvider
+
+interface IResourcePageQueryBuilder {
+    SqlBuilder BuildQuery(Entity entity, IQueryCollection query)
+    void ApplyParameters(DynamicParameters parameters, IQueryCollection query)
+}
+
+interface IResourcePageQuerySqlProvider {
+    IsBatchable
+    string GetSqlTemplate(Entity entity)
+}
+
+SqlServerResourcePageQuerySqlProvider --|> IResourcePageQuerySqlProvider
+PostgresResourcePageQuerySqlProvider --|> IResourcePageQuerySqlProvider
+
+class ChangeQueriesResourcePageQueryBuilderDecorator
+ChangeQueriesResourcePageQueryBuilderDecorator --|> IResourcePageQueryBuilder
+
+class ResourcePageQueryBuilderAuthorizationDecorator
+ResourcePageQueryBuilderAuthorizationDecorator --|> IResourcePageQueryBuilder
+
+@enduml

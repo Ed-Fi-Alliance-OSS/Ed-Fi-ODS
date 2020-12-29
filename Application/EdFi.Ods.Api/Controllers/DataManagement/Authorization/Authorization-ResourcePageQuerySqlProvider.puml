@@ -1,0 +1,50 @@
+@startuml
+left to right direction
+
+interface IResourcePageQuerySqlProvider {
+    string GetTemplateSql(Entity entity)
+    bool IsBatchable
+}
+
+class RelationshipBasedAuthorizationResourcePageQuerySqlProviderDecorator {
+    - IResourcePageQuerySqlProvider _next
+    --
+    string GetTemplateSql(Entity entity)
+    bool IsBatchable
+}
+
+RelationshipBasedAuthorizationResourcePageQuerySqlProviderDecorator --|> IResourcePageQuerySqlProvider
+'RelationshipBasedAuthorizationResourcePageQuerySqlProviderDecorator -> IResourcePageQuerySqlProvider
+RelationshipBasedAuthorizationResourcePageQuerySqlProviderDecorator -> IEducationOrganizationClaimsProvider
+
+interface IEducationOrganizationClaimsProvider {
+    IList<EducationOrganizationClaims> GetEducationOrganizationClaims()
+}
+
+class EducationOrganizationClaims {
+    FullName EntityFullName
+    int[] EducationOrganizationIds
+}
+
+IEducationOrganizationClaimsProvider -> EducationOrganizationClaims
+
+class EducationOrganizationClaimsProvider {
+    IList<EducationOrganizationClaims> GetEducationOrganizationClaims()
+}
+
+EducationOrganizationClaimsProvider --|> IEducationOrganizationClaimsProvider
+
+interface IEducationOrganizationDiscriminatorProvider {
+    FullName GetDiscriminator(int educationOrganizationId)
+}
+
+EducationOrganizationClaimsProvider -> IEducationOrganizationDiscriminatorProvider
+
+interface IApiKeyContextProvider {
+    ApiKeyContext GetApiKeyContext()
+    SetApiKeyContext(apiKeyContext)
+}
+
+EducationOrganizationClaimsProvider -> IApiKeyContextProvider
+
+@enduml

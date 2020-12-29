@@ -1,0 +1,51 @@
+@startuml
+interface IAuthorizationFilterHandler {
+    bool CanHandle(string authorizationStrategyName)
+    void ApplyFilter(string authorizationStrategyName, SqlBuilder sqlBuilder, Entity entity)
+    void ApplyParameters(string authorizationStrategyName, DynamicParameters parameters, IQueryCollection query)
+}
+
+class RelationshipBasedAuthorizationFilterHandler {
+    - IRelationshipBasedAuthorizationFilterHandler[] _relationshipBasedFilterHandlers
+    bool CanHandle(string authorizationStrategyName)
+    void ApplyFilter(string authorizationStrategyName, SqlBuilder sqlBuilder, Entity entity)
+    void ApplyParameters(string authorizationStrategyName, DynamicParameters parameters, IQueryCollection query)
+}
+
+RelationshipBasedAuthorizationFilterHandler --|> IAuthorizationFilterHandler
+
+interface IRelationshipBasedAuthorizationFilterHandler {
+    bool CanHandle(string authorizationStrategyName)
+    void ApplyAuthorizationFilter(SqlBuilder sqlBuilder, Entity entity)
+}
+
+RelationshipBasedAuthorizationFilterHandler -> IRelationshipBasedAuthorizationFilterHandler
+
+abstract class RelationshipBasedAuthorizationFilterHandlerBase {
+    +bool CanHandle(string authorizationStrategyName)
+    #bool IsRelevantForAuthorization(EntityProperty authorizationContextProperty)
+    #string GetViewModifier()
+    --
+    +ApplyAuthorizationFilter(SqlBuilder sqlBuilder, Entity entity)
+} 
+
+RelationshipBasedAuthorizationFilterHandlerBase --|> IRelationshipBasedAuthorizationFilterHandler
+
+class RelationshipsWithEdOrgsAndPeopleFilterHandler
+RelationshipsWithEdOrgsAndPeopleFilterHandler --|> RelationshipBasedAuthorizationFilterHandlerBase
+
+class RelationshipsWithEdOrgsOnlyFilterHandler
+RelationshipsWithEdOrgsOnlyFilterHandler --|> RelationshipBasedAuthorizationFilterHandlerBase
+
+class RelationshipsWithPeopleOnlyFilterHandler
+RelationshipsWithPeopleOnlyFilterHandler --|> RelationshipBasedAuthorizationFilterHandlerBase
+
+class RelationshipsWithStudentsOnlyFilterHandler
+RelationshipsWithStudentsOnlyFilterHandler --|> RelationshipBasedAuthorizationFilterHandlerBase
+
+class RelationshipsWithStudentsOnlyThroughEdOrgResponsibilityAssociationFilterHandler
+RelationshipsWithStudentsOnlyThroughEdOrgResponsibilityAssociationFilterHandler --|> RelationshipBasedAuthorizationFilterHandlerBase
+
+
+
+@enduml

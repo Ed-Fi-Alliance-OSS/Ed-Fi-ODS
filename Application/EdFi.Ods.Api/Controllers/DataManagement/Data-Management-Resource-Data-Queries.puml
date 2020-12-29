@@ -1,0 +1,51 @@
+@startuml
+left to right direction
+
+class DataManagementResourceController {
+    Get(Guid id)
+    GetAll()
+    Post(JObject jsonData)
+    Put(Guid id)
+    Delete(Guid id)
+}
+
+DataManagementResourceController -> IResourceDataProvider
+
+interface IResourceDataProvider {
+    ResourceData GetResourceData()
+}
+
+class ResourceDataProvider {
+     ResourceData GetResourceData()
+}
+
+ResourceDataProvider --|> IResourceDataProvider
+ResourceDataProvider -> IResourceDataQueryBuilder
+ResourceDataProvider -> ResourceData
+
+class ResourceData {
+    IList<ResourceClassQueryResults> Results
+    string ToJson()
+}
+
+class ResourceClassQueryResults {
+    ResourceClassBase ResourceClass
+    List<IDictionary<string, object>> Results
+}
+
+ResourceData -> ResourceClassQueryResults
+
+interface IResourceDataQueryBuilder {
+    IEnumerable<ResourceClassQuery> BuildQueries(resource, primaryKeyValues)
+}
+
+ResourceDataQueryBuilder --|> IResourceDataQueryBuilder
+
+ResourceDataQueryBuilder -> ResourceClassQuery
+
+class ResourceClassQuery {
+    ResourceClassBase ResourceClass
+    SqlBuilder.Tmeplate Template   
+}
+
+@enduml
