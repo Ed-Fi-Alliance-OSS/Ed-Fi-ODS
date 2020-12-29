@@ -49,6 +49,9 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private Lazy<IReadOnlyDictionary<string, ResourceProperty>> _propertyByName;
         private Lazy<IReadOnlyDictionary<string, Reference>> _referenceByName;
+        private IEnumerable<ResourceProperty> _allPropertiesRaw;
+        
+        internal Lazy<IDictionary<string, IReadOnlyList<ResourceProperty>>> UnifiedPropertiesByPropertyName;
 
         protected internal ResourceClassBase(IResourceModel resourceModel, Entity entity)
             : this(resourceModel, entity, null) { }
@@ -588,29 +591,39 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private void LazyInitializeDerivedCollections()
         {
+            _allPropertiesRaw = 
+                // Add locally defined identifying properties first
+                Properties.Where(p => p.IsIdentifying)
+
+                    // Add reference properties, identifying references first, followed by required, and then optional
+                    .Concat(
+                        References
+                            .OrderByDescending(
+                                r => (r.Association.IsIdentifying ? 100: 0)
+                                    + (r.IsRequired ? 10 : 0))
+                            .SelectMany(r => r.Properties))
+
+                    // Add non-identifying properties
+                    .Concat(Properties.Where(p => !p.IsIdentifying))
+                    .ToArray();
+
             _allProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
-                () =>
-
-                    // Add locally defined identifying properties first
-                    Properties.Where(p => p.IsIdentifying)
-
-                               // Add reference properties, identifying references first, followed by required, and then optional
-                              .Concat(
-                                   References
-                                      .OrderByDescending(
-                                           r => (r.Association.IsIdentifying ? 100: 0)
-                                                + (r.IsRequired ? 10 : 0))
-                                      .SelectMany(r => r.Properties))
-
-                               // Add non-identifying properties
-                              .Concat(Properties.Where(p => !p.IsIdentifying))
-                              .Distinct(ModelComparers.ResourcePropertyNameOnly)
-                              .ToList());
-
+                () => _allPropertiesRaw
+                    .Distinct(ModelComparers.ResourcePropertyNameOnly)
+                    .ToList());
+            
             _allPropertyByName = new Lazy<IReadOnlyDictionary<string, ResourceProperty>>(
                 () =>
                     AllProperties.ToDictionary(x => x.PropertyName, x => x, StringComparer.InvariantCultureIgnoreCase));
 
+            UnifiedPropertiesByPropertyName = new Lazy<IDictionary<string, IReadOnlyList<ResourceProperty>>>(
+                () => _allPropertiesRaw.GroupBy(rp => rp.PropertyName)
+                    .Where(g => g.Count() > 1)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => (IReadOnlyList<ResourceProperty>) g.ToArray(),
+                        StringComparer.OrdinalIgnoreCase));
+            
             _allIdentifyingProperties = new Lazy<IReadOnlyList<ResourceProperty>>(() => _allProperties.Value.Where(p => p.IsIdentifying).ToArray());
             
             _propertyByName = new Lazy<IReadOnlyDictionary<string, ResourceProperty>>(
