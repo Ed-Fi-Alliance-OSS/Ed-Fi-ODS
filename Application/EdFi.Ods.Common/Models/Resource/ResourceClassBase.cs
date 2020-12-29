@@ -376,7 +376,7 @@ namespace EdFi.Ods.Common.Models.Resource
                                entity.BaseEntity != null
                                    ? entity.BaseEntity.NonNavigableParents
                                    : new AssociationView[0])
-                          .Where(a => !a.OtherEntity.IsLookupEntity()) // Don't generate references associations to Types/Descriptors
+                          .Where(a => !a.OtherEntity.IsDescriptorEntity) // Don't generate references associations to Types/Descriptors
                           .Select(
                                a => new Reference(
                                    this,
