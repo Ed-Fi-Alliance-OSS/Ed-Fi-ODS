@@ -42,7 +42,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding
 
             var resourceClass = resourceRootData.ResourceClass;
 
-            foreach (IDictionary<string, object> item in resourceRootData.Results)
+            foreach (var item in resourceRootData.Results)
             {
                 WriteObject(jw, resourceClass, item);
             }
@@ -102,13 +102,13 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding
         private void WriteCollection(
             JsonTextWriter jw,
             IDictionary<string, object> parentItem,
-            List<object> collectionItems,
+            IList<IDictionary<string, object>> collectionItems,
             Collection collection)
         {
             jw.WritePropertyName(collection.JsonPropertyName);
             jw.WriteStartArray();
 
-            foreach (IDictionary<string, object> collectionItem in collectionItems)
+            foreach (var collectionItem in collectionItems)
             {
                 bool isIncluded = IsChildItemIncluded(parentItem, collectionItem, collection.ItemType);
 

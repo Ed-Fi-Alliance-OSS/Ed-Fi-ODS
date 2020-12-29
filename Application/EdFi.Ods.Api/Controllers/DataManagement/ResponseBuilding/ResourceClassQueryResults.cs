@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Linq;
 using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding
@@ -13,11 +14,11 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResponseBuilding
         public ResourceClassQueryResults(ResourceClassBase resourceClass, List<object> results)
         {
             ResourceClass = resourceClass;
-            Results = results;
+            Results = results.Cast<IDictionary<string, object>>().ToList();
         }
             
         public ResourceClassBase ResourceClass { get; }
             
-        public List<object> Results { get; }
+        public IList<IDictionary<string, object>> Results { get; }
     }
 }

@@ -165,7 +165,7 @@ namespace EdFi.Ods.Api.Controllers
                 var dataByResourceClassName = resourceData.Results
                     .ToDictionary(
                         x => x.ResourceClass.FullName,
-                        x => x.Results.Cast<IDictionary<string,object>>().ToArray());
+                        x => x.Results);
 
                 // If resource is derived, create/update the base entity first.
                 if (resource.IsDerived)
@@ -196,7 +196,7 @@ namespace EdFi.Ods.Api.Controllers
             IDbTransaction transaction,
             ResourceClassBase resourceClass,
             Entity entity,
-            IDictionary<FullName, IDictionary<string, object>[]> dataByResourceClassName,
+            Dictionary<FullName, IList<IDictionary<string, object>>> dataByResourceClassName,
             JArray jsonObjects)
         {
             // EXECUTION LOGIC
