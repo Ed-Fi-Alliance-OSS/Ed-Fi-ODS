@@ -25,7 +25,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly IExtensionLocationPluginsProvider _extensionLocationPluginsProviderProvider;
         private readonly IIncludePluginsProvider _includePluginsProvider;
         private string _extensionsPath;
-        private readonly ICodeRepositoryProvider _codeRepositoryProvider;
 
         public DomainModelDefinitionProvidersProvider(ICodeRepositoryProvider codeRepositoryProvider, IExtensionLocationPluginsProvider extensionLocationPluginsProviderProvider, IIncludePluginsProvider includePluginsProvider)
         {
@@ -40,8 +39,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
 
             _extensionLocationPluginsProviderProvider = extensionLocationPluginsProviderProvider;
-
-            _codeRepositoryProvider = codeRepositoryProvider;
 
             _includePluginsProvider = includePluginsProvider;
         }

@@ -12,7 +12,6 @@ using EdFi.Ods.CodeGen.Conventions;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using log4net;
 
@@ -30,12 +29,13 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly IDictionary<string, IDomainModelDefinitionsProvider> _domainModelsDefinitionsProvidersByProjectName;
         private readonly IJsonFileProvider _jsonFileProvider;
         private readonly IIncludePluginsProvider _includePluginsProvider;
-        
+        private readonly IExtensionLocationPluginsProvider _extensionLocationPluginsProviderProvider;
+
         public AssemblyDataProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
             IJsonFileProvider jsonFileProvider,
             IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider,
-            IIncludePluginsProvider includePluginsProvider)
+            IIncludePluginsProvider includePluginsProvider, IExtensionLocationPluginsProvider extensionLocationPluginsProviderProvider)
         {
             _codeRepositoryProvider = Preconditions.ThrowIfNull(codeRepositoryProvider, nameof(codeRepositoryProvider));
             _jsonFileProvider = Preconditions.ThrowIfNull(jsonFileProvider, nameof(jsonFileProvider));
@@ -47,6 +47,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 domainModelDefinitionsProviderProvider.DomainModelDefinitionsProvidersByProjectName();
 
             _includePluginsProvider = includePluginsProvider;
+
+            _extensionLocationPluginsProviderProvider = extensionLocationPluginsProviderProvider;
         }
 
         public IEnumerable<AssemblyData> Get()
@@ -70,7 +72,26 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 .Select(Create)
                 .ToList();
 
-            if (_includePluginsProvider.IncludePlugins())
+            var extensionLocationPaths = _extensionLocationPluginsProviderProvider.GetExtensionLocationPlugins();
+
+            if (extensionLocationPaths != null && extensionLocationPaths.Any())
+            {
+                foreach (var extensionLocationPath in extensionLocationPaths)
+                {
+                    if (Directory.Exists(extensionLocationPath))
+                    {
+                        assemblyDatas.AddRange(
+                            Directory.GetFiles(
+                                    extensionLocationPath,
+                                    AssemblyMetadataSearchString,
+                                    SearchOption.AllDirectories)
+                                .Select(Create)
+                                .ToList()
+                        );
+                    }
+                }
+            }
+            else if (_includePluginsProvider.IncludePlugins())
             {
                 var extensionsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                     CodeRepositoryConventions.ExtensionsFolderName,
