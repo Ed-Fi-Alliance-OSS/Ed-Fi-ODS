@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using CommandLine;
 using EdFi.Ods.CodeGen.Models;
 
@@ -21,5 +22,8 @@ namespace EdFi.Ods.CodeGen
 
         [Option('i', "includePlugins", Required = false, HelpText = "Flag to determine if plugin assemblies are included", Default = false)]
         public bool IncludePlugins { get; set; }
+
+        [Option('j', "extensionLocationPaths", Required = false, HelpText = "Array of paths for the Extension location to determine if plugin assemblies are included")]
+        public IEnumerable<string> ExtensionLocationPaths { get; set; }
     }
 }

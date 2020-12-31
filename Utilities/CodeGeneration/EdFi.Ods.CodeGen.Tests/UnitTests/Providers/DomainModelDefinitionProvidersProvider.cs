@@ -20,6 +20,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
             private DomainModelDefinitionProvidersProvider _domainModelDefinitionProvidersProvider;
             private ICodeRepositoryProvider _codeRepositoryProvider;
             private IIncludePluginsProvider _includeExtensionsProvider;
+            private IExtensionLocationPluginsProvider _extensionLocationPluginsProvider;
 
             protected override void Arrange()
             {
@@ -32,7 +33,18 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
                 A.CallTo(() => _includeExtensionsProvider.IncludePlugins())
                     .Returns(false);
 
-                _domainModelDefinitionProvidersProvider = new DomainModelDefinitionProvidersProvider(_codeRepositoryProvider, _includeExtensionsProvider);
+                A.CallTo(() => _codeRepositoryProvider.GetResolvedCodeRepositoryByName(A<string>._, A<string>._))
+                    .Returns(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsFolderName]);
+
+                var extensionsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                    CodeRepositoryConventions.ExtensionsFolderName,
+                    "Extensions");
+                A.CallTo(() => _extensionLocationPluginsProvider.GetExtensionLocationPlugins())
+                    .Returns(new[]
+                    {
+                        extensionsPath
+                    });
+                _domainModelDefinitionProvidersProvider = new DomainModelDefinitionProvidersProvider(_codeRepositoryProvider, _extensionLocationPluginsProvider, _includeExtensionsProvider);
             }
 
             protected override void Act() => _domainModelDefinitionProvidersProvider.DomainModelDefinitionProviders();
