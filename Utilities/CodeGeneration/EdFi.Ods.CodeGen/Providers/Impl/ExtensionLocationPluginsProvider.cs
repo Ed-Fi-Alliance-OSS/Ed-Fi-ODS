@@ -20,6 +20,5 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         {
             return _extensionPaths;
         }
-
     }
 }
