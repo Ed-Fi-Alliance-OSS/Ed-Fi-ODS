@@ -61,7 +61,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
         {
             DirectoryInfo[] directoriesToEvaluate;
-
+            
             var domainModelDefinitionsByPath =
                 new Dictionary<string, IDomainModelDefinitionsProvider>(StringComparer.InvariantCultureIgnoreCase);
 
