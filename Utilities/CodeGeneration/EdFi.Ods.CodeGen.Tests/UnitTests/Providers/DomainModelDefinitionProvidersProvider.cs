@@ -39,11 +39,13 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
                 var extensionsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                     CodeRepositoryConventions.ExtensionsFolderName,
                     "Extensions");
+
                 A.CallTo(() => _extensionLocationPluginsProvider.GetExtensionLocationPlugins())
                     .Returns(new[]
                     {
                         extensionsPath
                     });
+
                 _domainModelDefinitionProvidersProvider = new DomainModelDefinitionProvidersProvider(_codeRepositoryProvider, _extensionLocationPluginsProvider, _includeExtensionsProvider);
             }
 

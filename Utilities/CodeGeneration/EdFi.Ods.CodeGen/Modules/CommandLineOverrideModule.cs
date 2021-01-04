@@ -25,7 +25,7 @@ namespace EdFi.Ods.CodeGen.Modules
             }
 
             builder.RegisterType<ExtensionLocationPluginsProvider>()
-                .WithParameter(new NamedParameter("extensionLocationPaths", Options.ExtensionLocationPaths))
+                .WithParameter(new NamedParameter("extensionPaths", Options.ExtensionsPaths))
                 .As<IExtensionLocationPluginsProvider>();
 
             builder.RegisterType<IncludePluginsProvider>()

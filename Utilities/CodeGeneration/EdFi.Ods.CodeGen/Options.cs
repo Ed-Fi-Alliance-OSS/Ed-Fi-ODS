@@ -23,7 +23,7 @@ namespace EdFi.Ods.CodeGen
         [Option('i', "includePlugins", Required = false, HelpText = "Flag to determine if plugin assemblies are included", Default = false)]
         public bool IncludePlugins { get; set; }
 
-        [Option('j', "extensionLocationPaths", Required = false, HelpText = "Array of paths for the Extension location to determine if plugin assemblies are included")]
-        public IEnumerable<string> ExtensionLocationPaths { get; set; }
+        [Option('j', "extensionsPaths", Required = false, HelpText = "Array of paths for the Extension location to determine if plugin assemblies are included")]
+        public IEnumerable<string> ExtensionsPaths { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
         private readonly IExtensionLocationPluginsProvider _extensionLocationPluginsProviderProvider;
         private readonly IIncludePluginsProvider _includePluginsProvider;
-        private string _extensionsPath;
+        private readonly string _extensionsPath;
 
         public DomainModelDefinitionProvidersProvider(ICodeRepositoryProvider codeRepositoryProvider, IExtensionLocationPluginsProvider extensionLocationPluginsProviderProvider, IIncludePluginsProvider includePluginsProvider)
         {
@@ -60,7 +60,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
         {
-            DirectoryInfo[] directoriesToEvaluate = new DirectoryInfo[3];
+            DirectoryInfo[] directoriesToEvaluate;
 
             var domainModelDefinitionsByPath =
                 new Dictionary<string, IDomainModelDefinitionsProvider>(StringComparer.InvariantCultureIgnoreCase);
@@ -75,25 +75,27 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
                 .ToArray();
 
-            var extensionLocationPaths = _extensionLocationPluginsProviderProvider.GetExtensionLocationPlugins();
+            var extensionPaths = _extensionLocationPluginsProviderProvider.GetExtensionLocationPlugins();
 
-            if (extensionLocationPaths != null && extensionLocationPaths.Any())
+            foreach (var extensionPath in extensionPaths)
             {
-                foreach (var extensionLocationPath in extensionLocationPaths)
+                if (Directory.Exists(extensionPath))
                 {
-                    if (Directory.Exists(extensionLocationPath))
-                    {
-                        directoriesToEvaluate = directoriesToEvaluate
-                            .Append(new DirectoryInfo(extensionLocationPath)).ToArray();
-                    }
-                    else
-                    {
-                        throw new Exception(
-                            $"Unable to find extension Location project path  at location {extensionLocationPath}.");
-                    }
+                    directoriesToEvaluate = directoriesToEvaluate
+                        .Concat(GetProjectDirectoriesToEvaluate(extensionPath))
+                        .ToArray();
                 }
+                else
+                {
+                    throw new Exception(
+                        $"Unable to find extension Location project path  at location {extensionPath}.");
+                }
+                directoriesToEvaluate = directoriesToEvaluate
+                    .Append(new DirectoryInfo(extensionPath)).ToArray();
+
             }
-            else if (_includePluginsProvider.IncludePlugins() && Directory.Exists(_extensionsPath))
+
+            if (_includePluginsProvider.IncludePlugins() && Directory.Exists(_extensionsPath))
             {
                 directoriesToEvaluate = directoriesToEvaluate
                         .Concat(GetProjectDirectoriesToEvaluate(_extensionsPath))

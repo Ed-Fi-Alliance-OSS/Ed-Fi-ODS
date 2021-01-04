@@ -9,16 +9,16 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 {
     public class ExtensionLocationPluginsProvider : IExtensionLocationPluginsProvider
     {
-        private readonly IEnumerable<string> _extensionLocationPaths;
+        private readonly IEnumerable<string> _extensionPaths;
 
-        public ExtensionLocationPluginsProvider(IEnumerable<string> extensionLocationPaths)
+        public ExtensionLocationPluginsProvider(IEnumerable<string> extensionPaths)
         {
-            _extensionLocationPaths = extensionLocationPaths;
+            _extensionPaths = extensionPaths;
         }
 
         public IEnumerable<string> GetExtensionLocationPlugins()
         {
-            return _extensionLocationPaths;
+            return _extensionPaths;
         }
 
     }
