@@ -4,12 +4,19 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RestorePackages>true</RestorePackages>
+    <Configurations>Debug;Release</Configurations>
     <RootNamespace>EdFi.BulkLoadClient.Console</RootNamespace>
     <AssemblyName>EdFi.BulkLoadClient.Console</AssemblyName>
+    <AssemblyVersion>0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0</FileVersion>
+    <Authors>Ed-Fi Alliance</Authors>
+    <Company>Ed-Fi Alliance</Company>
+    <Product>Ed-Fi Bulk Load Client Console</Product>
     <Description>Client-side bulk load utility for the Ed-Fi ODS/API solution.</Description>
-    <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
+    <Copyright>Copyright © 2021 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/</PackageProjectUrl>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackAsTool>true</PackAsTool>
     <PackageId>EdFi.BulkLoadClient.Console</PackageId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
