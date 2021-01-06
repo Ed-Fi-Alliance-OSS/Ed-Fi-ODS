@@ -28,10 +28,11 @@
 	  <AutoGen>True</AutoGen>
 	  <DesignTime>True</DesignTime>
 	</Content>
-    <Content Include="Artifacts\**\Schemas\*.xsd">
+    <EmbeddedResource Include="Artifacts\**\Schemas\*.xsd">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Content>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="EdFi.Ods.Extensions.ExtensionName.nuspec">
