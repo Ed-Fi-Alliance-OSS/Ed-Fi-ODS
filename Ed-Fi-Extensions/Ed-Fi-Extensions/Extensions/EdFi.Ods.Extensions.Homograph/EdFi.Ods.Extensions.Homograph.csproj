@@ -27,10 +27,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-    <Content Include="Artifacts\**\Schemas\*.xsd">
+    <EmbeddedResource Include="Artifacts\**\Schemas\*.xsd">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Content>
+    </EmbeddedResource >
   </ItemGroup>
   <ItemGroup>
     <Content Include="Marker_EdFi_Ods_Extensions_Homograph.cs">
