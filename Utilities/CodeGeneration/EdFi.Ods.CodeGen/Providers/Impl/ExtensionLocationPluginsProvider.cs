@@ -3,20 +3,18 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
-
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
     public class ExtensionLocationPluginsProvider : IExtensionLocationPluginsProvider
     {
-        private readonly IEnumerable<string> _extensionPaths;
+        private readonly string[] _extensionPaths;
 
-        public ExtensionLocationPluginsProvider(IEnumerable<string> extensionPaths)
+        public ExtensionLocationPluginsProvider(string[] extensionPaths)
         {
             _extensionPaths = extensionPaths;
         }
 
-        public IEnumerable<string> GetExtensionLocationPlugins()
+        public string[] GetExtensionLocationPlugins()
         {
             return _extensionPaths;
         }
