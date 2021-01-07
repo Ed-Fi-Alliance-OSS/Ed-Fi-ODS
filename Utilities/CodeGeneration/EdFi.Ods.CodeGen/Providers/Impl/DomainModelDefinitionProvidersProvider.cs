@@ -61,7 +61,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             return _domainModelDefinitionProvidersByProjectName.Value;
         }
 
-        private Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
+        public Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
         {
             DirectoryInfo[] directoriesToEvaluate;
             
