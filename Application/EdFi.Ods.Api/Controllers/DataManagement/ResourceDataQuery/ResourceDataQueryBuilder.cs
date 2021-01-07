@@ -158,6 +158,7 @@ FROM {_physicalNamesProvider.FullName(resource.Entity)} AS e
                     var parameters = new DynamicParameters();
                     parameters.Add(personAlias, primaryKeyValues[resourceProperty.PropertyName]);
 
+                    // TODO: API Simplification - Needs physical name processing here
                     sqlBuilder.Where($"{personAlias}.{personTypeUniqueName} = @{personAlias}", parameters);
                 }
                 else

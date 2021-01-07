@@ -45,7 +45,7 @@ namespace EdFi.Ods.Api.Controllers.DataManagement.ResourceDataQuery
                 string join =
                     $"{_physicalNamesProvider.FullName(personEntity)} AS {personAlias} ON {resourceAlias}.{resourceUniqueIdProperty.EntityProperty.PropertyName} = {personAlias}.{_physicalNamesProvider.Column(personUsiProperty)}";
 
-                sqlBuilder.Select($"{personAlias}.{_physicalNamesProvider.Column(personUniqueIdProperty)} AS {_physicalNamesProvider.Column(resourceUniqueIdProperty.EntityProperty)}");
+                sqlBuilder.Select($"{personAlias}.{_physicalNamesProvider.Column(personUniqueIdProperty)} AS {_physicalNamesProvider.Identifier(resourceUniqueIdProperty.PropertyName)}");
 
                 if (resourceUniqueIdProperty.PropertyType.IsNullable)
                 {
