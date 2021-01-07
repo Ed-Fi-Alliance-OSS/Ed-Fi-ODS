@@ -291,8 +291,6 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<DescriptorNamespaceValidator>()
                 .As<IValidator<IEdFiDescriptor>>()
                 .SingleInstance();
-                    .SingleInstance();
-            }
 
             void RegisterMiddleware()
             {
@@ -304,6 +302,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 builder.RegisterType<InstanceIdSpecificRouteContextMiddleware>()
                     .As<IMiddleware>()
                     .AsSelf()
+                    .SingleInstance();
+            }
         }
     }
 }
