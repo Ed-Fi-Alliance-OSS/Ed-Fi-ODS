@@ -71,7 +71,7 @@ namespace EdFi.Ods.Common.Models.Resource
             Entity entity,
             FilterContext filterContext,
             Func<IEnumerable<AssociationView>> collectionAssociations,
-            Func<IEnumerable<AssociationView>> embbededObjectAssociations)
+            Func<IEnumerable<AssociationView>> embeddedObjectAssociations)
         {
             Entity = entity;
             FullName = new FullName(entity.Schema, entity.Name);
@@ -84,7 +84,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
             // Initialize lists
             _properties = LazyInitializeProperties(Entity);
-            _embeddedObjects = LazyInitializeEmbeddedObjects(embbededObjectAssociations);
+            _embeddedObjects = LazyInitializeEmbeddedObjects(embeddedObjectAssociations);
             _collections = LazyInitializeCollections(collectionAssociations);
             _references = LazyInitializeReferences(Entity);
             _containedItemTypes = LazyInitializeContainedTypes();
