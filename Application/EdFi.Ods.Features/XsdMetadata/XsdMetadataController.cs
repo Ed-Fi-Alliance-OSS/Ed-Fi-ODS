@@ -62,11 +62,11 @@ namespace EdFi.Ods.Features.XsdMetadata
                                     : $"Extension {xsdFileInformation.SchemaNameMap.LogicalName} blended with Core schema files for the data model",
                                 ["name"] = xsdFileInformation.SchemaNameMap.UriSegment,
                                 ["version"] = xsdFileInformation.Version,
-                                ["fileUrls"] = new Uri(
+                                ["files"] = new Uri(
                                     $"{_urlHelper.ActionLink("Get", ControllerContext.ActionDescriptor.ControllerName)}/{xsdFileInformation.SchemaNameMap.UriSegment}/files/")
 
                                 // TODO ODS-4773
-                                // ["combinedUrl"] = new Uri(
+                                // ["combined"] = new Uri(
                                 //     $"{_urlHelper.ActionLink("Get", ControllerContext.ActionDescriptor.ControllerName)}/{xsdFileInformation.SchemaNameMap.UriSegment}/"),
                             }));
         }

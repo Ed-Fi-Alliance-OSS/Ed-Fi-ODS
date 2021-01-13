@@ -44,11 +44,11 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 
             var urls = results["urls"].ToDictionary();
 
-            urls.Keys.Contains("dependenciesUrl").ShouldBeTrue();
-            urls.Keys.Contains("metaDataUrl").ShouldBeTrue();
-            urls.Keys.Contains("oauthUrl").ShouldBeTrue();
-            urls.Keys.Contains("apiUrl").ShouldBeTrue();
-            urls.Keys.Contains("xsdMetadataUrl").ShouldBeTrue();
+            urls.Keys.Contains("dependencies").ShouldBeTrue();
+            urls.Keys.Contains("openApiMetadata").ShouldBeTrue();
+            urls.Keys.Contains("oauth").ShouldBeTrue();
+            urls.Keys.Contains("dataManagementApi").ShouldBeTrue();
+            urls.Keys.Contains("xsdMetadata").ShouldBeTrue();
         }
     }
 }

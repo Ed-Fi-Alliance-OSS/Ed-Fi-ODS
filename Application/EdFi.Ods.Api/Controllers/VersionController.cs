@@ -87,7 +87,7 @@ namespace EdFi.Ods.Api.Controllers
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName()))
                 {
-                    urlsByName["dependenciesUrl"] = Request.RootUrl(useReverseProxyHeaders) +
+                    urlsByName["dependencies"] = Request.RootUrl(useReverseProxyHeaders) +
                                                     (isInstanceYearSpecific
                                                         ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + $"{instance}/" +
                                                           currentYear + "/dependencies"
@@ -99,7 +99,7 @@ namespace EdFi.Ods.Api.Controllers
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
                 {
-                    urlsByName["metaDataUrl"] = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
+                    urlsByName["openApiMetadata"] = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
                                                 (isInstanceYearSpecific
                                                     ? $"{instance}/"
                                                     : string.Empty) +
@@ -108,13 +108,13 @@ namespace EdFi.Ods.Api.Controllers
                                                     : string.Empty);
                 }
 
-                urlsByName["oauthUrl"] = Request.RootUrl(useReverseProxyHeaders) +
+                urlsByName["oauth"] = Request.RootUrl(useReverseProxyHeaders) +
                                          (isInstanceYearSpecific
                                              ? $"/{instance}"
                                              : string.Empty) +
                                          "/oauth/token";
 
-                urlsByName["apiUrl"] = Request.RootUrl(useReverseProxyHeaders) +
+                urlsByName["dataManagementApi"] = Request.RootUrl(useReverseProxyHeaders) +
                                        $"/data/v{ApiVersionConstants.Ods}/" +
                                        (isInstanceYearSpecific
                                            ? $"{instance}/"
@@ -125,7 +125,7 @@ namespace EdFi.Ods.Api.Controllers
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName()))
                 {
-                    urlsByName["xsdMetadataUrl"] = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
+                    urlsByName["xsdMetadata"] = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
                                                    (isInstanceYearSpecific
                                                        ? $"{instance}/"
                                                        : string.Empty) +
