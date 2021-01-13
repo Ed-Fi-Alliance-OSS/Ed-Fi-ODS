@@ -4,9 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Common.Extensions;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using Shouldly;
@@ -27,6 +29,9 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
 
             json.ShouldNotBeNullOrWhiteSpace();
 
+            // Write the json to the debugger view for troubleshooting
+            Debug.WriteLine(json);
+
             var results = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
 
             results["version"].ShouldBe(ApiVersionConstants.Version);
@@ -36,6 +41,14 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
             results["apiMode"].ShouldNotBeNull();
             results["dataModels"].ShouldNotBeNull();
             results["urls"].ShouldNotBeNull();
+
+            var urls = results["urls"].ToDictionary();
+
+            urls.Keys.Contains("dependenciesUrl").ShouldBeTrue();
+            urls.Keys.Contains("metaDataUrl").ShouldBeTrue();
+            urls.Keys.Contains("oauthUrl").ShouldBeTrue();
+            urls.Keys.Contains("apiUrl").ShouldBeTrue();
+            urls.Keys.Contains("xsdMetadataUrl").ShouldBeTrue();
         }
     }
 }

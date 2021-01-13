@@ -28,5 +28,8 @@ namespace EdFi.Ods.Api.Extensions
 
         public static IApplicationBuilder UseInstanceIdSpecificRouteContext(this IApplicationBuilder builder)
             => builder.UseMiddleware<InstanceIdSpecificRouteContextMiddleware>();
+
+        public static IApplicationBuilder UseXsdMetadata(this IApplicationBuilder builder)
+            => builder.UseMiddleware<XsdMetadataFileMiddleware>();
     }
 }
