@@ -122,6 +122,10 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IAssembliesProvider>()
                 .SingleInstance();
 
+            builder.RegisterType<EmbeddedFileProvider>()
+                .As<IEmbeddedFileProvider>()
+                .SingleInstance();
+
             builder.RegisterType<FileSystemWrapper>()
                 .As<IFileSystem>()
                 .SingleInstance();
