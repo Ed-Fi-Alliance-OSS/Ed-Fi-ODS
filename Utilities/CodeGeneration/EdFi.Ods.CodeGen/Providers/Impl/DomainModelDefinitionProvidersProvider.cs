@@ -22,10 +22,14 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private readonly string _solutionPath;
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
+        private readonly IExtensionLocationPluginsProvider _extensionLocationPluginsProviderProvider;
         private readonly IIncludePluginsProvider _includePluginsProvider;
         private readonly string _extensionsPath;
 
-        public DomainModelDefinitionProvidersProvider(ICodeRepositoryProvider codeRepositoryProvider, IIncludePluginsProvider includePluginsProvider)
+        public DomainModelDefinitionProvidersProvider(
+            ICodeRepositoryProvider codeRepositoryProvider,
+            IExtensionLocationPluginsProvider extensionLocationPluginsProviderProvider,
+            IIncludePluginsProvider includePluginsProvider)
         {
             _solutionPath = codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation)
                             + "\\Application";
@@ -36,6 +40,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             _domainModelDefinitionProvidersByProjectName =
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
+
+            _extensionLocationPluginsProviderProvider = extensionLocationPluginsProviderProvider;
 
             _includePluginsProvider = includePluginsProvider;
         }
@@ -55,34 +61,47 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             return _domainModelDefinitionProvidersByProjectName.Value;
         }
 
-        private Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
+        public Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
         {
             DirectoryInfo[] directoriesToEvaluate;
             
             var domainModelDefinitionsByPath =
                 new Dictionary<string, IDomainModelDefinitionsProvider>(StringComparer.InvariantCultureIgnoreCase);
 
-            string edfiOdsImplementationApplicationPath = _solutionPath;
+            string edFiOdsImplementationApplicationPath = _solutionPath;
 
             string edFiOdsApplicationPath = _solutionPath.Replace(
                 CodeRepositoryConventions.EdFiOdsImplementationFolderName,
                 CodeRepositoryConventions.EdFiOdsFolderName);
 
+            directoriesToEvaluate = GetProjectDirectoriesToEvaluate(edFiOdsImplementationApplicationPath)
+                .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
+                .ToArray();
+
+            var extensionPaths = _extensionLocationPluginsProviderProvider.GetExtensionLocationPlugins();
+
+            extensionPaths.ToList().ForEach(
+                x =>
+                {
+                    if (!Directory.Exists(x))
+                    {
+                        throw new Exception(
+                            $"Unable to find extension Location project path  at location {x}.");
+                    }
+
+                    directoriesToEvaluate = directoriesToEvaluate
+                        .Concat(GetProjectDirectoriesToEvaluate(x))
+                        .Append(new DirectoryInfo(x)).ToArray();
+
+                });
+
             if (_includePluginsProvider.IncludePlugins() && Directory.Exists(_extensionsPath))
             {
-                directoriesToEvaluate =
-                    GetProjectDirectoriesToEvaluate(edfiOdsImplementationApplicationPath)
-                        .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
+                directoriesToEvaluate = directoriesToEvaluate
                         .Concat(GetProjectDirectoriesToEvaluate(_extensionsPath))
                         .ToArray();
             }
-            else
-            {
-                directoriesToEvaluate =
-                    GetProjectDirectoriesToEvaluate(edfiOdsImplementationApplicationPath)
-                        .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
-                        .ToArray();
-            }
+
 
             var modelProjects = directoriesToEvaluate
                 .Where(p => p.Name.IsExtensionAssembly() || p.Name.IsStandardAssembly());
@@ -103,9 +122,14 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                         $"Unable to find model definitions file for extensions project {modelProject.Name} at location {metadataFile.FullName}.");
                 }
 
+                if (domainModelDefinitionsByPath.ContainsKey(modelProject.Name))
+                {
+                    throw new Exception($"Cannot process duplicate extension projects for '{modelProject.Name}'.");
+                }
+
                 domainModelDefinitionsByPath.Add(
-                    modelProject.Name,
-                    new DomainModelDefinitionsJsonFileSystemProvider(metadataFile.FullName));
+                        modelProject.Name,
+                        new DomainModelDefinitionsJsonFileSystemProvider(metadataFile.FullName));
             }
 
             return domainModelDefinitionsByPath;
@@ -116,7 +140,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
                 if (directory.Exists)
                 {
-                    return directory.GetDirectories();
+                    return directory.GetDirectories("", SearchOption.AllDirectories);
                 }
 
                 return new DirectoryInfo[0];

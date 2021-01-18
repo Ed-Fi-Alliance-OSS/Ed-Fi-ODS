@@ -13,5 +13,7 @@ namespace EdFi.Ods.CodeGen.Providers
         IEnumerable<IDomainModelDefinitionsProvider> DomainModelDefinitionProviders();
 
         IDictionary<string, IDomainModelDefinitionsProvider> DomainModelDefinitionsProvidersByProjectName();
+
+        Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath();
     }
 }
