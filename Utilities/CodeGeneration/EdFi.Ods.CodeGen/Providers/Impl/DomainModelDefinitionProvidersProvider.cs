@@ -122,12 +122,14 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                         $"Unable to find model definitions file for extensions project {modelProject.Name} at location {metadataFile.FullName}.");
                 }
 
-                if (!domainModelDefinitionsByPath.ContainsKey(modelProject.Name))
+                if (domainModelDefinitionsByPath.ContainsKey(modelProject.Name))
                 {
-                    domainModelDefinitionsByPath.Add(
+                    throw new Exception($"Cannot process two same extensions project {modelProject.Name}.");
+                }
+
+                domainModelDefinitionsByPath.Add(
                         modelProject.Name,
                         new DomainModelDefinitionsJsonFileSystemProvider(metadataFile.FullName));
-                }
             }
 
             return domainModelDefinitionsByPath;

@@ -178,8 +178,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 assemblyDatas.Add(legacyAssemblyData);
             }
 
-            assemblyDatas = assemblyDatas.GroupBy(x => x.AssemblyName).Select(x => x.First()).ToList();
-
             return assemblyDatas;
 
             AssemblyData Create(string assemblyMetadataPath)
