@@ -124,7 +124,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
                 if (domainModelDefinitionsByPath.ContainsKey(modelProject.Name))
                 {
-                    throw new Exception($"Cannot process two same extensions project {modelProject.Name}.");
+                    throw new Exception($"Cannot process duplicate extension projects for '{modelProject.Name}'.");
                 }
 
                 domainModelDefinitionsByPath.Add(
