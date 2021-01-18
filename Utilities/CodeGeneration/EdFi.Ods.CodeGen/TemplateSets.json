@@ -31,11 +31,6 @@
       "OutputPath": "Models/Interfaces/EntityInterfaces.generated.cs"
     },
     {
-      "Name": "EntityRecordInterfaces",
-      "Driver": "EntityRecordInterfaces",
-      "OutputPath": "Models/Interfaces/EntityRecordInterfaces.generated.cs"
-    },
-    {
       "Name": "EntityMapper",
       "Driver": "EntityMapper",
       "OutputPath": "Models/Mappers/EntityMapper.generated.cs"
@@ -169,11 +164,6 @@
       "Name": "EntityInterfaces",
       "Driver": "EntityInterfaces",
       "OutputPath": "Models/Interfaces/EntityInterfaces.generated.cs"
-    },
-    {
-      "Name": "EntityRecordInterfaces",
-      "Driver": "EntityRecordInterfaces",
-      "OutputPath": "Models/Interfaces/EntityRecordInterfaces.generated.cs"
     },
     {
       "Name": "EntityMapper",

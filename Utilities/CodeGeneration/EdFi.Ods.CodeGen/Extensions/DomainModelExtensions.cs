@@ -357,19 +357,6 @@ namespace EdFi.Ods.CodeGen.Extensions
             return UniqueIdSpecification.GetUniqueIdPropertyName(usiPropertyName);
         }
 
-        public static IEnumerable<EntityProperty> EntityRecordInterfaceUnifiedProperties(
-            this Entity entity)
-        {
-            return entity.Properties
-                .Where(PropertyIsIncludedForEntityRecordInterface);
-        }
-
-        public static bool PropertyIsIncludedForEntityRecordInterface(EntityProperty entityProperty)
-        {
-            return entityProperty.PropertyName != "LastModifiedDate"
-                   && entityProperty.PropertyName != "CreateDate";
-        }
-
         /// <summary>
         /// Gets the namespace qualified full name of the NHibernate Query Entity for
         /// the given DomainModel entity.
