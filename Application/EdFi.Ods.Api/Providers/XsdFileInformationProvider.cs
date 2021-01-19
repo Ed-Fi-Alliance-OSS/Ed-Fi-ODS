@@ -24,6 +24,7 @@ namespace EdFi.Ods.Api.Providers
         private readonly ILog _logger = LogManager.GetLogger(typeof(XsdFileInformationProvider));
         private readonly ISchemaNameMapProvider _schemaNameMapProvider;
         private readonly Lazy<IDictionary<string, XsdFileInformation>> _xsdFileInformationByUriSegment;
+        private const string CoreUriSegment = "ed-fi";
 
         public XsdFileInformationProvider(IAssembliesProvider assembliesProvider,
             ISchemaNameMapProvider schemaNameMapProvider)
@@ -34,26 +35,19 @@ namespace EdFi.Ods.Api.Providers
             _xsdFileInformationByUriSegment = new Lazy<IDictionary<string, XsdFileInformation>>(ParseAssemblies);
         }
 
-        public IDictionary<string, XsdFileInformation> XsdFileInformationByUriSegment() => _xsdFileInformationByUriSegment.Value;
+        public string[] Schemas() => _xsdFileInformationByUriSegment.Value.Keys.ToArray();
 
-        public Task<XsdFileInformation> XsdFileInformationAsync(string schema, CancellationToken cancellationToken = default)
-        {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                _logger.Debug("Cancellation has been requested.");
-                cancellationToken.ThrowIfCancellationRequested();
-            }
+        public XsdFileInformation XsdFileInformationByUriSegment(string uriSegment)
+            => !_xsdFileInformationByUriSegment.Value.ContainsKey(uriSegment)
+                ? default
+                : _xsdFileInformationByUriSegment.Value[uriSegment];
 
-            return Task.FromResult(
-                !_xsdFileInformationByUriSegment.Value.ContainsKey(schema)
-                    ? default
-                    : _xsdFileInformationByUriSegment.Value[schema]);
-        }
+        public XsdFileInformation CoreXsdFileInformation() => XsdFileInformationByUriSegment(CoreUriSegment);
 
         private IDictionary<string, XsdFileInformation> ParseAssemblies()
         {
             var assemblies = _assembliesProvider.GetAssemblies()
-                .Where(x => IsIncluded(x.GetName().Name) && !x.IsDynamic)
+                .Where(x => !x.IsDynamic)
                 .ToList();
 
             var assemblySchemaInformationByUriSegment =
@@ -85,16 +79,15 @@ namespace EdFi.Ods.Api.Providers
 
                 var schemaInfo = apiModel["schemaDefinition"].ToDictionary();
 
-                var assemblySchemaInformation = new XsdFileInformation
-                {
-                    AssemblyName = assemblyName,
-                    SchemaNameMap = _schemaNameMapProvider.GetSchemaMapByLogicalName(schemaInfo["logicalName"].ToString()),
-                    Version = schemaInfo["version"].ToString(),
-                    SchemaFiles = manifestResourceNames
+                var assemblySchemaInformation = new XsdFileInformation(
+                    assemblyName,
+                    schemaInfo["version"].ToString(),
+                    _schemaNameMapProvider.GetSchemaMapByLogicalName(schemaInfo["logicalName"].ToString()),
+                    manifestResourceNames
                         .Where(x => x.StartsWithIgnoreCase($"{assemblyName}.Artifacts.Schemas"))
                         .Select(x => x.Replace($"{assemblyName}.Artifacts.Schemas.", string.Empty))
                         .ToArray()
-                };
+                );
 
                 _logger.Debug(assemblySchemaInformation);
 
@@ -103,23 +96,6 @@ namespace EdFi.Ods.Api.Providers
             }
 
             return assemblySchemaInformationByUriSegment;
-
-            static bool IsIncluded(string name)
-                => !(name.StartsWithIgnoreCase("System")
-                     || name.StartsWithIgnoreCase("Microsoft")
-                     || name.StartsWithIgnoreCase("EntityFramework")
-                     || name.StartsWithIgnoreCase("Autofac")
-                     || name.StartsWithIgnoreCase("Antlr3")
-                     || name.StartsWithIgnoreCase("Dapper")
-                     || name.StartsWithIgnoreCase("netstandard")
-                     || name.StartsWithIgnoreCase("Remotion")
-                     || name.StartsWithIgnoreCase("log4net")
-                     || name.StartsWithIgnoreCase("NHibernate")
-                     || name.StartsWithIgnoreCase("Npgsql")
-                     || name.StartsWithIgnoreCase("Newtonsoft")
-                     || name.StartsWithIgnoreCase("Sandwych")
-                     || name.StartsWithIgnoreCase("Iesi")
-                     || name.StartsWithIgnoreCase("FluentValidation"));
         }
     }
 }

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.IO;
 using System.Threading.Tasks;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
@@ -47,21 +48,23 @@ namespace EdFi.Ods.Api.Middleware
 
             var schema = routeValues["schema"].ToString();
 
-            var xsdFileInformationByUriSegment = _xsdFileInformationProvider.XsdFileInformationByUriSegment();
+            var xsdFileInformationByUriSegment = _xsdFileInformationProvider.XsdFileInformationByUriSegment(schema);
 
-            if (!xsdFileInformationByUriSegment.ContainsKey(schema))
+            if (xsdFileInformationByUriSegment == default)
             {
                 context.Response.StatusCode = StatusCodes.Status404NotFound;
                 return;
             }
 
-            string assemblyName = xsdFileInformationByUriSegment[schema].AssemblyName;
+            string assemblyName = xsdFileInformationByUriSegment.AssemblyName;
             string fullQualifiedFileName = $"{assemblyName}.Artifacts.Schemas.{routeValues["file"]}.xsd";
 
             context.Response.ContentType = "application/xml";
             context.Response.StatusCode = StatusCodes.Status200OK;
 
-            await context.Response.WriteAsync(_embeddedFileProvider.File(assemblyName, fullQualifiedFileName));
+            var streamReader = new StreamReader(_embeddedFileProvider.Stream(assemblyName, fullQualifiedFileName));
+
+            await context.Response.WriteAsync( await streamReader.ReadToEndAsync());
 
             string CreateRouteTemplate()
             {

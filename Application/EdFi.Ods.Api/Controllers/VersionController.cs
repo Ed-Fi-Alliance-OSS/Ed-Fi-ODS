@@ -76,10 +76,10 @@ namespace EdFi.Ods.Api.Controllers
                 // since instance is dynamic and given through url, this value is just a place holder
                 var instance = "{instance}";
 
-                bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific)
-                                      || _apiSettings.GetApiMode().Equals(ApiMode.InstanceYearSpecific);
-
                 bool isInstanceYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.InstanceYearSpecific);
+
+                bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific)
+                                      || isInstanceYearSpecific;
 
                 bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
 

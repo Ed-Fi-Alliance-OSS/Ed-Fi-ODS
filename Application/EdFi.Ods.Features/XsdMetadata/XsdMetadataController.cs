@@ -43,26 +43,26 @@ namespace EdFi.Ods.Features.XsdMetadata
                 return NotFound();
             }
 
-            var xsdFileInformationByUriSegment = _xsdFileInformationProvider.XsdFileInformationByUriSegment();
+            var uriSegments = _xsdFileInformationProvider.Schemas();
 
-            if (!xsdFileInformationByUriSegment.Keys.Any())
+            if (!uriSegments.Any())
             {
                 return Ok(new Dictionary<string, object>[0]);
             }
 
             return Ok(
-                xsdFileInformationByUriSegment.Keys
-                    .Select(uriSegment => xsdFileInformationByUriSegment[uriSegment])
+                uriSegments
+                    .Select(uriSegment => _xsdFileInformationProvider.XsdFileInformationByUriSegment(uriSegment))
                     .Select(
                         xsdFileInformation =>
-                            new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase)
+                            new
                             {
-                                ["description"] = xsdFileInformation.IsCore()
+                                description = xsdFileInformation.IsCore()
                                     ? $"Core schema ({xsdFileInformation.SchemaNameMap.LogicalName}) files for the data model"
                                     : $"Extension {xsdFileInformation.SchemaNameMap.LogicalName} blended with Core schema files for the data model",
-                                ["name"] = xsdFileInformation.SchemaNameMap.UriSegment,
-                                ["version"] = xsdFileInformation.Version,
-                                ["files"] = new Uri(
+                                name = xsdFileInformation.SchemaNameMap.UriSegment,
+                                version = xsdFileInformation.Version,
+                                files = new Uri(
                                     $"{_urlHelper.ActionLink("Get", ControllerContext.ActionDescriptor.ControllerName)}/{xsdFileInformation.SchemaNameMap.UriSegment}/files/")
 
                                 // TODO ODS-4773
@@ -73,14 +73,14 @@ namespace EdFi.Ods.Features.XsdMetadata
 
         [HttpGet]
         [Route("{schema}/files")]
-        public async Task<IActionResult> GetFiles([FromRoute] string schema)
+        public IActionResult GetFiles([FromRoute] string schema)
         {
             if (!_isEnabled)
             {
                 return NotFound();
             }
 
-            var schemaInformation = await _xsdFileInformationProvider.XsdFileInformationAsync(schema);
+            var schemaInformation = _xsdFileInformationProvider.XsdFileInformationByUriSegment(schema);
 
             if (schemaInformation == default)
             {
@@ -95,7 +95,7 @@ namespace EdFi.Ods.Features.XsdMetadata
 
             if (!schemaInformation.IsCore())
             {
-                var coreInformation = await _xsdFileInformationProvider.XsdFileInformationAsync("ed-fi");
+                var coreInformation = _xsdFileInformationProvider.CoreXsdFileInformation();
 
                 results.AddRange(
                     coreInformation.SchemaFiles

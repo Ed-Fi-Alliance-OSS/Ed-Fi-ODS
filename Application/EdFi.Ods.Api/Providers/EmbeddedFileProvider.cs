@@ -3,8 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.IO;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Ods.Api.Providers
 {
@@ -17,7 +17,13 @@ namespace EdFi.Ods.Api.Providers
             _assembliesProvider = assembliesProvider;
         }
 
-        public string File(string assemblyName, string fullyQualifiedName)
-            => _assembliesProvider.Get(assemblyName).ReadResource(fullyQualifiedName);
+        public Stream Stream(string assemblyName, string fullyQualifiedName)
+        {
+            var assembly = _assembliesProvider.Get(assemblyName);
+
+            return assembly == null
+                ? default
+                : assembly.GetManifestResourceStream(fullyQualifiedName);
+        }
     }
 }

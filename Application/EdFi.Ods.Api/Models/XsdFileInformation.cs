@@ -11,13 +11,21 @@ namespace EdFi.Ods.Api.Models
 {
     public class XsdFileInformation
     {
-        public string AssemblyName { get; set; }
+        public XsdFileInformation(string assemblyName, string version, SchemaNameMap schemaNameMap, string[] schemaFiles)
+        {
+            AssemblyName = assemblyName;
+            Version = version;
+            SchemaNameMap = schemaNameMap;
+            SchemaFiles = schemaFiles;
+        }
 
-        public string Version { get; set; }
+        public string AssemblyName { get; }
 
-        public SchemaNameMap SchemaNameMap { get; set; }
+        public string Version { get; }
 
-        public string[] SchemaFiles { get; set; }
+        public SchemaNameMap SchemaNameMap { get; }
+
+        public string[] SchemaFiles { get; }
 
         public bool IsCore() => SchemaNameMap.PhysicalName.EqualsIgnoreCase("edfi");
 

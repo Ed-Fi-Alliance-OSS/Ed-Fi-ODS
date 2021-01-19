@@ -5,6 +5,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Middleware;
@@ -27,22 +29,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
             return new Dictionary<string, XsdFileInformation>(StringComparer.InvariantCultureIgnoreCase)
             {
                 {
-                    "ed-fi", new XsdFileInformation
-                    {
-                        AssemblyName = "EdFi.Ods.Standard",
-                        SchemaFiles = new[] {"Ed-Fi-Core.xsd"},
-                        SchemaNameMap = new SchemaNameMap("Ed-Fi", "edfi", "ed-fi", "EdFi"),
-                        Version = "3.2.0-c"
-                    }
+                    "ed-fi", new XsdFileInformation(
+                        "EdFi.Ods.Standard",
+                        "3.2.0-c",
+                        new SchemaNameMap("Ed-Fi", "edfi", "ed-fi", "EdFi"),
+                        new[] {"Ed-Fi-Core.xsd"})
                 },
                 {
-                    "sample", new XsdFileInformation
-                    {
-                        AssemblyName = "EdFi.Ods.Extensions.Sample",
-                        SchemaFiles = new[] {"Sample.xsd"},
-                        SchemaNameMap = new SchemaNameMap("Sample", "sample", "sample", "Sample"),
-                        Version = "1.0.0"
-                    }
+                    "sample", new XsdFileInformation(
+                        "EdFi.Ods.Extensions.Sample",
+                        "1.0.0",
+                        new SchemaNameMap("Sample", "sample", "sample", "Sample"),
+                        new[] {"Sample.xsd"})
                 }
             };
         }
@@ -59,11 +57,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
                 _xsdFileInformationProvider = A.Fake<IXsdFileInformationProvider>();
                 _embeddedFileProvider = A.Fake<IEmbeddedFileProvider>();
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment())
-                    .Returns(CreateXsdFileInformationByUriSegment());
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("ed-fi"))
+                    .Returns(CreateXsdFileInformationByUriSegment()["ed-fi"]);
 
-                A.CallTo(() => _embeddedFileProvider.File(A<string>._, A<string>._))
-                    .Returns("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("sample"))
+                    .Returns(CreateXsdFileInformationByUriSegment()["sample"]);
+
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("notfound"))
+                    .Returns(default);
+
+                A.CallTo(() => _embeddedFileProvider.Stream(A<string>._, A<string>._))
+                    .Returns(new MemoryStream(Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>")));
 
                 _sut = new XsdMetadataFileMiddleware(
                     _xsdFileInformationProvider, _embeddedFileProvider, new ApiSettings {Mode = ApiMode.Sandbox.Value});
@@ -79,7 +83,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 
                 await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment()).MustNotHaveHappened();
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("ed-fi")).MustNotHaveHappened();
             }
 
             [Test]
@@ -92,7 +96,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 
                 await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment()).MustHaveHappened();
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("notfound")).MustHaveHappened();
                 httpContext.Response.StatusCode.ShouldBe(StatusCodes.Status404NotFound);
             }
 
@@ -105,10 +109,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 
                 await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment()).MustHaveHappened();
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("ed-fi")).MustHaveHappened();
 
                 A.CallTo(
-                        () => _embeddedFileProvider.File(
+                        () => _embeddedFileProvider.Stream(
                             "EdFi.Ods.Standard", "EdFi.Ods.Standard.Artifacts.Schemas.Ed-Fi-Core.xsd"))
                     .MustHaveHappened();
 
@@ -127,10 +131,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 
                 await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment()).MustHaveHappened();
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("sample")).MustHaveHappened();
 
                 A.CallTo(
-                        () => _embeddedFileProvider.File(
+                        () => _embeddedFileProvider.Stream(
                             "EdFi.Ods.Extensions.Sample", "EdFi.Ods.Extensions.Sample.Artifacts.Schemas.Sample.xsd"))
                     .MustHaveHappened();
 
@@ -153,11 +157,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
                 _xsdFileInformationProvider = A.Fake<IXsdFileInformationProvider>();
                 _embeddedFileProvider = A.Fake<IEmbeddedFileProvider>();
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment())
-                    .Returns(CreateXsdFileInformationByUriSegment());
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("ed-fi"))
+                    .Returns(CreateXsdFileInformationByUriSegment()["ed-fi"]);
 
-                A.CallTo(() => _embeddedFileProvider.File(A<string>._, A<string>._))
-                    .Returns("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("sample"))
+                    .Returns(CreateXsdFileInformationByUriSegment()["sample"]);
+
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("notfound"))
+                    .Returns(default);
+
+                A.CallTo(() => _embeddedFileProvider.Stream(A<string>._, A<string>._))
+                    .Returns(new MemoryStream(Encoding.UTF8.GetBytes("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>")));
 
                 _sut = new XsdMetadataFileMiddleware(
                     _xsdFileInformationProvider, _embeddedFileProvider, new ApiSettings {Mode = ApiMode.YearSpecific.Value});
@@ -173,7 +183,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 
                 await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment()).MustNotHaveHappened();
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("ed-fi")).MustNotHaveHappened();
             }
 
             [Test]
@@ -186,7 +196,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 
                 await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment()).MustHaveHappened();
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("notfound")).MustHaveHappened();
                 httpContext.Response.StatusCode.ShouldBe(StatusCodes.Status404NotFound);
             }
 
@@ -199,10 +209,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 
                 await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment()).MustHaveHappened();
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("ed-fi")).MustHaveHappened();
 
                 A.CallTo(
-                        () => _embeddedFileProvider.File(
+                        () => _embeddedFileProvider.Stream(
                             "EdFi.Ods.Standard", "EdFi.Ods.Standard.Artifacts.Schemas.Ed-Fi-Core.xsd"))
                     .MustHaveHappened();
 
@@ -221,10 +231,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Middleware
 
                 await _sut.InvokeAsync(httpContext, context => Task.CompletedTask);
 
-                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment()).MustHaveHappened();
+                A.CallTo(() => _xsdFileInformationProvider.XsdFileInformationByUriSegment("sample")).MustHaveHappened();
 
                 A.CallTo(
-                        () => _embeddedFileProvider.File(
+                        () => _embeddedFileProvider.Stream(
                             "EdFi.Ods.Extensions.Sample", "EdFi.Ods.Extensions.Sample.Artifacts.Schemas.Sample.xsd"))
                     .MustHaveHappened();
 
