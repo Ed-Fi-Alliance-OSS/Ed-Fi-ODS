@@ -168,7 +168,6 @@ namespace EdFi.Ods.CodeGen.Generators
                     new
                     {
                         NamespacePrefix = GetCommonRelativeNamespacePrefix(entity),
-                        RecordNamespacePrefix = GetRecordsRelativeNamespacePrefix(entity),
                         AggregateName = aggregate.Name, ClassName = entity.Name, ReferenceDataClassName = entity.Name + "ReferenceData",
                         HasReferenceDataClass = entity.IsReferenceable() && entity.TypeHierarchyRootEntity == entity, TableName = entity.Name,
                         SchemaName = entity.Schema, entity.IsAggregateRoot, IsAbstract = entity.IsAbstractRequiringNoCompositeId(), entity.IsDerived,
@@ -237,20 +236,10 @@ namespace EdFi.Ods.CodeGen.Generators
                                                    ModelParentClassName = GetModelParentClassName(entity), ClassName = entity.Name,
                                                    ModelParentInterfaceNamespacePrefix = GetModelParentInterfaceNamespacePrefix(entity),
                                                    ModelParentInterfaceName = GetModelParentInterfaceName(entity),
-                                                   ParentRecordInterfaceName = GetParentRecordInterfaceName(entity), ContextualSuffix =
+                                                   ContextualSuffix =
                                                        context.IsConcreteEntityChildClassForBase
                                                            ? "Base"
-                                                           : string.Empty,
-                                                   RecordProperties = entity.ParentAssociation.PropertyMappings.Select(
-                                                       pm => new
-                                                             {
-                                                                 CSharpType = pm.ThisProperty.PropertyType.ToCSharp(
-                                                                     includeNullability: true),
-                                                                 ClassName = entity.Name, pm.ThisProperty.PropertyName,
-                                                                 ParentClassName =
-                                                                     entity.ParentAssociation.OtherEntity.Name,
-                                                                 ParentPropertyName = pm.OtherProperty.PropertyName
-                                                             })
+                                                           : string.Empty
                                                }
                                              : _notRendered,
                                          NonParentProperties =
@@ -585,11 +574,6 @@ namespace EdFi.Ods.CodeGen.Generators
             return $"{Namespaces.Entities.Common.RelativeNamespace}.{entity.SchemaProperCaseName()}.";
         }
 
-        private static string GetRecordsRelativeNamespacePrefix(Entity entity)
-        {
-            return $"{Namespaces.Entities.Records.RelativeNamespace}.{entity.SchemaProperCaseName()}.";
-        }
-
         private static string GetAggregateRelativeNamespacePrefix(Entity entity)
         {
             return $"{Namespaces.Entities.NHibernate.RelativeNamespace}.{entity.Aggregate.Name}Aggregate.{entity.SchemaProperCaseName()}.";
@@ -786,22 +770,6 @@ namespace EdFi.Ods.CodeGen.Generators
             }
 
             return $"I{entity.Parent.Name}";
-        }
-
-        private string GetParentRecordInterfaceName(Entity entity)
-        {
-            var properCaseName = entity.Parent.IsExtensionEntity
-                ? TemplateContext.SchemaProperCaseName
-                : EdFiConventions.ProperCaseName;
-
-            var namespaceSegment =
-                EdFiConventions.BuildNamespace(
-                    Namespaces.Entities.Records.RelativeNamespace,
-                    properCaseName);
-
-            string otherEntityName = entity.ParentAssociation.OtherEntity.Name;
-
-            return $"{namespaceSegment}.I{otherEntityName}Record";
         }
 
         /// <summary>
