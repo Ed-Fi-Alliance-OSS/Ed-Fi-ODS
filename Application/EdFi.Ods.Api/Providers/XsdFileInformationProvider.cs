@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using log4net;
 using Newtonsoft.Json;
@@ -24,7 +25,6 @@ namespace EdFi.Ods.Api.Providers
         private readonly ILog _logger = LogManager.GetLogger(typeof(XsdFileInformationProvider));
         private readonly ISchemaNameMapProvider _schemaNameMapProvider;
         private readonly Lazy<IDictionary<string, XsdFileInformation>> _xsdFileInformationByUriSegment;
-        private const string CoreUriSegment = "ed-fi";
 
         public XsdFileInformationProvider(IAssembliesProvider assembliesProvider,
             ISchemaNameMapProvider schemaNameMapProvider)
@@ -42,7 +42,7 @@ namespace EdFi.Ods.Api.Providers
                 ? default
                 : _xsdFileInformationByUriSegment.Value[uriSegment];
 
-        public XsdFileInformation CoreXsdFileInformation() => XsdFileInformationByUriSegment(CoreUriSegment);
+        public XsdFileInformation CoreXsdFileInformation() => XsdFileInformationByUriSegment(EdFiConventions.UriSegment);
 
         private IDictionary<string, XsdFileInformation> ParseAssemblies()
         {
