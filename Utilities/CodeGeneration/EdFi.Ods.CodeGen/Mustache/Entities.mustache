@@ -20,7 +20,6 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.Common.EdFi;
 {{/HasExtensionDerivedFromEdFiBaseEntity}}
 using EdFi.Ods.Entities.Common.{{SchemaProperCaseName}};
-using EdFi.Ods.Entities.Common.Records.{{SchemaProperCaseName}};
 using Newtonsoft.Json;
 
 {{#Aggregates}}
@@ -145,7 +144,7 @@ namespace {{AggregateNamespace}}
     [Serializable, Schema("{{SchemaName}}")]
     [ExcludeFromCodeCoverage]
     public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{#IsConcreteEntityChildClassForBase}}ForBase{{/IsConcreteEntityChildClassForBase}} : {{#IsDerived}}{{BaseAggregateRootRelativeNamespace}}{{#IsConcreteEntityBaseClass}}Base{{/IsConcreteEntityBaseClass}}{{/IsDerived}}{{^IsDerived}}{{#IsAggregateRoot}}AggregateRootWithCompositeKey{{/IsAggregateRoot}}{{^IsAggregateRoot}}EntityWithCompositeKey{{/IsAggregateRoot}}{{/IsDerived}},{{^IsAggregateRoot}} IChildEntity,{{/IsAggregateRoot}}{{#AllowsPrimaryKeyUpdates}} IHasCascadableKeyValues,{{/AllowsPrimaryKeyUpdates}}
-        {{NamespacePrefix}}I{{ClassName}}, {{RecordNamespacePrefix}}I{{ClassName}}Record, IHasPrimaryKeyValues{{#HasAlternateKeyValues}}, IHasAlternateKeyValues{{/HasAlternateKeyValues}}, IHasLookupColumnPropertyMap{{^IsAbstract}}, {{NamespacePrefix}}I{{ClassName}}SynchronizationSourceSupport{{/IsAbstract}}{{#IsDescriptor}}, IEdFiDescriptor{{/IsDescriptor}}{{#ExtendableConcreteBase}}, IHasExtensions{{/ExtendableConcreteBase}}
+        {{NamespacePrefix}}I{{ClassName}}, IHasPrimaryKeyValues{{#HasAlternateKeyValues}}, IHasAlternateKeyValues{{/HasAlternateKeyValues}}, IHasLookupColumnPropertyMap{{^IsAbstract}}, {{NamespacePrefix}}I{{ClassName}}SynchronizationSourceSupport{{/IsAbstract}}{{#IsDescriptor}}, IEdFiDescriptor{{/IsDescriptor}}{{#ExtendableConcreteBase}}, IHasExtensions{{/ExtendableConcreteBase}}
     {
         {{^IsDerived}}
         public virtual void SuspendReferenceAssignmentCheck() { }
@@ -192,14 +191,6 @@ namespace {{AggregateNamespace}}
                 {{/IsAggregateExtension}}
         }
 
-        {{#RecordProperties}}
-        {{CSharpType}} {{RecordNamespacePrefix}}I{{ClassName}}Record.{{PropertyName}}
-        {
-            get { return (({{ParentRecordInterfaceName}}) {{ParentClassName}}).{{ParentPropertyName}}; }
-            set { (({{ParentRecordInterfaceName}}) {{ParentClassName}}).{{ParentPropertyName}} = value; }
-        }
-
-        {{/RecordProperties}}
             {{/ParentReference}}
             {{#NonParentProperties}}
                 {{^IsAbstract}}

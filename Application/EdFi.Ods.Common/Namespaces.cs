@@ -144,13 +144,6 @@ namespace EdFi.Ods.Common
 
                 public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
             }
-
-            public static class Records
-            {
-                public static string RelativeNamespace => $"{Common.RelativeNamespace}.Records";
-
-                public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
-            }
         }
 
         public static class Extensions
