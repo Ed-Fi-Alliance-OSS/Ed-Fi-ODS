@@ -3,30 +3,35 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.IO;
+using System;
+using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.FileProviders;
 
 namespace EdFi.Ods.Api.Middleware
 {
     public class XsdMetadataFileMiddleware : IMiddleware
     {
         private readonly ApiSettings _apiSettings;
-        private readonly IEmbeddedFileProvider _embeddedFileProvider;
+        private readonly IAssembliesProvider _assembliesProvider;
+        private readonly ConcurrentDictionary<string, EmbeddedFileProvider> _embeddedFileProviderByAssemblyName =
+            new ConcurrentDictionary<string, EmbeddedFileProvider>(StringComparer.InvariantCultureIgnoreCase);
         private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
 
         public XsdMetadataFileMiddleware(IXsdFileInformationProvider xsdFileInformationProvider,
-            IEmbeddedFileProvider embeddedFileProvider,
+            IAssembliesProvider assembliesProvider,
             ApiSettings apiSettings)
         {
             _xsdFileInformationProvider = xsdFileInformationProvider;
-            _embeddedFileProvider = embeddedFileProvider;
+            _assembliesProvider = assembliesProvider;
             _apiSettings = apiSettings;
         }
 
@@ -57,14 +62,15 @@ namespace EdFi.Ods.Api.Middleware
             }
 
             string assemblyName = xsdFileInformationByUriSegment.AssemblyName;
-            string fullQualifiedFileName = $"{assemblyName}.Artifacts.Schemas.{routeValues["file"]}.xsd";
+            string fullQualifiedFileName = $"Artifacts/Schemas/{routeValues["file"]}.xsd";
+
+            var embeddedFileProvider = _embeddedFileProviderByAssemblyName.GetOrAdd(
+                assemblyName, key => new EmbeddedFileProvider(_assembliesProvider.Get(assemblyName)));
 
             context.Response.ContentType = "application/xml";
             context.Response.StatusCode = StatusCodes.Status200OK;
 
-            var streamReader = new StreamReader(_embeddedFileProvider.Stream(assemblyName, fullQualifiedFileName));
-
-            await context.Response.WriteAsync( await streamReader.ReadToEndAsync());
+            await context.Response.SendFileAsync(embeddedFileProvider.GetFileInfo(fullQualifiedFileName));
 
             string CreateRouteTemplate()
             {
