@@ -45,6 +45,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -89,6 +91,16 @@ namespace EdFi.Ods.Api.Startup
 
             services.AddSingleton(ApiSettings);
             services.AddSingleton(Configuration);
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddScoped(
+                serviceProvider =>
+                {
+                    var actionContext = serviceProvider.GetRequiredService<IActionContextAccessor>().ActionContext;
+                    var factory = serviceProvider.GetRequiredService<IUrlHelperFactory>();
+                    return factory.GetUrlHelper(actionContext);
+                });
 
             AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
 
@@ -265,6 +277,11 @@ namespace EdFi.Ods.Api.Startup
             if (ApiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
             {
                 app.UseOpenApiMetadata();
+            }
+
+            if (ApiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName()))
+            {
+                app.UseXsdMetadata();
             }
 
             // required to get the base controller working

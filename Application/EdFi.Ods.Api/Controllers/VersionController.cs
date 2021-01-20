@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Common.Configuration;
@@ -10,6 +12,7 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -44,19 +47,6 @@ namespace EdFi.Ods.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
-            var dataModels = _domainModelProvider
-                .GetDomainModel()
-                .Schemas
-                .Select(
-                    s => new
-                    {
-                        name = s.LogicalName,
-                        version = s.Version
-                    })
-                .ToArray();
-
-            var exposedUrls = GetUrls();
-
             var content = new
             {
                 version = _apiVersionProvider.Version,
@@ -64,64 +54,88 @@ namespace EdFi.Ods.Api.Controllers
                 suite = _apiVersionProvider.Suite,
                 build = _apiVersionProvider.Build,
                 apiMode = _apiSettings.GetApiMode().DisplayName,
-                dataModels = dataModels,
-                urls = new
-                {
-                    openApiMetadata = exposedUrls.MetaDataUrl,
-                    dependencies = exposedUrls.DependenciesUrl,
-                    oauth = exposedUrls.OauthUrl,
-                    dataManagementApi = exposedUrls.ApiUrl,
-                }
+                dataModels = _domainModelProvider
+                    .GetDomainModel()
+                    .Schemas
+                    .Select(
+                        s => new
+                        {
+                            name = s.LogicalName,
+                            version = s.Version
+                        })
+                    .ToArray(),
+                urls = GetUrlsByName()
             };
 
             return Ok(content);
 
-            ExposedUrls GetUrls()
+            Dictionary<string, string> GetUrlsByName()
             {
                 var currentYear = _systemDateProvider.GetDate().Year.ToString();
 
                 // since instance is dynamic and given through url, this value is just a place holder
                 var instance = "{instance}";
 
-                bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific);
                 bool isInstanceYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.InstanceYearSpecific);
 
-                //This also involves year itself, thus year needs to be true
-                if (isInstanceYearSpecific) isYearSpecific = true;
+                bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific)
+                                      || isInstanceYearSpecific;
 
                 bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
 
-                var exposedUrls = new ExposedUrls
-                {
-                    DependenciesUrl = Request.RootUrl(useReverseProxyHeaders) +
-                                      (isInstanceYearSpecific
-                                          ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + $"{instance}/" + currentYear + "/dependencies" :
-                                          (isYearSpecific
-                                              ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + currentYear + "/dependencies"
-                                              : $"/metadata/data/v{ApiVersionConstants.Ods}/dependencies")),
-                    MetaDataUrl = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
-                                  (isInstanceYearSpecific
-                                      ? $"{instance}/"
-                                      : string.Empty) +
-                                  (isYearSpecific
-                                      ? currentYear
-                                      : string.Empty),
-                    OauthUrl = Request.RootUrl(useReverseProxyHeaders) +
-                               (isInstanceYearSpecific
-                                   ? $"/{instance}"
-                                   : string.Empty) +
-                               "/oauth/token",
-                    ApiUrl = Request.RootUrl(useReverseProxyHeaders) +
-                             $"/data/v{ApiVersionConstants.Ods}/" +
-                             (isInstanceYearSpecific
-                                 ? $"{instance}/"
-                                 : string.Empty) +
-                             (isYearSpecific
-                                 ? currentYear
-                                 : string.Empty)
-                };
+                var urlsByName = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
-                return exposedUrls;
+                if (_apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName()))
+                {
+                    urlsByName["dependencies"] = Request.RootUrl(useReverseProxyHeaders) +
+                                                    (isInstanceYearSpecific
+                                                        ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + $"{instance}/" +
+                                                          currentYear + "/dependencies"
+                                                        : (isYearSpecific
+                                                            ? $"/metadata/data/v{ApiVersionConstants.Ods}/" + currentYear +
+                                                              "/dependencies"
+                                                            : $"/metadata/data/v{ApiVersionConstants.Ods}/dependencies"));
+                }
+
+                if (_apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName()))
+                {
+                    urlsByName["openApiMetadata"] = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
+                                                (isInstanceYearSpecific
+                                                    ? $"{instance}/"
+                                                    : string.Empty) +
+                                                (isYearSpecific
+                                                    ? currentYear
+                                                    : string.Empty);
+                }
+
+                urlsByName["oauth"] = Request.RootUrl(useReverseProxyHeaders) +
+                                         (isInstanceYearSpecific
+                                             ? $"/{instance}"
+                                             : string.Empty) +
+                                         "/oauth/token";
+
+                urlsByName["dataManagementApi"] = Request.RootUrl(useReverseProxyHeaders) +
+                                       $"/data/v{ApiVersionConstants.Ods}/" +
+                                       (isInstanceYearSpecific
+                                           ? $"{instance}/"
+                                           : string.Empty) +
+                                       (isYearSpecific
+                                           ? currentYear
+                                           : string.Empty);
+
+                if (_apiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName()))
+                {
+                    urlsByName["xsdMetadata"] = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
+                                                   (isInstanceYearSpecific
+                                                       ? $"{instance}/"
+                                                       : string.Empty) +
+                                                   (isYearSpecific
+                                                       ? $"{currentYear}/"
+                                                       : string.Empty) +
+                                                   "xsd";
+                }
+
+                return urlsByName;
             }
         }
     }

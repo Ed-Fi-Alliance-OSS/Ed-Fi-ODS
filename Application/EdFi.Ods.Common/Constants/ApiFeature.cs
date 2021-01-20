@@ -20,6 +20,7 @@ namespace EdFi.Ods.Common.Constants
         public static readonly ApiFeature UniqueIdValidation = new ApiFeature("uniqueIdValidation", "Unique Identification Validation");
         public static readonly ApiFeature TokenInfo = new ApiFeature("tokenInfo", "Token Introspective Endpoint");
         public static readonly ApiFeature IdentityManagement = new ApiFeature("identityManagement", "Identity Management");
+        public static readonly ApiFeature XsdMetadata = new ApiFeature("xsdMetadata", "Xsd Metadata");
 
         public ApiFeature(string value, string displayName)
             : base(value, displayName) { }
