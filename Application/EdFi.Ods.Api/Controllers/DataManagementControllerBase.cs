@@ -342,7 +342,7 @@ namespace EdFi.Ods.Api.Controllers
                         urlBuilder.Port = Request.Host.Port.Value;
                     }
 
-                    _applicationUrl = $"{urlBuilder.Uri}{GetResourceCollectionName()}";
+                    _applicationUrl = $"{urlBuilder.Uri}";
                 }
                 catch (Exception ex)
                 {
