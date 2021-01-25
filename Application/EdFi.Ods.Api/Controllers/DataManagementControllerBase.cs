@@ -322,8 +322,6 @@ namespace EdFi.Ods.Api.Controllers
             return new EntityTagHeaderValue(Quoted(etagValue));
         }
 
-        protected abstract string GetResourceCollectionName();
-
         protected string GetResourceUrl(Guid id)
         {
             if (_applicationUrl == null)
