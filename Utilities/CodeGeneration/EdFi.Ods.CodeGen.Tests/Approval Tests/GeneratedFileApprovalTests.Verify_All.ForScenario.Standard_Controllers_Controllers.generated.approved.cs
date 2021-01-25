@@ -44,11 +44,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.AbsenceEventCategoryDescriptorId = request.AbsenceEventCategoryDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "absenceEventCategoryDescriptors";
-        }
     }
 }
 

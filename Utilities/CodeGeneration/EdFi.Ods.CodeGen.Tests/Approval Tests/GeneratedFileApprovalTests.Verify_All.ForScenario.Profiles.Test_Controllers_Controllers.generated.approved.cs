@@ -54,11 +54,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Rea
             specification.WeekIdentifier = request.WeekIdentifier;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "academicWeeks";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.academicweek.academic-week-readable-excludes-optional-references.readable+json";
