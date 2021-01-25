@@ -43,7 +43,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Content>
-    <Content Include="assemblyMetadata.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Artifacts\Metadata\**\ApiModel-EXTENSION.json">
@@ -56,6 +55,7 @@
       <DesignTime>True</DesignTime>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+	<EmbeddedResource Include="assemblyMetadata.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
