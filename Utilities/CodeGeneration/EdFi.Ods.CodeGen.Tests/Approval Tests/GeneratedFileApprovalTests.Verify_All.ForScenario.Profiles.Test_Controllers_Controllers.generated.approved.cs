@@ -110,11 +110,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi.Academic_Week_Wri
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "academicWeeks";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.academicweek.academic-week-writable-excludes-optional-references.readable+json";
@@ -183,11 +178,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable
             specification.Namespace = request.Namespace;
             specification.Nomenclature = request.Nomenclature;
             specification.RevisionDate = request.RevisionDate;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessments";
         }
 
         protected override string GetReadContentType()
@@ -260,11 +250,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Readable
             specification.RevisionDate = request.RevisionDate;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "assessments";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.assessment.assessment-readable-includes-embedded-object.readable+json";
@@ -321,11 +306,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "assessments";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.assessment.assessment-writable-excludes-embedded-object.readable+json";
@@ -380,11 +360,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi.Assessment_Writable
         protected override void MapAll(AssessmentsNullReadRequest request, Entities.Common.EdFi.IAssessment specification)
         {
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessments";
         }
 
         protected override string GetReadContentType()
@@ -466,11 +441,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.Minim
             specification.TermCompletionIndicator = request.TermCompletionIndicator;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSchoolAssociations";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-excludeonly.readable+json";
@@ -550,11 +520,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi.Minim
             specification.TermCompletionIndicator = request.TermCompletionIndicator;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSchoolAssociations";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.studentschoolassociation.minimalstudentschoolassociation-includeonly.readable+json";
@@ -631,11 +596,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Student_Readable_Restr
             specification.StudentUniqueId = request.StudentUniqueId;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "students";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.student.student-readable-restricted.readable+json";
@@ -706,11 +666,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.StudentUniqueId = request.StudentUniqueId;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSpecialEducationProgramAssociations";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.studentspecialeducationprogramassociation.studentspecialeducationprogramassociation-derived-association-excludeonly.readable+json";
@@ -761,11 +716,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.SpecialEducationHoursPerWeek = request.SpecialEducationHoursPerWeek;
             specification.SpecialEducationSettingDescriptor = request.SpecialEducationSettingDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSpecialEducationProgramAssociations";
         }
 
         protected override string GetReadContentType()
@@ -820,11 +770,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.StudentUniqueId = request.StudentUniqueId;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSpecialEducationProgramAssociations";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.studentspecialeducationprogramassociation.studentspecialeducationprogramassociation-derived-association-includeonly.readable+json";
@@ -875,11 +820,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.SpecialEducationHoursPerWeek = request.SpecialEducationHoursPerWeek;
             specification.SpecialEducationSettingDescriptor = request.SpecialEducationSettingDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSpecialEducationProgramAssociations";
         }
 
         protected override string GetReadContentType()
@@ -934,11 +874,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.StudentUniqueId = request.StudentUniqueId;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSpecialEducationProgramAssociations";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.studentspecialeducationprogramassociation.test-parentnonabstractbaseclass-includeall.readable+json";
@@ -979,11 +914,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Pro
             specification.LocalEducationAgencyId = request.LocalEducationAgencyId;
             specification.ParentLocalEducationAgencyId = request.ParentLocalEducationAgencyId;
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "localEducationAgencies";
         }
 
         protected override string GetReadContentType()
@@ -1032,11 +962,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Res
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.school.test-profile-edorgs-resources-child-collection-excludeonly.readable+json";
@@ -1077,11 +1002,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi.Test_Pro
             specification.LocalEducationAgencyId = request.LocalEducationAgencyId;
             specification.ParentLocalEducationAgencyId = request.ParentLocalEducationAgencyId;
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "localEducationAgencies";
         }
 
         protected override string GetReadContentType()
@@ -1128,11 +1048,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_EdOrgs_Res
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -1192,11 +1107,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_For_Composi
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffs";
         }
 
         protected override string GetReadContentType()
@@ -1265,11 +1175,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             specification.StudentUniqueId = request.StudentUniqueId;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "studentEducationOrganizationAssociations";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.studenteducationorganizationassociation.test-profile-for-composites-with-multiple-resources.readable+json";
@@ -1334,11 +1239,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_B
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.school.test-profile-resource-baseclass-child-collection-excludeonly.readable+json";
@@ -1386,11 +1286,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_B
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -1457,11 +1352,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_B
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.school.test-profile-resource-baseclass-child-collection-includeonly.readable+json";
@@ -1506,11 +1396,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_C
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -1559,11 +1444,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_C
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.school.test-profile-resource-child-collection-filtered-to-includeonly-specific-descriptors.readable+json";
@@ -1608,11 +1488,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_C
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -1661,11 +1536,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.school.test-profile-resource-excludeonly.readable+json";
@@ -1712,11 +1582,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.school.test-profile-resource-includeall.readable+json";
@@ -1761,11 +1626,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -1821,11 +1681,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
             specification.WhenAssessedGradeLevelDescriptor = request.WhenAssessedGradeLevelDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "studentAssessments";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-excludeonly-specific-types-and-descriptors.readable+json";
@@ -1879,11 +1734,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi.Test_Profile
             specification.WhenAssessedGradeLevelDescriptor = request.WhenAssessedGradeLevelDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "studentAssessments";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.studentassessment.test-profile-resource-nested-child-collection-filtered-to-includeonly-specific-types-and-descriptors.readable+json";
@@ -1931,11 +1781,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -2002,11 +1847,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.school.test-profile-resource-references-excludeonly.readable+json";
@@ -2053,11 +1893,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.school.test-profile-resource-references-includeonly.readable+json";
@@ -2094,11 +1929,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
         protected override void MapAll(SchoolsNullReadRequest request, Entities.Common.EdFi.ISchool specification)
         {
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -2175,11 +2005,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi.Test_Profile_StaffOnly_R
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "staffs";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.staff.test-profile-staffonly-resource-includeall.readable+json";
@@ -2224,11 +2049,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Student_an
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -2286,11 +2106,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_Student_a
             specification.StudentUniqueId = request.StudentUniqueId;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "students";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.student.test-profile-student-and-school-include-all.readable+json";
@@ -2344,11 +2159,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOn
             specification.PersonId = request.PersonId;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "students";
         }
 
         protected override string GetReadContentType()
@@ -2406,11 +2216,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi.Test_Profile_StudentOn
             specification.StudentUniqueId = request.StudentUniqueId;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "students";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.student.test-profile-studentonly-resource-includeall.readable+json";
@@ -2457,11 +2262,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             specification.ProfileThumbnail = request.ProfileThumbnail;
             specification.SexDescriptor = request.SexDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentEducationOrganizationAssociations";
         }
 
         protected override string GetReadContentType()
