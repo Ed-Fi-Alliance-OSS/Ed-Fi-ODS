@@ -44,11 +44,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AbsenceEventCategoryDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.AbsenceEventCategoryDescriptorId = request.AbsenceEventCategoryDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "absenceEventCategoryDescriptors";
-        }
     }
 }
 
@@ -80,11 +75,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicHonorCategoryDescriptors.EdF
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicHonorCategoryDescriptorId = request.AcademicHonorCategoryDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "academicHonorCategoryDescriptors";
-        }
     }
 }
 
@@ -115,11 +105,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicSubjectDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AcademicSubjectDescriptorId = request.AcademicSubjectDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "academicSubjectDescriptors";
         }
     }
 }
@@ -157,11 +142,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AcademicWeeks.EdFi
             specification.TotalInstructionalDays = request.TotalInstructionalDays;
             specification.WeekIdentifier = request.WeekIdentifier;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "academicWeeks";
-        }
     }
 }
 
@@ -192,11 +172,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccommodationDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccommodationDescriptorId = request.AccommodationDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "accommodationDescriptors";
         }
     }
 }
@@ -232,11 +207,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Accounts.EdFi
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "accounts";
         }
     }
 }
@@ -276,11 +246,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountabilityRatings.EdFi
             specification.RatingTitle = request.RatingTitle;
             specification.SchoolYear = request.SchoolYear;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "accountabilityRatings";
-        }
     }
 }
 
@@ -311,11 +276,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountClassificationDescriptors.EdF
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AccountClassificationDescriptorId = request.AccountClassificationDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "accountClassificationDescriptors";
         }
     }
 }
@@ -353,11 +313,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AccountCodes.EdFi
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "accountCodes";
-        }
     }
 }
 
@@ -388,11 +343,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AchievementCategoryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AchievementCategoryDescriptorId = request.AchievementCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "achievementCategoryDescriptors";
         }
     }
 }
@@ -430,11 +380,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Actuals.EdFi
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "actuals";
-        }
     }
 }
 
@@ -465,11 +410,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AdditionalCreditTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdditionalCreditTypeDescriptorId = request.AdditionalCreditTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "additionalCreditTypeDescriptors";
         }
     }
 }
@@ -502,11 +442,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AddressTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.AddressTypeDescriptorId = request.AddressTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "addressTypeDescriptors";
-        }
     }
 }
 
@@ -538,11 +473,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrationEnvironmentDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrationEnvironmentDescriptorId = request.AdministrationEnvironmentDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "administrationEnvironmentDescriptors";
-        }
     }
 }
 
@@ -573,11 +503,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AdministrativeFundingControlDescriptorId = request.AdministrativeFundingControlDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "administrativeFundingControlDescriptors";
         }
     }
 }
@@ -622,11 +547,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
             specification.Nomenclature = request.Nomenclature;
             specification.RevisionDate = request.RevisionDate;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessments";
-        }
     }
 }
 
@@ -658,11 +578,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentCategoryDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentCategoryDescriptorId = request.AssessmentCategoryDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessmentCategoryDescriptors";
-        }
     }
 }
 
@@ -693,11 +608,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentIdentificationSystemDescri
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentIdentificationSystemDescriptorId = request.AssessmentIdentificationSystemDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessmentIdentificationSystemDescriptors";
         }
     }
 }
@@ -740,11 +650,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
             specification.Namespace = request.Namespace;
             specification.Nomenclature = request.Nomenclature;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessmentItems";
-        }
     }
 }
 
@@ -775,11 +680,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemCategoryDescriptors.Ed
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentItemCategoryDescriptorId = request.AssessmentItemCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessmentItemCategoryDescriptors";
         }
     }
 }
@@ -812,11 +712,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItemResultDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentItemResultDescriptorId = request.AssessmentItemResultDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessmentItemResultDescriptors";
-        }
     }
 }
 
@@ -847,11 +742,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentPeriodDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentPeriodDescriptorId = request.AssessmentPeriodDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessmentPeriodDescriptors";
         }
     }
 }
@@ -884,11 +774,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.AssessmentReportingMethodDescriptorId = request.AssessmentReportingMethodDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "assessmentReportingMethodDescriptors";
-        }
     }
 }
 
@@ -919,11 +804,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.AttemptStatusDescriptorId = request.AttemptStatusDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "attemptStatusDescriptors";
         }
     }
 }
@@ -956,11 +836,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
             specification.SuspendReferenceAssignmentCheck();
             specification.AttendanceEventCategoryDescriptorId = request.AttendanceEventCategoryDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "attendanceEventCategoryDescriptors";
-        }
     }
 }
 
@@ -991,11 +866,6 @@ namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BehaviorDescriptorId = request.BehaviorDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "behaviorDescriptors";
         }
     }
 }
@@ -1034,11 +904,6 @@ namespace EdFi.Ods.Api.Services.Controllers.BellSchedules.EdFi
             specification.StartTime = request.StartTime;
             specification.TotalInstructionalTime = request.TotalInstructionalTime;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "bellSchedules";
-        }
     }
 }
 
@@ -1075,11 +940,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Budgets.EdFi
             specification.FiscalYear = request.FiscalYear;
             specification.Id = request.Id;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "budgets";
-        }
     }
 }
 
@@ -1114,11 +974,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Calendars.EdFi
             specification.Id = request.Id;
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "calendars";
         }
     }
 }
@@ -1155,11 +1010,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarDates.EdFi
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "calendarDates";
-        }
     }
 }
 
@@ -1190,11 +1040,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarEventDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarEventDescriptorId = request.CalendarEventDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "calendarEventDescriptors";
         }
     }
 }
@@ -1227,11 +1072,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CalendarTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CalendarTypeDescriptorId = request.CalendarTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "calendarTypeDescriptors";
-        }
     }
 }
 
@@ -1262,11 +1102,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CareerPathwayDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CareerPathwayDescriptorId = request.CareerPathwayDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "careerPathwayDescriptors";
         }
     }
 }
@@ -1299,11 +1134,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterApprovalAgencyTypeDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterApprovalAgencyTypeDescriptorId = request.CharterApprovalAgencyTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "charterApprovalAgencyTypeDescriptors";
-        }
     }
 }
 
@@ -1335,11 +1165,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CharterStatusDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CharterStatusDescriptorId = request.CharterStatusDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "charterStatusDescriptors";
-        }
     }
 }
 
@@ -1370,11 +1195,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CitizenshipStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CitizenshipStatusDescriptorId = request.CitizenshipStatusDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "citizenshipStatusDescriptors";
         }
     }
 }
@@ -1410,11 +1230,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassPeriods.EdFi
             specification.OfficialAttendancePeriod = request.OfficialAttendancePeriod;
             specification.SchoolId = request.SchoolId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "classPeriods";
-        }
     }
 }
 
@@ -1445,11 +1260,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ClassroomPositionDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ClassroomPositionDescriptorId = request.ClassroomPositionDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "classroomPositionDescriptors";
         }
     }
 }
@@ -1488,11 +1298,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Cohorts.EdFi
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.Id = request.Id;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "cohorts";
-        }
     }
 }
 
@@ -1523,11 +1328,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortScopeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CohortScopeDescriptorId = request.CohortScopeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "cohortScopeDescriptors";
         }
     }
 }
@@ -1560,11 +1360,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CohortTypeDescriptorId = request.CohortTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "cohortTypeDescriptors";
-        }
     }
 }
 
@@ -1596,11 +1391,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CohortYearTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CohortYearTypeDescriptorId = request.CohortYearTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "cohortYearTypeDescriptors";
-        }
     }
 }
 
@@ -1631,11 +1421,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityOrganizations.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CommunityOrganizationId = request.CommunityOrganizationId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "communityOrganizations";
         }
     }
 }
@@ -1673,11 +1458,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviders.EdFi
             specification.ProviderProfitabilityDescriptor = request.ProviderProfitabilityDescriptor;
             specification.ProviderStatusDescriptor = request.ProviderStatusDescriptor;
             specification.SchoolIndicator = request.SchoolIndicator;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "communityProviders";
         }
     }
 }
@@ -1721,11 +1501,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CommunityProviderLicenses.EdFi
             specification.OldestAgeAuthorizedToServe = request.OldestAgeAuthorizedToServe;
             specification.YoungestAgeAuthorizedToServe = request.YoungestAgeAuthorizedToServe;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "communityProviderLicenses";
-        }
     }
 }
 
@@ -1756,11 +1531,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyLevelDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CompetencyLevelDescriptorId = request.CompetencyLevelDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "competencyLevelDescriptors";
         }
     }
 }
@@ -1799,11 +1569,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CompetencyObjectives.EdFi
             specification.ObjectiveGradeLevelDescriptor = request.ObjectiveGradeLevelDescriptor;
             specification.SuccessCriteria = request.SuccessCriteria;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "competencyObjectives";
-        }
     }
 }
 
@@ -1834,11 +1599,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContactTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ContactTypeDescriptorId = request.ContactTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "contactTypeDescriptors";
         }
     }
 }
@@ -1871,11 +1631,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContentClassDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.ContentClassDescriptorId = request.ContentClassDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "contentClassDescriptors";
-        }
     }
 }
 
@@ -1906,11 +1661,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContinuationOfServicesReasonDescript
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ContinuationOfServicesReasonDescriptorId = request.ContinuationOfServicesReasonDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "continuationOfServicesReasonDescriptors";
         }
     }
 }
@@ -1949,11 +1699,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ContractedStaffs.EdFi
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "contractedStaffs";
-        }
     }
 }
 
@@ -1985,11 +1730,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CostRateDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CostRateDescriptorId = request.CostRateDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "costRateDescriptors";
-        }
     }
 }
 
@@ -2020,11 +1760,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CountryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CountryDescriptorId = request.CountryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "countryDescriptors";
         }
     }
 }
@@ -2076,11 +1811,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Courses.EdFi
             specification.NumberOfParts = request.NumberOfParts;
             specification.TimeRequiredForCompletion = request.TimeRequiredForCompletion;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "courses";
-        }
     }
 }
 
@@ -2111,11 +1841,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseAttemptResultDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseAttemptResultDescriptorId = request.CourseAttemptResultDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "courseAttemptResultDescriptors";
         }
     }
 }
@@ -2148,11 +1873,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseDefinedByDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseDefinedByDescriptorId = request.CourseDefinedByDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "courseDefinedByDescriptors";
-        }
     }
 }
 
@@ -2183,11 +1903,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseGPAApplicabilityDescriptors.Ed
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseGPAApplicabilityDescriptorId = request.CourseGPAApplicabilityDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "courseGPAApplicabilityDescriptors";
         }
     }
 }
@@ -2220,11 +1935,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseIdentificationSystemDescriptor
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseIdentificationSystemDescriptorId = request.CourseIdentificationSystemDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "courseIdentificationSystemDescriptors";
-        }
     }
 }
 
@@ -2255,11 +1965,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseLevelCharacteristicDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseLevelCharacteristicDescriptorId = request.CourseLevelCharacteristicDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "courseLevelCharacteristicDescriptors";
         }
     }
 }
@@ -2300,11 +2005,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseOfferings.EdFi
             specification.SchoolYear = request.SchoolYear;
             specification.SessionName = request.SessionName;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "courseOfferings";
-        }
     }
 }
 
@@ -2335,11 +2035,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseRepeatCodeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CourseRepeatCodeDescriptorId = request.CourseRepeatCodeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "courseRepeatCodeDescriptors";
         }
     }
 }
@@ -2396,11 +2091,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
             specification.TermDescriptor = request.TermDescriptor;
             specification.WhenTakenGradeLevelDescriptor = request.WhenTakenGradeLevelDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "courseTranscripts";
-        }
     }
 }
 
@@ -2442,11 +2132,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Credentials.EdFi
             specification.TeachingCredentialBasisDescriptor = request.TeachingCredentialBasisDescriptor;
             specification.TeachingCredentialDescriptor = request.TeachingCredentialDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "credentials";
-        }
     }
 }
 
@@ -2477,11 +2162,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialFieldDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CredentialFieldDescriptorId = request.CredentialFieldDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "credentialFieldDescriptors";
         }
     }
 }
@@ -2514,11 +2194,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CredentialTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CredentialTypeDescriptorId = request.CredentialTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "credentialTypeDescriptors";
-        }
     }
 }
 
@@ -2549,11 +2224,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditCategoryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CreditCategoryDescriptorId = request.CreditCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "creditCategoryDescriptors";
         }
     }
 }
@@ -2586,11 +2256,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CreditTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CreditTypeDescriptorId = request.CreditTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "creditTypeDescriptors";
-        }
     }
 }
 
@@ -2621,11 +2286,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CTEProgramServiceDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.CTEProgramServiceDescriptorId = request.CTEProgramServiceDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "cteProgramServiceDescriptors";
         }
     }
 }
@@ -2658,11 +2318,6 @@ namespace EdFi.Ods.Api.Services.Controllers.CurriculumUsedDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.CurriculumUsedDescriptorId = request.CurriculumUsedDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "curriculumUsedDescriptors";
-        }
     }
 }
 
@@ -2693,11 +2348,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DeliveryMethodDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DeliveryMethodDescriptorId = request.DeliveryMethodDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "deliveryMethodDescriptors";
         }
     }
 }
@@ -2730,11 +2380,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DiagnosisDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.DiagnosisDescriptorId = request.DiagnosisDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "diagnosisDescriptors";
-        }
     }
 }
 
@@ -2765,11 +2410,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaLevelDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DiplomaLevelDescriptorId = request.DiplomaLevelDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "diplomaLevelDescriptors";
         }
     }
 }
@@ -2802,11 +2442,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DiplomaTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.DiplomaTypeDescriptorId = request.DiplomaTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "diplomaTypeDescriptors";
-        }
     }
 }
 
@@ -2837,11 +2472,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DisabilityDescriptorId = request.DisabilityDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "disabilityDescriptors";
         }
     }
 }
@@ -2874,11 +2504,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDesignationDescriptors.EdF
             specification.SuspendReferenceAssignmentCheck();
             specification.DisabilityDesignationDescriptorId = request.DisabilityDesignationDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "disabilityDesignationDescriptors";
-        }
     }
 }
 
@@ -2909,11 +2534,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisabilityDeterminationSourceTypeDes
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DisabilityDeterminationSourceTypeDescriptorId = request.DisabilityDeterminationSourceTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "disabilityDeterminationSourceTypeDescriptors";
         }
     }
 }
@@ -2957,11 +2577,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActions.EdFi
             specification.ResponsibilitySchoolId = request.ResponsibilitySchoolId;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "disciplineActions";
-        }
     }
 }
 
@@ -2993,11 +2608,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineActionLengthDifferenceReas
             specification.SuspendReferenceAssignmentCheck();
             specification.DisciplineActionLengthDifferenceReasonDescriptorId = request.DisciplineActionLengthDifferenceReasonDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "disciplineActionLengthDifferenceReasonDescriptors";
-        }
     }
 }
 
@@ -3028,11 +2638,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.DisciplineDescriptorId = request.DisciplineDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "disciplineDescriptors";
         }
     }
 }
@@ -3077,11 +2682,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidents.EdFi
             specification.SchoolId = request.SchoolId;
             specification.StaffUniqueId = request.StaffUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "disciplineIncidents";
-        }
     }
 }
 
@@ -3113,11 +2713,6 @@ namespace EdFi.Ods.Api.Services.Controllers.DisciplineIncidentParticipationCodeD
             specification.SuspendReferenceAssignmentCheck();
             specification.DisciplineIncidentParticipationCodeDescriptorId = request.DisciplineIncidentParticipationCodeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "disciplineIncidentParticipationCodeDescriptors";
-        }
     }
 }
 
@@ -3148,11 +2743,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationalEnvironmentDescriptors.Ed
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationalEnvironmentDescriptorId = request.EducationalEnvironmentDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationalEnvironmentDescriptors";
         }
     }
 }
@@ -3202,11 +2792,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationContents.EdFi
             specification.UseRightsURL = request.UseRightsURL;
             specification.Version = request.Version;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationContents";
-        }
     }
 }
 
@@ -3238,11 +2823,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationCategoryDescrip
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationCategoryDescriptorId = request.EducationOrganizationCategoryDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationOrganizationCategoryDescriptors";
-        }
     }
 }
 
@@ -3273,11 +2853,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationIdentificationS
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationIdentificationSystemDescriptorId = request.EducationOrganizationIdentificationSystemDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationOrganizationIdentificationSystemDescriptors";
         }
     }
 }
@@ -3315,11 +2890,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationInterventionPre
             specification.InterventionPrescriptionEducationOrganizationId = request.InterventionPrescriptionEducationOrganizationId;
             specification.InterventionPrescriptionIdentificationCode = request.InterventionPrescriptionIdentificationCode;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationOrganizationInterventionPrescriptionAssociations";
-        }
     }
 }
 
@@ -3351,11 +2921,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworks.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationOrganizationNetworkId = request.EducationOrganizationNetworkId;
             specification.NetworkPurposeDescriptor = request.NetworkPurposeDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationOrganizationNetworks";
         }
     }
 }
@@ -3392,11 +2957,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationNetworkAssociat
             specification.Id = request.Id;
             specification.MemberEducationOrganizationId = request.MemberEducationOrganizationId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationOrganizationNetworkAssociations";
-        }
     }
 }
 
@@ -3430,11 +2990,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationOrganizationPeerAssociation
             specification.Id = request.Id;
             specification.PeerEducationOrganizationId = request.PeerEducationOrganizationId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationOrganizationPeerAssociations";
-        }
     }
 }
 
@@ -3465,11 +3020,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationPlanDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EducationPlanDescriptorId = request.EducationPlanDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationPlanDescriptors";
         }
     }
 }
@@ -3503,11 +3053,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EducationServiceCenters.EdFi
             specification.EducationServiceCenterId = request.EducationServiceCenterId;
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "educationServiceCenters";
-        }
     }
 }
 
@@ -3538,11 +3083,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ElectronicMailTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ElectronicMailTypeDescriptorId = request.ElectronicMailTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "electronicMailTypeDescriptors";
         }
     }
 }
@@ -3575,11 +3115,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EmploymentStatusDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.EmploymentStatusDescriptorId = request.EmploymentStatusDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "employmentStatusDescriptors";
-        }
     }
 }
 
@@ -3610,11 +3145,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryGradeLevelReasonDescriptors.EdF
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EntryGradeLevelReasonDescriptorId = request.EntryGradeLevelReasonDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "entryGradeLevelReasonDescriptors";
         }
     }
 }
@@ -3647,11 +3177,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EntryTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.EntryTypeDescriptorId = request.EntryTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "entryTypeDescriptors";
-        }
     }
 }
 
@@ -3683,11 +3208,6 @@ namespace EdFi.Ods.Api.Services.Controllers.EventCircumstanceDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.EventCircumstanceDescriptorId = request.EventCircumstanceDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "eventCircumstanceDescriptors";
-        }
     }
 }
 
@@ -3718,11 +3238,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ExitWithdrawTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ExitWithdrawTypeDescriptorId = request.ExitWithdrawTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "exitWithdrawTypeDescriptors";
         }
     }
 }
@@ -3759,11 +3274,6 @@ namespace EdFi.Ods.Api.Services.Controllers.FeederSchoolAssociations.EdFi
             specification.FeederSchoolId = request.FeederSchoolId;
             specification.Id = request.Id;
             specification.SchoolId = request.SchoolId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "feederSchoolAssociations";
         }
     }
 }
@@ -3811,11 +3321,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "grades";
-        }
     }
 }
 
@@ -3859,11 +3364,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "gradebookEntries";
-        }
     }
 }
 
@@ -3894,11 +3394,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntryTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GradebookEntryTypeDescriptorId = request.GradebookEntryTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "gradebookEntryTypeDescriptors";
         }
     }
 }
@@ -3931,11 +3426,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeLevelDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.GradeLevelDescriptorId = request.GradeLevelDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "gradeLevelDescriptors";
-        }
     }
 }
 
@@ -3967,11 +3457,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradePointAverageTypeDescriptors.EdF
             specification.SuspendReferenceAssignmentCheck();
             specification.GradePointAverageTypeDescriptorId = request.GradePointAverageTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "gradePointAverageTypeDescriptors";
-        }
     }
 }
 
@@ -4002,11 +3487,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradeTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GradeTypeDescriptorId = request.GradeTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "gradeTypeDescriptors";
         }
     }
 }
@@ -4046,11 +3526,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriods.EdFi
             specification.SchoolYear = request.SchoolYear;
             specification.TotalInstructionalDays = request.TotalInstructionalDays;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "gradingPeriods";
-        }
     }
 }
 
@@ -4081,11 +3556,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GradingPeriodDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GradingPeriodDescriptorId = request.GradingPeriodDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "gradingPeriodDescriptors";
         }
     }
 }
@@ -4125,11 +3595,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlans.EdFi
             specification.TotalRequiredCredits = request.TotalRequiredCredits;
             specification.TotalRequiredCreditTypeDescriptor = request.TotalRequiredCreditTypeDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "graduationPlans";
-        }
     }
 }
 
@@ -4160,11 +3625,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GraduationPlanTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.GraduationPlanTypeDescriptorId = request.GraduationPlanTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "graduationPlanTypeDescriptors";
         }
     }
 }
@@ -4197,11 +3657,6 @@ namespace EdFi.Ods.Api.Services.Controllers.GunFreeSchoolsActReportingStatusDesc
             specification.SuspendReferenceAssignmentCheck();
             specification.GunFreeSchoolsActReportingStatusDescriptorId = request.GunFreeSchoolsActReportingStatusDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "gunFreeSchoolsActReportingStatusDescriptors";
-        }
     }
 }
 
@@ -4232,11 +3687,6 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessPrimaryNighttimeResidenceDes
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.HomelessPrimaryNighttimeResidenceDescriptorId = request.HomelessPrimaryNighttimeResidenceDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "homelessPrimaryNighttimeResidenceDescriptors";
         }
     }
 }
@@ -4269,11 +3719,6 @@ namespace EdFi.Ods.Api.Services.Controllers.HomelessProgramServiceDescriptors.Ed
             specification.SuspendReferenceAssignmentCheck();
             specification.HomelessProgramServiceDescriptorId = request.HomelessProgramServiceDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "homelessProgramServiceDescriptors";
-        }
     }
 }
 
@@ -4304,11 +3749,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IdentificationDocumentUseDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.IdentificationDocumentUseDescriptorId = request.IdentificationDocumentUseDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "identificationDocumentUseDescriptors";
         }
     }
 }
@@ -4341,11 +3781,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IncidentLocationDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.IncidentLocationDescriptorId = request.IncidentLocationDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "incidentLocationDescriptors";
-        }
     }
 }
 
@@ -4376,11 +3811,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.IndicatorDescriptorId = request.IndicatorDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "indicatorDescriptors";
         }
     }
 }
@@ -4413,11 +3843,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorGroupDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.IndicatorGroupDescriptorId = request.IndicatorGroupDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "indicatorGroupDescriptors";
-        }
     }
 }
 
@@ -4448,11 +3873,6 @@ namespace EdFi.Ods.Api.Services.Controllers.IndicatorLevelDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.IndicatorLevelDescriptorId = request.IndicatorLevelDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "indicatorLevelDescriptors";
         }
     }
 }
@@ -4485,11 +3905,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InstitutionTelephoneNumberTypeDescri
             specification.SuspendReferenceAssignmentCheck();
             specification.InstitutionTelephoneNumberTypeDescriptorId = request.InstitutionTelephoneNumberTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "institutionTelephoneNumberTypeDescriptors";
-        }
     }
 }
 
@@ -4521,11 +3936,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InteractivityStyleDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.InteractivityStyleDescriptorId = request.InteractivityStyleDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "interactivityStyleDescriptors";
-        }
     }
 }
 
@@ -4556,11 +3966,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.InternetAccessDescriptorId = request.InternetAccessDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "internetAccessDescriptors";
         }
     }
 }
@@ -4601,11 +4006,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
             specification.MaxDosage = request.MaxDosage;
             specification.MinDosage = request.MinDosage;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "interventions";
-        }
     }
 }
 
@@ -4637,11 +4037,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionClassDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.InterventionClassDescriptorId = request.InterventionClassDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "interventionClassDescriptors";
-        }
     }
 }
 
@@ -4672,11 +4067,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionEffectivenessRatingDescr
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.InterventionEffectivenessRatingDescriptorId = request.InterventionEffectivenessRatingDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "interventionEffectivenessRatingDescriptors";
         }
     }
 }
@@ -4714,11 +4104,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
             specification.InterventionPrescriptionIdentificationCode = request.InterventionPrescriptionIdentificationCode;
             specification.MaxDosage = request.MaxDosage;
             specification.MinDosage = request.MinDosage;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "interventionPrescriptions";
         }
     }
 }
@@ -4758,11 +4143,6 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionStudies.EdFi
             specification.InterventionStudyIdentificationCode = request.InterventionStudyIdentificationCode;
             specification.Participants = request.Participants;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "interventionStudies";
-        }
     }
 }
 
@@ -4793,11 +4173,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LanguageDescriptorId = request.LanguageDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "languageDescriptors";
         }
     }
 }
@@ -4830,11 +4205,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageInstructionProgramServiceDes
             specification.SuspendReferenceAssignmentCheck();
             specification.LanguageInstructionProgramServiceDescriptorId = request.LanguageInstructionProgramServiceDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "languageInstructionProgramServiceDescriptors";
-        }
     }
 }
 
@@ -4865,11 +4235,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LanguageUseDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LanguageUseDescriptorId = request.LanguageUseDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "languageUseDescriptors";
         }
     }
 }
@@ -4909,11 +4274,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningObjectives.EdFi
             specification.ParentLearningObjectiveId = request.ParentLearningObjectiveId;
             specification.ParentNamespace = request.ParentNamespace;
             specification.SuccessCriteria = request.SuccessCriteria;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "learningObjectives";
         }
     }
 }
@@ -4956,11 +4316,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandards.EdFi
             specification.SuccessCriteria = request.SuccessCriteria;
             specification.URI = request.URI;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "learningStandards";
-        }
     }
 }
 
@@ -4991,11 +4346,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardCategoryDescriptors.
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LearningStandardCategoryDescriptorId = request.LearningStandardCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "learningStandardCategoryDescriptors";
         }
     }
 }
@@ -5034,11 +4384,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceAssociati
             specification.SourceLearningStandardId = request.SourceLearningStandardId;
             specification.TargetLearningStandardId = request.TargetLearningStandardId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "learningStandardEquivalenceAssociations";
-        }
     }
 }
 
@@ -5069,11 +4414,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardEquivalenceStrengthD
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LearningStandardEquivalenceStrengthDescriptorId = request.LearningStandardEquivalenceStrengthDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "learningStandardEquivalenceStrengthDescriptors";
         }
     }
 }
@@ -5106,11 +4446,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LearningStandardScopeDescriptors.EdF
             specification.SuspendReferenceAssignmentCheck();
             specification.LearningStandardScopeDescriptorId = request.LearningStandardScopeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "learningStandardScopeDescriptors";
-        }
     }
 }
 
@@ -5141,11 +4476,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LevelOfEducationDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LevelOfEducationDescriptorId = request.LevelOfEducationDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "levelOfEducationDescriptors";
         }
     }
 }
@@ -5178,11 +4508,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseStatusDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.LicenseStatusDescriptorId = request.LicenseStatusDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "licenseStatusDescriptors";
-        }
     }
 }
 
@@ -5213,11 +4538,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LicenseTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LicenseTypeDescriptorId = request.LicenseTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "licenseTypeDescriptors";
         }
     }
 }
@@ -5250,11 +4570,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LimitedEnglishProficiencyDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.LimitedEnglishProficiencyDescriptorId = request.LimitedEnglishProficiencyDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "limitedEnglishProficiencyDescriptors";
-        }
     }
 }
 
@@ -5285,11 +4600,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocaleDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LocaleDescriptorId = request.LocaleDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "localeDescriptors";
         }
     }
 }
@@ -5327,11 +4637,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencies.EdFi
             specification.ParentLocalEducationAgencyId = request.ParentLocalEducationAgencyId;
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "localEducationAgencies";
-        }
     }
 }
 
@@ -5362,11 +4667,6 @@ namespace EdFi.Ods.Api.Services.Controllers.LocalEducationAgencyCategoryDescript
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.LocalEducationAgencyCategoryDescriptorId = request.LocalEducationAgencyCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "localEducationAgencyCategoryDescriptors";
         }
     }
 }
@@ -5403,11 +4703,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Locations.EdFi
             specification.OptimalNumberOfSeats = request.OptimalNumberOfSeats;
             specification.SchoolId = request.SchoolId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "locations";
-        }
     }
 }
 
@@ -5438,11 +4733,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MagnetSpecialProgramEmphasisSchoolDe
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.MagnetSpecialProgramEmphasisSchoolDescriptorId = request.MagnetSpecialProgramEmphasisSchoolDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "magnetSpecialProgramEmphasisSchoolDescriptors";
         }
     }
 }
@@ -5475,11 +4765,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MediumOfInstructionDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.MediumOfInstructionDescriptorId = request.MediumOfInstructionDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "mediumOfInstructionDescriptors";
-        }
     }
 }
 
@@ -5510,11 +4795,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MethodCreditEarnedDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.MethodCreditEarnedDescriptorId = request.MethodCreditEarnedDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "methodCreditEarnedDescriptors";
         }
     }
 }
@@ -5547,11 +4827,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MigrantEducationProgramServiceDescri
             specification.SuspendReferenceAssignmentCheck();
             specification.MigrantEducationProgramServiceDescriptorId = request.MigrantEducationProgramServiceDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "migrantEducationProgramServiceDescriptors";
-        }
     }
 }
 
@@ -5582,11 +4857,6 @@ namespace EdFi.Ods.Api.Services.Controllers.MonitoredDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.MonitoredDescriptorId = request.MonitoredDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "monitoredDescriptors";
         }
     }
 }
@@ -5619,11 +4889,6 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramDescript
             specification.SuspendReferenceAssignmentCheck();
             specification.NeglectedOrDelinquentProgramDescriptorId = request.NeglectedOrDelinquentProgramDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "neglectedOrDelinquentProgramDescriptors";
-        }
     }
 }
 
@@ -5655,11 +4920,6 @@ namespace EdFi.Ods.Api.Services.Controllers.NeglectedOrDelinquentProgramServiceD
             specification.SuspendReferenceAssignmentCheck();
             specification.NeglectedOrDelinquentProgramServiceDescriptorId = request.NeglectedOrDelinquentProgramServiceDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "neglectedOrDelinquentProgramServiceDescriptors";
-        }
     }
 }
 
@@ -5690,11 +4950,6 @@ namespace EdFi.Ods.Api.Services.Controllers.NetworkPurposeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.NetworkPurposeDescriptorId = request.NetworkPurposeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "networkPurposeDescriptors";
         }
     }
 }
@@ -5736,11 +4991,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ObjectiveAssessments.EdFi
             specification.ParentIdentificationCode = request.ParentIdentificationCode;
             specification.PercentOfAssessment = request.PercentOfAssessment;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "objectiveAssessments";
-        }
     }
 }
 
@@ -5771,11 +5021,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OldEthnicityDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OldEthnicityDescriptorId = request.OldEthnicityDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "oldEthnicityDescriptors";
         }
     }
 }
@@ -5817,11 +5062,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OpenStaffPositions.EdFi
             specification.RequisitionNumber = request.RequisitionNumber;
             specification.StaffClassificationDescriptor = request.StaffClassificationDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "openStaffPositions";
-        }
     }
 }
 
@@ -5853,11 +5093,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.OperationalStatusDescriptorId = request.OperationalStatusDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "operationalStatusDescriptors";
-        }
     }
 }
 
@@ -5888,11 +5123,6 @@ namespace EdFi.Ods.Api.Services.Controllers.OtherNameTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OtherNameTypeDescriptorId = request.OtherNameTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "otherNameTypeDescriptors";
         }
     }
 }
@@ -5936,11 +5166,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
             specification.SexDescriptor = request.SexDescriptor;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "parents";
-        }
     }
 }
 
@@ -5972,11 +5197,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.ParticipationDescriptorId = request.ParticipationDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "participationDescriptors";
-        }
     }
 }
 
@@ -6007,11 +5227,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ParticipationStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ParticipationStatusDescriptorId = request.ParticipationStatusDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "participationStatusDescriptors";
         }
     }
 }
@@ -6050,11 +5265,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Payrolls.EdFi
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "payrolls";
-        }
     }
 }
 
@@ -6086,11 +5296,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceBaseConversionDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.PerformanceBaseConversionDescriptorId = request.PerformanceBaseConversionDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "performanceBaseConversionDescriptors";
-        }
     }
 }
 
@@ -6121,11 +5326,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PerformanceLevelDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PerformanceLevelDescriptorId = request.PerformanceLevelDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "performanceLevelDescriptors";
         }
     }
 }
@@ -6160,11 +5360,6 @@ namespace EdFi.Ods.Api.Services.Controllers.People.EdFi
             specification.PersonId = request.PersonId;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "people";
-        }
     }
 }
 
@@ -6195,11 +5390,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PersonalInformationVerificationDescr
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PersonalInformationVerificationDescriptorId = request.PersonalInformationVerificationDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "personalInformationVerificationDescriptors";
         }
     }
 }
@@ -6232,11 +5422,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PlatformTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.PlatformTypeDescriptorId = request.PlatformTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "platformTypeDescriptors";
-        }
     }
 }
 
@@ -6268,11 +5453,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PopulationServedDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.PopulationServedDescriptorId = request.PopulationServedDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "populationServedDescriptors";
-        }
     }
 }
 
@@ -6303,11 +5483,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostingResultDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PostingResultDescriptorId = request.PostingResultDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "postingResultDescriptors";
         }
     }
 }
@@ -6344,11 +5519,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEvents.EdFi
             specification.PostSecondaryInstitutionId = request.PostSecondaryInstitutionId;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "postSecondaryEvents";
-        }
     }
 }
 
@@ -6379,11 +5549,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryEventCategoryDescriptor
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PostSecondaryEventCategoryDescriptorId = request.PostSecondaryEventCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "postSecondaryEventCategoryDescriptors";
         }
     }
 }
@@ -6418,11 +5583,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutions.EdFi
             specification.PostSecondaryInstitutionId = request.PostSecondaryInstitutionId;
             specification.PostSecondaryInstitutionLevelDescriptor = request.PostSecondaryInstitutionLevelDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "postSecondaryInstitutions";
-        }
     }
 }
 
@@ -6454,11 +5614,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
             specification.SuspendReferenceAssignmentCheck();
             specification.PostSecondaryInstitutionLevelDescriptorId = request.PostSecondaryInstitutionLevelDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "postSecondaryInstitutionLevelDescriptors";
-        }
     }
 }
 
@@ -6489,11 +5644,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProficiencyDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProficiencyDescriptorId = request.ProficiencyDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "proficiencyDescriptors";
         }
     }
 }
@@ -6530,11 +5680,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Programs.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "programs";
-        }
     }
 }
 
@@ -6565,11 +5710,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramAssignmentDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgramAssignmentDescriptorId = request.ProgramAssignmentDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "programAssignmentDescriptors";
         }
     }
 }
@@ -6602,11 +5742,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramCharacteristicDescriptors.EdF
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgramCharacteristicDescriptorId = request.ProgramCharacteristicDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "programCharacteristicDescriptors";
-        }
     }
 }
 
@@ -6637,11 +5772,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramSponsorDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgramSponsorDescriptorId = request.ProgramSponsorDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "programSponsorDescriptors";
         }
     }
 }
@@ -6674,11 +5804,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgramTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgramTypeDescriptorId = request.ProgramTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "programTypeDescriptors";
-        }
     }
 }
 
@@ -6709,11 +5834,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgressDescriptorId = request.ProgressDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "progressDescriptors";
         }
     }
 }
@@ -6746,11 +5866,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProgressLevelDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.ProgressLevelDescriptorId = request.ProgressLevelDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "progressLevelDescriptors";
-        }
     }
 }
 
@@ -6781,11 +5896,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderCategoryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProviderCategoryDescriptorId = request.ProviderCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "providerCategoryDescriptors";
         }
     }
 }
@@ -6818,11 +5928,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderProfitabilityDescriptors.EdF
             specification.SuspendReferenceAssignmentCheck();
             specification.ProviderProfitabilityDescriptorId = request.ProviderProfitabilityDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "providerProfitabilityDescriptors";
-        }
     }
 }
 
@@ -6853,11 +5958,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ProviderStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ProviderStatusDescriptorId = request.ProviderStatusDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "providerStatusDescriptors";
         }
     }
 }
@@ -6890,11 +5990,6 @@ namespace EdFi.Ods.Api.Services.Controllers.PublicationStatusDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.PublicationStatusDescriptorId = request.PublicationStatusDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "publicationStatusDescriptors";
-        }
     }
 }
 
@@ -6925,11 +6020,6 @@ namespace EdFi.Ods.Api.Services.Controllers.QuestionFormDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.QuestionFormDescriptorId = request.QuestionFormDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "questionFormDescriptors";
         }
     }
 }
@@ -6962,11 +6052,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RaceDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.RaceDescriptorId = request.RaceDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "raceDescriptors";
-        }
     }
 }
 
@@ -6997,11 +6082,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonExitedDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ReasonExitedDescriptorId = request.ReasonExitedDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "reasonExitedDescriptors";
         }
     }
 }
@@ -7034,11 +6114,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReasonNotTestedDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.ReasonNotTestedDescriptorId = request.ReasonNotTestedDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "reasonNotTestedDescriptors";
-        }
     }
 }
 
@@ -7069,11 +6144,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RecognitionTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RecognitionTypeDescriptorId = request.RecognitionTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "recognitionTypeDescriptors";
         }
     }
 }
@@ -7106,11 +6176,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RelationDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.RelationDescriptorId = request.RelationDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "relationDescriptors";
-        }
     }
 }
 
@@ -7141,11 +6206,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RepeatIdentifierDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RepeatIdentifierDescriptorId = request.RepeatIdentifierDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "repeatIdentifierDescriptors";
         }
     }
 }
@@ -7189,11 +6249,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReportCards.EdFi
             specification.NumberOfDaysTardy = request.NumberOfDaysTardy;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "reportCards";
-        }
     }
 }
 
@@ -7224,11 +6279,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ReporterDescriptionDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ReporterDescriptionDescriptorId = request.ReporterDescriptionDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "reporterDescriptionDescriptors";
         }
     }
 }
@@ -7261,11 +6311,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResidencyStatusDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.ResidencyStatusDescriptorId = request.ResidencyStatusDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "residencyStatusDescriptors";
-        }
     }
 }
 
@@ -7297,11 +6342,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponseIndicatorDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.ResponseIndicatorDescriptorId = request.ResponseIndicatorDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "responseIndicatorDescriptors";
-        }
     }
 }
 
@@ -7332,11 +6372,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResponsibilityDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ResponsibilityDescriptorId = request.ResponsibilityDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "responsibilityDescriptors";
         }
     }
 }
@@ -7374,11 +6409,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEvents.EdFi
             specification.SchoolId = request.SchoolId;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "restraintEvents";
-        }
     }
 }
 
@@ -7409,11 +6439,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RestraintEventReasonDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RestraintEventReasonDescriptorId = request.RestraintEventReasonDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "restraintEventReasonDescriptors";
         }
     }
 }
@@ -7446,11 +6471,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ResultDatatypeTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.ResultDatatypeTypeDescriptorId = request.ResultDatatypeTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "resultDatatypeTypeDescriptors";
-        }
     }
 }
 
@@ -7481,11 +6501,6 @@ namespace EdFi.Ods.Api.Services.Controllers.RetestIndicatorDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.RetestIndicatorDescriptorId = request.RetestIndicatorDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "retestIndicatorDescriptors";
         }
     }
 }
@@ -7527,11 +6542,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
     }
 }
 
@@ -7562,11 +6572,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolCategoryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SchoolCategoryDescriptorId = request.SchoolCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schoolCategoryDescriptors";
         }
     }
 }
@@ -7599,11 +6604,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolChoiceImplementStatusDescripto
             specification.SuspendReferenceAssignmentCheck();
             specification.SchoolChoiceImplementStatusDescriptorId = request.SchoolChoiceImplementStatusDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schoolChoiceImplementStatusDescriptors";
-        }
     }
 }
 
@@ -7635,11 +6635,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolFoodServiceProgramServiceDescr
             specification.SuspendReferenceAssignmentCheck();
             specification.SchoolFoodServiceProgramServiceDescriptorId = request.SchoolFoodServiceProgramServiceDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schoolFoodServiceProgramServiceDescriptors";
-        }
     }
 }
 
@@ -7670,11 +6665,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolTypeDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SchoolTypeDescriptorId = request.SchoolTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schoolTypeDescriptors";
         }
     }
 }
@@ -7709,11 +6699,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SchoolYearTypes.EdFi
             specification.Id = request.Id;
             specification.SchoolYear = request.SchoolYear;
             specification.SchoolYearDescription = request.SchoolYearDescription;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schoolYearTypes";
         }
     }
 }
@@ -7763,11 +6748,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sections.EdFi
             specification.SequenceOfCourse = request.SequenceOfCourse;
             specification.SessionName = request.SessionName;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sections";
-        }
     }
 }
 
@@ -7808,11 +6788,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionAttendanceTakenEvents.EdFi
             specification.SessionName = request.SessionName;
             specification.StaffUniqueId = request.StaffUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sectionAttendanceTakenEvents";
-        }
     }
 }
 
@@ -7843,11 +6818,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SectionCharacteristicDescriptors.EdF
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SectionCharacteristicDescriptorId = request.SectionCharacteristicDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sectionCharacteristicDescriptors";
         }
     }
 }
@@ -7880,11 +6850,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.SeparationDescriptorId = request.SeparationDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "separationDescriptors";
-        }
     }
 }
 
@@ -7916,11 +6881,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SeparationReasonDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.SeparationReasonDescriptorId = request.SeparationReasonDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "separationReasonDescriptors";
-        }
     }
 }
 
@@ -7951,11 +6911,6 @@ namespace EdFi.Ods.Api.Services.Controllers.ServiceDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.ServiceDescriptorId = request.ServiceDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "serviceDescriptors";
         }
     }
 }
@@ -7995,11 +6950,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sessions.EdFi
             specification.TermDescriptor = request.TermDescriptor;
             specification.TotalInstructionalDays = request.TotalInstructionalDays;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sessions";
-        }
     }
 }
 
@@ -8030,11 +6980,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SexDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SexDescriptorId = request.SexDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sexDescriptors";
         }
     }
 }
@@ -8067,11 +7012,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SourceSystemDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.SourceSystemDescriptorId = request.SourceSystemDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "sourceSystemDescriptors";
-        }
     }
 }
 
@@ -8103,11 +7043,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationProgramServiceDescri
             specification.SuspendReferenceAssignmentCheck();
             specification.SpecialEducationProgramServiceDescriptorId = request.SpecialEducationProgramServiceDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "specialEducationProgramServiceDescriptors";
-        }
     }
 }
 
@@ -8138,11 +7073,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SpecialEducationSettingDescriptors.E
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SpecialEducationSettingDescriptorId = request.SpecialEducationSettingDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "specialEducationSettingDescriptors";
         }
     }
 }
@@ -8194,11 +7124,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Staffs.EdFi
             specification.YearsOfPriorProfessionalExperience = request.YearsOfPriorProfessionalExperience;
             specification.YearsOfPriorTeachingExperience = request.YearsOfPriorTeachingExperience;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffs";
-        }
     }
 }
 
@@ -8235,11 +7160,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffAbsenceEvents.EdFi
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffAbsenceEvents";
-        }
     }
 }
 
@@ -8270,11 +7190,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffClassificationDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StaffClassificationDescriptorId = request.StaffClassificationDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffClassificationDescriptors";
         }
     }
 }
@@ -8313,11 +7228,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffCohortAssociations.EdFi
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StudentRecordAccess = request.StudentRecordAccess;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffCohortAssociations";
-        }
     }
 }
 
@@ -8351,11 +7261,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffDisciplineIncidentAssociations.
             specification.IncidentIdentifier = request.IncidentIdentifier;
             specification.SchoolId = request.SchoolId;
             specification.StaffUniqueId = request.StaffUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffDisciplineIncidentAssociations";
         }
     }
 }
@@ -8400,11 +7305,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEducationOrganizationAssignmentAssociations";
-        }
     }
 }
 
@@ -8440,11 +7340,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationContactAss
             specification.ElectronicMailAddress = request.ElectronicMailAddress;
             specification.Id = request.Id;
             specification.StaffUniqueId = request.StaffUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEducationOrganizationContactAssociations";
         }
     }
 }
@@ -8490,11 +7385,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationEmployment
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StateOfIssueStateAbbreviationDescriptor = request.StateOfIssueStateAbbreviationDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffEducationOrganizationEmploymentAssociations";
-        }
     }
 }
 
@@ -8525,11 +7415,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffIdentificationSystemDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StaffIdentificationSystemDescriptorId = request.StaffIdentificationSystemDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffIdentificationSystemDescriptors";
         }
     }
 }
@@ -8568,11 +7453,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaves.EdFi
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.SubstituteAssigned = request.SubstituteAssigned;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffLeaves";
-        }
     }
 }
 
@@ -8603,11 +7483,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffLeaveEventCategoryDescriptors.E
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StaffLeaveEventCategoryDescriptorId = request.StaffLeaveEventCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffLeaveEventCategoryDescriptors";
         }
     }
 }
@@ -8647,11 +7522,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffProgramAssociations.EdFi
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StudentRecordAccess = request.StudentRecordAccess;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffProgramAssociations";
-        }
     }
 }
 
@@ -8687,11 +7557,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSchoolAssociations.EdFi
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
             specification.StaffUniqueId = request.StaffUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffSchoolAssociations";
         }
     }
 }
@@ -8736,11 +7601,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffSectionAssociations.EdFi
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.TeacherStudentDataLinkExclusion = request.TeacherStudentDataLinkExclusion;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffSectionAssociations";
-        }
     }
 }
 
@@ -8772,11 +7632,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StateAbbreviationDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.StateAbbreviationDescriptorId = request.StateAbbreviationDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "stateAbbreviationDescriptors";
-        }
     }
 }
 
@@ -8807,11 +7662,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StateEducationAgencies.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StateEducationAgencyId = request.StateEducationAgencyId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "stateEducationAgencies";
         }
     }
 }
@@ -8861,11 +7711,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Students.EdFi
             specification.PersonId = request.PersonId;
             specification.SourceSystemDescriptor = request.SourceSystemDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "students";
         }
     }
 }
@@ -8920,11 +7765,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAcademicRecords.EdFi
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TermDescriptor = request.TermDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentAcademicRecords";
-        }
     }
 }
 
@@ -8972,11 +7812,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentAssessments.EdFi
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.WhenAssessedGradeLevelDescriptor = request.WhenAssessedGradeLevelDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentAssessments";
-        }
     }
 }
 
@@ -9007,11 +7842,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCharacteristicDescriptors.EdF
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StudentCharacteristicDescriptorId = request.StudentCharacteristicDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentCharacteristicDescriptors";
         }
     }
 }
@@ -9048,11 +7878,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCohortAssociations.EdFi
             specification.EndDate = request.EndDate;
             specification.Id = request.Id;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentCohortAssociations";
         }
     }
 }
@@ -9095,11 +7920,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCompetencyObjectives.EdFi
             specification.ObjectiveGradeLevelDescriptor = request.ObjectiveGradeLevelDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentCompetencyObjectives";
-        }
     }
 }
 
@@ -9139,11 +7959,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentCTEProgramAssociations.EdFi
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TechnicalSkillsAssessmentDescriptor = request.TechnicalSkillsAssessmentDescriptor;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentCTEProgramAssociations";
-        }
     }
 }
 
@@ -9178,11 +7993,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
             specification.SchoolId = request.SchoolId;
             specification.StudentParticipationCodeDescriptor = request.StudentParticipationCodeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentDisciplineIncidentAssociations";
         }
     }
 }
@@ -9223,11 +8033,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
             specification.SexDescriptor = request.SexDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentEducationOrganizationAssociations";
-        }
     }
 }
 
@@ -9263,11 +8068,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationResponsi
             specification.Id = request.Id;
             specification.ResponsibilityDescriptor = request.ResponsibilityDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentEducationOrganizationResponsibilityAssociations";
         }
     }
 }
@@ -9314,11 +8114,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentGradebookEntries";
-        }
     }
 }
 
@@ -9358,11 +8153,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentHomelessProgramAssociations.E
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentHomelessProgramAssociations";
-        }
     }
 }
 
@@ -9393,11 +8183,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentIdentificationSystemDescripto
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StudentIdentificationSystemDescriptorId = request.StudentIdentificationSystemDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentIdentificationSystemDescriptors";
         }
     }
 }
@@ -9436,11 +8221,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAssociations.EdFi
             specification.Id = request.Id;
             specification.InterventionIdentificationCode = request.InterventionIdentificationCode;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentInterventionAssociations";
         }
     }
 }
@@ -9482,11 +8262,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentInterventionAttendanceEvents.
             specification.InterventionIdentificationCode = request.InterventionIdentificationCode;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentInterventionAttendanceEvents";
-        }
     }
 }
 
@@ -9524,11 +8299,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLanguageInstructionProgramAss
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentLanguageInstructionProgramAssociations";
         }
     }
 }
@@ -9569,11 +8339,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentLearningObjectives.EdFi
             specification.LearningObjectiveId = request.LearningObjectiveId;
             specification.Namespace = request.Namespace;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentLearningObjectives";
         }
     }
 }
@@ -9620,11 +8385,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentMigrantEducationProgramAssoci
             specification.USInitialSchoolEntry = request.USInitialSchoolEntry;
             specification.USMostRecentEntry = request.USMostRecentEntry;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentMigrantEducationProgramAssociations";
-        }
     }
 }
 
@@ -9663,11 +8423,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentNeglectedOrDelinquentProgramA
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentNeglectedOrDelinquentProgramAssociations";
         }
     }
 }
@@ -9708,11 +8463,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
             specification.RelationDescriptor = request.RelationDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentParentAssociations";
-        }
     }
 }
 
@@ -9743,11 +8493,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParticipationCodeDescriptors.
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.StudentParticipationCodeDescriptorId = request.StudentParticipationCodeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentParticipationCodeDescriptors";
         }
     }
 }
@@ -9784,11 +8529,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAssociations.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentProgramAssociations";
         }
     }
 }
@@ -9831,11 +8571,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentProgramAttendanceEvents.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentProgramAttendanceEvents";
         }
     }
 }
@@ -9889,11 +8624,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAssociations.EdFi
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TermCompletionIndicator = request.TermCompletionIndicator;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSchoolAssociations";
-        }
     }
 }
 
@@ -9937,11 +8667,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolAttendanceEvents.EdFi
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSchoolAttendanceEvents";
-        }
     }
 }
 
@@ -9978,11 +8703,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSchoolFoodServiceProgramAssoc
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSchoolFoodServiceProgramAssociations";
         }
     }
 }
@@ -10026,11 +8746,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAssociations.EdFi
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TeacherStudentDataLinkExclusion = request.TeacherStudentDataLinkExclusion;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSectionAssociations";
         }
     }
 }
@@ -10076,11 +8791,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSectionAttendanceEvents.EdFi
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
             specification.StudentUniqueId = request.StudentUniqueId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSectionAttendanceEvents";
         }
     }
 }
@@ -10128,11 +8838,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentSpecialEducationProgramAssoci
             specification.SpecialEducationSettingDescriptor = request.SpecialEducationSettingDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSpecialEducationProgramAssociations";
-        }
     }
 }
 
@@ -10169,11 +8874,6 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TitleIPartAParticipantDescriptor = request.TitleIPartAParticipantDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentTitleIPartAProgramAssociations";
         }
     }
 }
@@ -10215,11 +8915,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Surveys.EdFi
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyTitle = request.SurveyTitle;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveys";
-        }
     }
 }
 
@@ -10250,11 +8945,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCategoryDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SurveyCategoryDescriptorId = request.SurveyCategoryDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveyCategoryDescriptors";
         }
     }
 }
@@ -10291,11 +8981,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyCourseAssociations.EdFi
             specification.Namespace = request.Namespace;
             specification.SurveyIdentifier = request.SurveyIdentifier;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveyCourseAssociations";
-        }
     }
 }
 
@@ -10326,11 +9011,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyLevelDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.SurveyLevelDescriptorId = request.SurveyLevelDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveyLevelDescriptors";
         }
     }
 }
@@ -10367,11 +9047,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyProgramAssociations.EdFi
             specification.ProgramName = request.ProgramName;
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.SurveyIdentifier = request.SurveyIdentifier;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveyProgramAssociations";
         }
     }
 }
@@ -10410,11 +9085,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestions.EdFi
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveyQuestions";
-        }
     }
 }
 
@@ -10451,11 +9121,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyQuestionResponses.EdFi
             specification.QuestionCode = request.QuestionCode;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveyQuestionResponses";
         }
     }
 }
@@ -10499,11 +9164,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponses.EdFi
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveyResponses";
-        }
     }
 }
 
@@ -10538,11 +9198,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseEducationOrganizationT
             specification.Namespace = request.Namespace;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveyResponseEducationOrganizationTargetAssociations";
         }
     }
 }
@@ -10579,11 +9234,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveyResponseStaffTargetAssociation
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveyResponseStaffTargetAssociations";
-        }
     }
 }
 
@@ -10617,11 +9267,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySections.EdFi
             specification.Namespace = request.Namespace;
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveySections";
         }
     }
 }
@@ -10661,11 +9306,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionAssociations.EdFi
             specification.SessionName = request.SessionName;
             specification.SurveyIdentifier = request.SurveyIdentifier;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveySectionAssociations";
-        }
     }
 }
 
@@ -10701,11 +9341,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponses.EdFi
             specification.SurveyIdentifier = request.SurveyIdentifier;
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveySectionResponses";
         }
     }
 }
@@ -10743,11 +9378,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseEducationOrgani
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveySectionResponseEducationOrganizationTargetAssociations";
-        }
     }
 }
 
@@ -10784,11 +9414,6 @@ namespace EdFi.Ods.Api.Services.Controllers.SurveySectionResponseStaffTargetAsso
             specification.SurveyResponseIdentifier = request.SurveyResponseIdentifier;
             specification.SurveySectionTitle = request.SurveySectionTitle;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "surveySectionResponseStaffTargetAssociations";
-        }
     }
 }
 
@@ -10819,11 +9444,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialBasisDescriptors.E
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TeachingCredentialBasisDescriptorId = request.TeachingCredentialBasisDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "teachingCredentialBasisDescriptors";
         }
     }
 }
@@ -10856,11 +9476,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TeachingCredentialDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.TeachingCredentialDescriptorId = request.TeachingCredentialDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "teachingCredentialDescriptors";
-        }
     }
 }
 
@@ -10891,11 +9506,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TechnicalSkillsAssessmentDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TechnicalSkillsAssessmentDescriptorId = request.TechnicalSkillsAssessmentDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "technicalSkillsAssessmentDescriptors";
         }
     }
 }
@@ -10928,11 +9538,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TelephoneNumberTypeDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.TelephoneNumberTypeDescriptorId = request.TelephoneNumberTypeDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "telephoneNumberTypeDescriptors";
-        }
     }
 }
 
@@ -10963,11 +9568,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TermDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TermDescriptorId = request.TermDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "termDescriptors";
         }
     }
 }
@@ -11000,11 +9600,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAParticipantDescriptors.Ed
             specification.SuspendReferenceAssignmentCheck();
             specification.TitleIPartAParticipantDescriptorId = request.TitleIPartAParticipantDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "titleIPartAParticipantDescriptors";
-        }
     }
 }
 
@@ -11035,11 +9630,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartAProgramServiceDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TitleIPartAProgramServiceDescriptorId = request.TitleIPartAProgramServiceDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "titleIPartAProgramServiceDescriptors";
         }
     }
 }
@@ -11072,11 +9662,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TitleIPartASchoolDesignationDescript
             specification.SuspendReferenceAssignmentCheck();
             specification.TitleIPartASchoolDesignationDescriptorId = request.TitleIPartASchoolDesignationDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "titleIPartASchoolDesignationDescriptors";
-        }
     }
 }
 
@@ -11107,11 +9692,6 @@ namespace EdFi.Ods.Api.Services.Controllers.TribalAffiliationDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.TribalAffiliationDescriptorId = request.TribalAffiliationDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "tribalAffiliationDescriptors";
         }
     }
 }
@@ -11144,11 +9724,6 @@ namespace EdFi.Ods.Api.Services.Controllers.VisaDescriptors.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.VisaDescriptorId = request.VisaDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "visaDescriptors";
-        }
     }
 }
 
@@ -11179,11 +9754,6 @@ namespace EdFi.Ods.Api.Services.Controllers.WeaponDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.WeaponDescriptorId = request.WeaponDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "weaponDescriptors";
         }
     }
 }

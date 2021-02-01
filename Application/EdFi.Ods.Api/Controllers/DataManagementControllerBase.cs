@@ -322,8 +322,6 @@ namespace EdFi.Ods.Api.Controllers
             return new EntityTagHeaderValue(Quoted(etagValue));
         }
 
-        protected abstract string GetResourceCollectionName();
-
         protected string GetResourceUrl(Guid id)
         {
             if (_applicationUrl == null)
@@ -342,7 +340,7 @@ namespace EdFi.Ods.Api.Controllers
                         urlBuilder.Port = Request.Host.Port.Value;
                     }
 
-                    _applicationUrl = $"{urlBuilder.Uri}{GetResourceCollectionName()}";
+                    _applicationUrl = urlBuilder.Uri.ToString();
                 }
                 catch (Exception ex)
                 {

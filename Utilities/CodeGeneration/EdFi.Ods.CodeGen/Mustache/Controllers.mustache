@@ -65,11 +65,6 @@ namespace {{ControllersNamespace}}
             {{/HasProperties}}
         {{/MapAllExpression}}
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "{{ResourceCollectionName}}";
-        }
         {{#ReadContentType}}
 
         protected override string GetReadContentType()
