@@ -28,7 +28,6 @@ namespace EdFi.SmokeTest.Console
         private static async Task Main(string[] args)
         {
             ConfigureLogging();
-            ConfigureTls();
 
             CommandLineOverrides commandLineOverrides = null;
 
@@ -178,16 +177,6 @@ namespace EdFi.SmokeTest.Console
 
                 configuration["OdsApi:ApiMode"] = apiVersionInformation.ApiMode;
             }
-        }
-
-        /// <summary>
-        /// Explicitly configures all outgoing network calls to use the latest version of TLS where possible.
-        /// c.f https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls
-        /// </summary>
-        private static void ConfigureTls()
-        {
-            // TLS 1.2 is not available by default for version of the frameworks less that .NET 4.6.2
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
         }
     }
 }
