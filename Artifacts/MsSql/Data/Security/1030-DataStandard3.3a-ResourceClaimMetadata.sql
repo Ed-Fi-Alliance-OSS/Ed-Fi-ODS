@@ -3,8 +3,6 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DECLARE @ClaimSetId INT;
-DECLARE @AuthorizationStrategyId INT;
 DECLARE @applicationId INT;
 DECLARE @systemDescriptorsResourceClaimId INT;
 DECLARE @relationshipBasedDataResourceClaimId INT;
