@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 ALTER TABLE edfi.AbsenceEventCategoryDescriptor ADD CONSTRAINT FK_ec167f_Descriptor FOREIGN KEY (AbsenceEventCategoryDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -113,6 +108,11 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.AdministrativeFundingControlDescriptor ADD CONSTRAINT FK_3a5d1f_Descriptor FOREIGN KEY (AdministrativeFundingControlDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.AncestryEthnicOriginDescriptor ADD CONSTRAINT FK_a21217_Descriptor FOREIGN KEY (AncestryEthnicOriginDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -1323,6 +1323,21 @@ REFERENCES edfi.StudentDisciplineIncidentAssociation (IncidentIdentifier, School
 
 CREATE INDEX FK_ef0ece_StudentDisciplineIncidentAssociation
 ON edfi.DisciplineActionStudentDisciplineIncidentAssociation (IncidentIdentifier ASC, SchoolId ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation ADD CONSTRAINT FK_2c4cdb_DisciplineAction FOREIGN KEY (DisciplineActionIdentifier, DisciplineDate, StudentUSI)
+REFERENCES edfi.DisciplineAction (DisciplineActionIdentifier, DisciplineDate, StudentUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_2c4cdb_DisciplineAction
+ON edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation (DisciplineActionIdentifier ASC, DisciplineDate ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation ADD CONSTRAINT FK_2c4cdb_StudentDisciplineIncidentBehaviorAssociation FOREIGN KEY (BehaviorDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
+REFERENCES edfi.StudentDisciplineIncidentBehaviorAssociation (BehaviorDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
+;
+
+CREATE INDEX FK_2c4cdb_StudentDisciplineIncidentBehaviorAssociation
+ON edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation (BehaviorDescriptorId ASC, IncidentIdentifier ASC, SchoolId ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.DisciplineDescriptor ADD CONSTRAINT FK_673b0a_Descriptor FOREIGN KEY (DisciplineDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -3229,6 +3244,13 @@ ALTER TABLE edfi.OtherNameTypeDescriptor ADD CONSTRAINT FK_f020d2_Descriptor FOR
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
+
+ALTER TABLE edfi.Parent ADD CONSTRAINT FK_5f7953_LevelOfEducationDescriptor FOREIGN KEY (HighestCompletedLevelOfEducationDescriptorId)
+REFERENCES edfi.LevelOfEducationDescriptor (LevelOfEducationDescriptorId)
+;
+
+CREATE INDEX FK_5f7953_LevelOfEducationDescriptor
+ON edfi.Parent (HighestCompletedLevelOfEducationDescriptorId ASC);
 
 ALTER TABLE edfi.Parent ADD CONSTRAINT FK_5f7953_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
 REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
@@ -5546,6 +5568,71 @@ ON DELETE CASCADE
 CREATE INDEX FK_b43eed_StudentDisciplineIncidentAssociation
 ON edfi.StudentDisciplineIncidentAssociationBehavior (IncidentIdentifier ASC, SchoolId ASC, StudentUSI ASC);
 
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ADD CONSTRAINT FK_f4934f_BehaviorDescriptor FOREIGN KEY (BehaviorDescriptorId)
+REFERENCES edfi.BehaviorDescriptor (BehaviorDescriptorId)
+;
+
+CREATE INDEX FK_f4934f_BehaviorDescriptor
+ON edfi.StudentDisciplineIncidentBehaviorAssociation (BehaviorDescriptorId ASC);
+
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ADD CONSTRAINT FK_f4934f_DisciplineIncident FOREIGN KEY (IncidentIdentifier, SchoolId)
+REFERENCES edfi.DisciplineIncident (IncidentIdentifier, SchoolId)
+;
+
+CREATE INDEX FK_f4934f_DisciplineIncident
+ON edfi.StudentDisciplineIncidentBehaviorAssociation (IncidentIdentifier ASC, SchoolId ASC);
+
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ADD CONSTRAINT FK_f4934f_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+CREATE INDEX FK_f4934f_Student
+ON edfi.StudentDisciplineIncidentBehaviorAssociation (StudentUSI ASC);
+
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21 ADD CONSTRAINT FK_ae6a21_DisciplineIncidentParticipationCodeDescriptor FOREIGN KEY (DisciplineIncidentParticipationCodeDescriptorId)
+REFERENCES edfi.DisciplineIncidentParticipationCodeDescriptor (DisciplineIncidentParticipationCodeDescriptorId)
+;
+
+CREATE INDEX FK_ae6a21_DisciplineIncidentParticipationCodeDescriptor
+ON edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21 (DisciplineIncidentParticipationCodeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21 ADD CONSTRAINT FK_ae6a21_StudentDisciplineIncidentBehaviorAssociation FOREIGN KEY (BehaviorDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
+REFERENCES edfi.StudentDisciplineIncidentBehaviorAssociation (BehaviorDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_ae6a21_StudentDisciplineIncidentBehaviorAssociation
+ON edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21 (BehaviorDescriptorId ASC, IncidentIdentifier ASC, SchoolId ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ADD CONSTRAINT FK_4b43da_DisciplineIncident FOREIGN KEY (IncidentIdentifier, SchoolId)
+REFERENCES edfi.DisciplineIncident (IncidentIdentifier, SchoolId)
+;
+
+CREATE INDEX FK_4b43da_DisciplineIncident
+ON edfi.StudentDisciplineIncidentNonOffenderAssociation (IncidentIdentifier ASC, SchoolId ASC);
+
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ADD CONSTRAINT FK_4b43da_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+CREATE INDEX FK_4b43da_Student
+ON edfi.StudentDisciplineIncidentNonOffenderAssociation (StudentUSI ASC);
+
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a ADD CONSTRAINT FK_4c979a_DisciplineIncidentParticipationCodeDescriptor FOREIGN KEY (DisciplineIncidentParticipationCodeDescriptorId)
+REFERENCES edfi.DisciplineIncidentParticipationCodeDescriptor (DisciplineIncidentParticipationCodeDescriptorId)
+;
+
+CREATE INDEX FK_4c979a_DisciplineIncidentParticipationCodeDescriptor
+ON edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a (DisciplineIncidentParticipationCodeDescriptorId ASC);
+
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a ADD CONSTRAINT FK_4c979a_StudentDisciplineIncidentNonOffenderAssociation FOREIGN KEY (IncidentIdentifier, SchoolId, StudentUSI)
+REFERENCES edfi.StudentDisciplineIncidentNonOffenderAssociation (IncidentIdentifier, SchoolId, StudentUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_4c979a_StudentDisciplineIncidentNonOffenderAssociation
+ON edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a (IncidentIdentifier ASC, SchoolId ASC, StudentUSI ASC);
+
 ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 ;
@@ -5617,6 +5704,21 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_9739a2_StudentEducationOrganizationAssociationAddress
 ON edfi.StudentEducationOrganizationAssociationAddressPeriod (AddressTypeDescriptorId ASC, City ASC, EducationOrganizationId ASC, PostalCode ASC, StateAbbreviationDescriptorId ASC, StreetNumberName ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin ADD CONSTRAINT FK_2c2b13_AncestryEthnicOriginDescriptor FOREIGN KEY (AncestryEthnicOriginDescriptorId)
+REFERENCES edfi.AncestryEthnicOriginDescriptor (AncestryEthnicOriginDescriptorId)
+;
+
+CREATE INDEX FK_2c2b13_AncestryEthnicOriginDescriptor
+ON edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin (AncestryEthnicOriginDescriptorId ASC);
+
+ALTER TABLE edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin ADD CONSTRAINT FK_2c2b13_StudentEducationOrganizationAssociation FOREIGN KEY (EducationOrganizationId, StudentUSI)
+REFERENCES edfi.StudentEducationOrganizationAssociation (EducationOrganizationId, StudentUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_2c2b13_StudentEducationOrganizationAssociation
+ON edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin (EducationOrganizationId ASC, StudentUSI ASC);
 
 ALTER TABLE edfi.StudentEducationOrganizationAssociationCohortYear ADD CONSTRAINT FK_69dd58_CohortYearTypeDescriptor FOREIGN KEY (CohortYearTypeDescriptorId)
 REFERENCES edfi.CohortYearTypeDescriptor (CohortYearTypeDescriptorId)

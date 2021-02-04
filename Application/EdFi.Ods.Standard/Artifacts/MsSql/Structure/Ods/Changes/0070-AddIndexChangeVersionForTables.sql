@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AcademicWeek') AND name = N'UX_AcademicWeek_ChangeVersion')
     CREATE INDEX [UX_AcademicWeek_ChangeVersion] ON [edfi].[AcademicWeek] ([ChangeVersion] ASC)
@@ -426,6 +421,18 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentDisciplineIncidentAssociation') AND name = N'UX_StudentDisciplineIncidentAssociation_ChangeVersion')
     CREATE INDEX [UX_StudentDisciplineIncidentAssociation_ChangeVersion] ON [edfi].[StudentDisciplineIncidentAssociation] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentDisciplineIncidentBehaviorAssociation') AND name = N'UX_StudentDisciplineIncidentBehaviorAssociation_ChangeVersion')
+    CREATE INDEX [UX_StudentDisciplineIncidentBehaviorAssociation_ChangeVersion] ON [edfi].[StudentDisciplineIncidentBehaviorAssociation] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentDisciplineIncidentNonOffenderAssociation') AND name = N'UX_StudentDisciplineIncidentNonOffenderAssociation_ChangeVersion')
+    CREATE INDEX [UX_StudentDisciplineIncidentNonOffenderAssociation_ChangeVersion] ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ([ChangeVersion] ASC)
     GO
 COMMIT
 

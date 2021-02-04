@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Extended Properties [edfi].[AbsenceEventCategoryDescriptor] --
 COMMENT ON TABLE edfi.AbsenceEventCategoryDescriptor IS 'This descriptor describes the type of absence';
 COMMENT ON COLUMN edfi.AbsenceEventCategoryDescriptor.AbsenceEventCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -91,6 +86,10 @@ COMMENT ON COLUMN edfi.AdministrationEnvironmentDescriptor.AdministrationEnviron
 -- Extended Properties [edfi].[AdministrativeFundingControlDescriptor] --
 COMMENT ON TABLE edfi.AdministrativeFundingControlDescriptor IS 'This descriptor holds the type of education institution as classified by its funding source (e.g., public or private).';
 COMMENT ON COLUMN edfi.AdministrativeFundingControlDescriptor.AdministrativeFundingControlDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[AncestryEthnicOriginDescriptor] --
+COMMENT ON TABLE edfi.AncestryEthnicOriginDescriptor IS 'The original peoples or cultures with which the individual identifies.';
+COMMENT ON COLUMN edfi.AncestryEthnicOriginDescriptor.AncestryEthnicOriginDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[Assessment] --
 COMMENT ON TABLE edfi.Assessment IS 'This entity represents a tool, instrument, process, or exhibition composed of a systematic sampling of behavior for measuring a student''s competence, knowledge, skills, or behavior. An assessment can be used to measure differences in individuals or groups and changes in performance from one occasion to the next.';
@@ -844,6 +843,15 @@ COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.Inci
 COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
+-- Extended Properties [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociation] --
+COMMENT ON TABLE edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation IS 'A reference to the behavior(s) by the student that led or contributed to this specific action.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.BehaviorDescriptorId IS 'Describes behavior by category.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the DisciplineAction.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.DisciplineDate IS 'The date of the DisciplineAction.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
 -- Extended Properties [edfi].[DisciplineDescriptor] --
 COMMENT ON TABLE edfi.DisciplineDescriptor IS 'This descriptor defines the type of action or removal from the classroom used to discipline the student involved as a perpetrator in a discipline incident.';
 COMMENT ON COLUMN edfi.DisciplineDescriptor.DisciplineDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -968,7 +976,7 @@ COMMENT ON COLUMN edfi.EducationOrganization.WebSite IS 'The public web site add
 COMMENT ON COLUMN edfi.EducationOrganization.OperationalStatusDescriptorId IS 'The current operational status of the EducationOrganization (e.g., active, inactive).';
 
 -- Extended Properties [edfi].[EducationOrganizationAddress] --
-COMMENT ON TABLE edfi.EducationOrganizationAddress IS 'The set of elements that describes the physical location of the education entity, including the street address, city, state, ZIP code, and ZIP code + 4.';
+COMMENT ON TABLE edfi.EducationOrganizationAddress IS 'The set of elements that describes an address for the education entity, including the street address, city, state, ZIP code, and ZIP code + 4.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddress.AddressTypeDescriptorId IS 'The type of address listed for an individual or organization.    For example:  Physical Address, Mailing Address, Home Address, etc.)';
 COMMENT ON COLUMN edfi.EducationOrganizationAddress.City IS 'The name of the city in which an address is located.';
 COMMENT ON COLUMN edfi.EducationOrganizationAddress.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -1749,7 +1757,7 @@ COMMENT ON COLUMN edfi.LocalEducationAgencyCategoryDescriptor.LocalEducationAgen
 
 -- Extended Properties [edfi].[LocalEducationAgencyFederalFunds] --
 COMMENT ON TABLE edfi.LocalEducationAgencyFederalFunds IS 'Contains the information about the reception and use of federal funds for reporting purposes.';
-COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.FiscalYear IS 'The school year for which the accountability is reported.';
+COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.FiscalYear IS 'The fiscal year for which the federal funds are received.';
 COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.LocalEducationAgencyId IS 'The identifier assigned to a local education agency.';
 COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.InnovativeDollarsSpent IS 'The total Title V, Part A funds expended by LEAs.';
 COMMENT ON COLUMN edfi.LocalEducationAgencyFederalFunds.InnovativeDollarsSpentStrategicPriorities IS 'The total amount of Title V, Part A funds expended by LEAs for the four strategic priorities.';
@@ -1917,6 +1925,7 @@ COMMENT ON COLUMN edfi.Parent.SexDescriptorId IS 'A person''s gender.';
 COMMENT ON COLUMN edfi.Parent.LoginId IS 'The login ID for the user; used for security access control interface.';
 COMMENT ON COLUMN edfi.Parent.PersonId IS 'A unique alphanumeric code assigned to a person.';
 COMMENT ON COLUMN edfi.Parent.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN edfi.Parent.HighestCompletedLevelOfEducationDescriptorId IS 'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).';
 COMMENT ON COLUMN edfi.Parent.ParentUniqueId IS 'A unique alphanumeric code assigned to a parent.';
 
 -- Extended Properties [edfi].[ParentAddress] --
@@ -3346,7 +3355,7 @@ COMMENT ON TABLE edfi.StudentDisciplineIncidentAssociation IS 'This association 
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.StudentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident; 
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociation.StudentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident;
         for example:
         Victim
         Perpetrator
@@ -3360,6 +3369,35 @@ COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.IncidentIden
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentDisciplineIncidentAssociationBehavior.BehaviorDetailedDescription IS 'Specifies a more granular level of detail of a behavior involved in the incident.';
+
+-- Extended Properties [edfi].[StudentDisciplineIncidentBehaviorAssociation] --
+COMMENT ON TABLE edfi.StudentDisciplineIncidentBehaviorAssociation IS 'This association describes the behavior of students involved in a discipline incident.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.BehaviorDescriptorId IS 'Describes behavior by category.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociation.BehaviorDetailedDescription IS 'Specifies a more granular level of detail of a behavior involved in the incident.';
+
+-- Extended Properties [edfi].[StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21] --
+COMMENT ON TABLE edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21 IS 'The role or type of participation of a student in a discipline incident.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.BehaviorDescriptorId IS 'Describes behavior by category.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.DisciplineIncidentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [edfi].[StudentDisciplineIncidentNonOffenderAssociation] --
+COMMENT ON TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation IS 'This association indicates those students who were involved and not perpetrators for a discipline incident.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociation.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociation.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a] --
+COMMENT ON TABLE edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a IS 'The role or type of participation of a student in a discipline incident.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a.DisciplineIncidentParticipationCodeDescriptorId IS 'The role or type of participation of a student in a discipline incident.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociation] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociation IS 'This association represents student information as reported in the context of the student''s relationship to the Education Organization. Enrollment relationship semantics are covered by StudentSchoolAssociation.';
@@ -3408,6 +3446,12 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.Stat
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.StreetNumberName IS 'The street number and street name or post office box number of an address.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.';
+
+-- Extended Properties [edfi].[StudentEducationOrganizationAssociationAncestryEthnicOrigin] --
+COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin IS 'The original peoples or cultures with which the individual identifies.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin.AncestryEthnicOriginDescriptorId IS 'The original peoples or cultures with which the individual identifies.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationCohortYear] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationCohortYear IS 'The type and year of a cohort (e.g., 9th grade) the student belongs to as determined by the year that student entered a specific grade.';
@@ -3500,8 +3544,7 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteri_a18fcf.EndDate IS 'The month, day, and year for the end of the period.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationStudentCharacteristic] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteristic IS 'Reflects important characteristics of the student''s home situation:
-        Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.';
+COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentCharacteristic IS 'Reflects important characteristics of a student. If a student has a characteristic present, that characteristic is considered true or active for that student. If a characteristic is not present, no assumption is made as to the applicability of the characteristic, but local policy may dictate otherwise.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.StudentCharacteristicDescriptorId IS 'The characteristic designated for the Student.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentCharacteristic.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
@@ -3516,7 +3559,7 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIdentifica_
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIdentifica_c15030.IdentificationCode IS 'A unique number or alphanumeric code assigned to a student by a school, school system, a state, or other agency or entity.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationStudentIndicator] --
-COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentIndicator IS 'Indicator(s) or metric(s) computed for the student (e.g., at risk) to influence more effective education or direct specific interventions.';
+COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationStudentIndicator IS 'An indicator or metric computed for the student (e.g., at risk).';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIndicator.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIndicator.IndicatorName IS 'The name of the indicator or metric.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationStudentIndicator.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
@@ -3801,13 +3844,13 @@ COMMENT ON COLUMN edfi.StudentOtherName.GenerationCodeSuffix IS 'An appendage, i
 COMMENT ON TABLE edfi.StudentParentAssociation IS 'This association relates students to their parents, guardians, or caretakers.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN edfi.StudentParentAssociation.RelationDescriptorId IS 'The nature of an individual''s relationship to a student; for example:
-        Father, Mother, Step Father, Step Mother, Foster Father, Foster Mother, Guardian, etc.';
+COMMENT ON COLUMN edfi.StudentParentAssociation.RelationDescriptorId IS 'The nature of an individual''s relationship to a student, primarily used to capture family relationships.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.PrimaryContactStatus IS 'Indicator of whether the person is a primary parental contact for the Student.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.LivesWith IS 'Indicator of whether the Student lives with the associated parent.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.EmergencyContactStatus IS 'Indicator of whether the person is a designated emergency contact for the Student.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.ContactPriority IS 'The numeric order of the preferred sequence or priority of contact.';
 COMMENT ON COLUMN edfi.StudentParentAssociation.ContactRestrictions IS 'Restrictions for student and/or teacher contact with the individual (e.g., the student may not be picked up by the individual).';
+COMMENT ON COLUMN edfi.StudentParentAssociation.LegalGuardian IS 'Indicator of whether the person is a legal guardian for the Student.';
 
 -- Extended Properties [edfi].[StudentParticipationCodeDescriptor] --
 COMMENT ON TABLE edfi.StudentParticipationCodeDescriptor IS 'The role or type of participation of a student in a discipline incident; for example: Victim, Perpetrator, Witness, Reporter.';

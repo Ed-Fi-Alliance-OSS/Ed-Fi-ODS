@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Table [edfi].[AbsenceEventCategoryDescriptor] --
 CREATE TABLE [edfi].[AbsenceEventCategoryDescriptor] (
     [AbsenceEventCategoryDescriptorId] [INT] NOT NULL,
@@ -236,6 +231,15 @@ CREATE TABLE [edfi].[AdministrativeFundingControlDescriptor] (
     [AdministrativeFundingControlDescriptorId] [INT] NOT NULL,
     CONSTRAINT [AdministrativeFundingControlDescriptor_PK] PRIMARY KEY CLUSTERED (
         [AdministrativeFundingControlDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[AncestryEthnicOriginDescriptor] --
+CREATE TABLE [edfi].[AncestryEthnicOriginDescriptor] (
+    [AncestryEthnicOriginDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [AncestryEthnicOriginDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [AncestryEthnicOriginDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1923,6 +1927,28 @@ GO
 ALTER TABLE [edfi].[DisciplineActionStudentDisciplineIncidentAssociation] ADD CONSTRAINT [DisciplineActionStudentDisciplineIncidentAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociation] --
+CREATE TABLE [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociation] (
+    [BehaviorDescriptorId] [INT] NOT NULL,
+    [DisciplineActionIdentifier] [NVARCHAR](20) NOT NULL,
+    [DisciplineDate] [DATE] NOT NULL,
+    [IncidentIdentifier] [NVARCHAR](20) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [DisciplineActionStudentDisciplineIncidentBehaviorAssociation_PK] PRIMARY KEY CLUSTERED (
+        [BehaviorDescriptorId] ASC,
+        [DisciplineActionIdentifier] ASC,
+        [DisciplineDate] ASC,
+        [IncidentIdentifier] ASC,
+        [SchoolId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[DisciplineActionStudentDisciplineIncidentBehaviorAssociation] ADD CONSTRAINT [DisciplineActionStudentDisciplineIncidentBehaviorAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[DisciplineDescriptor] --
 CREATE TABLE [edfi].[DisciplineDescriptor] (
     [DisciplineDescriptorId] [INT] NOT NULL,
@@ -2298,7 +2324,7 @@ CREATE TABLE [edfi].[EducationOrganizationIndicator] (
     [EducationOrganizationId] [INT] NOT NULL,
     [IndicatorDescriptorId] [INT] NOT NULL,
     [DesignatedBy] [NVARCHAR](60) NULL,
-    [IndicatorValue] [NVARCHAR](35) NULL,
+    [IndicatorValue] [NVARCHAR](60) NULL,
     [IndicatorLevelDescriptorId] [INT] NULL,
     [IndicatorGroupDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -4387,6 +4413,7 @@ CREATE TABLE [edfi].[Parent] (
     [LoginId] [NVARCHAR](60) NULL,
     [PersonId] [NVARCHAR](32) NULL,
     [SourceSystemDescriptorId] [INT] NULL,
+    [HighestCompletedLevelOfEducationDescriptorId] [INT] NULL,
     [ParentUniqueId] [NVARCHAR](32) NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -7367,6 +7394,93 @@ GO
 ALTER TABLE [edfi].[StudentDisciplineIncidentAssociationBehavior] ADD CONSTRAINT [StudentDisciplineIncidentAssociationBehavior_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [edfi].[StudentDisciplineIncidentBehaviorAssociation] --
+CREATE TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] (
+    [BehaviorDescriptorId] [INT] NOT NULL,
+    [IncidentIdentifier] [NVARCHAR](20) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [BehaviorDetailedDescription] [NVARCHAR](1024) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [StudentDisciplineIncidentBehaviorAssociation_PK] PRIMARY KEY CLUSTERED (
+        [BehaviorDescriptorId] ASC,
+        [IncidentIdentifier] ASC,
+        [SchoolId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] ADD CONSTRAINT [StudentDisciplineIncidentBehaviorAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] ADD CONSTRAINT [StudentDisciplineIncidentBehaviorAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] ADD CONSTRAINT [StudentDisciplineIncidentBehaviorAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode] --
+CREATE TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode] (
+    [BehaviorDescriptorId] [INT] NOT NULL,
+    [DisciplineIncidentParticipationCodeDescriptorId] [INT] NOT NULL,
+    [IncidentIdentifier] [NVARCHAR](20) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode_PK] PRIMARY KEY CLUSTERED (
+        [BehaviorDescriptorId] ASC,
+        [DisciplineIncidentParticipationCodeDescriptorId] ASC,
+        [IncidentIdentifier] ASC,
+        [SchoolId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode] ADD CONSTRAINT [StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[StudentDisciplineIncidentNonOffenderAssociation] --
+CREATE TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] (
+    [IncidentIdentifier] [NVARCHAR](20) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [StudentDisciplineIncidentNonOffenderAssociation_PK] PRIMARY KEY CLUSTERED (
+        [IncidentIdentifier] ASC,
+        [SchoolId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ADD CONSTRAINT [StudentDisciplineIncidentNonOffenderAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ADD CONSTRAINT [StudentDisciplineIncidentNonOffenderAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ADD CONSTRAINT [StudentDisciplineIncidentNonOffenderAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode] --
+CREATE TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode] (
+    [DisciplineIncidentParticipationCodeDescriptorId] [INT] NOT NULL,
+    [IncidentIdentifier] [NVARCHAR](20) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode_PK] PRIMARY KEY CLUSTERED (
+        [DisciplineIncidentParticipationCodeDescriptorId] ASC,
+        [IncidentIdentifier] ASC,
+        [SchoolId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode] ADD CONSTRAINT [StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [edfi].[StudentEducationOrganizationAssociation] --
 CREATE TABLE [edfi].[StudentEducationOrganizationAssociation] (
     [EducationOrganizationId] [INT] NOT NULL,
@@ -7452,6 +7566,22 @@ CREATE TABLE [edfi].[StudentEducationOrganizationAssociationAddressPeriod] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationAddressPeriod] ADD CONSTRAINT [StudentEducationOrganizationAssociationAddressPeriod_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[StudentEducationOrganizationAssociationAncestryEthnicOrigin] --
+CREATE TABLE [edfi].[StudentEducationOrganizationAssociationAncestryEthnicOrigin] (
+    [AncestryEthnicOriginDescriptorId] [INT] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentEducationOrganizationAssociationAncestryEthnicOrigin_PK] PRIMARY KEY CLUSTERED (
+        [AncestryEthnicOriginDescriptorId] ASC,
+        [EducationOrganizationId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentEducationOrganizationAssociationAncestryEthnicOrigin] ADD CONSTRAINT [StudentEducationOrganizationAssociationAncestryEthnicOrigin_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[StudentEducationOrganizationAssociationCohortYear] --
@@ -7702,7 +7832,7 @@ CREATE TABLE [edfi].[StudentEducationOrganizationAssociationStudentIndicator] (
     [IndicatorName] [NVARCHAR](200) NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [IndicatorGroup] [NVARCHAR](200) NULL,
-    [Indicator] [NVARCHAR](35) NOT NULL,
+    [Indicator] [NVARCHAR](60) NOT NULL,
     [DesignatedBy] [NVARCHAR](60) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationStudentIndicator_PK] PRIMARY KEY CLUSTERED (
@@ -8310,6 +8440,7 @@ CREATE TABLE [edfi].[StudentParentAssociation] (
     [EmergencyContactStatus] [BIT] NULL,
     [ContactPriority] [INT] NULL,
     [ContactRestrictions] [NVARCHAR](250) NULL,
+    [LegalGuardian] [BIT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,

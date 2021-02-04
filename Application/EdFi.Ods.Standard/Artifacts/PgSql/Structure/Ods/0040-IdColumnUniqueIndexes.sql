@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE UNIQUE INDEX IF NOT EXISTS UX_a97956_Id ON edfi.AcademicWeek(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_7e1b0d_Id ON edfi.Account(Id);
@@ -144,6 +139,10 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_369ddc_Id ON edfi.StudentCohortAssociation(
 CREATE UNIQUE INDEX IF NOT EXISTS UX_395c07_Id ON edfi.StudentCompetencyObjective(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_679174_Id ON edfi.StudentDisciplineIncidentAssociation(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_f4934f_Id ON edfi.StudentDisciplineIncidentBehaviorAssociation(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_4b43da_Id ON edfi.StudentDisciplineIncidentNonOffenderAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_8e1257_Id ON edfi.StudentEducationOrganizationAssociation(Id);
 

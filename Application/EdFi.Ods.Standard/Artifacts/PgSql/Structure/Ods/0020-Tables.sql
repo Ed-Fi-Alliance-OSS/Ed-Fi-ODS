@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Table edfi.AbsenceEventCategoryDescriptor --
 CREATE TABLE edfi.AbsenceEventCategoryDescriptor (
     AbsenceEventCategoryDescriptorId INT NOT NULL,
@@ -159,6 +154,12 @@ CREATE TABLE edfi.AdministrationEnvironmentDescriptor (
 CREATE TABLE edfi.AdministrativeFundingControlDescriptor (
     AdministrativeFundingControlDescriptorId INT NOT NULL,
     CONSTRAINT AdministrativeFundingControlDescriptor_PK PRIMARY KEY (AdministrativeFundingControlDescriptorId)
+); 
+
+-- Table edfi.AncestryEthnicOriginDescriptor --
+CREATE TABLE edfi.AncestryEthnicOriginDescriptor (
+    AncestryEthnicOriginDescriptorId INT NOT NULL,
+    CONSTRAINT AncestryEthnicOriginDescriptor_PK PRIMARY KEY (AncestryEthnicOriginDescriptorId)
 ); 
 
 -- Table edfi.Assessment --
@@ -1279,6 +1280,19 @@ CREATE TABLE edfi.DisciplineActionStudentDisciplineIncidentAssociation (
 ); 
 ALTER TABLE edfi.DisciplineActionStudentDisciplineIncidentAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation --
+CREATE TABLE edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation (
+    BehaviorDescriptorId INT NOT NULL,
+    DisciplineActionIdentifier VARCHAR(20) NOT NULL,
+    DisciplineDate DATE NOT NULL,
+    IncidentIdentifier VARCHAR(20) NOT NULL,
+    SchoolId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT DisciplineActionStudentDisciplineIncidentBehaviorAssociation_PK PRIMARY KEY (BehaviorDescriptorId, DisciplineActionIdentifier, DisciplineDate, IncidentIdentifier, SchoolId, StudentUSI)
+); 
+ALTER TABLE edfi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.DisciplineDescriptor --
 CREATE TABLE edfi.DisciplineDescriptor (
     DisciplineDescriptorId INT NOT NULL,
@@ -1536,7 +1550,7 @@ CREATE TABLE edfi.EducationOrganizationIndicator (
     EducationOrganizationId INT NOT NULL,
     IndicatorDescriptorId INT NOT NULL,
     DesignatedBy VARCHAR(60) NULL,
-    IndicatorValue VARCHAR(35) NULL,
+    IndicatorValue VARCHAR(60) NULL,
     IndicatorLevelDescriptorId INT NULL,
     IndicatorGroupDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2924,6 +2938,7 @@ CREATE TABLE edfi.Parent (
     LoginId VARCHAR(60) NULL,
     PersonId VARCHAR(32) NULL,
     SourceSystemDescriptorId INT NULL,
+    HighestCompletedLevelOfEducationDescriptorId INT NULL,
     ParentUniqueId VARCHAR(32) NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -4903,6 +4918,61 @@ CREATE TABLE edfi.StudentDisciplineIncidentAssociationBehavior (
 ); 
 ALTER TABLE edfi.StudentDisciplineIncidentAssociationBehavior ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table edfi.StudentDisciplineIncidentBehaviorAssociation --
+CREATE TABLE edfi.StudentDisciplineIncidentBehaviorAssociation (
+    BehaviorDescriptorId INT NOT NULL,
+    IncidentIdentifier VARCHAR(20) NOT NULL,
+    SchoolId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    BehaviorDetailedDescription VARCHAR(1024) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentDisciplineIncidentBehaviorAssociation_PK PRIMARY KEY (BehaviorDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
+); 
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21 --
+CREATE TABLE edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21 (
+    BehaviorDescriptorId INT NOT NULL,
+    DisciplineIncidentParticipationCodeDescriptorId INT NOT NULL,
+    IncidentIdentifier VARCHAR(20) NOT NULL,
+    SchoolId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentDisciplineIncidentBehaviorAssociationDiscip_ae6a21_PK PRIMARY KEY (BehaviorDescriptorId, DisciplineIncidentParticipationCodeDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
+); 
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentDisciplineIncidentNonOffenderAssociation --
+CREATE TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation (
+    IncidentIdentifier VARCHAR(20) NOT NULL,
+    SchoolId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentDisciplineIncidentNonOffenderAssociation_PK PRIMARY KEY (IncidentIdentifier, SchoolId, StudentUSI)
+); 
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a --
+CREATE TABLE edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a (
+    DisciplineIncidentParticipationCodeDescriptorId INT NOT NULL,
+    IncidentIdentifier VARCHAR(20) NOT NULL,
+    SchoolId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentDisciplineIncidentNonOffenderAssociationDis_4c979a_PK PRIMARY KEY (DisciplineIncidentParticipationCodeDescriptorId, IncidentIdentifier, SchoolId, StudentUSI)
+); 
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table edfi.StudentEducationOrganizationAssociation --
 CREATE TABLE edfi.StudentEducationOrganizationAssociation (
     EducationOrganizationId INT NOT NULL,
@@ -4961,6 +5031,16 @@ CREATE TABLE edfi.StudentEducationOrganizationAssociationAddressPeriod (
     CONSTRAINT StudentEducationOrganizationAssociationAddressPeriod_PK PRIMARY KEY (AddressTypeDescriptorId, BeginDate, City, EducationOrganizationId, PostalCode, StateAbbreviationDescriptorId, StreetNumberName, StudentUSI)
 ); 
 ALTER TABLE edfi.StudentEducationOrganizationAssociationAddressPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin --
+CREATE TABLE edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin (
+    AncestryEthnicOriginDescriptorId INT NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentEducationOrganizationAssociationAncestryEthnicOrigin_PK PRIMARY KEY (AncestryEthnicOriginDescriptorId, EducationOrganizationId, StudentUSI)
+); 
+ALTER TABLE edfi.StudentEducationOrganizationAssociationAncestryEthnicOrigin ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.StudentEducationOrganizationAssociationCohortYear --
 CREATE TABLE edfi.StudentEducationOrganizationAssociationCohortYear (
@@ -5125,7 +5205,7 @@ CREATE TABLE edfi.StudentEducationOrganizationAssociationStudentIndicator (
     IndicatorName VARCHAR(200) NOT NULL,
     StudentUSI INT NOT NULL,
     IndicatorGroup VARCHAR(200) NULL,
-    Indicator VARCHAR(35) NOT NULL,
+    Indicator VARCHAR(60) NOT NULL,
     DesignatedBy VARCHAR(60) NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationStudentIndicator_PK PRIMARY KEY (EducationOrganizationId, IndicatorName, StudentUSI)
@@ -5518,6 +5598,7 @@ CREATE TABLE edfi.StudentParentAssociation (
     EmergencyContactStatus BOOLEAN NULL,
     ContactPriority INT NULL,
     ContactRestrictions VARCHAR(250) NULL,
+    LegalGuardian BOOLEAN NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
