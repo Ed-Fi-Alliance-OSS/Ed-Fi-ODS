@@ -26,6 +26,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\ChangeQueries.json" />
     <EmbeddedResource Include="Resources\IdentityManagement.json" />
+    <None Remove="Resources\Publishing.json" />
+    <EmbeddedResource Include="Resources\Publishing.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />

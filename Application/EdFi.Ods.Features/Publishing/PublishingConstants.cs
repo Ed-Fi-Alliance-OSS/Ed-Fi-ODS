@@ -13,7 +13,7 @@ namespace EdFi.Ods.Features.Publishing
 
         public const string FeatureVersion = "1";
 
-        public static readonly string MetadataRouteName = EdFiConventions.GetOpenApiMetadataRouteName(FeatureName);
+        public static readonly string PublishingMetadataRouteName = EdFiConventions.GetOpenApiMetadataRouteName(FeatureName);
 
         public static readonly string RoutePrefix = $"publishing/v{FeatureVersion}";
     }
