@@ -10,6 +10,11 @@
     "prefix": "Other"
   },
   {
+    "name": "Publishing",
+    "endpointUri": "http://localhost:5449/metadata/publishing/v1/swagger.json",
+    "prefix": "Other"
+  },
+  {
     "name": "Descriptors",
     "endpointUri": "http://localhost:5449/metadata/data/v3/descriptors/swagger.json",
     "prefix": ""

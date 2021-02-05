@@ -22,11 +22,11 @@
   <ItemGroup>
     <None Remove="Resources\ChangeQueries.json" />
     <None Remove="Resources\IdentityManagement.json" />
+    <None Remove="Resources\Publishing.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\ChangeQueries.json" />
     <EmbeddedResource Include="Resources\IdentityManagement.json" />
-    <None Remove="Resources\Publishing.json" />
     <EmbeddedResource Include="Resources\Publishing.json" />
   </ItemGroup>
   <ItemGroup>
