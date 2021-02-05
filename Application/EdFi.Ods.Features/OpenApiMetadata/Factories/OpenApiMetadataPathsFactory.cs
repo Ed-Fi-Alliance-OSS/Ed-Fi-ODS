@@ -246,16 +246,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private Operation CreatePutByIdOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            return new Operation
+            var op = new Operation
             {
                 tags = new List<string>
                 {
                     OpenApiMetadataDocumentHelper.GetResourcePluralName(openApiMetadataResource.Resource)
                         .ToCamelCase()
                 },
-                summary = "Updates or creates a resource based on the resource identifier.",
-                description =
-                    "The PUT operation is used to update or create a resource by identifier. If the resource doesn't exist, the resource will be created using that identifier. Additionally, natural key values cannot be changed using this operation, and will not be modified in the database.  If the resource \"id\" is provided in the JSON body, it will be ignored as well.",
+                summary = "Updates a resource based on the resource identifier.",
                 operationId = $"put{openApiMetadataResource.Name}",
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
@@ -265,6 +263,21 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 parameters = CreatePutParameters(openApiMetadataResource),
                 responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put)
             };
+
+            if(openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable)
+            {
+                op.description =
+                    "The PUT operation is used to update a resource by identifier. If the resource identifier (\"id\") is provided in the JSON body, it will be ignored. Additionally, if natural key values are being updated by the JSON body, those changes will be applied to the resource and will also cascade through to dependent resources.";
+
+                op.isUpdatable = true;
+            }
+            else
+            {
+                op.description =
+                    "The PUT operation is used to update a resource by identifier. If the resource identifier (\"id\") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation and will not be modified in the database, and so recommendation is to use POST as that supports upsert behavior.";
+            }
+
+            return op;
         }
 
         private IList<Parameter> CreatePutParameters(OpenApiMetadataPathsResource openApiMetadataResource)
@@ -349,7 +362,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 },
                 summary = "Creates or updates resources based on the natural key values of the supplied resource.",
                 description =
-                    "The POST operation can be used to create or update resources. In database terms, this is often referred to as an \"upsert\" operation (insert + update). Clients should NOT include the resource \"id\" in the JSON body because it will result in an error (you must use a PUT operation to update a resource by \"id\"). The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately.",
+                    "The POST operation can be used to create or update resources. In database terms, this is often referred to as an \"upsert\" operation (insert + update). Clients should NOT include the resource \"id\" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation could be used.",
                 operationId = "post" + openApiMetadataResource.Name,
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]

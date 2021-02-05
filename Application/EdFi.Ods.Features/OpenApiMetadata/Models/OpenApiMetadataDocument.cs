@@ -134,7 +134,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
         public IList<IDictionary<string, IEnumerable<string>>> security;
 
         public string summary;
+
         public IList<string> tags;
+
+        [JsonProperty("x-Ed-Fi-isUpdatable")]
+        public bool? isUpdatable;
     }
 
     public class Tag
