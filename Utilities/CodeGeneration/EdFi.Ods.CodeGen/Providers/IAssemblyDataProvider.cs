@@ -10,6 +10,6 @@ namespace EdFi.Ods.CodeGen.Providers
 {
     public interface IAssemblyDataProvider
     {
-        IEnumerable<AssemblyData> Get();
+        IEnumerable<AssemblyData> GetAll();
     }
 }

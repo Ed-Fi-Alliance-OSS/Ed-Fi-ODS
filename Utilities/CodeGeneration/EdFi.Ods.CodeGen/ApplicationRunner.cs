@@ -33,7 +33,7 @@ namespace EdFi.Ods.CodeGen
 
             _logger.Debug("Processing beginning.");
 
-            foreach (var assemblyData in _assemblyDataProvider.Get())
+            foreach (var assemblyData in _assemblyDataProvider.GetAll())
             {
                 await _templateProcessor.ProcessAsync(assemblyData, cancellationToken)
                     .ConfigureAwait(false);

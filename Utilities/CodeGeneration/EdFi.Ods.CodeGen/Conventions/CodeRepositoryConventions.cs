@@ -32,11 +32,6 @@ namespace EdFi.Ods.CodeGen.Conventions
         /// </summary>
         public const string EdFiOdsImplementationFolderName = "Ed-Fi-ODS-Implementation";
 
-        ///<summary>
-        ///Extensions repository key
-        /// </summary>
-        public const string ExtensionsFolderName = "Ed-Fi-Extensions";
-
         /// <summary>
         /// Application folder
         /// </summary>
@@ -46,5 +41,15 @@ namespace EdFi.Ods.CodeGen.Conventions
         /// Database folder
         /// </summary>
         public const string Database = "Artifacts";
+
+        ///<summary>
+        ///Extensions repository key
+        /// </summary>
+        public const string ExtensionsRepositoryName = "Ed-Fi-Extensions";
+
+        /// <summary>
+        /// Extension repository's extension folder
+        /// </summary>
+        public const string Extension = "Extension";
     }
 }
