@@ -22,12 +22,12 @@ namespace EdFi.LoadTools.SmokeTest.ApiTests
         private readonly Dictionary<string, Entity> _entities;
         private readonly Dictionary<string, Resource> _resources;
 
-        private readonly SwaggerRetriever _retriever;
+        private readonly ISwaggerRetriever _retriever;
         private readonly List<string> _schemaNames;
         private readonly Dictionary<string, SwaggerDocument> _swaggerDocuments;
 
         public GetSwaggerMetadataGenerator(
-            SwaggerRetriever retriever,
+            ISwaggerRetriever retriever,
             Dictionary<string, Resource> resources,
             List<string> schemaNames,
             Dictionary<string, SwaggerDocument> swaggerDocuments,

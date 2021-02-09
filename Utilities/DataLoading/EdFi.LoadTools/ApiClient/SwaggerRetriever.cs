@@ -17,7 +17,7 @@ using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.ApiClient
 {
-    public class SwaggerRetriever
+    public class SwaggerRetriever : ISwaggerRetriever
     {
         private readonly IApiMetadataConfiguration _configuration;
 

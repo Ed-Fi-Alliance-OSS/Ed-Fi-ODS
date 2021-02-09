@@ -29,9 +29,11 @@ namespace EdFi.LoadTools.Modules
                 .SingleInstance();
 
             builder.RegisterType<SwaggerMetadataRetriever>()
+                .As<ISwaggerMetadataRetriever>()
                 .SingleInstance();
 
             builder.RegisterType<SwaggerRetriever>()
+                .As<ISwaggerRetriever>()
                 .SingleInstance();
 
             builder.RegisterType<XsdStreamsRetriever>()

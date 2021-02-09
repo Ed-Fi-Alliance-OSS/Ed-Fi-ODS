@@ -15,16 +15,16 @@ using Swashbuckle.Swagger;
 
 namespace EdFi.LoadTools.ApiClient
 {
-    public class SwaggerMetadataRetriever
+    public class SwaggerMetadataRetriever : ISwaggerMetadataRetriever
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(SwaggerMetadataRetriever).Name);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(SwaggerMetadataRetriever));
 
         private readonly IApiMetadataConfiguration _configuration;
 
         private readonly List<string> _schemaNames;
-        private readonly SwaggerRetriever _swaggerRetriever;
+        private readonly ISwaggerRetriever _swaggerRetriever;
 
-        public SwaggerMetadataRetriever(IApiMetadataConfiguration configuration, SwaggerRetriever swaggerRetriever,
+        public SwaggerMetadataRetriever(IApiMetadataConfiguration configuration, ISwaggerRetriever swaggerRetriever,
                                         List<string> schemaNames)
         {
             _configuration = configuration;

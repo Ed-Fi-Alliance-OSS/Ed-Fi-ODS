@@ -11,9 +11,9 @@ namespace EdFi.LoadTools.Engine.Factories
 {
     public class JsonMetadataFactory : IMetadataFactory<JsonModelMetadata>
     {
-        private readonly SwaggerMetadataRetriever _swaggerMetadata;
+        private readonly ISwaggerMetadataRetriever _swaggerMetadata;
 
-        public JsonMetadataFactory(SwaggerMetadataRetriever swaggerMetadata)
+        public JsonMetadataFactory(ISwaggerMetadataRetriever swaggerMetadata)
         {
             _swaggerMetadata = swaggerMetadata;
         }

@@ -26,6 +26,7 @@ namespace EdFi.SmokeTest.Console
                 .SingleInstance();
 
             builder.RegisterType<SwaggerRetriever>()
+                .As<ISwaggerRetriever>()
                 .AsSelf();
 
             builder.RegisterType<SmokeTestConfigurationValidator>()
