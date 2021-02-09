@@ -246,7 +246,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private Operation CreatePutByIdOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            var op = new Operation
+            return new Operation
             {
                 tags = new List<string>
                 {
@@ -254,6 +254,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         .ToCamelCase()
                 },
                 summary = "Updates a resource based on the resource identifier.",
+                description = GetDescription(openApiMetadataResource),
                 operationId = $"put{openApiMetadataResource.Name}",
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
@@ -261,23 +262,16 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
                 },
                 parameters = CreatePutParameters(openApiMetadataResource),
-                responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put)
+                responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put),
+                isUpdatable = openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable
             };
+        }
 
-            if(openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable)
-            {
-                op.description =
-                    "The PUT operation is used to update a resource by identifier. If the resource identifier (\"id\") is provided in the JSON body, it will be ignored. Additionally, if natural key values are being updated by the JSON body, those changes will be applied to the resource and will also cascade through to dependent resources.";
-
-                op.isUpdatable = true;
-            }
-            else
-            {
-                op.description =
-                    "The PUT operation is used to update a resource by identifier. If the resource identifier (\"id\") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation and will not be modified in the database, and so recommendation is to use POST as that supports upsert behavior.";
-            }
-
-            return op;
+        private string GetDescription(OpenApiMetadataPathsResource openApiMetadataResource)
+        {
+            return openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable
+                ? "The PUT operation is used to update a resource by identifier. If the resource identifier (\"id\") is provided in the JSON body, it will be ignored. Additionally, if natural key values are being updated by the JSON body, those changes will be applied to the resource and will also cascade through to dependent resources."
+                : "The PUT operation is used to update a resource by identifier. If the resource identifier (\"id\") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation and will not be modified in the database, and so recommendation is to use POST as that supports upsert behavior.";
         }
 
         private IList<Parameter> CreatePutParameters(OpenApiMetadataPathsResource openApiMetadataResource)
@@ -362,7 +356,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 },
                 summary = "Creates or updates resources based on the natural key values of the supplied resource.",
                 description =
-                    "The POST operation can be used to create or update resources. In database terms, this is often referred to as an \"upsert\" operation (insert + update). Clients should NOT include the resource \"id\" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation could be used.",
+                    "The POST operation can be used to create or update resources. In database terms, this is often referred to as an \"upsert\" operation (insert + update). Clients should NOT include the resource \"id\" in the JSON body because it will result in an error. The web service will identify whether the resource already exists based on the natural key values provided, and update or create the resource appropriately. It is recommended to use POST for both create and update except while updating natural key of a resource in which case PUT operation must be used.",
                 operationId = "post" + openApiMetadataResource.Name,
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
