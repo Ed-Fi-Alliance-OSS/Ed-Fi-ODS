@@ -2690,6 +2690,20 @@
 
           <!-- Collections -->
       </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptor" table="AncestryEthnicOriginDescriptor" lazy="false">
+          <key>
+            <column name="AncestryEthnicOriginDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="AncestryEthnicOriginDescriptorId" column="AncestryEthnicOriginDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.AssessmentCategoryDescriptorAggregate.EdFi.AssessmentCategoryDescriptor" table="AssessmentCategoryDescriptor" lazy="false">
           <key>
             <column name="AssessmentCategoryDescriptorId" />
@@ -5104,6 +5118,15 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.DisciplineActionAggregate.EdFi.DisciplineActionStudentDisciplineIncidentAssociation" />
     </set>
 
+    <set name="DisciplineActionStudentDisciplineIncidentBehaviorAssociations" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="DisciplineActionIdentifier" />
+        <column name="DisciplineDate" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.DisciplineActionAggregate.EdFi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation" />
+    </set>
+
 </class>
 
 
@@ -5183,6 +5206,40 @@
 
     <!-- Aggregate references -->
     <many-to-one name="StudentDisciplineIncidentAssociationReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentAssociationAggregate.EdFi.StudentDisciplineIncidentAssociationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="IncidentIdentifier" />
+      <column name="SchoolId" />
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.DisciplineActionAggregate.EdFi.DisciplineActionStudentDisciplineIncidentBehaviorAssociation" table="DisciplineActionStudentDisciplineIncidentBehaviorAssociation" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BehaviorDescriptorId" column="BehaviorDescriptorId" type="int" />
+      <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="20" />
+      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-many-to-one name="DisciplineAction">
+        <column name="DisciplineActionIdentifier" />
+        <column name="DisciplineDate" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="StudentDisciplineIncidentBehaviorAssociationReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="BehaviorDescriptorId" />
       <column name="IncidentIdentifier" />
       <column name="SchoolId" />
       <column name="StudentUSI" />
@@ -6097,7 +6154,7 @@
     <property name="DesignatedBy" column="DesignatedBy" type="string" length="60" />
     <property name="IndicatorGroupDescriptorId" column="IndicatorGroupDescriptorId" type="int" />
     <property name="IndicatorLevelDescriptorId" column="IndicatorLevelDescriptorId" type="int" />
-    <property name="IndicatorValue" column="IndicatorValue" type="string" length="35" />
+    <property name="IndicatorValue" column="IndicatorValue" type="string" length="60" />
 
     <!-- Aggregate references -->
 
@@ -9738,6 +9795,7 @@
     <!-- Properties -->
     <property name="FirstName" column="FirstName" type="string" length="75" not-null="true" />
     <property name="GenerationCodeSuffix" column="GenerationCodeSuffix" type="string" length="10" />
+    <property name="HighestCompletedLevelOfEducationDescriptorId" column="HighestCompletedLevelOfEducationDescriptorId" type="int" />
     <property name="LastSurname" column="LastSurname" type="string" length="75" not-null="true" />
     <property name="LoginId" column="LoginId" type="string" length="60" />
     <property name="MaidenName" column="MaidenName" type="string" length="75" />
@@ -14398,6 +14456,187 @@
 
 
     <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationReferenceData" table="StudentDisciplineIncidentBehaviorAssociation" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="BehaviorDescriptorId" column="BehaviorDescriptorId" type="int"  />
+            <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string"  length="20"  />
+            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociation" table="StudentDisciplineIncidentBehaviorAssociation" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="BehaviorDescriptorId" column="BehaviorDescriptorId" type="int" />
+      <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="20" />
+      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="BehaviorDetailedDescription" column="BehaviorDetailedDescription" type="string" length="1024" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="DisciplineIncidentReferenceData" class="EdFi.Ods.Entities.NHibernate.DisciplineIncidentAggregate.EdFi.DisciplineIncidentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="IncidentIdentifier" />
+      <column name="SchoolId" />
+    </many-to-one>
+    <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodes" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="BehaviorDescriptorId" />
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode" table="StudentDisciplineIncidentBehaviorAssociationDisciplineIn_ae6a21" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="DisciplineIncidentParticipationCodeDescriptorId" column="DisciplineIncidentParticipationCodeDescriptorId" type="int" />
+      <key-many-to-one name="StudentDisciplineIncidentBehaviorAssociation">
+        <column name="BehaviorDescriptorId" />
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociationReferenceData" table="StudentDisciplineIncidentNonOffenderAssociation" lazy="true" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string"  length="20"  />
+            <key-property name="SchoolId" column="SchoolId" type="int"  />
+            <key-property name="StudentUSI" column="StudentUSI" type="int"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociation" table="StudentDisciplineIncidentNonOffenderAssociation" lazy="false" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="IncidentIdentifier" column="IncidentIdentifier" type="string" length="20" />
+      <key-property name="SchoolId" column="SchoolId" type="int" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="DisciplineIncidentReferenceData" class="EdFi.Ods.Entities.NHibernate.DisciplineIncidentAggregate.EdFi.DisciplineIncidentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="IncidentIdentifier" />
+      <column name="SchoolId" />
+    </many-to-one>
+    <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCodes" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode" table="StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="DisciplineIncidentParticipationCodeDescriptorId" column="DisciplineIncidentParticipationCodeDescriptorId" type="int" />
+      <key-many-to-one name="StudentDisciplineIncidentNonOffenderAssociation">
+        <column name="IncidentIdentifier" />
+        <column name="SchoolId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
     <class name="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationReferenceData" table="StudentEducationOrganizationAssociation" lazy="true" >
         <!-- Composite primary key -->
         <composite-id>
@@ -14456,6 +14695,14 @@
         <column name="StudentUSI" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAddress" />
+    </set>
+
+    <set name="StudentEducationOrganizationAssociationAncestryEthnicOrigins" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAncestryEthnicOrigin" />
     </set>
 
     <set name="StudentEducationOrganizationAssociationCohortYears" cascade="all-delete-orphan" inverse="true" lazy="false">
@@ -14630,6 +14877,31 @@
 
     <!-- Properties -->
     <property name="EndDate" column="EndDate" type="date" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationAncestryEthnicOrigin" table="StudentEducationOrganizationAssociationAncestryEthnicOrigin" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AncestryEthnicOriginDescriptorId" column="AncestryEthnicOriginDescriptorId" type="int" />
+      <key-many-to-one name="StudentEducationOrganizationAssociation">
+        <column name="EducationOrganizationId" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
 
     <!-- Aggregate references -->
 
@@ -15047,7 +15319,7 @@
 
     <!-- Properties -->
     <property name="DesignatedBy" column="DesignatedBy" type="string" length="60" />
-    <property name="Indicator" column="Indicator" type="string" length="35" not-null="true" />
+    <property name="Indicator" column="Indicator" type="string" length="60" not-null="true" />
     <property name="IndicatorGroup" column="IndicatorGroup" type="string" length="200" />
 
     <!-- Aggregate references -->
@@ -15828,6 +16100,7 @@
     <property name="ContactPriority" column="ContactPriority" type="int" />
     <property name="ContactRestrictions" column="ContactRestrictions" type="string" length="250" />
     <property name="EmergencyContactStatus" column="EmergencyContactStatus" type="bool" />
+    <property name="LegalGuardian" column="LegalGuardian" type="bool" />
     <property name="LivesWith" column="LivesWith" type="bool" />
     <property name="PrimaryContactStatus" column="PrimaryContactStatus" type="bool" />
     <property name="RelationDescriptorId" column="RelationDescriptorId" type="int" />

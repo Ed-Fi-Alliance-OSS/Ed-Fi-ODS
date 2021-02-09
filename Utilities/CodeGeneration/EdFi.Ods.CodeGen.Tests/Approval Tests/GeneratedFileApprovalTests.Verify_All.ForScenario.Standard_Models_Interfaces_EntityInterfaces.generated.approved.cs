@@ -347,6 +347,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the AncestryEthnicOriginDescriptor model.
+    /// </summary>
+    public interface IAncestryEthnicOriginDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int AncestryEthnicOriginDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the Assessment model.
     /// </summary>
     public interface IAssessment : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
@@ -2533,6 +2551,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<IDisciplineActionDiscipline> DisciplineActionDisciplines { get; set; }
         ICollection<IDisciplineActionStaff> DisciplineActionStaffs { get; set; }
         ICollection<IDisciplineActionStudentDisciplineIncidentAssociation> DisciplineActionStudentDisciplineIncidentAssociations { get; set; }
+        ICollection<IDisciplineActionStudentDisciplineIncidentBehaviorAssociation> DisciplineActionStudentDisciplineIncidentBehaviorAssociations { get; set; }
 
         // Resource reference data
         Guid? AssignmentSchoolResourceId { get; set; }
@@ -2623,6 +2642,32 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Resource reference data
         Guid? StudentDisciplineIncidentAssociationResourceId { get; set; }
         string StudentDisciplineIncidentAssociationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the DisciplineActionStudentDisciplineIncidentBehaviorAssociation model.
+    /// </summary>
+    public interface IDisciplineActionStudentDisciplineIncidentBehaviorAssociation : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IDisciplineAction DisciplineAction { get; set; }
+        [NaturalKeyMember]
+        string BehaviorDescriptor { get; set; }
+        [NaturalKeyMember]
+        string IncidentIdentifier { get; set; }
+        [NaturalKeyMember]
+        int SchoolId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? StudentDisciplineIncidentBehaviorAssociationResourceId { get; set; }
+        string StudentDisciplineIncidentBehaviorAssociationDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -6009,6 +6054,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Non-PK properties
         string FirstName { get; set; }
         string GenerationCodeSuffix { get; set; }
+        string HighestCompletedLevelOfEducationDescriptor { get; set; }
         string LastSurname { get; set; }
         string LoginId { get; set; }
         string MaidenName { get; set; }
@@ -9793,6 +9839,103 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDisciplineIncidentBehaviorAssociation model.
+    /// </summary>
+    public interface IStudentDisciplineIncidentBehaviorAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string BehaviorDescriptor { get; set; }
+        [NaturalKeyMember]
+        string IncidentIdentifier { get; set; }
+        [NaturalKeyMember]
+        int SchoolId { get; set; }
+        [NaturalKeyMember]
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+        string BehaviorDetailedDescription { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode> StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCodes { get; set; }
+
+        // Resource reference data
+        Guid? DisciplineIncidentResourceId { get; set; }
+        string DisciplineIncidentDiscriminator { get; set; }
+        Guid? StudentResourceId { get; set; }
+        string StudentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode model.
+    /// </summary>
+    public interface IStudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStudentDisciplineIncidentBehaviorAssociation StudentDisciplineIncidentBehaviorAssociation { get; set; }
+        [NaturalKeyMember]
+        string DisciplineIncidentParticipationCodeDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDisciplineIncidentNonOffenderAssociation model.
+    /// </summary>
+    public interface IStudentDisciplineIncidentNonOffenderAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string IncidentIdentifier { get; set; }
+        [NaturalKeyMember]
+        int SchoolId { get; set; }
+        [NaturalKeyMember]
+        string StudentUniqueId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode> StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCodes { get; set; }
+
+        // Resource reference data
+        Guid? DisciplineIncidentResourceId { get; set; }
+        string DisciplineIncidentDiscriminator { get; set; }
+        Guid? StudentResourceId { get; set; }
+        string StudentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode model.
+    /// </summary>
+    public interface IStudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStudentDisciplineIncidentNonOffenderAssociation StudentDisciplineIncidentNonOffenderAssociation { get; set; }
+        [NaturalKeyMember]
+        string DisciplineIncidentParticipationCodeDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociation model.
     /// </summary>
     public interface IStudentEducationOrganizationAssociation : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
@@ -9815,6 +9958,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Lists
         ICollection<IStudentEducationOrganizationAssociationAddress> StudentEducationOrganizationAssociationAddresses { get; set; }
+        ICollection<IStudentEducationOrganizationAssociationAncestryEthnicOrigin> StudentEducationOrganizationAssociationAncestryEthnicOrigins { get; set; }
         ICollection<IStudentEducationOrganizationAssociationCohortYear> StudentEducationOrganizationAssociationCohortYears { get; set; }
         ICollection<IStudentEducationOrganizationAssociationDisability> StudentEducationOrganizationAssociationDisabilities { get; set; }
         ICollection<IStudentEducationOrganizationAssociationElectronicMail> StudentEducationOrganizationAssociationElectronicMails { get; set; }
@@ -9886,6 +10030,26 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentEducationOrganizationAssociationAncestryEthnicOrigin model.
+    /// </summary>
+    public interface IStudentEducationOrganizationAssociationAncestryEthnicOrigin : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStudentEducationOrganizationAssociation StudentEducationOrganizationAssociation { get; set; }
+        [NaturalKeyMember]
+        string AncestryEthnicOriginDescriptor { get; set; }
+
+        // Non-PK properties
 
         // One-to-one relationships
 
@@ -10830,6 +10994,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         int? ContactPriority { get; set; }
         string ContactRestrictions { get; set; }
         bool? EmergencyContactStatus { get; set; }
+        bool? LegalGuardian { get; set; }
         bool? LivesWith { get; set; }
         bool? PrimaryContactStatus { get; set; }
         string RelationDescriptor { get; set; }

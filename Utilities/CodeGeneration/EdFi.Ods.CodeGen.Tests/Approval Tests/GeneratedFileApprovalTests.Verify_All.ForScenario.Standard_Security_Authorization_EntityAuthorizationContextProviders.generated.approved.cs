@@ -77,6 +77,8 @@ using EdFi.Ods.Entities.NHibernate.StudentCohortAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentCompetencyObjectiveAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentAssociationAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationResponsibilityAssociationAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.StudentGradebookEntryAggregate.EdFi;
@@ -3278,6 +3280,98 @@ namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
         public TContextData GetContextData(object resource)
         {
             return GetContextData((StudentDisciplineIncidentAssociation) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentDisciplineIncidentBehaviorAssociation table of the StudentDisciplineIncidentBehaviorAssociation aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentBehaviorAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentDisciplineIncidentBehaviorAssociation, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IStudentDisciplineIncidentBehaviorAssociation resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'studentDisciplineIncidentBehaviorAssociation' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as StudentDisciplineIncidentBehaviorAssociation;
+
+            var contextData = new TContextData();
+            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "SchoolId",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((StudentDisciplineIncidentBehaviorAssociation) resource);
+        }
+    }
+
+    /// <summary>
+    /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance for making authorization decisions for access to the edfi.StudentDisciplineIncidentNonOffenderAssociation table of the StudentDisciplineIncidentNonOffenderAssociation aggregate in the Ods Database.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentNonOffenderAssociationRelationshipsAuthorizationContextDataProvider<TContextData> : IRelationshipsAuthorizationContextDataProvider<IStudentDisciplineIncidentNonOffenderAssociation, TContextData>
+        where TContextData : RelationshipsAuthorizationContextData, new()
+    {
+        /// <summary>
+        /// Creates and returns an <see cref="TContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(IStudentDisciplineIncidentNonOffenderAssociation resource)
+        {
+            if (resource == null)
+                throw new ArgumentNullException("resource", "The 'studentDisciplineIncidentNonOffenderAssociation' resource for obtaining authorization context data cannot be null.");
+
+            var entity = resource as StudentDisciplineIncidentNonOffenderAssociation;
+
+            var contextData = new TContextData();
+            contextData.SchoolId = entity.SchoolId == default(int) ? null as int? : entity.SchoolId; // Primary key property, Only Education Organization Id present
+            contextData.StudentUSI = entity.StudentUSI == default(int) ? null as int? : entity.StudentUSI; // Primary key property, USI
+            return contextData;
+        }
+
+        /// <summary>
+        ///  Creates and returns a signature key based on the resource, which can then be used to get and instance of IEdFiSignatureAuthorizationProvider
+        /// </summary>
+        public string[] GetAuthorizationContextPropertyNames()
+        {
+           var properties = new string[]
+                {
+                    "SchoolId",
+                    "StudentUSI",
+                };
+
+           return properties;
+        }
+
+        /// <summary>
+        /// Creates and returns an <see cref="RelationshipsAuthorizationContextData"/> instance based on the supplied resource.
+        /// </summary>
+        public TContextData GetContextData(object resource)
+        {
+            return GetContextData((StudentDisciplineIncidentNonOffenderAssociation) resource);
         }
     }
 

@@ -195,6 +195,9 @@ begin
     values ('administrativeFundingControlDescriptor', 'administrativeFundingControlDescriptor', 'http://ed-fi.org/ods/identity/claims/administrativeFundingControlDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('ancestryEthnicOriginDescriptor', 'ancestryEthnicOriginDescriptor', 'http://ed-fi.org/ods/identity/claims/ancestryEthnicOriginDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('assessment', 'assessment', 'http://ed-fi.org/ods/identity/claims/assessment', assessmentMetadataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -862,6 +865,12 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('studentDisciplineIncidentAssociation', 'studentDisciplineIncidentAssociation', 'http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentAssociation', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('studentDisciplineIncidentBehaviorAssociation', 'studentDisciplineIncidentBehaviorAssociation', 'http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentBehaviorAssociation', relationshipBasedDataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('studentDisciplineIncidentNonOffenderAssociation', 'studentDisciplineIncidentNonOffenderAssociation', 'http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentNonOffenderAssociation', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('studentEducationOrganizationAssociation', 'studentEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssociation', relationshipBasedDataResourceClaimId, application_id);
