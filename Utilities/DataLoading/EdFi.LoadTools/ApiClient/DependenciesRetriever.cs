@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -27,8 +27,16 @@ namespace EdFi.LoadTools.ApiClient
             _configuration = configuration;
         }
 
-        private string Filename => Path.Combine(_configuration.Folder, "dependencies.json");
-        private bool DependenciesExists => File.Exists(Filename);
+        private string Filename
+        {
+            get => Path.Combine(_configuration.Folder, "dependencies.json");
+        }
+
+        private bool DependenciesExists
+        {
+            get => File.Exists(Filename);
+        }
+
         public async Task<IEnumerable<Dependency>> GetDependencyOrderAsync()
         {
             if (!DependenciesExists || _configuration.Force)
@@ -109,10 +117,7 @@ namespace EdFi.LoadTools.ApiClient
 
         private async Task<string> LoadJsonStringAsync(string dependenciesUrl)
         {
-            using var client = new HttpClient
-            {
-                Timeout = new TimeSpan(0, 0, 5, 0)
-            };
+            using var client = new HttpClient {Timeout = new TimeSpan(0, 0, 5, 0)};
 
             var response = await client.GetAsync(dependenciesUrl).ConfigureAwait(false);
 
