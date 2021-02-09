@@ -18,41 +18,37 @@ namespace EdFi.Ods.CodeGen.Modules
 
         protected override void Load(ContainerBuilder builder)
         {
-            if (Options != null && !string.IsNullOrEmpty(Options.CodeRepositoryPath))
+            if (Options == null)
             {
-                builder.RegisterType<CodeRepositoryProvider>()
-                    .WithParameter(new NamedParameter("codeRepositoryPath", Options.CodeRepositoryPath))
-                    .As<ICodeRepositoryProvider>();
+                return;
             }
 
+            builder.RegisterType<CodeRepositoryProvider>()
+                .WithParameter(new NamedParameter("codeRepositoryPath", Options.CodeRepositoryPath))
+                .As<ICodeRepositoryProvider>();
+
+            builder.RegisterType<EngineTypeProvider>()
+                .WithParameter(new NamedParameter("engineType", Options.Engine))
+                .As<IEngineTypeProvider>();
+
             builder.RegisterType<ExtensionLocationPluginsProvider>()
-                .WithParameter(new NamedParameter("extensionPaths", Options.ExtensionPaths.ToArray()))
+                .WithParameter(new NamedParameter("extensionPaths", Options.ExtensionPaths))
                 .As<IExtensionLocationPluginsProvider>();
 
             builder.RegisterType<IncludePluginsProvider>()
                 .WithParameter(new NamedParameter("includePlugins", Options.IncludePlugins))
                 .As<IIncludePluginsProvider>();
 
-            if (!Options.ViewsFromDatabase)
+            if (Options.ViewsFromDatabase)
+            {
+                builder.RegisterType<DatabaseViewsProvider>()
+                    .As<IViewsProvider>();
+            }
+            else
             {
                 builder.RegisterType<JsonViewsProvider>()
                     .As<IViewsProvider>();
-
-                return;
             }
-
-            builder.RegisterType<EngineTypeProvider>()
-                .WithParameter(new NamedParameter("engineType", Options.Engine))
-                .As<IEngineTypeProvider>();
-
-            builder.RegisterType<EngineBasedDatabaseConnectionStringProvider>()
-                .As<IDatabaseConnectionStringProvider>();
-
-            builder.RegisterType<EngineBasedDatabaseConnectionProvider>()
-                .As<IDatabaseConnectionProvider>();
-
-            builder.RegisterType<DatabaseViewsProvider>()
-                .As<IViewsProvider>();
         }
     }
 }
