@@ -15,10 +15,8 @@ using Shouldly;
 namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
 {
     [TestFixture]
-    [LocalTestOnly]
     public class AssemblyDataProviderTests
     {
-        [LocalTestOnly]
         public class When_getting_code_generation_assembly_files : TestFixtureBase
         {
             private IContainer _container;
@@ -31,12 +29,10 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
                 _assemblyDataProvider = _container.Resolve<IAssemblyDataProvider>();
             }
 
-            protected override void Act()
-                => _assemblyDatas = _assemblyDataProvider.Get()
-                    .ToList();
+            protected override void Act() => _assemblyDatas = _assemblyDataProvider.Get().ToList();
 
             [Test]
-            public void Should_have_eight_assemblies_for_processing() => _assemblyDatas.Count.ShouldBe(8);
+            public void Should_have_three_assemblies_for_processing() => _assemblyDatas.Count.ShouldBe(3);
         }
     }
 }

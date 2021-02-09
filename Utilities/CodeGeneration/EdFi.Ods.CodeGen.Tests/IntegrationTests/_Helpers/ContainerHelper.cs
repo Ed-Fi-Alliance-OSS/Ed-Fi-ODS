@@ -7,6 +7,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.CodeGen.Extensions;
 using EdFi.Ods.CodeGen.Modules;
+using EdFi.Ods.CodeGen.Providers;
+using EdFi.Ods.CodeGen.Providers.Impl;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers
@@ -21,6 +23,11 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers
 
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new ProvidersModule());
+            containerBuilder.RegisterModule(new CommandLineOverrideModule {Options = new Options()});
+
+            // Override CodeRepositoryProvider registered in CommandLineOverrideModule
+            containerBuilder.RegisterType<DeveloperCodeRepositoryProvider>()
+                .As<ICodeRepositoryProvider>();
 
             containerBuilder.Populate(serviceCollection);
 
