@@ -25,6 +25,7 @@ namespace EdFi.LoadTools.Modules
                 .As<IBulkLoadClientResult>();
 
             builder.RegisterType<DependenciesRetriever>()
+                .As<IDependenciesRetriever>()
                 .SingleInstance();
 
             builder.RegisterType<SwaggerMetadataRetriever>()

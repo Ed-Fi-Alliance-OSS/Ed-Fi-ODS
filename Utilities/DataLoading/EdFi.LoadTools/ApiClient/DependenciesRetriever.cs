@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -10,18 +10,17 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using EdFi.Common.Inflection;
+using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
 using log4net;
 using Newtonsoft.Json;
 
 namespace EdFi.LoadTools.ApiClient
 {
-    public class DependenciesRetriever
+    public class DependenciesRetriever : IDependenciesRetriever
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(DependenciesRetriever).Name);
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DependenciesRetriever));
         private readonly IApiMetadataConfiguration _configuration;
-        private const string EdfiNamespace = "ed-fi";
-        private const string CreateOperation = "Create";
 
         public DependenciesRetriever(IApiMetadataConfiguration configuration)
         {
@@ -38,6 +37,16 @@ namespace EdFi.LoadTools.ApiClient
             }
 
             return await ReadDependenciesAsync().ConfigureAwait(false);
+        }
+
+        public async Task<IEnumerable<IGrouping<int, Dependency>>> GetDependencyLevelGroupsAsync()
+        {
+            var resources = await GetDependencyOrderAsync().ConfigureAwait(false);
+
+            return resources
+                .Where(s => s.Operations.Any(d => d.Equals(EdFiConstants.CreateOperation)))
+                .OrderBy(s => s.Order)
+                .GroupBy(d => d.Order);
         }
 
         private async Task<IEnumerable<Dependency>> ReadDependenciesAsync()
@@ -69,20 +78,14 @@ namespace EdFi.LoadTools.ApiClient
                 .Select(GetFirstDependencySetPriorityToDependencyWithEdFiNamespace).AsEnumerable();
         }
 
-        private Dependency GetFirstDependencySetPriorityToDependencyWithEdFiNamespace(IGrouping<string, Dependency> dependencyGroup)
+        private Dependency GetFirstDependencySetPriorityToDependencyWithEdFiNamespace(
+            IGrouping<string, Dependency> dependencyGroup)
         {
-            return dependencyGroup.FirstOrDefault(d => d.Namespace.Equals(EdfiNamespace) && d.Operations.Any(s => s.Equals(CreateOperation))) ??
-                   dependencyGroup.FirstOrDefault(d => d.Operations.Any(s => s.Equals(CreateOperation))) ?? dependencyGroup.First();
-        }
-
-        public async Task<IEnumerable<IGrouping<int, Dependency>>> GetDependencyLevelGroupsAsync()
-        {
-            var resources = await GetDependencyOrderAsync().ConfigureAwait(false);
-
-           return resources
-                .Where(s => s.Operations.Any(d => d.Equals(CreateOperation)))
-                .OrderBy(s => s.Order)
-                .GroupBy(d => d.Order);
+            return dependencyGroup.FirstOrDefault(
+                       d => d.Namespace.Equals(EdFiConstants.EdFiNamespace) &&
+                            d.Operations.Any(s => s.Equals(EdFiConstants.CreateOperation))) ??
+                   dependencyGroup.FirstOrDefault(d => d.Operations.Any(s => s.Equals(EdFiConstants.CreateOperation))) ??
+                   dependencyGroup.First();
         }
 
         private async Task LoadDependenciesAsync()
