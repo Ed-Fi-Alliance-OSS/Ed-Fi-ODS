@@ -50,6 +50,6 @@ namespace EdFi.Ods.CodeGen.Conventions
         /// <summary>
         /// Extension repository's extension folder
         /// </summary>
-        public const string Extension = "Extension";
+        public const string Extensions = "Extensions";
     }
 }

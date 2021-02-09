@@ -35,7 +35,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                             + "\\Application";
 
             _extensionsPath = codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                CodeRepositoryConventions.ExtensionsFolderName,
+                CodeRepositoryConventions.ExtensionsRepositoryName,
                 "Extensions");
 
             _domainModelDefinitionProvidersByProjectName =

@@ -34,10 +34,10 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
                 var codeRepositoryHelper = new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory);
 
                 A.CallTo(() => _codeRepositoryProvider.GetResolvedCodeRepositoryByName(A<string>._, A<string>._))
-                    .Returns(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsFolderName]);
+                    .Returns(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsRepositoryName]);
 
                 string extensionsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                    CodeRepositoryConventions.ExtensionsFolderName,
+                    CodeRepositoryConventions.ExtensionsRepositoryName,
                     "Extensions");
                 
                 _includePluginsProvider = A.Fake<IncludePluginsProvider>(

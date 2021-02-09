@@ -15,7 +15,6 @@ using EdFi.Ods.CodeGen.Providers.Impl;
 using EdFi.Ods.Common.Models;
 using FakeItEasy;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using Shouldly;
 
 namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
@@ -40,10 +39,10 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
                 var codeRepositoryHelper = new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory);
 
                 A.CallTo(() => _codeRepositoryProvider.GetResolvedCodeRepositoryByName(A<string>._, A<string>._))
-                    .Returns(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsFolderName]);
+                    .Returns(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsRepositoryName]);
 
                 string extensionsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                    CodeRepositoryConventions.ExtensionsFolderName,
+                    CodeRepositoryConventions.ExtensionsRepositoryName,
                     "Extensions");
                 
 
@@ -65,15 +64,15 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
                         "Application\\EdFi.Ods.Standard\\Artifacts\\Metadata\\ApiModel.json"));
 
                 domainModelDefinitionsByPath.Add("EdFi.Ods.Extensions.Homograph",
-                    new DomainModelDefinitionsJsonFileSystemProvider(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsFolderName] +
+                    new DomainModelDefinitionsJsonFileSystemProvider(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsRepositoryName] +
                                                                      "\\Extensions\\EdFi.Ods.Extensions.Homograph\\Artifacts\\Metadata\\ApiModel-EXTENSION.json"));
 
                 domainModelDefinitionsByPath.Add("EdFi.Ods.Extensions.Sample",
-                    new DomainModelDefinitionsJsonFileSystemProvider(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsFolderName] +
+                    new DomainModelDefinitionsJsonFileSystemProvider(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsRepositoryName] +
                                                                      "\\Extensions\\EdFi.Ods.Extensions.Sample\\Artifacts\\Metadata\\ApiModel-EXTENSION.json"));
 
                 domainModelDefinitionsByPath.Add("EdFi.Ods.Extensions.TPDM",
-                    new DomainModelDefinitionsJsonFileSystemProvider(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsFolderName] +
+                    new DomainModelDefinitionsJsonFileSystemProvider(codeRepositoryHelper[CodeRepositoryConventions.ExtensionsRepositoryName] +
                                                                      "\\Extensions\\EdFi.Ods.Extensions.TPDM\\Artifacts\\Metadata\\ApiModel-EXTENSION.json"));
 
                 A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionsProvidersByProjectName())
@@ -88,7 +87,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
                     _extensionLocationPluginsProvider);
             }
 
-            protected override void Act() => _assemblyDatas = _assemblyDataProvider.Get().ToList();
+            protected override void Act() => _assemblyDatas = _assemblyDataProvider.GetAll().ToList();
             
 
             [Test]

@@ -3,7 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using EdFi.Common;
@@ -52,23 +54,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             _extensionLocationPluginsProviderProvider = extensionLocationPluginsProviderProvider;
         }
 
-        public IEnumerable<AssemblyData> GetAll()
-        {
-            var assemblyData = new List<AssemblyData>();
-
-            assemblyData.AddRange(GetKnownOdsRepositoryAssemblyData());
-            assemblyData.AddRange(GetKnownImplementationAssemblyData());
-            assemblyData.AddRange(GetExtensionPluginAssemblyData());
-            assemblyData.AddRange(GetIncludedPluginAssemblyData());
-            assemblyData.AddRange(GetDatabaseSpecificAssemblyData());
-
-            // Convention based location for backwards compatibility
-            assemblyData.AddRange(GetLegacyProfileAssemblyData());
-            assemblyData.AddRange(GetLegacyExtensionAssemblyData());
-
-            return assemblyData;
-        }
-
         // last element is the assemblyName.
         private static string GetAssemblyName(string assemblyMetadataPath)
             => Path.GetDirectoryName(assemblyMetadataPath)
@@ -102,78 +87,56 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             return assemblyData;
         }
 
-        public IEnumerable<AssemblyData> GetKnownOdsRepositoryAssemblyData()
+        public IEnumerable<AssemblyData> GetAll()
         {
-            _logger.Debug(
-                $"Getting known assemblies from the '{CodeRepositoryConventions.EdFiOdsFolderName}' repository with the assemblyMetaData.json file");
+            return GetKnownAssemblyData()
 
-            var odsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                CodeRepositoryConventions.Ods,
-                CodeRepositoryConventions.Application);
-
-            var odsAssemblyData = Directory.GetFiles(
-                odsPath,
-                AssemblyMetadataSearchString,
-                SearchOption.AllDirectories);
-
-            return odsAssemblyData.Select(CreateAssemblyData);
+                // Convention based location for backwards compatibility
+                .Concat(GetDatabaseSpecificAssemblyData())
+                .Concat(GetLegacyProfileAssemblyData())
+                .Concat(GetLegacyExtensionAssemblyData());
         }
 
-        public IEnumerable<AssemblyData> GetKnownImplementationAssemblyData()
+        public IEnumerable<AssemblyData> GetKnownAssemblyData()
         {
-            _logger.Debug(
-                $"Getting known assemblies from the '{CodeRepositoryConventions.EdFiOdsImplementationFolderName}' repository with the assemblyMetaData.json file");
+            var searchPaths = new List<string>
+            {
+                _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                    CodeRepositoryConventions.Ods,
+                    CodeRepositoryConventions.Application),
+                _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                    CodeRepositoryConventions.Implementation,
+                    CodeRepositoryConventions.Application)
+            };
 
-            var implementationPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                CodeRepositoryConventions.Implementation,
-                CodeRepositoryConventions.Application);
+            searchPaths.AddRange(_extensionLocationPluginsProviderProvider.GetExtensionLocationPlugins().Where(Directory.Exists));
 
-            var implementationAssemblyData = Directory.GetFiles(
-                implementationPath,
-                AssemblyMetadataSearchString,
-                SearchOption.AllDirectories);
+            if (_includePluginsProvider.IncludePlugins())
+            {
+                searchPaths.Add(
+                    _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                        CodeRepositoryConventions.ExtensionsRepositoryName,
+                        CodeRepositoryConventions.Extensions));
+            }
 
-            return implementationAssemblyData.Select(CreateAssemblyData);
-        }
+            var assemblyData = searchPaths.SelectMany(
+                    x =>
+                    Directory.GetFiles(
+                        x,
+                        AssemblyMetadataSearchString,
+                        SearchOption.AllDirectories))
+                .Select(CreateAssemblyData)
+                .ToList();
 
-        public IEnumerable<AssemblyData> GetExtensionPluginAssemblyData()
-        {
-            var extensionPaths = _extensionLocationPluginsProviderProvider
-                .GetExtensionLocationPlugins();
+            assemblyData.ForEach(x => _logger.Debug($"Found file matching '{AssemblyMetadataSearchString}' at '{x.Path}'"));
 
-            var extensionAssemblyData =
-                extensionPaths
-                    .Where(Directory.Exists)
-                    .SelectMany(
-                        extensionPath => Directory.GetFiles(
-                            extensionPath,
-                            AssemblyMetadataSearchString,
-                            SearchOption.AllDirectories));
-
-            return extensionAssemblyData.Select(CreateAssemblyData);
-        }
-
-        public IEnumerable<AssemblyData> GetIncludedPluginAssemblyData()
-        {
-            if (!_includePluginsProvider.IncludePlugins())
-                return new List<AssemblyData>();
-
-            var extensionsPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                CodeRepositoryConventions.ExtensionsRepositoryName,
-                CodeRepositoryConventions.Extensions);
-
-            var extensionAssemblyData = Directory.GetFiles(
-                extensionsPath,
-                AssemblyMetadataSearchString,
-                SearchOption.AllDirectories);
-
-            return extensionAssemblyData.Select(CreateAssemblyData);
+            return assemblyData;
         }
 
         public IEnumerable<AssemblyData> GetDatabaseSpecificAssemblyData()
         {
             // Add database specific code generation... this is a code smell but is a convention. Sql generation should be done in metaed.
-            var databaseAssemblyData = new AssemblyData
+            var assemblyData = new AssemblyData
             {
                 AssemblyName = "ODS Database Specific",
                 Path = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
@@ -185,53 +148,46 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 SchemaName = EdFiConventions.PhysicalSchemaName
             };
 
-            return new List<AssemblyData> {databaseAssemblyData};
+            _logger.Debug($"Created '{assemblyData.AssemblyName}' assembly data for '{assemblyData.Path}'");
+
+            return new List<AssemblyData> { assemblyData };
         }
 
         public IEnumerable<AssemblyData> GetLegacyProfileAssemblyData()
         {
             // Convention based location of profiles (backwards compatibility)
-            _logger.Debug($"Getting any profile assemblies from the implementation folder");
-
             var legacyProfilePath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                 CodeRepositoryConventions.Implementation,
                 CodeRepositoryConventions.Application);
 
-            var legacyProfileAssemblyData = Directory.GetFiles(
+            var assemblyData = Directory.GetFiles(
                     legacyProfilePath,
                     ProfilesSearchString,
                     SearchOption.AllDirectories)
                 .Select(
-                    x =>
+                    x => new AssemblyData
                     {
-                        string assemblyName = GetAssemblyName(x);
+                        Path = Path.GetDirectoryName(x),
+                        TemplateSet = TemplateSetConventions.Profile,
+                        AssemblyName = GetAssemblyName(x),
+                        IsProfile = true,
+                        IsExtension = false,
+                        SchemaName = EdFiConventions.PhysicalSchemaName
+                    }).ToList();
 
-                        _logger.Debug($"Adding legacy assembly '{assemblyName}' for processing.");
+            assemblyData.ForEach(x => _logger.Debug($"Found file matching '{ProfilesSearchString}' at '{x.Path}'"));
 
-                        return new AssemblyData
-                        {
-                            Path = Path.GetDirectoryName(x),
-                            TemplateSet = TemplateSetConventions.Profile,
-                            AssemblyName = assemblyName,
-                            IsProfile = true,
-                            IsExtension = false,
-                            SchemaName = EdFiConventions.PhysicalSchemaName
-                        };
-                    });
-
-            return legacyProfileAssemblyData;
+            return assemblyData;
         }
 
         public IEnumerable<AssemblyData> GetLegacyExtensionAssemblyData()
         {
             // Convention based location of extensions (backwards compatibility)
-            _logger.Debug($"Getting any extension assemblies from the implementation folder");
-
             var legacyExtensionPath = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                 CodeRepositoryConventions.Implementation,
                 CodeRepositoryConventions.Application);
 
-            var legacyExtensionAssemblyData = Directory.GetFiles(
+            var assemblyData = Directory.GetFiles(
                     legacyExtensionPath,
                     ExtensionsSearchString,
                     SearchOption.AllDirectories)
@@ -239,8 +195,6 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                     x =>
                     {
                         string assemblyName = GetAssemblyName(x);
-
-                        _logger.Debug($"Adding legacy assembly '{assemblyName}' for processing.");
 
                         string schemaName = _domainModelsDefinitionsProvidersByProjectName[assemblyName]
                             .GetDomainModelDefinitions()
@@ -256,9 +210,11 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                             IsProfile = false,
                             SchemaName = schemaName
                         };
-                    });
+                    }).ToList();
 
-            return legacyExtensionAssemblyData;
+            assemblyData.ForEach(x => _logger.Debug($"Found file matching '{ExtensionsSearchString}' at '{x.Path}'"));
+
+            return assemblyData;
         }
     }
 }
