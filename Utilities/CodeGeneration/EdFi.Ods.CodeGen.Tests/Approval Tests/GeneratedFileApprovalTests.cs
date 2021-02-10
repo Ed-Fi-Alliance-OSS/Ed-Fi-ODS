@@ -47,6 +47,11 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         {
             System.Console.WriteLine("Testing {0}", approvalFileInfo.SourcePath);
 
+            if (!File.Exists(approvalFileInfo.SourcePath))
+            {
+                Assert.Fail("No source file found");
+            }
+
             // need to backup the file as the approval test deletes the original file
             File.Copy(approvalFileInfo.SourcePath, approvalFileInfo.SourcePath + ".bak", true);
 
@@ -68,10 +73,10 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             var approvalFileInfos = new List<ApprovalFileInfo>();
 
             approvalFileInfos.AddRange(
-                GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation), @"Application"), GeneratedCs));
+                GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.ExtensionsFolderName), @"Extensions"), GeneratedCs));
 
             approvalFileInfos.AddRange(
-                GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation), @"Application"), GeneratedHbm));
+                GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.ExtensionsFolderName), @"Extensions"), GeneratedHbm));
 
             approvalFileInfos.AddRange(
                 GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods), @"Application"), GeneratedCs));
@@ -145,11 +150,12 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             {
                 var ext = Path.GetExtension(sourcePath);
 
-                string generatedFileName = sourcePath.Contains(CodeRepositoryConventions.EdFiOdsImplementationFolderName)
-                    ? sourcePath.Replace(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation), string.Empty).Replace("\\", "_")
+                string generatedFileName = sourcePath.Contains(CodeRepositoryConventions.ExtensionsFolderName)
+                    ? sourcePath.Replace(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.ExtensionsFolderName), string.Empty).Replace("\\", "_")
                     : sourcePath.Replace(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods), string.Empty).Replace("\\", "_");
 
                 return generatedFileName.Replace("_Application_", string.Empty)
+                                        .Replace("_Extensions_", string.Empty)
                                         .Replace("_Database_", string.Empty)
                                         .Replace(ext, string.Empty)
                                         .Replace("EdFi.Ods.", string.Empty);

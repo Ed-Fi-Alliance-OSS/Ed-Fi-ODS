@@ -46,11 +46,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
             specification.Id = request.Id;
             specification.LastSurname = request.LastSurname;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "names";
-        }
     }
 }
 
@@ -83,11 +78,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
             specification.Id = request.Id;
             specification.ParentFirstName = request.ParentFirstName;
             specification.ParentLastSurname = request.ParentLastSurname;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "parents";
         }
     }
 }
@@ -122,11 +112,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
             specification.SchoolName = request.SchoolName;
             specification.SchoolYear = request.SchoolYear;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
     }
 }
 
@@ -158,11 +143,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
             specification.SuspendReferenceAssignmentCheck();
             specification.Id = request.Id;
             specification.SchoolYear = request.SchoolYear;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schoolYearTypes";
         }
     }
 }
@@ -196,11 +176,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
             specification.Id = request.Id;
             specification.StaffFirstName = request.StaffFirstName;
             specification.StaffLastSurname = request.StaffLastSurname;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "staffs";
         }
     }
 }
@@ -236,11 +211,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
             specification.StudentFirstName = request.StudentFirstName;
             specification.StudentLastSurname = request.StudentLastSurname;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "students";
-        }
     }
 }
 
@@ -274,11 +244,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
             specification.SchoolName = request.SchoolName;
             specification.StudentFirstName = request.StudentFirstName;
             specification.StudentLastSurname = request.StudentLastSurname;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentSchoolAssociations";
         }
     }
 }

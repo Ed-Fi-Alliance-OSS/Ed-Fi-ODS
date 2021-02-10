@@ -1386,4 +1386,53 @@ namespace EdFi.Ods.Entities.Common.Sample
 
         // Resource reference data
     }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentSectionAssociationExtension model.
+    /// </summary>
+    public interface IStudentSectionAssociationExtension : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        EdFi.IStudentSectionAssociation StudentSectionAssociation { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation> StudentSectionAssociationRelatedGeneralStudentProgramAssociations { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StudentSectionAssociationRelatedGeneralStudentProgramAssociation model.
+    /// </summary>
+    public interface IStudentSectionAssociationRelatedGeneralStudentProgramAssociation : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStudentSectionAssociationExtension StudentSectionAssociationExtension { get; set; }
+        [NaturalKeyMember]
+        DateTime RelatedBeginDate { get; set; }
+        [NaturalKeyMember]
+        int RelatedEducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        int RelatedProgramEducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string RelatedProgramName { get; set; }
+        [NaturalKeyMember]
+        string RelatedProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? RelatedGeneralStudentProgramAssociationResourceId { get; set; }
+        string RelatedGeneralStudentProgramAssociationDiscriminator { get; set; }
+    }
 }

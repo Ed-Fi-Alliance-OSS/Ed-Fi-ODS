@@ -19571,7 +19571,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         public string StudentUniqueId
         {
             get => _studentUniqueId == default(string)
-                    ? BackReference.StudentSectionAssociationExtension.StudentSectionAssociation.StudentUniqueId
+                    ? BackReference.StudentSectionAssociation.StudentUniqueId
                     : _studentUniqueId;
             set => _studentUniqueId = value;
         }
@@ -19757,7 +19757,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             // Initialize unified key values from parent context when reference is being formed by outbound mapper
             if (!_relatedGeneralStudentProgramAssociationReferenceExplicitlyAssigned)
             {
-                ImplicitRelatedGeneralStudentProgramAssociationReference.StudentUniqueId = _studentSectionAssociationExtension.StudentSectionAssociation.StudentUniqueId;
+                ImplicitRelatedGeneralStudentProgramAssociationReference.StudentUniqueId = _studentSectionAssociationExtension.StudentUniqueId;
             }
         }
 
@@ -20032,8 +20032,8 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         internal void OnDeserialized(StreamingContext context)
         {
             // Reconnect external inbound references on deserialization
-            if (_relatedGeneralStudentProgramAssociationReference != null)
-                _relatedGeneralStudentProgramAssociationReference.BackReference = this;
+            if (_generalStudentProgramAssociationReference != null)
+                _generalStudentProgramAssociationReference.BackReference = this;
         }
         // ------------------------------------------------------------
 
@@ -20111,7 +20111,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             IEnumerable<Tuple<string, string>> GetStudentUniqueIdSources()
             {
                 // Obtain value from the parent
-                yield return Tuple.Create("studentUniqueId (from parent context)", (instance as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).StudentSectionAssociationExtension.StudentSectionAssociation.StudentUniqueId);
+                yield return Tuple.Create("studentUniqueId (from parent context)", (instance as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).StudentSectionAssociationExtension.StudentUniqueId);
 
                 // Obtain value from other references
                 var valueFromRelatedGeneralStudentProgramAssociationReference = instance.RelatedGeneralStudentProgramAssociationReference?.StudentUniqueId;

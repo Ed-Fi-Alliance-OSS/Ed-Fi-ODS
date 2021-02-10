@@ -1748,5 +1748,47 @@
 </class>
 
 
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociation" table="StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02" lazy="false" schema="sample">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="RelatedBeginDate" column="RelatedBeginDate" type="date" />
+      <key-property name="RelatedEducationOrganizationId" column="RelatedEducationOrganizationId" type="int" />
+      <key-property name="RelatedProgramEducationOrganizationId" column="RelatedProgramEducationOrganizationId" type="int" />
+      <key-property name="RelatedProgramName" column="RelatedProgramName" type="string" length="60" />
+      <key-property name="RelatedProgramTypeDescriptorId" column="RelatedProgramTypeDescriptorId" type="int" />
+      <key-many-to-one name="StudentSectionAssociation">
+        <column name="BeginDate" />
+        <column name="LocalCourseCode" />
+        <column name="SchoolId" />
+        <column name="SchoolYear" />
+        <column name="SectionIdentifier" />
+        <column name="SessionName" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="RelatedGeneralStudentProgramAssociationReferenceData" class="EdFi.Ods.Entities.NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="RelatedBeginDate" />
+      <column name="RelatedEducationOrganizationId" />
+      <column name="RelatedProgramEducationOrganizationId" />
+      <column name="RelatedProgramName" />
+      <column name="RelatedProgramTypeDescriptorId" />
+      <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
 </hibernate-mapping>
 

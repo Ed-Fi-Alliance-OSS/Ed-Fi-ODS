@@ -7755,3 +7755,206 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentSchoolAssociationAggregate
     }
 
 }
+// Aggregate: StudentSectionAssociation
+
+namespace EdFi.Ods.Entities.Common.Sample //.StudentSectionAssociationAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class StudentSectionAssociationExtensionMapper
+    {
+        public static bool SynchronizeTo(this IStudentSectionAssociationExtension source, IStudentSectionAssociationExtension target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IStudentSectionAssociationExtensionSynchronizationSourceSupport;
+
+            var sourceExtensionSupport = source.StudentSectionAssociation as IExtensionsSynchronizationSourceSupport;
+
+            if (!sourceExtensionSupport.IsExtensionAvailable("Sample"))
+                return false;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            if (sourceSupport == null || sourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported)
+            {
+                isModified |=
+                    source.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.SynchronizeCollectionTo(
+                        target.StudentSectionAssociationRelatedGeneralStudentProgramAssociations,
+                        onChildAdded: child =>
+                            {
+                                child.StudentSectionAssociationExtension = target;
+
+                                // Extension class "children" need to reference the Ed-Fi Standard entity as the parent
+                                (child as IChildEntity)?.SetParent(target.StudentSectionAssociation);
+                            },
+                        includeItem: sourceSupport == null
+                            ? null
+                            : sourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded);
+            }
+
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IStudentSectionAssociationExtension source, IStudentSectionAssociationExtension target, Action<IStudentSectionAssociationExtension, IStudentSectionAssociationExtension> onMapped)
+        {
+            var sourceSynchSupport = source as IStudentSectionAssociationExtensionSynchronizationSourceSupport;
+            var targetSynchSupport = target as IStudentSectionAssociationExtensionSynchronizationSourceSupport;
+
+            // Copy contextual primary key values
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (sourceSynchSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported)
+            {
+                targetSynchSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded = sourceSynchSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded;
+                source.StudentSectionAssociationRelatedGeneralStudentProgramAssociations.MapCollectionTo(target.StudentSectionAssociationRelatedGeneralStudentProgramAssociations, target.StudentSectionAssociation);
+            }
+            else
+            {
+                targetSynchSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported = false;
+            }
+
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IStudentSectionAssociationExtensionSynchronizationSourceSupport 
+    {
+        bool IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported { get; set; }
+        Func<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, bool> IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentSectionAssociationRelatedGeneralStudentProgramAssociationMapper
+    {
+        public static bool SynchronizeTo(this IStudentSectionAssociationRelatedGeneralStudentProgramAssociation source, IStudentSectionAssociationRelatedGeneralStudentProgramAssociation target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.RelatedBeginDate != target.RelatedBeginDate)
+            {
+                source.RelatedBeginDate = target.RelatedBeginDate;
+            }
+            if (source.RelatedEducationOrganizationId != target.RelatedEducationOrganizationId)
+            {
+                source.RelatedEducationOrganizationId = target.RelatedEducationOrganizationId;
+            }
+            if (source.RelatedProgramEducationOrganizationId != target.RelatedProgramEducationOrganizationId)
+            {
+                source.RelatedProgramEducationOrganizationId = target.RelatedProgramEducationOrganizationId;
+            }
+            if (source.RelatedProgramName != target.RelatedProgramName)
+            {
+                source.RelatedProgramName = target.RelatedProgramName;
+            }
+            if (source.RelatedProgramTypeDescriptor != target.RelatedProgramTypeDescriptor)
+            {
+                source.RelatedProgramTypeDescriptor = target.RelatedProgramTypeDescriptor;
+            }
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IStudentSectionAssociationRelatedGeneralStudentProgramAssociation source, IStudentSectionAssociationRelatedGeneralStudentProgramAssociation target, Action<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, IStudentSectionAssociationRelatedGeneralStudentProgramAssociation> onMapped)
+        {
+            var sourceSynchSupport = source as IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport;
+            var targetSynchSupport = target as IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport;
+
+            // Copy contextual primary key values
+            target.RelatedBeginDate = source.RelatedBeginDate;
+            target.RelatedEducationOrganizationId = source.RelatedEducationOrganizationId;
+            target.RelatedProgramEducationOrganizationId = source.RelatedProgramEducationOrganizationId;
+            target.RelatedProgramName = source.RelatedProgramName;
+            target.RelatedProgramTypeDescriptor = source.RelatedProgramTypeDescriptor;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.RelatedGeneralStudentProgramAssociationResourceId = source.RelatedGeneralStudentProgramAssociationResourceId;
+                target.RelatedGeneralStudentProgramAssociationDiscriminator = source.RelatedGeneralStudentProgramAssociationDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport 
+    {
+    }
+
+}
