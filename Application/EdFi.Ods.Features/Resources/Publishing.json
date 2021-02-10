@@ -63,7 +63,7 @@
     }
   },
   "paths": {
-    "/publishing/snapshots": {
+    "/snapshots": {
       "get": {
         "produces": [
           "application/json"
@@ -100,7 +100,7 @@
         }
       }
     },
-    "/publishing/snapshots/{id}": {
+    "/snapshots/{id}": {
       "get": {
         "description": "This GET operation retrieves a resource by the specified resource identifier.",
         "operationId": "getSnapshotsById",
@@ -126,6 +126,9 @@
           "401": {
             "$ref": "#/responses/Unauthorized"
           },
+          "404": {
+            "$ref": "#/responses/NotFound"
+          },
           "500": {
             "$ref": "#/responses/Error"
           }
@@ -143,6 +146,9 @@
     },
     "Error": {
       "description": "An unhandled error occurred on the server. See the response body for details."
+    },
+    "NotFound": {
+      "description" : "Not Found. The resource could not be found."
     }
   },
   "securityDefinitions": {
