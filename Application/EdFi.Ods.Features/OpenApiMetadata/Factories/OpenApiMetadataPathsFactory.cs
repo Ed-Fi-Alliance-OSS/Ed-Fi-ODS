@@ -9,6 +9,7 @@ using System.Net.Http;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Features;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Utils.Extensions;
@@ -144,9 +145,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = CreateGetByExampleParameters(openApiMetadataResource, isCompositeContext),
-                responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                    _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
-                    true)
+                responses = CreateReadResponses(openApiMetadataResource)
             };
 
             return operation;
@@ -178,11 +177,28 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         openApiMetadataResource.DefaultGetByIdParameters
                             .Select(p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
                     .ToList(),
-                responses =
-                    OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                        _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
-                        false)
+                responses = CreateReadResponses(openApiMetadataResource)
             };
+        }
+
+        private Dictionary<string, Response> CreateReadResponses(OpenApiMetadataPathsResource openApiMetadataResource)
+        {
+            var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
+                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
+                false);
+
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            {
+                responses.Add(
+                    "410",
+                    new Response
+                    {
+                        description =
+                            "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
+                    });
+            }
+
+            return responses;
         }
 
         private IList<Parameter> CreateQueryParameters(bool isCompositeContext)
@@ -246,6 +262,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private Operation CreatePutByIdOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
+            var responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put);
+
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            {
+                responses.Add(
+                    "405",
+                    new Response
+                    {
+                        description =
+                            "Method Is Not Allowed. When the Snapshot-Identifier header is present the method is not allowed."
+                    });
+            }
+
             return new Operation
             {
                 tags = new List<string>
@@ -262,7 +291,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
                 },
                 parameters = CreatePutParameters(openApiMetadataResource),
-                responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put),
+                responses = responses
                 isUpdatable = GetIsUpdatableCustomMetadataValue(openApiMetadataResource)
             };
         }
@@ -291,6 +320,19 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private Operation CreateDeleteByIdOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
+            var responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Delete);
+
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            {
+                responses.Add(
+                    "405",
+                    new Response
+                    {
+                        description =
+                            "Method Is Not Allowed. When the Snapshot-Identifier header is present the method is not allowed."
+                    });
+            }
+
             return new Operation
             {
                 tags = new List<string>
@@ -312,12 +354,27 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     OpenApiMetadataDocumentHelper.CreateIdParameter(),
                     CreateIfMatchParameter("DELETE from removing")
                 },
-                responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Delete)
+                responses = responses
             };
         }
 
         private Operation CreateDeletesOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
+            var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
+                _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
+                true, true);
+
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            {
+                responses.Add(
+                    "405",
+                    new Response
+                    {
+                        description =
+                            "Method Is Not Allowed. When the Snapshot-Identifier header is present the method is not allowed."
+                    });
+            }
+
             return new Operation
             {
                 tags = new List<string>
@@ -342,14 +399,25 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion")},
                     new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")}
                 },
-                responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
-                    _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
-                    true, true)
+                responses = responses
             };
         }
 
         private Operation CreatePostOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
+            var responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Post);
+
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            {
+                responses.Add(
+                    "405",
+                    new Response
+                    {
+                        description =
+                            "Method Is Not Allowed. When the Snapshot-Identifier header is present the method is not allowed."
+                    });
+            }
+
             return new Operation
             {
                 tags = new List<string>
@@ -367,7 +435,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
                 },
                 parameters = CreatePostParameters(openApiMetadataResource),
-                responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Post)
+                responses =  responses
             };
         }
 
