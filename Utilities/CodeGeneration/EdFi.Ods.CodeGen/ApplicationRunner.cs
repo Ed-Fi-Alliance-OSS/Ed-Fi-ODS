@@ -4,6 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.CodeGen.Processing;
@@ -15,13 +17,13 @@ namespace EdFi.Ods.CodeGen
     public class ApplicationRunner : IApplicationRunner
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(ApplicationRunner));
-        private readonly IAssemblyDataProvider _assemblyDataProvider;
+        private readonly IEnumerable<IAssemblyDataProvider> _assemblyDataProviders;
         private readonly ITemplateProcessor _templateProcessor;
 
-        public ApplicationRunner(ITemplateProcessor templateProcessor, IAssemblyDataProvider assemblyDataProvider)
+        public ApplicationRunner(ITemplateProcessor templateProcessor, IEnumerable<IAssemblyDataProvider> assemblyDataProviders)
         {
             _templateProcessor = templateProcessor ?? throw new ArgumentNullException(nameof(templateProcessor));
-            _assemblyDataProvider = assemblyDataProvider ?? throw new ArgumentNullException(nameof(assemblyDataProvider));
+            _assemblyDataProviders = assemblyDataProviders ?? throw new ArgumentNullException(nameof(assemblyDataProviders));
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -33,7 +35,7 @@ namespace EdFi.Ods.CodeGen
 
             _logger.Debug("Processing beginning.");
 
-            foreach (var assemblyData in _assemblyDataProvider.GetAll())
+            foreach (var assemblyData in _assemblyDataProviders.SelectMany(x => x.Get()))
             {
                 await _templateProcessor.ProcessAsync(assemblyData, cancellationToken)
                     .ConfigureAwait(false);

@@ -30,7 +30,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         public string GetResolvedCodeRepositoryByName(string key, string folderName)
         {
-            _logger.Debug($"Resolving path location for key {key}.");
+            _logger.Debug($"Resolving path location for key '{key}'.");
 
             if (key.EqualsIgnoreCase("root"))
             {

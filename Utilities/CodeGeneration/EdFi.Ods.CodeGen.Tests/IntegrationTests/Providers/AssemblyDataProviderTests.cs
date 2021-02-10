@@ -5,9 +5,13 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using ApprovalUtilities.Utilities;
 using Autofac;
+using EdFi.Ods.CodeGen.Conventions;
+using EdFi.Ods.CodeGen.Helpers;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers;
+using EdFi.Ods.CodeGen.Providers.Impl;
 using EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers;
 using NUnit.Framework;
 using Shouldly;
@@ -17,22 +21,143 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
     [TestFixture]
     public class AssemblyDataProviderTests
     {
-        public class When_getting_code_generation_assembly_files : TestFixtureBase
+        public class When_getting_assembly_data_from_all_providers_with_no_extensions : TestFixtureBase
         {
-            private IContainer _container;
-            private IAssemblyDataProvider _assemblyDataProvider;
-            private List<AssemblyData> _assemblyDatas;
+            private IEnumerable<IAssemblyDataProvider> _assemblyDataProviders;
+            private List<AssemblyData> _assemblyData;
 
             protected override void Arrange()
             {
-                _container = ContainerHelper.CreateContainer();
-                _assemblyDataProvider = _container.Resolve<IAssemblyDataProvider>();
+                var container = ContainerHelper.CreateContainer(new Options());
+
+                _assemblyDataProviders = container.Resolve<IEnumerable<IAssemblyDataProvider>>();
             }
 
-            protected override void Act() => _assemblyDatas = _assemblyDataProvider.GetAll().ToList();
+            protected override void Act() => _assemblyData = _assemblyDataProviders.SelectMany(x => x.Get()).ToList();
 
             [Test]
-            public void Should_have_three_assemblies_for_processing() => _assemblyDatas.Count.ShouldBe(3);
+            public void Should_have_correct_assemblies_for_processing()
+            {
+                var expected = new List<string>
+                {
+                    "EdFi.Ods.Profiles.Test",
+                    "EdFi.Ods.Standard",
+                    "ODS Database Specific",
+                };
+
+                _assemblyData.Select(x => x.AssemblyName).ForEach(x => expected.ShouldContain(x));
+                _assemblyData.Count.ShouldBe(expected.Count);
+            }
+        }
+
+        public class When_getting_assembly_data_from_all_providers_with_extensions : TestFixtureBase
+        {
+            private IEnumerable<IAssemblyDataProvider> _assemblyDataProviders;
+            private List<AssemblyData> _assemblyData;
+
+            protected override void Arrange()
+            {
+                var container = ContainerHelper.CreateContainer(
+                    new Options
+                    {
+                        ExtensionPaths = new[]
+                        {
+                            new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
+                                CodeRepositoryConventions.ExtensionsRepositoryName]
+                        }
+                    });
+
+                _assemblyDataProviders = container.Resolve<IEnumerable<IAssemblyDataProvider>>();
+            }
+
+            protected override void Act() => _assemblyData = _assemblyDataProviders.SelectMany(x => x.Get()).ToList();
+
+            [Test]
+            public void Should_have_correct_assemblies_for_processing()
+            {
+                var expected = new List<string>
+                {
+                    "EdFi.Ods.Extensions.Homograph",
+                    "EdFi.Ods.Extensions.Sample",
+                    "EdFi.Ods.Extensions.TPDM",
+                    "EdFi.Ods.Profiles.Sample",
+                    "EdFi.Ods.Profiles.Test",
+                    "EdFi.Ods.Standard",
+                    "ODS Database Specific",
+                };
+
+                _assemblyData.Select(x => x.AssemblyName).ForEach(x => expected.ShouldContain(x));
+                _assemblyData.Count.ShouldBe(expected.Count);
+            }
+        }
+        public class When_getting_assembly_data_with_no_extensions : TestFixtureBase
+        {
+            private IAssemblyDataProvider _assemblyDataProvider;
+            private List<AssemblyData> _assemblyData;
+
+            protected override void Arrange()
+            {
+                var container = ContainerHelper.CreateContainer(new Options());
+
+                _assemblyDataProvider = container.Resolve<IEnumerable<IAssemblyDataProvider>>()
+                    .Single(x => x is AssemblyDataProvider);
+            }
+
+            protected override void Act() => _assemblyData = _assemblyDataProvider.Get().ToList();
+
+            [Test]
+            public void Should_have_correct_assemblies_for_processing()
+            {
+                var expected = new List<string>
+                {
+                    "EdFi.Ods.Profiles.Test",
+                    "EdFi.Ods.Standard",
+                };
+
+                _assemblyData.Select(x => x.AssemblyName).ForEach(x => expected.ShouldContain(x));
+                _assemblyData.Count.ShouldBe(expected.Count);
+            }
+        }
+
+        public class When_getting_assembly_data_with_extensions : TestFixtureBase
+        {
+            private IAssemblyDataProvider _assemblyDataProvider;
+            private List<AssemblyData> _assemblyData;
+
+            protected override void Arrange()
+            {
+                var container = ContainerHelper.CreateContainer(
+                    new Options
+                    {
+                        ExtensionPaths = new[]
+                        {
+                            new CodeRepositoryHelper(TestContext.CurrentContext.TestDirectory)[
+                                CodeRepositoryConventions.ExtensionsRepositoryName]
+                        }
+                    });
+
+                _assemblyDataProvider = container.Resolve<IEnumerable<IAssemblyDataProvider>>()
+                    .Single(x => x is AssemblyDataProvider);
+            }
+
+            protected override void Act() => _assemblyData = _assemblyDataProvider.Get().ToList();
+
+            [Test]
+            public void Should_have_correct_assemblies_for_processing()
+            {
+                var expected = new List<string>
+                {
+                    "EdFi.Ods.Extensions.Homograph",
+                    "EdFi.Ods.Extensions.Sample",
+                    "EdFi.Ods.Extensions.TPDM",
+                    "EdFi.Ods.Profiles.Sample",
+                    "EdFi.Ods.Profiles.Test",
+                    "EdFi.Ods.Standard",
+                };
+
+                _assemblyData.Select(x => x.AssemblyName).ForEach(x => expected.ShouldContain(x));
+                _assemblyData.Count.ShouldBe(expected.Count);
+            }
         }
     }
 }

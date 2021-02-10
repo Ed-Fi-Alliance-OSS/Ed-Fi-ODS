@@ -24,7 +24,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             private readonly string templateName = "Requests";
             private IDictionary<string, string> _result;
 
-            protected override void Arrange() => _container = ContainerHelper.CreateContainer();
+            protected override void Arrange() => _container = ContainerHelper.CreateContainer(new Options());
 
             protected override void Act()
                 => _result = _container.Resolve<IMustacheTemplateProvider>()

@@ -15,7 +15,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers
 {
     public static class ContainerHelper
     {
-        public static IContainer CreateContainer()
+        public static IContainer CreateContainer(Options options)
         {
             var serviceCollection = new ServiceCollection().AddConfiguration();
 
@@ -23,11 +23,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers
 
             containerBuilder.RegisterModule(new ProcessingModule());
             containerBuilder.RegisterModule(new ProvidersModule());
-            containerBuilder.RegisterModule(new CommandLineOverrideModule {Options = new Options()});
-
-            // Override CodeRepositoryProvider registered in CommandLineOverrideModule
-            containerBuilder.RegisterType<DeveloperCodeRepositoryProvider>()
-                .As<ICodeRepositoryProvider>();
+            containerBuilder.RegisterModule(new CommandLineOverrideModule {Options = options});
 
             containerBuilder.Populate(serviceCollection);
 

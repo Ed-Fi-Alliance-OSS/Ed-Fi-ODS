@@ -8,11 +8,11 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
-    public class ExtensionLocationPluginsProvider : IExtensionLocationPluginsProvider
+    public class ExtensionPluginsProvider : IExtensionPluginsProvider
     {
         private readonly IEnumerable<string> _extensionPaths;
 
-        public ExtensionLocationPluginsProvider(IEnumerable<string> extensionPaths)
+        public ExtensionPluginsProvider(IEnumerable<string> extensionPaths)
         {
             _extensionPaths = extensionPaths ?? Array.Empty<string>();
         }

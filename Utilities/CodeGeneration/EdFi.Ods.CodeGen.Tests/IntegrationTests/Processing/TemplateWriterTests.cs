@@ -30,7 +30,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Processing
             [Test]
             public void Should_throw_error()
             {
-                _container = ContainerHelper.CreateContainer();
+                _container = ContainerHelper.CreateContainer(new Options());
 
                 // Arrange
                 _templateWriterData = new TemplateWriterData

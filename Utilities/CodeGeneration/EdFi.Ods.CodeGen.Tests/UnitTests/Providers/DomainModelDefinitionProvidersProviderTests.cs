@@ -23,7 +23,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
             private IDomainModelDefinitionsProviderProvider _domainModelDefinitionProvidersProvider;
             private ICodeRepositoryProvider _codeRepositoryProvider;
             private IIncludePluginsProvider _includePluginsProvider;
-            private IExtensionLocationPluginsProvider _extensionLocationPluginsProvider;
+            private IExtensionPluginsProvider _extensionPluginsProvider;
             private IEnumerable<IDomainModelDefinitionsProvider> _domainModelDefinitionProviders;
             private IDictionary<string, IDomainModelDefinitionsProvider> _domainModelDefinitionsProvidersByProjectName;
             private Dictionary<string, IDomainModelDefinitionsProvider> _createDomainModelDefinitionsByPath;
@@ -43,16 +43,16 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Providers
                 _includePluginsProvider = A.Fake<IncludePluginsProvider>(
                     x => x.WithArgumentsForConstructor(() => new IncludePluginsProvider(true)));
 
-                _extensionLocationPluginsProvider = A.Fake<ExtensionLocationPluginsProvider>(
+                _extensionPluginsProvider = A.Fake<ExtensionPluginsProvider>(
                     x => x.WithArgumentsForConstructor(
-                        () => new ExtensionLocationPluginsProvider(new[] { extensionsPath })));
+                        () => new ExtensionPluginsProvider(new[] { extensionsPath })));
 
                 A.CallTo(() => _codeRepositoryProvider.GetCodeRepositoryByName(A<string>._))
                     .Returns(codeRepositoryHelper[CodeRepositoryConventions.Implementation]);
 
                 _domainModelDefinitionProvidersProvider = new DomainModelDefinitionProvidersProvider(
                     _codeRepositoryProvider,
-                    _extensionLocationPluginsProvider,
+                    _extensionPluginsProvider,
                     _includePluginsProvider);
             }
 

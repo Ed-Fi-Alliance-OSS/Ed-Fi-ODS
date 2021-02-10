@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.CodeGen.Providers
 {
-    public interface IExtensionLocationPluginsProvider
+    public interface IExtensionPluginsProvider
     {
         IEnumerable<string> GetExtensionLocationPlugins();
     }
