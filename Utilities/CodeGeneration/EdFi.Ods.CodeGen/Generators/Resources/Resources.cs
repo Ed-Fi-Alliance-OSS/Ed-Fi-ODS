@@ -311,8 +311,9 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                         PropertyName = p.PropertyName,
                                         JsonPropertyName = p.JsonPropertyName,
                                         PropertyType = p.PropertyType.ToCSharp(),
+                                        // Use GetLineage to build the property path, in reverse order, skipping the first since that's the BackReference itself
                                         PropertyPathToRoot = "BackReference." +
-                                            string.Join(".", resource.Entity.Ancestors.Select(e => e.Name)),
+                                            string.Join(".", ((ResourceChildItem)resource).GetLineage().Reverse().Skip(1).Select(l => l.Name))
                                     }),
                             ReferenceIdentifiers =
                                 _resourcePropertyRenderer.AssembleIdentifiers(

@@ -60,7 +60,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             var filteredResource = profileData.GetContainedResource(resourceClass) ?? resourceClass;
 
-            if (resourceClass is ResourceChildItem)
+            if (resourceClass is ResourceChildItem resourceChildItem)
             {
                 pks.Add(
                     new
@@ -84,6 +84,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                                             .Where(rp => rp.IsUnified())
                                             .Select(rp => new
                                             {
+                                                PropertyPath = resourceChildItem.IsResourceExtension
+                                                    ? string.Join(
+                                                        string.Empty,
+                                                        resourceChildItem.GetLineage().TakeWhile(l => !l.IsResourceExtension)
+                                                            .Select(l => "." + l.Name))
+                                                    : null,
                                                 UnifiedKeyPropertyName = rp.PropertyName
                                             })
                                     })

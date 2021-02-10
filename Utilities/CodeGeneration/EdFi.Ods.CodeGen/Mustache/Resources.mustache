@@ -429,7 +429,7 @@ namespace {{ResourceClassesNamespace}}
             if (!_{{ReferenceFieldName}}ExplicitlyAssigned)
             {
                 {{#UnifiedKeyProperties}}
-                Implicit{{ReferencePropertyName}}.{{UnifiedKeyPropertyName}} = _{{ParentFieldName}}.{{UnifiedKeyPropertyName}};
+                Implicit{{ReferencePropertyName}}.{{UnifiedKeyPropertyName}} = _{{ParentFieldName}}{{PropertyPath}}.{{UnifiedKeyPropertyName}};
                 {{/UnifiedKeyProperties}}
             }
             {{/ReferencesWithUnifiedKey}}
@@ -1327,7 +1327,7 @@ namespace {{ResourceClassesNamespace}}
             {
                 {{#UnifiedPropertyIsFromParent}}
                 // Obtain value from the parent
-                yield return Tuple.Create("{{UnifiedJsonPropertyName}} (from parent context)", (instance as {{NamespacePrefix}}I{{ResourceClassName}}).{{ParentResourceClassName}}.{{UnifiedPropertyName}});
+                yield return Tuple.Create("{{UnifiedJsonPropertyName}} (from parent context)", (instance as {{NamespacePrefix}}I{{ResourceClassName}}).{{ParentResourceClassName}}{{UnifiedPropertyParentPath}}.{{UnifiedPropertyName}});
 
                 {{/UnifiedPropertyIsFromParent}}
                 {{#References}}
