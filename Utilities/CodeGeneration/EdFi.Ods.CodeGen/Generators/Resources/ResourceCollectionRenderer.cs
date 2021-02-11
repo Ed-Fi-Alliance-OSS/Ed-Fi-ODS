@@ -337,6 +337,8 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
 
             public bool UnifiedPropertyIsFromParent { get; set; }
 
+            public string UnifiedPropertyParentPath { get; set; }
+
             public IEnumerable<UnifiedReferenceProperty> References { get; set; }
         }
 
@@ -381,6 +383,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             ResourceClassBase resource,
             TemplateContext templateContext)
         {
+            var resourceChildItem = resource as ResourceChildItem;
             return new PutPostRequestValidator
             {
                 EntityName = resource.Name,
@@ -409,7 +412,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 KeyUnificationValidations = new KeyUnificationValidation
                 {
                     ResourceClassName = resource.Name,
-                    ParentResourceClassName = (resource as ResourceChildItem)?.Parent.Name,
+                    ParentResourceClassName = resourceChildItem?.Parent.Name,
                     UnifiedProperties = resource.AllProperties
                         // TODO: Remove this filter with dynamic profiles
                         .Where(rp => !profileData.HasProfile || profileData.IsIncluded(resource, rp))
@@ -421,6 +424,12 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             UnifiedCSharpPropertyType = rp.PropertyType.ToCSharp(),
                             UnifiedPropertyIsFromParent = rp.EntityProperty.IncomingAssociations
                                 .Any(a => a.IsNavigable),
+                            UnifiedPropertyParentPath = resourceChildItem != null && resourceChildItem.IsResourceExtension
+                                ? string.Join(
+                                    string.Empty,
+                                    resourceChildItem.GetLineage().TakeWhile(l => !l.IsResourceExtension)
+                                        .Select(l => "." + l.Name))
+                                : null,
                             References = rp.EntityProperty.IncomingAssociations
                                 .Where(a => !a.IsNavigable && rp.Parent.ReferenceByName.ContainsKey(a.Name + "Reference"))
                                 .Select(a => new
@@ -638,7 +647,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             x => new
                             {
                                 ReferenceTypeName = x.ReferenceTypeName,
-                                PropertyFieldName = x.ReferenceTypeName.ToCamelCase()
+                                PropertyFieldName = x.PropertyName.ToCamelCase()
                             })
                         .ToList(),
                     Standard = resource.Collections.Any(x => !x.IsInherited)
