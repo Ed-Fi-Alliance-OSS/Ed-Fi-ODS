@@ -98,7 +98,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
             {
                 _assemblyData =
                     _assemblyDataHelper.CreateAssemblyData(
-                        "Drive:Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/assemblymetadata.json");
+                        "Drive:/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/assemblymetadata.json");
             }
 
             [Test]
@@ -110,7 +110,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Extensions.TPDM"),
                     () => _assemblyData.IsExtension.ShouldBe(true),
                     () => _assemblyData.IsProfile.ShouldBe(false),
-                    () => _assemblyData.Path.ShouldBe("Drive:Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Extensions.TPDM"),
+                    () => _assemblyData.Path.ShouldBe("Drive:\\Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Extensions.TPDM"),
                     () => _assemblyData.SchemaName.ShouldBe("TPDM"),
                     () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Extension)
                 );
@@ -146,7 +146,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
             {
                 _assemblyData =
                     _assemblyDataHelper.CreateAssemblyData(
-                        "Drive:Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/assemblymetadata.json");
+                        "Drive:/Ed-Fi-Extensions/Extensions/EdFi.Ods.Profiles.Sample/assemblymetadata.json");
             }
 
             [Test]
@@ -158,7 +158,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Profiles.Sample"),
                     () => _assemblyData.IsExtension.ShouldBe(false),
                     () => _assemblyData.IsProfile.ShouldBe(true),
-                    () => _assemblyData.Path.ShouldBe("Drive:Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Profiles.Sample"),
+                    () => _assemblyData.Path.ShouldBe("Drive:\\Ed-Fi-Extensions\\Extensions\\EdFi.Ods.Profiles.Sample"),
                     () => _assemblyData.SchemaName.ShouldBe("EdFi"),
                     () => _assemblyData.TemplateSet.ShouldBe(TemplateSetConventions.Profile)
                 );
