@@ -263,7 +263,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 },
                 parameters = CreatePutParameters(openApiMetadataResource),
                 responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put),
-                isUpdatable = CheckIsUpdatable(openApiMetadataResource)
+                isUpdatable = GetIsUpdatableCustomMetadataValue(openApiMetadataResource)
             };
         }
 
@@ -274,15 +274,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 : "The PUT operation is used to update a resource by identifier. If the resource identifier (\"id\") is provided in the JSON body, it will be ignored. Additionally, this API resource is not configured for cascading natural key updates. Natural key values for this resource cannot be changed using PUT operation and will not be modified in the database, and so recommendation is to use POST as that supports upsert behavior.";
         }
 
-        private bool? CheckIsUpdatable(OpenApiMetadataPathsResource openApiMetadataResource)
-        {
-            bool? isUpdatable = null;
-
-            if (openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable)
-                isUpdatable = true;
-
-            return isUpdatable;
-        }
+        private bool? GetIsUpdatableCustomMetadataValue(OpenApiMetadataPathsResource openApiMetadataResource)
+            => openApiMetadataResource.Resource.Entity.Identifier.IsUpdatable ? (bool?) true : null;
 
         private IList<Parameter> CreatePutParameters(OpenApiMetadataPathsResource openApiMetadataResource)
         {
