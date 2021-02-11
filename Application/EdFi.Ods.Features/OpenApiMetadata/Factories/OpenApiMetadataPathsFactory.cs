@@ -153,6 +153,28 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
 
         private Operation CreateGetByIdOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
+            var parameters = new[]
+                {
+                    // Path parameters need to be inline in the operation, and not referenced.
+                    OpenApiMetadataDocumentHelper.CreateIdParameter(),
+                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("If-None-Match")}
+                }.Concat(
+                    openApiMetadataResource.DefaultGetByIdParameters
+                        .Select(p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
+                .ToList();
+
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            {
+                parameters.Add(new Parameter
+                {
+                    name = "Snapshot-Identifier",
+                    @in = "header",
+                    description = "Indicates the Snapshot-Identifier that should be used.",
+                    type = "string",
+                    required = false
+                });
+            }
+
             return new Operation
             {
                 tags = new List<string>
@@ -168,15 +190,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 {
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
-                parameters = new[]
-                    {
-                        // Path parameters need to be inline in the operation, and not referenced.
-                        OpenApiMetadataDocumentHelper.CreateIdParameter(),
-                        new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("If-None-Match")}
-                    }.Concat(
-                        openApiMetadataResource.DefaultGetByIdParameters
-                            .Select(p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
-                    .ToList(),
+                parameters = parameters,
                 responses = CreateReadResponses(openApiMetadataResource)
             };
         }
@@ -256,6 +270,18 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             deprecatedReasons = OpenApiMetadataDocumentHelper.GetDeprecatedReasons(x)
                         });
                 });
+
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            {
+                parameterList.Add(new Parameter
+                {
+                    name = "Snapshot-Identifier",
+                    @in = "header",
+                    description = "Indicates the Snapshot-Identifier that should be used.",
+                    type = "string",
+                    required = false
+                });
+            }
 
             return parameterList;
         }
