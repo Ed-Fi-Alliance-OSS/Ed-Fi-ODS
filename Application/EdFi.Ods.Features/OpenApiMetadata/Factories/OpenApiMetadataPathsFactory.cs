@@ -387,7 +387,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         // NOTE: This adds the deletes get request for change queries.
         private Operation CreateDeletesOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            var responses =  OpenApiMetadataDocumentHelper.GetReadOperationResponses(
+            var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
                 _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
                 true, true);
 
