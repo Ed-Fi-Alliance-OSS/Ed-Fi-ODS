@@ -384,21 +384,38 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
         }
 
+        // NOTE: This adds the deletes get request for change queries.
         private Operation CreateDeletesOperation(OpenApiMetadataPathsResource openApiMetadataResource)
         {
-            var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
+            var responses =  OpenApiMetadataDocumentHelper.GetReadOperationResponses(
                 _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
                 true, true);
+
+            var parameters = new List<Parameter>
+            {
+                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset")},
+                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit")},
+                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion")},
+                new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")}
+            };
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
             {
                 responses.Add(
-                    "405",
+                    "410",
                     new Response
                     {
                         description =
-                            "Method Is Not Allowed. When the Snapshot-Identifier header is present the method is not allowed."
+                            "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
                     });
+
+                parameters.Add(new Parameter {
+                    name = "Snapshot-Identifier",
+                    @in = "header",
+                    description = "Indicates the Snapshot-Identifier that should be used.",
+                    type = "string",
+                    required = false
+                });
             }
 
             return new Operation
@@ -418,13 +435,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         openApiMetadataResource,
                         ContentTypeUsage.Writable)
                 },
-                parameters = new List<Parameter>
-                {
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("offset")},
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("limit")},
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MinChangeVersion")},
-                    new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")}
-                },
+                parameters = parameters,
                 responses = responses
             };
         }
