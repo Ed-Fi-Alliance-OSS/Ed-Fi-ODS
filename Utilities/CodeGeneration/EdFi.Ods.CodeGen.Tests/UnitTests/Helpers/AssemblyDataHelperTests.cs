@@ -53,6 +53,8 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Helpers
             [Test]
             public void Should_create_expected_assembly_data()
             {
+                _assemblyData.ShouldNotBeNull();
+
                 _assemblyData.ShouldSatisfyAllConditions(
                     () => _assemblyData.AssemblyName.ShouldBe("EdFi.Ods.Standard"),
                     () => _assemblyData.IsExtension.ShouldBe(false),
