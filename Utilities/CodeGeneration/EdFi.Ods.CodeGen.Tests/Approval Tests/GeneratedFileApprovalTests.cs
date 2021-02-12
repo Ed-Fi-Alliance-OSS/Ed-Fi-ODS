@@ -80,9 +80,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
 
             files.Sort();
 
-            static string Formatter(string s) => Path.GetRelativePath(_repositoryRoot, s);
-
-            Approvals.VerifyAll(files, Formatter);
+            Approvals.Verify(string.Join("\n", files.Select(x => Path.GetRelativePath(_repositoryRoot, x))));
         }
 
         /// <summary>
