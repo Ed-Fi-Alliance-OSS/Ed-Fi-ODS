@@ -317,7 +317,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Writable)
                 },
                 parameters = CreatePutParameters(openApiMetadataResource),
-                responses = responses
+                responses = responses,
                 isUpdatable = GetIsUpdatableCustomMetadataValue(openApiMetadataResource)
             };
         }
