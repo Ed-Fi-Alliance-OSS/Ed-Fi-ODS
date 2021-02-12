@@ -35,7 +35,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 TemplateSet = TemplateSetConventions.Database,
                 IsProfile = false,
                 IsExtension = false,
-                SchemaName = EdFiConventions.PhysicalSchemaName
+                SchemaName = EdFiConventions.ProperCaseName
             };
 
             _logger.Debug($"Created '{assemblyData.AssemblyName}' assembly data for '{assemblyData.Path}'");

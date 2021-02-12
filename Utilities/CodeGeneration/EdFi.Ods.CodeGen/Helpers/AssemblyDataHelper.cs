@@ -28,6 +28,7 @@ namespace EdFi.Ods.CodeGen.Helpers
             _jsonFileProvider = Preconditions.ThrowIfNull(jsonFileProvider, nameof(jsonFileProvider));
 
             Preconditions.ThrowIfNull(domainModelDefinitionsProviderProvider, nameof(domainModelDefinitionsProviderProvider));
+
             _domainModelsDefinitionsProvidersByProjectName =
                 domainModelDefinitionsProviderProvider.DomainModelDefinitionsProvidersByProjectName();
         }
@@ -47,9 +48,10 @@ namespace EdFi.Ods.CodeGen.Helpers
             string assemblyName = GetAssemblyName(assemblyMetadataPath);
 
             var schemaName = isExtension
-                ? _domainModelsDefinitionsProvidersByProjectName[assemblyName]
-                    .GetDomainModelDefinitions()
-                    .SchemaDefinition.LogicalName
+                ? ExtensionsConventions.GetProperCaseNameForLogicalName(
+                    _domainModelsDefinitionsProvidersByProjectName[assemblyName]
+                        .GetDomainModelDefinitions()
+                        .SchemaDefinition.LogicalName)
                 : EdFiConventions.ProperCaseName;
 
             var assemblyData = new AssemblyData

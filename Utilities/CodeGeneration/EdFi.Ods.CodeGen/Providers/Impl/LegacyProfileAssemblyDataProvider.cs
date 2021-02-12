@@ -50,7 +50,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                         AssemblyName = _assemblyDataHelper.GetAssemblyName(x),
                         IsProfile = true,
                         IsExtension = false,
-                        SchemaName = EdFiConventions.PhysicalSchemaName
+                        SchemaName = EdFiConventions.ProperCaseName
                     }).ToList();
 
             assemblyData.ForEach(x => _logger.Debug($"Found file matching '{ProfilesSearchString}' at '{x.Path}'"));

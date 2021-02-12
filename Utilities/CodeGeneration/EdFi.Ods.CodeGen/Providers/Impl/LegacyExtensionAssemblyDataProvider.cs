@@ -11,6 +11,7 @@ using EdFi.Ods.CodeGen.Conventions;
 using EdFi.Ods.CodeGen.Helpers;
 using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
 using log4net;
 
@@ -34,6 +35,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             _assemblyDataHelper = Preconditions.ThrowIfNull(assemblyDataHelper, nameof(assemblyDataHelper));
             _codeRepositoryProvider = Preconditions.ThrowIfNull(codeRepositoryProvider, nameof(codeRepositoryProvider));
             Preconditions.ThrowIfNull(domainModelDefinitionsProviderProvider, nameof(domainModelDefinitionsProviderProvider));
+
             _domainModelsDefinitionsProvidersByProjectName =
                 domainModelDefinitionsProviderProvider.DomainModelDefinitionsProvidersByProjectName();
         }
@@ -54,10 +56,11 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                     {
                         string assemblyName = _assemblyDataHelper.GetAssemblyName(x);
 
-                        string schemaName = _domainModelsDefinitionsProvidersByProjectName[assemblyName]
-                            .GetDomainModelDefinitions()
-                            .SchemaDefinition
-                            .LogicalName;
+                        string schemaName = ExtensionsConventions.GetProperCaseNameForLogicalName(
+                            _domainModelsDefinitionsProvidersByProjectName[assemblyName]
+                                .GetDomainModelDefinitions()
+                                .SchemaDefinition
+                                .LogicalName);
 
                         return new AssemblyData
                         {
