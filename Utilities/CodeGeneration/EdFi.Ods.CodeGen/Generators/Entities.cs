@@ -509,7 +509,10 @@ namespace EdFi.Ods.CodeGen.Generators
                                   .Select(
                                        a => new
                                             {
-                                                AssociationName = a.Name, InheritanceRootEntity = a.OtherEntity.TypeHierarchyRootEntity, a.OtherEntity
+                                                AssociationName = a.Name,
+                                                InheritanceRootEntity = a.OtherEntity.TypeHierarchyRootEntity,
+                                                OtherEntity = a.OtherEntity,
+                                                PotentiallyLogical = a.PotentiallyLogical
                                             })
                                   .Select(
                                        x =>
@@ -521,7 +524,8 @@ namespace EdFi.Ods.CodeGen.Generators
                                                ReferenceDataClassName = x.InheritanceRootEntity + "ReferenceData",
                                                ReferenceDataPropertyName = x.AssociationName + "ReferenceData",
                                                ReferenceAssociationName = x.AssociationName,
-                                               MappedReferenceDataHasDiscriminator = x.OtherEntity.HasDiscriminator()
+                                               MappedReferenceDataHasDiscriminator = x.OtherEntity.HasDiscriminator(),
+                                               PotentiallyLogical = x.PotentiallyLogical
                                            })
                     };
             }
