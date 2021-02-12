@@ -39,8 +39,8 @@ namespace EdFi.Ods.Common.Models.Definitions
             EntityPropertyDefinition[] secondaryEntityProperties,
             bool isIdentifying,
             bool isRequired,
-            bool potentiallyLogical = false,
-            IDictionary<string,string> constraintNameByDatabaseEngine = null)
+            IDictionary<string,string> constraintNameByDatabaseEngine = null,
+            bool potentiallyLogical = false)
         {
             FullName = fullName;
             Cardinality = cardinality;
