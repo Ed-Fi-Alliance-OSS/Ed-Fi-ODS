@@ -13,6 +13,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Features.Publishing.DatabaseNaming;
 using EdFi.Ods.Features.Publishing.ExceptionHandling;
+using EdFi.Ods.Features.Publishing.OpenApiMetadata;
 using EdFi.Ods.Features.Publishing.Repositories;
 using EdFi.Ods.Features.Publishing.Routing;
 using EdFi.Ods.Features.Publishing.SnapshotContext;
@@ -33,6 +34,15 @@ namespace EdFi.Ods.Features.Publishing.Container
             // Routing
             builder.RegisterType<SnapshotsControllerRouteConvention>()
                 .As<IApplicationModelConvention>()
+                .SingleInstance();
+
+            // Open API Metadata
+            builder.RegisterType<PublishingOpenApiMetadataRouteInformation>()
+                .As<IOpenApiMetadataRouteInformation>()
+                .SingleInstance();
+
+            builder.RegisterType<PublishingOpenApiContentProvider>()
+                .As<IOpenApiContentProvider>()
                 .SingleInstance();
 
             // Publishing components / services
