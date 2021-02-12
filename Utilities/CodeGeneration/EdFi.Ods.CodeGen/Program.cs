@@ -21,13 +21,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace EdFi.Ods.CodeGen
 {
-    internal static class Program
+    public static class Program
     {
         private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private static ILog _logger;
         private static IContainer _container;
 
-        private static async Task<int> Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
             ConfigureLogging();
 

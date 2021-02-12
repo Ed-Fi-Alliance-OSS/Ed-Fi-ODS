@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
@@ -27,7 +28,20 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         private const string GeneratedSql = "*_generated.sql";
 
         private static readonly ICodeRepositoryProvider _codeRepositoryProvider = new DeveloperCodeRepositoryProvider();
-        private static readonly IEnumerable<ApprovalFileInfo> ApprovalFileInfos = GetApprovalFileInfos();
+        private static readonly string _repositoryRoot =
+            _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Root);
+        private static readonly string _extensionRepository =
+            _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.ExtensionsRepositoryName);
+        private static readonly string _extensionRepositoryExtensionsFolder =
+            Path.Combine(_extensionRepository, CodeRepositoryConventions.Extensions);
+        private static readonly string _odsRepository =
+            _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods);
+        private static readonly string _odsRepositoryArtifacts = Path.Combine(
+            _odsRepository, CodeRepositoryConventions.Database);
+        private static readonly string _odsRepositoryProjects = Path.Combine(
+            _odsRepository, CodeRepositoryConventions.Application);
+
+        private static IEnumerable<ApprovalFileInfo> _approvalFileInfos = GetApprovalFileInfos();
 
         [Explicit("WARNING!!! This copies all the generated files as approved files")]
         [Test]
@@ -36,16 +50,48 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             CopyFiles(GetApprovalFileInfos());
         }
 
+        [OneTimeSetUp]
+        protected async Task SetUp()
+        {
+            await Program.Main(
+                new[]
+                {
+                    "--ExtensionPaths",
+                    _extensionRepository
+                });
+        }
+
+        /// <summary>
+        /// Creates file containing all known files needed for verification
+        /// </summary>
+        /// <param name="approvalFileInfo"></param>
+        [Test]
+        public void Generated_File_List()
+        {
+            var files = new List<string>();
+
+            files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedCs, SearchOption.AllDirectories));
+            files.AddRange(Directory.GetFiles(_extensionRepositoryExtensionsFolder, GeneratedHbm, SearchOption.AllDirectories));
+            files.AddRange(Directory.GetFiles(_odsRepositoryArtifacts, GeneratedSql, SearchOption.AllDirectories));
+            files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedCs, SearchOption.AllDirectories));
+            files.AddRange(Directory.GetFiles(_odsRepositoryProjects, GeneratedHbm, SearchOption.AllDirectories));
+
+            files.Sort();
+
+            static string Formatter(string s) => Path.GetRelativePath(_repositoryRoot, s);
+
+            Approvals.VerifyAll(files, Formatter);
+        }
+
         /// <summary>
         /// Runs all the approval tests as separate tests. Note the method name has not changed as it
         /// requires that the approved files would be renamed.
         /// </summary>
         /// <param name="approvalFileInfo"></param>
-        [Explicit("Run this test after codegen has been run.")]
-        [Test, TestCaseSource(nameof(ApprovalFileInfos))]
+        [Test, TestCaseSource(nameof(_approvalFileInfos))]
         public void Verify_All(ApprovalFileInfo approvalFileInfo)
         {
-            System.Console.WriteLine("Testing {0}", approvalFileInfo.SourcePath);
+            Console.WriteLine("Testing {0}", approvalFileInfo.SourcePath);
 
             if (!File.Exists(approvalFileInfo.SourcePath))
             {
@@ -70,30 +116,15 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
 
         private static List<ApprovalFileInfo> GetApprovalFileInfos()
         {
-            var approvalFileInfos = new List<ApprovalFileInfo>();
+            var generatedFileList = Path.Combine(
+                _odsRepository,
+                @$"Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval Tests\{nameof(GeneratedFileApprovalTests)}.{nameof(Generated_File_List)}.approved.txt");
 
-            approvalFileInfos.AddRange(
-                GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.ExtensionsFolderName), @"Extensions"), GeneratedCs));
+            var files = File.ReadAllLines(generatedFileList)
+                .Select(x => new ApprovalFileInfo(Path.Combine(_repositoryRoot, x)))
+                .ToList();
 
-            approvalFileInfos.AddRange(
-                GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.ExtensionsFolderName), @"Extensions"), GeneratedHbm));
-
-            approvalFileInfos.AddRange(
-                GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods), @"Application"), GeneratedCs));
-
-            approvalFileInfos.AddRange(
-                GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods), @"Application"), GeneratedHbm));
-
-            approvalFileInfos.AddRange(
-                GetGeneratedFiles(Path.Combine(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods), @"Artifacts"), GeneratedSql));
-
-            return approvalFileInfos;
-        }
-
-        private static IEnumerable<ApprovalFileInfo> GetGeneratedFiles(string path, string searchPattern)
-        {
-            return Directory.GetFiles(path, searchPattern, SearchOption.AllDirectories)
-                            .Select(x => new ApprovalFileInfo(x));
+            return files;
         }
 
         private void CopyFiles(IEnumerable<ApprovalFileInfo> files)
@@ -116,9 +147,9 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
                     case ".sql":
 
                         string destFileName = Path.Combine(
-                            _codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods)
-                          , @"Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval Tests"
-                          , $"GeneratedFileApprovalTests.Verify_All.ForScenario.{file.Scenario}.approved{ext}");
+                            _odsRepository
+                            , @"Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval Tests"
+                            , $"GeneratedFileApprovalTests.Verify_All.ForScenario.{file.Scenario}.approved{ext}");
 
                         System.Console.WriteLine("Copying file: {0} to {1}", file.SourcePath, destFileName);
 
@@ -150,13 +181,13 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             {
                 var ext = Path.GetExtension(sourcePath);
 
-                string generatedFileName = sourcePath.Contains(CodeRepositoryConventions.ExtensionsFolderName)
-                    ? sourcePath.Replace(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.ExtensionsFolderName), string.Empty).Replace("\\", "_")
-                    : sourcePath.Replace(_codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Ods), string.Empty).Replace("\\", "_");
+                string generatedFileName = sourcePath.Contains(CodeRepositoryConventions.ExtensionsRepositoryName)
+                    ? sourcePath.Replace(_extensionRepository, string.Empty).Replace("\\", "_")
+                    : sourcePath.Replace(_odsRepository, string.Empty).Replace("\\", "_");
 
                 return generatedFileName.Replace("_Application_", string.Empty)
-                                        .Replace("_Extensions_", string.Empty)
-                                        .Replace("_Database_", string.Empty)
+                    .Replace("_Extensions_", string.Empty)
+                    .Replace("_Database_", string.Empty)
                                         .Replace(ext, string.Empty)
                                         .Replace("EdFi.Ods.", string.Empty);
             }
