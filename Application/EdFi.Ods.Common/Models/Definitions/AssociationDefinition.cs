@@ -28,6 +28,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         /// <param name="secondaryEntityProperties">The secondary entity's properties in the association.</param>
         /// <param name="isIdentifying">Indicates whether or not the association participates in the identity of the secondary entity.</param>
         /// <param name="isRequired">Indicates whether or not the association is required (identifying associations must be required).</param>
+        /// <param name="potentiallyLogical">Indicates whether or not the association should be enforced (this allows a reference to be un-resolvable).</param>
         /// <param name="constraintNameByDatabaseEngine"></param>
         public AssociationDefinition(
             FullName fullName,
@@ -38,7 +39,8 @@ namespace EdFi.Ods.Common.Models.Definitions
             EntityPropertyDefinition[] secondaryEntityProperties,
             bool isIdentifying,
             bool isRequired,
-            IDictionary<string,string> constraintNameByDatabaseEngine = null)
+            IDictionary<string,string> constraintNameByDatabaseEngine = null,
+            bool potentiallyLogical = false)
         {
             FullName = fullName;
             Cardinality = cardinality;
@@ -48,6 +50,7 @@ namespace EdFi.Ods.Common.Models.Definitions
             SecondaryEntityProperties = secondaryEntityProperties;
             IsIdentifying = isIdentifying;
             IsRequired = isRequired;
+            PotentiallyLogical = potentiallyLogical;
 
             ConstraintNames = constraintNameByDatabaseEngine ??
                               new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
@@ -68,6 +71,8 @@ namespace EdFi.Ods.Common.Models.Definitions
         public bool IsIdentifying { get; set; }
 
         public bool IsRequired { get; set; }
+
+        public bool PotentiallyLogical { get; set; }
 
         public IDictionary<string, string> ConstraintNames { get; set; }
     }

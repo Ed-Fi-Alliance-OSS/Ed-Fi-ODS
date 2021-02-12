@@ -375,7 +375,21 @@ namespace {{AggregateNamespace}}
         /// </summary>
         Guid? {{NamespacePrefix}}I{{ClassName}}.{{ReferenceAssociationName}}ResourceId
         {
+            {{#PotentiallyLogical}}
+            get
+            {
+                if ({{ReferenceDataPropertyName}}?.GetType().Name == "{{ReferenceDataPropertyName}}Proxy")
+                {
+                    {{ReferenceDataPropertyName}} = null;
+                    return null;
+                }
+
+                return {{ReferenceDataPropertyName}}?.Id;
+            }
+            {{/PotentiallyLogical}}
+            {{^PotentiallyLogical}}
             get { return {{ReferenceDataPropertyName}}?.Id; }
+            {{/PotentiallyLogical}}
             set { }
         }
 
