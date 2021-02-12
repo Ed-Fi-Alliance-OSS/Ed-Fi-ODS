@@ -120,7 +120,7 @@ namespace EdFi.Ods.CodeGen
                 var containerBuilder = new ContainerBuilder();
 
                 containerBuilder.RegisterModule(new CodeGenModule());
-                containerBuilder.RegisterModule(new CommandLineOverrideModule() {Options = options});
+                containerBuilder.RegisterModule(new CommandLineOverrideModule {Options = options});
 
                 containerBuilder.Populate(serviceCollection);
 

@@ -23,7 +23,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
 
         public ProfileTestDataHelper(string fileName)
         {
-            var container = ContainerHelper.CreateContainer();
+            var container = ContainerHelper.CreateContainer(new Options());
 
             _domainModel = new DomainModelProvider(
                 container.Resolve<IDomainModelDefinitionsProviderProvider>()

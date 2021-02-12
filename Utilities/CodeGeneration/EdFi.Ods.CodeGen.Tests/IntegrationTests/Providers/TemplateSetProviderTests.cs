@@ -23,7 +23,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             private readonly string templateSetName = "standard";
             private IReadOnlyList<TemplateSet> _result;
 
-            protected override void Arrange() => _container = ContainerHelper.CreateContainer();
+            protected override void Arrange() => _container = ContainerHelper.CreateContainer(new Options());
 
             protected override void Act()
                 => _result =
@@ -43,7 +43,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             private readonly string templateSetName = "standard";
             private IReadOnlyList<TemplateSet> _result;
 
-            protected override void Arrange() => _container = ContainerHelper.CreateContainer();
+            protected override void Arrange() => _container = ContainerHelper.CreateContainer(new Options());
 
             protected override void Act()
                 => _result =
@@ -66,7 +66,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Providers
             public void Should_throw_error()
             {
                 // Arrange
-                _container = ContainerHelper.CreateContainer();
+                _container = ContainerHelper.CreateContainer(new Options());
 
                 // Act
                 var exception =

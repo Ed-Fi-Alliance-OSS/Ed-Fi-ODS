@@ -4,8 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using EdFi.Common.Database;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
 using EdFi.Ods.CodeGen.Generators;
+using EdFi.Ods.CodeGen.Helpers;
 using EdFi.Ods.CodeGen.Processing;
 using EdFi.Ods.CodeGen.Processing.Impl;
 using EdFi.Ods.CodeGen.Providers;
@@ -25,7 +27,21 @@ namespace EdFi.Ods.CodeGen.Modules
             builder.RegisterType<JsonFileProvider>()
                 .As<IJsonFileProvider>();
 
+            builder.RegisterType<AssemblyDataHelper>();
+
             builder.RegisterType<AssemblyDataProvider>()
+                .As<IAssemblyDataProvider>();
+
+            builder.RegisterType<LegacyPluginAssemblyDataProvider>()
+                .As<IAssemblyDataProvider>();
+
+            builder.RegisterType<LegacyDatabaseSpecificAssemblyDataProvider>()
+                .As<IAssemblyDataProvider>();
+
+            builder.RegisterType<LegacyExtensionAssemblyDataProvider>()
+                .As<IAssemblyDataProvider>();
+
+            builder.RegisterType<LegacyProfileAssemblyDataProvider>()
                 .As<IAssemblyDataProvider>();
 
             builder.RegisterType<DeveloperCodeRepositoryProvider>()
@@ -55,6 +71,12 @@ namespace EdFi.Ods.CodeGen.Modules
 
             builder.RegisterType<SchemaFileProvider>()
                 .As<ISchemaFileProvider>();
+
+            builder.RegisterType<EngineBasedDatabaseConnectionStringProvider>()
+                .As<IDatabaseConnectionStringProvider>();
+
+            builder.RegisterType<EngineBasedDatabaseConnectionProvider>()
+                .As<IDatabaseConnectionProvider>();
         }
     }
 }

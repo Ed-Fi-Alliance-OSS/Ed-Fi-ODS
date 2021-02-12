@@ -15,47 +15,41 @@ using log4net;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
-    public class AssemblyDataProvider : IAssemblyDataProvider
+    public class LegacyPluginAssemblyDataProvider : IAssemblyDataProvider
     {
         private static readonly ILog _logger = LogManager.GetLogger(typeof(AssembliesProvider));
 
         private readonly AssemblyDataHelper _assemblyDataHelper;
         private readonly ICodeRepositoryProvider _codeRepositoryProvider;
-        private readonly IExtensionPluginsProvider _extensionPluginsProviderProvider;
+        private readonly IIncludePluginsProvider _includePluginsProvider;
 
         public const string AssemblyMetadataSearchString = "assemblyMetadata.json";
 
-        public AssemblyDataProvider(
+        public LegacyPluginAssemblyDataProvider(
             AssemblyDataHelper assemblyDataHelper,
             ICodeRepositoryProvider codeRepositoryProvider,
-            IExtensionPluginsProvider extensionPluginsProvider)
+            IIncludePluginsProvider includePluginsProvider)
         {
             _assemblyDataHelper = Preconditions.ThrowIfNull(assemblyDataHelper, nameof(assemblyDataHelper));
             _codeRepositoryProvider = Preconditions.ThrowIfNull(codeRepositoryProvider, nameof(codeRepositoryProvider));
-            _extensionPluginsProviderProvider = Preconditions.ThrowIfNull(extensionPluginsProvider, nameof(extensionPluginsProvider));
+            _includePluginsProvider = Preconditions.ThrowIfNull(includePluginsProvider, nameof(includePluginsProvider));
         }
 
         public IEnumerable<AssemblyData> Get()
         {
-            var paths = new List<string>
+            if (!_includePluginsProvider.IncludePlugins())
             {
-                _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                    CodeRepositoryConventions.Ods,
-                    CodeRepositoryConventions.Application),
-                _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                    CodeRepositoryConventions.Implementation,
-                    CodeRepositoryConventions.Application)
-            };
+                return new List<AssemblyData>();
+            }
 
-            paths.AddRange(_extensionPluginsProviderProvider.GetExtensionLocationPlugins());
+            var path = _codeRepositoryProvider.GetResolvedCodeRepositoryByName(
+                CodeRepositoryConventions.ExtensionsRepositoryName,
+                CodeRepositoryConventions.Extensions);
 
-            var assemblyData = paths.Where(Directory.Exists)
-                .SelectMany(
-                    x =>
-                        Directory.GetFiles(
-                            x,
-                            AssemblyMetadataSearchString,
-                            SearchOption.AllDirectories))
+            var assemblyData = Directory.GetFiles(
+                    path,
+                    AssemblyMetadataSearchString,
+                    SearchOption.AllDirectories)
                 .Select(_assemblyDataHelper.CreateAssemblyData)
                 .ToList();
 

@@ -22,26 +22,26 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
         private readonly string _solutionPath;
         private readonly ILog Logger = LogManager.GetLogger(typeof(DomainModelDefinitionProvidersProvider));
-        private readonly IExtensionLocationPluginsProvider _extensionLocationPluginsProviderProvider;
+        private readonly IExtensionPluginsProvider _extensionPluginsProviderProvider;
         private readonly IIncludePluginsProvider _includePluginsProvider;
         private readonly string _extensionsPath;
 
         public DomainModelDefinitionProvidersProvider(
             ICodeRepositoryProvider codeRepositoryProvider,
-            IExtensionLocationPluginsProvider extensionLocationPluginsProviderProvider,
+            IExtensionPluginsProvider extensionPluginsProviderProvider,
             IIncludePluginsProvider includePluginsProvider)
         {
             _solutionPath = codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation)
                             + "\\Application";
 
             _extensionsPath = codeRepositoryProvider.GetResolvedCodeRepositoryByName(
-                CodeRepositoryConventions.ExtensionsFolderName,
+                CodeRepositoryConventions.ExtensionsRepositoryName,
                 "Extensions");
 
             _domainModelDefinitionProvidersByProjectName =
                 new Lazy<Dictionary<string, IDomainModelDefinitionsProvider>>(CreateDomainModelDefinitionsByPath);
 
-            _extensionLocationPluginsProviderProvider = extensionLocationPluginsProviderProvider;
+            _extensionPluginsProviderProvider = extensionPluginsProviderProvider;
 
             _includePluginsProvider = includePluginsProvider;
         }
@@ -61,7 +61,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             return _domainModelDefinitionProvidersByProjectName.Value;
         }
 
-        public Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
+        private Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
         {
             DirectoryInfo[] directoriesToEvaluate;
             
@@ -78,7 +78,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 .Concat(GetProjectDirectoriesToEvaluate(edFiOdsApplicationPath))
                 .ToArray();
 
-            var extensionPaths = _extensionLocationPluginsProviderProvider.GetExtensionLocationPlugins();
+            var extensionPaths = _extensionPluginsProviderProvider.GetExtensionLocationPlugins();
 
             extensionPaths.ToList().ForEach(
                 x =>
