@@ -50,6 +50,9 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             CopyFiles(GetApprovalFileInfos());
         }
 
+        /// <summary>
+        /// Runs CodeGen once before verification
+        /// </summary>
         [OneTimeSetUp]
         protected async Task SetUp()
         {
@@ -62,9 +65,8 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         }
 
         /// <summary>
-        /// Creates file containing all known files needed for verification
+        /// Creates approval file containing all known generated files needed for verification
         /// </summary>
-        /// <param name="approvalFileInfo"></param>
         [Test]
         public void Generated_File_List()
         {
@@ -178,19 +180,16 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             public string Scenario { get; }
 
             private string CreateScenario(string sourcePath)
-            {
-                var ext = Path.GetExtension(sourcePath);
-
-                string generatedFileName = sourcePath.Contains(CodeRepositoryConventions.ExtensionsRepositoryName)
-                    ? sourcePath.Replace(_extensionRepository, string.Empty).Replace("\\", "_")
-                    : sourcePath.Replace(_odsRepository, string.Empty).Replace("\\", "_");
-
-                return generatedFileName.Replace("_Application_", string.Empty)
+                => sourcePath
+                    .Replace(_extensionRepository, string.Empty)
+                    .Replace(_odsRepository, string.Empty)
+                    .Replace("\\", "_")
+                    .Replace("_Application_", string.Empty)
                     .Replace("_Extensions_", string.Empty)
                     .Replace("_Database_", string.Empty)
-                                        .Replace(ext, string.Empty)
-                                        .Replace("EdFi.Ods.", string.Empty);
-            }
+                    .Replace("EdFi.Ods.", string.Empty)
+                    .Replace(Path.GetExtension(sourcePath), string.Empty)
+                    .Trim('_');
 
             public override string ToString() => Scenario;
         }
