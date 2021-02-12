@@ -25,15 +25,16 @@ namespace EdFi.Ods.Common.Models.Domain
         internal Association(DomainModel domainModel, AssociationDefinition associationDefinition)
         {
             if (associationDefinition.PrimaryEntityProperties.Length != associationDefinition.SecondaryEntityProperties.Length)
-                throw new Exception("The association definition is invalid because a different number of properties were provided for the primary and secondary ends of the association.");
+                throw new Exception(
+                    "The association definition is invalid because a different number of properties were provided for the primary and secondary ends of the association.");
 
             _domainModel = domainModel;
 
             FullName = associationDefinition.FullName;
 
             var primaryEntityAssociationProperties = associationDefinition.PrimaryEntityProperties
-                                                               .Select(x => new AssociationProperty(x))
-                                                               .ToArray();
+                .Select(x => new AssociationProperty(x))
+                .ToArray();
 
             // Identifying associations mean that the properties in the receiving entity must also be identifying
             if (associationDefinition.IsIdentifying)
@@ -43,8 +44,8 @@ namespace EdFi.Ods.Common.Models.Domain
             }
 
             var secondaryEntityAssociationProperties = associationDefinition.SecondaryEntityProperties
-                                                                 .Select(x => new AssociationProperty(x))
-                                                                 .ToArray();
+                .Select(x => new AssociationProperty(x))
+                .ToArray();
 
             Cardinality = associationDefinition.Cardinality;
 
@@ -81,6 +82,7 @@ namespace EdFi.Ods.Common.Models.Domain
             IsRequired = associationDefinition.IsRequired;
             IsRequiredCollection = associationDefinition.Cardinality == Cardinality.OneToOneOrMore;
             ConstraintByDatabaseEngine = associationDefinition.ConstraintNames;
+            PotentiallyLogical = associationDefinition.PotentiallyLogical;
         }
 
         /// <summary>
@@ -99,6 +101,8 @@ namespace EdFi.Ods.Common.Models.Domain
         public bool IsIdentifying { get; }
 
         public bool IsRequiredCollection { get; }
+
+        public bool PotentiallyLogical { get; }
 
         public Entity PrimaryEntity
         {
@@ -135,8 +139,9 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <summary>
         /// Indicates whether the association starts and ends on the same table.
         /// </summary>
-        public bool IsSelfReferencing => PrimaryEntityFullName.Name.EqualsIgnoreCase(SecondaryEntityFullName.Name)
-                                         && PrimaryEntityFullName.Schema.Equals(SecondaryEntityFullName.Schema);
+        public bool IsSelfReferencing
+            => PrimaryEntityFullName.Name.EqualsIgnoreCase(SecondaryEntityFullName.Name)
+               && PrimaryEntityFullName.Schema.Equals(SecondaryEntityFullName.Schema);
 
         public bool IsRequired { get; }
 
