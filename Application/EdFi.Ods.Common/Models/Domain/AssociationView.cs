@@ -307,11 +307,6 @@ namespace EdFi.Ods.Common.Models.Domain
             get { return Association.IsSelfReferencing; }
         }
 
-        public bool PotentiallyLogical
-        {
-            get { return Association.PotentiallyLogical; }
-        }
-
         /// <summary>
         /// Gets the property mappings of the association whose values differ, and thus directly support the parent/child self-referencing
         /// behavior.

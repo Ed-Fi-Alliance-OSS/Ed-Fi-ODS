@@ -512,7 +512,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                 AssociationName = a.Name,
                                                 InheritanceRootEntity = a.OtherEntity.TypeHierarchyRootEntity,
                                                 OtherEntity = a.OtherEntity,
-                                                PotentiallyLogical = a.PotentiallyLogical
+                                                PotentiallyLogical = a.Association.PotentiallyLogical
                                             })
                                   .Select(
                                        x =>
