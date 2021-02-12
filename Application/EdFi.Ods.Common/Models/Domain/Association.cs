@@ -102,6 +102,9 @@ namespace EdFi.Ods.Common.Models.Domain
 
         public bool IsRequiredCollection { get; }
 
+        /// <summary>
+        /// Indicates whether or not the association should be enforced (this allows a reference to be un-resolvable).
+        /// </summary>
         public bool PotentiallyLogical { get; }
 
         public Entity PrimaryEntity
