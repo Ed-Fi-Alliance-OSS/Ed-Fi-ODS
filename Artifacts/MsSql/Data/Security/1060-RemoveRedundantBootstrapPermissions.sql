@@ -54,12 +54,11 @@
     WHERE	rc.ClaimSetName = @claimSet_Name
 
     DELETE FROM dbo.ClaimSetResourceClaims 
-    WHERE  ClaimSetResourceClaimId IN (SELECT ClaimSetResourceClaimId
-    FROM   dbo.ClaimSetResourceClaims csrc
+    WHERE  ClaimSetResourceClaimId IN
+    (SELECT ClaimSetResourceClaimId  FROM  dbo.ClaimSetResourceClaims csrc
     WHERE  csrc.ClaimSet_ClaimSetId = @claimSet_Id
     AND csrc.Action_ActionId = @createActionId
     AND csrc.AuthorizationStrategyOverride_AuthorizationStrategyId = @authorizationStrategyId
     AND csrc.ResourceClaim_ResourceClaimId IN 
-    (SELECT  ResourceClaimId
-    FROM	dbo.ResourceClaims rc
+    (SELECT  ResourceClaimId FROM dbo.ResourceClaims rc
     WHERE	rc.ParentResourceClaimId = @educationOrganizationsResourceClaimId))

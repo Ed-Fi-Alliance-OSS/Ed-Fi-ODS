@@ -37,14 +37,12 @@
 
     DELETE FROM dbo.ClaimSetResourceClaims 
     WHERE ClaimSetResourceClaimId IN  
-    (SELECT ClaimSetResourceClaimId
-    FROM dbo.ClaimSetResourceClaims 
+    (SELECT ClaimSetResourceClaimId  FROM dbo.ClaimSetResourceClaims 
     WHERE ClaimSet_ClaimSetId = claimSet_Id
     AND Action_ActionId = createAction_Id
     AND AuthorizationStrategyOverride_AuthorizationStrategyId = authorizationStrategy_Id
     AND ResourceClaim_ResourceClaimId IN 
-    (SELECT  ResourceClaimId
-    FROM dbo.ResourceClaims 
+    (SELECT  ResourceClaimId  FROM dbo.ResourceClaims 
     WHERE ParentResourceClaimId = educationOrganizationsResourceClaimId));
 
     END $$;
