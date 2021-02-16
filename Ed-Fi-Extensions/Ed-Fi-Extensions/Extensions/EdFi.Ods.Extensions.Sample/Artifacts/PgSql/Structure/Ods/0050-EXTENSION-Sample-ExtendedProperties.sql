@@ -506,3 +506,18 @@ COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.SchoolId IS 'The iden
 COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.MembershipTypeDescriptorId IS 'Membership Type identifies whether a school has primary responsibility for managing a specific student''s curriculum or not.';
 
+-- Extended Properties [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02] --
+COMMENT ON TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 IS 'Programs which this student is participating in that is supported by this coursework.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedBeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SectionIdentifier IS 'The local identifier assigned to a section.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+

@@ -743,3 +743,22 @@ CREATE TABLE sample.StudentSchoolAssociationExtension (
 ); 
 ALTER TABLE sample.StudentSchoolAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 --
+CREATE TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 (
+    BeginDate DATE NOT NULL,
+    LocalCourseCode VARCHAR(60) NOT NULL,
+    RelatedBeginDate DATE NOT NULL,
+    RelatedEducationOrganizationId INT NOT NULL,
+    RelatedProgramEducationOrganizationId INT NOT NULL,
+    RelatedProgramName VARCHAR(60) NOT NULL,
+    RelatedProgramTypeDescriptorId INT NOT NULL,
+    SchoolId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    SectionIdentifier VARCHAR(255) NOT NULL,
+    SessionName VARCHAR(60) NOT NULL,
+    StudentUSI INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentSectionAssociationRelatedGeneralStudentProg_c72e02_PK PRIMARY KEY (BeginDate, LocalCourseCode, RelatedBeginDate, RelatedEducationOrganizationId, RelatedProgramEducationOrganizationId, RelatedProgramName, RelatedProgramTypeDescriptorId, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+); 
+ALTER TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+

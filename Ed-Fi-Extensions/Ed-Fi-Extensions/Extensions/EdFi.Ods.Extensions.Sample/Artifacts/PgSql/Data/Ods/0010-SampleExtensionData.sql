@@ -18,6 +18,13 @@ declare student604854SPAEducationOrganizationId int;
 declare student604854SPAProgramEducationOrganizationId int;
 declare student604854SPAProgramName varchar(60);
 declare student604854SPAProgramTypeDescriptorId int;
+declare student604854SSABeginDate date;
+declare student604854SSALocalCourseCode varchar(60);
+declare student604854SSASchoolId int;
+declare student604854SSASchoolYear smallint;
+declare student604854SSASectionIdentifier varchar(255);
+declare student604854SSASessionName varchar(60);
+declare student604854SSAStudentUSI int;
 declare staff207219EmploymentEducationOrganizationId int;
 declare staff207219EmploymentStatusDescriptorId int;
 declare staff207219EmploymentHireDate date;
@@ -57,7 +64,7 @@ select StudentUSI into student605614Usi from edfi.Student where StudentUniqueId 
 
 -- Sanity check to make sure some data exists, otherwise skip the script
 if grandBendElementarySchoolId is null or student604854Usi is null or student605614Usi is null then
-	return;
+    return;
 end if;
 
 -- Verify all required source data is available in the core namespace
@@ -72,10 +79,15 @@ select EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchool
 into graduationPlanEducationOrganizationId, graduationPlanGraduationTypeDescriptorId, graduationPlanGraduationSchoolYear
 from edfi.GraduationPlan
 where EducationOrganizationId = grandBendElementarySchoolId;
-	
+
 select BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId 
 into student604854SPABeginDate, student604854SPAEducationOrganizationId, student604854SPAProgramEducationOrganizationId, student604854SPAProgramName, student604854SPAProgramTypeDescriptorId
 from edfi.StudentProgramAssociation
+where StudentUSI = student604854Usi;
+
+select BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI 
+into student604854SSABeginDate, student604854SSALocalCourseCode, student604854SSASchoolId, student604854SSASchoolYear, student604854SSASectionIdentifier, student604854SSASessionName, student604854SSAStudentUSI
+from edfi.StudentSectionAssociation
 where StudentUSI = student604854Usi;
 
 select EducationOrganizationId, EmploymentStatusDescriptorId, HireDate, StaffUSI 
@@ -86,7 +98,7 @@ where StaffUSI = staff207219Usi;
 select BeginDate, EducationOrganizationId, StaffClassificationDescriptorId, StaffUSI 
 into staff207230AssignmentBeginDate, staff207230AssignmentEducationOrganizationId, staff207230AssignmentStaffClassificationDescriptorId, staff207230AssignmentStaffUsi
 from edfi.StaffEducationOrganizationAssignmentAssociation
-where StaffUSI = @staff207230Usi;
+where StaffUSI = staff207230Usi;
 
 select DescriptorId into academicSubjectDescriptorId
 from edfi.Descriptor d
@@ -235,7 +247,7 @@ WHERE NOT EXISTS
     AND ParentUSI = pae.ParentUSI
     AND PostalCode = pae.PostalCode
     AND pa.StateAbbreviationDescriptorId = pae.StateAbbreviationDescriptorId);
-	
+    
 INSERT INTO sample.ParentAddressSchoolDistrict
     (AddressTypeDescriptorId
     , City
@@ -391,7 +403,7 @@ INSERT INTO sample.Bus
     (BusId)
 VALUES
     ('602');
-	
+    
 INSERT INTO sample.StudentCTEProgramAssociationExtension
     (BeginDate
     , EducationOrganizationId
@@ -426,7 +438,7 @@ WHERE NOT EXISTS
     AND ProgramName = scteopae.ProgramName
     AND ProgramTypeDescriptorId = scteopae.ProgramTypeDescriptorId
     AND StudentUSI = scteopae.StudentUSI);
-	
+    
 -- Create sample data for new BusRoute domain entity
 
 INSERT INTO sample.BusRoute
@@ -849,7 +861,7 @@ INSERT INTO sample.StudentFavoriteBook
            (favoriteBookCategoryDescriptorId
            ,student604854Usi
            ,'The Mindset');
-		   
+           
 INSERT INTO sample.StudentFavoriteBookArtMedium
            (ArtMediumDescriptorId
            , FavoriteBookCategoryDescriptorId
@@ -860,5 +872,33 @@ INSERT INTO sample.StudentFavoriteBookArtMedium
            ,favoriteBookCategoryDescriptorId
            ,student604854Usi
            ,1);
+
+--- Add extension data to a particular StudentSectionAssociation
+-- INSERT INTO sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02
+           -- (BeginDate
+           -- , LocalCourseCode
+           -- , RelatedBeginDate
+           -- , RelatedEducationOrganizationId
+           -- , RelatedProgramEducationOrganizationId
+           -- , RelatedProgramName
+           -- , RelatedProgramTypeDescriptorId
+           -- , SchoolId
+           -- , SchoolYear
+           -- , SectionIdentifier
+           -- , SessionName
+           -- , StudentUSI)
+     -- VALUES
+           -- (student604854SSABeginDate
+           -- , student604854SSALocalCourseCode
+           -- , student604854SPABeginDate
+           -- , student604854SPAEducationOrganizationId
+           -- , student604854SPAProgramEducationOrganizationId
+           -- , student604854SPAProgramName
+           -- , student604854SPAProgramTypeDescriptorId
+           -- , student604854SSASchoolId
+           -- , student604854SSASchoolYear
+           -- , student604854SSASectionIdentifier
+           -- , student604854SSASessionName
+           -- , student604854SSAStudentUSI);
 
 end $$;

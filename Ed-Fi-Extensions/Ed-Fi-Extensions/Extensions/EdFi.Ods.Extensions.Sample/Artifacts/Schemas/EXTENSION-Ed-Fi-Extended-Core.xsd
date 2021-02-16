@@ -310,6 +310,14 @@
               <xs:documentation>Relates the parent to a generic person.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="HighestCompletedLevelOfEducation" type="LevelOfEducationDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>LevelOfEducationDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:restriction>
     </xs:complexContent>
@@ -700,12 +708,20 @@
           </xs:element>
           <xs:element name="StudentIndicator" type="StudentIndicator" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>Indicator(s) or metric(s) computed for the student (e.g., at risk) to influence more effective education or direct specific interventions.</xs:documentation>
+              <xs:documentation>An indicator or metric computed for the student (e.g., at risk).</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="LoginId" type="IdentificationCode" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The login ID for the user; used for security access control interface.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AncestryEthnicOrigin" type="AncestryEthnicOriginDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The original peoples or cultures with which the individual identifies.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>AncestryEthnicOriginDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -947,6 +963,25 @@
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-MembershipTypeDescriptor</ann:Descriptor>
               </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSectionAssociationExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StudentSectionAssociation">
+        <xs:sequence>
+          <xs:element name="RelatedGeneralStudentProgramAssociationReference" type="GeneralStudentProgramAssociationReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Programs which this student is participating in that is supported by this coursework.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>

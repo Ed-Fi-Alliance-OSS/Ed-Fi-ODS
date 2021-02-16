@@ -1138,3 +1138,37 @@ GO
 ALTER TABLE [sample].[StudentSchoolAssociationExtension] ADD CONSTRAINT [StudentSchoolAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] --
+CREATE TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] (
+    [BeginDate] [DATE] NOT NULL,
+    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
+    [RelatedBeginDate] [DATE] NOT NULL,
+    [RelatedEducationOrganizationId] [INT] NOT NULL,
+    [RelatedProgramEducationOrganizationId] [INT] NOT NULL,
+    [RelatedProgramName] [NVARCHAR](60) NOT NULL,
+    [RelatedProgramTypeDescriptorId] [INT] NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
+    [SessionName] [NVARCHAR](60) NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentSectionAssociationRelatedGeneralStudentProgramAssociation_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [LocalCourseCode] ASC,
+        [RelatedBeginDate] ASC,
+        [RelatedEducationOrganizationId] ASC,
+        [RelatedProgramEducationOrganizationId] ASC,
+        [RelatedProgramName] ASC,
+        [RelatedProgramTypeDescriptorId] ASC,
+        [SchoolId] ASC,
+        [SchoolYear] ASC,
+        [SectionIdentifier] ASC,
+        [SessionName] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] ADD CONSTRAINT [StudentSectionAssociationRelatedGeneralStudentProgramAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+

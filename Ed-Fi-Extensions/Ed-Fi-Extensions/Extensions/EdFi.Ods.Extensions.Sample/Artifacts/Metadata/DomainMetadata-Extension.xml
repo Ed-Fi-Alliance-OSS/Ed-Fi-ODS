@@ -77,4 +77,7 @@
     <Entity table="StudentParentAssociationStaffEducationOrganizationEmploymentAssociation" schema="sample"/>
     <Entity table="StudentParentAssociationTelephone" schema="sample"/>
   </AggregateExtension>
+  <AggregateExtension root="StudentSectionAssociation">
+    <Entity table="StudentSectionAssociationRelatedGeneralStudentProgramAssociation" schema="sample"/>
+  </AggregateExtension>
 </AggregateExtensions>

@@ -77,6 +77,23 @@ SELECT @student604854SPABeginDate = BeginDate,
     FROM edfi.StudentProgramAssociation
     WHERE StudentUSI = @student604854Usi
 
+DECLARE @student604854SSABeginDate DATE;
+DECLARE @student604854SSALocalCourseCode NVARCHAR(60);
+DECLARE @student604854SSASchoolId INT;
+DECLARE @student604854SSASchoolYear SMALLINT;
+DECLARE @student604854SSASectionIdentifier NVARCHAR(255);
+DECLARE @student604854SSASessionName NVARCHAR(60);
+DECLARE @student604854SSAStudentUSI INT;
+SELECT @student604854SSABeginDate = BeginDate,
+    @student604854SSALocalCourseCode = LocalCourseCode,
+    @student604854SSASchoolId = SchoolId,
+    @student604854SSASchoolYear = SchoolYear,
+    @student604854SSASectionIdentifier = SectionIdentifier,
+    @student604854SSASessionName = SessionName,
+    @student604854SSAStudentUSI = StudentUSI
+    FROM edfi.StudentSectionAssociation
+    WHERE StudentUSI = @student604854Usi
+
 DECLARE @staff207219EmploymentEducationOrganizationId INT;
 DECLARE @staff207219EmploymentStatusDescriptorId INT;
 DECLARE @staff207219EmploymentHireDate DATE;
@@ -182,9 +199,6 @@ SELECT @favoriteBookCategoryDescriptorId = DescriptorId
 INSERT INTO sample.FavoriteBookCategoryDescriptor VALUES (@favoriteBookCategoryDescriptorId)
 
 -- Create extension records to prevent dropped records due to extension requirements
-
-
-
 INSERT INTO sample.StaffExtension
     (StaffUSI
     , FirstPetOwnedDate)
@@ -260,7 +274,6 @@ WHERE NOT EXISTS
     AND ParentUSI = pae.ParentUSI
     AND PostalCode = pae.PostalCode
     AND StateAbbreviationDescriptorId = pae.StateAbbreviationDescriptorId)
-
 
 INSERT INTO sample.ParentAddressSchoolDistrict
     (AddressTypeDescriptorId
@@ -891,11 +904,30 @@ INSERT INTO sample.StudentFavoriteBookArtMedium
            ,@student604854Usi
            ,1)
 
-
-
-
-
-
-
-
-
+--- Add extension data to a particular StudentSectionAssociation
+-- INSERT INTO sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociation
+           -- (BeginDate
+           -- , LocalCourseCode
+           -- , RelatedBeginDate
+           -- , RelatedEducationOrganizationId
+           -- , RelatedProgramEducationOrganizationId
+           -- , RelatedProgramName
+           -- , RelatedProgramTypeDescriptorId
+           -- , SchoolId
+           -- , SchoolYear
+           -- , SectionIdentifier
+           -- , SessionName
+           -- , StudentUSI)
+     -- VALUES
+           -- (@student604854SSABeginDate
+           -- , @student604854SSALocalCourseCode
+           -- , @student604854SPABeginDate
+           -- , @student604854SPAEducationOrganizationId
+           -- , @student604854SPAProgramEducationOrganizationId
+           -- , @student604854SPAProgramName
+           -- , @student604854SPAProgramTypeDescriptorId
+           -- , @student604854SSASchoolId
+           -- , @student604854SSASchoolYear
+           -- , @student604854SSASectionIdentifier
+           -- , @student604854SSASessionName
+           -- , @student604854SSAStudentUSI)

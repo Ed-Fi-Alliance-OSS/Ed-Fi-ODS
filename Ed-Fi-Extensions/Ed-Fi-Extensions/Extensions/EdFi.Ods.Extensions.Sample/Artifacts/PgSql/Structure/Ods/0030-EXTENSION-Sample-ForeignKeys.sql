@@ -584,3 +584,19 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 ;
 
+ALTER TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 ADD CONSTRAINT FK_c72e02_GeneralStudentProgramAssociation FOREIGN KEY (RelatedBeginDate, RelatedEducationOrganizationId, RelatedProgramEducationOrganizationId, RelatedProgramName, RelatedProgramTypeDescriptorId, StudentUSI)
+REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+;
+
+CREATE INDEX FK_c72e02_GeneralStudentProgramAssociation
+ON sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 (RelatedBeginDate ASC, RelatedEducationOrganizationId ASC, RelatedProgramEducationOrganizationId ASC, RelatedProgramName ASC, RelatedProgramTypeDescriptorId ASC, StudentUSI ASC);
+
+ALTER TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 ADD CONSTRAINT FK_c72e02_StudentSectionAssociation FOREIGN KEY (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+REFERENCES edfi.StudentSectionAssociation (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+ON DELETE CASCADE
+ON UPDATE CASCADE
+;
+
+CREATE INDEX FK_c72e02_StudentSectionAssociation
+ON sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 (BeginDate ASC, LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC, StudentUSI ASC);
+

@@ -315,6 +315,18 @@
           "name": "StudentParentAssociationTelephone"
         }
       ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "edfi",
+        "name": "StudentSectionAssociation"
+      },
+      "extensionEntityNames": [
+        {
+          "schema": "sample",
+          "name": "StudentSectionAssociationRelatedGeneralStudentProgramAssociation"
+        }
+      ]
     }
   ],
   "entityDefinitions": [
@@ -5095,6 +5107,60 @@
         "sqlServer": "StudentSchoolAssociationExtension",
         "postgreSql": "StudentSchoolAssociationExtension"
       }
+    },
+    {
+      "schema": "sample",
+      "name": "StudentSectionAssociationRelatedGeneralStudentProgramAssociation",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentSectionAssociationRelatedGeneralStudentProgramAssociation_PK",
+          "identifyingPropertyNames": [
+            "BeginDate",
+            "LocalCourseCode",
+            "RelatedBeginDate",
+            "RelatedEducationOrganizationId",
+            "RelatedProgramEducationOrganizationId",
+            "RelatedProgramName",
+            "RelatedProgramTypeDescriptorId",
+            "SchoolId",
+            "SchoolYear",
+            "SectionIdentifier",
+            "SessionName",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentSectionAssociationRelatedGeneralStudentProgramAssociation_PK",
+            "postgreSql": "StudentSectionAssociationRelatedGeneralStudentProg_c72e02_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Programs which this student is participating in that is supported by this coursework.",
+      "tableNames": {
+        "sqlServer": "StudentSectionAssociationRelatedGeneralStudentProgramAssociation",
+        "postgreSql": "StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02"
+      }
     }
   ],
   "associationDefinitions": [
@@ -5152,6 +5218,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ArtMediumDescriptor_Descriptor",
         "postgreSql": "FK_a8902f_Descriptor"
@@ -5211,6 +5278,7 @@
       ],
       "isIdentifying": false,
       "isRequired": false,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_BusRoute_DisabilityDescriptor",
         "postgreSql": "FK_65385a_DisabilityDescriptor"
@@ -5372,6 +5440,7 @@
       ],
       "isIdentifying": false,
       "isRequired": false,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_BusRoute_StaffEducationOrganizationAssignmentAssociation",
         "postgreSql": "FK_65385a_StaffEducationOrganizationAssignmentAssociation"
@@ -5473,6 +5542,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_BusRouteBusYear_BusRoute",
         "postgreSql": "FK_61b709_BusRoute"
@@ -5574,6 +5644,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_BusRouteProgram_BusRoute",
         "postgreSql": "FK_bcf259_BusRoute"
@@ -5701,6 +5772,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_BusRouteProgram_Program",
         "postgreSql": "FK_bcf259_Program"
@@ -5802,6 +5874,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_BusRouteServiceAreaPostalCode_BusRoute",
         "postgreSql": "FK_71fc1e_BusRoute"
@@ -5903,6 +5976,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_BusRouteStartTime_BusRoute",
         "postgreSql": "FK_7c158e_BusRoute"
@@ -6004,6 +6078,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_BusRouteTelephone_BusRoute",
         "postgreSql": "FK_d9d35b_BusRoute"
@@ -6063,6 +6138,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_BusRouteTelephone_TelephoneNumberTypeDescriptor",
         "postgreSql": "FK_d9d35b_TelephoneNumberTypeDescriptor"
@@ -6122,6 +6198,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_FavoriteBookCategoryDescriptor_Descriptor",
         "postgreSql": "FK_42666e_Descriptor"
@@ -6181,6 +6258,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_MembershipTypeDescriptor_Descriptor",
         "postgreSql": "FK_2cdcc2_Descriptor"
@@ -6410,6 +6488,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentAddressExtension_ParentAddress",
         "postgreSql": "FK_6737b9_ParentAddress"
@@ -6639,6 +6718,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentAddressSchoolDistrict_ParentAddress",
         "postgreSql": "FK_11ca24_ParentAddress"
@@ -6868,6 +6948,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentAddressTerm_ParentAddress",
         "postgreSql": "FK_f63230_ParentAddress"
@@ -6927,6 +7008,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentAddressTerm_TermDescriptor",
         "postgreSql": "FK_f63230_TermDescriptor"
@@ -6986,6 +7068,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentAuthor_Parent",
         "postgreSql": "FK_1a4f1a_Parent"
@@ -7045,6 +7128,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentCeilingHeight_Parent",
         "postgreSql": "FK_a2d993_Parent"
@@ -7104,6 +7188,7 @@
       ],
       "isIdentifying": false,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentCTEProgram_CareerPathwayDescriptor",
         "postgreSql": "FK_98fa6d_CareerPathwayDescriptor"
@@ -7163,6 +7248,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentCTEProgram_Parent",
         "postgreSql": "FK_98fa6d_Parent"
@@ -7222,6 +7308,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentEducationContent_EducationContent",
         "postgreSql": "FK_542a1f_EducationContent"
@@ -7281,6 +7368,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentEducationContent_Parent",
         "postgreSql": "FK_542a1f_Parent"
@@ -7340,6 +7428,7 @@
       ],
       "isIdentifying": false,
       "isRequired": false,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentExtension_CredentialFieldDescriptor",
         "postgreSql": "FK_32099d_CredentialFieldDescriptor"
@@ -7458,6 +7547,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentFavoriteBookTitle_Parent",
         "postgreSql": "FK_4157e1_Parent"
@@ -7517,6 +7607,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentStudentProgramAssociation_Parent",
         "postgreSql": "FK_7e8704_Parent"
@@ -7746,6 +7837,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentStudentProgramAssociation_StudentProgramAssociation",
         "postgreSql": "FK_7e8704_StudentProgramAssociation"
@@ -7805,6 +7897,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentTeacherConference_Parent",
         "postgreSql": "FK_bdba2a_Parent"
@@ -7864,6 +7957,7 @@
       ],
       "isIdentifying": false,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_SchoolCTEProgram_CareerPathwayDescriptor",
         "postgreSql": "FK_7ba98a_CareerPathwayDescriptor"
@@ -7923,6 +8017,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_SchoolCTEProgram_School",
         "postgreSql": "FK_7ba98a_School"
@@ -7982,6 +8077,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_SchoolDirectlyOwnedBus_Bus",
         "postgreSql": "FK_4edefb_Bus"
@@ -8041,6 +8137,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_SchoolDirectlyOwnedBus_School",
         "postgreSql": "FK_4edefb_School"
@@ -8218,6 +8315,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StaffPet_Staff",
         "postgreSql": "FK_e40bbd_Staff"
@@ -8277,6 +8375,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StaffPetPreference_Staff",
         "postgreSql": "FK_c50bc3_Staff"
@@ -8336,6 +8435,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentAquaticPet_Student",
         "postgreSql": "FK_094617_Student"
@@ -8624,6 +8724,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentArtProgramAssociationArtMedium_ArtMediumDescriptor",
         "postgreSql": "FK_f6ca63_ArtMediumDescriptor"
@@ -8853,6 +8954,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentArtProgramAssociationArtMedium_StudentArtProgramAssociation",
         "postgreSql": "FK_f6ca63_StudentArtProgramAssociation"
@@ -9082,6 +9184,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentArtProgramAssociationPortfolioYears_StudentArtProgramAssociation",
         "postgreSql": "FK_cb082b_StudentArtProgramAssociation"
@@ -9141,6 +9244,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentArtProgramAssociationService_ServiceDescriptor",
         "postgreSql": "FK_8141ae_ServiceDescriptor"
@@ -9370,6 +9474,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentArtProgramAssociationService_StudentArtProgramAssociation",
         "postgreSql": "FK_8141ae_StudentArtProgramAssociation"
@@ -9599,6 +9704,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentArtProgramAssociationStyle_StudentArtProgramAssociation",
         "postgreSql": "FK_258568_StudentArtProgramAssociation"
@@ -10091,6 +10197,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentEducationOrganizationAssociationAddressExtension_StudentEducationOrganizationAssociationAddress",
         "postgreSql": "FK_c905b3_StudentEducationOrganizationAssociationAddress"
@@ -10354,6 +10461,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentEducationOrganizationAssociationAddressSchoolDistrict_StudentEducationOrganizationAssociationAddress",
         "postgreSql": "FK_450d64_StudentEducationOrganizationAssociationAddress"
@@ -10617,6 +10725,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentEducationOrganizationAssociationAddressTerm_StudentEducationOrganizationAssociationAddress",
         "postgreSql": "FK_98438b_StudentEducationOrganizationAssociationAddress"
@@ -10676,6 +10785,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentEducationOrganizationAssociationAddressTerm_TermDescriptor",
         "postgreSql": "FK_98438b_TermDescriptor"
@@ -10803,6 +10913,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed_StudentEducationOrganizationAssociationStudentCharact",
         "postgreSql": "FK_17d152_StudentEducationOrganizationAssociationStudentCharacteristic"
@@ -10862,6 +10973,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentFavoriteBook_FavoriteBookCategoryDescriptor",
         "postgreSql": "FK_172e5d_FavoriteBookCategoryDescriptor"
@@ -10921,6 +11033,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentFavoriteBook_Student",
         "postgreSql": "FK_172e5d_Student"
@@ -10980,6 +11093,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentFavoriteBookArtMedium_ArtMediumDescriptor",
         "postgreSql": "FK_458888_ArtMediumDescriptor"
@@ -11073,6 +11187,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentFavoriteBookArtMedium_StudentFavoriteBook",
         "postgreSql": "FK_458888_StudentFavoriteBook"
@@ -11200,6 +11315,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociation_GraduationPlan",
         "postgreSql": "FK_5fe843_GraduationPlan"
@@ -11259,6 +11375,7 @@
       ],
       "isIdentifying": false,
       "isRequired": false,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociation_Staff",
         "postgreSql": "FK_5fe843_Staff"
@@ -11318,6 +11435,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociation_Student",
         "postgreSql": "FK_5fe843_Student"
@@ -11377,6 +11495,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationAcademicSubject_AcademicSubjectDescriptor",
         "postgreSql": "FK_7ec6d6_AcademicSubjectDescriptor"
@@ -11538,6 +11657,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationAcademicSubject_StudentGraduationPlanAssociation",
         "postgreSql": "FK_7ec6d6_StudentGraduationPlanAssociation"
@@ -11699,6 +11819,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationCareerPathwayCode_StudentGraduationPlanAssociation",
         "postgreSql": "FK_be4497_StudentGraduationPlanAssociation"
@@ -11758,6 +11879,7 @@
       ],
       "isIdentifying": false,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationCTEProgram_CareerPathwayDescriptor",
         "postgreSql": "FK_4d6493_CareerPathwayDescriptor"
@@ -11919,6 +12041,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationCTEProgram_StudentGraduationPlanAssociation",
         "postgreSql": "FK_4d6493_StudentGraduationPlanAssociation"
@@ -12080,6 +12203,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationDescription_StudentGraduationPlanAssociation",
         "postgreSql": "FK_bd1aca_StudentGraduationPlanAssociation"
@@ -12241,6 +12365,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationDesignatedBy_StudentGraduationPlanAssociation",
         "postgreSql": "FK_a608d1_StudentGraduationPlanAssociation"
@@ -12402,6 +12527,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationIndustryCredential_StudentGraduationPlanAssociation",
         "postgreSql": "FK_40e7ea_StudentGraduationPlanAssociation"
@@ -12563,6 +12689,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationStudentParentAssociation_StudentGraduationPlanAssociation",
         "postgreSql": "FK_b25b8d_StudentGraduationPlanAssociation"
@@ -12656,6 +12783,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationStudentParentAssociation_StudentParentAssociation",
         "postgreSql": "FK_b25b8d_StudentParentAssociation"
@@ -12817,6 +12945,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentGraduationPlanAssociationYearsAttended_StudentGraduationPlanAssociation",
         "postgreSql": "FK_0cf4e1_StudentGraduationPlanAssociation"
@@ -12876,6 +13005,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationDiscipline_DisciplineDescriptor",
         "postgreSql": "FK_99264f_DisciplineDescriptor"
@@ -12969,6 +13099,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationDiscipline_StudentParentAssociation",
         "postgreSql": "FK_99264f_StudentParentAssociation"
@@ -13062,6 +13193,7 @@
       ],
       "isIdentifying": false,
       "isRequired": false,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationExtension_InterventionStudy",
         "postgreSql": "FK_676aa0_InterventionStudy"
@@ -13248,6 +13380,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationFavoriteBookTitle_StudentParentAssociation",
         "postgreSql": "FK_ff02b3_StudentParentAssociation"
@@ -13341,6 +13474,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationHoursPerWeek_StudentParentAssociation",
         "postgreSql": "FK_fd1358_StudentParentAssociation"
@@ -13434,6 +13568,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationPagesRead_StudentParentAssociation",
         "postgreSql": "FK_9f4924_StudentParentAssociation"
@@ -13595,6 +13730,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_StaffEducationOrganizationEmploymentAssociation",
         "postgreSql": "FK_c4af0c_StaffEducationOrganizationEmploymentAssociation"
@@ -13688,6 +13824,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationStaffEducationOrganizationEmploymentAssociation_StudentParentAssociation",
         "postgreSql": "FK_c4af0c_StudentParentAssociation"
@@ -13781,6 +13918,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationTelephone_StudentParentAssociation",
         "postgreSql": "FK_dbd162_StudentParentAssociation"
@@ -13840,6 +13978,7 @@
       ],
       "isIdentifying": false,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentParentAssociationTelephone_TelephoneNumberTypeDescriptor",
         "postgreSql": "FK_dbd162_TelephoneNumberTypeDescriptor"
@@ -13899,6 +14038,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentPet_Student",
         "postgreSql": "FK_21f4e6_Student"
@@ -13958,6 +14098,7 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentPetPreference_Student",
         "postgreSql": "FK_cf8624_Student"
@@ -14017,6 +14158,7 @@
       ],
       "isIdentifying": false,
       "isRequired": false,
+      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentSchoolAssociationExtension_MembershipTypeDescriptor",
         "postgreSql": "FK_880cb1_MembershipTypeDescriptor"
@@ -14147,6 +14289,500 @@
       "constraintNames": {
         "sqlServer": "FK_StudentSchoolAssociationExtension_StudentSchoolAssociation",
         "postgreSql": "FK_880cb1_StudentSchoolAssociation"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentSectionAssociationRelatedGeneralStudentProgramAssociation_GeneralStudentProgramAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "GeneralStudentProgramAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramEducationOrganizationId",
+            "postgreSql": "ProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentSectionAssociationRelatedGeneralStudentProgramAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "RelatedBeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RelatedBeginDate",
+            "postgreSql": "RelatedBeginDate"
+          }
+        },
+        {
+          "propertyName": "RelatedEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RelatedEducationOrganizationId",
+            "postgreSql": "RelatedEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "RelatedProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RelatedProgramEducationOrganizationId",
+            "postgreSql": "RelatedProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "RelatedProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RelatedProgramName",
+            "postgreSql": "RelatedProgramName"
+          }
+        },
+        {
+          "propertyName": "RelatedProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RelatedProgramTypeDescriptorId",
+            "postgreSql": "RelatedProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "potentiallyLogical": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSectionAssociationRelatedGeneralStudentProgramAssociation_GeneralStudentProgramAssociation",
+        "postgreSql": "FK_c72e02_GeneralStudentProgramAssociation"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "sample",
+        "name": "FK_StudentSectionAssociationRelatedGeneralStudentProgramAssociation_StudentSectionAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentSectionAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Month, day, and year of the Student's entry or assignment to the Section.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "LocalCourseCode",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The local code assigned by the School that identifies the course offering provided for the instruction of students.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalCourseCode",
+            "postgreSql": "LocalCourseCode"
+          }
+        },
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "SectionIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The local identifier assigned to a section.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SectionIdentifier",
+            "postgreSql": "SectionIdentifier"
+          }
+        },
+        {
+          "propertyName": "SessionName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SessionName",
+            "postgreSql": "SessionName"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "sample",
+        "name": "StudentSectionAssociationRelatedGeneralStudentProgramAssociation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Month, day, and year of the Student's entry or assignment to the Section.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "LocalCourseCode",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The local code assigned by the School that identifies the course offering provided for the instruction of students.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalCourseCode",
+            "postgreSql": "LocalCourseCode"
+          }
+        },
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "SectionIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The local identifier assigned to a section.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SectionIdentifier",
+            "postgreSql": "SectionIdentifier"
+          }
+        },
+        {
+          "propertyName": "SessionName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SessionName",
+            "postgreSql": "SessionName"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "potentiallyLogical": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSectionAssociationRelatedGeneralStudentProgramAssociation_StudentSectionAssociation",
+        "postgreSql": "FK_c72e02_StudentSectionAssociation"
       }
     }
   ]

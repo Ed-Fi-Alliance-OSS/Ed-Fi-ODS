@@ -648,3 +648,21 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 GO
 
+ALTER TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentSectionAssociationRelatedGeneralStudentProgramAssociation_GeneralStudentProgramAssociation] FOREIGN KEY ([RelatedBeginDate], [RelatedEducationOrganizationId], [RelatedProgramEducationOrganizationId], [RelatedProgramName], [RelatedProgramTypeDescriptorId], [StudentUSI])
+REFERENCES [edfi].[GeneralStudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSectionAssociationRelatedGeneralStudentProgramAssociation_GeneralStudentProgramAssociation]
+ON [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] ([RelatedBeginDate] ASC, [RelatedEducationOrganizationId] ASC, [RelatedProgramEducationOrganizationId] ASC, [RelatedProgramName] ASC, [RelatedProgramTypeDescriptorId] ASC, [StudentUSI] ASC)
+GO
+
+ALTER TABLE [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentSectionAssociationRelatedGeneralStudentProgramAssociation_StudentSectionAssociation] FOREIGN KEY ([BeginDate], [LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StudentUSI])
+REFERENCES [edfi].[StudentSectionAssociation] ([BeginDate], [LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StudentUSI])
+ON DELETE CASCADE
+ON UPDATE CASCADE
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSectionAssociationRelatedGeneralStudentProgramAssociation_StudentSectionAssociation]
+ON [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] ([BeginDate] ASC, [LocalCourseCode] ASC, [SchoolId] ASC, [SchoolYear] ASC, [SectionIdentifier] ASC, [SessionName] ASC, [StudentUSI] ASC)
+GO
+

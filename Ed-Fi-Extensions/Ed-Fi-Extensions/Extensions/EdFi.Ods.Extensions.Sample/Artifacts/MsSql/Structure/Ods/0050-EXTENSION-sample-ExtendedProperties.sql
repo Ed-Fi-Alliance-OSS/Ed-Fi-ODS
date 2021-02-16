@@ -885,3 +885,31 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Membership Type identifies whether a school has primary responsibility for managing a specific student''s curriculum or not.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSchoolAssociationExtension', @level2type=N'COLUMN', @level2name=N'MembershipTypeDescriptorId'
 GO
 
+-- Extended Properties [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAssociation] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Programs which this student is participating in that is supported by this coursework.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Month, day, and year of the Student''s entry or assignment to the Section.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'RelatedBeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'RelatedEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'RelatedProgramEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'RelatedProgramName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'RelatedProgramTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'SchoolId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local identifier assigned to a section.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'SectionIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'SessionName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'sample', @level1type=N'TABLE', @level1name=N'StudentSectionAssociationRelatedGeneralStudentProgramAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+
