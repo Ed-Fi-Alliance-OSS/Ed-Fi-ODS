@@ -134,6 +134,14 @@ CREATE TABLE tracked_deletes_edfi.AdministrativeFundingControlDescriptor
        CONSTRAINT AdministrativeFundingControlDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_edfi.AncestryEthnicOriginDescriptor
+(
+       AncestryEthnicOriginDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT AncestryEthnicOriginDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_edfi.Assessment
 (
        AssessmentIdentifier VARCHAR(60) NOT NULL,
@@ -2089,6 +2097,27 @@ CREATE TABLE tracked_deletes_edfi.StudentDisciplineIncidentAssociation
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT StudentDisciplineIncidentAssociation_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_edfi.StudentDisciplineIncidentBehaviorAssociation
+(
+       BehaviorDescriptorId INT NOT NULL,
+       IncidentIdentifier VARCHAR(20) NOT NULL,
+       SchoolId INT NOT NULL,
+       StudentUSI INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StudentDisciplineIncidentBehaviorAssociation_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_edfi.StudentDisciplineIncidentNonOffenderAssociation
+(
+       IncidentIdentifier VARCHAR(20) NOT NULL,
+       SchoolId INT NOT NULL,
+       StudentUSI INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StudentDisciplineIncidentNonOffenderAssociation_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_edfi.StudentEducationOrganizationAssociation

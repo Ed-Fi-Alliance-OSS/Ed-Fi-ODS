@@ -16,6 +16,7 @@
 <node id="/ed-fi/addressTypeDescriptors"/>
 <node id="/ed-fi/administrationEnvironmentDescriptors"/>
 <node id="/ed-fi/administrativeFundingControlDescriptors"/>
+<node id="/ed-fi/ancestryEthnicOriginDescriptors"/>
 <node id="/ed-fi/assessmentCategoryDescriptors"/>
 <node id="/ed-fi/assessmentIdentificationSystemDescriptors"/>
 <node id="/ed-fi/assessmentItemCategoryDescriptors"/>
@@ -237,6 +238,8 @@
 <node id="/ed-fi/studentCompetencyObjectives"/>
 <node id="/ed-fi/studentCTEProgramAssociations"/>
 <node id="/ed-fi/studentDisciplineIncidentAssociations"/>
+<node id="/ed-fi/studentDisciplineIncidentBehaviorAssociations"/>
+<node id="/ed-fi/studentDisciplineIncidentNonOffenderAssociations"/>
 <node id="/ed-fi/studentEducationOrganizationAssociations"/>
 <node id="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <node id="/ed-fi/studentGradebookEntries"/>
@@ -325,6 +328,7 @@
 <edge source="/ed-fi/administrationEnvironmentDescriptors" target="/ed-fi/studentAssessments"/>
 <edge source="/ed-fi/administrativeFundingControlDescriptors" target="/ed-fi/postSecondaryInstitutions"/>
 <edge source="/ed-fi/administrativeFundingControlDescriptors" target="/ed-fi/schools"/>
+<edge source="/ed-fi/ancestryEthnicOriginDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/assessmentCategoryDescriptors" target="/ed-fi/assessments"/>
 <edge source="/ed-fi/assessmentIdentificationSystemDescriptors" target="/ed-fi/assessments"/>
 <edge source="/ed-fi/assessmentItemCategoryDescriptors" target="/ed-fi/assessmentItems"/>
@@ -347,6 +351,7 @@
 <edge source="/ed-fi/attendanceEventCategoryDescriptors" target="/ed-fi/studentSectionAttendanceEvents"/>
 <edge source="/ed-fi/behaviorDescriptors" target="/ed-fi/disciplineIncidents"/>
 <edge source="/ed-fi/behaviorDescriptors" target="/ed-fi/studentDisciplineIncidentAssociations"/>
+<edge source="/ed-fi/behaviorDescriptors" target="/ed-fi/studentDisciplineIncidentBehaviorAssociations"/>
 <edge source="/ed-fi/calendarDates" target="/ed-fi/sectionAttendanceTakenEvents"/>
 <edge source="/ed-fi/calendarEventDescriptors" target="/ed-fi/calendarDates"/>
 <edge source="/ed-fi/calendars" target="/ed-fi/calendarDates"/>
@@ -517,8 +522,12 @@
 <edge source="/ed-fi/disciplineDescriptors" target="/ed-fi/disciplineActions"/>
 <edge source="/ed-fi/disciplineIncidentParticipationCodeDescriptors" target="/ed-fi/disciplineIncidents"/>
 <edge source="/ed-fi/disciplineIncidentParticipationCodeDescriptors" target="/ed-fi/staffDisciplineIncidentAssociations"/>
+<edge source="/ed-fi/disciplineIncidentParticipationCodeDescriptors" target="/ed-fi/studentDisciplineIncidentBehaviorAssociations"/>
+<edge source="/ed-fi/disciplineIncidentParticipationCodeDescriptors" target="/ed-fi/studentDisciplineIncidentNonOffenderAssociations"/>
 <edge source="/ed-fi/disciplineIncidents" target="/ed-fi/staffDisciplineIncidentAssociations"/>
 <edge source="/ed-fi/disciplineIncidents" target="/ed-fi/studentDisciplineIncidentAssociations"/>
+<edge source="/ed-fi/disciplineIncidents" target="/ed-fi/studentDisciplineIncidentBehaviorAssociations"/>
+<edge source="/ed-fi/disciplineIncidents" target="/ed-fi/studentDisciplineIncidentNonOffenderAssociations"/>
 <edge source="/ed-fi/educationalEnvironmentDescriptors" target="/ed-fi/restraintEvents"/>
 <edge source="/ed-fi/educationalEnvironmentDescriptors" target="/ed-fi/sections"/>
 <edge source="/ed-fi/educationalEnvironmentDescriptors" target="/ed-fi/studentInterventionAttendanceEvents"/>
@@ -749,6 +758,7 @@
 <edge source="/ed-fi/learningStandards" target="/ed-fi/objectiveAssessments"/>
 <edge source="/ed-fi/learningStandards" target="/ed-fi/programs"/>
 <edge source="/ed-fi/learningStandardScopeDescriptors" target="/ed-fi/learningStandards"/>
+<edge source="/ed-fi/levelOfEducationDescriptors" target="/ed-fi/parents"/>
 <edge source="/ed-fi/levelOfEducationDescriptors" target="/ed-fi/staffs"/>
 <edge source="/ed-fi/licenseStatusDescriptors" target="/ed-fi/communityProviderLicenses"/>
 <edge source="/ed-fi/licenseTypeDescriptors" target="/ed-fi/communityProviderLicenses"/>
@@ -1155,6 +1165,7 @@
 <edge source="/ed-fi/studentCTEProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
 <edge source="/ed-fi/studentCTEProgramAssociations" target="/ed-fi/studentLearningObjectives"/>
 <edge source="/ed-fi/studentDisciplineIncidentAssociations" target="/ed-fi/disciplineActions"/>
+<edge source="/ed-fi/studentDisciplineIncidentBehaviorAssociations" target="/ed-fi/disciplineActions"/>
 <edge source="/ed-fi/studentHomelessProgramAssociations" target="/ed-fi/studentCompetencyObjectives"/>
 <edge source="/ed-fi/studentHomelessProgramAssociations" target="/ed-fi/studentLearningObjectives"/>
 <edge source="/ed-fi/studentIdentificationSystemDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
@@ -1180,6 +1191,8 @@
 <edge source="/ed-fi/studentSchoolAssociations" target="/ed-fi/studentCompetencyObjectives"/>
 <edge source="/ed-fi/studentSchoolAssociations" target="/ed-fi/studentCTEProgramAssociations"/>
 <edge source="/ed-fi/studentSchoolAssociations" target="/ed-fi/studentDisciplineIncidentAssociations"/>
+<edge source="/ed-fi/studentSchoolAssociations" target="/ed-fi/studentDisciplineIncidentBehaviorAssociations"/>
+<edge source="/ed-fi/studentSchoolAssociations" target="/ed-fi/studentDisciplineIncidentNonOffenderAssociations"/>
 <edge source="/ed-fi/studentSchoolAssociations" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/studentSchoolAssociations" target="/ed-fi/studentEducationOrganizationResponsibilityAssociations"/>
 <edge source="/ed-fi/studentSchoolAssociations" target="/ed-fi/studentHomelessProgramAssociations"/>

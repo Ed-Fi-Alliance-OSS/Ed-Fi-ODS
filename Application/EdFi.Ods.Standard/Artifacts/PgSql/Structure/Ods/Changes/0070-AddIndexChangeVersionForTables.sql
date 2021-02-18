@@ -145,6 +145,10 @@ CREATE INDEX IF NOT EXISTS UX_395c07_ChangeVersion ON edfi.StudentCompetencyObje
 
 CREATE INDEX IF NOT EXISTS UX_679174_ChangeVersion ON edfi.StudentDisciplineIncidentAssociation(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_f4934f_ChangeVersion ON edfi.StudentDisciplineIncidentBehaviorAssociation(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_4b43da_ChangeVersion ON edfi.StudentDisciplineIncidentNonOffenderAssociation(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_8e1257_ChangeVersion ON edfi.StudentEducationOrganizationAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_42aa64_ChangeVersion ON edfi.StudentEducationOrganizationResponsibilityAssociation(ChangeVersion);

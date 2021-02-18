@@ -145,6 +145,10 @@ ALTER TABLE [edfi].[StudentCompetencyObjective] ADD [ChangeVersion] [BIGINT] DEF
 
 ALTER TABLE [edfi].[StudentDisciplineIncidentAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
+ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 ALTER TABLE [edfi].[StudentEducationOrganizationResponsibilityAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;

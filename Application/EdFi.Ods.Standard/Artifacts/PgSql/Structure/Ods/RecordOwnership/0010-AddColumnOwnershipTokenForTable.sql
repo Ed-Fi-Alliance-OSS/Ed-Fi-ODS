@@ -37,6 +37,10 @@ ALTER TABLE edfi.StudentCohortAssociation ADD CreatedByOwnershipTokenId SMALLINT
 
 ALTER TABLE edfi.StudentDisciplineIncidentAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE edfi.StudentEducationOrganizationResponsibilityAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;

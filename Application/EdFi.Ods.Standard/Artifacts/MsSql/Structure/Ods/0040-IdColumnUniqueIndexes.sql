@@ -501,6 +501,20 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentDisciplineIncidentBehaviorAssociation') AND name = N'UX_StudentDisciplineIncidentBehaviorAssociation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentDisciplineIncidentBehaviorAssociation_Id ON [edfi].[StudentDisciplineIncidentBehaviorAssociation]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentDisciplineIncidentNonOffenderAssociation') AND name = N'UX_StudentDisciplineIncidentNonOffenderAssociation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_StudentDisciplineIncidentNonOffenderAssociation_Id ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.StudentEducationOrganizationAssociation') AND name = N'UX_StudentEducationOrganizationAssociation_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_StudentEducationOrganizationAssociation_Id ON [edfi].[StudentEducationOrganizationAssociation]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]

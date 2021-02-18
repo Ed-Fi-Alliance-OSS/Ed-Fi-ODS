@@ -268,6 +268,24 @@ ALTER TABLE [edfi].[AdministrativeFundingControlDescriptor] ENABLE TRIGGER [edfi
 GO
 
 
+CREATE TRIGGER [edfi].[edfi_AncestryEthnicOriginDescriptor_TR_DeleteTracking] ON [edfi].[AncestryEthnicOriginDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[AncestryEthnicOriginDescriptor](AncestryEthnicOriginDescriptorId, Id, ChangeVersion)
+    SELECT  d.AncestryEthnicOriginDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.AncestryEthnicOriginDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[AncestryEthnicOriginDescriptor] ENABLE TRIGGER [edfi_AncestryEthnicOriginDescriptor_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [edfi].[edfi_AssessmentCategoryDescriptor_TR_DeleteTracking] ON [edfi].[AssessmentCategoryDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -4233,6 +4251,40 @@ END
 GO
 
 ALTER TABLE [edfi].[StudentDisciplineIncidentAssociation] ENABLE TRIGGER [edfi_StudentDisciplineIncidentAssociation_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [edfi].[edfi_StudentDisciplineIncidentBehaviorAssociation_TR_DeleteTracking] ON [edfi].[StudentDisciplineIncidentBehaviorAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[StudentDisciplineIncidentBehaviorAssociation](BehaviorDescriptorId, IncidentIdentifier, SchoolId, StudentUSI, Id, ChangeVersion)
+    SELECT  BehaviorDescriptorId, IncidentIdentifier, SchoolId, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[StudentDisciplineIncidentBehaviorAssociation] ENABLE TRIGGER [edfi_StudentDisciplineIncidentBehaviorAssociation_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [edfi].[edfi_StudentDisciplineIncidentNonOffenderAssociation_TR_DeleteTracking] ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[StudentDisciplineIncidentNonOffenderAssociation](IncidentIdentifier, SchoolId, StudentUSI, Id, ChangeVersion)
+    SELECT  IncidentIdentifier, SchoolId, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[StudentDisciplineIncidentNonOffenderAssociation] ENABLE TRIGGER [edfi_StudentDisciplineIncidentNonOffenderAssociation_TR_DeleteTracking]
 GO
 
 

@@ -134,6 +134,14 @@ CREATE TABLE [tracked_deletes_edfi].[AdministrativeFundingControlDescriptor]
        CONSTRAINT PK_AdministrativeFundingControlDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
+CREATE TABLE [tracked_deletes_edfi].[AncestryEthnicOriginDescriptor]
+(
+       AncestryEthnicOriginDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_AncestryEthnicOriginDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
 CREATE TABLE [tracked_deletes_edfi].[Assessment]
 (
        AssessmentIdentifier [NVARCHAR](60) NOT NULL,
@@ -2089,6 +2097,27 @@ CREATE TABLE [tracked_deletes_edfi].[StudentDisciplineIncidentAssociation]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StudentDisciplineIncidentAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_edfi].[StudentDisciplineIncidentBehaviorAssociation]
+(
+       BehaviorDescriptorId [INT] NOT NULL,
+       IncidentIdentifier [NVARCHAR](20) NOT NULL,
+       SchoolId [INT] NOT NULL,
+       StudentUSI [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_StudentDisciplineIncidentBehaviorAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_edfi].[StudentDisciplineIncidentNonOffenderAssociation]
+(
+       IncidentIdentifier [NVARCHAR](20) NOT NULL,
+       SchoolId [INT] NOT NULL,
+       StudentUSI [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_StudentDisciplineIncidentNonOffenderAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_edfi].[StudentEducationOrganizationAssociation]

@@ -187,6 +187,9 @@ INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [Pare
 VALUES (N'administrativeFundingControlDescriptor', N'administrativeFundingControlDescriptor', N'http://ed-fi.org/ods/identity/claims/administrativeFundingControlDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'ancestryEthnicOriginDescriptor', N'ancestryEthnicOriginDescriptor', N'http://ed-fi.org/ods/identity/claims/ancestryEthnicOriginDescriptor', @systemDescriptorsResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'assessment', N'assessment', N'http://ed-fi.org/ods/identity/claims/assessment', @assessmentMetadataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
@@ -854,6 +857,12 @@ VALUES (N'studentCTEProgramAssociation', N'studentCTEProgramAssociation', N'http
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'studentDisciplineIncidentAssociation', N'studentDisciplineIncidentAssociation', N'http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentAssociation', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'studentDisciplineIncidentBehaviorAssociation', N'studentDisciplineIncidentBehaviorAssociation', N'http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentBehaviorAssociation', @relationshipBasedDataResourceClaimId, @applicationId);
+
+INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
+VALUES (N'studentDisciplineIncidentNonOffenderAssociation', N'studentDisciplineIncidentNonOffenderAssociation', N'http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentNonOffenderAssociation', @relationshipBasedDataResourceClaimId, @applicationId);
 
 INSERT [dbo].[ResourceClaims] ([DisplayName], [ResourceName], [ClaimName], [ParentResourceClaimId], [Application_ApplicationId])
 VALUES (N'studentEducationOrganizationAssociation', N'studentEducationOrganizationAssociation', N'http://ed-fi.org/ods/identity/claims/studentEducationOrganizationAssociation', @relationshipBasedDataResourceClaimId, @applicationId);

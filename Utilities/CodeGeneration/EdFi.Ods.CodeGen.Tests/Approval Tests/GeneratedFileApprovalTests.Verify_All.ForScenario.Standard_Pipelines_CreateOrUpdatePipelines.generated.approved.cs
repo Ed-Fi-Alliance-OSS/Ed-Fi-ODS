@@ -95,6 +95,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class AncestryEthnicOriginDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AncestryEthnicOriginDescriptor.EdFi.AncestryEthnicOriginDescriptor, Entities.NHibernate.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptor>
+    {
+        public AncestryEthnicOriginDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class AssessmentCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.Assessment.EdFi.Assessment, Entities.NHibernate.AssessmentAggregate.EdFi.Assessment>
     {
         public AssessmentCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1430,6 +1436,18 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class StudentDisciplineIncidentAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentDisciplineIncidentAssociation.EdFi.StudentDisciplineIncidentAssociation, Entities.NHibernate.StudentDisciplineIncidentAssociationAggregate.EdFi.StudentDisciplineIncidentAssociation>
     {
         public StudentDisciplineIncidentAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentBehaviorAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentDisciplineIncidentBehaviorAssociation.EdFi.StudentDisciplineIncidentBehaviorAssociation, Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociation>
+    {
+        public StudentDisciplineIncidentBehaviorAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentNonOffenderAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentDisciplineIncidentNonOffenderAssociation.EdFi.StudentDisciplineIncidentNonOffenderAssociation, Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociation>
+    {
+        public StudentDisciplineIncidentNonOffenderAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

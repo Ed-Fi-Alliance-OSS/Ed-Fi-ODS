@@ -713,6 +713,26 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [edfi].[edfi_StudentDisciplineIncidentBehaviorAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentDisciplineIncidentBehaviorAssociation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[StudentDisciplineIncidentBehaviorAssociation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[StudentDisciplineIncidentBehaviorAssociation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [edfi].[edfi_StudentDisciplineIncidentNonOffenderAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentDisciplineIncidentNonOffenderAssociation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [edfi].[StudentDisciplineIncidentNonOffenderAssociation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [edfi].[StudentDisciplineIncidentNonOffenderAssociation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [edfi].[edfi_StudentEducationOrganizationAssociation_TR_UpdateChangeVersion] ON [edfi].[StudentEducationOrganizationAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;

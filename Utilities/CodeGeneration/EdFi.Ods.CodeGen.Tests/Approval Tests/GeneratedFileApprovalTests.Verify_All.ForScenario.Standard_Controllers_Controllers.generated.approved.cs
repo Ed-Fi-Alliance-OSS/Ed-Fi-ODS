@@ -507,6 +507,37 @@ namespace EdFi.Ods.Api.Services.Controllers.AdministrativeFundingControlDescript
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.AncestryEthnicOriginDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/ancestryEthnicOriginDescriptors")]
+    public partial class AncestryEthnicOriginDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.AncestryEthnicOriginDescriptor.EdFi.AncestryEthnicOriginDescriptor,
+        Api.Common.Models.Resources.AncestryEthnicOriginDescriptor.EdFi.AncestryEthnicOriginDescriptor,
+        Entities.Common.EdFi.IAncestryEthnicOriginDescriptor,
+        Entities.NHibernate.AncestryEthnicOriginDescriptorAggregate.EdFi.AncestryEthnicOriginDescriptor,
+        Api.Common.Models.Requests.AncestryEthnicOriginDescriptors.EdFi.AncestryEthnicOriginDescriptorPut,
+        Api.Common.Models.Requests.AncestryEthnicOriginDescriptors.EdFi.AncestryEthnicOriginDescriptorPost,
+        Api.Common.Models.Requests.AncestryEthnicOriginDescriptors.EdFi.AncestryEthnicOriginDescriptorDelete,
+        Api.Common.Models.Requests.AncestryEthnicOriginDescriptors.EdFi.AncestryEthnicOriginDescriptorGetByExample>
+    {
+        public AncestryEthnicOriginDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.AncestryEthnicOriginDescriptors.EdFi.AncestryEthnicOriginDescriptorGetByExample request, Entities.Common.EdFi.IAncestryEthnicOriginDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AncestryEthnicOriginDescriptorId = request.AncestryEthnicOriginDescriptorId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.Assessments.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -5155,6 +5186,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Parents.EdFi
             specification.SuspendReferenceAssignmentCheck();
             specification.FirstName = request.FirstName;
             specification.GenerationCodeSuffix = request.GenerationCodeSuffix;
+            specification.HighestCompletedLevelOfEducationDescriptor = request.HighestCompletedLevelOfEducationDescriptor;
             specification.Id = request.Id;
             specification.LastSurname = request.LastSurname;
             specification.LoginId = request.LoginId;
@@ -7997,6 +8029,76 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentAssociation
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentBehaviorAssociations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/studentDisciplineIncidentBehaviorAssociations")]
+    public partial class StudentDisciplineIncidentBehaviorAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentDisciplineIncidentBehaviorAssociation.EdFi.StudentDisciplineIncidentBehaviorAssociation,
+        Api.Common.Models.Resources.StudentDisciplineIncidentBehaviorAssociation.EdFi.StudentDisciplineIncidentBehaviorAssociation,
+        Entities.Common.EdFi.IStudentDisciplineIncidentBehaviorAssociation,
+        Entities.NHibernate.StudentDisciplineIncidentBehaviorAssociationAggregate.EdFi.StudentDisciplineIncidentBehaviorAssociation,
+        Api.Common.Models.Requests.StudentDisciplineIncidentBehaviorAssociations.EdFi.StudentDisciplineIncidentBehaviorAssociationPut,
+        Api.Common.Models.Requests.StudentDisciplineIncidentBehaviorAssociations.EdFi.StudentDisciplineIncidentBehaviorAssociationPost,
+        Api.Common.Models.Requests.StudentDisciplineIncidentBehaviorAssociations.EdFi.StudentDisciplineIncidentBehaviorAssociationDelete,
+        Api.Common.Models.Requests.StudentDisciplineIncidentBehaviorAssociations.EdFi.StudentDisciplineIncidentBehaviorAssociationGetByExample>
+    {
+        public StudentDisciplineIncidentBehaviorAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentDisciplineIncidentBehaviorAssociations.EdFi.StudentDisciplineIncidentBehaviorAssociationGetByExample request, Entities.Common.EdFi.IStudentDisciplineIncidentBehaviorAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BehaviorDescriptor = request.BehaviorDescriptor;
+            specification.BehaviorDetailedDescription = request.BehaviorDetailedDescription;
+            specification.Id = request.Id;
+            specification.IncidentIdentifier = request.IncidentIdentifier;
+            specification.SchoolId = request.SchoolId;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.StudentDisciplineIncidentNonOffenderAssociations.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/studentDisciplineIncidentNonOffenderAssociations")]
+    public partial class StudentDisciplineIncidentNonOffenderAssociationsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.StudentDisciplineIncidentNonOffenderAssociation.EdFi.StudentDisciplineIncidentNonOffenderAssociation,
+        Api.Common.Models.Resources.StudentDisciplineIncidentNonOffenderAssociation.EdFi.StudentDisciplineIncidentNonOffenderAssociation,
+        Entities.Common.EdFi.IStudentDisciplineIncidentNonOffenderAssociation,
+        Entities.NHibernate.StudentDisciplineIncidentNonOffenderAssociationAggregate.EdFi.StudentDisciplineIncidentNonOffenderAssociation,
+        Api.Common.Models.Requests.StudentDisciplineIncidentNonOffenderAssociations.EdFi.StudentDisciplineIncidentNonOffenderAssociationPut,
+        Api.Common.Models.Requests.StudentDisciplineIncidentNonOffenderAssociations.EdFi.StudentDisciplineIncidentNonOffenderAssociationPost,
+        Api.Common.Models.Requests.StudentDisciplineIncidentNonOffenderAssociations.EdFi.StudentDisciplineIncidentNonOffenderAssociationDelete,
+        Api.Common.Models.Requests.StudentDisciplineIncidentNonOffenderAssociations.EdFi.StudentDisciplineIncidentNonOffenderAssociationGetByExample>
+    {
+        public StudentDisciplineIncidentNonOffenderAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.StudentDisciplineIncidentNonOffenderAssociations.EdFi.StudentDisciplineIncidentNonOffenderAssociationGetByExample request, Entities.Common.EdFi.IStudentDisciplineIncidentNonOffenderAssociation specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.Id = request.Id;
+            specification.IncidentIdentifier = request.IncidentIdentifier;
+            specification.SchoolId = request.SchoolId;
+            specification.StudentUniqueId = request.StudentUniqueId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociations.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -8457,6 +8559,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentParentAssociations.EdFi
             specification.ContactRestrictions = request.ContactRestrictions;
             specification.EmergencyContactStatus = request.EmergencyContactStatus;
             specification.Id = request.Id;
+            specification.LegalGuardian = request.LegalGuardian;
             specification.LivesWith = request.LivesWith;
             specification.ParentUniqueId = request.ParentUniqueId;
             specification.PrimaryContactStatus = request.PrimaryContactStatus;

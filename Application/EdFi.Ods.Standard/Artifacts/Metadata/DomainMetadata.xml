@@ -46,6 +46,9 @@
   <Aggregate root="AdministrativeFundingControlDescriptor">
     <Entity table="AdministrativeFundingControlDescriptor" isA="Descriptor"/>
   </Aggregate>
+  <Aggregate root="AncestryEthnicOriginDescriptor">
+    <Entity table="AncestryEthnicOriginDescriptor" isA="Descriptor"/>
+  </Aggregate>
   <Aggregate root="Assessment">
     <Entity table="Assessment"/>
     <Entity table="AssessmentAcademicSubject" isRequiredCollection="true"/>
@@ -274,6 +277,7 @@
     <Entity table="DisciplineActionDiscipline" isRequiredCollection="true"/>
     <Entity table="DisciplineActionStaff"/>
     <Entity table="DisciplineActionStudentDisciplineIncidentAssociation" isRequiredCollection="true"/>
+    <Entity table="DisciplineActionStudentDisciplineIncidentBehaviorAssociation"/>
   </Aggregate>
   <Aggregate root="DisciplineActionLengthDifferenceReasonDescriptor">
     <Entity table="DisciplineActionLengthDifferenceReasonDescriptor" isA="Descriptor"/>
@@ -916,10 +920,19 @@
     <Entity table="StudentDisciplineIncidentAssociation"/>
     <Entity table="StudentDisciplineIncidentAssociationBehavior"/>
   </Aggregate>
+  <Aggregate root="StudentDisciplineIncidentBehaviorAssociation">
+    <Entity table="StudentDisciplineIncidentBehaviorAssociation"/>
+    <Entity table="StudentDisciplineIncidentBehaviorAssociationDisciplineIncidentParticipationCode"/>
+  </Aggregate>
+  <Aggregate root="StudentDisciplineIncidentNonOffenderAssociation">
+    <Entity table="StudentDisciplineIncidentNonOffenderAssociation"/>
+    <Entity table="StudentDisciplineIncidentNonOffenderAssociationDisciplineIncidentParticipationCode"/>
+  </Aggregate>
   <Aggregate root="StudentEducationOrganizationAssociation">
     <Entity table="StudentEducationOrganizationAssociation"/>
     <Entity table="StudentEducationOrganizationAssociationAddress"/>
     <Entity table="StudentEducationOrganizationAssociationAddressPeriod"/>
+    <Entity table="StudentEducationOrganizationAssociationAncestryEthnicOrigin"/>
     <Entity table="StudentEducationOrganizationAssociationCohortYear"/>
     <Entity table="StudentEducationOrganizationAssociationDisability"/>
     <Entity table="StudentEducationOrganizationAssociationDisabilityDesignation"/>

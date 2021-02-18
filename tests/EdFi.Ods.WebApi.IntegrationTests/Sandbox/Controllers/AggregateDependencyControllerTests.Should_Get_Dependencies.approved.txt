@@ -70,6 +70,13 @@
     ]
   },
   {
+    "resource": "/ed-fi/ancestryEthnicOriginDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
     "resource": "/ed-fi/assessmentCategoryDescriptors",
     "order": 1,
     "operations": [
@@ -1765,6 +1772,20 @@
   },
   {
     "resource": "/ed-fi/studentDisciplineIncidentAssociations",
+    "order": 14,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentDisciplineIncidentBehaviorAssociations",
+    "order": 14,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/studentDisciplineIncidentNonOffenderAssociations",
     "order": 14,
     "operations": [
       "Create"

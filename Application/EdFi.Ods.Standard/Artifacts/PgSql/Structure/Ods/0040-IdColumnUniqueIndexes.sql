@@ -145,6 +145,10 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_395c07_Id ON edfi.StudentCompetencyObjectiv
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_679174_Id ON edfi.StudentDisciplineIncidentAssociation(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_f4934f_Id ON edfi.StudentDisciplineIncidentBehaviorAssociation(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_4b43da_Id ON edfi.StudentDisciplineIncidentNonOffenderAssociation(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_8e1257_Id ON edfi.StudentEducationOrganizationAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_42aa64_Id ON edfi.StudentEducationOrganizationResponsibilityAssociation(Id);

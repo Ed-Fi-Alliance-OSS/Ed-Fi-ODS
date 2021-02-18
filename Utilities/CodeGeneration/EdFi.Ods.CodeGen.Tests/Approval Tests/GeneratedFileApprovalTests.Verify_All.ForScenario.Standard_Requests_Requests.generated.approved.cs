@@ -721,6 +721,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AdministrativeFundingControlDescri
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.AncestryEthnicOriginDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class AncestryEthnicOriginDescriptorGetByExample
+    {
+        public int AncestryEthnicOriginDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AncestryEthnicOriginDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public AncestryEthnicOriginDescriptorGetByIds() { }
+
+        public AncestryEthnicOriginDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AncestryEthnicOriginDescriptorPost : Resources.AncestryEthnicOriginDescriptor.EdFi.AncestryEthnicOriginDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AncestryEthnicOriginDescriptorPut : Resources.AncestryEthnicOriginDescriptor.EdFi.AncestryEthnicOriginDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AncestryEthnicOriginDescriptorDelete : IHasIdentifier
+    {
+        public AncestryEthnicOriginDescriptorDelete() { }
+
+        public AncestryEthnicOriginDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.Assessments.EdFi
 {
 
@@ -7434,6 +7480,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.Parents.EdFi
     {
         public string FirstName { get; set; }
         public string GenerationCodeSuffix { get; set; }
+        public string HighestCompletedLevelOfEducationDescriptor { get; set; }
         public Guid Id { get; set; }
         public string LastSurname { get; set; }
         public string LoginId { get; set; }
@@ -11556,6 +11603,106 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentDisciplineIncidentAssociati
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentDisciplineIncidentBehaviorAssociations.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentBehaviorAssociationGetByExample
+    {
+        public string BehaviorDescriptor { get; set; }
+        public string BehaviorDetailedDescription { get; set; }
+        public Guid Id { get; set; }
+        public string IncidentIdentifier { get; set; }
+        public int SchoolId { get; set; }
+        public string StudentUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentBehaviorAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentDisciplineIncidentBehaviorAssociationGetByIds() { }
+
+        public StudentDisciplineIncidentBehaviorAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentBehaviorAssociationPost : Resources.StudentDisciplineIncidentBehaviorAssociation.EdFi.StudentDisciplineIncidentBehaviorAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentBehaviorAssociationPut : Resources.StudentDisciplineIncidentBehaviorAssociation.EdFi.StudentDisciplineIncidentBehaviorAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentBehaviorAssociationDelete : IHasIdentifier
+    {
+        public StudentDisciplineIncidentBehaviorAssociationDelete() { }
+
+        public StudentDisciplineIncidentBehaviorAssociationDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.StudentDisciplineIncidentNonOffenderAssociations.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentNonOffenderAssociationGetByExample
+    {
+        public Guid Id { get; set; }
+        public string IncidentIdentifier { get; set; }
+        public int SchoolId { get; set; }
+        public string StudentUniqueId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentNonOffenderAssociationGetByIds : IHasIdentifiers<Guid>
+    {
+        public StudentDisciplineIncidentNonOffenderAssociationGetByIds() { }
+
+        public StudentDisciplineIncidentNonOffenderAssociationGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentNonOffenderAssociationPost : Resources.StudentDisciplineIncidentNonOffenderAssociation.EdFi.StudentDisciplineIncidentNonOffenderAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentNonOffenderAssociationPut : Resources.StudentDisciplineIncidentNonOffenderAssociation.EdFi.StudentDisciplineIncidentNonOffenderAssociation
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class StudentDisciplineIncidentNonOffenderAssociationDelete : IHasIdentifier
+    {
+        public StudentDisciplineIncidentNonOffenderAssociationDelete() { }
+
+        public StudentDisciplineIncidentNonOffenderAssociationDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.StudentEducationOrganizationAssociations.EdFi
 {
 
@@ -12161,6 +12308,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentParentAssociations.EdFi
         public string ContactRestrictions { get; set; }
         public bool EmergencyContactStatus { get; set; }
         public Guid Id { get; set; }
+        public bool LegalGuardian { get; set; }
         public bool LivesWith { get; set; }
         public string ParentUniqueId { get; set; }
         public bool PrimaryContactStatus { get; set; }

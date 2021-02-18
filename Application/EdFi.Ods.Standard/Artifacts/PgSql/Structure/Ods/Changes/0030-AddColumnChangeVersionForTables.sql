@@ -216,6 +216,12 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 ALTER TABLE edfi.StudentDisciplineIncidentAssociation
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
+ALTER TABLE edfi.StudentDisciplineIncidentBehaviorAssociation
+ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
+
+ALTER TABLE edfi.StudentDisciplineIncidentNonOffenderAssociation
+ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
+
 ALTER TABLE edfi.StudentEducationOrganizationAssociation
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
