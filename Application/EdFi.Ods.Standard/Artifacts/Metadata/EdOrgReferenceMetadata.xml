@@ -25,6 +25,10 @@
     <key>LocalEducationAgencyId</key>
   </EdOrgReference>
   <EdOrgReference>
+    <type>OrganizationDepartment</type>
+    <key>OrganizationDepartmentId</key>
+  </EdOrgReference>
+  <EdOrgReference>
     <type>PostSecondaryInstitution</type>
     <key>PostSecondaryInstitutionId</key>
   </EdOrgReference>

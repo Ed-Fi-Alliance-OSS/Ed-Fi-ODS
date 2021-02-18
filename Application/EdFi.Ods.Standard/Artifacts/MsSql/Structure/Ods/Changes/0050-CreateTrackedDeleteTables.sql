@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE TABLE [tracked_deletes_edfi].[AbsenceEventCategoryDescriptor]
 (
        AbsenceEventCategoryDescriptorId [INT] NOT NULL,
@@ -207,6 +202,16 @@ CREATE TABLE [tracked_deletes_edfi].[AssessmentReportingMethodDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_AssessmentReportingMethodDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_edfi].[AssessmentScoreRangeLearningStandard]
+(
+       AssessmentIdentifier [NVARCHAR](60) NOT NULL,
+       Namespace [NVARCHAR](255) NOT NULL,
+       ScoreRangeId [NVARCHAR](60) NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_AssessmentScoreRangeLearningStandard PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_edfi].[AttemptStatusDescriptor]
@@ -1346,6 +1351,14 @@ CREATE TABLE [tracked_deletes_edfi].[OperationalStatusDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_OperationalStatusDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_edfi].[OrganizationDepartment]
+(
+       OrganizationDepartmentId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_OrganizationDepartment PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_edfi].[OtherNameTypeDescriptor]

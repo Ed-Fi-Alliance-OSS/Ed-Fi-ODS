@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Extended Properties [edfi].[AbsenceEventCategoryDescriptor] --
 COMMENT ON TABLE edfi.AbsenceEventCategoryDescriptor IS 'This descriptor describes the type of absence';
 COMMENT ON COLUMN edfi.AbsenceEventCategoryDescriptor.AbsenceEventCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -267,6 +262,23 @@ COMMENT ON COLUMN edfi.AssessmentScore.Namespace IS 'Namespace for the Assessmen
 COMMENT ON COLUMN edfi.AssessmentScore.MinimumScore IS 'The minimum score possible on the assessment.';
 COMMENT ON COLUMN edfi.AssessmentScore.MaximumScore IS 'The maximum score possible on the assessment.';
 COMMENT ON COLUMN edfi.AssessmentScore.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+
+-- Extended Properties [edfi].[AssessmentScoreRangeLearningStandard] --
+COMMENT ON TABLE edfi.AssessmentScoreRangeLearningStandard IS 'Score ranges of an assessment associated with one or more learning standards.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.ScoreRangeId IS 'A unique number or alphanumeric code assigned to the score range associated with one or more learning standards.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.AssessmentReportingMethodDescriptorId IS 'The assessment reporting method defined (e.g., scale score, RIT scale score) associated with the referenced learning standard(s).';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.MinimumScore IS 'The minimum score in the score range.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.MaximumScore IS 'The maximum score in the score range.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandard.IdentificationCode IS 'A unique number or alphanumeric code assigned to a space, room, site, building, individual, organization, program, or institution by a school, school system, a state, or other agency or entity.';
+
+-- Extended Properties [edfi].[AssessmentScoreRangeLearningStandardLearningStandard] --
+COMMENT ON TABLE edfi.AssessmentScoreRangeLearningStandardLearningStandard IS 'LearningStandard associated with the score range.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandardLearningStandard.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandardLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandardLearningStandard.Namespace IS 'Namespace for the Assessment.';
+COMMENT ON COLUMN edfi.AssessmentScoreRangeLearningStandardLearningStandard.ScoreRangeId IS 'A unique number or alphanumeric code assigned to the score range associated with one or more learning standards.';
 
 -- Extended Properties [edfi].[AssessmentSection] --
 COMMENT ON TABLE edfi.AssessmentSection IS 'The Section(s) to which the Assessment is associated.';
@@ -1156,6 +1168,19 @@ COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.Statu
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.StatusEndDate IS 'The date the student''s program participation status ended.';
 COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationParticipationStatus.DesignatedBy IS 'The person, organization, or department that designated the participation status.';
 
+-- Extended Properties [edfi].[GeneralStudentProgramAssociationProgramParticipationStatus] --
+COMMENT ON TABLE edfi.GeneralStudentProgramAssociationProgramParticipationStatus IS 'The status of the student''s program participation.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.ParticipationStatusDescriptorId IS 'The student''s program participation status.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.StatusBeginDate IS 'The date the student''s program participation status began.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.StatusEndDate IS 'The date the student''s program participation status ended.';
+COMMENT ON COLUMN edfi.GeneralStudentProgramAssociationProgramParticipationStatus.DesignatedBy IS 'The person, organization, or department that designated the participation status.';
+
 -- Extended Properties [edfi].[Grade] --
 COMMENT ON TABLE edfi.Grade IS 'This educational entity represents an overall score or assessment tied to a course over a period of time (i.e., the grading period). Student grades are usually a compilation of marks and other scores.';
 COMMENT ON COLUMN edfi.Grade.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
@@ -1913,6 +1938,12 @@ COMMENT ON COLUMN edfi.OpenStaffPositionInstructionalGradeLevel.RequisitionNumbe
 COMMENT ON TABLE edfi.OperationalStatusDescriptor IS 'The current operational status of the education organization (e.g., active, inactive).';
 COMMENT ON COLUMN edfi.OperationalStatusDescriptor.OperationalStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[OrganizationDepartment] --
+COMMENT ON TABLE edfi.OrganizationDepartment IS 'An organizational unit of another education organization, often devoted to a particular academic discipline, area of study, or organization function.';
+COMMENT ON COLUMN edfi.OrganizationDepartment.OrganizationDepartmentId IS 'The unique identification code for the OrganizationDepartment.';
+COMMENT ON COLUMN edfi.OrganizationDepartment.AcademicSubjectDescriptorId IS 'The intended major subject area of the department.';
+COMMENT ON COLUMN edfi.OrganizationDepartment.ParentEducationOrganizationId IS 'The identifier assigned to an education organization.';
+
 -- Extended Properties [edfi].[OtherNameTypeDescriptor] --
 COMMENT ON TABLE edfi.OtherNameTypeDescriptor IS 'The types of alternate names for a person.';
 COMMENT ON COLUMN edfi.OtherNameTypeDescriptor.OtherNameTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -2617,6 +2648,11 @@ COMMENT ON COLUMN edfi.StaffAddressPeriod.StaffUSI IS 'A unique alphanumeric cod
 COMMENT ON COLUMN edfi.StaffAddressPeriod.StateAbbreviationDescriptorId IS 'The abbreviation for the state (within the United States) or outlying area in which an address is located.';
 COMMENT ON COLUMN edfi.StaffAddressPeriod.StreetNumberName IS 'The street number and street name or post office box number of an address.';
 COMMENT ON COLUMN edfi.StaffAddressPeriod.EndDate IS 'The month, day, and year for the end of the period.';
+
+-- Extended Properties [edfi].[StaffAncestryEthnicOrigin] --
+COMMENT ON TABLE edfi.StaffAncestryEthnicOrigin IS 'The original peoples or cultures with which the individual identifies.';
+COMMENT ON COLUMN edfi.StaffAncestryEthnicOrigin.AncestryEthnicOriginDescriptorId IS 'The original peoples or cultures with which the individual identifies.';
+COMMENT ON COLUMN edfi.StaffAncestryEthnicOrigin.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [edfi].[StaffClassificationDescriptor] --
 COMMENT ON TABLE edfi.StaffClassificationDescriptor IS 'This descriptor defines an individual''s title of employment, official status or rank.';

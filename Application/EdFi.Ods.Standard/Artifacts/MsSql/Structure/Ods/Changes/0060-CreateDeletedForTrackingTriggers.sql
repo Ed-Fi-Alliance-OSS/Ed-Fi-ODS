@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE TRIGGER [edfi].[edfi_AbsenceEventCategoryDescriptor_TR_DeleteTracking] ON [edfi].[AbsenceEventCategoryDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -408,6 +403,23 @@ END
 GO
 
 ALTER TABLE [edfi].[AssessmentReportingMethodDescriptor] ENABLE TRIGGER [edfi_AssessmentReportingMethodDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [edfi].[edfi_AssessmentScoreRangeLearningStandard_TR_DeleteTracking] ON [edfi].[AssessmentScoreRangeLearningStandard] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[AssessmentScoreRangeLearningStandard](AssessmentIdentifier, Namespace, ScoreRangeId, Id, ChangeVersion)
+    SELECT  AssessmentIdentifier, Namespace, ScoreRangeId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] ENABLE TRIGGER [edfi_AssessmentScoreRangeLearningStandard_TR_DeleteTracking]
 GO
 
 
@@ -2783,6 +2795,24 @@ END
 GO
 
 ALTER TABLE [edfi].[OperationalStatusDescriptor] ENABLE TRIGGER [edfi_OperationalStatusDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [edfi].[edfi_OrganizationDepartment_TR_DeleteTracking] ON [edfi].[OrganizationDepartment] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[OrganizationDepartment](OrganizationDepartmentId, Id, ChangeVersion)
+    SELECT  d.OrganizationDepartmentId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.EducationOrganization b ON d.OrganizationDepartmentId = b.EducationOrganizationId
+END
+GO
+
+ALTER TABLE [edfi].[OrganizationDepartment] ENABLE TRIGGER [edfi_OrganizationDepartment_TR_DeleteTracking]
 GO
 
 
