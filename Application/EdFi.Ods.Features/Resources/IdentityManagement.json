@@ -7,6 +7,9 @@
   },
   "host": "%HOST%",
   "basePath": "%BASE_PATH%",
+  "schemes": [
+    "%SCHEME%"
+  ],
   "paths": {
     "/identities": {
       "post": {
@@ -386,7 +389,7 @@
       "name": "Identities"
     }
   ],
-   "securityDefinitions": {
+  "securityDefinitions": {
     "oauth2_client_credentials": {
       "type": "oauth2",
       "description": "Ed-Fi ODS/API OAuth 2.0 Client Credentials Grant Type authorization",

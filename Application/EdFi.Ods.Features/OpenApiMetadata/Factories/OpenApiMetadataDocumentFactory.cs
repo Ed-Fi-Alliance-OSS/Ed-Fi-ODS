@@ -60,6 +60,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     },
                     host = "%HOST%",
                     basePath = "%BASE_PATH%",
+                    schemes = 
+                        new List<string> {
+                            "%SCHEME%"
+                        },
                     securityDefinitions =
                         new Dictionary<string, SecurityScheme>
                         {
