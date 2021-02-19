@@ -80,6 +80,10 @@ namespace EdFi.Ods.Security.Authorization
                     concreteAuthorizationContextData.CommunityProviderId = educationOrganizationId;
                     concreteAuthorizationContextData.ConcreteEducationOrganizationIdPropertyName = "CommunityProviderId";
                     break;
+                case "OrganizationDepartment":
+                    concreteAuthorizationContextData.OrganizationDepartmentId = educationOrganizationId;
+                    concreteAuthorizationContextData.ConcreteEducationOrganizationIdPropertyName = "OrganizationDepartmentId";
+                    break;
                 case "PostSecondaryInstitution":
                     concreteAuthorizationContextData.PostSecondaryInstitutionId = educationOrganizationId;
                     concreteAuthorizationContextData.ConcreteEducationOrganizationIdPropertyName = "PostSecondaryInstitutionId";

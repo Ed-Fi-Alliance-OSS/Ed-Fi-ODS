@@ -50,6 +50,7 @@ namespace EdFi.Ods.Features.TokenInfo
                             school_id = x.SchoolId,
                             community_organization_id = x.CommunityOrganizationId,
                             community_provider_id = x.CommunityProviderId,
+                            organization_department_id = x.OrganizationDepartmentId,
                             post_secondary_institution_id = x.PostSecondaryInstitutionId,
                             university_id = x.UniversityId,
                             teacher_preparation_provider_id = x.TeacherPreparationProviderId,

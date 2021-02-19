@@ -27,6 +27,8 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
         public int? CommunityProviderId { get; set; }
 
+        public int? OrganizationDepartmentId { get; set; }
+        
         public int? PostSecondaryInstitutionId { get; set; }
 
         // For TPDM Extension Support
