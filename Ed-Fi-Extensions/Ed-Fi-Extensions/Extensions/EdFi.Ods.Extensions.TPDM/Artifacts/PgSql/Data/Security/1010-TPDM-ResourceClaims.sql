@@ -3867,9 +3867,9 @@ BEGIN
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponseTeacherCandidateTargetAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponsePersonTargetAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponseTeacherCandidateTargetAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponsePersonTargetAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -3882,7 +3882,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('surveySectionResponseTeacherCandidateTargetAssociation', 'surveySectionResponseTeacherCandidateTargetAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponseTeacherCandidateTargetAssociation', parent_resource_claim_id, application_id)
+        VALUES ('surveySectionResponsePersonTargetAssociation', 'surveySectionResponsePersonTargetAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponsePersonTargetAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
