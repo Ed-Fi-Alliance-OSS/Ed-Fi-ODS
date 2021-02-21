@@ -13,6 +13,7 @@ using System.Xml;
 using System.Xml.Schema;
 using Autofac;
 using EdFi.LoadTools.ApiClient;
+using EdFi.LoadTools.ApiClient.XsdMetadata;
 using EdFi.LoadTools.BulkLoadClient.Application;
 using EdFi.LoadTools.Engine;
 using EdFi.LoadTools.Engine.Factories;
@@ -32,9 +33,18 @@ namespace EdFi.LoadTools.BulkLoadClient
 
             try
             {
-                await SetOdsEndpoints(configuration);
+                var odsVersionInformation = await SetOdsEndpoints(configuration);
 
-                var container = RegisterContainer(configuration);
+                using var xsdFilesRetriever = new XsdFilesRetriever(
+                    configuration,
+                    new XsdMetadataInformationProvider(),
+                    new XsdMetadataFilesProvider(),
+                    new RemoteFileDownloader(),
+                    odsVersionInformation);
+
+                await xsdFilesRetriever.DownloadXsdFilesAsync();
+
+                var container = RegisterContainer(configuration, odsVersionInformation);
 
                 await using var scope = container.BeginLifetimeScope();
 
@@ -57,42 +67,49 @@ namespace EdFi.LoadTools.BulkLoadClient
             return exitCode;
         }
 
-        private static async Task SetOdsEndpoints(IConfiguration configuration)
+        private static async Task<OdsVersionInformation> SetOdsEndpoints(IConfiguration configuration)
         {
             if (string.IsNullOrEmpty(configuration["OdsApi:Url"]))
             {
                 _log.Warn("OdsApi:Url is null or empty");
-                return;
+                return null;
             }
 
             // get api version information.
-            var apiVersionInformation = await new OdsVersionRetriever(configuration).GetApiVersionInformationAsync()
+            var odsVersionInformation = await new OdsVersionRetriever(configuration).GetApiVersionInformationAsync()
                 .ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:ApiUrl")))
             {
-                configuration["OdsApi:ApiUrl"] = apiVersionInformation.Urls["dataManagementApi"];
+                configuration["OdsApi:ApiUrl"] = odsVersionInformation.Urls["dataManagementApi"];
             }
 
             if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:MetadataUrl")))
             {
-                configuration["OdsApi:MetadataUrl"] = apiVersionInformation.Urls["openApiMetadata"];
+                configuration["OdsApi:MetadataUrl"] = odsVersionInformation.Urls["openApiMetadata"];
             }
 
             if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:DependenciesUrl")))
             {
-                configuration["OdsApi:DependenciesUrl"] = apiVersionInformation.Urls["dependencies"];
+                configuration["OdsApi:DependenciesUrl"] = odsVersionInformation.Urls["dependencies"];
             }
 
             if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:OAuthUrl")))
             {
-                configuration["OdsApi:OAuthUrl"] = apiVersionInformation.Urls["oauth"];
+                configuration["OdsApi:OAuthUrl"] = odsVersionInformation.Urls["oauth"];
             }
 
-            configuration["OdsApi:ApiMode"] = apiVersionInformation.ApiMode;
+            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")))
+            {
+                configuration["OdsApi:XsdMetadataUrl"] = odsVersionInformation.Urls["xsdMetadata"];
+            }
+
+            configuration["OdsApi:ApiMode"] = odsVersionInformation.ApiMode;
+
+            return odsVersionInformation;
         }
 
-        private static ILifetimeScope RegisterContainer(IConfiguration configuration)
+        private static ILifetimeScope RegisterContainer(IConfiguration configuration, OdsVersionInformation odsVersionInformation)
         {
             var builder = new ContainerBuilder();
 
@@ -101,7 +118,12 @@ namespace EdFi.LoadTools.BulkLoadClient
                 .As<IConfigurationRoot>()
                 .SingleInstance();
 
-            builder.RegisterInstance(BulkLoadClientConfiguration.Create(configuration))
+            builder.RegisterInstance(odsVersionInformation)
+                .SingleInstance();
+
+            var bulkLoadClientConfiguration = BulkLoadClientConfiguration.Create(configuration);
+
+            builder.RegisterInstance(bulkLoadClientConfiguration)
                 .As<IApiConfiguration>()
                 .As<IHashCacheConfiguration>()
                 .As<IDataConfiguration>()
