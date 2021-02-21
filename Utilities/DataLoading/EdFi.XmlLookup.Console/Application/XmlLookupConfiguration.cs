@@ -28,6 +28,10 @@ namespace EdFi.XmlLookup.Console.Application
 
         public bool DoNotValidateXml { get; set; }
 
+        public string Extension { get; }
+
+        public string XsdMetadataUrl { get; }
+
         public string DataFolder
         {
             get => Path.GetFullPath(_dataFolder);

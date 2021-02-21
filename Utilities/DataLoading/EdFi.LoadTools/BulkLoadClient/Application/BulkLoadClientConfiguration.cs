@@ -121,12 +121,23 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         {
             get => DoNotValidateXml;
         }
+        public string Extension { get; set; }
+
+        public string XsdMetadataUrl { get; set; }
 
         public static BulkLoadClientConfiguration Create(IConfiguration configuration)
         {
             string currentDirectory = Directory.GetCurrentDirectory();
 
             ApiMode.TryParse(configuration.GetValue<string>("OdsApi:ApiMode"), out ApiMode apiMode);
+
+            string workingFolder = string.IsNullOrEmpty(configuration.GetValue<string>("Folders:Working"))
+                ? currentDirectory
+                : Path.GetFullPath(configuration.GetValue<string>("Folders:Working"));
+
+            var xsdFolder = string.IsNullOrEmpty(configuration.GetValue<string>("Folders:Xsd"))
+                ? Path.Combine(workingFolder, "xsd")
+                : Path.GetFullPath(configuration.GetValue<string>("Folders:Xsd"));
 
             return new BulkLoadClientConfiguration
             {
@@ -141,14 +152,16 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
                 SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
                 TaskCapacity = configuration.GetValue("Concurrency:TaskCapacity", 50),
-                WorkingFolder = configuration.GetValue("Folders:Working", currentDirectory),
-                XsdFolder = configuration.GetValue("Folders:Xsd", currentDirectory),
+                WorkingFolder = workingFolder,
+                XsdFolder = xsdFolder,
                 InterchangeOrderFolder = configuration.GetValue("Folders:Interchange", currentDirectory),
                 MaxSimultaneousRequests = configuration.GetValue("Concurrency:MaxSimultaneousApiRequests", 500),
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
                 OauthUrl = configuration.GetValue<string>("OdsApi:OAuthUrl"),
+                XsdMetadataUrl = configuration.GetValue<string>("OdsApi:XsdMetadataUrl"),
+                Extension = configuration.GetValue<string>("OdsApi:Extension"),
                 ApiMode =  apiMode
             };
 

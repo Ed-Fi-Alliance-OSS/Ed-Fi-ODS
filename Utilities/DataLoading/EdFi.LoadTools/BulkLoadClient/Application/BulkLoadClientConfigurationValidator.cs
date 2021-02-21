@@ -27,7 +27,6 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 !(string.IsNullOrEmpty(_configuration.ApiUrl)
                   || string.IsNullOrEmpty(_configuration.WorkingFolder)
                   || string.IsNullOrEmpty(_configuration.DataFolder)
-                  || string.IsNullOrEmpty(_configuration.XsdFolder)
                   || string.IsNullOrEmpty(_configuration.MetadataUrl)
                   || string.IsNullOrEmpty(_configuration.OAuthKey)
                   || string.IsNullOrEmpty(_configuration.OAuthSecret)
