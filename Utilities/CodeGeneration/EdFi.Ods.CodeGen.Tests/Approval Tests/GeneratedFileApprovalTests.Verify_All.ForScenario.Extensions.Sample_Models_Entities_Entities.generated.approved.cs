@@ -15368,3 +15368,346 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
         // -----------------------------------------
     }
 }
+// Aggregate: StudentSectionAssociation
+
+namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
+{
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociation table of the StudentSectionAssociation aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("sample")]
+    [ExcludeFromCodeCoverage]
+    public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentSectionAssociationRelatedGeneralStudentProgramAssociation()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual EdFi.StudentSectionAssociation StudentSectionAssociation { get; set; }
+
+        Entities.Common.Sample.IStudentSectionAssociationExtension IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.StudentSectionAssociationExtension
+        {
+            get { return (IStudentSectionAssociationExtension) StudentSectionAssociation.Extensions["Sample"]; }
+            set { StudentSectionAssociation.Extensions["Sample"] = value; }
+        }
+
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual DateTime RelatedBeginDate 
+        {
+            get { return _relatedBeginDate; }
+            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+            set { _relatedBeginDate = new DateTime(value.Year, value.Month, value.Day); }
+        }
+
+        private DateTime _relatedBeginDate;
+        
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int RelatedEducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int RelatedProgramEducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        public virtual string RelatedProgramName  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int RelatedProgramTypeDescriptorId 
+        {
+            get
+            {
+                if (_relatedProgramTypeDescriptorId == default(int))
+                    _relatedProgramTypeDescriptorId = DescriptorsCache.GetCache().GetId("ProgramTypeDescriptor", _relatedProgramTypeDescriptor);
+
+                return _relatedProgramTypeDescriptorId;
+            } 
+            set
+            {
+                _relatedProgramTypeDescriptorId = value;
+                _relatedProgramTypeDescriptor = null;
+            }
+        }
+
+        private int _relatedProgramTypeDescriptorId;
+        private string _relatedProgramTypeDescriptor;
+
+        public virtual string RelatedProgramTypeDescriptor
+        {
+            get
+            {
+                if (_relatedProgramTypeDescriptor == null)
+                    _relatedProgramTypeDescriptor = DescriptorsCache.GetCache().GetValue("ProgramTypeDescriptor", _relatedProgramTypeDescriptorId);
+                    
+                return _relatedProgramTypeDescriptor;
+            }
+            set
+            {
+                _relatedProgramTypeDescriptor = value;
+                _relatedProgramTypeDescriptorId = default(int);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        public virtual NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData RelatedGeneralStudentProgramAssociationReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the RelatedGeneralStudentProgramAssociation discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedGeneralStudentProgramAssociationDiscriminator
+        {
+            get { return RelatedGeneralStudentProgramAssociationReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the RelatedGeneralStudentProgramAssociation resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedGeneralStudentProgramAssociationResourceId
+        {
+            get { return RelatedGeneralStudentProgramAssociationReferenceData?.Id; }
+            set { }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "RelatedProgramTypeDescriptor", new LookupColumnDetails { PropertyName = "RelatedProgramTypeDescriptorId", LookupTypeName = "ProgramTypeDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentSectionAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+            keyValues.Add("RelatedBeginDate", RelatedBeginDate);
+            keyValues.Add("RelatedEducationOrganizationId", RelatedEducationOrganizationId);
+            keyValues.Add("RelatedProgramEducationOrganizationId", RelatedProgramEducationOrganizationId);
+            keyValues.Add("RelatedProgramName", RelatedProgramName);
+            keyValues.Add("RelatedProgramTypeDescriptorId", RelatedProgramTypeDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentSectionAssociation = (EdFi.StudentSectionAssociation) value;
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        // -----------------------------------------
+    }
+
+    /// <summary>
+    /// An implicitly created entity extension class to enable entity mapping and sychronization behavior for the StudentSectionAssociation entity's aggregate extensions.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentSectionAssociationExtension : IStudentSectionAssociationExtension, IStudentSectionAssociationExtensionSynchronizationSourceSupport, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
+    {
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private EdFi.StudentSectionAssociation _studentSectionAssociation;
+
+        Common.EdFi.IStudentSectionAssociation IStudentSectionAssociationExtension.StudentSectionAssociation
+        {
+            get { return _studentSectionAssociation; }
+            set { _studentSectionAssociation = (EdFi.StudentSectionAssociation) value; }
+        }
+
+        private EdFi.StudentSectionAssociation StudentSectionAssociation
+        {
+            get { return (this as IStudentSectionAssociationExtension).StudentSectionAssociation as EdFi.StudentSectionAssociation; }
+        }
+
+        bool IImplicitEntityExtension.IsEmpty()
+        {
+            return (true
+                && ((IList<object>) _studentSectionAssociation.AggregateExtensions["Sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociations"]).Count == 0
+            );
+        }
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        ICollection<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation> IStudentSectionAssociationExtension.StudentSectionAssociationRelatedGeneralStudentProgramAssociations
+        {
+            get
+            {
+                var sourceList =  new ContravariantCollectionAdapter<object, StudentSectionAssociationRelatedGeneralStudentProgramAssociation>((IList<object>) _studentSectionAssociation.AggregateExtensions["Sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociations"]);
+
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (StudentSectionAssociationRelatedGeneralStudentProgramAssociation item in sourceList)
+                    if (item.StudentSectionAssociation == null)
+                        item.StudentSectionAssociation = this.StudentSectionAssociation;
+                // -------------------------------------------------------------
+
+                var adaptedList = new CovariantCollectionAdapter<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, StudentSectionAssociationRelatedGeneralStudentProgramAssociation>(sourceList);
+
+                return adaptedList;
+            }
+            set
+            {
+                _studentSectionAssociation.AggregateExtensions["Sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociations"] = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((IStudentSectionAssociationExtension) target, null);
+        }
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((IStudentSectionAssociationExtension) target);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            _studentSectionAssociation = (EdFi.StudentSectionAssociation)value;
+        }
+
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            return (_studentSectionAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+        bool IStudentSectionAssociationExtensionSynchronizationSourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported { get; set; } = true;
+        Func<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, bool> IStudentSectionAssociationExtensionSynchronizationSourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded { get; set; }
+
+        void IGetByExample.SuspendReferenceAssignmentCheck() { }
+    }
+}

@@ -5,7 +5,6 @@ Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Homograph\EntityOrmMappings\PgSq
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Homograph\ExceptionHandling\DatabaseMetadata.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Homograph\Models\Entities\Entities.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Homograph\Models\Interfaces\EntityInterfaces.generated.cs
-Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Homograph\Models\Interfaces\EntityRecordInterfaces.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Homograph\Models\Mappers\EntityMapper.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Homograph\Pipelines\CreateOrUpdatePipelines.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Homograph\Requests\Requests.generated.cs
@@ -17,7 +16,6 @@ Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Sample\EntityOrmMappings\PgSql\E
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Sample\ExceptionHandling\DatabaseMetadata.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Sample\Models\Entities\Entities.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Sample\Models\Interfaces\EntityInterfaces.generated.cs
-Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Sample\Models\Interfaces\EntityRecordInterfaces.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Sample\Models\Mappers\EntityMapper.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Sample\Pipelines\CreateOrUpdatePipelines.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Sample\Requests\Requests.generated.cs
@@ -29,7 +27,6 @@ Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.TPDM\EntityOrmMappings\PgSql\Ent
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.TPDM\ExceptionHandling\DatabaseMetadata.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.TPDM\Models\Entities\Entities.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.TPDM\Models\Interfaces\EntityInterfaces.generated.cs
-Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.TPDM\Models\Interfaces\EntityRecordInterfaces.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.TPDM\Models\Mappers\EntityMapper.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.TPDM\Pipelines\CreateOrUpdatePipelines.generated.cs
 Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.TPDM\Requests\Requests.generated.cs
