@@ -137,7 +137,7 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
                 // if an extension is installed then we want to return that information by default
                 if (xsdMetadataInformations.Count == 1)
                 {
-                    return matchingXsdMetadataInformations.SingleOrDefault();
+                    return matchingXsdMetadataInformations.Single();
                 }
 
                 // if an extension is available and not defined in the config, we return the extension xsd information
