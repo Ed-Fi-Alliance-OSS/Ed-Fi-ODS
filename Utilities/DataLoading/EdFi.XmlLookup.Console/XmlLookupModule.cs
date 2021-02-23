@@ -61,7 +61,7 @@ namespace EdFi.XmlLookup.Console
                 .AsSelf()
                 .SingleInstance();
 
-            builder.RegisterType<ISwaggerRetriever>()
+            builder.RegisterType<SwaggerRetriever>()
                 .As<ISwaggerRetriever>()
                 .AsSelf()
                 .SingleInstance();
