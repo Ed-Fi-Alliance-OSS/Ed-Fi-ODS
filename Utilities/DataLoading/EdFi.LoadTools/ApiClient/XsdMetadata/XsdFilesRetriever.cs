@@ -144,8 +144,8 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
                 // otherwise we return the extension information that was defined in the configuration
 
                 return string.IsNullOrEmpty(_extension) && matchingXsdMetadataInformations.Count == 2
-                    ? matchingXsdMetadataInformations.SingleOrDefault(x => !x.Name.EqualsIgnoreCase(EdFi))
-                    : matchingXsdMetadataInformations.SingleOrDefault(
+                    ? matchingXsdMetadataInformations.Single(x => !x.Name.EqualsIgnoreCase(EdFi))
+                    : matchingXsdMetadataInformations.Single(
                         x => x.Name.EqualsIgnoreCase(_extension));
             }
 
