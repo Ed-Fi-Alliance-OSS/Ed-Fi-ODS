@@ -8,14 +8,13 @@
     DECLARE @relationshipBasedDataResourceClaimId INT;
     DECLARE @authorizationStrategyId INT;
     DECLARE @assessmentMetadataResourceClaimId INT;
-    DECLARE @claimSetId INT;
 
     SELECT @applicationId = (SELECT applicationid FROM  dbo.Applications  WHERE  ApplicationName  = 'Ed-Fi ODS API');
     SELECT @systemDescriptorsResourceClaimId = (SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName = 'systemDescriptors' AND Application_ApplicationId = @applicationId);
     SELECT @relationshipBasedDataResourceClaimId = (SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName = 'relationshipBasedData' AND Application_ApplicationId = @applicationId);
     SELECT @assessmentMetadataResourceClaimId = (SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName = 'assessmentMetadata' AND Application_ApplicationId = @applicationId);
     SELECT @authorizationStrategyId= (SELECT AuthorizationStrategyId FROM dbo.AuthorizationStrategies WHERE DisplayName='No Further Authorization Required');
-    SELECT @claimSetId= (SELECT ClaimSetId  FROM dbo.ClaimSets where ClaimSetName='Bootstrap Descriptors and EdOrgs');
+    
 
     /* new descriptors */
     IF (NOT EXISTS (SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName = 'ancestryEthnicOriginDescriptor' AND Application_ApplicationId = @applicationId))
@@ -54,9 +53,12 @@
 
     --Apply  NofurhterauthorizationRequired on this OrganizationDepartment resource
     INSERT INTO  dbo.ClaimSetResourceClaims( Action_ActionId , ClaimSet_ClaimSetId , ResourceClaim_ResourceClaimId , AuthorizationStrategyOverride_AuthorizationStrategyId , ValidationRuleSetNameOverride )
-    SELECT ac.ActionId, @claimSetId, ResourceClaimId, @authorizationStrategyId, null
+    SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, @authorizationStrategyId, null
     FROM [dbo].[ResourceClaims]
     CROSS APPLY
     (SELECT ActionId  FROM [dbo].[Actions]
     WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
+   CROSS APPLY
+    (SELECT claimSetId  FROM dbo.ClaimSets
+    WHERE ClaimSetName IN ('SIS Vendor','Ed-Fi Sandbox','District Hosted SIS Vendor')) AS cs
     WHERE ResourceName = 'organizationDepartment';
