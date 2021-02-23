@@ -35,8 +35,10 @@ namespace EdFi.LoadTools.BulkLoadClient
             {
                 var odsVersionInformation = await SetOdsEndpoints(configuration);
 
+                var bulkLoadClientConfiguration = BulkLoadClientConfiguration.Create(configuration);
+
                 using var xsdFilesRetriever = new XsdFilesRetriever(
-                    configuration,
+                    bulkLoadClientConfiguration,
                     new XsdMetadataInformationProvider(),
                     new XsdMetadataFilesProvider(),
                     new RemoteFileDownloader(),
@@ -44,7 +46,7 @@ namespace EdFi.LoadTools.BulkLoadClient
 
                 await xsdFilesRetriever.DownloadXsdFilesAsync();
 
-                var container = RegisterContainer(configuration, odsVersionInformation);
+                var container = RegisterContainer(configuration, odsVersionInformation, bulkLoadClientConfiguration);
 
                 await using var scope = container.BeginLifetimeScope();
 
@@ -109,7 +111,9 @@ namespace EdFi.LoadTools.BulkLoadClient
             return odsVersionInformation;
         }
 
-        private static ILifetimeScope RegisterContainer(IConfiguration configuration, OdsVersionInformation odsVersionInformation)
+        private static ILifetimeScope RegisterContainer(IConfiguration configuration,
+            OdsVersionInformation odsVersionInformation,
+            BulkLoadClientConfiguration bulkLoadClientConfiguration)
         {
             var builder = new ContainerBuilder();
 
@@ -120,8 +124,6 @@ namespace EdFi.LoadTools.BulkLoadClient
 
             builder.RegisterInstance(odsVersionInformation)
                 .SingleInstance();
-
-            var bulkLoadClientConfiguration = BulkLoadClientConfiguration.Create(configuration);
 
             builder.RegisterInstance(bulkLoadClientConfiguration)
                 .As<IApiConfiguration>()

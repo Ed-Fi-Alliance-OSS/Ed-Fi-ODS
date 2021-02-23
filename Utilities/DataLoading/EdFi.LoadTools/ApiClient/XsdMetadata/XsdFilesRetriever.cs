@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
+using EdFi.LoadTools.BulkLoadClient.Application;
 using log4net;
 using Microsoft.Extensions.Configuration;
 
@@ -18,7 +19,7 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
     public class XsdFilesRetriever : IXsdFilesRetriever, IDisposable
     {
         private const string EdFi = "ed-fi";
-        private readonly IConfiguration _configuration;
+        private readonly BulkLoadClientConfiguration _configuration;
         private readonly string _extension;
         private readonly HttpClient _httpClient;
         private readonly ILog _logger = LogManager.GetLogger(typeof(XsdFilesRetriever));
@@ -29,7 +30,7 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
         private readonly IXsdMetadataInformationProvider _xsdMetadataInformationProvider;
         private string _xsdFolder;
 
-        public XsdFilesRetriever(IConfiguration configuration,
+        public XsdFilesRetriever(BulkLoadClientConfiguration configuration,
             IXsdMetadataInformationProvider xsdMetadataInformationProvider,
             IXsdMetadataFilesProvider xsdMetadataFilesProvider,
             IRemoteFileDownloader remoteFileDownloader,
@@ -42,8 +43,8 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
             _odsVersionInformation = odsVersionInformation;
             _httpClient = new HttpClient {Timeout = new TimeSpan(0, 0, 5, 0)};
 
-            _xsdMedataUrl = _configuration.GetValue<string>("OdsApi:XsdMetadataUrl");
-            _extension = _configuration.GetValue<string>("OdsApi:Extension");
+            _xsdMedataUrl = _configuration.XsdMetadataUrl;
+            _extension = _configuration.Extension;
 
             SetXsdFolder();
 
@@ -51,13 +52,13 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
             {
                 string currentDirectory = Directory.GetCurrentDirectory();
 
-                string workingFolder = string.IsNullOrEmpty(_configuration.GetValue<string>("Folders:Working"))
+                string workingFolder = string.IsNullOrEmpty(_configuration.WorkingFolder)
                     ? currentDirectory
-                    : Path.GetFullPath(_configuration.GetValue<string>("Folders:Working"));
+                    : Path.GetFullPath(_configuration.WorkingFolder);
 
-                _xsdFolder = string.IsNullOrEmpty(_configuration.GetValue<string>("Folders:Xsd"))
+                _xsdFolder = string.IsNullOrEmpty(_configuration.XsdFolder)
                     ? Path.Combine(workingFolder, "xsd")
-                    : Path.GetFullPath(_configuration.GetValue<string>("Folders:Xsd"));
+                    : Path.GetFullPath(_configuration.XsdFolder);
 
                 // create the xsd folder if it does not exists so that the dependencies work.
                 if (!Directory.Exists(_xsdFolder))
@@ -66,7 +67,7 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
                 }
 
                 // clean the folder if the force flag is set.
-                if (!configuration.GetValue<bool>("ForceMetadata"))
+                if (!_configuration.ForceMetadata)
                 {
                     return;
                 }
@@ -109,9 +110,7 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
 
                 if (!fileDownloadResult.IsSuccessful)
                 {
-                    _logger.Info($"unable to download file '{fileDownloadResult.FullName}'");
-
-                    _logger.Warn(
+                    throw new FileNotFoundException(
                         $"Error message while processing '{fileDownloadResult.FullName}' is '{fileDownloadResult.ErrorMessage}'");
                 }
             }

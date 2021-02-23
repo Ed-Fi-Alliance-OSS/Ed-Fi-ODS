@@ -116,8 +116,6 @@ namespace EdFi.LoadTools.Modules
 
             RegisterMappers();
 
-            RegisterXsdMedataRetriever();
-
             // Holds unique schema names
             builder.RegisterInstance(new List<string>())
                 .SingleInstance();
@@ -156,25 +154,6 @@ namespace EdFi.LoadTools.Modules
 
                 builder.RegisterType<PreloadReferencesStep>()
                     .As<IFileImportPipelineStep>();
-            }
-
-            void RegisterXsdMedataRetriever()
-            {
-                builder.RegisterType<XsdFilesRetriever>()
-                    .As<IXsdFilesRetriever>()
-                    .SingleInstance();
-
-                builder.RegisterType<XsdMetadataFilesProvider>()
-                    .As<IXsdMetadataFilesProvider>()
-                    .SingleInstance();
-
-                builder.RegisterType<XsdMetadataInformationProvider>()
-                    .As<IXsdMetadataInformationProvider>()
-                    .SingleInstance();
-
-                builder.RegisterType<RemoteFileDownloader>()
-                    .As<IRemoteFileDownloader>()
-                    .SingleInstance();
             }
         }
     }

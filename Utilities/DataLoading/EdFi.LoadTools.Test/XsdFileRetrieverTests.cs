@@ -9,6 +9,7 @@ using System.IO;
 using System.Threading.Tasks;
 using EdFi.LoadTools.ApiClient;
 using EdFi.LoadTools.ApiClient.XsdMetadata;
+using EdFi.LoadTools.BulkLoadClient.Application;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
@@ -18,14 +19,14 @@ namespace EdFi.LoadTools.Test
     [TestFixture]
     public class XsdFileRetrieverTests
     {
-        private IConfiguration _configuration;
+        private BulkLoadClientConfiguration _configuration;
         private string _workingFolder;
         private string _xsdFolder;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            _configuration = new ConfigurationBuilder()
+            var configRoot = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
@@ -33,8 +34,10 @@ namespace EdFi.LoadTools.Test
             _workingFolder = TestContext.CurrentContext.WorkDirectory;
             _xsdFolder = Path.Combine(_workingFolder, "xsd");
 
-            _configuration["Folders:Working"] = _workingFolder;
-            _configuration["Folders:Xsd"] = _xsdFolder;
+            configRoot["Folders:Working"] = _workingFolder;
+            configRoot["Folders:Xsd"] = _xsdFolder;
+
+            _configuration = BulkLoadClientConfiguration.Create(configRoot);
 
             if (Directory.Exists(_xsdFolder))
             {

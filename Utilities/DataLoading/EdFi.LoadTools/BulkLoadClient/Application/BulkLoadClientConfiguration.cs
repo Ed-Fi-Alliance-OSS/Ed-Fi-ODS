@@ -125,6 +125,8 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
 
         public string XsdMetadataUrl { get; set; }
 
+        public bool ForceMetadata { get; set; }
+
         public static BulkLoadClientConfiguration Create(IConfiguration configuration)
         {
             string currentDirectory = Directory.GetCurrentDirectory();
@@ -162,7 +164,8 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 OauthUrl = configuration.GetValue<string>("OdsApi:OAuthUrl"),
                 XsdMetadataUrl = configuration.GetValue<string>("OdsApi:XsdMetadataUrl"),
                 Extension = configuration.GetValue<string>("OdsApi:Extension"),
-                ApiMode =  apiMode
+                ApiMode =  apiMode,
+                ForceMetadata = configuration.GetValue<bool>("ForceMetadata")
             };
 
             string ResolvedUrl(string url)
