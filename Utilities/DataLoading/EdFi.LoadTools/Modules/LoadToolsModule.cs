@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using Autofac;
 using EdFi.LoadTools.ApiClient;
+using EdFi.LoadTools.ApiClient.XsdMetadata;
 using EdFi.LoadTools.BulkLoadClient;
 using EdFi.LoadTools.BulkLoadClient.Application;
 using EdFi.LoadTools.Engine;
@@ -25,12 +26,15 @@ namespace EdFi.LoadTools.Modules
                 .As<IBulkLoadClientResult>();
 
             builder.RegisterType<DependenciesRetriever>()
+                .As<IDependenciesRetriever>()
                 .SingleInstance();
 
             builder.RegisterType<SwaggerMetadataRetriever>()
+                .As<ISwaggerMetadataRetriever>()
                 .SingleInstance();
 
             builder.RegisterType<SwaggerRetriever>()
+                .As<ISwaggerRetriever>()
                 .SingleInstance();
 
             builder.RegisterType<XsdStreamsRetriever>()

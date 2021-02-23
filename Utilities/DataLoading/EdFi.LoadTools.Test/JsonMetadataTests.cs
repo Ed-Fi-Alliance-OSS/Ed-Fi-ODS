@@ -84,6 +84,16 @@ namespace EdFi.LoadTools.Test
                 get { return false; }
             }
 
+            public string Extension
+            {
+                get => _configuration["OdsApi:Extension"];
+            }
+
+            public string XsdMetadataUrl
+            {
+                get => _configuration["OdsApi:XsdMetadataUrl"];
+            }
+
             string IXsdConfiguration.Folder
             {
                 get => _configuration["Folders:Xsd"];

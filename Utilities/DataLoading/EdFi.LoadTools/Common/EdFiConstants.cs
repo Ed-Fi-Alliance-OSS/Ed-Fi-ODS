@@ -19,5 +19,7 @@ namespace EdFi.LoadTools.Common
         public const string EdOrgReference = "EdFiEducationOrganizationReference";
         public const string Namespace = "Namespace";
         public static readonly Uri DefaultDescriptorUri = new Uri("uri://ed-fi.org/");
+        public const string EdFiNamespace = "ed-fi";
+        public const string CreateOperation = "Create";
     }
 }

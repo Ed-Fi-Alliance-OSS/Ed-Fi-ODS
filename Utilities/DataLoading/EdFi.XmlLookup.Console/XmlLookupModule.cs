@@ -57,10 +57,12 @@ namespace EdFi.XmlLookup.Console
                 .SingleInstance();
 
             builder.RegisterType<SwaggerMetadataRetriever>()
+                .As<ISwaggerMetadataRetriever>()
                 .AsSelf()
                 .SingleInstance();
 
             builder.RegisterType<SwaggerRetriever>()
+                .As<ISwaggerRetriever>()
                 .AsSelf()
                 .SingleInstance();
 

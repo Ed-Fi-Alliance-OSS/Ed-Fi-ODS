@@ -12,5 +12,9 @@ namespace EdFi.LoadTools.Test
         public string Folder { get; set; }
 
         public bool DoNotValidateXml { get; }
+
+        public string Extension { get; }
+
+        public string XsdMetadataUrl { get; }
     }
 }

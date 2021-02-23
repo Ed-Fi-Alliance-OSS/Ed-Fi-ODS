@@ -27,7 +27,7 @@ namespace EdFi.LoadTools
         private readonly ISubmitResource _submitResourcesProcessor;
         private readonly IXmlReferenceCacheFactory _xmlReferenceCacheFactory;
         private readonly IResourceHashCache _xmlResourceHashCache;
-        private readonly DependenciesRetriever _dependenciesRetriever;
+        private readonly IDependenciesRetriever _dependenciesRetriever;
         private readonly IBulkLoadClientResult _bulkLoadClientResult;
 
         public ApiLoaderApplication(
@@ -37,7 +37,7 @@ namespace EdFi.LoadTools
             IResourceHashCache xmlResourceHashCache,
             IXmlReferenceCacheFactory xmlReferenceCacheFactory,
             IApiConfiguration apiConfiguration,
-            DependenciesRetriever dependenciesRetriever,
+            IDependenciesRetriever dependenciesRetriever,
             IBulkLoadClientResult bulkLoadClientResult)
         {
             _fileImportPipeline = fileImportPipeline;
