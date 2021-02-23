@@ -55,11 +55,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_E
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
         }
 
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
-        }
-
         protected override string GetReadContentType()
         {
             return "application/vnd.ed-fi.school.test-profile-resource-excludeonly.readable+json";
@@ -104,11 +99,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_I
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -158,11 +148,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_R
             specification.SchoolId = request.SchoolId;
             specification.SchoolTypeDescriptor = request.SchoolTypeDescriptor;
             specification.TitleIPartASchoolDesignationDescriptor = request.TitleIPartASchoolDesignationDescriptor;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()
@@ -219,11 +204,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Schools.EdFi.Test_Profile_Resource_W
         protected override void MapAll(SchoolsNullReadRequest request, Entities.Common.EdFi.ISchool specification)
         {
             throw new NotSupportedException("Profile only has a Write Content Type defined for this resource, and so the controller does not support read operations.");
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "schools";
         }
 
         protected override string GetReadContentType()

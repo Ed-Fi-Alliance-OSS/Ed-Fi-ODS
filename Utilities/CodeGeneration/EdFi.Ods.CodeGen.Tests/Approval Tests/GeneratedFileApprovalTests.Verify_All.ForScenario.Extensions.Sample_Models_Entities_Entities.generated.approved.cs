@@ -18,7 +18,6 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.Common.Sample;
-using EdFi.Ods.Entities.Common.Records.Sample;
 using Newtonsoft.Json;
 
 // Aggregate: ArtMediumDescriptor
@@ -34,7 +33,7 @@ namespace EdFi.Ods.Entities.NHibernate.ArtMediumDescriptorAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ArtMediumDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.Sample.IArtMediumDescriptor, Entities.Common.Records.Sample.IArtMediumDescriptorRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Sample.IArtMediumDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -365,7 +364,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class Bus : AggregateRootWithCompositeKey,
-        Entities.Common.Sample.IBus, Entities.Common.Records.Sample.IBusRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusSynchronizationSourceSupport
+        Entities.Common.Sample.IBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -616,7 +615,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRoute : AggregateRootWithCompositeKey,
-        Entities.Common.Sample.IBusRoute, Entities.Common.Records.Sample.IBusRouteRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRoute, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1376,7 +1375,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteBusYear : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteBusYear, Entities.Common.Records.Sample.IBusRouteBusYearRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteBusYearSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteBusYear, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteBusYearSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1396,18 +1395,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             get { return BusRoute; }
             set { BusRoute = (BusRoute) value; }
-        }
-
-        string Entities.Common.Records.Sample.IBusRouteBusYearRecord.BusId
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IBusRouteBusYearRecord.BusRouteNumber
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -1561,7 +1548,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteProgram, Entities.Common.Records.Sample.IBusRouteProgramRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteProgramSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteProgramSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1581,18 +1568,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             get { return BusRoute; }
             set { BusRoute = (BusRoute) value; }
-        }
-
-        string Entities.Common.Records.Sample.IBusRouteProgramRecord.BusId
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IBusRouteProgramRecord.BusRouteNumber
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -1806,7 +1781,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteServiceAreaPostalCode : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteServiceAreaPostalCode, Entities.Common.Records.Sample.IBusRouteServiceAreaPostalCodeRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteServiceAreaPostalCodeSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteServiceAreaPostalCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteServiceAreaPostalCodeSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1826,18 +1801,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             get { return BusRoute; }
             set { BusRoute = (BusRoute) value; }
-        }
-
-        string Entities.Common.Records.Sample.IBusRouteServiceAreaPostalCodeRecord.BusId
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IBusRouteServiceAreaPostalCodeRecord.BusRouteNumber
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(17), NoDangerousText, NoWhitespace]
@@ -1991,7 +1954,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteStartTime : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteStartTime, Entities.Common.Records.Sample.IBusRouteStartTimeRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteStartTimeSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteStartTime, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteStartTimeSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2011,18 +1974,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             get { return BusRoute; }
             set { BusRoute = (BusRoute) value; }
-        }
-
-        string Entities.Common.Records.Sample.IBusRouteStartTimeRecord.BusId
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IBusRouteStartTimeRecord.BusRouteNumber
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -2176,7 +2127,7 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class BusRouteTelephone : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IBusRouteTelephone, Entities.Common.Records.Sample.IBusRouteTelephoneRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport
+        Entities.Common.Sample.IBusRouteTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IBusRouteTelephoneSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2196,18 +2147,6 @@ namespace EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample
         {
             get { return BusRoute; }
             set { BusRoute = (BusRoute) value; }
-        }
-
-        string Entities.Common.Records.Sample.IBusRouteTelephoneRecord.BusId
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IBusRouteTelephoneRecord.BusRouteNumber
-        {
-            get { return ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber; }
-            set { ((Entities.Common.Records.Sample.IBusRouteRecord) BusRoute).BusRouteNumber = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(24), NoDangerousText, NoWhitespace]
@@ -2427,7 +2366,7 @@ namespace EdFi.Ods.Entities.NHibernate.FavoriteBookCategoryDescriptorAggregate.S
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class FavoriteBookCategoryDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.Sample.IFavoriteBookCategoryDescriptor, Entities.Common.Records.Sample.IFavoriteBookCategoryDescriptorRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Sample.IFavoriteBookCategoryDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -2674,7 +2613,7 @@ namespace EdFi.Ods.Entities.NHibernate.MembershipTypeDescriptorAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class MembershipTypeDescriptor : DescriptorAggregate.EdFi.Descriptor,
-        Entities.Common.Sample.IMembershipTypeDescriptor, Entities.Common.Records.Sample.IMembershipTypeDescriptorRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+        Entities.Common.Sample.IMembershipTypeDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport, IEdFiDescriptor
     {
 
         // =============================================================
@@ -2921,7 +2860,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentAddressSchoolDistrict : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentAddressSchoolDistrict, Entities.Common.Records.Sample.IParentAddressSchoolDistrictRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAddressSchoolDistrictSynchronizationSourceSupport
+        Entities.Common.Sample.IParentAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAddressSchoolDistrictSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2941,42 +2880,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return (IParentAddressExtension) ParentAddress.Extensions["Sample"]; }
             set { ParentAddress.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAddressSchoolDistrictRecord.AddressTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).AddressTypeDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).AddressTypeDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IParentAddressSchoolDistrictRecord.City
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).City; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).City = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAddressSchoolDistrictRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).ParentUSI = value; }
-        }
-
-        string Entities.Common.Records.Sample.IParentAddressSchoolDistrictRecord.PostalCode
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).PostalCode; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).PostalCode = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAddressSchoolDistrictRecord.StateAbbreviationDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StateAbbreviationDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StateAbbreviationDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IParentAddressSchoolDistrictRecord.StreetNumberName
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StreetNumberName; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StreetNumberName = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(250), NoDangerousText, NoWhitespace]
@@ -3132,7 +3035,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentAddressTerm : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentAddressTerm, Entities.Common.Records.Sample.IParentAddressTermRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAddressTermSynchronizationSourceSupport
+        Entities.Common.Sample.IParentAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAddressTermSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3152,42 +3055,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return (IParentAddressExtension) ParentAddress.Extensions["Sample"]; }
             set { ParentAddress.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAddressTermRecord.AddressTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).AddressTypeDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).AddressTypeDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IParentAddressTermRecord.City
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).City; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).City = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAddressTermRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).ParentUSI = value; }
-        }
-
-        string Entities.Common.Records.Sample.IParentAddressTermRecord.PostalCode
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).PostalCode; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).PostalCode = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAddressTermRecord.StateAbbreviationDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StateAbbreviationDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StateAbbreviationDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IParentAddressTermRecord.StreetNumberName
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StreetNumberName; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StreetNumberName = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -3377,7 +3244,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentAuthor : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentAuthor, Entities.Common.Records.Sample.IParentAuthorRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAuthorSynchronizationSourceSupport
+        Entities.Common.Sample.IParentAuthor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAuthorSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3397,12 +3264,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return (IParentExtension) Parent.Extensions["Sample"]; }
             set { Parent.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAuthorRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
@@ -3556,7 +3417,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentCeilingHeight : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentCeilingHeight, Entities.Common.Records.Sample.IParentCeilingHeightRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentCeilingHeightSynchronizationSourceSupport
+        Entities.Common.Sample.IParentCeilingHeight, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentCeilingHeightSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3576,12 +3437,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return (IParentExtension) Parent.Extensions["Sample"]; }
             set { Parent.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentCeilingHeightRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI = value; }
         }
 
         [DomainSignature]
@@ -3735,7 +3590,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentCTEProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentCTEProgram, Entities.Common.Records.Sample.IParentCTEProgramRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport
+        Entities.Common.Sample.IParentCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentCTEProgramSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3755,12 +3610,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return (IParentExtension) Parent.Extensions["Sample"]; }
             set { Parent.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentCTEProgramRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -3979,7 +3828,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentEducationContent : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentEducationContent, Entities.Common.Records.Sample.IParentEducationContentRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentEducationContentSynchronizationSourceSupport
+        Entities.Common.Sample.IParentEducationContent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentEducationContentSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3999,12 +3848,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return (IParentExtension) Parent.Extensions["Sample"]; }
             set { Parent.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentEducationContentRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(225), NoDangerousText, NoWhitespace]
@@ -4178,7 +4021,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentFavoriteBookTitle : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentFavoriteBookTitle, Entities.Common.Records.Sample.IParentFavoriteBookTitleRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentFavoriteBookTitleSynchronizationSourceSupport
+        Entities.Common.Sample.IParentFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentFavoriteBookTitleSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4198,12 +4041,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return (IParentExtension) Parent.Extensions["Sample"]; }
             set { Parent.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentFavoriteBookTitleRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
@@ -4357,7 +4194,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentStudentProgramAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentStudentProgramAssociation, Entities.Common.Records.Sample.IParentStudentProgramAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentStudentProgramAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IParentStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentStudentProgramAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4377,12 +4214,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return (IParentExtension) Parent.Extensions["Sample"]; }
             set { Parent.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentStudentProgramAssociationRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -4640,7 +4471,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentTeacherConference : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentTeacherConference, Entities.Common.Records.Sample.IParentTeacherConferenceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport
+        Entities.Common.Sample.IParentTeacherConference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentTeacherConferenceSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4660,12 +4491,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return (IParentExtension) Parent.Extensions["Sample"]; }
             set { Parent.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentTeacherConferenceRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -4843,7 +4668,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentExtension, Entities.Common.Records.Sample.IParentExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IParentExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -4863,12 +4688,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return Parent; }
             set { Parent = (EdFi.Parent) value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentExtensionRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentRecord) Parent).ParentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -5449,7 +5268,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class ParentAddressExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IParentAddressExtension, Entities.Common.Records.Sample.IParentAddressExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IParentAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IParentAddressExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -5469,42 +5288,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Sample
         {
             get { return ParentAddress; }
             set { ParentAddress = (EdFi.ParentAddress) value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAddressExtensionRecord.AddressTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).AddressTypeDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).AddressTypeDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IParentAddressExtensionRecord.City
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).City; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).City = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAddressExtensionRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).ParentUSI = value; }
-        }
-
-        string Entities.Common.Records.Sample.IParentAddressExtensionRecord.PostalCode
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).PostalCode; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).PostalCode = value; }
-        }
-
-        int Entities.Common.Records.Sample.IParentAddressExtensionRecord.StateAbbreviationDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StateAbbreviationDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StateAbbreviationDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IParentAddressExtensionRecord.StreetNumberName
-        {
-            get { return ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StreetNumberName; }
-            set { ((Entities.Common.Records.EdFi.IParentAddressRecord) ParentAddress).StreetNumberName = value; }
         }
 
         // -------------------------------------------------------------
@@ -5757,7 +5540,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class SchoolCTEProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.ISchoolCTEProgram, Entities.Common.Records.Sample.ISchoolCTEProgramRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport
+        Entities.Common.Sample.ISchoolCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.ISchoolCTEProgramSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -5777,12 +5560,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         {
             get { return (ISchoolExtension) School.Extensions["Sample"]; }
             set { School.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.ISchoolCTEProgramRecord.SchoolId
-        {
-            get { return ((Entities.Common.Records.EdFi.ISchoolRecord) School).SchoolId; }
-            set { ((Entities.Common.Records.EdFi.ISchoolRecord) School).SchoolId = value; }
         }
 
         // -------------------------------------------------------------
@@ -6001,7 +5778,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class SchoolDirectlyOwnedBus : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.ISchoolDirectlyOwnedBus, Entities.Common.Records.Sample.ISchoolDirectlyOwnedBusRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.ISchoolDirectlyOwnedBusSynchronizationSourceSupport
+        Entities.Common.Sample.ISchoolDirectlyOwnedBus, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.ISchoolDirectlyOwnedBusSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6021,12 +5798,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         {
             get { return (ISchoolExtension) School.Extensions["Sample"]; }
             set { School.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.ISchoolDirectlyOwnedBusRecord.SchoolId
-        {
-            get { return ((Entities.Common.Records.EdFi.ISchoolRecord) School).SchoolId; }
-            set { ((Entities.Common.Records.EdFi.ISchoolRecord) School).SchoolId = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
@@ -6200,7 +5971,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class SchoolExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.ISchoolExtension, Entities.Common.Records.Sample.ISchoolExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.ISchoolExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6220,12 +5991,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Sample
         {
             get { return School; }
             set { School = (EdFi.School) value; }
-        }
-
-        int Entities.Common.Records.Sample.ISchoolExtensionRecord.SchoolId
-        {
-            get { return ((Entities.Common.Records.EdFi.ISchoolRecord) School).SchoolId; }
-            set { ((Entities.Common.Records.EdFi.ISchoolRecord) School).SchoolId = value; }
         }
 
         // -------------------------------------------------------------
@@ -6471,7 +6236,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StaffPet : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStaffPet, Entities.Common.Records.Sample.IStaffPetRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStaffPetSynchronizationSourceSupport
+        Entities.Common.Sample.IStaffPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStaffPetSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6491,12 +6256,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         {
             get { return (IStaffExtension) Staff.Extensions["Sample"]; }
             set { Staff.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStaffPetRecord.StaffUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStaffRecord) Staff).StaffUSI; }
-            set { ((Entities.Common.Records.EdFi.IStaffRecord) Staff).StaffUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(20), NoDangerousText, NoWhitespace]
@@ -6658,7 +6417,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StaffPetPreference : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStaffPetPreference, Entities.Common.Records.Sample.IStaffPetPreferenceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStaffPetPreferenceSynchronizationSourceSupport
+        Entities.Common.Sample.IStaffPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStaffPetPreferenceSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6678,12 +6437,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         {
             get { return (IStaffExtension) Staff.Extensions["Sample"]; }
             set { Staff.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStaffPetPreferenceRecord.StaffUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStaffRecord) Staff).StaffUSI; }
-            set { ((Entities.Common.Records.EdFi.IStaffRecord) Staff).StaffUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -6850,7 +6603,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StaffExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStaffExtension, Entities.Common.Records.Sample.IStaffExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStaffExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStaffExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -6870,12 +6623,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Sample
         {
             get { return Staff; }
             set { Staff = (EdFi.Staff) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStaffExtensionRecord.StaffUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStaffRecord) Staff).StaffUSI; }
-            set { ((Entities.Common.Records.EdFi.IStaffRecord) Staff).StaffUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -7140,7 +6887,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentAquaticPet : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentAquaticPet, Entities.Common.Records.Sample.IStudentAquaticPetRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentAquaticPetSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentAquaticPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentAquaticPetSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7160,12 +6907,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             get { return (IStudentExtension) Student.Extensions["Sample"]; }
             set { Student.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentAquaticPetRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentRecord) Student).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentRecord) Student).StudentUSI = value; }
         }
 
         [DomainSignature]
@@ -7330,7 +7071,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentFavoriteBook : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentFavoriteBook, Entities.Common.Records.Sample.IStudentFavoriteBookRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentFavoriteBook, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentFavoriteBookSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7351,12 +7092,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             get { return (IStudentExtension) Student.Extensions["Sample"]; }
             set { Student.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentFavoriteBookRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentRecord) Student).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentRecord) Student).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -7615,7 +7350,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentFavoriteBookArtMedium : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentFavoriteBookArtMedium, Entities.Common.Records.Sample.IStudentFavoriteBookArtMediumRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentFavoriteBookArtMediumSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentFavoriteBookArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentFavoriteBookArtMediumSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7635,18 +7370,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             get { return StudentFavoriteBook; }
             set { StudentFavoriteBook = (StudentFavoriteBook) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentFavoriteBookArtMediumRecord.FavoriteBookCategoryDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentFavoriteBookRecord) StudentFavoriteBook).FavoriteBookCategoryDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentFavoriteBookRecord) StudentFavoriteBook).FavoriteBookCategoryDescriptorId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentFavoriteBookArtMediumRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentFavoriteBookRecord) StudentFavoriteBook).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentFavoriteBookRecord) StudentFavoriteBook).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -7843,7 +7566,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentPet : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentPet, Entities.Common.Records.Sample.IStudentPetRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentPetSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentPet, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentPetSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -7863,12 +7586,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             get { return (IStudentExtension) Student.Extensions["Sample"]; }
             set { Student.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentPetRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentRecord) Student).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentRecord) Student).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(20), NoDangerousText, NoWhitespace]
@@ -8030,7 +7747,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentPetPreference : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentPetPreference, Entities.Common.Records.Sample.IStudentPetPreferenceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentPetPreferenceSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentPetPreference, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentPetPreferenceSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -8050,12 +7767,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Sample
         {
             get { return (IStudentExtension) Student.Extensions["Sample"]; }
             set { Student.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentPetPreferenceRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentRecord) Student).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentRecord) Student).StudentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -8406,7 +8117,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociation : GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociation,
-        Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport
     {
         public StudentArtProgramAssociation()
         {
@@ -9058,7 +8769,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationArtMedium : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, Entities.Common.Records.Sample.IStudentArtProgramAssociationArtMediumRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationArtMediumSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationArtMediumSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9078,42 +8789,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             get { return StudentArtProgramAssociation; }
             set { StudentArtProgramAssociation = (StudentArtProgramAssociation) value; }
-        }
-
-        DateTime Entities.Common.Records.Sample.IStudentArtProgramAssociationArtMediumRecord.BeginDate
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).BeginDate; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).BeginDate = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationArtMediumRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationArtMediumRecord.ProgramEducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramEducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramEducationOrganizationId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentArtProgramAssociationArtMediumRecord.ProgramName
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramName; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramName = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationArtMediumRecord.ProgramTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramTypeDescriptorId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationArtMediumRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -9302,7 +8977,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationPortfolioYears : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, Entities.Common.Records.Sample.IStudentArtProgramAssociationPortfolioYearsRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYearsSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYearsSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9322,42 +8997,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             get { return StudentArtProgramAssociation; }
             set { StudentArtProgramAssociation = (StudentArtProgramAssociation) value; }
-        }
-
-        DateTime Entities.Common.Records.Sample.IStudentArtProgramAssociationPortfolioYearsRecord.BeginDate
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).BeginDate; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).BeginDate = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationPortfolioYearsRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationPortfolioYearsRecord.ProgramEducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramEducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramEducationOrganizationId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentArtProgramAssociationPortfolioYearsRecord.ProgramName
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramName; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramName = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationPortfolioYearsRecord.ProgramTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramTypeDescriptorId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationPortfolioYearsRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).StudentUSI = value; }
         }
 
         [DomainSignature]
@@ -9512,7 +9151,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationService : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentArtProgramAssociationService, Entities.Common.Records.Sample.IStudentArtProgramAssociationServiceRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociationService, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationServiceSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9532,42 +9171,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             get { return StudentArtProgramAssociation; }
             set { StudentArtProgramAssociation = (StudentArtProgramAssociation) value; }
-        }
-
-        DateTime Entities.Common.Records.Sample.IStudentArtProgramAssociationServiceRecord.BeginDate
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).BeginDate; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).BeginDate = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationServiceRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationServiceRecord.ProgramEducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramEducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramEducationOrganizationId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentArtProgramAssociationServiceRecord.ProgramName
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramName; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramName = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationServiceRecord.ProgramTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramTypeDescriptorId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationServiceRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -9818,7 +9421,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationStyle : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentArtProgramAssociationStyle, Entities.Common.Records.Sample.IStudentArtProgramAssociationStyleRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationStyleSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentArtProgramAssociationStyle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentArtProgramAssociationStyleSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -9838,42 +9441,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             get { return StudentArtProgramAssociation; }
             set { StudentArtProgramAssociation = (StudentArtProgramAssociation) value; }
-        }
-
-        DateTime Entities.Common.Records.Sample.IStudentArtProgramAssociationStyleRecord.BeginDate
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).BeginDate; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).BeginDate = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationStyleRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationStyleRecord.ProgramEducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramEducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramEducationOrganizationId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentArtProgramAssociationStyleRecord.ProgramName
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramName; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramName = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationStyleRecord.ProgramTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).ProgramTypeDescriptorId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentArtProgramAssociationStyleRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentArtProgramAssociationRecord) StudentArtProgramAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -10033,7 +9600,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentCTEProgramAssociationExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentCTEProgramAssociationExtension, Entities.Common.Records.Sample.IStudentCTEProgramAssociationExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentCTEProgramAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentCTEProgramAssociationExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -10053,42 +9620,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentCTEProgramAssociationAggregate.Sam
         {
             get { return StudentCTEProgramAssociation; }
             set { StudentCTEProgramAssociation = (EdFi.StudentCTEProgramAssociation) value; }
-        }
-
-        DateTime Entities.Common.Records.Sample.IStudentCTEProgramAssociationExtensionRecord.BeginDate
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).BeginDate; }
-            set { ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).BeginDate = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentCTEProgramAssociationExtensionRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentCTEProgramAssociationExtensionRecord.ProgramEducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).ProgramEducationOrganizationId; }
-            set { ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).ProgramEducationOrganizationId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentCTEProgramAssociationExtensionRecord.ProgramName
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).ProgramName; }
-            set { ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).ProgramName = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentCTEProgramAssociationExtensionRecord.ProgramTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).ProgramTypeDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).ProgramTypeDescriptorId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentCTEProgramAssociationExtensionRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentCTEProgramAssociationRecord) StudentCTEProgramAssociation).StudentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -10278,7 +9809,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressSchoolDistrict : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -10298,48 +9829,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         {
             get { return (IStudentEducationOrganizationAssociationAddressExtension) StudentEducationOrganizationAssociationAddress.Extensions["Sample"]; }
             set { StudentEducationOrganizationAssociationAddress.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictRecord.AddressTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).AddressTypeDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).AddressTypeDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictRecord.City
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).City; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).City = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).EducationOrganizationId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).EducationOrganizationId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictRecord.PostalCode
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).PostalCode; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).PostalCode = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictRecord.StateAbbreviationDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StateAbbreviationDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StateAbbreviationDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictRecord.StreetNumberName
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StreetNumberName; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StreetNumberName = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrictRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(250), NoDangerousText, NoWhitespace]
@@ -10495,7 +9984,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressTerm : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressTermRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTermSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTermSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -10515,48 +10004,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         {
             get { return (IStudentEducationOrganizationAssociationAddressExtension) StudentEducationOrganizationAssociationAddress.Extensions["Sample"]; }
             set { StudentEducationOrganizationAssociationAddress.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressTermRecord.AddressTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).AddressTypeDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).AddressTypeDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressTermRecord.City
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).City; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).City = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressTermRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).EducationOrganizationId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).EducationOrganizationId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressTermRecord.PostalCode
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).PostalCode; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).PostalCode = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressTermRecord.StateAbbreviationDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StateAbbreviationDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StateAbbreviationDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressTermRecord.StreetNumberName
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StreetNumberName; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StreetNumberName = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressTermRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -10746,7 +10193,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationStudentCharacteristicStudentNeed : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -10766,24 +10213,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         {
             get { return (IStudentEducationOrganizationAssociationStudentCharacteristicExtension) StudentEducationOrganizationAssociationStudentCharacteristic.Extensions["Sample"]; }
             set { StudentEducationOrganizationAssociationStudentCharacteristic.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationStudentCharacteristicRecord) StudentEducationOrganizationAssociationStudentCharacteristic).EducationOrganizationId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationStudentCharacteristicRecord) StudentEducationOrganizationAssociationStudentCharacteristic).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedRecord.StudentCharacteristicDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationStudentCharacteristicRecord) StudentEducationOrganizationAssociationStudentCharacteristic).StudentCharacteristicDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationStudentCharacteristicRecord) StudentEducationOrganizationAssociationStudentCharacteristic).StudentCharacteristicDescriptorId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeedRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationStudentCharacteristicRecord) StudentEducationOrganizationAssociationStudentCharacteristic).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationStudentCharacteristicRecord) StudentEducationOrganizationAssociationStudentCharacteristic).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -10981,7 +10410,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationAddressExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -11001,48 +10430,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentEducationOrganizationAssociationAg
         {
             get { return StudentEducationOrganizationAssociationAddress; }
             set { StudentEducationOrganizationAssociationAddress = (EdFi.StudentEducationOrganizationAssociationAddress) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressExtensionRecord.AddressTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).AddressTypeDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).AddressTypeDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressExtensionRecord.City
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).City; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).City = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressExtensionRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).EducationOrganizationId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).EducationOrganizationId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressExtensionRecord.PostalCode
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).PostalCode; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).PostalCode = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressExtensionRecord.StateAbbreviationDescriptorId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StateAbbreviationDescriptorId; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StateAbbreviationDescriptorId = value; }
-        }
-
-        string Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressExtensionRecord.StreetNumberName
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StreetNumberName; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StreetNumberName = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentEducationOrganizationAssociationAddressExtensionRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentEducationOrganizationAssociationAddressRecord) StudentEducationOrganizationAssociationAddress).StudentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -11476,7 +10863,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociation : AggregateRootWithCompositeKey,
-        Entities.Common.Sample.IStudentGraduationPlanAssociation, Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12407,7 +11794,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationAcademicSubject : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, Entities.Common.Records.Sample.IStudentGraduationPlanAssociationAcademicSubjectRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubjectSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubjectSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12427,30 +11814,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get { return StudentGraduationPlanAssociation; }
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationAcademicSubjectRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationAcademicSubjectRecord.GraduationPlanTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId = value; }
-        }
-
-        short Entities.Common.Records.Sample.IStudentGraduationPlanAssociationAcademicSubjectRecord.GraduationSchoolYear
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationAcademicSubjectRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -12639,7 +12002,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationCareerPathwayCode : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCareerPathwayCodeRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCodeSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCodeSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12659,30 +12022,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get { return StudentGraduationPlanAssociation; }
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCareerPathwayCodeRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCareerPathwayCodeRecord.GraduationPlanTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId = value; }
-        }
-
-        short Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCareerPathwayCodeRecord.GraduationSchoolYear
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCareerPathwayCodeRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI = value; }
         }
 
         [DomainSignature]
@@ -12837,7 +12176,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationCTEProgram : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram, Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCTEProgramRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgramSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -12857,30 +12196,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get { return StudentGraduationPlanAssociation; }
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCTEProgramRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCTEProgramRecord.GraduationPlanTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId = value; }
-        }
-
-        short Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCTEProgramRecord.GraduationSchoolYear
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationCTEProgramRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -13100,7 +12415,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationDescription : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDescriptionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationDescriptionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationDescription, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationDescriptionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13120,30 +12435,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get { return StudentGraduationPlanAssociation; }
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDescriptionRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDescriptionRecord.GraduationPlanTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId = value; }
-        }
-
-        short Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDescriptionRecord.GraduationSchoolYear
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDescriptionRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(1024), NoDangerousText, NoWhitespace]
@@ -13298,7 +12589,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationDesignatedBy : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDesignatedByRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBySynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBySynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13318,30 +12609,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get { return StudentGraduationPlanAssociation; }
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDesignatedByRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDesignatedByRecord.GraduationPlanTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId = value; }
-        }
-
-        short Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDesignatedByRecord.GraduationSchoolYear
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationDesignatedByRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
@@ -13496,7 +12763,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationIndustryCredential : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, Entities.Common.Records.Sample.IStudentGraduationPlanAssociationIndustryCredentialRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredentialSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredentialSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13516,30 +12783,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get { return StudentGraduationPlanAssociation; }
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationIndustryCredentialRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationIndustryCredentialRecord.GraduationPlanTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId = value; }
-        }
-
-        short Entities.Common.Records.Sample.IStudentGraduationPlanAssociationIndustryCredentialRecord.GraduationSchoolYear
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationIndustryCredentialRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
@@ -13694,7 +12937,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationStudentParentAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, Entities.Common.Records.Sample.IStudentGraduationPlanAssociationStudentParentAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13714,30 +12957,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get { return StudentGraduationPlanAssociation; }
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationStudentParentAssociationRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationStudentParentAssociationRecord.GraduationPlanTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId = value; }
-        }
-
-        short Entities.Common.Records.Sample.IStudentGraduationPlanAssociationStudentParentAssociationRecord.GraduationSchoolYear
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationStudentParentAssociationRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI = value; }
         }
 
         [Display(Name="ParentUniqueId")]
@@ -13948,7 +13167,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentGraduationPlanAssociationYearsAttended : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, Entities.Common.Records.Sample.IStudentGraduationPlanAssociationYearsAttendedRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttendedSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttendedSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -13968,30 +13187,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate
         {
             get { return StudentGraduationPlanAssociation; }
             set { StudentGraduationPlanAssociation = (StudentGraduationPlanAssociation) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationYearsAttendedRecord.EducationOrganizationId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).EducationOrganizationId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationYearsAttendedRecord.GraduationPlanTypeDescriptorId
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationPlanTypeDescriptorId = value; }
-        }
-
-        short Entities.Common.Records.Sample.IStudentGraduationPlanAssociationYearsAttendedRecord.GraduationSchoolYear
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).GraduationSchoolYear = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentGraduationPlanAssociationYearsAttendedRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.Sample.IStudentGraduationPlanAssociationRecord) StudentGraduationPlanAssociation).StudentUSI = value; }
         }
 
         [DomainSignature]
@@ -14151,7 +13346,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationDiscipline : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationDiscipline, Entities.Common.Records.Sample.IStudentParentAssociationDisciplineRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationDisciplineSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationDiscipline, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationDisciplineSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -14171,18 +13366,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             get { return (IStudentParentAssociationExtension) StudentParentAssociation.Extensions["Sample"]; }
             set { StudentParentAssociation.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationDisciplineRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationDisciplineRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -14370,7 +13553,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationFavoriteBookTitle : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, Entities.Common.Records.Sample.IStudentParentAssociationFavoriteBookTitleRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitleSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitleSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -14390,18 +13573,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             get { return (IStudentParentAssociationExtension) StudentParentAssociation.Extensions["Sample"]; }
             set { StudentParentAssociation.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationFavoriteBookTitleRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationFavoriteBookTitleRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
@@ -14555,7 +13726,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationHoursPerWeek : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, Entities.Common.Records.Sample.IStudentParentAssociationHoursPerWeekRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationHoursPerWeekSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationHoursPerWeek, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationHoursPerWeekSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -14575,18 +13746,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             get { return (IStudentParentAssociationExtension) StudentParentAssociation.Extensions["Sample"]; }
             set { StudentParentAssociation.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationHoursPerWeekRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationHoursPerWeekRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI = value; }
         }
 
         [DomainSignature]
@@ -14740,7 +13899,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationPagesRead : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationPagesRead, Entities.Common.Records.Sample.IStudentParentAssociationPagesReadRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationPagesReadSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationPagesRead, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationPagesReadSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -14760,18 +13919,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             get { return (IStudentParentAssociationExtension) StudentParentAssociation.Extensions["Sample"]; }
             set { StudentParentAssociation.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationPagesReadRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationPagesReadRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI = value; }
         }
 
         [DomainSignature]
@@ -14925,7 +14072,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationStaffEducationOrganizationEmploymentAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, Entities.Common.Records.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -14945,18 +14092,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             get { return (IStudentParentAssociationExtension) StudentParentAssociation.Extensions["Sample"]; }
             set { StudentParentAssociation.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociationRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault]
@@ -15217,7 +14352,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationTelephone : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationTelephone, Entities.Common.Records.Sample.IStudentParentAssociationTelephoneRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationTelephone, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationTelephoneSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -15237,18 +14372,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             get { return (IStudentParentAssociationExtension) StudentParentAssociation.Extensions["Sample"]; }
             set { StudentParentAssociation.Extensions["Sample"] = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationTelephoneRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationTelephoneRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -15475,7 +14598,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentParentAssociationExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentParentAssociationExtension, Entities.Common.Records.Sample.IStudentParentAssociationExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentParentAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentParentAssociationExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -15495,18 +14618,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentParentAssociationAggregate.Sample
         {
             get { return StudentParentAssociation; }
             set { StudentParentAssociation = (EdFi.StudentParentAssociation) value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationExtensionRecord.ParentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).ParentUSI = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentParentAssociationExtensionRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentParentAssociationRecord) StudentParentAssociation).StudentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -16053,7 +15164,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
     [Serializable, Schema("sample")]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociationExtension : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Sample.IStudentSchoolAssociationExtension, Entities.Common.Records.Sample.IStudentSchoolAssociationExtensionRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentSchoolAssociationExtensionSynchronizationSourceSupport
+        Entities.Common.Sample.IStudentSchoolAssociationExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentSchoolAssociationExtensionSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -16073,24 +15184,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
         {
             get { return StudentSchoolAssociation; }
             set { StudentSchoolAssociation = (EdFi.StudentSchoolAssociation) value; }
-        }
-
-        DateTime Entities.Common.Records.Sample.IStudentSchoolAssociationExtensionRecord.EntryDate
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentSchoolAssociationRecord) StudentSchoolAssociation).EntryDate; }
-            set { ((Entities.Common.Records.EdFi.IStudentSchoolAssociationRecord) StudentSchoolAssociation).EntryDate = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentSchoolAssociationExtensionRecord.SchoolId
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentSchoolAssociationRecord) StudentSchoolAssociation).SchoolId; }
-            set { ((Entities.Common.Records.EdFi.IStudentSchoolAssociationRecord) StudentSchoolAssociation).SchoolId = value; }
-        }
-
-        int Entities.Common.Records.Sample.IStudentSchoolAssociationExtensionRecord.StudentUSI
-        {
-            get { return ((Entities.Common.Records.EdFi.IStudentSchoolAssociationRecord) StudentSchoolAssociation).StudentUSI; }
-            set { ((Entities.Common.Records.EdFi.IStudentSchoolAssociationRecord) StudentSchoolAssociation).StudentUSI = value; }
         }
 
         // -------------------------------------------------------------
@@ -16273,5 +15366,348 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Sample
         }
 
         // -----------------------------------------
+    }
+}
+// Aggregate: StudentSectionAssociation
+
+namespace EdFi.Ods.Entities.NHibernate.StudentSectionAssociationAggregate.Sample
+{
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the sample.StudentSectionAssociationRelatedGeneralStudentProgramAssociation table of the StudentSectionAssociation aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("sample")]
+    [ExcludeFromCodeCoverage]
+    public class StudentSectionAssociationRelatedGeneralStudentProgramAssociation : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociationSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public StudentSectionAssociationRelatedGeneralStudentProgramAssociation()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual EdFi.StudentSectionAssociation StudentSectionAssociation { get; set; }
+
+        Entities.Common.Sample.IStudentSectionAssociationExtension IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.StudentSectionAssociationExtension
+        {
+            get { return (IStudentSectionAssociationExtension) StudentSectionAssociation.Extensions["Sample"]; }
+            set { StudentSectionAssociation.Extensions["Sample"] = value; }
+        }
+
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual DateTime RelatedBeginDate 
+        {
+            get { return _relatedBeginDate; }
+            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
+            set { _relatedBeginDate = new DateTime(value.Year, value.Month, value.Day); }
+        }
+
+        private DateTime _relatedBeginDate;
+        
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int RelatedEducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int RelatedProgramEducationOrganizationId  { get; set; }
+        [DomainSignature, RequiredWithNonDefault, StringLength(60), NoDangerousText, NoWhitespace]
+        public virtual string RelatedProgramName  { get; set; }
+        [DomainSignature, RequiredWithNonDefault]
+        public virtual int RelatedProgramTypeDescriptorId 
+        {
+            get
+            {
+                if (_relatedProgramTypeDescriptorId == default(int))
+                    _relatedProgramTypeDescriptorId = DescriptorsCache.GetCache().GetId("ProgramTypeDescriptor", _relatedProgramTypeDescriptor);
+
+                return _relatedProgramTypeDescriptorId;
+            } 
+            set
+            {
+                _relatedProgramTypeDescriptorId = value;
+                _relatedProgramTypeDescriptor = null;
+            }
+        }
+
+        private int _relatedProgramTypeDescriptorId;
+        private string _relatedProgramTypeDescriptor;
+
+        public virtual string RelatedProgramTypeDescriptor
+        {
+            get
+            {
+                if (_relatedProgramTypeDescriptor == null)
+                    _relatedProgramTypeDescriptor = DescriptorsCache.GetCache().GetValue("ProgramTypeDescriptor", _relatedProgramTypeDescriptorId);
+                    
+                return _relatedProgramTypeDescriptor;
+            }
+            set
+            {
+                _relatedProgramTypeDescriptor = value;
+                _relatedProgramTypeDescriptorId = default(int);
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        public virtual NHibernate.GeneralStudentProgramAssociationAggregate.EdFi.GeneralStudentProgramAssociationReferenceData RelatedGeneralStudentProgramAssociationReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the RelatedGeneralStudentProgramAssociation discriminator value to be mapped to the resource reference.
+        /// </summary>
+        string Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedGeneralStudentProgramAssociationDiscriminator
+        {
+            get { return RelatedGeneralStudentProgramAssociationReferenceData?.Discriminator; }
+            set { }
+        }
+
+        /// <summary>
+        /// Read-only property that allows the RelatedGeneralStudentProgramAssociation resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation.RelatedGeneralStudentProgramAssociationResourceId
+        {
+            get { return RelatedGeneralStudentProgramAssociationReferenceData?.Id; }
+            set { }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+                { "RelatedProgramTypeDescriptor", new LookupColumnDetails { PropertyName = "RelatedProgramTypeDescriptorId", LookupTypeName = "ProgramTypeDescriptor"} },
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (StudentSectionAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+            keyValues.Add("RelatedBeginDate", RelatedBeginDate);
+            keyValues.Add("RelatedEducationOrganizationId", RelatedEducationOrganizationId);
+            keyValues.Add("RelatedProgramEducationOrganizationId", RelatedProgramEducationOrganizationId);
+            keyValues.Add("RelatedProgramName", RelatedProgramName);
+            keyValues.Add("RelatedProgramTypeDescriptorId", RelatedProgramTypeDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            StudentSectionAssociation = (EdFi.StudentSectionAssociation) value;
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        // -----------------------------------------
+    }
+
+    /// <summary>
+    /// An implicitly created entity extension class to enable entity mapping and sychronization behavior for the StudentSectionAssociation entity's aggregate extensions.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class StudentSectionAssociationExtension : IStudentSectionAssociationExtension, IStudentSectionAssociationExtensionSynchronizationSourceSupport, IChildEntity, IImplicitEntityExtension, IHasPrimaryKeyValues
+    {
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private EdFi.StudentSectionAssociation _studentSectionAssociation;
+
+        Common.EdFi.IStudentSectionAssociation IStudentSectionAssociationExtension.StudentSectionAssociation
+        {
+            get { return _studentSectionAssociation; }
+            set { _studentSectionAssociation = (EdFi.StudentSectionAssociation) value; }
+        }
+
+        private EdFi.StudentSectionAssociation StudentSectionAssociation
+        {
+            get { return (this as IStudentSectionAssociationExtension).StudentSectionAssociation as EdFi.StudentSectionAssociation; }
+        }
+
+        bool IImplicitEntityExtension.IsEmpty()
+        {
+            return (true
+                && ((IList<object>) _studentSectionAssociation.AggregateExtensions["Sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociations"]).Count == 0
+            );
+        }
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        ICollection<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation> IStudentSectionAssociationExtension.StudentSectionAssociationRelatedGeneralStudentProgramAssociations
+        {
+            get
+            {
+                var sourceList =  new ContravariantCollectionAdapter<object, StudentSectionAssociationRelatedGeneralStudentProgramAssociation>((IList<object>) _studentSectionAssociation.AggregateExtensions["Sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociations"]);
+
+                // -------------------------------------------------------------
+                // Back-reference is required by NHibernate for persistence.
+                // -------------------------------------------------------------
+                foreach (StudentSectionAssociationRelatedGeneralStudentProgramAssociation item in sourceList)
+                    if (item.StudentSectionAssociation == null)
+                        item.StudentSectionAssociation = this.StudentSectionAssociation;
+                // -------------------------------------------------------------
+
+                var adaptedList = new CovariantCollectionAdapter<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, StudentSectionAssociationRelatedGeneralStudentProgramAssociation>(sourceList);
+
+                return adaptedList;
+            }
+            set
+            {
+                _studentSectionAssociation.AggregateExtensions["Sample_StudentSectionAssociationRelatedGeneralStudentProgramAssociations"] = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((IStudentSectionAssociationExtension) target, null);
+        }
+
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((IStudentSectionAssociationExtension) target);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            _studentSectionAssociation = (EdFi.StudentSectionAssociation)value;
+        }
+
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            return (_studentSectionAssociation as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+        bool IStudentSectionAssociationExtensionSynchronizationSourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationsSupported { get; set; } = true;
+        Func<IStudentSectionAssociationRelatedGeneralStudentProgramAssociation, bool> IStudentSectionAssociationExtensionSynchronizationSourceSupport.IsStudentSectionAssociationRelatedGeneralStudentProgramAssociationIncluded { get; set; }
+
+        void IGetByExample.SuspendReferenceAssignmentCheck() { }
     }
 }

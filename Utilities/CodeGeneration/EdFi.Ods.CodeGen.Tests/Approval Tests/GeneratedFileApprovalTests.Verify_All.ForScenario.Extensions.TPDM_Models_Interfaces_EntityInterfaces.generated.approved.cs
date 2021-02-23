@@ -46,489 +46,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudent model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfile model.
     /// </summary>
-    public interface IAnonymizedStudent : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IApplicantProfile : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        string AnonymizedStudentIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime FactsAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-
-        // Non-PK properties
-        bool? AtriskIndicator { get; set; }
-        bool? ELLEnrollment { get; set; }
-        bool? ESLEnrollment { get; set; }
-        string GenderDescriptor { get; set; }
-        string GradeLevelDescriptor { get; set; }
-        bool? HispanicLatinoEthnicity { get; set; }
-        int? Mobility { get; set; }
-        bool? Section504Enrollment { get; set; }
-        string SexDescriptor { get; set; }
-        bool? SPEDEnrollment { get; set; }
-        bool? TitleIEnrollment { get; set; }
-        string ValueTypeDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IAnonymizedStudentDisability> AnonymizedStudentDisabilities { get; set; }
-        ICollection<IAnonymizedStudentLanguage> AnonymizedStudentLanguages { get; set; }
-        ICollection<IAnonymizedStudentRace> AnonymizedStudentRaces { get; set; }
-
-        // Resource reference data
-        Guid? SchoolYearTypeResourceId { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentAcademicRecord model.
-    /// </summary>
-    public interface IAnonymizedStudentAcademicRecord : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AnonymizedStudentIdentifier { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        DateTime FactsAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string TermDescriptor { get; set; }
-
-        // Non-PK properties
-        decimal? CumulativeGradePointAverage { get; set; }
-        decimal? GPAMax { get; set; }
-        decimal? SessionGradePointAverage { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AnonymizedStudentResourceId { get; set; }
-        string AnonymizedStudentDiscriminator { get; set; }
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-        Guid? SchoolYearTypeResourceId { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentAssessment model.
-    /// </summary>
-    public interface IAnonymizedStudentAssessment : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        DateTime AdministrationDate { get; set; }
-        [NaturalKeyMember]
-        string AnonymizedStudentIdentifier { get; set; }
-        [NaturalKeyMember]
-        string AssessmentIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime FactsAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        short TakenSchoolYear { get; set; }
-
-        // Non-PK properties
-        string AcademicSubjectDescriptor { get; set; }
-        string AssessmentCategoryDescriptor { get; set; }
-        string AssessmentTitle { get; set; }
-        string GradeLevelDescriptor { get; set; }
-        string TermDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        IAnonymizedStudentAssessmentPerformanceLevel AnonymizedStudentAssessmentPerformanceLevel { get; set; }
-
-        IAnonymizedStudentAssessmentScoreResult AnonymizedStudentAssessmentScoreResult { get; set; }
-
-        // Lists
-
-        // Resource reference data
-        Guid? AnonymizedStudentResourceId { get; set; }
-        string AnonymizedStudentDiscriminator { get; set; }
-        Guid? TakenSchoolYearTypeResourceId { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentAssessmentCourseAssociation model.
-    /// </summary>
-    public interface IAnonymizedStudentAssessmentCourseAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        DateTime AdministrationDate { get; set; }
-        [NaturalKeyMember]
-        string AnonymizedStudentIdentifier { get; set; }
-        [NaturalKeyMember]
-        string AssessmentIdentifier { get; set; }
-        [NaturalKeyMember]
-        string CourseCode { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime FactsAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        short TakenSchoolYear { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AnonymizedStudentAssessmentResourceId { get; set; }
-        string AnonymizedStudentAssessmentDiscriminator { get; set; }
-        Guid? CourseResourceId { get; set; }
-        string CourseDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentAssessmentPerformanceLevel model.
-    /// </summary>
-    public interface IAnonymizedStudentAssessmentPerformanceLevel : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IAnonymizedStudentAssessment AnonymizedStudentAssessment { get; set; }
-
-        // Non-PK properties
-        string AssessmentReportingMethodDescriptor { get; set; }
-        string PerformanceLevelDescriptor { get; set; }
-        bool PerformanceLevelMet { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentAssessmentScoreResult model.
-    /// </summary>
-    public interface IAnonymizedStudentAssessmentScoreResult : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IAnonymizedStudentAssessment AnonymizedStudentAssessment { get; set; }
-
-        // Non-PK properties
-        string AssessmentReportingMethodDescriptor { get; set; }
-        string Result { get; set; }
-        string ResultDatatypeTypeDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentAssessmentSectionAssociation model.
-    /// </summary>
-    public interface IAnonymizedStudentAssessmentSectionAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        DateTime AdministrationDate { get; set; }
-        [NaturalKeyMember]
-        string AnonymizedStudentIdentifier { get; set; }
-        [NaturalKeyMember]
-        string AssessmentIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime FactsAsOfDate { get; set; }
-        [NaturalKeyMember]
-        string LocalCourseCode { get; set; }
-        [NaturalKeyMember]
-        int SchoolId { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string SectionIdentifier { get; set; }
-        [NaturalKeyMember]
-        string SessionName { get; set; }
-        [NaturalKeyMember]
-        short TakenSchoolYear { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AnonymizedStudentAssessmentResourceId { get; set; }
-        string AnonymizedStudentAssessmentDiscriminator { get; set; }
-        Guid? SectionResourceId { get; set; }
-        string SectionDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentCourseAssociation model.
-    /// </summary>
-    public interface IAnonymizedStudentCourseAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AnonymizedStudentIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
-        string CourseCode { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime FactsAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-
-        // Non-PK properties
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AnonymizedStudentResourceId { get; set; }
-        string AnonymizedStudentDiscriminator { get; set; }
-        Guid? CourseResourceId { get; set; }
-        string CourseDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentCourseTranscript model.
-    /// </summary>
-    public interface IAnonymizedStudentCourseTranscript : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AnonymizedStudentIdentifier { get; set; }
-        [NaturalKeyMember]
-        string CourseCode { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        DateTime FactsAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string TermDescriptor { get; set; }
-
-        // Non-PK properties
-        string CourseRepeatCodeDescriptor { get; set; }
-        string CourseTitle { get; set; }
-        string FinalLetterGradeEarned { get; set; }
-        decimal? FinalNumericGradeEarned { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AnonymizedStudentAcademicRecordResourceId { get; set; }
-        string AnonymizedStudentAcademicRecordDiscriminator { get; set; }
-        Guid? CourseResourceId { get; set; }
-        string CourseDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentDisability model.
-    /// </summary>
-    public interface IAnonymizedStudentDisability : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IAnonymizedStudent AnonymizedStudent { get; set; }
-        [NaturalKeyMember]
-        string DisabilityDescriptor { get; set; }
-
-        // Non-PK properties
-        string DisabilityDeterminationSourceTypeDescriptor { get; set; }
-        string DisabilityDiagnosis { get; set; }
-        int? OrderOfDisability { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IAnonymizedStudentDisabilityDesignation> AnonymizedStudentDisabilityDesignations { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentDisabilityDesignation model.
-    /// </summary>
-    public interface IAnonymizedStudentDisabilityDesignation : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IAnonymizedStudentDisability AnonymizedStudentDisability { get; set; }
-        [NaturalKeyMember]
-        string DisabilityDesignationDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentEducationOrganizationAssociation model.
-    /// </summary>
-    public interface IAnonymizedStudentEducationOrganizationAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AnonymizedStudentIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime FactsAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-
-        // Non-PK properties
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AnonymizedStudentResourceId { get; set; }
-        string AnonymizedStudentDiscriminator { get; set; }
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentLanguage model.
-    /// </summary>
-    public interface IAnonymizedStudentLanguage : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IAnonymizedStudent AnonymizedStudent { get; set; }
-        [NaturalKeyMember]
-        string LanguageDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IAnonymizedStudentLanguageUse> AnonymizedStudentLanguageUses { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentLanguageUse model.
-    /// </summary>
-    public interface IAnonymizedStudentLanguageUse : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IAnonymizedStudentLanguage AnonymizedStudentLanguage { get; set; }
-        [NaturalKeyMember]
-        string LanguageUseDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentRace model.
-    /// </summary>
-    public interface IAnonymizedStudentRace : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IAnonymizedStudent AnonymizedStudent { get; set; }
-        [NaturalKeyMember]
-        string RaceDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the AnonymizedStudentSectionAssociation model.
-    /// </summary>
-    public interface IAnonymizedStudentSectionAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string AnonymizedStudentIdentifier { get; set; }
-        [NaturalKeyMember]
-        DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
-        DateTime FactsAsOfDate { get; set; }
-        [NaturalKeyMember]
-        string LocalCourseCode { get; set; }
-        [NaturalKeyMember]
-        int SchoolId { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string SectionIdentifier { get; set; }
-        [NaturalKeyMember]
-        string SessionName { get; set; }
-
-        // Non-PK properties
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? AnonymizedStudentResourceId { get; set; }
-        string AnonymizedStudentDiscriminator { get; set; }
-        Guid? SectionResourceId { get; set; }
-        string SectionDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the Applicant model.
-    /// </summary>
-    public interface IApplicant : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string ApplicantIdentifier { get; set; }
+        string ApplicantProfileIdentifier { get; set; }
 
         // Non-PK properties
         DateTime? BirthDate { get; set; }
@@ -538,51 +62,47 @@ namespace EdFi.Ods.Entities.Common.TPDM
         string FirstName { get; set; }
         string GenderDescriptor { get; set; }
         string GenerationCodeSuffix { get; set; }
+        string HighestCompletedLevelOfEducationDescriptor { get; set; }
+        bool? HighlyQualifiedTeacher { get; set; }
         bool? HispanicLatinoEthnicity { get; set; }
         string LastSurname { get; set; }
-        string LoginId { get; set; }
         string MaidenName { get; set; }
         string MiddleName { get; set; }
         string PersonalTitlePrefix { get; set; }
-        string PersonId { get; set; }
         string SexDescriptor { get; set; }
-        string SourceSystemDescriptor { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
+        decimal? YearsOfPriorProfessionalExperience { get; set; }
+        decimal? YearsOfPriorTeachingExperience { get; set; }
 
         // One-to-one relationships
 
         // Lists
-        ICollection<IApplicantAddress> ApplicantAddresses { get; set; }
-        ICollection<IApplicantAid> ApplicantAids { get; set; }
-        ICollection<IApplicantBackgroundCheck> ApplicantBackgroundChecks { get; set; }
-        ICollection<IApplicantCharacteristic> ApplicantCharacteristics { get; set; }
-        ICollection<IApplicantDisability> ApplicantDisabilities { get; set; }
-        ICollection<IApplicantElectronicMail> ApplicantElectronicMails { get; set; }
-        ICollection<IApplicantIdentificationDocument> ApplicantIdentificationDocuments { get; set; }
-        ICollection<IApplicantInternationalAddress> ApplicantInternationalAddresses { get; set; }
-        ICollection<IApplicantLanguage> ApplicantLanguages { get; set; }
-        ICollection<IApplicantPersonalIdentificationDocument> ApplicantPersonalIdentificationDocuments { get; set; }
-        ICollection<IApplicantRace> ApplicantRaces { get; set; }
-        ICollection<IApplicantStaffIdentificationCode> ApplicantStaffIdentificationCodes { get; set; }
-        ICollection<IApplicantTeacherPreparationProgram> ApplicantTeacherPreparationPrograms { get; set; }
-        ICollection<IApplicantTelephone> ApplicantTelephones { get; set; }
-        ICollection<IApplicantVisa> ApplicantVisas { get; set; }
+        ICollection<IApplicantProfileAddress> ApplicantProfileAddresses { get; set; }
+        ICollection<IApplicantProfileApplicantCharacteristic> ApplicantProfileApplicantCharacteristics { get; set; }
+        ICollection<IApplicantProfileBackgroundCheck> ApplicantProfileBackgroundChecks { get; set; }
+        ICollection<IApplicantProfileDisability> ApplicantProfileDisabilities { get; set; }
+        ICollection<IApplicantProfileEducatorPreparationProgramName> ApplicantProfileEducatorPreparationProgramNames { get; set; }
+        ICollection<IApplicantProfileElectronicMail> ApplicantProfileElectronicMails { get; set; }
+        ICollection<IApplicantProfileGradePointAverage> ApplicantProfileGradePointAverages { get; set; }
+        ICollection<IApplicantProfileHighlyQualifiedAcademicSubject> ApplicantProfileHighlyQualifiedAcademicSubjects { get; set; }
+        ICollection<IApplicantProfileIdentificationDocument> ApplicantProfileIdentificationDocuments { get; set; }
+        ICollection<IApplicantProfileInternationalAddress> ApplicantProfileInternationalAddresses { get; set; }
+        ICollection<IApplicantProfileLanguage> ApplicantProfileLanguages { get; set; }
+        ICollection<IApplicantProfilePersonalIdentificationDocument> ApplicantProfilePersonalIdentificationDocuments { get; set; }
+        ICollection<IApplicantProfileRace> ApplicantProfileRaces { get; set; }
+        ICollection<IApplicantProfileTelephone> ApplicantProfileTelephones { get; set; }
+        ICollection<IApplicantProfileVisa> ApplicantProfileVisas { get; set; }
 
         // Resource reference data
-        Guid? PersonResourceId { get; set; }
-        string PersonDiscriminator { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantAddress model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileAddress model.
     /// </summary>
-    public interface IApplicantAddress : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string AddressTypeDescriptor { get; set; }
         [NaturalKeyMember]
@@ -608,19 +128,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // One-to-one relationships
 
         // Lists
-        ICollection<IApplicantAddressPeriod> ApplicantAddressPeriods { get; set; }
+        ICollection<IApplicantProfileAddressPeriod> ApplicantProfileAddressPeriods { get; set; }
 
         // Resource reference data
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantAddressPeriod model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileAddressPeriod model.
     /// </summary>
-    public interface IApplicantAddressPeriod : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileAddressPeriod : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicantAddress ApplicantAddress { get; set; }
+        IApplicantProfileAddress ApplicantProfileAddress { get; set; }
         [NaturalKeyMember]
         DateTime BeginDate { get; set; }
 
@@ -635,23 +155,20 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantAid model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileApplicantCharacteristic model.
     /// </summary>
-    public interface IApplicantAid : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileApplicantCharacteristic : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
-        string AidTypeDescriptor { get; set; }
-        [NaturalKeyMember]
-        DateTime BeginDate { get; set; }
+        string StudentCharacteristicDescriptor { get; set; }
 
         // Non-PK properties
-        decimal? AidAmount { get; set; }
-        string AidConditionDescription { get; set; }
+        DateTime? BeginDate { get; set; }
+        string DesignatedBy { get; set; }
         DateTime? EndDate { get; set; }
-        bool? PellGrantRecipient { get; set; }
 
         // One-to-one relationships
 
@@ -661,13 +178,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantBackgroundCheck model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileBackgroundCheck model.
     /// </summary>
-    public interface IApplicantBackgroundCheck : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileBackgroundCheck : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string BackgroundCheckTypeDescriptor { get; set; }
 
@@ -685,36 +202,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantCharacteristic model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileDisability model.
     /// </summary>
-    public interface IApplicantCharacteristic : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileDisability : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
-        [NaturalKeyMember]
-        string StudentCharacteristicDescriptor { get; set; }
-
-        // Non-PK properties
-        DateTime? BeginDate { get; set; }
-        string DesignatedBy { get; set; }
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantDisability model.
-    /// </summary>
-    public interface IApplicantDisability : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string DisabilityDescriptor { get; set; }
 
@@ -726,19 +220,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // One-to-one relationships
 
         // Lists
-        ICollection<IApplicantDisabilityDesignation> ApplicantDisabilityDesignations { get; set; }
+        ICollection<IApplicantProfileDisabilityDesignation> ApplicantProfileDisabilityDesignations { get; set; }
 
         // Resource reference data
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantDisabilityDesignation model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileDisabilityDesignation model.
     /// </summary>
-    public interface IApplicantDisabilityDesignation : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileDisabilityDesignation : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicantDisability ApplicantDisability { get; set; }
+        IApplicantProfileDisability ApplicantProfileDisability { get; set; }
         [NaturalKeyMember]
         string DisabilityDesignationDescriptor { get; set; }
 
@@ -752,13 +246,33 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantElectronicMail model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileEducatorPreparationProgramName model.
     /// </summary>
-    public interface IApplicantElectronicMail : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileEducatorPreparationProgramName : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
+        [NaturalKeyMember]
+        string EducatorPreparationProgramName { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileElectronicMail model.
+    /// </summary>
+    public interface IApplicantProfileElectronicMail : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string ElectronicMailAddress { get; set; }
         [NaturalKeyMember]
@@ -776,13 +290,56 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantIdentificationDocument model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileGradePointAverage model.
     /// </summary>
-    public interface IApplicantIdentificationDocument : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileGradePointAverage : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
+        [NaturalKeyMember]
+        string GradePointAverageTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        decimal GradePointAverageValue { get; set; }
+        bool? IsCumulative { get; set; }
+        decimal? MaxGradePointAverageValue { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileHighlyQualifiedAcademicSubject model.
+    /// </summary>
+    public interface IApplicantProfileHighlyQualifiedAcademicSubject : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IApplicantProfile ApplicantProfile { get; set; }
+        [NaturalKeyMember]
+        string AcademicSubjectDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileIdentificationDocument model.
+    /// </summary>
+    public interface IApplicantProfileIdentificationDocument : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string IdentificationDocumentUseDescriptor { get; set; }
         [NaturalKeyMember]
@@ -803,13 +360,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantInternationalAddress model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileInternationalAddress model.
     /// </summary>
-    public interface IApplicantInternationalAddress : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileInternationalAddress : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string AddressTypeDescriptor { get; set; }
 
@@ -832,13 +389,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantLanguage model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileLanguage model.
     /// </summary>
-    public interface IApplicantLanguage : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileLanguage : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string LanguageDescriptor { get; set; }
 
@@ -847,19 +404,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // One-to-one relationships
 
         // Lists
-        ICollection<IApplicantLanguageUse> ApplicantLanguageUses { get; set; }
+        ICollection<IApplicantProfileLanguageUse> ApplicantProfileLanguageUses { get; set; }
 
         // Resource reference data
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantLanguageUse model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileLanguageUse model.
     /// </summary>
-    public interface IApplicantLanguageUse : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileLanguageUse : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicantLanguage ApplicantLanguage { get; set; }
+        IApplicantProfileLanguage ApplicantProfileLanguage { get; set; }
         [NaturalKeyMember]
         string LanguageUseDescriptor { get; set; }
 
@@ -873,13 +430,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantPersonalIdentificationDocument model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfilePersonalIdentificationDocument model.
     /// </summary>
-    public interface IApplicantPersonalIdentificationDocument : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfilePersonalIdentificationDocument : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string IdentificationDocumentUseDescriptor { get; set; }
         [NaturalKeyMember]
@@ -900,39 +457,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantProspectAssociation model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileRace model.
     /// </summary>
-    public interface IApplicantProspectAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IApplicantProfileRace : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        string ApplicantIdentifier { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        string ProspectIdentifier { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? ApplicantResourceId { get; set; }
-        string ApplicantDiscriminator { get; set; }
-        Guid? ProspectResourceId { get; set; }
-        string ProspectDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantRace model.
-    /// </summary>
-    public interface IApplicantRace : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string RaceDescriptor { get; set; }
 
@@ -946,61 +477,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantStaffIdentificationCode model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileTelephone model.
     /// </summary>
-    public interface IApplicantStaffIdentificationCode : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileTelephone : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
-        [NaturalKeyMember]
-        string StaffIdentificationSystemDescriptor { get; set; }
-
-        // Non-PK properties
-        string AssigningOrganizationIdentificationCode { get; set; }
-        string IdentificationCode { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantTeacherPreparationProgram model.
-    /// </summary>
-    public interface IApplicantTeacherPreparationProgram : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
-        [NaturalKeyMember]
-        string TeacherPreparationProgramName { get; set; }
-
-        // Non-PK properties
-        decimal? GPA { get; set; }
-        string LevelOfDegreeAwardedDescriptor { get; set; }
-        string MajorSpecialization { get; set; }
-        string NameOfInstitution { get; set; }
-        string TeacherPreparationProgramIdentifier { get; set; }
-        string TeacherPreparationProgramTypeDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantTelephone model.
-    /// </summary>
-    public interface IApplicantTelephone : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string TelephoneNumber { get; set; }
         [NaturalKeyMember]
@@ -1019,13 +502,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicantVisa model.
+    /// Defines available properties and methods for the abstraction of the ApplicantProfileVisa model.
     /// </summary>
-    public interface IApplicantVisa : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicantProfileVisa : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
-        IApplicant Applicant { get; set; }
+        IApplicantProfile ApplicantProfile { get; set; }
         [NaturalKeyMember]
         string VisaDescriptor { get; set; }
 
@@ -1045,7 +528,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        string ApplicantIdentifier { get; set; }
+        string ApplicantProfileIdentifier { get; set; }
         [NaturalKeyMember]
         string ApplicationIdentifier { get; set; }
         [NaturalKeyMember]
@@ -1059,30 +542,27 @@ namespace EdFi.Ods.Entities.Common.TPDM
         string ApplicationStatusDescriptor { get; set; }
         bool? CurrentEmployee { get; set; }
         DateTime? FirstContactDate { get; set; }
-        string HighestCompletedLevelOfEducationDescriptor { get; set; }
-        string HighlyQualifiedAcademicSubjectDescriptor { get; set; }
-        bool? HighlyQualifiedTeacher { get; set; }
         string HighNeedsAcademicSubjectDescriptor { get; set; }
         string HireStatusDescriptor { get; set; }
         string HiringSourceDescriptor { get; set; }
+        string RequisitionNumber { get; set; }
         DateTime? WithdrawDate { get; set; }
         string WithdrawReasonDescriptor { get; set; }
-        decimal? YearsOfPriorProfessionalExperience { get; set; }
-        decimal? YearsOfPriorTeachingExperience { get; set; }
 
         // One-to-one relationships
 
         // Lists
-        ICollection<IApplicationGradePointAverage> ApplicationGradePointAverages { get; set; }
-        ICollection<IApplicationOpenStaffPosition> ApplicationOpenStaffPositions { get; set; }
+        ICollection<IApplicationRecruitmentEventAttendance> ApplicationRecruitmentEventAttendances { get; set; }
         ICollection<IApplicationScoreResult> ApplicationScoreResults { get; set; }
         ICollection<IApplicationTerm> ApplicationTerms { get; set; }
 
         // Resource reference data
-        Guid? ApplicantResourceId { get; set; }
-        string ApplicantDiscriminator { get; set; }
+        Guid? ApplicantProfileResourceId { get; set; }
+        string ApplicantProfileDiscriminator { get; set; }
         Guid? EducationOrganizationResourceId { get; set; }
         string EducationOrganizationDiscriminator { get; set; }
+        Guid? OpenStaffPositionResourceId { get; set; }
+        string OpenStaffPositionDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -1092,7 +572,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
-        string ApplicantIdentifier { get; set; }
+        string ApplicantProfileIdentifier { get; set; }
         [NaturalKeyMember]
         string ApplicationEventTypeDescriptor { get; set; }
         [NaturalKeyMember]
@@ -1158,38 +638,19 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicationGradePointAverage model.
+    /// Defines available properties and methods for the abstraction of the ApplicationRecruitmentEventAttendance model.
     /// </summary>
-    public interface IApplicationGradePointAverage : ISynchronizable, IMappable, IGetByExample
+    public interface IApplicationRecruitmentEventAttendance : ISynchronizable, IMappable, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
         IApplication Application { get; set; }
         [NaturalKeyMember]
-        string GradePointAverageTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        decimal GradePointAverageValue { get; set; }
-        bool? IsCumulative { get; set; }
-        decimal? MaxGradePointAverageValue { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ApplicationOpenStaffPosition model.
-    /// </summary>
-    public interface IApplicationOpenStaffPosition : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
+        DateTime EventDate { get; set; }
         [NaturalKeyMember]
-        IApplication Application { get; set; }
+        string EventTitle { get; set; }
         [NaturalKeyMember]
-        string RequisitionNumber { get; set; }
+        string RecruitmentEventAttendeeIdentifier { get; set; }
 
         // Non-PK properties
 
@@ -1198,8 +659,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Lists
 
         // Resource reference data
-        Guid? OpenStaffPositionResourceId { get; set; }
-        string OpenStaffPositionDiscriminator { get; set; }
+        Guid? RecruitmentEventAttendanceResourceId { get; set; }
+        string RecruitmentEventAttendanceDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -1325,6 +786,760 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int BackgroundCheckTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the Candidate model.
+    /// </summary>
+    public interface ICandidate : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string CandidateIdentifier { get; set; }
+
+        // Non-PK properties
+        string ApplicantProfileIdentifier { get; set; }
+        string ApplicationIdentifier { get; set; }
+        string BirthCity { get; set; }
+        string BirthCountryDescriptor { get; set; }
+        DateTime BirthDate { get; set; }
+        string BirthInternationalProvince { get; set; }
+        string BirthSexDescriptor { get; set; }
+        string BirthStateAbbreviationDescriptor { get; set; }
+        string CitizenshipStatusDescriptor { get; set; }
+        DateTime? DateEnteredUS { get; set; }
+        string DisplacementStatus { get; set; }
+        bool? EconomicDisadvantaged { get; set; }
+        int? EducationOrganizationId { get; set; }
+        string EnglishLanguageExamDescriptor { get; set; }
+        bool? FirstGenerationStudent { get; set; }
+        string FirstName { get; set; }
+        string GenderDescriptor { get; set; }
+        string GenerationCodeSuffix { get; set; }
+        bool? HispanicLatinoEthnicity { get; set; }
+        string LastSurname { get; set; }
+        string LimitedEnglishProficiencyDescriptor { get; set; }
+        string LoginId { get; set; }
+        string MaidenName { get; set; }
+        string MiddleName { get; set; }
+        bool? MultipleBirthStatus { get; set; }
+        string OldEthnicityDescriptor { get; set; }
+        string PersonalTitlePrefix { get; set; }
+        string PersonId { get; set; }
+        string PreviousCareerDescriptor { get; set; }
+        string ProfileThumbnail { get; set; }
+        bool? ProgramComplete { get; set; }
+        string SexDescriptor { get; set; }
+        string SourceSystemDescriptor { get; set; }
+        decimal? TuitionCost { get; set; }
+
+        // One-to-one relationships
+
+        ICandidateBackgroundCheck CandidateBackgroundCheck { get; set; }
+
+        // Lists
+        ICollection<ICandidateAddress> CandidateAddresses { get; set; }
+        ICollection<ICandidateAid> CandidateAids { get; set; }
+        ICollection<ICandidateCharacteristic> CandidateCharacteristics { get; set; }
+        ICollection<ICandidateCohortYear> CandidateCohortYears { get; set; }
+        ICollection<ICandidateDegreeSpecialization> CandidateDegreeSpecializations { get; set; }
+        ICollection<ICandidateDisability> CandidateDisabilities { get; set; }
+        ICollection<ICandidateElectronicMail> CandidateElectronicMails { get; set; }
+        ICollection<ICandidateEPPProgramDegree> CandidateEPPProgramDegrees { get; set; }
+        ICollection<ICandidateIdentificationCode> CandidateIdentificationCodes { get; set; }
+        ICollection<ICandidateIdentificationDocument> CandidateIdentificationDocuments { get; set; }
+        ICollection<ICandidateIndicator> CandidateIndicators { get; set; }
+        ICollection<ICandidateInternationalAddress> CandidateInternationalAddresses { get; set; }
+        ICollection<ICandidateLanguage> CandidateLanguages { get; set; }
+        ICollection<ICandidateOtherName> CandidateOtherNames { get; set; }
+        ICollection<ICandidatePersonalIdentificationDocument> CandidatePersonalIdentificationDocuments { get; set; }
+        ICollection<ICandidateRace> CandidateRaces { get; set; }
+        ICollection<ICandidateTelephone> CandidateTelephones { get; set; }
+        ICollection<ICandidateVisa> CandidateVisas { get; set; }
+
+        // Resource reference data
+        Guid? ApplicationResourceId { get; set; }
+        string ApplicationDiscriminator { get; set; }
+        Guid? PersonResourceId { get; set; }
+        string PersonDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateAddress model.
+    /// </summary>
+    public interface ICandidateAddress : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string AddressTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        string City { get; set; }
+        [NaturalKeyMember]
+        string PostalCode { get; set; }
+        [NaturalKeyMember]
+        string StateAbbreviationDescriptor { get; set; }
+        [NaturalKeyMember]
+        string StreetNumberName { get; set; }
+
+        // Non-PK properties
+        string ApartmentRoomSuiteNumber { get; set; }
+        string BuildingSiteNumber { get; set; }
+        string CongressionalDistrict { get; set; }
+        string CountyFIPSCode { get; set; }
+        bool? DoNotPublishIndicator { get; set; }
+        string Latitude { get; set; }
+        string LocaleDescriptor { get; set; }
+        string Longitude { get; set; }
+        string NameOfCounty { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<ICandidateAddressPeriod> CandidateAddressPeriods { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateAddressPeriod model.
+    /// </summary>
+    public interface ICandidateAddressPeriod : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidateAddress CandidateAddress { get; set; }
+        [NaturalKeyMember]
+        DateTime BeginDate { get; set; }
+
+        // Non-PK properties
+        DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateAid model.
+    /// </summary>
+    public interface ICandidateAid : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string AidTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        DateTime BeginDate { get; set; }
+
+        // Non-PK properties
+        decimal? AidAmount { get; set; }
+        string AidConditionDescription { get; set; }
+        DateTime? EndDate { get; set; }
+        bool? PellGrantRecipient { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateBackgroundCheck model.
+    /// </summary>
+    public interface ICandidateBackgroundCheck : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+
+        // Non-PK properties
+        DateTime? BackgroundCheckCompletedDate { get; set; }
+        DateTime BackgroundCheckRequestedDate { get; set; }
+        string BackgroundCheckStatusDescriptor { get; set; }
+        string BackgroundCheckTypeDescriptor { get; set; }
+        bool? Fingerprint { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateCharacteristic model.
+    /// </summary>
+    public interface ICandidateCharacteristic : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string CandidateCharacteristicDescriptor { get; set; }
+
+        // Non-PK properties
+        DateTime? BeginDate { get; set; }
+        string DesignatedBy { get; set; }
+        DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateCharacteristicDescriptor model.
+    /// </summary>
+    public interface ICandidateCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int CandidateCharacteristicDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateCohortYear model.
+    /// </summary>
+    public interface ICandidateCohortYear : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string CohortYearTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        short SchoolYear { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? SchoolYearTypeResourceId { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateDegreeSpecialization model.
+    /// </summary>
+    public interface ICandidateDegreeSpecialization : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        DateTime BeginDate { get; set; }
+        [NaturalKeyMember]
+        string MajorSpecialization { get; set; }
+
+        // Non-PK properties
+        DateTime? EndDate { get; set; }
+        string MinorSpecialization { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateDisability model.
+    /// </summary>
+    public interface ICandidateDisability : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string DisabilityDescriptor { get; set; }
+
+        // Non-PK properties
+        string DisabilityDeterminationSourceTypeDescriptor { get; set; }
+        string DisabilityDiagnosis { get; set; }
+        int? OrderOfDisability { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<ICandidateDisabilityDesignation> CandidateDisabilityDesignations { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateDisabilityDesignation model.
+    /// </summary>
+    public interface ICandidateDisabilityDesignation : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidateDisability CandidateDisability { get; set; }
+        [NaturalKeyMember]
+        string DisabilityDesignationDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateEducatorPreparationProgramAssociation model.
+    /// </summary>
+    public interface ICandidateEducatorPreparationProgramAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        DateTime BeginDate { get; set; }
+        [NaturalKeyMember]
+        string CandidateIdentifier { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        DateTime? EndDate { get; set; }
+        string EPPProgramPathwayDescriptor { get; set; }
+        string MajorSpecialization { get; set; }
+        string MinorSpecialization { get; set; }
+        string ReasonExitedDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        ICandidateEducatorPreparationProgramAssociationCandidateIndicator CandidateEducatorPreparationProgramAssociationCandidateIndicator { get; set; }
+
+        // Lists
+
+        // Resource reference data
+        Guid? CandidateResourceId { get; set; }
+        string CandidateDiscriminator { get; set; }
+        Guid? EducatorPreparationProgramResourceId { get; set; }
+        string EducatorPreparationProgramDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateEducatorPreparationProgramAssociationCandidateIndicator model.
+    /// </summary>
+    public interface ICandidateEducatorPreparationProgramAssociationCandidateIndicator : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidateEducatorPreparationProgramAssociation CandidateEducatorPreparationProgramAssociation { get; set; }
+
+        // Non-PK properties
+        string DesignatedBy { get; set; }
+        string Indicator { get; set; }
+        string IndicatorGroup { get; set; }
+        string IndicatorName { get; set; }
+
+        // One-to-one relationships
+
+        ICandidateEducatorPreparationProgramAssociationCandidateIndicatorPeriod CandidateEducatorPreparationProgramAssociationCandidateIndicatorPeriod { get; set; }
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateEducatorPreparationProgramAssociationCandidateIndicatorPeriod model.
+    /// </summary>
+    public interface ICandidateEducatorPreparationProgramAssociationCandidateIndicatorPeriod : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidateEducatorPreparationProgramAssociationCandidateIndicator CandidateEducatorPreparationProgramAssociationCandidateIndicator { get; set; }
+
+        // Non-PK properties
+        DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateElectronicMail model.
+    /// </summary>
+    public interface ICandidateElectronicMail : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string ElectronicMailAddress { get; set; }
+        [NaturalKeyMember]
+        string ElectronicMailTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        bool? DoNotPublishIndicator { get; set; }
+        bool? PrimaryEmailAddressIndicator { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateEPPProgramDegree model.
+    /// </summary>
+    public interface ICandidateEPPProgramDegree : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string AcademicSubjectDescriptor { get; set; }
+        [NaturalKeyMember]
+        string EPPDegreeTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        string GradeLevelDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateIdentificationCode model.
+    /// </summary>
+    public interface ICandidateIdentificationCode : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string AssigningOrganizationIdentificationCode { get; set; }
+        [NaturalKeyMember]
+        string IdentificationCode { get; set; }
+        [NaturalKeyMember]
+        string StudentIdentificationSystemDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateIdentificationDocument model.
+    /// </summary>
+    public interface ICandidateIdentificationDocument : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string IdentificationDocumentUseDescriptor { get; set; }
+        [NaturalKeyMember]
+        string PersonalInformationVerificationDescriptor { get; set; }
+
+        // Non-PK properties
+        DateTime? DocumentExpirationDate { get; set; }
+        string DocumentTitle { get; set; }
+        string IssuerCountryDescriptor { get; set; }
+        string IssuerDocumentIdentificationCode { get; set; }
+        string IssuerName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateIndicator model.
+    /// </summary>
+    public interface ICandidateIndicator : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string IndicatorName { get; set; }
+
+        // Non-PK properties
+        string DesignatedBy { get; set; }
+        string Indicator { get; set; }
+        string IndicatorGroup { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<ICandidateIndicatorPeriod> CandidateIndicatorPeriods { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateIndicatorPeriod model.
+    /// </summary>
+    public interface ICandidateIndicatorPeriod : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidateIndicator CandidateIndicator { get; set; }
+        [NaturalKeyMember]
+        DateTime BeginDate { get; set; }
+
+        // Non-PK properties
+        DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateInternationalAddress model.
+    /// </summary>
+    public interface ICandidateInternationalAddress : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string AddressTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        string AddressLine1 { get; set; }
+        string AddressLine2 { get; set; }
+        string AddressLine3 { get; set; }
+        string AddressLine4 { get; set; }
+        DateTime? BeginDate { get; set; }
+        string CountryDescriptor { get; set; }
+        DateTime? EndDate { get; set; }
+        string Latitude { get; set; }
+        string Longitude { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateLanguage model.
+    /// </summary>
+    public interface ICandidateLanguage : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string LanguageDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<ICandidateLanguageUse> CandidateLanguageUses { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateLanguageUse model.
+    /// </summary>
+    public interface ICandidateLanguageUse : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidateLanguage CandidateLanguage { get; set; }
+        [NaturalKeyMember]
+        string LanguageUseDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateOtherName model.
+    /// </summary>
+    public interface ICandidateOtherName : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string OtherNameTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        string FirstName { get; set; }
+        string GenerationCodeSuffix { get; set; }
+        string LastSurname { get; set; }
+        string MiddleName { get; set; }
+        string PersonalTitlePrefix { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidatePersonalIdentificationDocument model.
+    /// </summary>
+    public interface ICandidatePersonalIdentificationDocument : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string IdentificationDocumentUseDescriptor { get; set; }
+        [NaturalKeyMember]
+        string PersonalInformationVerificationDescriptor { get; set; }
+
+        // Non-PK properties
+        DateTime? DocumentExpirationDate { get; set; }
+        string DocumentTitle { get; set; }
+        string IssuerCountryDescriptor { get; set; }
+        string IssuerDocumentIdentificationCode { get; set; }
+        string IssuerName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateRace model.
+    /// </summary>
+    public interface ICandidateRace : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string RaceDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateRelationshipToStaffAssociation model.
+    /// </summary>
+    public interface ICandidateRelationshipToStaffAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string CandidateIdentifier { get; set; }
+        [NaturalKeyMember]
+        string StaffUniqueId { get; set; }
+
+        // Non-PK properties
+        DateTime BeginDate { get; set; }
+        DateTime? EndDate { get; set; }
+        string StaffToCandidateRelationshipDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? CandidateResourceId { get; set; }
+        string CandidateDiscriminator { get; set; }
+        Guid? StaffResourceId { get; set; }
+        string StaffDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateTelephone model.
+    /// </summary>
+    public interface ICandidateTelephone : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string TelephoneNumber { get; set; }
+        [NaturalKeyMember]
+        string TelephoneNumberTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        bool? DoNotPublishIndicator { get; set; }
+        int? OrderOfPriority { get; set; }
+        bool? TextMessageCapabilityIndicator { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CandidateVisa model.
+    /// </summary>
+    public interface ICandidateVisa : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICandidate Candidate { get; set; }
+        [NaturalKeyMember]
+        string VisaDescriptor { get; set; }
 
         // Non-PK properties
 
@@ -1605,30 +1820,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the CompleterAsStaffAssociation model.
-    /// </summary>
-    public interface ICompleterAsStaffAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
-    }
-
-    /// <summary>
     /// Defines available properties and methods for the abstraction of the CoteachingStyleObservedDescriptor model.
     /// </summary>
     public interface ICoteachingStyleObservedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -1788,6 +1979,72 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the EducatorPreparationProgram model.
+    /// </summary>
+    public interface IEducatorPreparationProgram : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        string AccreditationStatusDescriptor { get; set; }
+        string EducatorPreparationProgramTypeDescriptor { get; set; }
+        string ProgramId { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IEducatorPreparationProgramGradeLevel> EducatorPreparationProgramGradeLevels { get; set; }
+
+        // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EducatorPreparationProgramGradeLevel model.
+    /// </summary>
+    public interface IEducatorPreparationProgramGradeLevel : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IEducatorPreparationProgram EducatorPreparationProgram { get; set; }
+        [NaturalKeyMember]
+        string GradeLevelDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EducatorPreparationProgramTypeDescriptor model.
+    /// </summary>
+    public interface IEducatorPreparationProgramTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int EducatorPreparationProgramTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the EducatorRoleDescriptor model.
     /// </summary>
     public interface IEducatorRoleDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -1806,117 +2063,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the EmploymentEvent model.
-    /// </summary>
-    public interface IEmploymentEvent : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        string EmploymentEventTypeDescriptor { get; set; }
-        [NaturalKeyMember]
-        string RequisitionNumber { get; set; }
-
-        // Non-PK properties
-        bool? EarlyHire { get; set; }
-        DateTime? HireDate { get; set; }
-        string InternalExternalHireDescriptor { get; set; }
-        bool? MutualConsent { get; set; }
-        bool? RestrictedChoice { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? OpenStaffPositionResourceId { get; set; }
-        string OpenStaffPositionDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the EmploymentEventTypeDescriptor model.
-    /// </summary>
-    public interface IEmploymentEventTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int EmploymentEventTypeDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the EmploymentSeparationEvent model.
-    /// </summary>
-    public interface IEmploymentSeparationEvent : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime EmploymentSeparationDate { get; set; }
-        [NaturalKeyMember]
-        string RequisitionNumber { get; set; }
-
-        // Non-PK properties
-        DateTime? EmploymentSeparationEnteredDate { get; set; }
-        string EmploymentSeparationReasonDescriptor { get; set; }
-        string EmploymentSeparationTypeDescriptor { get; set; }
-        bool? RemainingInDistrict { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? OpenStaffPositionResourceId { get; set; }
-        string OpenStaffPositionDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the EmploymentSeparationReasonDescriptor model.
-    /// </summary>
-    public interface IEmploymentSeparationReasonDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int EmploymentSeparationReasonDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the EmploymentSeparationTypeDescriptor model.
-    /// </summary>
-    public interface IEmploymentSeparationTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int EmploymentSeparationTypeDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
     /// Defines available properties and methods for the abstraction of the EnglishLanguageExamDescriptor model.
     /// </summary>
     public interface IEnglishLanguageExamDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -1924,6 +2070,42 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int EnglishLanguageExamDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EPPDegreeTypeDescriptor model.
+    /// </summary>
+    public interface IEPPDegreeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int EPPDegreeTypeDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EPPProgramPathwayDescriptor model.
+    /// </summary>
+    public interface IEPPProgramPathwayDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int EPPProgramPathwayDescriptorId { get; set; }
 
         // Non-PK properties
 
@@ -2482,19 +2664,25 @@ namespace EdFi.Ods.Entities.Common.TPDM
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
+        int? EducationOrganizationId { get; set; }
         DateTime? EndDate { get; set; }
         string FieldworkTypeDescriptor { get; set; }
         decimal? HoursCompleted { get; set; }
         string ProgramGatewayDescriptor { get; set; }
+        string ProgramName { get; set; }
+        string ProgramTypeDescriptor { get; set; }
+        int? SchoolId { get; set; }
 
         // One-to-one relationships
 
         IFieldworkExperienceCoteaching FieldworkExperienceCoteaching { get; set; }
 
         // Lists
-        ICollection<IFieldworkExperienceSchool> FieldworkExperienceSchools { get; set; }
 
         // Resource reference data
+        Guid? EducatorPreparationProgramResourceId { get; set; }
+        string EducatorPreparationProgramDiscriminator { get; set; }
+        Guid? SchoolResourceId { get; set; }
         Guid? StudentResourceId { get; set; }
         string StudentDiscriminator { get; set; }
     }
@@ -2517,27 +2705,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Lists
 
         // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the FieldworkExperienceSchool model.
-    /// </summary>
-    public interface IFieldworkExperienceSchool : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IFieldworkExperience FieldworkExperience { get; set; }
-        [NaturalKeyMember]
-        int SchoolId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? SchoolResourceId { get; set; }
     }
 
     /// <summary>
@@ -2790,31 +2957,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the InternalExternalHireDescriptor model.
+    /// Defines available properties and methods for the abstraction of the LengthOfContractDescriptor model.
     /// </summary>
-    public interface IInternalExternalHireDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ILengthOfContractDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
-        int InternalExternalHireDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the LevelOfDegreeAwardedDescriptor model.
-    /// </summary>
-    public interface ILevelOfDegreeAwardedDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int LevelOfDegreeAwardedDescriptorId { get; set; }
+        int LengthOfContractDescriptorId { get; set; }
 
         // Non-PK properties
 
@@ -3354,337 +3503,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the Prospect model.
-    /// </summary>
-    public interface IProspect : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        string ProspectIdentifier { get; set; }
-
-        // Non-PK properties
-        bool? Applied { get; set; }
-        bool? EconomicDisadvantaged { get; set; }
-        string ElectronicMailAddress { get; set; }
-        bool? FirstGenerationStudent { get; set; }
-        string FirstName { get; set; }
-        string GenderDescriptor { get; set; }
-        string GenerationCodeSuffix { get; set; }
-        bool? HispanicLatinoEthnicity { get; set; }
-        string LastSurname { get; set; }
-        string MaidenName { get; set; }
-        bool? Met { get; set; }
-        string MiddleName { get; set; }
-        string Notes { get; set; }
-        string PersonalTitlePrefix { get; set; }
-        string PersonId { get; set; }
-        int? PreScreeningRating { get; set; }
-        string ProspectTypeDescriptor { get; set; }
-        bool? Referral { get; set; }
-        string ReferredBy { get; set; }
-        string SexDescriptor { get; set; }
-        string SocialMediaNetworkName { get; set; }
-        string SocialMediaUserName { get; set; }
-        string SourceSystemDescriptor { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
-
-        // One-to-one relationships
-
-        IProspectAid ProspectAid { get; set; }
-
-        IProspectCurrentPosition ProspectCurrentPosition { get; set; }
-
-        IProspectQualifications ProspectQualifications { get; set; }
-
-        // Lists
-        ICollection<IProspectDisability> ProspectDisabilities { get; set; }
-        ICollection<IProspectPersonalIdentificationDocument> ProspectPersonalIdentificationDocuments { get; set; }
-        ICollection<IProspectRace> ProspectRaces { get; set; }
-        ICollection<IProspectRecruitmentEvent> ProspectRecruitmentEvents { get; set; }
-        ICollection<IProspectTelephone> ProspectTelephones { get; set; }
-        ICollection<IProspectTouchpoint> ProspectTouchpoints { get; set; }
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-        Guid? PersonResourceId { get; set; }
-        string PersonDiscriminator { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectAid model.
-    /// </summary>
-    public interface IProspectAid : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspect Prospect { get; set; }
-
-        // Non-PK properties
-        decimal? AidAmount { get; set; }
-        string AidConditionDescription { get; set; }
-        string AidTypeDescriptor { get; set; }
-        DateTime BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-        bool? PellGrantRecipient { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectCurrentPosition model.
-    /// </summary>
-    public interface IProspectCurrentPosition : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspect Prospect { get; set; }
-
-        // Non-PK properties
-        string AcademicSubjectDescriptor { get; set; }
-        string Location { get; set; }
-        string NameOfInstitution { get; set; }
-        string PositionTitle { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IProspectCurrentPositionGradeLevel> ProspectCurrentPositionGradeLevels { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectCurrentPositionGradeLevel model.
-    /// </summary>
-    public interface IProspectCurrentPositionGradeLevel : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspectCurrentPosition ProspectCurrentPosition { get; set; }
-        [NaturalKeyMember]
-        string GradeLevelDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectDisability model.
-    /// </summary>
-    public interface IProspectDisability : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspect Prospect { get; set; }
-        [NaturalKeyMember]
-        string DisabilityDescriptor { get; set; }
-
-        // Non-PK properties
-        string DisabilityDeterminationSourceTypeDescriptor { get; set; }
-        string DisabilityDiagnosis { get; set; }
-        int? OrderOfDisability { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IProspectDisabilityDesignation> ProspectDisabilityDesignations { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectDisabilityDesignation model.
-    /// </summary>
-    public interface IProspectDisabilityDesignation : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspectDisability ProspectDisability { get; set; }
-        [NaturalKeyMember]
-        string DisabilityDesignationDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectPersonalIdentificationDocument model.
-    /// </summary>
-    public interface IProspectPersonalIdentificationDocument : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspect Prospect { get; set; }
-        [NaturalKeyMember]
-        string IdentificationDocumentUseDescriptor { get; set; }
-        [NaturalKeyMember]
-        string PersonalInformationVerificationDescriptor { get; set; }
-
-        // Non-PK properties
-        DateTime? DocumentExpirationDate { get; set; }
-        string DocumentTitle { get; set; }
-        string IssuerCountryDescriptor { get; set; }
-        string IssuerDocumentIdentificationCode { get; set; }
-        string IssuerName { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectQualifications model.
-    /// </summary>
-    public interface IProspectQualifications : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspect Prospect { get; set; }
-
-        // Non-PK properties
-        bool? CapacityToServe { get; set; }
-        bool Eligible { get; set; }
-        decimal? YearsOfServiceCurrentPlacement { get; set; }
-        decimal YearsOfServiceTotal { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectRace model.
-    /// </summary>
-    public interface IProspectRace : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspect Prospect { get; set; }
-        [NaturalKeyMember]
-        string RaceDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectRecruitmentEvent model.
-    /// </summary>
-    public interface IProspectRecruitmentEvent : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspect Prospect { get; set; }
-        [NaturalKeyMember]
-        DateTime EventDate { get; set; }
-        [NaturalKeyMember]
-        string EventTitle { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? RecruitmentEventResourceId { get; set; }
-        string RecruitmentEventDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectTelephone model.
-    /// </summary>
-    public interface IProspectTelephone : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspect Prospect { get; set; }
-        [NaturalKeyMember]
-        string TelephoneNumber { get; set; }
-        [NaturalKeyMember]
-        string TelephoneNumberTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        bool? DoNotPublishIndicator { get; set; }
-        int? OrderOfPriority { get; set; }
-        bool? TextMessageCapabilityIndicator { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectTouchpoint model.
-    /// </summary>
-    public interface IProspectTouchpoint : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IProspect Prospect { get; set; }
-        [NaturalKeyMember]
-        string TouchpointContent { get; set; }
-        [NaturalKeyMember]
-        DateTime TouchpointDate { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ProspectTypeDescriptor model.
-    /// </summary>
-    public interface IProspectTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int ProspectTypeDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
     /// Defines available properties and methods for the abstraction of the QuantitativeMeasure model.
     /// </summary>
     public interface IQuantitativeMeasure : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -3815,6 +3633,8 @@ namespace EdFi.Ods.Entities.Common.TPDM
     {
         // Primary Key properties
         [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
         DateTime EventDate { get; set; }
         [NaturalKeyMember]
         string EventTitle { get; set; }
@@ -3823,6 +3643,283 @@ namespace EdFi.Ods.Entities.Common.TPDM
         string EventDescription { get; set; }
         string EventLocation { get; set; }
         string RecruitmentEventTypeDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? EducationOrganizationResourceId { get; set; }
+        string EducationOrganizationDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendance model.
+    /// </summary>
+    public interface IRecruitmentEventAttendance : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        DateTime EventDate { get; set; }
+        [NaturalKeyMember]
+        string EventTitle { get; set; }
+        [NaturalKeyMember]
+        string RecruitmentEventAttendeeIdentifier { get; set; }
+
+        // Non-PK properties
+        bool? Applied { get; set; }
+        string ElectronicMailAddress { get; set; }
+        string FirstName { get; set; }
+        string GenderDescriptor { get; set; }
+        string GenerationCodeSuffix { get; set; }
+        bool? HispanicLatinoEthnicity { get; set; }
+        string LastSurname { get; set; }
+        string MaidenName { get; set; }
+        bool? Met { get; set; }
+        string MiddleName { get; set; }
+        string Notes { get; set; }
+        string PersonalTitlePrefix { get; set; }
+        int? PreScreeningRating { get; set; }
+        string RecruitmentEventAttendeeTypeDescriptor { get; set; }
+        bool? Referral { get; set; }
+        string ReferredBy { get; set; }
+        string SexDescriptor { get; set; }
+        string SocialMediaNetworkName { get; set; }
+        string SocialMediaUserName { get; set; }
+
+        // One-to-one relationships
+
+        IRecruitmentEventAttendanceCurrentPosition RecruitmentEventAttendanceCurrentPosition { get; set; }
+
+        IRecruitmentEventAttendanceRecruitmentEventAttendeeQualifications RecruitmentEventAttendanceRecruitmentEventAttendeeQualifications { get; set; }
+
+        // Lists
+        ICollection<IRecruitmentEventAttendanceDisability> RecruitmentEventAttendanceDisabilities { get; set; }
+        ICollection<IRecruitmentEventAttendancePersonalIdentificationDocument> RecruitmentEventAttendancePersonalIdentificationDocuments { get; set; }
+        ICollection<IRecruitmentEventAttendanceRace> RecruitmentEventAttendanceRaces { get; set; }
+        ICollection<IRecruitmentEventAttendanceTelephone> RecruitmentEventAttendanceTelephones { get; set; }
+        ICollection<IRecruitmentEventAttendanceTouchpoint> RecruitmentEventAttendanceTouchpoints { get; set; }
+
+        // Resource reference data
+        Guid? RecruitmentEventResourceId { get; set; }
+        string RecruitmentEventDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendanceCurrentPosition model.
+    /// </summary>
+    public interface IRecruitmentEventAttendanceCurrentPosition : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IRecruitmentEventAttendance RecruitmentEventAttendance { get; set; }
+
+        // Non-PK properties
+        string AcademicSubjectDescriptor { get; set; }
+        string Location { get; set; }
+        string NameOfInstitution { get; set; }
+        string PositionTitle { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IRecruitmentEventAttendanceCurrentPositionGradeLevel> RecruitmentEventAttendanceCurrentPositionGradeLevels { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendanceCurrentPositionGradeLevel model.
+    /// </summary>
+    public interface IRecruitmentEventAttendanceCurrentPositionGradeLevel : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IRecruitmentEventAttendanceCurrentPosition RecruitmentEventAttendanceCurrentPosition { get; set; }
+        [NaturalKeyMember]
+        string GradeLevelDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendanceDisability model.
+    /// </summary>
+    public interface IRecruitmentEventAttendanceDisability : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IRecruitmentEventAttendance RecruitmentEventAttendance { get; set; }
+        [NaturalKeyMember]
+        string DisabilityDescriptor { get; set; }
+
+        // Non-PK properties
+        string DisabilityDeterminationSourceTypeDescriptor { get; set; }
+        string DisabilityDiagnosis { get; set; }
+        int? OrderOfDisability { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IRecruitmentEventAttendanceDisabilityDesignation> RecruitmentEventAttendanceDisabilityDesignations { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendanceDisabilityDesignation model.
+    /// </summary>
+    public interface IRecruitmentEventAttendanceDisabilityDesignation : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IRecruitmentEventAttendanceDisability RecruitmentEventAttendanceDisability { get; set; }
+        [NaturalKeyMember]
+        string DisabilityDesignationDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendancePersonalIdentificationDocument model.
+    /// </summary>
+    public interface IRecruitmentEventAttendancePersonalIdentificationDocument : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IRecruitmentEventAttendance RecruitmentEventAttendance { get; set; }
+        [NaturalKeyMember]
+        string IdentificationDocumentUseDescriptor { get; set; }
+        [NaturalKeyMember]
+        string PersonalInformationVerificationDescriptor { get; set; }
+
+        // Non-PK properties
+        DateTime? DocumentExpirationDate { get; set; }
+        string DocumentTitle { get; set; }
+        string IssuerCountryDescriptor { get; set; }
+        string IssuerDocumentIdentificationCode { get; set; }
+        string IssuerName { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendanceRace model.
+    /// </summary>
+    public interface IRecruitmentEventAttendanceRace : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IRecruitmentEventAttendance RecruitmentEventAttendance { get; set; }
+        [NaturalKeyMember]
+        string RaceDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendanceRecruitmentEventAttendeeQualifications model.
+    /// </summary>
+    public interface IRecruitmentEventAttendanceRecruitmentEventAttendeeQualifications : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IRecruitmentEventAttendance RecruitmentEventAttendance { get; set; }
+
+        // Non-PK properties
+        bool? CapacityToServe { get; set; }
+        bool Eligible { get; set; }
+        decimal? YearsOfServiceCurrentPlacement { get; set; }
+        decimal YearsOfServiceTotal { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendanceTelephone model.
+    /// </summary>
+    public interface IRecruitmentEventAttendanceTelephone : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IRecruitmentEventAttendance RecruitmentEventAttendance { get; set; }
+        [NaturalKeyMember]
+        string TelephoneNumber { get; set; }
+        [NaturalKeyMember]
+        string TelephoneNumberTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        bool? DoNotPublishIndicator { get; set; }
+        int? OrderOfPriority { get; set; }
+        bool? TextMessageCapabilityIndicator { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendanceTouchpoint model.
+    /// </summary>
+    public interface IRecruitmentEventAttendanceTouchpoint : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IRecruitmentEventAttendance RecruitmentEventAttendance { get; set; }
+        [NaturalKeyMember]
+        string TouchpointContent { get; set; }
+        [NaturalKeyMember]
+        DateTime TouchpointDate { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the RecruitmentEventAttendeeTypeDescriptor model.
+    /// </summary>
+    public interface IRecruitmentEventAttendeeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int RecruitmentEventAttendeeTypeDescriptorId { get; set; }
+
+        // Non-PK properties
 
         // One-to-one relationships
 
@@ -3936,81 +4033,17 @@ namespace EdFi.Ods.Entities.Common.TPDM
         EdFi.ISchool School { get; set; }
 
         // Non-PK properties
+        string AccreditationStatusDescriptor { get; set; }
         string FederalLocaleCodeDescriptor { get; set; }
         bool? ImprovingSchool { get; set; }
-        string SchoolStatusDescriptor { get; set; }
+        int? PostSecondaryInstitutionId { get; set; }
 
         // One-to-one relationships
 
         // Lists
 
         // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the SchoolStatusDescriptor model.
-    /// </summary>
-    public interface ISchoolStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int SchoolStatusDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffApplicantAssociation model.
-    /// </summary>
-    public interface IStaffApplicantAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string ApplicantIdentifier { get; set; }
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? ApplicantResourceId { get; set; }
-        string ApplicantDiscriminator { get; set; }
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffBackgroundCheck model.
-    /// </summary>
-    public interface IStaffBackgroundCheck : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStaffExtension StaffExtension { get; set; }
-        [NaturalKeyMember]
-        string BackgroundCheckTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        DateTime? BackgroundCheckCompletedDate { get; set; }
-        DateTime BackgroundCheckRequestedDate { get; set; }
-        string BackgroundCheckStatusDescriptor { get; set; }
-        bool? Fingerprint { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
+        Guid? PostSecondaryInstitutionResourceId { get; set; }
     }
 
     /// <summary>
@@ -4033,6 +4066,179 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the StaffEducationOrganizationEmploymentAssociationBackgroundCheck model.
+    /// </summary>
+    public interface IStaffEducationOrganizationEmploymentAssociationBackgroundCheck : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStaffEducationOrganizationEmploymentAssociationExtension StaffEducationOrganizationEmploymentAssociationExtension { get; set; }
+        [NaturalKeyMember]
+        string BackgroundCheckTypeDescriptor { get; set; }
+
+        // Non-PK properties
+        DateTime? BackgroundCheckCompletedDate { get; set; }
+        DateTime BackgroundCheckRequestedDate { get; set; }
+        string BackgroundCheckStatusDescriptor { get; set; }
+        bool? Fingerprint { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StaffEducationOrganizationEmploymentAssociationExtension model.
+    /// </summary>
+    public interface IStaffEducationOrganizationEmploymentAssociationExtension : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        EdFi.IStaffEducationOrganizationEmploymentAssociation StaffEducationOrganizationEmploymentAssociation { get; set; }
+
+        // Non-PK properties
+        string LengthOfContractDescriptor { get; set; }
+        DateTime? ProbationCompleteDate { get; set; }
+        bool? Tenured { get; set; }
+        bool? TenureTrack { get; set; }
+
+        // One-to-one relationships
+
+        IStaffEducationOrganizationEmploymentAssociationSalary StaffEducationOrganizationEmploymentAssociationSalary { get; set; }
+
+        // Lists
+        ICollection<IStaffEducationOrganizationEmploymentAssociationBackgroundCheck> StaffEducationOrganizationEmploymentAssociationBackgroundChecks { get; set; }
+        ICollection<IStaffEducationOrganizationEmploymentAssociationSeniority> StaffEducationOrganizationEmploymentAssociationSeniorities { get; set; }
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StaffEducationOrganizationEmploymentAssociationSalary model.
+    /// </summary>
+    public interface IStaffEducationOrganizationEmploymentAssociationSalary : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStaffEducationOrganizationEmploymentAssociationExtension StaffEducationOrganizationEmploymentAssociationExtension { get; set; }
+
+        // Non-PK properties
+        decimal? SalaryAmount { get; set; }
+        int? SalaryMaxRange { get; set; }
+        int? SalaryMinRange { get; set; }
+        string SalaryTypeDescriptor { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StaffEducationOrganizationEmploymentAssociationSeniority model.
+    /// </summary>
+    public interface IStaffEducationOrganizationEmploymentAssociationSeniority : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStaffEducationOrganizationEmploymentAssociationExtension StaffEducationOrganizationEmploymentAssociationExtension { get; set; }
+        [NaturalKeyMember]
+        string CredentialFieldDescriptor { get; set; }
+        [NaturalKeyMember]
+        string NameOfInstitution { get; set; }
+
+        // Non-PK properties
+        decimal YearsExperience { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StaffEducatorPreparationProgram model.
+    /// </summary>
+    public interface IStaffEducatorPreparationProgram : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStaffExtension StaffExtension { get; set; }
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? EducatorPreparationProgramResourceId { get; set; }
+        string EducatorPreparationProgramDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StaffEducatorPreparationProgramAssociation model.
+    /// </summary>
+    public interface IStaffEducatorPreparationProgramAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        int EducationOrganizationId { get; set; }
+        [NaturalKeyMember]
+        string ProgramName { get; set; }
+        [NaturalKeyMember]
+        string ProgramTypeDescriptor { get; set; }
+        [NaturalKeyMember]
+        string StaffUniqueId { get; set; }
+
+        // Non-PK properties
+        DateTime BeginDate { get; set; }
+        bool? Completer { get; set; }
+        DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? EducatorPreparationProgramResourceId { get; set; }
+        string EducatorPreparationProgramDiscriminator { get; set; }
+        Guid? StaffResourceId { get; set; }
+        string StaffDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StaffEducatorResearch model.
+    /// </summary>
+    public interface IStaffEducatorResearch : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStaffExtension StaffExtension { get; set; }
+
+        // Non-PK properties
+        DateTime ResearchExperienceDate { get; set; }
+        string ResearchExperienceDescription { get; set; }
+        string ResearchExperienceTitle { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the StaffExtension model.
     /// </summary>
     public interface IStaffExtension : ISynchronizable, IMappable, IGetByExample
@@ -4042,24 +4248,21 @@ namespace EdFi.Ods.Entities.Common.TPDM
         EdFi.IStaff Staff { get; set; }
 
         // Non-PK properties
+        int? EducationOrganizationId { get; set; }
         string GenderDescriptor { get; set; }
-        DateTime? ProbationCompleteDate { get; set; }
-        bool? Tenured { get; set; }
-        bool? TenureTrack { get; set; }
+        string RequisitionNumber { get; set; }
 
         // One-to-one relationships
 
-        IStaffSalary StaffSalary { get; set; }
-
-        IStaffTeacherEducatorResearch StaffTeacherEducatorResearch { get; set; }
+        IStaffEducatorResearch StaffEducatorResearch { get; set; }
 
         // Lists
-        ICollection<IStaffBackgroundCheck> StaffBackgroundChecks { get; set; }
+        ICollection<IStaffEducatorPreparationProgram> StaffEducatorPreparationPrograms { get; set; }
         ICollection<IStaffHighlyQualifiedAcademicSubject> StaffHighlyQualifiedAcademicSubjects { get; set; }
-        ICollection<IStaffSeniority> StaffSeniorities { get; set; }
-        ICollection<IStaffTeacherPreparationProgram> StaffTeacherPreparationPrograms { get; set; }
 
         // Resource reference data
+        Guid? OpenStaffPositionResourceId { get; set; }
+        string OpenStaffPositionDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -4083,17 +4286,13 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffProspectAssociation model.
+    /// Defines available properties and methods for the abstraction of the StaffToCandidateRelationshipDescriptor model.
     /// </summary>
-    public interface IStaffProspectAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface IStaffToCandidateRelationshipDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        string ProspectIdentifier { get; set; }
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
+        [NaturalKeyMember][AutoIncrement]
+        int StaffToCandidateRelationshipDescriptorId { get; set; }
 
         // Non-PK properties
 
@@ -4102,382 +4301,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Lists
 
         // Resource reference data
-        Guid? ProspectResourceId { get; set; }
-        string ProspectDiscriminator { get; set; }
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffSalary model.
-    /// </summary>
-    public interface IStaffSalary : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStaffExtension StaffExtension { get; set; }
-
-        // Non-PK properties
-        decimal? SalaryAmount { get; set; }
-        int? SalaryMaxRange { get; set; }
-        int? SalaryMinRange { get; set; }
-        string SalaryTypeDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffSeniority model.
-    /// </summary>
-    public interface IStaffSeniority : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStaffExtension StaffExtension { get; set; }
-        [NaturalKeyMember]
-        string CredentialFieldDescriptor { get; set; }
-        [NaturalKeyMember]
-        string NameOfInstitution { get; set; }
-
-        // Non-PK properties
-        decimal YearsExperience { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffStudentGrowthMeasure model.
-    /// </summary>
-    public interface IStaffStudentGrowthMeasure : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string StaffStudentGrowthMeasureIdentifier { get; set; }
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-
-        // Non-PK properties
-        string ResultDatatypeTypeDescriptor { get; set; }
-        decimal? StandardError { get; set; }
-        int StudentGrowthActualScore { get; set; }
-        DateTime? StudentGrowthMeasureDate { get; set; }
-        bool StudentGrowthMet { get; set; }
-        int? StudentGrowthNCount { get; set; }
-        int? StudentGrowthTargetScore { get; set; }
-        string StudentGrowthTypeDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IStaffStudentGrowthMeasureAcademicSubject> StaffStudentGrowthMeasureAcademicSubjects { get; set; }
-        ICollection<IStaffStudentGrowthMeasureGradeLevel> StaffStudentGrowthMeasureGradeLevels { get; set; }
-
-        // Resource reference data
-        Guid? SchoolYearTypeResourceId { get; set; }
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffStudentGrowthMeasureAcademicSubject model.
-    /// </summary>
-    public interface IStaffStudentGrowthMeasureAcademicSubject : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStaffStudentGrowthMeasure StaffStudentGrowthMeasure { get; set; }
-        [NaturalKeyMember]
-        string AcademicSubjectDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffStudentGrowthMeasureCourseAssociation model.
-    /// </summary>
-    public interface IStaffStudentGrowthMeasureCourseAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string CourseCode { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string StaffStudentGrowthMeasureIdentifier { get; set; }
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-
-        // Non-PK properties
-        DateTime? BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? CourseResourceId { get; set; }
-        string CourseDiscriminator { get; set; }
-        Guid? StaffStudentGrowthMeasureResourceId { get; set; }
-        string StaffStudentGrowthMeasureDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffStudentGrowthMeasureEducationOrganizationAssociation model.
-    /// </summary>
-    public interface IStaffStudentGrowthMeasureEducationOrganizationAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string StaffStudentGrowthMeasureIdentifier { get; set; }
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-
-        // Non-PK properties
-        DateTime? BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-        Guid? StaffStudentGrowthMeasureResourceId { get; set; }
-        string StaffStudentGrowthMeasureDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffStudentGrowthMeasureGradeLevel model.
-    /// </summary>
-    public interface IStaffStudentGrowthMeasureGradeLevel : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStaffStudentGrowthMeasure StaffStudentGrowthMeasure { get; set; }
-        [NaturalKeyMember]
-        string GradeLevelDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffStudentGrowthMeasureSectionAssociation model.
-    /// </summary>
-    public interface IStaffStudentGrowthMeasureSectionAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        string LocalCourseCode { get; set; }
-        [NaturalKeyMember]
-        int SchoolId { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string SectionIdentifier { get; set; }
-        [NaturalKeyMember]
-        string SessionName { get; set; }
-        [NaturalKeyMember]
-        string StaffStudentGrowthMeasureIdentifier { get; set; }
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-
-        // Non-PK properties
-        DateTime? BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? SectionResourceId { get; set; }
-        string SectionDiscriminator { get; set; }
-        Guid? StaffStudentGrowthMeasureResourceId { get; set; }
-        string StaffStudentGrowthMeasureDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffTeacherEducatorResearch model.
-    /// </summary>
-    public interface IStaffTeacherEducatorResearch : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStaffExtension StaffExtension { get; set; }
-
-        // Non-PK properties
-        DateTime ResearchExperienceDate { get; set; }
-        string ResearchExperienceDescription { get; set; }
-        string ResearchExperienceTitle { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffTeacherPreparationProgram model.
-    /// </summary>
-    public interface IStaffTeacherPreparationProgram : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStaffExtension StaffExtension { get; set; }
-        [NaturalKeyMember]
-        string TeacherPreparationProgramName { get; set; }
-
-        // Non-PK properties
-        decimal? GPA { get; set; }
-        string LevelOfDegreeAwardedDescriptor { get; set; }
-        string MajorSpecialization { get; set; }
-        string NameOfInstitution { get; set; }
-        string TeacherPreparationProgramIdentifier { get; set; }
-        string TeacherPreparationProgramTypeDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffTeacherPreparationProviderAssociation model.
-    /// </summary>
-    public interface IStaffTeacherPreparationProviderAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-        [NaturalKeyMember]
-        int TeacherPreparationProviderId { get; set; }
-
-        // Non-PK properties
-        string ProgramAssignmentDescriptor { get; set; }
-        short SchoolYear { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<IStaffTeacherPreparationProviderAssociationAcademicSubject> StaffTeacherPreparationProviderAssociationAcademicSubjects { get; set; }
-        ICollection<IStaffTeacherPreparationProviderAssociationGradeLevel> StaffTeacherPreparationProviderAssociationGradeLevels { get; set; }
-
-        // Resource reference data
-        Guid? SchoolYearTypeResourceId { get; set; }
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
-        Guid? TeacherPreparationProviderResourceId { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffTeacherPreparationProviderAssociationAcademicSubject model.
-    /// </summary>
-    public interface IStaffTeacherPreparationProviderAssociationAcademicSubject : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStaffTeacherPreparationProviderAssociation StaffTeacherPreparationProviderAssociation { get; set; }
-        [NaturalKeyMember]
-        string AcademicSubjectDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffTeacherPreparationProviderAssociationGradeLevel model.
-    /// </summary>
-    public interface IStaffTeacherPreparationProviderAssociationGradeLevel : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStaffTeacherPreparationProviderAssociation StaffTeacherPreparationProviderAssociation { get; set; }
-        [NaturalKeyMember]
-        string GradeLevelDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StaffTeacherPreparationProviderProgramAssociation model.
-    /// </summary>
-    public interface IStaffTeacherPreparationProviderProgramAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        string ProgramName { get; set; }
-        [NaturalKeyMember]
-        string ProgramTypeDescriptor { get; set; }
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-
-        // Non-PK properties
-        DateTime BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-        bool? StudentRecordAccess { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
-        Guid? TeacherPreparationProviderProgramResourceId { get; set; }
-        string TeacherPreparationProviderProgramDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -4520,24 +4343,6 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentGrowthTypeDescriptor model.
-    /// </summary>
-    public interface IStudentGrowthTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int StudentGrowthTypeDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
     /// Defines available properties and methods for the abstraction of the SurveyResponseExtension model.
     /// </summary>
     public interface ISurveyResponseExtension : ISynchronizable, IMappable, IGetByExample
@@ -4547,34 +4352,34 @@ namespace EdFi.Ods.Entities.Common.TPDM
         EdFi.ISurveyResponse SurveyResponse { get; set; }
 
         // Non-PK properties
-        string ApplicantIdentifier { get; set; }
-        string TeacherCandidateIdentifier { get; set; }
+        string PersonId { get; set; }
+        string SourceSystemDescriptor { get; set; }
 
         // One-to-one relationships
 
         // Lists
 
         // Resource reference data
-        Guid? ApplicantResourceId { get; set; }
-        string ApplicantDiscriminator { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
+        Guid? PersonResourceId { get; set; }
+        string PersonDiscriminator { get; set; }
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the SurveyResponseTeacherCandidateTargetAssociation model.
+    /// Defines available properties and methods for the abstraction of the SurveyResponsePersonTargetAssociation model.
     /// </summary>
-    public interface ISurveyResponseTeacherCandidateTargetAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISurveyResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
         string Namespace { get; set; }
         [NaturalKeyMember]
+        string PersonId { get; set; }
+        [NaturalKeyMember]
+        string SourceSystemDescriptor { get; set; }
+        [NaturalKeyMember]
         string SurveyIdentifier { get; set; }
         [NaturalKeyMember]
         string SurveyResponseIdentifier { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
 
         // Non-PK properties
 
@@ -4583,10 +4388,10 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Lists
 
         // Resource reference data
+        Guid? PersonResourceId { get; set; }
+        string PersonDiscriminator { get; set; }
         Guid? SurveyResponseResourceId { get; set; }
         string SurveyResponseDiscriminator { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
     }
 
     /// <summary>
@@ -4670,1371 +4475,35 @@ namespace EdFi.Ods.Entities.Common.TPDM
     }
 
     /// <summary>
-    /// Defines available properties and methods for the abstraction of the SurveySectionResponseTeacherCandidateTargetAssociation model.
+    /// Defines available properties and methods for the abstraction of the SurveySectionResponsePersonTargetAssociation model.
     /// </summary>
-    public interface ISurveySectionResponseTeacherCandidateTargetAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    public interface ISurveySectionResponsePersonTargetAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
     {
         // Primary Key properties
         [NaturalKeyMember]
         string Namespace { get; set; }
+        [NaturalKeyMember]
+        string PersonId { get; set; }
+        [NaturalKeyMember]
+        string SourceSystemDescriptor { get; set; }
         [NaturalKeyMember]
         string SurveyIdentifier { get; set; }
         [NaturalKeyMember]
         string SurveyResponseIdentifier { get; set; }
         [NaturalKeyMember]
         string SurveySectionTitle { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
 
         // Non-PK properties
 
         // One-to-one relationships
 
         // Lists
-
-        // Resource reference data
-        Guid? SurveySectionResponseResourceId { get; set; }
-        string SurveySectionResponseDiscriminator { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidate model.
-    /// </summary>
-    public interface ITeacherCandidate : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-
-        // Non-PK properties
-        string BirthCity { get; set; }
-        string BirthCountryDescriptor { get; set; }
-        DateTime BirthDate { get; set; }
-        string BirthInternationalProvince { get; set; }
-        string BirthSexDescriptor { get; set; }
-        string BirthStateAbbreviationDescriptor { get; set; }
-        string CitizenshipStatusDescriptor { get; set; }
-        DateTime? DateEnteredUS { get; set; }
-        string DisplacementStatus { get; set; }
-        bool? EconomicDisadvantaged { get; set; }
-        string EnglishLanguageExamDescriptor { get; set; }
-        bool? FirstGenerationStudent { get; set; }
-        string FirstName { get; set; }
-        string GenderDescriptor { get; set; }
-        string GenerationCodeSuffix { get; set; }
-        bool? HispanicLatinoEthnicity { get; set; }
-        string LastSurname { get; set; }
-        string LimitedEnglishProficiencyDescriptor { get; set; }
-        string LoginId { get; set; }
-        string MaidenName { get; set; }
-        string MiddleName { get; set; }
-        bool? MultipleBirthStatus { get; set; }
-        string OldEthnicityDescriptor { get; set; }
-        string PersonalTitlePrefix { get; set; }
-        string PersonId { get; set; }
-        string PreviousCareerDescriptor { get; set; }
-        string ProfileThumbnail { get; set; }
-        bool? ProgramComplete { get; set; }
-        string SexDescriptor { get; set; }
-        string SourceSystemDescriptor { get; set; }
-        string StudentUniqueId { get; set; }
-        decimal? TuitionCost { get; set; }
-
-        // One-to-one relationships
-
-        ITeacherCandidateBackgroundCheck TeacherCandidateBackgroundCheck { get; set; }
-
-        // Lists
-        ICollection<ITeacherCandidateAddress> TeacherCandidateAddresses { get; set; }
-        ICollection<ITeacherCandidateAid> TeacherCandidateAids { get; set; }
-        ICollection<ITeacherCandidateCharacteristic> TeacherCandidateCharacteristics { get; set; }
-        ICollection<ITeacherCandidateCohortYear> TeacherCandidateCohortYears { get; set; }
-        ICollection<ITeacherCandidateDegreeSpecialization> TeacherCandidateDegreeSpecializations { get; set; }
-        ICollection<ITeacherCandidateDisability> TeacherCandidateDisabilities { get; set; }
-        ICollection<ITeacherCandidateElectronicMail> TeacherCandidateElectronicMails { get; set; }
-        ICollection<ITeacherCandidateIdentificationCode> TeacherCandidateIdentificationCodes { get; set; }
-        ICollection<ITeacherCandidateIdentificationDocument> TeacherCandidateIdentificationDocuments { get; set; }
-        ICollection<ITeacherCandidateIndicator> TeacherCandidateIndicators { get; set; }
-        ICollection<ITeacherCandidateInternationalAddress> TeacherCandidateInternationalAddresses { get; set; }
-        ICollection<ITeacherCandidateLanguage> TeacherCandidateLanguages { get; set; }
-        ICollection<ITeacherCandidateOtherName> TeacherCandidateOtherNames { get; set; }
-        ICollection<ITeacherCandidatePersonalIdentificationDocument> TeacherCandidatePersonalIdentificationDocuments { get; set; }
-        ICollection<ITeacherCandidateRace> TeacherCandidateRaces { get; set; }
-        ICollection<ITeacherCandidateTelephone> TeacherCandidateTelephones { get; set; }
-        ICollection<ITeacherCandidateTPPProgramDegree> TeacherCandidateTPPProgramDegrees { get; set; }
-        ICollection<ITeacherCandidateVisa> TeacherCandidateVisas { get; set; }
 
         // Resource reference data
         Guid? PersonResourceId { get; set; }
         string PersonDiscriminator { get; set; }
-        Guid? StudentResourceId { get; set; }
-        string StudentDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateAcademicRecord model.
-    /// </summary>
-    public interface ITeacherCandidateAcademicRecord : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-        [NaturalKeyMember]
-        string TermDescriptor { get; set; }
-
-        // Non-PK properties
-        decimal? ContentGradePointAverage { get; set; }
-        decimal? ContentGradePointEarned { get; set; }
-        decimal? CumulativeAttemptedCreditConversion { get; set; }
-        decimal? CumulativeAttemptedCredits { get; set; }
-        string CumulativeAttemptedCreditTypeDescriptor { get; set; }
-        decimal? CumulativeEarnedCreditConversion { get; set; }
-        decimal? CumulativeEarnedCredits { get; set; }
-        string CumulativeEarnedCreditTypeDescriptor { get; set; }
-        decimal? CumulativeGradePointAverage { get; set; }
-        decimal? CumulativeGradePointsEarned { get; set; }
-        string GradeValueQualifier { get; set; }
-        string ProgramGatewayDescriptor { get; set; }
-        DateTime? ProjectedGraduationDate { get; set; }
-        decimal? SessionAttemptedCreditConversion { get; set; }
-        decimal? SessionAttemptedCredits { get; set; }
-        string SessionAttemptedCreditTypeDescriptor { get; set; }
-        decimal? SessionEarnedCreditConversion { get; set; }
-        decimal? SessionEarnedCredits { get; set; }
-        string SessionEarnedCreditTypeDescriptor { get; set; }
-        decimal? SessionGradePointAverage { get; set; }
-        decimal? SessionGradePointsEarned { get; set; }
-        string TPPDegreeTypeDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        ITeacherCandidateAcademicRecordClassRanking TeacherCandidateAcademicRecordClassRanking { get; set; }
-
-        // Lists
-        ICollection<ITeacherCandidateAcademicRecordAcademicHonor> TeacherCandidateAcademicRecordAcademicHonors { get; set; }
-        ICollection<ITeacherCandidateAcademicRecordDiploma> TeacherCandidateAcademicRecordDiplomas { get; set; }
-        ICollection<ITeacherCandidateAcademicRecordGradePointAverage> TeacherCandidateAcademicRecordGradePointAverages { get; set; }
-        ICollection<ITeacherCandidateAcademicRecordRecognition> TeacherCandidateAcademicRecordRecognitions { get; set; }
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-        Guid? SchoolYearTypeResourceId { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateAcademicRecordAcademicHonor model.
-    /// </summary>
-    public interface ITeacherCandidateAcademicRecordAcademicHonor : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateAcademicRecord TeacherCandidateAcademicRecord { get; set; }
-        [NaturalKeyMember]
-        string AcademicHonorCategoryDescriptor { get; set; }
-        [NaturalKeyMember]
-        string HonorDescription { get; set; }
-
-        // Non-PK properties
-        string AchievementCategoryDescriptor { get; set; }
-        string AchievementCategorySystem { get; set; }
-        string AchievementTitle { get; set; }
-        string Criteria { get; set; }
-        string CriteriaURL { get; set; }
-        string EvidenceStatement { get; set; }
-        DateTime? HonorAwardDate { get; set; }
-        DateTime? HonorAwardExpiresDate { get; set; }
-        string ImageURL { get; set; }
-        string IssuerName { get; set; }
-        string IssuerOriginURL { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateAcademicRecordClassRanking model.
-    /// </summary>
-    public interface ITeacherCandidateAcademicRecordClassRanking : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateAcademicRecord TeacherCandidateAcademicRecord { get; set; }
-
-        // Non-PK properties
-        int ClassRank { get; set; }
-        DateTime? ClassRankingDate { get; set; }
-        int? PercentageRanking { get; set; }
-        int TotalNumberInClass { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateAcademicRecordDiploma model.
-    /// </summary>
-    public interface ITeacherCandidateAcademicRecordDiploma : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateAcademicRecord TeacherCandidateAcademicRecord { get; set; }
-        [NaturalKeyMember]
-        DateTime DiplomaAwardDate { get; set; }
-        [NaturalKeyMember]
-        string DiplomaTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        string AchievementCategoryDescriptor { get; set; }
-        string AchievementCategorySystem { get; set; }
-        string AchievementTitle { get; set; }
-        string Criteria { get; set; }
-        string CriteriaURL { get; set; }
-        bool? CTECompleter { get; set; }
-        DateTime? DiplomaAwardExpiresDate { get; set; }
-        string DiplomaDescription { get; set; }
-        string DiplomaLevelDescriptor { get; set; }
-        string EvidenceStatement { get; set; }
-        string ImageURL { get; set; }
-        string IssuerName { get; set; }
-        string IssuerOriginURL { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateAcademicRecordGradePointAverage model.
-    /// </summary>
-    public interface ITeacherCandidateAcademicRecordGradePointAverage : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateAcademicRecord TeacherCandidateAcademicRecord { get; set; }
-        [NaturalKeyMember]
-        string GradePointAverageTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        decimal GradePointAverageValue { get; set; }
-        bool? IsCumulative { get; set; }
-        decimal? MaxGradePointAverageValue { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateAcademicRecordRecognition model.
-    /// </summary>
-    public interface ITeacherCandidateAcademicRecordRecognition : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateAcademicRecord TeacherCandidateAcademicRecord { get; set; }
-        [NaturalKeyMember]
-        string RecognitionTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        string AchievementCategoryDescriptor { get; set; }
-        string AchievementCategorySystem { get; set; }
-        string AchievementTitle { get; set; }
-        string Criteria { get; set; }
-        string CriteriaURL { get; set; }
-        string EvidenceStatement { get; set; }
-        string ImageURL { get; set; }
-        string IssuerName { get; set; }
-        string IssuerOriginURL { get; set; }
-        DateTime? RecognitionAwardDate { get; set; }
-        DateTime? RecognitionAwardExpiresDate { get; set; }
-        string RecognitionDescription { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateAddress model.
-    /// </summary>
-    public interface ITeacherCandidateAddress : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string AddressTypeDescriptor { get; set; }
-        [NaturalKeyMember]
-        string City { get; set; }
-        [NaturalKeyMember]
-        string PostalCode { get; set; }
-        [NaturalKeyMember]
-        string StateAbbreviationDescriptor { get; set; }
-        [NaturalKeyMember]
-        string StreetNumberName { get; set; }
-
-        // Non-PK properties
-        string ApartmentRoomSuiteNumber { get; set; }
-        string BuildingSiteNumber { get; set; }
-        string CongressionalDistrict { get; set; }
-        string CountyFIPSCode { get; set; }
-        bool? DoNotPublishIndicator { get; set; }
-        string Latitude { get; set; }
-        string LocaleDescriptor { get; set; }
-        string Longitude { get; set; }
-        string NameOfCounty { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<ITeacherCandidateAddressPeriod> TeacherCandidateAddressPeriods { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateAddressPeriod model.
-    /// </summary>
-    public interface ITeacherCandidateAddressPeriod : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateAddress TeacherCandidateAddress { get; set; }
-        [NaturalKeyMember]
-        DateTime BeginDate { get; set; }
-
-        // Non-PK properties
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateAid model.
-    /// </summary>
-    public interface ITeacherCandidateAid : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string AidTypeDescriptor { get; set; }
-        [NaturalKeyMember]
-        DateTime BeginDate { get; set; }
-
-        // Non-PK properties
-        decimal? AidAmount { get; set; }
-        string AidConditionDescription { get; set; }
-        DateTime? EndDate { get; set; }
-        bool? PellGrantRecipient { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateBackgroundCheck model.
-    /// </summary>
-    public interface ITeacherCandidateBackgroundCheck : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-
-        // Non-PK properties
-        DateTime? BackgroundCheckCompletedDate { get; set; }
-        DateTime BackgroundCheckRequestedDate { get; set; }
-        string BackgroundCheckStatusDescriptor { get; set; }
-        string BackgroundCheckTypeDescriptor { get; set; }
-        bool? Fingerprint { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateCharacteristic model.
-    /// </summary>
-    public interface ITeacherCandidateCharacteristic : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string StudentCharacteristicDescriptor { get; set; }
-
-        // Non-PK properties
-        DateTime? BeginDate { get; set; }
-        string DesignatedBy { get; set; }
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateCharacteristicDescriptor model.
-    /// </summary>
-    public interface ITeacherCandidateCharacteristicDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int TeacherCandidateCharacteristicDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateCohortYear model.
-    /// </summary>
-    public interface ITeacherCandidateCohortYear : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string CohortYearTypeDescriptor { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? SchoolYearTypeResourceId { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateCourseTranscript model.
-    /// </summary>
-    public interface ITeacherCandidateCourseTranscript : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string CourseAttemptResultDescriptor { get; set; }
-        [NaturalKeyMember]
-        string CourseCode { get; set; }
-        [NaturalKeyMember]
-        int CourseEducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-        [NaturalKeyMember]
-        string TermDescriptor { get; set; }
-
-        // Non-PK properties
-        string AlternativeCourseCode { get; set; }
-        string AlternativeCourseTitle { get; set; }
-        decimal? AttemptedCreditConversion { get; set; }
-        decimal? AttemptedCredits { get; set; }
-        string AttemptedCreditTypeDescriptor { get; set; }
-        string CourseRepeatCodeDescriptor { get; set; }
-        string CourseTitle { get; set; }
-        decimal? EarnedCreditConversion { get; set; }
-        decimal EarnedCredits { get; set; }
-        string EarnedCreditTypeDescriptor { get; set; }
-        string FinalLetterGradeEarned { get; set; }
-        decimal? FinalNumericGradeEarned { get; set; }
-        string MethodCreditEarnedDescriptor { get; set; }
-        int? SchoolId { get; set; }
-        string WhenTakenGradeLevelDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<ITeacherCandidateCourseTranscriptEarnedAdditionalCredits> TeacherCandidateCourseTranscriptEarnedAdditionalCredits { get; set; }
-
-        // Resource reference data
-        Guid? CourseResourceId { get; set; }
-        string CourseDiscriminator { get; set; }
-        Guid? SchoolResourceId { get; set; }
-        Guid? TeacherCandidateAcademicRecordResourceId { get; set; }
-        string TeacherCandidateAcademicRecordDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateCourseTranscriptEarnedAdditionalCredits model.
-    /// </summary>
-    public interface ITeacherCandidateCourseTranscriptEarnedAdditionalCredits : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateCourseTranscript TeacherCandidateCourseTranscript { get; set; }
-        [NaturalKeyMember]
-        string AdditionalCreditTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        decimal Credits { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateDegreeSpecialization model.
-    /// </summary>
-    public interface ITeacherCandidateDegreeSpecialization : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
-        string MajorSpecialization { get; set; }
-
-        // Non-PK properties
-        DateTime? EndDate { get; set; }
-        string MinorSpecialization { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateDisability model.
-    /// </summary>
-    public interface ITeacherCandidateDisability : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string DisabilityDescriptor { get; set; }
-
-        // Non-PK properties
-        string DisabilityDeterminationSourceTypeDescriptor { get; set; }
-        string DisabilityDiagnosis { get; set; }
-        int? OrderOfDisability { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<ITeacherCandidateDisabilityDesignation> TeacherCandidateDisabilityDesignations { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateDisabilityDesignation model.
-    /// </summary>
-    public interface ITeacherCandidateDisabilityDesignation : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateDisability TeacherCandidateDisability { get; set; }
-        [NaturalKeyMember]
-        string DisabilityDesignationDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateElectronicMail model.
-    /// </summary>
-    public interface ITeacherCandidateElectronicMail : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string ElectronicMailAddress { get; set; }
-        [NaturalKeyMember]
-        string ElectronicMailTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        bool? DoNotPublishIndicator { get; set; }
-        bool? PrimaryEmailAddressIndicator { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateIdentificationCode model.
-    /// </summary>
-    public interface ITeacherCandidateIdentificationCode : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string AssigningOrganizationIdentificationCode { get; set; }
-        [NaturalKeyMember]
-        string StudentIdentificationSystemDescriptor { get; set; }
-
-        // Non-PK properties
-        string IdentificationCode { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateIdentificationDocument model.
-    /// </summary>
-    public interface ITeacherCandidateIdentificationDocument : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string IdentificationDocumentUseDescriptor { get; set; }
-        [NaturalKeyMember]
-        string PersonalInformationVerificationDescriptor { get; set; }
-
-        // Non-PK properties
-        DateTime? DocumentExpirationDate { get; set; }
-        string DocumentTitle { get; set; }
-        string IssuerCountryDescriptor { get; set; }
-        string IssuerDocumentIdentificationCode { get; set; }
-        string IssuerName { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateIndicator model.
-    /// </summary>
-    public interface ITeacherCandidateIndicator : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string IndicatorName { get; set; }
-
-        // Non-PK properties
-        DateTime? BeginDate { get; set; }
-        string DesignatedBy { get; set; }
-        DateTime? EndDate { get; set; }
-        string Indicator { get; set; }
-        string IndicatorGroup { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateInternationalAddress model.
-    /// </summary>
-    public interface ITeacherCandidateInternationalAddress : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string AddressTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        string AddressLine1 { get; set; }
-        string AddressLine2 { get; set; }
-        string AddressLine3 { get; set; }
-        string AddressLine4 { get; set; }
-        DateTime? BeginDate { get; set; }
-        string CountryDescriptor { get; set; }
-        DateTime? EndDate { get; set; }
-        string Latitude { get; set; }
-        string Longitude { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateLanguage model.
-    /// </summary>
-    public interface ITeacherCandidateLanguage : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string LanguageDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<ITeacherCandidateLanguageUse> TeacherCandidateLanguageUses { get; set; }
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateLanguageUse model.
-    /// </summary>
-    public interface ITeacherCandidateLanguageUse : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateLanguage TeacherCandidateLanguage { get; set; }
-        [NaturalKeyMember]
-        string LanguageUseDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateOtherName model.
-    /// </summary>
-    public interface ITeacherCandidateOtherName : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string OtherNameTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        string FirstName { get; set; }
-        string GenerationCodeSuffix { get; set; }
-        string LastSurname { get; set; }
-        string MiddleName { get; set; }
-        string PersonalTitlePrefix { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidatePersonalIdentificationDocument model.
-    /// </summary>
-    public interface ITeacherCandidatePersonalIdentificationDocument : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string IdentificationDocumentUseDescriptor { get; set; }
-        [NaturalKeyMember]
-        string PersonalInformationVerificationDescriptor { get; set; }
-
-        // Non-PK properties
-        DateTime? DocumentExpirationDate { get; set; }
-        string DocumentTitle { get; set; }
-        string IssuerCountryDescriptor { get; set; }
-        string IssuerDocumentIdentificationCode { get; set; }
-        string IssuerName { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateRace model.
-    /// </summary>
-    public interface ITeacherCandidateRace : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string RaceDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateStaffAssociation model.
-    /// </summary>
-    public interface ITeacherCandidateStaffAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string StaffUniqueId { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-
-        // Non-PK properties
-        DateTime BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? StaffResourceId { get; set; }
-        string StaffDiscriminator { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateStudentGrowthMeasure model.
-    /// </summary>
-    public interface ITeacherCandidateStudentGrowthMeasure : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateStudentGrowthMeasureIdentifier { get; set; }
-
-        // Non-PK properties
-        string ResultDatatypeTypeDescriptor { get; set; }
-        decimal? StandardError { get; set; }
-        int StudentGrowthActualScore { get; set; }
-        DateTime? StudentGrowthMeasureDate { get; set; }
-        bool StudentGrowthMet { get; set; }
-        int? StudentGrowthNCount { get; set; }
-        int? StudentGrowthTargetScore { get; set; }
-        string StudentGrowthTypeDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<ITeacherCandidateStudentGrowthMeasureAcademicSubject> TeacherCandidateStudentGrowthMeasureAcademicSubjects { get; set; }
-        ICollection<ITeacherCandidateStudentGrowthMeasureGradeLevel> TeacherCandidateStudentGrowthMeasureGradeLevels { get; set; }
-
-        // Resource reference data
-        Guid? SchoolYearTypeResourceId { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateStudentGrowthMeasureAcademicSubject model.
-    /// </summary>
-    public interface ITeacherCandidateStudentGrowthMeasureAcademicSubject : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateStudentGrowthMeasure TeacherCandidateStudentGrowthMeasure { get; set; }
-        [NaturalKeyMember]
-        string AcademicSubjectDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateStudentGrowthMeasureCourseAssociation model.
-    /// </summary>
-    public interface ITeacherCandidateStudentGrowthMeasureCourseAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        string CourseCode { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateStudentGrowthMeasureIdentifier { get; set; }
-
-        // Non-PK properties
-        DateTime? BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? CourseResourceId { get; set; }
-        string CourseDiscriminator { get; set; }
-        Guid? TeacherCandidateStudentGrowthMeasureResourceId { get; set; }
-        string TeacherCandidateStudentGrowthMeasureDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation model.
-    /// </summary>
-    public interface ITeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateStudentGrowthMeasureIdentifier { get; set; }
-
-        // Non-PK properties
-        DateTime? BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-        Guid? TeacherCandidateStudentGrowthMeasureResourceId { get; set; }
-        string TeacherCandidateStudentGrowthMeasureDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateStudentGrowthMeasureGradeLevel model.
-    /// </summary>
-    public interface ITeacherCandidateStudentGrowthMeasureGradeLevel : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidateStudentGrowthMeasure TeacherCandidateStudentGrowthMeasure { get; set; }
-        [NaturalKeyMember]
-        string GradeLevelDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateStudentGrowthMeasureSectionAssociation model.
-    /// </summary>
-    public interface ITeacherCandidateStudentGrowthMeasureSectionAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        DateTime FactAsOfDate { get; set; }
-        [NaturalKeyMember]
-        string LocalCourseCode { get; set; }
-        [NaturalKeyMember]
-        int SchoolId { get; set; }
-        [NaturalKeyMember]
-        short SchoolYear { get; set; }
-        [NaturalKeyMember]
-        string SectionIdentifier { get; set; }
-        [NaturalKeyMember]
-        string SessionName { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateStudentGrowthMeasureIdentifier { get; set; }
-
-        // Non-PK properties
-        DateTime? BeginDate { get; set; }
-        DateTime? EndDate { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? SectionResourceId { get; set; }
-        string SectionDiscriminator { get; set; }
-        Guid? TeacherCandidateStudentGrowthMeasureResourceId { get; set; }
-        string TeacherCandidateStudentGrowthMeasureDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateTeacherPreparationProviderAssociation model.
-    /// </summary>
-    public interface ITeacherCandidateTeacherPreparationProviderAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        DateTime EntryDate { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-        [NaturalKeyMember]
-        int TeacherPreparationProviderId { get; set; }
-
-        // Non-PK properties
-        short? ClassOfSchoolYear { get; set; }
-        string EntryTypeDescriptor { get; set; }
-        DateTime? ExitWithdrawDate { get; set; }
-        string ExitWithdrawTypeDescriptor { get; set; }
-        short? SchoolYear { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? ClassOfSchoolYearTypeResourceId { get; set; }
-        Guid? SchoolYearTypeResourceId { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
-        Guid? TeacherPreparationProviderResourceId { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateTeacherPreparationProviderProgramAssociation model.
-    /// </summary>
-    public interface ITeacherCandidateTeacherPreparationProviderProgramAssociation : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        DateTime BeginDate { get; set; }
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        string ProgramName { get; set; }
-        [NaturalKeyMember]
-        string ProgramTypeDescriptor { get; set; }
-        [NaturalKeyMember]
-        string TeacherCandidateIdentifier { get; set; }
-
-        // Non-PK properties
-        DateTime? EndDate { get; set; }
-        string ReasonExitedDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-        Guid? TeacherCandidateResourceId { get; set; }
-        string TeacherCandidateDiscriminator { get; set; }
-        Guid? TeacherPreparationProviderProgramResourceId { get; set; }
-        string TeacherPreparationProviderProgramDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateTelephone model.
-    /// </summary>
-    public interface ITeacherCandidateTelephone : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string TelephoneNumber { get; set; }
-        [NaturalKeyMember]
-        string TelephoneNumberTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        bool? DoNotPublishIndicator { get; set; }
-        int? OrderOfPriority { get; set; }
-        bool? TextMessageCapabilityIndicator { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateTPPProgramDegree model.
-    /// </summary>
-    public interface ITeacherCandidateTPPProgramDegree : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string AcademicSubjectDescriptor { get; set; }
-        [NaturalKeyMember]
-        string GradeLevelDescriptor { get; set; }
-        [NaturalKeyMember]
-        string TPPDegreeTypeDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherCandidateVisa model.
-    /// </summary>
-    public interface ITeacherCandidateVisa : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherCandidate TeacherCandidate { get; set; }
-        [NaturalKeyMember]
-        string VisaDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherPreparationProgramTypeDescriptor model.
-    /// </summary>
-    public interface ITeacherPreparationProgramTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int TeacherPreparationProgramTypeDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherPreparationProvider model.
-    /// </summary>
-    public interface ITeacherPreparationProvider : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int TeacherPreparationProviderId { get; set; }
-
-        // Non-PK properties
-        string AccreditationStatusDescriptor { get; set; }
-        string FederalLocaleCodeDescriptor { get; set; }
-        int? SchoolId { get; set; }
-        int? UniversityId { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? SchoolResourceId { get; set; }
-        Guid? UniversityResourceId { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherPreparationProviderProgram model.
-    /// </summary>
-    public interface ITeacherPreparationProviderProgram : ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int EducationOrganizationId { get; set; }
-        [NaturalKeyMember]
-        string ProgramName { get; set; }
-        [NaturalKeyMember]
-        string ProgramTypeDescriptor { get; set; }
-
-        // Non-PK properties
-        string MajorSpecialization { get; set; }
-        string MinorSpecialization { get; set; }
-        string ProgramId { get; set; }
-        string TeacherPreparationProgramTypeDescriptor { get; set; }
-        string TPPProgramPathwayDescriptor { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-        ICollection<ITeacherPreparationProviderProgramGradeLevel> TeacherPreparationProviderProgramGradeLevels { get; set; }
-
-        // Resource reference data
-        Guid? EducationOrganizationResourceId { get; set; }
-        string EducationOrganizationDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TeacherPreparationProviderProgramGradeLevel model.
-    /// </summary>
-    public interface ITeacherPreparationProviderProgramGradeLevel : ISynchronizable, IMappable, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        ITeacherPreparationProviderProgram TeacherPreparationProviderProgram { get; set; }
-        [NaturalKeyMember]
-        string GradeLevelDescriptor { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TPPDegreeTypeDescriptor model.
-    /// </summary>
-    public interface ITPPDegreeTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int TPPDegreeTypeDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the TPPProgramPathwayDescriptor model.
-    /// </summary>
-    public interface ITPPProgramPathwayDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int TPPProgramPathwayDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the University model.
-    /// </summary>
-    public interface IUniversity : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        int UniversityId { get; set; }
-
-        // Non-PK properties
-        string FederalLocaleCodeDescriptor { get; set; }
-        int? SchoolId { get; set; }
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? SchoolResourceId { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the ValueTypeDescriptor model.
-    /// </summary>
-    public interface IValueTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember][AutoIncrement]
-        int ValueTypeDescriptorId { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
+        Guid? SurveySectionResponseResourceId { get; set; }
+        string SurveySectionResponseDiscriminator { get; set; }
     }
 
     /// <summary>

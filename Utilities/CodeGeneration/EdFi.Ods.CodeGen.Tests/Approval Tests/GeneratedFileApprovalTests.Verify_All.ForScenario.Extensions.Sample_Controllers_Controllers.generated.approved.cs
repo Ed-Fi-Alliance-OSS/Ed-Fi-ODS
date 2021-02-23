@@ -44,11 +44,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
             specification.SuspendReferenceAssignmentCheck();
             specification.ArtMediumDescriptorId = request.ArtMediumDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "artMediumDescriptors";
-        }
     }
 }
 
@@ -80,11 +75,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
             specification.SuspendReferenceAssignmentCheck();
             specification.BusId = request.BusId;
             specification.Id = request.Id;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "buses";
         }
     }
 }
@@ -133,11 +123,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
             specification.StartDate = request.StartDate;
             specification.WeeklyMileage = request.WeeklyMileage;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "busRoutes";
-        }
     }
 }
 
@@ -169,11 +154,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
             specification.SuspendReferenceAssignmentCheck();
             specification.FavoriteBookCategoryDescriptorId = request.FavoriteBookCategoryDescriptorId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "favoriteBookCategoryDescriptors";
-        }
     }
 }
 
@@ -204,11 +184,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.MembershipTypeDescriptorId = request.MembershipTypeDescriptorId;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "membershipTypeDescriptors";
         }
     }
 }
@@ -257,11 +232,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
         }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentArtProgramAssociations";
-        }
     }
 }
 
@@ -305,11 +275,6 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociat
             specification.StaffUniqueId = request.StaffUniqueId;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TargetGPA = request.TargetGPA;
-        }
-
-        protected override string GetResourceCollectionName()
-        {
-            return "studentGraduationPlanAssociations";
         }
     }
 }

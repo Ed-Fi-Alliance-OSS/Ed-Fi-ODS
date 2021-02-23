@@ -17,7 +17,6 @@ using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Entities.Common.Homograph;
-using EdFi.Ods.Entities.Common.Records.Homograph;
 using Newtonsoft.Json;
 
 // Aggregate: Name
@@ -119,7 +118,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Name : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.IName, Entities.Common.Records.Homograph.INameRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.INameSynchronizationSourceSupport
+        Entities.Common.Homograph.IName, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.INameSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -373,7 +372,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Parent : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.IParent, Entities.Common.Records.Homograph.IParentRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentSynchronizationSourceSupport
+        Entities.Common.Homograph.IParent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -684,7 +683,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class ParentAddress : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IParentAddress, Entities.Common.Records.Homograph.IParentAddressRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentAddressSynchronizationSourceSupport
+        Entities.Common.Homograph.IParentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentAddressSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -704,18 +703,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         {
             get { return Parent; }
             set { Parent = (Parent) value; }
-        }
-
-        string Entities.Common.Records.Homograph.IParentAddressRecord.ParentFirstName
-        {
-            get { return ((Entities.Common.Records.Homograph.IParentRecord) Parent).ParentFirstName; }
-            set { ((Entities.Common.Records.Homograph.IParentRecord) Parent).ParentFirstName = value; }
-        }
-
-        string Entities.Common.Records.Homograph.IParentAddressRecord.ParentLastSurname
-        {
-            get { return ((Entities.Common.Records.Homograph.IParentRecord) Parent).ParentLastSurname; }
-            set { ((Entities.Common.Records.Homograph.IParentRecord) Parent).ParentLastSurname = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(30), NoDangerousText, NoWhitespace]
@@ -869,7 +856,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class ParentStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IParentStudentSchoolAssociation, Entities.Common.Records.Homograph.IParentStudentSchoolAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentStudentSchoolAssociationSynchronizationSourceSupport
+        Entities.Common.Homograph.IParentStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IParentStudentSchoolAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -889,18 +876,6 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
         {
             get { return Parent; }
             set { Parent = (Parent) value; }
-        }
-
-        string Entities.Common.Records.Homograph.IParentStudentSchoolAssociationRecord.ParentFirstName
-        {
-            get { return ((Entities.Common.Records.Homograph.IParentRecord) Parent).ParentFirstName; }
-            set { ((Entities.Common.Records.Homograph.IParentRecord) Parent).ParentFirstName = value; }
-        }
-
-        string Entities.Common.Records.Homograph.IParentStudentSchoolAssociationRecord.ParentLastSurname
-        {
-            get { return ((Entities.Common.Records.Homograph.IParentRecord) Parent).ParentLastSurname; }
-            set { ((Entities.Common.Records.Homograph.IParentRecord) Parent).ParentLastSurname = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
@@ -1169,7 +1144,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class School : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.ISchool, Entities.Common.Records.Homograph.ISchoolRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolSynchronizationSourceSupport
+        Entities.Common.Homograph.ISchool, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1425,7 +1400,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class SchoolAddress : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.ISchoolAddress, Entities.Common.Records.Homograph.ISchoolAddressRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolAddressSynchronizationSourceSupport
+        Entities.Common.Homograph.ISchoolAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolAddressSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1445,12 +1420,6 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
         {
             get { return School; }
             set { School = (School) value; }
-        }
-
-        string Entities.Common.Records.Homograph.ISchoolAddressRecord.SchoolName
-        {
-            get { return ((Entities.Common.Records.Homograph.ISchoolRecord) School).SchoolName; }
-            set { ((Entities.Common.Records.Homograph.ISchoolRecord) School).SchoolName = value; }
         }
 
         // -------------------------------------------------------------
@@ -1699,7 +1668,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class SchoolYearType : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.ISchoolYearType, Entities.Common.Records.Homograph.ISchoolYearTypeRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolYearTypeSynchronizationSourceSupport
+        Entities.Common.Homograph.ISchoolYearType, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.ISchoolYearTypeSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -1950,7 +1919,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Staff : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.IStaff, Entities.Common.Records.Homograph.IStaffRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffSynchronizationSourceSupport
+        Entities.Common.Homograph.IStaff, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2259,7 +2228,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StaffAddress : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IStaffAddress, Entities.Common.Records.Homograph.IStaffAddressRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffAddressSynchronizationSourceSupport
+        Entities.Common.Homograph.IStaffAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffAddressSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2279,18 +2248,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         {
             get { return Staff; }
             set { Staff = (Staff) value; }
-        }
-
-        string Entities.Common.Records.Homograph.IStaffAddressRecord.StaffFirstName
-        {
-            get { return ((Entities.Common.Records.Homograph.IStaffRecord) Staff).StaffFirstName; }
-            set { ((Entities.Common.Records.Homograph.IStaffRecord) Staff).StaffFirstName = value; }
-        }
-
-        string Entities.Common.Records.Homograph.IStaffAddressRecord.StaffLastSurname
-        {
-            get { return ((Entities.Common.Records.Homograph.IStaffRecord) Staff).StaffLastSurname; }
-            set { ((Entities.Common.Records.Homograph.IStaffRecord) Staff).StaffLastSurname = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(30), NoDangerousText, NoWhitespace]
@@ -2444,7 +2401,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StaffStudentSchoolAssociation : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IStaffStudentSchoolAssociation, Entities.Common.Records.Homograph.IStaffStudentSchoolAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffStudentSchoolAssociationSynchronizationSourceSupport
+        Entities.Common.Homograph.IStaffStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStaffStudentSchoolAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -2464,18 +2421,6 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
         {
             get { return Staff; }
             set { Staff = (Staff) value; }
-        }
-
-        string Entities.Common.Records.Homograph.IStaffStudentSchoolAssociationRecord.StaffFirstName
-        {
-            get { return ((Entities.Common.Records.Homograph.IStaffRecord) Staff).StaffFirstName; }
-            set { ((Entities.Common.Records.Homograph.IStaffRecord) Staff).StaffFirstName = value; }
-        }
-
-        string Entities.Common.Records.Homograph.IStaffStudentSchoolAssociationRecord.StaffLastSurname
-        {
-            get { return ((Entities.Common.Records.Homograph.IStaffRecord) Staff).StaffLastSurname; }
-            set { ((Entities.Common.Records.Homograph.IStaffRecord) Staff).StaffLastSurname = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(100), NoDangerousText, NoWhitespace]
@@ -2746,7 +2691,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class Student : AggregateRootWithCompositeKey,
-        Entities.Common.Homograph.IStudent, Entities.Common.Records.Homograph.IStudentRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentSynchronizationSourceSupport
+        Entities.Common.Homograph.IStudent, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3021,7 +2966,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StudentAddress : EntityWithCompositeKey, IChildEntity,
-        Entities.Common.Homograph.IStudentAddress, Entities.Common.Records.Homograph.IStudentAddressRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentAddressSynchronizationSourceSupport
+        Entities.Common.Homograph.IStudentAddress, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentAddressSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 
@@ -3041,18 +2986,6 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
         {
             get { return Student; }
             set { Student = (Student) value; }
-        }
-
-        string Entities.Common.Records.Homograph.IStudentAddressRecord.StudentFirstName
-        {
-            get { return ((Entities.Common.Records.Homograph.IStudentRecord) Student).StudentFirstName; }
-            set { ((Entities.Common.Records.Homograph.IStudentRecord) Student).StudentFirstName = value; }
-        }
-
-        string Entities.Common.Records.Homograph.IStudentAddressRecord.StudentLastSurname
-        {
-            get { return ((Entities.Common.Records.Homograph.IStudentRecord) Student).StudentLastSurname; }
-            set { ((Entities.Common.Records.Homograph.IStudentRecord) Student).StudentLastSurname = value; }
         }
 
         [DomainSignature, RequiredWithNonDefault, StringLength(30), NoDangerousText, NoWhitespace]
@@ -3299,7 +3232,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
     [Serializable, Schema("homograph")]
     [ExcludeFromCodeCoverage]
     public class StudentSchoolAssociation : AggregateRootWithCompositeKey, IHasCascadableKeyValues,
-        Entities.Common.Homograph.IStudentSchoolAssociation, Entities.Common.Records.Homograph.IStudentSchoolAssociationRecord, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentSchoolAssociationSynchronizationSourceSupport
+        Entities.Common.Homograph.IStudentSchoolAssociation, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.Homograph.IStudentSchoolAssociationSynchronizationSourceSupport
     {
         public virtual void SuspendReferenceAssignmentCheck() { }
 

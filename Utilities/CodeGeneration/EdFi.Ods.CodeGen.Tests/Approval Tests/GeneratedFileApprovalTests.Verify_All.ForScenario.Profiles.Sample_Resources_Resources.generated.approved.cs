@@ -3598,6 +3598,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                         References
         // -------------------------------------------------------------
+
+        private bool _postSecondaryInstitutionReferenceExplicitlyAssigned;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference _postSecondaryInstitutionReference;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference ImplicitPostSecondaryInstitutionReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_postSecondaryInstitutionReference == null && !_postSecondaryInstitutionReferenceExplicitlyAssigned)
+                    _postSecondaryInstitutionReference = new PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference();
+
+                return _postSecondaryInstitutionReference;
+            }
+        }
+
+        [DataMember(Name="postSecondaryInstitutionReference")]
+        public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_postSecondaryInstitutionReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    return ImplicitPostSecondaryInstitutionReference;
+
+                return null;
+            }
+            set
+            {
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = true;
+                _postSecondaryInstitutionReference = value;
+            }
+        }
         // -------------------------------------------------------------
 
         //==============================================================
@@ -3684,6 +3717,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
 
         /// <summary>
+        /// Accreditation Status for a Education Preparation Provider.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="accreditationStatusDescriptor")]
+        public string AccreditationStatusDescriptor { get; set; }
+
+        /// <summary>
         /// The federal locale code associated with an education organization.
         /// </summary>
         // NOT in a reference, IS a lookup column 
@@ -3698,11 +3738,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public bool? ImprovingSchool { get; set; }
 
         /// <summary>
-        /// The status of school e.g. priority or focus.
+        /// The ID of the post secondary institution.
         /// </summary>
-        // NOT in a reference, IS a lookup column 
-        [DataMember(Name="schoolStatusDescriptor")]
-        public string SchoolStatusDescriptor { get; set; }
+        // IS in a reference, NOT a lookup column 
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        {
+            get
+            {
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
+                    }
+
+                return default(int?);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // PostSecondaryInstitution
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = false;
+                ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId = value.GetValueOrDefault();
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -3762,15 +3822,23 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsImprovingSchoolSupported              { get { return true; } set { } }
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsSchoolStatusDescriptorSupported       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsImprovingSchoolSupported                { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported     { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return null; }
+            set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
+        }
+
+
         // -----------------------------------------------------------------
     }
 
@@ -4160,7 +4228,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                        'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -7817,6 +7885,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                         References
         // -------------------------------------------------------------
+
+        private bool _postSecondaryInstitutionReferenceExplicitlyAssigned;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference _postSecondaryInstitutionReference;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference ImplicitPostSecondaryInstitutionReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_postSecondaryInstitutionReference == null && !_postSecondaryInstitutionReferenceExplicitlyAssigned)
+                    _postSecondaryInstitutionReference = new PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference();
+
+                return _postSecondaryInstitutionReference;
+            }
+        }
+
+        [DataMember(Name="postSecondaryInstitutionReference")]
+        public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_postSecondaryInstitutionReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    return ImplicitPostSecondaryInstitutionReference;
+
+                return null;
+            }
+            set
+            {
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = true;
+                _postSecondaryInstitutionReference = value;
+            }
+        }
         // -------------------------------------------------------------
 
         //==============================================================
@@ -7903,6 +8004,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
 
         /// <summary>
+        /// Accreditation Status for a Education Preparation Provider.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="accreditationStatusDescriptor")]
+        public string AccreditationStatusDescriptor { get; set; }
+
+        /// <summary>
         /// The federal locale code associated with an education organization.
         /// </summary>
         // NOT in a reference, IS a lookup column 
@@ -7917,11 +8025,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public bool? ImprovingSchool { get; set; }
 
         /// <summary>
-        /// The status of school e.g. priority or focus.
+        /// The ID of the post secondary institution.
         /// </summary>
-        // NOT in a reference, IS a lookup column 
-        [DataMember(Name="schoolStatusDescriptor")]
-        public string SchoolStatusDescriptor { get; set; }
+        // IS in a reference, NOT a lookup column 
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        {
+            get
+            {
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
+                    }
+
+                return default(int?);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // PostSecondaryInstitution
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = false;
+                ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId = value.GetValueOrDefault();
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -7981,15 +8109,23 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsImprovingSchoolSupported              { get { return true; } set { } }
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsSchoolStatusDescriptorSupported       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsImprovingSchoolSupported                { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported     { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return null; }
+            set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
+        }
+
+
         // -----------------------------------------------------------------
     }
 
@@ -8379,7 +8515,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                        'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -11255,7 +11391,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                        'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -15524,6 +15660,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                         References
         // -------------------------------------------------------------
+
+        private bool _postSecondaryInstitutionReferenceExplicitlyAssigned;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference _postSecondaryInstitutionReference;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference ImplicitPostSecondaryInstitutionReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_postSecondaryInstitutionReference == null && !_postSecondaryInstitutionReferenceExplicitlyAssigned)
+                    _postSecondaryInstitutionReference = new PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference();
+
+                return _postSecondaryInstitutionReference;
+            }
+        }
+
+        [DataMember(Name="postSecondaryInstitutionReference")]
+        public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_postSecondaryInstitutionReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    return ImplicitPostSecondaryInstitutionReference;
+
+                return null;
+            }
+            set
+            {
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = true;
+                _postSecondaryInstitutionReference = value;
+            }
+        }
         // -------------------------------------------------------------
 
         //==============================================================
@@ -15610,6 +15779,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
 
         /// <summary>
+        /// Accreditation Status for a Education Preparation Provider.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="accreditationStatusDescriptor")]
+        public string AccreditationStatusDescriptor { get; set; }
+
+        /// <summary>
         /// The federal locale code associated with an education organization.
         /// </summary>
         // NOT in a reference, IS a lookup column 
@@ -15624,11 +15800,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public bool? ImprovingSchool { get; set; }
 
         /// <summary>
-        /// The status of school e.g. priority or focus.
+        /// The ID of the post secondary institution.
         /// </summary>
-        // NOT in a reference, IS a lookup column 
-        [DataMember(Name="schoolStatusDescriptor")]
-        public string SchoolStatusDescriptor { get; set; }
+        // IS in a reference, NOT a lookup column 
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        {
+            get
+            {
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
+                    }
+
+                return default(int?);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // PostSecondaryInstitution
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = false;
+                ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId = value.GetValueOrDefault();
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -15688,15 +15884,23 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsImprovingSchoolSupported              { get { return true; } set { } }
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsSchoolStatusDescriptorSupported       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsImprovingSchoolSupported                { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported     { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return null; }
+            set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
+        }
+
+
         // -----------------------------------------------------------------
     }
 
@@ -16086,7 +16290,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                        'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -20355,6 +20559,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                         References
         // -------------------------------------------------------------
+
+        private bool _postSecondaryInstitutionReferenceExplicitlyAssigned;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference _postSecondaryInstitutionReference;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference ImplicitPostSecondaryInstitutionReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_postSecondaryInstitutionReference == null && !_postSecondaryInstitutionReferenceExplicitlyAssigned)
+                    _postSecondaryInstitutionReference = new PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference();
+
+                return _postSecondaryInstitutionReference;
+            }
+        }
+
+        [DataMember(Name="postSecondaryInstitutionReference")]
+        public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_postSecondaryInstitutionReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    return ImplicitPostSecondaryInstitutionReference;
+
+                return null;
+            }
+            set
+            {
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = true;
+                _postSecondaryInstitutionReference = value;
+            }
+        }
         // -------------------------------------------------------------
 
         //==============================================================
@@ -20441,6 +20678,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
 
         /// <summary>
+        /// Accreditation Status for a Education Preparation Provider.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="accreditationStatusDescriptor")]
+        public string AccreditationStatusDescriptor { get; set; }
+
+        /// <summary>
         /// The federal locale code associated with an education organization.
         /// </summary>
         // NOT in a reference, IS a lookup column 
@@ -20455,11 +20699,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public bool? ImprovingSchool { get; set; }
 
         /// <summary>
-        /// The status of school e.g. priority or focus.
+        /// The ID of the post secondary institution.
         /// </summary>
-        // NOT in a reference, IS a lookup column 
-        [DataMember(Name="schoolStatusDescriptor")]
-        public string SchoolStatusDescriptor { get; set; }
+        // IS in a reference, NOT a lookup column 
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        {
+            get
+            {
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
+                    }
+
+                return default(int?);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // PostSecondaryInstitution
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = false;
+                ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId = value.GetValueOrDefault();
+            }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -20519,15 +20783,23 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsImprovingSchoolSupported              { get { return true; } set { } }
-        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsSchoolStatusDescriptorSupported       { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsAccreditationStatusDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsFederalLocaleCodeDescriptorSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsImprovingSchoolSupported                { get { return true; } set { } }
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported     { get { return true; } set { } }
         // -------------------------------------------------------------
 
 
         // =================================================================
         //                    Resource Reference Data
         // -----------------------------------------------------------------
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return null; }
+            set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
+        }
+
+
         // -----------------------------------------------------------------
     }
 
