@@ -45,21 +45,12 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
 
             _xsdMedataUrl = _configuration.XsdMetadataUrl;
             _extension = _configuration.Extension;
+            _xsdFolder = Path.GetFullPath(_configuration.XsdFolder);
 
-            SetXsdFolder();
+            ValidateXsdFolder();
 
-            void SetXsdFolder()
+            void ValidateXsdFolder()
             {
-                string currentDirectory = Directory.GetCurrentDirectory();
-
-                string workingFolder = string.IsNullOrEmpty(_configuration.WorkingFolder)
-                    ? currentDirectory
-                    : Path.GetFullPath(_configuration.WorkingFolder);
-
-                _xsdFolder = string.IsNullOrEmpty(_configuration.XsdFolder)
-                    ? Path.Combine(workingFolder, "xsd")
-                    : Path.GetFullPath(_configuration.XsdFolder);
-
                 // create the xsd folder if it does not exists so that the dependencies work.
                 if (!Directory.Exists(_xsdFolder))
                 {
