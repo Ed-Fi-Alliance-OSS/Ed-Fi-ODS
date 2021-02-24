@@ -76,7 +76,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 .Replace("%HOST%", Host())
                 .Replace("%TOKEN_URL%", TokenUrl())
                 .Replace("%BASE_PATH%", basePath)
-                .Replace("%SCHEME%", HttpRequestExtensions.Scheme(request, _useReverseProxyHeaders));
+                .Replace("%SCHEME%", request.Scheme(_useReverseProxyHeaders));
 
             string TokenUrl() => $"{request.RootUrl(_useReverseProxyHeaders)}/{instanceId}oauth/token";
 
