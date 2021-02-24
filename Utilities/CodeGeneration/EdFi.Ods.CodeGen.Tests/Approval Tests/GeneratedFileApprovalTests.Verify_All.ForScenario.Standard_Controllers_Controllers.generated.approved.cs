@@ -808,6 +808,44 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentReportingMethodDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.AssessmentScoreRangeLearningStandards.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/assessmentScoreRangeLearningStandards")]
+    public partial class AssessmentScoreRangeLearningStandardsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard,
+        Api.Common.Models.Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard,
+        Entities.Common.EdFi.IAssessmentScoreRangeLearningStandard,
+        Entities.NHibernate.AssessmentScoreRangeLearningStandardAggregate.EdFi.AssessmentScoreRangeLearningStandard,
+        Api.Common.Models.Requests.AssessmentScoreRangeLearningStandards.EdFi.AssessmentScoreRangeLearningStandardPut,
+        Api.Common.Models.Requests.AssessmentScoreRangeLearningStandards.EdFi.AssessmentScoreRangeLearningStandardPost,
+        Api.Common.Models.Requests.AssessmentScoreRangeLearningStandards.EdFi.AssessmentScoreRangeLearningStandardDelete,
+        Api.Common.Models.Requests.AssessmentScoreRangeLearningStandards.EdFi.AssessmentScoreRangeLearningStandardGetByExample>
+    {
+        public AssessmentScoreRangeLearningStandardsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.AssessmentScoreRangeLearningStandards.EdFi.AssessmentScoreRangeLearningStandardGetByExample request, Entities.Common.EdFi.IAssessmentScoreRangeLearningStandard specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssessmentIdentifier = request.AssessmentIdentifier;
+            specification.AssessmentReportingMethodDescriptor = request.AssessmentReportingMethodDescriptor;
+            specification.Id = request.Id;
+            specification.IdentificationCode = request.IdentificationCode;
+            specification.MaximumScore = request.MaximumScore;
+            specification.MinimumScore = request.MinimumScore;
+            specification.Namespace = request.Namespace;
+            specification.ScoreRangeId = request.ScoreRangeId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.AttemptStatusDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -5123,6 +5161,39 @@ namespace EdFi.Ods.Api.Services.Controllers.OperationalStatusDescriptors.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.OperationalStatusDescriptorId = request.OperationalStatusDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.OrganizationDepartments.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/organizationDepartments")]
+    public partial class OrganizationDepartmentsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.OrganizationDepartment.EdFi.OrganizationDepartment,
+        Api.Common.Models.Resources.OrganizationDepartment.EdFi.OrganizationDepartment,
+        Entities.Common.EdFi.IOrganizationDepartment,
+        Entities.NHibernate.OrganizationDepartmentAggregate.EdFi.OrganizationDepartment,
+        Api.Common.Models.Requests.OrganizationDepartments.EdFi.OrganizationDepartmentPut,
+        Api.Common.Models.Requests.OrganizationDepartments.EdFi.OrganizationDepartmentPost,
+        Api.Common.Models.Requests.OrganizationDepartments.EdFi.OrganizationDepartmentDelete,
+        Api.Common.Models.Requests.OrganizationDepartments.EdFi.OrganizationDepartmentGetByExample>
+    {
+        public OrganizationDepartmentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.OrganizationDepartments.EdFi.OrganizationDepartmentGetByExample request, Entities.Common.EdFi.IOrganizationDepartment specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AcademicSubjectDescriptor = request.AcademicSubjectDescriptor;
+            specification.OrganizationDepartmentId = request.OrganizationDepartmentId;
+            specification.ParentEducationOrganizationId = request.ParentEducationOrganizationId;
         }
     }
 }

@@ -8625,6 +8625,13 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
             set { _isGeneralStudentProgramAssociationParticipationStatusSupported = value; }
         }
 
+        private bool _isGeneralStudentProgramAssociationProgramParticipationStatusesSupported = true;
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported
+        {
+            get { return _isGeneralStudentProgramAssociationProgramParticipationStatusesSupported; }
+            set { _isGeneralStudentProgramAssociationProgramParticipationStatusesSupported = value; }
+        }
+
         private bool _isHoursPerDaySupported = true;
         bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsHoursPerDaySupported
         {
@@ -8728,6 +8735,13 @@ namespace EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sam
         {
             get { return _isStudentArtProgramAssociationStylesSupported; }
             set { _isStudentArtProgramAssociationStylesSupported = value; }
+        }
+
+        private Func<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus, bool> _isGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+        Func<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded
+        {
+            get { return _isGeneralStudentProgramAssociationProgramParticipationStatusIncluded; }
+            set { _isGeneralStudentProgramAssociationProgramParticipationStatusIncluded = value; }
         }
 
         private Func<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, bool> _isStudentArtProgramAssociationArtMediumIncluded;

@@ -10170,6 +10170,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             StudentArtProgramAssociationPortfolioYears = new List<StudentArtProgramAssociationPortfolioYears>();
             StudentArtProgramAssociationServices = new List<StudentArtProgramAssociationService>();
             StudentArtProgramAssociationStyles = new List<StudentArtProgramAssociationStyle>();
+
+            // Inherited lists
+            GeneralStudentProgramAssociationProgramParticipationStatuses = new List<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus>();
         }
         // ------------------------------------------------------------
 
@@ -10651,6 +10654,26 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // =============================================================
         //                     Inherited Collections
         // -------------------------------------------------------------
+        private ICollection<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus> _generalStudentProgramAssociationProgramParticipationStatuses;
+        private ICollection<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus> _generalStudentProgramAssociationProgramParticipationStatusesCovariant;
+
+        [DataMember(Name="programParticipationStatuses"), NoDuplicateMembers]
+        public ICollection<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus> GeneralStudentProgramAssociationProgramParticipationStatuses
+        {
+            get { return _generalStudentProgramAssociationProgramParticipationStatuses; }
+            set
+            {
+                _generalStudentProgramAssociationProgramParticipationStatuses = value;
+                _generalStudentProgramAssociationProgramParticipationStatusesCovariant = new CovariantCollectionAdapter<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus, GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus>(value);
+            }
+        }
+
+        // Covariant version, visible only on the interface
+        ICollection<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus> Entities.Common.EdFi.IGeneralStudentProgramAssociation.GeneralStudentProgramAssociationProgramParticipationStatuses
+        {
+            get { return _generalStudentProgramAssociationProgramParticipationStatusesCovariant; }
+            set { GeneralStudentProgramAssociationProgramParticipationStatuses = new List<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus>(value.Cast<GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatus>()); }
+        }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -10801,6 +10824,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         internal void OnDeserialized(StreamingContext context)
         {
             // Reconnect external inbound references on deserialization
+            // _generalStudentProgramAssociationProgramParticipationStatuses
             if (_studentArtProgramAssociationArtMedia != null) foreach (var item in _studentArtProgramAssociationArtMedia)
             {
                 item.StudentArtProgramAssociation = this;
@@ -10841,27 +10865,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsArtPiecesSupported                                            { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsEndDateSupported                                              { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsExhibitDateSupported                                          { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported  { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsHoursPerDaySupported                                          { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsIdentificationCodeSupported                                   { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsKilnReservationSupported                                      { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsKilnReservationLengthSupported                                { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsMasteredMediumsSupported                                      { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsNumberOfDaysInAttendanceSupported                             { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsPortfolioPiecesSupported                                      { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsPrivateArtProgramSupported                                    { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsProgramFeesSupported                                          { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsReasonExitedDescriptorSupported                               { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsServedOutsideOfRegularSessionSupported                        { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationArtMediaSupported                 { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationPortfolioYearsSupported           { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationServicesSupported                 { get { return true; } set { } }
-        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationStylesSupported                   { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsArtPiecesSupported                                                     { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsEndDateSupported                                                       { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsExhibitDateSupported                                                   { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationParticipationStatusSupported           { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported  { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsHoursPerDaySupported                                                   { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsIdentificationCodeSupported                                            { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsKilnReservationSupported                                               { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsKilnReservationLengthSupported                                         { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsMasteredMediumsSupported                                               { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsNumberOfDaysInAttendanceSupported                                      { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsPortfolioPiecesSupported                                               { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsPrivateArtProgramSupported                                             { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsProgramFeesSupported                                                   { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsReasonExitedDescriptorSupported                                        { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsServedOutsideOfRegularSessionSupported                                 { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationArtMediaSupported                          { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationPortfolioYearsSupported                    { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationServicesSupported                          { get { return true; } set { } }
+        bool Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationStylesSupported                            { get { return true; } set { } }
 
         // Child collection item filter delegates
+        Func<Entities.Common.EdFi.IGeneralStudentProgramAssociationProgramParticipationStatus, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded
+        {
+            get { return null; }
+            set { }
+        }
         Func<Entities.Common.Sample.IStudentArtProgramAssociationArtMedium, bool> Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport.IsStudentArtProgramAssociationArtMediumIncluded
         {
             get { return null; }
@@ -10993,6 +11023,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
             foreach (var item in instance.StudentArtProgramAssociationStyles)
             {
                 var validationResult = studentArtProgramAssociationStylesValidator.Validate(item);
+
+                if (!validationResult.IsValid)
+                    failures.AddRange(validationResult.Errors);
+            }
+
+            var generalStudentProgramAssociationProgramParticipationStatusesValidator = new GeneralStudentProgramAssociation.EdFi.GeneralStudentProgramAssociationProgramParticipationStatusPutPostRequestValidator();
+
+            foreach (var item in instance.GeneralStudentProgramAssociationProgramParticipationStatuses)
+            {
+                var validationResult = generalStudentProgramAssociationProgramParticipationStatusesValidator.Validate(item);
 
                 if (!validationResult.IsValid)
                     failures.AddRange(validationResult.Errors);

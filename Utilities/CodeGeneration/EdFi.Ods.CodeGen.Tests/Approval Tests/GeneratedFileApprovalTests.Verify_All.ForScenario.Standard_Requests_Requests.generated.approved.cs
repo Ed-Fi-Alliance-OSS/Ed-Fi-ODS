@@ -1157,6 +1157,59 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentReportingMethodDescripto
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.AssessmentScoreRangeLearningStandards.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class AssessmentScoreRangeLearningStandardGetByExample
+    {
+        public string AssessmentIdentifier { get; set; }
+        public string AssessmentReportingMethodDescriptor { get; set; }
+        public Guid Id { get; set; }
+        public string IdentificationCode { get; set; }
+        public string MaximumScore { get; set; }
+        public string MinimumScore { get; set; }
+        public string Namespace { get; set; }
+        public string ScoreRangeId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssessmentScoreRangeLearningStandardGetByIds : IHasIdentifiers<Guid>
+    {
+        public AssessmentScoreRangeLearningStandardGetByIds() { }
+
+        public AssessmentScoreRangeLearningStandardGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssessmentScoreRangeLearningStandardPost : Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssessmentScoreRangeLearningStandardPut : Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class AssessmentScoreRangeLearningStandardDelete : IHasIdentifier
+    {
+        public AssessmentScoreRangeLearningStandardDelete() { }
+
+        public AssessmentScoreRangeLearningStandardDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.AttemptStatusDescriptors.EdFi
 {
 
@@ -7418,6 +7471,54 @@ namespace EdFi.Ods.Api.Common.Models.Requests.OperationalStatusDescriptors.EdFi
         public OperationalStatusDescriptorDelete() { }
 
         public OperationalStatusDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.OrganizationDepartments.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class OrganizationDepartmentGetByExample
+    {
+        public string AcademicSubjectDescriptor { get; set; }
+        public int OrganizationDepartmentId { get; set; }
+        public int ParentEducationOrganizationId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class OrganizationDepartmentGetByIds : IHasIdentifiers<Guid>
+    {
+        public OrganizationDepartmentGetByIds() { }
+
+        public OrganizationDepartmentGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class OrganizationDepartmentPost : Resources.OrganizationDepartment.EdFi.OrganizationDepartment
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class OrganizationDepartmentPut : Resources.OrganizationDepartment.EdFi.OrganizationDepartment
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class OrganizationDepartmentDelete : IHasIdentifier
+    {
+        public OrganizationDepartmentDelete() { }
+
+        public OrganizationDepartmentDelete(Guid id)
         {
             Id = id;
         }

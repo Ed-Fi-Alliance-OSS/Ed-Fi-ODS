@@ -6025,6 +6025,268 @@ namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentReportingMethodDescriptorAg
     }
 
 }
+// Aggregate: AssessmentScoreRangeLearningStandard
+
+namespace EdFi.Ods.Entities.Common.EdFi //.AssessmentScoreRangeLearningStandardAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class AssessmentScoreRangeLearningStandardMapper
+    {
+        public static bool SynchronizeTo(this IAssessmentScoreRangeLearningStandard source, IAssessmentScoreRangeLearningStandard target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IAssessmentScoreRangeLearningStandardSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.AssessmentIdentifier != target.AssessmentIdentifier)
+            {
+                source.AssessmentIdentifier = target.AssessmentIdentifier;
+            }
+            if (source.Namespace != target.Namespace)
+            {
+                source.Namespace = target.Namespace;
+            }
+            if (source.ScoreRangeId != target.ScoreRangeId)
+            {
+                source.ScoreRangeId = target.ScoreRangeId;
+            }
+
+            // Copy non-PK properties
+
+            if ((sourceSupport == null || sourceSupport.IsAssessmentReportingMethodDescriptorSupported)
+                && target.AssessmentReportingMethodDescriptor != source.AssessmentReportingMethodDescriptor)
+            {
+                target.AssessmentReportingMethodDescriptor = source.AssessmentReportingMethodDescriptor;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsIdentificationCodeSupported)
+                && target.IdentificationCode != source.IdentificationCode)
+            {
+                target.IdentificationCode = source.IdentificationCode;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsMaximumScoreSupported)
+                && target.MaximumScore != source.MaximumScore)
+            {
+                target.MaximumScore = source.MaximumScore;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsMinimumScoreSupported)
+                && target.MinimumScore != source.MinimumScore)
+            {
+                target.MinimumScore = source.MinimumScore;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            if (sourceSupport == null || sourceSupport.IsAssessmentScoreRangeLearningStandardLearningStandardsSupported)
+            {
+                isModified |=
+                    source.AssessmentScoreRangeLearningStandardLearningStandards.SynchronizeCollectionTo(
+                        target.AssessmentScoreRangeLearningStandardLearningStandards,
+                        onChildAdded: child =>
+                            {
+                                child.AssessmentScoreRangeLearningStandard = target;
+                            },
+                        includeItem: sourceSupport == null
+                            ? null
+                            : sourceSupport.IsAssessmentScoreRangeLearningStandardLearningStandardIncluded);
+            }
+
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IAssessmentScoreRangeLearningStandard source, IAssessmentScoreRangeLearningStandard target, Action<IAssessmentScoreRangeLearningStandard, IAssessmentScoreRangeLearningStandard> onMapped)
+        {
+            var sourceSynchSupport = source as IAssessmentScoreRangeLearningStandardSynchronizationSourceSupport;
+            var targetSynchSupport = target as IAssessmentScoreRangeLearningStandardSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.AssessmentIdentifier = source.AssessmentIdentifier;
+            target.Namespace = source.Namespace;
+            target.ScoreRangeId = source.ScoreRangeId;
+
+            // Copy non-PK properties
+
+            if (sourceSynchSupport.IsAssessmentReportingMethodDescriptorSupported)
+                target.AssessmentReportingMethodDescriptor = source.AssessmentReportingMethodDescriptor;
+            else
+                targetSynchSupport.IsAssessmentReportingMethodDescriptorSupported = false;
+
+            if (sourceSynchSupport.IsIdentificationCodeSupported)
+                target.IdentificationCode = source.IdentificationCode;
+            else
+                targetSynchSupport.IsIdentificationCodeSupported = false;
+
+            if (sourceSynchSupport.IsMaximumScoreSupported)
+                target.MaximumScore = source.MaximumScore;
+            else
+                targetSynchSupport.IsMaximumScoreSupported = false;
+
+            if (sourceSynchSupport.IsMinimumScoreSupported)
+                target.MinimumScore = source.MinimumScore;
+            else
+                targetSynchSupport.IsMinimumScoreSupported = false;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.AssessmentResourceId = source.AssessmentResourceId;
+                target.AssessmentDiscriminator = source.AssessmentDiscriminator;
+                target.ObjectiveAssessmentResourceId = source.ObjectiveAssessmentResourceId;
+                target.ObjectiveAssessmentDiscriminator = source.ObjectiveAssessmentDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            if (sourceSynchSupport.IsAssessmentScoreRangeLearningStandardLearningStandardsSupported)
+            {
+                targetSynchSupport.IsAssessmentScoreRangeLearningStandardLearningStandardIncluded = sourceSynchSupport.IsAssessmentScoreRangeLearningStandardLearningStandardIncluded;
+                source.AssessmentScoreRangeLearningStandardLearningStandards.MapCollectionTo(target.AssessmentScoreRangeLearningStandardLearningStandards, target);
+            }
+            else
+            {
+                targetSynchSupport.IsAssessmentScoreRangeLearningStandardLearningStandardsSupported = false;
+            }
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IAssessmentScoreRangeLearningStandardSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
+        bool IsAssessmentReportingMethodDescriptorSupported { get; set; }
+        bool IsAssessmentScoreRangeLearningStandardLearningStandardsSupported { get; set; }
+        bool IsIdentificationCodeSupported { get; set; }
+        bool IsMaximumScoreSupported { get; set; }
+        bool IsMinimumScoreSupported { get; set; }
+        Func<IAssessmentScoreRangeLearningStandardLearningStandard, bool> IsAssessmentScoreRangeLearningStandardLearningStandardIncluded { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class AssessmentScoreRangeLearningStandardLearningStandardMapper
+    {
+        public static bool SynchronizeTo(this IAssessmentScoreRangeLearningStandardLearningStandard source, IAssessmentScoreRangeLearningStandardLearningStandard target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IAssessmentScoreRangeLearningStandardLearningStandardSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.LearningStandardId != target.LearningStandardId)
+            {
+                source.LearningStandardId = target.LearningStandardId;
+            }
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IAssessmentScoreRangeLearningStandardLearningStandard source, IAssessmentScoreRangeLearningStandardLearningStandard target, Action<IAssessmentScoreRangeLearningStandardLearningStandard, IAssessmentScoreRangeLearningStandardLearningStandard> onMapped)
+        {
+            var sourceSynchSupport = source as IAssessmentScoreRangeLearningStandardLearningStandardSynchronizationSourceSupport;
+            var targetSynchSupport = target as IAssessmentScoreRangeLearningStandardLearningStandardSynchronizationSourceSupport;
+
+            // Copy contextual primary key values
+            target.LearningStandardId = source.LearningStandardId;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.LearningStandardResourceId = source.LearningStandardResourceId;
+                target.LearningStandardDiscriminator = source.LearningStandardDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IAssessmentScoreRangeLearningStandardLearningStandardSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
+    }
+
+}
 // Aggregate: AttemptStatusDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.AttemptStatusDescriptorAggregate
@@ -24716,6 +24978,20 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
             // -------------------------------------------------------------
 
             // Sync lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                isModified |=
+                    source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(
+                        target.GeneralStudentProgramAssociationProgramParticipationStatuses,
+                        onChildAdded: child =>
+                            {
+                                child.GeneralStudentProgramAssociation = target;
+                            },
+                        includeItem: sourceSupport == null
+                            ? null
+                            : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+            }
+
 
             return isModified;
         }
@@ -24881,6 +25157,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
 
             // Map lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
 
             var eTagProvider = new ETagProvider();
 
@@ -24908,8 +25194,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
     {
         bool IsEndDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsReasonExitedDescriptorSupported { get; set; }
         bool IsServedOutsideOfRegularSessionSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
@@ -25031,6 +25319,112 @@ namespace EdFi.Ods.Entities.Common.EdFi //.GeneralStudentProgramAssociationAggre
         bool IsDesignatedBySupported { get; set; }
         bool IsParticipationStatusDescriptorSupported { get; set; }
         bool IsStatusBeginDateSupported { get; set; }
+        bool IsStatusEndDateSupported { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class GeneralStudentProgramAssociationProgramParticipationStatusMapper
+    {
+        public static bool SynchronizeTo(this IGeneralStudentProgramAssociationProgramParticipationStatus source, IGeneralStudentProgramAssociationProgramParticipationStatus target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IGeneralStudentProgramAssociationProgramParticipationStatusSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.ParticipationStatusDescriptor != target.ParticipationStatusDescriptor)
+            {
+                source.ParticipationStatusDescriptor = target.ParticipationStatusDescriptor;
+            }
+            if (source.StatusBeginDate != target.StatusBeginDate)
+            {
+                source.StatusBeginDate = target.StatusBeginDate;
+            }
+
+            // Copy non-PK properties
+
+            if ((sourceSupport == null || sourceSupport.IsDesignatedBySupported)
+                && target.DesignatedBy != source.DesignatedBy)
+            {
+                target.DesignatedBy = source.DesignatedBy;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsStatusEndDateSupported)
+                && target.StatusEndDate != source.StatusEndDate)
+            {
+                target.StatusEndDate = source.StatusEndDate;
+                isModified = true;
+            }
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IGeneralStudentProgramAssociationProgramParticipationStatus source, IGeneralStudentProgramAssociationProgramParticipationStatus target, Action<IGeneralStudentProgramAssociationProgramParticipationStatus, IGeneralStudentProgramAssociationProgramParticipationStatus> onMapped)
+        {
+            var sourceSynchSupport = source as IGeneralStudentProgramAssociationProgramParticipationStatusSynchronizationSourceSupport;
+            var targetSynchSupport = target as IGeneralStudentProgramAssociationProgramParticipationStatusSynchronizationSourceSupport;
+
+            // Copy contextual primary key values
+            target.ParticipationStatusDescriptor = source.ParticipationStatusDescriptor;
+            target.StatusBeginDate = source.StatusBeginDate;
+
+            // Copy non-PK properties
+
+            if (sourceSynchSupport.IsDesignatedBySupported)
+                target.DesignatedBy = source.DesignatedBy;
+            else
+                targetSynchSupport.IsDesignatedBySupported = false;
+
+            if (sourceSynchSupport.IsStatusEndDateSupported)
+                target.StatusEndDate = source.StatusEndDate;
+            else
+                targetSynchSupport.IsStatusEndDateSupported = false;
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IGeneralStudentProgramAssociationProgramParticipationStatusSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
+        bool IsDesignatedBySupported { get; set; }
         bool IsStatusEndDateSupported { get; set; }
     }
 
@@ -41484,6 +41878,279 @@ namespace EdFi.Ods.Entities.Common.EdFi //.OperationalStatusDescriptorAggregate
     }
 
 }
+// Aggregate: OrganizationDepartment
+
+namespace EdFi.Ods.Entities.Common.EdFi //.OrganizationDepartmentAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class OrganizationDepartmentMapper
+    {
+        public static bool SynchronizeTo(this IOrganizationDepartment source, IOrganizationDepartment target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IOrganizationDepartmentSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.OrganizationDepartmentId != target.OrganizationDepartmentId)
+            {
+                source.OrganizationDepartmentId = target.OrganizationDepartmentId;
+            }
+
+            // Copy inherited non-PK properties
+
+
+            if ((sourceSupport == null || sourceSupport.IsNameOfInstitutionSupported)
+                && target.NameOfInstitution != source.NameOfInstitution)
+            {
+                target.NameOfInstitution = source.NameOfInstitution;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsOperationalStatusDescriptorSupported)
+                && target.OperationalStatusDescriptor != source.OperationalStatusDescriptor)
+            {
+                target.OperationalStatusDescriptor = source.OperationalStatusDescriptor;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsShortNameOfInstitutionSupported)
+                && target.ShortNameOfInstitution != source.ShortNameOfInstitution)
+            {
+                target.ShortNameOfInstitution = source.ShortNameOfInstitution;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsWebSiteSupported)
+                && target.WebSite != source.WebSite)
+            {
+                target.WebSite = source.WebSite;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+            if ((sourceSupport == null || sourceSupport.IsAcademicSubjectDescriptorSupported)
+                && target.AcademicSubjectDescriptor != source.AcademicSubjectDescriptor)
+            {
+                target.AcademicSubjectDescriptor = source.AcademicSubjectDescriptor;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsParentEducationOrganizationIdSupported)
+                && target.ParentEducationOrganizationId != source.ParentEducationOrganizationId)
+            {
+                target.ParentEducationOrganizationId = source.ParentEducationOrganizationId;
+                isModified = true;
+            }
+
+
+            // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationAddressesSupported)
+                isModified |= source.EducationOrganizationAddresses.SynchronizeCollectionTo(target.EducationOrganizationAddresses, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationAddressIncluded);
+
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationCategoriesSupported)
+                isModified |= source.EducationOrganizationCategories.SynchronizeCollectionTo(target.EducationOrganizationCategories, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationCategoryIncluded);
+
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIdentificationCodesSupported)
+                isModified |= source.EducationOrganizationIdentificationCodes.SynchronizeCollectionTo(target.EducationOrganizationIdentificationCodes, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIdentificationCodeIncluded);
+
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationIndicatorsSupported)
+                isModified |= source.EducationOrganizationIndicators.SynchronizeCollectionTo(target.EducationOrganizationIndicators, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationIndicatorIncluded);
+
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationInstitutionTelephonesSupported)
+                isModified |= source.EducationOrganizationInstitutionTelephones.SynchronizeCollectionTo(target.EducationOrganizationInstitutionTelephones, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInstitutionTelephoneIncluded);
+
+            if (sourceSupport == null || sourceSupport.IsEducationOrganizationInternationalAddressesSupported)
+                isModified |= source.EducationOrganizationInternationalAddresses.SynchronizeCollectionTo(target.EducationOrganizationInternationalAddresses, child => child.EducationOrganization = target,
+                                sourceSupport == null ? null : sourceSupport.IsEducationOrganizationInternationalAddressIncluded);
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IOrganizationDepartment source, IOrganizationDepartment target, Action<IOrganizationDepartment, IOrganizationDepartment> onMapped)
+        {
+            var sourceSynchSupport = source as IOrganizationDepartmentSynchronizationSourceSupport;
+            var targetSynchSupport = target as IOrganizationDepartmentSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.OrganizationDepartmentId = source.OrganizationDepartmentId;
+
+            // Copy inherited non-PK properties
+
+            if (sourceSynchSupport.IsNameOfInstitutionSupported)
+                target.NameOfInstitution = source.NameOfInstitution;
+            else
+                targetSynchSupport.IsNameOfInstitutionSupported = false;
+
+            if (sourceSynchSupport.IsOperationalStatusDescriptorSupported)
+                target.OperationalStatusDescriptor = source.OperationalStatusDescriptor;
+            else
+                targetSynchSupport.IsOperationalStatusDescriptorSupported = false;
+
+            if (sourceSynchSupport.IsShortNameOfInstitutionSupported)
+                target.ShortNameOfInstitution = source.ShortNameOfInstitution;
+            else
+                targetSynchSupport.IsShortNameOfInstitutionSupported = false;
+
+            if (sourceSynchSupport.IsWebSiteSupported)
+                target.WebSite = source.WebSite;
+            else
+                targetSynchSupport.IsWebSiteSupported = false;
+
+            // Copy non-PK properties
+
+            if (sourceSynchSupport.IsAcademicSubjectDescriptorSupported)
+                target.AcademicSubjectDescriptor = source.AcademicSubjectDescriptor;
+            else
+                targetSynchSupport.IsAcademicSubjectDescriptorSupported = false;
+
+            if (sourceSynchSupport.IsParentEducationOrganizationIdSupported)
+                target.ParentEducationOrganizationId = source.ParentEducationOrganizationId;
+            else
+                targetSynchSupport.IsParentEducationOrganizationIdSupported = false;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ParentEducationOrganizationResourceId = source.ParentEducationOrganizationResourceId;
+                target.ParentEducationOrganizationDiscriminator = source.ParentEducationOrganizationDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            if (sourceSynchSupport.IsEducationOrganizationAddressesSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationAddressIncluded = sourceSynchSupport.IsEducationOrganizationAddressIncluded;
+                source.EducationOrganizationAddresses.MapCollectionTo(target.EducationOrganizationAddresses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationAddressesSupported = false;
+            }
+
+            if (sourceSynchSupport.IsEducationOrganizationCategoriesSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationCategoryIncluded = sourceSynchSupport.IsEducationOrganizationCategoryIncluded;
+                source.EducationOrganizationCategories.MapCollectionTo(target.EducationOrganizationCategories, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationCategoriesSupported = false;
+            }
+
+            if (sourceSynchSupport.IsEducationOrganizationIdentificationCodesSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIdentificationCodeIncluded = sourceSynchSupport.IsEducationOrganizationIdentificationCodeIncluded;
+                source.EducationOrganizationIdentificationCodes.MapCollectionTo(target.EducationOrganizationIdentificationCodes, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIdentificationCodesSupported = false;
+            }
+
+            if (sourceSynchSupport.IsEducationOrganizationIndicatorsSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorIncluded = sourceSynchSupport.IsEducationOrganizationIndicatorIncluded;
+                source.EducationOrganizationIndicators.MapCollectionTo(target.EducationOrganizationIndicators, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationIndicatorsSupported = false;
+            }
+
+            if (sourceSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded = sourceSynchSupport.IsEducationOrganizationInstitutionTelephoneIncluded;
+                source.EducationOrganizationInstitutionTelephones.MapCollectionTo(target.EducationOrganizationInstitutionTelephones, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationInstitutionTelephonesSupported = false;
+            }
+
+            if (sourceSynchSupport.IsEducationOrganizationInternationalAddressesSupported)
+            {
+                targetSynchSupport.IsEducationOrganizationInternationalAddressIncluded = sourceSynchSupport.IsEducationOrganizationInternationalAddressIncluded;
+                source.EducationOrganizationInternationalAddresses.MapCollectionTo(target.EducationOrganizationInternationalAddresses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsEducationOrganizationInternationalAddressesSupported = false;
+            }
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IOrganizationDepartmentSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
+        bool IsAcademicSubjectDescriptorSupported { get; set; }
+        bool IsEducationOrganizationAddressesSupported { get; set; }
+        bool IsEducationOrganizationCategoriesSupported { get; set; }
+        bool IsEducationOrganizationIdentificationCodesSupported { get; set; }
+        bool IsEducationOrganizationIndicatorsSupported { get; set; }
+        bool IsEducationOrganizationInstitutionTelephonesSupported { get; set; }
+        bool IsEducationOrganizationInternationalAddressesSupported { get; set; }
+        bool IsNameOfInstitutionSupported { get; set; }
+        bool IsOperationalStatusDescriptorSupported { get; set; }
+        bool IsParentEducationOrganizationIdSupported { get; set; }
+        bool IsShortNameOfInstitutionSupported { get; set; }
+        bool IsWebSiteSupported { get; set; }
+        Func<IEducationOrganizationAddress, bool> IsEducationOrganizationAddressIncluded { get; set; }
+        Func<IEducationOrganizationCategory, bool> IsEducationOrganizationCategoryIncluded { get; set; }
+        Func<IEducationOrganizationIdentificationCode, bool> IsEducationOrganizationIdentificationCodeIncluded { get; set; }
+        Func<IEducationOrganizationIndicator, bool> IsEducationOrganizationIndicatorIncluded { get; set; }
+        Func<IEducationOrganizationInstitutionTelephone, bool> IsEducationOrganizationInstitutionTelephoneIncluded { get; set; }
+        Func<IEducationOrganizationInternationalAddress, bool> IsEducationOrganizationInternationalAddressIncluded { get; set; }
+    }
+
+}
 // Aggregate: OtherNameTypeDescriptor
 
 namespace EdFi.Ods.Entities.Common.EdFi //.OtherNameTypeDescriptorAggregate
@@ -56276,6 +56943,20 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
                             : sourceSupport.IsStaffAddressIncluded);
             }
 
+            if (sourceSupport == null || sourceSupport.IsStaffAncestryEthnicOriginsSupported)
+            {
+                isModified |=
+                    source.StaffAncestryEthnicOrigins.SynchronizeCollectionTo(
+                        target.StaffAncestryEthnicOrigins,
+                        onChildAdded: child =>
+                            {
+                                child.Staff = target;
+                            },
+                        includeItem: sourceSupport == null
+                            ? null
+                            : sourceSupport.IsStaffAncestryEthnicOriginIncluded);
+            }
+
             if (sourceSupport == null || sourceSupport.IsStaffCredentialsSupported)
             {
                 isModified |=
@@ -56600,6 +57281,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
                 targetSynchSupport.IsStaffAddressesSupported = false;
             }
 
+            if (sourceSynchSupport.IsStaffAncestryEthnicOriginsSupported)
+            {
+                targetSynchSupport.IsStaffAncestryEthnicOriginIncluded = sourceSynchSupport.IsStaffAncestryEthnicOriginIncluded;
+                source.StaffAncestryEthnicOrigins.MapCollectionTo(target.StaffAncestryEthnicOrigins, target);
+            }
+            else
+            {
+                targetSynchSupport.IsStaffAncestryEthnicOriginsSupported = false;
+            }
+
             if (sourceSynchSupport.IsStaffCredentialsSupported)
             {
                 targetSynchSupport.IsStaffCredentialIncluded = sourceSynchSupport.IsStaffCredentialIncluded;
@@ -56774,6 +57465,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
         bool IsSexDescriptorSupported { get; set; }
         bool IsSourceSystemDescriptorSupported { get; set; }
         bool IsStaffAddressesSupported { get; set; }
+        bool IsStaffAncestryEthnicOriginsSupported { get; set; }
         bool IsStaffCredentialsSupported { get; set; }
         bool IsStaffElectronicMailsSupported { get; set; }
         bool IsStaffIdentificationCodesSupported { get; set; }
@@ -56791,6 +57483,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
         bool IsYearsOfPriorProfessionalExperienceSupported { get; set; }
         bool IsYearsOfPriorTeachingExperienceSupported { get; set; }
         Func<IStaffAddress, bool> IsStaffAddressIncluded { get; set; }
+        Func<IStaffAncestryEthnicOrigin, bool> IsStaffAncestryEthnicOriginIncluded { get; set; }
         Func<IStaffCredential, bool> IsStaffCredentialIncluded { get; set; }
         Func<IStaffElectronicMail, bool> IsStaffElectronicMailIncluded { get; set; }
         Func<IStaffIdentificationCode, bool> IsStaffIdentificationCodeIncluded { get; set; }
@@ -57130,6 +57823,81 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffAggregate
     public interface IStaffAddressPeriodSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
     {
         bool IsEndDateSupported { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StaffAncestryEthnicOriginMapper
+    {
+        public static bool SynchronizeTo(this IStaffAncestryEthnicOrigin source, IStaffAncestryEthnicOrigin target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IStaffAncestryEthnicOriginSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.AncestryEthnicOriginDescriptor != target.AncestryEthnicOriginDescriptor)
+            {
+                source.AncestryEthnicOriginDescriptor = target.AncestryEthnicOriginDescriptor;
+            }
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IStaffAncestryEthnicOrigin source, IStaffAncestryEthnicOrigin target, Action<IStaffAncestryEthnicOrigin, IStaffAncestryEthnicOrigin> onMapped)
+        {
+            var sourceSynchSupport = source as IStaffAncestryEthnicOriginSynchronizationSourceSupport;
+            var targetSynchSupport = target as IStaffAncestryEthnicOriginSynchronizationSourceSupport;
+
+            // Copy contextual primary key values
+            target.AncestryEthnicOriginDescriptor = source.AncestryEthnicOriginDescriptor;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IStaffAncestryEthnicOriginSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
     }
 
     [ExcludeFromCodeCoverage]
@@ -66997,6 +67765,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentCTEProgramAssociationCTEProgramsSupported)
@@ -67147,6 +67919,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentCTEProgramAssociationCTEProgramsSupported)
@@ -67208,6 +67990,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
     {
         bool IsEndDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsNonTraditionalGenderStatusSupported { get; set; }
         bool IsPrivateCTEProgramSupported { get; set; }
         bool IsReasonExitedDescriptorSupported { get; set; }
@@ -67216,6 +67999,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentCTEProgramAssociationAggregate
         bool IsStudentCTEProgramAssociationCTEProgramServicesSupported { get; set; }
         bool IsStudentCTEProgramAssociationServicesSupported { get; set; }
         bool IsTechnicalSkillsAssessmentDescriptorSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentCTEProgramAssociationCTEProgram, bool> IsStudentCTEProgramAssociationCTEProgramIncluded { get; set; }
         Func<IStudentCTEProgramAssociationCTEProgramService, bool> IsStudentCTEProgramAssociationCTEProgramServiceIncluded { get; set; }
         Func<IStudentCTEProgramAssociationService, bool> IsStudentCTEProgramAssociationServiceIncluded { get; set; }
@@ -71385,6 +72169,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentHomelessProgramAssociationAggr
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentHomelessProgramAssociationHomelessProgramServicesSupported)
@@ -71507,6 +72295,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentHomelessProgramAssociationAggr
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentHomelessProgramAssociationHomelessProgramServicesSupported)
@@ -71549,11 +72347,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentHomelessProgramAssociationAggr
         bool IsAwaitingFosterCareSupported { get; set; }
         bool IsEndDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsHomelessPrimaryNighttimeResidenceDescriptorSupported { get; set; }
         bool IsHomelessUnaccompaniedYouthSupported { get; set; }
         bool IsReasonExitedDescriptorSupported { get; set; }
         bool IsServedOutsideOfRegularSessionSupported { get; set; }
         bool IsStudentHomelessProgramAssociationHomelessProgramServicesSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentHomelessProgramAssociationHomelessProgramService, bool> IsStudentHomelessProgramAssociationHomelessProgramServiceIncluded { get; set; }
     }
 
@@ -72417,6 +73217,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLanguageInstructionProgramAsso
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsSupported)
@@ -72548,6 +73352,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLanguageInstructionProgramAsso
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsSupported)
@@ -72601,10 +73415,12 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentLanguageInstructionProgramAsso
         bool IsEndDateSupported { get; set; }
         bool IsEnglishLearnerParticipationSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsReasonExitedDescriptorSupported { get; set; }
         bool IsServedOutsideOfRegularSessionSupported { get; set; }
         bool IsStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentsSupported { get; set; }
         bool IsStudentLanguageInstructionProgramAssociationLanguageInstructionProgramServicesSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessment, bool> IsStudentLanguageInstructionProgramAssociationEnglishLanguageProficiencyAssessmentIncluded { get; set; }
         Func<IStudentLanguageInstructionProgramAssociationLanguageInstructionProgramService, bool> IsStudentLanguageInstructionProgramAssociationLanguageInstructionProgramServiceIncluded { get; set; }
     }
@@ -73426,6 +74242,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentMigrantEducationProgramAssocia
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentMigrantEducationProgramAssociationMigrantEducationProgramServicesSupported)
@@ -73578,6 +74398,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentMigrantEducationProgramAssocia
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentMigrantEducationProgramAssociationMigrantEducationProgramServicesSupported)
@@ -73621,6 +74451,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentMigrantEducationProgramAssocia
         bool IsEligibilityExpirationDateSupported { get; set; }
         bool IsEndDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsLastQualifyingMoveSupported { get; set; }
         bool IsPriorityForServicesSupported { get; set; }
         bool IsQualifyingArrivalDateSupported { get; set; }
@@ -73631,6 +74462,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentMigrantEducationProgramAssocia
         bool IsUSInitialEntrySupported { get; set; }
         bool IsUSInitialSchoolEntrySupported { get; set; }
         bool IsUSMostRecentEntrySupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentMigrantEducationProgramAssociationMigrantEducationProgramService, bool> IsStudentMigrantEducationProgramAssociationMigrantEducationProgramServiceIncluded { get; set; }
     }
 
@@ -73865,6 +74697,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentNeglectedOrDelinquentProgramAs
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesSupported)
@@ -73987,6 +74823,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentNeglectedOrDelinquentProgramAs
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesSupported)
@@ -74029,11 +74875,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentNeglectedOrDelinquentProgramAs
         bool IsELAProgressLevelDescriptorSupported { get; set; }
         bool IsEndDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsMathematicsProgressLevelDescriptorSupported { get; set; }
         bool IsNeglectedOrDelinquentProgramDescriptorSupported { get; set; }
         bool IsReasonExitedDescriptorSupported { get; set; }
         bool IsServedOutsideOfRegularSessionSupported { get; set; }
         bool IsStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServicesSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramService, bool> IsStudentNeglectedOrDelinquentProgramAssociationNeglectedOrDelinquentProgramServiceIncluded { get; set; }
     }
 
@@ -74614,6 +75462,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAssociationAggregate
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentProgramAssociationServicesSupported)
@@ -74721,6 +75573,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAssociationAggregate
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentProgramAssociationServicesSupported)
@@ -74762,9 +75624,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAssociationAggregate
     {
         bool IsEndDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsReasonExitedDescriptorSupported { get; set; }
         bool IsServedOutsideOfRegularSessionSupported { get; set; }
         bool IsStudentProgramAssociationServicesSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentProgramAssociationService, bool> IsStudentProgramAssociationServiceIncluded { get; set; }
     }
 
@@ -75936,6 +76800,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolFoodServiceProgramAssoci
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesSupported)
@@ -76048,6 +76916,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolFoodServiceProgramAssoci
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesSupported)
@@ -76090,9 +76968,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSchoolFoodServiceProgramAssoci
         bool IsDirectCertificationSupported { get; set; }
         bool IsEndDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsReasonExitedDescriptorSupported { get; set; }
         bool IsServedOutsideOfRegularSessionSupported { get; set; }
         bool IsStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServicesSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramService, bool> IsStudentSchoolFoodServiceProgramAssociationSchoolFoodServiceProgramServiceIncluded { get; set; }
     }
 
@@ -76791,6 +77671,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentSpecialEducationProgramAssociationDisabilitiesSupported)
@@ -76976,6 +77860,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentSpecialEducationProgramAssociationDisabilitiesSupported)
@@ -77037,6 +77931,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
     {
         bool IsEndDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsIdeaEligibilitySupported { get; set; }
         bool IsIEPBeginDateSupported { get; set; }
         bool IsIEPEndDateSupported { get; set; }
@@ -77052,6 +77947,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSpecialEducationProgramAssocia
         bool IsStudentSpecialEducationProgramAssociationDisabilitiesSupported { get; set; }
         bool IsStudentSpecialEducationProgramAssociationServiceProvidersSupported { get; set; }
         bool IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServicesSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentSpecialEducationProgramAssociationDisability, bool> IsStudentSpecialEducationProgramAssociationDisabilityIncluded { get; set; }
         Func<IStudentSpecialEducationProgramAssociationServiceProvider, bool> IsStudentSpecialEducationProgramAssociationServiceProviderIncluded { get; set; }
         Func<IStudentSpecialEducationProgramAssociationSpecialEducationProgramService, bool> IsStudentSpecialEducationProgramAssociationSpecialEducationProgramServiceIncluded { get; set; }
@@ -77705,6 +78601,10 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentTitleIPartAProgramAssociationA
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentTitleIPartAProgramAssociationServicesSupported)
@@ -77831,6 +78731,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentTitleIPartAProgramAssociationA
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentTitleIPartAProgramAssociationServicesSupported)
@@ -77882,11 +78792,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentTitleIPartAProgramAssociationA
     {
         bool IsEndDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsReasonExitedDescriptorSupported { get; set; }
         bool IsServedOutsideOfRegularSessionSupported { get; set; }
         bool IsStudentTitleIPartAProgramAssociationServicesSupported { get; set; }
         bool IsStudentTitleIPartAProgramAssociationTitleIPartAProgramServicesSupported { get; set; }
         bool IsTitleIPartAParticipantDescriptorSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentTitleIPartAProgramAssociationService, bool> IsStudentTitleIPartAProgramAssociationServiceIncluded { get; set; }
         Func<IStudentTitleIPartAProgramAssociationTitleIPartAProgramService, bool> IsStudentTitleIPartAProgramAssociationTitleIPartAProgramServiceIncluded { get; set; }
     }

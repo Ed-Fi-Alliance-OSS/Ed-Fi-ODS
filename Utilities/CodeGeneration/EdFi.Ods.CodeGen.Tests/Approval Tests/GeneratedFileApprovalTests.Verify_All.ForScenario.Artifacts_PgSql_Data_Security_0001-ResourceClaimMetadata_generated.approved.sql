@@ -222,6 +222,9 @@ begin
     values ('assessmentReportingMethodDescriptor', 'assessmentReportingMethodDescriptor', 'http://ed-fi.org/ods/identity/claims/assessmentReportingMethodDescriptor', managedDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('assessmentScoreRangeLearningStandard', 'assessmentScoreRangeLearningStandard', 'http://ed-fi.org/ods/identity/claims/assessmentScoreRangeLearningStandard', assessmentMetadataResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('attemptStatusDescriptor', 'attemptStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/attemptStatusDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -610,6 +613,9 @@ begin
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('operationalStatusDescriptor', 'operationalStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/operationalStatusDescriptor', systemDescriptorsResourceClaimId, application_id);
+
+    insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+    values ('organizationDepartment', 'organizationDepartment', 'http://ed-fi.org/ods/identity/claims/organizationDepartment', relationshipBasedDataResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('otherNameTypeDescriptor', 'otherNameTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/otherNameTypeDescriptor', systemDescriptorsResourceClaimId, application_id);
