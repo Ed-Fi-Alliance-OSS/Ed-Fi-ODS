@@ -71,7 +71,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             var instanceId = string.IsNullOrEmpty(instanceIdFromRoute) ? string.Empty : $"{instanceIdFromRoute}/";
 
             string basePath = request.PathBase.Value.EnsureSuffixApplied("/") + content.BasePath.EnsureSuffixApplied("/") + instanceId + year;
-            
+ 
             return content.Metadata
                 .Replace("%HOST%", Host())
                 .Replace("%TOKEN_URL%", TokenUrl())
