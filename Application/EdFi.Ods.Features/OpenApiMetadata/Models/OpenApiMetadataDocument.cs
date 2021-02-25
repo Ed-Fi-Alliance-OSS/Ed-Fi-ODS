@@ -52,7 +52,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Models
 
         public IDictionary<string, Response> responses;
 
-        public IList<string> schemes;
+        public string[] schemes;
 
         public IList<IDictionary<string, IEnumerable<string>>> security;
 

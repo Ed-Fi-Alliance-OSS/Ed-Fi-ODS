@@ -2,6 +2,9 @@
   "host": "%HOST%",
   "basePath": "%BASE_PATH%",
   "swagger": "2.0",
+  "schemes": [
+    "%SCHEME%"
+  ],
   "info": {
     "title": "Available Change Versions API Endpoint",
     "version": "1.0.0",
