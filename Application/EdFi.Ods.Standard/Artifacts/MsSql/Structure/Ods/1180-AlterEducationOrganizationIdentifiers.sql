@@ -3,13 +3,8 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
--- DROP VIEW auth.educationorganizationidentifiers;
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[auth].[EducationOrganizationIdentifiers]'))
-    DROP VIEW auth.EducationOrganizationIdentifiers;
-GO
-
 -- ALTER VIEW auth.educationorganizationidentifiers;
-CREATE OR ALTER VIEW [auth].[EducationOrganizationIdentifiers]
+ALTER VIEW [auth].[EducationOrganizationIdentifiers]
 AS
 -- NOTE: Multiple results for a single Education Organization are possible if they are a part of multiple Education Organization Networks
 SELECT
