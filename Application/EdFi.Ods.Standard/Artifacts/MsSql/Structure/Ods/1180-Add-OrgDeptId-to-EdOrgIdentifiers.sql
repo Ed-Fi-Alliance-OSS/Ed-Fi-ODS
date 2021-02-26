@@ -26,6 +26,7 @@ SELECT
     COALESCE(co.CommunityOrganizationID, cp.CommunityOrganizationId) AS CommunityOrganizationId, 
     cp.CommunityProviderId,
     psi.PostSecondaryInstitutionId,
+	od.OrganizationDepartmentId,
     sch.SchoolId,
     edorg.Discriminator AS FullEducationOrganizationType,
     edorg.NameOfInstitution

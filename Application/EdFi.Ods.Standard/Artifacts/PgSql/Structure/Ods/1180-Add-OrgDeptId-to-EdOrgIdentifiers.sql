@@ -3,9 +3,6 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
--- DROP VIEW auth.educationorganizationidentifiers;
-DROP VIEW IF EXISTS auth.educationorganizationidentifiers;
-
 -- ALTER VIEW auth.educationorganizationidentifiers;
 -- NOTE: Multiple results for a single Education Organization are possible if they are a part of multiple Education Organization Networks
 CREATE OR REPLACE VIEW auth.educationorganizationidentifiers
@@ -29,6 +26,7 @@ CREATE OR REPLACE VIEW auth.educationorganizationidentifiers
     COALESCE(co.communityorganizationid, cp.communityorganizationid) AS communityorganizationid,
     cp.communityproviderid,
     psi.postsecondaryinstitutionid,
+	od.organizationdepartmentid,
     sch.schoolid,
     edorg.discriminator AS fulleducationorganizationtype,
     edorg.nameofinstitution
