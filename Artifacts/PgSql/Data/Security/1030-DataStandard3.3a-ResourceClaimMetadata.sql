@@ -9,7 +9,7 @@ application_id INT;
 systemDescriptorsResourceClaim_Id INT;
 relationshipBasedDataResourceClaim_Id INT;
 assessmentMetadataResourceClaim_Id INT;
-authorizationStrategy_Id INT;
+noFurtherAuthRequiredAuthorizationStrategy_Id INT;
     
 BEGIN
 
@@ -39,7 +39,7 @@ BEGIN
 
     IF  EXISTS (SELECT 1 FROM dbo.AuthorizationStrategies WHERE DisplayName = 'No Further Authorization Required')
     THEN
-        SELECT AuthorizationStrategyId INTO authorizationStrategy_Id
+        SELECT AuthorizationStrategyId INTO noFurtherAuthRequiredAuthorizationStrategy_Id
         FROM dbo.AuthorizationStrategies WHERE DisplayName = 'No Further Authorization Required';
     END IF;
 
@@ -78,9 +78,9 @@ BEGIN
         VALUES (N'organizationDepartment', N'organizationDepartment', N'http://ed-fi.org/ods/identity/claims/organizationDepartment', relationshipBasedDataResourceClaim_Id, application_id);
     END IF;
 
-    --Apply  NofurhterauthorizationRequired on this OrganizationDepartment resource
+    --Apply  No Further Authorization Required on this OrganizationDepartment resource
         INSERT INTO dbo.ClaimSetResourceClaims(Action_ActionId,ClaimSet_ClaimSetId,ResourceClaim_ResourceClaimId,AuthorizationStrategyOverride_AuthorizationStrategyId,ValidationRuleSetNameOverride)
-        SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, authorizationStrategy_Id, cast (null as INT)
+        SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, noFurtherAuthRequiredAuthorizationStrategy_Id, cast (null as INT)
         FROM dbo.ResourceClaims
         INNER JOIN lateral
         (SELECT ActionId  FROM dbo.Actions

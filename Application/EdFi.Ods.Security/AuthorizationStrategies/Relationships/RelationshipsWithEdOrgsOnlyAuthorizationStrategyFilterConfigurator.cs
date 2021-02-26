@@ -25,7 +25,6 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToSchoolId,
                               RelationshipsAuthorizationFilters.CommunityOrganizationIdToEducationOrganizationId,
                               RelationshipsAuthorizationFilters.CommunityProviderIdToEducationOrganizationId,
-                              RelationshipsAuthorizationFilters.OrganizationDepartmentIdToEducationOrganizationId,
                               RelationshipsAuthorizationFilters.CommunityOrganizationIdToCommunityProviderId,
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToPostSecondaryInstitutionId,
 
@@ -33,7 +32,6 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToLocalEducationAgencyId,
                               RelationshipsAuthorizationFilters.SchoolIdToSchoolId,
                               RelationshipsAuthorizationFilters.CommunityProviderIdToCommunityProviderId,
-                              RelationshipsAuthorizationFilters.OrganizationDepartmentIdToOrganizationDepartmentId,
                               RelationshipsAuthorizationFilters.CommunityOrganizationIdToCommunityOrganizationId,
                               RelationshipsAuthorizationFilters.PostSecondaryInstitutionIdToPostSecondaryInstitutionId,
                               RelationshipsAuthorizationFilters.StateEducationAgencyIdToStateEducationAgencyId,

@@ -6,14 +6,14 @@
     DECLARE @applicationId INT;
     DECLARE @systemDescriptorsResourceClaimId INT;
     DECLARE @relationshipBasedDataResourceClaimId INT;
-    DECLARE @authorizationStrategyId INT;
+    DECLARE @noFurtherAuthRequiredAuthorizationStrategyId INT;
     DECLARE @assessmentMetadataResourceClaimId INT;
 
     SELECT @applicationId = (SELECT applicationid FROM  dbo.Applications  WHERE  ApplicationName  = 'Ed-Fi ODS API');
     SELECT @systemDescriptorsResourceClaimId = (SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName = 'systemDescriptors' AND Application_ApplicationId = @applicationId);
     SELECT @relationshipBasedDataResourceClaimId = (SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName = 'relationshipBasedData' AND Application_ApplicationId = @applicationId);
     SELECT @assessmentMetadataResourceClaimId = (SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName = 'assessmentMetadata' AND Application_ApplicationId = @applicationId);
-    SELECT @authorizationStrategyId= (SELECT AuthorizationStrategyId FROM dbo.AuthorizationStrategies WHERE DisplayName='No Further Authorization Required');
+    SELECT @noFurtherAuthRequiredAuthorizationStrategyId= (SELECT AuthorizationStrategyId FROM dbo.AuthorizationStrategies WHERE DisplayName='No Further Authorization Required');
     
 
     /* new descriptors */
@@ -51,9 +51,9 @@
         VALUES (N'organizationDepartment', N'organizationDepartment', N'http://ed-fi.org/ods/identity/claims/organizationDepartment', @relationshipBasedDataResourceClaimId, @applicationId);
     END
 
-    --Apply  NofurhterauthorizationRequired on this OrganizationDepartment resource
+    --Apply  No Further Authorization Required on this OrganizationDepartment resource
     INSERT INTO  dbo.ClaimSetResourceClaims( Action_ActionId , ClaimSet_ClaimSetId , ResourceClaim_ResourceClaimId , AuthorizationStrategyOverride_AuthorizationStrategyId , ValidationRuleSetNameOverride )
-    SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, @authorizationStrategyId, null
+    SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, @noFurtherAuthRequiredAuthorizationStrategyId, null
     FROM [dbo].[ResourceClaims]
     CROSS APPLY
     (SELECT ActionId  FROM [dbo].[Actions]
