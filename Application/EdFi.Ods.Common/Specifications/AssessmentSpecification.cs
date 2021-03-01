@@ -12,7 +12,7 @@ namespace EdFi.Ods.Common.Specifications
     {
         public static string[] ValidTypes { get; } =
             {
-                "Assessment", "AssessmentItem", "ObjectiveAssessment", "StudentAssessment"
+                "Assessment", "AssessmentItem", "ObjectiveAssessment", "StudentAssessment", "AssessmentScoreRangeLearningStandard"
             };
 
         public static bool IsAssessmentEntity(Type type)

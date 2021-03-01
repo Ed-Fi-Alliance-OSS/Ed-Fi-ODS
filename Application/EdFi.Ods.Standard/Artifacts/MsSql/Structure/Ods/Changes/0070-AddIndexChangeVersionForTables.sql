@@ -46,6 +46,12 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AssessmentScoreRangeLearningStandard') AND name = N'UX_AssessmentScoreRangeLearningStandard_ChangeVersion')
+    CREATE INDEX [UX_AssessmentScoreRangeLearningStandard_ChangeVersion] ON [edfi].[AssessmentScoreRangeLearningStandard] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.BellSchedule') AND name = N'UX_BellSchedule_ChangeVersion')
     CREATE INDEX [UX_BellSchedule_ChangeVersion] ON [edfi].[BellSchedule] ([ChangeVersion] ASC)
     GO

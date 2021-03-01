@@ -81,6 +81,8 @@ ALTER TABLE [edfi].[Assessment] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[AssessmentItem] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
+ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
 ALTER TABLE [edfi].[BellSchedule] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [edfi].[Budget] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;

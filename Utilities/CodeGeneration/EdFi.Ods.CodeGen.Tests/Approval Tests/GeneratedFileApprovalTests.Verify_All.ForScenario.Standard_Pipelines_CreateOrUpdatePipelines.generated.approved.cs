@@ -149,6 +149,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class AssessmentScoreRangeLearningStandardCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssessmentScoreRangeLearningStandard.EdFi.AssessmentScoreRangeLearningStandard, Entities.NHibernate.AssessmentScoreRangeLearningStandardAggregate.EdFi.AssessmentScoreRangeLearningStandard>
+    {
+        public AssessmentScoreRangeLearningStandardCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class AttemptStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AttemptStatusDescriptor.EdFi.AttemptStatusDescriptor, Entities.NHibernate.AttemptStatusDescriptorAggregate.EdFi.AttemptStatusDescriptor>
     {
         public AttemptStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -926,6 +932,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class OperationalStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.OperationalStatusDescriptor.EdFi.OperationalStatusDescriptor, Entities.NHibernate.OperationalStatusDescriptorAggregate.EdFi.OperationalStatusDescriptor>
     {
         public OperationalStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class OrganizationDepartmentCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.OrganizationDepartment.EdFi.OrganizationDepartment, Entities.NHibernate.OrganizationDepartmentAggregate.EdFi.OrganizationDepartment>
+    {
+        public OrganizationDepartmentCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

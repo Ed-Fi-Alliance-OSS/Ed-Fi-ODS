@@ -4402,6 +4402,10 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
             // -------------------------------------------------------------
 
             // Synch inherited lists
+            if (sourceSupport == null || sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+                isModified |= source.GeneralStudentProgramAssociationProgramParticipationStatuses.SynchronizeCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, child => child.GeneralStudentProgramAssociation = target,
+                                sourceSupport == null ? null : sourceSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded);
+
 
             // Sync lists
             if (sourceSupport == null || sourceSupport.IsStudentArtProgramAssociationArtMediaSupported)
@@ -4604,6 +4608,16 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
 
             // Map inherited lists
 
+            if (sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported)
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded = sourceSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded;
+                source.GeneralStudentProgramAssociationProgramParticipationStatuses.MapCollectionTo(target.GeneralStudentProgramAssociationProgramParticipationStatuses, target);
+            }
+            else
+            {
+                targetSynchSupport.IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported = false;
+            }
+
             // Map lists
 
             if (sourceSynchSupport.IsStudentArtProgramAssociationArtMediaSupported)
@@ -4675,6 +4689,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
         bool IsEndDateSupported { get; set; }
         bool IsExhibitDateSupported { get; set; }
         bool IsGeneralStudentProgramAssociationParticipationStatusSupported { get; set; }
+        bool IsGeneralStudentProgramAssociationProgramParticipationStatusesSupported { get; set; }
         bool IsHoursPerDaySupported { get; set; }
         bool IsIdentificationCodeSupported { get; set; }
         bool IsKilnReservationSupported { get; set; }
@@ -4690,6 +4705,7 @@ namespace EdFi.Ods.Entities.Common.Sample //.StudentArtProgramAssociationAggrega
         bool IsStudentArtProgramAssociationPortfolioYearsSupported { get; set; }
         bool IsStudentArtProgramAssociationServicesSupported { get; set; }
         bool IsStudentArtProgramAssociationStylesSupported { get; set; }
+        Func<IGeneralStudentProgramAssociationProgramParticipationStatus, bool> IsGeneralStudentProgramAssociationProgramParticipationStatusIncluded { get; set; }
         Func<IStudentArtProgramAssociationArtMedium, bool> IsStudentArtProgramAssociationArtMediumIncluded { get; set; }
         Func<IStudentArtProgramAssociationPortfolioYears, bool> IsStudentArtProgramAssociationPortfolioYearsIncluded { get; set; }
         Func<IStudentArtProgramAssociationService, bool> IsStudentArtProgramAssociationServiceIncluded { get; set; }

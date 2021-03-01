@@ -24,6 +24,9 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 ALTER TABLE edfi.AssessmentItem
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
+ALTER TABLE edfi.AssessmentScoreRangeLearningStandard
+ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
+
 ALTER TABLE edfi.BellSchedule
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 

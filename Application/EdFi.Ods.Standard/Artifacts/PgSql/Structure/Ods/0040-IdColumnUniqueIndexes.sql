@@ -17,6 +17,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_7808ee_Id ON edfi.Assessment(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_dc3dcf_Id ON edfi.AssessmentItem(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_a20588_Id ON edfi.AssessmentScoreRangeLearningStandard(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_9bbaf5_Id ON edfi.BellSchedule(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_1c6225_Id ON edfi.Budget(Id);

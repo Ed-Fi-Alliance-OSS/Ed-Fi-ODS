@@ -1344,20 +1344,6 @@
     ]
   },
   {
-    "resource": "/ed-fi/accountabilityRatings",
-    "order": 6,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/accountCodes",
-    "order": 6,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
     "resource": "/ed-fi/calendars",
     "order": 6,
     "operations": [
@@ -1366,27 +1352,6 @@
   },
   {
     "resource": "/ed-fi/classPeriods",
-    "order": 6,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/competencyObjectives",
-    "order": 6,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/educationOrganizationNetworkAssociations",
-    "order": 6,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/educationOrganizationPeerAssociations",
     "order": 6,
     "operations": [
       "Create"
@@ -1407,13 +1372,6 @@
     ]
   },
   {
-    "resource": "/ed-fi/learningStandards",
-    "order": 6,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
     "resource": "/ed-fi/locations",
     "order": 6,
     "operations": [
@@ -1421,21 +1379,21 @@
     ]
   },
   {
-    "resource": "/ed-fi/openStaffPositions",
+    "resource": "/ed-fi/organizationDepartments",
     "order": 6,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/staffEducationOrganizationEmploymentAssociations",
-    "order": 6,
+    "resource": "/ed-fi/accountabilityRatings",
+    "order": 7,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/accounts",
+    "resource": "/ed-fi/accountCodes",
     "order": 7,
     "operations": [
       "Create"
@@ -1456,21 +1414,35 @@
     ]
   },
   {
-    "resource": "/ed-fi/educationContents",
+    "resource": "/ed-fi/competencyObjectives",
     "order": 7,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/learningObjectives",
+    "resource": "/ed-fi/educationOrganizationNetworkAssociations",
     "order": 7,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/learningStandardEquivalenceAssociations",
+    "resource": "/ed-fi/educationOrganizationPeerAssociations",
+    "order": 7,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/learningStandards",
+    "order": 7,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/openStaffPositions",
     "order": 7,
     "operations": [
       "Create"
@@ -1484,91 +1456,42 @@
     ]
   },
   {
-    "resource": "/ed-fi/staffEducationOrganizationAssignmentAssociations",
+    "resource": "/ed-fi/staffEducationOrganizationEmploymentAssociations",
     "order": 7,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/actuals",
+    "resource": "/ed-fi/accounts",
     "order": 8,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/budgets",
+    "resource": "/ed-fi/educationContents",
     "order": 8,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/contractedStaffs",
+    "resource": "/ed-fi/learningObjectives",
     "order": 8,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/courses",
+    "resource": "/ed-fi/learningStandardEquivalenceAssociations",
     "order": 8,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/disciplineIncidents",
-    "order": 8,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/interventionPrescriptions",
-    "order": 8,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/payrolls",
-    "order": 8,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/programs",
-    "order": 8,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffAbsenceEvents",
-    "order": 8,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffEducationOrganizationContactAssociations",
-    "order": 8,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffLeaves",
-    "order": 8,
-    "operations": [
-      "Create"
-    ]
-  },
-  {
-    "resource": "/ed-fi/staffSchoolAssociations",
+    "resource": "/ed-fi/staffEducationOrganizationAssignmentAssociations",
     "order": 8,
     "operations": [
       "Create"
@@ -1582,63 +1505,84 @@
     ]
   },
   {
-    "resource": "/ed-fi/cohorts",
+    "resource": "/ed-fi/actuals",
     "order": 9,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/courseOfferings",
+    "resource": "/ed-fi/budgets",
     "order": 9,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/educationOrganizationInterventionPrescriptionAssociations",
+    "resource": "/ed-fi/contractedStaffs",
     "order": 9,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/interventions",
+    "resource": "/ed-fi/courses",
     "order": 9,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/interventionStudies",
+    "resource": "/ed-fi/disciplineIncidents",
     "order": 9,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/staffDisciplineIncidentAssociations",
+    "resource": "/ed-fi/interventionPrescriptions",
     "order": 9,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/staffProgramAssociations",
+    "resource": "/ed-fi/payrolls",
     "order": 9,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/surveyCourseAssociations",
+    "resource": "/ed-fi/programs",
     "order": 9,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/surveyProgramAssociations",
+    "resource": "/ed-fi/staffAbsenceEvents",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffEducationOrganizationContactAssociations",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffLeaves",
+    "order": 9,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffSchoolAssociations",
     "order": 9,
     "operations": [
       "Create"
@@ -1652,14 +1596,63 @@
     ]
   },
   {
-    "resource": "/ed-fi/sections",
+    "resource": "/ed-fi/cohorts",
     "order": 10,
     "operations": [
       "Create"
     ]
   },
   {
-    "resource": "/ed-fi/staffCohortAssociations",
+    "resource": "/ed-fi/courseOfferings",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/educationOrganizationInterventionPrescriptionAssociations",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/interventions",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/interventionStudies",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffDisciplineIncidentAssociations",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffProgramAssociations",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveyCourseAssociations",
+    "order": 10,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/surveyProgramAssociations",
     "order": 10,
     "operations": [
       "Create"
@@ -1673,344 +1666,365 @@
     ]
   },
   {
-    "resource": "/ed-fi/assessments",
+    "resource": "/ed-fi/sections",
     "order": 11,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/staffCohortAssociations",
+    "order": 11,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/assessments",
+    "order": 12,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/gradebookEntries",
-    "order": 11,
+    "order": 12,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/sectionAttendanceTakenEvents",
-    "order": 11,
+    "order": 12,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/staffSectionAssociations",
-    "order": 11,
+    "order": 12,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveySectionAssociations",
-    "order": 11,
+    "order": 12,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/assessmentItems",
-    "order": 12,
+    "order": 13,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/graduationPlans",
-    "order": 12,
+    "order": 13,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/objectiveAssessments",
-    "order": 13,
+    "order": 14,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentSchoolAssociations",
-    "order": 13,
+    "order": 14,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/assessmentScoreRangeLearningStandards",
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/postSecondaryEvents",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/restraintEvents",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentAssessments",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentCohortAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentCTEProgramAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentDisciplineIncidentAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentDisciplineIncidentBehaviorAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentDisciplineIncidentNonOffenderAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentEducationOrganizationAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentEducationOrganizationResponsibilityAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentHomelessProgramAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentInterventionAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentInterventionAttendanceEvents",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentLanguageInstructionProgramAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentMigrantEducationProgramAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentNeglectedOrDelinquentProgramAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentParentAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentProgramAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentProgramAttendanceEvents",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentSchoolAttendanceEvents",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentSchoolFoodServiceProgramAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentSectionAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentSectionAttendanceEvents",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentSpecialEducationProgramAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentTitleIPartAProgramAssociations",
-    "order": 14,
+    "order": 15,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/disciplineActions",
-    "order": 15,
+    "order": 16,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/grades",
-    "order": 15,
+    "order": 16,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentCompetencyObjectives",
-    "order": 15,
+    "order": 16,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentGradebookEntries",
-    "order": 15,
+    "order": 16,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentLearningObjectives",
-    "order": 15,
+    "order": 16,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveyResponses",
-    "order": 15,
+    "order": 16,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/reportCards",
-    "order": 16,
+    "order": 17,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveyQuestionResponses",
-    "order": 16,
+    "order": 17,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveyResponseEducationOrganizationTargetAssociations",
-    "order": 16,
+    "order": 17,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveyResponseStaffTargetAssociations",
-    "order": 16,
+    "order": 17,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveySectionResponses",
-    "order": 16,
+    "order": 17,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/studentAcademicRecords",
-    "order": 17,
+    "order": 18,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveySectionResponseEducationOrganizationTargetAssociations",
-    "order": 17,
+    "order": 18,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/surveySectionResponseStaffTargetAssociations",
-    "order": 17,
+    "order": 18,
     "operations": [
       "Create"
     ]
   },
   {
     "resource": "/ed-fi/courseTranscripts",
-    "order": 18,
+    "order": 19,
     "operations": [
       "Create"
     ]

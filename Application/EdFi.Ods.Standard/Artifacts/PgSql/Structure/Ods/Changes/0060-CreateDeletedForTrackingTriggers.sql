@@ -319,6 +319,19 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.AssessmentReportingMethodDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.AssessmentReportingMethodDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_edfi.AssessmentScoreRangeLearningStandard_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_edfi.AssessmentScoreRangeLearningStandard(AssessmentIdentifier, Namespace, ScoreRangeId, Id, ChangeVersion)
+    VALUES (OLD.AssessmentIdentifier, OLD.Namespace, OLD.ScoreRangeId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.AssessmentScoreRangeLearningStandard 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.AssessmentScoreRangeLearningStandard_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_edfi.Assessment_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -2157,6 +2170,20 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.OperationalStatusDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.OperationalStatusDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_edfi.OrganizationDepartment_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_edfi.OrganizationDepartment(OrganizationDepartmentId, Id, ChangeVersion)
+    SELECT OLD.OrganizationDepartmentId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.EducationOrganization WHERE EducationOrganizationId = OLD.OrganizationDepartmentId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON edfi.OrganizationDepartment 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_edfi.OrganizationDepartment_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_edfi.OtherNameTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS

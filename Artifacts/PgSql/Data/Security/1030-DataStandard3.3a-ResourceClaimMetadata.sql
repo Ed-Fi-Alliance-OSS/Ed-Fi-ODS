@@ -8,6 +8,8 @@ DECLARE
 application_id INT;
 systemDescriptorsResourceClaim_Id INT;
 relationshipBasedDataResourceClaim_Id INT;
+assessmentMetadataResourceClaim_Id INT;
+noFurtherAuthRequiredAuthorizationStrategy_Id INT;
     
 BEGIN
 
@@ -27,6 +29,18 @@ BEGIN
     THEN
         SELECT ResourceClaimId INTO relationshipBasedDataResourceClaim_Id
         FROM dbo.ResourceClaims WHERE ResourceName = 'systemDescriptors' AND Application_ApplicationId = application_id;
+    END IF;
+
+    IF  EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName = 'assessmentMetadata' AND Application_ApplicationId = application_id)
+    THEN
+        SELECT ResourceClaimId INTO assessmentMetadataResourceClaim_Id
+        FROM dbo.ResourceClaims WHERE ResourceName = 'assessmentMetadata' AND Application_ApplicationId = application_id;
+    END IF;
+
+    IF  EXISTS (SELECT 1 FROM dbo.AuthorizationStrategies WHERE DisplayName = 'No Further Authorization Required')
+    THEN
+        SELECT AuthorizationStrategyId INTO noFurtherAuthRequiredAuthorizationStrategy_Id
+        FROM dbo.AuthorizationStrategies WHERE DisplayName = 'No Further Authorization Required';
     END IF;
 
     /* new descriptors */
@@ -49,5 +63,32 @@ BEGIN
         INSERT INTO dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
         VALUES (N'studentDisciplineIncidentNonOffenderAssociation', N'studentDisciplineIncidentNonOffenderAssociation', N'http://ed-fi.org/ods/identity/claims/studentDisciplineIncidentNonOffenderAssociation', relationshipBasedDataResourceClaim_Id, application_id);
     END IF;
+
+    -- Try insert AssessmentScoreRangeLearningStandard
+    IF (NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName = 'assessmentScoreRangeLearningStandard' AND Application_ApplicationId = application_id))
+    THEN
+        INSERT INTO dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+        VALUES (N'assessmentScoreRangeLearningStandard', N'assessmentScoreRangeLearningStandard', N'http://ed-fi.org/ods/identity/claims/assessmentScoreRangeLearningStandard', assessmentMetadataResourceClaim_Id, application_id);
+    END IF;
+
+    -- Try insert OrganizationDepartment
+    IF (NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName = 'organizationDepartment' AND Application_ApplicationId = application_id))
+    THEN
+        INSERT INTO dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+        VALUES (N'organizationDepartment', N'organizationDepartment', N'http://ed-fi.org/ods/identity/claims/organizationDepartment', relationshipBasedDataResourceClaim_Id, application_id);
+    END IF;
+
+    --Apply  No Further Authorization Required on this OrganizationDepartment resource
+        INSERT INTO dbo.ClaimSetResourceClaims(Action_ActionId,ClaimSet_ClaimSetId,ResourceClaim_ResourceClaimId,AuthorizationStrategyOverride_AuthorizationStrategyId,ValidationRuleSetNameOverride)
+        SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, noFurtherAuthRequiredAuthorizationStrategy_Id, cast (null as INT)
+        FROM dbo.ResourceClaims
+        INNER JOIN lateral
+        (SELECT ActionId  FROM dbo.Actions
+        WHERE ActionName IN ('Create','Read','Update','Delete')) as ac on true
+        INNER JOIN lateral
+        (SELECT claimSetId  FROM dbo.ClaimSets
+        WHERE ClaimSetName IN ('SIS Vendor','Ed-Fi Sandbox','District Hosted SIS Vendor')) as cs on true
+        WHERE ResourceName = 'organizationDepartment';
+
 
 END $$;

@@ -209,6 +209,16 @@ CREATE TABLE tracked_deletes_edfi.AssessmentReportingMethodDescriptor
        CONSTRAINT AssessmentReportingMethodDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_edfi.AssessmentScoreRangeLearningStandard
+(
+       AssessmentIdentifier VARCHAR(60) NOT NULL,
+       Namespace VARCHAR(255) NOT NULL,
+       ScoreRangeId VARCHAR(60) NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT AssessmentScoreRangeLearningStandard_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_edfi.AttemptStatusDescriptor
 (
        AttemptStatusDescriptorId INT NOT NULL,
@@ -1346,6 +1356,14 @@ CREATE TABLE tracked_deletes_edfi.OperationalStatusDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT OperationalStatusDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_edfi.OrganizationDepartment
+(
+       OrganizationDepartmentId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT OrganizationDepartment_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_edfi.OtherNameTypeDescriptor

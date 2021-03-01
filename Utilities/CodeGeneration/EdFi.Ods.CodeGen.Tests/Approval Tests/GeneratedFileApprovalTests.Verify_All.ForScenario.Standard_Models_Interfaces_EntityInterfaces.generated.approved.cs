@@ -842,6 +842,59 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssessmentScoreRangeLearningStandard model.
+    /// </summary>
+    public interface IAssessmentScoreRangeLearningStandard : ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        string AssessmentIdentifier { get; set; }
+        [NaturalKeyMember]
+        string Namespace { get; set; }
+        [NaturalKeyMember]
+        string ScoreRangeId { get; set; }
+
+        // Non-PK properties
+        string AssessmentReportingMethodDescriptor { get; set; }
+        string IdentificationCode { get; set; }
+        string MaximumScore { get; set; }
+        string MinimumScore { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+        ICollection<IAssessmentScoreRangeLearningStandardLearningStandard> AssessmentScoreRangeLearningStandardLearningStandards { get; set; }
+
+        // Resource reference data
+        Guid? AssessmentResourceId { get; set; }
+        string AssessmentDiscriminator { get; set; }
+        Guid? ObjectiveAssessmentResourceId { get; set; }
+        string ObjectiveAssessmentDiscriminator { get; set; }
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the AssessmentScoreRangeLearningStandardLearningStandard model.
+    /// </summary>
+    public interface IAssessmentScoreRangeLearningStandardLearningStandard : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IAssessmentScoreRangeLearningStandard AssessmentScoreRangeLearningStandard { get; set; }
+        [NaturalKeyMember]
+        string LearningStandardId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? LearningStandardResourceId { get; set; }
+        string LearningStandardDiscriminator { get; set; }
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the AssessmentSection model.
     /// </summary>
     public interface IAssessmentSection : ISynchronizable, IMappable, IHasExtensions, IGetByExample
@@ -3567,6 +3620,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         IGeneralStudentProgramAssociationParticipationStatus GeneralStudentProgramAssociationParticipationStatus { get; set; }
 
         // Lists
+        ICollection<IGeneralStudentProgramAssociationProgramParticipationStatus> GeneralStudentProgramAssociationProgramParticipationStatuses { get; set; }
 
         // Resource reference data
         Guid? EducationOrganizationResourceId { get; set; }
@@ -3590,6 +3644,30 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string DesignatedBy { get; set; }
         string ParticipationStatusDescriptor { get; set; }
         DateTime? StatusBeginDate { get; set; }
+        DateTime? StatusEndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the GeneralStudentProgramAssociationProgramParticipationStatus model.
+    /// </summary>
+    public interface IGeneralStudentProgramAssociationProgramParticipationStatus : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IGeneralStudentProgramAssociation GeneralStudentProgramAssociation { get; set; }
+        [NaturalKeyMember]
+        string ParticipationStatusDescriptor { get; set; }
+        [NaturalKeyMember]
+        DateTime StatusBeginDate { get; set; }
+
+        // Non-PK properties
+        string DesignatedBy { get; set; }
         DateTime? StatusEndDate { get; set; }
 
         // One-to-one relationships
@@ -6025,6 +6103,28 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the OrganizationDepartment model.
+    /// </summary>
+    public interface IOrganizationDepartment : EdFi.IEducationOrganization, ISynchronizable, IMappable, IHasExtensions, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        int OrganizationDepartmentId { get; set; }
+
+        // Non-PK properties
+        string AcademicSubjectDescriptor { get; set; }
+        int? ParentEducationOrganizationId { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? ParentEducationOrganizationResourceId { get; set; }
+        string ParentEducationOrganizationDiscriminator { get; set; }
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the OtherNameTypeDescriptor model.
     /// </summary>
     public interface IOtherNameTypeDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -8029,6 +8129,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Lists
         ICollection<IStaffAddress> StaffAddresses { get; set; }
+        ICollection<IStaffAncestryEthnicOrigin> StaffAncestryEthnicOrigins { get; set; }
         ICollection<IStaffCredential> StaffCredentials { get; set; }
         ICollection<IStaffElectronicMail> StaffElectronicMails { get; set; }
         ICollection<IStaffIdentificationCode> StaffIdentificationCodes { get; set; }
@@ -8125,6 +8226,26 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         DateTime? EndDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the StaffAncestryEthnicOrigin model.
+    /// </summary>
+    public interface IStaffAncestryEthnicOrigin : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        IStaff Staff { get; set; }
+        [NaturalKeyMember]
+        string AncestryEthnicOriginDescriptor { get; set; }
+
+        // Non-PK properties
 
         // One-to-one relationships
 

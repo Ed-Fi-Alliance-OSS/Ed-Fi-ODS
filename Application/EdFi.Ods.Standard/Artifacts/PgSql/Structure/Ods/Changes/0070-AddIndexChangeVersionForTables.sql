@@ -17,6 +17,8 @@ CREATE INDEX IF NOT EXISTS UX_7808ee_ChangeVersion ON edfi.Assessment(ChangeVers
 
 CREATE INDEX IF NOT EXISTS UX_dc3dcf_ChangeVersion ON edfi.AssessmentItem(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_a20588_ChangeVersion ON edfi.AssessmentScoreRangeLearningStandard(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_9bbaf5_ChangeVersion ON edfi.BellSchedule(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_1c6225_ChangeVersion ON edfi.Budget(ChangeVersion);

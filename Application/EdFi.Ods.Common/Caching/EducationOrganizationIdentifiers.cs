@@ -23,6 +23,7 @@ namespace EdFi.Ods.Common.Caching
             int? schoolId = null,
             int? communityOrganizationId = null,
             int? communityProviderId = null,
+            int? organizationDepartmentId = null,
             int? postSecondaryInstitutionId = null,
             // For TPDM Extension Support
             int? universityId = null,
@@ -38,6 +39,7 @@ namespace EdFi.Ods.Common.Caching
             SchoolId = schoolId;
             CommunityOrganizationId = communityOrganizationId;
             CommunityProviderId = communityProviderId;
+            OrganizationDepartmentId = organizationDepartmentId;
             PostSecondaryInstitutionId = postSecondaryInstitutionId;
             // For TPDM Extension Support
             UniversityId = universityId;
@@ -64,6 +66,8 @@ namespace EdFi.Ods.Common.Caching
 
         public int? CommunityProviderId { get; private set; }
 
+        public int? OrganizationDepartmentId { get; private set; }
+
         public int? PostSecondaryInstitutionId { get; private set; }
 
         // For TPDM Extension Support
@@ -86,6 +90,7 @@ namespace EdFi.Ods.Common.Caching
                                  && StateEducationAgencyId == null
                                  && CommunityOrganizationId == null
                                  && CommunityProviderId == null
+                                 && OrganizationDepartmentId == null
                                  && PostSecondaryInstitutionId == null
                                  // For TPDM Extension Support
                                  && UniversityId == null

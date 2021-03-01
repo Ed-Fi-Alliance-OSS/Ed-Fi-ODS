@@ -17,6 +17,8 @@ ALTER TABLE [edfi].[Assessment] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE
 
 ALTER TABLE [edfi].[AssessmentItem] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
+ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
 ALTER TABLE [edfi].[BellSchedule] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 ALTER TABLE [edfi].[Budget] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;

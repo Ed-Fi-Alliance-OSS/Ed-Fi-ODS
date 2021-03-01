@@ -411,6 +411,23 @@ ALTER TABLE [edfi].[AssessmentReportingMethodDescriptor] ENABLE TRIGGER [edfi_As
 GO
 
 
+CREATE TRIGGER [edfi].[edfi_AssessmentScoreRangeLearningStandard_TR_DeleteTracking] ON [edfi].[AssessmentScoreRangeLearningStandard] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[AssessmentScoreRangeLearningStandard](AssessmentIdentifier, Namespace, ScoreRangeId, Id, ChangeVersion)
+    SELECT  AssessmentIdentifier, Namespace, ScoreRangeId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [edfi].[AssessmentScoreRangeLearningStandard] ENABLE TRIGGER [edfi_AssessmentScoreRangeLearningStandard_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [edfi].[edfi_Assessment_TR_DeleteTracking] ON [edfi].[Assessment] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -2783,6 +2800,24 @@ END
 GO
 
 ALTER TABLE [edfi].[OperationalStatusDescriptor] ENABLE TRIGGER [edfi_OperationalStatusDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [edfi].[edfi_OrganizationDepartment_TR_DeleteTracking] ON [edfi].[OrganizationDepartment] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_edfi].[OrganizationDepartment](OrganizationDepartmentId, Id, ChangeVersion)
+    SELECT  d.OrganizationDepartmentId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.EducationOrganization b ON d.OrganizationDepartmentId = b.EducationOrganizationId
+END
+GO
+
+ALTER TABLE [edfi].[OrganizationDepartment] ENABLE TRIGGER [edfi_OrganizationDepartment_TR_DeleteTracking]
 GO
 
 

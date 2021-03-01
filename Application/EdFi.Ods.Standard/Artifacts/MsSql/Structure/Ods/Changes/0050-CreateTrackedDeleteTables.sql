@@ -209,6 +209,16 @@ CREATE TABLE [tracked_deletes_edfi].[AssessmentReportingMethodDescriptor]
        CONSTRAINT PK_AssessmentReportingMethodDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
+CREATE TABLE [tracked_deletes_edfi].[AssessmentScoreRangeLearningStandard]
+(
+       AssessmentIdentifier [NVARCHAR](60) NOT NULL,
+       Namespace [NVARCHAR](255) NOT NULL,
+       ScoreRangeId [NVARCHAR](60) NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_AssessmentScoreRangeLearningStandard PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
 CREATE TABLE [tracked_deletes_edfi].[AttemptStatusDescriptor]
 (
        AttemptStatusDescriptorId [INT] NOT NULL,
@@ -1346,6 +1356,14 @@ CREATE TABLE [tracked_deletes_edfi].[OperationalStatusDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_OperationalStatusDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_edfi].[OrganizationDepartment]
+(
+       OrganizationDepartmentId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_OrganizationDepartment PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_edfi].[OtherNameTypeDescriptor]

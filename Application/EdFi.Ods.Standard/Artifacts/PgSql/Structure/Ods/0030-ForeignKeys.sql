@@ -383,6 +383,42 @@ REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
 CREATE INDEX FK_df7331_ResultDatatypeTypeDescriptor
 ON edfi.AssessmentScore (ResultDatatypeTypeDescriptorId ASC);
 
+ALTER TABLE edfi.AssessmentScoreRangeLearningStandard ADD CONSTRAINT FK_a20588_Assessment FOREIGN KEY (AssessmentIdentifier, Namespace)
+REFERENCES edfi.Assessment (AssessmentIdentifier, Namespace)
+;
+
+CREATE INDEX FK_a20588_Assessment
+ON edfi.AssessmentScoreRangeLearningStandard (AssessmentIdentifier ASC, Namespace ASC);
+
+ALTER TABLE edfi.AssessmentScoreRangeLearningStandard ADD CONSTRAINT FK_a20588_AssessmentReportingMethodDescriptor FOREIGN KEY (AssessmentReportingMethodDescriptorId)
+REFERENCES edfi.AssessmentReportingMethodDescriptor (AssessmentReportingMethodDescriptorId)
+;
+
+CREATE INDEX FK_a20588_AssessmentReportingMethodDescriptor
+ON edfi.AssessmentScoreRangeLearningStandard (AssessmentReportingMethodDescriptorId ASC);
+
+ALTER TABLE edfi.AssessmentScoreRangeLearningStandard ADD CONSTRAINT FK_a20588_ObjectiveAssessment FOREIGN KEY (AssessmentIdentifier, IdentificationCode, Namespace)
+REFERENCES edfi.ObjectiveAssessment (AssessmentIdentifier, IdentificationCode, Namespace)
+;
+
+CREATE INDEX FK_a20588_ObjectiveAssessment
+ON edfi.AssessmentScoreRangeLearningStandard (AssessmentIdentifier ASC, IdentificationCode ASC, Namespace ASC);
+
+ALTER TABLE edfi.AssessmentScoreRangeLearningStandardLearningStandard ADD CONSTRAINT FK_9960a9_AssessmentScoreRangeLearningStandard FOREIGN KEY (AssessmentIdentifier, Namespace, ScoreRangeId)
+REFERENCES edfi.AssessmentScoreRangeLearningStandard (AssessmentIdentifier, Namespace, ScoreRangeId)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_9960a9_AssessmentScoreRangeLearningStandard
+ON edfi.AssessmentScoreRangeLearningStandardLearningStandard (AssessmentIdentifier ASC, Namespace ASC, ScoreRangeId ASC);
+
+ALTER TABLE edfi.AssessmentScoreRangeLearningStandardLearningStandard ADD CONSTRAINT FK_9960a9_LearningStandard FOREIGN KEY (LearningStandardId)
+REFERENCES edfi.LearningStandard (LearningStandardId)
+;
+
+CREATE INDEX FK_9960a9_LearningStandard
+ON edfi.AssessmentScoreRangeLearningStandardLearningStandard (LearningStandardId ASC);
+
 ALTER TABLE edfi.AssessmentSection ADD CONSTRAINT FK_22ceba_Assessment FOREIGN KEY (AssessmentIdentifier, Namespace)
 REFERENCES edfi.Assessment (AssessmentIdentifier, Namespace)
 ON DELETE CASCADE
@@ -1857,6 +1893,21 @@ REFERENCES edfi.ParticipationStatusDescriptor (ParticipationStatusDescriptorId)
 CREATE INDEX FK_b3fd05_ParticipationStatusDescriptor
 ON edfi.GeneralStudentProgramAssociationParticipationStatus (ParticipationStatusDescriptorId ASC);
 
+ALTER TABLE edfi.GeneralStudentProgramAssociationProgramParticipationStatus ADD CONSTRAINT FK_0855d2_GeneralStudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_0855d2_GeneralStudentProgramAssociation
+ON edfi.GeneralStudentProgramAssociationProgramParticipationStatus (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
+
+ALTER TABLE edfi.GeneralStudentProgramAssociationProgramParticipationStatus ADD CONSTRAINT FK_0855d2_ParticipationStatusDescriptor FOREIGN KEY (ParticipationStatusDescriptorId)
+REFERENCES edfi.ParticipationStatusDescriptor (ParticipationStatusDescriptorId)
+;
+
+CREATE INDEX FK_0855d2_ParticipationStatusDescriptor
+ON edfi.GeneralStudentProgramAssociationProgramParticipationStatus (ParticipationStatusDescriptorId ASC);
+
 ALTER TABLE edfi.Grade ADD CONSTRAINT FK_839e20_GradeTypeDescriptor FOREIGN KEY (GradeTypeDescriptorId)
 REFERENCES edfi.GradeTypeDescriptor (GradeTypeDescriptorId)
 ;
@@ -3245,6 +3296,25 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE edfi.OrganizationDepartment ADD CONSTRAINT FK_13b924_AcademicSubjectDescriptor FOREIGN KEY (AcademicSubjectDescriptorId)
+REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
+;
+
+CREATE INDEX FK_13b924_AcademicSubjectDescriptor
+ON edfi.OrganizationDepartment (AcademicSubjectDescriptorId ASC);
+
+ALTER TABLE edfi.OrganizationDepartment ADD CONSTRAINT FK_13b924_EducationOrganization FOREIGN KEY (OrganizationDepartmentId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.OrganizationDepartment ADD CONSTRAINT FK_13b924_EducationOrganization1 FOREIGN KEY (ParentEducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+CREATE INDEX FK_13b924_EducationOrganization1
+ON edfi.OrganizationDepartment (ParentEducationOrganizationId ASC);
+
 ALTER TABLE edfi.OtherNameTypeDescriptor ADD CONSTRAINT FK_f020d2_Descriptor FOREIGN KEY (OtherNameTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -4364,6 +4434,21 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_b7f969_StaffAddress
 ON edfi.StaffAddressPeriod (AddressTypeDescriptorId ASC, City ASC, PostalCode ASC, StaffUSI ASC, StateAbbreviationDescriptorId ASC, StreetNumberName ASC);
+
+ALTER TABLE edfi.StaffAncestryEthnicOrigin ADD CONSTRAINT FK_a4a6ae_AncestryEthnicOriginDescriptor FOREIGN KEY (AncestryEthnicOriginDescriptorId)
+REFERENCES edfi.AncestryEthnicOriginDescriptor (AncestryEthnicOriginDescriptorId)
+;
+
+CREATE INDEX FK_a4a6ae_AncestryEthnicOriginDescriptor
+ON edfi.StaffAncestryEthnicOrigin (AncestryEthnicOriginDescriptorId ASC);
+
+ALTER TABLE edfi.StaffAncestryEthnicOrigin ADD CONSTRAINT FK_a4a6ae_Staff FOREIGN KEY (StaffUSI)
+REFERENCES edfi.Staff (StaffUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_a4a6ae_Staff
+ON edfi.StaffAncestryEthnicOrigin (StaffUSI ASC);
 
 ALTER TABLE edfi.StaffClassificationDescriptor ADD CONSTRAINT FK_6ca180_Descriptor FOREIGN KEY (StaffClassificationDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)

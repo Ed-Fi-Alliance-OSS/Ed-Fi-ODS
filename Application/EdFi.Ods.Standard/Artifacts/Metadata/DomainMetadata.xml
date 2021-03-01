@@ -87,6 +87,10 @@
   <Aggregate root="AssessmentReportingMethodDescriptor">
     <Entity table="AssessmentReportingMethodDescriptor" isA="Descriptor"/>
   </Aggregate>
+  <Aggregate root="AssessmentScoreRangeLearningStandard">
+    <Entity table="AssessmentScoreRangeLearningStandard"/>
+    <Entity table="AssessmentScoreRangeLearningStandardLearningStandard" isRequiredCollection="true"/>
+  </Aggregate>
   <Aggregate root="AttemptStatusDescriptor">
     <Entity table="AttemptStatusDescriptor" isA="Descriptor"/>
   </Aggregate>
@@ -366,6 +370,7 @@
   <Aggregate root="GeneralStudentProgramAssociation">
     <Entity table="GeneralStudentProgramAssociation" isAbstract="true"/>
     <Entity table="GeneralStudentProgramAssociationParticipationStatus"/>
+    <Entity table="GeneralStudentProgramAssociationProgramParticipationStatus"/>
   </Aggregate>
   <Aggregate root="Grade" allowPrimaryKeyUpdates="true">
     <Entity table="Grade"/>
@@ -587,6 +592,9 @@
   <Aggregate root="OperationalStatusDescriptor">
     <Entity table="OperationalStatusDescriptor" isA="Descriptor"/>
   </Aggregate>
+  <Aggregate root="OrganizationDepartment">
+    <Entity table="OrganizationDepartment" isA="EducationOrganization"/>
+  </Aggregate>
   <Aggregate root="OtherNameTypeDescriptor">
     <Entity table="OtherNameTypeDescriptor" isA="Descriptor"/>
   </Aggregate>
@@ -804,6 +812,7 @@
     <Entity table="Staff"/>
     <Entity table="StaffAddress"/>
     <Entity table="StaffAddressPeriod"/>
+    <Entity table="StaffAncestryEthnicOrigin"/>
     <Entity table="StaffCredential"/>
     <Entity table="StaffElectronicMail"/>
     <Entity table="StaffIdentificationCode"/>
