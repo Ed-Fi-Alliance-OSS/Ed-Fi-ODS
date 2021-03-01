@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.1.0",
+  "odsApiVersion": "5.2.0",
   "schemaDefinition": {
     "logicalName": "Sample",
     "physicalName": "sample",

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.2.0-c" targetNamespace="http://ed-fi.org/3.2.0-c" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.0-a" targetNamespace="http://ed-fi.org/3.3.0-a" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="EXTENSION-Ed-Fi-Extended-Core.xsd" />
   <xs:annotation>
     <xs:documentation>===== Staff Association Interchange Model =====</xs:documentation>
@@ -11,7 +11,7 @@
     <xs:complexType>
       <xs:choice maxOccurs="unbounded">
         <xs:element name="Staff" type="EXTENSION-StaffExtension" />
-        <xs:element name="StaffEducationOrganizationEmploymentAssociation" type="EXTENSION-StaffEducationOrganizationEmploymentAssociationExtension" />
+        <xs:element name="StaffEducationOrganizationEmploymentAssociation" type="StaffEducationOrganizationEmploymentAssociation" />
         <xs:element name="StaffEducationOrganizationAssignmentAssociation" type="EXTENSION-StaffEducationOrganizationAssignmentAssociationExtension" />
         <xs:element name="StaffSchoolAssociation" type="StaffSchoolAssociation" />
         <xs:element name="StaffSectionAssociation" type="StaffSectionAssociation" />
@@ -22,14 +22,17 @@
         <xs:element name="StaffAbsenceEvent" type="StaffAbsenceEvent" />
         <xs:element name="Credential" type="EXTENSION-CredentialExtension" />
         <xs:element name="Person" type="Person" />
+        <xs:element name="EmploymentEvent" type="EXTENSION-EmploymentEvent" />
+        <xs:element name="EmploymentSeparationEvent" type="EXTENSION-EmploymentSeparationEvent" />
         <xs:element name="OpenStaffPositionEvent" type="EXTENSION-OpenStaffPositionEvent" />
         <xs:element name="FieldworkExperience" type="EXTENSION-FieldworkExperience" />
         <xs:element name="Certification" type="EXTENSION-Certification" />
         <xs:element name="CertificationExam" type="EXTENSION-CertificationExam" />
         <xs:element name="CertificationExamResult" type="EXTENSION-CertificationExamResult" />
         <xs:element name="CredentialEvent" type="EXTENSION-CredentialEvent" />
-        <xs:element name="StaffEducatorPreparationProgramAssociation" type="EXTENSION-StaffEducatorPreparationProgramAssociation" />
         <xs:element name="FieldworkExperienceSectionAssociation" type="EXTENSION-FieldworkExperienceSectionAssociation" />
+        <xs:element name="StaffTeacherPreparationProviderAssociation" type="EXTENSION-StaffTeacherPreparationProviderAssociation" />
+        <xs:element name="StaffTeacherPreparationProviderProgramAssociation" type="EXTENSION-StaffTeacherPreparationProviderProgramAssociation" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

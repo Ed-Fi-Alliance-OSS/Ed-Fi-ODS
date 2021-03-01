@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.0-a" targetNamespace="http://ed-fi.org/3.3.0-a" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="EXTENSION-Ed-Fi-Extended-Core.xsd" />
+  <xs:annotation>
+    <xs:documentation>===== Teacher Candidate Interchange Model =====</xs:documentation>
+  </xs:annotation>
+  <xs:element name="InterchangeTeacherCandidate">
+    <xs:annotation>
+      <xs:documentation>This interchange defines teacher candidates and contains all their identifying information.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="Credential" type="EXTENSION-CredentialExtension" />
+        <xs:element name="Student" type="Student" />
+        <xs:element name="TeacherCandidate" type="EXTENSION-TeacherCandidate" />
+        <xs:element name="TeacherCandidateAcademicRecord" type="EXTENSION-TeacherCandidateAcademicRecord" />
+        <xs:element name="TeacherCandidateCourseTranscript" type="EXTENSION-TeacherCandidateCourseTranscript" />
+        <xs:element name="FieldworkExperience" type="EXTENSION-FieldworkExperience" />
+        <xs:element name="Certification" type="EXTENSION-Certification" />
+        <xs:element name="CertificationExam" type="EXTENSION-CertificationExam" />
+        <xs:element name="CertificationExamResult" type="EXTENSION-CertificationExamResult" />
+        <xs:element name="CredentialEvent" type="EXTENSION-CredentialEvent" />
+        <xs:element name="Person" type="Person" />
+        <xs:element name="CompleterAsStaffAssociation" type="EXTENSION-CompleterAsStaffAssociation" />
+        <xs:element name="FieldworkExperienceSectionAssociation" type="EXTENSION-FieldworkExperienceSectionAssociation" />
+        <xs:element name="TeacherCandidateStaffAssociation" type="EXTENSION-TeacherCandidateStaffAssociation" />
+        <xs:element name="TeacherCandidateTeacherPreparationProviderAssociation" type="EXTENSION-TeacherCandidateTeacherPreparationProviderAssociation" />
+        <xs:element name="TeacherCandidateTeacherPreparationProviderProgramAssociation" type="EXTENSION-TeacherCandidateTeacherPreparationProviderProgramAssociation" />
+        <xs:element name="StudentSchoolAssociation" type="StudentSchoolAssociation" />
+        <xs:element name="StudentEducationOrganizationAssociation" type="StudentEducationOrganizationAssociation" />
+        <xs:element name="StudentEducationOrganizationResponsibilityAssociation" type="StudentEducationOrganizationResponsibilityAssociation" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.2.0-c" targetNamespace="http://ed-fi.org/3.2.0-c" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.0-a" targetNamespace="http://ed-fi.org/3.3.0-a" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="EXTENSION-Ed-Fi-Extended-Core.xsd" />
   <xs:annotation>
     <xs:documentation>===== Descriptors Interchange Model =====</xs:documentation>
@@ -21,6 +21,7 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="AddressTypeDescriptor" type="AddressTypeDescriptor" />
         <xs:element name="AdministrationEnvironmentDescriptor" type="AdministrationEnvironmentDescriptor" />
         <xs:element name="AdministrativeFundingControlDescriptor" type="AdministrativeFundingControlDescriptor" />
+        <xs:element name="AncestryEthnicOriginDescriptor" type="AncestryEthnicOriginDescriptor" />
         <xs:element name="AssessmentCategoryDescriptor" type="AssessmentCategoryDescriptor" />
         <xs:element name="AssessmentIdentificationSystemDescriptor" type="AssessmentIdentificationSystemDescriptor" />
         <xs:element name="AssessmentItemCategoryDescriptor" type="AssessmentItemCategoryDescriptor" />
@@ -195,7 +196,6 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="ApplicationStatusDescriptor" type="EXTENSION-ApplicationStatusDescriptor" />
         <xs:element name="BackgroundCheckStatusDescriptor" type="EXTENSION-BackgroundCheckStatusDescriptor" />
         <xs:element name="BackgroundCheckTypeDescriptor" type="EXTENSION-BackgroundCheckTypeDescriptor" />
-        <xs:element name="CandidateCharacteristicDescriptor" type="EXTENSION-CandidateCharacteristicDescriptor" />
         <xs:element name="CertificationExamStatusDescriptor" type="EXTENSION-CertificationExamStatusDescriptor" />
         <xs:element name="CertificationExamTypeDescriptor" type="EXTENSION-CertificationExamTypeDescriptor" />
         <xs:element name="CertificationFieldDescriptor" type="EXTENSION-CertificationFieldDescriptor" />
@@ -206,11 +206,11 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="CredentialEventTypeDescriptor" type="EXTENSION-CredentialEventTypeDescriptor" />
         <xs:element name="CredentialStatusDescriptor" type="EXTENSION-CredentialStatusDescriptor" />
         <xs:element name="DegreeDescriptor" type="EXTENSION-DegreeDescriptor" />
-        <xs:element name="EducatorPreparationProgramTypeDescriptor" type="EXTENSION-EducatorPreparationProgramTypeDescriptor" />
         <xs:element name="EducatorRoleDescriptor" type="EXTENSION-EducatorRoleDescriptor" />
+        <xs:element name="EmploymentEventTypeDescriptor" type="EXTENSION-EmploymentEventTypeDescriptor" />
+        <xs:element name="EmploymentSeparationReasonDescriptor" type="EXTENSION-EmploymentSeparationReasonDescriptor" />
+        <xs:element name="EmploymentSeparationTypeDescriptor" type="EXTENSION-EmploymentSeparationTypeDescriptor" />
         <xs:element name="EnglishLanguageExamDescriptor" type="EXTENSION-EnglishLanguageExamDescriptor" />
-        <xs:element name="EPPDegreeTypeDescriptor" type="EXTENSION-EPPDegreeTypeDescriptor" />
-        <xs:element name="EPPProgramPathwayDescriptor" type="EXTENSION-EPPProgramPathwayDescriptor" />
         <xs:element name="EvaluationElementRatingLevelDescriptor" type="EXTENSION-EvaluationElementRatingLevelDescriptor" />
         <xs:element name="EvaluationPeriodDescriptor" type="EXTENSION-EvaluationPeriodDescriptor" />
         <xs:element name="EvaluationRatingLevelDescriptor" type="EXTENSION-EvaluationRatingLevelDescriptor" />
@@ -223,7 +223,8 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="HireStatusDescriptor" type="EXTENSION-HireStatusDescriptor" />
         <xs:element name="HiringSourceDescriptor" type="EXTENSION-HiringSourceDescriptor" />
         <xs:element name="InstructionalSettingDescriptor" type="EXTENSION-InstructionalSettingDescriptor" />
-        <xs:element name="LengthOfContractDescriptor" type="EXTENSION-LengthOfContractDescriptor" />
+        <xs:element name="InternalExternalHireDescriptor" type="EXTENSION-InternalExternalHireDescriptor" />
+        <xs:element name="LevelOfDegreeAwardedDescriptor" type="EXTENSION-LevelOfDegreeAwardedDescriptor" />
         <xs:element name="ObjectiveRatingLevelDescriptor" type="EXTENSION-ObjectiveRatingLevelDescriptor" />
         <xs:element name="OpenStaffPositionEventStatusDescriptor" type="EXTENSION-OpenStaffPositionEventStatusDescriptor" />
         <xs:element name="OpenStaffPositionEventTypeDescriptor" type="EXTENSION-OpenStaffPositionEventTypeDescriptor" />
@@ -233,13 +234,19 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="PreviousCareerDescriptor" type="EXTENSION-PreviousCareerDescriptor" />
         <xs:element name="ProfessionalDevelopmentOfferedByDescriptor" type="EXTENSION-ProfessionalDevelopmentOfferedByDescriptor" />
         <xs:element name="ProgramGatewayDescriptor" type="EXTENSION-ProgramGatewayDescriptor" />
+        <xs:element name="ProspectTypeDescriptor" type="EXTENSION-ProspectTypeDescriptor" />
         <xs:element name="QuantitativeMeasureDatatypeDescriptor" type="EXTENSION-QuantitativeMeasureDatatypeDescriptor" />
         <xs:element name="QuantitativeMeasureTypeDescriptor" type="EXTENSION-QuantitativeMeasureTypeDescriptor" />
-        <xs:element name="RecruitmentEventAttendeeTypeDescriptor" type="EXTENSION-RecruitmentEventAttendeeTypeDescriptor" />
         <xs:element name="RecruitmentEventTypeDescriptor" type="EXTENSION-RecruitmentEventTypeDescriptor" />
         <xs:element name="RubricRatingLevelDescriptor" type="EXTENSION-RubricRatingLevelDescriptor" />
         <xs:element name="SalaryTypeDescriptor" type="EXTENSION-SalaryTypeDescriptor" />
-        <xs:element name="StaffToCandidateRelationshipDescriptor" type="EXTENSION-StaffToCandidateRelationshipDescriptor" />
+        <xs:element name="SchoolStatusDescriptor" type="EXTENSION-SchoolStatusDescriptor" />
+        <xs:element name="StudentGrowthTypeDescriptor" type="EXTENSION-StudentGrowthTypeDescriptor" />
+        <xs:element name="TeacherCandidateCharacteristicDescriptor" type="EXTENSION-TeacherCandidateCharacteristicDescriptor" />
+        <xs:element name="TeacherPreparationProgramTypeDescriptor" type="EXTENSION-TeacherPreparationProgramTypeDescriptor" />
+        <xs:element name="TPPDegreeTypeDescriptor" type="EXTENSION-TPPDegreeTypeDescriptor" />
+        <xs:element name="TPPProgramPathwayDescriptor" type="EXTENSION-TPPProgramPathwayDescriptor" />
+        <xs:element name="ValueTypeDescriptor" type="EXTENSION-ValueTypeDescriptor" />
         <xs:element name="WithdrawReasonDescriptor" type="EXTENSION-WithdrawReasonDescriptor" />
       </xs:choice>
     </xs:complexType>

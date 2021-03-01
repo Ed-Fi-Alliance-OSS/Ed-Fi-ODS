@@ -1,0 +1,1 @@
+CREATE SCHEMA tpdm AUTHORIZATION postgres;
