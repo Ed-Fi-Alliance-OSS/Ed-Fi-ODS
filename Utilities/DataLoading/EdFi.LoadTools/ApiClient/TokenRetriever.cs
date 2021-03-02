@@ -38,17 +38,21 @@ namespace EdFi.LoadTools.ApiClient
 
         public async Task<BearerToken> ObtainNewBearerToken()
         {
+            var requestMessage = new HttpRequestMessage
+            {
+                Method = HttpMethod.Post,
+                Content = new StringContent("Grant_type=client_credentials", Encoding.UTF8, "application/x-www-form-urlencoded"),
+                RequestUri = new Uri(_configuration.Url)
+            };
+
             var plainTextBytes = Encoding.UTF8.GetBytes($"{_configuration.Key}:{_configuration.Secret}");
             var bearerToken = Convert.ToBase64String(plainTextBytes);
             var authHeader = $"Basic {bearerToken}";
 
-            _client.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse(authHeader);
-
-            var form = "Grant_type=client_credentials";
-            var content = new StringContent(form, Encoding.UTF8, "application/x-www-form-urlencoded");
+            requestMessage.Headers.Authorization = AuthenticationHeaderValue.Parse(authHeader);
 
             _log.Debug($"Post bearer token to '{_configuration.Url}'");
-            var response = await _client.PostAsync(_configuration.Url, content).ConfigureAwait(false);
+            var response = await _client.SendAsync(requestMessage).ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
 
