@@ -17,16 +17,8 @@
         SELECT AuthorizationStrategyId INTO authorizationStrategy_Id FROM dbo.AuthorizationStrategies WHERE DisplayName='No Further Authorization Required';
         SELECT ActionId INTO createAction_Id FROM dbo.Actions WHERE ActionName='Create';
 
-        IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName = claim_Name)
+        IF EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName = claim_Name) AND EXISTS (SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName = claimSet_Name)
         THEN
-            RAISE EXCEPTION 'ClaimName ''%'' not found.', claim_Name;
-        END IF;
-
-        IF NOT EXISTS (SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName = claimSet_Name)
-        THEN
-            RAISE EXCEPTION 'ClaimSetName ''%'' not found.', claimSet_Name;
-        END IF;
-
         SELECT ResourceClaimId INTO educationOrganizationsResourceClaimId
         FROM dbo.ResourceClaims
         WHERE ClaimName = claim_Name;
@@ -44,5 +36,5 @@
                 AND ResourceClaim_ResourceClaimId IN 
                     (SELECT  ResourceClaimId  FROM dbo.ResourceClaims 
                     WHERE ParentResourceClaimId = educationOrganizationsResourceClaimId));
-
-    END $$;
+        END IF;
+        END $$;

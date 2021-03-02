@@ -15,18 +15,8 @@
     SELECT @authorizationStrategyId=AuthorizationStrategyId FROM dbo.AuthorizationStrategies WHERE DisplayName='No Further Authorization Required'
     SELECT @createActionId =ActionId FROM dbo.Actions WHERE ActionName='Create'
 
-    IF NOT  EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName = @claim_Name)
+    IF EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName = @claim_Name) AND EXISTS (SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName = @claimSet_Name)
     BEGIN
-        SET @msg = CONCAT('ClaimName ''', @claim_Name, ''' not found.');
-        THROW 50000, @msg, 1
-    END
-
-    IF NOT  EXISTS (SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName = @claimSet_Name)
-    BEGIN
-        SET @msg = CONCAT('ClaimSetName ''', @claimSet_Name, ''' not found.');
-        THROW 50000, @msg, 1
-    END
-
     SELECT	@educationOrganizationsResourceClaimId = ResourceClaimId
     FROM	dbo.ResourceClaims rc
     WHERE	rc.ClaimName = @claim_Name
@@ -44,3 +34,4 @@
             AND csrc.ResourceClaim_ResourceClaimId IN 
                 (SELECT  ResourceClaimId FROM dbo.ResourceClaims rc
                 WHERE	rc.ParentResourceClaimId = @educationOrganizationsResourceClaimId))
+    END
