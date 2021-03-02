@@ -20,12 +20,6 @@
         <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="..\..\..\Application\EdFi.Ods.Standard\Artifacts\Metadata\InterchangeOrderMetadata.xml">
-            <Link>InterchangeOrderMetadata.xml</Link>
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
-    <ItemGroup>
       <PackageReference Include="aqua-graphcompare" Version="1.2.2" />
       <PackageReference Include="EdFi.Suite3.Common" Version="5.1.0" />
       <PackageReference Include="EdFi.Suite3.OdsApi.TestSdk" Version="5.1.0" />
