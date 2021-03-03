@@ -27,6 +27,7 @@ namespace EdFi.Ods.Common.Specifications
                 "CommunityProvider",
                 "PostSecondaryInstitution",
                 "EducationOrganizationNetworkAssociation",
+                "OrganizationDepartment",
                 // For TPDM Extension Support
                 "University",
                 "TeacherPreparationProvider"
