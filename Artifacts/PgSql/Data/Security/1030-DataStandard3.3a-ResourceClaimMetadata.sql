@@ -71,13 +71,6 @@ BEGIN
         VALUES (N'assessmentScoreRangeLearningStandard', N'assessmentScoreRangeLearningStandard', N'http://ed-fi.org/ods/identity/claims/assessmentScoreRangeLearningStandard', assessmentMetadataResourceClaim_Id, application_id);
     END IF;
 
-    -- Try insert OrganizationDepartment
-    IF (NOT EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ResourceName = 'organizationDepartment' AND Application_ApplicationId = application_id))
-    THEN
-        INSERT INTO dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES (N'organizationDepartment', N'organizationDepartment', N'http://ed-fi.org/ods/identity/claims/organizationDepartment', relationshipBasedDataResourceClaim_Id, application_id);
-    END IF;
-
     --Apply  No Further Authorization Required on this OrganizationDepartment resource
         INSERT INTO dbo.ClaimSetResourceClaims(Action_ActionId,ClaimSet_ClaimSetId,ResourceClaim_ResourceClaimId,AuthorizationStrategyOverride_AuthorizationStrategyId,ValidationRuleSetNameOverride)
         SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, noFurtherAuthRequiredAuthorizationStrategy_Id, cast (null as INT)
