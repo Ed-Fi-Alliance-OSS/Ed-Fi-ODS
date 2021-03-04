@@ -3,16 +3,9 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-IF object_id('GetEdFiOdsVersion', 'FN') IS NOT NULL
-BEGIN
-    DROP FUNCTION util.GetEdFiOdsVersion;
-END
-GO
-
-CREATE FUNCTION util.GetEdFiOdsVersion()
-RETURNS VARCHAR(60)
-AS
-BEGIN
-	RETURN '5.1.0'
-END
-GO
+CREATE OR REPLACE FUNCTION util.GetEdFiOdsVersion()
+RETURNS VARCHAR(60) AS $$
+BEGIN	
+   RETURN '5.2';
+END;
+$$ LANGUAGE plpgsql;
