@@ -8,10 +8,11 @@ using System.Reflection;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Features.Publishing.Controllers;
+using EdFi.Ods.Features.ChangeQueries;
+using EdFi.Ods.Features.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace EdFi.Ods.Features.Publishing.Routing
+namespace EdFi.Ods.Features.Conventions
 {
     public class SnapshotsControllerRouteConvention : IApplicationModelConvention
     {

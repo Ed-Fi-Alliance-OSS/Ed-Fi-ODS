@@ -9,8 +9,9 @@ using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Routing;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Features.ChangeQueries;
 
-namespace EdFi.Ods.Features.Publishing.OpenApiMetadata
+namespace EdFi.Ods.Features.RouteInformations
 {
     public class PublishingOpenApiMetadataRouteInformation : IOpenApiMetadataRouteInformation
     {
@@ -30,7 +31,7 @@ namespace EdFi.Ods.Features.Publishing.OpenApiMetadata
 
         private string CreateRoute()
         {
-            string prefix = $"metadata/{{other:regex(publishing)}}/v{PublishingConstants.FeatureVersion}/";
+            string prefix = $"metadata/{{other:regex(changeQueries)}}/v{PublishingConstants.FeatureVersion}/";
 
             if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
             {

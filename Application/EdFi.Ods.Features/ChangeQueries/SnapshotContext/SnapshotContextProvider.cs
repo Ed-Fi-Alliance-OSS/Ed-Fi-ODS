@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using EdFi.Ods.Common.Context;
 
-namespace EdFi.Ods.Features.Publishing.SnapshotContext
+namespace EdFi.Ods.Features.ChangeQueries.SnapshotContext
 {
     public class SnapshotContextProvider : ISnapshotContextProvider, IHttpContextStorageTransferKeys
     {

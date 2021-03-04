@@ -7,12 +7,12 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Features.Publishing.ActionResults;
-using EdFi.Ods.Features.Publishing.Controllers;
+using EdFi.Ods.Features.ChangeQueries.ActionResults;
+using EdFi.Ods.Features.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Primitives;
 
-namespace EdFi.Ods.Features.Publishing.SnapshotContext
+namespace EdFi.Ods.Features.ChangeQueries.SnapshotContext
 {
     /// <summary>
     /// Implements an action filter that sets the <see cref="SnapshotContext" /> based on the

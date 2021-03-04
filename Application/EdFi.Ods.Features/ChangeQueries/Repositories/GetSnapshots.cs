@@ -10,11 +10,11 @@ using EdFi.Common.Configuration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Repositories;
-using EdFi.Ods.Features.Publishing.Resources;
+using EdFi.Ods.Features.ChangeQueries.Resources;
 using NHibernate;
 using NHibernate.Transform;
 
-namespace EdFi.Ods.Features.Publishing.Repositories
+namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
     public class GetSnapshots : NHibernateRepositoryOperationBase, IGetSnapshots
     {

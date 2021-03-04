@@ -7,9 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
-using EdFi.Ods.Features.Publishing.Resources;
+using EdFi.Ods.Features.ChangeQueries.Resources;
 
-namespace EdFi.Ods.Features.Publishing.Repositories
+namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
     public interface IGetSnapshots
     {

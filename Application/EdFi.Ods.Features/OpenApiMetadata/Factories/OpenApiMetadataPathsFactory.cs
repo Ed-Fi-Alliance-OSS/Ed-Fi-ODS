@@ -163,7 +163,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         .Select(p => new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference(p)}))
                 .ToList();
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
                 parameters.Add(new Parameter
                 {
@@ -201,7 +201,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
                 false);
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
                 responses.Add(
                     "410",
@@ -271,7 +271,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         });
                 });
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
                 parameterList.Add(new Parameter
                 {
@@ -290,7 +290,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Put);
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
                 responses.Add(
                     "405",
@@ -348,7 +348,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Delete);
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
                 responses.Add(
                     "405",
@@ -399,7 +399,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 new Parameter {@ref = OpenApiMetadataDocumentHelper.GetParameterReference("MaxChangeVersion")}
             };
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
                 responses.Add(
                     "410",
@@ -444,7 +444,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             var responses = OpenApiMetadataDocumentHelper.GetWriteOperationResponses(HttpMethod.Post);
 
-            if (_apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName()))
+            if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
                 responses.Add(
                     "405",

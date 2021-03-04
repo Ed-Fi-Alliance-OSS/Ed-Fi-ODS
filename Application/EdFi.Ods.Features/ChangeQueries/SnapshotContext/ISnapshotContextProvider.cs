@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-namespace EdFi.Ods.Features.Publishing.SnapshotContext
+namespace EdFi.Ods.Features.ChangeQueries.SnapshotContext
 {
     /// <summary>
     /// Defines methods for getting and setting <see cref="SnapshotContext" /> for the current API request.

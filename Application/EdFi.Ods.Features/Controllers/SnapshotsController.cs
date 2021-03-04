@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Queries;
-using EdFi.Ods.Features.Publishing.Repositories;
+using EdFi.Ods.Features.ChangeQueries.Repositories;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Features.Publishing.Controllers
+namespace EdFi.Ods.Features.Controllers
 {
     [Authorize]
     [ApiController]
@@ -32,7 +32,7 @@ namespace EdFi.Ods.Features.Publishing.Controllers
         public SnapshotsController(ApiSettings apiSettings, IGetSnapshots getSnapshots = null)
         {
             _getSnapshots = getSnapshots;
-            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.Publishing.GetConfigKeyName());
+            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
         }
 
         [HttpGet]
@@ -40,7 +40,7 @@ namespace EdFi.Ods.Features.Publishing.Controllers
         {
             if (!_isEnabled)
             {
-                _logger.Debug($"{nameof(SnapshotsController)} was matched to handle the request, but the '{ApiFeature.Publishing}' feature is disabled.");
+                _logger.Debug($"{nameof(SnapshotsController)} was matched to handle the request, but the '{ApiFeature.ChangeQueries}' feature is disabled.");
 
                 // Not Found
                 return new ObjectResult(null)
@@ -58,7 +58,7 @@ namespace EdFi.Ods.Features.Publishing.Controllers
         {
             if (!_isEnabled)
             {
-                _logger.Debug($"{nameof(SnapshotsController)} was matched to handle the request, but the '{ApiFeature.Publishing}' feature is disabled.");
+                _logger.Debug($"{nameof(SnapshotsController)} was matched to handle the request, but the '{ApiFeature.ChangeQueries}' feature is disabled.");
 
                 // Not Found
                 return new ObjectResult(null)

@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "c6bfef23-2264-4c58-957b-a527fa793327",
-		"name": "Ed-Fi ODS/API Integration Test Suite - Publishing Feature",
+		"name": "Ed-Fi ODS/API Integration Test Suite - Change Queries Feature",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -44,12 +44,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{ApiBaseUrl}}/publishing/v1/snapshots",
+					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots",
 					"host": [
 						"{{ApiBaseUrl}}"
 					],
 					"path": [
-						"publishing",
+						"changeQueries",
 						"v1",
 						"snapshots"
 					]
@@ -102,12 +102,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{ApiBaseUrl}}/publishing/v1/snapshots/{{id}}",
+					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots/{{id}}",
 					"host": [
 						"{{ApiBaseUrl}}"
 					],
 					"path": [
-						"publishing",
+						"changeQueries",
 						"v1",
 						"snapshots",
 						"{{id}}"
@@ -160,12 +160,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{ApiBaseUrl}}/publishing/v1/snapshots",
+					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots",
 					"host": [
 						"{{ApiBaseUrl}}"
 					],
 					"path": [
-						"publishing",
+						"changeQueries",
 						"v1",
 						"snapshots"
 					]
@@ -225,12 +225,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{ApiBaseUrl}}/publishing/v1/snapshots/{{id}}",
+					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots/{{id}}",
 					"host": [
 						"{{ApiBaseUrl}}"
 					],
 					"path": [
-						"publishing",
+						"changeQueries",
 						"v1",
 						"snapshots",
 						"{{id}}"
@@ -282,12 +282,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{ApiBaseUrl}}/publishing/v1/snapshots/{{id}}",
+					"raw": "{{ApiBaseUrl}}/changeQueries/v1/snapshots/{{id}}",
 					"host": [
 						"{{ApiBaseUrl}}"
 					],
 					"path": [
-						"publishing",
+						"changeQueries",
 						"v1",
 						"snapshots",
 						"{{id}}"

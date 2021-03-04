@@ -11,7 +11,7 @@ using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Utils.Extensions;
 
-namespace EdFi.Ods.Features.Publishing.OpenApiMetadata
+namespace EdFi.Ods.Features.ChangeQueries.Providers
 {
     public class PublishingOpenApiContentProvider : IOpenApiContentProvider
     {
