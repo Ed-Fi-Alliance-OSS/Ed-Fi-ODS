@@ -99,7 +99,7 @@
             "description": "The resource was successfully retrieved.",
             "schema": {
               "items": {
-                "$ref": "#/definitions/publishing_snapshot"
+                "$ref": "#/definitions/changeQueries_snapshot"
               },
               "type": "array"
             }
@@ -133,7 +133,7 @@
           "200": {
             "description": "The requested resource was successfully retrieved.",
             "schema": {
-              "$ref": "#/definitions/publishing_snapshot"
+              "$ref": "#/definitions/changeQueries_snapshot"
             }
           },
           "401": {
@@ -170,7 +170,7 @@
         }
       }
     },
-    "publishing_snapshot": {
+    "changeQueries_snapshot": {
       "properties": {
         "id": {
           "description": "A resource identifier that uniquely identifies the resource.",

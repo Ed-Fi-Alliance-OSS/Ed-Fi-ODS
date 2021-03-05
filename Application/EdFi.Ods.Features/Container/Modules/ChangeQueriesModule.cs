@@ -61,15 +61,6 @@ namespace EdFi.Ods.Features.Container.Modules
                 .As<IApplicationModelConvention>()
                 .SingleInstance();
 
-            // Open API Metadata
-            //builder.RegisterType<ChangeQueriesOpenApiMetadataRouteInformation>()
-            //    .As<IOpenApiMetadataRouteInformation>()
-            //    .SingleInstance();
-
-            //builder.RegisterType<ChangeQueriesOpenApiContentProvider>()
-            //    .As<IOpenApiContentProvider>()
-            //    .SingleInstance();
-
             // Publishing components / services
             builder.RegisterType<SnapshotContextProvider>()
                 .As<ISnapshotContextProvider>()

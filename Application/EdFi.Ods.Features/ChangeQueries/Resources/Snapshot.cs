@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace EdFi.Ods.Features.ChangeQueries.Resources
 {
     /// <summary>
-    /// A class which represents the publishing.Snapshot table of the Snapshot aggregate in the ODS Database.
+    /// A class which represents the changeQueries.Snapshot table of the Snapshot aggregate in the ODS Database.
     /// </summary>
     public class Snapshot
     {
