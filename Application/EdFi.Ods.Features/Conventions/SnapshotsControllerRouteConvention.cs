@@ -45,7 +45,7 @@ namespace EdFi.Ods.Features.Conventions
 
             string CreateRouteTemplate()
             {
-                string template = $"{PublishingConstants.RoutePrefix}/";
+                string template = $"{ChangeQueriesConstants.RoutePrefix}/";
 
                 if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
                 {

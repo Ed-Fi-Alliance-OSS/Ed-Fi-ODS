@@ -62,13 +62,13 @@ namespace EdFi.Ods.Features.Container.Modules
                 .SingleInstance();
 
             // Open API Metadata
-            builder.RegisterType<PublishingOpenApiMetadataRouteInformation>()
-                .As<IOpenApiMetadataRouteInformation>()
-                .SingleInstance();
+            //builder.RegisterType<ChangeQueriesOpenApiMetadataRouteInformation>()
+            //    .As<IOpenApiMetadataRouteInformation>()
+            //    .SingleInstance();
 
-            builder.RegisterType<PublishingOpenApiContentProvider>()
-                .As<IOpenApiContentProvider>()
-                .SingleInstance();
+            //builder.RegisterType<ChangeQueriesOpenApiContentProvider>()
+            //    .As<IOpenApiContentProvider>()
+            //    .SingleInstance();
 
             // Publishing components / services
             builder.RegisterType<SnapshotContextProvider>()
