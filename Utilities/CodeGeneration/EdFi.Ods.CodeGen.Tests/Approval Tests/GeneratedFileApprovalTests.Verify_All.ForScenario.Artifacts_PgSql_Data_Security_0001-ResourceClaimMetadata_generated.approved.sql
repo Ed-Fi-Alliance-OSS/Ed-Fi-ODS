@@ -615,7 +615,7 @@ begin
     values ('operationalStatusDescriptor', 'operationalStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/operationalStatusDescriptor', systemDescriptorsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-    values ('organizationDepartment', 'organizationDepartment', 'http://ed-fi.org/ods/identity/claims/organizationDepartment', relationshipBasedDataResourceClaimId, application_id);
+    values ('organizationDepartment', 'organizationDepartment', 'http://ed-fi.org/ods/identity/claims/organizationDepartment', educationOrganizationsResourceClaimId, application_id);
 
     insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
     values ('otherNameTypeDescriptor', 'otherNameTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/otherNameTypeDescriptor', systemDescriptorsResourceClaimId, application_id);
