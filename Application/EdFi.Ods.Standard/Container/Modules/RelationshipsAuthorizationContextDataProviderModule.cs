@@ -50,9 +50,11 @@ namespace EdFi.Ods.Standard.Container.Modules
                     providerType
                         .MakeGenericType(GetRelationshipBasedAuthorizationStrategyContextDataType());
 
+                // Register the authorization context data provider, but allow existing "override" registrations to persist
                 builder.RegisterType(closedServiceType)
                     .As(closedInterfaceType)
-                    .SingleInstance();
+                    .SingleInstance()
+                    .PreserveExistingDefaults();
             }
 
             Type GetRelationshipBasedAuthorizationStrategyContextDataType() => typeof(RelationshipsAuthorizationContextData);
