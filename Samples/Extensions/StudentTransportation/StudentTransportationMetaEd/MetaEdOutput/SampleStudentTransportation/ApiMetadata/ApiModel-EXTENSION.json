@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.1.0",
+  "odsApiVersion": "5.2",
   "schemaDefinition": {
     "logicalName": "SampleStudentTransportation",
     "physicalName": "samplestudenttransportation",
@@ -223,7 +223,8 @@
       "constraintNames": {
         "sqlServer": "FK_StudentTransportation_School",
         "postgreSql": "FK_68afad_School"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -282,7 +283,8 @@
       "constraintNames": {
         "sqlServer": "FK_StudentTransportation_Student",
         "postgreSql": "FK_68afad_Student"
-      }
+      },
+      "potentiallyLogical": false
     }
   ]
 }
