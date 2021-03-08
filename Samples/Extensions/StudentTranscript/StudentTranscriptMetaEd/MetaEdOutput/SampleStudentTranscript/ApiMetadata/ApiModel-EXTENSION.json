@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.1.0",
+  "odsApiVersion": "5.2",
   "schemaDefinition": {
     "logicalName": "SampleStudentTranscript",
     "physicalName": "samplestudenttranscript",
@@ -443,7 +443,8 @@
       "constraintNames": {
         "sqlServer": "FK_InstitutionControlDescriptor_Descriptor",
         "postgreSql": "FK_f8fa08_Descriptor"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -502,7 +503,8 @@
       "constraintNames": {
         "sqlServer": "FK_InstitutionLevelDescriptor_Descriptor",
         "postgreSql": "FK_3d8765_Descriptor"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -561,7 +563,8 @@
       "constraintNames": {
         "sqlServer": "FK_PostSecondaryOrganization_InstitutionControlDescriptor",
         "postgreSql": "FK_aa7b2a_InstitutionControlDescriptor"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -620,7 +623,8 @@
       "constraintNames": {
         "sqlServer": "FK_PostSecondaryOrganization_InstitutionLevelDescriptor",
         "postgreSql": "FK_aa7b2a_InstitutionLevelDescriptor"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -679,7 +683,8 @@
       "constraintNames": {
         "sqlServer": "FK_SpecialEducationGraduationStatusDescriptor_Descriptor",
         "postgreSql": "FK_a7b9e2_Descriptor"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -738,7 +743,8 @@
       "constraintNames": {
         "sqlServer": "FK_StudentAcademicRecordClassRankingExtension_SpecialEducationGraduationStatusDescriptor",
         "postgreSql": "FK_072d36_SpecialEducationGraduationStatusDescriptor"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -899,7 +905,8 @@
       "constraintNames": {
         "sqlServer": "FK_StudentAcademicRecordClassRankingExtension_StudentAcademicRecordClassRanking",
         "postgreSql": "FK_072d36_StudentAcademicRecordClassRanking"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -958,7 +965,8 @@
       "constraintNames": {
         "sqlServer": "FK_StudentAcademicRecordExtension_PostSecondaryOrganization",
         "postgreSql": "FK_ee832f_PostSecondaryOrganization"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1178,7 +1186,8 @@
       "constraintNames": {
         "sqlServer": "FK_StudentAcademicRecordExtension_SubmissionCertificationDescriptor",
         "postgreSql": "FK_ee832f_SubmissionCertificationDescriptor"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1237,7 +1246,8 @@
       "constraintNames": {
         "sqlServer": "FK_SubmissionCertificationDescriptor_Descriptor",
         "postgreSql": "FK_caf4be_Descriptor"
-      }
+      },
+      "potentiallyLogical": false
     }
   ]
 }

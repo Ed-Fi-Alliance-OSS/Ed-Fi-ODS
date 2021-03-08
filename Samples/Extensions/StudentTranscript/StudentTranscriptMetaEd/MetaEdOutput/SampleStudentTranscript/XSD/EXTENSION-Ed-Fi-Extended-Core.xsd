@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.2.0-c" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.2.0-c" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.0-a" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.3.0-a" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="Ed-Fi-Core.xsd" />
   <xs:annotation>
-    <xs:documentation>===== Ed-Fi 3.2.0-c Extensions =====</xs:documentation>
+    <xs:documentation>===== Ed-Fi 3.3.0-a Extensions =====</xs:documentation>
   </xs:annotation>
   <xs:annotation>
     <xs:documentation>===== Domain Entities =====</xs:documentation>
@@ -163,7 +163,7 @@
           </xs:element>
           <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
             <xs:annotation>
-              <xs:documentation>Provides user information to lookup and link to an existing educational organization record.</xs:documentation>
+              <xs:documentation>The education organization that granted the credits or other achievements on the student academic record, generally a school district.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="SchoolYear" type="SchoolYearType">
