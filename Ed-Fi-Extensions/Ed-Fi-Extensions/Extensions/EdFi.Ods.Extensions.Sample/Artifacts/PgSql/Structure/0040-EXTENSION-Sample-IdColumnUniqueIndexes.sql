@@ -1,6 +1,0 @@
-CREATE UNIQUE INDEX IF NOT EXISTS UX_bb3d83_Id ON sample.Bus(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_65385a_Id ON sample.BusRoute(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_5fe843_Id ON sample.StudentGraduationPlanAssociation(Id);
-

@@ -1,1 +1,0 @@
-CREATE SCHEMA sample AUTHORIZATION postgres;
