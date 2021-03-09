@@ -1,2 +1,2 @@
-CREATE UNIQUE INDEX IF NOT EXISTS UX_6ad27b_Id ON changeQueries.Snapshot(Id);
+CREATE UNIQUE INDEX IF NOT EXISTS UX_6ad27b_Id ON changes.Snapshot(Id);
 

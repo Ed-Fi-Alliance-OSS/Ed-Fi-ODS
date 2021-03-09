@@ -1,5 +1,5 @@
--- Table [changeQueries].[Snapshot] --
-CREATE TABLE [changeQueries].[Snapshot] (
+-- Table [changes].[Snapshot] --
+CREATE TABLE [changes].[Snapshot] (
     [SnapshotIdentifier] [NVARCHAR](32) NOT NULL,
     [SnapshotDateTime] [DATETIME2](7) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -10,10 +10,10 @@ CREATE TABLE [changeQueries].[Snapshot] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [changeQueries].[Snapshot] ADD CONSTRAINT [Snapshot_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [changes].[Snapshot] ADD CONSTRAINT [Snapshot_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
-ALTER TABLE [changeQueries].[Snapshot] ADD CONSTRAINT [Snapshot_DF_Id] DEFAULT (newid()) FOR [Id]
+ALTER TABLE [changes].[Snapshot] ADD CONSTRAINT [Snapshot_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [changeQueries].[Snapshot] ADD CONSTRAINT [Snapshot_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [changes].[Snapshot] ADD CONSTRAINT [Snapshot_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
