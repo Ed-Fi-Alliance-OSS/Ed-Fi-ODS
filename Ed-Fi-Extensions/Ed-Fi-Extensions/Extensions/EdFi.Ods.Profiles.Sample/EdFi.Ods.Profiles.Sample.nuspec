@@ -14,7 +14,5 @@
 <files>
  <file src="../../../LICENSE.txt" />
  <file src="bin\$configuration$\netcoreapp3.1\EdFi.Ods.Profiles.Sample.dll" target="."/>
- <file src="Artifacts/**/*.sql" target="."/>
- <file src="Artifacts/**/*.json" target="."/>
 </files>
 </package>
