@@ -10,13 +10,8 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Infrastructure.Pipelines;
-using EdFi.Ods.Features.ChangeQueries;
 using EdFi.Ods.Features.ChangeQueries.Providers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using EdFi.Ods.Api.Routing;
-using EdFi.Ods.Features.RouteInformations;
-using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Features.ChangeQueries.SnapshotContext;
 using Microsoft.AspNetCore.Mvc.Filters;
 using EdFi.Ods.Features.ChangeQueries.DatabaseNaming;
@@ -24,8 +19,9 @@ using EdFi.Ods.Common.Database;
 using EdFi.Ods.Features.ChangeQueries.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
+using EdFi.Ods.Features.ChangeQueries.Conventions;
 
-namespace EdFi.Ods.Features.Container.Modules
+namespace EdFi.Ods.Features.ChangeQueries.Modules
 {
     public class ChangeQueriesModule : ConditionalModule
     {

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Reflection;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Features.Controllers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Features.ChangeQueries;
+using EdFi.Ods.Features.ChangeQueries.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace EdFi.Ods.Features.Conventions

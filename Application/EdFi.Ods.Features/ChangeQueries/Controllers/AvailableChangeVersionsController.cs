@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.Features.Controllers
+namespace EdFi.Ods.Features.ChangeQueries.Controllers
 {
     [Authorize]
     [ApiController]

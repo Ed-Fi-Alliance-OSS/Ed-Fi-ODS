@@ -14,7 +14,7 @@ using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EdFi.Ods.Features.Controllers
+namespace EdFi.Ods.Features.ChangeQueries.Controllers
 {
     [Authorize]
     [ApiController]
