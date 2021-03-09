@@ -6,68 +6,30 @@
   <Aggregate root="AidTypeDescriptor">
     <Entity table="AidTypeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="AnonymizedStudent">
-    <Entity table="AnonymizedStudent" schema="tpdm"/>
-    <Entity table="AnonymizedStudentDisability" schema="tpdm"/>
-    <Entity table="AnonymizedStudentDisabilityDesignation" schema="tpdm"/>
-    <Entity table="AnonymizedStudentLanguage" schema="tpdm"/>
-    <Entity table="AnonymizedStudentLanguageUse" schema="tpdm"/>
-    <Entity table="AnonymizedStudentRace" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="AnonymizedStudentAcademicRecord">
-    <Entity table="AnonymizedStudentAcademicRecord" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="AnonymizedStudentAssessment">
-    <Entity table="AnonymizedStudentAssessment" schema="tpdm"/>
-    <Entity table="AnonymizedStudentAssessmentPerformanceLevel" schema="tpdm"/>
-    <Entity table="AnonymizedStudentAssessmentScoreResult" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="AnonymizedStudentAssessmentCourseAssociation">
-    <Entity table="AnonymizedStudentAssessmentCourseAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="AnonymizedStudentAssessmentSectionAssociation">
-    <Entity table="AnonymizedStudentAssessmentSectionAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="AnonymizedStudentCourseAssociation">
-    <Entity table="AnonymizedStudentCourseAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="AnonymizedStudentCourseTranscript">
-    <Entity table="AnonymizedStudentCourseTranscript" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="AnonymizedStudentEducationOrganizationAssociation">
-    <Entity table="AnonymizedStudentEducationOrganizationAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="AnonymizedStudentSectionAssociation">
-    <Entity table="AnonymizedStudentSectionAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="Applicant">
-    <Entity table="Applicant" schema="tpdm"/>
-    <Entity table="ApplicantAddress" schema="tpdm"/>
-    <Entity table="ApplicantAddressPeriod" schema="tpdm"/>
-    <Entity table="ApplicantAid" schema="tpdm"/>
-    <Entity table="ApplicantBackgroundCheck" schema="tpdm"/>
-    <Entity table="ApplicantCharacteristic" schema="tpdm"/>
-    <Entity table="ApplicantDisability" schema="tpdm"/>
-    <Entity table="ApplicantDisabilityDesignation" schema="tpdm"/>
-    <Entity table="ApplicantElectronicMail" schema="tpdm"/>
-    <Entity table="ApplicantIdentificationDocument" schema="tpdm"/>
-    <Entity table="ApplicantInternationalAddress" schema="tpdm"/>
-    <Entity table="ApplicantLanguage" schema="tpdm"/>
-    <Entity table="ApplicantLanguageUse" schema="tpdm"/>
-    <Entity table="ApplicantPersonalIdentificationDocument" schema="tpdm"/>
-    <Entity table="ApplicantRace" schema="tpdm"/>
-    <Entity table="ApplicantStaffIdentificationCode" schema="tpdm"/>
-    <Entity table="ApplicantTeacherPreparationProgram" schema="tpdm"/>
-    <Entity table="ApplicantTelephone" schema="tpdm"/>
-    <Entity table="ApplicantVisa" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="ApplicantProspectAssociation">
-    <Entity table="ApplicantProspectAssociation" schema="tpdm"/>
+  <Aggregate root="ApplicantProfile">
+    <Entity table="ApplicantProfile" schema="tpdm"/>
+    <Entity table="ApplicantProfileAddress" schema="tpdm"/>
+    <Entity table="ApplicantProfileAddressPeriod" schema="tpdm"/>
+    <Entity table="ApplicantProfileApplicantCharacteristic" schema="tpdm"/>
+    <Entity table="ApplicantProfileBackgroundCheck" schema="tpdm"/>
+    <Entity table="ApplicantProfileDisability" schema="tpdm"/>
+    <Entity table="ApplicantProfileDisabilityDesignation" schema="tpdm"/>
+    <Entity table="ApplicantProfileEducatorPreparationProgramName" schema="tpdm"/>
+    <Entity table="ApplicantProfileElectronicMail" schema="tpdm"/>
+    <Entity table="ApplicantProfileGradePointAverage" schema="tpdm"/>
+    <Entity table="ApplicantProfileHighlyQualifiedAcademicSubject" schema="tpdm"/>
+    <Entity table="ApplicantProfileIdentificationDocument" schema="tpdm"/>
+    <Entity table="ApplicantProfileInternationalAddress" schema="tpdm"/>
+    <Entity table="ApplicantProfileLanguage" schema="tpdm"/>
+    <Entity table="ApplicantProfileLanguageUse" schema="tpdm"/>
+    <Entity table="ApplicantProfilePersonalIdentificationDocument" schema="tpdm"/>
+    <Entity table="ApplicantProfileRace" schema="tpdm"/>
+    <Entity table="ApplicantProfileTelephone" schema="tpdm"/>
+    <Entity table="ApplicantProfileVisa" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="Application">
     <Entity table="Application" schema="tpdm"/>
-    <Entity table="ApplicationGradePointAverage" schema="tpdm"/>
-    <Entity table="ApplicationOpenStaffPosition" schema="tpdm"/>
+    <Entity table="ApplicationRecruitmentEventAttendance" schema="tpdm"/>
     <Entity table="ApplicationScoreResult" schema="tpdm"/>
     <Entity table="ApplicationTerm" schema="tpdm"/>
   </Aggregate>
@@ -91,6 +53,43 @@
   </Aggregate>
   <Aggregate root="BackgroundCheckTypeDescriptor">
     <Entity table="BackgroundCheckTypeDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="Candidate">
+    <Entity table="Candidate" schema="tpdm"/>
+    <Entity table="CandidateAddress" schema="tpdm"/>
+    <Entity table="CandidateAddressPeriod" schema="tpdm"/>
+    <Entity table="CandidateAid" schema="tpdm"/>
+    <Entity table="CandidateBackgroundCheck" schema="tpdm"/>
+    <Entity table="CandidateCharacteristic" schema="tpdm"/>
+    <Entity table="CandidateCohortYear" schema="tpdm"/>
+    <Entity table="CandidateDegreeSpecialization" schema="tpdm"/>
+    <Entity table="CandidateDisability" schema="tpdm"/>
+    <Entity table="CandidateDisabilityDesignation" schema="tpdm"/>
+    <Entity table="CandidateEPPProgramDegree" schema="tpdm" isRequiredCollection="true"/>
+    <Entity table="CandidateElectronicMail" schema="tpdm"/>
+    <Entity table="CandidateIdentificationCode" schema="tpdm"/>
+    <Entity table="CandidateIdentificationDocument" schema="tpdm"/>
+    <Entity table="CandidateIndicator" schema="tpdm"/>
+    <Entity table="CandidateIndicatorPeriod" schema="tpdm"/>
+    <Entity table="CandidateInternationalAddress" schema="tpdm"/>
+    <Entity table="CandidateLanguage" schema="tpdm"/>
+    <Entity table="CandidateLanguageUse" schema="tpdm"/>
+    <Entity table="CandidateOtherName" schema="tpdm"/>
+    <Entity table="CandidatePersonalIdentificationDocument" schema="tpdm"/>
+    <Entity table="CandidateRace" schema="tpdm"/>
+    <Entity table="CandidateTelephone" schema="tpdm"/>
+    <Entity table="CandidateVisa" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="CandidateCharacteristicDescriptor">
+    <Entity table="CandidateCharacteristicDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="CandidateEducatorPreparationProgramAssociation">
+    <Entity table="CandidateEducatorPreparationProgramAssociation" schema="tpdm"/>
+    <Entity table="CandidateEducatorPreparationProgramAssociationCandidateIndicator" schema="tpdm"/>
+    <Entity table="CandidateEducatorPreparationProgramAssociationCandidateIndicatorPeriod" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="CandidateRelationshipToStaffAssociation">
+    <Entity table="CandidateRelationshipToStaffAssociation" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="Certification">
     <Entity table="Certification" schema="tpdm"/>
@@ -122,9 +121,6 @@
   <Aggregate root="CertificationStandardDescriptor">
     <Entity table="CertificationStandardDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="CompleterAsStaffAssociation">
-    <Entity table="CompleterAsStaffAssociation" schema="tpdm"/>
-  </Aggregate>
   <Aggregate root="CoteachingStyleObservedDescriptor">
     <Entity table="CoteachingStyleObservedDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
@@ -140,23 +136,21 @@
   <Aggregate root="DegreeDescriptor">
     <Entity table="DegreeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
+  <Aggregate root="EPPDegreeTypeDescriptor">
+    <Entity table="EPPDegreeTypeDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EPPProgramPathwayDescriptor">
+    <Entity table="EPPProgramPathwayDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EducatorPreparationProgram">
+    <Entity table="EducatorPreparationProgram" schema="tpdm"/>
+    <Entity table="EducatorPreparationProgramGradeLevel" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="EducatorPreparationProgramTypeDescriptor">
+    <Entity table="EducatorPreparationProgramTypeDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
   <Aggregate root="EducatorRoleDescriptor">
     <Entity table="EducatorRoleDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="EmploymentEvent">
-    <Entity table="EmploymentEvent" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="EmploymentEventTypeDescriptor">
-    <Entity table="EmploymentEventTypeDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="EmploymentSeparationEvent">
-    <Entity table="EmploymentSeparationEvent" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="EmploymentSeparationReasonDescriptor">
-    <Entity table="EmploymentSeparationReasonDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="EmploymentSeparationTypeDescriptor">
-    <Entity table="EmploymentSeparationTypeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="EnglishLanguageExamDescriptor">
     <Entity table="EnglishLanguageExamDescriptor" isA="Descriptor" schema="tpdm"/>
@@ -205,7 +199,6 @@
   <Aggregate root="FieldworkExperience">
     <Entity table="FieldworkExperience" schema="tpdm"/>
     <Entity table="FieldworkExperienceCoteaching" schema="tpdm"/>
-    <Entity table="FieldworkExperienceSchool" schema="tpdm" isRequiredCollection="true"/>
   </Aggregate>
   <Aggregate root="FieldworkExperienceSectionAssociation">
     <Entity table="FieldworkExperienceSectionAssociation" schema="tpdm"/>
@@ -234,11 +227,8 @@
   <Aggregate root="InstructionalSettingDescriptor">
     <Entity table="InstructionalSettingDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="InternalExternalHireDescriptor">
-    <Entity table="InternalExternalHireDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="LevelOfDegreeAwardedDescriptor">
-    <Entity table="LevelOfDegreeAwardedDescriptor" isA="Descriptor" schema="tpdm"/>
+  <Aggregate root="LengthOfContractDescriptor">
+    <Entity table="LengthOfContractDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="ObjectiveRatingLevelDescriptor">
     <Entity table="ObjectiveRatingLevelDescriptor" isA="Descriptor" schema="tpdm"/>
@@ -288,23 +278,6 @@
   <Aggregate root="ProgramGatewayDescriptor">
     <Entity table="ProgramGatewayDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="Prospect">
-    <Entity table="Prospect" schema="tpdm"/>
-    <Entity table="ProspectAid" schema="tpdm"/>
-    <Entity table="ProspectCurrentPosition" schema="tpdm"/>
-    <Entity table="ProspectCurrentPositionGradeLevel" schema="tpdm"/>
-    <Entity table="ProspectDisability" schema="tpdm"/>
-    <Entity table="ProspectDisabilityDesignation" schema="tpdm"/>
-    <Entity table="ProspectPersonalIdentificationDocument" schema="tpdm"/>
-    <Entity table="ProspectQualifications" schema="tpdm"/>
-    <Entity table="ProspectRace" schema="tpdm"/>
-    <Entity table="ProspectRecruitmentEvent" schema="tpdm"/>
-    <Entity table="ProspectTelephone" schema="tpdm"/>
-    <Entity table="ProspectTouchpoint" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="ProspectTypeDescriptor">
-    <Entity table="ProspectTypeDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
   <Aggregate root="QuantitativeMeasure">
     <Entity table="QuantitativeMeasure" schema="tpdm"/>
   </Aggregate>
@@ -320,6 +293,21 @@
   <Aggregate root="RecruitmentEvent">
     <Entity table="RecruitmentEvent" schema="tpdm"/>
   </Aggregate>
+  <Aggregate root="RecruitmentEventAttendance">
+    <Entity table="RecruitmentEventAttendance" schema="tpdm"/>
+    <Entity table="RecruitmentEventAttendanceCurrentPosition" schema="tpdm"/>
+    <Entity table="RecruitmentEventAttendanceCurrentPositionGradeLevel" schema="tpdm"/>
+    <Entity table="RecruitmentEventAttendanceDisability" schema="tpdm"/>
+    <Entity table="RecruitmentEventAttendanceDisabilityDesignation" schema="tpdm"/>
+    <Entity table="RecruitmentEventAttendancePersonalIdentificationDocument" schema="tpdm"/>
+    <Entity table="RecruitmentEventAttendanceRace" schema="tpdm"/>
+    <Entity table="RecruitmentEventAttendanceRecruitmentEventAttendeeQualifications" schema="tpdm"/>
+    <Entity table="RecruitmentEventAttendanceTelephone" schema="tpdm"/>
+    <Entity table="RecruitmentEventAttendanceTouchpoint" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="RecruitmentEventAttendeeTypeDescriptor">
+    <Entity table="RecruitmentEventAttendeeTypeDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
   <Aggregate root="RecruitmentEventTypeDescriptor">
     <Entity table="RecruitmentEventTypeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
@@ -332,133 +320,20 @@
   <Aggregate root="SalaryTypeDescriptor">
     <Entity table="SalaryTypeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="SchoolStatusDescriptor">
-    <Entity table="SchoolStatusDescriptor" isA="Descriptor" schema="tpdm"/>
+  <Aggregate root="StaffEducatorPreparationProgramAssociation">
+    <Entity table="StaffEducatorPreparationProgramAssociation" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="StaffApplicantAssociation">
-    <Entity table="StaffApplicantAssociation" schema="tpdm"/>
+  <Aggregate root="StaffToCandidateRelationshipDescriptor">
+    <Entity table="StaffToCandidateRelationshipDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="StaffProspectAssociation">
-    <Entity table="StaffProspectAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="StaffStudentGrowthMeasure">
-    <Entity table="StaffStudentGrowthMeasure" schema="tpdm"/>
-    <Entity table="StaffStudentGrowthMeasureAcademicSubject" schema="tpdm"/>
-    <Entity table="StaffStudentGrowthMeasureGradeLevel" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="StaffStudentGrowthMeasureCourseAssociation">
-    <Entity table="StaffStudentGrowthMeasureCourseAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="StaffStudentGrowthMeasureEducationOrganizationAssociation">
-    <Entity table="StaffStudentGrowthMeasureEducationOrganizationAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="StaffStudentGrowthMeasureSectionAssociation">
-    <Entity table="StaffStudentGrowthMeasureSectionAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="StaffTeacherPreparationProviderAssociation">
-    <Entity table="StaffTeacherPreparationProviderAssociation" schema="tpdm"/>
-    <Entity table="StaffTeacherPreparationProviderAssociationAcademicSubject" schema="tpdm"/>
-    <Entity table="StaffTeacherPreparationProviderAssociationGradeLevel" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="StaffTeacherPreparationProviderProgramAssociation">
-    <Entity table="StaffTeacherPreparationProviderProgramAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="StudentGrowthTypeDescriptor">
-    <Entity table="StudentGrowthTypeDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="SurveyResponseTeacherCandidateTargetAssociation">
-    <Entity table="SurveyResponseTeacherCandidateTargetAssociation" schema="tpdm"/>
+  <Aggregate root="SurveyResponsePersonTargetAssociation">
+    <Entity table="SurveyResponsePersonTargetAssociation" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="SurveySectionAggregateResponse">
     <Entity table="SurveySectionAggregateResponse" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="SurveySectionResponseTeacherCandidateTargetAssociation">
-    <Entity table="SurveySectionResponseTeacherCandidateTargetAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TPPDegreeTypeDescriptor">
-    <Entity table="TPPDegreeTypeDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TPPProgramPathwayDescriptor">
-    <Entity table="TPPProgramPathwayDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidate">
-    <Entity table="TeacherCandidate" schema="tpdm"/>
-    <Entity table="TeacherCandidateAddress" schema="tpdm"/>
-    <Entity table="TeacherCandidateAddressPeriod" schema="tpdm"/>
-    <Entity table="TeacherCandidateAid" schema="tpdm"/>
-    <Entity table="TeacherCandidateBackgroundCheck" schema="tpdm"/>
-    <Entity table="TeacherCandidateCharacteristic" schema="tpdm"/>
-    <Entity table="TeacherCandidateCohortYear" schema="tpdm"/>
-    <Entity table="TeacherCandidateDegreeSpecialization" schema="tpdm"/>
-    <Entity table="TeacherCandidateDisability" schema="tpdm"/>
-    <Entity table="TeacherCandidateDisabilityDesignation" schema="tpdm"/>
-    <Entity table="TeacherCandidateElectronicMail" schema="tpdm"/>
-    <Entity table="TeacherCandidateIdentificationCode" schema="tpdm"/>
-    <Entity table="TeacherCandidateIdentificationDocument" schema="tpdm"/>
-    <Entity table="TeacherCandidateIndicator" schema="tpdm"/>
-    <Entity table="TeacherCandidateInternationalAddress" schema="tpdm"/>
-    <Entity table="TeacherCandidateLanguage" schema="tpdm"/>
-    <Entity table="TeacherCandidateLanguageUse" schema="tpdm"/>
-    <Entity table="TeacherCandidateOtherName" schema="tpdm"/>
-    <Entity table="TeacherCandidatePersonalIdentificationDocument" schema="tpdm"/>
-    <Entity table="TeacherCandidateRace" schema="tpdm"/>
-    <Entity table="TeacherCandidateTPPProgramDegree" schema="tpdm" isRequiredCollection="true"/>
-    <Entity table="TeacherCandidateTelephone" schema="tpdm"/>
-    <Entity table="TeacherCandidateVisa" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateAcademicRecord">
-    <Entity table="TeacherCandidateAcademicRecord" schema="tpdm"/>
-    <Entity table="TeacherCandidateAcademicRecordAcademicHonor" schema="tpdm"/>
-    <Entity table="TeacherCandidateAcademicRecordClassRanking" schema="tpdm"/>
-    <Entity table="TeacherCandidateAcademicRecordDiploma" schema="tpdm"/>
-    <Entity table="TeacherCandidateAcademicRecordGradePointAverage" schema="tpdm"/>
-    <Entity table="TeacherCandidateAcademicRecordRecognition" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateCharacteristicDescriptor">
-    <Entity table="TeacherCandidateCharacteristicDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateCourseTranscript">
-    <Entity table="TeacherCandidateCourseTranscript" schema="tpdm"/>
-    <Entity table="TeacherCandidateCourseTranscriptEarnedAdditionalCredits" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateStaffAssociation">
-    <Entity table="TeacherCandidateStaffAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateStudentGrowthMeasure">
-    <Entity table="TeacherCandidateStudentGrowthMeasure" schema="tpdm"/>
-    <Entity table="TeacherCandidateStudentGrowthMeasureAcademicSubject" schema="tpdm"/>
-    <Entity table="TeacherCandidateStudentGrowthMeasureGradeLevel" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateStudentGrowthMeasureCourseAssociation">
-    <Entity table="TeacherCandidateStudentGrowthMeasureCourseAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation">
-    <Entity table="TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateStudentGrowthMeasureSectionAssociation">
-    <Entity table="TeacherCandidateStudentGrowthMeasureSectionAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateTeacherPreparationProviderAssociation">
-    <Entity table="TeacherCandidateTeacherPreparationProviderAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateTeacherPreparationProviderProgramAssociation">
-    <Entity table="TeacherCandidateTeacherPreparationProviderProgramAssociation" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherPreparationProgramTypeDescriptor">
-    <Entity table="TeacherPreparationProgramTypeDescriptor" isA="Descriptor" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherPreparationProvider">
-    <Entity table="TeacherPreparationProvider" isA="EducationOrganization" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherPreparationProviderProgram">
-    <Entity table="TeacherPreparationProviderProgram" schema="tpdm"/>
-    <Entity table="TeacherPreparationProviderProgramGradeLevel" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="University">
-    <Entity table="University" isA="EducationOrganization" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="ValueTypeDescriptor">
-    <Entity table="ValueTypeDescriptor" isA="Descriptor" schema="tpdm"/>
+  <Aggregate root="SurveySectionResponsePersonTargetAssociation">
+    <Entity table="SurveySectionResponsePersonTargetAssociation" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="WithdrawReasonDescriptor">
     <Entity table="WithdrawReasonDescriptor" isA="Descriptor" schema="tpdm"/>
@@ -470,11 +345,13 @@
     <Entity table="GraduationPlanRequiredCertification" schema="tpdm"/>
   </AggregateExtension>
   <AggregateExtension root="Staff">
-    <Entity table="StaffBackgroundCheck" schema="tpdm"/>
+    <Entity table="StaffEducatorPreparationProgram" schema="tpdm"/>
+    <Entity table="StaffEducatorResearch" schema="tpdm"/>
     <Entity table="StaffHighlyQualifiedAcademicSubject" schema="tpdm"/>
-    <Entity table="StaffSalary" schema="tpdm"/>
-    <Entity table="StaffSeniority" schema="tpdm"/>
-    <Entity table="StaffTeacherEducatorResearch" schema="tpdm"/>
-    <Entity table="StaffTeacherPreparationProgram" schema="tpdm"/>
+  </AggregateExtension>
+  <AggregateExtension root="StaffEducationOrganizationEmploymentAssociation">
+    <Entity table="StaffEducationOrganizationEmploymentAssociationBackgroundCheck" schema="tpdm"/>
+    <Entity table="StaffEducationOrganizationEmploymentAssociationSalary" schema="tpdm"/>
+    <Entity table="StaffEducationOrganizationEmploymentAssociationSeniority" schema="tpdm"/>
   </AggregateExtension>
 </AggregateExtensions>

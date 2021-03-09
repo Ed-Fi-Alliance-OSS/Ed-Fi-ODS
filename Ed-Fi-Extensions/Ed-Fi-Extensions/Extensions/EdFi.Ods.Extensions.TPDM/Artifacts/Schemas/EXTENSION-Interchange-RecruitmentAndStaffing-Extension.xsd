@@ -10,16 +10,13 @@
     </xs:annotation>
     <xs:complexType>
       <xs:choice maxOccurs="unbounded">
-        <xs:element name="Applicant" type="EXTENSION-Applicant" />
+        <xs:element name="ApplicantProfile" type="EXTENSION-ApplicantProfile" />
         <xs:element name="Application" type="EXTENSION-Application" />
         <xs:element name="ApplicationEvent" type="EXTENSION-ApplicationEvent" />
         <xs:element name="Credential" type="EXTENSION-CredentialExtension" />
-        <xs:element name="Prospect" type="EXTENSION-Prospect" />
+        <xs:element name="RecruitmentEventAttendance" type="EXTENSION-RecruitmentEventAttendance" />
         <xs:element name="RecruitmentEvent" type="EXTENSION-RecruitmentEvent" />
         <xs:element name="Person" type="Person" />
-        <xs:element name="ApplicantProspectAssociation" type="EXTENSION-ApplicantProspectAssociation" />
-        <xs:element name="StaffApplicantAssociation" type="EXTENSION-StaffApplicantAssociation" />
-        <xs:element name="StaffProspectAssociation" type="EXTENSION-StaffProspectAssociation" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

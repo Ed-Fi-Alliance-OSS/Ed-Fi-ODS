@@ -30,9 +30,7 @@
         <xs:element name="CommunityProviderLicense" type="CommunityProviderLicense" />
         <xs:element name="PostSecondaryInstitution" type="EXTENSION-PostSecondaryInstitutionExtension" />
         <xs:element name="OrganizationDepartment" type="OrganizationDepartment" />
-        <xs:element name="TeacherPreparationProvider" type="EXTENSION-TeacherPreparationProvider" />
-        <xs:element name="TeacherPreparationProviderProgram" type="EXTENSION-TeacherPreparationProviderProgram" />
-        <xs:element name="University" type="EXTENSION-University" />
+        <xs:element name="EducatorPreparationProgram" type="EXTENSION-EducatorPreparationProgram" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

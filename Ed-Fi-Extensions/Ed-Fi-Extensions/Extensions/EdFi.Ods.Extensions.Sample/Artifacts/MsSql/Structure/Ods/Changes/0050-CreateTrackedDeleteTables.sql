@@ -10,7 +10,6 @@ CREATE TABLE [tracked_deletes_sample].[ArtMediumDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_ArtMediumDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-
 CREATE TABLE [tracked_deletes_sample].[Bus]
 (
        BusId [NVARCHAR](60) NOT NULL,
@@ -18,7 +17,6 @@ CREATE TABLE [tracked_deletes_sample].[Bus]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_Bus PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-
 CREATE TABLE [tracked_deletes_sample].[BusRoute]
 (
        BusId [NVARCHAR](60) NOT NULL,
@@ -27,7 +25,6 @@ CREATE TABLE [tracked_deletes_sample].[BusRoute]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_BusRoute PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-
 CREATE TABLE [tracked_deletes_sample].[FavoriteBookCategoryDescriptor]
 (
        FavoriteBookCategoryDescriptorId [INT] NOT NULL,
@@ -35,7 +32,6 @@ CREATE TABLE [tracked_deletes_sample].[FavoriteBookCategoryDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_FavoriteBookCategoryDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-
 CREATE TABLE [tracked_deletes_sample].[MembershipTypeDescriptor]
 (
        MembershipTypeDescriptorId [INT] NOT NULL,
@@ -43,7 +39,6 @@ CREATE TABLE [tracked_deletes_sample].[MembershipTypeDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_MembershipTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-
 CREATE TABLE [tracked_deletes_sample].[StudentArtProgramAssociation]
 (
        BeginDate [DATE] NOT NULL,
@@ -56,7 +51,6 @@ CREATE TABLE [tracked_deletes_sample].[StudentArtProgramAssociation]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StudentArtProgramAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-
 CREATE TABLE [tracked_deletes_sample].[StudentGraduationPlanAssociation]
 (
        EducationOrganizationId [INT] NOT NULL,
@@ -67,4 +61,3 @@ CREATE TABLE [tracked_deletes_sample].[StudentGraduationPlanAssociation]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StudentGraduationPlanAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-
