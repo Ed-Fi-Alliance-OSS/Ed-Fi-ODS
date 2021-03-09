@@ -30,7 +30,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         {
             var cmdSql = $@"
 SELECT   Id, SnapshotIdentifier, SnapshotDateTime
-FROM     changeQueries.Snapshot
+FROM     changes.Snapshot
 ORDER BY SnapshotDateTime DESC";
 
             using (var sessionScope = new SessionScope(_sessionFactory))
@@ -48,7 +48,7 @@ ORDER BY SnapshotDateTime DESC";
         {
             var cmdSql = $@"
 SELECT   Id, SnapshotIdentifier, SnapshotDateTime
-FROM     changeQueries.Snapshot
+FROM     changes.Snapshot
 WHERE    Id = :id";
             
             using (var sessionScope = new SessionScope(_sessionFactory))
