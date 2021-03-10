@@ -8,17 +8,16 @@ using System.Reflection;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Features.ChangeQueries;
 using EdFi.Ods.Features.ChangeQueries.Controllers;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace EdFi.Ods.Features.Conventions
+namespace EdFi.Ods.Features.ChangeQueries.Conventions
 {
-    public class AvailableChangeVersionsRouteConvention : IApplicationModelConvention
+    public class SnapshotsControllerRouteConvention : IApplicationModelConvention
     {
         private readonly ApiSettings _apiSettings;
 
-        public AvailableChangeVersionsRouteConvention(ApiSettings apiSettings)
+        public SnapshotsControllerRouteConvention(ApiSettings apiSettings)
         {
             _apiSettings = apiSettings;
         }
@@ -26,27 +25,26 @@ namespace EdFi.Ods.Features.Conventions
         public void Apply(ApplicationModel application)
         {
             var controller =
-                application.Controllers.FirstOrDefault(
-                    x => x.ControllerType == typeof(AvailableChangeVersionsController).GetTypeInfo());
+                application.Controllers.SingleOrDefault(x => x.ControllerType == typeof(SnapshotsController).GetTypeInfo());
 
             if (controller != null)
             {
-                var routeSuffix = new AttributeRouteModel {Template = CreateRouteTemplate()};
+                var routePrefix = new AttributeRouteModel { Template = CreateRouteTemplate() };
 
                 foreach (var selector in controller.Selectors)
                 {
                     if (selector.AttributeRouteModel != null)
                     {
                         selector.AttributeRouteModel = AttributeRouteModel.CombineAttributeRouteModel(
-                            selector.AttributeRouteModel,
-                            routeSuffix);
+                            routePrefix,
+                            selector.AttributeRouteModel);
                     }
                 }
             }
 
             string CreateRouteTemplate()
             {
-                string template = $"v{ChangeQueriesConstants.FeatureVersion}/";
+                string template = $"{ChangeQueriesConstants.RoutePrefix}/";
 
                 if (_apiSettings.GetApiMode() == ApiMode.YearSpecific)
                 {
@@ -59,7 +57,7 @@ namespace EdFi.Ods.Features.Conventions
                     template += RouteConstants.SchoolYearFromRoute;
                 }
 
-                return template + "availablechangeversions/";
+                return template;
             }
         }
     }

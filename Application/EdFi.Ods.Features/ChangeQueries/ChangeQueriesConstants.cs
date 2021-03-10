@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Conventions;
 
 namespace EdFi.Ods.Features.ChangeQueries
@@ -18,5 +19,6 @@ namespace EdFi.Ods.Features.ChangeQueries
         public static readonly string ChangeQueriesMetadataRouteName = EdFiConventions.GetOpenApiMetadataRouteName(FeatureName);
 
         public static string SchoolYearTypesResourceName = "SchoolYearType";
+        public static readonly string RoutePrefix = $"{ApiFeature.ChangeQueries.GetConfigKeyName()}/v{FeatureVersion}";
     }
 }
