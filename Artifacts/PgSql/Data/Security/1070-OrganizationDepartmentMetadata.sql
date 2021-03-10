@@ -41,7 +41,8 @@ WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople';
 
 IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimAuthorizationMetadatas WHERE ResourceClaim_ResourceClaimId = organization_department_claim_id)
 THEN
-    RAISE NOTICE 'Assigning relationship-based authorization strategy for CRUD operations to OrganizationDepartment.';
+    RAISE NOTICE 'Assigning default metadata for CRUD operations on OrganizationDepartment to the relationship-based authorization strategy.';
+    
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     SELECT  organization_department_claim_id, ActionId, relationships_authorization_strategy_id
     FROM    dbo.Actions
@@ -61,6 +62,7 @@ WHERE   rc.ClaimName = 'http://ed-fi.org/ods/identity/claims/school';
 IF NOT EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaims csrc INNER JOIN dbo.ClaimSets cs ON csrc.ClaimSet_ClaimSetId = cs.ClaimSetId WHERE cs.ClaimSetName = 'District Hosted SIS Vendor' AND csrc.ResourceClaim_ResourceClaimId = school_claim_id)
 THEN
     RAISE NOTICE 'Copying School overrides to OrganizationDepartment for District Hosted Vendor claim set.';
+    
     INSERT INTO dbo.ClaimSetResourceClaims(ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
     SELECT  csrc.ClaimSet_ClaimSetId, organization_department_claim_id, csrc.Action_ActionId, csrc.AuthorizationStrategyOverride_AuthorizationStrategyId
     FROM    dbo.ClaimSetResourceClaims csrc

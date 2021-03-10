@@ -36,10 +36,15 @@ SELECT @relationshipsAuthorizationStrategyId = AuthorizationStrategyId
 FROM dbo.AuthorizationStrategies
 WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
 
-INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-SELECT @organizationDepartmentClaimId, ActionId, @relationshipsAuthorizationStrategyId
-FROM    dbo.Actions
-WHERE   ActionName IN ('Create', 'Read', 'Update', 'Delete')
+IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimAuthorizationMetadatas WHERE ResourceClaim_ResourceClaimId = @organizationDepartmentClaimId)
+BEGIN
+    PRINT 'Assigning default metadata for CRUD operations on OrganizationDepartment to the relationship-based authorization strategy.'
+    
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    SELECT @organizationDepartmentClaimId, ActionId, @relationshipsAuthorizationStrategyId
+    FROM    dbo.Actions
+    WHERE   ActionName IN ('Create', 'Read', 'Update', 'Delete')
+END
 
 -- Move OrganizationDepartment under EducationOrganizations
 UPDATE  dbo.ResourceClaims
@@ -50,11 +55,16 @@ SELECT  @schoolClaimId = ResourceClaimId
 FROM    dbo.ResourceClaims rc 
 WHERE   rc.ClaimName = 'http://ed-fi.org/ods/identity/claims/school'
 
--- Assign same permissions to School overrides for District Hosted SIS Vendor
-INSERT INTO dbo.ClaimSetResourceClaims(ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-SELECT  csrc.ClaimSet_ClaimSetId, @organizationDepartmentClaimId, csrc.Action_ActionId, csrc.AuthorizationStrategyOverride_AuthorizationStrategyId
-FROM    dbo.ClaimSetResourceClaims csrc
-    INNER JOIN dbo.ClaimSets cs
-        ON csrc.ClaimSet_ClaimSetId = cs.ClaimSetId
-WHERE   cs.ClaimSetName = 'District Hosted SIS Vendor'
-    AND csrc.ResourceClaim_ResourceClaimId = @schoolClaimId 
+IF NOT EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaims csrc INNER JOIN dbo.ClaimSets cs ON csrc.ClaimSet_ClaimSetId = cs.ClaimSetId WHERE cs.ClaimSetName = 'District Hosted SIS Vendor' AND csrc.ResourceClaim_ResourceClaimId = @schoolClaimId)
+BEGIN
+    PRINT 'Copying School overrides to OrganizationDepartment for District Hosted Vendor claim set.'
+
+    -- Assign same permissions to School overrides for District Hosted SIS Vendor
+    INSERT INTO dbo.ClaimSetResourceClaims(ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    SELECT  csrc.ClaimSet_ClaimSetId, @organizationDepartmentClaimId, csrc.Action_ActionId, csrc.AuthorizationStrategyOverride_AuthorizationStrategyId
+    FROM    dbo.ClaimSetResourceClaims csrc
+        INNER JOIN dbo.ClaimSets cs
+            ON csrc.ClaimSet_ClaimSetId = cs.ClaimSetId
+    WHERE   cs.ClaimSetName = 'District Hosted SIS Vendor'
+        AND csrc.ResourceClaim_ResourceClaimId = @schoolClaimId 
+END
