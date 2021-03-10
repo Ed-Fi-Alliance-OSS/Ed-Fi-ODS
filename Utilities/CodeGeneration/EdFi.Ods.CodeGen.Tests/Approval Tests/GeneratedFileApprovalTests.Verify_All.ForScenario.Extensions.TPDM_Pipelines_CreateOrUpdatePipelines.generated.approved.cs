@@ -17,69 +17,9 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class AnonymizedStudentCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AnonymizedStudent.TPDM.AnonymizedStudent, Entities.NHibernate.AnonymizedStudentAggregate.TPDM.AnonymizedStudent>
+    public class ApplicantProfileCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ApplicantProfile.TPDM.ApplicantProfile, Entities.NHibernate.ApplicantProfileAggregate.TPDM.ApplicantProfile>
     {
-        public AnonymizedStudentCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AnonymizedStudentAcademicRecordCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AnonymizedStudentAcademicRecord.TPDM.AnonymizedStudentAcademicRecord, Entities.NHibernate.AnonymizedStudentAcademicRecordAggregate.TPDM.AnonymizedStudentAcademicRecord>
-    {
-        public AnonymizedStudentAcademicRecordCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AnonymizedStudentAssessmentCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AnonymizedStudentAssessment.TPDM.AnonymizedStudentAssessment, Entities.NHibernate.AnonymizedStudentAssessmentAggregate.TPDM.AnonymizedStudentAssessment>
-    {
-        public AnonymizedStudentAssessmentCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AnonymizedStudentAssessmentCourseAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AnonymizedStudentAssessmentCourseAssociation.TPDM.AnonymizedStudentAssessmentCourseAssociation, Entities.NHibernate.AnonymizedStudentAssessmentCourseAssociationAggregate.TPDM.AnonymizedStudentAssessmentCourseAssociation>
-    {
-        public AnonymizedStudentAssessmentCourseAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AnonymizedStudentAssessmentSectionAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AnonymizedStudentAssessmentSectionAssociation.TPDM.AnonymizedStudentAssessmentSectionAssociation, Entities.NHibernate.AnonymizedStudentAssessmentSectionAssociationAggregate.TPDM.AnonymizedStudentAssessmentSectionAssociation>
-    {
-        public AnonymizedStudentAssessmentSectionAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AnonymizedStudentCourseAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AnonymizedStudentCourseAssociation.TPDM.AnonymizedStudentCourseAssociation, Entities.NHibernate.AnonymizedStudentCourseAssociationAggregate.TPDM.AnonymizedStudentCourseAssociation>
-    {
-        public AnonymizedStudentCourseAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AnonymizedStudentCourseTranscriptCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AnonymizedStudentCourseTranscript.TPDM.AnonymizedStudentCourseTranscript, Entities.NHibernate.AnonymizedStudentCourseTranscriptAggregate.TPDM.AnonymizedStudentCourseTranscript>
-    {
-        public AnonymizedStudentCourseTranscriptCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AnonymizedStudentEducationOrganizationAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AnonymizedStudentEducationOrganizationAssociation.TPDM.AnonymizedStudentEducationOrganizationAssociation, Entities.NHibernate.AnonymizedStudentEducationOrganizationAssociationAggregate.TPDM.AnonymizedStudentEducationOrganizationAssociation>
-    {
-        public AnonymizedStudentEducationOrganizationAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class AnonymizedStudentSectionAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AnonymizedStudentSectionAssociation.TPDM.AnonymizedStudentSectionAssociation, Entities.NHibernate.AnonymizedStudentSectionAssociationAggregate.TPDM.AnonymizedStudentSectionAssociation>
-    {
-        public AnonymizedStudentSectionAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ApplicantCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.Applicant.TPDM.Applicant, Entities.NHibernate.ApplicantAggregate.TPDM.Applicant>
-    {
-        public ApplicantCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ApplicantProspectAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ApplicantProspectAssociation.TPDM.ApplicantProspectAssociation, Entities.NHibernate.ApplicantProspectAssociationAggregate.TPDM.ApplicantProspectAssociation>
-    {
-        public ApplicantProspectAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public ApplicantProfileCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -128,6 +68,30 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     public class BackgroundCheckTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.BackgroundCheckTypeDescriptor.TPDM.BackgroundCheckTypeDescriptor, Entities.NHibernate.BackgroundCheckTypeDescriptorAggregate.TPDM.BackgroundCheckTypeDescriptor>
     {
         public BackgroundCheckTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CandidateCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.Candidate.TPDM.Candidate, Entities.NHibernate.CandidateAggregate.TPDM.Candidate>
+    {
+        public CandidateCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CandidateCharacteristicDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.CandidateCharacteristicDescriptor.TPDM.CandidateCharacteristicDescriptor, Entities.NHibernate.CandidateCharacteristicDescriptorAggregate.TPDM.CandidateCharacteristicDescriptor>
+    {
+        public CandidateCharacteristicDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CandidateEducatorPreparationProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.CandidateEducatorPreparationProgramAssociation.TPDM.CandidateEducatorPreparationProgramAssociation, Entities.NHibernate.CandidateEducatorPreparationProgramAssociationAggregate.TPDM.CandidateEducatorPreparationProgramAssociation>
+    {
+        public CandidateEducatorPreparationProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class CandidateRelationshipToStaffAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.CandidateRelationshipToStaffAssociation.TPDM.CandidateRelationshipToStaffAssociation, Entities.NHibernate.CandidateRelationshipToStaffAssociationAggregate.TPDM.CandidateRelationshipToStaffAssociation>
+    {
+        public CandidateRelationshipToStaffAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -185,12 +149,6 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class CompleterAsStaffAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.CompleterAsStaffAssociation.TPDM.CompleterAsStaffAssociation, Entities.NHibernate.CompleterAsStaffAssociationAggregate.TPDM.CompleterAsStaffAssociation>
-    {
-        public CompleterAsStaffAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
     public class CoteachingStyleObservedDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.CoteachingStyleObservedDescriptor.TPDM.CoteachingStyleObservedDescriptor, Entities.NHibernate.CoteachingStyleObservedDescriptorAggregate.TPDM.CoteachingStyleObservedDescriptor>
     {
         public CoteachingStyleObservedDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -221,45 +179,39 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
+    public class EducatorPreparationProgramCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducatorPreparationProgram.TPDM.EducatorPreparationProgram, Entities.NHibernate.EducatorPreparationProgramAggregate.TPDM.EducatorPreparationProgram>
+    {
+        public EducatorPreparationProgramCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EducatorPreparationProgramTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducatorPreparationProgramTypeDescriptor.TPDM.EducatorPreparationProgramTypeDescriptor, Entities.NHibernate.EducatorPreparationProgramTypeDescriptorAggregate.TPDM.EducatorPreparationProgramTypeDescriptor>
+    {
+        public EducatorPreparationProgramTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class EducatorRoleDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EducatorRoleDescriptor.TPDM.EducatorRoleDescriptor, Entities.NHibernate.EducatorRoleDescriptorAggregate.TPDM.EducatorRoleDescriptor>
     {
         public EducatorRoleDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class EmploymentEventCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EmploymentEvent.TPDM.EmploymentEvent, Entities.NHibernate.EmploymentEventAggregate.TPDM.EmploymentEvent>
-    {
-        public EmploymentEventCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EmploymentEventTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EmploymentEventTypeDescriptor.TPDM.EmploymentEventTypeDescriptor, Entities.NHibernate.EmploymentEventTypeDescriptorAggregate.TPDM.EmploymentEventTypeDescriptor>
-    {
-        public EmploymentEventTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EmploymentSeparationEventCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EmploymentSeparationEvent.TPDM.EmploymentSeparationEvent, Entities.NHibernate.EmploymentSeparationEventAggregate.TPDM.EmploymentSeparationEvent>
-    {
-        public EmploymentSeparationEventCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EmploymentSeparationReasonDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EmploymentSeparationReasonDescriptor.TPDM.EmploymentSeparationReasonDescriptor, Entities.NHibernate.EmploymentSeparationReasonDescriptorAggregate.TPDM.EmploymentSeparationReasonDescriptor>
-    {
-        public EmploymentSeparationReasonDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class EmploymentSeparationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EmploymentSeparationTypeDescriptor.TPDM.EmploymentSeparationTypeDescriptor, Entities.NHibernate.EmploymentSeparationTypeDescriptorAggregate.TPDM.EmploymentSeparationTypeDescriptor>
-    {
-        public EmploymentSeparationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
     public class EnglishLanguageExamDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EnglishLanguageExamDescriptor.TPDM.EnglishLanguageExamDescriptor, Entities.NHibernate.EnglishLanguageExamDescriptorAggregate.TPDM.EnglishLanguageExamDescriptor>
     {
         public EnglishLanguageExamDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EPPDegreeTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EPPDegreeTypeDescriptor.TPDM.EPPDegreeTypeDescriptor, Entities.NHibernate.EPPDegreeTypeDescriptorAggregate.TPDM.EPPDegreeTypeDescriptor>
+    {
+        public EPPDegreeTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EPPProgramPathwayDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM.EPPProgramPathwayDescriptor, Entities.NHibernate.EPPProgramPathwayDescriptorAggregate.TPDM.EPPProgramPathwayDescriptor>
+    {
+        public EPPProgramPathwayDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -389,15 +341,9 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class InternalExternalHireDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.InternalExternalHireDescriptor.TPDM.InternalExternalHireDescriptor, Entities.NHibernate.InternalExternalHireDescriptorAggregate.TPDM.InternalExternalHireDescriptor>
+    public class LengthOfContractDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.LengthOfContractDescriptor.TPDM.LengthOfContractDescriptor, Entities.NHibernate.LengthOfContractDescriptorAggregate.TPDM.LengthOfContractDescriptor>
     {
-        public InternalExternalHireDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class LevelOfDegreeAwardedDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.LevelOfDegreeAwardedDescriptor.TPDM.LevelOfDegreeAwardedDescriptor, Entities.NHibernate.LevelOfDegreeAwardedDescriptorAggregate.TPDM.LevelOfDegreeAwardedDescriptor>
-    {
-        public LevelOfDegreeAwardedDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public LengthOfContractDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -485,18 +431,6 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class ProspectCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.Prospect.TPDM.Prospect, Entities.NHibernate.ProspectAggregate.TPDM.Prospect>
-    {
-        public ProspectCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ProspectTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ProspectTypeDescriptor.TPDM.ProspectTypeDescriptor, Entities.NHibernate.ProspectTypeDescriptorAggregate.TPDM.ProspectTypeDescriptor>
-    {
-        public ProspectTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
     public class QuantitativeMeasureCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.QuantitativeMeasure.TPDM.QuantitativeMeasure, Entities.NHibernate.QuantitativeMeasureAggregate.TPDM.QuantitativeMeasure>
     {
         public QuantitativeMeasureCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -527,6 +461,18 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
+    public class RecruitmentEventAttendanceCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.RecruitmentEventAttendance.TPDM.RecruitmentEventAttendance, Entities.NHibernate.RecruitmentEventAttendanceAggregate.TPDM.RecruitmentEventAttendance>
+    {
+        public RecruitmentEventAttendanceCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class RecruitmentEventAttendeeTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.RecruitmentEventAttendeeTypeDescriptor.TPDM.RecruitmentEventAttendeeTypeDescriptor, Entities.NHibernate.RecruitmentEventAttendeeTypeDescriptorAggregate.TPDM.RecruitmentEventAttendeeTypeDescriptor>
+    {
+        public RecruitmentEventAttendeeTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class RecruitmentEventTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.RecruitmentEventTypeDescriptor.TPDM.RecruitmentEventTypeDescriptor, Entities.NHibernate.RecruitmentEventTypeDescriptorAggregate.TPDM.RecruitmentEventTypeDescriptor>
     {
         public RecruitmentEventTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -551,69 +497,21 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class SchoolStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SchoolStatusDescriptor.TPDM.SchoolStatusDescriptor, Entities.NHibernate.SchoolStatusDescriptorAggregate.TPDM.SchoolStatusDescriptor>
+    public class StaffEducatorPreparationProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffEducatorPreparationProgramAssociation.TPDM.StaffEducatorPreparationProgramAssociation, Entities.NHibernate.StaffEducatorPreparationProgramAssociationAggregate.TPDM.StaffEducatorPreparationProgramAssociation>
     {
-        public SchoolStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public StaffEducatorPreparationProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffApplicantAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffApplicantAssociation.TPDM.StaffApplicantAssociation, Entities.NHibernate.StaffApplicantAssociationAggregate.TPDM.StaffApplicantAssociation>
+    public class StaffToCandidateRelationshipDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffToCandidateRelationshipDescriptor.TPDM.StaffToCandidateRelationshipDescriptor, Entities.NHibernate.StaffToCandidateRelationshipDescriptorAggregate.TPDM.StaffToCandidateRelationshipDescriptor>
     {
-        public StaffApplicantAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public StaffToCandidateRelationshipDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
-    public class StaffProspectAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffProspectAssociation.TPDM.StaffProspectAssociation, Entities.NHibernate.StaffProspectAssociationAggregate.TPDM.StaffProspectAssociation>
+    public class SurveyResponsePersonTargetAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SurveyResponsePersonTargetAssociation.TPDM.SurveyResponsePersonTargetAssociation, Entities.NHibernate.SurveyResponsePersonTargetAssociationAggregate.TPDM.SurveyResponsePersonTargetAssociation>
     {
-        public StaffProspectAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffStudentGrowthMeasureCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffStudentGrowthMeasure.TPDM.StaffStudentGrowthMeasure, Entities.NHibernate.StaffStudentGrowthMeasureAggregate.TPDM.StaffStudentGrowthMeasure>
-    {
-        public StaffStudentGrowthMeasureCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffStudentGrowthMeasureCourseAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffStudentGrowthMeasureCourseAssociation.TPDM.StaffStudentGrowthMeasureCourseAssociation, Entities.NHibernate.StaffStudentGrowthMeasureCourseAssociationAggregate.TPDM.StaffStudentGrowthMeasureCourseAssociation>
-    {
-        public StaffStudentGrowthMeasureCourseAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffStudentGrowthMeasureEducationOrganizationAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffStudentGrowthMeasureEducationOrganizationAssociation.TPDM.StaffStudentGrowthMeasureEducationOrganizationAssociation, Entities.NHibernate.StaffStudentGrowthMeasureEducationOrganizationAssociationAggregate.TPDM.StaffStudentGrowthMeasureEducationOrganizationAssociation>
-    {
-        public StaffStudentGrowthMeasureEducationOrganizationAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffStudentGrowthMeasureSectionAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffStudentGrowthMeasureSectionAssociation.TPDM.StaffStudentGrowthMeasureSectionAssociation, Entities.NHibernate.StaffStudentGrowthMeasureSectionAssociationAggregate.TPDM.StaffStudentGrowthMeasureSectionAssociation>
-    {
-        public StaffStudentGrowthMeasureSectionAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffTeacherPreparationProviderAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffTeacherPreparationProviderAssociation.TPDM.StaffTeacherPreparationProviderAssociation, Entities.NHibernate.StaffTeacherPreparationProviderAssociationAggregate.TPDM.StaffTeacherPreparationProviderAssociation>
-    {
-        public StaffTeacherPreparationProviderAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StaffTeacherPreparationProviderProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StaffTeacherPreparationProviderProgramAssociation.TPDM.StaffTeacherPreparationProviderProgramAssociation, Entities.NHibernate.StaffTeacherPreparationProviderProgramAssociationAggregate.TPDM.StaffTeacherPreparationProviderProgramAssociation>
-    {
-        public StaffTeacherPreparationProviderProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class StudentGrowthTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentGrowthTypeDescriptor.TPDM.StudentGrowthTypeDescriptor, Entities.NHibernate.StudentGrowthTypeDescriptorAggregate.TPDM.StudentGrowthTypeDescriptor>
-    {
-        public StudentGrowthTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class SurveyResponseTeacherCandidateTargetAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SurveyResponseTeacherCandidateTargetAssociation.TPDM.SurveyResponseTeacherCandidateTargetAssociation, Entities.NHibernate.SurveyResponseTeacherCandidateTargetAssociationAggregate.TPDM.SurveyResponseTeacherCandidateTargetAssociation>
-    {
-        public SurveyResponseTeacherCandidateTargetAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public SurveyResponsePersonTargetAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
@@ -623,117 +521,9 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
-    public class SurveySectionResponseTeacherCandidateTargetAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SurveySectionResponseTeacherCandidateTargetAssociation.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation, Entities.NHibernate.SurveySectionResponseTeacherCandidateTargetAssociationAggregate.TPDM.SurveySectionResponseTeacherCandidateTargetAssociation>
+    public class SurveySectionResponsePersonTargetAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SurveySectionResponsePersonTargetAssociation.TPDM.SurveySectionResponsePersonTargetAssociation, Entities.NHibernate.SurveySectionResponsePersonTargetAssociationAggregate.TPDM.SurveySectionResponsePersonTargetAssociation>
     {
-        public SurveySectionResponseTeacherCandidateTargetAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidate.TPDM.TeacherCandidate, Entities.NHibernate.TeacherCandidateAggregate.TPDM.TeacherCandidate>
-    {
-        public TeacherCandidateCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateAcademicRecordCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateAcademicRecord.TPDM.TeacherCandidateAcademicRecord, Entities.NHibernate.TeacherCandidateAcademicRecordAggregate.TPDM.TeacherCandidateAcademicRecord>
-    {
-        public TeacherCandidateAcademicRecordCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateCharacteristicDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateCharacteristicDescriptor.TPDM.TeacherCandidateCharacteristicDescriptor, Entities.NHibernate.TeacherCandidateCharacteristicDescriptorAggregate.TPDM.TeacherCandidateCharacteristicDescriptor>
-    {
-        public TeacherCandidateCharacteristicDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateCourseTranscriptCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateCourseTranscript.TPDM.TeacherCandidateCourseTranscript, Entities.NHibernate.TeacherCandidateCourseTranscriptAggregate.TPDM.TeacherCandidateCourseTranscript>
-    {
-        public TeacherCandidateCourseTranscriptCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateStaffAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateStaffAssociation.TPDM.TeacherCandidateStaffAssociation, Entities.NHibernate.TeacherCandidateStaffAssociationAggregate.TPDM.TeacherCandidateStaffAssociation>
-    {
-        public TeacherCandidateStaffAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateStudentGrowthMeasureCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateStudentGrowthMeasure.TPDM.TeacherCandidateStudentGrowthMeasure, Entities.NHibernate.TeacherCandidateStudentGrowthMeasureAggregate.TPDM.TeacherCandidateStudentGrowthMeasure>
-    {
-        public TeacherCandidateStudentGrowthMeasureCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateStudentGrowthMeasureCourseAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateStudentGrowthMeasureCourseAssociation.TPDM.TeacherCandidateStudentGrowthMeasureCourseAssociation, Entities.NHibernate.TeacherCandidateStudentGrowthMeasureCourseAssociationAggregate.TPDM.TeacherCandidateStudentGrowthMeasureCourseAssociation>
-    {
-        public TeacherCandidateStudentGrowthMeasureCourseAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation.TPDM.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation, Entities.NHibernate.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociationAggregate.TPDM.TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation>
-    {
-        public TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateStudentGrowthMeasureSectionAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateStudentGrowthMeasureSectionAssociation.TPDM.TeacherCandidateStudentGrowthMeasureSectionAssociation, Entities.NHibernate.TeacherCandidateStudentGrowthMeasureSectionAssociationAggregate.TPDM.TeacherCandidateStudentGrowthMeasureSectionAssociation>
-    {
-        public TeacherCandidateStudentGrowthMeasureSectionAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateTeacherPreparationProviderAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateTeacherPreparationProviderAssociation.TPDM.TeacherCandidateTeacherPreparationProviderAssociation, Entities.NHibernate.TeacherCandidateTeacherPreparationProviderAssociationAggregate.TPDM.TeacherCandidateTeacherPreparationProviderAssociation>
-    {
-        public TeacherCandidateTeacherPreparationProviderAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherCandidateTeacherPreparationProviderProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherCandidateTeacherPreparationProviderProgramAssociation.TPDM.TeacherCandidateTeacherPreparationProviderProgramAssociation, Entities.NHibernate.TeacherCandidateTeacherPreparationProviderProgramAssociationAggregate.TPDM.TeacherCandidateTeacherPreparationProviderProgramAssociation>
-    {
-        public TeacherCandidateTeacherPreparationProviderProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherPreparationProgramTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherPreparationProgramTypeDescriptor.TPDM.TeacherPreparationProgramTypeDescriptor, Entities.NHibernate.TeacherPreparationProgramTypeDescriptorAggregate.TPDM.TeacherPreparationProgramTypeDescriptor>
-    {
-        public TeacherPreparationProgramTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherPreparationProviderCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherPreparationProvider.TPDM.TeacherPreparationProvider, Entities.NHibernate.TeacherPreparationProviderAggregate.TPDM.TeacherPreparationProvider>
-    {
-        public TeacherPreparationProviderCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TeacherPreparationProviderProgramCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TeacherPreparationProviderProgram.TPDM.TeacherPreparationProviderProgram, Entities.NHibernate.TeacherPreparationProviderProgramAggregate.TPDM.TeacherPreparationProviderProgram>
-    {
-        public TeacherPreparationProviderProgramCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TPPDegreeTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TPPDegreeTypeDescriptor.TPDM.TPPDegreeTypeDescriptor, Entities.NHibernate.TPPDegreeTypeDescriptorAggregate.TPDM.TPPDegreeTypeDescriptor>
-    {
-        public TPPDegreeTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class TPPProgramPathwayDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.TPPProgramPathwayDescriptor.TPDM.TPPProgramPathwayDescriptor, Entities.NHibernate.TPPProgramPathwayDescriptorAggregate.TPDM.TPPProgramPathwayDescriptor>
-    {
-        public TPPProgramPathwayDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class UniversityCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.University.TPDM.University, Entities.NHibernate.UniversityAggregate.TPDM.University>
-    {
-        public UniversityCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
-    }
-
-    [ExcludeFromCodeCoverage]
-    public class ValueTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.ValueTypeDescriptor.TPDM.ValueTypeDescriptor, Entities.NHibernate.ValueTypeDescriptorAggregate.TPDM.ValueTypeDescriptor>
-    {
-        public ValueTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+        public SurveySectionResponsePersonTargetAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]
