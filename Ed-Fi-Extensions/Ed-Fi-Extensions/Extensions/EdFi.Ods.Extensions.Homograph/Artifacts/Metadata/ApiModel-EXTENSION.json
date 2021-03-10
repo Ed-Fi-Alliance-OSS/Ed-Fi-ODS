@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.2.0",
+  "odsApiVersion": "5.2",
   "schemaDefinition": {
     "logicalName": "Homograph",
     "physicalName": "homograph",
@@ -1244,11 +1244,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_Parent_Name",
         "postgreSql": "FK_5f7953_Name"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1338,11 +1338,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentAddress_Parent",
         "postgreSql": "FK_cc3333_Parent"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1432,11 +1432,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentStudentSchoolAssociation_Parent",
         "postgreSql": "FK_23ef78_Parent"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1560,11 +1560,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_ParentStudentSchoolAssociation_StudentSchoolAssociation",
         "postgreSql": "FK_23ef78_StudentSchoolAssociation"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1620,11 +1620,11 @@
       ],
       "isIdentifying": false,
       "isRequired": false,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_School_SchoolYearType",
         "postgreSql": "FK_6cd2e3_SchoolYearType"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1680,11 +1680,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_SchoolAddress_School",
         "postgreSql": "FK_a09d7e_School"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1774,11 +1774,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_Staff_Name",
         "postgreSql": "FK_681927_Name"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1868,11 +1868,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StaffAddress_Staff",
         "postgreSql": "FK_c0e4a3_Staff"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -1962,11 +1962,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StaffStudentSchoolAssociation_Staff",
         "postgreSql": "FK_fec532_Staff"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -2090,11 +2090,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StaffStudentSchoolAssociation_StudentSchoolAssociation",
         "postgreSql": "FK_fec532_StudentSchoolAssociation"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -2184,11 +2184,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_Student_Name",
         "postgreSql": "FK_2a164d_Name"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -2244,11 +2244,11 @@
       ],
       "isIdentifying": false,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_Student_SchoolYearType",
         "postgreSql": "FK_2a164d_SchoolYearType"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -2338,11 +2338,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentAddress_Student",
         "postgreSql": "FK_e70453_Student"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -2398,11 +2398,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentSchoolAssociation_School",
         "postgreSql": "FK_857b52_School"
-      }
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -2492,11 +2492,11 @@
       ],
       "isIdentifying": true,
       "isRequired": true,
-      "potentiallyLogical": false,
       "constraintNames": {
         "sqlServer": "FK_StudentSchoolAssociation_Student",
         "postgreSql": "FK_857b52_Student"
-      }
+      },
+      "potentiallyLogical": false
     }
   ]
 }
