@@ -254,8 +254,17 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             if (!_propertyInfoByName.TryGetValue(propertyName, out var propertyInfo))
             {
                 // Look for the corresponding non-role named property on the authorization context data class
-                var nonRoleNamedContextDataPropertyName = _propertyInfoByName.Keys
-                    .FirstOrDefault(pn => propertyName.EndsWithIgnoreCase(pn));
+                var nonRoleNamedContextDataPropertyNames = _propertyInfoByName.Keys
+                    .Where(pn => propertyName.EndsWithIgnoreCase(pn))
+                    .ToArray();
+
+                if (nonRoleNamedContextDataPropertyNames.Length > 1)
+                {
+                    throw new Exception(
+                        $"Property '{propertyName}' not found on authorization context data type '{typeof(TContextData).Name}' and could not be resolved by convention as a role-named property.");
+                }
+
+                var nonRoleNamedContextDataPropertyName = nonRoleNamedContextDataPropertyNames.SingleOrDefault();
 
                 // If we're unable to find the non-role named equivalent (by convention), stop now.
                 if (nonRoleNamedContextDataPropertyName == null)
@@ -278,9 +287,18 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             if (!_propertyInfoByName.TryGetValue(propertyName, out var propertyInfo))
             {
                 // Look for the corresponding non-role named property on the authorization context data class
-                var nonRoleNamedContextDataPropertyName = _propertyInfoByName.Keys
-                    .FirstOrDefault(pn => propertyName.EndsWithIgnoreCase(pn));
+                var nonRoleNamedContextDataPropertyNames = _propertyInfoByName.Keys
+                    .Where(pn => propertyName.EndsWithIgnoreCase(pn))
+                    .ToArray();
 
+                if (nonRoleNamedContextDataPropertyNames.Length > 1)
+                {
+                    throw new Exception(
+                        $"Property '{propertyName}' not found on authorization context data type '{typeof(TContextData).Name}' and could not be resolved by convention as a role-named property.");
+                }
+
+                var nonRoleNamedContextDataPropertyName = nonRoleNamedContextDataPropertyNames.SingleOrDefault();
+                
                 // If we're unable to find the non-role named equivalent (by convention), stop now.
                 if (nonRoleNamedContextDataPropertyName == null)
                 {
