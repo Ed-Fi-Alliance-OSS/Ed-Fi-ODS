@@ -29,15 +29,26 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
     {
         // By making this static, each closed generic version will have its own accessors
         // which is appropriate if we're dealing with different types of TContextData
-        private static readonly ConcurrentDictionary<string, object> propertyAccessorsByName
+        private static readonly ConcurrentDictionary<string, object> _propertyAccessorsByName
             = new ConcurrentDictionary<string, object>();
 
+        private static readonly IDictionary<string, PropertyInfo> _propertyInfoByName;
+        
         private readonly Lazy<List<Tuple<string, object>>> _claimAuthorizationValues;
         private readonly List<ClaimsAuthorizationSegment> _claimsAuthorizationSegments = new List<ClaimsAuthorizationSegment>();
         private readonly TContextData _contextData;
         private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationBuilder<TContextData>));
         private readonly IEnumerable<Claim> _relevantClaims;
 
+        static AuthorizationBuilder()
+        {
+            _propertyInfoByName = typeof(TContextData)
+                .GetProperties()
+                .ToDictionary(
+                    p => p.Name, 
+                    p => p);
+        }
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationBuilder{TContextData}"/> class using the
         /// specified <see cref="RelationshipsAuthorizationContextData"/> and collection of <see cref="Claim"/>s.
@@ -240,15 +251,30 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
         private SegmentProperty CreateSegment(string propertyName, string authorizationPathModifier)
         {
-            var propertyInfo = typeof(TContextData).GetProperty(propertyName);
-
-            if (propertyInfo == null)
+            if (!_propertyInfoByName.TryGetValue(propertyName, out var propertyInfo))
             {
-                throw new Exception(
-                    string.Format(
-                        "Property '{0}' not found on authorization context data type '{1}'.",
-                        propertyName,
-                        typeof(TContextData).Name));
+                // Look for the corresponding non-role named property on the authorization context data class
+                var nonRoleNamedContextDataPropertyNames = _propertyInfoByName.Keys
+                    .Where(pn => propertyName.EndsWithIgnoreCase(pn))
+                    .ToArray();
+
+                if (nonRoleNamedContextDataPropertyNames.Length > 1)
+                {
+                    throw new Exception(
+                        $"Property '{propertyName}' not found on authorization context data type '{typeof(TContextData).Name}' and could not be resolved by convention as a role-named property.");
+                }
+
+                var nonRoleNamedContextDataPropertyName = nonRoleNamedContextDataPropertyNames.SingleOrDefault();
+
+                // If we're unable to find the non-role named equivalent (by convention), stop now.
+                if (nonRoleNamedContextDataPropertyName == null)
+                {
+                    throw new Exception(
+                        $"Property '{propertyName}' not found on authorization context data type '{typeof(TContextData).Name}'.");
+                }
+
+                propertyName = nonRoleNamedContextDataPropertyName;
+                propertyInfo = _propertyInfoByName[propertyName];
             }
 
             return new SegmentProperty(propertyName, propertyInfo.PropertyType, authorizationPathModifier);
@@ -256,24 +282,46 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 
         private SegmentProperty CreateSegmentWithValue(string propertyName, string authorizationPathModifier)
         {
-            if (propertyName.EqualsIgnoreCase("EducationOrganizationId")
-                && _contextData.ConcreteEducationOrganizationIdPropertyName != null)
-            {
-                propertyName = _contextData.ConcreteEducationOrganizationIdPropertyName;
-            }
+            propertyName = ApplyEducationOrganizationIdPropertyNameResolution(propertyName);
 
-            var propertyInfo = typeof(TContextData).GetProperty(propertyName);
-
-            if (propertyInfo == null)
+            if (!_propertyInfoByName.TryGetValue(propertyName, out var propertyInfo))
             {
-                throw new Exception(
-                    string.Format(
-                        "Property '{0}' not found on authorization context data type '{1}'.",
-                        propertyName,
-                        typeof(TContextData).Name));
+                // Look for the corresponding non-role named property on the authorization context data class
+                var nonRoleNamedContextDataPropertyNames = _propertyInfoByName.Keys
+                    .Where(pn => propertyName.EndsWithIgnoreCase(pn))
+                    .ToArray();
+
+                if (nonRoleNamedContextDataPropertyNames.Length > 1)
+                {
+                    throw new Exception(
+                        $"Property '{propertyName}' not found on authorization context data type '{typeof(TContextData).Name}' and could not be resolved by convention as a role-named property.");
+                }
+
+                var nonRoleNamedContextDataPropertyName = nonRoleNamedContextDataPropertyNames.SingleOrDefault();
+                
+                // If we're unable to find the non-role named equivalent (by convention), stop now.
+                if (nonRoleNamedContextDataPropertyName == null)
+                {
+                    throw new Exception(
+                        $"Property '{propertyName}' not found on authorization context data type '{typeof(TContextData).Name}'.");
+                }
+
+                propertyName = ApplyEducationOrganizationIdPropertyNameResolution(nonRoleNamedContextDataPropertyName);
+                propertyInfo = _propertyInfoByName[propertyName];
             }
 
             return new SegmentProperty(propertyName, propertyInfo.PropertyType, propertyInfo.GetValue(_contextData), authorizationPathModifier);
+
+            string ApplyEducationOrganizationIdPropertyNameResolution(string presentedPropertyName)
+            {
+                if (presentedPropertyName.EqualsIgnoreCase("EducationOrganizationId")
+                    && _contextData.ConcreteEducationOrganizationIdPropertyName != null)
+                {
+                    return _contextData.ConcreteEducationOrganizationIdPropertyName;
+                }
+
+                return presentedPropertyName;
+            }
         }
 
         private SegmentProperty CreateSegment<TResult1>(Expression<Func<TContextData, TResult1>> propertyExpression, string authorizationPathModifier)
@@ -284,7 +332,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             {
                 throw new ArgumentException(
                     "Argument must be a MemberExpression referencing a property.",
-                    "propertyExpression");
+                    nameof(propertyExpression));
             }
 
             // Get the name of the property being accessed
@@ -301,7 +349,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             {
                 throw new ArgumentException(
                     "Argument must be a MemberExpression referencing a property.",
-                    "propertySelection");
+                    nameof(propertySelection));
             }
 
             // Get the name of the property being accessed
@@ -317,7 +365,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
             }
 
             // Get (or save) the compiled Func, by name
-            var getValue = (Func<TContextData, TResult>) propertyAccessorsByName
+            var getValue = (Func<TContextData, TResult>) _propertyAccessorsByName
                .GetOrAdd(name, n => propertySelection.Compile());
 
             // Get the value off the authorization context data instance
