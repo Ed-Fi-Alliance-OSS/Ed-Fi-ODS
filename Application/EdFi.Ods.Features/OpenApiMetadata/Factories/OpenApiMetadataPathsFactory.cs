@@ -195,7 +195,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
         }
 
-        private Dictionary<string, Response> CreateReadResponses(OpenApiMetadataPathsResource openApiMetadataResource ,bool isArray =false)
+        private Dictionary<string, Response> CreateReadResponses(OpenApiMetadataPathsResource openApiMetadataResource ,bool isArray = false)
         {
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
                 _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
