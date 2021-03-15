@@ -52,7 +52,7 @@ namespace EdFi.BulkLoadClient.Console.Application
             HelpText = "Do not validate incoming XML documents against the XSD Schema")]
         public bool DoNotValidateXml { get; set; }
 
-        [Option('c', "connectionlimit", Required = false, HelpText = "Max number of simultaneous API requests")]
+        [Option('c', "connectionlimit", Required = false, HelpText = "(deprecated) Max number of simultaneous API requests")]
         public int? ConnectionLimit { get; set; }
 
         [Option('t', "taskcapacity", Required = false, HelpText = "Maximum concurrent tasks to be buffered")]
@@ -61,10 +61,10 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option('l', "maxRequests", Required = false, HelpText = "Max number of simultaneous API requests")]
         public int? MaxSimultaneousRequests { get; set; }
 
-        [Option('g', "dependenciesurl", Required = false, HelpText = "The Dependencies endpoint url")]
+        [Option('g', "dependenciesurl", Required = false, HelpText = "(deprecated) The Dependencies endpoint url")]
         public string DependenciesUrl { get; set; }
 
-        [Option("include-stats", Required = false, Default = false, HelpText = "(deprecated) Include timing stats")]
+        [Option("include-stats", Required = false, Default = false, HelpText = "Include timing stats")]
         public bool IncludeStats { get; set; }
 
         [Option('b', "baseUrl", Required = false, HelpText = "The base url")]
