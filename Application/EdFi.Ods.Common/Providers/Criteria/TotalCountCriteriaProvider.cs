@@ -31,6 +31,12 @@ namespace EdFi.Ods.Common.Providers.Criteria
                 .CreateCriteria<TEntity>("aggregateRoot")
                 .SetProjection(Projections.RowCountInt64());
 
+            // Add specification-based criteria
+            ProcessSpecification(countQueryCriteria, specification);
+
+            // Add special query fields
+            ProcessQueryParameters(countQueryCriteria, queryParameters);
+
             return countQueryCriteria;
         }
     }
