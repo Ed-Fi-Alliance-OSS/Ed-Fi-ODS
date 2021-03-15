@@ -32,7 +32,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
             return new object[]
                    {
-                       id, string.Empty
+                       id, string.Empty, string.Empty
                    };
         }
 
