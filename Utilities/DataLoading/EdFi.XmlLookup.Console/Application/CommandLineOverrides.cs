@@ -11,6 +11,7 @@ namespace EdFi.XmlLookup.Console.Application
 {
     public class CommandLineOverrides
     {
+        //Can be skipped since we are getting the value using base URL
         [Option('a', "apiurl", Required = false, HelpText = "The web API url (i.e. http://server/)")]
         public string ApiUrl { get; set; }
 
@@ -29,9 +30,11 @@ namespace EdFi.XmlLookup.Console.Application
         [Option('f', "force", Required = false, Default = false, HelpText = "Force reload of metadata from metadata url")]
         public bool ForceMetadata { get; set; }
 
+        //Can be skipped since we are getting the value using base URL
         [Option('m', "metadataurl", Required = false, HelpText = "The metadata url (i.e. http://server/metadata)")]
         public string MetadataUrl { get; set; }
 
+        //Can be skipped since we are getting the value using base URL
         [Option('o', "oauthurl", Required = false, HelpText = "The OAuth url (i.e. http://server/oauth)")]
         public string OAuthUrl { get; set; }
 
