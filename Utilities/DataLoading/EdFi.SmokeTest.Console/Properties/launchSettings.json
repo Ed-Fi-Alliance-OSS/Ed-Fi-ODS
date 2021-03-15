@@ -3,7 +3,7 @@
   "profiles": {
     "EdFi.SmokeTests.Console": {
       "commandName": "Project",
-      "commandLineArgs": "-k Ux2SZXjuPhyRt7QFTng85 -s G8pyRC5icqJkwAsMXQra7 -b \"http://localhost:54746\"  -t NonDestructiveSdk -n http://edfi.org  -l C:\\Users\\Semalai\\Downloads\\Packages_EdFi.Ods.Api.TestSdk_5.2.92_artifacts\\EdFi.Suite3.OdsApi.TestSdk.5.2.92\\lib\\netstandard1.3\\EdFi.OdsApi.Sdk.dll"
+      "commandLineArgs": "-k QyNmM0uDkvKcWtrU4RXLa -s WkHPCr4cGuBXK6zxIMib7 -b \"http://localhost:54746\"  -t NonDestructiveApi"
     }
   }
 }
