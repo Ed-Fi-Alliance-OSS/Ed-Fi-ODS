@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
@@ -37,14 +36,10 @@ namespace EdFi.LoadTools.BulkLoadClient
 
                 var bulkLoadClientConfiguration = BulkLoadClientConfiguration.Create(configuration);
 
-                using var xsdFilesRetriever = new XsdFilesRetriever(
-                    bulkLoadClientConfiguration,
-                    new XsdMetadataInformationProvider(),
-                    new XsdMetadataFilesProvider(),
-                    new RemoteFileDownloader(),
-                    odsVersionInformation);
-
-                await xsdFilesRetriever.DownloadXsdFilesAsync();
+                if (!bulkLoadClientConfiguration.AdminAppSchemaAlreadyDownloaded)
+                {
+                    await LoadXsdFiles(bulkLoadClientConfiguration, odsVersionInformation);
+                }
 
                 var container = RegisterContainer(configuration, odsVersionInformation, bulkLoadClientConfiguration);
 
@@ -67,6 +62,19 @@ namespace EdFi.LoadTools.BulkLoadClient
             }
 
             return exitCode;
+        }
+
+        private static async Task LoadXsdFiles(BulkLoadClientConfiguration bulkLoadClientConfiguration,
+            OdsVersionInformation odsVersionInformation)
+        {
+            using var xsdFilesRetriever = new XsdFilesRetriever(
+                bulkLoadClientConfiguration,
+                new XsdMetadataInformationProvider(),
+                new XsdMetadataFilesProvider(),
+                new RemoteFileDownloader(),
+                odsVersionInformation);
+
+            await xsdFilesRetriever.DownloadXsdFilesAsync();
         }
 
         private static async Task<OdsVersionInformation> SetOdsEndpoints(IConfiguration configuration)
@@ -158,15 +166,21 @@ namespace EdFi.LoadTools.BulkLoadClient
             return Directory.EnumerateFiles(configuration.DataFolder);
         }
 
-        public static BulkLoadValidationResult ValidateXmlFile(BulkLoadClientConfiguration configuration,
+        public static async Task<BulkLoadValidationResult> ValidateXmlFile(IConfiguration configuration,
             string[] unsupportedInterchanges)
         {
+            var odsVersionInformation = await SetOdsEndpoints(configuration);
+            var xsdConfiguration = BulkLoadClientConfiguration.Create(configuration);
+            if (!xsdConfiguration.AdminAppSchemaAlreadyDownloaded && xsdConfiguration.ForceMetadata)
+            {
+                await LoadXsdFiles(xsdConfiguration, odsVersionInformation);
+            }
             var validationErrors = new BulkLoadValidationResult();
-            var streamsRetriever = new XsdStreamsRetriever(configuration);
+            var streamsRetriever = new XsdStreamsRetriever(xsdConfiguration);
             var factory = new SchemaSetFactory(streamsRetriever);
             var schemaSet = factory.GetSchemaSet();
 
-            foreach (var fileToImport in GetFilesToImport(configuration))
+            foreach (var fileToImport in GetFilesToImport(xsdConfiguration))
             {
                 var xmlReaderSettings = new XmlReaderSettings
                 {
@@ -179,24 +193,23 @@ namespace EdFi.LoadTools.BulkLoadClient
 
                 xmlReaderSettings.ValidationEventHandler += (s, e) => { validationErrors.Add(e.Message); };
 
-                using (var fileStream = new FileStream(fileToImport, FileMode.Open, FileAccess.Read))
-                {
-                    using (var reader = XmlReader.Create(fileStream, xmlReaderSettings))
-                    {
-                        while (reader.Read())
-                        {
-                            if (reader.NodeType == XmlNodeType.Element && unsupportedInterchanges.Any(
-                                i => i.Equals(reader.Name, StringComparison.InvariantCultureIgnoreCase)))
-                            {
-                                validationErrors.Add($"Import of data for {reader.Name} is not supported");
-                            }
-                        }
+                await using var fileStream = new FileStream(fileToImport, FileMode.Open, FileAccess.Read);
 
-                        reader.Close();
+                using (var reader = XmlReader.Create(fileStream, xmlReaderSettings))
+                {
+                    while (reader.Read())
+                    {
+                        if (reader.NodeType == XmlNodeType.Element && unsupportedInterchanges.Any(
+                            i => i.Equals(reader.Name, StringComparison.InvariantCultureIgnoreCase)))
+                        {
+                            validationErrors.Add($"Import of data for {reader.Name} is not supported");
+                        }
                     }
 
-                    fileStream.Close();
+                    reader.Close();
                 }
+
+                fileStream.Close();
             }
 
             return validationErrors;
