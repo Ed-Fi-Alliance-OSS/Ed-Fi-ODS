@@ -252,7 +252,6 @@ namespace EdFi.Ods.Api.Startup
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseStaticFiles();
 
