@@ -191,7 +191,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = parameters,
-                responses = CreateReadResponses(openApiMetadataResource ,false)
+                responses = CreateReadResponses(openApiMetadataResource, false)
             };
         }
 
