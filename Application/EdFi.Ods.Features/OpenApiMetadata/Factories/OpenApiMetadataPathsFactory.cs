@@ -145,7 +145,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = CreateGetByExampleParameters(openApiMetadataResource, isCompositeContext),
-                responses = CreateReadResponses(openApiMetadataResource)
+                responses = CreateReadResponses(openApiMetadataResource, true)
             };
 
             return operation;
@@ -191,15 +191,15 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = parameters,
-                responses = CreateReadResponses(openApiMetadataResource)
+                responses = CreateReadResponses(openApiMetadataResource, false)
             };
         }
 
-        private Dictionary<string, Response> CreateReadResponses(OpenApiMetadataPathsResource openApiMetadataResource)
+        private Dictionary<string, Response> CreateReadResponses(OpenApiMetadataPathsResource openApiMetadataResource, bool isArray)
         {
             var responses = OpenApiMetadataDocumentHelper.GetReadOperationResponses(
                 _pathsFactoryNamingStrategy.GetResourceName(openApiMetadataResource, ContentTypeUsage.Readable),
-                false);
+                isArray);
 
             if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
             {
