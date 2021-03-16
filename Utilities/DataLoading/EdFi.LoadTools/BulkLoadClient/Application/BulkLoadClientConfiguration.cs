@@ -29,6 +29,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
 
         public string WorkingFolder { get; set; }
 
+        public bool Metadata { get; set; }
 
         public string MetadataUrl { get; set; }
 
@@ -61,7 +62,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
 
         bool IApiMetadataConfiguration.Force
         {
-            get => ForceMetadata;
+            get => Metadata;
         }
 
         string IApiMetadataConfiguration.Folder
@@ -120,12 +121,13 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
         {
             get => DoNotValidateXml;
         }
-
         public string Extension { get; set; }
 
         public string XsdMetadataUrl { get; set; }
 
         public bool ForceMetadata { get; set; }
+
+        public bool AdminAppSchemaAlreadyDownloaded { get; set; }
 
         public static BulkLoadClientConfiguration Create(IConfiguration configuration)
         {
@@ -138,16 +140,16 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 : Path.GetFullPath(configuration.GetValue<string>("Folders:Working"));
 
             var xsdFolder = string.IsNullOrEmpty(configuration.GetValue<string>("Folders:Xsd"))
-                ? Path.Combine(workingFolder, "Schemas")
+                ? Path.Combine(workingFolder, "xsd")
                 : Path.GetFullPath(configuration.GetValue<string>("Folders:Xsd"));
 
             return new BulkLoadClientConfiguration
             {
                 ConnectionLimit = configuration.GetValue("Concurrency:ConnectionLimit", 100),
                 DataFolder = configuration.GetValue("Folders:Data", currentDirectory),
-                DoNotValidateXml = !configuration.GetValue<bool>("ValidateSchema"),
+                DoNotValidateXml = configuration.GetValue<bool>("ValidateSchema"),
                 Profile = configuration.GetValue<string>("OdsApi:Profile"),
-                ForceMetadata = configuration.GetValue<bool>("ForceMetadata"),
+                Metadata = configuration.GetValue<bool>("ForceMetadata"),
                 Retries = configuration.GetValue("Concurrency:MaxRetries", 3),
                 IncludeStats = configuration.GetValue<bool>("IncludeStats"),
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
@@ -164,7 +166,9 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 OauthUrl = configuration.GetValue<string>("OdsApi:OAuthUrl"),
                 XsdMetadataUrl = configuration.GetValue<string>("OdsApi:XsdMetadataUrl"),
                 Extension = configuration.GetValue<string>("OdsApi:Extension"),
-                ApiMode =  apiMode
+                ApiMode =  apiMode,
+                ForceMetadata = configuration.GetValue<bool>("ForceMetadata"),
+                AdminAppSchemaAlreadyDownloaded = configuration.GetValue<bool>("AdminAppSchemaAlreadyDownloaded")
             };
 
             string ResolvedUrl(string url)
