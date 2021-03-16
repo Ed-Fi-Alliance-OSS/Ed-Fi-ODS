@@ -71,42 +71,48 @@ namespace EdFi.LoadTools.BulkLoadClient
 
         private static async Task<OdsVersionInformation> SetOdsEndpoints(IConfiguration configuration)
         {
-            if (string.IsNullOrEmpty(configuration["OdsApi:Url"]))
+            if (string.IsNullOrWhiteSpace(configuration["OdsApi:Url"]))
             {
-                _log.Warn("OdsApi:Url is null or empty");
-                return null;
+                _log.Info("OdsApi:Url is null or empty. Using legacy url parameters.");
+
+                return new OdsVersionInformation();
             }
 
-            // get api version information.
-            var odsVersionInformation = await new OdsVersionRetriever(configuration).GetApiVersionInformationAsync()
+            var odsVersionInformation = await new OdsVersionRetriever(configuration)
+                .GetApiVersionInformationAsync()
                 .ConfigureAwait(false);
 
-            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:ApiUrl")))
-            {
-                configuration["OdsApi:ApiUrl"] = odsVersionInformation.Urls["dataManagementApi"];
-            }
-
-            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:MetadataUrl")))
-            {
-                configuration["OdsApi:MetadataUrl"] = odsVersionInformation.Urls["openApiMetadata"];
-            }
-
-            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:DependenciesUrl")))
-            {
-                configuration["OdsApi:DependenciesUrl"] = odsVersionInformation.Urls["dependencies"];
-            }
-
-            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:OAuthUrl")))
-            {
-                configuration["OdsApi:OAuthUrl"] = odsVersionInformation.Urls["oauth"];
-            }
-
-            if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")))
-            {
-                configuration["OdsApi:XsdMetadataUrl"] = odsVersionInformation.Urls["xsdMetadata"];
-            }
-
             configuration["OdsApi:ApiMode"] = odsVersionInformation.ApiMode;
+
+            if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:DependenciesUrl"))
+                && odsVersionInformation.Urls.TryGetValue("dependencies", out string dependencies))
+            {
+                configuration["OdsApi:DependenciesUrl"] = dependencies;
+            }
+
+            if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:MetadataUrl"))
+                && odsVersionInformation.Urls.TryGetValue("openApiMetadata", out string openApiMetadata))
+            {
+                configuration["OdsApi:MetadataUrl"] = openApiMetadata;
+            }
+
+            if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:OAuthUrl"))
+                && odsVersionInformation.Urls.TryGetValue("oauth", out string oauth))
+            {
+                configuration["OdsApi:OAuthUrl"] = oauth;
+            }
+
+            if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:ApiUrl"))
+                && odsVersionInformation.Urls.TryGetValue("dataManagementApi", out string dataManagementApi))
+            {
+                configuration["OdsApi:ApiUrl"] = dataManagementApi;
+            }
+
+            if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")) &&
+                odsVersionInformation.Urls.TryGetValue("xsdMetadata", out string xsdMetadata))
+            {
+                configuration["OdsApi:XsdMetadataUrl"] = xsdMetadata;
+            }
 
             return odsVersionInformation;
         }

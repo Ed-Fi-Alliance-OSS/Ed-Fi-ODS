@@ -143,39 +143,52 @@ namespace EdFi.SmokeTest.Console
                 XmlConfigurator.Configure(LogManager.GetRepository(assembly), new FileInfo(configPath));
             }
 
-            async Task SetOdsEndpoints(IConfigurationRoot configuration)
+            async Task<OdsVersionInformation> SetOdsEndpoints(IConfiguration configuration)
             {
-                if (string.IsNullOrEmpty(configuration["OdsApi:Url"]))
+                if (string.IsNullOrWhiteSpace(configuration["OdsApi:Url"]))
                 {
-                    Log.Warn("OdsApi:Url is null or empty");
-                    return;
+                    Log.Info("OdsApi:Url is null or empty. Using legacy url parameters.");
+
+                    return new OdsVersionInformation();
                 }
 
-                // get api version information.
-                var apiVersionInformation = await new OdsVersionRetriever(configuration).GetApiVersionInformationAsync()
+                var odsVersionInformation = await new OdsVersionRetriever(configuration)
+                    .GetApiVersionInformationAsync()
                     .ConfigureAwait(false);
 
-                if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:ApiUrl")))
+                configuration["OdsApi:ApiMode"] = odsVersionInformation.ApiMode;
+
+                if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:DependenciesUrl"))
+                    && odsVersionInformation.Urls.TryGetValue("dependencies", out string dependencies))
                 {
-                    configuration["OdsApi:ApiUrl"] = apiVersionInformation.Urls["dataManagementApi"];
+                    configuration["OdsApi:DependenciesUrl"] = dependencies;
                 }
 
-                if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:MetadataUrl")))
+                if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:MetadataUrl"))
+                    && odsVersionInformation.Urls.TryGetValue("openApiMetadata", out string openApiMetadata))
                 {
-                    configuration["OdsApi:MetadataUrl"] = apiVersionInformation.Urls["openApiMetadata"];
+                    configuration["OdsApi:MetadataUrl"] = openApiMetadata;
                 }
 
-                if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:DependenciesUrl")))
+                if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:OAuthUrl"))
+                    && odsVersionInformation.Urls.TryGetValue("oauth", out string oauth))
                 {
-                    configuration["OdsApi:DependenciesUrl"] = apiVersionInformation.Urls["dependencies"];
+                    configuration["OdsApi:OAuthUrl"] = oauth;
                 }
 
-                if (string.IsNullOrEmpty(configuration.GetValue<string>("OdsApi:OAuthUrl")))
+                if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:ApiUrl"))
+                    && odsVersionInformation.Urls.TryGetValue("dataManagementApi", out string dataManagementApi))
                 {
-                    configuration["OdsApi:OAuthUrl"] = apiVersionInformation.Urls["oauth"];
+                    configuration["OdsApi:ApiUrl"] = dataManagementApi;
                 }
 
-                configuration["OdsApi:ApiMode"] = apiVersionInformation.ApiMode;
+                if (string.IsNullOrWhiteSpace(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")) &&
+                    odsVersionInformation.Urls.TryGetValue("xsdMetadata", out string xsdMetadata))
+                {
+                    configuration["OdsApi:XsdMetadataUrl"] = xsdMetadata;
+                }
+
+                return odsVersionInformation;
             }
         }
     }
