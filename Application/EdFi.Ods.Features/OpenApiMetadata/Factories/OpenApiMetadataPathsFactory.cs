@@ -145,7 +145,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     _contentTypeStrategy.GetOperationContentType(openApiMetadataResource, ContentTypeUsage.Readable)
                 },
                 parameters = CreateGetByExampleParameters(openApiMetadataResource, isCompositeContext),
-                responses = CreateReadResponses(openApiMetadataResource,true)
+                responses = CreateReadResponses(openApiMetadataResource, true)
             };
 
             return operation;
