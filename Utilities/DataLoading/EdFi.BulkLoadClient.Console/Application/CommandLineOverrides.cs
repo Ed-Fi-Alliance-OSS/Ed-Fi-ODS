@@ -44,7 +44,7 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option('w', "working", Required = false, HelpText = "Path to a writable folder containing the working files")]
         public string WorkingFolder { get; set; }
 
-        [Option('x', "xsd", Required = false, HelpText = "Path to a folder containing the Ed-Fi Xsd Schema files")]
+        [Option('x', "xsd", Required = false, HelpText = "(deprecated) Path to a folder containing the Ed-Fi Xsd Schema files")]
         public string XsdFolder { get; set; }
 
         [Option(
