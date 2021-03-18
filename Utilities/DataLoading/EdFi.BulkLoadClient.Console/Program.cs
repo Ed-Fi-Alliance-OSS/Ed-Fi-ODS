@@ -62,12 +62,12 @@ namespace EdFi.BulkLoadClient.Console
 
                 if (args.Contains("--novalidation") || args.Contains("-n"))
                 {
-                    configRoot["ForceMetadata"] = "true";
+                    configRoot["ValidateSchema"] = "false";
                 }
 
                 if (args.Contains("--force") || args.Contains("-f"))
                 {
-                    configRoot["ValidateSchema"] = "true";
+                    configRoot["ForceMetadata"] = "true";
                 }
 
                 Environment.ExitCode = await LoadProcess.Run(configRoot);

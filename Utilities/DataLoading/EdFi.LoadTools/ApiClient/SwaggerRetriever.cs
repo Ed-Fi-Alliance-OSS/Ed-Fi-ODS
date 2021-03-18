@@ -33,7 +33,7 @@ namespace EdFi.LoadTools.ApiClient
 
             using (ThreadContext.Stacks["NDC"].Push(_configuration.Url))
             {
-                log.Info("Loading API Meta-data");
+                log.Info($"Loading API metadata from '{_configuration.Url}'");
                 var metadataBlock = new BufferBlock<Metadata>();
 
                 var resourcesBlock = new TransformBlock<Metadata, SwaggerDocument>(

@@ -7,11 +7,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using log4net;
 
 namespace EdFi.LoadTools.Engine.Factories
 {
     public class XsdStreamsRetriever
     {
+        private readonly ILog _log = LogManager.GetLogger(typeof(XsdStreamsRetriever));
+
         private readonly IXsdConfiguration _configuration;
         private readonly Regex _regex = new Regex(Constants.XsdRegex);
 
@@ -22,10 +25,17 @@ namespace EdFi.LoadTools.Engine.Factories
 
         public IEnumerable<Stream> GetStreams()
         {
-            var standardFullPath = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, _configuration.Folder));
-            var files = Directory.GetFiles(standardFullPath, "*.xsd").ToList();
+            var xsdFolderPath = Path.GetFullPath(_configuration.Folder);
+            var files = Directory.GetFiles(xsdFolderPath, "*.xsd").ToList();
 
-            // Find any interchange with an extension, and select the core file name for removal
+            if (files.Count == 0)
+            {
+                throw new FileNotFoundException($"No xsd files found at '{xsdFolderPath}'");
+            }
+
+            _log.Debug($"Get all xsd files at '{xsdFolderPath}'");
+
+            // Find core interchanges that will be replaced with the extension interchange
             var coreInterchangesToRemove =
                 files.Select(f => _regex.Match(f))
                      .Where(match => match != null && match.Success)

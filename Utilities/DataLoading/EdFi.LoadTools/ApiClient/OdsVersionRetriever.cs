@@ -28,6 +28,11 @@ namespace EdFi.LoadTools.ApiClient
 
             var url = _configuration.GetValue<string>("OdsApi:Url");
 
+            if (string.IsNullOrEmpty(url))
+            {
+                return new OdsVersionInformation();
+            }
+
             _logger.Info($"Getting version information from '{url}");
 
             var response = await client.GetAsync(url)

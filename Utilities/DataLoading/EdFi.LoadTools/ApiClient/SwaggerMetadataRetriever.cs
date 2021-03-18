@@ -84,7 +84,7 @@ namespace EdFi.LoadTools.ApiClient
             {
                 File.Delete(Filename);
 
-                Log.Info("Loading API Metadata");
+                Log.Info($"Loading API metadata from: {_configuration.Url}");
 
                 using (var writer = new StreamWriter(Filename))
                 {
