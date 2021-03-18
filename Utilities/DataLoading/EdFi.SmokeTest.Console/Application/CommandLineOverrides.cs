@@ -51,7 +51,7 @@ namespace EdFi.SmokeTest.Console.Application
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
-                {"-a", "OdsApi:Url"},
+                {"-a", "OdsApi:ApiUrl"},
                 {"-k", "OdsApi:Key"},
                 {"-l", "SdkLibraryPath"},
                 {"-m", "OdsApi:MetadataUrl"},
@@ -61,7 +61,7 @@ namespace EdFi.SmokeTest.Console.Application
                 {"-t", "TestSet"},
                 {"-y", "OdsApi:SchoolYear"},
                 {"-b", "OdsApi:Url"},
-                {"--apiurl", "OdsApi:Url"},
+                {"--apiurl", "OdsApi:ApiUrl"},
                 {"--key", "OdsApi:Key"},
                 {"--library", "SdkLibraryPath"},
                 {"--metadataurl", "OdsApi:MetadataUrl"},
