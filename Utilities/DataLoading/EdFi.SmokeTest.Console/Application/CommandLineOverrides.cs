@@ -11,6 +11,9 @@ namespace EdFi.SmokeTest.Console.Application
 {
     public class CommandLineOverrides
     {
+        [Option('b', "baseUrl", Required = false, HelpText = "The base url")]
+        public string BaseUrl { get; set; }
+
         [Option('a', "apiurl", Required = false, HelpText = "The web API url (i.e. http://server/)")]
         public string ApiUrl { get; set; }
 
