@@ -102,7 +102,7 @@ namespace EdFi.LoadTools.ApiClient
             {
                 File.Delete(Filename);
 
-                Log.Info("Loading API Dependencies");
+                Log.Info($"Loading API Dependencies from '{_configuration.DependenciesUrl}'");
 
                 using (var writer = new StreamWriter(Filename))
                 {
