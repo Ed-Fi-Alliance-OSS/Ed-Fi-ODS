@@ -52,7 +52,7 @@ namespace EdFi.BulkLoadClient.Console.Application
             HelpText = "Do not validate incoming XML documents against the XSD Schema")]
         public bool DoNotValidateXml { get; set; }
 
-        [Option('c', "connectionlimit", Required = false, HelpText = "(deprecated) Max number of simultaneous API requests")]
+        [Option('c', "connectionlimit", Required = false, HelpText = "Max number of simultaneous API requests")]
         public int? ConnectionLimit { get; set; }
 
         [Option('t', "taskcapacity", Required = false, HelpText = "Maximum concurrent tasks to be buffered")]
