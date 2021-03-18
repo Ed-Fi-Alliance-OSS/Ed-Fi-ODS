@@ -36,10 +36,7 @@ namespace EdFi.LoadTools.BulkLoadClient
 
                 var bulkLoadClientConfiguration = BulkLoadClientConfiguration.Create(configuration);
 
-                if (!bulkLoadClientConfiguration.AdminAppSchemaAlreadyDownloaded)
-                {
-                    await LoadXsdFiles(bulkLoadClientConfiguration, odsVersionInformation);
-                }
+                await LoadXsdFiles(bulkLoadClientConfiguration, odsVersionInformation);
 
                 var container = RegisterContainer(configuration, odsVersionInformation, bulkLoadClientConfiguration);
 
@@ -171,10 +168,9 @@ namespace EdFi.LoadTools.BulkLoadClient
         {
             var odsVersionInformation = await SetOdsEndpoints(configuration);
             var xsdConfiguration = BulkLoadClientConfiguration.Create(configuration);
-            if (!xsdConfiguration.AdminAppSchemaAlreadyDownloaded && xsdConfiguration.ForceMetadata)
-            {
-                await LoadXsdFiles(xsdConfiguration, odsVersionInformation);
-            }
+
+            await LoadXsdFiles(xsdConfiguration, odsVersionInformation);
+
             var validationErrors = new BulkLoadValidationResult();
             var streamsRetriever = new XsdStreamsRetriever(xsdConfiguration);
             var factory = new SchemaSetFactory(streamsRetriever);
