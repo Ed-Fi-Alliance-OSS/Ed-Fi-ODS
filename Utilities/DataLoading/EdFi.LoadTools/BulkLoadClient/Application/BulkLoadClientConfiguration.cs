@@ -138,7 +138,7 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 : Path.GetFullPath(configuration.GetValue<string>("Folders:Working"));
 
             var xsdFolder = string.IsNullOrEmpty(configuration.GetValue<string>("Folders:Xsd"))
-                ? Path.Combine(workingFolder, "xsd")
+                ? Path.Combine(workingFolder, "Schemas")
                 : Path.GetFullPath(configuration.GetValue<string>("Folders:Xsd"));
 
             return new BulkLoadClientConfiguration
