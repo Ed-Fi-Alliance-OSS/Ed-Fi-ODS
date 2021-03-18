@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.LoadTools.BulkLoadClient.Application;
 using log4net;
-using Microsoft.Extensions.Configuration;
 
 namespace EdFi.LoadTools.ApiClient.XsdMetadata
 {
@@ -28,7 +27,8 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
         private readonly string _xsdMedataUrl;
         private readonly IXsdMetadataFilesProvider _xsdMetadataFilesProvider;
         private readonly IXsdMetadataInformationProvider _xsdMetadataInformationProvider;
-        private string _xsdFolder;
+        private readonly string _xsdFolder;
+        private readonly string _workingFolder;
 
         public XsdFilesRetriever(BulkLoadClientConfiguration configuration,
             IXsdMetadataInformationProvider xsdMetadataInformationProvider,
@@ -46,6 +46,7 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
             _xsdMedataUrl = _configuration.XsdMetadataUrl;
             _extension = _configuration.Extension;
             _xsdFolder = Path.GetFullPath(_configuration.XsdFolder);
+            _workingFolder = Path.GetFullPath(_configuration.WorkingFolder);
 
             ValidateXsdFolder();
 
@@ -55,17 +56,6 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
                 if (!Directory.Exists(_xsdFolder))
                 {
                     Directory.CreateDirectory(_xsdFolder);
-                }
-
-                // clean the folder if the force flag is set.
-                if (!_configuration.ForceMetadata)
-                {
-                    return;
-                }
-
-                foreach (string file in Directory.GetFiles(_xsdFolder))
-                {
-                    File.Delete(file);
                 }
             }
         }
@@ -77,10 +67,26 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
 
         public async Task DownloadXsdFilesAsync()
         {
-            // do nothing if there is no endpoint
             if (string.IsNullOrEmpty(_xsdMedataUrl))
             {
                 return;
+            }
+
+            var xsdFiles = Directory.GetFiles(_xsdFolder, "*.xsd");
+
+            if (xsdFiles.Any() && !_configuration.ForceMetadata)
+            {
+                _logger.Info($"Xsd files found at '{_xsdFolder}', skipping download. Provide the '--force' parameter to download files.");
+                return;
+            }
+
+            if (_configuration.ForceMetadata)
+            {
+                _logger.Info($"Removing existing xsd files from '{_xsdFolder}'");
+                foreach (string file in xsdFiles)
+                {
+                    File.Delete(file);
+                }
             }
 
             var xsdMetadataInformation = await GetXsdMetadataInformationAsync();
@@ -124,19 +130,17 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
                     .Where(x => installedDataModels.Any(y => y.EqualsIgnoreCase(x.Name)))
                     .ToList();
 
-                // if an extension is installed then we want to return that information by default
+                // if no extension is installed then we want to return core by default
                 if (xsdMetadataInformations.Count == 1)
                 {
                     return matchingXsdMetadataInformations.Single();
                 }
 
-                // if an extension is available and not defined in the config, we return the extension xsd information
+                // if only one extension is available and not defined in the config, we return the extension xsd information
                 // otherwise we return the extension information that was defined in the configuration
-
                 return string.IsNullOrEmpty(_extension) && matchingXsdMetadataInformations.Count == 2
                     ? matchingXsdMetadataInformations.Single(x => !x.Name.EqualsIgnoreCase(EdFi))
-                    : matchingXsdMetadataInformations.Single(
-                        x => x.Name.EqualsIgnoreCase(_extension));
+                    : matchingXsdMetadataInformations.Single(x => x.Name.EqualsIgnoreCase(_extension));
             }
 
             void ValidExtensionSupport(List<XsdMetadataInformation> xsdMetadataInformations)
@@ -148,8 +152,13 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
 
                 if (xsdMetadataInformations.Count > 2 && string.IsNullOrEmpty(_extension))
                 {
+                    var availableExtensions = xsdMetadataInformations
+                        .Select(x => x.Name)
+                        .Where(x => !x.EqualsIgnoreCase(EdFi));
+
                     throw new ArgumentOutOfRangeException(
-                        "Extension", "Multiple extensions exists without declaring the extension to use.");
+                        "Extension",
+                        $"Must declare a specific extension. Available extensions: '{string.Join("', '", availableExtensions)}'");
                 }
             }
         }
