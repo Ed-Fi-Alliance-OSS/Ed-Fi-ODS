@@ -73,6 +73,9 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option("instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
         public string InstanceId { get; set; }
 
+        [Option('e', "extension", Required = false, HelpText = "The extension name to download Xsd Schema files for")]
+        public string Extension { get; set; }
+
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
@@ -92,6 +95,7 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"-l", "Concurrency:MaxSimultaneousApiRequests"},
                 {"-g", "OdsApi:DependenciesUrl"},
                 {"-b", "OdsApi:Url"},
+                {"-e", "OdsApi:Extension"},
                 {"--apiurl", "OdsApi:ApiUrl"},
                 {"--year", "OdsApi:SchoolYear"},
                 {"--retries", "Concurrency:MaxRetries"},
@@ -108,6 +112,7 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"--maxrequests", "Concurrency:MaxSimultaneousApiRequests"},
                 {"--dependenciesurl", "OdsApi:DependenciesUrl"},
                 {"--baseurl", "OdsApi:Url"},
+                {"--extension", "OdsApi:Extension"},
                 {"--instance-id", "OdsApi:InstanceId"},
             };
     }
