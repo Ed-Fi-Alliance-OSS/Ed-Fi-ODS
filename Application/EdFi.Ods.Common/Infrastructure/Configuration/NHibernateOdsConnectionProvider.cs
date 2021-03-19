@@ -49,10 +49,10 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
                 connection.ConnectionString = _connectionStringProvider.GetConnectionString();
                 await connection.OpenAsync(cancellationToken);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 connection.Dispose();
-                throw;
+                throw new DatabaseConnectionException("Unable to open connection to the ODS database.", ex);
             }
 
             return connection;
