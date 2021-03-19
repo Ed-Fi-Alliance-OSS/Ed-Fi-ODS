@@ -11,7 +11,10 @@ namespace EdFi.BulkLoadClient.Console.Application
 {
     public class CommandLineOverrides
     {
-        [Option('a', "apiurl", Required = false, HelpText = "The web API url (i.e. http://server/)")]
+        [Option('b', "baseUrl", Required = false, HelpText = "The base url")]
+        public string BaseUrl { get; set; }
+
+        [Option('a', "apiurl", Required = false, HelpText = "(deprecated) The web API url (i.e. http://server/)")]
         public string ApiUrl { get; set; }
 
         [Option('y', "year", Required = false, HelpText = "The target school year for the web API (i.e. 2016)")]
@@ -32,10 +35,10 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option('f', "force", Required = false, Default = false, HelpText = "Force reload of metadata from metadata url")]
         public bool ForceMetadata { get; set; }
 
-        [Option('m', "metadataurl", Required = false, HelpText = "The metadata url (i.e. http://server/metadata)")]
+        [Option('m', "metadataurl", Required = false, HelpText = "(deprecated) The metadata url (i.e. http://server/metadata)")]
         public string MetadataUrl { get; set; }
 
-        [Option('o', "oauthurl", Required = false, HelpText = "The OAuth url (i.e. http://server/oauth)")]
+        [Option('o', "oauthurl", Required = false, HelpText = "(deprecated) The OAuth url (i.e. http://server/oauth)")]
         public string OAuthUrl { get; set; }
 
         [Option('p', "profile", Required = false, HelpText = "The name of an API profile to use (optional)")]
@@ -44,7 +47,7 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option('w', "working", Required = false, HelpText = "Path to a writable folder containing the working files")]
         public string WorkingFolder { get; set; }
 
-        [Option('x', "xsd", Required = false, HelpText = "Path to a folder containing the Ed-Fi Xsd Schema files")]
+        [Option('x', "xsd", Required = false, HelpText = "(deprecated) Path to a folder containing the Ed-Fi Xsd Schema files")]
         public string XsdFolder { get; set; }
 
         [Option(
@@ -61,14 +64,11 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option('l', "maxRequests", Required = false, HelpText = "Max number of simultaneous API requests")]
         public int? MaxSimultaneousRequests { get; set; }
 
-        [Option('g', "dependenciesurl", Required = false, HelpText = "The Dependencies endpoint url")]
+        [Option('g', "dependenciesurl", Required = false, HelpText = "(deprecated) The Dependencies endpoint url")]
         public string DependenciesUrl { get; set; }
 
         [Option("include-stats", Required = false, Default = false, HelpText = "Include timing stats")]
         public bool IncludeStats { get; set; }
-
-        [Option('b', "baseUrl", Required = false, HelpText = "The base url")]
-        public string BaseUrl { get; set; }
 
         [Option("instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
         public string InstanceId { get; set; }
@@ -79,6 +79,7 @@ namespace EdFi.BulkLoadClient.Console.Application
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
+                {"-b", "OdsApi:Url"},
                 {"-a", "OdsApi:ApiUrl"},
                 {"-y", "OdsApi:SchoolYear"},
                 {"-r", "Concurrency:MaxRetries"},
@@ -90,11 +91,10 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"-p", "OdsApi:Profile"},
                 {"-w", "Folders:Working"},
                 {"-x", "Folders:Xsd"},
-                {"-c", "Concurrency:MaxSimultaneousApiRequests"},
+                {"-c", "Concurrency:ConnectionLimit"},
                 {"-t", "Concurrency:TaskCapacity"},
                 {"-l", "Concurrency:MaxSimultaneousApiRequests"},
                 {"-g", "OdsApi:DependenciesUrl"},
-                {"-b", "OdsApi:Url"},
                 {"-e", "OdsApi:Extension"},
                 {"--apiurl", "OdsApi:ApiUrl"},
                 {"--year", "OdsApi:SchoolYear"},
@@ -107,7 +107,7 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"--profile", "OdsApi:Profile"},
                 {"--working", "Folders:Working"},
                 {"--xsd", "Folders:Xds"},
-                {"--connectionlimit", "Concurrency:MaxSimultaneousApiRequests"},
+                {"--connectionlimit", "Concurrency:ConnectionLimit"},
                 {"--taskcapacity", "Concurrency:TaskCapacity"},
                 {"--maxrequests", "Concurrency:MaxSimultaneousApiRequests"},
                 {"--dependenciesurl", "OdsApi:DependenciesUrl"},

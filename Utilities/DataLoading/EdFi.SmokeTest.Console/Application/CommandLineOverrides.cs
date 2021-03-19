@@ -14,7 +14,7 @@ namespace EdFi.SmokeTest.Console.Application
         [Option('b', "baseUrl", Required = false, HelpText = "The base url")]
         public string BaseUrl { get; set; }
 
-        [Option('a', "apiurl", Required = false, HelpText = "The web API url (i.e. http://server/)")]
+        [Option('a', "apiurl", Required = false, HelpText = "(deprecated) The web API url (i.e. http://server/)")]
         public string ApiUrl { get; set; }
 
         [Option('k', "key", Required = false, HelpText = "The web API OAuth key")]
@@ -23,7 +23,7 @@ namespace EdFi.SmokeTest.Console.Application
         [Option('l', "library", Required = false, HelpText = "The complete path to a compiled Ed-Fi SDK library")]
         public string Library { get; set; }
 
-        [Option('m', "metadataurl", Required = false, HelpText = "The metadata url (i.e. http://server/metadata)")]
+        [Option('m', "metadataurl", Required = false, HelpText = "(deprecated) The metadata url (i.e. http://server/metadata)")]
         public string MetadataUrl { get; set; }
 
         [Option(
@@ -31,7 +31,7 @@ namespace EdFi.SmokeTest.Console.Application
             HelpText = "Override the URI to use when generating namespace values (i.e. uri://ed-fi.org)")]
         public string Namespace { get; set; }
 
-        [Option('o', "oauthurl", Required = false, HelpText = "The OAuth url (i.e. http://server/oauth)")]
+        [Option('o', "oauthurl", Required = false, HelpText = "(deprecated) The OAuth url (i.e. http://server/oauth)")]
         public string OAuthUrl { get; set; }
 
         [Option('s', "secret", Required = false, HelpText = "The web API OAuth secret")]
@@ -51,6 +51,7 @@ namespace EdFi.SmokeTest.Console.Application
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
+                {"-b", "OdsApi:Url"},
                 {"-a", "OdsApi:ApiUrl"},
                 {"-k", "OdsApi:Key"},
                 {"-l", "SdkLibraryPath"},
@@ -60,7 +61,6 @@ namespace EdFi.SmokeTest.Console.Application
                 {"-s", "OdsApi:Secret"},
                 {"-t", "TestSet"},
                 {"-y", "OdsApi:SchoolYear"},
-                {"-b", "OdsApi:Url"},
                 {"--apiurl", "OdsApi:ApiUrl"},
                 {"--key", "OdsApi:Key"},
                 {"--library", "SdkLibraryPath"},
