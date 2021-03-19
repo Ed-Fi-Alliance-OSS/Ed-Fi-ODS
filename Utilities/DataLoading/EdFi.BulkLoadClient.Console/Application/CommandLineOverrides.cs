@@ -11,6 +11,9 @@ namespace EdFi.BulkLoadClient.Console.Application
 {
     public class CommandLineOverrides
     {
+        [Option('b', "baseUrl", Required = false, HelpText = "The base url")]
+        public string BaseUrl { get; set; }
+
         [Option('a', "apiurl", Required = false, HelpText = "(deprecated) The web API url (i.e. http://server/)")]
         public string ApiUrl { get; set; }
 
@@ -67,9 +70,6 @@ namespace EdFi.BulkLoadClient.Console.Application
         [Option("include-stats", Required = false, Default = false, HelpText = "Include timing stats")]
         public bool IncludeStats { get; set; }
 
-        [Option('b', "baseUrl", Required = false, HelpText = "The base url")]
-        public string BaseUrl { get; set; }
-
         [Option("instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
         public string InstanceId { get; set; }
 
@@ -79,6 +79,7 @@ namespace EdFi.BulkLoadClient.Console.Application
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
+                {"-b", "OdsApi:Url"},
                 {"-a", "OdsApi:ApiUrl"},
                 {"-y", "OdsApi:SchoolYear"},
                 {"-r", "Concurrency:MaxRetries"},
@@ -94,7 +95,6 @@ namespace EdFi.BulkLoadClient.Console.Application
                 {"-t", "Concurrency:TaskCapacity"},
                 {"-l", "Concurrency:MaxSimultaneousApiRequests"},
                 {"-g", "OdsApi:DependenciesUrl"},
-                {"-b", "OdsApi:Url"},
                 {"-e", "OdsApi:Extension"},
                 {"--apiurl", "OdsApi:ApiUrl"},
                 {"--year", "OdsApi:SchoolYear"},

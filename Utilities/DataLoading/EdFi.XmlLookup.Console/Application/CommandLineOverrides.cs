@@ -11,6 +11,9 @@ namespace EdFi.XmlLookup.Console.Application
 {
     public class CommandLineOverrides
     {
+        [Option('b', "baseUrl", Required = false, HelpText = "The base url")]
+        public string BaseUrl { get; set; }
+
         [Option('a', "apiurl", Required = false, HelpText = "(deprecated) The web API url (i.e. http://server/)")]
         public string ApiUrl { get; set; }
 
@@ -44,15 +47,13 @@ namespace EdFi.XmlLookup.Console.Application
         [Option('x', "xsd", Required = false, HelpText = "(deprecated) Path to a folder containing the Ed-Fi Xsd Schema files")]
         public string XsdFolder { get; set; }
 
-        [Option('b', "baseUrl", Required = false, HelpText = "The base url")]
-        public string BaseUrl { get; set; }
-
         [Option("instance-id", Required = false, HelpText = "ODS Instance id (e.g. District Id)")]
         public string InstanceId { get; set; }
 
         public static IDictionary<string, string> SwitchingMapping()
             => new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
             {
+                {"-b", "OdsApi:Url"},
                 {"-a", "OdsApi:ApiUrl"},
                 {"-y", "OdsApi:SchoolYear"},
                 {"-d", "Folders:Data"},
@@ -64,7 +65,6 @@ namespace EdFi.XmlLookup.Console.Application
                 {"-p", "OdsApi:Profile"},
                 {"-w", "Folders:Working"},
                 {"-x", "Folders:Xsd"},
-                {"-b", "OdsApi:Url"},
                 {"--apiurl", "OdsApi:ApiUrl"},
                 {"--year", "OdsApi:SchoolYear"},
                 {"--data", "Folders:Data"},
