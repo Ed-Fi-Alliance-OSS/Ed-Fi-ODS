@@ -42,7 +42,7 @@ namespace EdFi.XmlLookup.Console
                 .WithNotParsed(
                     errs =>
                     {
-                        if (errs.IsHelp())
+                        if (errs.IsHelp() || errs.IsVersion())
                         {
                             Environment.ExitCode = 0;
                             Environment.Exit(Environment.ExitCode);
