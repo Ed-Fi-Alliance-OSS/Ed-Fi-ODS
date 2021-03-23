@@ -6,7 +6,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
 using System.Threading.Tasks;
 using Autofac;
 using CommandLine;
@@ -44,6 +43,12 @@ namespace EdFi.SmokeTest.Console
                 .WithNotParsed(
                     errs =>
                     {
+                        if (errs.IsHelp())
+                        {
+                            Environment.ExitCode = 0;
+                            Environment.Exit(Environment.ExitCode);
+                        }
+
                         System.Console.WriteLine("Invalid options were entered.");
                         System.Console.WriteLine(errs.ToString());
                         Environment.ExitCode = 1;
