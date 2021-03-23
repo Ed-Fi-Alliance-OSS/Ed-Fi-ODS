@@ -135,7 +135,7 @@ namespace EdFi.SmokeTest.Console.Application
                 OAuthKey = configuration.GetValue<string>("OdsApi:Key"),
                 OAuthSecret = configuration.GetValue<string>("OdsApi:Secret"),
                 SchoolYear = configuration.GetValue<int?>("OdsApi:SchoolYear"),
-                NamespacePrefix = string.IsNullOrEmpty(configuration.GetValue<string>("NamespacePrefix")) ? "uri://ed-fi.org" : configuration.GetValue<string>("NamespacePrefix"),
+                NamespacePrefix = configuration.GetValue<string>("NamespacePrefix"),
                 SdkLibraryPath = configuration.GetValue<string>("SdkLibraryPath"),
                 TestSet = testSet,
                 ApiMode = apiMode
