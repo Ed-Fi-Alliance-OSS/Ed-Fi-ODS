@@ -40,6 +40,12 @@ namespace EdFi.BulkLoadClient.Console
                 .WithNotParsed(
                     errs =>
                     {
+                        if (errs.IsHelp() || errs.IsVersion())
+                        {
+                            Environment.ExitCode = 0;
+                            Environment.Exit(Environment.ExitCode);
+                        }
+
                         System.Console.WriteLine("Invalid options were entered.");
                         System.Console.WriteLine(errs.ToString());
                         Environment.ExitCode = 1;

@@ -124,10 +124,6 @@ namespace EdFi.SmokeTest.Console.Application
 
             return new SmokeTestsConfiguration
             {
-                ConnectionLimit = configuration.GetValue("Concurrency:ConnectionLimit", 1),
-                Retries = configuration.GetValue("Concurrency:MaxRetries", 1),
-                TaskCapacity = configuration.GetValue("Concurrency:TaskCapacity", 50),
-                MaxSimultaneousRequests = configuration.GetValue("Concurrency:MaxSimultaneousApiRequests", 1),
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
