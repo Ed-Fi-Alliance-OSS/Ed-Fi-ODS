@@ -145,6 +145,29 @@ http://automapper.org/
     IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
     CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+## Bootstrap
+https://github.com/twbs/bootstrap
+
+    Copyright (c) 2011-2020 Twitter, Inc.
+    Copyright (c) 2011-2020 The Bootstrap Authors
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
 
 ##Command Line Parser
 https://github.com/commandlineparser/commandline
@@ -352,6 +375,15 @@ https://github.com/GregFinzer/Compare-Net-Objects
     You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0   
     Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
 
+## Font Awesome  
+    https://www.nuget.org/packages/FontAwesome/ https://github.com/FortAwesome/Font-Awesome  "Font Awesome by Dave Gandy - http://fontawesome.io".  An iconic font and CSS toolkit  The MIT License  
+    Copyright © 2014 Dave Gandy  
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+    THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
+    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
+    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.   
 
 ## HangFire 
     http://hangfire.io/  
@@ -385,6 +417,32 @@ https://github.com/GregFinzer/Compare-Net-Objects
     If you do use the code in a commercial product, I would appreciate hearing about it. This message serves as legal notice that I won't be suing you for royalties!  The code is in the public domain.
     On the other hand, I don't provide support. The code is actually simple enough that it shouldn't need it.
 
+## JQuery  
+    http://jquery.com/  
+    jQuery is a fast, small, and feature-rich JavaScript library jQuery projects are released under the terms of the MIT License.  
+    Copyright © 2014 jQuery.  
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
+    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
+    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+    The MIT License is simple and easy to understand and it places almost no restrictions on what you can do with a jQuery project.  
+    You are free to use any jQuery project in any other project (even commercial projects) as long as the copyright header is left intact.  
+    The Sizzle selector engine (http://sizzlejs.com/), which is included inside the jQuery library, is held by the Dojo Foundation and is licensed under either the New BSD or AFL (Academic Free License) licenses.  Copyright ©2011, Dojo Foundation.  http://dojotoolkit.org/license    
+
+## JQuery.Validation  
+    http://jqueryvalidation.org/   
+    This jQuery plugin makes simple client side form validation easy, whilst still offering plenty of customization options jQuery projects are released under the terms of the MIT License.  
+    Copyright © 2014 jQuery.  
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
+    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
+    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+    The MIT License is simple and easy to understand and it places almost no restrictions on what you can do with a jQuery project.  
+    You are free to use any jQuery project in any other project (even commercial projects) as long as the copyright header is left intact.  
 
 ## Log4net   
     http://logging.apache.org/log4net/
