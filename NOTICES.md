@@ -169,7 +169,7 @@ https://github.com/twbs/bootstrap
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 
-##Command Line Parser
+## Command Line Parser
 https://github.com/commandlineparser/commandline
 
     The MIT License (MIT)
@@ -303,7 +303,40 @@ https://github.com/GregFinzer/Compare-Net-Objects
 
     (E) The software is licensed "as-is." You bear the risk of using it. The contributors give no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the contributors exclude the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
 
+## EntityFramework
+    https://github.com/dotnet/ef6/wiki
 
+    Copyright 2019
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+   
+## EntityFramework6.Npgsql
+    https://github.com/npgsql/EntityFramework6.Npgsql
+
+     PostgreSQL Database Management System
+
+	(formerly known as Postgres, then as Postgres95)
+
+	Portions Copyright (c) 1996-2010, The PostgreSQL Global Development Group
+
+	Portions Copyright (c) 1994, The Regents of the University of California
+
+	Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
+
+	IN NO EVENT SHALL _____ BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF _____ HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+	_____ SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND _____ HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+   
 ## EntityFrameworkTesting.FakeItEasy
     https://github.com/scott-xu/EntityFramework.Testing
 
@@ -341,6 +374,16 @@ https://github.com/GregFinzer/Compare-Net-Objects
     Copyright © 2014, Licensed under the Apache License, Version 2.0, (the "License"); you may not use this file except in compliance with the License.  
     You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0   
     Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
+	
+## Font Awesome  
+    https://www.nuget.org/packages/FontAwesome/ https://github.com/FortAwesome/Font-Awesome  "Font Awesome by Dave Gandy - http://fontawesome.io".  An iconic font and CSS toolkit  The MIT License  
+    Copyright © 2014 Dave Gandy  
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+    THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
+    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
+    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.   
 
 ## Gherkin
     https://github.com/cucumber/cucumber/tree/master/gherkin
@@ -367,24 +410,6 @@ https://github.com/GregFinzer/Compare-Net-Objects
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 	THE SOFTWARE.
 	
-## FluentValidation  
-    https://fluentvalidation.codeplex.com/
-
-    A small validation library for .NET that uses a fluent interface and lambda expressions for building validation rules for your business objects.    
-    Copyright © 2014, Licensed under the Apache License, Version 2.0, (the "License"); you may not use this file except in compliance with the License.  
-    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0   
-    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
-
-## Font Awesome  
-    https://www.nuget.org/packages/FontAwesome/ https://github.com/FortAwesome/Font-Awesome  "Font Awesome by Dave Gandy - http://fontawesome.io".  An iconic font and CSS toolkit  The MIT License  
-    Copyright © 2014 Dave Gandy  
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
-    THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  
-    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR  
-    PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE  
-    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.   
-
 ## HangFire 
     http://hangfire.io/  
 
@@ -406,7 +431,18 @@ https://github.com/GregFinzer/Compare-Net-Objects
 	------------------
 	Subject to the purchase of a corresponding subscription (please see https://www.hangfire.io/pricing/), you may distribute Hangfire under the terms of commercial license, that allows you to distribute private forks and modifications. Please see LICENSE_STANDARD and LICENSE_ROYALTYFREE files for details.
   	  
+## Hangfire.PostgreSql 
+    https://github.com/frankhommers/Hangfire.PostgreSql
 
+	License
+	========
+
+	Copyright © 2014-2020 Frank Hommers http://hmm.rs/Hangfire.PostgreSql and others (Burhan Irmikci (barhun), Zachary Sims(zsims), kgamecarter, Stafford Williams (staff0rd), briangweber, Viktor Svyatokha (ahydrax), Christopher Dresel (Dresel), Vytautas Kasparavičius (vytautask), Vincent Vrijburg, David Roth (davidroth).
+
+	Hangfire.PostgreSql is an Open Source project licensed under the terms of the LGPLv3 license. Please see http://www.gnu.org/licenses/lgpl-3.0.html for license text or COPYING.LESSER file distributed with the source code.
+
+	This work is based on the work of Sergey Odinokov, author of Hangfire. <http://hangfire.io/>
+  	  
 ## Iesi.collections
     https://github.com/nhibernate/iesi.collections 
 
@@ -487,6 +523,11 @@ https://github.com/GregFinzer/Compare-Net-Objects
     OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
     OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+## NCrunch.Framework
+    https://www.ncrunch.net/
+    Automated concurrent testing tool for Visual Studio.
+    https://www.ncrunch.net/legal/eula
+	
 ## Newtonsoft.Json   
     https://www.newtonsoft.com/json
 
@@ -498,62 +539,6 @@ https://github.com/GregFinzer/Compare-Net-Objects
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
     PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
     LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
-
-## Npgsql
-    https://github.com/npgsql/npgsql
-
-    Npgsql is a .NET data provider for PostgreSQL. It allows you to connect and interact with PostgreSQL server using .NET.
-  
-    Copyright (c) 2002-2019, Npgsql
-
-    Permission to use, copy, modify, and distribute this software and its
-    documentation for any purpose, without fee, and without a written agreement
-    is hereby granted, provided that the above copyright notice and this
-    paragraph and the following two paragraphs appear in all copies.
-
-    IN NO EVENT SHALL NPGSQL BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
-    SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
-    ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
-    Npgsql HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-    NPGSQL SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED
-    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-    PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND Npgsql
-    HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS,
-    OR MODIFICATIONS.
-
-## Npgsql.EntityFrameworkCore.PostgreSQL
-    https://github.com/npgsql/efcore.pg
-
-     PostgreSQL Database Management System
-
-	(formerly known as Postgres, then as Postgres95)
-
-	Portions Copyright (c) 1996-2010, The PostgreSQL Global Development Group
-
-	Portions Copyright (c) 1994, The Regents of the University of California
-
-	Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
-
-	IN NO EVENT SHALL _____ BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF _____ HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-	_____ SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND _____ HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-
-## NUnit, NUnit3TestAdapter, NUnit.ConsoleRunner
-    http://www.nunit.org/  
-
-    MIT License, NUnit 3.0:  
-    Copyright (c) 2019 Charlie Poole  
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,  
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR  
-    COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
-
-
-## NCrunch.Framework
-    https://www.ncrunch.net/
-    Automated concurrent testing tool for Visual Studio.
-    https://www.ncrunch.net/legal/eula
 
 ## NHibernate  
     https://nhibernate.info/
@@ -1017,6 +1002,81 @@ https://github.com/GregFinzer/Compare-Net-Objects
 		DAMAGES.
 
 		                     END OF TERMS AND CONDITIONS
+
+
+## Npgsql
+    https://github.com/npgsql/npgsql
+
+    Npgsql is a .NET data provider for PostgreSQL. It allows you to connect and interact with PostgreSQL server using .NET.
+  
+    Copyright (c) 2002-2019, Npgsql
+
+    Permission to use, copy, modify, and distribute this software and its
+    documentation for any purpose, without fee, and without a written agreement
+    is hereby granted, provided that the above copyright notice and this
+    paragraph and the following two paragraphs appear in all copies.
+
+    IN NO EVENT SHALL NPGSQL BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT,
+    SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS,
+    ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF
+    Npgsql HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+    NPGSQL SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED
+    TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+    PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND Npgsql
+    HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS,
+    OR MODIFICATIONS.
+
+## Npgsql.EntityFrameworkCore.PostgreSQL
+    https://github.com/npgsql/efcore.pg
+
+     PostgreSQL Database Management System
+
+	(formerly known as Postgres, then as Postgres95)
+
+	Portions Copyright (c) 1996-2010, The PostgreSQL Global Development Group
+
+	Portions Copyright (c) 1994, The Regents of the University of California
+
+	Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
+
+	IN NO EVENT SHALL _____ BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF _____ HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+	_____ SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND _____ HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+## NUnit, NUnit3TestAdapter, NUnit.ConsoleRunner
+    http://www.nunit.org/  
+
+    MIT License, NUnit 3.0:  
+    Copyright (c) 2019 Charlie Poole  
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,  
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR  
+    COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+
+## Powershell
+    https://github.com/PowerShell/PowerShell
+    Copyright (c) Microsoft Corporation.
+
+	MIT License
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
 
 ## Remotion.Linq
     http://relinq.codeplex.com/
