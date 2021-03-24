@@ -141,7 +141,9 @@ namespace EdFi.SmokeTest.Console.Application
             {
                 return apiMode == ApiMode.YearSpecific
                     ? Regex.Replace(
-                        url, @"(?<year>\d{4})\b", configuration.GetValue<string>("OdsApi:SchoolYear"), RegexOptions.None)
+
+                        // https://regex101.com/r/KywmUK/1
+                        url, @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None)
                     : url;
             }
         }
