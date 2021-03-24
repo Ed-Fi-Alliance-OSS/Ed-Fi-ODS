@@ -165,7 +165,7 @@ namespace EdFi.XmlLookup.Console.Application
                     ? Regex.Replace(
 
                         // https://regex101.com/r/lgugB1/1
-                        url, @"\/(?<year>\b\d{4}\b)", configuration.GetValue<string>("OdsApi:SchoolYear"), RegexOptions.None)
+                        url, @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None)
                     : url;
             }
         }
