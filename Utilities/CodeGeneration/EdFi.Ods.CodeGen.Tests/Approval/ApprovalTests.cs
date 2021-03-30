@@ -149,7 +149,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
                         string destFileName = Path.Combine(
                             _odsRepository
                             , @"Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval"
-                            , $"GeneratedFileApprovalTests.Verify_All.ForScenario.{file.Scenario}.approved{ext}");
+                            , $"ApprovalTests.Verify_All.ForScenario.{file.Scenario}.approved{ext}");
 
                         System.Console.WriteLine("Copying file: {0} to {1}", file.SourcePath, destFileName);
 
