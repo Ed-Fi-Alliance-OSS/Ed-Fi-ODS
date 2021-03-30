@@ -1,0 +1,544 @@
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EdFi.Ods.Extensions.Homograph" namespace="EdFi.Ods.Entities.NHibernate" default-access="property" auto-import="false">
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph.NameReferenceData" table="Name" lazy="true"  schema="homograph" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="FirstName" column="FirstName" type="string"  length="75"  />
+            <key-property name="LastSurname" column="LastSurname" type="string"  length="75"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph.Name" table="Name" lazy="false" schema="homograph" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="FirstName" column="FirstName" type="string" length="75" />
+      <key-property name="LastSurname" column="LastSurname" type="string" length="75" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph.ParentReferenceData" table="Parent" lazy="true"  schema="homograph" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="ParentFirstName" column="ParentFirstName" type="string"  length="75"  />
+            <key-property name="ParentLastSurname" column="ParentLastSurname" type="string"  length="75"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph.Parent" table="Parent" lazy="false" schema="homograph" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ParentFirstName" column="ParentFirstName" type="string" length="75" />
+      <key-property name="ParentLastSurname" column="ParentLastSurname" type="string" length="75" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="ParentNameReferenceData" class="EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph.NameReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ParentFirstName" />
+      <column name="ParentLastSurname" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="ParentAddresses" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="ParentFirstName" />
+        <column name="ParentLastSurname" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph.ParentAddress" />
+    </set>
+
+    <set name="ParentStudentSchoolAssociations" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="ParentFirstName" />
+        <column name="ParentLastSurname" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph.ParentStudentSchoolAssociation" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph.ParentAddress" table="ParentAddress" lazy="false" schema="homograph">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="City" column="City" type="string" length="30" />
+      <key-many-to-one name="Parent">
+        <column name="ParentFirstName" />
+        <column name="ParentLastSurname" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph.ParentStudentSchoolAssociation" table="ParentStudentSchoolAssociation" lazy="false" schema="homograph">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="SchoolName" column="SchoolName" type="string" length="100" />
+      <key-property name="StudentFirstName" column="StudentFirstName" type="string" length="75" />
+      <key-property name="StudentLastSurname" column="StudentLastSurname" type="string" length="75" />
+      <key-many-to-one name="Parent">
+        <column name="ParentFirstName" />
+        <column name="ParentLastSurname" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="StudentSchoolAssociationReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SchoolName" />
+      <column name="StudentFirstName" />
+      <column name="StudentLastSurname" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph.SchoolReferenceData" table="School" lazy="true"  schema="homograph" >
+        <id name="SchoolName" column="SchoolName" type="string"  length="100" >
+            <generator class="assigned" />
+        </id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph.School" table="School" lazy="false" schema="homograph" discriminator-value="NULL">
+    <id name="SchoolName" column="SchoolName" type="string" length="100">
+      <generator class="assigned" />
+    </id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="SchoolYear" column="SchoolYear" type="string" length="20" />
+
+    <!-- One-to-one child mappings -->
+    <set name="SchoolAddress" access="EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="SchoolName" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress" />
+    </set>
+
+    <!-- Aggregate references -->
+    <many-to-one name="SchoolYearTypeReferenceData" class="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SchoolYear" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph.SchoolAddress" table="SchoolAddress" lazy="false" schema="homograph">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="School">
+        <column name="SchoolName" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="City" column="City" type="string" length="30" not-null="true" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData" table="SchoolYearType" lazy="true"  schema="homograph" >
+        <id name="SchoolYear" column="SchoolYear" type="string"  length="20" >
+            <generator class="assigned" />
+        </id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearType" table="SchoolYearType" lazy="false" schema="homograph" discriminator-value="NULL">
+    <id name="SchoolYear" column="SchoolYear" type="string" length="20">
+      <generator class="assigned" />
+    </id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph.StaffReferenceData" table="Staff" lazy="true"  schema="homograph" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="StaffFirstName" column="StaffFirstName" type="string"  length="75"  />
+            <key-property name="StaffLastSurname" column="StaffLastSurname" type="string"  length="75"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph.Staff" table="Staff" lazy="false" schema="homograph" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="StaffFirstName" column="StaffFirstName" type="string" length="75" />
+      <key-property name="StaffLastSurname" column="StaffLastSurname" type="string" length="75" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="StaffNameReferenceData" class="EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph.NameReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StaffFirstName" />
+      <column name="StaffLastSurname" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StaffAddresses" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="StaffFirstName" />
+        <column name="StaffLastSurname" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph.StaffAddress" />
+    </set>
+
+    <set name="StaffStudentSchoolAssociations" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="StaffFirstName" />
+        <column name="StaffLastSurname" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph.StaffAddress" table="StaffAddress" lazy="false" schema="homograph">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="City" column="City" type="string" length="30" />
+      <key-many-to-one name="Staff">
+        <column name="StaffFirstName" />
+        <column name="StaffLastSurname" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph.StaffStudentSchoolAssociation" table="StaffStudentSchoolAssociation" lazy="false" schema="homograph">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="SchoolName" column="SchoolName" type="string" length="100" />
+      <key-property name="StudentFirstName" column="StudentFirstName" type="string" length="75" />
+      <key-property name="StudentLastSurname" column="StudentLastSurname" type="string" length="75" />
+      <key-many-to-one name="Staff">
+        <column name="StaffFirstName" />
+        <column name="StaffLastSurname" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="StudentSchoolAssociationReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SchoolName" />
+      <column name="StudentFirstName" />
+      <column name="StudentLastSurname" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph.StudentReferenceData" table="Student" lazy="true"  schema="homograph" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="StudentFirstName" column="StudentFirstName" type="string"  length="75"  />
+            <key-property name="StudentLastSurname" column="StudentLastSurname" type="string"  length="75"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph.Student" table="Student" lazy="false" schema="homograph" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="StudentFirstName" column="StudentFirstName" type="string" length="75" />
+      <key-property name="StudentLastSurname" column="StudentLastSurname" type="string" length="75" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+    <property name="SchoolYear" column="SchoolYear" type="string" length="20" not-null="true" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="SchoolYearTypeReferenceData" class="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph.SchoolYearTypeReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SchoolYear" />
+    </many-to-one>
+    <many-to-one name="StudentNameReferenceData" class="EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph.NameReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentFirstName" />
+      <column name="StudentLastSurname" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentAddresses" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="StudentFirstName" />
+        <column name="StudentLastSurname" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph.StudentAddress" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph.StudentAddress" table="StudentAddress" lazy="false" schema="homograph">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="City" column="City" type="string" length="30" />
+      <key-many-to-one name="Student">
+        <column name="StudentFirstName" />
+        <column name="StudentLastSurname" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+    <!-- Aggregate reference data class mapping -->
+    <class name="EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociationReferenceData" table="StudentSchoolAssociation" lazy="true"  schema="homograph" >
+        <!-- Composite primary key -->
+        <composite-id>
+            <key-property name="SchoolName" column="SchoolName" type="string"  length="100"  />
+            <key-property name="StudentFirstName" column="StudentFirstName" type="string"  length="75"  />
+            <key-property name="StudentLastSurname" column="StudentLastSurname" type="string"  length="75"  />
+        </composite-id>
+
+        <property name="Id" column="Id" type="guid" insert="false" update="false" />
+
+        <!-- Readonly property to surface the discriminator value -->
+        <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    </class>
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homograph.StudentSchoolAssociation" table="StudentSchoolAssociation" lazy="false" schema="homograph" discriminator-value="NULL">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="SchoolName" column="SchoolName" type="string" length="100" />
+      <key-property name="StudentFirstName" column="StudentFirstName" type="string" length="75" />
+      <key-property name="StudentLastSurname" column="StudentLastSurname" type="string" length="75" />
+    </composite-id>
+
+    <!-- Discriminator -->
+    <discriminator column="Discriminator" type="string" />
+
+    <!-- Optimistic locking for aggregate root -->
+    <version name="LastModifiedDate" column="LastModifiedDate" type="UtcDateTime" />
+
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+    <!-- Unique Guid-based identifier for aggregate root -->
+    <property name="Id" column="Id" type="guid" not-null="true" />
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="SchoolReferenceData" class="EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph.SchoolReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="SchoolName" />
+    </many-to-one>
+    <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="StudentFirstName" />
+      <column name="StudentLastSurname" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+</hibernate-mapping>
+
