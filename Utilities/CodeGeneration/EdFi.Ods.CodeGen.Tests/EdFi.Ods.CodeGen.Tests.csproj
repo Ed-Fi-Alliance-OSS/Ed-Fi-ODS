@@ -44,13 +44,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Approval Tests\*.approved.cs" />
+    <Compile Remove="Approval\*.approved.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Approval Tests\*.approved.cs" />
-    <None Remove="Approval Tests\*.approved.xml" />
-    <None Remove="Approval Tests\*.approved.sql" />
+    <None Remove="Approval\*.approved.cs" />
+    <None Remove="Approval\*.approved.xml" />
+    <None Remove="Approval\*.approved.sql" />
   </ItemGroup>
 
   <ItemGroup>
