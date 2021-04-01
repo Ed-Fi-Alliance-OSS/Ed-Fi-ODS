@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>EdFi.Ods.Extensions.SampleStudentTransportation</id>
+    <version>0.0.0</version>
+    <authors>Ed-Fi Alliance</authors>
+    <owners>Ed-Fi Alliance</owners>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>EdFi.Ods.Extensions.SampleStudentTransportation</description>
+    <releaseNotes></releaseNotes>
+    <license type="file">LICENSE.txt</license>
+  </metadata>
+  <files>
+    <file src="../../../LICENSE.txt" />
+    <file src="Artifacts/**/*.json" target="."/>
+    <file src="Artifacts/**/*.sql" target="."/>
+    <file src="bin\$configuration$\netcoreapp3.1\EdFi.Ods.Extensions.SampleStudentTransportation.dll" target="."/>
+  </files>
+</package>
