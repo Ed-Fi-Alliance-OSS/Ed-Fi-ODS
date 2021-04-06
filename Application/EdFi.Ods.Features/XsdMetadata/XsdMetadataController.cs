@@ -6,10 +6,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Features.XsdMetadata.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -73,14 +75,14 @@ namespace EdFi.Ods.Features.XsdMetadata
 
         [HttpGet]
         [Route("{schema}/files")]
-        public IActionResult GetFiles([FromRoute] string schema)
+        public IActionResult GetFiles([FromRoute] XsdMetadataRequest request)
         {
             if (!_isEnabled)
             {
                 return NotFound();
             }
 
-            var schemaInformation = _xsdFileInformationProvider.XsdFileInformationByUriSegment(schema);
+            var schemaInformation = _xsdFileInformationProvider.XsdFileInformationByUriSegment(request.Schema);
 
             if (schemaInformation == default)
             {
@@ -88,21 +90,29 @@ namespace EdFi.Ods.Features.XsdMetadata
             }
 
             var results = schemaInformation.SchemaFiles
-                .Select(
-                    x => new Uri(
-                        $"{_urlHelper.ActionLink("Get", ControllerContext.ActionDescriptor.ControllerName)}/{schemaInformation.SchemaNameMap.UriSegment}/{x}"))
+                .Select(x=> GetMetadataAbsoluteUrl(x, schemaInformation.SchemaNameMap.UriSegment))
                 .ToList();
-
+            
             if (!schemaInformation.IsCore())
             {
                 var coreInformation = _xsdFileInformationProvider.CoreXsdFileInformation();
 
-                results.AddRange(
-                    coreInformation.SchemaFiles
-                        .Select(
-                            x => new Uri(
-                                $"{_urlHelper.ActionLink("Get", ControllerContext.ActionDescriptor.ControllerName)}/{coreInformation.SchemaNameMap.UriSegment}/{x}"))
-                );
+                results.AddRange(coreInformation.SchemaFiles
+                        .Select(x => GetMetadataAbsoluteUrl(x, coreInformation.SchemaNameMap.UriSegment))
+                        .ToList());
+            }
+
+            string GetMetadataAbsoluteUrl(string schemaFile, string uriSegment)
+            {
+                // Construct fully qualified metadata url
+                var url =
+                    new Uri(
+                        new Uri(
+                            new Uri(Request.RootUrl(false).EnsureSuffixApplied("/")),
+                            "metadata/"),
+                        $"{request.SchoolYearFromRoute}/{ControllerContext.ActionDescriptor.ControllerName.Substring(0, 3)}/{uriSegment}/{schemaFile}");
+
+                return url.AbsoluteUri;
             }
 
             return Ok(results.OrderBy(x => x.ToString()));
