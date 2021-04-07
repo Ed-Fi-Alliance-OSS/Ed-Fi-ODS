@@ -26,14 +26,17 @@ namespace EdFi.Ods.Features.XsdMetadata
         private readonly bool _isEnabled;
         private readonly IUrlHelper _urlHelper;
         private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
+        private readonly bool _useProxyHeaders;
 
         public XsdMetadataController(ApiSettings settings,
             IXsdFileInformationProvider xsdFileInformationProvider,
-            IUrlHelper urlHelper)
+            IUrlHelper urlHelper,
+            ApiSettings apiSettings)
         {
             _xsdFileInformationProvider = xsdFileInformationProvider;
             _urlHelper = urlHelper;
             _isEnabled = settings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName());
+            _useProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
         }
 
         [HttpGet]
