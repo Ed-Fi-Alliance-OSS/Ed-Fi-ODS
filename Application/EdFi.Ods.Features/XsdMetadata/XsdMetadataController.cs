@@ -108,7 +108,7 @@ namespace EdFi.Ods.Features.XsdMetadata
                 var url =
                     new Uri(
                         new Uri(
-                            new Uri(Request.RootUrl(false).EnsureSuffixApplied("/")),
+                            new Uri(Request.RootUrl(_useProxyHeaders).EnsureSuffixApplied("/")),
                             "metadata/"),
                         $"{request.SchoolYearFromRoute}/{ControllerContext.ActionDescriptor.ControllerName.Substring(0, 3)}/{uriSegment}/{schemaFile}");
 
