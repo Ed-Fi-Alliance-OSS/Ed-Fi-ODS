@@ -93,13 +93,6 @@ namespace EdFi.Ods.Features.Conventions
                     template += RouteConstants.SchoolYearFromRoute;
                 }
 
-                var compositeCategoryNames = _compositesMetadataProvider
-                    .GetAllCategories()
-                    .Select(x => x.Name)
-                    .ToList<string>();
-
-                string allCompositeCategoriesConstraintExpression = $@"^(?i)({string.Join("|", compositeCategoryNames)})$";
-
                 string categoryName = "{organizationCode}/{compositeCategory}/";
 
                 template += categoryName;
