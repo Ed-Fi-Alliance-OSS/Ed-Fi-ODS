@@ -107,15 +107,28 @@ namespace EdFi.Ods.Features.XsdMetadata
 
             string GetMetadataAbsoluteUrl(string schemaFile, string uriSegment)
             {
-                // Construct fully qualified metadata url
                 var url =
-                    new Uri(
-                        new Uri(
-                            new Uri(Request.RootUrl(_useProxyHeaders).EnsureSuffixApplied("/")),
-                            "metadata/"),
-                        $"{request.SchoolYearFromRoute}/{ControllerContext.ActionDescriptor.ControllerName.Substring(0, 3)}/{uriSegment}/{schemaFile}");
+                    new Uri(new Uri(Request.RootUrl(_useProxyHeaders).EnsureSuffixApplied("/")),
+                            GetRelativeUriPath(uriSegment, schemaFile));
 
                 return url.AbsoluteUri;
+            }
+
+            string GetRelativeUriPath(string uriSegment ,string schemaFile)
+            {
+                string relativePath = "metadata";
+
+                if (!string.IsNullOrEmpty(request.InstanceIdFromRoute))
+                {
+                    relativePath += $"/{request.InstanceIdFromRoute}";
+                }
+
+                if (request.SchoolYearFromRoute.HasValue)
+                {
+                    relativePath += $"/{request.SchoolYearFromRoute.Value}";
+                }
+
+                return $"{relativePath}/{ControllerContext.ActionDescriptor.ControllerName.Substring(0, 3)}/{uriSegment}/{schemaFile}";
             }
 
             return Ok(results.OrderBy(x => x.ToString()));

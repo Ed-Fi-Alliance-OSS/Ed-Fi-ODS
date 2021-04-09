@@ -10,5 +10,7 @@ namespace EdFi.Ods.Features.XsdMetadata.Models
         public int? SchoolYearFromRoute { get; set; }
 
         public string Schema { get; set; }
+
+        public string InstanceIdFromRoute { get; set; }
     }
 }
