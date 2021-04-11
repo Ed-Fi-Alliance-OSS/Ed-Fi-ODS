@@ -6,12 +6,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Common.Extensions;
+using EdFi.Common;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
-using EdFi.Ods.Features.XsdMetadata.Models;
+using EdFi.Ods.Common.Context;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,19 +26,23 @@ namespace EdFi.Ods.Features.XsdMetadata
     public class XsdMetadataController : ControllerBase
     {
         private readonly bool _isEnabled;
-        private readonly IUrlHelper _urlHelper;
         private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
-        private readonly bool _useProxyHeaders;
+        private readonly ApiSettings _apiSettings;
+        private readonly ISystemDateProvider _systemDateProvider;
+        private readonly IInstanceIdContextProvider _instanceIdContextProvider;
 
         public XsdMetadataController(ApiSettings settings,
             IXsdFileInformationProvider xsdFileInformationProvider,
             IUrlHelper urlHelper,
+            ISystemDateProvider systemDateProvider,
+            IInstanceIdContextProvider instanceIdContextProvider,
             ApiSettings apiSettings)
         {
             _xsdFileInformationProvider = xsdFileInformationProvider;
-            _urlHelper = urlHelper;
             _isEnabled = settings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName());
-            _useProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
+            _apiSettings = apiSettings;
+            _systemDateProvider = systemDateProvider;
+            _instanceIdContextProvider = instanceIdContextProvider;
         }
 
         [HttpGet]
@@ -68,7 +74,7 @@ namespace EdFi.Ods.Features.XsdMetadata
                                 name = xsdFileInformation.SchemaNameMap.UriSegment,
                                 version = xsdFileInformation.Version,
                                 files = new Uri(
-                                    $"{_urlHelper.ActionLink("Get", ControllerContext.ActionDescriptor.ControllerName)}/{xsdFileInformation.SchemaNameMap.UriSegment}/files/")
+                                    GetMetadataAbsoluteUrl("files", xsdFileInformation.SchemaNameMap.UriSegment))
 
                                 // TODO ODS-4773
                                 // ["combined"] = new Uri(
@@ -78,14 +84,14 @@ namespace EdFi.Ods.Features.XsdMetadata
 
         [HttpGet]
         [Route("{schema}/files")]
-        public IActionResult GetFiles([FromRoute] XsdMetadataRequest request)
+        public IActionResult GetFiles([FromRoute] string schema)
         {
             if (!_isEnabled)
             {
                 return NotFound();
             }
 
-            var schemaInformation = _xsdFileInformationProvider.XsdFileInformationByUriSegment(request.Schema);
+            var schemaInformation = _xsdFileInformationProvider.XsdFileInformationByUriSegment(schema);
 
             if (schemaInformation == default)
             {
@@ -95,43 +101,41 @@ namespace EdFi.Ods.Features.XsdMetadata
             var results = schemaInformation.SchemaFiles
                 .Select(x=> GetMetadataAbsoluteUrl(x, schemaInformation.SchemaNameMap.UriSegment))
                 .ToList();
-            
+
             if (!schemaInformation.IsCore())
             {
                 var coreInformation = _xsdFileInformationProvider.CoreXsdFileInformation();
 
                 results.AddRange(coreInformation.SchemaFiles
-                        .Select(x => GetMetadataAbsoluteUrl(x, coreInformation.SchemaNameMap.UriSegment))
-                        .ToList());
-            }
-
-            string GetMetadataAbsoluteUrl(string schemaFile, string uriSegment)
-            {
-                var url =
-                    new Uri(new Uri(Request.RootUrl(_useProxyHeaders).EnsureSuffixApplied("/")),
-                            GetRelativeUriPath(uriSegment, schemaFile));
-
-                return url.AbsoluteUri;
-            }
-
-            string GetRelativeUriPath(string uriSegment ,string schemaFile)
-            {
-                string relativePath = "metadata";
-
-                if (!string.IsNullOrEmpty(request.InstanceIdFromRoute))
-                {
-                    relativePath += $"/{request.InstanceIdFromRoute}";
-                }
-
-                if (request.SchoolYearFromRoute.HasValue)
-                {
-                    relativePath += $"/{request.SchoolYearFromRoute.Value}";
-                }
-
-                return $"{relativePath}/{ControllerContext.ActionDescriptor.ControllerName.Substring(0, 3)}/{uriSegment}/{schemaFile}";
+                        .Select(x => GetMetadataAbsoluteUrl(x, coreInformation.SchemaNameMap.UriSegment)));
             }
 
             return Ok(results.OrderBy(x => x.ToString()));
+        }
+
+        private string GetMetadataAbsoluteUrl(string schemaFile, string uriSegment)
+        {
+            bool isInstanceYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.InstanceYearSpecific);
+
+            string instance = _instanceIdContextProvider.GetInstanceId();
+
+            bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific)
+                                  || isInstanceYearSpecific;
+
+            bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
+
+            var currentYear = _systemDateProvider.GetDate().Year.ToString();
+
+            string basicPath = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
+                               (isInstanceYearSpecific
+                                   ? $"{instance}/"
+                                   : string.Empty) +
+                               (isYearSpecific
+                                   ? $"{currentYear}/"
+                                   : string.Empty) +
+                               "xsd";
+
+            return $"{basicPath}/{uriSegment}/{schemaFile}";
         }
     }
 }
