@@ -6,11 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Common;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
@@ -25,23 +23,21 @@ namespace EdFi.Ods.Features.XsdMetadata
     [AllowAnonymous]
     public class XsdMetadataController : ControllerBase
     {
-        private readonly bool _isEnabled;
-        private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
         private readonly ApiSettings _apiSettings;
-        private readonly ISystemDateProvider _systemDateProvider;
         private readonly IInstanceIdContextProvider _instanceIdContextProvider;
+        private readonly bool _isEnabled;
+        private readonly ISchoolYearContextProvider _schoolYearContextProvider;
+        private readonly IXsdFileInformationProvider _xsdFileInformationProvider;
 
-        public XsdMetadataController(ApiSettings settings,
+        public XsdMetadataController(ApiSettings apiSettings,
             IXsdFileInformationProvider xsdFileInformationProvider,
-            IUrlHelper urlHelper,
-            ISystemDateProvider systemDateProvider,
-            IInstanceIdContextProvider instanceIdContextProvider,
-            ApiSettings apiSettings)
+            ISchoolYearContextProvider schoolYearContextProvider = null,
+            IInstanceIdContextProvider instanceIdContextProvider = null)
         {
             _xsdFileInformationProvider = xsdFileInformationProvider;
-            _isEnabled = settings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName());
+            _schoolYearContextProvider = schoolYearContextProvider;
+            _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.XsdMetadata.GetConfigKeyName());
             _apiSettings = apiSettings;
-            _systemDateProvider = systemDateProvider;
             _instanceIdContextProvider = instanceIdContextProvider;
         }
 
@@ -75,10 +71,6 @@ namespace EdFi.Ods.Features.XsdMetadata
                                 version = xsdFileInformation.Version,
                                 files = new Uri(
                                     GetMetadataAbsoluteUrl("files", xsdFileInformation.SchemaNameMap.UriSegment))
-
-                                // TODO ODS-4773
-                                // ["combined"] = new Uri(
-                                //     $"{_urlHelper.ActionLink("Get", ControllerContext.ActionDescriptor.ControllerName)}/{xsdFileInformation.SchemaNameMap.UriSegment}/"),
                             }));
         }
 
@@ -99,14 +91,15 @@ namespace EdFi.Ods.Features.XsdMetadata
             }
 
             var results = schemaInformation.SchemaFiles
-                .Select(x=> GetMetadataAbsoluteUrl(x, schemaInformation.SchemaNameMap.UriSegment))
+                .Select(x => GetMetadataAbsoluteUrl(x, schemaInformation.SchemaNameMap.UriSegment))
                 .ToList();
 
             if (!schemaInformation.IsCore())
             {
                 var coreInformation = _xsdFileInformationProvider.CoreXsdFileInformation();
 
-                results.AddRange(coreInformation.SchemaFiles
+                results.AddRange(
+                    coreInformation.SchemaFiles
                         .Select(x => GetMetadataAbsoluteUrl(x, coreInformation.SchemaNameMap.UriSegment)));
             }
 
@@ -117,21 +110,17 @@ namespace EdFi.Ods.Features.XsdMetadata
         {
             bool isInstanceYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.InstanceYearSpecific);
 
-            string instance = _instanceIdContextProvider.GetInstanceId();
-
             bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific)
                                   || isInstanceYearSpecific;
 
             bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
 
-            var currentYear = _systemDateProvider.GetDate().Year.ToString();
-
             string basicPath = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
                                (isInstanceYearSpecific
-                                   ? $"{instance}/"
+                                   ? $"{_instanceIdContextProvider.GetInstanceId()}/"
                                    : string.Empty) +
                                (isYearSpecific
-                                   ? $"{currentYear}/"
+                                   ? $"{_schoolYearContextProvider.GetSchoolYear()}/"
                                    : string.Empty) +
                                "xsd";
 
