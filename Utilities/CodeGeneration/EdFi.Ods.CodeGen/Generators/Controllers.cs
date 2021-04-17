@@ -67,14 +67,14 @@ namespace EdFi.Ods.CodeGen.Generators
                     r => r.AllRequestProperties()),
                 ResourceCollectionName = resourceData.ResolvedResource.PluralName.ToCamelCase(),
                 ReadContentType = FormatReadContentType(resourceData),
-                OverrideHttpFunctions = FormatHttpFunctionOverides(resourceData),
+                OverrideHttpFunctions = FormatHttpFunctionOverrides(resourceData),
                 ExtensionNamespacePrefix = FormatExtensionNamespacePrefix(resourceData),
                 IsExtensionContext = TemplateContext.IsExtension,
                 ProfileContentType = FormatProfileContentType(resourceData)
             };
         }
 
-        private object FormatHttpFunctionOverides(StandardizedResourceProfileData resourceData)
+        private object FormatHttpFunctionOverrides(StandardizedResourceProfileData resourceData)
         {
             const string ReadOnlyHttpMethods = "PUT, POST, DELETE and OPTIONS";
             const string WriteOnlyHttpMethods = "GET, DELETE and OPTIONS";
