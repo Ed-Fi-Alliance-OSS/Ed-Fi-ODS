@@ -12,11 +12,11 @@ namespace EdFi.Ods.CodeGen.Conventions
         /// <summary>
         /// Path to the standard schema directory
         /// </summary>
-        public static readonly string Schemas = Path.Combine("application", "edfi.ods.standard", "artifacts", "schemas");
+        public static readonly string Schemas = Path.Combine("Application", "EdFi.Ods.Standard", "Artifacts", "Schemas");
 
         /// <summary>
         /// Path to the standard metadata directory
         /// </summary>
-        public static readonly string Metadata = Path.Combine("application", "edfi.ods.standard", "artifacts", "metadata");
+        public static readonly string Metadata = Path.Combine("Application", "EdFi.Ods.Standard", "Artifacts", "Metadata");
     }
 }
