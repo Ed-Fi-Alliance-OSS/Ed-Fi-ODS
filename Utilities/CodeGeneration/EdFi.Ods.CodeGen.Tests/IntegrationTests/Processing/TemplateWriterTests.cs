@@ -42,7 +42,7 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Processing
                         InterfaceName = "testInterfaceName"
                     },
                     TemplateSet = new TemplateSet {Name = templateName},
-                    OutputPath = $"{Environment.CurrentDirectory}/Output.cs"
+                    OutputPath = $"{Environment.CurrentDirectory}\\Output.cs"
                 };
 
                 // Act
