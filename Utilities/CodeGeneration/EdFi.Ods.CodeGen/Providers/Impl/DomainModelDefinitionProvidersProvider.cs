@@ -17,7 +17,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
     public class DomainModelDefinitionProvidersProvider : IDomainModelDefinitionsProviderProvider
     {
         private static readonly string _standardModelsPath = Path.Combine("Artifacts", "Metadata", "ApiModel.json");
-        private static readonly string _extensionModelsPath = Path.Combine("Artifacts", "Metadata", " ApiModel-EXTENSION.json");
+        private static readonly string _extensionModelsPath = Path.Combine("Artifacts", "Metadata", "ApiModel-EXTENSION.json");
         private readonly Lazy<Dictionary<string, IDomainModelDefinitionsProvider>> _domainModelDefinitionProvidersByProjectName;
 
         private readonly string _solutionPath;
