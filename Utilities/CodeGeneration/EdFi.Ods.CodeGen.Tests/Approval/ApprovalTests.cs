@@ -118,7 +118,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
         {
             var generatedFileList = Path.Combine(
                 _odsRepository,
-                @$"Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval\{nameof(ApprovalTests)}.{nameof(Generated_File_List)}.approved.txt");
+                $"Utilities{Path.DirectorySeparatorChar}CodeGeneration{Path.DirectorySeparatorChar}EdFi.Ods.CodeGen.Tests{Path.DirectorySeparatorChar}Approval{Path.DirectorySeparatorChar}{nameof(ApprovalTests)}.{nameof(Generated_File_List)}.approved.txt");
 
             var files = File.ReadAllLines(generatedFileList)
                 .Select(x => new ApprovalFileInfo(Path.Combine(_repositoryRoot, x)))
@@ -148,7 +148,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
 
                         string destFileName = Path.Combine(
                             _odsRepository
-                            , @"Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval"
+                            , $"Utilities{Path.DirectorySeparatorChar}CodeGeneration{Path.DirectorySeparatorChar}EdFi.Ods.CodeGen.Tests{Path.DirectorySeparatorChar}Approval"
                             , $"ApprovalTests.Verify_All.ForScenario.{file.Scenario}.approved{ext}");
 
                         System.Console.WriteLine("Copying file: {0} to {1}", file.SourcePath, destFileName);
@@ -168,7 +168,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
             {
                 SourcePath = sourcePath;
                 Scenario = $"{CreateScenario(sourcePath)}";
-                GeneratedName = sourcePath.Split('\\').LastOrDefault();
+                GeneratedName = sourcePath.Split(Path.DirectorySeparatorChar).LastOrDefault();
             }
 
             public string SourcePath { get; }
@@ -181,7 +181,7 @@ namespace EdFi.Ods.CodeGen.Tests.Approval_Tests
                 => sourcePath
                     .Replace(_extensionRepository, string.Empty)
                     .Replace(_odsRepository, string.Empty)
-                    .Replace("\\", "_")
+                    .Replace(Path.DirectorySeparatorChar.ToString(), "_")
                     .Replace("_Application_", string.Empty)
                     .Replace("_Extensions_", string.Empty)
                     .Replace("_Database_", string.Empty)

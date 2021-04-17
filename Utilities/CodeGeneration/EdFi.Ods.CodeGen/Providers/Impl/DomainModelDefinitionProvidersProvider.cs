@@ -16,8 +16,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 {
     public class DomainModelDefinitionProvidersProvider : IDomainModelDefinitionsProviderProvider
     {
-        private const string StandardModelsPath = @"Artifacts\Metadata\ApiModel.json";
-        private const string ExtensionModelsPath = @"Artifacts\Metadata\ApiModel-EXTENSION.json";
+        private const string StandardModelsPath = @"Artifacts/Metadata/ApiModel.json";
+        private const string ExtensionModelsPath = @"Artifacts/Metadata/ApiModel-EXTENSION.json";
         private readonly Lazy<Dictionary<string, IDomainModelDefinitionsProvider>> _domainModelDefinitionProvidersByProjectName;
 
         private readonly string _solutionPath;
@@ -64,7 +64,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
         private Dictionary<string, IDomainModelDefinitionsProvider> CreateDomainModelDefinitionsByPath()
         {
             DirectoryInfo[] directoriesToEvaluate;
-            
+
             var domainModelDefinitionsByPath =
                 new Dictionary<string, IDomainModelDefinitionsProvider>(StringComparer.InvariantCultureIgnoreCase);
 

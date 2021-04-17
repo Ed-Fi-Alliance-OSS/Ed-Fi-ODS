@@ -10,11 +10,11 @@ namespace EdFi.Ods.CodeGen.Conventions
         /// <summary>
         /// Path to the schema directory
         /// </summary>
-        public const string Schemas = "artifacts\\schemas";
+        public const string Schemas = "artifacts/schemas";
 
         /// <summary>
         /// Path to the metadata directory
         /// </summary>
-        public const string Metadata = "artifacts\\metadata";
+        public const string Metadata = "artifacts/metadata";
     }
 }
