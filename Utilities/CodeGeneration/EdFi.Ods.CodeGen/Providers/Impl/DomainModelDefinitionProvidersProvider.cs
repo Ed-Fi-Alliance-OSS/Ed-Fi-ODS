@@ -16,8 +16,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 {
     public class DomainModelDefinitionProvidersProvider : IDomainModelDefinitionsProviderProvider
     {
-        private const string StandardModelsPath = @"Artifacts/Metadata/ApiModel.json";
-        private const string ExtensionModelsPath = @"Artifacts/Metadata/ApiModel-EXTENSION.json";
+        private static readonly string _standardModelsPath = Path.Combine("Artifacts", "Metadata", "ApiModel.json");
+        private static readonly string _extensionModelsPath = Path.Combine("Artifacts", "Metadata", " ApiModel-EXTENSION.json");
         private readonly Lazy<Dictionary<string, IDomainModelDefinitionsProvider>> _domainModelDefinitionProvidersByProjectName;
 
         private readonly string _solutionPath;
@@ -31,8 +31,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             IExtensionPluginsProvider extensionPluginsProviderProvider,
             IIncludePluginsProvider includePluginsProvider)
         {
-            _solutionPath = codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation)
-                            + "\\Application";
+            _solutionPath = Path.Combine(codeRepositoryProvider.GetCodeRepositoryByName(CodeRepositoryConventions.Implementation), "Application");
 
             _extensionsPath = codeRepositoryProvider.GetResolvedCodeRepositoryByName(
                 CodeRepositoryConventions.ExtensionsRepositoryName,
@@ -92,16 +91,14 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                     directoriesToEvaluate = directoriesToEvaluate
                         .Concat(GetProjectDirectoriesToEvaluate(x))
                         .Append(new DirectoryInfo(x)).ToArray();
-
                 });
 
             if (_includePluginsProvider.IncludePlugins() && Directory.Exists(_extensionsPath))
             {
                 directoriesToEvaluate = directoriesToEvaluate
-                        .Concat(GetProjectDirectoriesToEvaluate(_extensionsPath))
-                        .ToArray();
+                    .Concat(GetProjectDirectoriesToEvaluate(_extensionsPath))
+                    .ToArray();
             }
-
 
             var modelProjects = directoriesToEvaluate
                 .Where(p => p.Name.IsExtensionAssembly() || p.Name.IsStandardAssembly());
@@ -109,8 +106,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
             foreach (var modelProject in modelProjects)
             {
                 var modelsPath = modelProject.Name.IsStandardAssembly()
-                    ? StandardModelsPath
-                    : ExtensionModelsPath;
+                    ? _standardModelsPath
+                    : _extensionModelsPath;
 
                 var metadataFile = new FileInfo(Path.Combine(modelProject.FullName, modelsPath));
 
@@ -128,8 +125,8 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
                 }
 
                 domainModelDefinitionsByPath.Add(
-                        modelProject.Name,
-                        new DomainModelDefinitionsJsonFileSystemProvider(metadataFile.FullName));
+                    modelProject.Name,
+                    new DomainModelDefinitionsJsonFileSystemProvider(metadataFile.FullName));
             }
 
             return domainModelDefinitionsByPath;

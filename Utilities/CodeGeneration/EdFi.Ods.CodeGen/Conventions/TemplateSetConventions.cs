@@ -10,7 +10,6 @@ namespace EdFi.Ods.CodeGen.Conventions
         public const string Standard = "standard";
         public const string Extension = "extension";
         public const string Profile = "profile";
-        public const string Composite = "composite";
         public const string Database = "database";
     }
 }
