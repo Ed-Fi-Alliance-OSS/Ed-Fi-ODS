@@ -344,8 +344,34 @@ namespace {{AggregateNamespace}}
         // -------------------------------------------------------------
         {{#IsExtendable}}
         {{^ExtendableConcreteBase}}
+        private IDictionary _extensions;
+
         [ValidateExtensions]
-        public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary Extensions { get; set; }
+        public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary Extensions
+        {
+            get => _extensions;
+            set
+            {
+                // If the _extensions is null, this is being assigned from the constructor
+                // for the first time and no special handling is required
+                if (_extensions != null)
+                {
+                    // For extensions that have already been initialized by the extensions factory,
+                    // we need to copy any "implicit" extension object entries over to the incoming
+                    // value dictionary being assigned by NHibernate because it won't have them,
+                    // but they must be there for correct handling of extensions for the API.
+                    foreach (var key in _extensions.Keys)
+                    {
+                        if (!value.Contains(key))
+                        {
+                            value[key] = _extensions[key];
+                        }
+                    }
+                }
+
+                _extensions = value;
+            }
+        }
 
         [ValidateAggregateExtensions]
         public{{#IsConcreteEntityBaseClass}} virtual{{/IsConcreteEntityBaseClass}} IDictionary AggregateExtensions { get; set; }
