@@ -25,11 +25,11 @@ namespace EdFi.Ods.CodeGen.Helpers
                 throw new ArgumentNullException(nameof(codeRepositoryPath));
             }
 
-            var dirList = codeRepositoryPath.Split('\\')
+            var dirList = codeRepositoryPath.Split(Path.DirectorySeparatorChar)
                 .ToList();
 
             var root = string.Join(
-                "\\",
+                Path.DirectorySeparatorChar,
                 dirList.TakeWhile(x => !x.EqualsIgnoreCase(CodeRepositoryConventions.EdFiOdsFolderName)));
 
             _repositoryByName.Add(CodeRepositoryConventions.Root, root);

@@ -5,9 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using DatabaseSchemaReader.DataSchema;
 using EdFi.Common;
-using EdFi.Ods.Common;
 
 namespace EdFi.Ods.CodeGen.Providers.Impl
 {
@@ -21,7 +21,7 @@ namespace EdFi.Ods.CodeGen.Providers.Impl
 
             _views = new Lazy<List<DatabaseView>>(
                 () => Load<List<DatabaseView>>(
-                    $@"{metadataFolderProvider.GetStandardMetadataFolder()}\DatabaseViews.generated.json"));
+                    Path.Combine(metadataFolderProvider.GetStandardMetadataFolder(), "DatabaseViews.generated.json")));
         }
 
         public List<DatabaseView> LoadViews() => _views.Value;
