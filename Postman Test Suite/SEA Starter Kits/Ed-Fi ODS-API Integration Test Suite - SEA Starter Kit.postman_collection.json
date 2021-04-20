@@ -1,0 +1,1558 @@
+{
+	"info": {
+		"_postman_id": "e3dd3f38-58c6-415c-93c5-10cac67a5edb",
+		"name": "Ed-Fi ODS/API Integration Test Suite - SEA Starter Kit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Clean up ",
+			"item": [
+				{
+					"name": "Get  existing students",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"const __ = require('lodash');\r",
+									"const students = pm.response.json();\r",
+									"if(students.length>0)\r",
+									"{\r",
+									"    const studentIds = __.map(students, student => student.studentUniqueId);\r",
+									"    pm.environment.set(\"known:studentIds\",studentIds);\r",
+									"    pm.environment.set(\"known:studentUniqueId\",__.first(students)['studentUniqueId']);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/?firstName=John&lastSurname=Smith",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students",
+								""
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "John"
+								},
+								{
+									"key": "lastSurname",
+									"value": "Smith"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clean up StudentSchoolAssociations Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test('Delete all students', () => {",
+									"",
+									"const responseItems = pm.response.json();",
+									"if(responseItems.length>0){",
+									"    const studentIds =pm.environment.get(\"known:studentIds\");",
+									"            studentIds.forEach(studentId => {",
+									"",
+									"                console.log(studentId);",
+									"",
+									"                let StudentSchoolAssociationsGetRequest = {",
+									"                    url: pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/StudentSchoolAssociations/?studentUniqueId=\" + studentId,",
+									"                    method: 'GET',",
+									"                    header: 'Authorization:bearer ' + pm.environment.get(\"AccessToken\"),",
+									"                    body: {}",
+									"                };",
+									"",
+									"                pm.sendRequest(StudentSchoolAssociationsGetRequest, function (err, StudentSchoolAssociations) {",
+									"                    if (err) {",
+									"                        console.log(err);",
+									"                    } else {",
+									"                        ",
+									"                            StudentSchoolAssociations.json().forEach(studentSchoolAssociationResponse => {",
+									"",
+									"                                console.log(studentSchoolAssociationResponse.id);",
+									"",
+									"                                let StudentSchoolAssociationsDeleteRequest = {",
+									"                                    url: pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/StudentSchoolAssociations/\" + studentSchoolAssociationResponse.id,",
+									"                                    method: 'DELETE',",
+									"                                    header: 'Authorization:bearer ' + pm.environment.get(\"AccessToken\"),",
+									"                                    body: {}",
+									"                                };",
+									"",
+									"                                pm.sendRequest(StudentSchoolAssociationsDeleteRequest, function (err, StudentSchoolAssociations) {",
+									"                                    if (err) {",
+									"                                        console.log(err);",
+									"                                    } else {}",
+									"                                });",
+									"                            });",
+									"",
+									"                    }",
+									"                });",
+									"            });",
+									"}",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/?schoolId=255901001&studentUniqueId={{known:studentUniqueId}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations",
+								""
+							],
+							"query": [
+								{
+									"key": "schoolId",
+									"value": "255901001"
+								},
+								{
+									"key": "studentUniqueId",
+									"value": "{{known:studentUniqueId}}"
+								}
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET on schools to show that the school exists",
+			"item": [
+				{
+					"name": "Get  School",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"const __ = require('lodash');",
+									"const schools = pm.response.json();",
+									"pm.environment.set(\"known:schoolId\",__.first(schools)['schoolId']);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"schools",
+								""
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "John Smith - FTE is 1.0 & Entry Date is within Oct 1st Current Year",
+			"item": [
+				{
+					"name": "Create Student John Smith",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const uuid = require('uuid');",
+									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+									"function createScenarioId() { return newGuid().substring(0,5); }",
+									"pm.environment.set('scenarioId', createScenarioId());",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+									"",
+									"const moment = require('moment');",
+									"let birthDate=new Date();",
+									"birthDate = birthDate.addYears(-20);",
+									"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Smith\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create StudentSchoolAssociations Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"const moment = require('moment');",
+									"let entryDate=new Date();",
+									"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+									"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':studentSchoolAssociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\",\r\n   \"fullTimeEquivalency\": 1\r\n  }"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "Get StudentSchoolAssociations Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:{{scenarioId}}:studentSchoolAssociationGuid}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations",
+								"{{known:{{scenarioId}}:studentSchoolAssociationGuid}}"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student  John Smith",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students",
+								"{{known:{{scenarioId}}:studentGuid}}"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Kelly Logan  - FTE is 0.51 and Entry Date is within Oct 1st Current Year",
+			"item": [
+				{
+					"name": "Create Student Kelly Logan",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const uuid = require('uuid');",
+									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+									"function createScenarioId() { return newGuid().substring(0,5); }",
+									"pm.environment.set('scenarioId', createScenarioId());",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+									"",
+									"const moment = require('moment');",
+									"let birthDate=new Date();",
+									"birthDate = birthDate.addYears(-20);",
+									"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"Kelly\",\r\n  \"lastSurname\": \"Logan\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create StudentSchoolAssociations Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"const moment = require('moment');",
+									"let entryDate=new Date();",
+									"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+									"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':studentSchoolAssociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\",\r\n   \"fullTimeEquivalency\": 0.51\r\n  }"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "Get StudentSchoolAssociations Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:{{scenarioId}}:studentSchoolAssociationGuid}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations",
+								"{{known:{{scenarioId}}:studentSchoolAssociationGuid}}"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student Kelly Logan",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students",
+								"{{known:{{scenarioId}}:studentGuid}}"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Kelly Logan  - FTE is 0.49 and Entry Date is within Oct 1st Current Year",
+			"item": [
+				{
+					"name": "Create StudentSchoolAssociations Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"const moment = require('moment');",
+									"let entryDate=new Date();",
+									"entryDate= moment(entryDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set('supplied:'+scenarioId+':entryDate',entryDate);",
+									"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':studentSchoolAssociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\",\r\n   \"fullTimeEquivalency\": 0.49\r\n  }"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "Get StudentSchoolAssociations Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:{{scenarioId}}:studentSchoolAssociationGuid}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations",
+								"{{known:{{scenarioId}}:studentSchoolAssociationGuid}}"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Jennifer Hart  - FTE is 1 & Entry Date is beyond Oct 1st Current Year",
+			"item": [
+				{
+					"name": "Create Student Jennifer Hart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':studentGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									"pm.environment.set('known:'+scenarioId+':studentUniqueId',pm.environment.get('supplied:'+scenarioId+':studentUniqueId'));",
+									"    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const uuid = require('uuid');",
+									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+									"function createScenarioId() { return newGuid().substring(0,5); }",
+									"pm.environment.set('scenarioId', createScenarioId());",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('supplied:'+scenarioId+':studentUniqueId', newGuid());",
+									"",
+									"const moment = require('moment');",
+									"let birthDate=new Date();",
+									"birthDate = birthDate.addYears(-20);",
+									"birthDate= moment(birthDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set('supplied:'+scenarioId+':birthDate',birthDate);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"Jennifer\",\r\n  \"lastSurname\": \"Hart\"\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create StudentSchoolAssociations Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('supplied:'+scenarioId+':entryGradeLevelDescriptor',\"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\");",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", () => {",
+									"    pm.expect(pm.response.code).to.equal(201);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':studentSchoolAssociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{known:{{scenarioId}}:studentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"2021-10-02\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\",\r\n   \"fullTimeEquivalency\": 1\r\n  }"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "Get StudentSchoolAssociations Data",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:{{scenarioId}}:studentSchoolAssociationGuid}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"StudentSchoolAssociations",
+								"{{known:{{scenarioId}}:studentSchoolAssociationGuid}}"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student  Jennifer Hart",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students",
+								"{{known:{{scenarioId}}:studentGuid}}"
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Create Student Special Education Program Association",
+			"item": [
+				{
+					"name": "Get Student  John Smith",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"const __ = require('lodash');",
+									"const students = pm.response.json();",
+									"pm.environment.set(\"known:studentUniqueId\",__.first(students)['studentUniqueId']);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/?firstName=John&lastSurname=Smith",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"students",
+								""
+							],
+							"query": [
+								{
+									"key": "firstName",
+									"value": "John"
+								},
+								{
+									"key": "lastSurname",
+									"value": "Smith"
+								}
+							]
+						},
+						"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+					},
+					"response": []
+				},
+				{
+					"name": "Create student special education program associations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 or 201\", () => {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									"",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"pm.environment.set('known:'+scenarioId+':studentspecialeducationprogramassociationGuid',pm.response.headers.one('Location').value.split(\"/\").pop());    "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const uuid = require('uuid');",
+									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+									"function createScenarioId() { return newGuid().substring(0,5); }",
+									"pm.environment.set('scenarioId', createScenarioId());",
+									"const scenarioId = pm.environment.get('scenarioId');",
+									"const moment = require('moment');",
+									"let beginDate=new Date();",
+									"beginDate= moment(beginDate).format(\"YYYY-MM-DD\");",
+									"pm.environment.set('supplied:'+scenarioId+':beginDate',beginDate);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"beginDate\": \"{{supplied:{{scenarioId}}:beginDate}}\",\r\n\"educationOrganizationReference\": {\r\n\"educationOrganizationId\":255901\r\n},\r\n\"programReference\": {\r\n\"educationOrganizationId\": 255901,\r\n\"programName\": \"Special Education\",\r\n\"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Special Education\"\r\n},\r\n\"studentReference\": {\r\n\"studentUniqueId\": \"{{known:studentUniqueId}}\"\r\n}\r\n}"
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentSpecialEducationProgramAssociations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get student special education program associations",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSpecialEducationProgramAssociations/{{known:{{scenarioId}}:studentspecialeducationprogramassociationGuid}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"data",
+								"v3",
+								"ed-fi",
+								"studentSpecialEducationProgramAssociations",
+								"{{known:{{scenarioId}}:studentspecialeducationprogramassociationGuid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"CreateAccessToken(\"TokenExpiry\",",
+					"                  \"AccessToken\",",
+					"                  \"ApiKey_255901\", ",
+					"                  \"ApiSecret_255901\")",
+					"                  ",
+					"     ",
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
+					"function CreateAccessToken(TokenExpiry,AccessToken,ApiKey, ApiSecret)",
+					"                  {",
+					"let tokenExpiration = pm.environment.get(TokenExpiry);",
+					"let currentToken = pm.environment.get(AccessToken);",
+					"let  getToken = true;",
+					"if (!tokenExpiration || ",
+					"    !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"} else {",
+					"    getToken = false;",
+					"    console.log('Token and expiration date are still valid');",
+					"}",
+					"if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get(ApiKey);",
+					"    let clientSecret = pm.environment.get(ApiSecret);",
+					"    let grantType = 'client_credentials';",
+					"    ",
+					"    let getTokenRequest = {",
+					"        method: 'POST',",
+					"        url: tokenUrl,",
+					"        auth: {",
+					"            type: \"basic\",",
+					"            basic: [",
+					"                { key: \"username\", value: clientId },",
+					"                { key: \"password\", value: clientSecret }",
+					"            ]",
+					"        },",
+					"        header: [",
+					"            \"content-type:application/json\"",
+					"        ],",
+					"        body: {",
+					"            mode: \"raw\",",
+					"            raw: JSON.stringify({ Grant_type: grantType })",
+					"        }",
+					"    };",
+					"    ",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"        let jsonResponse = response.json(),",
+					"            newAccessToken = jsonResponse.access_token;",
+					"    ",
+					"        console.log({ err, jsonResponse, newAccessToken })",
+					"    ",
+					"        pm.environment.set(AccessToken, newAccessToken);",
+					"    ",
+					"        let expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"        pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"    });",
+					"}",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

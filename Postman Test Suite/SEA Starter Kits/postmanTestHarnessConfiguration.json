@@ -1,0 +1,21 @@
+{
+  "Vendors": [
+    {
+      "Email": "test1@ed-fi.org",
+      "VendorName": "ed-fi.org",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "255901",
+              "LocalEducationOrganizations": [255901]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
+    }
+  ]
+}
