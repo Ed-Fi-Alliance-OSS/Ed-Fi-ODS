@@ -4432,6 +4432,10 @@
 									"pm.test(\"Should return the 25 items in response\", () => {",
 									"     pm.expect(responseItems).to.have.lengthOf(25);",
 									"});",
+									"const students = __.takeRight(responseItems, 25);",
+									"const studentUniqueIds = __.map(students, student => student.studentUniqueId);",
+									"console.log(studentUniqueIds);",
+									"pm.environment.set(\"known:studentUniqueIds\",studentUniqueIds);    ",
 									"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);",
 									"pm.environment.set('known:studentTotalCount', postman.getResponseHeader(\"Total-Count\"));"
 								],
@@ -4478,12 +4482,7 @@
 									"const responseItems = pm.response.json();",
 									"pm.test(\"Should return less than or equal to 100  item in response\", () => {",
 									"     pm.expect(responseItems.length).to.be.at.most(100);",
-									"});",
-									"const students = __.takeRight(responseItems, 25);",
-									"const studentUniqueIds = __.map(students, student => student.studentUniqueId);",
-									"console.log(studentUniqueIds);",
-									"pm.environment.set(\"known:studentUniqueIds\",studentUniqueIds);    ",
-									"  "
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -4644,6 +4643,13 @@
 									"const responseItems = pm.response.json();",
 									"pm.test(\"Should return 25 item in response\", () => {",
 									"     pm.expect(responseItems).to.have.lengthOf(25);",
+									"});",
+									"",
+									"pm.test(\"Should match with each  item course  in response\", () => {",
+									"    const studentUniqueIds= pm.environment.get(\"known:studentUniqueIds\");",
+									"     \t__.each(responseItems, responseItem => {",
+									"        \t      pm.expect(__.includes(studentUniqueIds, responseItem.studentUniqueId)).to.equal(true);",
+									"        });",
 									"});"
 								],
 								"type": "text/javascript"
