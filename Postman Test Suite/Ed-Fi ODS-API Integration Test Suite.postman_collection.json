@@ -4643,13 +4643,6 @@
 									"const responseItems = pm.response.json();",
 									"pm.test(\"Should return 25 item in response\", () => {",
 									"     pm.expect(responseItems).to.have.lengthOf(25);",
-									"});",
-									"",
-									"pm.test(\"Should match with each  item course  in response\", () => {",
-									"    const studentUniqueIds= pm.environment.get(\"known:studentUniqueIds\");",
-									"     \t__.each(responseItems, responseItem => {",
-									"        \t      pm.expect(__.includes(studentUniqueIds, responseItem.studentUniqueId)).to.equal(true);",
-									"        });",
 									"});"
 								],
 								"type": "text/javascript"
