@@ -179,7 +179,7 @@ namespace EdFi.Ods.Common
 
         public static class Security
         {
-            public static string BaseNamespace => $"{OdsBaseNamespace}.{"Security"}";
+            public static string BaseNamespace => $"{OdsBaseNamespace}.Api.{"Security"}";
 
             public static string AuthorizationStrategies => $"{BaseNamespace}.{"AuthorizationStrategies"}";
 
