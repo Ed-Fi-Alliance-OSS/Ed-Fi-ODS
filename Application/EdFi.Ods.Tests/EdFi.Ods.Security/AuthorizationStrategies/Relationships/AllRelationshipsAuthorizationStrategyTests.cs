@@ -13,8 +13,8 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Security.Authorization;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -24,7 +24,7 @@ using QuickGraph;
 using Shouldly;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
     using context_data_provider = IRelationshipsAuthorizationContextDataProvider<RelationshipsAuthorizationContextData>;
     using context_data_provider_factory = IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>;

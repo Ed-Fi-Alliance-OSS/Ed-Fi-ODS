@@ -13,16 +13,16 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Security.Authorization;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
-using EdFi.Ods.Security.Utilities;
+using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.Utilities;
 using FakeItEasy;
 using NHibernate;
 using Npgsql;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
     [TestFixture]
     public class AuthorizationSegmentsSqlProviderTests

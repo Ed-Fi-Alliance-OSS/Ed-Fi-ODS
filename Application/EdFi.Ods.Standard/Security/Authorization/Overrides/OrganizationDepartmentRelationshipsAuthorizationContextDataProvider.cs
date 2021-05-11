@@ -7,7 +7,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Entities.Common.EdFi;
 using EdFi.Ods.Entities.NHibernate.OrganizationDepartmentAggregate.EdFi;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Standard.Security.Authorization.Overrides
 {

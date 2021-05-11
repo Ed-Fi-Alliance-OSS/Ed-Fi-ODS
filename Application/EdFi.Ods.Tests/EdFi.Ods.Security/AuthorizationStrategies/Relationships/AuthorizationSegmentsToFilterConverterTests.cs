@@ -9,7 +9,7 @@ using System.Linq;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.TestFixture;
 using FakeItEasy;
 using FakeItEasy.Configuration;
@@ -18,7 +18,7 @@ using NHibernate.Metadata;
 using Shouldly;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies.Relationships
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
     // -------------------------------------------------------
     // NOTE: This is an exploratory style of unit testing.

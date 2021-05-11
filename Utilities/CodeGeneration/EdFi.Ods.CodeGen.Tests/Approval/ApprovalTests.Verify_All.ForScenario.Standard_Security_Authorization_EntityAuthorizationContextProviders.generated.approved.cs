@@ -4,7 +4,7 @@ using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.Common.EdFi;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
 #region Aggregate Entity Includes
 using EdFi.Ods.Entities.NHibernate.AcademicWeekAggregate.EdFi;
@@ -111,7 +111,7 @@ using EdFi.Ods.Entities.NHibernate.SurveySectionResponseEducationOrganizationTar
 using EdFi.Ods.Entities.NHibernate.SurveySectionResponseStaffTargetAssociationAggregate.EdFi;
 #endregion
 
-namespace EdFi.Ods.Security.Authorization.ContextDataProviders.EdFi
+namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.EdFi
 {
 
     /// <summary>

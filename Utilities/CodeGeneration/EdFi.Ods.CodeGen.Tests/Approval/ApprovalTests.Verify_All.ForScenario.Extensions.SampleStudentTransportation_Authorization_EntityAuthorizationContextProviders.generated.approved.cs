@@ -4,13 +4,13 @@ using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.Common.SampleStudentTransportation;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
 #region Aggregate Entity Includes
 using EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStudentTransportation;
 #endregion
 
-namespace EdFi.Ods.Security.Authorization.ContextDataProviders.SampleStudentTransportation
+namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.SampleStudentTransportation
 {
 
     /// <summary>

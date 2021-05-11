@@ -5,13 +5,13 @@
 
 using System;
 using EdFi.Ods.Common;
-using EdFi.Ods.Security.Conventions;
+using EdFi.Ods.Api.Security.Conventions;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.Conventions
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Conventions
 {
     [TestFixture]
     public class EdFiSecurityConventionsTests

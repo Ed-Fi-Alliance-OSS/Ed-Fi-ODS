@@ -10,7 +10,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Models.Graphs;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.Conventions;
-using EdFi.Ods.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace EdFi.Ods.Features.Container.Modules

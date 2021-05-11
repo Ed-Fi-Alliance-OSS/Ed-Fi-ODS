@@ -16,7 +16,7 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Models;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
