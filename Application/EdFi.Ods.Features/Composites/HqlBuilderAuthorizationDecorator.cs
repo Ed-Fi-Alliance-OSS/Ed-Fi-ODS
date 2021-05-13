@@ -18,8 +18,8 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
-using EdFi.Ods.Security.Authorization;
-using EdFi.Ods.Security.Authorization.Repositories;
+using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
 using log4net;
 
 namespace EdFi.Ods.Features.Composites

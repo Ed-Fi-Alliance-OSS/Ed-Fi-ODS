@@ -4,12 +4,12 @@ using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.Common.SampleStudentTranscript;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
 #region Aggregate Entity Includes
 #endregion
 
-namespace EdFi.Ods.Security.Authorization.ContextDataProviders.SampleStudentTranscript
+namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.SampleStudentTranscript
 {
 
 }

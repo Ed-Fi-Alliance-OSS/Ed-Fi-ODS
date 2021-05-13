@@ -4,14 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Security.AuthorizationStrategies;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using NUnit.Framework;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
 {
     [TestFixture]
     public class AuthorizationContextDataFactoryTests

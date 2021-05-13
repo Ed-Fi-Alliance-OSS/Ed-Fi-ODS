@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Features.Profiles;
-using EdFi.Ods.Security.Profiles;
+using EdFi.Ods.Api.Security.Profiles;
 
 namespace EdFi.Ods.Features.Container.Modules
 {

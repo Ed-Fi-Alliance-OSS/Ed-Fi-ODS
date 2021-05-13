@@ -27,9 +27,9 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Composites.Infrastructure;
-using EdFi.Ods.Security.Authorization;
-using EdFi.Ods.Security.Authorization.Repositories;
-using EdFi.Ods.Security.Claims;
+using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
+using EdFi.Ods.Api.Security.Claims;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
@@ -37,7 +37,7 @@ using Shouldly;
 using Test.Common;
 using Test.Common._Stubs;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Repositories
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
 {
     [TestFixture]
     [SuppressMessage("ReSharper", "InconsistentNaming")]

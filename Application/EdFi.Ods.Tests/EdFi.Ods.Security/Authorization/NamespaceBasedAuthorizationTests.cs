@@ -10,11 +10,11 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Security.AuthorizationStrategies.NamespaceBased;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
 using NUnit.Framework;
 using Shouldly;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
     [TestFixture]
     public class NamespaceBasedAuthorizationStrategyTests

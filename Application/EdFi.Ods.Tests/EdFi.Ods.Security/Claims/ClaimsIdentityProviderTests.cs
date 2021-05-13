@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Security.Claims;
+using EdFi.Ods.Api.Security.Claims;
 using EdFi.Security.DataAccess.Models;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.Tests._Extensions;
@@ -18,7 +18,7 @@ using Shouldly;
 using Test.Common;
 using EdFi.TestFixture;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.Claims
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
 {
     public class ClaimsIdentityProviderTests
     {

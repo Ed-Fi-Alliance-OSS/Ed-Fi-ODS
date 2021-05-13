@@ -42,6 +42,21 @@ namespace EdFi.Ods.Common
 
                 public static string Architecture => $"{BaseNamespace}.Architecture";
             }
+
+            public static class Security
+            {
+                public static string RelativeNamespace => "Api.Security";
+
+                public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
+
+                public static string AuthorizationStrategies => $"{BaseNamespace}.{"AuthorizationStrategies"}";
+
+                public static string Authorization => $"{BaseNamespace}.{"Authorization"}";
+
+                public static string Relationships => $"{AuthorizationStrategies}.{"Relationships"}";
+
+                public static string ContextDataProviders => $"{Authorization}.{"ContextDataProviders"}";
+            }
         }
 
         public static class Resources
@@ -175,19 +190,6 @@ namespace EdFi.Ods.Common
             public static string Security => $"{BaseNamespace}.{"Security"}";
 
             public static string Claims => $"{Security}.{"Claims"}";
-        }
-
-        public static class Security
-        {
-            public static string BaseNamespace => $"{OdsBaseNamespace}.{"Security"}";
-
-            public static string AuthorizationStrategies => $"{BaseNamespace}.{"AuthorizationStrategies"}";
-
-            public static string Authorization => $"{BaseNamespace}.{"Authorization"}";
-
-            public static string Relationships => $"{AuthorizationStrategies}.{"Relationships"}";
-
-            public static string ContextDataProviders => $"{Authorization}.{"ContextDataProviders"}";
         }
 
         public static class XmlShredding

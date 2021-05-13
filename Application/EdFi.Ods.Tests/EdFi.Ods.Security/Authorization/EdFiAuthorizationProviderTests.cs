@@ -16,9 +16,9 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Security.Authorization;
-using EdFi.Ods.Security.AuthorizationStrategies.NoFurtherAuthorization;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Security.DataAccess.Repositories;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
@@ -30,7 +30,7 @@ using Test.Common;
 using Test.Common._Stubs;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
     [TestFixture]
     public class Feature_Validating_the_incoming_AuthorizationContext

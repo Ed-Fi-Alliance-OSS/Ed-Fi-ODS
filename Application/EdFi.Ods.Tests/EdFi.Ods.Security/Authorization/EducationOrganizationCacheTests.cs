@@ -12,7 +12,7 @@ using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Providers;
-using EdFi.Ods.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Caching.Memory;
@@ -21,7 +21,7 @@ using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
     public class EducationOrganizationCacheTests
     {

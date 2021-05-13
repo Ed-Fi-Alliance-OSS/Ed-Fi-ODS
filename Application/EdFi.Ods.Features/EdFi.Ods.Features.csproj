@@ -30,7 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="3.1.10" />

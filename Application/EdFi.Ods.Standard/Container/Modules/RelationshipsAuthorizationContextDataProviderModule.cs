@@ -8,7 +8,7 @@ using System.Configuration;
 using System.Linq;
 using Autofac;
 using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
 namespace EdFi.Ods.Standard.Container.Modules
 {

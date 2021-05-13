@@ -6,7 +6,7 @@
 using EdFi.Common;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common;
-using EdFi.Ods.Security.Profiles;
+using EdFi.Ods.Api.Security.Profiles;
 
 namespace EdFi.Ods.Features.Profiles
 {

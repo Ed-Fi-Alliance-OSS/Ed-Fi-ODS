@@ -4,7 +4,7 @@ using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Entities.Common.Sample;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
 #region Aggregate Entity Includes
 using EdFi.Ods.Entities.NHibernate.BusRouteAggregate.Sample;
@@ -12,7 +12,7 @@ using EdFi.Ods.Entities.NHibernate.StudentArtProgramAssociationAggregate.Sample;
 using EdFi.Ods.Entities.NHibernate.StudentGraduationPlanAssociationAggregate.Sample;
 #endregion
 
-namespace EdFi.Ods.Security.Authorization.ContextDataProviders.Sample
+namespace EdFi.Ods.Api.Security.Authorization.ContextDataProviders.Sample
 {
 
     /// <summary>

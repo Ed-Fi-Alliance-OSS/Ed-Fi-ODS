@@ -5,7 +5,7 @@
 
 using Autofac;
 using EdFi.Ods.Entities.Common.EdFi;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Standard.Security.Authorization.Overrides;
 
 namespace EdFi.Ods.Standard.Container.Modules

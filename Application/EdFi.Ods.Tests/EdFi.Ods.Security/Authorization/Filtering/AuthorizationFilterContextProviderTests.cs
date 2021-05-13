@@ -6,13 +6,13 @@
 using System.Collections.Generic;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.TestFixture;
 using NHibernate;
 using NUnit.Framework;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.Authorization.Filtering
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Filtering
 {
     [TestFixture]
     public class AuthorizationFilterContextProviderTests

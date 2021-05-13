@@ -12,7 +12,7 @@ using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Security.AuthorizationStrategies
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies
 {
     public class When_generating_aliases_using_instance_state : TestFixtureBase
     {

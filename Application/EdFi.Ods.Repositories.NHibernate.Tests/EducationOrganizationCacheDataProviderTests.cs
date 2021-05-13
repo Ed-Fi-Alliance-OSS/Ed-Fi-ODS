@@ -6,7 +6,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Ods.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization;
 using NUnit.Framework;
 using Shouldly;
 
