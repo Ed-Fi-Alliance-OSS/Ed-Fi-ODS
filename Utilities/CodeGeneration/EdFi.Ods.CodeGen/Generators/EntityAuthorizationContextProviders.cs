@@ -75,13 +75,13 @@ namespace EdFi.Ods.CodeGen.Generators
                         EdFiConventions.BuildNamespace(
                             Namespaces.Entities.Common.BaseNamespace,
                             TemplateContext.SchemaProperCaseName),
-                    AuthorizationStrategyNamespace = Namespaces.Security.Relationships,
+                    AuthorizationStrategyNamespace = Namespaces.Api.Security.Relationships,
                     AggregateEntityIncludes = GetAggregateEntityIncludes()
                         .Select(
                             i => new {Include = i}),
                     ContextDataProviderNamespace =
                         EdFiConventions.BuildNamespace(
-                            Namespaces.Security.ContextDataProviders,
+                            Namespaces.Api.Security.ContextDataProviders,
                             TemplateContext.SchemaProperCaseName),
                     ResourcesToRender = _authorizationPropertiesByResource.Select(
                         r => new

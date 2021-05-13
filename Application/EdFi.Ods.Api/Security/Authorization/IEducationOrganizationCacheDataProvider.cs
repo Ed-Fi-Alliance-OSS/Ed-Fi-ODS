@@ -7,7 +7,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Caching;
 
-namespace EdFi.Ods.Api.Security.Authorization {
+namespace EdFi.Ods.Api.Security.Authorization 
+{
     public interface IEducationOrganizationCacheDataProvider
     {
         Task<IEnumerable<EducationOrganizationIdentifiers>> GetAllEducationOrganizationIdentifiers();

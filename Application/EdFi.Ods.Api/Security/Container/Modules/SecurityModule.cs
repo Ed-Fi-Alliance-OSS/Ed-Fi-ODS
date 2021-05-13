@@ -47,7 +47,7 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IAuthorizationSegmentsToFiltersConverter>()
                 .SingleInstance();
 
-            var assembly = typeof(Marker_EdFi_Ods_Security).Assembly;
+            var assembly = typeof(Marker_EdFi_Ods_Api).Assembly;
 
             var strategyTypes = assembly.GetTypes()
                 .Where(t => typeof(IEdFiAuthorizationStrategy).IsAssignableFrom(t) && !t.IsAbstract).ToList();
@@ -71,7 +71,7 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 }
             }
 
-            builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Security).Assembly)
+            builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
                 .Where(t => typeof(INHibernateFilterConfigurator).IsAssignableFrom(t))
                 .As<INHibernateFilterConfigurator>()
                 .SingleInstance();

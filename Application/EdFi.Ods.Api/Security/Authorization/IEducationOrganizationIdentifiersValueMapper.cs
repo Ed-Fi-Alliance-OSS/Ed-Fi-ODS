@@ -5,7 +5,8 @@
 
 using EdFi.Ods.Common.Caching;
 
-namespace EdFi.Ods.Api.Security.Authorization {
+namespace EdFi.Ods.Api.Security.Authorization 
+{
     public interface IEducationOrganizationIdentifiersValueMapper
     {
         /// <summary>
