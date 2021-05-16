@@ -7,22 +7,16 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Extensions;
-using EdFi.Ods.Common;
 using Microsoft.Extensions.Configuration;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Common;
-using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Sandbox.Provisioners;
 using log4net;
 
-namespace EdFi.Ods.Sandbox.Repositories
+namespace EdFi.Admin.DataAccess.Repositories
 {
     public class ClientAppRepo : IClientAppRepo
     {
@@ -235,54 +229,6 @@ namespace EdFi.Ods.Sandbox.Repositories
                 context.ExecuteSqlCommandAsync(
                     @"delete from dbo.ClientAccessTokens where ApiClient_ApiClientId = @p0; delete from dbo.ApiClients where ApiClientId = @p0",
                     client.ApiClientId).Wait();
-            }
-        }
-
-        public async Task<ClientAccessToken> AddClientAccessTokenAsync(int apiClientId, string tokenRequestScope = null)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                var client = await context.Clients.FirstOrDefaultAsync(c => c.ApiClientId == apiClientId);
-
-                if (client == null)
-                {
-                    throw new InvalidOperationException("Cannot add client access token when the client does not exist.");
-                }
-
-                var token = new ClientAccessToken(TimeSpan.FromMinutes(_duration.Value))
-                {
-                    Scope = string.IsNullOrEmpty(tokenRequestScope)
-                        ? null
-                        : tokenRequestScope.Trim()
-                };
-
-                client.ClientAccessTokens.Add(token);
-                await context.SaveChangesAsync();
-                return token;
-            }
-        }
-
-        public ClientAccessToken AddClientAccessToken(int apiClientId, string tokenRequestScope = null)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                var client = context.Clients.FirstOrDefault(c => c.ApiClientId == apiClientId);
-
-                if (client == null)
-                {
-                    throw new InvalidOperationException("Cannot add client access token when the client does not exist.");
-                }
-
-                var token = new ClientAccessToken(TimeSpan.FromMinutes(_duration.Value))
-                {
-                    Scope = string.IsNullOrEmpty(tokenRequestScope)
-                        ? null
-                        : tokenRequestScope.Trim()
-                };
-
-                client.ClientAccessTokens.Add(token);
-                context.SaveChanges();
-                return token;
             }
         }
 

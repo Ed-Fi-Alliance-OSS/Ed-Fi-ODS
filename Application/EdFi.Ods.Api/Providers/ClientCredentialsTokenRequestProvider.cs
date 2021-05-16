@@ -5,13 +5,11 @@
 
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Extensions;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Models.ClientCredentials;
 using EdFi.Ods.Api.Models.Tokens;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Security;
-using EdFi.Ods.Sandbox.Repositories;
 
 namespace EdFi.Ods.Api.Providers
 {
@@ -20,11 +18,16 @@ namespace EdFi.Ods.Api.Providers
     {
         private readonly IApiClientAuthenticator _apiClientAuthenticator;
         private readonly IClientAppRepo _clientAppRepo;
+        private readonly IAccessTokenClientRepo _accessTokenClientRepo;
 
-        public ClientCredentialsTokenRequestProvider(IClientAppRepo clientAppRepo, IApiClientAuthenticator apiClientAuthenticator)
+        public ClientCredentialsTokenRequestProvider(
+            IClientAppRepo clientAppRepo, 
+            IApiClientAuthenticator apiClientAuthenticator,
+            IAccessTokenClientRepo accessTokenClientRepo)
         {
             _clientAppRepo = clientAppRepo;
             _apiClientAuthenticator = apiClientAuthenticator;
+            _accessTokenClientRepo = accessTokenClientRepo;
         }
 
         public async Task<AuthenticationResponse> HandleAsync(TokenRequest tokenRequest)
@@ -86,7 +89,7 @@ namespace EdFi.Ods.Api.Providers
             }
 
             // create a new token
-            var token = await _clientAppRepo.AddClientAccessTokenAsync(client.ApiClientId, tokenRequestScope);
+            var token = await _accessTokenClientRepo.AddClientAccessTokenAsync(client.ApiClientId, tokenRequestScope);
 
             var tokenResponse = new TokenResponse();
             tokenResponse.SetToken(token.Id, (int) token.Duration.TotalSeconds, token.Scope);

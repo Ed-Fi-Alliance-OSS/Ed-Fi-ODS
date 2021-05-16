@@ -6,12 +6,10 @@
 using System;
 using System.Collections.Generic;
 using EdFi.Common.Security;
-using EdFi.Ods.Common.Security;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
-using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Security
 {

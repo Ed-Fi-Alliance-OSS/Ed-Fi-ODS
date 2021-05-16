@@ -5,10 +5,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Models;
 
-namespace EdFi.Ods.Sandbox.Repositories
+namespace EdFi.Admin.DataAccess.Repositories
 {
     public interface IClientAppRepo
     {
@@ -34,10 +33,6 @@ namespace EdFi.Ods.Sandbox.Repositories
         ApiClient UpdateClient(ApiClient client);
 
         void DeleteClient(string key);
-
-        ClientAccessToken AddClientAccessToken(int apiClientId, string tokenRequestScope = null);
-
-        Task<ClientAccessToken> AddClientAccessTokenAsync(int apiClientId, string tokenRequestScope = null);
 
         void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName);
 

@@ -6,7 +6,6 @@
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Ods.Sandbox.Repositories;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;
@@ -16,8 +15,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 
 // ReSharper disable InconsistentNaming
 
@@ -54,7 +53,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
             A.CallTo(() => Factory.CreateContext())
                 .Returns(new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin")));
 
-            SystemUnderTest = new AccessTokenClientRepo(Factory);
+            SystemUnderTest = new AccessTokenClientRepo(Factory, config);
 
             TestFixtureContext = new SqlServerUsersContext(connectionStringProvider.GetConnectionString("EdFi_Admin"));
         }

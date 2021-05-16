@@ -33,7 +33,6 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Validation;
-using EdFi.Ods.Sandbox.Security;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -190,11 +189,6 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<ApiClientAuthenticator>()
                 .As<IApiClientAuthenticator>()
-                .SingleInstance();
-
-            builder.RegisterType<EdFiAdminApiClientIdentityProvider>()
-                .As<IApiClientIdentityProvider>()
-                .As<IApiClientSecretProvider>()
                 .SingleInstance();
 
             builder.RegisterType<PackedHashConverter>()

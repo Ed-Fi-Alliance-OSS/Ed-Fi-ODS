@@ -5,9 +5,8 @@
 
 using System;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common;
-using EdFi.Ods.Common;
-using EdFi.Ods.Sandbox.Repositories;
 
 namespace EdFi.Ods.Api.Authentication
 {
