@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using Autofac;
 using Autofac.Core;
+using EdFi.Admin.DataAccess.Security;
 using EdFi.Common.Configuration;
 using EdFi.Common.Security;
 using EdFi.Ods.Api.Authentication;
@@ -189,6 +190,11 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<ApiClientAuthenticator>()
                 .As<IApiClientAuthenticator>()
+                .SingleInstance();
+
+            builder.RegisterType<EdFiAdminApiClientIdentityProvider>()
+                .As<IApiClientIdentityProvider>()
+                .As<IApiClientSecretProvider>()
                 .SingleInstance();
 
             builder.RegisterType<PackedHashConverter>()
