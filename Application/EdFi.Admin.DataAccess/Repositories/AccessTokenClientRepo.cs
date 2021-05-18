@@ -40,8 +40,6 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                     return duration;
                 });
-
-
         }
 
         public async Task<IReadOnlyList<OAuthTokenClient>> GetClientForTokenAsync(Guid accessToken)
