@@ -6,12 +6,12 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Features.TokenInfo;
-using EdFi.Ods.Sandbox.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -7,11 +7,10 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Security;
-using EdFi.Ods.Sandbox.Repositories;
-using EdFi.Ods.Common.Security;
 
-namespace EdFi.Ods.Sandbox.Security
+namespace EdFi.Admin.DataAccess.Security
 {
     public class EdFiAdminApiClientIdentityProvider : IApiClientSecretProvider, IApiClientIdentityProvider
     {

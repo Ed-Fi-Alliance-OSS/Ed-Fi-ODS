@@ -5,7 +5,6 @@
 
 using System;
 using EdFi.Common.Security;
-using EdFi.Ods.Common.Security;
 using EdFi.TestFixture;
 using FakeItEasy;
 using NUnit.Framework;

@@ -5,8 +5,8 @@
 
 using System;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Ods.Api.Authentication;
-using EdFi.Ods.Sandbox.Repositories;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;

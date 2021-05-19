@@ -6,8 +6,6 @@
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Models.Tokens;
-using EdFi.Ods.Common.Security;
-using EdFi.Ods.Sandbox.Repositories;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
@@ -18,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Security;
 using Test.Common;
 
@@ -30,6 +29,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class With_No_Header_Request : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -48,6 +48,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 //// Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
@@ -60,7 +62,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     Id = _suppliedAccessToken
                 };
 
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
                     .Returns(accessToken);
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
@@ -72,7 +74,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -107,7 +109,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_not_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                     .MustNotHaveHappened();
             }
         }
@@ -115,6 +117,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class With_Header_Invalid_Bearer_Token_Request : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -133,6 +136,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 //// Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
@@ -145,7 +150,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     Id = _suppliedAccessToken
                 };
 
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
                     .Returns(accessToken);
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
@@ -157,7 +162,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -194,7 +199,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_not_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                     .MustNotHaveHappened();
             }
         }
@@ -202,6 +207,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class With_valid_key_and_secret : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -221,6 +227,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 //// Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
@@ -233,7 +241,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                     Id = _suppliedAccessToken
                 };
 
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
                     .Returns(accessToken);
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
@@ -245,7 +253,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -308,7 +316,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                     .MustHaveHappened();
             }
         }
@@ -316,6 +324,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class With_a_scope_matching_an_associated_EdOrgId : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -351,11 +360,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 // Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
 
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
                     .Returns(
                         new ClientAccessToken(new TimeSpan(0, 10, 0))
                         {
@@ -372,7 +383,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -439,7 +450,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId_and_scope()
             {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, _requestedScope))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, _requestedScope))
                     .MustHaveHappened();
             }
         }
@@ -447,6 +458,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class With_a_scope_not_matching_an_associated_EdOrgId : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -477,6 +489,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 // Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
@@ -492,7 +506,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -549,7 +563,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_NOT_use_ClientAppRepo_to_create_token()
             {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                     .MustNotHaveHappened();
             }
         }
@@ -557,6 +571,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class With_a_scope_that_is_not_a_number : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -587,6 +602,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 // Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
@@ -602,7 +619,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -668,7 +685,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_NOT_use_ClientAppRepo_to_create_token()
             {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                     .MustNotHaveHappened();
             }
         }
@@ -678,6 +695,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -694,13 +712,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                 // Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
 
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
                     .Returns(
                         new ClientAccessToken(new TimeSpan(0, 10, 0))
                         {
@@ -717,7 +737,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -774,7 +794,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_not_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                     .MustNotHaveHappened();
             }
         }
@@ -784,6 +804,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -801,13 +822,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 _clientAppRepo = Stub<IClientAppRepo>();
 
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                 // Simulate a successful lookup of the client id/secret
                 A.CallTo(() => _clientAppRepo.GetClientAsync(A<string>._))
                     .Returns(Task.FromResult(_suppliedClient));
 
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
                     .Returns(
                         new ClientAccessToken(new TimeSpan(0, 10, 0))
                         {
@@ -824,7 +847,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -881,7 +904,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             [Test]
             public void Should_not_use_ClientAppRepo_to_create_token_using_the_supplied_ApiClientId()
             {
-                A.CallTo(() => _clientAppRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
                     .MustNotHaveHappened();
             }
         }
@@ -889,6 +912,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class Using_digest_authorization : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -898,6 +922,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override Task ArrangeAsync()
             {
                 _clientAppRepo = Stub<IClientAppRepo>();
+
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
@@ -909,7 +936,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -943,6 +970,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class Using_basic_authorization_with_no_value : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -952,6 +980,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override Task ArrangeAsync()
             {
                 _clientAppRepo = Stub<IClientAppRepo>();
+
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
 
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
@@ -964,7 +994,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -998,6 +1028,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class Using_basic_authorization_with_invalid_value : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
             private IActionResult _actionResult;
@@ -1006,6 +1037,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override Task ArrangeAsync()
             {
                 _clientAppRepo = Stub<IClientAppRepo>();
+
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
 
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
@@ -1018,7 +1051,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -1052,6 +1085,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class Using_basic_authorization_with_unencoded_value : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -1061,6 +1095,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override Task ArrangeAsync()
             {
                 _clientAppRepo = Stub<IClientAppRepo>();
+
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
 
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
@@ -1073,7 +1109,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -1108,6 +1144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class With_an_incorrect_client_id_and_secret : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
             private IActionResult _actionResult;
@@ -1116,6 +1153,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override Task ArrangeAsync()
             {
                 _clientAppRepo = Stub<IClientAppRepo>();
+
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
@@ -1123,7 +1163,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                         Task.FromResult(
                             new ApiClientAuthenticator.AuthenticationResult {IsAuthenticated = false}));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -1163,6 +1203,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class With_an_empty_secret : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -1172,6 +1213,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override Task ArrangeAsync()
             {
                 _clientAppRepo = Stub<IClientAppRepo>();
+
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
 
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
@@ -1184,7 +1227,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }
@@ -1226,6 +1269,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
         public class With_a_missing_secret : TestFixtureAsyncBase
         {
             private IClientAppRepo _clientAppRepo;
+            private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private TokenController _controller;
 
@@ -1235,6 +1279,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             protected override Task ArrangeAsync()
             {
                 _clientAppRepo = Stub<IClientAppRepo>();
+
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
                 _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
 
                 A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
@@ -1246,7 +1293,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
                                 ApiClientIdentity = new ApiClientIdentity {Key = "clientId"}
                             }));
 
-                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator);
+                _controller = ControllerHelper.CreateTokenController(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
 
                 return Task.CompletedTask;
             }

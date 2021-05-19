@@ -5,24 +5,25 @@
 
 using EdFi.Ods.Api.Controllers;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common.Security;
-using EdFi.Ods.Sandbox.Repositories;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Text;
+using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Security;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 {
     public static class ControllerHelper
     {
-        public static TokenController CreateTokenController(IClientAppRepo clientAppRepo,
-            IApiClientAuthenticator apiClientAuthenticator)
+        public static TokenController CreateTokenController(
+            IClientAppRepo clientAppRepo,
+            IApiClientAuthenticator apiClientAuthenticator,
+            IAccessTokenClientRepo accessTokenClientRepo)
         {
-            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(clientAppRepo, apiClientAuthenticator);
+            var tokenRequestProvider = new ClientCredentialsTokenRequestProvider(clientAppRepo, apiClientAuthenticator, accessTokenClientRepo);
             var controller = new TokenController(tokenRequestProvider);
             var request = A.Fake<HttpRequest>();
             request.Method = "Post";

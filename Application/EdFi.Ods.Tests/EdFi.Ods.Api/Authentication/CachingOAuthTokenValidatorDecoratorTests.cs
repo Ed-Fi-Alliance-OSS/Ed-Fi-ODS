@@ -10,7 +10,6 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;

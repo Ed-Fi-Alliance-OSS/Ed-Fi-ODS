@@ -8,12 +8,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
 
-namespace EdFi.Ods.Sandbox.Repositories
+namespace EdFi.Admin.DataAccess.Repositories
 {
     public interface IAccessTokenClientRepo
     {
         Task<IReadOnlyList<OAuthTokenClient>> GetClientForTokenAsync(Guid accessToken);
 
         Task DeleteExpiredTokensAsync();
+
+        ClientAccessToken AddClientAccessToken(int apiClientId, string tokenRequestScope = null);
+
+        Task<ClientAccessToken> AddClientAccessTokenAsync(int apiClientId, string tokenRequestScope = null);
     }
 }
