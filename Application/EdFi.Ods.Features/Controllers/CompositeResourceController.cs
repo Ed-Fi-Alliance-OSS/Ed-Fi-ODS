@@ -42,6 +42,7 @@ namespace EdFi.Ods.Features.Controllers
                 "id",
                 "organizationCode",
                 "schoolYearFromRoute",
+                "instanceIdFromRoute",
                 "action" // required for net core
             };
         private readonly ICompositesMetadataProvider _compositeMetadataProvider;
