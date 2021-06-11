@@ -7,6 +7,8 @@
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
     <RestorePackages>true</RestorePackages>
     <OutputType>Library</OutputType>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -45,5 +47,9 @@
     <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
+    <Content Include="../../NOTICES.md" Link="NOTICES.md" CopyToPublishDirectory="Always" />
   </ItemGroup>
 </Project>
