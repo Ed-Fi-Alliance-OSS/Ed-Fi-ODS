@@ -8,7 +8,6 @@
     <RootNamespace>EdFi.Ods.Common</RootNamespace>
     <AssemblyName>EdFi.Ods.Common</AssemblyName>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -39,9 +38,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Metadata\Schemas\Ed-Fi-ODS-API-Profiles.xsd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\..\LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
-    <Content Include="..\..\NOTICES.md"  Link="NOTICES.md"  CopyToPublishDirectory="Always" />
   </ItemGroup>
 </Project>
