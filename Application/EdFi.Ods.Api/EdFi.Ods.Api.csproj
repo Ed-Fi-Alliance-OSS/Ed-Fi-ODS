@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>  
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>EdFi.Ods.Api</AssemblyName>
     <RootNamespace>EdFi.Ods.Api</RootNamespace>
@@ -46,5 +47,8 @@
     <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
+  </ItemGroup>
+    <ItemGroup>
+    <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
 </Project>

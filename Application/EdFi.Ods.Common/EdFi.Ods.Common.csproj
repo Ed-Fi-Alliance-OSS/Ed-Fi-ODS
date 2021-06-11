@@ -39,4 +39,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Metadata\Schemas\Ed-Fi-ODS-API-Profiles.xsd" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+  </ItemGroup>
 </Project>
