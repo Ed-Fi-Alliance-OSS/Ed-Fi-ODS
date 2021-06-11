@@ -49,7 +49,7 @@
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
-    <Content Include="../../NOTICES.md" Link="NOTICES.md" CopyToPublishDirectory="Always" />
+    <Content Include="..\..\LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
+    <Content Include="..\..\NOTICES.md" Link="NOTICES.md" CopyToPublishDirectory="Always" />
   </ItemGroup>
 </Project>

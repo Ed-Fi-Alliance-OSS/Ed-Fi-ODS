@@ -41,7 +41,7 @@
     <EmbeddedResource Include="Metadata\Schemas\Ed-Fi-ODS-API-Profiles.xsd" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
-    <Content Include="../../NOTICES.md"  Link="NOTICES.md"  CopyToPublishDirectory="Always" />
+    <Content Include="..\..\LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
+    <Content Include="..\..\NOTICES.md"  Link="NOTICES.md"  CopyToPublishDirectory="Always" />
   </ItemGroup>
 </Project>
