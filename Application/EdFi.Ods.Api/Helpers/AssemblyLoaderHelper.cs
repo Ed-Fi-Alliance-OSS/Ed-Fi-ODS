@@ -108,7 +108,8 @@ namespace EdFi.Ods.Api.Helpers
                    && !assemblyName.StartsWithIgnoreCase("System.")
                    && !assemblyName.StartsWithIgnoreCase("Newtonsoft.")
                    && assemblyName != "netstandard"
-                   && !assemblyName.StartsWithIgnoreCase("Autofac");
+                   && !assemblyName.StartsWithIgnoreCase("Autofac")
+                   && !assemblyName.StartsWithIgnoreCase("nunit");
         }
 
         public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false)
@@ -173,7 +174,7 @@ namespace EdFi.Ods.Api.Helpers
             {
                 pluginAssemblyLoadContext.Unload();
             }
-            
+
             static FluentValidationObjectValidator GetExtensionValidator()
             {
                 return new FluentValidationObjectValidator(
