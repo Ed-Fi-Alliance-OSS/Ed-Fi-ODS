@@ -17,7 +17,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         {
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
         }
-       
+
         public IDictionary<string, Parameter> Create(bool isCompositeContext)
         {
             var parameters = new Dictionary<string, Parameter>
@@ -57,7 +57,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             "Used in synchronization to set sequence minimum ChangeVersion",
                         @in = "query",
                         type = "integer",
-                        format = "int32",
+                        format = "int64",
                         required = false
                     }
                 },
@@ -69,7 +69,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             "Used in synchronization to set sequence maximum ChangeVersion",
                         @in = "query",
                         type = "integer",
-                        format = "int32",
+                        format = "int64",
                         required = false
                     }
                 },
