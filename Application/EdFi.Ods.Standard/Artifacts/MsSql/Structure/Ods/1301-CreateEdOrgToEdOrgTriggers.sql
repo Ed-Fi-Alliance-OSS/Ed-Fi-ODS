@@ -30,5 +30,10 @@ BEGIN
     DELETE FROM auth.EducationOrganizationIdToEducationOrganizationId
     WHERE SourceEducationOrganizationId IN (SELECT EducationOrganizationId FROM deleted)
     AND TargetEducationOrganizationId IN (SELECT EducationOrganizationId FROM deleted)
+    DELETE auth.EducationOrganizationIdToEducationOrganizationId
+    FROM auth.EducationOrganizationIdToEducationOrganizationId
+    INNER JOIN deleted d
+        ON SourceEducationOrganizationId = d.EducationOrganizationId
+        AND TargetEducationOrganizationId = d.EducationOrganizationId
 END
 GO
