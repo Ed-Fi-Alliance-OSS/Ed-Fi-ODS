@@ -12,24 +12,9 @@ BEGIN
 END
 GO
 
-CREATE TRIGGER edfi.edfi_EducationOrganization_TR_Update ON edfi.EducationOrganization AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON
-    UPDATE auth.EducationOrganizationIdToEducationOrganizationId
-    SET SourceEducationOrganizationId = i.EducationOrganizationId,
-        TargetEducationOrganizationId = i.EducationOrganizationId
-    FROM inserted i
-    WHERE SourceEducationOrganizationId IN (SELECT EducationOrganizationId FROM deleted)
-    AND TargetEducationOrganizationId IN (SELECT EducationOrganizationId FROM deleted)
-END
-GO
-
 CREATE TRIGGER edfi.edfi_EducationOrganization_TR_Delete ON edfi.EducationOrganization AFTER DELETE AS
 BEGIN
     SET NOCOUNT ON
-    DELETE FROM auth.EducationOrganizationIdToEducationOrganizationId
-    WHERE SourceEducationOrganizationId IN (SELECT EducationOrganizationId FROM deleted)
-    AND TargetEducationOrganizationId IN (SELECT EducationOrganizationId FROM deleted)
     DELETE auth.EducationOrganizationIdToEducationOrganizationId
     FROM auth.EducationOrganizationIdToEducationOrganizationId
     INNER JOIN deleted d
