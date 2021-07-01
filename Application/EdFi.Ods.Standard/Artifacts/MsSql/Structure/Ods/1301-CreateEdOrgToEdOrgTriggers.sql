@@ -12,13 +12,18 @@ BEGIN
 END
 GO
 
-CREATE TRIGGER edfi.edfi_EducationOrganization_TR_Delete ON edfi.EducationOrganization AFTER DELETE AS
+CREATE TRIGGER edfi.edfi_EducationOrganization_TR_Delete ON edfi.EducationOrganization INSTEAD OF DELETE AS
 BEGIN
     SET NOCOUNT ON
     DELETE auth.EducationOrganizationIdToEducationOrganizationId
     FROM auth.EducationOrganizationIdToEducationOrganizationId
     INNER JOIN deleted d
         ON SourceEducationOrganizationId = d.EducationOrganizationId
-        AND TargetEducationOrganizationId = d.EducationOrganizationId
+        OR TargetEducationOrganizationId = d.EducationOrganizationId
+
+    DELETE edfi.EducationOrganization
+    FROM edfi.EducationOrganization eo
+    INNER JOIN deleted d
+        ON eo.EducationOrganizationId = d.EducationOrganizationId
 END
 GO
