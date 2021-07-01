@@ -36,8 +36,6 @@ namespace EdFi.LoadTools.BulkLoadClient
 
                 var bulkLoadClientConfiguration = BulkLoadClientConfiguration.Create(configuration);
 
-                await LoadXsdFiles(bulkLoadClientConfiguration, odsVersionInformation);
-
                 var container = RegisterContainer(configuration, odsVersionInformation, bulkLoadClientConfiguration);
 
                 await using var scope = container.BeginLifetimeScope();
@@ -48,6 +46,8 @@ namespace EdFi.LoadTools.BulkLoadClient
                 {
                     throw new InvalidOperationException(validator.ErrorText);
                 }
+
+                await LoadXsdFiles(bulkLoadClientConfiguration, odsVersionInformation);
 
                 // run application
                 exitCode = await container.Resolve<IApiLoaderApplication>().Run();
