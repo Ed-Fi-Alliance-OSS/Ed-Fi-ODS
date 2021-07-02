@@ -161,8 +161,8 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
                 ApiUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:ApiUrl")),
                 MetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:MetadataUrl")),
                 DependenciesUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:DependenciesUrl")),
-                OauthUrl = configuration.GetValue<string>("OdsApi:OAuthUrl"),
-                XsdMetadataUrl = configuration.GetValue<string>("OdsApi:XsdMetadataUrl"),
+                OauthUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:OAuthUrl")),
+                XsdMetadataUrl = ResolvedUrl(configuration.GetValue<string>("OdsApi:XsdMetadataUrl")),
                 Extension = configuration.GetValue<string>("OdsApi:Extension"),
                 ApiMode =  apiMode
             };
