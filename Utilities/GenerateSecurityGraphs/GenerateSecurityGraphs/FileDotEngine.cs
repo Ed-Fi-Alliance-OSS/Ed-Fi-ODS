@@ -36,7 +36,7 @@ namespace GenerateSecurityGraphs
 
             // API doesn't seem to support HTML based nodes, so we need to drop the quotes on the label output.
             string mungedDot = Regex.Replace(
-                dot,
+                Regex.Unescape(dot),
                 @"label=""(<.*?>)""",
                 "label=$1", RegexOptions.Singleline);
 
