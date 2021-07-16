@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Shouldly;
 
@@ -9,7 +10,7 @@ namespace EdFi.Ods.Api.IntegrationTests
     public class EducationOrganizationTests
     {
         [Test]
-        public void InsertAndDeleteSingleEducationOrganization()
+        public async Task InsertAndDeleteSingleEducationOrganization()
         {
             var educationOrganizations = new List<(int, string)>
             {
@@ -18,18 +19,21 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var expectedEducationOrganizationIdToToEducationOrganizationId = new List<(int, int)> {(99990000, 99990000)};
 
-            EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations)
-                .ShouldBe(educationOrganizations.Count);
+            (await EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations)).ShouldBe(
+                educationOrganizations.Count);
 
             expectedEducationOrganizationIdToToEducationOrganizationId.ForEach(
-                x => { EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x).ShouldBeTrue(); });
+                async x =>
+                {
+                    (await EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x)).ShouldBeTrue();
+                });
 
-            EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList())
+            (await EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList()))
                 .ShouldBe(educationOrganizations.Count);
         }
 
         [Test]
-        public void InsertAndDeleteMultipleEducationOrganizations()
+        public async Task InsertAndDeleteMultipleEducationOrganizations()
         {
             var educationOrganizations = new List<(int, string)>
             {
@@ -45,13 +49,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (99990002, 99990002)
             };
 
-            EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations)
+            (await EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations))
                 .ShouldBe(educationOrganizations.Count);
 
             expectedEducationOrganizationIdToToEducationOrganizationId.ForEach(
-                x => EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x).ShouldBeTrue());
+                async x => (await EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x))
+                    .ShouldBeTrue());
 
-            EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList())
+            (await EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList()))
                 .ShouldBe(educationOrganizations.Count);
         }
     }

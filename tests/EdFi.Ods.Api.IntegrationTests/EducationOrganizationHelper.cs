@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class EducationOrganizationHelper
     {
-        public static int InsertEducationOrganizations(List<(int, string)> educationOrganizations)
+        public static async Task<int> InsertEducationOrganizations(List<(int, string)> educationOrganizations)
         {
             var sql = new StringBuilder(
                 @"INSERT INTO edfi.EducationOrganization (
@@ -31,14 +32,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                     'edfi.{x.Item2}')"
                 ));
 
-            using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
+            await using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
             connection.Open();
 
-            using var command = new SqlCommand(sql.ToString(), connection);
-            return command.ExecuteNonQuery();
+            await using var command = new SqlCommand(sql.ToString(), connection);
+            return await command.ExecuteNonQueryAsync();
         }
 
-        public static bool QueryEducationOrganizationIdToToEducationOrganizationId((int, int) sourceTargetTuple)
+        public static async Task<bool> QueryEducationOrganizationIdToToEducationOrganizationId((int, int) sourceTargetTuple)
         {
             (int source, int target) = sourceTargetTuple;
 
@@ -47,25 +48,25 @@ namespace EdFi.Ods.Api.IntegrationTests
                 FROM auth.EducationOrganizationIdToEducationOrganizationId
                 WHERE SourceEducationOrganizationId = {source} AND TargetEducationOrganizationId = {target}";
 
-            using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
+            await using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
             connection.Open();
 
-            using var command = new SqlCommand(sql, connection);
-            return 1 == Convert.ToInt32(command.ExecuteScalar());
+            await using var command = new SqlCommand(sql, connection);
+            return 1 == Convert.ToInt32(await command.ExecuteScalarAsync());
         }
 
-        public static int DeleteEducationOrganizations(List<int> educationOrganizationIds)
+        public static async Task<int> DeleteEducationOrganizations(List<int> educationOrganizationIds)
         {
             var sql = @$"
                 DELETE FROM edfi.EducationOrganization
                 WHERE EducationOrganizationId 
                     IN ({string.Join(", ", educationOrganizationIds)})";
 
-            using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
+            await using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
             connection.Open();
 
-            using var command = new SqlCommand(sql, connection);
-            return command.ExecuteNonQuery();
+            await using var command = new SqlCommand(sql, connection);
+            return await command.ExecuteNonQueryAsync();
         }
     }
 }
