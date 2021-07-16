@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Features.Conventions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -36,8 +35,12 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 .As<IAvailableChangeVersionProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<GetDeletedResourceIds>()
-                .As<IGetDeletedResourceIds>()
+            builder.RegisterType<GetDeletedResourceItems>()
+                .As<IGetDeletedResourceItems>()
+                .SingleInstance();
+
+            builder.RegisterType<GetKeyChanges>()
+                .As<IGetKeyChanges>()
                 .SingleInstance();
 
             builder.RegisterType<AvailableChangeVersionsRouteConvention>()
