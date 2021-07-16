@@ -15,11 +15,13 @@ namespace EdFi.Ods.Features.ChangeQueries
         /// <summary>
         /// Gets or sets the earliest (oldest) change version that is available, or 0 if no version is available.
         /// </summary>
+        [DataMember(Name = "oldestChangeVersion")]
         public long OldestChangeVersion { get; set; }
 
         /// <summary>
         /// Gets or sets the most recent (newest) change version that is available, or 0 if no version is available.
         /// </summary>
+        [DataMember(Name = "newestChangeVersion")]
         public long NewestChangeVersion { get; set; }
     }
 }
