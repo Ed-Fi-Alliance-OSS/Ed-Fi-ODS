@@ -4,17 +4,17 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Net.Mime;
-using EdFi.Ods.Api.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Queries;
+using EdFi.Ods.Features.ChangeQueries.Repositories;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace EdFi.Ods.Features.Controllers
+namespace EdFi.Ods.Features.ChangeQueries.Controllers
 {
     [Authorize]
     [ApiController]
@@ -22,13 +22,13 @@ namespace EdFi.Ods.Features.Controllers
     [Route("{schema}/{resource}/deletes")]
     public class DeletesController : ControllerBase
     {
-        private readonly IGetDeletedResourceIds _getDeletedResourceIdsRepository;
+        private readonly IGetDeletedResourceItems _getDeletedResourceItemsRepository;
         private readonly ILog _logger = LogManager.GetLogger(typeof(DeletesController));
         private readonly bool _isEnabled;
 
-        public DeletesController(IGetDeletedResourceIds getDeletedResourceIds, ApiSettings apiSettings)
+        public DeletesController(IGetDeletedResourceItems getDeletedResourceItems, ApiSettings apiSettings)
         {
-            _getDeletedResourceIdsRepository = getDeletedResourceIds;
+            _getDeletedResourceItemsRepository = getDeletedResourceItems;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
         }
 
@@ -42,12 +42,18 @@ namespace EdFi.Ods.Features.Controllers
             }
             var queryParameter = new QueryParameters(urlQueryParametersRequest);
 
-            var result = _getDeletedResourceIdsRepository.Execute(schema, resource, queryParameter);
+            var deletedItemsResponse = _getDeletedResourceItemsRepository.Execute(schema, resource, queryParameter);
 
+            // Add the total count, if requested
+            if (urlQueryParametersRequest.TotalCount)
+            {
+                Response.Headers.Add("Total-Count", deletedItemsResponse.Count.ToString());
+            }
+            
             // Explicitly serialize the response to remain backwards compatible with pre .net core
             return new ContentResult
             {
-                Content = JsonConvert.SerializeObject(result),
+                Content = JsonConvert.SerializeObject(deletedItemsResponse),
                 ContentType = MediaTypeNames.Application.Json,
                 StatusCode = StatusCodes.Status200OK
             };
