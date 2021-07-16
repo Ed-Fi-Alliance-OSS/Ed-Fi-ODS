@@ -23,8 +23,8 @@ namespace EdFi.Ods.Features.ChangeQueries
         public const string ChangeVersionColumnName = "ChangeVersion";
 
         /// <summary>
-        /// Prefix applied to the schema name holding the tracked delete tables for a data standard schema.
+        /// Prefix applied to the schema name holding the tracked change tables for a data standard schema.
         /// </summary>
-        public const string TrackedDeletesSchemaPrefix = "Tracked_Deletes_";
+        public const string TrackedChangesSchemaPrefix = "Tracked_Changes_";
     }
 }
