@@ -27,10 +27,11 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             if (string.IsNullOrWhiteSpace(connectionString))
             {
-                throw new ApplicationException("Invalid configuration for integration tests.  Verify a valid connection string for 'EdFi_Ods'");
+                throw new ApplicationException(
+                    "Invalid configuration for integration tests.  Verify a valid connection string for 'EdFi_Ods'");
             }
 
-            var connectionStringBuilder = new DbConnectionStringBuilder { ConnectionString = connectionString };
+            var connectionStringBuilder = new DbConnectionStringBuilder {ConnectionString = connectionString};
             var sourceDatabaseName = connectionStringBuilder["Database"] as string;
             var testDatabaseName = $"{DatabasePrefix}{Guid.NewGuid():N}";
 

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 using Shouldly;
 
@@ -19,20 +16,16 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (99990000, "LocalEducationAgency"),
             };
 
-            var expectedEducationOrganizationIdToToEducationOrganizationId = new List<(int, int)>
-            {
-                (99990000, 99990000)
-            };
+            var expectedEducationOrganizationIdToToEducationOrganizationId = new List<(int, int)> {(99990000, 99990000)};
 
-            EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations).ShouldBe(educationOrganizations.Count);
+            EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations)
+                .ShouldBe(educationOrganizations.Count);
 
             expectedEducationOrganizationIdToToEducationOrganizationId.ForEach(
-                x =>
-                {
-                    EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x).ShouldBeTrue();
-                });
+                x => { EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x).ShouldBeTrue(); });
 
-            EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList()).ShouldBe(educationOrganizations.Count);
+            EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList())
+                .ShouldBe(educationOrganizations.Count);
         }
 
         [Test]
@@ -52,15 +45,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (99990002, 99990002)
             };
 
-            EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations).ShouldBe(educationOrganizations.Count);
+            EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations)
+                .ShouldBe(educationOrganizations.Count);
 
             expectedEducationOrganizationIdToToEducationOrganizationId.ForEach(
-                x =>
-                {
-                    EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x).ShouldBeTrue();
-                });
+                x => EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x).ShouldBeTrue());
 
-            EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList()).ShouldBe(educationOrganizations.Count);
+            EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList())
+                .ShouldBe(educationOrganizations.Count);
         }
     }
 }

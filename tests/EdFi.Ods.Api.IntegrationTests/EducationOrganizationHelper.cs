@@ -40,10 +40,12 @@ namespace EdFi.Ods.Api.IntegrationTests
 
         public static bool QueryEducationOrganizationIdToToEducationOrganizationId((int, int) sourceTargetTuple)
         {
+            (int source, int target) = sourceTargetTuple;
+
             var sql = @$"
                 SELECT COUNT(*)
                 FROM auth.EducationOrganizationIdToEducationOrganizationId
-                WHERE SourceEducationOrganizationId = {sourceTargetTuple.Item1} AND TargetEducationOrganizationId = {sourceTargetTuple.Item2}";
+                WHERE SourceEducationOrganizationId = {source} AND TargetEducationOrganizationId = {target}";
 
             using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
             connection.Open();
