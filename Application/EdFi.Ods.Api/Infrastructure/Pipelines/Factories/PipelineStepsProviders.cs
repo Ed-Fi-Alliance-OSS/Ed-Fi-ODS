@@ -43,20 +43,6 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
     }
 
     /// <summary>
-    /// Provides the core Ed-Fi ODS API steps for "GetTrackedDelete" access.
-    /// </summary>
-    public class GetDeletedResourceIdsPipelineStepsProvider : IGetDeletedResourceIdsPipelineStepsProvider
-    {
-        public Type[] GetSteps()
-        {
-            return new[]
-            {
-                typeof(GetDeletedResourceModelByIds<,,>),
-                   };
-        }
-    }
-
-    /// <summary>
     /// Provides the core Ed-Fi ODS API steps for "Upsert" persistence.
     /// </summary>
     public class PutPipelineStepsProvider : IPutPipelineStepsProvider
