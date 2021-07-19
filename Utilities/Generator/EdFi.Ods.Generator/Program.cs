@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,6 +13,7 @@ using EdFi.Ods.Generator.Modules;
 using EdFi.Ods.Generator.Rendering;
 using log4net;
 using log4net.Config;
+using Weikio.PluginFramework.Abstractions;
 using Weikio.PluginFramework.Catalogs;
 
 namespace EdFi.Ods.Generator
@@ -26,7 +28,7 @@ namespace EdFi.Ods.Generator
     {
         private static ILog _logger;
 
-        private static readonly CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private static readonly CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
         private static async Task<int> Main(string[] args)
         {
@@ -62,7 +64,7 @@ namespace EdFi.Ods.Generator
             Console.CancelKeyPress += (o, e) =>
             {
                 _logger.Warn("Ctrl-C Pressed. Stopping all threads.");
-                _cancellationTokenSource.Cancel();
+                CancellationTokenSource.Cancel();
                 e.Cancel = true;
             };
             
@@ -74,7 +76,7 @@ namespace EdFi.Ods.Generator
 
                 _logger.Info("Starting generation.");
 
-                var cancellationToken = _cancellationTokenSource.Token;
+                var cancellationToken = CancellationTokenSource.Token;
 
                 await container.Resolve<IRenderingManager>()
                     .RenderAllAsync(cancellationToken)
@@ -82,7 +84,7 @@ namespace EdFi.Ods.Generator
 
                 stopwatch.Stop();
 
-                _logger.Info($"Complete generation in {stopwatch.Elapsed.ToString()}.");
+                _logger.Info($"Completed generation in {stopwatch.Elapsed.ToString()}.");
 
                 return ReturnCodes.Success;
             }
@@ -120,44 +122,66 @@ namespace EdFi.Ods.Generator
             containerBuilder.RegisterInstance(configuration);
             
             // TODO: Handle plugins with paths through Options / command-line parameter
-            string ndeAssemblyFileName =
-                @"C:\Projects\EdFi\w\Ed-Fi-ODS\Utilities\Generator\Nde.Adviser.Lds.SqlGeneration\bin\Debug\netcoreapp3.1\Nde.Adviser.Lds.SqlGeneration.dll";
-
-            var ndeAssemblyPluginCatalog = new AssemblyPluginCatalog(ndeAssemblyFileName, type => type.Implements<IRenderingPlugin>());
-            var assemblyPluginCatalog = new AssemblyPluginCatalog(Assembly.GetExecutingAssembly(),type => type.Implements<IRenderingPlugin>());
-
-            var compositePluginCatalog = new CompositePluginCatalog(ndeAssemblyPluginCatalog, assemblyPluginCatalog);
+            var pluginCatalogs = GetPluginCatalogs(options.Plugins).ToArray();
+            var compositePluginCatalog = new CompositePluginCatalog(pluginCatalogs);
             compositePluginCatalog.Initialize();
 
             var plugins = compositePluginCatalog.GetPlugins();
 
+            var pluginTypes = new HashSet<Type>();
+            
             foreach (var plugin in plugins)
             {
-                var pluginInstance = (IRenderingPlugin) Activator.CreateInstance(plugin.Type);
-                pluginInstance?.Initialize(containerBuilder);
+                if (pluginTypes.Add(plugin.Type))
+                {
+                    var pluginInstance = (IRenderingPlugin) Activator.CreateInstance(plugin.Type);
+                    pluginInstance?.Initialize(containerBuilder);
 
-                containerBuilder.RegisterInstance(plugin);
+                    containerBuilder.RegisterInstance(plugin);
+                }
             }
 
-            #region Plugins exploration (commented out)
-
-            // string pluginPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //
-            // var folderPlugin = new FolderPluginCatalog(
-            //     pluginPath,
-            //     type =>
-            //     {
-            //         type.Implements<IRenderingPlugin>();
-            //     });
-            //
-            // services.AddPluginFramework<IRenderingPlugin>(pluginPath);
-            
-            // services.AddPluginFramework()
-            //     .AddPluginCatalog(compositePluginCatalog);
-
-            #endregion
-
             return containerBuilder.Build();
+        }
+
+        private static IEnumerable<IPluginCatalog> GetPluginCatalogs(IEnumerable<string> pluginsArgument)
+        {
+            // Start with the current assembly's built-in plugins
+            var builtinAssemblyPluginCatalog = new AssemblyPluginCatalog(Assembly.GetExecutingAssembly(),type => type.Implements<IRenderingPlugin>());
+            yield return builtinAssemblyPluginCatalog;
+            
+            // Get the base path for any relative paths supplied
+            string relativePathBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            foreach (string pluginArgument in pluginsArgument)
+            {
+                string testPath = !Path.IsPathFullyQualified(pluginArgument) && !Path.IsPathRooted(pluginArgument) && relativePathBase != null
+                    ? Path.Combine(relativePathBase, pluginArgument)
+                    : pluginArgument;
+
+                if (File.Exists(testPath))
+                {
+                    yield return new AssemblyPluginCatalog(testPath, type => type.Implements<IRenderingPlugin>());
+                }
+                else if (Directory.Exists(testPath))
+                {
+                    yield return new FolderPluginCatalog(testPath, type => type.Implements<IRenderingPlugin>(),
+                        new FolderPluginCatalogOptions { IncludeSubfolders = false });
+
+                    string binSubfolder = Path.Combine(testPath, "bin");
+
+                    if (Directory.Exists(binSubfolder))
+                    {
+                        yield return new FolderPluginCatalog(binSubfolder, type => type.Implements<IRenderingPlugin>(),
+                            new FolderPluginCatalogOptions { IncludeSubfolders = true });
+                    }
+                }
+                else
+                {
+                    throw new ArgumentException(
+                        $"Plugin '{pluginArgument}' could not be resolved as a relative or full path to an assembly or plugins folder.");
+                }
+            }
         }
     }
 }
