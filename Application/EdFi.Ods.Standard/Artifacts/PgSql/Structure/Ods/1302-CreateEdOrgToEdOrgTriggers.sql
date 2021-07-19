@@ -25,6 +25,14 @@ BEGIN
     SELECT NEW.LocalEducationAgencyId, NEW.SchoolId
     WHERE NEW.LocalEducationAgencyId IS NOT NULL
     ON CONFLICT DO NOTHING;
+
+    INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId
+    SELECT p.SourceEducationOrganizationId, NEW.SchoolId
+    FROM auth.EducationOrganizationIdToEducationOrganizationId p
+    WHERE NEW.LocalEducationAgencyId IS NOT NULL
+      AND NEW.LocalEducationAgencyId = p.TargetEducationOrganizationId
+    ON CONFLICT DO NOTHING;
+
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -46,6 +54,11 @@ BEGIN
             AND TargetEducationOrganizationId = OLD.LocalEducationAgencyId
             AND (NEW.LocalEducationAgencyId IS NULL
                  OR OLD.LocalEducationAgencyId <> NEW.LocalEducationAgencyId));
+
+    INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId
+    SELECT NEW.LocalEducationAgencyId, NEW.SchoolId
+    WHERE NEW.LocalEducationAgencyId IS NOT NULL
+    ON CONFLICT DO NOTHING;
 
     INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId
     SELECT p.SourceEducationOrganizationId, NEW.SchoolId
