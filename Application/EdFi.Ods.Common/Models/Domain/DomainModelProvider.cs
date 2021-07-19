@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Common.Models.Definitions;
 
 namespace EdFi.Ods.Common.Models.Domain
 {
@@ -23,12 +24,14 @@ namespace EdFi.Ods.Common.Models.Domain
                 .Select(p => p.GetDomainModelDefinitions())
                 .ToList();
 
+            IEnumerable<DomainModelDefinitions> transformedDomainModelDefinitions = domainModelDefinitions;
+            
             foreach (var transformer in domainModelDefinitionsTransformers)
             {
-                transformer.TransformDefinitions(domainModelDefinitions);
+                transformedDomainModelDefinitions = transformer.TransformDefinitions(transformedDomainModelDefinitions);
             }
             
-            domainModelBuilder.AddDomainModelDefinitionsList(domainModelDefinitions);
+            domainModelBuilder.AddDomainModelDefinitionsList(transformedDomainModelDefinitions);
 
             _domainModel = new Lazy<DomainModel>(() => domainModelBuilder.Build());
         }
