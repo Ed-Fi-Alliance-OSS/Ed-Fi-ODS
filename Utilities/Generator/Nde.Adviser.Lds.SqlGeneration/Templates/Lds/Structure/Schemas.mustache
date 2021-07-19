@@ -1,0 +1,6 @@
+{{#Schemas}}
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'{{Schema}}')
+EXEC sys.sp_executesql N'CREATE SCHEMA [{{Schema}}]'
+GO
+
+{{/Schemas}}
