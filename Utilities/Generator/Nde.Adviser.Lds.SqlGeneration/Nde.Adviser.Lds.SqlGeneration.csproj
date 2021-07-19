@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Templates" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Templates\Lds\Processing\Merge.mustache" />
+    <EmbeddedResource Include="Templates\Lds\Processing\Merge__HashPartFromSource.mustache" />
+    <EmbeddedResource Include="Templates\Lds\Processing\Merge__MergeStatement.mustache" />
+    <EmbeddedResource Include="Templates\Lds\Processing\Merge__SourceCTE.mustache" />
+    <EmbeddedResource Include="Templates\Lds\Processing\MergeResults.mustache" />
+    <EmbeddedResource Include="Templates\Lds\Structure\ForeignKeys.mustache" />
+    <EmbeddedResource Include="Templates\Lds\Structure\IdColumnUniqueIndexes.mustache" />
+    <EmbeddedResource Include="Templates\Lds\Structure\Schemas.mustache" />
+    <EmbeddedResource Include="Templates\Lds\Structure\Tables.mustache" />
+    <EmbeddedResource Include="Templates\Lds\Structure\HashKeyIndexes.mustache" />
+    <EmbeddedResource Include="Templates\Ods\Tables.mustache" />
+    <EmbeddedResource Include="renderings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Generator\EdFi.Ods.Generator\EdFi.Ods.Generator.csproj" />
+  </ItemGroup>
+
+</Project>

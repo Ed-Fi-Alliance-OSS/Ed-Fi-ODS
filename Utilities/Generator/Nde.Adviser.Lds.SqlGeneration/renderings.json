@@ -1,0 +1,60 @@
+{
+  "Renderings": [
+    {
+      "Template": "Lds.Structure.Schemas",
+      "ModelProvider": "DatabaseTemplateModelProvider",
+      "OutputPath": "Artifacts/MsSql/Structure/Lds/0010-Schemas.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "Lds.Structure.Tables",
+      "ModelProvider": "DatabaseTemplateModelProvider",
+      "OutputPath": "Artifacts/MsSql/Structure/Lds/0020-Tables.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "Lds.Structure.ForeignKeys",
+      "ModelProvider": "DatabaseTemplateModelProvider",
+      "OutputPath": "Artifacts/MsSql/Structure/Lds/0030-ForeignKeys.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "Lds.Structure.IdColumnUniqueIndexes",
+      "ModelProvider": "DatabaseTemplateModelProvider",
+      "OutputPath": "Artifacts/MsSql/Structure/Lds/0040-IdColumnUniqueIndexes.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "Lds.Structure.HashKeyIndexes",
+      "ModelProvider": "DatabaseTemplateModelProvider",
+      "OutputPath": "Artifacts/MsSql/Structure/Lds/0045-HashKeyIndexes.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "Lds.Processing.Merge",
+      "ModelProvider": "DatabaseTemplateModelProvider",
+      "OutputPath": "Artifacts/MsSql/Processing/Lds/0010-Merge-ODS-{{ContextSchoolYear}}.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "Lds.Processing.MergeResults",
+      "ModelProvider": "DatabaseTemplateModelProvider",
+      "OutputPath": "Artifacts/MsSql/Processing/Lds/0020-MergeResults-ODS-{{ContextSchoolYear}}.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    }
+  ]
+}
