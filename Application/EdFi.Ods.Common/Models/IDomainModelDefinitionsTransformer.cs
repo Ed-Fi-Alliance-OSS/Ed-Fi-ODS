@@ -10,6 +10,6 @@ namespace EdFi.Ods.Common.Models
 {
     public interface IDomainModelDefinitionsTransformer
     {
-        void TransformDefinitions(IEnumerable<DomainModelDefinitions> definitions);
+        IEnumerable<DomainModelDefinitions> TransformDefinitions(IEnumerable<DomainModelDefinitions> definitions);
     }
 }
