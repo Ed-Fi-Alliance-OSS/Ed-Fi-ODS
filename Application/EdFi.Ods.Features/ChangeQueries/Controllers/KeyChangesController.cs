@@ -20,16 +20,16 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Authorize]
     [ApiController]
     [Produces("application/json")]
-    [Route("{schema}/{resource}/deletes")]
-    public class DeletesController : ControllerBase
+    [Route("{schema}/{resource}/keyChanges")]
+    public class KeyChangesController : ControllerBase
     {
-        private readonly IGetDeletedResourceItems _getDeletedResourceItemsRepository;
-        private readonly ILog _logger = LogManager.GetLogger(typeof(DeletesController));
+        private readonly IGetKeyChanges _getKeyChanges;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(KeyChangesController));
         private readonly bool _isEnabled;
 
-        public DeletesController(IGetDeletedResourceItems getDeletedResourceItems, ApiSettings apiSettings)
+        public KeyChangesController(IGetKeyChanges getKeyChanges, ApiSettings apiSettings)
         {
-            _getDeletedResourceItemsRepository = getDeletedResourceItems;
+            _getKeyChanges = getKeyChanges;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
         }
 
@@ -44,18 +44,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             
             var queryParameter = new QueryParameters(urlQueryParametersRequest);
 
-            var deletedItemsResponse = await _getDeletedResourceItemsRepository.ExecuteAsync(schema, resource, queryParameter);
+            var keyChangesResponse = await _getKeyChanges.ExecuteAsync(schema, resource, queryParameter);
 
             // Add the total count, if requested
             if (urlQueryParametersRequest.TotalCount)
             {
-                Response.Headers.Add("Total-Count", deletedItemsResponse.Count.ToString());
+                Response.Headers.Add("Total-Count", keyChangesResponse.Count.ToString());
             }
             
             // Explicitly serialize the response to remain backwards compatible with pre .net core
             return new ContentResult
             {
-                Content = JsonConvert.SerializeObject(deletedItemsResponse),
+                Content = JsonConvert.SerializeObject(keyChangesResponse),
                 ContentType = MediaTypeNames.Application.Json,
                 StatusCode = StatusCodes.Status200OK
             };
