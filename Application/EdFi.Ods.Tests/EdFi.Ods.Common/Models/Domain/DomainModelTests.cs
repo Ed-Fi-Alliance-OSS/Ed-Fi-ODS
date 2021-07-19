@@ -112,7 +112,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new[]
                         {
                             _domainModelDefinitionsProvider
-                        });
+                        },
+                        new IDomainModelDefinitionsTransformer[0]);
 
                 _domainModel = domainModelProvider.GetDomainModel();
             }
@@ -251,7 +252,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Domain
                         new[]
                         {
                             _extensionDefinitionsProvider, new EdFiDomainModelDefinitionsProvider()
-                        });
+                        },
+                        new IDomainModelDefinitionsTransformer[0]);
             }
 
             protected override void Act()
