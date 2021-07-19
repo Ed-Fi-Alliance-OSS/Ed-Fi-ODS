@@ -47,7 +47,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common
                         new[]
                         {
                             domainModelDefinitionsProvider, domainModelDefinitionsProvider2
-                        })
+                        },
+                        new IDomainModelDefinitionsTransformer[0])
                     .GetDomainModel()
                     .Schemas;
 

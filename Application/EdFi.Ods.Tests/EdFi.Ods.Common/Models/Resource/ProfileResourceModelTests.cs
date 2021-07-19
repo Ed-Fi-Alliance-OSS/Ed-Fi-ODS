@@ -8,6 +8,7 @@ using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Xml.Linq;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
@@ -262,7 +263,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
     </Resource>
 </Profile>");
 
-                _resourceModel = new DomainModelProvider(DomainModelDefinitionsProviderHelper.DefinitionProviders)
+                _resourceModel = new DomainModelProvider(DomainModelDefinitionsProviderHelper.DefinitionProviders,
+                        new IDomainModelDefinitionsTransformer[0])
                     .GetDomainModel()
                     .ResourceModel;
             }
@@ -352,7 +354,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
     </Resource>
 </Profile>");
 
-                _resourceModel = new DomainModelProvider(DomainModelDefinitionsProviderHelper.DefinitionProviders)
+                _resourceModel = new DomainModelProvider(DomainModelDefinitionsProviderHelper.DefinitionProviders,
+                        new IDomainModelDefinitionsTransformer[0])
                     .GetDomainModel()
                     .ResourceModel;
             }

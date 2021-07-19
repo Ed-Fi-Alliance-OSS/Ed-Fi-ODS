@@ -302,7 +302,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                         new IDomainModelDefinitionsProvider[]
                         {
                             new DomainModelDefinitionsProvider(), new EdFiDomainModelDefinitionsProvider()
-                        }).GetDomainModel();
+                        },
+                        new IDomainModelDefinitionsTransformer[0]).GetDomainModel();
 
                 ExtensionsConventions.GetAggregateExtensionMemberName(
                     domainModel.Entities.FirstOrDefault(e => e.Name == "StaffLeaveExtension"));
@@ -332,7 +333,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                         new IDomainModelDefinitionsProvider[]
                         {
                             new DomainModelDefinitionsProvider(), new EdFiDomainModelDefinitionsProvider()
-                        }).GetDomainModel();
+                        },
+                        new IDomainModelDefinitionsTransformer[0]).GetDomainModel();
 
                 _actualResult = ExtensionsConventions.GetAggregateExtensionMemberName(
                     domainModel.Entities.FirstOrDefault(e => e.Name == "StaffLeaveReason"));
@@ -410,7 +412,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                         new IDomainModelDefinitionsProvider[]
                         {
                             new DomainModelDefinitionsProvider(), new EdFiDomainModelDefinitionsProvider()
-                        }).GetDomainModel();
+                        },
+                        new IDomainModelDefinitionsTransformer[0]).GetDomainModel();
 
                 _staffLeaveEntity = domainModel.Entities.First(e => e.Name == "StaffLeave");
 
@@ -447,7 +450,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Conventions
                         new IDomainModelDefinitionsProvider[]
                         {
                             new DomainModelDefinitionsProvider(), new EdFiDomainModelDefinitionsProvider()
-                        }).GetDomainModel();
+                        },
+                        new IDomainModelDefinitionsTransformer[0]).GetDomainModel();
 
                 _entity = domainModel.Entities.First(e => e.Name == _entityName);
 

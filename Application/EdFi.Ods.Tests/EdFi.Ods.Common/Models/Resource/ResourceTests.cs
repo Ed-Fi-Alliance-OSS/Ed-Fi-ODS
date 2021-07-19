@@ -723,7 +723,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 new[]
                 {
                     definitionsProvider
-                });
+                },
+                new IDomainModelDefinitionsTransformer[0]);
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }
@@ -854,7 +855,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 new[]
                 {
                     definitionsProvider, extensionDefinitionsProvider
-                });
+                },
+                new IDomainModelDefinitionsTransformer[0]);
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }
@@ -1026,7 +1028,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 new[]
                 {
                     definitionsProvider, extensionDefinitionsProvider
-                });
+                },
+                new IDomainModelDefinitionsTransformer[0]);
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }
@@ -1231,7 +1234,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 new[]
                 {
                     definitionsProvider, extensionDefinitionsProvider
-                });
+                },
+                new IDomainModelDefinitionsTransformer[0]);
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }
@@ -1464,7 +1468,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 new[]
                 {
                     definitionsProvider, extensionDefinitionsProvider
-                });
+                },
+                new IDomainModelDefinitionsTransformer[0]);
 
             _resourceModelProvider = new ResourceModelProvider(_domainModelProvider);
         }
