@@ -7,7 +7,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
@@ -15,91 +14,23 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Definitions;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Models.Dynamic;
-using EdFi.Ods.Generator;
-using EdFi.Ods.Generator.Models;
 using log4net;
-using Newtonsoft.Json;
 
 namespace Nde.Adviser.Lds.SqlGeneration.Transformers
 {
-    public class CapabilityStatementTransformer : IDomainModelDefinitionsTransformer
-    {
-        private Lazy<CapabilityStatement> _capabilityStatement;
-
-        public CapabilityStatementTransformer(Options options)
-        {
-            if (!string.IsNullOrEmpty(options.CapabilityStatementPath) && !File.Exists(options.CapabilityStatementPath))
-            {
-                throw new FileNotFoundException($"CapabilityStatement file not found at '{options.CapabilityStatementPath}'.");
-            }
-            
-            _capabilityStatement = new Lazy<CapabilityStatement>(()
-                => JsonConvert.DeserializeObject<CapabilityStatement>(File.ReadAllText(options.CapabilityStatementPath)));
-        }
-        
-        public void TransformDefinitions(IEnumerable<DomainModelDefinitions> definitions)
-        {
-            // var domainModelDefinitionsBySchema = definitions.ToDictionary(x => x.SchemaDefinition.PhysicalName, x => x);
-
-            // -------------------------------------------------------------
-            // Build cohesive domain model
-            // -------------------------------------------------------------
-            var domainModelBuilder = new DomainModelBuilder();
-            domainModelBuilder.AddDomainModelDefinitionsList(definitions);
-            var domainModel = domainModelBuilder.Build();
-            // -------------------------------------------------------------
-
-            var resourceModel = domainModel.ResourceModel;
-
-            var statementResourcesWithHistory = _capabilityStatement.Value
-                .rest.FirstOrDefault(r => r.mode == Mode.server)
-                ?.resource.Where(r => r.readHistory);
-
-            foreach (var statementResource in statementResourcesWithHistory)
-            {
-                var parts = statementResource.type.Split("/", StringSplitOptions.RemoveEmptyEntries);
-                var resource = resourceModel.GetResourceByApiCollectionName(parts[0], parts[1]);
-
-                if (resource == null)
-                {
-                    throw new Exception($"Resource for type '{statementResource.type}' was not found in the model.");
-                }
-
-                var entity = resource.Entity;
-
-                dynamic entityDefinition = definitions.SelectMany(d => d.EntityDefinitions.Where(d => d.Schema == entity.Schema && d.Name == entity.Name))
-                    .FirstOrDefault();
-
-                if (entityDefinition != null)
-                {
-                    entityDefinition.ReadHistory = true;
-                    // (entityDefinition as IDynamicModel).DynamicProperties["ReadHistory"] = true;
-                }
-                else
-                {
-                    entityDefinition.ReadHistory = false;
-                }
-            }
-        }
-    }
-
     public class SchoolYearContextTransformer : IDomainModelDefinitionsTransformer
     {
         private const string ContextSchoolYearName = "ContextSchoolYear";
         private readonly ILog _logger = LogManager.GetLogger(typeof(SchoolYearContextTransformer));
         
-        public void TransformDefinitions(IEnumerable<DomainModelDefinitions> definitions)
+        public IEnumerable<DomainModelDefinitions> TransformDefinitions(IEnumerable<DomainModelDefinitions> definitions)
         {
-            var domainModelDefinitionsBySchema = definitions.ToDictionary(x => x.SchemaDefinition.PhysicalName, x => x);
+            var definitionsArray = definitions.ToArray();
+            
+            var domainModelDefinitionsBySchema = definitionsArray.ToDictionary(x => x.SchemaDefinition.PhysicalName, x => x);
 
-            // -------------------------------------------------------------
-            // Build cohesive domain model
-            // -------------------------------------------------------------
-            var domainModelBuilder = new DomainModelBuilder();
-            domainModelBuilder.AddDomainModelDefinitionsList(definitions);
-            var domainModel = domainModelBuilder.Build();
-            // -------------------------------------------------------------
+            // Build domain model
+            var domainModel = new DomainModelBuilder(definitionsArray).Build();
 
             // var edOrgFullName = new FullName( EdFiConventions.PhysicalSchemaName, "EducationOrganization");
 
@@ -107,7 +38,7 @@ namespace Nde.Adviser.Lds.SqlGeneration.Transformers
             //     .DerivedEntities
             //     .Select(e => e.FullName);
 
-            var personEntityNames = new[]
+            var knownPersonEntityNames = new[]
             {
                 new FullName(EdFiConventions.PhysicalSchemaName, "Student"),
                 new FullName(EdFiConventions.PhysicalSchemaName, "Staff"),
@@ -120,7 +51,7 @@ namespace Nde.Adviser.Lds.SqlGeneration.Transformers
                     // Don't inject into non-aggregate root members
                     !e.IsAggregateRoot
                     // Don't inject into people
-                    || personEntityNames.Contains(e.FullName)
+                    || knownPersonEntityNames.Contains(e.FullName)
                     // Don't inject into EdOrg base or EdOrgs
                     || (e.IsEducationOrganizationBaseEntity() || e.IsEducationOrganizationDerivedEntity())
                     // Don't inject into Descriptor base or Descriptors
@@ -208,6 +139,8 @@ namespace Nde.Adviser.Lds.SqlGeneration.Transformers
                         .Concat(kvp.Value)
                         .ToArray();
             }
+
+            return definitionsArray;
 
             void AddSchoolYearContextToDependencies(FullName fullName)
             {
