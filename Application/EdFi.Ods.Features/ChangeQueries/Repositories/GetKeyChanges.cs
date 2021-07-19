@@ -8,7 +8,10 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
@@ -22,7 +25,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
     public interface IGetKeyChanges
     {
-        KeyChangesResponse Execute(string schema, string resource, IQueryParameters queryParameters);
+        Task<KeyChangesResponse> ExecuteAsync(string schema, string resource, IQueryParameters queryParameters);
     }
     
     public class KeyChangesResponse
@@ -34,20 +37,30 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
     public class GetKeyChanges : NHibernateRepositoryOperationBase, IGetKeyChanges
     {
+        private const string TrackedChangesAlias = "c";
+        private const string SourceTableAlias = "src";
+        private const string SourceBaseTableAlias = "src_base";
+        
         private readonly ISessionFactory _sessionFactory;
         private readonly IDomainModelProvider _domainModelProvider;
+        private readonly int _maxPageSize;
 
-        private readonly ConcurrentDictionary<FullName, TrackedKeyChangesQueryMetadata> _deletesQueryMetadataByResourceName =
+        private readonly ConcurrentDictionary<FullName, TrackedKeyChangesQueryMetadata> _keyChangesQueryMetadataByResourceName =
             new ConcurrentDictionary<FullName, TrackedKeyChangesQueryMetadata>();
 
-        public GetKeyChanges(ISessionFactory sessionFactory, IDomainModelProvider domainModelProvider)
+        public GetKeyChanges(
+            ISessionFactory sessionFactory, 
+            IDomainModelProvider domainModelProvider, 
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
             : base(sessionFactory)
         {
             _sessionFactory = sessionFactory;
             _domainModelProvider = domainModelProvider;
+
+            _maxPageSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
         }
 
-        public KeyChangesResponse Execute(string schemaUriSegment, string urlResourcePluralName, IQueryParameters queryParameters)
+        public async Task<KeyChangesResponse> ExecuteAsync(string schemaUriSegment, string urlResourcePluralName, IQueryParameters queryParameters)
         {
             var resource = _domainModelProvider
                 .GetDomainModel()
@@ -64,13 +77,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 throw new ArgumentException("Minimum change version cannot be greater than maximum change version.");
             }
 
-            var queryMetadata = _deletesQueryMetadataByResourceName.GetOrAdd(resource.FullName, 
+            var queryMetadata = _keyChangesQueryMetadataByResourceName.GetOrAdd(resource.FullName, 
                 fn => CreateTrackedKeyChangesQueryMetadata(resource));
 
-            return GetKeyChangesResponse(queryMetadata, queryParameters);
+            return await GetKeyChangesResponseAsync(queryMetadata, queryParameters);
         }
 
-        private KeyChangesResponse GetKeyChangesResponse(
+        private async Task<KeyChangesResponse> GetKeyChangesResponseAsync(
             TrackedKeyChangesQueryMetadata queryMetadata,
             IQueryParameters queryParameters)
         {
@@ -82,20 +95,20 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             {
                 var query = sessionScope.Session.CreateSQLQuery(keyChangesSql)
                     .SetFirstResult(queryParameters.Offset ?? 0)
-                    .SetMaxResults(queryParameters.Limit ?? 25)
+                    .SetMaxResults(queryParameters.Limit ?? _maxPageSize)
                     .SetResultTransformer(Transformers.AliasToEntityMap);
 
-                var keyChangeItems = query.List();
+                var keyChangeItems = await query.ListAsync();
 
                 IReadOnlyList<KeyChange> keyChanges = keyChangeItems
                     .Cast<Hashtable>()
                     .Select(
-                        deletedItem => new KeyChange
+                        keyChangesItem => new KeyChange
                         {
-                            Id = (Guid) deletedItem["Id"],
-                            ChangeVersion = (long) deletedItem[ChangeQueriesDatabaseConstants.ChangeVersionColumnName],
-                            OldKeyValues = GetIdentifierKeyValues(queryMetadata.IdentifierProjections, deletedItem),
-                            NewKeyValues = GetIdentifierKeyValues(queryMetadata.IdentifierProjections, deletedItem),
+                            Id = (Guid) keyChangesItem["Id"],
+                            ChangeVersion = (long) keyChangesItem[ChangeQueriesDatabaseConstants.ChangeVersionColumnName],
+                            OldKeyValues = GetIdentifierKeyValues(ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix, queryMetadata.IdentifierProjections, keyChangesItem),
+                            NewKeyValues = GetIdentifierKeyValues(ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix, queryMetadata.IdentifierProjections, keyChangesItem),
                         })
                     .ToList();
 
@@ -105,7 +118,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 {
                     string cmdCountSql = GetKeyChangesCountSql(queryMetadata, queryParameters);
 
-                    var count = sessionScope.Session.CreateSQLQuery(cmdCountSql).UniqueResult();
+                    var count = await sessionScope.Session.CreateSQLQuery(cmdCountSql).UniqueResultAsync();
                     keyChangesResponse.Count = Convert.ToInt64(count);
                 }
             }
@@ -115,17 +128,112 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
         private TrackedKeyChangesQueryMetadata CreateTrackedKeyChangesQueryMetadata(Resource resource)
         {
-            throw new NotImplementedException();
+            string discriminatorCriteria = null;
+            string sourceBaseTableJoin = null;
+            
+            if (resource.IsDerived)
+            {
+                discriminatorCriteria = resource.IsDerived
+                    ? $" AND {TrackedChangesAlias}.Discriminator = '{resource.Entity.FullName}'"
+                    : null;
+
+                // TODO: GKM - Needs Column name translations 
+                var baseTableJoinSegments = resource.Entity.BaseAssociation.PropertyMappings
+                    .Select(pm => $"{SourceTableAlias}.{pm.ThisProperty.PropertyName} = {SourceBaseTableAlias}.{pm.OtherProperty.PropertyName}");
+
+                string baseTableJoinSegmentsSql = string.Join(" AND ", baseTableJoinSegments);
+
+                // TODO: GKM - Needs Table name translations 
+                sourceBaseTableJoin = resource.IsDerived
+                    ? $" LEFT JOIN {resource.Entity.BaseEntity.Schema}.{resource.Entity.BaseEntity.Name} {SourceBaseTableAlias} "
+                    + $" ON {baseTableJoinSegmentsSql}"
+                    : null;
+            }
+            
+            // TODO: GKM - Needs Column name translations
+            var identifierProjections = resource
+                .IdentifyingProperties
+                .Select(
+                    rp => new ProjectionMetadata
+                    {
+                        JsonPropertyName = rp.JsonPropertyName,
+                        SelectColumns = GetSelectColumns(rp, ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix).ToArray(),
+                        ChangeTableJoinColumnName = $"{(rp.EntityProperty.BaseProperty ?? rp.EntityProperty).PropertyName}",
+                        SourceTableJoinColumnName = rp.EntityProperty.PropertyName,
+                        IsDescriptorProperty = rp.IsLookup,
+                    })
+                .ToArray();
+
+            string selectColumnsSql = string.Join(
+                ", ",
+                identifierProjections
+                    .SelectMany(x => x.SelectColumns)
+                    .SelectMany(
+                        x => (new [] { ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix, ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix })
+                            .Select(prefix =>
+                                x.ColumnAlias == null
+                                    ? $"{prefix}{TrackedChangesAlias}.{x.ColumnName}"
+                                    : $"{prefix}{TrackedChangesAlias}.{x.ColumnName} AS {prefix}{x.ColumnAlias}")));
+            
+            // TODO: GKM - Needs Column name translations
+            string keyChangesOnlyCriteria = $" AND {TrackedChangesAlias}.{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{(resource.Entity.BaseEntity ?? resource.Entity).Identifier.Properties.First().PropertyName} IS NOT NULL";
+
+            // TODO: GKM - Needs Table name translations
+            var queryMetadata = new TrackedKeyChangesQueryMetadata(
+                ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix + (resource.Entity.BaseEntity ?? resource.Entity).Schema,
+                (resource.Entity.BaseEntity ?? resource.Entity).Name,
+                selectColumnsSql,
+                keyChangesOnlyCriteria,
+                discriminatorCriteria,
+                sourceBaseTableJoin,
+                identifierProjections);
+
+            return queryMetadata;
         }
 
-        private IEnumerable<SelectColumn> GetSelectColumns(ResourceProperty resourceProperty)
+        private IEnumerable<SelectColumn> GetSelectColumns(ResourceProperty resourceProperty, string columnNamePrefix)
         {
-            throw new NotImplementedException();
+            if (resourceProperty.IsLookup)
+            {
+                yield return new SelectColumn
+                {
+                    ColumnName = $"{columnNamePrefix}{resourceProperty.EntityProperty.PropertyName.ReplaceSuffix("Id", "Namespace")}",
+                    ColumnAlias = null,
+                };
+
+                yield return new SelectColumn
+                {
+                    ColumnName = $"{columnNamePrefix}{resourceProperty.EntityProperty.PropertyName.ReplaceSuffix("Id", "CodeValue")}",
+                    ColumnAlias = null,
+                };
+            }
+            else
+            {
+                if (resourceProperty.EntityProperty.IsInheritedIdentifyingRenamed)
+                {
+                    yield return new SelectColumn
+                    {
+                        ColumnName = $"{columnNamePrefix}{resourceProperty.EntityProperty.BaseProperty.PropertyName}",
+                        ColumnAlias = $"{columnNamePrefix}{resourceProperty.JsonPropertyName}",
+                    };
+                }
+                else
+                {
+                    yield return new SelectColumn
+                    {
+                        ColumnName = $"{columnNamePrefix}{resourceProperty.PropertyName}",
+                        ColumnAlias = $"{columnNamePrefix}{resourceProperty.JsonPropertyName}",
+                    };
+                }
+            }
         }
 
         private string GetKeyChangesSql(TrackedKeyChangesQueryMetadata queryMetadata, IQueryParameters queryParameters)
         {
-            throw new NotImplementedException();
+            string selectClauseFormat = $"SELECT {TrackedChangesAlias}.Id, {TrackedChangesAlias}.{ChangeQueriesDatabaseConstants.ChangeVersionColumnName}, {{0}}";
+            string orderByClause = $"ORDER BY {TrackedChangesAlias}.{ChangeQueriesDatabaseConstants.ChangeVersionColumnName}";
+            
+            return BuildCompleteKeyChangesSql(queryMetadata, queryParameters, selectClauseFormat, orderByClause);
         }
         
         private string GetKeyChangesCountSql(TrackedKeyChangesQueryMetadata queryMetadata, IQueryParameters queryParameters)
@@ -141,14 +249,71 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             string selectClauseFormat,
             string orderByClause = null)
         {
-            throw new NotImplementedException();
+            // string sourceTableChangeVersionCriteria = null;
+            string keyChangeChangeVersionCriteria = null;
+
+            if (queryParameters.MinChangeVersion.HasValue)
+            {
+                keyChangeChangeVersionCriteria +=
+                    $" {TrackedChangesAlias}.{ChangeQueriesDatabaseConstants.ChangeVersionColumnName} >= {queryParameters.MinChangeVersion.Value}";
+            }
+
+            if (queryParameters.MaxChangeVersion.HasValue)
+            {
+                keyChangeChangeVersionCriteria +=
+                    $" {AndIfNeeded(keyChangeChangeVersionCriteria)}{TrackedChangesAlias}.{ChangeQueriesDatabaseConstants.ChangeVersionColumnName} <= {queryParameters.MaxChangeVersion.Value}";
+            }
+
+            if (!string.IsNullOrEmpty(keyChangeChangeVersionCriteria))
+            {
+                keyChangeChangeVersionCriteria = $" AND {keyChangeChangeVersionCriteria}";
+            }
+
+            string selectClause = string.Format(selectClauseFormat, queryMetadata.SelectColumnsListSql);
+
+            var cmdSql = $@"
+{selectClause}
+FROM {queryMetadata.ChangeTableSchema}.{queryMetadata.ChangeTableName} AS {TrackedChangesAlias}
+{queryMetadata.SourceBaseTableJoin}
+WHERE
+    {queryMetadata.KeyChangesOnlyWhereClause}
+    {queryMetadata.DiscriminatorCriteria}
+    {keyChangeChangeVersionCriteria}
+{orderByClause}";
+
+            return cmdSql;
         }
 
         private static Dictionary<string, object> GetIdentifierKeyValues(
+            string identifiersColumnPrefix,
             ProjectionMetadata[] identifierProjections,
-            Hashtable deletedItem)
+            Hashtable keyChanges)
         {
-            throw new NotImplementedException();
+            var keyValues = new Dictionary<string, object>();
+
+            foreach (var identifierMetadata in identifierProjections)
+            {
+                if (identifierMetadata.IsDescriptorProperty)
+                {
+                    string namespaceColumn = identifiersColumnPrefix + identifierMetadata.SelectColumns[0].ColumnName;
+                    string codeValueColumn = identifiersColumnPrefix + identifierMetadata.SelectColumns[1].ColumnName;
+
+                    keyValues[identifierMetadata.JsonPropertyName] =
+                        $"{keyChanges[namespaceColumn]}#{keyChanges[codeValueColumn]}";
+                }
+                else
+                {
+                    // Copy the value without transformation
+                    var selectColumn = identifierMetadata.SelectColumns.First();
+
+                    string trackedChangeColumnName = identifiersColumnPrefix 
+                        + (selectColumn.ColumnAlias ?? selectColumn.ColumnName);
+                        
+                    keyValues[identifierMetadata.JsonPropertyName] = keyChanges[trackedChangeColumnName];
+                }
+            }
+
+            return keyValues;
         }
         
         private string AndIfNeeded(string criteria)

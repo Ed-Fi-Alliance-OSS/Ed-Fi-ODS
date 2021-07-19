@@ -8,8 +8,10 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
@@ -23,10 +25,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
     public interface IGetDeletedResourceItems
     {
-        DeletedResourceItems Execute(string schema, string resource, IQueryParameters queryParameters);
+        Task<DeletedResourceItemsResponse> ExecuteAsync(string schema, string resource, IQueryParameters queryParameters);
     }
     
-    public class DeletedResourceItems
+    public class DeletedResourceItemsResponse
     {
         public IReadOnlyList<DeletedResourceItem> DeletedResources { get; set; }
             
@@ -41,18 +43,22 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         
         private readonly ISessionFactory _sessionFactory;
         private readonly IDomainModelProvider _domainModelProvider;
-        
+        private readonly int _maxPageSize;
+
         private readonly ConcurrentDictionary<FullName, TrackedDeletesQueryMetadata> _deletesQueryMetadataByResourceName =
             new ConcurrentDictionary<FullName, TrackedDeletesQueryMetadata>();
 
-        public GetDeletedResourceItems(ISessionFactory sessionFactory, IDomainModelProvider domainModelProvider)
+        public GetDeletedResourceItems(ISessionFactory sessionFactory, IDomainModelProvider domainModelProvider,
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
             : base(sessionFactory)
         {
             _sessionFactory = sessionFactory;
             _domainModelProvider = domainModelProvider;
+            
+            _maxPageSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
         }
 
-        public DeletedResourceItems Execute(string schemaUriSegment, string urlResourcePluralName, IQueryParameters queryParameters)
+        public async Task<DeletedResourceItemsResponse> ExecuteAsync(string schemaUriSegment, string urlResourcePluralName, IQueryParameters queryParameters)
         {
             var resource = _domainModelProvider
                 .GetDomainModel()
@@ -72,25 +78,25 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             var queryMetadata = _deletesQueryMetadataByResourceName.GetOrAdd(resource.FullName, 
                 fn => CreateTrackedDeletesQueryMetadata(resource));
 
-            return GetDeletedItemsResponse(queryMetadata, queryParameters);
+            return await GetDeletedItemsResponseAsync(queryMetadata, queryParameters);
         }
 
-        private DeletedResourceItems GetDeletedItemsResponse(
+        private async Task<DeletedResourceItemsResponse> GetDeletedItemsResponseAsync(
             TrackedDeletesQueryMetadata queryMetadata,
             IQueryParameters queryParameters)
         {
             string deletesSql = GetDeletesSql(queryMetadata, queryParameters);
 
-            var deletesResponse = new DeletedResourceItems();
+            var deletesResponse = new DeletedResourceItemsResponse();
 
             using (var sessionScope = new SessionScope(_sessionFactory))
             {
                 var query = sessionScope.Session.CreateSQLQuery(deletesSql)
                     .SetFirstResult(queryParameters.Offset ?? 0)
-                    .SetMaxResults(queryParameters.Limit ?? 25)
+                    .SetMaxResults(queryParameters.Limit ?? _maxPageSize)
                     .SetResultTransformer(Transformers.AliasToEntityMap);
 
-                var deletedItems = query.List();
+                var deletedItems = await query.ListAsync();
 
                 var deletedResources = deletedItems
                     .Cast<Hashtable>()
@@ -109,7 +115,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 {
                     string cmdCountSql = GetDeletesCountSql(queryMetadata, queryParameters);
 
-                    var count = sessionScope.Session.CreateSQLQuery(cmdCountSql).UniqueResult();
+                    var count = await sessionScope.Session.CreateSQLQuery(cmdCountSql).UniqueResultAsync();
                     deletesResponse.Count = Convert.ToInt64(count);
                 }
             }
@@ -121,26 +127,27 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         {
             string discriminatorCriteria = null;
             string sourceBaseTableJoin = null;
-            string sourceChangeVersionTableAlias = SourceTableAlias;
             
             if (resource.IsDerived)
             {
-                sourceChangeVersionTableAlias = SourceBaseTableAlias;
-                
                 discriminatorCriteria = resource.IsDerived
                     ? $" AND {TrackedChangesAlias}.Discriminator = '{resource.Entity.FullName}'"
                     : null;
 
-                var baseTableJoinSegments = resource.Entity.BaseAssociation.PropertyMappings.Select(pm => $"{SourceTableAlias}.{pm.ThisProperty.PropertyName} = {SourceBaseTableAlias}.{pm.OtherProperty.PropertyName}");
+                // TODO: GKM - Needs Column name translations 
+                var baseTableJoinSegments = resource.Entity.BaseAssociation.PropertyMappings
+                    .Select(pm => $"{SourceTableAlias}.{pm.ThisProperty.PropertyName} = {SourceBaseTableAlias}.{pm.OtherProperty.PropertyName}");
 
                 string baseTableJoinSegmentsSql = string.Join(" AND ", baseTableJoinSegments);
 
+                // TODO: GKM - Needs Table name translations 
                 sourceBaseTableJoin = resource.IsDerived
                     ? $" LEFT JOIN {resource.Entity.BaseEntity.Schema}.{resource.Entity.BaseEntity.Name} {SourceBaseTableAlias} "
                     + $" ON {baseTableJoinSegmentsSql}"
                     : null;
             }
             
+            // TODO: GKM - Needs Column name translations
             var identifierProjections = resource
                 .IdentifyingProperties
                 .Select(
@@ -148,12 +155,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     {
                         JsonPropertyName = rp.JsonPropertyName,
                         SelectColumns = GetSelectColumns(rp).ToArray(),
-                        ChangeTableJoinColumnName = $"Old{(rp.EntityProperty.BaseProperty ?? rp.EntityProperty).PropertyName}",
+                        ChangeTableJoinColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{(rp.EntityProperty.BaseProperty ?? rp.EntityProperty).PropertyName}",
                         SourceTableJoinColumnName = rp.EntityProperty.PropertyName,
                         IsDescriptorProperty = rp.IsLookup,
                     })
                 .ToArray();
 
+            // TODO: GKM - Needs Column name translations
             string selectColumnsSql = string.Join(
                 ", ",
                 identifierProjections
@@ -164,16 +172,19 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                                 ? $"{TrackedChangesAlias}.{x.ColumnName}"
                                 : $"{TrackedChangesAlias}.{x.ColumnName} AS {x.ColumnAlias}"));
 
-            string deletesOnlyCriteria = $" AND {TrackedChangesAlias}.New{(resource.Entity.BaseEntity ?? resource.Entity).Identifier.Properties.First().PropertyName} IS NULL";
+            // TODO: GKM - Needs Column name translations
+            string deletesOnlyCriteria = $" AND {TrackedChangesAlias}.{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{(resource.Entity.BaseEntity ?? resource.Entity).Identifier.Properties.First().PropertyName} IS NULL";
 
+            // Filters results to items that were deleted and have not been recreated
             string sourceTableJoinCriteria = string.Join(
                 " AND ",
                 identifierProjections.Select(x => $"{TrackedChangesAlias}.{x.ChangeTableJoinColumnName} = {SourceTableAlias}.{x.SourceTableJoinColumnName}"));
 
             string sourceTableExclusionCriteria = $"{SourceTableAlias}.{identifierProjections.Select(x => x.SourceTableJoinColumnName).First()} IS NULL";
 
+            // TODO: GKM - Needs Table name translations
             var queryMetadata = new TrackedDeletesQueryMetadata(
-                (resource.Entity.BaseEntity ?? resource.Entity).Schema,
+                ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix + (resource.Entity.BaseEntity ?? resource.Entity).Schema,
                 (resource.Entity.BaseEntity ?? resource.Entity).Name,
                 resource.Entity.Schema,
                 resource.Entity.Name,
@@ -182,26 +193,27 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 discriminatorCriteria,
                 sourceTableJoinCriteria,
                 sourceBaseTableJoin,
-                sourceChangeVersionTableAlias,
+                SourceTableAlias,
                 sourceTableExclusionCriteria,
                 identifierProjections);
 
             return queryMetadata;
         }
 
+        // TODO: GKM - Needs Column name translations
         private IEnumerable<SelectColumn> GetSelectColumns(ResourceProperty resourceProperty)
         {
             if (resourceProperty.IsLookup)
             {
                 yield return new SelectColumn
                 {
-                    ColumnName = $"Old{resourceProperty.EntityProperty.PropertyName.ReplaceSuffix("Id", "Namespace")}",
+                    ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.EntityProperty.PropertyName.ReplaceSuffix("Id", "Namespace")}",
                     ColumnAlias = null,
                 };
 
                 yield return new SelectColumn
                 {
-                    ColumnName = $"Old{resourceProperty.EntityProperty.PropertyName.ReplaceSuffix("Id", "CodeValue")}",
+                    ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.EntityProperty.PropertyName.ReplaceSuffix("Id", "CodeValue")}",
                     ColumnAlias = null,
                 };
             }
@@ -211,16 +223,16 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 {
                     yield return new SelectColumn
                     {
-                        ColumnName = $"Old{resourceProperty.EntityProperty.BaseProperty.PropertyName}",
-                        ColumnAlias = resourceProperty.JsonPropertyName
+                        ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.EntityProperty.BaseProperty.PropertyName}",
+                        ColumnAlias = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.JsonPropertyName}",
                     };
                 }
                 else
                 {
                     yield return new SelectColumn
                     {
-                        ColumnName = $"Old{resourceProperty.PropertyName}",
-                        ColumnAlias = resourceProperty.JsonPropertyName
+                        ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.PropertyName}",
+                        ColumnAlias = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.JsonPropertyName}",
                     };
                 }
             }
@@ -283,7 +295,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
             var cmdSql = $@"
 {selectClause}
-FROM {ChangeQueriesDatabaseConstants.SchemaName}{ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix}.{queryMetadata.ChangeTableSchema}_{queryMetadata.ChangeTableName} AS {TrackedChangesAlias}
+FROM {queryMetadata.ChangeTableSchema}.{queryMetadata.ChangeTableName} AS {TrackedChangesAlias}
 LEFT JOIN {queryMetadata.SourceTableSchema}.{queryMetadata.SourceTableName} src 
     ON {queryMetadata.SourceTableJoinCriteria}
 {queryMetadata.SourceBaseTableJoin}
@@ -307,8 +319,8 @@ WHERE {queryMetadata.SourceTableExclusionCriteria}
             {
                 if (identifierMetadata.IsDescriptorProperty)
                 {
-                    string namespaceColumn = identifierMetadata.SelectColumns[0].ColumnName;
-                    string codeValueColumn = identifierMetadata.SelectColumns[1].ColumnName;
+                    string namespaceColumn = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix + identifierMetadata.SelectColumns[0].ColumnName;
+                    string codeValueColumn = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix + identifierMetadata.SelectColumns[1].ColumnName;
 
                     keyValues[identifierMetadata.JsonPropertyName] =
                         $"{deletedItem[namespaceColumn]}#{deletedItem[codeValueColumn]}";
@@ -318,8 +330,10 @@ WHERE {queryMetadata.SourceTableExclusionCriteria}
                     // Copy the value without transformation
                     var selectColumn = identifierMetadata.SelectColumns.First();
 
-                    keyValues[selectColumn.ColumnAlias] =
-                        deletedItem[selectColumn.ColumnAlias ?? selectColumn.ColumnName];
+                    string trackedChangeColumnName = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix 
+                        + (selectColumn.ColumnAlias ?? selectColumn.ColumnName);
+
+                    keyValues[identifierMetadata.JsonPropertyName] = deletedItem[trackedChangeColumnName];
                 }
             }
 
