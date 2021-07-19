@@ -31,7 +31,7 @@ namespace EdFi.Ods.Common.Models.Domain
 
             _identifyingProperties = new Lazy<IReadOnlyList<EntityProperty>>(
                 () =>
-                    _identifyingPropertyNames.Select(x => Entity.PropertyByName.GetValueOrThrow(x, "Identifying property '{0}' not found on entity."))
+                    _identifyingPropertyNames.Select(x => Entity.PropertyByName.GetValueOrThrow(x, $"Identifying property '{{0}}' not found on entity '{Entity.Name}' (available properties are: '{string.Join("', '", Entity.PropertyByName.Keys)}')."))
                                              .ToList());
 
             ConstraintByDatabaseEngine = entityIdentifierDefinition.ConstraintNames;

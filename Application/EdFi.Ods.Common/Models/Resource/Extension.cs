@@ -13,10 +13,12 @@ namespace EdFi.Ods.Common.Models.Resource
 {
     public class Extension : ResourceMemberBase
     {
-        public Extension(ResourceClassBase resourceClass, ResourceChildItem extensionObjectType, string displayName)
+        private Lazy<ResourceChildItem> _objectType;
+
+        public Extension(ResourceClassBase resourceClass, Func<ResourceChildItem> extensionObjectType, string displayName)
             : base(resourceClass, displayName, displayName.ToCamelCase())
         {
-            ObjectType = extensionObjectType;
+            _objectType = new Lazy<ResourceChildItem>(extensionObjectType);
 
             if (resourceClass.Entity != null)
             {
@@ -34,20 +36,24 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             Association = association;
 
-            ObjectType = new ResourceChildItem(
+            _objectType = new Lazy<ResourceChildItem>(() => new ResourceChildItem(
+                this,
                 resourceClass.ResourceModel,
                 association.OtherEntity,
                 childFilterContext,
                 resourceClass,
                 collectionAssociations,
-                embeddedObjectAssociations);
+                embeddedObjectAssociations));
 
             ParentFullName = Association.ThisEntity.FullName;
         }
 
         public AssociationView Association { get; }
 
-        public ResourceChildItem ObjectType { get; }
+        public ResourceChildItem ObjectType
+        {
+            get => _objectType.Value;
+        }
 
         public override FullName ParentFullName { get; }
     }

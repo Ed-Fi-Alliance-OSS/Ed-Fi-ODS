@@ -13,12 +13,22 @@ namespace EdFi.Ods.Common.Models.Domain
     {
         private readonly Lazy<DomainModel> _domainModel;
 
-        public DomainModelProvider(IEnumerable<IDomainModelDefinitionsProvider> domainModelDefinitionsProviders)
+        public DomainModelProvider(
+            IEnumerable<IDomainModelDefinitionsProvider> domainModelDefinitionsProviders,
+            IDomainModelDefinitionsTransformer[] domainModelDefinitionsTransformers)
         {
             var domainModelBuilder = new DomainModelBuilder();
 
-            domainModelBuilder.AddDomainModelDefinitionsList(
-                domainModelDefinitionsProviders.Select(p => p.GetDomainModelDefinitions()));
+            var domainModelDefinitions = domainModelDefinitionsProviders
+                .Select(p => p.GetDomainModelDefinitions())
+                .ToList();
+
+            foreach (var transformer in domainModelDefinitionsTransformers)
+            {
+                transformer.TransformDefinitions(domainModelDefinitions);
+            }
+            
+            domainModelBuilder.AddDomainModelDefinitionsList(domainModelDefinitions);
 
             _domainModel = new Lazy<DomainModel>(() => domainModelBuilder.Build());
         }

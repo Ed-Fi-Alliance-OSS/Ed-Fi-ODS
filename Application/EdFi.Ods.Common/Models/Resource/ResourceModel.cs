@@ -27,6 +27,14 @@ namespace EdFi.Ods.Common.Models.Resource
         Resource GetResourceByFullName(FullName resourceFullName);
 
         /// <summary>
+        /// Gets the Resource using the specified schema URI segment and pluralized collection name, as exposed by the API.
+        /// </summary>
+        /// <param name="schemaUriSegment">The text used in the schema segment of the URI to represent the resource's schema.</param>
+        /// <param name="resourceCollectionName">The text used in the resource collection portion of the URI representing the pluralized name of the resource.</param>
+        /// <returns>The matching resource.</returns>
+        Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
+
+        /// <summary>
         /// Get a read-only list of all the resources available in the model.
         /// </summary>
         /// <returns></returns>
@@ -57,13 +65,13 @@ namespace EdFi.Ods.Common.Models.Resource
             _domainModel = domainModel;
             _resourceByName = new Dictionary<FullName, Resource>();
 
-            DefaultResourceSelector = new ResourceSelector(_resourceByName);
-
             // Add all aggregate roots to the resource model
             domainModel
-               .Entities
-               .Where(a => a.IsAggregateRoot)
-               .ForEach(AddResource);
+                .Entities
+                .Where(a => a.IsAggregateRoot)
+                .ForEach(AddResource);
+            
+            DefaultResourceSelector = new ResourceSelector(_resourceByName);
         }
 
         internal IResourceSelector DefaultResourceSelector { get; }
@@ -89,9 +97,16 @@ namespace EdFi.Ods.Common.Models.Resource
             return DefaultResourceSelector;
         }
 
+        /// <inheritdoc cref="IResourceModel.GetResourceByFullName"/>
         public Resource GetResourceByFullName(FullName fullName)
         {
             return ResourceSelector.GetByName(fullName);
+        }
+
+        /// <inheritdoc cref="IResourceModel.GetResourceByApiCollectionName"/>
+        public Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
+        {
+            return ResourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
         }
 
         public IReadOnlyList<Resource> GetAllResources()

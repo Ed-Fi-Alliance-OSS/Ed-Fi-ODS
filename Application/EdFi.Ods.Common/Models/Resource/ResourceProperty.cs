@@ -3,15 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Xml;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Ods.Common.Models.Resource
 {
@@ -51,9 +50,17 @@ namespace EdFi.Ods.Common.Models.Resource
 
     public class ResourceProperty : ResourceMemberBase
     {
+        private ResourceMemberBase _containingMember;
+        private Lazy<IReadOnlyList<ResourceProperty>> _unifiedProperties;
+
         public ResourceProperty(ResourceClassBase resourceClass, EntityProperty entityProperty)
+            : this(null, resourceClass, entityProperty) { }
+
+        public ResourceProperty(ResourceMemberBase containingMember, ResourceClassBase resourceClass, EntityProperty entityProperty)
             : base(resourceClass, GetResourcePropertyName(entityProperty))
         {
+            _containingMember = containingMember;
+            
             EntityProperty = entityProperty;
 
             string personType;
@@ -86,6 +93,8 @@ namespace EdFi.Ods.Common.Models.Resource
             // produces a different result.  Base class properties should retain their lineage
             // when "merged" into the resource model.
             ParentFullName = EntityProperty.Entity.FullName;
+
+            InitializeLazyMembers();
         }
 
         public ResourceProperty(
@@ -119,8 +128,24 @@ namespace EdFi.Ods.Common.Models.Resource
             {
                 ParentFullName = resourceClass.Entity.FullName;
             }
+
+            InitializeLazyMembers();
         }
 
+        private void InitializeLazyMembers()
+        {
+            _unifiedProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
+                () =>
+                {
+                    if (ResourceClass.UnifiedPropertiesByPropertyName.Value.TryGetValue(PropertyName, out var unifiedProperties))
+                    {
+                        return unifiedProperties.Except(new[] {this}).ToArray();
+                    }
+
+                    return new ResourceProperty[0];
+                });
+        }
+        
         public string LookupTypeName { get; }
         
         /// <summary>
@@ -263,6 +288,29 @@ namespace EdFi.Ods.Common.Models.Resource
             //If the resource property name was flipped to a UniqueId for this USI property
             return UniqueIdSpecification.IsUSI(property.PropertyName)
                    && UniqueIdSpecification.TryGetUniqueIdPersonType(PropertyName, out notUsed);
+        }
+
+        public override string JsonPath
+        {
+            get
+            {
+                if (_containingMember == null)
+                {
+                    return base.JsonPath;
+                }
+
+                return $"{_containingMember?.JsonPath ?? Parent.JsonPath}.{JsonPropertyName}";
+            }
+        }
+
+        /// <summary>
+        /// Gets any other <see cref="ResourceProperty" /> instances present on other references
+        /// that are <em>unifying properties</em> -- properties whose values (if present) must all
+        /// match because they are unified into a single database column for persistence.
+        /// </summary>
+        public IReadOnlyList<ResourceProperty> UnifiedProperties 
+        {
+            get => _unifiedProperties.Value;
         }
     }
 }
