@@ -38,8 +38,11 @@ namespace EdFi.Ods.Generator
         [Option('m', "model", HelpText = "The path to the API model file from MetaEd.")]
         public IEnumerable<string> ModelPaths { get; set; }
         
-        [Option('p', "properties")]
+        [Option('p', "property")]
         public IEnumerable<string> Properties { get; set; }
+
+        [Option("plugin")]
+        public IEnumerable<string> Plugins { get; set; }
 
         public IDictionary<string, string> PropertyByName
         {

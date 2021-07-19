@@ -46,7 +46,7 @@ namespace EdFi.Ods.Generator.Templating
                     .Replace(templatesBasePath, string.Empty)
                     .Replace(".mustache", string.Empty);
 
-                _logger.Debug($"Adding '{templateName}' into the cache...");
+                _logger.Debug($"Caching template '{templateName}'...");
                 
                 templateContentByTemplateName.Add(templateName, templateContent);
             }
