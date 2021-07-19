@@ -5,5 +5,6 @@
 
 CREATE TABLE auth.EducationOrganizationIdToEducationOrganizationId (
     SourceEducationOrganizationId INT NOT NULL,
-    TargetEducationOrganizationId INT NOT NULL
+    TargetEducationOrganizationId INT NOT NULL,
+    CONSTRAINT EducationOrganizationIdToEducationOrganizationId_PK PRIMARY KEY (SourceEducationOrganizationId, TargetEducationOrganizationId)
 );
