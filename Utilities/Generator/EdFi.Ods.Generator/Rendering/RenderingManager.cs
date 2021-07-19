@@ -105,12 +105,10 @@ namespace EdFi.Ods.Generator.Rendering
                         continue;
                     }
 
-                    // Get the model provider
+                    // Get the model provider, prioritizing the plugin assembly first
                     var templateModelProvider = _templateModelProviders.Where(p => p.GetType().Assembly == pluginAssembly)
-                        .Where(p => p.GetType().Name.Equals(rendering.ModelProvider, StringComparison.OrdinalIgnoreCase))
-                        .Concat(
-                            _templateModelProviders.Where(
-                                p => p.GetType().Name.Equals(rendering.ModelProvider, StringComparison.OrdinalIgnoreCase)))
+                        .Where(p => IsTemplateModelProviderForProviderName(p, rendering.ModelProvider))
+                        .Concat(_templateModelProviders.Where(p => IsTemplateModelProviderForProviderName(p, rendering.ModelProvider)))
                         .FirstOrDefault();
 
                     if (templateModelProvider == null)
@@ -160,6 +158,16 @@ namespace EdFi.Ods.Generator.Rendering
             _logger.Debug($"Generation complete.");
 
             return renderingSuccessful;
+
+            bool IsTemplateModelProviderForProviderName(ITemplateModelProvider p, string renderingModelProvider)
+            {
+                var result = p.GetType().Name.Equals(renderingModelProvider, StringComparison.OrdinalIgnoreCase)
+                    || p.GetType().Name.Equals(renderingModelProvider + "TemplateModelProvider", StringComparison.OrdinalIgnoreCase);
+                
+                _logger.Debug($"Evaluated template model provider '{p.GetType().Name}' against model provider name '{renderingModelProvider}': {result}");
+
+                return result;
+            }
         }
 
         private async Task<string> RenderAsync(string templateContent, object templateModel, IDictionary<string, string> templateContentByName)
