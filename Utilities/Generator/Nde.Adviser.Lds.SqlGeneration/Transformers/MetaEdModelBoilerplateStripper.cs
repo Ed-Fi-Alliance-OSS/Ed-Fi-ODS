@@ -7,11 +7,8 @@ namespace Nde.Adviser.Lds.SqlGeneration.Transformers
 {
     public class MetaEdModelBoilerplateStripper : IDomainModelDefinitionsTransformer
     {
-        public void TransformDefinitions(IEnumerable<DomainModelDefinitions> definitions)
+        public IEnumerable<DomainModelDefinitions> TransformDefinitions(IEnumerable<DomainModelDefinitions> definitions)
         {
-            // Build cohesive domain model
-            // var domainModel = new DomainModelBuilder(definitions).Build();
-
             foreach (DomainModelDefinitions domainModelDefinitions in definitions)
             {
                 foreach (var entityDefinition in domainModelDefinitions.EntityDefinitions)
@@ -26,6 +23,8 @@ namespace Nde.Adviser.Lds.SqlGeneration.Transformers
                                 || !(i.IdentifyingPropertyNames.Length == 1 && i.IdentifyingPropertyNames.Single() == "Id"))
                         .ToArray();
                 }
+
+                yield return domainModelDefinitions;
             }
         }
     }
