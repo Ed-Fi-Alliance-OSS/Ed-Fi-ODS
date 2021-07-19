@@ -19,7 +19,6 @@
     <EmbeddedResource Include="Templates\Lds\Structure\Schemas.mustache" />
     <EmbeddedResource Include="Templates\Lds\Structure\Tables.mustache" />
     <EmbeddedResource Include="Templates\Lds\Structure\HashKeyIndexes.mustache" />
-    <EmbeddedResource Include="Templates\Ods\Tables.mustache" />
     <EmbeddedResource Include="renderings.json" />
   </ItemGroup>
 
