@@ -10,16 +10,16 @@ using EdFi.Ods.Common.Models;
 
 namespace EdFi.Ods.Generator.Database.Domain
 {
-    public class OptionsDomainDefinitionsProviderProvider : IDomainModelDefinitionsProviderProvider
+    public class ModelPathsDomainDefinitionsProviderSource : IDomainModelDefinitionsProviderSource
     {
-        private IEnumerable<string> _modelPaths;
+        private readonly IEnumerable<string> _modelPaths;
 
-        public OptionsDomainDefinitionsProviderProvider(Options options)
+        public ModelPathsDomainDefinitionsProviderSource(IModelOptions options)
         {
             _modelPaths = options.ModelPaths;
         }
         
-        public IEnumerable<IDomainModelDefinitionsProvider> DomainModelDefinitionProviders()
+        public IEnumerable<IDomainModelDefinitionsProvider> GetDomainModelDefinitionProviders()
         {
             var executionPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             

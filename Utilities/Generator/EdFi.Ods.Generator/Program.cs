@@ -113,15 +113,14 @@ namespace EdFi.Ods.Generator
         {
             // Register components with Autofac
             var containerBuilder = new ContainerBuilder();
-            // containerBuilder.Populate(services);
-            containerBuilder.RegisterInstance(options);
+            containerBuilder.RegisterInstance(options).AsImplementedInterfaces();
             containerBuilder.RegisterModule(new GeneratorModule());
 
             // Add the Configuration to the container
             var configuration = ConfigurationHelper.BuildConfiguration();
             containerBuilder.RegisterInstance(configuration);
             
-            // TODO: Handle plugins with paths through Options / command-line parameter
+            // Handle plugins with paths through Options / command-line parameter
             var pluginCatalogs = GetPluginCatalogs(options.Plugins).ToArray();
             var compositePluginCatalog = new CompositePluginCatalog(pluginCatalogs);
             compositePluginCatalog.Initialize();

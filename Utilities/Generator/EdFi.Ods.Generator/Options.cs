@@ -11,7 +11,26 @@ using EdFi.Ods.Generator.Database;
 
 namespace EdFi.Ods.Generator
 {
-    public class Options
+    public interface IGeneratorOptions
+    {
+        string OutputPath { get; set; }
+        IEnumerable<string> Properties { get; set; }
+        IEnumerable<string> Plugins { get; set; }
+        IDictionary<string, string> PropertyByName { get; }
+    }
+
+    public interface IModelOptions
+    {
+        IEnumerable<string> ModelPaths { get; set; }
+        string CapabilityStatementPath { get; set; }
+    }
+
+    public interface IDatabaseOptions
+    {
+        string DatabaseEngine { get; set; }
+    }
+
+    public class Options : IGeneratorOptions, IModelOptions, IDatabaseOptions
     {
         private readonly Lazy<IDictionary<string, string>> _propertyByName;
 
@@ -29,15 +48,6 @@ namespace EdFi.Ods.Generator
         [Option('o', "outputPath", Required = true, HelpText = "The base path for rendered output files.")]
         public string OutputPath { get; set; }
         
-        [Option('d', "databaseEngine", Required = false, HelpText = "Database engine type: SqlServer or PostgreSql.", Default = "SqlServer")]
-        public string DatabaseEngine { get; set; }
-
-        [Option('c', "capabilityStatement", Required = false, HelpText = "Path to the capability statement to use for model-based generation.")]
-        public string CapabilityStatementPath { get; set; }
-
-        [Option('m', "model", HelpText = "The path to the API model file from MetaEd.")]
-        public IEnumerable<string> ModelPaths { get; set; }
-        
         [Option('p', "property")]
         public IEnumerable<string> Properties { get; set; }
 
@@ -48,5 +58,14 @@ namespace EdFi.Ods.Generator
         {
             get => _propertyByName.Value;
         }
+        
+        [Option('d', "database", Required = false, HelpText = "The target database type: SqlServer or PostgreSql.", Default = "SqlServer")]
+        public string DatabaseEngine { get; set; }
+
+        [Option('m', "model", HelpText = "The path to the API model file from MetaEd.")]
+        public IEnumerable<string> ModelPaths { get; set; }
+
+        [Option('c', "capabilities", Required = false, HelpText = "Path to the capability statement to use for model-based generation.")]
+        public string CapabilityStatementPath { get; set; }
     }
 }

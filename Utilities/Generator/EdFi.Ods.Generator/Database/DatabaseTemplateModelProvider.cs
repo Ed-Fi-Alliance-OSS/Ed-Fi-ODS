@@ -40,11 +40,11 @@ namespace EdFi.Ods.Generator.Database
         public DatabaseTemplateModelProvider(
             IDatabaseTypeTranslatorFactory databaseTypeTranslatorFactory,
             IDatabaseNamingConventionFactory databaseNamingConventionFactory,
-            IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider,
+            IDomainModelDefinitionsProviderSource domainModelDefinitionsProviderSource,
             IList<IDomainModelDefinitionsTransformer> domainModelDefinitionsTransformers,
             IList<ITableEnhancer> tableEnhancers,
             IList<IColumnEnhancer> columnEnhancers,
-            Options options)
+            IDatabaseOptions databaseOptions)
         {
             _tableEnhancers = tableEnhancers;
             _columnEnhancers = columnEnhancers;
@@ -52,7 +52,7 @@ namespace EdFi.Ods.Generator.Database
             _databaseNamingConventionFactory = Preconditions.ThrowIfNull(databaseNamingConventionFactory, nameof(databaseNamingConventionFactory));
 
             var domainModelDefinitionProviders = new Lazy<List<IDomainModelDefinitionsProvider>>(
-                () => domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders()
+                () => domainModelDefinitionsProviderSource.GetDomainModelDefinitionProviders()
                     .ToList());
 
             var domainModelProvider = new Lazy<IDomainModelProvider>(
@@ -60,7 +60,7 @@ namespace EdFi.Ods.Generator.Database
             
             _domainModel = new Lazy<DomainModel>(() => domainModelProvider.Value.GetDomainModel());
             
-            _databaseEngine = options.DatabaseEngine;
+            _databaseEngine = databaseOptions.DatabaseEngine;
         }
 
         private readonly IDictionary<FullName, IList<FullName>> _updatableAncestorsByEntity 
@@ -75,7 +75,7 @@ namespace EdFi.Ods.Generator.Database
             
             var domainModel = _domainModel.Value;
             
-            var model = new DatabaseArtifactsTemplateModel
+            var model = new DatabaseTemplateModel
             {
                 Schemas = domainModel.Entities
                     .Where(e => _shouldRenderEntityForSchema(e))
