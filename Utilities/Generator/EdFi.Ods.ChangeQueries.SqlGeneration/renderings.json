@@ -1,0 +1,60 @@
+{
+  "Renderings": [
+    {
+      "Template": "MsSql.Structure.Ods.Changes.CreateChangesSchema",
+      "ModelProvider": "CreateChangesSchema",
+      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0010-CreateChangesSchema-NEW.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "MsSql.Structure.Ods.Changes.CreateChangeVersionSequence",
+      "ModelProvider": "CreateChangesSchema",
+      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0020-CreateChangeVersionSequence-NEW.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "MsSql.Structure.Ods.Changes.AddColumnChangeVersionForTables",
+      "ModelProvider": "Database",
+      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0030-AddColumnChangeVersionForTables-NEW.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "MsSql.Structure.Ods.Changes.CreateTrackedChangeTables",
+      "ModelProvider": "Database",
+      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0035-CreateTrackedChangeTables-NEW.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "MsSql.Structure.Ods.Changes.CreateTriggerUpdateChangeVersionGenerator",
+      "ModelProvider": "Database",
+      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0040-CreateTriggerUpdateChangeVersionGenerator-NEW.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "MsSql.Structure.Ods.Changes.CreateDeletedForTrackingTriggers",
+      "ModelProvider": "Database",
+      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0060-CreateDeletedForTrackingTriggers-NEW.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "MsSql.Structure.Ods.Changes.AddIndexChangeVersionForTables",
+      "ModelProvider": "Database",
+      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0070-AddIndexChangeVersionForTables-NEW.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    }
+  ]
+}
