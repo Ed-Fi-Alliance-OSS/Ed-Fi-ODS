@@ -15,7 +15,7 @@ namespace EdFi.Ods.ChangeQueries.SqlGeneration.Enhancers
         public ChangeDataColumnsTableEnhancer(
             IDatabaseNamingConventionFactory databaseNamingConventionFactory,
             IDatabaseTypeTranslatorFactory databaseTypeTranslatorFactory,
-            Options options)
+            IDatabaseOptions options)
         {
             string databaseEngine = options.DatabaseEngine;
             

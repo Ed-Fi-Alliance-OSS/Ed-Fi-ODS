@@ -1,6 +1,22 @@
 {
   "Renderings": [
     {
+      "Template": "MsSql.Structure.Ods.Changes.DropTrackedDeleteTables",
+      "ModelProvider": "Database",
+      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0004-DropTrackedDeleteTables-NEW.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
+      "Template": "MsSql.Structure.Ods.Changes.DropTrackedDeleteSchema",
+      "ModelProvider": "Database",
+      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0005-DropTrackedDeleteSchema-NEW.sql",
+      "Properties": {
+        "DatabaseEngine": "sqlServer"
+      }
+    },
+    {
       "Template": "MsSql.Structure.Ods.Changes.CreateChangesSchema",
       "ModelProvider": "CreateChangesSchema",
       "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0010-CreateChangesSchema-NEW.sql",
