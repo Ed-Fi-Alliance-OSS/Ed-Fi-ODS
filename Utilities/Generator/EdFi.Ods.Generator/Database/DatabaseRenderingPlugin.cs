@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Reflection;
 using Autofac;
 using EdFi.Ods.Generator.Database.DataTypes;
 using EdFi.Ods.Generator.Database.Domain;
@@ -30,6 +31,15 @@ namespace EdFi.Ods.Generator.Database
             // Domain model components
             containerBuilder.RegisterType<OptionsDomainDefinitionsProviderProvider>()
                 .As<IDomainModelDefinitionsProviderProvider>();
+            
+            // Register enhancers for Database artifacts generation
+            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .AssignableTo<ITableEnhancer>()
+                .AsImplementedInterfaces();
+            
+            containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                .AssignableTo<IColumnEnhancer>()
+                .AsImplementedInterfaces();
         }
     }
 }

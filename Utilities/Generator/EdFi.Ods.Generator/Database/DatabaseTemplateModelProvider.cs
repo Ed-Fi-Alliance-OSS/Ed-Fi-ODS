@@ -25,6 +25,8 @@ namespace EdFi.Ods.Generator.Database
 {
     public class DatabaseTemplateModelProvider : ITemplateModelProvider
     {
+        private readonly IList<ITableEnhancer> _tableEnhancers;
+        private readonly IList<IColumnEnhancer> _columnEnhancers;
         private readonly ILog _logger = LogManager.GetLogger(typeof(DatabaseTemplateModelProvider));
 
         private readonly IDatabaseTypeTranslatorFactory _databaseTypeTranslatorFactory;
@@ -40,8 +42,12 @@ namespace EdFi.Ods.Generator.Database
             IDatabaseNamingConventionFactory databaseNamingConventionFactory,
             IDomainModelDefinitionsProviderProvider domainModelDefinitionsProviderProvider,
             IList<IDomainModelDefinitionsTransformer> domainModelDefinitionsTransformers,
+            IList<ITableEnhancer> tableEnhancers,
+            IList<IColumnEnhancer> columnEnhancers,
             Options options)
         {
+            _tableEnhancers = tableEnhancers;
+            _columnEnhancers = columnEnhancers;
             _databaseTypeTranslatorFactory = Preconditions.ThrowIfNull(databaseTypeTranslatorFactory, nameof(databaseTypeTranslatorFactory));
             _databaseNamingConventionFactory = Preconditions.ThrowIfNull(databaseNamingConventionFactory, nameof(databaseNamingConventionFactory));
 
@@ -57,253 +63,8 @@ namespace EdFi.Ods.Generator.Database
             _databaseEngine = options.DatabaseEngine;
         }
 
-        private class Table : DynamicModelBase
-        {
-            public string Schema { get; set; }
-
-            public string TableName { get; set; }
-
-            public bool HasPrimaryKeyColumns
-            {
-                get => PrimaryKeyColumns.Any();
-            }
-
-            public IEnumerable<Column> PrimaryKeyColumns { get; set; }
-
-            public bool HasContextualPrimaryKeyColumns
-            {
-                get => ContextualPrimaryKeyColumns.Any();
-            }
-
-            public IEnumerable<Column> ContextualPrimaryKeyColumns { get; set; }
-
-            public IEnumerable<Column> ParentPrimaryKeyColumns
-            {
-                get => PrimaryKeyColumns
-                    .Where(pkc => !ContextualPrimaryKeyColumns.Any(c => c.ColumnName == pkc.ColumnName))
-                    .Select((pkc, i) => new Column
-                    {
-                        ColumnName = pkc.ColumnName,
-                        DataType = pkc.DataType,
-                        IsNullable = pkc.IsNullable,
-                        IsFirst = i == 0,
-                    });
-            }
-            
-            public bool IsAggregateRoot { get; set; }
-
-            public bool HasNonPrimaryOrForeignKeyColumns
-            {
-                get => NonPrimaryOrForeignKeyColumns.Any();
-            }
-
-            public bool HasNonPrimaryOrForeignKeyColumnsOrReferences
-            {
-                get => NonPrimaryOrForeignKeyColumns.Any() || References.Any();
-            }
-
-            /// <summary>
-            /// Gets the columns that are not part of any primary or foreign key.
-            /// </summary>
-            public IEnumerable<Column> NonPrimaryOrForeignKeyColumns { get; set; }
-
-            public bool HasBoilerplateColumns
-            {
-                get => BoilerplateColumns.Any();
-            }
-
-            public Column DiscriminatorColumn { get; set; }
-
-            public IEnumerable<Column> BoilerplateColumns { get; set; }
-            public IEnumerable<Column> BoilerplateColumnsUnsorted { get; set; }
-
-            public bool HasReferences
-            {
-                get => References.Any();
-            }
-
-            /// <summary>
-            /// Gets non-identifying references.
-            /// </summary>
-            public IEnumerable<HashReference> References { get; set; }
-
-            public IEnumerable<HashReference> IdentifyingReferences { get; set; }
-
-            public string PrimaryKeyConstraintName { get; set; }
-
-            public bool HasNonPrimaryKeyColumns => NonPrimaryKeyColumns.Any();
-            
-            /// <summary>
-            /// Gets all columns that are not part of the primary key, but are also not the boilerplate columns.
-            /// </summary>
-            public IEnumerable<Column> NonPrimaryKeyColumns { get; set; }
-
-            public IEnumerable<ForeignKey> ForeignKeys { get; set; }
-
-            public string IdIndexName { get; set; }
-
-            public bool IsDerived { get; set; }
-
-
-            public bool HasAllReferences => AllReferences.Any();
-
-            /// <summary>
-            /// Gets all references, identifying and non-identifying.
-            /// </summary>
-            public IEnumerable<HashReference> AllReferences { get; set; }
-
-            public HashKey HashKey { get; set; }
-
-            public bool HasAlternateKey { get; set; }
-
-            public string AlternateKeyConstraintName { get; set; }
-
-            public bool HasServerAssignedSurrogateId { get; set; }
-
-            public Column SurrogateIdColumn { get; set; }
-            
-            public IEnumerable<Column> AlternateKeyColumns { get; set; }
-
-            public bool IsDescriptorBaseTable { get; set; }
-
-            public FullName FullName { get; set; }
-
-            public bool IsPersonTypeTable { get; set; }
-
-            public bool IsTemporal { get; set; }
-            // /// <summary>
-            // /// Gets the reference back to the parent.
-            // /// </summary>
-            // public HashReference ParentReference { get; set; }
-        }
-
-        private class Column : DynamicModelBase
-        {
-            public string ColumnName { get; set; }
-
-            public string DataType { get; set; }
-
-            public bool IsNullable { get; set; }
-
-            public bool? IsFirst { get; set; }
-
-            public string DefaultConstraintName { get; set; }
-            public string DefaultValue { get; set; }
-            
-            public bool IsString
-            {
-                get => DataType.StartsWith("nvarchar"); // TODO: Need to add support for Postgres.
-            }
-            
-            public bool IsGuid
-            {
-                get => DataType == "uniqueidentifier";
-            }
-
-            public bool IsNumber
-            {
-                get => DataType == "bit"
-                    || DataType == "decimal"
-                    || DataType == "int"
-                    || DataType == "money"
-                    || DataType == "smallint";
-            }
-
-            public bool IsDate
-            {
-                get => DataType == "datetime" || DataType == "datetime2" || DataType == "date";
-            }
-            
-            public bool IsTime
-            {
-                get => DataType == "time";
-            }
-
-            public bool IsUnsupportedType => !IsString && !IsGuid && !IsNumber && !IsDate && !IsTime;
-            
-            public bool? IsLast { get; set; }
-
-            public bool IsServerAssigned { get; set; }
-
-            public int Index { get; set; }
-
-            public bool IsConcreteDescriptorId { get; set; }
-
-            /// <summary>
-            /// Indicates whether the column represents an identifier (i.e the USI) for a specific type of person (e.g. Student/Staff/Parent).
-            /// </summary>
-            public bool IsPersonUSIUsage { get; set; }
-
-            public string PersonType { get; set; }
-        }
-
-        private class ForeignKey
-        {
-            public string ConstraintName { get; set; }
-
-            public string ThisSchema { get; set; }
-            public string ThisTableName { get; set; }
-            public IEnumerable<Column> ThisColumns { get; set; }
-            public string OtherSchema { get; set; }
-            public string OtherTableName { get; set; }
-            public IEnumerable<Column> OtherColumns { get; set; }
-
-            public bool IsFromBase { get; set; }
-
-            // public bool IsIdentifying { get; set; }
-
-            public bool IsNavigable { get; set; }
-
-            public bool IsUpdatable { get; set; }
-
-            public bool IsOneToOne { get; set; }
-        }
-
-        // TODO: Move to NDE plugin, add as dynamic
-        private class HashKey
-        {
-            public string ColumnName { get; set; }
-            
-            public string IndexName { get; set; }
-        }
-        
-        // TODO: Move to NDE plugin, add as dynamic
-        private class HashReference
-        {
-            public string ReferencedTableSchema { get; set; }
-
-            public string ReferencedTableName { get; set; }
-
-            public Column Column { get; set; }
-
-            public string ConstraintName { get; set; }
-
-            public string ReferenceMemberName { get; set; } // TODO: This needs to be processed for Postgres naming limitations
-
-            /// <summary>
-            /// The physical columns whose values are composed into the hash key.
-            /// </summary>
-            public IEnumerable<Column> ReferenceColumns { get; set; }
-
-            public bool IsFirst { get; set; }
-
-            public string IndexName { get; set; }
-        }
-
         private readonly IDictionary<FullName, IList<FullName>> _updatableAncestorsByEntity 
             = new Dictionary<FullName, IList<FullName>>();
-
-        public class SchemaInfo
-        {
-            public string Schema { get; set; }
-        }
-
-        private class DatabaseArtifactsTemplateModel : DynamicModelBase
-        {
-            public IEnumerable<SchemaInfo> Schemas { get; set; }
-
-            public IEnumerable<Table> Tables { get; set; }
-        }
 
         public object GetTemplateModel(IDictionary<string, string> properties)
         {
@@ -345,6 +106,13 @@ namespace EdFi.Ods.Generator.Database
                 {
                     IsAggregateRoot = entity.IsAggregateRoot,
                     IsDerived = entity.IsDerived,
+                    BaseTableSchema = entity.BaseEntity?.Schema,
+                    BaseTableName = entity.IsDerived ? databaseNamingConvention.TableName(entity.BaseEntity) : null,
+                    BaseAlternateKeyConstraintName = entity.IsDerived ? databaseNamingConvention.GetAlternateKeyConstraintName(entity.BaseEntity) : null,
+                    BaseAlternateKeyColumns = entity.IsDerived ? entity.BaseEntity?.AlternateIdentifiers.FirstOrDefault()?.Properties.Select(
+                        (p, i) => CreateColumn(p, i, databaseNamingConvention, databaseTypeTranslator, entity.BaseEntity.AlternateIdentifiers.First().Properties))
+                        : null,
+                    IsDescriptorTable = entity.IsDescriptorEntity,
                     IsDescriptorBaseTable = entity.IsDescriptorBaseEntity(),
                     IsPersonTypeTable = entity.IsPersonEntity(),
                     Schema = entity.Schema,
@@ -400,7 +168,7 @@ namespace EdFi.Ods.Generator.Database
                         .Where(p => !p.IsIdentifying && !p.IsBoilerplate())
                         .Select( (p, i) => CreateColumn(p, i, databaseNamingConvention, databaseTypeTranslator)),
                     // TODO: Think about whether and where this should be applied to the model through a transform. 
-                    DiscriminatorColumn = entity.HasDiscriminator() ? CreateDiscriminatorColumn() : null,
+                    DiscriminatorColumn = entity.HasDiscriminator() ? ColumnHelper.CreateDiscriminatorColumn() : null,
                     BoilerplateColumns = GetBoilerplateColumns().OrderBy(c => Enum.Parse<ColumnConventions.BoilerplateColumn>(c.ColumnName)),
                     BoilerplateColumnsUnsorted = GetBoilerplateColumns(),
                     ForeignKeys = entity.IncomingAssociations
@@ -433,11 +201,21 @@ namespace EdFi.Ods.Generator.Database
                             IsUpdatable = IsAssociationUpdatable(a),
                         })),
                     IdIndexName = databaseNamingConvention.GetUniqueIndexName(entity, "Id"),
+                    // TODO: Move to ChangeQueries plugin as dynamic component?
+                    KeyValuesCanChange = entity.Identifier.IsUpdatable || (entity.IncomingAssociations.Any(a => a.IsIdentifying && IsAssociationUpdatable(a))),
+                    // TODO: Move to LDS plugin as dynamic enhancement
                     IsTemporal = (entityAsDynamic.ReadHistory == true),
                 };
 
-                // TODO: Add seam for enhancements 
-                return EnhanceTable(entity, table, table);
+                // Enhance the table
+                var enhancedTable = table;
+                
+                foreach (var tableEnhancer in _tableEnhancers)
+                {
+                    enhancedTable = tableEnhancer.EnhanceTable(entity, enhancedTable, enhancedTable);
+                }
+
+                return enhancedTable;
                 
                 bool IsAssociationUpdatable(AssociationView association)
                 {
@@ -581,49 +359,6 @@ namespace EdFi.Ods.Generator.Database
             }
         }
 
-        private static Column CreateDiscriminatorColumn() => new Column
-        {
-            ColumnName = "Discriminator",
-            DataType = "nvarchar(128)",
-            IsNullable = true,
-        };
-
-        private Table EnhanceTable(Entity entity, Table table, dynamic tableProps)
-        {
-            if (entity.Properties.Any(p => p.PropertyName == "ContextSchoolYear"))
-            {
-                tableProps.HasSchoolYearContext = true;
-            }
-            else
-            {
-                tableProps.HasSchoolYearContext = false;
-            }
-
-            // Add a column for the descriptor base - in contrast to existing model logic
-            tableProps.DiscriminatorColumnForLds = entity.HasDiscriminator() || entity.IsDescriptorBaseEntity()
-                ? CreateDiscriminatorColumn()
-                : null;
-            
-                // if (entity.IsAggregateRoot 
-                //     && entity.Identifier.Properties.Count() == 1
-                //     && entity.Identifier.Properties.First().PropertyType.DbType == DbType.Int32
-                //     && entity.AlternateIdentifiers.Any())
-                // {
-                //     table.PrimaryKeyColumns.First()
-                // }
-            return table;
-        }
-
-        private Column EnhanceColumn(EntityProperty property, Column column, dynamic columnProps)
-        {
-            if (property.PropertyName == "ContextSchoolYear")
-            {
-                columnProps.IsSchoolYearContext = true;
-            }
-
-            return column;
-        }
-        
         private Column CreateColumn(
             EntityProperty property,
             int index,
@@ -642,12 +377,21 @@ namespace EdFi.Ods.Generator.Database
                     && property.DefiningProperty.IsIdentifying 
                     && property.DefiningProperty.Entity.IsPersonEntity(),
                 PersonType = UniqueIdSpecification.GetUSIPersonType(property.DefiningProperty.PropertyName),
+                BaseColumnName = property.BaseProperty != null ? databaseNamingConvention.ColumnName(property.BaseProperty) : null,
                 IsFirst = index == 0,
                 IsLast = contextualPropertySet == null ? (bool?) null : (index == contextualPropertySet.Count - 1),
                 Index = index,
             };
 
-            return EnhanceColumn(property, column, column);
+            // Enhance the table
+            var enhancedColumn = column;
+                
+            foreach (var columnEnhancer in _columnEnhancers)
+            {
+                enhancedColumn = columnEnhancer.EnhanceColumn(property, enhancedColumn, enhancedColumn);
+            }
+
+            return enhancedColumn;
         }
     }
 }
