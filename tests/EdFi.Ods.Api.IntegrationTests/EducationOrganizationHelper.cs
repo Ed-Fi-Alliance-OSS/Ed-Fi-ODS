@@ -86,13 +86,13 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             using var command = connection.CreateCommand();
             command.CommandText = "SELECT LocalEducationAgencyCategoryDescriptorId FROM edfi.LocalEducationAgencyCategoryDescriptor;";
-            builder.TestLocalEducationAgencyCategoryDescriptorId = (int) command.ExecuteScalar();
+            builder.TestLocalEducationAgencyCategoryDescriptorId = Convert.ToInt32(command.ExecuteScalar());
 
             command.CommandText = "SELECT ProviderStatusDescriptorId FROM edfi.ProviderStatusDescriptor;";
-            builder.TestProviderStatusDescriptorId = (int)command.ExecuteScalar();
+            builder.TestProviderStatusDescriptorId = Convert.ToInt32(command.ExecuteScalar());
 
             command.CommandText = "SELECT ProviderCategoryDescriptorId FROM edfi.ProviderCategoryDescriptor;";
-            builder.TestProviderCategoryDescriptorId = (int)command.ExecuteScalar();
+            builder.TestProviderCategoryDescriptorId = Convert.ToInt32(command.ExecuteScalar());
 
             return builder;
         }
