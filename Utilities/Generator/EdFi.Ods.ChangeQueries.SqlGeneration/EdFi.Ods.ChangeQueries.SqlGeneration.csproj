@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EdFi.Ods.Generator\EdFi.Ods.Generator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="renderings.json" />
+    <None Remove="Templates\MsSql\Structure\Ods\Changes\CreateChangesSchema.mustache" />
+    <EmbeddedResource Include="Templates\MsSql\Structure\Ods\Changes\CreateChangesSchema.mustache" />
+    <None Remove="Templates\MsSql\Structure\Ods\Changes\CreateChangeVersionSequence.mustache" />
+    <EmbeddedResource Include="Templates\MsSql\Structure\Ods\Changes\CreateChangeVersionSequence.mustache" />
+    <None Remove="Templates\MsSql\Structure\Ods\Changes\AddColumnChangeVersionForTables.mustache" />
+    <EmbeddedResource Include="Templates\MsSql\Structure\Ods\Changes\AddColumnChangeVersionForTables.mustache" />
+    <None Remove="Templates\MsSql\Structure\Ods\Changes\CreateTriggerUpdateChangeVersionGenerator.mustache" />
+    <EmbeddedResource Include="Templates\MsSql\Structure\Ods\Changes\CreateTriggerUpdateChangeVersionGenerator.mustache" />
+    <None Remove="Templates\MsSql\Structure\Ods\Changes\CreateTrackedChangeTables.mustache" />
+    <EmbeddedResource Include="Templates\MsSql\Structure\Ods\Changes\CreateTrackedChangeTables.mustache" />
+    <None Remove="Templates\MsSql\Structure\Ods\Changes\CreateDeletedForTrackingTriggers.mustache" />
+    <EmbeddedResource Include="Templates\MsSql\Structure\Ods\Changes\CreateDeletedForTrackingTriggers.mustache" />
+    <None Remove="Templates\MsSql\Structure\Ods\Changes\AddIndexChangeVersionForTables.mustache" />
+    <EmbeddedResource Include="Templates\MsSql\Structure\Ods\Changes\AddIndexChangeVersionForTables.mustache" />
+  </ItemGroup>
+
+</Project>
