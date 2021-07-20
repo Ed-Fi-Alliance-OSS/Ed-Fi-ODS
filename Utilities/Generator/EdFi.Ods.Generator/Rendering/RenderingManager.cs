@@ -26,7 +26,7 @@ namespace EdFi.Ods.Generator.Rendering
 
         private readonly Lazy<StubbleVisitorRenderer> _stubbleRender;
         private readonly RenderSettings _renderSettings;
-        private IDictionary<string, string> _optionsPropertyByName;
+        private readonly IDictionary<string, string> _optionsPropertyByName;
         private readonly string _databaseEngine;
 
         public RenderingManager(
@@ -34,17 +34,18 @@ namespace EdFi.Ods.Generator.Rendering
             ITemplatesProvider templatesProvider, 
             IRenderingsManifestProvider renderingsManifestProvider,
             IList<ITemplateModelProvider> templateModelProviders,
-            Options options)
+            IGeneratorOptions generatorOptions,
+            IDatabaseOptions databaseOptions)
         {
             _renderingPlugins = renderingPlugins;
             _templatesProvider = templatesProvider;
             _renderingsManifestProvider = renderingsManifestProvider;
             _templateModelProviders = templateModelProviders;
 
-            _outputPath = options.OutputPath;
-            _databaseEngine = options.DatabaseEngine;
+            _outputPath = generatorOptions.OutputPath;
+            _databaseEngine = databaseOptions.DatabaseEngine;
             
-            _optionsPropertyByName = options.PropertyByName;
+            _optionsPropertyByName = generatorOptions.PropertyByName;
             
             _stubbleRender = new Lazy<StubbleVisitorRenderer>(
                 () => new StubbleBuilder()
