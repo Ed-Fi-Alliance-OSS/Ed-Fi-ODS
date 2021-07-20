@@ -18,10 +18,10 @@ using log4net;
 
 namespace Nde.Adviser.Lds.SqlGeneration.Transformers
 {
-    public class SchoolYearContextTransformer : IDomainModelDefinitionsTransformer
+    public class SchoolYearContextInjectionTransformer : IDomainModelDefinitionsTransformer
     {
         private const string ContextSchoolYearName = "ContextSchoolYear";
-        private readonly ILog _logger = LogManager.GetLogger(typeof(SchoolYearContextTransformer));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SchoolYearContextInjectionTransformer));
         
         public IEnumerable<DomainModelDefinitions> TransformDefinitions(IEnumerable<DomainModelDefinitions> definitions)
         {
