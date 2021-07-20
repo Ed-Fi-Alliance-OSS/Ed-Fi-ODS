@@ -13,7 +13,8 @@ namespace EdFi.Ods.Api.IntegrationTests
 
         private IConfigurationRoot _configuration;
 
-        public static string ConnectionString { get; private set; }
+        public static string SqlServerConnectionString { get; private set; }
+        public static string PostgreSqlConnectionString { get; private set; }
 
         [OneTimeSetUp]
         public void Setup()
@@ -23,15 +24,15 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddJsonFile("appsettings.json", optional: true)
                 .Build();
 
-            var connectionString = _configuration.GetConnectionString("EdFi_Ods");
+            var sqlServerConnectionString = _configuration.GetConnectionString("EdFi_Ods");
 
-            if (string.IsNullOrWhiteSpace(connectionString))
+            if (string.IsNullOrWhiteSpace(sqlServerConnectionString))
             {
                 throw new ApplicationException(
-                    "Invalid configuration for integration tests.  Verify a valid connection string for 'EdFi_Ods'");
+                    "Invalid configuration for integration tests.  Verify a valid sql server connection string for 'EdFi_Ods'");
             }
 
-            var connectionStringBuilder = new DbConnectionStringBuilder {ConnectionString = connectionString};
+            var connectionStringBuilder = new DbConnectionStringBuilder {ConnectionString = sqlServerConnectionString };
             var sourceDatabaseName = connectionStringBuilder["Database"] as string;
             var testDatabaseName = $"{DatabasePrefix}{Guid.NewGuid():N}";
 
@@ -39,7 +40,9 @@ namespace EdFi.Ods.Api.IntegrationTests
             databaseHelper.CopyDatabase(sourceDatabaseName, testDatabaseName);
 
             connectionStringBuilder["Database"] = testDatabaseName;
-            ConnectionString = connectionStringBuilder.ConnectionString;
+            SqlServerConnectionString = connectionStringBuilder.ConnectionString;
+
+            PostgreSqlConnectionString = _configuration.GetConnectionString("EdFi_Ods_Manual_PostgreSQL");
         }
 
         [OneTimeTearDown]
