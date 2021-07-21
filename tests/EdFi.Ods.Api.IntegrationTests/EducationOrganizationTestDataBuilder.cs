@@ -32,7 +32,6 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             var builder = new EducationOrganizationTestDataBuilder { Connection = connection };
 
-
             using var command = connection.CreateCommand();
             command.CommandText = "SELECT LocalEducationAgencyCategoryDescriptorId FROM edfi.LocalEducationAgencyCategoryDescriptor;";
             builder.TestLocalEducationAgencyCategoryDescriptorId = Convert.ToInt32(command.ExecuteScalar());

@@ -16,7 +16,6 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.EducationOrganization
     FOR EACH ROW EXECUTE PROCEDURE auth.edfi_EducationOrganization_TR_Insert();
 
-
 CREATE FUNCTION auth.edfi_School_TR_Insert()
     RETURNS trigger AS
 $BODY$
