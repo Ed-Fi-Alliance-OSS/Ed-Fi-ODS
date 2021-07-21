@@ -56,5 +56,13 @@ namespace EdFi.Ods.Common.Configuration
 
         public bool IsFeatureEnabled(string featureName)
             => Features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(featureName) && x.IsEnabled) != null;
+
+        public List<YearSpecificYears> YearSpecificYears { get; set; } = new List<YearSpecificYears>();
+    }
+
+    public class YearSpecificYears
+    {
+        public int Year { get; set; }
+        public bool IsDefault { get; set; }
     }
 }

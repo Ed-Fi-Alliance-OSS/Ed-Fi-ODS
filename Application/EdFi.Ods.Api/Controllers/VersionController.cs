@@ -44,6 +44,15 @@ namespace EdFi.Ods.Api.Controllers
         }
 
         [HttpGet]
+        [Route("GetYearsForYearSpecific")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetYearsForYearSpecific()
+        {
+            var years = _apiSettings.YearSpecificYears;
+            return Ok(years);
+        }
+
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Get()
         {
