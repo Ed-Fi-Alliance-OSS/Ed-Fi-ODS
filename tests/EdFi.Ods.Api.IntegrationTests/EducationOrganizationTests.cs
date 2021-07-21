@@ -1,63 +1,57 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
 using NUnit.Framework;
-using Shouldly;
 
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class EducationOrganizationTests
+    public class EducationOrganizationTests : DatabaseTestFixtureBase
     {
         [Test]
-        public async Task InsertAndDeleteSingleEducationOrganization()
+        public void When_inserting_and_deleting_single_education_organization_should_update_tuples()
         {
-            var educationOrganizations = new List<(int, string)>
-            {
-                (99990000, "LocalEducationAgency"),
-            };
+            Builder
+                .AddLocalEducationAgency(99990000)
+                .Execute();
 
-            var expectedEducationOrganizationIdToToEducationOrganizationId = new List<(int, int)> {(99990000, 99990000)};
+            var expectedTuples = new[] {(99990000, 99990000)};
 
-            (await EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations)).ShouldBe(
-                educationOrganizations.Count);
+            EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuples);
 
-            expectedEducationOrganizationIdToToEducationOrganizationId.ForEach(
-                async x =>
-                {
-                    (await EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x)).ShouldBeTrue();
-                });
+            Builder
+                .DeleteEducationOrganization(99990000)
+                .Execute();
 
-            (await EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList()))
-                .ShouldBe(educationOrganizations.Count);
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, expectedTuples);
         }
 
         [Test]
-        public async Task InsertAndDeleteMultipleEducationOrganizations()
+        public void When_inserting_and_deleting_multiple_education_organizations_should_update_tuples()
         {
-            var educationOrganizations = new List<(int, string)>
-            {
-                (99990000, "LocalEducationAgency"),
-                (99990001, "LocalEducationAgency"),
-                (99990002, "LocalEducationAgency")
-            };
+            Builder
+                .AddLocalEducationAgency(99990000)
+                .AddLocalEducationAgency(99990001)
+                .AddLocalEducationAgency(99990002)
+                .Execute();
 
-            var expectedEducationOrganizationIdToToEducationOrganizationId = new List<(int, int)>
+            var expectedTuples = new[]
             {
                 (99990000, 99990000),
                 (99990001, 99990001),
                 (99990002, 99990002)
             };
+            EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuples);
 
-            (await EducationOrganizationHelper.InsertEducationOrganizations(educationOrganizations))
-                .ShouldBe(educationOrganizations.Count);
+            Builder
+                .DeleteEducationOrganization(99990000)
+                .DeleteEducationOrganization(99990001)
+                .DeleteEducationOrganization(99990002)
+                .Execute();
 
-            expectedEducationOrganizationIdToToEducationOrganizationId.ForEach(
-                async x => (await EducationOrganizationHelper.QueryEducationOrganizationIdToToEducationOrganizationId(x))
-                    .ShouldBeTrue());
-
-            (await EducationOrganizationHelper.DeleteEducationOrganizations(educationOrganizations.Select(x => x.Item1).ToList()))
-                .ShouldBe(educationOrganizations.Count);
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, expectedTuples);
         }
     }
 }

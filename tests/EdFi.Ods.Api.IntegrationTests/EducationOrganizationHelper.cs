@@ -1,72 +1,61 @@
-﻿using System;
+﻿// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
+using Shouldly;
 
 namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class EducationOrganizationHelper
     {
-        public static async Task<int> InsertEducationOrganizations(List<(int, string)> educationOrganizations)
+        public static List<(int, int)> GetExistingTuples(IDbConnection connection)
         {
-            var sql = new StringBuilder(
-                @"INSERT INTO edfi.EducationOrganization (
-                    EducationOrganizationId,
-                    NameOfInstitution,
-                    ShortNameOfInstitution,
-                    WebSite,
-                    Discriminator)
-                VALUES "
-            );
+            var sql = @"
+                SELECT SourceEducationOrganizationId, TargetEducationOrganizationId
+                FROM auth.EducationOrganizationIdToEducationOrganizationId;";
 
-            sql.AppendJoin(
-                ", ",
-                educationOrganizations.Select(
-                    x => @$"(
-                     {x.Item1},
-                    '{x.Item1}NameOfInstitution',
-                    '{x.Item1}ShortNameOfInstitution',
-                    '{x.Item1}WebSite',
-                    'edfi.{x.Item2}')"
-                ));
+            using var command = connection.CreateCommand();
+            command.CommandText = sql;
 
-            await using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
-            connection.Open();
+            using var reader = command.ExecuteReader();
 
-            await using var command = new SqlCommand(sql.ToString(), connection);
-            return await command.ExecuteNonQueryAsync();
+            var actualTuples = new List<(int, int)>();
+            while (reader.Read())
+            {
+                actualTuples.Add((reader.GetInt32(0), reader.GetInt32(1)));
+            }
+
+            return actualTuples;
         }
 
-        public static async Task<bool> QueryEducationOrganizationIdToToEducationOrganizationId((int, int) sourceTargetTuple)
+        public static void ShouldContainTuples(IDbConnection connection, params (int, int)[] expectedTuples)
+        {
+            var actualTuples = GetExistingTuples(connection);
+            expectedTuples.ShouldBeSubsetOf(actualTuples);
+        }
+
+        public static void ShouldNotContainTuples(IDbConnection connection, params (int, int)[] expectedTuples)
+        {
+            var actualTuples = GetExistingTuples(connection);
+            expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
+        }
+
+        public static bool QueryEducationOrganizationIdToToEducationOrganizationId(IDbConnection connection, (int, int) sourceTargetTuple)
         {
             (int source, int target) = sourceTargetTuple;
 
             var sql = @$"
                 SELECT COUNT(*)
                 FROM auth.EducationOrganizationIdToEducationOrganizationId
-                WHERE SourceEducationOrganizationId = {source} AND TargetEducationOrganizationId = {target}";
+                WHERE SourceEducationOrganizationId = {source} AND TargetEducationOrganizationId = {target};";
 
-            await using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
-            connection.Open();
-
-            await using var command = new SqlCommand(sql, connection);
-            return 1 == Convert.ToInt32(await command.ExecuteScalarAsync());
-        }
-
-        public static async Task<int> DeleteEducationOrganizations(List<int> educationOrganizationIds)
-        {
-            var sql = @$"
-                DELETE FROM edfi.EducationOrganization
-                WHERE EducationOrganizationId 
-                    IN ({string.Join(", ", educationOrganizationIds)})";
-
-            await using var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.ConnectionString);
-            connection.Open();
-
-            await using var command = new SqlCommand(sql, connection);
-            return await command.ExecuteNonQueryAsync();
+            using var command = connection.CreateCommand();
+            command.CommandText = sql;
+            return 1 == Convert.ToInt32(command.ExecuteScalar());
         }
     }
 }
