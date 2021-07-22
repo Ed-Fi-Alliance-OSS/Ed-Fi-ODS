@@ -30,15 +30,5 @@ namespace EdFi.Ods.Common.Models.Domain
         {
             return PersonEntitySpecification.IsPersonEntity(entity.Name);
         }
-
-        public static bool HasServerAssignedSurrogateId(this Entity entity)
-        {
-            //People and the base descriptors have server assigned surrogate ids.
-            return entity.Identifier.Properties.Any(
-                p =>
-                    p.IsServerAssigned
-                    && !p.Entity.IsDerived
-                    && p.Entity.IsAggregateRoot);
-        }
     }
 }
