@@ -15,7 +15,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
         public string SourceTableJoinColumnName { get; set; }
 
-        public bool IsDescriptorProperty { get; set; }
+        public bool IsDescriptorUsage { get; set; }
     }
 
     public class SelectColumn

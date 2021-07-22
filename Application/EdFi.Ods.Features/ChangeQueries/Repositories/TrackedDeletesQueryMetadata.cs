@@ -16,7 +16,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             string deletesOnlyWhereClause,
             string discriminatorCriteria,
             string sourceTableJoinCriteria,
-            string sourceBaseTableJoin,
+            // string sourceBaseTableJoin,
             string sourceChangeVersionTableAlias,
             string sourceTableExclusionCriteria,
             ProjectionMetadata[] identifierProjections)
@@ -29,7 +29,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             DeletesOnlyWhereClause = deletesOnlyWhereClause;
             DiscriminatorCriteria = discriminatorCriteria;
             SourceTableJoinCriteria = sourceTableJoinCriteria;
-            SourceBaseTableJoin = sourceBaseTableJoin;
+            // SourceBaseTableJoin = sourceBaseTableJoin;
             SourceChangeVersionTableAlias = sourceChangeVersionTableAlias;
             SourceTableExclusionCriteria = sourceTableExclusionCriteria;
             IdentifierProjections = identifierProjections;
@@ -51,6 +51,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
         public string SourceTableJoinCriteria { get; }
 
+        // TODO: GKM - Remove if truly unnecessary for query
         public string SourceBaseTableJoin { get; }
 
         public string SourceChangeVersionTableAlias { get; }
