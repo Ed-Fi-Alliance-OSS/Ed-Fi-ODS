@@ -6,6 +6,7 @@
 {{#Tables}}
     {{#IsAggregateRoot}}
         {{^IsDerived}}
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[{{Schema}}].[{{TableName}}]') AND name = 'ChangeVersion')
 ALTER TABLE [{{Schema}}].[{{TableName}}] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
         {{/IsDerived}}
