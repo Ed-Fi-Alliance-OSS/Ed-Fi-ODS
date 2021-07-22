@@ -11,4 +11,3 @@ FROM edfi.StudentSchoolAssociation ssa
 INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuple
 ON ssa.SchoolId = tuple.TargetEducationOrganizationId
 
-GO
