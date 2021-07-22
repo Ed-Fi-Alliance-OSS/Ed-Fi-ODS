@@ -51,6 +51,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 .As<IApplicationModelConvention>()
                 .SingleInstance();
 
+            builder.RegisterType<KeyChangesRouteConvention>()
+                .As<IApplicationModelConvention>()
+                .SingleInstance();
+
             builder.RegisterType<ChangeQueryMappingNHibernateConfigurationActivity>()
                 .As<INHibernateBeforeBindMappingActivity>()
                 .SingleInstance();
