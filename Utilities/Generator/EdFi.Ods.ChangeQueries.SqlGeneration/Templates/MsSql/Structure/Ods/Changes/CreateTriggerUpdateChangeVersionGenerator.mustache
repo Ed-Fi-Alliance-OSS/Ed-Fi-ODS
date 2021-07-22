@@ -8,6 +8,7 @@
         {{^IsDerived}}
 DROP TRIGGER IF EXISTS [{{Schema}}].[{{Schema}}_{{TableName}}_TR_UpdateChangeVersion]
 GO
+
 CREATE TRIGGER [{{Schema}}].[{{Schema}}_{{TableName}}_TR_UpdateChangeVersion] ON [{{Schema}}].[{{TableName}}] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -18,13 +19,13 @@ BEGIN
 {{#KeyValuesCanChange}}
 
     -- Handle key changes
-    INSERT INTO tracked_changes_{{Schema}}.{{TableName}}_TrackedChange(
+    INSERT INTO tracked_changes_{{Schema}}.{{TableName}}(
         {{#ChangeDataColumns}}Old{{ColumnName}}, {{/ChangeDataColumns}}
         {{#ChangeDataColumns}}New{{ColumnName}}, {{/ChangeDataColumns}}
         Id, {{#HasDiscriminator}}Discriminator, {{/HasDiscriminator}}ChangeVersion)
     SELECT 
-        {{#ChangeDataColumns}}{{#SourceSelectExpression}}d{{SourceSelectExpression}}{{/SourceSelectExpression}}{{^SourceSelectExpression}}d.{{ColumnName}}{{/SourceSelectExpression}}, {{/ChangeDataColumns}}
-        {{#ChangeDataColumns}}{{#SourceSelectExpression}}i{{SourceSelectExpression}}{{/SourceSelectExpression}}{{^SourceSelectExpression}}i.{{ColumnName}}{{/SourceSelectExpression}}, {{/ChangeDataColumns}}
+        {{#ChangeDataColumns}}{{#SelectExpression}}d{{SelectExpression}}{{/SelectExpression}}{{^SelectExpression}}d.{{ColumnName}}{{/SelectExpression}}, {{/ChangeDataColumns}}
+        {{#ChangeDataColumns}}{{#SelectExpression}}i{{SelectExpression}}{{/SelectExpression}}{{^SelectExpression}}i.{{ColumnName}}{{/SelectExpression}}, {{/ChangeDataColumns}}
         d.Id, {{#HasDiscriminator}}d.Discriminator, {{/HasDiscriminator}}(NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM deleted d INNER JOIN inserted i ON d.Id = i.Id
         {{#Joins}}
@@ -33,7 +34,7 @@ BEGIN
         {{/Joins}}
         {{#Joins}}
         {{#IsLeftJoin}}LEFT {{/IsLeftJoin}}{{^IsLeftJoin}}INNER {{/IsLeftJoin}}JOIN {{Schema}}.{{TableName}} i{{JoinAlias}}
-            ON d.{{ThisJoinColumnName}} = i{{JoinAlias}}.{{OtherJoinColumnName}}
+            ON i.{{ThisJoinColumnName}} = i{{JoinAlias}}.{{OtherJoinColumnName}}
         {{/Joins}}
     WHERE 
         {{#PrimaryKeyColumns}}{{^IsFirst}} OR {{/IsFirst}}d.{{ColumnName}} <> i.{{ColumnName}}{{/PrimaryKeyColumns}};
