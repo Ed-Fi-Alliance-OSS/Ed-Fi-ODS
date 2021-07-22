@@ -580,7 +580,7 @@ namespace EdFi.Ods.Common.Models.Resource
                                 : new EntityProperty[0])
                        .Concat(
                             entity.Properties
-                                  .Where(p => p.IsLocallyDefined || p.IsDirectLookup))
+                                  .Where(p => p.IsLocallyDefined || p.IsDirectDescriptorUsage))
                        .Select(p => new ResourceProperty(this, p))
                        .Where(p => ResourceSpecification.IsAllowableResourceProperty(p.PropertyName))
                        .Where(rp => FilterContext.MemberFilter.ShouldInclude(rp.PropertyName))

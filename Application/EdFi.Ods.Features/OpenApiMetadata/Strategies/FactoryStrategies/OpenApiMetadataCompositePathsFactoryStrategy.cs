@@ -193,8 +193,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
                 fullModelResourceProperty.PropertyName.ToCamelCase(),
                 fullModelResourceProperty.PropertyType,
                 new PropertyCharacteristics(
-                    entityProperty.IsLookup,
-                    entityProperty.IsDirectLookup,
+                    entityProperty.IsDescriptorUsage,
+                    entityProperty.IsDirectDescriptorUsage,
                     entityProperty.IsIdentifying,
                     true,
                     entityProperty.IsServerAssigned,

@@ -50,7 +50,7 @@ namespace EdFi.Ods.Common.Models.Graphs
                             // Add direct descriptor associations
                             .Concat(
                                 res.AllContainedItemTypesOrSelf.SelectMany(
-                                    rc => rc.Properties.Where(p => p.IsDirectLookup)
+                                    rc => rc.Properties.Where(p => p.IsDirectDescriptorUsage)
                                         .Select(
                                             p => new AssociationViewEdge(
                                                 p.DescriptorResource,

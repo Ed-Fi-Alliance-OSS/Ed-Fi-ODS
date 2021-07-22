@@ -143,10 +143,21 @@ namespace EdFi.Ods.Common.Models.Domain
                 });
         }
 
+        [Obsolete("Use IsDescriptorUsage.")]
         public bool IsLookup
+        {
+            get => IsDescriptorUsage;
+        }
+        
+        /// <summary>
+        /// Indicates whether the property represents the usage of a descriptor.
+        /// </summary>
+        public bool IsDescriptorUsage
         {
             get
             {
+                // TODO: Implement using semantic model (see DefiningProperty.Entity) rather than property and type naming conventions for determining this.
+
                 // This prevents a known inconsistency in the Ed-Fi ODS from being reported as a descriptor lookup
                 if (PropertyName == "PriorDescriptorId") // TODO: Embedded convention - hardcoded logic
                 {
@@ -178,10 +189,18 @@ namespace EdFi.Ods.Common.Models.Domain
         /// from the corresponding lookup entity (as opposed to migrated into the entity via an association
         /// from a non-lookup entity).
         /// </summary>
-        public bool IsDirectLookup => IsLookup && IncomingAssociations.Any(x => x.OtherEntity == LookupEntity);
+        [Obsolete("Use IsDirectDescriptorUsage instead.")]
+        public bool IsDirectLookup => IsDirectDescriptorUsage;
+        
+        /// <summary>
+        /// Indicates whether the the property is a descriptor value that is directly referenced
+        /// from the corresponding descriptor entity (as opposed to migrated into the entity via an association
+        /// from a non-descriptor entity).
+        /// </summary>
+        public bool IsDirectDescriptorUsage => IsDescriptorUsage && IncomingAssociations.Any(x => x.OtherEntity == LookupEntity);
 
         /// <summary>
-        /// Gets the type or descriptor lookup entity (if applicable); otherwise null.
+        /// Gets the corresponding descriptor entity (if applicable); otherwise null.
         /// </summary>
         public Entity LookupEntity => _lookupEntity.Value;
 

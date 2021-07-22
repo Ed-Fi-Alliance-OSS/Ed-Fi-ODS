@@ -52,7 +52,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             value.Split('_')
                  .Select(segment => segment.ToCamelCase()));
 
-        public static string PropertyType(ResourceProperty resourceProperty) => resourceProperty.IsLookup
+        public static string PropertyType(ResourceProperty resourceProperty) => resourceProperty.IsDescriptorUsage
                                                                                 || UniqueIdSpecification.IsUniqueId(resourceProperty.JsonPropertyName)
             ? "string"
             : resourceProperty.PropertyType.ToOpenApiType();
