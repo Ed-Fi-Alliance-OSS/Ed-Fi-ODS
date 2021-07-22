@@ -16,7 +16,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var sql = @$"
                 SELECT COUNT(*)
                 FROM auth."+ viewName +
-                " GROUP BY SourceEducationOrganizationId,TargetEducationOrganizationId HAVING count(*)> 1;";
+                " GROUP BY SourceEducationOrganizationId,TargetEducationOrganizationId HAVING COUNT(*)> 1;";
 
             using var command = connection.CreateCommand();
             command.CommandText = sql;
