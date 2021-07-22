@@ -47,6 +47,7 @@ namespace EdFi.Ods.ChangeQueries.SqlGeneration.Enhancers
                         {
                             IsFirst = i == 0,
                             ColumnName = c.ColumnName,
+                            DataType = c.DataType,
                             SelectExpression = c.SelectExpression,
                         })
                     .ToArray();
