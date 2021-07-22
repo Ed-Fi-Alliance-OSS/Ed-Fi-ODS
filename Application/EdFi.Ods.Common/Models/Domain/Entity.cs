@@ -496,6 +496,25 @@ namespace EdFi.Ods.Common.Models.Domain
         public IReadOnlyList<EntityProperty> NonIdentifyingProperties => _nonIdentifyingProperties.Value;
 
         /// <summary>
+        /// Gets all the alternate identifiers on the entity logically inherited via the entity's base type hierarchy (including many-to-one, one-to-one incoming, from "base" entity, and from the Ed-Fi standard entity [for extensions]).
+        /// </summary>
+        public IReadOnlyList<EntityIdentifier> InheritedAlternateIdentifiers
+        {
+            get
+            {
+                if (BaseEntity == null)
+                {
+                    return new EntityIdentifier[0];
+                }
+
+                return BaseEntity
+                      .InheritedAlternateIdentifiers
+                      .Concat(BaseEntity.AlternateIdentifiers)
+                      .ToReadOnlyList();
+            }
+        }
+        
+        /// <summary>
         /// Gets all the incoming associations on the entity logically inherited via the entity's base type hierarchy (including many-to-one, one-to-one incoming, from "base" entity, and from the Ed-Fi standard entity [for extensions]).
         /// </summary>
         public IReadOnlyList<AssociationView> InheritedIncomingAssociations
