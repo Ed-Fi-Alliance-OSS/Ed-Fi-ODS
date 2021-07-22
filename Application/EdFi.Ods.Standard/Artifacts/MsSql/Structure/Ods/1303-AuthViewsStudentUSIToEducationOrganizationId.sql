@@ -8,7 +8,7 @@ IF OBJECT_ID('auth.StudentUSIToEducationOrganizationId', 'V') IS NOT NULL
 GO
 
 CREATE VIEW auth.StudentUSIToEducationOrganizationId AS
-SELECT  DISTINCT StudentUSI AS  SourceEducationOrganizationId ,SchoolId  AS TargetEducationOrganizationId
+SELECT  tuple.SourceEducationOrganizationId AS  SourceEducationOrganizationId ,ssa.studentUSI  AS TargetEducationOrganizationId
 FROM edfi.StudentSchoolAssociation ssa
 INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuple
 ON ssa.SchoolId = tuple.TargetEducationOrganizationId
