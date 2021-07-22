@@ -8,10 +8,12 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Common.Models;
@@ -39,7 +41,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
     {
         private const string TrackedChangesAlias = "c";
         private const string SourceTableAlias = "src";
-        private const string SourceBaseTableAlias = "src_base";
+        // private const string SourceBaseTableAlias = "src_base";
         
         private readonly ISessionFactory _sessionFactory;
         private readonly IDomainModelProvider _domainModelProvider;
@@ -75,8 +77,11 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 throw new ArgumentException("Minimum change version cannot be greater than maximum change version.");
             }
 
-            var queryMetadata = _deletesQueryMetadataByResourceName.GetOrAdd(resource.FullName, 
-                fn => CreateTrackedDeletesQueryMetadata(resource));
+            var queryMetadata = CreateTrackedDeletesQueryMetadata(resource);
+
+            // TODO: REINSTATE THIS OPTIMIZATION BEFORE FINAL COMMIT
+            // var queryMetadata = _deletesQueryMetadataByResourceName.GetOrAdd(resource.FullName, 
+            //     fn => CreateTrackedDeletesQueryMetadata(resource));
 
             return await GetDeletedItemsResponseAsync(queryMetadata, queryParameters);
         }
@@ -126,26 +131,51 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         private TrackedDeletesQueryMetadata CreateTrackedDeletesQueryMetadata(Resource resource)
         {
             string discriminatorCriteria = null;
-            string sourceBaseTableJoin = null;
+            // string sourceBaseTableJoin = null;
+
+            Entity changeTableEntity;
             
             if (resource.IsDerived)
             {
-                discriminatorCriteria = resource.IsDerived
-                    ? $" AND {TrackedChangesAlias}.Discriminator = '{resource.Entity.FullName}'"
-                    : null;
-
-                // TODO: GKM - Needs Column name translations 
-                var baseTableJoinSegments = resource.Entity.BaseAssociation.PropertyMappings
-                    .Select(pm => $"{SourceTableAlias}.{pm.ThisProperty.PropertyName} = {SourceBaseTableAlias}.{pm.OtherProperty.PropertyName}");
-
-                string baseTableJoinSegmentsSql = string.Join(" AND ", baseTableJoinSegments);
-
-                // TODO: GKM - Needs Table name translations 
-                sourceBaseTableJoin = resource.IsDerived
-                    ? $" LEFT JOIN {resource.Entity.BaseEntity.Schema}.{resource.Entity.BaseEntity.Name} {SourceBaseTableAlias} "
-                    + $" ON {baseTableJoinSegmentsSql}"
-                    : null;
+                if (resource.Entity.BaseEntity.HasDiscriminator())
+                {
+                    changeTableEntity = resource.Entity.BaseEntity;
+                
+                    discriminatorCriteria = $" AND {TrackedChangesAlias}.Discriminator = '{resource.Entity.FullName}'";
+                }
+                else
+                {
+                    // Due to Descriptor not having Discriminator, need special handling and modifications to the query
+                    changeTableEntity = resource.Entity;
+                    
+                    // TODO: GKM - Consider adding variables and assigning here to eliminate the usages of the ternary operator below
+                }
             }
+            else
+            {
+                changeTableEntity = resource.Entity;
+                
+                // TODO: GKM - Consider adding variables and assigning here to eliminate the usages of the ternary operator below
+            }
+            
+            // if (resource.IsDerived)
+            // {
+            //     // Add discriminator criteria (when present)
+            //     discriminatorCriteria = resource.HasDiscriminator()
+            //         ? $" AND {TrackedChangesAlias}.Discriminator = '{resource.Entity.FullName}'"
+            //         : null;
+            //
+            //     // // TODO: GKM - Needs Column name translations 
+            //     // var baseTableJoinSegments = resource.Entity.BaseAssociation.PropertyMappings
+            //     //     .Select(pm => $"{SourceTableAlias}.{pm.ThisProperty.PropertyName} = {SourceBaseTableAlias}.{pm.OtherProperty.PropertyName}");
+            //     //
+            //     // string baseTableJoinSegmentsSql = string.Join(" AND ", baseTableJoinSegments);
+            //     //
+            //     // // TODO: GKM - Needs Table name translations 
+            //     // // TODO: GKM - Should this really be a LEFT JOIN to base table? 
+            //     // sourceBaseTableJoin = $" LEFT JOIN {resource.Entity.BaseEntity.Schema}.{resource.Entity.BaseEntity.Name} {SourceBaseTableAlias} "
+            //     //     + $" ON {baseTableJoinSegmentsSql}";
+            // }
             
             // TODO: GKM - Needs Column name translations
             var identifierProjections = resource
@@ -155,9 +185,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     {
                         JsonPropertyName = rp.JsonPropertyName,
                         SelectColumns = GetSelectColumns(rp).ToArray(),
-                        ChangeTableJoinColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{(rp.EntityProperty.BaseProperty ?? rp.EntityProperty).PropertyName}",
+                        // ChangeTableJoinColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{(rp.EntityProperty.BaseProperty ?? rp.EntityProperty).PropertyName}",
+                        ChangeTableJoinColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{(resource.IsDerived && resource.Entity.BaseEntity.HasDiscriminator() ? rp.EntityProperty.BaseProperty : rp.EntityProperty).PropertyName}",
                         SourceTableJoinColumnName = rp.EntityProperty.PropertyName,
-                        IsDescriptorProperty = rp.IsLookup,
+                        IsDescriptorUsage = rp.IsDescriptorUsage,
                     })
                 .ToArray();
 
@@ -173,7 +204,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                                 : $"{TrackedChangesAlias}.{x.ColumnName} AS {x.ColumnAlias}"));
 
             // TODO: GKM - Needs Column name translations
-            string deletesOnlyCriteria = $" AND {TrackedChangesAlias}.{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{(resource.Entity.BaseEntity ?? resource.Entity).Identifier.Properties.First().PropertyName} IS NULL";
+            string deletesOnlyCriteria = $" AND {TrackedChangesAlias}.{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{((resource.IsDerived && resource.Entity.BaseEntity.HasDiscriminator()) ? resource.Entity.BaseEntity : resource.Entity).Identifier.Properties.First().PropertyName} IS NULL";
 
             // Filters results to items that were deleted and have not been recreated
             string sourceTableJoinCriteria = string.Join(
@@ -184,15 +215,15 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
             // TODO: GKM - Needs Table name translations
             var queryMetadata = new TrackedDeletesQueryMetadata(
-                ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix + (resource.Entity.BaseEntity ?? resource.Entity).Schema,
-                (resource.Entity.BaseEntity ?? resource.Entity).Name,
+                 ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix + changeTableEntity.Schema, // ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix + (resource.Entity.BaseEntity ?? resource.Entity).Schema,
+                changeTableEntity.Name, //(resource.Entity.BaseEntity ?? resource.Entity).Name,
                 resource.Entity.Schema,
                 resource.Entity.Name,
                 selectColumnsSql,
                 deletesOnlyCriteria,
                 discriminatorCriteria,
                 sourceTableJoinCriteria,
-                sourceBaseTableJoin,
+                // sourceBaseTableJoin,
                 SourceTableAlias,
                 sourceTableExclusionCriteria,
                 identifierProjections);
@@ -203,39 +234,104 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         // TODO: GKM - Needs Column name translations
         private IEnumerable<SelectColumn> GetSelectColumns(ResourceProperty resourceProperty)
         {
-            if (resourceProperty.IsLookup)
-            {
-                yield return new SelectColumn
-                {
-                    ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.EntityProperty.PropertyName.ReplaceSuffix("Id", "Namespace")}",
-                    ColumnAlias = null,
-                };
+            var entityProperty = resourceProperty.EntityProperty;
 
+            // This handles usages of DescriptorIds and USIs
+            if (entityProperty.IsSurrogateIdentifierUsage())
+            {
+                string[] SplitTerms(string text) => Regex.Matches(text, "([A-Z][^A-Z]+|[A-Z]+(?![^A-Z]))").SelectMany(m => m.Captures.Select(c => c.Value)).ToArray();
+                
+                var allTerms = SplitTerms(entityProperty.PropertyName);
+                var baseTerms = allTerms.Take(allTerms.Length - 1).ToArray();
+                
+                // var baseName = string.Join(string.Empty, ;
+                
+                var naturalIdentifyingProperties2 = entityProperty.DefiningProperty.Entity.NaturalIdentifyingProperties();
+
+                foreach (var naturalIdentifyingProperty in naturalIdentifyingProperties2)
+                {
+                    var naturalTerms = SplitTerms(naturalIdentifyingProperty.PropertyName);
+
+                    var constructedName = string.Join(string.Empty,baseTerms.TakeWhile(t => t != naturalTerms[0]).Concat(naturalTerms));
+                    
+                    // if (baseName.EndsWith(naturalIdentifyingProperty.PropertyName))
+                    // {
+                        yield return new SelectColumn
+                        {
+                            ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{constructedName}",
+                            ColumnAlias = constructedName.ToCamelCase(),
+                        };
+                    // }
+                    
+                    // Generate the select column using conventions applied to tracked changes tables
+                    // yield return new SelectColumn
+                    // {
+                    //     ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}",
+                    //     ColumnAlias = null,
+                    // };
+                }
+
+                yield break;
+
+                // yield return new SelectColumn
+                // {
+                //     ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.PropertyName.ReplaceSuffix("Id", "Namespace")}",
+                //     ColumnAlias = null,
+                // };
+                //
+                // yield return new SelectColumn
+                // {
+                //     ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.PropertyName.ReplaceSuffix("Id", "CodeValue")}",
+                //     ColumnAlias = null,
+                // };
+            }
+
+            // Handle identifying properties that are surrogate ids by performing column expansion to use the alternate identifier
+            // (e.g. Student/Staff/Parent USI -> UniqueId, concrete Descriptors -> Namespace, CodeValue)
+            if (entityProperty.IsSurrogateIdentifier())
+            {
+                var naturalIdentifyingProperties = entityProperty.Entity.NaturalIdentifyingProperties();
+
+                foreach (var naturalIdentifyingProperty in naturalIdentifyingProperties)
+                {
+                    yield return new SelectColumn
+                    {
+                        ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}",
+                        ColumnAlias = naturalIdentifyingProperty.PropertyName.ToCamelCase(),
+                    };
+                }
+                
+                yield break;
+            }
+         
+            // TODO: GKM - Do we need this special handling for derived entity tracking?
+            if (entityProperty.Entity.IsDerived && entityProperty.Entity.BaseEntity.HasDiscriminator())
+            {
                 yield return new SelectColumn
                 {
-                    ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.EntityProperty.PropertyName.ReplaceSuffix("Id", "CodeValue")}",
-                    ColumnAlias = null,
+                    ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}",
+                    ColumnAlias = resourceProperty.JsonPropertyName,
                 };
+                
+                yield break;
             }
-            else
+            // if (entityProperty.IsInheritedIdentifyingRenamed)
+            // {
+            //     yield return new SelectColumn
+            //     {
+            //         ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}",
+            //         ColumnAlias = resourceProperty.JsonPropertyName,
+            //     };
+            //
+            //     yield break;
+            // }
+
+            // Just return the column
+            yield return new SelectColumn
             {
-                if (resourceProperty.EntityProperty.IsInheritedIdentifyingRenamed)
-                {
-                    yield return new SelectColumn
-                    {
-                        ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.EntityProperty.BaseProperty.PropertyName}",
-                        ColumnAlias = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.JsonPropertyName}",
-                    };
-                }
-                else
-                {
-                    yield return new SelectColumn
-                    {
-                        ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.PropertyName}",
-                        ColumnAlias = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.JsonPropertyName}",
-                    };
-                }
-            }
+                ColumnName = $"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{resourceProperty.PropertyName}",
+                ColumnAlias = resourceProperty.JsonPropertyName,
+            };
         }
 
         private string GetDeletesSql(TrackedDeletesQueryMetadata queryMetadata, IQueryParameters queryParameters)
@@ -317,23 +413,39 @@ WHERE {queryMetadata.SourceTableExclusionCriteria}
 
             foreach (var identifierMetadata in identifierProjections)
             {
-                if (identifierMetadata.IsDescriptorProperty)
+                if (identifierMetadata.IsDescriptorUsage)
                 {
-                    string namespaceColumn = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix + identifierMetadata.SelectColumns[0].ColumnName;
-                    string codeValueColumn = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix + identifierMetadata.SelectColumns[1].ColumnName;
+                    string namespaceColumn = identifierMetadata.SelectColumns.FirstOrDefault(c => c.ColumnAlias.EndsWithIgnoreCase("Namespace"))?.ColumnAlias; // ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix + identifierMetadata.SelectColumns[0].ColumnName;
+                    string codeValueColumn = identifierMetadata.SelectColumns.FirstOrDefault(c => c.ColumnAlias.EndsWith("CodeValue"))?.ColumnAlias; // ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix + identifierMetadata.SelectColumns[1].ColumnName;
 
+                    if (namespaceColumn == null)
+                    {
+                        throw new Exception("Unable to find Namespace column in deleted item query results for building a descriptor URI.");
+                    }
+                    
+                    if (codeValueColumn == null)
+                    {
+                        throw new Exception("Unable to find CodeValue column in deleted item query results for building a descriptor URI.");
+                    }
+                    
+                    // TODO: GKM - Need to deal with Descriptor property name (no "Id" suffix)
                     keyValues[identifierMetadata.JsonPropertyName] =
                         $"{deletedItem[namespaceColumn]}#{deletedItem[codeValueColumn]}";
                 }
                 else
                 {
                     // Copy the value without transformation
-                    var selectColumn = identifierMetadata.SelectColumns.First();
+                    // var selectColumn = identifierMetadata.SelectColumns.First();
 
-                    string trackedChangeColumnName = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix 
-                        + (selectColumn.ColumnAlias ?? selectColumn.ColumnName);
+                    // string trackedChangeColumnName = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix 
+                    //     + (selectColumn.ColumnAlias ?? selectColumn.ColumnName);
 
-                    keyValues[identifierMetadata.JsonPropertyName] = deletedItem[trackedChangeColumnName];
+                    // keyValues[identifierMetadata.JsonPropertyName] = deletedItem[trackedChangeColumnName];
+
+                    foreach (var selectColumn in identifierMetadata.SelectColumns)
+                    {
+                        keyValues[selectColumn.ColumnAlias] = deletedItem[selectColumn.ColumnAlias];
+                    }
                 }
             }
 

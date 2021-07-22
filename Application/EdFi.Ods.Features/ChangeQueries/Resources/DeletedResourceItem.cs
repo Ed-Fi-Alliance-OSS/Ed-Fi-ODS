@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.ChangeQueries.Resources
 {
+    [DataContract]
     public class DeletedResourceItem
     {
         [DataMember(Name="id")]
