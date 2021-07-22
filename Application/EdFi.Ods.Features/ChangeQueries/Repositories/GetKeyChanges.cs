@@ -160,7 +160,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                         SelectColumns = GetSelectColumns(rp, ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix).ToArray(),
                         ChangeTableJoinColumnName = $"{(rp.EntityProperty.BaseProperty ?? rp.EntityProperty).PropertyName}",
                         SourceTableJoinColumnName = rp.EntityProperty.PropertyName,
-                        IsDescriptorProperty = rp.IsLookup,
+                        IsDescriptorUsage = rp.IsDescriptorUsage,
                     })
                 .ToArray();
 
@@ -193,7 +193,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
         private IEnumerable<SelectColumn> GetSelectColumns(ResourceProperty resourceProperty, string columnNamePrefix)
         {
-            if (resourceProperty.IsLookup)
+            if (resourceProperty.IsDescriptorUsage)
             {
                 yield return new SelectColumn
                 {
@@ -293,7 +293,7 @@ WHERE
 
             foreach (var identifierMetadata in identifierProjections)
             {
-                if (identifierMetadata.IsDescriptorProperty)
+                if (identifierMetadata.IsDescriptorUsage)
                 {
                     string namespaceColumn = identifiersColumnPrefix + identifierMetadata.SelectColumns[0].ColumnName;
                     string codeValueColumn = identifiersColumnPrefix + identifierMetadata.SelectColumns[1].ColumnName;

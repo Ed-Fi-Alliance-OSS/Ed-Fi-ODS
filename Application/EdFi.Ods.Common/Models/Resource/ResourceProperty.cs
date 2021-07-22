@@ -66,8 +66,8 @@ namespace EdFi.Ods.Common.Models.Resource
             string personType;
 
             // Assign property characteristics
-            IsLookup = entityProperty.IsLookup;
-            IsDirectLookup = entityProperty.IsDirectLookup;
+            IsDescriptorUsage = entityProperty.IsDescriptorUsage;
+            IsDirectDescriptorUsage = entityProperty.IsDirectDescriptorUsage;
 
             IsIdentifying = entityProperty.IsIdentifying
                             || UniqueIdSpecification.TryGetUniqueIdPersonType(entityProperty.PropertyName, out personType)
@@ -111,7 +111,7 @@ namespace EdFi.Ods.Common.Models.Resource
             DeprecationReasons = resourceClass.DeprecationReasons;
 
             // Assign property characteristics
-            IsDirectLookup = characteristics.IsDirectLookup;
+            IsDirectDescriptorUsage = characteristics.IsDirectLookup;
             IsIdentifying = characteristics.IsIdentifying;
             IsLocallyDefined = characteristics.IsLocallyDefined;
             IsServerAssigned = characteristics.IsServerAssigned;
@@ -164,7 +164,13 @@ namespace EdFi.Ods.Common.Models.Resource
 
         public string[] DeprecationReasons { get; set; }
 
-        public bool IsDirectLookup { get; }
+        public bool IsDirectDescriptorUsage { get; }
+        
+        [Obsolete("Use IsDirectDescriptorUsage instead.")]
+        public bool IsDirectLookup
+        {
+            get => IsDirectDescriptorUsage;
+        }
 
         /// <summary>
         /// Indicates whether the property is part of the identity of the resource.
@@ -175,8 +181,17 @@ namespace EdFi.Ods.Common.Models.Resource
 
         public bool IsLocallyDefined { get; }
 
-        public bool IsLookup { get; }
+        [Obsolete("Use IsDescriptorUsage instead.")]
+        public bool IsLookup
+        {
+            get => IsDescriptorUsage;
+        }
 
+        /// <summary>
+        /// Indicates whether the property represents the usage of a descriptor.
+        /// </summary>
+        public bool IsDescriptorUsage { get; }
+        
         public bool IsServerAssigned { get; }
 
         /// <summary>
@@ -205,7 +220,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private PropertyType GetResourcePropertyType(EntityProperty property)
         {
-            if (property.IsLookup)
+            if (property.IsDescriptorUsage)
             {
                 // NOTE: the property length for lookups has changed in data standard 3.0.
                 // The new formula is:  255 (namespace max length) + 1 (separator length) + 50 (code value max length), or 306
@@ -243,7 +258,7 @@ namespace EdFi.Ods.Common.Models.Resource
         private static string GetResourcePropertyName(EntityProperty property)
         {
             // Simplistic conversion using conventions
-            if (property.IsLookup)
+            if (property.IsDescriptorUsage)
             {
                 return property.PropertyName.TrimSuffix("Id");
             }

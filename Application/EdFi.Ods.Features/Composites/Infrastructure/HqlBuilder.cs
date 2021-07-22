@@ -533,7 +533,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     {
                         builderContext.PropertyProjections.Add(p);
 
-                        if (p.ResourceProperty.EntityProperty.IsLookup)
+                        if (p.ResourceProperty.EntityProperty.IsDescriptorUsage)
                         {
                             string lookupAlias = builderContext.AliasGenerator.GetNextAlias();
 
@@ -792,7 +792,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     string personType;
 
                     // Handle Lookup conversions
-                    if (targetProperty.IsLookup)
+                    if (targetProperty.IsDescriptorUsage)
                     {
                         var id = _descriptorsCache.GetId(
                             targetProperty.LookupTypeName,

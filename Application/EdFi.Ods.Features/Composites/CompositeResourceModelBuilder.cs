@@ -115,8 +115,8 @@ namespace EdFi.Ods.Features.Composites
                             property.DisplayName ?? property.ResourceProperty.PropertyName,
                             property.ResourceProperty.PropertyType,
                             new PropertyCharacteristics(
-                                entityProperty.IsLookup,
-                                entityProperty.IsDirectLookup,
+                                entityProperty.IsDescriptorUsage,
+                                entityProperty.IsDirectDescriptorUsage,
                                 entityProperty.IsIdentifying,
                                 true, // All projected properties are "local" properties on the new object
                                 entityProperty.IsServerAssigned,
