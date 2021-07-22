@@ -3,8 +3,15 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+{{#Schemas}}
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'tracked_changes_{{Schema}}')
+EXEC sys.sp_executesql N'CREATE SCHEMA [tracked_changes_{{Schema}}]'
+GO
+
+{{/Schemas}}
 {{#Tables}}
     {{#IsAggregateRoot}}
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_{{Schema}}].[{{TableName}}]'))
 CREATE TABLE [tracked_changes_{{Schema}}].[{{TableName}}]
 (
     {{#ChangeDataColumns}}
