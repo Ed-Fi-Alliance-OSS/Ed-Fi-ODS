@@ -6,7 +6,6 @@
 using System;
 using System.Linq;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 
 namespace EdFi.Ods.Api.Security.Authorization.Pipeline
@@ -76,23 +75,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Pipeline
             return _next.GetSteps()
                         .InsertAtHead(typeof(SetAuthorizationContextForDelete<,,,>))
                         .ToArray();
-        }
-    }
-
-    public class AuthorizationContextGetDeletedResourceIdsPipelineStepsProviderDecorator : IGetDeletedResourceIdsPipelineStepsProvider
-    {
-        private readonly IGetDeletedResourceIdsPipelineStepsProvider _next;
-
-        public AuthorizationContextGetDeletedResourceIdsPipelineStepsProviderDecorator(IGetDeletedResourceIdsPipelineStepsProvider next)
-        {
-            _next = next;
-        }
-
-        public Type[] GetSteps()
-        {
-            return _next.GetSteps()
-                .InsertAtHead(typeof(SetAuthorizationContextForGetDeletedResourceIds<,,,>))
-                .ToArray();
         }
     }
 }

@@ -140,21 +140,4 @@ namespace EdFi.Ods.Api.Security.Authorization.Pipeline
             get => SecurityRepository.GetActionByName("Delete").ActionUri;
         }
     }
-
-    public class SetAuthorizationContextForGetDeletedResourceIds<TContext, TResult, TResourceModel, TEntityModel>
-        : SetAuthorizationContextBase<TContext, TResult, TResourceModel, TEntityModel>
-        where TContext : class
-        where TResult : class
-    {
-        public SetAuthorizationContextForGetDeletedResourceIds(
-            IAuthorizationContextProvider authorizationContextProvider,
-            ISecurityRepository securityRepository,
-            IResourceClaimUriProvider resourceClaimUriProvider)
-            : base(authorizationContextProvider, securityRepository, resourceClaimUriProvider) { }
-
-        protected override string Action
-        {
-            get => SecurityRepository.GetActionByName("Read").ActionUri;
-        }
-    }
 }

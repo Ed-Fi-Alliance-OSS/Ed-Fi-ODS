@@ -15,7 +15,6 @@ namespace EdFi.Ods.Common.Infrastructure.Pipelines
     public interface IGetPipelineStepsProvider : IPipelineStepsProvider { }
 
     public interface IGetBySpecificationPipelineStepsProvider : IPipelineStepsProvider { }
-    public interface IGetDeletedResourceIdsPipelineStepsProvider : IPipelineStepsProvider { }
     public interface IPutPipelineStepsProvider : IPipelineStepsProvider { }
 
     public interface IDeletePipelineStepsProvider : IPipelineStepsProvider { }

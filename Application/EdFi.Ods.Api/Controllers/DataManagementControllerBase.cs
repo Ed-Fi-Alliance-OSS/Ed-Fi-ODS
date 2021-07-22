@@ -15,7 +15,6 @@ using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Api.Filters;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Factories;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
-using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
@@ -65,7 +64,6 @@ namespace EdFi.Ods.Api.Controllers
         protected Lazy<DeletePipeline> DeletePipeline;
         protected Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>> GetByIdPipeline;
 
-        protected Lazy<GetDeletedResourcePipeline<TAggregateRoot>> GetDeletedResourcePipeline;
         protected Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>> GetManyPipeline;
 
         protected Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>> PutPipeline;
@@ -114,10 +112,6 @@ namespace EdFi.Ods.Api.Controllers
 
             GetManyPipeline = new Lazy<GetManyPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetManyPipeline<TResourceReadModel, TAggregateRoot>);
-
-            // Change queries resource pipeline for deleted objects.
-            GetDeletedResourcePipeline = new Lazy<GetDeletedResourcePipeline<TAggregateRoot>>
-                (pipelineFactory.CreateGetDeletedResourcePipeline<TResourceReadModel, TAggregateRoot>);
 
             PutPipeline = new Lazy<PutPipeline<TResourceWriteModel, TAggregateRoot>>
                 (pipelineFactory.CreatePutPipeline<TResourceWriteModel, TAggregateRoot>);

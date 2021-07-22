@@ -8,13 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
-using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
-using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
@@ -25,21 +23,18 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
         private readonly IDeletePipelineStepsProvider deletePipelineStepsProvider;
         private readonly IGetBySpecificationPipelineStepsProvider getBySpecificationPipelineStepsProvider;
         private readonly IGetPipelineStepsProvider getPipelineStepsProvider;
-        private readonly IGetDeletedResourceIdsPipelineStepsProvider getDeletedResourceIdsPipelineStepsProvider;
         private readonly IPutPipelineStepsProvider putPipelineStepsProvider;
 
         public PipelineFactory(
             IServiceLocator locator,
             IGetPipelineStepsProvider getPipelineStepsProvider,
             IGetBySpecificationPipelineStepsProvider getBySpecificationPipelineStepsProvider,
-            IGetDeletedResourceIdsPipelineStepsProvider getDeletedResourceIdsPipelineStepsProvider,
             IPutPipelineStepsProvider putPipelineStepsProvider,
             IDeletePipelineStepsProvider deletePipelineStepsProvider)
         {
             _locator = locator;
             this.getPipelineStepsProvider = getPipelineStepsProvider;
             this.getBySpecificationPipelineStepsProvider = getBySpecificationPipelineStepsProvider;
-            this.getDeletedResourceIdsPipelineStepsProvider = getDeletedResourceIdsPipelineStepsProvider;
             this.putPipelineStepsProvider = putPipelineStepsProvider;
             this.deletePipelineStepsProvider = deletePipelineStepsProvider;
         }
@@ -69,18 +64,6 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
                     stepTypes);
 
             return new GetManyPipeline<TResourceModel, TEntityModel>(steps);
-        }
-
-        public GetDeletedResourcePipeline<TEntityModel> CreateGetDeletedResourcePipeline<TResourceModel, TEntityModel>()
-            where TEntityModel : class
-        {
-            var stepsTypes = getDeletedResourceIdsPipelineStepsProvider.GetSteps();
-
-            var steps =
-                ResolvePipelineSteps<GetDeletedResourceContext<TEntityModel>, GetDeletedResourceResult, TResourceModel,
-                    TEntityModel>(stepsTypes);
-
-            return new GetDeletedResourcePipeline<TEntityModel>(steps);
         }
 
         public PutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
