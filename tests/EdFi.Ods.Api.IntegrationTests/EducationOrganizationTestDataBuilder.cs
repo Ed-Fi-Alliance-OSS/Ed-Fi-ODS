@@ -23,6 +23,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         public int TestLocalEducationAgencyCategoryDescriptorId { get; private set; }
         public int TestProviderStatusDescriptorId { get; private set; }
         public int TestProviderCategoryDescriptorId { get; private set; }
+        public int TestGradeLevelDescriptorId { get; private set; }
 
         private EducationOrganizationTestDataBuilder()
         {
@@ -41,6 +42,9 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             command.CommandText = "SELECT ProviderCategoryDescriptorId FROM edfi.ProviderCategoryDescriptor;";
             builder.TestProviderCategoryDescriptorId = Convert.ToInt32(command.ExecuteScalar());
+
+            command.CommandText = "SELECT GradeLevelDescriptorId FROM edfi.GradeLevelDescriptor;";
+            builder.TestGradeLevelDescriptorId = Convert.ToInt32(command.ExecuteScalar());
 
             return builder;
         }
@@ -151,6 +155,33 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
+        public EducationOrganizationTestDataBuilder AddStudent(string newGuidId)
+        {          
+            _sql.AppendLine(
+                $@"INSERT INTO edfi.Student (FirstName,LastSurname,BirthDate,StudentUniqueId)
+                VALUES ('"+ newGuidId + "','" + newGuidId + "','" + DateTime.UtcNow.Date + "','"+ newGuidId + "');"
+            );
+           return this;
+        }
+
+        public EducationOrganizationTestDataBuilder AddStudentSchoolAssociation(int schoolId, int studentUSI, int gradeLevelDescriptorId)
+        {
+           _sql.AppendLine(
+                $@"INSERT INTO edfi.StudentSchoolAssociation (SchoolId,StudentUSI,EntryDate,EntryGradeLevelDescriptorId)
+                VALUES (" + schoolId + "," + studentUSI + ",'" + DateTime.UtcNow.Date + "'," + gradeLevelDescriptorId + ");");
+
+            return this;
+        }
+
+        public EducationOrganizationTestDataBuilder GetStudentUSI(string studentUniqueId)
+        {
+            _sql.AppendLine(
+                $@"SELECT StudentUSI FROM edfi.Student
+                WHERE StudentUniqueId = '" + studentUniqueId + "';");
+
+            return this;
+        }
+
         public EducationOrganizationTestDataBuilder UpdateSchool(int schoolId, int? localEducationAgencyId = null)
         {
             _sql.AppendLine(
@@ -224,6 +255,16 @@ namespace EdFi.Ods.Api.IntegrationTests
             using var command = Connection.CreateCommand();
             command.CommandText = _sql.ToString();
             var result = command.ExecuteNonQuery();
+
+            _sql.Clear();
+            return result;
+        }
+
+        public int ExecuteScalar()
+        {
+            using var command = Connection.CreateCommand();
+            command.CommandText = _sql.ToString();
+            var result = Convert.ToInt32(command.ExecuteScalar());
 
             _sql.Clear();
             return result;
