@@ -5,7 +5,7 @@
 
 {{#Tables}}
     {{#IsAggregateRoot}}
-        {{#IsDerived}}
+        {{#IsDescriptorTable}}
 DROP TRIGGER IF EXISTS [{{Schema}}].[{{Schema}}_{{TableName}}_TR_DeleteTracking]
 GO
 
@@ -16,8 +16,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_changes_{{Schema}}].[{{TableName}}]({{#PrimaryKeyColumns}}Old{{ColumnName}}, {{/PrimaryKeyColumns}}{{#BaseAlternateKeyColumns}}Old{{ColumnName}}, {{/BaseAlternateKeyColumns}}Id, ChangeVersion)
-    SELECT  {{#PrimaryKeyColumns}}d.{{ColumnName}}, {{/PrimaryKeyColumns}}{{#BaseAlternateKeyColumns}}b.{{ColumnName}}, {{/BaseAlternateKeyColumns}}b.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_changes_{{BaseTableSchema}}].[{{BaseTableName}}]({{#PrimaryKeyColumns}}Old{{BaseColumnName}}, {{/PrimaryKeyColumns}}{{#BaseAlternateKeyColumns}}Old{{ColumnName}}, {{/BaseAlternateKeyColumns}}Id, Discriminator, ChangeVersion)
+    SELECT  {{#PrimaryKeyColumns}}d.{{ColumnName}}, {{/PrimaryKeyColumns}}{{#BaseAlternateKeyColumns}}b.{{ColumnName}}, {{/BaseAlternateKeyColumns}}b.Id, {{#IsDescriptorTable}}{{#FullName}}'{{Schema}}.{{Name}}', {{/FullName}}{{/IsDescriptorTable}}{{^IsDescriptorTable}}b.Discriminator, {{/IsDescriptorTable}}(NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
             INNER JOIN {{BaseTableSchema}}.{{BaseTableName}} b ON {{#PrimaryKeyColumns}}{{^IsFirst}} AND {{/IsFirst}}d.{{ColumnName}} = b.{{BaseColumnName}}{{/PrimaryKeyColumns}}
 END
@@ -25,9 +25,9 @@ GO
 
 ALTER TABLE [{{Schema}}].[{{TableName}}] ENABLE TRIGGER [{{Schema}}_{{TableName}}_TR_DeleteTracking]
 GO
-
-        {{/IsDerived}}
+        {{/IsDescriptorTable}}
         {{^IsDerived}}
+            {{^IsDescriptorBaseTable}}{{! We can't use the delete trigger on the Descriptor base table because it doesn't have a populated Discriminator column in the ODS as of at least v5.2 }}
 DROP TRIGGER IF EXISTS [{{Schema}}].[{{Schema}}_{{TableName}}_TR_DeleteTracking]
 GO
 
@@ -51,6 +51,7 @@ GO
 ALTER TABLE [{{Schema}}].[{{TableName}}] ENABLE TRIGGER [{{Schema}}_{{TableName}}_TR_DeleteTracking]
 GO
 
+            {{/IsDescriptorBaseTable}}
         {{/IsDerived}}
     {{/IsAggregateRoot}}
 {{/Tables}}
