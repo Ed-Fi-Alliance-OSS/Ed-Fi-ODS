@@ -25,21 +25,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             return 1 == Convert.ToInt32(command.ExecuteScalar());
         }
 
-        //public static bool RecordExistInAuthorizationByViewName(IDbConnection connection, string viewName, (int, int) sourceTargetTuple)
-        //{
-        //    (int source, int target) = sourceTargetTuple;
-
-        //    var sql = @$"
-        //        SELECT COUNT(*)
-        //        FROM auth." + viewName +
-        //        " WHERE  SourceEducationOrganizationId ="+ source +" AND TargetEducationOrganizationId ="+ target +";";
-
-        //    using var command = connection.CreateCommand();
-        //    command.CommandText = sql;
-        //    return 1 == Convert.ToInt32(command.ExecuteScalar());
-        //}
-
-
         public static List<int> GetRecordsInAuthorizationView(IDbConnection connection, string viewName, (int, int) sourceTargetTuple)
         {
             (int source, int target) = sourceTargetTuple;
@@ -84,7 +69,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             var actualTuples = QueryAuthorizationByViewName(connection,viewName);
             actualTuples.ShouldBeFalse();
         }
-
         public static void ShouldContainStudentInSchoolOrDistrict(IDbConnection connection, string viewName , params (int, int)[] expectedTuples)
         {
             foreach (var eachTuple in expectedTuples)

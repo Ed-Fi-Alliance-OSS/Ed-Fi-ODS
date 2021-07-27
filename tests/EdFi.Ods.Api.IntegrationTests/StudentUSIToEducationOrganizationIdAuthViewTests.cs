@@ -122,7 +122,6 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var expectedTuples = new (int, int)[] { (9705, studentUSI), (2200, studentUSI) };
             AuthorizationViewHelper.ShouldContainStudentInSchoolOrDistrict(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
-
         }
 
         [Test]
@@ -145,7 +144,6 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var expectedTuples = new (int, int)[] { (9706, studentUSI), (2201, studentUSI) };
             AuthorizationViewHelper.ShouldNotContainStudentInOtherSchoolOrDistrict(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
-
         }
     }
 }
