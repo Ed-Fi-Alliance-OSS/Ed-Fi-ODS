@@ -154,7 +154,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             var identifierProjections = resource
                 .IdentifyingProperties
                 .Select(
-                    rp => new ProjectionMetadata
+                    rp => new QueryProjection
                     {
                         JsonPropertyName = rp.JsonPropertyName,
                         SelectColumns = GetSelectColumns(rp, ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix).ToArray(),
@@ -286,7 +286,7 @@ WHERE
 
         private static Dictionary<string, object> GetIdentifierKeyValues(
             string identifiersColumnPrefix,
-            ProjectionMetadata[] identifierProjections,
+            QueryProjection[] identifierProjections,
             Hashtable keyChanges)
         {
             var keyValues = new Dictionary<string, object>();

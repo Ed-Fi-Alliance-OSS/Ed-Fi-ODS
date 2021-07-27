@@ -14,7 +14,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             string keyChangesOnlyWhereClause,
             string discriminatorCriteria,
             string sourceBaseTableJoin,
-            ProjectionMetadata[] identifierProjections)
+            QueryProjection[] identifierProjections)
         {
             ChangeTableSchema = changeTableSchema;
             ChangeTableName = changeTableName;
@@ -37,6 +37,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
         public string SourceBaseTableJoin { get; }
 
-        public ProjectionMetadata[] IdentifierProjections { get; }
+        public QueryProjection[] IdentifierProjections { get; }
     }
 }

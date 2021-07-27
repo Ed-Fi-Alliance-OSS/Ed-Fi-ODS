@@ -5,7 +5,7 @@
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
-    public class ProjectionMetadata
+    public class QueryProjection
     {
         public string JsonPropertyName { get; set; }
 
