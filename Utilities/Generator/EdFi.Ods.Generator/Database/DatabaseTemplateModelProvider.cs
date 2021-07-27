@@ -17,6 +17,7 @@ using EdFi.Ods.Generator.Database.Conventions;
 using EdFi.Ods.Generator.Database.DataTypes;
 using EdFi.Ods.Generator.Database.Domain;
 using EdFi.Ods.Generator.Database.NamingConventions;
+using EdFi.Ods.Generator.Database.TemplateModelProviders;
 using EdFi.Ods.Generator.Models;
 using EdFi.Ods.Generator.Templating;
 using log4net;
@@ -133,7 +134,7 @@ namespace EdFi.Ods.Generator.Database
                         .Where(p => !entity.Aggregate.AggregateRoot.Identifier.Properties.Any(p2 => p2.PropertyName == p.PropertyName))
                         .Where(p => !p.IncomingAssociations.Any())
                         .Select((p, i) => CreateColumn(p, i, databaseNamingConvention, databaseTypeTranslator)), 
-                    HasServerAssignedSurrogateId = entity.HasServerAssignedSurrogateId(),
+                    HasServerAssignedSurrogateId = entity.Identifier.IsSurrogateIdentifierDefinition(),
                     SurrogateIdColumn = entity.Identifier.Properties
                         .Where(p => p.IsServerAssigned)
                         .Select((p, i) => CreateColumn(p, i, databaseNamingConvention, databaseTypeTranslator))

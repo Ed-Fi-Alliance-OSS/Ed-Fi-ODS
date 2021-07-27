@@ -8,6 +8,7 @@ using Autofac;
 using EdFi.Ods.Generator.Database.DataTypes;
 using EdFi.Ods.Generator.Database.Domain;
 using EdFi.Ods.Generator.Database.NamingConventions;
+using EdFi.Ods.Generator.Database.TemplateModelProviders;
 using EdFi.Ods.Generator.Rendering;
 using EdFi.Ods.Generator.Templating;
 
