@@ -3733,6 +3733,59 @@
 											"response": []
 										},
 										{
+											"name": "Get Request for Students by Guid",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"    pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"// Get response id to match with location header",
+															"pm.environment.set(`known:${pm.environment.get('scenarioId')}:studentId`, pm.response.json().id);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/Students/{{known:{{scenarioId}}:studentGuid}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"Students",
+														"{{known:{{scenarioId}}:studentGuid}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
 											"name": "api_should_succeed_with_200_code",
 											"event": [
 												{
@@ -3743,7 +3796,13 @@
 															"pm.test(\"Status code is 200\", () => {",
 															"    pm.expect(pm.response.code).to.equal(200);",
 															"});",
-															""
+															"",
+															"pm.test(\"Should return the correct location header\", () => {",
+															"    const scenarioId = pm.environment.get('scenarioId');",
+															"    const knownStudentId = pm.environment.get('known:'+scenarioId+':studentId');",
+															"    pm.expect(pm.response.headers.one('location').value)",
+															"        .to.equal(`${pm.variables.replaceIn(pm.request.url.toString())}${knownStudentId}`);",
+															"});"
 														],
 														"type": "text/javascript"
 													}
@@ -5761,13 +5820,15 @@
 															"pm.test(\"Status code is 204\", () => {",
 															"    pm.expect(pm.response.code).to.equal(204);",
 															"});",
+															"",
 															"pm.test(\"Should return an ETag header with an updated ETag value.\", () => {",
-															"   ",
 															"    const scenarioId = pm.environment.get('scenarioId');",
-															"    let eTagValue =pm.response.headers.one('ETag').value;",
-															"    pm.expect(pm.response.headers.one('ETag').value).to.not.equals( pm.environment.get('known:'+scenarioId+':ETag'));",
+															"    pm.expect(pm.response.headers.one('ETag').value).to.not.equal(pm.environment.get('known:'+scenarioId+':ETag'));",
 															"});",
-															""
+															"",
+															"pm.test(\"Should return the correct location header\", () => {",
+															"    pm.expect(pm.response.headers.one('location').value).to.equal(pm.variables.replaceIn(pm.request.url.toString()));",
+															"});"
 														],
 														"type": "text/javascript"
 													}

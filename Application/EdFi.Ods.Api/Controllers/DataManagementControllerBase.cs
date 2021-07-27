@@ -244,10 +244,12 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
+            var resourceUri = new Uri(GetApplicationUrl());
+            Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
             return result.ResourceWasCreated
-                ? (IActionResult) Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), null)
+                ? (IActionResult) Created(resourceUri, null)
                 : NoContent();
         }
 
@@ -281,10 +283,12 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception);
             }
 
+            var resourceUri = new Uri($"{GetApplicationUrl()}/{result.ResourceId.GetValueOrDefault():n}");
+            Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
-            Response.GetTypedHeaders().Location = new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault()));
+
             return result.ResourceWasCreated
-                ? (IActionResult) Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), null)
+                ? (IActionResult) Created(resourceUri, null)
                 : Ok();
         }
 
@@ -322,34 +326,35 @@ namespace EdFi.Ods.Api.Controllers
             return new EntityTagHeaderValue(Quoted(etagValue));
         }
 
-        protected string GetResourceUrl(Guid id)
+        protected string GetApplicationUrl()
         {
-            if (_applicationUrl == null)
+            if (_applicationUrl != null)
             {
-                try
-                {
-                    var urlBuilder = new UriBuilder
-                    {
-                        Scheme = Request.Scheme,
-                        Host = Request.Host.Host,
-                        Path = Request.Path
-                    };
-
-                    if (Request.Host.Port.HasValue)
-                    {
-                        urlBuilder.Port = Request.Host.Port.Value;
-                    }
-
-                    _applicationUrl = urlBuilder.Uri.ToString();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Unable to parse API base URL from request.", ex);
-                }
+                return _applicationUrl;
             }
 
-            //since we removed the school year from the route, we can use use the base uri as our response.
-            return $"{_applicationUrl}/{id:n}";
+            try
+            {
+                var urlBuilder = new UriBuilder
+                {
+                    Scheme = Request.Scheme,
+                    Host = Request.Host.Host,
+                    Path = Request.Path
+                };
+
+                if (Request.Host.Port.HasValue)
+                {
+                    urlBuilder.Port = Request.Host.Port.Value;
+                }
+
+                _applicationUrl = urlBuilder.Uri.ToString().TrimEnd('/');
+
+                return _applicationUrl;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to parse API base URL from request.", ex);
+            }
         }
 
         private static string Quoted(string text) => "\"" + text + "\"";
