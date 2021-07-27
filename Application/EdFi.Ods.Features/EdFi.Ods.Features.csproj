@@ -18,6 +18,8 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="SqlKata" Version="2.3.7" />
+    <PackageReference Include="SqlKata.Execution" Version="2.3.7" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\ChangeQueries.json" />
@@ -32,6 +34,8 @@
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.90" />
+    <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="3.1.10" />
   </ItemGroup>
 </Project>

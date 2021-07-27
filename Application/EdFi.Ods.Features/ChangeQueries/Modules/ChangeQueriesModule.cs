@@ -35,8 +35,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 .As<IAvailableChangeVersionProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<GetDeletedResourceItems>()
-                .As<IGetDeletedResourceItems>()
+            builder.RegisterType<DeletedItemsResourceDataProvider>()
+                .As<IDeletedItemsResourceDataProvider>()
                 .SingleInstance();
 
             builder.RegisterType<GetKeyChanges>()

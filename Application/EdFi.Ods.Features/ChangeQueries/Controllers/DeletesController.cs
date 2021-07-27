@@ -7,6 +7,7 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
 using log4net;
@@ -23,13 +24,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Route("{schema}/{resource}/deletes")]
     public class DeletesController : ControllerBase
     {
-        private readonly IGetDeletedResourceItems _getDeletedResourceItemsRepository;
+        private readonly IDomainModelProvider _domainModelProvider;
+        private readonly IDeletedItemsResourceDataProvider _deletedItemsResourceDataProvider;
         private readonly ILog _logger = LogManager.GetLogger(typeof(DeletesController));
         private readonly bool _isEnabled;
 
-        public DeletesController(IGetDeletedResourceItems getDeletedResourceItems, ApiSettings apiSettings)
+        public DeletesController(
+            IDomainModelProvider domainModelProvider,
+            IDeletedItemsResourceDataProvider deletedItemsResourceDataProvider, 
+            ApiSettings apiSettings)
         {
-            _getDeletedResourceItemsRepository = getDeletedResourceItems;
+            _domainModelProvider = domainModelProvider;
+            _deletedItemsResourceDataProvider = deletedItemsResourceDataProvider;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
         }
 
@@ -44,7 +50,14 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             
             var queryParameter = new QueryParameters(urlQueryParametersRequest);
 
-            var deletedItemsResponse = await _getDeletedResourceItemsRepository.ExecuteAsync(schema, resource, queryParameter);
+            var resourceClass = _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByApiCollectionName(schema, resource);
+
+            if (resourceClass == null)
+            {
+                return new NotFoundResult();
+            }
+            
+            var deletedItemsResponse = await _deletedItemsResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameter, Request.Query);
 
             // Add the total count, if requested
             if (urlQueryParametersRequest.TotalCount)
