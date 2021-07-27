@@ -94,6 +94,8 @@ namespace EdFi.Ods.Generator.Database.TemplateModelProviders
         public string IdIndexName { get; set; }
 
         public bool IsDerived { get; set; }
+        
+        public bool IsBase { get; set; }
 
         public bool HasAllReferences => AllReferences.Any();
 
