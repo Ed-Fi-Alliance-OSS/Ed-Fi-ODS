@@ -27,26 +27,18 @@ namespace EdFi.Ods.Common.Models.Resource
         Resource GetResourceByFullName(FullName resourceFullName);
 
         /// <summary>
-        /// Gets the Resource using the specified schema URI segment and pluralized collection name, as exposed by the API.
-        /// </summary>
-        /// <param name="schemaUriSegment">The text used in the schema segment of the URI to represent the resource's schema.</param>
-        /// <param name="resourceCollectionName">The text used in the resource collection portion of the URI representing the pluralized name of the resource.</param>
-        /// <returns>The matching resource.</returns>
-        Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
-
-        /// <summary>
-        /// Get a read-only list of all the resources available in the model.
-        /// </summary>
-        /// <returns></returns>
-        IReadOnlyList<Resource> GetAllResources();
-
-        /// <summary>
         /// Gets the Resource using the schema and collection name representation as used on the API.
         /// </summary>
         /// <param name="schemaUriSegment">The URI representation of the schema of the resource.</param>
         /// <param name="resourceCollectionName">The pluralized collection name of the resource.</param>
         /// <returns>The matching resource.</returns>
         Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
+        
+        /// <summary>
+        /// Get a read-only list of all the resources available in the model.
+        /// </summary>
+        /// <returns></returns>
+        IReadOnlyList<Resource> GetAllResources();
     }
 
     /// <summary>
