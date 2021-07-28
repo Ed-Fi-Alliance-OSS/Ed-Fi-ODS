@@ -44,8 +44,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Context
                             new Thread(() => _t10 = CallContext.GetData("d1")).Start();
 
                             Task.WaitAll(
-                                Task.Run(() => _t1 = CallContext.GetData("d1"))
-                                    .ContinueWith(t => Task.Run(() => _t11 = CallContext.GetData("d1"))),
+                                Task.Run(
+                                    async () =>
+                                    {
+                                        _t1 = CallContext.GetData("d1");
+                                        await Task.Run(() => _t11 = CallContext.GetData("d1"));
+                                    }),
                                 Task.Run(() => _t12 = CallContext.GetData("d1")),
                                 Task.Run(() => _t13 = CallContext.GetData("d1"))
                             );
@@ -57,8 +61,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Context
                             new Thread(() => _t20 = CallContext.GetData("d2")).Start();
 
                             Task.WaitAll(
-                                Task.Run(() => _t2 = CallContext.GetData("d2"))
-                                    .ContinueWith(t => Task.Run(() => _t21 = CallContext.GetData("d2"))),
+                                Task.Run(
+                                    async () =>
+                                    {
+                                        _t2 = CallContext.GetData("d2");
+                                        await Task.Run(() => _t21 = CallContext.GetData("d2"));
+                                    }),
                                 Task.Run(() => _t22 = CallContext.GetData("d2")),
                                 Task.Run(() => _t23 = CallContext.GetData("d2"))
                             );
@@ -103,12 +111,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Context
             {
                 public string Name { get; set; }
             }
-            
+
             [Test]
             public void Should_set_and_preserve_values_for_independent_contexts()
             {
                 const string Key = "Test";
-                
+
                 var thread1SetWait = new ManualResetEvent(false);
                 var thread2SetWait = new ManualResetEvent(false);
 
@@ -124,14 +132,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Context
 
                         // Signal thread 2 to proceed with writing its value
                         thread1SetWait.Set();
-                        
+
                         // Wait for thread 2's assignment to complete
                         thread2SetWait.WaitOne();
 
                         // Re-fetch the person
                         actualThread1PersonAfterThread2Set = (Person) CallContext.GetData(Key);
                     });
-                
+
                 var t2 = Task.Run(() =>
                     {
                         // Wait for thread 1 to set its value
@@ -144,9 +152,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Context
                         // Signal that value has been written
                         thread2SetWait.Set();
                     });
-                
+
                 Task.WaitAll(t1, t2);
-                
+
                 Assert.Multiple(
                     () =>
                     {
@@ -155,7 +163,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Context
 
                         Assert.That(actualThread2PersonAfterThread2Set, Is.Not.Null, "Thread 2 value.");
                         Assert.That(actualThread2PersonAfterThread2Set?.Name, Is.EqualTo("Joe"), "Thread 2 value.");
-                
                         Assert.That(actualThread1PersonAfterThread2Set, Is.Not.Null, "Thread 1 value retrieved after Thread 2 value set.");
                         Assert.That(actualThread1PersonAfterThread2Set?.Name, Is.EqualTo("Bob"), "Thread 1 value retrieved after Thread 2 value set.");
                     });

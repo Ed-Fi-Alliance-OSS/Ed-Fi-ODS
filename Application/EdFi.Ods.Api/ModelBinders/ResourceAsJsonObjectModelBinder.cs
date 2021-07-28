@@ -21,9 +21,9 @@ namespace EdFi.Ods.Api.ModelBinders
 
             using var reader = new StreamReader(bindingContext.HttpContext.Request.Body);
 
-            await reader.ReadToEndAsync()
-                .ContinueWith(json => model.Data = JObject.Parse(json.Result))
-                .ConfigureAwait(false);
+            var json = await reader.ReadToEndAsync().ConfigureAwait(false);
+
+            model.Data = JObject.Parse(json);
         }
     }
 }
