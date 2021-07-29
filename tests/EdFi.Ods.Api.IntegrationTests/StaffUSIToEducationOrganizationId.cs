@@ -1,4 +1,9 @@
-﻿using NUnit.Framework;
+﻿// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -94,7 +99,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                    .StaffEducationOrganizationEmploymentAssociation(6789, staffUniqueId)
                    .Execute();
 
-            AuthorizationViewHelper.ShouldContainStaffInSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321 });
+            AuthorizationViewHelper.ShouldContainStaffInSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321, 6789 });
         }
 
         [Test]
@@ -127,7 +132,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void When_staff_is_employed_to_a_school_thats_part_of_a_district_district_should_have_access_to_staff()
+        public void When_staff_is_employed_to_a_school_thats_part_of_a_district_district_and_school_should_have_access_to_staff()
         {
             var staffUniqueId = Guid.NewGuid().ToString("N");
 
@@ -144,7 +149,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void When_staff_is_assigned_to_a_school_thats_part_of_a_district_district_should_have_access_to_staff()
+        public void When_staff_is_assigned_to_a_school_thats_part_of_a_district_district_and_school_should_have_access_to_staff()
         {
             var staffUniqueId = Guid.NewGuid().ToString("N");
 
