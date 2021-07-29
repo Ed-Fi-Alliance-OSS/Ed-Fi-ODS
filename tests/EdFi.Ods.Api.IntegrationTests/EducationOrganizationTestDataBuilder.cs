@@ -23,6 +23,8 @@ namespace EdFi.Ods.Api.IntegrationTests
         public int TestLocalEducationAgencyCategoryDescriptorId { get; private set; }
         public int TestProviderStatusDescriptorId { get; private set; }
         public int TestProviderCategoryDescriptorId { get; private set; }
+        public int TestEmploymentStatusDescriptorId { get; private set; }
+        public int TestStaffClassificationDescriptorId { get; private set; }
 
         private EducationOrganizationTestDataBuilder()
         {
@@ -42,7 +44,40 @@ namespace EdFi.Ods.Api.IntegrationTests
             command.CommandText = "SELECT ProviderCategoryDescriptorId FROM edfi.ProviderCategoryDescriptor;";
             builder.TestProviderCategoryDescriptorId = Convert.ToInt32(command.ExecuteScalar());
 
+            command.CommandText = "SELECT EmploymentStatusDescriptorId FROM edfi.EmploymentStatusDescriptor;";
+            builder.TestEmploymentStatusDescriptorId = Convert.ToInt32(command.ExecuteScalar());
+
+            command.CommandText = "SELECT StaffClassificationDescriptorId FROM edfi.StaffClassificationDescriptor;";
+            builder.TestStaffClassificationDescriptorId = Convert.ToInt32(command.ExecuteScalar());
+
             return builder;
+        }
+
+        public EducationOrganizationTestDataBuilder AddStaff(string newGuidId)
+        {
+            _sql.AppendLine(
+                $@"INSERT INTO edfi.Staff (FirstName, LastSurname, BirthDate, StaffUniqueId)
+                VALUES ('" + newGuidId + "','" + newGuidId + "','" + DateTime.UtcNow.Date + "','" + newGuidId + "');"
+            );
+            return this;
+        }
+
+        public EducationOrganizationTestDataBuilder StaffEducationOrganizationEmploymentAssociation(int schoolId, string staffUniqueId)
+        {
+            _sql.AppendLine(
+                 $@"INSERT INTO edfi.StaffEducationOrganizationEmploymentAssociation (EducationOrganizationId, StaffUSI, EmploymentStatusDescriptorId, HireDate)
+                    SELECT {schoolId}, StaffUSI, {TestEmploymentStatusDescriptorId}, '{ DateTime.Now.ToString("MM/dd/yyyy") }' FROM edfi.Staff WHERE StaffUniqueId = '{staffUniqueId}';");
+
+            return this;
+        }
+
+        public EducationOrganizationTestDataBuilder StaffEducationOrganizationAssignmentAssociation(int schoolId, string staffUniqueId)
+        {
+            _sql.AppendLine(
+                 $@"INSERT INTO edfi.StaffEducationOrganizationAssignmentAssociation (EducationOrganizationId, StaffUSI, StaffClassificationDescriptorId, BeginDate)
+                    SELECT {schoolId}, StaffUSI, {TestStaffClassificationDescriptorId}, '{ DateTime.Now.ToString("MM/dd/yyyy") }' FROM edfi.Staff WHERE StaffUniqueId = '{staffUniqueId}';");
+
+            return this;
         }
 
         protected EducationOrganizationTestDataBuilder AddEducationOrganization(int educationOrganizationId, string educationOrganizationType)
@@ -160,6 +195,17 @@ namespace EdFi.Ods.Api.IntegrationTests
             );
 
             return this;
+        }
+
+        public int GetStaffUSI(IDbConnection connection, string staffUniqueID)
+        {
+            var sql = @$"
+                SELECT StaffUSI FROM edfi.Staff
+                WHERE StaffUniqueId = '" + staffUniqueID + "';";
+
+            using var command = connection.CreateCommand();
+            command.CommandText = sql;
+            return Convert.ToInt32(command.ExecuteScalar());
         }
 
         public EducationOrganizationTestDataBuilder AddOrganizationDepartment(int organizationDepartmentId, int? parentEducationOrganizationId = null)
