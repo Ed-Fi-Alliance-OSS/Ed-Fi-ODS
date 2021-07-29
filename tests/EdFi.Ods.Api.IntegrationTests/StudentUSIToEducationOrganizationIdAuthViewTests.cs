@@ -104,7 +104,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void When_enroll_student_in_school_which_part_0f_district_should_get_access_from_school_and_district_also()
+        public void When_student_is_enrolled_in_school_that_belongs_to_a_district_should_have_access_from_school_and_district()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
