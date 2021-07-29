@@ -6,7 +6,7 @@
 CREATE OR REPLACE VIEW auth.StudentUSIToEducationOrganizationId 
 AS
 SELECT  tuple.SourceEducationOrganizationId AS  SourceEducationOrganizationId ,
-		ssa.studentUSI  AS TargetEducationOrganizationId
+		ssa.studentUSI  AS studentUSI
 FROM edfi.StudentSchoolAssociation ssa
 INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuple
 ON ssa.SchoolId = tuple.TargetEducationOrganizationId

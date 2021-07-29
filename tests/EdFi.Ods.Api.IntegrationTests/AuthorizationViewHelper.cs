@@ -13,96 +13,63 @@ namespace EdFi.Ods.Api.IntegrationTests
     public static class AuthorizationViewHelper
     {
 
-        public static bool QueryAuthorizationByViewName(IDbConnection connection, string  viewName)
-        {          
+        private static bool QueryAuthorizationByViewName(IDbConnection connection, string  viewName)
+        {
+            string subSql = "";
+            if(viewName.Equals("StudentUSIToEducationOrganizationId",StringComparison.OrdinalIgnoreCase))
+            {
+                subSql= " GROUP BY SourceEducationOrganizationId,studentUSI  HAVING COUNT(*)> 1;";
+            }
+            else if (viewName.Equals("ParentUSIToEducationOrganizationId", StringComparison.OrdinalIgnoreCase))
+            {
+                subSql = " GROUP BY SourceEducationOrganizationId,ParentUSI  HAVING COUNT(*)> 1;";
+            }
+
             var sql = @$"
                 SELECT COUNT(*)
-                FROM auth."+ viewName +
-                " GROUP BY SourceEducationOrganizationId,TargetEducationOrganizationId HAVING COUNT(*)> 1;";
-
+                FROM auth." + viewName + subSql;
             using var command = connection.CreateCommand();
             command.CommandText = sql;
             return 1 == Convert.ToInt32(command.ExecuteScalar());
         }
 
-        public static List<int> GetRecordsInAuthorizationView(IDbConnection connection, string viewName, (int, int) sourceTargetTuple)
+        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, string viewName)
         {
-            (int source, int target) = sourceTargetTuple;
-
-            string sqlQuery = "";
-            if (source != 0)
-            {
-                sqlQuery= "SourceEducationOrganizationId =" + source + " AND ";
-            }
-   
-            sqlQuery += "TargetEducationOrganizationId =" + target + ";";
-
-            var sql = @$"
-                SELECT SourceEducationOrganizationId
-                FROM auth." + viewName + " WHERE " + sqlQuery;
+            var sql = @"
+                SELECT SourceEducationOrganizationId, StudentUSI
+                FROM auth." + viewName + ";";
 
             using var command = connection.CreateCommand();
             command.CommandText = sql;
+
             using var reader = command.ExecuteReader();
 
-            var sourceList = new List<int>();
+            var actualTuples = new List<(int, int)>();
             while (reader.Read())
             {
-                sourceList.Add(reader.GetInt32(0));
+                actualTuples.Add((reader.GetInt32(0), reader.GetInt32(1)));
             }
-            return sourceList;
+            return actualTuples;
         }
 
-        public static int GetStudentUSI(IDbConnection connection, string studentUniqueID)
-        {
-            var sql = @$"
-                SELECT StudentUSI FROM edfi.Student
-                WHERE StudentUniqueId = '"+ studentUniqueID +"';";
-
-            using var command = connection.CreateCommand();
-            command.CommandText = sql;
-            return Convert.ToInt32(command.ExecuteScalar());
-        }
 
         public static void ShouldNotContainDuplicate(IDbConnection connection, string viewName)
         {
             var actualTuples = QueryAuthorizationByViewName(connection,viewName);
             actualTuples.ShouldBeFalse();
         }
-        public static void ShouldContainStudentInSchoolOrDistrict(IDbConnection connection, string viewName , params (int, int)[] expectedTuples)
+
+        public static void ShouldContainTuples(IDbConnection connection, string viewName, params (int, int)[] expectedTuples)
         {
-            foreach (var eachTuple in expectedTuples)
-            {
-                (int source, int target) = eachTuple;
-                var actualTuples = GetRecordsInAuthorizationView(connection, viewName, eachTuple);
-                actualTuples.All(p => p == source).ShouldBeTrue();
-            }
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName);
+            expectedTuples.ShouldBeSubsetOf(actualTuples);
         }
 
-        public static void ShouldContainStudentInBothSchool(IDbConnection connection, string viewName, params (int, int)[]  expectedTuples)
+        public static void ShouldNotContainTuples(IDbConnection connection, string viewName, params (int, int)[] expectedTuples)
         {
-            foreach (var eachTuple in expectedTuples)
-            {
-                (int source, int target) = eachTuple;
-                var actualTuples = GetRecordsInAuthorizationView(connection, viewName, eachTuple);
-                actualTuples.All(p => p == source).ShouldBeTrue();
-            }
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName);
+            expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
         }
 
-        public static void ShouldNotContainStudentInOtherSchoolOrDistrict(IDbConnection connection, string viewName, params (int, int)[] sourceTargetTuple)
-        {
-            foreach (var eachTuple in sourceTargetTuple)
-            {
-                (int source, int target) = eachTuple;
-                var actualTuples = GetRecordsInAuthorizationView(connection, viewName, eachTuple);
-                actualTuples.All(p => p == source).ShouldBeTrue();
-            }
-        }
-
-        public static void ShouldNotContainStudentInAnySchool(IDbConnection connection, string viewName, (int, int) sourceTargetTuple)
-        {
-            var actualTuples = GetRecordsInAuthorizationView(connection, viewName, sourceTargetTuple);
-            actualTuples.ShouldBeEmpty();
-        }
     }
 }
