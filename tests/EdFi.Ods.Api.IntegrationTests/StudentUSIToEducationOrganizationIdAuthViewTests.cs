@@ -87,7 +87,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void When_not_enroll_student_in__any_school_should_get_access_to_student_from_any_school()
+        public void When_student_is_not_enrolled_should_not_have_access_to_student_from_any_school()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
