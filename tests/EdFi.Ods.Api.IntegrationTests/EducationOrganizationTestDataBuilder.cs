@@ -158,8 +158,16 @@ namespace EdFi.Ods.Api.IntegrationTests
         public EducationOrganizationTestDataBuilder AddStudent(string newGuidId)
         {          
             _sql.AppendLine(
-                $@"INSERT INTO edfi.Student (FirstName,LastSurname,BirthDate,StudentUniqueId)
-                VALUES ('"+ newGuidId + "','" + newGuidId + "','" + DateTime.UtcNow.Date + "','"+ newGuidId + "');"
+                $@"INSERT INTO edfi.Student (
+                    FirstName,
+                    LastSurname,
+                    BirthDate,
+                    StudentUniqueId)
+                VALUES (
+                    '{newGuidId}',
+                    '{newGuidId}',
+                    '{DateTime.UtcNow.Date}',
+                    '{newGuidId}');"
             );
            return this;
         }
@@ -168,8 +176,10 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
            _sql.AppendLine(
                 $@"INSERT INTO edfi.StudentSchoolAssociation (SchoolId,StudentUSI,EntryDate,EntryGradeLevelDescriptorId)
-                VALUES (" + schoolId + "," + studentUSI + ",'" + DateTime.UtcNow.Date + "'," + gradeLevelDescriptorId + ");");
-
+                VALUES (
+                    {schoolId},{studentUSI},
+                    '{DateTime.UtcNow.Date}',{gradeLevelDescriptorId});"
+            );
             return this;
         }
 
@@ -177,7 +187,8 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             _sql.AppendLine(
                 $@"SELECT StudentUSI FROM edfi.Student
-                WHERE StudentUniqueId = '" + studentUniqueId + "';");
+                WHERE StudentUniqueId = '{studentUniqueId}';"
+             );
 
             return this;
         }
