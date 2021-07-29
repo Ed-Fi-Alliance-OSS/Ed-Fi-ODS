@@ -70,8 +70,6 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001), (900, 9001));
 
-            var expectedTuples = new[] { (9001, 9001), (900, 9001) };
-
             Builder
                 .UpdateSchool(9001)
                 .Execute();

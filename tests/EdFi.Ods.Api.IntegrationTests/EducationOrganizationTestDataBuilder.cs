@@ -330,6 +330,17 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             return this;
         }
+        
+        public EducationOrganizationTestDataBuilder UpdateCommunityProvider(int communityProviderId, int? communityOrganizationId = null)
+        {
+            _sql.AppendLine(
+                $@"UPDATE edfi.CommunityProvider SET
+                    CommunityOrganizationId = {ToSqlValue(communityOrganizationId)}
+                WHERE CommunityProviderId = {communityProviderId};"
+            );
+
+            return this;
+        }
 
         public EducationOrganizationTestDataBuilder AddParent(string newGuidId)
         {
