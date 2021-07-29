@@ -197,17 +197,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public int GetStaffUSI(IDbConnection connection, string staffUniqueID)
-        {
-            var sql = @$"
-                SELECT StaffUSI FROM edfi.Staff
-                WHERE StaffUniqueId = '" + staffUniqueID + "';";
-
-            using var command = connection.CreateCommand();
-            command.CommandText = sql;
-            return Convert.ToInt32(command.ExecuteScalar());
-        }
-
         public EducationOrganizationTestDataBuilder AddOrganizationDepartment(int organizationDepartmentId, int? parentEducationOrganizationId = null)
         {
             AddEducationOrganization(organizationDepartmentId, nameof(OrganizationDepartment));
