@@ -58,7 +58,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void When_enroll_student_in_both_school_should_get_access_from__both_school()
+        public void When_student_is_enrolled_in_multiple_schools_should_have_access_from_those_schools()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
