@@ -34,7 +34,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentSchoolAssociation(9701, studentUSI, Builder.TestGradeLevelDescriptorId)
                 .Execute();
 
-            AuthorizationViewHelper.ShouldContainTuples(Connection, "StudentUSIToEducationOrganizationId", (9801, studentUSI));
+            AuthorizationViewHelper.ShouldContainTuples(Connection, "StudentUSIToEducationOrganizationId", (9701, studentUSI));
         }
 
         [Test]
@@ -53,8 +53,8 @@ namespace EdFi.Ods.Api.IntegrationTests
             Builder
                 .AddStudentSchoolAssociation(9702, studentUSI, Builder.TestGradeLevelDescriptorId)
                 .Execute();
-
-            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "StudentUSIToEducationOrganizationId", (9702, studentUSI));
+            var expectedTuples = new[] { (255901001, studentUSI), (255901044, studentUSI), (255901107, studentUSI) };
+            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             var  expectedTuples = new (int, int)[] { (9703, studentUSI), (9704, studentUSI) };
-            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
+            AuthorizationViewHelper.ShouldContainTuples(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
         }
 
         [Test]
@@ -143,7 +143,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentSchoolAssociation(9706, studentUSI, Builder.TestGradeLevelDescriptorId)
                 .Execute();
 
-            var expectedTuples = new (int, int)[] { (9706, studentUSI), (2201, studentUSI) };
+            var expectedTuples = new[] { (255901, studentUSI), (255901001, studentUSI), (255901044, studentUSI), (255901107, studentUSI) };
             AuthorizationViewHelper.ShouldNotContainTuples(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
         }
     }
