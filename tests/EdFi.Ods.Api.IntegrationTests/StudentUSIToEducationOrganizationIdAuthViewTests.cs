@@ -12,7 +12,7 @@ namespace EdFi.Ods.Api.IntegrationTests
     public class StudentUSIToEducationOrganizationIdAuthViewTests : DatabaseTestFixtureBase
     {
         [Test]
-        public void When_calling_studentUSI_to_educationOrganizationId_authView_should_not_get_duplicaterecords()
+        public void When_querying_studentUSI_to_educationOrganizationId_authView_it_should_not_return_duplicate_records()
         {
              AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "StudentUSIToEducationOrganizationId");
         }
