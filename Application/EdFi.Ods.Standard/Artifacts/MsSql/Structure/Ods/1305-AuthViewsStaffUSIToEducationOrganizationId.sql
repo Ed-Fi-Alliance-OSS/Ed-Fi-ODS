@@ -8,7 +8,7 @@ IF OBJECT_ID('auth.StaffUSIToEducationOrganizationId', 'V') IS NOT NULL
 GO
 
 
-CREATE VIEW auth.StudentUSIToEducationOrganizationId AS
+CREATE VIEW auth.StaffUSIToEducationOrganizationId AS
 SELECT SourceEducationOrganizationId, StaffUSI
 FROM edfi.StaffEducationOrganizationAssignmentAssociation
 INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId
