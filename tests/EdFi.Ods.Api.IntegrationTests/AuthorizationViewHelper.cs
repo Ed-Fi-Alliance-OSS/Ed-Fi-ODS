@@ -15,7 +15,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         public static List<EdFiTuple> GetAllRecordsInAuthorizationViewByTarget(IDbConnection connection, string viewName, string target, PersonType personType)
         {
             var sql = @$"
-                SELECT SourceEducationOrganizationId, b.{personType}USI              
+                SELECT SourceEducationOrganizationId, b.{personType}USI
                 FROM auth.{viewName} a INNER JOIN edfi.{personType} b ON a.{personType}USI = b.{personType}USI
                 WHERE b.{personType}UniqueId = '{target}'";
 
