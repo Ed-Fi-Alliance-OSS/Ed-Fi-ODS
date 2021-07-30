@@ -74,7 +74,8 @@ namespace EdFi.Ods.Api.Controllers
             IPipelineFactory pipelineFactory,
             ISchoolYearContextProvider schoolYearContextProvider,
             IRESTErrorProvider restErrorProvider,
-            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+            ApiSettings apiSettings)
         {
             //this.repository = repository;
             SchoolYearContextProvider = schoolYearContextProvider;
