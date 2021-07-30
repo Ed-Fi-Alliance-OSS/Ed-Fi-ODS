@@ -45,7 +45,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             var staffUniqueId = Guid.NewGuid().ToString("N");
 
             Builder.AddSchool(4321).AddStaff(staffUniqueId)
-                   .AddSchool(6789) //Staff should not have access from this school
                    .Execute();
 
             Builder.StaffEducationOrganizationEmploymentAssociation(4321, staffUniqueId).Execute();
@@ -59,7 +58,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             var staffUniqueId = Guid.NewGuid().ToString("N");
 
             Builder.AddSchool(4321)
-                   .AddSchool(6789) //Staff should not have access from this school
                    .AddStaff(staffUniqueId)
                    .Execute();
 
@@ -74,7 +72,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var staffUniqueId = Guid.NewGuid().ToString("N");
 
             Builder.AddSchool(4321)
-                   .AddSchool(6789) //Staff should not have access from this school
+                   .AddSchool(6789) 
                    .AddStaff(staffUniqueId)
                    .Execute();
 
@@ -82,7 +80,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                    .StaffEducationOrganizationAssignmentAssociation(6789, staffUniqueId)
                    .Execute();
 
-            AuthorizationViewHelper.ShouldContainStaffInSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321 });
+            AuthorizationViewHelper.ShouldContainStaffInSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321, 6789 });
         }
 
         [Test]
@@ -91,7 +89,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var staffUniqueId = Guid.NewGuid().ToString("N");
 
             Builder.AddSchool(4321)
-                   .AddSchool(6789) //Staff should not have access from this school
+                   .AddSchool(6789)
                    .AddStaff(staffUniqueId)
                    .Execute();
 
@@ -170,9 +168,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var staffUniqueId = Guid.NewGuid().ToString("N");
 
             Builder.AddLocalEducationAgency(1234)
-                   .AddLocalEducationAgency(9999)
                    .AddSchool(4321, 1234)
-                   .AddSchool(6789, 1234)
                    .AddStaff(staffUniqueId)
                    .Execute();
 
@@ -188,9 +184,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var staffUniqueId = Guid.NewGuid().ToString("N");
 
             Builder.AddLocalEducationAgency(1234)
-                   .AddLocalEducationAgency(9999)
                    .AddSchool(4321, 1234)
-                   .AddSchool(6789, 1234)
                    .AddStaff(staffUniqueId)
                    .Execute();
 
