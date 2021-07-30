@@ -57,7 +57,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             _sql.AppendLine(
                 $@"INSERT INTO edfi.Staff (FirstName, LastSurname, BirthDate, StaffUniqueId)
-                VALUES ('" + newGuidId + "','" + newGuidId + "','" + DateTime.UtcNow.Date + "','" + newGuidId + "');"
+                VALUES ('{newGuidId}', '{newGuidId}', '{ DateTime.Now.ToString("MM/dd/yyyy") }', '{newGuidId}');"
             );
             return this;
         }
