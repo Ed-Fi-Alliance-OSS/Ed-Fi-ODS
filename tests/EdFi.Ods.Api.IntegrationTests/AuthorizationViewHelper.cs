@@ -12,12 +12,16 @@ namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class AuthorizationViewHelper
     {
-        public static List<EdFiTuple> GetAllRecordsInAuthorizationViewByTarget(IDbConnection connection, string viewName, string target, PersonType personType)
+        public static List<EdFiTuple> GetAllInAuthorizationView(IDbConnection connection, string viewName, PersonType personType, string target = null)
         {
             var sql = @$"
                 SELECT SourceEducationOrganizationId, b.{personType}USI
-                FROM auth.{viewName} a INNER JOIN edfi.{personType} b ON a.{personType}USI = b.{personType}USI
-                WHERE b.{personType}UniqueId = '{target}'";
+                FROM auth.{viewName} a INNER JOIN edfi.{personType} b ON a.{personType}USI = b.{personType}USI";
+
+            if (!string.IsNullOrEmpty(target))
+            {
+                sql = $"{sql} WHERE b.{personType}UniqueId = '{target}'";
+            }
 
             using var command = connection.CreateCommand();
             command.CommandText = sql;
@@ -35,7 +39,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 
         public static void ShouldContainStaffInSchoolOrDistrict(IDbConnection connection, string viewName, string target, List<int> expectedSources)
         {
-            var tuples = GetAllRecordsInAuthorizationViewByTarget(connection, viewName, target, PersonType.Staff);
+            var tuples = GetAllInAuthorizationView(connection, viewName, PersonType.Staff, target);
 
             var actualSources = tuples.Where(s => expectedSources.Contains(s.Source)).ToList();
 
@@ -43,7 +47,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
         public static void ShouldNotContainStaffInOtherSchoolOrDistrict(IDbConnection connection, string viewName, string target, List<int> expectedSources)
         {
-            var tuples = GetAllRecordsInAuthorizationViewByTarget(connection, viewName, target, PersonType.Staff);
+            var tuples = GetAllInAuthorizationView(connection, viewName, PersonType.Staff, target);
 
             var unexpectedSources = tuples.Where(s => !expectedSources.Contains(s.Source)).ToList();
 
@@ -52,10 +56,21 @@ namespace EdFi.Ods.Api.IntegrationTests
 
         public static void ShouldNotHaveDuplicateStaffSegments(IDbConnection connection, string viewName, string target, List<int> expectedSources)
         {
-            var tuples = GetAllRecordsInAuthorizationViewByTarget(connection, viewName, target, PersonType.Staff);
+            var tuples = GetAllInAuthorizationView(connection, viewName, PersonType.Staff, target);
 
             tuples.Count().ShouldBe(2);
             tuples.ShouldContain(s => expectedSources.Contains(s.Source));
+        }
+
+        public static void ShouldNotContainDuplicatesInView(IDbConnection connection, string viewName)
+        {
+            var tuples = GetAllInAuthorizationView(connection, viewName, PersonType.Staff);
+
+            var hasDuplicates = tuples.GroupBy(x => new { x.Source, x.Target }).Any(g => g.Count() > 1);
+
+            hasDuplicates.ShouldBeFalse();
+
+
         }
     }
 }

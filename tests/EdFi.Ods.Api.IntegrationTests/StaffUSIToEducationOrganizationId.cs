@@ -193,5 +193,11 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             AuthorizationViewHelper.ShouldNotContainStaffInOtherSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321, 1234 });
         }
+
+        [Test]
+        public void Should_not_contain_duplicates_in_view()
+        {
+            AuthorizationViewHelper.ShouldNotContainDuplicatesInView(Connection, "StaffUSIToEducationOrganizationId");
+        }
     }
 }
