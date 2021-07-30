@@ -54,7 +54,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             var tuples = GetAllRecordsInAuthorizationViewByTarget(connection, viewName, target, PersonType.Staff);
 
-            tuples.Count().ShouldBe(1);
+            tuples.Count().ShouldBe(2);
             tuples.ShouldContain(s => expectedSources.Contains(s.Source));
         }
     }

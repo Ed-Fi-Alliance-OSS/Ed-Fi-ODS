@@ -128,7 +128,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                    .StaffEducationOrganizationAssignmentAssociation(4321, staffUniqueId)
                    .Execute();
 
-            AuthorizationViewHelper.ShouldNotHaveDuplicateStaffSegments(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321 });
+            AuthorizationViewHelper.ShouldNotHaveDuplicateStaffSegments(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321, 1234 });
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             Builder.StaffEducationOrganizationAssignmentAssociation(4321, staffUniqueId)
                    .Execute();
 
-            AuthorizationViewHelper.ShouldNotContainStaffInOtherSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4231, 1234 });
+            AuthorizationViewHelper.ShouldNotContainStaffInOtherSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321, 1234 });
         }
 
         [Test]
@@ -197,7 +197,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             Builder.StaffEducationOrganizationEmploymentAssociation(4321, staffUniqueId)
                    .Execute();
 
-            AuthorizationViewHelper.ShouldNotContainStaffInOtherSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4231, 1234 });
+            AuthorizationViewHelper.ShouldNotContainStaffInOtherSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321, 1234 });
         }
     }
 }
