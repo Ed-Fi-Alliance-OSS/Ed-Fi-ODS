@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +37,6 @@ namespace EdFi.Ods.Api.Controllers
     // TPutRequest,  (Requests.Students.StudentPut)
     // TDeleteRequest,  (TDeleteRequest)
     // TPatchRequest (Requests.Students.StudentPatch)
-
     public abstract class DataManagementControllerBase<TResourceReadModel, TResourceWriteModel, TEntityInterface, TAggregateRoot,
             TPutRequest, TPostRequest,
             TDeleteRequest, TGetByExampleRequest>
@@ -56,7 +54,7 @@ namespace EdFi.Ods.Api.Controllers
 
         private readonly IRESTErrorProvider _restErrorProvider;
         private readonly int _defaultPageLimitSize;
-        private string _applicationUrl;
+        private readonly bool _useProxyHeaders;
 
         private ILog _logger;
         protected Lazy<DeletePipeline> DeletePipeline;
@@ -81,6 +79,7 @@ namespace EdFi.Ods.Api.Controllers
             SchoolYearContextProvider = schoolYearContextProvider;
             _restErrorProvider = restErrorProvider;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
+            _useProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
 
             GetByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
@@ -245,7 +244,7 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
-            var resourceUri = new Uri(GetApplicationUrl());
+            var resourceUri = new Uri(GetResourceUrl());
             Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
@@ -284,7 +283,7 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception);
             }
 
-            var resourceUri = new Uri($"{GetApplicationUrl()}/{result.ResourceId.GetValueOrDefault():n}");
+            var resourceUri = new Uri($"{GetResourceUrl()}/{result.ResourceId.GetValueOrDefault():n}");
             Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
@@ -327,30 +326,17 @@ namespace EdFi.Ods.Api.Controllers
             return new EntityTagHeaderValue(Quoted(etagValue));
         }
 
-        protected string GetApplicationUrl()
+        protected string GetResourceUrl()
         {
-            if (_applicationUrl != null)
-            {
-                return _applicationUrl;
-            }
-
             try
             {
-                var urlBuilder = new UriBuilder
-                {
-                    Scheme = Request.Scheme,
-                    Host = Request.Host.Host,
-                    Path = Request.Path
-                };
+                var uriBuilder = new UriBuilder(
+                    Request.Scheme(_useProxyHeaders),
+                    Request.Host(_useProxyHeaders),
+                    Request.Port(_useProxyHeaders),
+                    Request.Path);
 
-                if (Request.Host.Port.HasValue)
-                {
-                    urlBuilder.Port = Request.Host.Port.Value;
-                }
-
-                _applicationUrl = urlBuilder.Uri.ToString().TrimEnd('/');
-
-                return _applicationUrl;
+                return uriBuilder.Uri.ToString().TrimEnd('/');
             }
             catch (Exception ex)
             {
