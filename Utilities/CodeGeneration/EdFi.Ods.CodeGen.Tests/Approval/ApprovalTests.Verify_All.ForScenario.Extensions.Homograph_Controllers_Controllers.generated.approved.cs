@@ -33,8 +33,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Names
         Api.Common.Models.Requests.Homograph.Names.NameDelete,
         Api.Common.Models.Requests.Homograph.Names.NameGetByExample>
     {
-        public NamesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public NamesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -66,8 +66,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Parents
         Api.Common.Models.Requests.Homograph.Parents.ParentDelete,
         Api.Common.Models.Requests.Homograph.Parents.ParentGetByExample>
     {
-        public ParentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public ParentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -99,8 +99,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Schools
         Api.Common.Models.Requests.Homograph.Schools.SchoolDelete,
         Api.Common.Models.Requests.Homograph.Schools.SchoolGetByExample>
     {
-        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public SchoolsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -132,8 +132,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.SchoolYearTypes
         Api.Common.Models.Requests.Homograph.SchoolYearTypes.SchoolYearTypeDelete,
         Api.Common.Models.Requests.Homograph.SchoolYearTypes.SchoolYearTypeGetByExample>
     {
-        public SchoolYearTypesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public SchoolYearTypesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -164,8 +164,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Staffs
         Api.Common.Models.Requests.Homograph.Staffs.StaffDelete,
         Api.Common.Models.Requests.Homograph.Staffs.StaffGetByExample>
     {
-        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public StaffsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -197,8 +197,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.Students
         Api.Common.Models.Requests.Homograph.Students.StudentDelete,
         Api.Common.Models.Requests.Homograph.Students.StudentGetByExample>
     {
-        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public StudentsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -231,8 +231,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Homograph.StudentSchoolAssociations
         Api.Common.Models.Requests.Homograph.StudentSchoolAssociations.StudentSchoolAssociationDelete,
         Api.Common.Models.Requests.Homograph.StudentSchoolAssociations.StudentSchoolAssociationGetByExample>
     {
-        public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public StudentSchoolAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 

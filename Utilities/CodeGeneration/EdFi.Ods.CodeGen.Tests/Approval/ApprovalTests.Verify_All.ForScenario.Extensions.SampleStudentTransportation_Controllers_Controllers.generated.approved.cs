@@ -33,8 +33,8 @@ namespace EdFi.Ods.Api.Services.Controllers.SampleStudentTransportation.StudentT
         Api.Common.Models.Requests.SampleStudentTransportation.StudentTransportations.StudentTransportationDelete,
         Api.Common.Models.Requests.SampleStudentTransportation.StudentTransportations.StudentTransportationGetByExample>
     {
-        public StudentTransportationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public StudentTransportationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 

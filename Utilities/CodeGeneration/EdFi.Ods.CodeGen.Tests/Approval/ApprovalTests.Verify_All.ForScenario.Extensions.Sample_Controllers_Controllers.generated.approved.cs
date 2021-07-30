@@ -33,8 +33,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.ArtMediumDescriptors
         Api.Common.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorDelete,
         Api.Common.Models.Requests.Sample.ArtMediumDescriptors.ArtMediumDescriptorGetByExample>
     {
-        public ArtMediumDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public ArtMediumDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -64,8 +64,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.Buses
         Api.Common.Models.Requests.Sample.Buses.BusDelete,
         Api.Common.Models.Requests.Sample.Buses.BusGetByExample>
     {
-        public BusesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public BusesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -96,8 +96,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.BusRoutes
         Api.Common.Models.Requests.Sample.BusRoutes.BusRouteDelete,
         Api.Common.Models.Requests.Sample.BusRoutes.BusRouteGetByExample>
     {
-        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public BusRoutesController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -143,8 +143,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.FavoriteBookCategoryDescripto
         Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorDelete,
         Api.Common.Models.Requests.Sample.FavoriteBookCategoryDescriptors.FavoriteBookCategoryDescriptorGetByExample>
     {
-        public FavoriteBookCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public FavoriteBookCategoryDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -174,8 +174,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.MembershipTypeDescriptors
         Api.Common.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorDelete,
         Api.Common.Models.Requests.Sample.MembershipTypeDescriptors.MembershipTypeDescriptorGetByExample>
     {
-        public MembershipTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public MembershipTypeDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -205,8 +205,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentArtProgramAssociations
         Api.Common.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationDelete,
         Api.Common.Models.Requests.Sample.StudentArtProgramAssociations.StudentArtProgramAssociationGetByExample>
     {
-        public StudentArtProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public StudentArtProgramAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
@@ -252,8 +252,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Sample.StudentGraduationPlanAssociat
         Api.Common.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationDelete,
         Api.Common.Models.Requests.Sample.StudentGraduationPlanAssociations.StudentGraduationPlanAssociationGetByExample>
     {
-        public StudentGraduationPlanAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
-            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider)
+        public StudentGraduationPlanAssociationsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
         {
         }
 
