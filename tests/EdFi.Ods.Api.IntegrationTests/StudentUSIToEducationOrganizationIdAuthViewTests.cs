@@ -43,6 +43,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
             Builder
+                .AddSchool(9722)
                 .AddSchool(9702).AddStudent(studentUniqueId)
                 .Execute();
 
@@ -53,7 +54,8 @@ namespace EdFi.Ods.Api.IntegrationTests
             Builder
                 .AddStudentSchoolAssociation(9702, studentUSI, Builder.TestGradeLevelDescriptorId)
                 .Execute();
-            var expectedTuples = new[] { (255901001, studentUSI), (255901044, studentUSI), (255901107, studentUSI) };
+
+            var expectedTuples = new[] { (9722, studentUSI) };
             AuthorizationViewHelper.ShouldNotContainTuples(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
         }
 
@@ -92,6 +94,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
             Builder
+                .AddSchool(4500)
                 .AddStudent(studentUniqueId)
                 .Execute();
 
@@ -99,7 +102,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                  .GetStudentUSI(studentUniqueId)
                  .ExecuteScalar();
 
-            var expectedTuples = new[] { (255901001, studentUSI), (255901044, studentUSI), (255901107, studentUSI) };
+            var expectedTuples = new[] { (4500, studentUSI) };
             AuthorizationViewHelper.ShouldNotContainTuples(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
         }
 
@@ -132,7 +135,9 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             Builder
                 .AddLocalEducationAgency(2201)
-                .AddSchool(9706, 2201).AddStudent(studentUniqueId)
+                .AddLocalEducationAgency(2221)
+                .AddSchool(9706, 2201)
+                .AddSchool(9776, 2221).AddStudent(studentUniqueId)
                 .Execute();
 
             var studentUSI = Builder
@@ -143,7 +148,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentSchoolAssociation(9706, studentUSI, Builder.TestGradeLevelDescriptorId)
                 .Execute();
 
-            var expectedTuples = new[] { (255901, studentUSI), (255901001, studentUSI), (255901044, studentUSI), (255901107, studentUSI) };
+            var expectedTuples = new[] { (2221, studentUSI), (9776, studentUSI) };
             AuthorizationViewHelper.ShouldNotContainTuples(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
         }
     }

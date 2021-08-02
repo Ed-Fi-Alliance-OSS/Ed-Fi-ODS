@@ -169,17 +169,25 @@ namespace EdFi.Ods.Api.IntegrationTests
                     '{DateTime.UtcNow.Date}',
                     '{newGuidId}');"
             );
+
            return this;
         }
 
         public EducationOrganizationTestDataBuilder AddStudentSchoolAssociation(int schoolId, int studentUSI, int gradeLevelDescriptorId)
         {
            _sql.AppendLine(
-                $@"INSERT INTO edfi.StudentSchoolAssociation (SchoolId,StudentUSI,EntryDate,EntryGradeLevelDescriptorId)
+                $@"INSERT INTO edfi.StudentSchoolAssociation (
+                    SchoolId,
+                    StudentUSI,
+                    EntryDate,
+                    EntryGradeLevelDescriptorId)
                 VALUES (
-                    {schoolId},{studentUSI},
-                    '{DateTime.UtcNow.Date}',{gradeLevelDescriptorId});"
+                    {schoolId},
+                    {studentUSI},
+                    '{DateTime.UtcNow.Date}',
+                    {gradeLevelDescriptorId});"
             );
+
             return this;
         }
 
