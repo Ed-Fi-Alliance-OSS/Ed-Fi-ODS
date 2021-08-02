@@ -40,8 +40,8 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         /// <returns>The specified entity if found; otherwise null.</returns>
         public async Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _getEntitiesByIds.GetByIdsAsync(new[] {id}, cancellationToken)
-                .ContinueWith(x => x.Result.SingleOrDefault(), cancellationToken);
+            var entities = await _getEntitiesByIds.GetByIdsAsync(new[] {id}, cancellationToken).ConfigureAwait(false);
+            return entities.SingleOrDefault();
         }
     }
 }
