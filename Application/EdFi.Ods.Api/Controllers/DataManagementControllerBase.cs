@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,7 +37,6 @@ namespace EdFi.Ods.Api.Controllers
     // TPutRequest,  (Requests.Students.StudentPut)
     // TDeleteRequest,  (TDeleteRequest)
     // TPatchRequest (Requests.Students.StudentPatch)
-
     public abstract class DataManagementControllerBase<TResourceReadModel, TResourceWriteModel, TEntityInterface, TAggregateRoot,
             TPutRequest, TPostRequest,
             TDeleteRequest, TGetByExampleRequest>
@@ -56,7 +54,7 @@ namespace EdFi.Ods.Api.Controllers
 
         private readonly IRESTErrorProvider _restErrorProvider;
         private readonly int _defaultPageLimitSize;
-        private string _applicationUrl;
+        private readonly bool _useProxyHeaders;
 
         private ILog _logger;
         protected Lazy<DeletePipeline> DeletePipeline;
@@ -74,12 +72,14 @@ namespace EdFi.Ods.Api.Controllers
             IPipelineFactory pipelineFactory,
             ISchoolYearContextProvider schoolYearContextProvider,
             IRESTErrorProvider restErrorProvider,
-            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+            ApiSettings apiSettings)
         {
             //this.repository = repository;
             SchoolYearContextProvider = schoolYearContextProvider;
             _restErrorProvider = restErrorProvider;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
+            _useProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
 
             GetByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
@@ -244,10 +244,12 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
+            var resourceUri = new Uri(GetResourceUrl());
+            Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
 
             return result.ResourceWasCreated
-                ? (IActionResult) Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), null)
+                ? (IActionResult) Created(resourceUri, null)
                 : NoContent();
         }
 
@@ -281,10 +283,12 @@ namespace EdFi.Ods.Api.Controllers
                 return CreateActionResultFromException(result.Exception);
             }
 
+            var resourceUri = new Uri($"{GetResourceUrl()}/{result.ResourceId.GetValueOrDefault():n}");
+            Response.GetTypedHeaders().Location = resourceUri;
             Response.GetTypedHeaders().ETag = GetEtag(result.ETag);
-            Response.GetTypedHeaders().Location = new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault()));
+
             return result.ResourceWasCreated
-                ? (IActionResult) Created(new Uri(GetResourceUrl(result.ResourceId.GetValueOrDefault())), null)
+                ? (IActionResult) Created(resourceUri, null)
                 : Ok();
         }
 
@@ -322,34 +326,22 @@ namespace EdFi.Ods.Api.Controllers
             return new EntityTagHeaderValue(Quoted(etagValue));
         }
 
-        protected string GetResourceUrl(Guid id)
+        protected string GetResourceUrl()
         {
-            if (_applicationUrl == null)
+            try
             {
-                try
-                {
-                    var urlBuilder = new UriBuilder
-                    {
-                        Scheme = Request.Scheme,
-                        Host = Request.Host.Host,
-                        Path = Request.Path
-                    };
+                var uriBuilder = new UriBuilder(
+                    Request.Scheme(_useProxyHeaders),
+                    Request.Host(_useProxyHeaders),
+                    Request.Port(_useProxyHeaders),
+                    Request.Path);
 
-                    if (Request.Host.Port.HasValue)
-                    {
-                        urlBuilder.Port = Request.Host.Port.Value;
-                    }
-
-                    _applicationUrl = urlBuilder.Uri.ToString();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Unable to parse API base URL from request.", ex);
-                }
+                return uriBuilder.Uri.ToString().TrimEnd('/');
             }
-
-            //since we removed the school year from the route, we can use use the base uri as our response.
-            return $"{_applicationUrl}/{id:n}";
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to parse API base URL from request.", ex);
+            }
         }
 
         private static string Quoted(string text) => "\"" + text + "\"";
