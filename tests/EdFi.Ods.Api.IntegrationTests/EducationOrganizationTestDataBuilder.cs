@@ -262,6 +262,40 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
+        public EducationOrganizationTestDataBuilder AddParent(string newGuidId)
+        {
+            _sql.AppendLine(
+                $@"INSERT INTO edfi.Parent (
+                    FirstName,
+                    LastSurname,
+                    ParentUniqueId)
+                VALUES(
+                    '{newGuidId}',
+                    '{newGuidId}',
+                    '{newGuidId}');"
+            );
+
+            return this;
+        }
+
+        public EducationOrganizationTestDataBuilder GetParentUSI(string parentUniqueId)
+        {
+            _sql.AppendLine(
+                $@"SELECT ParentUSI FROM edfi.Parent
+                WHERE ParentUniqueId = '{parentUniqueId}'; ");
+
+            return this;
+        }
+
+        public EducationOrganizationTestDataBuilder AddStudentParentAssociation(int parentUSI, int studentUSI)
+        {
+            _sql.AppendLine(
+                 $@"INSERT INTO edfi.StudentParentAssociation (ParentUSI,StudentUSI)
+                VALUES (" + parentUSI + "," + studentUSI + ");");
+
+            return this;
+        }
+
         private string ToSqlValue<T>(T? input) where T : struct
         {
             return input.HasValue
