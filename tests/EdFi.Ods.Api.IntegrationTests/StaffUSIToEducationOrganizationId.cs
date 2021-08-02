@@ -142,7 +142,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             Builder.StaffEducationOrganizationEmploymentAssociation(4321, staffUniqueId)
                    .Execute();
 
-
             AuthorizationViewHelper.ShouldContainStaffInSchoolOrDistrict(Connection, "StaffUSIToEducationOrganizationId", staffUniqueId, new List<int>() { 4321, 1234 });
         }
 
