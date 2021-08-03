@@ -12,9 +12,28 @@ namespace EdFi.Ods.Api.IntegrationTests
     public class ParentUSIToEducationOrganizationIdAuthViewTests : DatabaseTestFixtureBase
     {
         [Test]
-        public void When_querying_parentUSI_to_educationOrganizationId_authView_it_should_not_return_duplicate_records()
+        public void When_parent_assigned_to_a_student_in_school_should_not_return_duplicate_records()
         {
-            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "ParentUSIToEducationOrganizationId");
+            var studentUniqueId = Guid.NewGuid().ToString("N");
+            var parentUniqueId = Guid.NewGuid().ToString("N");
+
+            Builder
+                .AddSchool(9801).AddStudent(studentUniqueId).AddParent(parentUniqueId)
+                .Execute();
+
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+
+            Builder
+                .AddStudentSchoolAssociation(9801, studentUSI, DateTime.UtcNow.Date)
+                .Execute();
+
+            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
+
+            Builder
+                .AddStudentParentAssociation(parentUSI, studentUSI)
+                .Execute();
+
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, parentUSI, (9801, parentUSI) );
         }
 
         [Test]
@@ -39,7 +58,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentParentAssociation(parentUSI, studentUSI)
                 .Execute();
 
-            AuthorizationViewHelper.ShouldContainTuples(Connection, "ParentUSIToEducationOrganizationId", (9801, parentUSI));
+            AuthorizationViewHelper.ShouldContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, (9801, parentUSI));
         }
 
         [Test]
@@ -66,7 +85,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             var expectedTuples = new[] { (9902, parentUSI)};
-            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, expectedTuples);
 
         }
 
@@ -100,7 +119,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentParentAssociation(parentUSI, studentUSI)
                 .Execute();
 
-            AuthorizationViewHelper.ShouldContainTuples(Connection, "ParentUSIToEducationOrganizationId", new[] { (9803, parentUSI), (9804, parentUSI) });
+            AuthorizationViewHelper.ShouldContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, new[] { (9803, parentUSI), (9804, parentUSI) });
         }
 
         [Test]
@@ -116,7 +135,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
 
             var expectedTuples = new[] { (9899, parentUSI) };
-            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, expectedTuples);
         }
 
 
@@ -144,7 +163,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             var expectedTuples = new[] { (9805, parentUSI), (5601, parentUSI) };
-            AuthorizationViewHelper.ShouldContainTuples(Connection, "ParentUSIToEducationOrganizationId", expectedTuples);
+            AuthorizationViewHelper.ShouldContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, expectedTuples);
         }
 
         [Test]
@@ -173,7 +192,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             var expectedTuples = new[] { (5692, parentUSI), (9899, parentUSI)};
-            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, expectedTuples);
         }
     }
 }

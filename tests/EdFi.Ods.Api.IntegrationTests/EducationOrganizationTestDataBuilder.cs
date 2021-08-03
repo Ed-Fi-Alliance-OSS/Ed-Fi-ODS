@@ -301,6 +301,5 @@ namespace EdFi.Ods.Api.IntegrationTests
             _sql.Clear();
             return result;
         }
-
     }
 }

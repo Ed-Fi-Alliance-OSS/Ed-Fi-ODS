@@ -7,49 +7,24 @@ using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+
 namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class AuthorizationViewHelper
     {
 
-        private static bool QueryAuthorizationByViewName(IDbConnection connection, string  viewName)
+        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, string viewName, PersonType personType, int? target =null)
         {
-            string subSql = "";
-            if(viewName.Equals("StudentUSIToEducationOrganizationId",StringComparison.OrdinalIgnoreCase))
+            string sql = @$"SELECT SourceEducationOrganizationId, {personType}USI FROM auth.{viewName}";
+            
+            if(target.HasValue)
             {
-                subSql= " GROUP BY SourceEducationOrganizationId,studentUSI  HAVING COUNT(*)> 1;";
-            }
-            else if (viewName.Equals("ParentUSIToEducationOrganizationId", StringComparison.OrdinalIgnoreCase))
-            {
-                subSql = " GROUP BY SourceEducationOrganizationId,ParentUSI  HAVING COUNT(*)> 1;";
-            }
-
-            var sql = @$"
-                SELECT COUNT(*)
-                FROM auth." + viewName + subSql;
-            using var command = connection.CreateCommand();
-            command.CommandText = sql;
-            return 1 == Convert.ToInt32(command.ExecuteScalar());
-        }
-
-        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, string viewName)
-        {
-            string sql = "";
-            if (viewName.Equals("StudentUSIToEducationOrganizationId", StringComparison.OrdinalIgnoreCase))
-            {
-                sql = @"
-                SELECT SourceEducationOrganizationId, StudentUSI
-                FROM auth.StudentUSIToEducationOrganizationId;";
-            }
-            else if (viewName.Equals("ParentUSIToEducationOrganizationId", StringComparison.OrdinalIgnoreCase))
-            {
-                sql = @"
-                SELECT SourceEducationOrganizationId, parentUSI
-                FROM auth.ParentUSIToEducationOrganizationId;";
+                sql += @$" WHERE {personType}USI = '{target}';";
             }
 
             using var command = connection.CreateCommand();
-            command.CommandText = sql;
+            command.CommandText = sql ;
 
             using var reader = command.ExecuteReader();
 
@@ -61,22 +36,23 @@ namespace EdFi.Ods.Api.IntegrationTests
             return actualTuples;
         }
 
-
-        public static void ShouldNotContainDuplicate(IDbConnection connection, string viewName)
+        public static void ShouldNotContainDuplicate(IDbConnection connection, string viewName, PersonType personType, int target, params (int, int)[] expectedTuples)
         {
-            var actualTuples = QueryAuthorizationByViewName(connection,viewName);
-            actualTuples.ShouldBeFalse();
-        }
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName, personType, target);
 
-        public static void ShouldContainTuples(IDbConnection connection, string viewName, params (int, int)[] expectedTuples)
-        {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName);
+            actualTuples.Count().ShouldBe(1);
             expectedTuples.ShouldBeSubsetOf(actualTuples);
         }
 
-        public static void ShouldNotContainTuples(IDbConnection connection, string viewName, params (int, int)[] expectedTuples)
+        public static void ShouldContainTuples(IDbConnection connection, string viewName, PersonType personType, params (int, int)[] expectedTuples)
         {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName);
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName, personType);
+            expectedTuples.ShouldBeSubsetOf(actualTuples);
+        }
+
+        public static void ShouldNotContainTuples(IDbConnection connection, string viewName, PersonType personType, params (int, int)[] expectedTuples)
+        {
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName, personType);
             expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
         }
 
@@ -104,6 +80,5 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             return result;
         }
-
     }
 }
