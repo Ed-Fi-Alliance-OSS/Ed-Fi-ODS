@@ -12,21 +12,53 @@ namespace EdFi.Ods.Api.IntegrationTests
     public class StudentUSIToEducationOrganizationIdAuthViewTests : DatabaseTestFixtureBase
     {
         [Test]
-        public void When_student_is_enrolled_in_a_school__duplicate_records_should_not_return_from_view()
+        public void When_student_is_enrolled_in_school_that_belongs_to_a_district_should_not_return_duplicate_records()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
             Builder
-                .AddSchool(9701).AddStudent(studentUniqueId)
+                .AddLocalEducationAgency(2200)
+                .AddSchool(9705, 2200).AddStudent(studentUniqueId)
                 .Execute();
 
             var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9701, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9705, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
-           AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "StudentUSIToEducationOrganizationId", PersonType.Student, studentUSI, ( 9701, studentUSI ));
+            var expectedTuples = new (int, int)[] { (9705, studentUSI), (2200, studentUSI) };
+
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "StudentUSIToEducationOrganizationId", PersonType.Student, studentUSI,2, expectedTuples);
+
+        }
+
+        [Test]
+        public void When_student_is_enrolled_in_multiple_schools_should_not_return_duplicate_records_those_schools()
+        {
+            var studentUniqueId = Guid.NewGuid().ToString("N");
+
+            Builder
+                .AddSchool(9703).AddStudent(studentUniqueId)
+                .Execute();
+
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+
+            Builder
+                .AddStudentSchoolAssociation(9703, studentUSI, DateTime.UtcNow.Date)
+                .Execute();
+
+            Builder
+               .AddSchool(9704)
+               .Execute();
+
+            Builder
+                .AddStudentSchoolAssociation(9704, studentUSI, DateTime.UtcNow.Date.AddYears(-1))
+                .Execute();
+
+            var expectedTuples = new (int, int)[] { (9703, studentUSI), (9704, studentUSI) };
+
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "StudentUSIToEducationOrganizationId", PersonType.Student, studentUSI, 2, expectedTuples);
 
         }
 
