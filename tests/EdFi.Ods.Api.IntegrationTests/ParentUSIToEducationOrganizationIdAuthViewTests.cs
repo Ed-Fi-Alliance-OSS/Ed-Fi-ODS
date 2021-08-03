@@ -27,17 +27,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9801).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9801, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9801, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = Builder
-                .GetParentUSI(parentUniqueId)
-                .ExecuteScalar();
+            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
 
             Builder
                 .AddStudentParentAssociation(parentUSI, studentUSI)
@@ -57,17 +53,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9802).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9802, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9802, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = Builder
-                .GetParentUSI(parentUniqueId)
-                .ExecuteScalar();
+            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
 
             Builder
                 .AddStudentParentAssociation(parentUSI, studentUSI)
@@ -88,12 +80,10 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9803).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9803, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9803, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
             Builder
@@ -101,12 +91,10 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             Builder
-                .AddStudentSchoolAssociation(9804, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9804, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = Builder
-                .GetParentUSI(parentUniqueId)
-                .ExecuteScalar();
+            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
 
             Builder
                 .AddStudentParentAssociation(parentUSI, studentUSI)
@@ -125,9 +113,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddParent(parentUniqueId)
                 .Execute();
 
-            var parentUSI = Builder
-                .GetParentUSI(parentUniqueId)
-                .ExecuteScalar();
+            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
 
             var expectedTuples = new[] { (9899, parentUSI) };
             AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", expectedTuples);
@@ -145,17 +131,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9805,5601).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9805, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9805, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = Builder
-                .GetParentUSI(parentUniqueId)
-                .ExecuteScalar();
+            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
 
             Builder
                 .AddStudentParentAssociation(parentUSI, studentUSI)
@@ -178,17 +160,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9806, 5602).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9806, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9806, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = Builder
-                .GetParentUSI(parentUniqueId)
-                .ExecuteScalar();
+            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
 
             Builder
                 .AddStudentParentAssociation(parentUSI, studentUSI)

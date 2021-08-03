@@ -26,12 +26,10 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9701).AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9701, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9701, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
             AuthorizationViewHelper.ShouldContainTuples(Connection, "StudentUSIToEducationOrganizationId", (9701, studentUSI));
@@ -47,12 +45,10 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9702).AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId); ;
 
             Builder
-                .AddStudentSchoolAssociation(9702, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9702, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
             var expectedTuples = new[] { (9722, studentUSI) };
@@ -67,13 +63,11 @@ namespace EdFi.Ods.Api.IntegrationTests
             Builder
                 .AddSchool(9703).AddStudent(studentUniqueId)
                 .Execute();
-            
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9703, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9703, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
             Builder
@@ -81,7 +75,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                .Execute();
 
             Builder
-                .AddStudentSchoolAssociation(9704, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9704, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
             var  expectedTuples = new (int, int)[] { (9703, studentUSI), (9704, studentUSI) };
@@ -98,9 +92,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             var expectedTuples = new[] { (4500, studentUSI) };
             AuthorizationViewHelper.ShouldNotContainTuples(Connection, "StudentUSIToEducationOrganizationId", expectedTuples);
@@ -116,12 +108,10 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9705, 2200).AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9705, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9705, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
             var expectedTuples = new (int, int)[] { (9705, studentUSI), (2200, studentUSI) };
@@ -140,12 +130,10 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9776, 2221).AddStudent(studentUniqueId)
                 .Execute();
 
-            var studentUSI = Builder
-                 .GetStudentUSI(studentUniqueId)
-                 .ExecuteScalar();
+            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9706, studentUSI, Builder.TestGradeLevelDescriptorId)
+                .AddStudentSchoolAssociation(9706, studentUSI, DateTime.UtcNow.Date)
                 .Execute();
 
             var expectedTuples = new[] { (2221, studentUSI), (9776, studentUSI) };

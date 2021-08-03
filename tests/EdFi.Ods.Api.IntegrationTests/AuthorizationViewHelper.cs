@@ -34,9 +34,19 @@ namespace EdFi.Ods.Api.IntegrationTests
 
         private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, string viewName)
         {
-            var sql = @"
+            string sql = "";
+            if (viewName.Equals("StudentUSIToEducationOrganizationId", StringComparison.OrdinalIgnoreCase))
+            {
+                sql = @"
                 SELECT SourceEducationOrganizationId, StudentUSI
-                FROM auth." + viewName + ";";
+                FROM auth.StudentUSIToEducationOrganizationId;";
+            }
+            else if (viewName.Equals("ParentUSIToEducationOrganizationId", StringComparison.OrdinalIgnoreCase))
+            {
+                sql = @"
+                SELECT SourceEducationOrganizationId, parentUSI
+                FROM auth.ParentUSIToEducationOrganizationId;";
+            }
 
             using var command = connection.CreateCommand();
             command.CommandText = sql;
@@ -68,6 +78,31 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName);
             expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
+        }
+
+        public static int GetStudentUSI(IDbConnection connection, string studentUniqueId)
+        {
+            var sql = $@"SELECT StudentUSI FROM edfi.Student
+                WHERE StudentUniqueId = '{studentUniqueId}';";
+
+            return ExecuteScalar(connection, sql);
+        }
+
+        public static int GetParentUSI(IDbConnection connection, string parentUniqueId)
+        {
+            var sql = $@"SELECT ParentUSI FROM edfi.Parent
+                WHERE ParentUniqueId = '{parentUniqueId}';";
+
+            return ExecuteScalar(connection, sql);
+        }
+
+        private static int ExecuteScalar(IDbConnection connection, string sql)
+        {
+            using var command = connection.CreateCommand();
+            command.CommandText = sql;
+            var result = Convert.ToInt32(command.ExecuteScalar());
+
+            return result;
         }
 
     }
