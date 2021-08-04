@@ -4509,9 +4509,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alpha
 GO
 
 -- Extended Properties [edfi].[StaffEducationOrganizationAssignmentAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association indicates the education organization to which a staff member provides services; also known as school of service.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association indicates the education organization to which a staff member provides services.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the LEA.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
@@ -4521,7 +4521,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alpha
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive name of an individual''s position.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'PositionTitle'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Month, day, and year of the end or termination date of a staff member''s employment, contract, or relationship with the LEA.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'EndDate'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Month, day, and year of the end or termination date of a staff member''s employment, contract, or relationship with the education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'EndDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Describes whether the assignment is this the staff member''s primary assignment, secondary assignment, etc.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'OrderOfAssignment'
 GO
@@ -4540,6 +4540,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the credential.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'CredentialIdentifier'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'StateOfIssueStateAbbreviationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The ratio between the hours of work expected in a position and the hours of work normally expected in a full-time position in the same setting.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationAssignmentAssociation', @level2type=N'COLUMN', @level2name=N'FullTimeEquivalency'
 GO
 
 -- Extended Properties [edfi].[StaffEducationOrganizationContactAssociation] --
@@ -6932,6 +6934,32 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time of day the student arrived for the attendance event in ISO 8601 format.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEvent', @level2type=N'COLUMN', @level2name=N'ArrivalTime'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The time of day the student departed for the attendance event in ISO 8601 format.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEvent', @level2type=N'COLUMN', @level2name=N'DepartureTime'
+GO
+
+-- Extended Properties [edfi].[StudentSectionAttendanceEventClassPeriod] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Class Period(s) to which the Section Attendance Event applies.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A code describing the attendance event, for example:
+        Present
+        Unexcused absence
+        Excused absence
+        Tardy.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod', @level2type=N'COLUMN', @level2name=N'AttendanceEventCategoryDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of the portion of a typical daily session in which students receive instruction in a specified subject (e.g., morning, sixth period, block period, or AB schedules).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod', @level2type=N'COLUMN', @level2name=N'ClassPeriodName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Date for this attendance event.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod', @level2type=N'COLUMN', @level2name=N'EventDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod', @level2type=N'COLUMN', @level2name=N'SchoolId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local identifier assigned to a section.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod', @level2type=N'COLUMN', @level2name=N'SectionIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod', @level2type=N'COLUMN', @level2name=N'SessionName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentSectionAttendanceEventClassPeriod', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 
 -- Extended Properties [edfi].[StudentSpecialEducationProgramAssociation] --

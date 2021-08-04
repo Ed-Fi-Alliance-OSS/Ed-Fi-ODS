@@ -7591,6 +7591,25 @@ CREATE NONCLUSTERED INDEX [FK_StudentSectionAttendanceEvent_Student]
 ON [edfi].[StudentSectionAttendanceEvent] ([StudentUSI] ASC)
 GO
 
+ALTER TABLE [edfi].[StudentSectionAttendanceEventClassPeriod] WITH CHECK ADD CONSTRAINT [FK_StudentSectionAttendanceEventClassPeriod_ClassPeriod] FOREIGN KEY ([ClassPeriodName], [SchoolId])
+REFERENCES [edfi].[ClassPeriod] ([ClassPeriodName], [SchoolId])
+ON UPDATE CASCADE
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSectionAttendanceEventClassPeriod_ClassPeriod]
+ON [edfi].[StudentSectionAttendanceEventClassPeriod] ([ClassPeriodName] ASC, [SchoolId] ASC)
+GO
+
+ALTER TABLE [edfi].[StudentSectionAttendanceEventClassPeriod] WITH CHECK ADD CONSTRAINT [FK_StudentSectionAttendanceEventClassPeriod_StudentSectionAttendanceEvent] FOREIGN KEY ([AttendanceEventCategoryDescriptorId], [EventDate], [LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StudentUSI])
+REFERENCES [edfi].[StudentSectionAttendanceEvent] ([AttendanceEventCategoryDescriptorId], [EventDate], [LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StudentUSI])
+ON DELETE CASCADE
+ON UPDATE CASCADE
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSectionAttendanceEventClassPeriod_StudentSectionAttendanceEvent]
+ON [edfi].[StudentSectionAttendanceEventClassPeriod] ([AttendanceEventCategoryDescriptorId] ASC, [EventDate] ASC, [LocalCourseCode] ASC, [SchoolId] ASC, [SchoolYear] ASC, [SectionIdentifier] ASC, [SessionName] ASC, [StudentUSI] ASC)
+GO
+
 ALTER TABLE [edfi].[StudentSpecialEducationProgramAssociation] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociation_GeneralStudentProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[GeneralStudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
