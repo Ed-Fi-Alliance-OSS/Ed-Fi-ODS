@@ -374,6 +374,7 @@
 <edge source="/ed-fi/citizenshipStatusDescriptors" target="/ed-fi/students"/>
 <edge source="/ed-fi/classPeriods" target="/ed-fi/bellSchedules"/>
 <edge source="/ed-fi/classPeriods" target="/ed-fi/sections"/>
+<edge source="/ed-fi/classPeriods" target="/ed-fi/studentSectionAttendanceEvents"/>
 <edge source="/ed-fi/classroomPositionDescriptors" target="/ed-fi/staffSectionAssociations"/>
 <edge source="/ed-fi/cohorts" target="/ed-fi/staffCohortAssociations"/>
 <edge source="/ed-fi/cohorts" target="/ed-fi/studentCohortAssociations"/>
