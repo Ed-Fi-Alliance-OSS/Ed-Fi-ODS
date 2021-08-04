@@ -18,7 +18,8 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             Builder
                 .AddLocalEducationAgency(2200)
-                .AddSchool(9705, 2200).AddStudent(studentUniqueId)
+                .AddSchool(9705, 2200)
+                .AddStudent(studentUniqueId)
                 .Execute();
 
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
@@ -26,12 +27,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             Builder
                 .AddStudentSchoolAssociation(9705, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
-
-            var expectedTuples = new (int, int)[]
-            {
-                (9705, studentUsi),
-                (2200, studentUsi)
-            };
 
             AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, PersonType.Student);
         }
@@ -42,28 +37,17 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
             Builder
-                .AddSchool(9703).AddStudent(studentUniqueId)
+                .AddSchool(9703)
+                .AddSchool(9704)
+                .AddStudent(studentUniqueId)
                 .Execute();
 
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
                 .AddStudentSchoolAssociation(9703, studentUsi, DateTime.UtcNow.Date)
-                .Execute();
-
-            Builder
-                .AddSchool(9704)
-                .Execute();
-
-            Builder
                 .AddStudentSchoolAssociation(9704, studentUsi, DateTime.UtcNow.Date.AddYears(-1))
                 .Execute();
-
-            var expectedTuples = new (int, int)[]
-            {
-                (9703, studentUsi),
-                (9704, studentUsi)
-            };
 
             AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, PersonType.Student);
         }
@@ -74,7 +58,8 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
             Builder
-                .AddSchool(9701).AddStudent(studentUniqueId)
+                .AddSchool(9701)
+                .AddStudent(studentUniqueId)
                 .Execute();
 
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
@@ -94,7 +79,8 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             Builder
                 .AddSchool(9722)
-                .AddSchool(9702).AddStudent(studentUniqueId)
+                .AddSchool(9702)
+                .AddStudent(studentUniqueId)
                 .Execute();
 
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
@@ -116,20 +102,15 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUniqueId = Guid.NewGuid().ToString("N");
 
             Builder
-                .AddSchool(9703).AddStudent(studentUniqueId)
+                .AddSchool(9703)
+                .AddSchool(9704)
+                .AddStudent(studentUniqueId)
                 .Execute();
 
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
                 .AddStudentSchoolAssociation(9703, studentUsi, DateTime.UtcNow.Date)
-                .Execute();
-
-            Builder
-                .AddSchool(9704)
-                .Execute();
-
-            Builder
                 .AddStudentSchoolAssociation(9704, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
@@ -168,7 +149,8 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             Builder
                 .AddLocalEducationAgency(2200)
-                .AddSchool(9705, 2200).AddStudent(studentUniqueId)
+                .AddSchool(9705, 2200)
+                .AddStudent(studentUniqueId)
                 .Execute();
 
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
@@ -197,7 +179,8 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(2201)
                 .AddLocalEducationAgency(2221)
                 .AddSchool(9706, 2201)
-                .AddSchool(9776, 2221).AddStudent(studentUniqueId)
+                .AddSchool(9776, 2221)
+                .AddStudent(studentUniqueId)
                 .Execute();
 
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
