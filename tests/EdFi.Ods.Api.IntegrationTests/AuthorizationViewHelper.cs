@@ -6,20 +6,16 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using Shouldly;
 
 namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class AuthorizationViewHelper
     {
-        public static void ShouldNotContainDuplicate(IDbConnection connection, PersonType personType,
-            int target, int countValue, params (int, int)[] expectedTuples)
+        public static void ShouldNotContainDuplicate(IDbConnection connection, PersonType personType)
         {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, personType, target);
-
-            actualTuples.Count().ShouldBe(countValue);
-            expectedTuples.ShouldBeSubsetOf(actualTuples);
+            var actualTuples = IsDuplicateRecordExistForAuthorizationView(connection, personType);
+            actualTuples.ShouldBeFalse();
         }
 
         public static void ShouldContainTuples(IDbConnection connection,
@@ -58,16 +54,11 @@ namespace EdFi.Ods.Api.IntegrationTests
             return result;
         }
 
-        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection
-            , PersonType personType, int? target = null)
+        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, PersonType personType)
         {
-            string sql =
-                @$"SELECT SourceEducationOrganizationId, {personType}USI FROM auth.{personType}USIToEducationOrganizationId";
-
-            if (target.HasValue)
-            {
-                sql += @$" WHERE {personType}USI = '{target}';";
-            }
+            var sql = @$"
+                SELECT SourceEducationOrganizationId, {personType}USI 
+                FROM auth.{personType}USIToEducationOrganizationId";
 
             using var command = connection.CreateCommand();
             command.CommandText = sql;
@@ -82,6 +73,19 @@ namespace EdFi.Ods.Api.IntegrationTests
             }
 
             return actualTuples;
+        }
+
+        private static bool IsDuplicateRecordExistForAuthorizationView(IDbConnection connection, PersonType personType)
+        {
+            var sql = @$"
+                SELECT COUNT(*)
+                FROM auth.{personType}USIToEducationOrganizationId 
+                GROUP BY SourceEducationOrganizationId,{personType}USI 
+                HAVING COUNT(*) > 1;";
+
+            using var command = connection.CreateCommand();
+            command.CommandText = sql;
+            return 1 == Convert.ToInt32(command.ExecuteScalar());
         }
     }
 }

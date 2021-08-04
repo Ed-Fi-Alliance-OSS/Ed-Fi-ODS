@@ -33,8 +33,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (2200, studentUsi)
             };
 
-            AuthorizationViewHelper.ShouldNotContainDuplicate(
-                Connection,  PersonType.Student, studentUsi, 2, expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, PersonType.Student);
         }
 
         [Test]
@@ -66,8 +65,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 (9704, studentUsi)
             };
 
-            AuthorizationViewHelper.ShouldNotContainDuplicate(
-                Connection,  PersonType.Student, studentUsi, 2, expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, PersonType.Student);
         }
 
         [Test]
@@ -86,7 +84,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             AuthorizationViewHelper.ShouldContainTuples(
-                Connection,  PersonType.Student, (9701, studentUsi));
+                Connection, PersonType.Student, (9701, studentUsi));
         }
 
         [Test]
@@ -109,7 +107,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var expectedTuples = new[] {(9722, studentUsi)};
 
             AuthorizationViewHelper.ShouldNotContainTuples(
-                Connection,  PersonType.Student, expectedTuples);
+                Connection, PersonType.Student, expectedTuples);
         }
 
         [Test]
@@ -142,7 +140,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             };
 
             AuthorizationViewHelper.ShouldContainTuples(
-                Connection,  PersonType.Student, expectedTuples);
+                Connection, PersonType.Student, expectedTuples);
         }
 
         [Test]
@@ -160,7 +158,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var expectedTuples = new[] {(4500, studentUsi)};
 
             AuthorizationViewHelper.ShouldNotContainTuples(
-                Connection,  PersonType.Student, expectedTuples);
+                Connection, PersonType.Student, expectedTuples);
         }
 
         [Test]
@@ -186,7 +184,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             };
 
             AuthorizationViewHelper.ShouldContainTuples(
-                Connection,  PersonType.Student, expectedTuples);
+                Connection, PersonType.Student, expectedTuples);
         }
 
         [Test]
@@ -215,7 +213,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             };
 
             AuthorizationViewHelper.ShouldNotContainTuples(
-                Connection,  PersonType.Student, expectedTuples);
+                Connection, PersonType.Student, expectedTuples);
         }
     }
 }

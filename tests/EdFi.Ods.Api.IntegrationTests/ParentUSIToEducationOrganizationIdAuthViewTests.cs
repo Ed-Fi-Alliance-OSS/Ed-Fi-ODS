@@ -34,14 +34,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[]
-            {
-                (9805, parentUsi),
-                (5601, parentUsi)
-            };
-
-            AuthorizationViewHelper.ShouldNotContainDuplicate(
-                Connection,  PersonType.Parent, parentUsi, 2, expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, PersonType.Parent);
         }
 
         [Test]
@@ -67,7 +60,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             AuthorizationViewHelper.ShouldContainTuples(
-                Connection,  PersonType.Parent, (9801, parentUsi));
+                Connection, PersonType.Parent, (9801, parentUsi));
         }
 
         [Test]
@@ -96,7 +89,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var expectedTuples = new[] {(9902, parentUsi)};
 
             AuthorizationViewHelper.ShouldNotContainTuples(
-                Connection,  PersonType.Parent, expectedTuples);
+                Connection, PersonType.Parent, expectedTuples);
         }
 
         [Test]
@@ -153,7 +146,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var expectedTuples = new[] {(9899, parentUsi)};
 
             AuthorizationViewHelper.ShouldNotContainTuples(
-                Connection,  PersonType.Parent, expectedTuples);
+                Connection, PersonType.Parent, expectedTuples);
         }
 
         [Test]
@@ -187,7 +180,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             };
 
             AuthorizationViewHelper.ShouldContainTuples(
-                Connection,  PersonType.Parent, expectedTuples);
+                Connection, PersonType.Parent, expectedTuples);
         }
 
         [Test]
@@ -223,7 +216,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             };
 
             AuthorizationViewHelper.ShouldNotContainTuples(
-                Connection,  PersonType.Parent, expectedTuples);
+                Connection, PersonType.Parent, expectedTuples);
         }
 
         [Test]
@@ -265,9 +258,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var expectedTuples = new[] {(9803, parentUsi)};
 
-            AuthorizationViewHelper.ShouldNotContainDuplicate(
-                Connection, 
-                PersonType.Parent, parentUsi, 1, expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, PersonType.Parent);
         }
 
         [Test]
@@ -303,13 +294,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudentParentAssociation(anotherParentUsi, studentUsi)
                 .Execute();
 
-            AuthorizationViewHelper.ShouldNotContainDuplicate(
-                Connection, 
-                PersonType.Parent, parentUsi, 1, new[] {(9803, parentUsi)});
-
-            AuthorizationViewHelper.ShouldNotContainDuplicate(
-                Connection, 
-                PersonType.Parent, anotherParentUsi, 1, new[] {(9803, anotherParentUsi)});
+            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, PersonType.Parent);
         }
     }
 }
