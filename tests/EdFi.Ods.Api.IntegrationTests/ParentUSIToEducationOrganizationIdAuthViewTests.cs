@@ -3,13 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using NUnit.Framework;
 using System;
+using NUnit.Framework;
 
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class ParentUSIToEducationOrganizationIdAuthViewTests : DatabaseTestFixtureBase
+    public class ParentUsiToEducationOrganizationIdAuthViewTests : DatabaseTestFixtureBase
     {
         [Test]
         public void When_parent_assigned_to_a_student_in_school_that_belongs_to_a_district_should_not_return_duplicate_records()
@@ -22,21 +22,26 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9805, 5601).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9805, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9805, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
+            var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
 
             Builder
-                .AddStudentParentAssociation(parentUSI, studentUSI)
+                .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[] { (9805, parentUSI), (5601, parentUSI) };
+            var expectedTuples = new[]
+            {
+                (9805, parentUsi),
+                (5601, parentUsi)
+            };
 
-            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, parentUSI,2, expectedTuples);
+            AuthorizationViewHelper.ShouldNotContainDuplicate(
+                Connection,  PersonType.Parent, parentUsi, 2, expectedTuples);
         }
 
         [Test]
@@ -49,19 +54,20 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9801).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9801, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9801, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
+            var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
 
             Builder
-                .AddStudentParentAssociation(parentUSI, studentUSI)
+                .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
-            AuthorizationViewHelper.ShouldContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, (9801, parentUSI));
+            AuthorizationViewHelper.ShouldContainTuples(
+                Connection,  PersonType.Parent, (9801, parentUsi));
         }
 
         [Test]
@@ -75,21 +81,22 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9802).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9802, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9802, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
+            var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
 
             Builder
-                .AddStudentParentAssociation(parentUSI, studentUSI)
+                .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[] { (9902, parentUSI)};
-            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, expectedTuples);
+            var expectedTuples = new[] {(9902, parentUsi)};
 
+            AuthorizationViewHelper.ShouldNotContainTuples(
+                Connection,  PersonType.Parent, expectedTuples);
         }
 
         [Test]
@@ -102,10 +109,10 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9803).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9803, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9803, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
             Builder
@@ -113,17 +120,22 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             Builder
-                .AddStudentSchoolAssociation(9804, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9804, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
+            var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
 
             Builder
-                .AddStudentParentAssociation(parentUSI, studentUSI)
+                .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
-            AuthorizationViewHelper.ShouldContainTuples(Connection, "ParentUSIToEducationOrganizationId",
-                PersonType.Parent, new[] { (9803, parentUSI), (9804, parentUSI) });
+            AuthorizationViewHelper.ShouldContainTuples(
+                Connection, 
+                PersonType.Parent, new[]
+                {
+                    (9803, parentUsi),
+                    (9804, parentUsi)
+                });
         }
 
         [Test]
@@ -136,42 +148,51 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddParent(parentUniqueId)
                 .Execute();
 
-            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
+            var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
 
-            var expectedTuples = new[] { (9899, parentUSI) };
-            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, expectedTuples);
+            var expectedTuples = new[] {(9899, parentUsi)};
+
+            AuthorizationViewHelper.ShouldNotContainTuples(
+                Connection,  PersonType.Parent, expectedTuples);
         }
 
-
         [Test]
-        public void When_parent_assigned_to_a_student_in_school_that_belongs_to_a_district_should_have_access_from_school_and_district()
+        public void
+            When_parent_assigned_to_a_student_in_school_that_belongs_to_a_district_should_have_access_from_school_and_district()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
             var parentUniqueId = Guid.NewGuid().ToString("N");
 
             Builder
                 .AddLocalEducationAgency(5601)
-                .AddSchool(9805,5601).AddStudent(studentUniqueId).AddParent(parentUniqueId)
+                .AddSchool(9805, 5601).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9805, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9805, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
+            var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
 
             Builder
-                .AddStudentParentAssociation(parentUSI, studentUSI)
+                .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[] { (9805, parentUSI), (5601, parentUSI) };
-            AuthorizationViewHelper.ShouldContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, expectedTuples);
+            var expectedTuples = new[]
+            {
+                (9805, parentUsi),
+                (5601, parentUsi)
+            };
+
+            AuthorizationViewHelper.ShouldContainTuples(
+                Connection,  PersonType.Parent, expectedTuples);
         }
 
         [Test]
-        public void When_parent_assigned_to_a_student_in_school_that_belongs_to_a_district_should_not_have_access_from_another_school_or_district()
+        public void
+            When_parent_assigned_to_a_student_in_school_that_belongs_to_a_district_should_not_have_access_from_another_school_or_district()
         {
             var studentUniqueId = Guid.NewGuid().ToString("N");
             var parentUniqueId = Guid.NewGuid().ToString("N");
@@ -183,20 +204,26 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9806, 5602).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9806, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9806, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
-            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
+            var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
 
             Builder
-                .AddStudentParentAssociation(parentUSI, studentUSI)
+                .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
-            var expectedTuples = new[] { (5692, parentUSI), (9899, parentUSI)};
-            AuthorizationViewHelper.ShouldNotContainTuples(Connection, "ParentUSIToEducationOrganizationId", PersonType.Parent, expectedTuples);
+            var expectedTuples = new[]
+            {
+                (5692, parentUsi),
+                (9899, parentUsi)
+            };
+
+            AuthorizationViewHelper.ShouldNotContainTuples(
+                Connection,  PersonType.Parent, expectedTuples);
         }
 
         [Test]
@@ -209,15 +236,15 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9803).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
-            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+            var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9803, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9803, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
             Builder
-                .AddStudentParentAssociation(parentUSI, studentUSI)
+                .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
             var anotherStudentUniqueId = Guid.NewGuid().ToString("N");
@@ -226,21 +253,22 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddStudent(anotherStudentUniqueId)
                 .Execute();
 
-            var anotherStudentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, anotherStudentUniqueId);
+            var anotherStudentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, anotherStudentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9803, anotherStudentUSI, DateTime.UtcNow.Date.AddYears(-2))
+                .AddStudentSchoolAssociation(9803, anotherStudentUsi, DateTime.UtcNow.Date.AddYears(-2))
                 .Execute();
 
             Builder
-                .AddStudentParentAssociation(parentUSI, anotherStudentUSI)
+                .AddStudentParentAssociation(parentUsi, anotherStudentUsi)
                 .Execute();
 
-            var expectedTuples = new[] { (9803, parentUSI) };
+            var expectedTuples = new[] {(9803, parentUsi)};
 
-            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "ParentUSIToEducationOrganizationId",
-            PersonType.Parent, parentUSI,1, expectedTuples);
-         }
+            AuthorizationViewHelper.ShouldNotContainDuplicate(
+                Connection, 
+                PersonType.Parent, parentUsi, 1, expectedTuples);
+        }
 
         [Test]
         public void When_multiple_parent_assigned_to_a_student_in_a_school_should_have_not_access_duplicate_from_a_school()
@@ -252,15 +280,15 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddSchool(9803).AddStudent(studentUniqueId).AddParent(parentUniqueId)
                 .Execute();
 
-            var parentUSI = AuthorizationViewHelper.GetParentUSI(Connection, parentUniqueId);
-            var studentUSI = AuthorizationViewHelper.GetStudentUSI(Connection, studentUniqueId);
+            var parentUsi = AuthorizationViewHelper.GetParentUsi(Connection, parentUniqueId);
+            var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentSchoolAssociation(9803, studentUSI, DateTime.UtcNow.Date)
+                .AddStudentSchoolAssociation(9803, studentUsi, DateTime.UtcNow.Date)
                 .Execute();
 
             Builder
-                .AddStudentParentAssociation(parentUSI, studentUSI)
+                .AddStudentParentAssociation(parentUsi, studentUsi)
                 .Execute();
 
             var anotherParentUniqueId = Guid.NewGuid().ToString("N");
@@ -269,16 +297,19 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddParent(anotherParentUniqueId)
                 .Execute();
 
-            var anotherParentUSI = AuthorizationViewHelper.GetParentUSI(Connection, anotherParentUniqueId);
+            var anotherParentUsi = AuthorizationViewHelper.GetParentUsi(Connection, anotherParentUniqueId);
 
             Builder
-                .AddStudentParentAssociation(anotherParentUSI, studentUSI)
+                .AddStudentParentAssociation(anotherParentUsi, studentUsi)
                 .Execute();
 
-            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "ParentUSIToEducationOrganizationId",
-                PersonType.Parent, parentUSI, 1, new[] { (9803, parentUSI) });
-            AuthorizationViewHelper.ShouldNotContainDuplicate(Connection, "ParentUSIToEducationOrganizationId",
-                PersonType.Parent, anotherParentUSI, 1, new[] { (9803, anotherParentUSI) });
+            AuthorizationViewHelper.ShouldNotContainDuplicate(
+                Connection, 
+                PersonType.Parent, parentUsi, 1, new[] {(9803, parentUsi)});
+
+            AuthorizationViewHelper.ShouldNotContainDuplicate(
+                Connection, 
+                PersonType.Parent, anotherParentUsi, 1, new[] {(9803, anotherParentUsi)});
         }
     }
 }

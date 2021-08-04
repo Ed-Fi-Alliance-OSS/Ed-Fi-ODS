@@ -3,52 +3,50 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Shouldly;
 
 namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class AuthorizationViewHelper
     {
-
-        public static void ShouldNotContainDuplicate(IDbConnection connection,
-            string viewName, PersonType personType,
+        public static void ShouldNotContainDuplicate(IDbConnection connection, PersonType personType,
             int target, int countValue, params (int, int)[] expectedTuples)
         {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName, personType, target);
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, personType, target);
 
             actualTuples.Count().ShouldBe(countValue);
             expectedTuples.ShouldBeSubsetOf(actualTuples);
         }
 
-        public static void ShouldContainTuples(IDbConnection connection, string viewName,
+        public static void ShouldContainTuples(IDbConnection connection,
             PersonType personType, params (int, int)[] expectedTuples)
         {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName, personType);
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, personType);
             expectedTuples.ShouldBeSubsetOf(actualTuples);
         }
 
-        public static void ShouldNotContainTuples(IDbConnection connection, string viewName,
+        public static void ShouldNotContainTuples(IDbConnection connection,
             PersonType personType, params (int, int)[] expectedTuples)
         {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName, personType);
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, personType);
             expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
         }
 
-        public static int GetStudentUSI(IDbConnection connection, string studentUniqueId)
+        public static int GetStudentUsi(IDbConnection connection, string studentUniqueId)
         {
-            return ExecuteScalar(connection, PersonType.Student, studentUniqueId);
+            return GetPersonUsi(connection, PersonType.Student, studentUniqueId);
         }
 
-        public static int GetParentUSI(IDbConnection connection, string parentUniqueId)
+        public static int GetParentUsi(IDbConnection connection, string parentUniqueId)
         {
-            return ExecuteScalar(connection,PersonType.Parent, parentUniqueId);
+            return GetPersonUsi(connection, PersonType.Parent, parentUniqueId);
         }
 
-        private static int ExecuteScalar(IDbConnection connection, PersonType personType, string target)
+        private static int GetPersonUsi(IDbConnection connection, PersonType personType, string target)
         {
             var sql = $@"SELECT {personType}USI FROM edfi.{personType}
                 WHERE {personType}UniqueId = '{target}';";
@@ -60,10 +58,11 @@ namespace EdFi.Ods.Api.IntegrationTests
             return result;
         }
 
-        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection,
-            string viewName, PersonType personType, int? target = null)
+        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection
+            , PersonType personType, int? target = null)
         {
-            string sql = @$"SELECT SourceEducationOrganizationId, {personType}USI FROM auth.{viewName}";
+            string sql =
+                @$"SELECT SourceEducationOrganizationId, {personType}USI FROM auth.{personType}USIToEducationOrganizationId";
 
             if (target.HasValue)
             {
@@ -76,10 +75,12 @@ namespace EdFi.Ods.Api.IntegrationTests
             using var reader = command.ExecuteReader();
 
             var actualTuples = new List<(int, int)>();
+
             while (reader.Read())
             {
                 actualTuples.Add((reader.GetInt32(0), reader.GetInt32(1)));
             }
+
             return actualTuples;
         }
     }
