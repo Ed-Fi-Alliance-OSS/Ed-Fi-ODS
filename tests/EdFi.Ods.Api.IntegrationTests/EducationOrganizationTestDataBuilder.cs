@@ -274,8 +274,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-
-
         public EducationOrganizationTestDataBuilder AddStudentParentAssociation(int parentUSI, int studentUSI)
         {
             _sql.AppendLine(
