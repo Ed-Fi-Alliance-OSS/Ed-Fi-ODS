@@ -173,7 +173,7 @@ namespace EdFi.Ods.Api.IntegrationTests
            return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddStudentSchoolAssociation(int schoolId, int studentUSI, DateTime? entryDate =null)
+        public EducationOrganizationTestDataBuilder AddStudentSchoolAssociation(int schoolId, int studentUSI, DateTime? entryDate = null)
         {
             if (!entryDate.HasValue)
             {
