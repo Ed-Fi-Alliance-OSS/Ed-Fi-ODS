@@ -278,7 +278,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             _sql.AppendLine(
                  $@"INSERT INTO edfi.StudentParentAssociation (ParentUSI,StudentUSI)
-                VALUES (" + parentUSI + "," + studentUSI + ");");
+                VALUES ({parentUSI}, {studentUSI});");
 
             return this;
         }
