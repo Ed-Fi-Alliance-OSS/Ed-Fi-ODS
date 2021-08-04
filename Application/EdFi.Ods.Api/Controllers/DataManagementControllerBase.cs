@@ -270,17 +270,22 @@ namespace EdFi.Ods.Api.Controllers
             {
                 return BadRequest(ErrorTranslator.GetErrorMessage("Resource identifiers cannot be assigned by the client."));
             }
-            else
-            {
-                result = await PutPipeline.Value.ProcessAsync(
-                    new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState), CancellationToken.None);
-            }
+
+            // Read the If-Match header and populate the resource DTO with an etag value.
+            string etag;
+
+            bool enforceOptimisticLock = Request.TryGetRequestHeader(HeaderConstants.IfMatch, out etag);
+
+            request.ETag = Unquoted(etag);
+
+            result = await PutPipeline.Value.ProcessAsync(
+                new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState), CancellationToken.None);
 
             // Throw an exceptions that occurred for global exception handling
             if (result.Exception != null)
             {
                 Logger.Error("Post", result.Exception);
-                return CreateActionResultFromException(result.Exception);
+                return CreateActionResultFromException(result.Exception, enforceOptimisticLock);
             }
 
             var resourceUri = new Uri($"{GetResourceUrl()}/{result.ResourceId.GetValueOrDefault():n}");
