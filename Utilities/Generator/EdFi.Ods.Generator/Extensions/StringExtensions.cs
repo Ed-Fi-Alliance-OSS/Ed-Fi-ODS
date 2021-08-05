@@ -4,14 +4,16 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Security.Cryptography;
 using System.Text;
+using EdFi.Ods.Generator.Database.NamingConventions;
 
 namespace EdFi.Ods.Generator.Extensions
 {
     public static class StringExtensions
     {
-        private static SHA256 _hasher = SHA256.Create();
+        private static readonly SHA256 Hasher = SHA256.Create();
         
         public static string Truncate(this string text, int length)
         {
@@ -23,9 +25,10 @@ namespace EdFi.Ods.Generator.Extensions
             return text;
         }
 
-        public static string PrefixWith(this string text, string prefix)
+        public static string ApplyPrefix(this string text, string prefix)
         {
-            if (string.IsNullOrEmpty(text))
+            // If text is empty/null, or is already prefixed with the supplied prefix, return now
+            if (string.IsNullOrEmpty(text) || text.StartsWith(prefix))
             {
                 return text;
             }
@@ -33,31 +36,56 @@ namespace EdFi.Ods.Generator.Extensions
             return prefix + text;
         }
 
-        public static string ApplyLongNameConvention(this string rawName, string suffixToPreserve = null, int maxLength = 128)
+        public static string ApplyLongNameConvention(this PhysicalNameParts physicalNameParts, bool lowerCaseNames = false, int maxLength = 128)
         {
+            if (string.IsNullOrEmpty(physicalNameParts?.Name))
+            {
+                return null;
+            }
+            
+            string rawName = physicalNameParts.ToString();
+            
             if (rawName.Length <= maxLength)
             {
-                return rawName;
+                return lowerCaseNames ? rawName.ToLower() : rawName;
             }
 
-            var hash = _hasher.ComputeHash(Encoding.UTF8.GetBytes(rawName));
-            var hashText = BitConverter.ToString(hash).Replace("-", string.Empty).Substring(0, 6).ToLower();
+            return FinalNameByArgs.GetOrAdd(
+                (rawName, lowerCaseNames, maxLength),
+                tuple =>
+                {
+                    var (rn, toLower, length) = tuple;
+                    
+                    var truncatedHash = GetTruncatedHash(physicalNameParts.Name);
 
-            if (suffixToPreserve == null)
-            {
-                return rawName.Substring(0, maxLength - 6) + hashText;
-            }
+                    var hashPart =
+                        $"_{truncatedHash}{(string.IsNullOrEmpty(physicalNameParts.Suffix) || physicalNameParts.Suffix.StartsWith("_") ? string.Empty : "_")}";
 
-            if (!rawName.EndsWith(suffixToPreserve))
-            {
-                throw new ArgumentException($"'{rawName}' does not end with supplied suffix '{suffixToPreserve}'.");
-            }
+                    int shortenedNameLength = maxLength
+                        - (physicalNameParts.Prefix?.Length ?? 0)
+                        - (physicalNameParts.Suffix?.Length ?? 0)
+                        - hashPart.Length;
 
-            var coreText = rawName.TrimSuffix(suffixToPreserve);
+                    var shortenedNamePart = physicalNameParts.Name.Substring(0, shortenedNameLength);
 
-            return coreText.Substring(0, maxLength - suffixToPreserve.Length - 6) + hashText + suffixToPreserve;
+                    var finalName = $"{physicalNameParts.Prefix}{shortenedNamePart}{hashPart}{physicalNameParts.Suffix}";
+                    
+                    return toLower ? finalName.ToLower() : finalName;
+                });
         }
 
+        private static string GetTruncatedHash(string text)
+        {
+            var hash = Hasher.ComputeHash(Encoding.UTF8.GetBytes(text));
+
+            var truncatedHash = BitConverter.ToString(hash).Replace("-", string.Empty).Substring(0, 6).ToLower();
+
+            return truncatedHash;
+        }
+
+        private static readonly ConcurrentDictionary<(string, bool, int), string> FinalNameByArgs =
+            new ConcurrentDictionary<(string, bool, int), string>();
+        
         public static bool TryTrimSuffix(this string text, string suffix, out string trimmedText)
         {
             trimmedText = null;

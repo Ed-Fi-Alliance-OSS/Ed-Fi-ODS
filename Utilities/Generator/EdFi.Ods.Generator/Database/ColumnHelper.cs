@@ -6,7 +6,7 @@ using EdFi.Ods.Generator.Database.TemplateModelProviders;
 
 namespace EdFi.Ods.Generator.Database
 {
-    public class ColumnHelper
+    public static class ColumnHelper
     {
         public static Column CreateDiscriminatorColumn(IDatabaseNamingConvention databaseNamingConvention, IDatabaseTypeTranslator databaseTypeTranslator) => new Column
         {

@@ -20,6 +20,6 @@ namespace EdFi.Ods.Generator.Rendering
 
         public string OutputPath { get; set; }
 
-        public IDictionary<string, string> Properties { get; set; }
+        public IDictionary<string, string> Conditions { get; set; }
     }
 }
