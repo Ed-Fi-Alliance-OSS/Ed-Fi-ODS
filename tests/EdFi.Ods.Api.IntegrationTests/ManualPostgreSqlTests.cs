@@ -3,9 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Data;
 using Npgsql;
 using NUnit.Framework;
-using System.Data;
 
 namespace EdFi.Ods.Api.IntegrationTests
 {
@@ -23,7 +23,8 @@ namespace EdFi.Ods.Api.IntegrationTests
             return connection;
         }
 
-        [TestFixture, Explicit]
+        [TestFixture]
+        [Explicit]
         public class PostgreSqlEducationOrganizationTests : EducationOrganizationTests
         {
             protected override IDbConnection BuildTestConnection()
@@ -32,7 +33,8 @@ namespace EdFi.Ods.Api.IntegrationTests
             }
         }
 
-        [TestFixture, Explicit]
+        [TestFixture]
+        [Explicit]
         public class PostgreSqlSchoolTests : SchoolTests
         {
             protected override IDbConnection BuildTestConnection()
@@ -41,8 +43,9 @@ namespace EdFi.Ods.Api.IntegrationTests
             }
         }
 
-        [TestFixture, Explicit]
-        public class PostgreSqlStudentUSIToEducationOrganizationIdAuthViewTests : StudentUSIToEducationOrganizationIdAuthViewTests
+        [TestFixture]
+        [Explicit]
+        public class PostgreSqlStudentUsiToEducationOrganizationIdAuthViewTests : StudentUsiToEducationOrganizationIdAuthViewTests
         {
             protected override IDbConnection BuildTestConnection()
             {
@@ -50,5 +53,14 @@ namespace EdFi.Ods.Api.IntegrationTests
             }
         }
 
+        [TestFixture]
+        [Explicit]
+        public class PostgreSqlParentUsiToEducationOrganizationIdAuthViewTests : ParentUsiToEducationOrganizationIdAuthViewTests
+        {
+            protected override IDbConnection BuildTestConnection()
+            {
+                return BuildPostgreSqlConnection();
+            }
+        }
     }
 }

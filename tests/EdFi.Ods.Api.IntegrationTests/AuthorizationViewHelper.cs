@@ -3,40 +3,61 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using Shouldly;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Shouldly;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class AuthorizationViewHelper
     {
-
-        private static bool QueryAuthorizationByViewName(IDbConnection connection, string  viewName)
+        public static void ShouldNotContainDuplicate(IDbConnection connection, PersonType personType)
         {
-            string subSql = "";
-            if(viewName.Equals("StudentUSIToEducationOrganizationId",StringComparison.OrdinalIgnoreCase))
-            {
-                subSql= " GROUP BY SourceEducationOrganizationId,studentUSI  HAVING COUNT(*)> 1;";
-            }
-            else if (viewName.Equals("ParentUSIToEducationOrganizationId", StringComparison.OrdinalIgnoreCase))
-            {
-                subSql = " GROUP BY SourceEducationOrganizationId,ParentUSI  HAVING COUNT(*)> 1;";
-            }
-
-            var sql = @$"
-                SELECT COUNT(*)
-                FROM auth." + viewName + subSql;
-            using var command = connection.CreateCommand();
-            command.CommandText = sql;
-            return 1 == Convert.ToInt32(command.ExecuteScalar());
+            var actualTuples = IsDuplicateRecordExistForAuthorizationView(connection, personType);
+            actualTuples.ShouldBeFalse();
         }
 
-        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, string viewName)
+        public static void ShouldContainTuples(IDbConnection connection,
+            PersonType personType, params (int, int)[] expectedTuples)
         {
-            var sql = @"
-                SELECT SourceEducationOrganizationId, StudentUSI
-                FROM auth." + viewName + ";";
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, personType);
+            expectedTuples.ShouldBeSubsetOf(actualTuples);
+        }
+
+        public static void ShouldNotContainTuples(IDbConnection connection,
+            PersonType personType, params (int, int)[] expectedTuples)
+        {
+            var actualTuples = GetExistingRecordsInAuthorizationView(connection, personType);
+            expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
+        }
+
+        public static int GetStudentUsi(IDbConnection connection, string studentUniqueId)
+        {
+            return GetPersonUsi(connection, PersonType.Student, studentUniqueId);
+        }
+
+        public static int GetParentUsi(IDbConnection connection, string parentUniqueId)
+        {
+            return GetPersonUsi(connection, PersonType.Parent, parentUniqueId);
+        }
+
+        private static int GetPersonUsi(IDbConnection connection, PersonType personType, string target)
+        {
+            var sql = $@"SELECT {personType}USI FROM edfi.{personType}
+                WHERE {personType}UniqueId = '{target}';";
+
+            using var command = connection.CreateCommand();
+            command.CommandText = sql;
+            var result = Convert.ToInt32(command.ExecuteScalar());
+
+            return result;
+        }
+
+        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, PersonType personType)
+        {
+            var sql = @$"
+                SELECT SourceEducationOrganizationId, {personType}USI 
+                FROM auth.{personType}USIToEducationOrganizationId";
 
             using var command = connection.CreateCommand();
             command.CommandText = sql;
@@ -44,31 +65,26 @@ namespace EdFi.Ods.Api.IntegrationTests
             using var reader = command.ExecuteReader();
 
             var actualTuples = new List<(int, int)>();
+
             while (reader.Read())
             {
                 actualTuples.Add((reader.GetInt32(0), reader.GetInt32(1)));
             }
+
             return actualTuples;
         }
 
-
-        public static void ShouldNotContainDuplicate(IDbConnection connection, string viewName)
+        private static bool IsDuplicateRecordExistForAuthorizationView(IDbConnection connection, PersonType personType)
         {
-            var actualTuples = QueryAuthorizationByViewName(connection,viewName);
-            actualTuples.ShouldBeFalse();
-        }
+            var sql = @$"
+                SELECT COUNT(*)
+                FROM auth.{personType}USIToEducationOrganizationId 
+                GROUP BY SourceEducationOrganizationId,{personType}USI 
+                HAVING COUNT(*) > 1;";
 
-        public static void ShouldContainTuples(IDbConnection connection, string viewName, params (int, int)[] expectedTuples)
-        {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName);
-            expectedTuples.ShouldBeSubsetOf(actualTuples);
+            using var command = connection.CreateCommand();
+            command.CommandText = sql;
+            return 1 == Convert.ToInt32(command.ExecuteScalar());
         }
-
-        public static void ShouldNotContainTuples(IDbConnection connection, string viewName, params (int, int)[] expectedTuples)
-        {
-            var actualTuples = GetExistingRecordsInAuthorizationView(connection, viewName);
-            expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
-        }
-
     }
 }

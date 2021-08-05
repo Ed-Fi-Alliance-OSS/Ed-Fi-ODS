@@ -173,9 +173,14 @@ namespace EdFi.Ods.Api.IntegrationTests
            return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddStudentSchoolAssociation(int schoolId, int studentUSI, int gradeLevelDescriptorId)
+        public EducationOrganizationTestDataBuilder AddStudentSchoolAssociation(int schoolId, int studentUSI, DateTime? entryDate = null)
         {
-           _sql.AppendLine(
+            if (!entryDate.HasValue)
+            {
+                entryDate = DateTime.UtcNow.Date;
+            }
+
+            _sql.AppendLine(
                 $@"INSERT INTO edfi.StudentSchoolAssociation (
                     SchoolId,
                     StudentUSI,
@@ -184,22 +189,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                 VALUES (
                     {schoolId},
                     {studentUSI},
-                    '{DateTime.UtcNow.Date}',
-                    {gradeLevelDescriptorId});"
+                    '{entryDate}',
+                    {TestGradeLevelDescriptorId});"
             );
 
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder GetStudentUSI(string studentUniqueId)
-        {
-            _sql.AppendLine(
-                $@"SELECT StudentUSI FROM edfi.Student
-                WHERE StudentUniqueId = '{studentUniqueId}';"
-             );
-
-            return this;
-        }
 
         public EducationOrganizationTestDataBuilder UpdateSchool(int schoolId, int? localEducationAgencyId = null)
         {
@@ -262,6 +258,31 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
+        public EducationOrganizationTestDataBuilder AddParent(string newGuidId)
+        {
+            _sql.AppendLine(
+                $@"INSERT INTO edfi.Parent (
+                    FirstName,
+                    LastSurname,
+                    ParentUniqueId)
+                VALUES(
+                    '{newGuidId}',
+                    '{newGuidId}',
+                    '{newGuidId}');"
+            );
+
+            return this;
+        }
+
+        public EducationOrganizationTestDataBuilder AddStudentParentAssociation(int parentUSI, int studentUSI)
+        {
+            _sql.AppendLine(
+                 $@"INSERT INTO edfi.StudentParentAssociation (ParentUSI,StudentUSI)
+                VALUES ({parentUSI}, {studentUSI});");
+
+            return this;
+        }
+
         private string ToSqlValue<T>(T? input) where T : struct
         {
             return input.HasValue
@@ -274,16 +295,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             using var command = Connection.CreateCommand();
             command.CommandText = _sql.ToString();
             var result = command.ExecuteNonQuery();
-
-            _sql.Clear();
-            return result;
-        }
-
-        public int ExecuteScalar()
-        {
-            using var command = Connection.CreateCommand();
-            command.CommandText = _sql.ToString();
-            var result = Convert.ToInt32(command.ExecuteScalar());
 
             _sql.Clear();
             return result;
