@@ -14,10 +14,10 @@ namespace EdFi.Ods.Generator.Database.Engines.PostgreSql
     {
         public void Initialize(ContainerBuilder containerBuilder)
         {
-            containerBuilder.RegisterType<PostgresDatabaseTypeTranslator>()
+            containerBuilder.RegisterType<PostgreSqlDatabaseTypeTranslator>()
                 .Keyed<IDatabaseTypeTranslator>(DatabaseEngine.PostgreSql);
 
-            containerBuilder.RegisterType<PostgresDatabaseNamingConvention>()
+            containerBuilder.RegisterType<PostgreSqlDatabaseNamingConvention>()
                 .Keyed<IDatabaseNamingConvention>(DatabaseEngine.PostgreSql);
         }
     }

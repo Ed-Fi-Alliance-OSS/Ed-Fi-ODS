@@ -29,6 +29,10 @@ namespace EdFi.Ods.Generator.Database
             containerBuilder.RegisterType<DatabaseNamingConventionFactory>()
                 .As<IDatabaseNamingConventionFactory>();
             
+            // Render Property enhancement
+            containerBuilder.RegisterType<DatabaseRenderingPropertiesEnhancer>()
+                .As<IRenderingPropertiesEnhancer>();
+            
             // Domain model components
             containerBuilder.RegisterType<ModelPathsDomainDefinitionsProviderSource>()
                 .As<IDomainModelDefinitionsProviderSource>();

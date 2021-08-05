@@ -10,7 +10,7 @@ using EdFi.Ods.Generator.Database.DataTypes;
 
 namespace EdFi.Ods.Generator.Database.Engines.PostgreSql
 {
-    public class PostgresDatabaseTypeTranslator : IDatabaseTypeTranslator
+    public class PostgreSqlDatabaseTypeTranslator : IDatabaseTypeTranslator
     {
         public string GetSysType(string sqlType)
         {
@@ -240,6 +240,83 @@ namespace EdFi.Ods.Generator.Database.Engines.PostgreSql
             }
         }
 
-        public string GetSqlType(PropertyType propertyType) => throw new NotImplementedException();
+        public string GetSqlType(PropertyType propertyType)
+        {
+            switch (propertyType.DbType)
+            {
+                case DbType.Int64:
+                    return "int8";
+
+                case DbType.Binary:
+                    return "bytea";
+
+                case DbType.Boolean:
+                    return "boolean";
+
+                case DbType.AnsiStringFixedLength:
+                case DbType.StringFixedLength:
+
+                    if (propertyType.MaxLength > 0)
+                    {
+                        return $"char({propertyType.MaxLength})";
+                    }
+                    
+                    return "text";
+
+                case DbType.AnsiString:
+                case DbType.String:
+
+                    if (propertyType.MaxLength > 0)
+                    {
+                        return $"varchar({propertyType.MaxLength})";
+                    }
+                    
+                    return "text";
+
+                case DbType.Date:
+                    return "date";
+
+                case DbType.DateTime:
+                    return "timestamp";
+
+                case DbType.DateTime2:
+                    return "timestamp";
+
+                // case DbType.DateTimeOffset:
+                //     return "datetimeoffset";
+
+                case DbType.Time:
+                    return "time";
+
+                case DbType.Currency:
+                    return "money";
+
+                case DbType.Decimal:
+                    return $"decimal({propertyType.Precision},{propertyType.Scale})";
+
+                // or money, smallmoney
+
+                case DbType.Double:
+                    return "double precision";
+
+                case DbType.Int32:
+                    return "integer";
+
+                case DbType.Int16:
+                case DbType.Byte:
+                    return "smallint";
+
+                case DbType.Guid:
+                    return "uuid";
+
+                case DbType.Xml:
+                    return "xml";
+
+                default:
+
+                    throw new NotSupportedException(
+                        $"PostgreSQL type mapping from 'DbType.{propertyType.DbType}' is not supported.");
+            }
+        }
     }
 }
