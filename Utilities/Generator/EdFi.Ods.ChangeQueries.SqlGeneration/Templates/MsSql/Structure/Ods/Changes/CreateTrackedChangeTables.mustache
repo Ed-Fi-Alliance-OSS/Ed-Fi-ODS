@@ -25,9 +25,9 @@ CREATE TABLE [tracked_changes_{{Schema}}].[{{TableName}}]
        ChangeVersion bigint NOT NULL,
     {{#DiscriminatorColumn}}
        {{ColumnName}} {{DataType}} {{#IsNullable}}NULL{{/IsNullable}}{{^IsNullable}} NOT NULL{{/IsNullable}},
-    {{/DiscriminatorColumn}},
+    {{/DiscriminatorColumn}}
        CreateDate DateTime2 NOT NULL DEFAULT (getutcdate()),
-       CONSTRAINT {{TableName}}_PK PRIMARY KEY CLUSTERED (ChangeVersion)
+       CONSTRAINT {{PrimaryKeyConstraintName}} PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
         {{/IsDerived}}

@@ -1,75 +1,75 @@
 {
   "Renderings": [
     {
-      "Template": "MsSql.Structure.Ods.Changes.DropTrackedDeleteTables",
+      "Template": "{{DatabaseEngineCode}}.Structure.Ods.Changes.DropTrackedDeleteTables",
       "ModelProvider": "Database",
-      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0004-DropTrackedDeleteTables-NEW.sql",
-      "Properties": {
-        "DatabaseEngine": "sqlServer"
+      "OutputPath": "{{DatabaseEngineCode}}\\Structure\\Ods\\Changes\\0004-DropTrackedDeleteTables-NEW.sql",
+      "Conditions": {
+        "DatabaseEngine": "(SqlServer|PostgreSql)"
       }
     },
     {
-      "Template": "MsSql.Structure.Ods.Changes.DropTrackedDeleteSchema",
+      "Template": "{{DatabaseEngineCode}}.Structure.Ods.Changes.DropTrackedDeleteSchema",
       "ModelProvider": "Database",
-      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0005-DropTrackedDeleteSchema-NEW.sql",
-      "Properties": {
-        "DatabaseEngine": "sqlServer"
+      "OutputPath": "{{DatabaseEngineCode}}\\Structure\\Ods\\Changes\\0005-DropTrackedDeleteSchema-NEW.sql",
+      "Conditions": {
+        "DatabaseEngine": "(SqlServer|PostgreSql)"
       }
     },
     {
-      "Template": "MsSql.Structure.Ods.Changes.CreateChangesSchema",
+      "Template": "{{DatabaseEngineCode}}.Structure.Ods.Changes.CreateChangesSchema",
       "ModelProvider": "CreateChangesSchema",
-      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0010-CreateChangesSchema-NEW.sql",
-      "Properties": {
-        "DatabaseEngine": "sqlServer"
+      "OutputPath": "{{DatabaseEngineCode}}\\Structure\\Ods\\Changes\\0010-CreateChangesSchema-NEW.sql",
+      "Conditions": {
+        "DatabaseEngine": "(SqlServer|PostgreSql)"
       }
     },
     {
-      "Template": "MsSql.Structure.Ods.Changes.CreateChangeVersionSequence",
+      "Template": "{{DatabaseEngineCode}}.Structure.Ods.Changes.CreateChangeVersionSequence",
       "ModelProvider": "CreateChangesSchema",
-      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0020-CreateChangeVersionSequence-NEW.sql",
-      "Properties": {
-        "DatabaseEngine": "sqlServer"
+      "OutputPath": "{{DatabaseEngineCode}}\\Structure\\Ods\\Changes\\0020-CreateChangeVersionSequence-NEW.sql",
+      "Conditions": {
+        "DatabaseEngine": "(SqlServer|PostgreSql)"
       }
     },
     {
-      "Template": "MsSql.Structure.Ods.Changes.AddColumnChangeVersionForTables",
+      "Template": "{{DatabaseEngineCode}}.Structure.Ods.Changes.AddColumnChangeVersionForTables",
       "ModelProvider": "Database",
-      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0030-AddColumnChangeVersionForTables-NEW.sql",
-      "Properties": {
-        "DatabaseEngine": "sqlServer"
+      "OutputPath": "{{DatabaseEngineCode}}\\Structure\\Ods\\Changes\\0030-AddColumnChangeVersionForTables-NEW.sql",
+      "Conditions": {
+        "DatabaseEngine": "(SqlServer|PostgreSql)"
       }
     },
     {
-      "Template": "MsSql.Structure.Ods.Changes.CreateTrackedChangeTables",
+      "Template": "{{DatabaseEngineCode}}.Structure.Ods.Changes.CreateTrackedChangeTables",
       "ModelProvider": "Database",
-      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0035-CreateTrackedChangeTables-NEW.sql",
-      "Properties": {
-        "DatabaseEngine": "sqlServer"
+      "OutputPath": "{{DatabaseEngineCode}}\\Structure\\Ods\\Changes\\0035-CreateTrackedChangeTables-NEW.sql",
+      "Conditions": {
+        "DatabaseEngine": "(SqlServer|PostgreSql)"
       }
     },
     {
-      "Template": "MsSql.Structure.Ods.Changes.CreateTriggerUpdateChangeVersionGenerator",
+      "Template": "{{DatabaseEngineCode}}.Structure.Ods.Changes.CreateTriggerUpdateChangeVersionGenerator",
       "ModelProvider": "Database",
-      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0040-CreateTriggerUpdateChangeVersionGenerator-NEW.sql",
-      "Properties": {
-        "DatabaseEngine": "sqlServer"
+      "OutputPath": "{{DatabaseEngineCode}}\\Structure\\Ods\\Changes\\0040-CreateTriggerUpdateChangeVersionGenerator-NEW.sql",
+      "Conditions": {
+        "DatabaseEngine": "(SqlServer|PostgreSql)"
       }
     },
     {
-      "Template": "MsSql.Structure.Ods.Changes.CreateDeletedForTrackingTriggers",
+      "Template": "{{DatabaseEngineCode}}.Structure.Ods.Changes.CreateDeletedForTrackingTriggers",
       "ModelProvider": "Database",
-      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0060-CreateDeletedForTrackingTriggers-NEW.sql",
-      "Properties": {
-        "DatabaseEngine": "sqlServer"
+      "OutputPath": "{{DatabaseEngineCode}}\\Structure\\Ods\\Changes\\0060-CreateDeletedForTrackingTriggers-NEW.sql",
+      "Conditions": {
+        "DatabaseEngine": "(SqlServer|PostgreSql)"
       }
     },
     {
-      "Template": "MsSql.Structure.Ods.Changes.AddIndexChangeVersionForTables",
+      "Template": "{{DatabaseEngineCode}}.Structure.Ods.Changes.AddIndexChangeVersionForTables",
       "ModelProvider": "Database",
-      "OutputPath": "MsSql\\Structure\\Ods\\Changes\\0070-AddIndexChangeVersionForTables-NEW.sql",
-      "Properties": {
-        "DatabaseEngine": "sqlServer"
+      "OutputPath": "{{DatabaseEngineCode}}\\Structure\\Ods\\Changes\\0070-AddIndexChangeVersionForTables-NEW.sql",
+      "Conditions": {
+        "DatabaseEngine": "(SqlServer|PostgreSql)"
       }
     }
   ]
