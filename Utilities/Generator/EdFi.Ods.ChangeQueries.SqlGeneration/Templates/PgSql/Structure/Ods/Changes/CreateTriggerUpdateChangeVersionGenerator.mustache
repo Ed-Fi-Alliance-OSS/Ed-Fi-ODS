@@ -1,0 +1,59 @@
+-- SPDX-License-Identifier: Apache-2.0
+-- Licensed to the Ed-Fi Alliance under one or more agreements.
+-- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+-- See the LICENSE and NOTICES files in the project root for more information.
+
+DO $$
+BEGIN
+{{#Tables}}
+    {{#IsAggregateRoot}}
+        {{^IsDerived}}
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = '{{Schema}}' AND event_object_table = '{{TableName}}') THEN
+    CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON {{Schema}}.{{TableName}}
+        FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
+{{#KeyValuesCanChange}}
+CREATE OR REPLACE FUNCTION tracked_changes_{{Schema}}.{{#ChangeQueries}}{{KeyChangeFunctionName}}{{/ChangeQueries}}()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+{{#Joins}}
+    d{{JoinAlias}} {{Schema}}.{{TableName}}%ROWTYPE;
+{{/Joins}}
+{{#Joins}}
+    i{{JoinAlias}} {{Schema}}.{{TableName}}%ROWTYPE;
+{{/Joins}}
+BEGIN
+{{#Joins}}
+    SELECT INTO d{{JoinAlias}} * FROM {{Schema}}.{{TableName}} {{JoinAlias}} WHERE {{OtherJoinColumnName}} = old.{{ThisJoinColumnName}};
+{{/Joins}}
+{{#Joins}}
+    SELECT INTO i{{JoinAlias}} * FROM {{Schema}}.{{TableName}} {{JoinAlias}} WHERE {{OtherJoinColumnName}} = new.{{ThisJoinColumnName}};
+{{/Joins}}
+
+    -- Handle key changes
+    INSERT INTO tracked_changes_{{Schema}}.{{TableName}}(
+        {{#ChangeDataColumns}}old{{ColumnName}}, {{/ChangeDataColumns}}
+        {{#ChangeDataColumns}}new{{ColumnName}}, {{/ChangeDataColumns}}
+        id, {{#HasDiscriminator}}discriminator, {{/HasDiscriminator}}changeversion)
+    VALUES( 
+        {{#ChangeDataColumns}}{{#SelectExpression}}d{{SelectExpression}}{{/SelectExpression}}{{^SelectExpression}}old.{{ColumnName}}{{/SelectExpression}}, {{/ChangeDataColumns}}
+        {{#ChangeDataColumns}}{{#SelectExpression}}i{{SelectExpression}}{{/SelectExpression}}{{^SelectExpression}}new.{{ColumnName}}{{/SelectExpression}}, {{/ChangeDataColumns}}
+        old.id, {{#HasDiscriminator}}d.discriminator, {{/HasDiscriminator}}(nextval('changes.changeversionsequence')));
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = '{{Schema}}' AND event_object_table = '{{TableName}}') THEN
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF {{#PrimaryKeyColumns}}{{^IsFirst}}, {{/IsFirst}}{{ColumnName}}{{/PrimaryKeyColumns}} ON {{Schema}}.{{TableName}}
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_{{Schema}}.{{#ChangeQueries}}{{KeyChangeFunctionName}}{{/ChangeQueries}}();
+END IF;
+
+{{/KeyValuesCanChange}}
+        {{/IsDerived}}
+    {{/IsAggregateRoot}}
+{{/Tables}}
+END
+$$;
