@@ -297,6 +297,17 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
+        public EducationOrganizationTestDataBuilder UpdateOrganizationDepartment(int organizationDepartmentId, int? parentEducationOrganizationId = null)
+        {
+            _sql.AppendLine(
+                $@"UPDATE edfi.OrganizationDepartment SET
+                    ParentEducationOrganizationId = {ToSqlValue(parentEducationOrganizationId)}
+                WHERE OrganizationDepartmentId = {organizationDepartmentId};"
+            );
+
+            return this;
+        }
+
         public EducationOrganizationTestDataBuilder AddCommunityOrganization(int communityOrganizationId)
         {
             AddEducationOrganization(communityOrganizationId, nameof(CommunityOrganization));
