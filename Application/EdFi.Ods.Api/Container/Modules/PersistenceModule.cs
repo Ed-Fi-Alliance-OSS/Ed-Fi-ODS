@@ -64,7 +64,7 @@ namespace EdFi.Ods.Api.Container.Modules
                             int expirationPeriod =
                                 configuration.GetValue<int?>("Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
 
-                            return new ExpiringConcurrentDictionaryCacheProvider(new TimeSpan(expirationPeriod));
+                            return new ExpiringConcurrentDictionaryCacheProvider(TimeSpan.FromSeconds(expirationPeriod));
                         }))
                 .As<IDescriptorsCache>()
                 .SingleInstance();
@@ -151,7 +151,7 @@ namespace EdFi.Ods.Api.Container.Modules
                             int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:SlidingExpirationSeconds") ??
                                          14400;
 
-                            return new TimeSpan(period);
+                            return TimeSpan.FromSeconds(period);
                         }))
                 .WithParameter(
                     new ResolvedParameter(
@@ -163,7 +163,7 @@ namespace EdFi.Ods.Api.Container.Modules
                             int period = configuration.GetValue<int?>("Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ??
                                          86400;
 
-                            return new TimeSpan(period);
+                            return TimeSpan.FromSeconds(period);
                         }))
                 .As<IPersonUniqueIdToUsiCache>()
                 .SingleInstance();
