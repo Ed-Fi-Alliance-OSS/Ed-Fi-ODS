@@ -25,7 +25,7 @@ namespace EdFi.Ods.Generator.Rendering
 
             if (renderingsManifestStream == null)
             {
-                _logger.Warn($@"No 'renderings.settings' file was found in plugin assembly '{pluginAssembly.FullName}'.");
+                _logger.Debug($@"No 'renderings.settings' file was found in plugin assembly '{pluginAssembly.FullName}'.");
 
                 return new Rendering[0];
             }
