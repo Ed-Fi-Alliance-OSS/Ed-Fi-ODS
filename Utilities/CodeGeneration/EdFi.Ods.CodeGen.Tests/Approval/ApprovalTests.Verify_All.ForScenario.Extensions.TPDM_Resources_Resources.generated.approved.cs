@@ -2068,7 +2068,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ApplicantProfile.TPDM
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -13116,7 +13116,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -45027,7 +45027,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.OpenStaffPosition.EdFi.Extensions
         /// The ratio between the hours of work expected in a position and the hours of work normally expected in a full-time position in the same setting.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="fullTimeEquivalency")][Range(typeof(decimal), "-9.99", "9.99")]
+        [DataMember(Name="fullTimeEquivalency")][Range(typeof(decimal), "-9.9999", "9.9999")]
         public decimal? FullTimeEquivalency { get; set; }
 
         /// <summary>
@@ -51549,7 +51549,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ProfessionalDevelopmentEventAtten
         // -------------------------------------------------------------
 
         /// <summary>
-        /// A code describing the attendance event, for example:       Present       Unexcused absence       Excused absence       Tardy.
+        /// A code describing the attendance event, for example:        Present        Unexcused absence        Excused absence        Tardy.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="attendanceEventCategoryDescriptor")]
