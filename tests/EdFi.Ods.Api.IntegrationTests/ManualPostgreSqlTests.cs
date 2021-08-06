@@ -82,5 +82,15 @@ namespace EdFi.Ods.Api.IntegrationTests
                 return BuildPostgreSqlConnection();
             }
         }
+
+        [TestFixture]
+        [Explicit]
+        public class PostgreOrganizationDepartmentTests : OrganizationDepartmentTests
+        {
+            protected override IDbConnection BuildTestConnection()
+            {
+                return BuildPostgreSqlConnection();
+            }
+        }
     }
 }
