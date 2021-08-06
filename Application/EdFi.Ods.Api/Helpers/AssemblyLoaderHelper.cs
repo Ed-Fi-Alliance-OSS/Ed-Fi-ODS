@@ -67,7 +67,18 @@ namespace EdFi.Ods.Api.Helpers
                     .Where(fi => ShouldLoad(fi.Name, loadedByAssemblyName, includeFramework)))
                 {
                     _logger.Debug($"{assemblyFilesToLoad.Name}");
-                    Assembly.LoadFrom(assemblyFilesToLoad.FullName);
+
+                    try
+                    {
+                        var assemblyName = AssemblyName.GetAssemblyName(assemblyFilesToLoad.FullName);
+                        
+                        Assembly.LoadFrom(assemblyFilesToLoad.FullName);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error($"Unable to load assembly {assemblyFilesToLoad.FullName}", ex);
+                        throw;
+                    }
                 }
             }
         }
@@ -109,7 +120,10 @@ namespace EdFi.Ods.Api.Helpers
                    && !assemblyName.StartsWithIgnoreCase("Newtonsoft.")
                    && assemblyName != "netstandard"
                    && !assemblyName.StartsWithIgnoreCase("Autofac")
-                   && !assemblyName.StartsWithIgnoreCase("nunit");
+                   && !assemblyName.StartsWithIgnoreCase("nunit")
+                   // Additional assembly included based on target runtime during publish
+                   // Needed by System.Data.SqlClient, which is used by Entity Framework
+                   && assemblyName != "sni.dll";
         }
 
         public static IEnumerable<string> FindPluginAssemblies(string pluginFolder, bool includeFramework = false)
