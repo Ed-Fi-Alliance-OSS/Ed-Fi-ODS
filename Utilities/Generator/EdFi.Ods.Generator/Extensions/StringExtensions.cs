@@ -74,7 +74,7 @@ namespace EdFi.Ods.Generator.Extensions
                 });
         }
 
-        private static string GetTruncatedHash(string text)
+        public static string GetTruncatedHash(this string text)
         {
             var hash = Hasher.ComputeHash(Encoding.UTF8.GetBytes(text));
 
