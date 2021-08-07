@@ -1,0 +1,64 @@
+-- SPDX-License-Identifier: Apache-2.0
+-- Licensed to the Ed-Fi Alliance under one or more agreements.
+-- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+-- See the LICENSE and NOTICES files in the project root for more information.
+
+DO $$
+BEGIN
+{{#Tables}}
+    {{#IsAggregateRoot}}
+        {{#IsDescriptorTable}}
+CREATE OR REPLACE FUNCTION tracked_changes_{{Schema}}.{{#ChangeQueries}}{{DeletedFunctionName}}{{/ChangeQueries}}()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_{{BaseTableSchema}}.{{BaseTableName}}({{#PrimaryKeyColumns}}old{{BaseColumnName}}, {{/PrimaryKeyColumns}}{{#BaseAlternateKeyColumns}}old{{ColumnName}}, {{/BaseAlternateKeyColumns}}id, discriminator, changeversion)
+    SELECT {{#PrimaryKeyColumns}}OLD.{{ColumnName}}, {{/PrimaryKeyColumns}}{{#BaseAlternateKeyColumns}}b.{{ColumnName}}, {{/BaseAlternateKeyColumns}}b.id, {{#IsDescriptorTable}}{{#FullName}}'{{Schema}}.{{Name}}', {{/FullName}}{{/IsDescriptorTable}}{{^IsDescriptorTable}}b.discriminator, {{/IsDescriptorTable}}nextval('changes.ChangeVersionSequence')
+    FROM {{BaseTableSchema}}.{{BaseTableName}} b WHERE {{#PrimaryKeyColumns}}{{^IsFirst}} AND {{/IsFirst}}old.{{ColumnName}} = b.{{BaseColumnName}}{{/PrimaryKeyColumns}};
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = '{{Schema}}' AND event_object_table = '{{TableName}}') THEN
+    CREATE TRIGGER trackdeletes AFTER DELETE ON {{Schema}}.{{TableName}} 
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_{{Schema}}.{{#ChangeQueries}}{{DeletedFunctionName}}{{/ChangeQueries}}();
+END IF;
+
+        {{/IsDescriptorTable}}
+        {{^IsDerived}}
+            {{^IsDescriptorBaseTable}}{{! We can't use the delete trigger on the Descriptor base table because it doesn't have a populated Discriminator column in the ODS as of at least v5.2 }}
+CREATE OR REPLACE FUNCTION tracked_changes_{{Schema}}.{{#ChangeQueries}}{{DeletedFunctionName}}{{/ChangeQueries}}()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+{{#Joins}}
+    d{{JoinAlias}} {{Schema}}.{{TableName}}%ROWTYPE;
+{{/Joins}}
+BEGIN
+{{#Joins}}
+    SELECT INTO d{{JoinAlias}} * FROM {{Schema}}.{{TableName}} {{JoinAlias}} WHERE {{OtherJoinColumnName}} = old.{{ThisJoinColumnName}};
+{{/Joins}}
+
+    INSERT INTO tracked_changes_{{Schema}}.{{TableName}}(
+        {{#ChangeDataColumns}}old{{ColumnName}}, {{/ChangeDataColumns}}
+        id, {{#HasDiscriminator}}discriminator, {{/HasDiscriminator}}changeversion)
+    VALUES( 
+        {{#ChangeDataColumns}}{{#SelectExpression}}d{{SelectExpression}}{{/SelectExpression}}{{^SelectExpression}}old.{{ColumnName}}{{/SelectExpression}}, {{/ChangeDataColumns}}
+        old.id, {{#HasDiscriminator}}d.discriminator, {{/HasDiscriminator}}(nextval('changes.changeversionsequence')));
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = '{{Schema}}' AND event_object_table = '{{TableName}}') THEN
+    CREATE TRIGGER trackdeletes AFTER DELETE ON {{Schema}}.{{TableName}} 
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_{{Schema}}.{{#ChangeQueries}}{{DeletedFunctionName}}{{/ChangeQueries}}();
+END IF;
+
+            {{/IsDescriptorBaseTable}}
+        {{/IsDerived}}
+    {{/IsAggregateRoot}}
+{{/Tables}}
+END
+$$;
