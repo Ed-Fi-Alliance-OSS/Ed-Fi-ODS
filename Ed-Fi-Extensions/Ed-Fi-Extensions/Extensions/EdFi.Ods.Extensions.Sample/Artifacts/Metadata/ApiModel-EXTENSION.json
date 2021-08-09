@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.2",
+  "odsApiVersion": "5.3",
   "schemaDefinition": {
     "logicalName": "Sample",
     "physicalName": "sample",
@@ -5304,7 +5304,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the LEA.",
+          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the education organization.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -5378,7 +5378,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the LEA.",
+          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the education organization.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -13611,7 +13611,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -13685,7 +13685,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {

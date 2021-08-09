@@ -1473,7 +1473,7 @@ COMMENT ON COLUMN tpdm.SchoolExtension.AccreditationStatusDescriptorId IS 'Accre
 
 -- Extended Properties [tpdm].[StaffEducationOrganizationAssignmentAssociationExtension] --
 COMMENT ON TABLE tpdm.StaffEducationOrganizationAssignmentAssociationExtension IS '';
-COMMENT ON COLUMN tpdm.StaffEducationOrganizationAssignmentAssociationExtension.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the LEA.';
+COMMENT ON COLUMN tpdm.StaffEducationOrganizationAssignmentAssociationExtension.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the education organization.';
 COMMENT ON COLUMN tpdm.StaffEducationOrganizationAssignmentAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN tpdm.StaffEducationOrganizationAssignmentAssociationExtension.StaffClassificationDescriptorId IS 'The titles of employment, official status, or rank of education staff.';
 COMMENT ON COLUMN tpdm.StaffEducationOrganizationAssignmentAssociationExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';

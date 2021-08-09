@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.2",
+  "odsApiVersion": "5.3",
   "schemaDefinition": {
     "logicalName": "TPDM",
     "physicalName": "tpdm",
@@ -1969,7 +1969,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\n                      'which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -2210,7 +2210,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "Reflects important characteristics of the applicant's home situation:      Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.",
+      "description": "Reflects important characteristics of the applicant's home situation:\n      Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.",
       "tableNames": {
         "sqlServer": "ApplicantProfileApplicantCharacteristic",
         "postgreSql": "ApplicantProfileApplicantCharacteristic"
@@ -4727,7 +4727,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.",
+          "description": "The name of the county, parish, borough, or comparable unit (within a state) in\n                      'which an address is located.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -11443,8 +11443,8 @@
           "propertyType": {
             "dbType": "Decimal",
             "maxLength": 0,
-            "precision": 3,
-            "scale": 2,
+            "precision": 5,
+            "scale": 4,
             "isNullable": true
           },
           "description": "The ratio between the hours of work expected in a position and the hours of work normally expected in a full-time position in the same setting.",
@@ -43417,7 +43417,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A code describing the attendance event, for example:       Present       Unexcused absence       Excused absence       Tardy.",
+          "description": "A code describing the attendance event, for example:\n       Present\n       Unexcused absence\n       Excused absence\n       Tardy.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -48525,7 +48525,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the LEA.",
+          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the education organization.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -48599,7 +48599,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the LEA.",
+          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the education organization.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -48823,7 +48823,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -48897,7 +48897,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -49045,7 +49045,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -49119,7 +49119,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -49266,7 +49266,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -49340,7 +49340,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -49488,7 +49488,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -49562,7 +49562,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {

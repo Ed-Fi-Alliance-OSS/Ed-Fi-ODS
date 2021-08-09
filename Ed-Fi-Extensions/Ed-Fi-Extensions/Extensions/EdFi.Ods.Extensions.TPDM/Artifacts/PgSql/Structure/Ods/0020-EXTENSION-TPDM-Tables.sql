@@ -1615,7 +1615,7 @@ CREATE TABLE tpdm.OpenStaffPositionExtension (
     EducationOrganizationId INT NOT NULL,
     RequisitionNumber VARCHAR(20) NOT NULL,
     SchoolYear SMALLINT NULL,
-    FullTimeEquivalency DECIMAL(3, 2) NULL,
+    FullTimeEquivalency DECIMAL(5, 4) NULL,
     OpenStaffPositionReasonDescriptorId INT NULL,
     IsActive BOOLEAN NULL,
     MaxSalary DECIMAL(9, 2) NULL,
