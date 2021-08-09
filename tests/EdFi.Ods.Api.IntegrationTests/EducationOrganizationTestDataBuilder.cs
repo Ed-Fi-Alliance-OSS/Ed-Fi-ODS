@@ -65,8 +65,16 @@ namespace EdFi.Ods.Api.IntegrationTests
                 entryDate = DateTime.UtcNow.Date;
             }
 
-            _sql.AppendLine($@"INSERT INTO edfi.StaffEducationOrganizationEmploymentAssociation (EducationOrganizationId, StaffUSI, EmploymentStatusDescriptorId, HireDate)
-                                VALUES ({schoolId}, {staffUSI}, {TestEmploymentStatusDescriptorId}, '{ entryDate }');"
+            _sql.AppendLine($@"INSERT INTO edfi.StaffEducationOrganizationEmploymentAssociation (
+                                EducationOrganizationId, 
+                                StaffUSI, 
+                                EmploymentStatusDescriptorId, 
+                                HireDate)
+                               VALUES (
+                                {schoolId}, 
+                                {staffUSI}, 
+                                {TestEmploymentStatusDescriptorId}, 
+                                '{ entryDate }');"
 
             );
 
@@ -82,8 +90,16 @@ namespace EdFi.Ods.Api.IntegrationTests
             }
 
             _sql.AppendLine(
-                $@"INSERT INTO edfi.StaffEducationOrganizationAssignmentAssociation (EducationOrganizationId, StaffUSI, StaffClassificationDescriptorId, BeginDate)
-                   VALUES ({schoolId}, {staffUSI}, {TestStaffClassificationDescriptorId}, '{ entryDate }');"
+                $@"INSERT INTO edfi.StaffEducationOrganizationAssignmentAssociation (
+                    EducationOrganizationId, 
+                    StaffUSI, 
+                    StaffClassificationDescriptorId, 
+                    BeginDate)
+                   VALUES (
+                    {schoolId}, 
+                    {staffUSI}, 
+                    {TestStaffClassificationDescriptorId}, 
+                    '{ entryDate }');"
             );
 
             return this;
@@ -92,8 +108,16 @@ namespace EdFi.Ods.Api.IntegrationTests
         public EducationOrganizationTestDataBuilder AddStaff(string newGuidId)
         {
             _sql.AppendLine(
-                $@"INSERT INTO edfi.Staff (FirstName, LastSurname, BirthDate, StaffUniqueId)
-                VALUES ('{newGuidId}', '{newGuidId}', '{ DateTime.Now }', '{newGuidId}');"
+                $@"INSERT INTO edfi.Staff (
+                    FirstName, 
+                    LastSurname, 
+                    BirthDate, 
+                    StaffUniqueId)
+                VALUES (
+                    '{newGuidId}', 
+                    '{newGuidId}', 
+                    '{ DateTime.Now }', 
+                    '{newGuidId}');"
             );
             return this;
         }

@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class StaffUSIToEducationOrganizationIdAuthViewTests : DatabaseTestFixtureBase
+    public class StaffUsiToEducationOrganizationIdAuthViewTests : DatabaseTestFixtureBase
     {
         [Test]
         public void When_staff_is_employed_in_school_that_belongs_to_a_district_should_not_return_duplicate_records()
@@ -123,7 +123,6 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
-            ;
 
             Builder
                 .AddStaffEducationOrganizationEmploymentAssociation(9702, staffUsi, DateTime.UtcNow.Date)
