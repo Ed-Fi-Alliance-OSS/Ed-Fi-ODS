@@ -60277,6 +60277,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationAssignmentA
                 isModified = true;
             }
 
+            if ((sourceSupport == null || sourceSupport.IsFullTimeEquivalencySupported)
+                && target.FullTimeEquivalency != source.FullTimeEquivalency)
+            {
+                target.FullTimeEquivalency = source.FullTimeEquivalency;
+                isModified = true;
+            }
+
             if ((sourceSupport == null || sourceSupport.IsOrderOfAssignmentSupported)
                 && target.OrderOfAssignment != source.OrderOfAssignment)
             {
@@ -60349,6 +60356,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationAssignmentA
             else
                 targetSynchSupport.IsEndDateSupported = false;
 
+            if (sourceSynchSupport.IsFullTimeEquivalencySupported)
+                target.FullTimeEquivalency = source.FullTimeEquivalency;
+            else
+                targetSynchSupport.IsFullTimeEquivalencySupported = false;
+
             if (sourceSynchSupport.IsOrderOfAssignmentSupported)
                 target.OrderOfAssignment = source.OrderOfAssignment;
             else
@@ -60418,6 +60430,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StaffEducationOrganizationAssignmentA
         bool IsEmploymentHireDateSupported { get; set; }
         bool IsEmploymentStatusDescriptorSupported { get; set; }
         bool IsEndDateSupported { get; set; }
+        bool IsFullTimeEquivalencySupported { get; set; }
         bool IsOrderOfAssignmentSupported { get; set; }
         bool IsPositionTitleSupported { get; set; }
         bool IsStateOfIssueStateAbbreviationDescriptorSupported { get; set; }
@@ -77394,6 +77407,20 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAttendanceEventAggregat
 
 
             // Sync lists
+            if (sourceSupport == null || sourceSupport.IsStudentSectionAttendanceEventClassPeriodsSupported)
+            {
+                isModified |=
+                    source.StudentSectionAttendanceEventClassPeriods.SynchronizeCollectionTo(
+                        target.StudentSectionAttendanceEventClassPeriods,
+                        onChildAdded: child =>
+                            {
+                                child.StudentSectionAttendanceEvent = target;
+                            },
+                        includeItem: sourceSupport == null
+                            ? null
+                            : sourceSupport.IsStudentSectionAttendanceEventClassPeriodIncluded);
+            }
+
             // Sync extensions
             isModified |= source.SynchronizeExtensionsTo(target);
 
@@ -77470,6 +77497,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAttendanceEventAggregat
 
             // Map lists
 
+            if (sourceSynchSupport.IsStudentSectionAttendanceEventClassPeriodsSupported)
+            {
+                targetSynchSupport.IsStudentSectionAttendanceEventClassPeriodIncluded = sourceSynchSupport.IsStudentSectionAttendanceEventClassPeriodIncluded;
+                source.StudentSectionAttendanceEventClassPeriods.MapCollectionTo(target.StudentSectionAttendanceEventClassPeriods, target);
+            }
+            else
+            {
+                targetSynchSupport.IsStudentSectionAttendanceEventClassPeriodsSupported = false;
+            }
+
             // Map extensions
             source.MapExtensionsTo(target);
 
@@ -77503,6 +77540,90 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAttendanceEventAggregat
         bool IsEducationalEnvironmentDescriptorSupported { get; set; }
         bool IsEventDurationSupported { get; set; }
         bool IsSectionAttendanceDurationSupported { get; set; }
+        bool IsStudentSectionAttendanceEventClassPeriodsSupported { get; set; }
+        Func<IStudentSectionAttendanceEventClassPeriod, bool> IsStudentSectionAttendanceEventClassPeriodIncluded { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public static class StudentSectionAttendanceEventClassPeriodMapper
+    {
+        public static bool SynchronizeTo(this IStudentSectionAttendanceEventClassPeriod source, IStudentSectionAttendanceEventClassPeriod target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IStudentSectionAttendanceEventClassPeriodSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.ClassPeriodName != target.ClassPeriodName)
+            {
+                source.ClassPeriodName = target.ClassPeriodName;
+            }
+
+            // Copy non-PK properties
+
+
+            // Sync lists
+            // Sync extensions
+            isModified |= source.SynchronizeExtensionsTo(target);
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IStudentSectionAttendanceEventClassPeriod source, IStudentSectionAttendanceEventClassPeriod target, Action<IStudentSectionAttendanceEventClassPeriod, IStudentSectionAttendanceEventClassPeriod> onMapped)
+        {
+            var sourceSynchSupport = source as IStudentSectionAttendanceEventClassPeriodSynchronizationSourceSupport;
+            var targetSynchSupport = target as IStudentSectionAttendanceEventClassPeriodSynchronizationSourceSupport;
+
+            // Copy contextual primary key values
+            target.ClassPeriodName = source.ClassPeriodName;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.ClassPeriodResourceId = source.ClassPeriodResourceId;
+                target.ClassPeriodDiscriminator = source.ClassPeriodDiscriminator;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+            // Map extensions
+            source.MapExtensionsTo(target);
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IStudentSectionAttendanceEventClassPeriodSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
+    {
     }
 
 }

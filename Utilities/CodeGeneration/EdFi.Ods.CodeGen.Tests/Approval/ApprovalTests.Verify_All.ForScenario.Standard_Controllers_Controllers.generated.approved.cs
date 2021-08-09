@@ -7401,6 +7401,7 @@ namespace EdFi.Ods.Api.Services.Controllers.StaffEducationOrganizationAssignment
             specification.EmploymentHireDate = request.EmploymentHireDate;
             specification.EmploymentStatusDescriptor = request.EmploymentStatusDescriptor;
             specification.EndDate = request.EndDate;
+            specification.FullTimeEquivalency = request.FullTimeEquivalency;
             specification.Id = request.Id;
             specification.OrderOfAssignment = request.OrderOfAssignment;
             specification.PositionTitle = request.PositionTitle;

@@ -1108,10 +1108,10 @@ CREATE TABLE edfi.Credential (
     StateOfIssueStateAbbreviationDescriptorId INT NOT NULL,
     EffectiveDate DATE NULL,
     ExpirationDate DATE NULL,
-    CredentialFieldDescriptorId INT NOT NULL,
+    CredentialFieldDescriptorId INT NULL,
     IssuanceDate DATE NOT NULL,
     CredentialTypeDescriptorId INT NOT NULL,
-    TeachingCredentialDescriptorId INT NOT NULL,
+    TeachingCredentialDescriptorId INT NULL,
     TeachingCredentialBasisDescriptorId INT NULL,
     Namespace VARCHAR(255) NOT NULL,
     Discriminator VARCHAR(128) NULL,
@@ -4066,6 +4066,7 @@ CREATE TABLE edfi.StaffEducationOrganizationAssignmentAssociation (
     EmploymentHireDate DATE NULL,
     CredentialIdentifier VARCHAR(60) NULL,
     StateOfIssueStateAbbreviationDescriptorId INT NULL,
+    FullTimeEquivalency DECIMAL(5, 4) NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -5771,7 +5772,7 @@ CREATE TABLE edfi.StudentSchoolAssociation (
     EmployedWhileEnrolled BOOLEAN NULL,
     CalendarCode VARCHAR(60) NULL,
     SchoolYear SMALLINT NULL,
-    FullTimeEquivalency DECIMAL(3, 2) NULL,
+    FullTimeEquivalency DECIMAL(5, 4) NULL,
     TermCompletionIndicator BOOLEAN NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -5909,6 +5910,22 @@ CREATE TABLE edfi.StudentSectionAttendanceEvent (
 ALTER TABLE edfi.StudentSectionAttendanceEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE edfi.StudentSectionAttendanceEvent ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE edfi.StudentSectionAttendanceEvent ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table edfi.StudentSectionAttendanceEventClassPeriod --
+CREATE TABLE edfi.StudentSectionAttendanceEventClassPeriod (
+    AttendanceEventCategoryDescriptorId INT NOT NULL,
+    ClassPeriodName VARCHAR(60) NOT NULL,
+    EventDate DATE NOT NULL,
+    LocalCourseCode VARCHAR(60) NOT NULL,
+    SchoolId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    SectionIdentifier VARCHAR(255) NOT NULL,
+    SessionName VARCHAR(60) NOT NULL,
+    StudentUSI INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentSectionAttendanceEventClassPeriod_PK PRIMARY KEY (AttendanceEventCategoryDescriptorId, ClassPeriodName, EventDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+); 
+ALTER TABLE edfi.StudentSectionAttendanceEventClassPeriod ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.StudentSpecialEducationProgramAssociation --
 CREATE TABLE edfi.StudentSpecialEducationProgramAssociation (

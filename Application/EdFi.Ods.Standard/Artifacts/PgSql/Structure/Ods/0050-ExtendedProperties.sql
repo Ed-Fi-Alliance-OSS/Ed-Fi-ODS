@@ -2692,13 +2692,13 @@ COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_
 COMMENT ON COLUMN edfi.StaffDisciplineIncidentAssociationDisciplineIncidentPart_7fa4be.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [edfi].[StaffEducationOrganizationAssignmentAssociation] --
-COMMENT ON TABLE edfi.StaffEducationOrganizationAssignmentAssociation IS 'This association indicates the education organization to which a staff member provides services; also known as school of service.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the LEA.';
+COMMENT ON TABLE edfi.StaffEducationOrganizationAssignmentAssociation IS 'This association indicates the education organization to which a staff member provides services.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StaffClassificationDescriptorId IS 'The titles of employment, official status, or rank of education staff.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.PositionTitle IS 'The descriptive name of an individual''s position.';
-COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EndDate IS 'Month, day, and year of the end or termination date of a staff member''s employment, contract, or relationship with the LEA.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EndDate IS 'Month, day, and year of the end or termination date of a staff member''s employment, contract, or relationship with the education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.OrderOfAssignment IS 'Describes whether the assignment is this the staff member''s primary assignment, secondary assignment, etc.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract; for example:
@@ -2711,6 +2711,7 @@ COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.Employmen
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.EmploymentHireDate IS 'The month, day, and year on which an individual was hired for a position.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
 COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
+COMMENT ON COLUMN edfi.StaffEducationOrganizationAssignmentAssociation.FullTimeEquivalency IS 'The ratio between the hours of work expected in a position and the hours of work normally expected in a full-time position in the same setting.';
 
 -- Extended Properties [edfi].[StaffEducationOrganizationContactAssociation] --
 COMMENT ON TABLE edfi.StaffEducationOrganizationContactAssociation IS 'This association provides the contact information of the staff associated with the education organization.';
@@ -4074,6 +4075,22 @@ COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.EventDuration IS 'The amoun
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.SectionAttendanceDuration IS 'The duration in minutes of the section attendance event.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.ArrivalTime IS 'The time of day the student arrived for the attendance event in ISO 8601 format.';
 COMMENT ON COLUMN edfi.StudentSectionAttendanceEvent.DepartureTime IS 'The time of day the student departed for the attendance event in ISO 8601 format.';
+
+-- Extended Properties [edfi].[StudentSectionAttendanceEventClassPeriod] --
+COMMENT ON TABLE edfi.StudentSectionAttendanceEventClassPeriod IS 'The Class Period(s) to which the Section Attendance Event applies.';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.AttendanceEventCategoryDescriptorId IS 'A code describing the attendance event, for example:
+        Present
+        Unexcused absence
+        Excused absence
+        Tardy.';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.ClassPeriodName IS 'An indication of the portion of a typical daily session in which students receive instruction in a specified subject (e.g., morning, sixth period, block period, or AB schedules).';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.EventDate IS 'Date for this attendance event.';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.SectionIdentifier IS 'The local identifier assigned to a section.';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN edfi.StudentSectionAttendanceEventClassPeriod.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [edfi].[StudentSpecialEducationProgramAssociation] --
 COMMENT ON TABLE edfi.StudentSpecialEducationProgramAssociation IS 'This association represents the special education program(s) that a student participates in or receives services from. The association is an extension of the StudentProgramAssociation particular for special education programs.';

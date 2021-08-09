@@ -6792,6 +6792,23 @@ REFERENCES edfi.Student (StudentUSI)
 CREATE INDEX FK_61b087_Student
 ON edfi.StudentSectionAttendanceEvent (StudentUSI ASC);
 
+ALTER TABLE edfi.StudentSectionAttendanceEventClassPeriod ADD CONSTRAINT FK_80c6c1_ClassPeriod FOREIGN KEY (ClassPeriodName, SchoolId)
+REFERENCES edfi.ClassPeriod (ClassPeriodName, SchoolId)
+ON UPDATE CASCADE
+;
+
+CREATE INDEX FK_80c6c1_ClassPeriod
+ON edfi.StudentSectionAttendanceEventClassPeriod (ClassPeriodName ASC, SchoolId ASC);
+
+ALTER TABLE edfi.StudentSectionAttendanceEventClassPeriod ADD CONSTRAINT FK_80c6c1_StudentSectionAttendanceEvent FOREIGN KEY (AttendanceEventCategoryDescriptorId, EventDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+REFERENCES edfi.StudentSectionAttendanceEvent (AttendanceEventCategoryDescriptorId, EventDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+ON DELETE CASCADE
+ON UPDATE CASCADE
+;
+
+CREATE INDEX FK_80c6c1_StudentSectionAttendanceEvent
+ON edfi.StudentSectionAttendanceEventClassPeriod (AttendanceEventCategoryDescriptorId ASC, EventDate ASC, LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC, StudentUSI ASC);
+
 ALTER TABLE edfi.StudentSpecialEducationProgramAssociation ADD CONSTRAINT FK_f86fd9_GeneralStudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.GeneralStudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ON DELETE CASCADE

@@ -235,7 +235,7 @@
     <Entity table="Credential"/>
     <Entity table="CredentialAcademicSubject"/>
     <Entity table="CredentialEndorsement"/>
-    <Entity table="CredentialGradeLevel" isRequiredCollection="true"/>
+    <Entity table="CredentialGradeLevel"/>
   </Aggregate>
   <Aggregate root="CredentialFieldDescriptor">
     <Entity table="CredentialFieldDescriptor" isA="Descriptor"/>
@@ -1028,6 +1028,7 @@
   </Aggregate>
   <Aggregate root="StudentSectionAttendanceEvent">
     <Entity table="StudentSectionAttendanceEvent"/>
+    <Entity table="StudentSectionAttendanceEventClassPeriod"/>
   </Aggregate>
   <Aggregate root="StudentSpecialEducationProgramAssociation">
     <Entity table="StudentSpecialEducationProgramAssociation" isA="GeneralStudentProgramAssociation"/>
