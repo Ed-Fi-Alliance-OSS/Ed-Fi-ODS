@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 
 namespace EdFi.Ods.Common.Models.Definitions
 {
-    public class EntityDefinition : DynamicModelBase
+    public class EntityDefinition : DynamicModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityDefinition" /> class.
