@@ -215,7 +215,7 @@ namespace EdFi.Ods.Generator.Database.TemplateModelProviders
                                 ColumnName = databaseNamingConvention.ColumnName(p),
                                 DataType = databaseTypeTranslator.GetSqlType(p.PropertyType),
                                 IsNullable = p.PropertyType.IsNullable,
-                                IsConcreteDescriptorId = p.IsLookup || (p.IsIdentifying && p.Entity.IsDescriptorEntity()),
+                                IsConcreteDescriptorId = p.IsDescriptorUsage || (p.IsIdentifying && p.Entity.IsDescriptorEntity()),
                                 IsFirst = i == 0,
                                 Index = i,
                             }),
