@@ -46,6 +46,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
             AddSupportForSnapshots();
             AddSupportForDeletes();
             AddSupportForKeyChanges();
+            AddSupportForAuthorization();
             
             void AddSupportForAvailableChanges()
             {
@@ -117,6 +118,16 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 builder.RegisterType<GetKeyChanges>()
                     .As<IGetKeyChanges>()
                     .SingleInstance();
+            }
+            
+            void AddSupportForAuthorization()
+            {
+                // General authorization support
+                builder.RegisterType<NHibernateEntityTypeDomainModelEnhancer>()
+                    .As<IDomainModelEnhancer>()
+                    .SingleInstance();
+            
+                builder.RegisterDecorator<DeletedItemsQueriesProviderAuthorizationDecorator, IDeletedItemsQueriesProvider>();
             }
         }
     }
