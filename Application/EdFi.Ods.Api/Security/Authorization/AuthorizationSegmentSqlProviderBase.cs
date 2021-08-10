@@ -10,10 +10,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Api.Security.Utilities;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Api.Security.Utilities;
 using log4net;
 
 namespace EdFi.Ods.Api.Security.Authorization
@@ -80,12 +79,79 @@ namespace EdFi.Ods.Api.Security.Authorization
                     }
 
                     // Perform defensive checks against the remote possibility of SQL injection attack
-                    ValidateTableNameParts(claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
+                    ValidateTableNameParts(
+                        claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
-                    string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
-                        subjectEndpointName,
-                        claimEndpointName,
-                        authorizationSegment.AuthorizationPathModifier);
+                    var entities = new List<string>()
+                    {
+                        "ThroughEdOrgAssociation",
+                        "ParentUSI",
+                        "StaffUSI"
+                    };
+
+                    string derivedAuthorizationViewName;
+
+                    // When subject Endpoint or Claim Endpoint ends with StudentUSI and also not ends with ThroughEdOrgAssociation
+                    // use new Student view 
+                    //auth.LocalEducationAgencyIdToStudentUSI
+                    //auth.SchoolIdToStudentUSI
+                    //auth.EducationOrganizationIdToStudentUSI
+                    //auth.ParentUSIToStudentUSI
+                    //auth.StudentUSIToEducationOrganizationId
+                    if ((subjectEndpointName.EndsWith("StudentUSI") || claimEndpointName.EndsWith("StudentUSI")) &&
+                        !subjectEndpointName.EndsWith("ThroughEdOrgAssociation") &&
+                        !claimEndpointName.EndsWith("ThroughEdOrgAssociation"))
+                    {
+                        if (subjectEndpointName.EndsWith("StudentUSI"))
+                        {
+                            claimEndpointName = "EducationOrganizationId";
+                        }
+                        else
+                        {
+                            subjectEndpointName = "EducationOrganizationId";
+                        }
+
+                        derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
+                            subjectEndpointName,
+                            claimEndpointName,
+                            authorizationSegment.AuthorizationPathModifier);
+
+                        claimEndpointName = "SourceEducationOrganizationId";
+                    }
+
+                    // When subject Endpoint or Claim Endpoint does not have ParentUSI or StaffUSI or  ThroughEdOrgAssociation
+                    // Then use tuple table for authorization 
+                    //auth.EducationOrganizationIdentifiers
+                    //auth.EducationOrganizationIdToEducationServiceCenterId
+                    //auth.EducationOrganizationIdToStateAgencyId
+                    //auth.CommunityOrganizationIdToCommunityProviderId
+                    //auth.EducationOrganizationIdToLocalEducationAgencyId
+                    //auth.EducationOrganizationIdToPostSecondaryInstitutionId
+                    //auth.EducationOrganizationIdToSchoolId
+                    //auth.LocalEducationAgency
+                    //auth.LocalEducationAgencyIdToSchoolId
+                    //auth.School
+                    //auth.CommunityOrganizationIdToEducationOrganizationId
+                    //auth.CommunityProviderIdToEducationOrganizationId
+                    //auth.LocalEducationAgencyIdToOrganizationDepartmentId
+                    //auth.OrganizationDepartmentIdToSchoolId
+                    //auth.StudentUSIToEducationOrganizationId
+                    else if ((!entities.Contains(subjectEndpointName) || !entities.Contains(claimEndpointName))
+                             && (!subjectEndpointName.Contains("StudentUSI") || !claimEndpointName.Contains("StudentUSI")))
+                    {
+                        subjectEndpointName = "TargetEducationOrganizationId";
+                        claimEndpointName = "SourceEducationOrganizationId";
+                        derivedAuthorizationViewName = "auth.EducationOrganizationIdToEducationOrganizationId";
+                    }
+
+                    // Go with regular flow for remaining 
+                    else
+                    {
+                        derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
+                            subjectEndpointName,
+                            claimEndpointName,
+                            authorizationSegment.AuthorizationPathModifier);
+                    }
 
                     if (!IsAuthorizationViewSupported(derivedAuthorizationViewName))
                     {
