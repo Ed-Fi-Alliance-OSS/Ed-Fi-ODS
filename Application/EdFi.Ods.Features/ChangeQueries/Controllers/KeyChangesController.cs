@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Queries;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
+using EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
