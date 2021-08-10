@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace EdFi.Ods.Common.Models.Dynamic
 {
-    public class DynamicModelBase : DynamicObject, IDynamicModel
+    public class DynamicModel : DynamicObject, IDynamicModel
     {
         private readonly IDictionary<string, object> _properties
             = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
@@ -65,7 +65,7 @@ namespace EdFi.Ods.Common.Models.Dynamic
             return _properties.GetType()
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
                 .Select(x => x.Name)
-                .Except(new [] {"Properties"})
+                .Except(new [] {"DynamicProperties"})
                 .Concat(_properties.Keys);
         }
     }

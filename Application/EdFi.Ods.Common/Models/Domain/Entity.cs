@@ -20,7 +20,7 @@ using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Ods.Common.Models.Domain
 {
-    public class Entity : DynamicModelBase
+    public class Entity : DynamicModel
     {
         private readonly Lazy<AssociationView[]> _aggregateExtensionChildren;
         private readonly Lazy<AssociationView[]> _aggregateExtensionOneToOnes;
