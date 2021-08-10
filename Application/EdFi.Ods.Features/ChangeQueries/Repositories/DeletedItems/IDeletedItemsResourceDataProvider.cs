@@ -6,16 +6,11 @@
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models.Resource;
-using Microsoft.AspNetCore.Http;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories
+namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
-    // TODO: GKM - Should we even include the query collection for this resource?
     public interface IDeletedItemsResourceDataProvider
     {
-        Task<DeletedItemsResourceData> GetResourceDataAsync(
-            Resource resource,
-            IQueryParameters queryParameters,
-            IQueryCollection query);
+        Task<DeletedItemsResourceData> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters);
     }
 }

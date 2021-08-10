@@ -31,5 +31,6 @@ namespace EdFi.Ods.Features.ChangeQueries
         /// Prefix applied to the identifier column name containing the new value.
         /// </summary>
         public const string NewKeyValueColumnPrefix = "New";
+        public const string TrackedChangesAlias = "c";
     }
 }

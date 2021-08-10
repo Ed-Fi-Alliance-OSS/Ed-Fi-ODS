@@ -9,7 +9,10 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Queries;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
+using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
+using EdFi.Ods.Security.Authorization;
+using EdFi.Security.DataAccess.Repositories;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,16 +29,25 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     {
         private readonly IDomainModelProvider _domainModelProvider;
         private readonly IDeletedItemsResourceDataProvider _deletedItemsResourceDataProvider;
+        private readonly IAuthorizationContextProvider _authorizationContextProvider;
+        private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
+        private readonly ISecurityRepository _securityRepository;
         private readonly ILog _logger = LogManager.GetLogger(typeof(DeletesController));
         private readonly bool _isEnabled;
 
         public DeletesController(
             IDomainModelProvider domainModelProvider,
-            IDeletedItemsResourceDataProvider deletedItemsResourceDataProvider, 
+            IDeletedItemsResourceDataProvider deletedItemsResourceDataProvider,
+            IAuthorizationContextProvider authorizationContextProvider,
+            IResourceClaimUriProvider resourceClaimUriProvider,
+            ISecurityRepository securityRepository,
             ApiSettings apiSettings)
         {
             _domainModelProvider = domainModelProvider;
             _deletedItemsResourceDataProvider = deletedItemsResourceDataProvider;
+            _authorizationContextProvider = authorizationContextProvider;
+            _resourceClaimUriProvider = resourceClaimUriProvider;
+            _securityRepository = securityRepository;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
         }
 
@@ -45,19 +57,28 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             if (!_isEnabled)
             {
                 _logger.Debug("ChangeQueries is not enabled.");
+
+                // TODO: GKM - Align with other "not found" result handling
                 return NotFound();
             }
             
-            var queryParameter = new QueryParameters(urlQueryParametersRequest);
-
             var resourceClass = _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByApiCollectionName(schema, resource);
 
             if (resourceClass == null)
             {
-                return new NotFoundResult();
+                // TODO: GKM - Align with other "not found" result handling
+                return NotFound();
             }
             
-            var deletedItemsResponse = await _deletedItemsResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameter, Request.Query);
+            // Set authorization context (should this be moved?)
+            _authorizationContextProvider.SetResourceUris(_resourceClaimUriProvider.GetResourceClaimUris(resourceClass));
+            _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
+
+            var queryParameter = new QueryParameters(urlQueryParametersRequest);
+
+            // TODO: GKM - Validate the parameter here rather than deeper in the call stack
+            
+            var deletedItemsResponse = await _deletedItemsResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameter);
 
             // Add the total count, if requested
             if (urlQueryParametersRequest.TotalCount)

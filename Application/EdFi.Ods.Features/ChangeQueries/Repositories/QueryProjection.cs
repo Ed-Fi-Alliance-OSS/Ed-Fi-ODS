@@ -23,5 +23,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         public string ColumnName { get; set; }
         
         public string ColumnAlias { get; set; }
+        
+        public string JsonPropertyName { get; set; }
     }
 }

@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using EdFi.Ods.Features.ChangeQueries.Resources;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories
+namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
     public class DeletedItemsResourceData
     {
