@@ -2,7 +2,7 @@ using EdFi.Ods.Common.Models.Dynamic;
 
 namespace EdFi.Ods.Generator.Database.TemplateModelProviders
 {
-    public class Column : DynamicModelBase
+    public class Column : DynamicModel
     {
         public string ColumnName { get; set; }
 

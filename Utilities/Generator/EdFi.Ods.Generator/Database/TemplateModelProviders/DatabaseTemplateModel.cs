@@ -3,7 +3,7 @@ using EdFi.Ods.Common.Models.Dynamic;
 
 namespace EdFi.Ods.Generator.Database.TemplateModelProviders
 {
-    public class DatabaseTemplateModel : DynamicModelBase
+    public class DatabaseTemplateModel : DynamicModel
     {
         public IEnumerable<SchemaInfo> Schemas { get; set; }
 

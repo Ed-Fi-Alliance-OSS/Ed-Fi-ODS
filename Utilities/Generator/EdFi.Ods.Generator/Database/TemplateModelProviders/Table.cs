@@ -5,7 +5,7 @@ using EdFi.Ods.Common.Models.Dynamic;
 
 namespace EdFi.Ods.Generator.Database.TemplateModelProviders
 {
-    public class Table : DynamicModelBase
+    public class Table : DynamicModel
     {
         public string Schema { get; set; }
 
