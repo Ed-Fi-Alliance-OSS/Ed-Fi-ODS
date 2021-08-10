@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Features.ChangeQueries.Resources;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories
+namespace EdFi.Ods.Features.ChangeQueries.Repositories.Snapshots
 {
     public interface IGetSnapshots
     {

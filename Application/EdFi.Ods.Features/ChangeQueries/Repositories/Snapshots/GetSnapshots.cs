@@ -14,7 +14,7 @@ using EdFi.Ods.Features.ChangeQueries.Resources;
 using NHibernate;
 using NHibernate.Transform;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories
+namespace EdFi.Ods.Features.ChangeQueries.Repositories.Snapshots
 {
     public class GetSnapshots : NHibernateRepositoryOperationBase, IGetSnapshots
     {
