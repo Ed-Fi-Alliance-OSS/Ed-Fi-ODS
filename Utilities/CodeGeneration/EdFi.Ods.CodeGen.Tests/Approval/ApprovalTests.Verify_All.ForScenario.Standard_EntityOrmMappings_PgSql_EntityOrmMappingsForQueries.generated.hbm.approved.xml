@@ -1524,6 +1524,14 @@
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.SectionAggregate.EdFi.SectionClassPeriodQ" />
     </set>
 
+    <set name="StudentSectionAttendanceEventClassPeriods" cascade="none" lazy="true">
+      <key>
+        <column name="ClassPeriodName" />
+        <column name="SchoolId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriodQ" />
+    </set>
+
 </class>
 
 
@@ -2617,14 +2625,14 @@
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
-    <property name="CredentialFieldDescriptorId" column="CredentialFieldDescriptorId" type="int" not-null="true" />
+    <property name="CredentialFieldDescriptorId" column="CredentialFieldDescriptorId" type="int" />
     <property name="CredentialTypeDescriptorId" column="CredentialTypeDescriptorId" type="int" not-null="true" />
     <property name="EffectiveDate" column="EffectiveDate" type="date" />
     <property name="ExpirationDate" column="ExpirationDate" type="date" />
     <property name="IssuanceDate" column="IssuanceDate" type="date" not-null="true" />
     <property name="Namespace" column="Namespace" type="string" length="255" not-null="true" />
     <property name="TeachingCredentialBasisDescriptorId" column="TeachingCredentialBasisDescriptorId" type="int" />
-    <property name="TeachingCredentialDescriptorId" column="TeachingCredentialDescriptorId" type="int" not-null="true" />
+    <property name="TeachingCredentialDescriptorId" column="TeachingCredentialDescriptorId" type="int" />
 
     <!-- Aggregate references -->
 
@@ -16728,6 +16736,7 @@
     <property name="EmploymentHireDate" column="EmploymentHireDate" type="date" />
     <property name="EmploymentStatusDescriptorId" column="EmploymentStatusDescriptorId" type="int" />
     <property name="EndDate" column="EndDate" type="date" />
+    <property name="FullTimeEquivalency" column="FullTimeEquivalency" type="decimal" />
     <property name="OrderOfAssignment" column="OrderOfAssignment" type="int" />
     <property name="PositionTitle" column="PositionTitle" type="string" length="100" />
     <property name="StateOfIssueStateAbbreviationDescriptorId" column="StateOfIssueStateAbbreviationDescriptorId" type="int" />
@@ -21211,6 +21220,55 @@
     </many-to-one>
     <many-to-one name="Student" class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Collections -->
+    <set name="StudentSectionAttendanceEventClassPeriods" cascade="none" lazy="true">
+      <key>
+        <column name="AttendanceEventCategoryDescriptorId" />
+        <column name="EventDate" />
+        <column name="LocalCourseCode" />
+        <column name="SchoolId" />
+        <column name="SchoolYear" />
+        <column name="SectionIdentifier" />
+        <column name="SessionName" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriodQ" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriodQ" table="StudentSectionAttendanceEventClassPeriod" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ClassPeriodName" column="ClassPeriodName" type="string" length="60" />
+      <key-many-to-one name="StudentSectionAttendanceEvent">
+        <column name="AttendanceEventCategoryDescriptorId" />
+        <column name="EventDate" />
+        <column name="LocalCourseCode" />
+        <column name="SchoolId" />
+        <column name="SchoolYear" />
+        <column name="SectionIdentifier" />
+        <column name="SessionName" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+    <many-to-one name="ClassPeriod" class="EdFi.Ods.Entities.NHibernate.QueryModels.ClassPeriodAggregate.EdFi.ClassPeriodQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="ClassPeriodName" />
+        <column name="SchoolId" />
     </many-to-one>
 
     <!-- Collections -->

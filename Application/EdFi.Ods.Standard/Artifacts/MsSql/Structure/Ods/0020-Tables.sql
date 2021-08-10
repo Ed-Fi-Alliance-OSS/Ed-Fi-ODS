@@ -1664,10 +1664,10 @@ CREATE TABLE [edfi].[Credential] (
     [StateOfIssueStateAbbreviationDescriptorId] [INT] NOT NULL,
     [EffectiveDate] [DATE] NULL,
     [ExpirationDate] [DATE] NULL,
-    [CredentialFieldDescriptorId] [INT] NOT NULL,
+    [CredentialFieldDescriptorId] [INT] NULL,
     [IssuanceDate] [DATE] NOT NULL,
     [CredentialTypeDescriptorId] [INT] NOT NULL,
-    [TeachingCredentialDescriptorId] [INT] NOT NULL,
+    [TeachingCredentialDescriptorId] [INT] NULL,
     [TeachingCredentialBasisDescriptorId] [INT] NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -6124,6 +6124,7 @@ CREATE TABLE [edfi].[StaffEducationOrganizationAssignmentAssociation] (
     [EmploymentHireDate] [DATE] NULL,
     [CredentialIdentifier] [NVARCHAR](60) NULL,
     [StateOfIssueStateAbbreviationDescriptorId] [INT] NULL,
+    [FullTimeEquivalency] [DECIMAL](5, 4) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -8693,7 +8694,7 @@ CREATE TABLE [edfi].[StudentSchoolAssociation] (
     [EmployedWhileEnrolled] [BIT] NULL,
     [CalendarCode] [NVARCHAR](60) NULL,
     [SchoolYear] [SMALLINT] NULL,
-    [FullTimeEquivalency] [DECIMAL](3, 2) NULL,
+    [FullTimeEquivalency] [DECIMAL](5, 4) NULL,
     [TermCompletionIndicator] [BIT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -8908,6 +8909,34 @@ GO
 ALTER TABLE [edfi].[StudentSectionAttendanceEvent] ADD CONSTRAINT [StudentSectionAttendanceEvent_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [edfi].[StudentSectionAttendanceEvent] ADD CONSTRAINT [StudentSectionAttendanceEvent_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [edfi].[StudentSectionAttendanceEventClassPeriod] --
+CREATE TABLE [edfi].[StudentSectionAttendanceEventClassPeriod] (
+    [AttendanceEventCategoryDescriptorId] [INT] NOT NULL,
+    [ClassPeriodName] [NVARCHAR](60) NOT NULL,
+    [EventDate] [DATE] NOT NULL,
+    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
+    [SessionName] [NVARCHAR](60) NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentSectionAttendanceEventClassPeriod_PK] PRIMARY KEY CLUSTERED (
+        [AttendanceEventCategoryDescriptorId] ASC,
+        [ClassPeriodName] ASC,
+        [EventDate] ASC,
+        [LocalCourseCode] ASC,
+        [SchoolId] ASC,
+        [SchoolYear] ASC,
+        [SectionIdentifier] ASC,
+        [SessionName] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[StudentSectionAttendanceEventClassPeriod] ADD CONSTRAINT [StudentSectionAttendanceEventClassPeriod_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[StudentSpecialEducationProgramAssociation] --
