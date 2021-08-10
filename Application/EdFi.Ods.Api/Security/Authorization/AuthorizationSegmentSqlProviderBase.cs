@@ -136,8 +136,10 @@ namespace EdFi.Ods.Api.Security.Authorization
                     //auth.LocalEducationAgencyIdToOrganizationDepartmentId
                     //auth.OrganizationDepartmentIdToSchoolId
                     //auth.StudentUSIToEducationOrganizationId
-                    else if ((!entities.Contains(subjectEndpointName) || !entities.Contains(claimEndpointName))
-                             && (!subjectEndpointName.Contains("StudentUSI") || !claimEndpointName.Contains("StudentUSI")))
+                    else if (!entities.Contains(subjectEndpointName)
+                             && !entities.Contains(claimEndpointName)
+                             && !subjectEndpointName.Contains("StudentUSI")
+                             && !claimEndpointName.Contains("StudentUSI"))
                     {
                         subjectEndpointName = "TargetEducationOrganizationId";
                         claimEndpointName = "SourceEducationOrganizationId";
