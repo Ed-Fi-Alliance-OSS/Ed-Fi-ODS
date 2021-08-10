@@ -21,7 +21,7 @@ using EdFi.Ods.Features.ChangeQueries.Resources;
 using NHibernate;
 using NHibernate.Transform;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories
+namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
     public interface IGetKeyChanges
     {
@@ -67,11 +67,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 .ResourceModel
                 .GetResourceByApiCollectionName(schemaUriSegment, urlResourcePluralName);
 
+            // TODO: GKM - Move to the controller to return response directly rather than throwing/catching exceptions
             if (resource == null)
             {
                 throw new Exception($"Unable to find resource for provided schema uri segment '{schemaUriSegment}' and url resource '{urlResourcePluralName}'.");
             }
 
+            // TODO: GKM - Move to the controller to return response directly rather than throwing/catching exceptions
             if ((queryParameters.MinChangeVersion ?? 0) > (queryParameters.MaxChangeVersion ?? long.MaxValue))
             {
                 throw new ArgumentException("Minimum change version cannot be greater than maximum change version.");
