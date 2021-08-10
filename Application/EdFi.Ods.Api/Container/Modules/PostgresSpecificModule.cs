@@ -12,6 +12,8 @@ using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.PostgreSql;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Generator.Database.Engines.PostgreSql;
+using EdFi.Ods.Generator.Database.NamingConventions;
 using Npgsql;
 using SqlKata.Compilers;
 
@@ -41,8 +43,13 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterInstance(NpgsqlFactory.Instance)
                 .As<DbProviderFactory>()
                 .SingleInstance();
-            
+
             builder.Register<Compiler>(ctx => new PostgresCompiler());
+
+            // Register PostgreSQL naming convention
+            builder.RegisterType<PostgreSqlDatabaseNamingConvention>()
+                .As<IDatabaseNamingConvention>()
+                .SingleInstance();
         }
     }
 }
