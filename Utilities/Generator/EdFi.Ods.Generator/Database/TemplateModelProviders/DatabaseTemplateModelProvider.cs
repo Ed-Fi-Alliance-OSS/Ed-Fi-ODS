@@ -409,7 +409,7 @@ namespace EdFi.Ods.Generator.Database.TemplateModelProviders
                     Index = index,
                     
                     // Ed-Fi-specific properties
-                    IsConcreteDescriptorId = property.IsLookup || (property.IsIdentifying && property.Entity.IsDescriptorEntity()),
+                    IsConcreteDescriptorId = property.IsDescriptorUsage || (property.IsIdentifying && property.Entity.IsDescriptorEntity()),
                     IsPersonUSIUsage = property.DefiningProperty.Entity != property.Entity
                         && property.DefiningProperty.IsIdentifying 
                         && property.DefiningProperty.Entity.IsPersonEntity(),
