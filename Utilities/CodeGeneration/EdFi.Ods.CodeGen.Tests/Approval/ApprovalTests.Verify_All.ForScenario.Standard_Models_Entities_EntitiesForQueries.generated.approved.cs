@@ -2989,6 +2989,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.ClassPeriodAggregate.EdFi
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.SectionAggregate.EdFi.SectionClassPeriodQ> SectionClassPeriods  { get; set; }
     #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriodQ> StudentSectionAttendanceEventClassPeriods  { get; set; }
+    #pragma warning restore 114
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ School { get; set; }
@@ -5031,14 +5034,14 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CredentialAggregate.EdFi
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        public virtual int CredentialFieldDescriptorId  { get; set; }
+        public virtual int? CredentialFieldDescriptorId  { get; set; }
         public virtual int CredentialTypeDescriptorId  { get; set; }
         public virtual DateTime? EffectiveDate  { get; set; }
         public virtual DateTime? ExpirationDate  { get; set; }
         public virtual DateTime IssuanceDate  { get; set; }
         public virtual string Namespace  { get; set; }
         public virtual int? TeachingCredentialBasisDescriptorId  { get; set; }
-        public virtual int TeachingCredentialDescriptorId  { get; set; }
+        public virtual int? TeachingCredentialDescriptorId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -19471,6 +19474,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StaffEducationOrganizationAss
         public virtual DateTime? EmploymentHireDate  { get; set; }
         public virtual int? EmploymentStatusDescriptorId  { get; set; }
         public virtual DateTime? EndDate  { get; set; }
+        public virtual decimal? FullTimeEquivalency  { get; set; }
         public virtual int? OrderOfAssignment  { get; set; }
         public virtual string PositionTitle  { get; set; }
         public virtual int? StateOfIssueStateAbbreviationDescriptorId  { get; set; }
@@ -24654,6 +24658,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         // =============================================================
         //                          Collections
         // -------------------------------------------------------------
+        public virtual ICollection<StudentSectionAttendanceEventClassPeriodQ> StudentSectionAttendanceEventClassPeriods { get; set; }
 
         // -------------------------------------------------------------
 
@@ -24967,6 +24972,49 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEvent
         protected virtual NHibernate.QueryModels.EducationalEnvironmentDescriptorAggregate.EdFi.EducationalEnvironmentDescriptorQ EducationalEnvironmentDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.SectionAggregate.EdFi.SectionQ Section { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.StudentSectionAttendanceEventClassPeriod table of the StudentSectionAttendanceEvent aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class StudentSectionAttendanceEventClassPeriodQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventQ StudentSectionAttendanceEvent { get; set; }
+        [DomainSignature]
+        public virtual string ClassPeriodName { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.ClassPeriodAggregate.EdFi.ClassPeriodQ ClassPeriod { get; set; }
         // -------------------------------------------------------------
     }
 }
