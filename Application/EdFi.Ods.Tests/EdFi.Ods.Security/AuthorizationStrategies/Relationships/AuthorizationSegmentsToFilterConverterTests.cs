@@ -196,7 +196,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 _actualFilters.Count.ShouldBe(1);
 
                 _actualFilters.Single().FilterName
-                    .ShouldBe("StudentUSIToLocalEducationAgencyIdOverTheRiverAndThroughTheWoods");
+                    .ShouldBe("LocalEducationAgencyIdToStudentUSIOverTheRiverAndThroughTheWoods");
             }
 
             [Assert]
