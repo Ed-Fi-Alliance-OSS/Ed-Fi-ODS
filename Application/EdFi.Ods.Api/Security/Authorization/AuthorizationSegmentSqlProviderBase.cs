@@ -106,10 +106,6 @@ namespace EdFi.Ods.Api.Security.Authorization
                         {
                             claimEndpointName = "EducationOrganizationId";
                         }
-                        else
-                        {
-                            subjectEndpointName = "EducationOrganizationId";
-                        }
 
                         derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
                             subjectEndpointName,

@@ -24,13 +24,9 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <returns>The authorization view name (without the schema).</returns>
         public static string GetAuthorizationViewName(string endpoint1, string endpoint2, string authorizationPathModifier)
         {
-            if (endpoint1.Equals("StudentUSI"))
+            if (endpoint1.Equals("StudentUSI") && endpoint2.Equals("EducationOrganizationId"))
             {
                 return $"{endpoint1}To{endpoint2}{authorizationPathModifier}";
-            }
-            else if (endpoint2.Equals("StudentUSI"))
-            {
-                return $"{endpoint2}To{endpoint1}{authorizationPathModifier}";
             }
 
             if (string.Compare(endpoint1, endpoint2, StringComparison.InvariantCultureIgnoreCase) < 0)
