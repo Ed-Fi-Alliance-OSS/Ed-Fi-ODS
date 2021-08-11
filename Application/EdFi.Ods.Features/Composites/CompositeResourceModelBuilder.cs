@@ -120,9 +120,9 @@ namespace EdFi.Ods.Features.Composites
                                 entityProperty.IsIdentifying,
                                 true, // All projected properties are "local" properties on the new object
                                 entityProperty.IsServerAssigned,
-                                entityProperty.LookupEntity == null
+                                entityProperty.DescriptorEntity == null
                                     ? null as FullName?
-                                    : entityProperty.LookupEntity.FullName),
+                                    : entityProperty.DescriptorEntity.FullName),
                             property.ResourceProperty.Description));
                 }
                 else

@@ -285,7 +285,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                         // Set the parameter values
                         builderContext.CurrentQueryFilterParameterValueByName[parameterName]
                             = valueFilter.Values
-                                .Select(x => _descriptorsCache.GetId(filterProperty.LookupTypeName, x))
+                                .Select(x => _descriptorsCache.GetId(filterProperty.DescriptorName, x))
                                 .ToArray();
                     }
                     else
@@ -295,7 +295,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                             = (parametersAsObject as int[])
                             .Concat(
                                 valueFilter.Values
-                                    .Select(x => _descriptorsCache.GetId(filterProperty.LookupTypeName, x))
+                                    .Select(x => _descriptorsCache.GetId(filterProperty.DescriptorName, x))
                             )
                             .ToArray();
                     }
@@ -795,7 +795,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
                     if (targetProperty.IsDescriptorUsage)
                     {
                         var id = _descriptorsCache.GetId(
-                            targetProperty.LookupTypeName,
+                            targetProperty.DescriptorName,
                             Convert.ToString(queryStringParameter.Value));
 
                         criteriaPropertyName = targetProperty.EntityProperty.PropertyName;

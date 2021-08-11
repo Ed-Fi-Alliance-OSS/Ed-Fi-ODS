@@ -198,7 +198,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies
                     entityProperty.IsIdentifying,
                     true,
                     entityProperty.IsServerAssigned,
-                    entityProperty.LookupEntity?.FullName),
+                    entityProperty.DescriptorEntity?.FullName),
                 fullModelResourceProperty.Description);
         }
 
