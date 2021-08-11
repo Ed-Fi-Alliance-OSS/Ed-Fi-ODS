@@ -19,7 +19,7 @@ namespace EdFi.Ods.Common.Models.Domain
     /// </summary>
     public class EntityProperty : DomainPropertyBase
     {
-        private Lazy<Entity> _lookupEntity;
+        private Lazy<Entity> _descriptorEntity;
         private Lazy<bool> _isUnified;
         private Lazy<EntityProperty> _definingProperty;
 
@@ -69,77 +69,15 @@ namespace EdFi.Ods.Common.Models.Domain
 
             _definingProperty = new Lazy<EntityProperty>(GetDefiningProperty);
             
-            _lookupEntity = new Lazy<Entity>(
+            _descriptorEntity = new Lazy<Entity>(
                 () =>
                 {
-                    // Detached properties are not lookup properties
-                    if (Entity == null)
+                    if (DefiningProperty?.Entity?.IsDescriptorEntity == true && DefiningProperty.Entity != Entity)
                     {
-                        return null;
+                        return DefiningProperty.Entity;
                     }
 
-                    // Is this property a TypeId or DescriptorId on the table?  If so, it's not a lookup property.
-                    if (DescriptorEntitySpecification.IsEdFiDescriptorEntity(Entity.Name)
-                        && PropertyName == Entity.Name + "Id") // TODO: Embedded convention - Types/descriptor properties use entity name + "Id" suffix
-                    {
-                        return null;
-                    }
-
-                    var currentAssociation = IncomingAssociations.FirstOrDefault(
-                        x =>
-                            x.AssociationType == AssociationViewType.FromBase
-                            || x.AssociationType == AssociationViewType.OneToOneIncoming
-                            || x.AssociationType == AssociationViewType.ManyToOne
-
-                            // Prevent processing self-recursive relationships with key unification on current property (prevent endless loop)
-                            && !(x.IsSelfReferencing && PropertyName.EqualsIgnoreCase(
-                                     x.PropertyMappingByThisName[PropertyName]
-                                      .OtherProperty.PropertyName)));
-
-                    if (currentAssociation == null)
-                    {
-                        return null;
-                    }
-
-                    var currentThisProperty = this;
-
-                    while (currentAssociation != null)
-                    {
-                        var otherProperty = currentAssociation.PropertyMappingByThisName[currentThisProperty.PropertyName]
-                                                              .OtherProperty;
-
-                        if (ModelComparers.EntityProperty.Equals(currentThisProperty, otherProperty))
-                        {
-                            throw new Exception(
-                                "Association property mapping endpoints refer to the same property.");
-                        }
-
-                        currentThisProperty = otherProperty;
-
-                        // Stop looking if we've hit a lookup table (Type or Descriptor)
-                        if (currentThisProperty.Entity.IsLookup)
-                        {
-                            break;
-                        }
-
-                        currentAssociation = otherProperty.IncomingAssociations.FirstOrDefault(
-                            x =>
-                                x.AssociationType == AssociationViewType.FromBase
-                                || x.AssociationType == AssociationViewType.OneToOneIncoming
-                                || x.AssociationType == AssociationViewType.ManyToOne
-                                && !(x.IsSelfReferencing && currentThisProperty.PropertyName.EqualsIgnoreCase(
-                                         x.PropertyMappingByThisName[
-                                               currentThisProperty
-                                                  .PropertyName]
-                                          .OtherProperty
-                                          .PropertyName)));
-                    }
-
-                    return
-                        currentThisProperty.Entity.IsLookup
-                        && currentThisProperty.Entity.Aggregate != Entity.Aggregate
-                            ? currentThisProperty.Entity
-                            : null;
+                    return null;
                 });
         }
 
@@ -156,16 +94,7 @@ namespace EdFi.Ods.Common.Models.Domain
         {
             get
             {
-                // TODO: Implement using semantic model (see DefiningProperty.Entity) rather than property and type naming conventions for determining this.
-
-                // This prevents a known inconsistency in the Ed-Fi ODS from being reported as a descriptor lookup
-                if (PropertyName == "PriorDescriptorId") // TODO: Embedded convention - hardcoded logic
-                {
-                    return false;
-                }
-
-                return LookupEntity != null
-                       && DescriptorEntitySpecification.IsEdFiDescriptorEntity(LookupEntity.Name);
+                return DescriptorEntity != null && !IncomingAssociations.Any(a => a.IsSelfReferencing);
             }
         }
 
@@ -191,18 +120,24 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </summary>
         [Obsolete("Use IsDirectDescriptorUsage instead.")]
         public bool IsDirectLookup => IsDirectDescriptorUsage;
-        
+
         /// <summary>
         /// Indicates whether the the property is a descriptor value that is directly referenced
         /// from the corresponding descriptor entity (as opposed to migrated into the entity via an association
         /// from a non-descriptor entity).
         /// </summary>
-        public bool IsDirectDescriptorUsage => IsDescriptorUsage && IncomingAssociations.Any(x => x.OtherEntity == LookupEntity);
+        public bool IsDirectDescriptorUsage => IsDescriptorUsage && IncomingAssociations.Any(x => x.OtherEntity == DescriptorEntity);
 
         /// <summary>
         /// Gets the corresponding descriptor entity (if applicable); otherwise null.
         /// </summary>
-        public Entity LookupEntity => _lookupEntity.Value;
+        [Obsolete("Use DescriptorEntity instead.")]
+        public Entity LookupEntity => DescriptorEntity;
+        
+        /// <summary>
+        /// Gets the corresponding descriptor entity (if applicable); otherwise null.
+        /// </summary>
+        public Entity DescriptorEntity => _descriptorEntity.Value;
 
         /// <summary>
         /// Gets the associations that contribute the property to the current entity.

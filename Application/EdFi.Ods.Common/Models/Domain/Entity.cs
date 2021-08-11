@@ -690,7 +690,7 @@ namespace EdFi.Ods.Common.Models.Domain
         public bool IsAggregateRoot => DomainModel.AggregateFullNameByEntityFullName[FullName] == FullName;
 
         /// <summary>
-        /// Indicates whether the entity represents a descriptor, or the SchoolYearType.
+        /// Indicates whether the entity represents a descriptor.
         /// </summary>
         public bool IsLookup => this.IsLookupEntity();
 
@@ -715,7 +715,7 @@ namespace EdFi.Ods.Common.Models.Domain
         public IReadOnlyList<AssociationView> SelfReferencingAssociations => OutgoingAssociations.Where(a => a.IsSelfReferencing)
                                                                                                  .ToList();
 
-        public bool IsDescriptorEntity => this.IsDescriptorEntity();
+        public bool IsDescriptorEntity => IsDerived && BaseEntity?.IsDescriptorBaseEntity() == true;
 
         public string Description { get; }
 

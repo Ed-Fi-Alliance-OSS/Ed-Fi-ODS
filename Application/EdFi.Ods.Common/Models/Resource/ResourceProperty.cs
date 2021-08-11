@@ -76,13 +76,13 @@ namespace EdFi.Ods.Common.Models.Resource
             IsLocallyDefined = entityProperty.IsLocallyDefined;
             IsServerAssigned = entityProperty.IsServerAssigned;
 
-            LookupTypeName = entityProperty.LookupEntity == null
+            DescriptorName = entityProperty.DescriptorEntity == null
                 ? null
-                : entityProperty.LookupEntity.Name;
+                : entityProperty.DescriptorEntity.Name;
 
-            DescriptorResource = entityProperty.LookupEntity == null
+            DescriptorResource = entityProperty.DescriptorEntity == null
                 ? null
-                : resourceClass?.ResourceModel?.GetResourceByFullName(entityProperty.LookupEntity.FullName);
+                : resourceClass?.ResourceModel?.GetResourceByFullName(entityProperty.DescriptorEntity.FullName);
 
             PropertyType = GetResourcePropertyType(entityProperty);
             Description = entityProperty.Description;
@@ -116,7 +116,7 @@ namespace EdFi.Ods.Common.Models.Resource
             IsLocallyDefined = characteristics.IsLocallyDefined;
             IsServerAssigned = characteristics.IsServerAssigned;
 
-            LookupTypeName = characteristics.LookupEntityName == null
+            DescriptorName = characteristics.LookupEntityName == null
                 ? null
                 : characteristics.LookupEntityName.Value.Name;
 
@@ -146,7 +146,10 @@ namespace EdFi.Ods.Common.Models.Resource
                 });
         }
         
-        public string LookupTypeName { get; }
+        public string DescriptorName { get; }
+
+        [Obsolete("Use DescriptorName instead.")]
+        public string LookupTypeName => DescriptorName;
         
         /// <summary>
         /// For descriptors, gets the <see cref="Resource" /> representing the descriptor referenced by the property;
