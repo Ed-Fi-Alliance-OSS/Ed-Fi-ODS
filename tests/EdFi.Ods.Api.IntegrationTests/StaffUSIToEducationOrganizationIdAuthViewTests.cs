@@ -146,7 +146,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             var staffUsi = AuthorizationViewHelper.GetStaffUsi(Connection, staffUniqueId);
-            ;
+            
 
             Builder
                 .AddStaffEducationOrganizationAssignmentAssociation(9702, staffUsi, DateTime.UtcNow.Date)
