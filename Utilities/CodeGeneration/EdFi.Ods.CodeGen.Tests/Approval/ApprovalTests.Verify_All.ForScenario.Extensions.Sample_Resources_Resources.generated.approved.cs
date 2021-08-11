@@ -873,7 +873,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         // -------------------------------------------------------------
 
         /// <summary>
-        /// Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the education organization.
+        /// Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the LEA.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         DateTime? Entities.Common.Sample.IBusRoute.BeginDate
@@ -18514,7 +18514,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
 
         /// <summary>
-        /// Reflects the type of employment or contract; for example:         Probationary         Contractual         Substitute/temporary         Tenured or permanent         Volunteer/no contract         ...
+        /// Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...
         /// </summary>
 
         // IS in a reference (StudentParentAssociationStaffEducationOrganizationEmploymentAssociation.EmploymentStatusDescriptorId), IS a lookup column 

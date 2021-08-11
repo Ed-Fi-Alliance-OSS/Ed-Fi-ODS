@@ -10977,7 +10977,6 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StaffEducationOrganizationAssignme
         public DateTime EmploymentHireDate { get; set; }
         public string EmploymentStatusDescriptor { get; set; }
         public DateTime EndDate { get; set; }
-        public decimal FullTimeEquivalency { get; set; }
         public Guid Id { get; set; }
         public int OrderOfAssignment { get; set; }
         public string PositionTitle { get; set; }

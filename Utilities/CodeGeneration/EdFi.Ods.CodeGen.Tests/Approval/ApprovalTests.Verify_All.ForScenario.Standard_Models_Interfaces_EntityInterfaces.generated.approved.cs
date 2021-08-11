@@ -8528,7 +8528,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         DateTime? EmploymentHireDate { get; set; }
         string EmploymentStatusDescriptor { get; set; }
         DateTime? EndDate { get; set; }
-        decimal? FullTimeEquivalency { get; set; }
         int? OrderOfAssignment { get; set; }
         string PositionTitle { get; set; }
         string StateOfIssueStateAbbreviationDescriptor { get; set; }
@@ -11648,35 +11647,12 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
-        ICollection<IStudentSectionAttendanceEventClassPeriod> StudentSectionAttendanceEventClassPeriods { get; set; }
 
         // Resource reference data
         Guid? SectionResourceId { get; set; }
         string SectionDiscriminator { get; set; }
         Guid? StudentResourceId { get; set; }
         string StudentDiscriminator { get; set; }
-    }
-
-    /// <summary>
-    /// Defines available properties and methods for the abstraction of the StudentSectionAttendanceEventClassPeriod model.
-    /// </summary>
-    public interface IStudentSectionAttendanceEventClassPeriod : ISynchronizable, IMappable, IHasExtensions, IGetByExample
-    {
-        // Primary Key properties
-        [NaturalKeyMember]
-        IStudentSectionAttendanceEvent StudentSectionAttendanceEvent { get; set; }
-        [NaturalKeyMember]
-        string ClassPeriodName { get; set; }
-
-        // Non-PK properties
-
-        // One-to-one relationships
-
-        // Lists
-
-        // Resource reference data
-        Guid? ClassPeriodResourceId { get; set; }
-        string ClassPeriodDiscriminator { get; set; }
     }
 
     /// <summary>

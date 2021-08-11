@@ -39503,7 +39503,7 @@ namespace EdFi.Ods.Entities.NHibernate.OpenStaffPositionAggregate.TPDM
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
-        [Range(typeof(decimal), "-9.9999", "9.9999")]
+        [Range(typeof(decimal), "-9.99", "9.99")]
         public virtual decimal? FullTimeEquivalency  { get; set; }
         public virtual int? FundingSourceDescriptorId 
         {

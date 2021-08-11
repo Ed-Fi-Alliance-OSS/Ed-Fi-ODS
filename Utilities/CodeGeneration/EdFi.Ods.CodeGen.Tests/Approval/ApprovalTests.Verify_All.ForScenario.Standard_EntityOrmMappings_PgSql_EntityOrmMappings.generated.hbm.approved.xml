@@ -2546,14 +2546,14 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
-    <property name="CredentialFieldDescriptorId" column="CredentialFieldDescriptorId" type="int" />
+    <property name="CredentialFieldDescriptorId" column="CredentialFieldDescriptorId" type="int" not-null="true" />
     <property name="CredentialTypeDescriptorId" column="CredentialTypeDescriptorId" type="int" not-null="true" />
     <property name="EffectiveDate" column="EffectiveDate" type="date" />
     <property name="ExpirationDate" column="ExpirationDate" type="date" />
     <property name="IssuanceDate" column="IssuanceDate" type="date" not-null="true" />
     <property name="Namespace" column="Namespace" type="string" length="255" not-null="true" />
     <property name="TeachingCredentialBasisDescriptorId" column="TeachingCredentialBasisDescriptorId" type="int" />
-    <property name="TeachingCredentialDescriptorId" column="TeachingCredentialDescriptorId" type="int" />
+    <property name="TeachingCredentialDescriptorId" column="TeachingCredentialDescriptorId" type="int" not-null="true" />
 
     <!-- Aggregate references -->
 
@@ -12751,7 +12751,6 @@
     <property name="EmploymentHireDate" column="EmploymentHireDate" type="date" />
     <property name="EmploymentStatusDescriptorId" column="EmploymentStatusDescriptorId" type="int" />
     <property name="EndDate" column="EndDate" type="date" />
-    <property name="FullTimeEquivalency" column="FullTimeEquivalency" type="decimal" />
     <property name="OrderOfAssignment" column="OrderOfAssignment" type="int" />
     <property name="PositionTitle" column="PositionTitle" type="string" length="100" />
     <property name="StateOfIssueStateAbbreviationDescriptorId" column="StateOfIssueStateAbbreviationDescriptorId" type="int" />
@@ -16951,55 +16950,6 @@
     </many-to-one>
     <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="StudentUSI" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
-    <set name="StudentSectionAttendanceEventClassPeriods" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="AttendanceEventCategoryDescriptorId" />
-        <column name="EventDate" />
-        <column name="LocalCourseCode" />
-        <column name="SchoolId" />
-        <column name="SchoolYear" />
-        <column name="SectionIdentifier" />
-        <column name="SessionName" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriod" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriod" table="StudentSectionAttendanceEventClassPeriod" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="ClassPeriodName" column="ClassPeriodName" type="string" length="60" />
-      <key-many-to-one name="StudentSectionAttendanceEvent">
-        <column name="AttendanceEventCategoryDescriptorId" />
-        <column name="EventDate" />
-        <column name="LocalCourseCode" />
-        <column name="SchoolId" />
-        <column name="SchoolYear" />
-        <column name="SectionIdentifier" />
-        <column name="SessionName" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-    <many-to-one name="ClassPeriodReferenceData" class="EdFi.Ods.Entities.NHibernate.ClassPeriodAggregate.EdFi.ClassPeriodReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="ClassPeriodName" />
-      <column name="SchoolId" />
     </many-to-one>
 
     <!-- Back references -->
