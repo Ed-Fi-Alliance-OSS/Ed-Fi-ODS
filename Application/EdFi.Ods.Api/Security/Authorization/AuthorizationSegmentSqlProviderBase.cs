@@ -93,11 +93,6 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                     // When subject Endpoint or Claim Endpoint ends with StudentUSI and also not ends with ThroughEdOrgAssociation
                     // use new Student view 
-                    //auth.LocalEducationAgencyIdToStudentUSI
-                    //auth.SchoolIdToStudentUSI
-                    //auth.EducationOrganizationIdToStudentUSI
-                    //auth.ParentUSIToStudentUSI
-                    //auth.StudentUSIToEducationOrganizationId
                     if ((subjectEndpointName.EndsWith("StudentUSI") || claimEndpointName.EndsWith("StudentUSI")) &&
                         !subjectEndpointName.EndsWith("ThroughEdOrgAssociation") &&
                         !claimEndpointName.EndsWith("ThroughEdOrgAssociation"))
@@ -114,24 +109,8 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                         claimEndpointName = "SourceEducationOrganizationId";
                     }
-
                     // When subject Endpoint or Claim Endpoint does not have ParentUSI or StaffUSI or  ThroughEdOrgAssociation
                     // Then use tuple table for authorization 
-                    //auth.EducationOrganizationIdentifiers
-                    //auth.EducationOrganizationIdToEducationServiceCenterId
-                    //auth.EducationOrganizationIdToStateAgencyId
-                    //auth.CommunityOrganizationIdToCommunityProviderId
-                    //auth.EducationOrganizationIdToLocalEducationAgencyId
-                    //auth.EducationOrganizationIdToPostSecondaryInstitutionId
-                    //auth.EducationOrganizationIdToSchoolId
-                    //auth.LocalEducationAgency
-                    //auth.LocalEducationAgencyIdToSchoolId
-                    //auth.School
-                    //auth.CommunityOrganizationIdToEducationOrganizationId
-                    //auth.CommunityProviderIdToEducationOrganizationId
-                    //auth.LocalEducationAgencyIdToOrganizationDepartmentId
-                    //auth.OrganizationDepartmentIdToSchoolId
-                    //auth.StudentUSIToEducationOrganizationId
                     else if (!entities.Contains(subjectEndpointName)
                              && !entities.Contains(claimEndpointName)
                              && !subjectEndpointName.Contains("StudentUSI")
@@ -141,8 +120,6 @@ namespace EdFi.Ods.Api.Security.Authorization
                         claimEndpointName = "SourceEducationOrganizationId";
                         derivedAuthorizationViewName = "auth.EducationOrganizationIdToEducationOrganizationId";
                     }
-
-                    // Go with regular flow for remaining 
                     else
                     {
                         derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
