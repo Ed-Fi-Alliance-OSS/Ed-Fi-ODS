@@ -1,5 +1,3 @@
-USE [EdFi_Security]
-
 -- Create Ed-Fi ODS Admin App ClaimSet
 
 DECLARE @applicationId int
