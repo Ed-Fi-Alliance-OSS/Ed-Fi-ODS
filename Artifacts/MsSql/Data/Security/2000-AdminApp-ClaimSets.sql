@@ -96,7 +96,7 @@ PRINT 'Configuring Claims for AB Connect Claimset...'
 INSERT INTO ClaimSetResourceClaims
     (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
 SELECT ActionId, @claimSetId, ResourceClaimId FROM Actions a, @resourceClaimIds rc
-WHERE NOT EXISTS (SELECT *
+WHERE NOT EXISTS (SELECT 1
                   FROM ClaimSetResourceClaims
 				  WHERE Action_ActionId = a.ActionId AND ClaimSet_ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
 GO
