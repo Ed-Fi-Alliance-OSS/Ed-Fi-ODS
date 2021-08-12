@@ -14,15 +14,18 @@ namespace GenerateSecurityGraphs
     public sealed class FileDotEngine : IDotEngine
     {
         private readonly int _unflattenToDepth;
+        private readonly string _graphvizFolder;
         private readonly string _assetsFolder;
 
-        public FileDotEngine(string assetsFolder)
+        public FileDotEngine(string graphvizFolder, string assetsFolder)
         {
+            _graphvizFolder = graphvizFolder;
             _assetsFolder = assetsFolder;
         }
 
-        public FileDotEngine(string assetsFolder, int unflattenToDepth)
+        public FileDotEngine(string graphvizFolder, string assetsFolder, int unflattenToDepth)
         {
+            _graphvizFolder = graphvizFolder;
             _assetsFolder = assetsFolder;
             _unflattenToDepth = unflattenToDepth;
         }
@@ -52,7 +55,7 @@ namespace GenerateSecurityGraphs
                 var unflattenArgs = string.Format(@"-o ""{0}.unflattened"" -l{1} ""{0}""", outputFileName, _unflattenToDepth);
 
                 Process.Start(
-                    new ProcessStartInfo(@"C:\Program Files (x86)\Graphviz2.38\bin\unflatten.exe", unflattenArgs)
+                    new ProcessStartInfo(Path.Combine(_graphvizFolder, @"bin\unflatten.exe"), unflattenArgs)
                     {
                         UseShellExecute = false,
                         CreateNoWindow = true,
@@ -78,7 +81,7 @@ namespace GenerateSecurityGraphs
                     outputType);
 
                 Process.Start(
-                    new ProcessStartInfo(@"C:\Program Files (x86)\Graphviz2.38\bin\dot.exe", args)
+                    new ProcessStartInfo(Path.Combine(_graphvizFolder, @"bin\dot.exe"), args)
                     {
                         UseShellExecute = false,
                         CreateNoWindow = true,
