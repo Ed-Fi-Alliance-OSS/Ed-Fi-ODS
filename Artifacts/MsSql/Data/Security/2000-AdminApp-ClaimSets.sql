@@ -11,7 +11,7 @@ SELECT @applicationId = ApplicationId FROM  Applications WHERE ApplicationName =
 PRINT 'Ensuring Ed-Fi ODS Admin App Claimset exists.'
 INSERT INTO ClaimSets (ClaimSetName, Application_ApplicationId)
 SELECT DISTINCT @claimSetName, @applicationId FROM ClaimSets
-WHERE NOT EXISTS (SELECT *
+WHERE NOT EXISTS (SELECT 1
                   FROM ClaimSets
 				  WHERE ClaimSetName = @claimSetName AND Application_ApplicationId = @applicationId )
 GO
