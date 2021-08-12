@@ -82,7 +82,7 @@ DECLARE @resourceNames TABLE (ResourceName nvarchar(255))
 DECLARE @resourceClaimIds TABLE (ResourceClaimId int)
 
 SET @claimSetName = 'AB Connect'
-PRINT 'Creating temorary records.'
+PRINT 'Creating Temporary Records.'
 INSERT INTO @resourceNames VALUES ('gradeLevelDescriptor'),('academicSubjectDescriptor'),('publicationStatusDescriptor'),('educationStandards')
 INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
 
