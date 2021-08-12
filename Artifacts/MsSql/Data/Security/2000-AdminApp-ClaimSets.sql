@@ -16,7 +16,7 @@ SELECT @applicationId = ApplicationId FROM  Applications WHERE ApplicationName =
 PRINT 'Ensuring Ed-Fi ODS Admin App Claimset exists.'
 INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
 SELECT DISTINCT @claimSetName, @applicationId FROM dbo.ClaimSets
-WHERE NOT EXISTS (SELECT *
+WHERE NOT EXISTS (SELECT 1
                   FROM dbo.ClaimSets
 				  WHERE ClaimSetName = @claimSetName AND Application_ApplicationId = @applicationId )
 GO
@@ -31,7 +31,7 @@ DECLARE @authorizationStrategyId INT
 DECLARE @ResourceClaimId INT
 
 SET @claimSetName = 'Ed-Fi ODS Admin App'
-PRINT 'Creating temorary records.'
+PRINT 'Creating Temporary Records.'
 INSERT INTO @resourceNames VALUES ('educationOrganizations'),('systemDescriptors'),('managedDescriptors')
 INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
 
@@ -49,7 +49,7 @@ PRINT 'Configuring Claims for Ed-Fi ODS Admin App Claimset...'
 INSERT INTO dbo.ClaimSetResourceClaims
     (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, AuthorizationStrategyOverride_AuthorizationStrategyId)
 SELECT ActionId, @claimSetId, ResourceClaimId , @authorizationStrategyId FROM dbo.Actions a, @resourceClaimIds rc
-WHERE NOT EXISTS (SELECT *
+WHERE NOT EXISTS (SELECT 1
                   FROM dbo.ClaimSetResourceClaims
 				  WHERE Action_ActionId = a.ActionId AND ClaimSet_ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
 
@@ -74,7 +74,7 @@ SELECT @applicationId = ApplicationId FROM  dbo.Applications WHERE ApplicationNa
 PRINT 'Ensuring AB Connect Claimset exists.'
 INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
 SELECT DISTINCT @claimSetName, @applicationId FROM dbo.ClaimSets
-WHERE NOT EXISTS (SELECT *
+WHERE NOT EXISTS (SELECT 1
                   FROM dbo.ClaimSets
 				  WHERE ClaimSetName = @claimSetName AND Application_ApplicationId = @applicationId )
 GO
@@ -87,7 +87,7 @@ DECLARE @resourceNames TABLE (ResourceName nvarchar(255))
 DECLARE @resourceClaimIds TABLE (ResourceClaimId int)
 
 SET @claimSetName = 'AB Connect'
-PRINT 'Creating temorary records.'
+PRINT 'Creating Temporary Records.'
 INSERT INTO @resourceNames VALUES ('gradeLevelDescriptor'),('academicSubjectDescriptor'),('publicationStatusDescriptor'),('educationStandards')
 INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
 
@@ -101,7 +101,7 @@ PRINT 'Configuring Claims for AB Connect Claimset...'
 INSERT INTO dbo.ClaimSetResourceClaims
     (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
 SELECT ActionId, @claimSetId, ResourceClaimId FROM dbo.Actions a, @resourceClaimIds rc
-WHERE NOT EXISTS (SELECT *
+WHERE NOT EXISTS (SELECT 1
                   FROM dbo.ClaimSetResourceClaims
 				  WHERE Action_ActionId = a.ActionId AND ClaimSet_ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
 GO
@@ -148,7 +148,7 @@ PRINT 'Ensuring create and read actions for performanceLevelDescriptor are assig
 INSERT INTO dbo.ClaimSetResourceClaims
     (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
 SELECT ActionId, @claimSetId, @performanceLevelDescriptorClaimId FROM dbo.Actions a
-WHERE a.ActionName in ('Read','Create') AND NOT EXISTS (SELECT *
+WHERE a.ActionName in ('Read','Create') AND NOT EXISTS (SELECT 1
                   FROM dbo.ClaimSetResourceClaims
 				  WHERE Action_ActionId = a.ActionId AND ClaimSet_ClaimSetId = @claimSetId AND ClaimsetResourceClaims.ResourceClaim_ResourceClaimId = @performanceLevelDescriptorClaimId)
 GO
