@@ -26,7 +26,7 @@ DECLARE @authorizationStrategyId INT
 DECLARE @ResourceClaimId INT
 
 SET @claimSetName = 'Ed-Fi ODS Admin App'
-PRINT 'Creating temorary records.'
+PRINT 'Creating Temporary Records.'
 INSERT INTO @resourceNames VALUES ('educationOrganizations'),('systemDescriptors'),('managedDescriptors')
 INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
 
