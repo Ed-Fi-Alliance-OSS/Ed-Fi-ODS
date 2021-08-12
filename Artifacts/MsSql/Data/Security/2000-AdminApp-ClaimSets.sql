@@ -143,7 +143,7 @@ PRINT 'Ensuring create and read actions for performanceLevelDescriptor are assig
 INSERT INTO ClaimSetResourceClaims
     (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
 SELECT ActionId, @claimSetId, @performanceLevelDescriptorClaimId FROM Actions a
-WHERE a.ActionName in ('Read','Create') AND NOT EXISTS (SELECT *
+WHERE a.ActionName in ('Read','Create') AND NOT EXISTS (SELECT 1
                   FROM ClaimSetResourceClaims
 				  WHERE Action_ActionId = a.ActionId AND ClaimSet_ClaimSetId = @claimSetId AND ClaimsetResourceClaims.ResourceClaim_ResourceClaimId = @performanceLevelDescriptorClaimId)
 GO
