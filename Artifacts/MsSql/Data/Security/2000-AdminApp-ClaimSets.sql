@@ -44,7 +44,7 @@ PRINT 'Configuring Claims for Ed-Fi ODS Admin App Claimset...'
 INSERT INTO ClaimSetResourceClaims
     (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, AuthorizationStrategyOverride_AuthorizationStrategyId)
 SELECT ActionId, @claimSetId, ResourceClaimId , @authorizationStrategyId FROM Actions a, @resourceClaimIds rc
-WHERE NOT EXISTS (SELECT *
+WHERE NOT EXISTS (SELECT 1
                   FROM ClaimSetResourceClaims
 				  WHERE Action_ActionId = a.ActionId AND ClaimSet_ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
 
