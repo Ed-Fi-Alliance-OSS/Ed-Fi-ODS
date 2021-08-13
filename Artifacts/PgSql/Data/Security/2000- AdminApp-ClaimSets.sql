@@ -30,6 +30,8 @@ BEGIN
     FROM dbo.claimsets
     WHERE claimsetname = claimset_name;
 	
+	DELETE FROM dbo.ClaimSetResourceClaims WHERE ClaimSet_ClaimSetId = claimset_id;
+	
 	SELECT authorizationstrategyid INTO authorizationStrategy_id
     FROM dbo.authorizationstrategies
     WHERE authorizationstrategyname = 'NoFurtherAuthorizationRequired';
@@ -95,10 +97,12 @@ BEGIN
         RAISE NOTICE 'adding % claimset', claimset_name;
         INSERT INTO dbo.claimsets (claimsetname, application_applicationid) VALUES (claimset_name, application_id);
     END IF;
-
+	
     SELECT claimsetid INTO claimset_id
     FROM dbo.claimsets
     WHERE claimsetname = claimset_name;
+	
+	DELETE FROM dbo.ClaimSetResourceClaims WHERE ClaimSet_ClaimSetId = claimset_id;
 
     -- Configure AB Connect ClaimSet
     IF EXISTS (SELECT 1 FROM dbo.claimsetresourceclaims WHERE claimset_claimsetid = claimset_id)
@@ -164,21 +168,22 @@ BEGIN
                FROM dbo.claimsetresourceclaims
                WHERE claimset_claimsetid = claimset_id AND resourceclaim_resourceclaimid = resourceclaim_id)
     THEN
-        RAISE NOTICE 'performanceLevelDescriptor claim already exist for Assessment Vendor';
-    ELSE
-        RAISE NOTICE 'Ensuring create, read actions for performanceLevelDescriptor are assigned to Assessment Vendor claimset';
-        INSERT INTO dbo.claimsetresourceclaims
-            (Action_ActionId
-            ,ClaimSet_ClaimSetId
-            ,ResourceClaim_ResourceClaimId
-            ,AuthorizationStrategyOverride_AuthorizationStrategyId
-            ,ValidationRuleSetNameOverride)
-        SELECT ac.actionid, claimset_id, resourceclaimid, CAST(null AS int), CAST(null AS int)
-        FROM dbo.resourceclaims
-        INNER JOIN LATERAL
-            (SELECT actionid
-            FROM dbo.actions
-            WHERE actionname IN ('Create','Read')) AS ac ON true
-        WHERE resourceclaimid = resourceclaim_id;
+        DELETE FROM dbo.ClaimSetResourceClaims WHERE ResourceClaim_ResourceClaimId = resourceclaim_id AND ClaimSet_ClaimSetId = claimset_id;
     END IF;
+	
+	RAISE NOTICE 'Ensuring create, read actions for performanceLevelDescriptor are assigned to Assessment Vendor claimset';
+    INSERT INTO dbo.claimsetresourceclaims
+        (Action_ActionId
+        ,ClaimSet_ClaimSetId
+        ,ResourceClaim_ResourceClaimId
+        ,AuthorizationStrategyOverride_AuthorizationStrategyId
+        ,ValidationRuleSetNameOverride)
+    SELECT ac.actionid, claimset_id, resourceclaimid, CAST(null AS int), CAST(null AS int)
+    FROM dbo.resourceclaims
+    INNER JOIN LATERAL
+    (SELECT actionid
+        FROM dbo.actions
+        WHERE actionname IN ('Create','Read')) AS ac ON true
+    WHERE resourceclaimid = resourceclaim_id;
+		
 END $$;

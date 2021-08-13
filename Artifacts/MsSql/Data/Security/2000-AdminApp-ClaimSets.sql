@@ -31,6 +31,15 @@ DECLARE @authorizationStrategyId INT
 DECLARE @ResourceClaimId INT
 
 SET @claimSetName = 'Ed-Fi ODS Admin App'
+
+DECLARE @edFiOdsAdminAppClaimSetId as INT
+SELECT @edFiOdsAdminAppClaimSetId = ClaimsetId
+FROM dbo.ClaimSets c
+WHERE c.ClaimSetName = @claimSetName
+
+DELETE FROM [dbo].[ClaimSetResourceClaims]
+WHERE [ClaimSet_ClaimSetId] = @edFiOdsAdminAppClaimSetId
+
 PRINT 'Creating Temporary Records.'
 INSERT INTO @resourceNames VALUES ('educationOrganizations'),('systemDescriptors'),('managedDescriptors')
 INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
@@ -55,6 +64,7 @@ WHERE NOT EXISTS (SELECT 1
 
 SELECT @actionId = ActionId FROM dbo.Actions WHERE ActionName = 'Read'
 SELECT @ResourceClaimId = ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName = 'types'
+
 INSERT INTO dbo.ClaimSetResourceClaims
     (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, AuthorizationStrategyOverride_AuthorizationStrategyId)
 	VALUES (@actionId, @claimSetId, @ResourceClaimId , @authorizationStrategyId)
@@ -87,6 +97,15 @@ DECLARE @resourceNames TABLE (ResourceName nvarchar(255))
 DECLARE @resourceClaimIds TABLE (ResourceClaimId int)
 
 SET @claimSetName = 'AB Connect'
+
+DECLARE @abConnectClaimSetId as INT
+SELECT @abConnectClaimSetId = ClaimsetId
+FROM dbo.ClaimSets c
+WHERE c.ClaimSetName = @claimSetName
+
+DELETE FROM [dbo].[ClaimSetResourceClaims]
+WHERE [ClaimSet_ClaimSetId] = @abConnectClaimSetId
+
 PRINT 'Creating Temporary Records.'
 INSERT INTO @resourceNames VALUES ('gradeLevelDescriptor'),('academicSubjectDescriptor'),('publicationStatusDescriptor'),('educationStandards')
 INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
@@ -144,6 +163,14 @@ FROM dbo.ClaimSets c
 WHERE c.ClaimSetName = 'Assessment Vendor'
 
 PRINT 'Ensuring create and read actions for performanceLevelDescriptor are assigned to Assessment Vendor claimset'
+
+IF EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaims WHERE ResourceClaim_ResourceClaimId = @performanceLevelDescriptorClaimId AND ClaimSet_ClaimSetId = @claimSetId)
+BEGIN
+
+	DELETE FROM dbo.ClaimSetResourceClaims WHERE ResourceClaim_ResourceClaimId = @performanceLevelDescriptorClaimId AND ClaimSet_ClaimSetId = @claimSetId
+
+END
+
 
 INSERT INTO dbo.ClaimSetResourceClaims
     (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
