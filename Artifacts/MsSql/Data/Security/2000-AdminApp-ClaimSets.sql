@@ -11,7 +11,7 @@ DECLARE @claimSetName  nvarchar(255)
 SET @claimSetName = 'Ed-Fi ODS Admin App'
 SET @applicationName = 'Ed-Fi ODS API'
 
-SELECT @applicationId = ApplicationId FROM  Applications WHERE ApplicationName = @applicationName
+SELECT @applicationId = ApplicationId FROM dbo.Applications WHERE ApplicationName = @applicationName
 
 PRINT 'Ensuring Ed-Fi ODS Admin App Claimset exists.'
 INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
