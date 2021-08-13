@@ -64,8 +64,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void
-            When_updating_organization_department_without_local_education_agency_to_with_local_education_agency_should_update_tuples()
+        public void When_updating_organization_department_without_local_education_agency_to_with_local_education_agency_should_update_tuples()
         {
             Builder
                 .AddLocalEducationAgency(900)
@@ -82,8 +81,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void
-            When_updating_organization_department_without_school_to_with_school_should_update_tuples()
+        public void When_updating_organization_department_without_school_to_with_school_should_update_tuples()
         {
             Builder
                 .AddSchool(900)
@@ -100,8 +98,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void
-            When_updating_organization_department_with_local_education_agency_to_without_local_education_agency_should_update_tuples()
+        public void When_updating_organization_department_with_local_education_agency_to_without_local_education_agency_should_update_tuples()
         {
             Builder
                 .AddLocalEducationAgency(900)
@@ -119,8 +116,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void
-            When_updating_organization_department_with_school_to_without_school_should_update_tuples()
+        public void When_updating_organization_department_with_school_to_without_school_should_update_tuples()
         {
             Builder
                 .AddSchool(900)
