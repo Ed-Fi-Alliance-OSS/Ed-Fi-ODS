@@ -8,7 +8,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using CommandLine;
@@ -58,6 +60,11 @@ namespace GenerateSecurityGraphs
                 "The password to use for connecting to the authorization metadata database.  Leave username and password blank to use integrated security.")]
         public string Password { get; set; }
 
+        [Option(
+            'g', "graphviz", Default = @"C:\Program Files\Graphviz\", HelpText =
+                "Graphviz installation path.")]
+        public string GraphvizPath { get; set; }
+
         //[HelpOption]
         public string GetUsage(string[] args)
         {
@@ -97,16 +104,17 @@ namespace GenerateSecurityGraphs
         {
             // Parse the command line arguments
             var options = new Options();
+            var failedToParse = false;
 
             Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(opt => options = opt)
-                .WithNotParsed(e => e.Output());
+                .WithNotParsed(e =>
+                {
+                    failedToParse = true;
+                    e.Output(); // show error and help
+                });
 
-            if (options == null)
-            {
-                Console.WriteLine(options.GetUsage(args));
-                return;
-            }
+            if (failedToParse) return;
 
             string connectionString;
 
@@ -144,6 +152,47 @@ namespace GenerateSecurityGraphs
                     "Output folder '{0}' does not exist.  Use the --force option to create the directory automatically.", baseFolderPath);
 
                 return;
+            }
+
+            if (options.GraphvizPath != options.GetType().GetProperty(nameof(options.GraphvizPath))
+                    .GetCustomAttribute<OptionAttribute>().Default.ToString()
+                && !Directory.Exists(options.GraphvizPath))
+            {
+                // A custom Graphviz path was provided but it is invalid, exit
+                Console.WriteLine($"Graphviz installation path '{options.GraphvizPath}' does not exist.");
+                return;
+            }
+
+            var graphvizPath = options.GraphvizPath;
+            if (!Path.IsPathRooted(options.GraphvizPath))
+            {
+                graphvizPath = Path.Combine(Directory.GetCurrentDirectory(), options.GraphvizPath);
+            }
+
+            if (!Directory.Exists(graphvizPath))
+            {
+                // Fall back to a portable Graphviz
+                graphvizPath = Path.Combine(AppContext.BaseDirectory, "Graphviz");
+
+                // If Graphviz was previously downloaded then don't download it again
+                if (!Directory.Exists(graphvizPath))
+                {
+                    Console.WriteLine("Downloading Graphviz ...");
+
+                    try
+                    {
+                        DownloadGraphviz(graphvizPath);
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine(
+                            "Couldn't download Graphviz, check your internet connection or manually install it and use --graphviz option to set the installation path.");
+
+                        return;
+                    }
+
+                    Console.WriteLine($"Successfully downloaded Graphviz and stored it in {graphvizPath}");
+                }
             }
 
             // Load all authorization metadata into a graph and a list of claim sets
@@ -226,7 +275,7 @@ namespace GenerateSecurityGraphs
                 {
                     var graphVizResources = new GraphvizAlgorithm<Resource, Edge<Resource>>(subgraph.Subgraph);
                     graphVizResources.FormatVertex += FormatVertex;
-                    graphVizResources.Generate(new FileDotEngine(assetsSourceFolder, subgraph.UnflattenToDepth), subgraph.OutputFileName);
+                    graphVizResources.Generate(new FileDotEngine(graphvizPath, assetsSourceFolder, subgraph.UnflattenToDepth), subgraph.OutputFileName);
                 }
 
                 if (subgraphsToCombine.Any())
@@ -242,7 +291,7 @@ namespace GenerateSecurityGraphs
 
                     var graphVizCombined = new GraphvizAlgorithm<Resource, Edge<Resource>>(combinedGraph);
                     graphVizCombined.FormatVertex += FormatVertex;
-                    graphVizCombined.Generate(new FileDotEngine(assetsSourceFolder), Path.Combine(outputFolder, "StandAlone"));
+                    graphVizCombined.Generate(new FileDotEngine(graphvizPath, assetsSourceFolder), Path.Combine(outputFolder, "StandAlone"));
                 }
             }
         }
@@ -958,6 +1007,25 @@ order by ClaimSetName, ResourceName, Action_ActionId
                 default:
                     return Colors.Default;
             }
+        }
+
+        private static void DownloadGraphviz(string destinationDirectoryName)
+        {
+            var tempZipPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz.zip");
+            var tempDirPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz");
+
+            using var webClient = new WebClient();
+            webClient.DownloadFile(
+                new Uri(
+                    "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.48.0/stable_windows_10_msbuild_Release_Win32_graphviz-2.48.0-win32.zip"),
+                tempZipPath
+            );
+
+            ZipFile.ExtractToDirectory(tempZipPath, tempDirPath);
+            Directory.Move(Path.Combine(tempDirPath, @"Graphviz"), destinationDirectoryName);
+
+            File.Delete(tempZipPath);
+            Directory.Delete(tempDirPath);
         }
     }
 }
