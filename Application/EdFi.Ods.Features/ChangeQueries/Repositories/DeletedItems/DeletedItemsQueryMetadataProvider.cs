@@ -108,7 +108,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                         return @join;
                     });
 
-                deletesQuery.WhereNull(identifierProjections.First().SourceTableJoinColumnName);
+                deletesQuery.WhereNull(string.Concat(SourceTableAlias, ".", identifierProjections.First().SourceTableJoinColumnName));
             }
 
             void ApplyDiscriminatorCriteriaForDerivedEntities()
