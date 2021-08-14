@@ -100,7 +100,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -118,7 +118,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -136,7 +136,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -154,7 +154,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -226,7 +226,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -244,7 +244,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -262,7 +262,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -280,7 +280,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -352,7 +352,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -370,7 +370,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -388,7 +388,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -406,7 +406,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -800,7 +800,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -818,7 +818,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -836,7 +836,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -854,7 +854,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -930,7 +930,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -948,7 +948,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -966,7 +966,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -984,7 +984,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1056,7 +1056,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1074,7 +1074,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1092,7 +1092,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1110,7 +1110,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1288,7 +1288,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1306,7 +1306,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1324,7 +1324,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1342,7 +1342,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1414,7 +1414,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1432,7 +1432,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1450,7 +1450,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
@@ -1468,7 +1468,7 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'No Further Authorization Required';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
     
 
     IF authorization_strategy_id IS NULL THEN
