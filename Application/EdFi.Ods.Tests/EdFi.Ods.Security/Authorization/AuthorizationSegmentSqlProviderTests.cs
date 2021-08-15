@@ -109,7 +109,8 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
         }
 
         [TestFixture]
-        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_both_StaffUSI_and_SchoolId
+        public class
+            When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_both_StaffUSI_and_SchoolId
         {
             [Test]
             public void Should_generate_valid_sql_and_parameters()
@@ -123,9 +124,10 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                     .Returns(
                         new List<string>
                         {
-                            "auth.EducationOrganizationIdToEducationOrganizationId",
+                            "auth.LocalEducationAgencyIdToSchoolId",
                             "auth.LocalEducationAgencyIdToStaffUSI",
-                            "auth.SchoolIdToStaffUSI"
+                            "auth.SchoolIdToStaffUSI",
+                            "auth.EducationOrganizationIdToEducationOrganizationId"
                         });
 
                 var authorizationSegmentsSqlProvider =
@@ -239,8 +241,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     () => result.ShouldNotBeNull(),
 
                     // 4 parameters are the SQL Server TVP for each of the StaffUSI and School segments
-                    () => result.Parameters.Length.ShouldBe(8),
-
+                    () => result.Parameters.Length.ShouldBe(6),
                     () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
                         .ShouldBeFalse(),
 
@@ -273,20 +274,12 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     () => result.Parameters[4].ParameterName.ShouldBe("@p4"),
                     () => result.Parameters[4].Value.ShouldBeOfType<DataTable>(),
                     () => ((DataTable) result.Parameters[4].Value).Rows[0][0].ShouldBe(SuppliedLea1),
-                    () => ((DataTable) result.Parameters[4].Value).Rows[1][0].ShouldBe(SuppliedLea2),
+                    () => ((DataTable) result.Parameters[4].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable) result.Parameters[4].Value).Rows[2][0].ShouldBe(SuppliedLea2),
 
                     // Second parameter is for the LEA to SchoolId segment
                     () => result.Parameters[5].ParameterName.ShouldBe("@p5"),
-                    () => result.Parameters[5].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId),
-
-                    // Single-value parameter for PostSecondary is defined as expected
-                    () => result.Parameters[6].ParameterName.ShouldBe("@p6"),
-                    () => result.Parameters[6].Value.ShouldBeOfType<int>(),
-                    () => result.Parameters[6].Value.ShouldBe(SuppliedPostSecondaryInstitutionId),
-
-                    // Second parameter is for the PostSecondary to SchoolId segment
-                    () => result.Parameters[7].ParameterName.ShouldBe("@p7"),
-                    () => result.Parameters[7].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
+                    () => result.Parameters[5].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
                 );
 
                 var sql = result.Sql;
@@ -300,7 +293,6 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.Pos
 AND
 (
 EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p4) and a.TargetEducationOrganizationId = @p5)
-OR EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId = @p6 and a.TargetEducationOrganizationId = @p7)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -308,7 +300,8 @@ OR EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a
         }
 
         [TestFixture]
-        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_StaffUSI_and_SchoolId_with_multiple_EdOrg_types_with_some_authorization_views_not_supported
+        public class
+            When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_StaffUSI_and_SchoolId_with_multiple_EdOrg_types_with_some_authorization_views_not_supported
         {
             [Test]
             public void Should_generate_valid_sql_and_parameters()
@@ -355,7 +348,7 @@ OR EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a
                     () => result.ShouldNotBeNull(),
 
                     // 4 parameters are the SQL Server TVP for each of the StaffUSI and School segments
-                    () => result.Parameters.Length.ShouldBe(6),
+                    () => result.Parameters.Length.ShouldBe(4),
                     () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
                         .ShouldBeFalse(),
 
@@ -378,15 +371,12 @@ OR EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a
                     () => result.Parameters[2].ParameterName.ShouldBe("@p2"),
                     () => result.Parameters[2].Value.ShouldBeOfType<DataTable>(),
                     () => ((DataTable) result.Parameters[2].Value).Rows[0][0].ShouldBe(SuppliedLea1),
-                    () => ((DataTable) result.Parameters[2].Value).Rows[1][0].ShouldBe(SuppliedLea2),
+                    () => ((DataTable) result.Parameters[2].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable) result.Parameters[2].Value).Rows[2][0].ShouldBe(SuppliedLea2),
 
                     // Second parameter is for the LEA to SchoolId segment
                     () => result.Parameters[3].ParameterName.ShouldBe("@p3"),
-                    () => result.Parameters[3].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId),
-                    () => result.Parameters[4].ParameterName.ShouldBe("@p4"),
-                    () => result.Parameters[4].Value.ShouldBe(SuppliedPostSecondaryInstitutionId),
-                    () => result.Parameters[5].ParameterName.ShouldBe("@p5"),
-                    () => result.Parameters[5].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
+                    () => result.Parameters[3].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
                 );
 
                 var sql = result.Sql;
@@ -399,7 +389,6 @@ EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.PostSe
 AND
 (
 EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p2) and a.TargetEducationOrganizationId = @p3)
-OR EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId = @p4 and a.TargetEducationOrganizationId = @p5)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -407,7 +396,8 @@ OR EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a
         }
 
         [TestFixture]
-        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_StaffUSI_and_SchoolId_with_multiple_EdOrg_types_with_all_authorization_views_of_one_segment_not_supported
+        public class
+            When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_StaffUSI_and_SchoolId_with_multiple_EdOrg_types_with_all_authorization_views_of_one_segment_not_supported
         {
             [Test]
             public void Should_generate_valid_sql_and_parameters()
@@ -453,12 +443,13 @@ OR EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a
                             authorizationSegments, ref parameterIndex)
                     )
                     .Message.ShouldBe(
-                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency', 'PostSecondaryInstitution') with the resource.");
+                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('EducationOrganization') with the resource.");
             }
         }
 
         [TestFixture]
-        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_without_a_supporting_authorization_view
+        public class
+            When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_without_a_supporting_authorization_view
         {
             [Test]
             public void Should_throw_an_exception_when_convention_based_view_name_is_not_supported()

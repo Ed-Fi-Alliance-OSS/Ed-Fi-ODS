@@ -20,17 +20,18 @@ namespace EdFi.Ods.Api.Security.Authorization
     public abstract class AuthorizationSegmentSqlProviderBase : IAuthorizationSegmentsSqlProvider
     {
         private const string MainTemplate =
-@"SELECT 1 WHERE
+            @"SELECT 1 WHERE
 (
 {0}
 );";
+
         // TODO: Embedded convention, append authorization path modifier to view name
         private const string StatementTemplate = "EXISTS (SELECT 1 FROM {4} a WHERE a.{0}{1} and a.{2}{3})";
 
-        private readonly Lazy<IReadOnlyList<string>> _supportedAuthorizationViewNames;
-
         private static readonly Regex _identifierRegex = new Regex(@"^[\w]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationSegmentSqlProviderBase));
+
+        private readonly Lazy<IReadOnlyList<string>> _supportedAuthorizationViewNames;
 
         public AuthorizationSegmentSqlProviderBase(IAuthorizationViewsProvider authorizationViewsProvider)
         {
@@ -82,51 +83,17 @@ namespace EdFi.Ods.Api.Security.Authorization
                     ValidateTableNameParts(
                         claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
-                    var entities = new List<string>()
+
+                    if (claimEndpointName.EqualsIgnoreCase("EducationOrganizationId") &&
+                        !subjectEndpointName.EqualsIgnoreCase("StudentUSI"))
                     {
-                        "ThroughEdOrgAssociation",
-                        "ParentUSI",
-                        "StaffUSI"
-                    };
-
-                    string derivedAuthorizationViewName;
-
-                    // When subject Endpoint or Claim Endpoint ends with StudentUSI and also not ends with ThroughEdOrgAssociation
-                    // use new Student view 
-                    if ((subjectEndpointName.EndsWith("StudentUSI") || claimEndpointName.EndsWith("StudentUSI")) &&
-                        !subjectEndpointName.EndsWith("ThroughEdOrgAssociation") &&
-                        !claimEndpointName.EndsWith("ThroughEdOrgAssociation"))
-                    {
-                        if (subjectEndpointName.EndsWith("StudentUSI"))
-                        {
-                            claimEndpointName = "EducationOrganizationId";
-                        }
-
-                        derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
-                            subjectEndpointName,
-                            claimEndpointName,
-                            authorizationSegment.AuthorizationPathModifier);
-
-                        claimEndpointName = "SourceEducationOrganizationId";
+                        subjectEndpointName = "EducationOrganizationId";
                     }
-                    // When subject Endpoint or Claim Endpoint does not have ParentUSI or StaffUSI or  ThroughEdOrgAssociation
-                    // Then use tuple table for authorization 
-                    else if (!entities.Contains(subjectEndpointName)
-                             && !entities.Contains(claimEndpointName)
-                             && !subjectEndpointName.Contains("StudentUSI")
-                             && !claimEndpointName.Contains("StudentUSI"))
-                    {
-                        subjectEndpointName = "TargetEducationOrganizationId";
-                        claimEndpointName = "SourceEducationOrganizationId";
-                        derivedAuthorizationViewName = "auth.EducationOrganizationIdToEducationOrganizationId";
-                    }
-                    else
-                    {
-                        derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
-                            subjectEndpointName,
-                            claimEndpointName,
-                            authorizationSegment.AuthorizationPathModifier);
-                    }
+
+                    string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
+                        subjectEndpointName,
+                        claimEndpointName,
+                        authorizationSegment.AuthorizationPathModifier);
 
                     if (!IsAuthorizationViewSupported(derivedAuthorizationViewName))
                     {
@@ -139,22 +106,31 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                     string CreateSegmentExpression(ref int index)
                     {
-                        if (string.Compare(subjectEndpointName, claimEndpointName, StringComparison.InvariantCultureIgnoreCase) < 0)
+                        if (string.Compare(subjectEndpointName, claimEndpointName, StringComparison.InvariantCultureIgnoreCase) <
+                            0)
                         {
                             return string.Format(
                                 StatementTemplate,
-                                subjectEndpointName,
+                                subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId")
+                                    ? "TargetEducationOrganizationId"
+                                    : subjectEndpointName,
                                 GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
-                                claimEndpointName,
+                                claimEndpointName.ContainsIgnoreCase("EducationOrganizationId")
+                                    ? "SourceEducationOrganizationId"
+                                    : claimEndpointName,
                                 GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
                                 derivedAuthorizationViewName);
                         }
 
                         return string.Format(
                             StatementTemplate,
-                            claimEndpointName,
+                            claimEndpointName.ContainsIgnoreCase("EducationOrganizationId")
+                                ? "SourceEducationOrganizationId"
+                                : claimEndpointName,
                             GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
-                            subjectEndpointName,
+                            subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId")
+                                ? "TargetEducationOrganizationId"
+                                : subjectEndpointName,
                             GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
                             derivedAuthorizationViewName);
                     }
@@ -162,7 +138,8 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 if (!segmentExpressions.Any())
                 {
-                    _logger.Debug("Unable to authorize resource item because none of the following authorization views exist: "
+                    _logger.Debug(
+                        "Unable to authorize resource item because none of the following authorization views exist: "
                         + $"'{string.Join("', '", unsupportedAuthorizationViews)}'");
 
                     string edOrgTypes = string.Join(
@@ -183,7 +160,8 @@ namespace EdFi.Ods.Api.Security.Authorization
             }
 
             // Combine multiple authorization segments with AND (forcing all segments to be satisfied)
-            string statements = string.Join($"{Environment.NewLine}){Environment.NewLine}AND{Environment.NewLine}({Environment.NewLine}", segmentStatements);
+            string statements = string.Join(
+                $"{Environment.NewLine}){Environment.NewLine}AND{Environment.NewLine}({Environment.NewLine}", segmentStatements);
 
             string sql = string.Format(MainTemplate, statements);
 
@@ -230,7 +208,8 @@ namespace EdFi.Ods.Api.Security.Authorization
 
         private bool IsAuthorizationViewSupported(string authorizationViewName)
         {
-            if (!_supportedAuthorizationViewNames.Value.Any(s => s.Equals(authorizationViewName, StringComparison.InvariantCultureIgnoreCase)))
+            if (!_supportedAuthorizationViewNames.Value.Any(
+                s => s.Equals(authorizationViewName, StringComparison.InvariantCultureIgnoreCase)))
             {
                 _logger.Debug($"Authorization view '{authorizationViewName}' is not supported");
 

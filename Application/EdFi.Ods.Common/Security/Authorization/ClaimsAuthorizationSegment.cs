@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
 
 namespace EdFi.Ods.Common.Security.Authorization
 {
@@ -19,7 +20,8 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// </summary>
         /// <param name="claimNamesAndValues">The claim names and values, represented as a collection of tuples.</param>
         /// <param name="subjectEndpoint"></param>
-        public ClaimsAuthorizationSegment(IEnumerable<Tuple<string, object>> claimNamesAndValues, AuthorizationSegmentEndpoint subjectEndpoint)
+        public ClaimsAuthorizationSegment(IEnumerable<Tuple<string, object>> claimNamesAndValues,
+            AuthorizationSegmentEndpoint subjectEndpoint)
             : this(claimNamesAndValues, subjectEndpoint, null) { }
 
         /// <summary>
@@ -33,15 +35,55 @@ namespace EdFi.Ods.Common.Security.Authorization
             AuthorizationSegmentEndpoint subjectEndpoint,
             string authorizationPathModifier)
         {
-            ClaimsEndpoints = claimNamesAndValues
-                             .Select(
-                                  cv =>
-                                      new AuthorizationSegmentEndpointWithValue(
-                                          cv.Item1,
-                                          cv.Item2.GetType(),
-                                          cv.Item2))
-                             .ToList()
-                             .AsReadOnly();
+            var entities = new List<string>()
+            {
+                "ThroughEdOrgAssociation",
+                "ParentUSI",
+                "StaffUSI"
+            };
+
+            // When subject Endpoint ends with StudentUSI and also not ends with ThroughEdOrgAssociation
+            // use new Student view 
+            if (subjectEndpoint.Name.EqualsIgnoreCase("StudentUSI"))
+
+            {
+                ClaimsEndpoints = claimNamesAndValues
+                    .Select(
+                        cv =>
+                            new AuthorizationSegmentEndpointWithValue(
+                                "EducationOrganizationId",
+                                cv.Item2.GetType(),
+                                cv.Item2))
+                    .ToList()
+                    .AsReadOnly();
+            }
+
+            // When subject Endpoint does not have ParentUSI or StaffUSI or  ThroughEdOrgAssociation
+            // Then use tuple table for authorization 
+            else if (!entities.Contains(subjectEndpoint.Name))
+            {
+                ClaimsEndpoints = claimNamesAndValues
+                    .Select(
+                        cv =>
+                            new AuthorizationSegmentEndpointWithValue(
+                                "EducationOrganizationId",
+                                cv.Item2.GetType(),
+                                cv.Item2))
+                    .ToList()
+                    .AsReadOnly();
+            }
+            else
+            {
+                ClaimsEndpoints = claimNamesAndValues
+                    .Select(
+                        cv =>
+                            new AuthorizationSegmentEndpointWithValue(
+                                cv.Item1,
+                                cv.Item2.GetType(),
+                                cv.Item2))
+                    .ToList()
+                    .AsReadOnly();
+            }
 
             SubjectEndpoint = subjectEndpoint;
             AuthorizationPathModifier = authorizationPathModifier;

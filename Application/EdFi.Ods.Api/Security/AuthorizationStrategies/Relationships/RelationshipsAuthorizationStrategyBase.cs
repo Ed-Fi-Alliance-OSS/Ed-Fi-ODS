@@ -11,14 +11,13 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Extensions;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
-using EdFi.Ods.Api.Security.Authorization;
-using EdFi.Ods.Api.Security.Extensions;
 using QuickGraph;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
@@ -34,9 +33,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         private List<ValidationResult> _dependencyValidationResults;
 
         protected RelationshipsAuthorizationStrategyBase(
-            IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData> concreteEducationOrganizationIdAuthorizationContextDataTransformer)
+            IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData>
+                concreteEducationOrganizationIdAuthorizationContextDataTransformer)
         {
-            _concreteEducationOrganizationIdAuthorizationContextDataTransformer = concreteEducationOrganizationIdAuthorizationContextDataTransformer;
+            _concreteEducationOrganizationIdAuthorizationContextDataTransformer =
+                concreteEducationOrganizationIdAuthorizationContextDataTransformer;
 
             _educationOrganizationHierarchy = new Lazy<AdjacencyGraph<string, Edge<string>>>(
                 () =>
@@ -45,7 +46,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
         // Define all required dependencies, injected through property injection for brevity in custom implementations
         [Required]
-        public IRelationshipsAuthorizationContextDataProviderFactory<TContextData> RelationshipsAuthorizationContextDataProviderFactory { get; set; }
+        public IRelationshipsAuthorizationContextDataProviderFactory<TContextData>
+            RelationshipsAuthorizationContextDataProviderFactory { get; set; }
 
         [Required]
         public IAuthorizationSegmentsToFiltersConverter AuthorizationSegmentsToFiltersConverter { get; set; }
@@ -59,7 +61,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         [Required]
         public IEducationOrganizationHierarchyProvider EducationOrganizationHierarchyProvider { get; set; }
 
-        public async Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext,
+        public async Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims,
+            EdFiAuthorizationContext authorizationContext,
             CancellationToken cancellationToken)
         {
             EnsureDependencies();
@@ -75,9 +78,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
             // Convert any EducationOrganizationIds into their concrete types
             var concreteContextData =
-                _concreteEducationOrganizationIdAuthorizationContextDataTransformer.GetConcreteAuthorizationContextData(contextData);
+                _concreteEducationOrganizationIdAuthorizationContextDataTransformer.GetConcreteAuthorizationContextData(
+                    contextData);
 
-            var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, concreteContextData);
+            var authorizationSegments = GetAuthorizationSegments(
+                relevantClaims, authorizationContextPropertyNames, concreteContextData);
 
             var multipleSegmentsErrorMessages = new List<string>();
 
@@ -102,8 +107,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
                     if (inaccessibleIdentifierNames.Any(s => s.Equals(segment.SubjectEndpoint.Name)))
                     {
-                        errorMessages.Add($"Authorization denied.  The claims associated with an identifier of '{name}' " +
-                            $"cannot be used to authorize a request associated with an identifier of '{segment.SubjectEndpoint.Name}'."); ;
+                        errorMessages.Add(
+                            $"Authorization denied.  The claims associated with an identifier of '{name}' " +
+                            $"cannot be used to authorize a request associated with an identifier of '{segment.SubjectEndpoint.Name}'.");
+
+                        ;
                     }
                     else
                     {
@@ -142,7 +150,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             }
 
             // Execute authorization
-            await AuthorizationSegmentsVerifier.VerifyAsync(inlineAuthorizationResults.SegmentsStillRequiringAuthorization, cancellationToken);
+            await AuthorizationSegmentsVerifier.VerifyAsync(
+                inlineAuthorizationResults.SegmentsStillRequiringAuthorization, cancellationToken);
 
             InlineAuthorizationResults PerformInlineClaimsAuthorizations()
             {
@@ -153,7 +162,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
                 foreach (var claimsAuthorizationSegment in authorizationSegments)
                 {
-                    var subjectEndpointWithValue = claimsAuthorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
+                    var subjectEndpointWithValue =
+                        claimsAuthorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
 
                     // This should never happen
                     if (subjectEndpointWithValue == null)
@@ -194,10 +204,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
                         // We found claim value(s) for inlining the authorization check, but it failed to authorize and should not be retried with the database.
                         // Therefore, create a new authorization segment that excludes these specific claim endpoints to allow the others to be checked through database relationships
-                        subsequentAuthorizationSegments.Add(new ClaimsAuthorizationSegment(
-                            nonInlinableClaimsEndpoints.ToArray(),
-                            claimsAuthorizationSegment.SubjectEndpoint,
-                            claimsAuthorizationSegment.AuthorizationPathModifier));
+                        subsequentAuthorizationSegments.Add(
+                            new ClaimsAuthorizationSegment(
+                                nonInlinableClaimsEndpoints.ToArray(),
+                                claimsAuthorizationSegment.SubjectEndpoint,
+                                claimsAuthorizationSegment.AuthorizationPathModifier));
                     }
                     else
                     {
@@ -209,27 +220,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 // Continue with other rules that are not referencing the same types of values available on the claim (e.g. LEA Id to LEA Id)
                 return new InlineAuthorizationResults(subsequentAuthorizationSegments, inlineAuthorizationOccurred);
             }
-        }
-
-        private class InlineAuthorizationResults
-        {
-            public InlineAuthorizationResults(
-                IReadOnlyList<ClaimsAuthorizationSegment> segmentsStillRequiringAuthorization,
-                bool inlineAuthorizationOccurred)
-            {
-                InlineAuthorizationOccurred = inlineAuthorizationOccurred;
-                SegmentsStillRequiringAuthorization = segmentsStillRequiringAuthorization;
-            }
-
-            /// <summary>
-            /// Indicates whether any authorizations were able to be performed inline.
-            /// </summary>
-            public bool InlineAuthorizationOccurred { get; }
-
-            /// <summary>
-            /// Gets the authorization segments that were not able to be authorized inline and still need to be authorized.
-            /// </summary>
-            public IReadOnlyList<ClaimsAuthorizationSegment> SegmentsStillRequiringAuthorization { get; }
         }
 
         /// <summary>
@@ -245,7 +235,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             EnsureDependencies();
 
             // Find a generated context data provider for the entity
-            var authorizationContextDataProvider = RelationshipsAuthorizationContextDataProviderFactory.GetProvider(authorizationContext.Type);
+            var authorizationContextDataProvider =
+                RelationshipsAuthorizationContextDataProviderFactory.GetProvider(authorizationContext.Type);
+
             var authorizationContextPropertyNames = authorizationContextDataProvider.GetAuthorizationContextPropertyNames();
 
             var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, null);
@@ -300,6 +292,27 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
                 throw new Exception(message);
             }
+        }
+
+        private class InlineAuthorizationResults
+        {
+            public InlineAuthorizationResults(
+                IReadOnlyList<ClaimsAuthorizationSegment> segmentsStillRequiringAuthorization,
+                bool inlineAuthorizationOccurred)
+            {
+                InlineAuthorizationOccurred = inlineAuthorizationOccurred;
+                SegmentsStillRequiringAuthorization = segmentsStillRequiringAuthorization;
+            }
+
+            /// <summary>
+            /// Indicates whether any authorizations were able to be performed inline.
+            /// </summary>
+            public bool InlineAuthorizationOccurred { get; }
+
+            /// <summary>
+            /// Gets the authorization segments that were not able to be authorized inline and still need to be authorized.
+            /// </summary>
+            public IReadOnlyList<ClaimsAuthorizationSegment> SegmentsStillRequiringAuthorization { get; }
         }
     }
 }
