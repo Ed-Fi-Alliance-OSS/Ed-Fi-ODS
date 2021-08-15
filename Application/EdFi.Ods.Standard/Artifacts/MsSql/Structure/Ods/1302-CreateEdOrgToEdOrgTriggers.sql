@@ -74,3 +74,93 @@ BEGIN
         INSERT VALUES(eoeo2.SourceEducationOrganizationId, eoeo2.SchoolId);
 END
 GO
+
+CREATE TRIGGER edfi.edfi_CommunityProvider_TR_Insert ON edfi.CommunityProvider AFTER INSERT AS
+BEGIN
+    SET NOCOUNT ON
+    MERGE INTO auth.EducationOrganizationIdToEducationOrganizationId eoeo1
+    USING (
+        SELECT i.CommunityOrganizationId, i.CommunityProviderId
+        FROM inserted i
+        WHERE i.CommunityOrganizationId IS NOT NULL) eoeo2
+    ON eoeo1.SourceEducationOrganizationId = eoeo2.CommunityOrganizationId
+        AND eoeo1.TargetEducationOrganizationId = eoeo2.CommunityProviderId
+    WHEN NOT MATCHED THEN
+        INSERT VALUES(eoeo2.CommunityOrganizationId, eoeo2.CommunityProviderId);
+END
+GO
+
+CREATE TRIGGER edfi.edfi_CommunityProvider_TR_Update ON edfi.CommunityProvider AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON
+    DELETE auth.EducationOrganizationIdToEducationOrganizationId
+    FROM auth.EducationOrganizationIdToEducationOrganizationId
+    INNER JOIN deleted d
+        ON TargetEducationOrganizationId = d.CommunityProviderId
+    WHERE SourceEducationOrganizationId IN (
+        SELECT SourceEducationOrganizationId
+        FROM auth.EducationOrganizationIdToEducationOrganizationId p
+        INNER JOIN deleted d
+            ON TargetEducationOrganizationId = d.CommunityOrganizationId
+        INNER JOIN inserted i
+            ON d.CommunityProviderId = i.CommunityProviderId
+        WHERE (i.CommunityOrganizationId IS NULL OR d.CommunityOrganizationId <> i.CommunityOrganizationId))
+
+    MERGE INTO auth.EducationOrganizationIdToEducationOrganizationId eoeo1
+    USING (
+        SELECT p.SourceEducationOrganizationId, i.CommunityProviderId
+        FROM inserted i
+        INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId p
+            ON i.CommunityOrganizationId = p.TargetEducationOrganizationId
+        WHERE i.CommunityOrganizationId IS NOT NULL) eoeo2
+    ON eoeo1.SourceEducationOrganizationId = eoeo2.SourceEducationOrganizationId
+        AND eoeo1.TargetEducationOrganizationId = eoeo2.CommunityProviderId
+    WHEN NOT MATCHED THEN
+        INSERT VALUES(eoeo2.SourceEducationOrganizationId, eoeo2.CommunityProviderId);
+END
+GO
+
+CREATE TRIGGER edfi.edfi_OrganizationDepartment_TR_Insert ON edfi.OrganizationDepartment AFTER INSERT AS
+BEGIN
+    SET NOCOUNT ON
+    MERGE INTO auth.EducationOrganizationIdToEducationOrganizationId eoeo1
+    USING (
+        SELECT i.ParentEducationOrganizationId, i.OrganizationDepartmentId
+        FROM inserted i
+        WHERE i.ParentEducationOrganizationId IS NOT NULL) eoeo2
+    ON eoeo1.SourceEducationOrganizationId = eoeo2.ParentEducationOrganizationId
+        AND eoeo1.TargetEducationOrganizationId = eoeo2.OrganizationDepartmentId
+    WHEN NOT MATCHED THEN
+        INSERT VALUES(eoeo2.ParentEducationOrganizationId, eoeo2.OrganizationDepartmentId);
+END
+GO
+
+CREATE TRIGGER edfi.edfi_OrganizationDepartment_TR_Update ON edfi.OrganizationDepartment AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON
+    DELETE auth.EducationOrganizationIdToEducationOrganizationId
+    FROM auth.EducationOrganizationIdToEducationOrganizationId
+    INNER JOIN deleted d
+        ON TargetEducationOrganizationId = d.OrganizationDepartmentId
+    WHERE SourceEducationOrganizationId IN (
+        SELECT SourceEducationOrganizationId
+        FROM auth.EducationOrganizationIdToEducationOrganizationId p
+        INNER JOIN deleted d
+            ON TargetEducationOrganizationId = d.ParentEducationOrganizationId
+        INNER JOIN inserted i
+            ON d.OrganizationDepartmentId = i.OrganizationDepartmentId
+        WHERE (i.ParentEducationOrganizationId IS NULL OR d.ParentEducationOrganizationId <> i.ParentEducationOrganizationId))
+
+    MERGE INTO auth.EducationOrganizationIdToEducationOrganizationId eoeo1
+    USING (
+        SELECT p.SourceEducationOrganizationId, i.OrganizationDepartmentId
+        FROM inserted i
+        INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId p
+            ON i.ParentEducationOrganizationId = p.TargetEducationOrganizationId
+        WHERE i.ParentEducationOrganizationId IS NOT NULL) eoeo2
+    ON eoeo1.SourceEducationOrganizationId = eoeo2.SourceEducationOrganizationId
+        AND eoeo1.TargetEducationOrganizationId = eoeo2.OrganizationDepartmentId
+    WHEN NOT MATCHED THEN
+        INSERT VALUES(eoeo2.SourceEducationOrganizationId, eoeo2.OrganizationDepartmentId);
+END
+GO

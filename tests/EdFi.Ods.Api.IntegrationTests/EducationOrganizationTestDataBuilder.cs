@@ -297,6 +297,17 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
+        public EducationOrganizationTestDataBuilder UpdateOrganizationDepartment(int organizationDepartmentId, int? parentEducationOrganizationId = null)
+        {
+            _sql.AppendLine(
+                $@"UPDATE edfi.OrganizationDepartment SET
+                    ParentEducationOrganizationId = {ToSqlValue(parentEducationOrganizationId)}
+                WHERE OrganizationDepartmentId = {organizationDepartmentId};"
+            );
+
+            return this;
+        }
+
         public EducationOrganizationTestDataBuilder AddCommunityOrganization(int communityOrganizationId)
         {
             AddEducationOrganization(communityOrganizationId, nameof(CommunityOrganization));
@@ -326,6 +337,17 @@ namespace EdFi.Ods.Api.IntegrationTests
                     {ToSqlValue(communityOrganizationId)},
                     {TestProviderStatusDescriptorId},
                     {TestProviderCategoryDescriptorId});"
+            );
+
+            return this;
+        }
+        
+        public EducationOrganizationTestDataBuilder UpdateCommunityProvider(int communityProviderId, int? communityOrganizationId = null)
+        {
+            _sql.AppendLine(
+                $@"UPDATE edfi.CommunityProvider SET
+                    CommunityOrganizationId = {ToSqlValue(communityOrganizationId)}
+                WHERE CommunityProviderId = {communityProviderId};"
             );
 
             return this;
