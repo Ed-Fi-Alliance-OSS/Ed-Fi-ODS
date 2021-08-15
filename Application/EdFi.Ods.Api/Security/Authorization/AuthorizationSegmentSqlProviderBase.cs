@@ -83,13 +83,6 @@ namespace EdFi.Ods.Api.Security.Authorization
                     ValidateTableNameParts(
                         claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
-
-                    if (claimEndpointName.EqualsIgnoreCase("EducationOrganizationId") &&
-                        !subjectEndpointName.EqualsIgnoreCase("StudentUSI"))
-                    {
-                        subjectEndpointName = "EducationOrganizationId";
-                    }
-
                     string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
                         subjectEndpointName,
                         claimEndpointName,

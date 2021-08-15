@@ -71,6 +71,8 @@ namespace EdFi.Ods.Common.Security.Authorization
                                 cv.Item2))
                     .ToList()
                     .AsReadOnly();
+
+                subjectEndpoint.Name = "EducationOrganizationId";
             }
             else
             {
