@@ -5,6 +5,7 @@
 
 using System.Net.Mime;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Queries;
@@ -34,31 +35,34 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string schema, string resource, [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest)
+        public Task<IActionResult> Get(string schema, string resource, [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest)
         {
-            if (!_isEnabled)
-            {
-                _logger.Debug("ChangeQueries is not enabled.");
-                return NotFound();
-            }
-            
-            var queryParameter = new QueryParameters(urlQueryParametersRequest);
+            return Task.FromResult(ControllerHelpers.NotFound());
 
-            var keyChangesResponse = await _getKeyChanges.ExecuteAsync(schema, resource, queryParameter);
-
-            // Add the total count, if requested
-            if (urlQueryParametersRequest.TotalCount)
-            {
-                Response.Headers.Add("Total-Count", keyChangesResponse.Count.ToString());
-            }
-            
-            // Explicitly serialize the response to remain backwards compatible with pre .net core
-            return new ContentResult
-            {
-                Content = JsonConvert.SerializeObject(keyChangesResponse),
-                ContentType = MediaTypeNames.Application.Json,
-                StatusCode = StatusCodes.Status200OK
-            };
+            // TODO: Restore when KeyChanges authorization support has been implemented
+            // if (!_isEnabled)
+            // {
+            //     _logger.Debug("ChangeQueries is not enabled.");
+            //     return ControllerHelpers.NotFound();
+            // }
+            //
+            // var queryParameter = new QueryParameters(urlQueryParametersRequest);
+            //
+            // var keyChangesResponse = await _getKeyChanges.ExecuteAsync(schema, resource, queryParameter);
+            //
+            // // Add the total count, if requested
+            // if (urlQueryParametersRequest.TotalCount)
+            // {
+            //     Response.Headers.Add("Total-Count", keyChangesResponse.Count.ToString());
+            // }
+            //
+            // // Explicitly serialize the response to remain backwards compatible with pre .net core
+            // return new ContentResult
+            // {
+            //     Content = JsonConvert.SerializeObject(keyChangesResponse),
+            //     ContentType = MediaTypeNames.Application.Json,
+            //     StatusCode = StatusCodes.Status200OK
+            // };
         }
     }
 }
