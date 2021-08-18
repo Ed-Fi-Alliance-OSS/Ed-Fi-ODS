@@ -97,6 +97,9 @@
   <Aggregate root="AttendanceEventCategoryDescriptor">
     <Entity table="AttendanceEventCategoryDescriptor" isA="Descriptor"/>
   </Aggregate>
+  <Aggregate root="BarrierToInternetAccessInResidenceDescriptor">
+    <Entity table="BarrierToInternetAccessInResidenceDescriptor" isA="Descriptor"/>
+  </Aggregate>
   <Aggregate root="BehaviorDescriptor">
     <Entity table="BehaviorDescriptor" isA="Descriptor"/>
   </Aggregate>
@@ -230,6 +233,7 @@
     <Entity table="CourseTranscriptAlternativeCourseIdentificationCode"/>
     <Entity table="CourseTranscriptCreditCategory"/>
     <Entity table="CourseTranscriptEarnedAdditionalCredits"/>
+    <Entity table="CourseTranscriptPartialCourseTranscriptAwards"/>
   </Aggregate>
   <Aggregate root="Credential">
     <Entity table="Credential"/>
@@ -445,6 +449,12 @@
   <Aggregate root="InternetAccessDescriptor">
     <Entity table="InternetAccessDescriptor" isA="Descriptor"/>
   </Aggregate>
+  <Aggregate root="InternetAccessTypeInResidenceDescriptor">
+    <Entity table="InternetAccessTypeInResidenceDescriptor" isA="Descriptor"/>
+  </Aggregate>
+  <Aggregate root="InternetPerformanceInResidenceDescriptor">
+    <Entity table="InternetPerformanceInResidenceDescriptor" isA="Descriptor"/>
+  </Aggregate>
   <Aggregate root="Intervention">
     <Entity table="Intervention"/>
     <Entity table="InterventionAppropriateGradeLevel"/>
@@ -652,6 +662,15 @@
   </Aggregate>
   <Aggregate root="PostingResultDescriptor">
     <Entity table="PostingResultDescriptor" isA="Descriptor"/>
+  </Aggregate>
+  <Aggregate root="PrimaryLearningDeviceAccessDescriptor">
+    <Entity table="PrimaryLearningDeviceAccessDescriptor" isA="Descriptor"/>
+  </Aggregate>
+  <Aggregate root="PrimaryLearningDeviceAwayFromSchoolDescriptor">
+    <Entity table="PrimaryLearningDeviceAwayFromSchoolDescriptor" isA="Descriptor"/>
+  </Aggregate>
+  <Aggregate root="PrimaryLearningDeviceProviderDescriptor">
+    <Entity table="PrimaryLearningDeviceProviderDescriptor" isA="Descriptor"/>
   </Aggregate>
   <Aggregate root="ProficiencyDescriptor">
     <Entity table="ProficiencyDescriptor" isA="Descriptor"/>

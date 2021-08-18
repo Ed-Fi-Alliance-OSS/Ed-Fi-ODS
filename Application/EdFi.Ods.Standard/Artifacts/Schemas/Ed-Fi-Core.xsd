@@ -1236,7 +1236,12 @@
           </xs:element>
           <xs:element name="ExternalEducationOrganizationReference" type="EducationOrganizationReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Optional association between CourseTranscript and ExternalEdOrg is designed to capture cases in which the student takes a course via an ExternalEducationOrganization (like an enrolled student taking a Khan Academy course).</xs:documentation>
+              <xs:documentation>The external institution where the student completed the course (e.g., the original education organization for a transferred course transcript, or the provider for an online course).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ExternalEducationOrganizationNameOfInstitution" type="NameOfInstitution" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Name of the external institution where the student completed the course; to be used only when the reference ExternalEducationOrganization is not available.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="AlternativeCourseIdentificationCode" type="CourseIdentificationCode" minOccurs="0" maxOccurs="unbounded">
@@ -1268,6 +1273,11 @@
               <xs:appinfo>
                 <ann:Descriptor>AcademicSubjectDescriptor</ann:Descriptor>
               </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PartialCourseTranscriptAwards" type="PartialCourseTranscriptAwards" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>A collection of partial credits and/or grades a student earned against the course over the session, used when awards of credit are incremental.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -4947,6 +4957,17 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="BarrierToInternetAccessInResidenceDescriptor">
+    <xs:annotation>
+      <xs:documentation>An indication of the barrier to having internet access in the student’s primary place of residence.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="BehaviorDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor holds the categories of behavior describing a discipline incident.</xs:documentation>
@@ -5677,6 +5698,28 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="InternetAccessTypeInResidenceDescriptor">
+    <xs:annotation>
+      <xs:documentation>The primary type of internet service used in the student’s primary place of residence.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="InternetPerformanceInResidenceDescriptor">
+    <xs:annotation>
+      <xs:documentation>An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="InterventionClassDescriptor">
     <xs:annotation>
       <xs:documentation>The way in which an intervention is used: curriculum, supplement, or practice.</xs:documentation>
@@ -6054,6 +6097,39 @@
   <xs:complexType name="PostSecondaryInstitutionLevelDescriptor">
     <xs:annotation>
       <xs:documentation>A classification of whether a post-secondary institution's highest level of offering is a program of 4 years or higher (4 year), 2 but less than 4 years (2 year) or less than 2 years.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PrimaryLearningDeviceAccessDescriptor">
+    <xs:annotation>
+      <xs:documentation>An indication of whether the primary learning device is shared or not shared with another individual.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PrimaryLearningDeviceAwayFromSchoolDescriptor">
+    <xs:annotation>
+      <xs:documentation>The type of device the student uses most often to complete learning activities away from school.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PrimaryLearningDeviceProviderDescriptor">
+    <xs:annotation>
+      <xs:documentation>The provider of the primary learning device.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -7713,6 +7789,59 @@
               <xs:documentation>The original peoples or cultures with which the individual identifies.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>AncestryEthnicOriginDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PrimaryLearningDeviceAwayFromSchool" type="PrimaryLearningDeviceAwayFromSchoolDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The type of device the student uses most often to complete learning activities away from school.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>PrimaryLearningDeviceAwayFromSchoolDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PrimaryLearningDeviceAccess" type="PrimaryLearningDeviceAccessDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of whether the primary learning device is shared or not shared with another individual.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>PrimaryLearningDeviceAccessDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PrimaryLearningDeviceProvider" type="PrimaryLearningDeviceProviderDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The provider of the primary learning device.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>PrimaryLearningDeviceProviderDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InternetAccessInResidence" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of whether the student is able to access the internet in their primary place of residence.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BarrierToInternetAccessInResidence" type="BarrierToInternetAccessInResidenceDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of the barrier to having internet access in the student’s primary place of residence.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>BarrierToInternetAccessInResidenceDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InternetAccessTypeInResidence" type="InternetAccessTypeInResidenceDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The primary type of internet service used in the student’s primary place of residence.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>InternetAccessTypeInResidenceDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InternetPerformanceInResidence" type="InternetPerformanceInResidenceDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>InternetPerformanceInResidenceDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
@@ -14370,6 +14499,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="BarrierToInternetAccessInResidenceDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>An indication of the barrier to having internet access in the student’s primary place of residence.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="BehaviorDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor holds the categories of behavior describing a discipline incident.</xs:documentation>
@@ -14968,6 +15106,24 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="InternetAccessTypeInResidenceDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The primary type of internet service used in the student’s primary place of residence.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="InternetPerformanceInResidenceDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="InterventionClassDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The way in which an intervention is used: curriculum, supplement, or practice.</xs:documentation>
@@ -15277,6 +15433,33 @@
   <xs:simpleType name="PostSecondaryInstitutionLevelDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>A classification of whether a post-secondary institution's highest level of offering is a program of 4 years or higher (4 year), 2 but less than 4 years (2 year) or less than 2 years.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="PrimaryLearningDeviceAccessDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>An indication of whether the primary learning device is shared or not shared with another individual.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="PrimaryLearningDeviceAwayFromSchoolDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The type of device the student uses most often to complete learning activities away from school.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="PrimaryLearningDeviceProviderDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The provider of the primary learning device.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -17835,6 +18018,44 @@
           <xs:appinfo>
             <ann:Descriptor>OtherNameTypeDescriptor</ann:Descriptor>
           </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartialCourseTranscriptAwards">
+    <xs:annotation>
+      <xs:documentation>A collection of partial credits and/or grades a student earned against the course over the session, used when awards of credit are incremental.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Common</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="AwardDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date the partial credits and/or grades were awarded or earned.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EarnedCredits" type="CreditsValue">
+        <xs:annotation>
+          <xs:documentation>The number of credits a student earned for completing a given course.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MethodCreditEarned" type="MethodCreditEarnedDescriptorReferenceType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The method the credits were earned.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>MethodCreditEarnedDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="LetterGradeEarned" type="GradeEarned" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The indicator of student performance as submitted by the instructor.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="NumericGradeEarned" type="GradeEarned" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The indicator of student performance as submitted by the instructor.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>

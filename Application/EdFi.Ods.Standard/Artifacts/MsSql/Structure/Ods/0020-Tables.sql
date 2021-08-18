@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Table [edfi].[AbsenceEventCategoryDescriptor] --
 CREATE TABLE [edfi].[AbsenceEventCategoryDescriptor] (
     [AbsenceEventCategoryDescriptorId] [INT] NOT NULL,
@@ -683,6 +678,15 @@ CREATE TABLE [edfi].[AttendanceEventCategoryDescriptor] (
     [AttendanceEventCategoryDescriptorId] [INT] NOT NULL,
     CONSTRAINT [AttendanceEventCategoryDescriptor_PK] PRIMARY KEY CLUSTERED (
         [AttendanceEventCategoryDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[BarrierToInternetAccessInResidenceDescriptor] --
+CREATE TABLE [edfi].[BarrierToInternetAccessInResidenceDescriptor] (
+    [BarrierToInternetAccessInResidenceDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [BarrierToInternetAccessInResidenceDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [BarrierToInternetAccessInResidenceDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1526,6 +1530,7 @@ CREATE TABLE [edfi].[CourseTranscript] (
     [AlternativeCourseTitle] [NVARCHAR](60) NULL,
     [AlternativeCourseCode] [NVARCHAR](60) NULL,
     [ExternalEducationOrganizationId] [INT] NULL,
+    [ExternalEducationOrganizationNameOfInstitution] [NVARCHAR](75) NULL,
     [AssigningOrganizationIdentificationCode] [NVARCHAR](60) NULL,
     [CourseCatalogURL] [NVARCHAR](255) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -1656,6 +1661,36 @@ CREATE TABLE [edfi].[CourseTranscriptEarnedAdditionalCredits] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[CourseTranscriptEarnedAdditionalCredits] ADD CONSTRAINT [CourseTranscriptEarnedAdditionalCredits_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[CourseTranscriptPartialCourseTranscriptAwards] --
+CREATE TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] (
+    [AwardDate] [DATE] NOT NULL,
+    [CourseAttemptResultDescriptorId] [INT] NOT NULL,
+    [CourseCode] [NVARCHAR](60) NOT NULL,
+    [CourseEducationOrganizationId] [INT] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [EarnedCredits] [DECIMAL](9, 3) NOT NULL,
+    [MethodCreditEarnedDescriptorId] [INT] NULL,
+    [LetterGradeEarned] [NVARCHAR](20) NULL,
+    [NumericGradeEarned] [NVARCHAR](20) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [CourseTranscriptPartialCourseTranscriptAwards_PK] PRIMARY KEY CLUSTERED (
+        [AwardDate] ASC,
+        [CourseAttemptResultDescriptorId] ASC,
+        [CourseCode] ASC,
+        [CourseEducationOrganizationId] ASC,
+        [EducationOrganizationId] ASC,
+        [SchoolYear] ASC,
+        [StudentUSI] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [edfi].[CourseTranscriptPartialCourseTranscriptAwards] ADD CONSTRAINT [CourseTranscriptPartialCourseTranscriptAwards_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [edfi].[Credential] --
@@ -3236,6 +3271,24 @@ CREATE TABLE [edfi].[InternetAccessDescriptor] (
     [InternetAccessDescriptorId] [INT] NOT NULL,
     CONSTRAINT [InternetAccessDescriptor_PK] PRIMARY KEY CLUSTERED (
         [InternetAccessDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[InternetAccessTypeInResidenceDescriptor] --
+CREATE TABLE [edfi].[InternetAccessTypeInResidenceDescriptor] (
+    [InternetAccessTypeInResidenceDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [InternetAccessTypeInResidenceDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [InternetAccessTypeInResidenceDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[InternetPerformanceInResidenceDescriptor] --
+CREATE TABLE [edfi].[InternetPerformanceInResidenceDescriptor] (
+    [InternetPerformanceInResidenceDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [InternetPerformanceInResidenceDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [InternetPerformanceInResidenceDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -4896,6 +4949,33 @@ CREATE TABLE [edfi].[PostSecondaryInstitutionMediumOfInstruction] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [edfi].[PostSecondaryInstitutionMediumOfInstruction] ADD CONSTRAINT [PostSecondaryInstitutionMediumOfInstruction_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [edfi].[PrimaryLearningDeviceAccessDescriptor] --
+CREATE TABLE [edfi].[PrimaryLearningDeviceAccessDescriptor] (
+    [PrimaryLearningDeviceAccessDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [PrimaryLearningDeviceAccessDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [PrimaryLearningDeviceAccessDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[PrimaryLearningDeviceAwayFromSchoolDescriptor] --
+CREATE TABLE [edfi].[PrimaryLearningDeviceAwayFromSchoolDescriptor] (
+    [PrimaryLearningDeviceAwayFromSchoolDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [PrimaryLearningDeviceAwayFromSchoolDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [PrimaryLearningDeviceAwayFromSchoolDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [edfi].[PrimaryLearningDeviceProviderDescriptor] --
+CREATE TABLE [edfi].[PrimaryLearningDeviceProviderDescriptor] (
+    [PrimaryLearningDeviceProviderDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [PrimaryLearningDeviceProviderDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [PrimaryLearningDeviceProviderDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 -- Table [edfi].[ProficiencyDescriptor] --
@@ -7595,6 +7675,13 @@ CREATE TABLE [edfi].[StudentEducationOrganizationAssociation] (
     [OldEthnicityDescriptorId] [INT] NULL,
     [LimitedEnglishProficiencyDescriptorId] [INT] NULL,
     [LoginId] [NVARCHAR](60) NULL,
+    [PrimaryLearningDeviceAwayFromSchoolDescriptorId] [INT] NULL,
+    [PrimaryLearningDeviceAccessDescriptorId] [INT] NULL,
+    [PrimaryLearningDeviceProviderDescriptorId] [INT] NULL,
+    [InternetAccessInResidence] [BIT] NULL,
+    [BarrierToInternetAccessInResidenceDescriptorId] [INT] NULL,
+    [InternetAccessTypeInResidenceDescriptorId] [INT] NULL,
+    [InternetPerformanceInResidenceDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,

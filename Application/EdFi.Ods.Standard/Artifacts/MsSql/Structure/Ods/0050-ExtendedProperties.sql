@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Extended Properties [edfi].[AbsenceEventCategoryDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor describes the type of absence', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AbsenceEventCategoryDescriptor'
 GO
@@ -498,6 +493,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor holds the category of the attendance event (e.g., tardy). The map to known enumeration values is required.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AttendanceEventCategoryDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'AttendanceEventCategoryDescriptor', @level2type=N'COLUMN', @level2name=N'AttendanceEventCategoryDescriptorId'
+GO
+
+-- Extended Properties [edfi].[BarrierToInternetAccessInResidenceDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of the barrier to having internet access in the student’s primary place of residence.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BarrierToInternetAccessInResidenceDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'BarrierToInternetAccessInResidenceDescriptor', @level2type=N'COLUMN', @level2name=N'BarrierToInternetAccessInResidenceDescriptorId'
 GO
 
 -- Extended Properties [edfi].[BehaviorDescriptor] --
@@ -1109,6 +1110,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscript', @level2type=N'COLUMN', @level2name=N'ExternalEducationOrganizationId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Name of the external institution where the student completed the course; to be used only when the reference ExternalEducationOrganization is not available.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscript', @level2type=N'COLUMN', @level2name=N'ExternalEducationOrganizationNameOfInstitution'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The organization code or name assigning the course identification code.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscript', @level2type=N'COLUMN', @level2name=N'AssigningOrganizationIdentificationCode'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The URL for the course catalog that defines the course identification code.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscript', @level2type=N'COLUMN', @level2name=N'CourseCatalogURL'
@@ -1216,6 +1219,38 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptEarnedAdditionalCredits', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of credits or units of value awarded for the completion of a course', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptEarnedAdditionalCredits', @level2type=N'COLUMN', @level2name=N'Credits'
+GO
+
+-- Extended Properties [edfi].[CourseTranscriptPartialCourseTranscriptAwards] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A collection of partial credits and/or grades a student earned against the course over the session, used when awards of credit are incremental.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the partial credits and/or grades were awarded or earned.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'AwardDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The result from the student''s attempt to take the course, for example:
+        Pass
+        Fail
+        Incomplete
+        Withdrawn.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'CourseAttemptResultDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a course.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'CourseCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'CourseEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of credits a student earned for completing a given course.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'EarnedCredits'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The method the credits were earned.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'MethodCreditEarnedDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The indicator of student performance as submitted by the instructor.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'LetterGradeEarned'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The indicator of student performance as submitted by the instructor.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'CourseTranscriptPartialCourseTranscriptAwards', @level2type=N'COLUMN', @level2name=N'NumericGradeEarned'
 GO
 
 -- Extended Properties [edfi].[Credential] --
@@ -2391,6 +2426,18 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of Internet access available.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'InternetAccessDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'InternetAccessDescriptor', @level2type=N'COLUMN', @level2name=N'InternetAccessDescriptorId'
+GO
+
+-- Extended Properties [edfi].[InternetAccessTypeInResidenceDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary type of internet service used in the student’s primary place of residence.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'InternetAccessTypeInResidenceDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'InternetAccessTypeInResidenceDescriptor', @level2type=N'COLUMN', @level2name=N'InternetAccessTypeInResidenceDescriptorId'
+GO
+
+-- Extended Properties [edfi].[InternetPerformanceInResidenceDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'InternetPerformanceInResidenceDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'InternetPerformanceInResidenceDescriptor', @level2type=N'COLUMN', @level2name=N'InternetPerformanceInResidenceDescriptorId'
 GO
 
 -- Extended Properties [edfi].[Intervention] --
@@ -3588,6 +3635,24 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The categories in which an institution serves the students.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PostSecondaryInstitutionMediumOfInstruction', @level2type=N'COLUMN', @level2name=N'MediumOfInstructionDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The ID of the post secondary institution.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PostSecondaryInstitutionMediumOfInstruction', @level2type=N'COLUMN', @level2name=N'PostSecondaryInstitutionId'
+GO
+
+-- Extended Properties [edfi].[PrimaryLearningDeviceAccessDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether the primary learning device is shared or not shared with another individual.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PrimaryLearningDeviceAccessDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PrimaryLearningDeviceAccessDescriptor', @level2type=N'COLUMN', @level2name=N'PrimaryLearningDeviceAccessDescriptorId'
+GO
+
+-- Extended Properties [edfi].[PrimaryLearningDeviceAwayFromSchoolDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of device the student uses most often to complete learning activities away from school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PrimaryLearningDeviceAwayFromSchoolDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PrimaryLearningDeviceAwayFromSchoolDescriptor', @level2type=N'COLUMN', @level2name=N'PrimaryLearningDeviceAwayFromSchoolDescriptorId'
+GO
+
+-- Extended Properties [edfi].[PrimaryLearningDeviceProviderDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The provider of the primary learning device.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PrimaryLearningDeviceProviderDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'PrimaryLearningDeviceProviderDescriptor', @level2type=N'COLUMN', @level2name=N'PrimaryLearningDeviceProviderDescriptorId'
 GO
 
 -- Extended Properties [edfi].[ProficiencyDescriptor] --
@@ -5835,6 +5900,20 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'LimitedEnglishProficiencyDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The login ID for the user; used for security access control interface.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'LoginId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of device the student uses most often to complete learning activities away from school.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'PrimaryLearningDeviceAwayFromSchoolDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether the primary learning device is shared or not shared with another individual.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'PrimaryLearningDeviceAccessDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The provider of the primary learning device.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'PrimaryLearningDeviceProviderDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether the student is able to access the internet in their primary place of residence.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'InternetAccessInResidence'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of the barrier to having internet access in the student’s primary place of residence.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'BarrierToInternetAccessInResidenceDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary type of internet service used in the student’s primary place of residence.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'InternetAccessTypeInResidenceDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.', @level0type=N'SCHEMA', @level0name=N'edfi', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociation', @level2type=N'COLUMN', @level2name=N'InternetPerformanceInResidenceDescriptorId'
 GO
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationAddress] --

@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 ALTER TABLE edfi.AbsenceEventCategoryDescriptor ADD CONSTRAINT FK_ec167f_Descriptor FOREIGN KEY (AbsenceEventCategoryDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -441,6 +436,11 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.AttendanceEventCategoryDescriptor ADD CONSTRAINT FK_19349d_Descriptor FOREIGN KEY (AttendanceEventCategoryDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.BarrierToInternetAccessInResidenceDescriptor ADD CONSTRAINT FK_cce75a_Descriptor FOREIGN KEY (BarrierToInternetAccessInResidenceDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -1148,6 +1148,21 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_b50e36_CourseTranscript
 ON edfi.CourseTranscriptEarnedAdditionalCredits (CourseAttemptResultDescriptorId ASC, CourseCode ASC, CourseEducationOrganizationId ASC, EducationOrganizationId ASC, SchoolYear ASC, StudentUSI ASC, TermDescriptorId ASC);
+
+ALTER TABLE edfi.CourseTranscriptPartialCourseTranscriptAwards ADD CONSTRAINT FK_e811ad_CourseTranscript FOREIGN KEY (CourseAttemptResultDescriptorId, CourseCode, CourseEducationOrganizationId, EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId)
+REFERENCES edfi.CourseTranscript (CourseAttemptResultDescriptorId, CourseCode, CourseEducationOrganizationId, EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_e811ad_CourseTranscript
+ON edfi.CourseTranscriptPartialCourseTranscriptAwards (CourseAttemptResultDescriptorId ASC, CourseCode ASC, CourseEducationOrganizationId ASC, EducationOrganizationId ASC, SchoolYear ASC, StudentUSI ASC, TermDescriptorId ASC);
+
+ALTER TABLE edfi.CourseTranscriptPartialCourseTranscriptAwards ADD CONSTRAINT FK_e811ad_MethodCreditEarnedDescriptor FOREIGN KEY (MethodCreditEarnedDescriptorId)
+REFERENCES edfi.MethodCreditEarnedDescriptor (MethodCreditEarnedDescriptorId)
+;
+
+CREATE INDEX FK_e811ad_MethodCreditEarnedDescriptor
+ON edfi.CourseTranscriptPartialCourseTranscriptAwards (MethodCreditEarnedDescriptorId ASC);
 
 ALTER TABLE edfi.Credential ADD CONSTRAINT FK_b1c42b_CredentialFieldDescriptor FOREIGN KEY (CredentialFieldDescriptorId)
 REFERENCES edfi.CredentialFieldDescriptor (CredentialFieldDescriptorId)
@@ -2288,6 +2303,16 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE edfi.InternetAccessDescriptor ADD CONSTRAINT FK_ca0f71_Descriptor FOREIGN KEY (InternetAccessDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.InternetAccessTypeInResidenceDescriptor ADD CONSTRAINT FK_8007d5_Descriptor FOREIGN KEY (InternetAccessTypeInResidenceDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.InternetPerformanceInResidenceDescriptor ADD CONSTRAINT FK_256049_Descriptor FOREIGN KEY (InternetPerformanceInResidenceDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -3629,6 +3654,21 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_9bd9d6_PostSecondaryInstitution
 ON edfi.PostSecondaryInstitutionMediumOfInstruction (PostSecondaryInstitutionId ASC);
+
+ALTER TABLE edfi.PrimaryLearningDeviceAccessDescriptor ADD CONSTRAINT FK_cbfe5d_Descriptor FOREIGN KEY (PrimaryLearningDeviceAccessDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor ADD CONSTRAINT FK_5ee08d_Descriptor FOREIGN KEY (PrimaryLearningDeviceAwayFromSchoolDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE edfi.PrimaryLearningDeviceProviderDescriptor ADD CONSTRAINT FK_a1f277_Descriptor FOREIGN KEY (PrimaryLearningDeviceProviderDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
 
 ALTER TABLE edfi.ProficiencyDescriptor ADD CONSTRAINT FK_14d0fd_Descriptor FOREIGN KEY (ProficiencyDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -5723,12 +5763,33 @@ ON DELETE CASCADE
 CREATE INDEX FK_4c979a_StudentDisciplineIncidentNonOffenderAssociation
 ON edfi.StudentDisciplineIncidentNonOffenderAssociationDisciplin_4c979a (IncidentIdentifier ASC, SchoolId ASC, StudentUSI ASC);
 
+ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_BarrierToInternetAccessInResidenceDescriptor FOREIGN KEY (BarrierToInternetAccessInResidenceDescriptorId)
+REFERENCES edfi.BarrierToInternetAccessInResidenceDescriptor (BarrierToInternetAccessInResidenceDescriptorId)
+;
+
+CREATE INDEX FK_8e1257_BarrierToInternetAccessInResidenceDescriptor
+ON edfi.StudentEducationOrganizationAssociation (BarrierToInternetAccessInResidenceDescriptorId ASC);
+
 ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 ;
 
 CREATE INDEX FK_8e1257_EducationOrganization
 ON edfi.StudentEducationOrganizationAssociation (EducationOrganizationId ASC);
+
+ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_InternetAccessTypeInResidenceDescriptor FOREIGN KEY (InternetAccessTypeInResidenceDescriptorId)
+REFERENCES edfi.InternetAccessTypeInResidenceDescriptor (InternetAccessTypeInResidenceDescriptorId)
+;
+
+CREATE INDEX FK_8e1257_InternetAccessTypeInResidenceDescriptor
+ON edfi.StudentEducationOrganizationAssociation (InternetAccessTypeInResidenceDescriptorId ASC);
+
+ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_InternetPerformanceInResidenceDescriptor FOREIGN KEY (InternetPerformanceInResidenceDescriptorId)
+REFERENCES edfi.InternetPerformanceInResidenceDescriptor (InternetPerformanceInResidenceDescriptorId)
+;
+
+CREATE INDEX FK_8e1257_InternetPerformanceInResidenceDescriptor
+ON edfi.StudentEducationOrganizationAssociation (InternetPerformanceInResidenceDescriptorId ASC);
 
 ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_LimitedEnglishProficiencyDescriptor FOREIGN KEY (LimitedEnglishProficiencyDescriptorId)
 REFERENCES edfi.LimitedEnglishProficiencyDescriptor (LimitedEnglishProficiencyDescriptorId)
@@ -5743,6 +5804,27 @@ REFERENCES edfi.OldEthnicityDescriptor (OldEthnicityDescriptorId)
 
 CREATE INDEX FK_8e1257_OldEthnicityDescriptor
 ON edfi.StudentEducationOrganizationAssociation (OldEthnicityDescriptorId ASC);
+
+ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_PrimaryLearningDeviceAccessDescriptor FOREIGN KEY (PrimaryLearningDeviceAccessDescriptorId)
+REFERENCES edfi.PrimaryLearningDeviceAccessDescriptor (PrimaryLearningDeviceAccessDescriptorId)
+;
+
+CREATE INDEX FK_8e1257_PrimaryLearningDeviceAccessDescriptor
+ON edfi.StudentEducationOrganizationAssociation (PrimaryLearningDeviceAccessDescriptorId ASC);
+
+ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_PrimaryLearningDeviceAwayFromSchoolDescriptor FOREIGN KEY (PrimaryLearningDeviceAwayFromSchoolDescriptorId)
+REFERENCES edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor (PrimaryLearningDeviceAwayFromSchoolDescriptorId)
+;
+
+CREATE INDEX FK_8e1257_PrimaryLearningDeviceAwayFromSchoolDescriptor
+ON edfi.StudentEducationOrganizationAssociation (PrimaryLearningDeviceAwayFromSchoolDescriptorId ASC);
+
+ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_PrimaryLearningDeviceProviderDescriptor FOREIGN KEY (PrimaryLearningDeviceProviderDescriptorId)
+REFERENCES edfi.PrimaryLearningDeviceProviderDescriptor (PrimaryLearningDeviceProviderDescriptorId)
+;
+
+CREATE INDEX FK_8e1257_PrimaryLearningDeviceProviderDescriptor
+ON edfi.StudentEducationOrganizationAssociation (PrimaryLearningDeviceProviderDescriptorId ASC);
 
 ALTER TABLE edfi.StudentEducationOrganizationAssociation ADD CONSTRAINT FK_8e1257_SexDescriptor FOREIGN KEY (SexDescriptorId)
 REFERENCES edfi.SexDescriptor (SexDescriptorId)
