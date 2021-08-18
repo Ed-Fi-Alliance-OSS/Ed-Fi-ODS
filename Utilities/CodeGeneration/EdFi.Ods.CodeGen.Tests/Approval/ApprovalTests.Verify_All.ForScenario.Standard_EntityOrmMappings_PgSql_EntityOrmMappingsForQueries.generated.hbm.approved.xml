@@ -2369,6 +2369,7 @@
     <property name="EarnedCredits" column="EarnedCredits" type="decimal" not-null="true" />
     <property name="EarnedCreditTypeDescriptorId" column="EarnedCreditTypeDescriptorId" type="int" />
     <property name="ExternalEducationOrganizationId" column="ExternalEducationOrganizationId" type="int" />
+    <property name="ExternalEducationOrganizationNameOfInstitution" column="ExternalEducationOrganizationNameOfInstitution" type="string" length="75" />
     <property name="FinalLetterGradeEarned" column="FinalLetterGradeEarned" type="string" length="20" />
     <property name="FinalNumericGradeEarned" column="FinalNumericGradeEarned" type="decimal" />
     <property name="MethodCreditEarnedDescriptorId" column="MethodCreditEarnedDescriptorId" type="int" />
@@ -2460,6 +2461,19 @@
         <column name="TermDescriptorId" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptEarnedAdditionalCreditsQ" />
+    </set>
+
+    <set name="CourseTranscriptPartialCourseTranscriptAwards" cascade="none" lazy="true">
+      <key>
+        <column name="CourseAttemptResultDescriptorId" />
+        <column name="CourseCode" />
+        <column name="CourseEducationOrganizationId" />
+        <column name="EducationOrganizationId" />
+        <column name="SchoolYear" />
+        <column name="StudentUSI" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptPartialCourseTranscriptAwardsQ" />
     </set>
 
 </class>
@@ -2595,6 +2609,43 @@
     <!-- Back references -->
     <many-to-one name="AdditionalCreditTypeDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.AdditionalCreditTypeDescriptorAggregate.EdFi.AdditionalCreditTypeDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="AdditionalCreditTypeDescriptorId" />
+    </many-to-one>
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptPartialCourseTranscriptAwardsQ" table="CourseTranscriptPartialCourseTranscriptAwards" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AwardDate" column="AwardDate" type="date" />
+      <key-many-to-one name="CourseTranscript">
+        <column name="CourseAttemptResultDescriptorId" />
+        <column name="CourseCode" />
+        <column name="CourseEducationOrganizationId" />
+        <column name="EducationOrganizationId" />
+        <column name="SchoolYear" />
+        <column name="StudentUSI" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EarnedCredits" column="EarnedCredits" type="decimal" not-null="true" />
+    <property name="LetterGradeEarned" column="LetterGradeEarned" type="string" length="20" />
+    <property name="MethodCreditEarnedDescriptorId" column="MethodCreditEarnedDescriptorId" type="int" />
+    <property name="NumericGradeEarned" column="NumericGradeEarned" type="string" length="20" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+    <many-to-one name="MethodCreditEarnedDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.MethodCreditEarnedDescriptorAggregate.EdFi.MethodCreditEarnedDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="MethodCreditEarnedDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->
@@ -3474,6 +3525,27 @@
               <column name="AttendanceEventCategoryDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventQ" />
+          </set>
+
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptorQ" table="BarrierToInternetAccessInResidenceDescriptor" lazy="false">
+          <key>
+            <column name="BarrierToInternetAccessInResidenceDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="BarrierToInternetAccessInResidenceDescriptorId" column="BarrierToInternetAccessInResidenceDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="StudentEducationOrganizationAssociations" cascade="none" lazy="true">
+            <key>
+              <column name="BarrierToInternetAccessInResidenceDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" />
           </set>
 
       </joined-subclass>
@@ -5416,6 +5488,48 @@
           </set>
 
       </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptorQ" table="InternetAccessTypeInResidenceDescriptor" lazy="false">
+          <key>
+            <column name="InternetAccessTypeInResidenceDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="InternetAccessTypeInResidenceDescriptorId" column="InternetAccessTypeInResidenceDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="StudentEducationOrganizationAssociations" cascade="none" lazy="true">
+            <key>
+              <column name="InternetAccessTypeInResidenceDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" />
+          </set>
+
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptorQ" table="InternetPerformanceInResidenceDescriptor" lazy="false">
+          <key>
+            <column name="InternetPerformanceInResidenceDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="InternetPerformanceInResidenceDescriptorId" column="InternetPerformanceInResidenceDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="StudentEducationOrganizationAssociations" cascade="none" lazy="true">
+            <key>
+              <column name="InternetPerformanceInResidenceDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" />
+          </set>
+
+      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.InterventionClassDescriptorAggregate.EdFi.InterventionClassDescriptorQ" table="InterventionClassDescriptor" lazy="false">
           <key>
             <column name="InterventionClassDescriptorId" />
@@ -5889,6 +6003,13 @@
               <column name="MethodCreditEarnedDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptQ" />
+          </set>
+
+          <set name="CourseTranscriptPartialCourseTranscriptAwards" cascade="none" lazy="true">
+            <key>
+              <column name="MethodCreditEarnedDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptPartialCourseTranscriptAwardsQ" />
           </set>
 
       </joined-subclass>
@@ -6400,6 +6521,69 @@
               <column name="PostSecondaryInstitutionLevelDescriptorId" />
             </key>
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionAggregate.EdFi.PostSecondaryInstitutionQ" />
+          </set>
+
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptorQ" table="PrimaryLearningDeviceAccessDescriptor" lazy="false">
+          <key>
+            <column name="PrimaryLearningDeviceAccessDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="PrimaryLearningDeviceAccessDescriptorId" column="PrimaryLearningDeviceAccessDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="StudentEducationOrganizationAssociations" cascade="none" lazy="true">
+            <key>
+              <column name="PrimaryLearningDeviceAccessDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" />
+          </set>
+
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorQ" table="PrimaryLearningDeviceAwayFromSchoolDescriptor" lazy="false">
+          <key>
+            <column name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" column="PrimaryLearningDeviceAwayFromSchoolDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="StudentEducationOrganizationAssociations" cascade="none" lazy="true">
+            <key>
+              <column name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" />
+          </set>
+
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptorQ" table="PrimaryLearningDeviceProviderDescriptor" lazy="false">
+          <key>
+            <column name="PrimaryLearningDeviceProviderDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="PrimaryLearningDeviceProviderDescriptorId" column="PrimaryLearningDeviceProviderDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+          <set name="StudentEducationOrganizationAssociations" cascade="none" lazy="true">
+            <key>
+              <column name="PrimaryLearningDeviceProviderDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ" />
           </set>
 
       </joined-subclass>
@@ -19196,24 +19380,49 @@
     <!-- Properties -->
     <!-- Readonly property to surface the discriminator value -->
     <property name="Discriminator" column="Discriminator" type="string" insert="false" update="false" />
+    <property name="BarrierToInternetAccessInResidenceDescriptorId" column="BarrierToInternetAccessInResidenceDescriptorId" type="int" />
     <property name="HispanicLatinoEthnicity" column="HispanicLatinoEthnicity" type="bool" />
+    <property name="InternetAccessInResidence" column="InternetAccessInResidence" type="bool" />
+    <property name="InternetAccessTypeInResidenceDescriptorId" column="InternetAccessTypeInResidenceDescriptorId" type="int" />
+    <property name="InternetPerformanceInResidenceDescriptorId" column="InternetPerformanceInResidenceDescriptorId" type="int" />
     <property name="LimitedEnglishProficiencyDescriptorId" column="LimitedEnglishProficiencyDescriptorId" type="int" />
     <property name="LoginId" column="LoginId" type="string" length="60" />
     <property name="OldEthnicityDescriptorId" column="OldEthnicityDescriptorId" type="int" />
+    <property name="PrimaryLearningDeviceAccessDescriptorId" column="PrimaryLearningDeviceAccessDescriptorId" type="int" />
+    <property name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" column="PrimaryLearningDeviceAwayFromSchoolDescriptorId" type="int" />
+    <property name="PrimaryLearningDeviceProviderDescriptorId" column="PrimaryLearningDeviceProviderDescriptorId" type="int" />
     <property name="ProfileThumbnail" column="ProfileThumbnail" type="string" length="255" />
     <property name="SexDescriptorId" column="SexDescriptorId" type="int" not-null="true" />
 
     <!-- Aggregate references -->
 
     <!-- Back references -->
+    <many-to-one name="BarrierToInternetAccessInResidenceDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="BarrierToInternetAccessInResidenceDescriptorId" />
+    </many-to-one>
     <many-to-one name="EducationOrganization" class="EdFi.Ods.Entities.NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="EducationOrganizationId" />
+    </many-to-one>
+    <many-to-one name="InternetAccessTypeInResidenceDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="InternetAccessTypeInResidenceDescriptorId" />
+    </many-to-one>
+    <many-to-one name="InternetPerformanceInResidenceDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="InternetPerformanceInResidenceDescriptorId" />
     </many-to-one>
     <many-to-one name="LimitedEnglishProficiencyDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.LimitedEnglishProficiencyDescriptorAggregate.EdFi.LimitedEnglishProficiencyDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="LimitedEnglishProficiencyDescriptorId" />
     </many-to-one>
     <many-to-one name="OldEthnicityDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.OldEthnicityDescriptorAggregate.EdFi.OldEthnicityDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="OldEthnicityDescriptorId" />
+    </many-to-one>
+    <many-to-one name="PrimaryLearningDeviceAccessDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="PrimaryLearningDeviceAccessDescriptorId" />
+    </many-to-one>
+    <many-to-one name="PrimaryLearningDeviceAwayFromSchoolDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" />
+    </many-to-one>
+    <many-to-one name="PrimaryLearningDeviceProviderDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="PrimaryLearningDeviceProviderDescriptorId" />
     </many-to-one>
     <many-to-one name="SexDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="SexDescriptorId" />

@@ -1164,12 +1164,19 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.BarrierToInternetAccessInResidenceDescriptor = request.BarrierToInternetAccessInResidenceDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
             specification.Id = request.Id;
+            specification.InternetAccessInResidence = request.InternetAccessInResidence;
+            specification.InternetAccessTypeInResidenceDescriptor = request.InternetAccessTypeInResidenceDescriptor;
+            specification.InternetPerformanceInResidenceDescriptor = request.InternetPerformanceInResidenceDescriptor;
             specification.LimitedEnglishProficiencyDescriptor = request.LimitedEnglishProficiencyDescriptor;
             specification.LoginId = request.LoginId;
             specification.OldEthnicityDescriptor = request.OldEthnicityDescriptor;
+            specification.PrimaryLearningDeviceAccessDescriptor = request.PrimaryLearningDeviceAccessDescriptor;
+            specification.PrimaryLearningDeviceAwayFromSchoolDescriptor = request.PrimaryLearningDeviceAwayFromSchoolDescriptor;
+            specification.PrimaryLearningDeviceProviderDescriptor = request.PrimaryLearningDeviceProviderDescriptor;
             specification.ProfileThumbnail = request.ProfileThumbnail;
             specification.SexDescriptor = request.SexDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
@@ -2253,12 +2260,19 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.BarrierToInternetAccessInResidenceDescriptor = request.BarrierToInternetAccessInResidenceDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
             specification.Id = request.Id;
+            specification.InternetAccessInResidence = request.InternetAccessInResidence;
+            specification.InternetAccessTypeInResidenceDescriptor = request.InternetAccessTypeInResidenceDescriptor;
+            specification.InternetPerformanceInResidenceDescriptor = request.InternetPerformanceInResidenceDescriptor;
             specification.LimitedEnglishProficiencyDescriptor = request.LimitedEnglishProficiencyDescriptor;
             specification.LoginId = request.LoginId;
             specification.OldEthnicityDescriptor = request.OldEthnicityDescriptor;
+            specification.PrimaryLearningDeviceAccessDescriptor = request.PrimaryLearningDeviceAccessDescriptor;
+            specification.PrimaryLearningDeviceAwayFromSchoolDescriptor = request.PrimaryLearningDeviceAwayFromSchoolDescriptor;
+            specification.PrimaryLearningDeviceProviderDescriptor = request.PrimaryLearningDeviceProviderDescriptor;
             specification.ProfileThumbnail = request.ProfileThumbnail;
             specification.SexDescriptor = request.SexDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;

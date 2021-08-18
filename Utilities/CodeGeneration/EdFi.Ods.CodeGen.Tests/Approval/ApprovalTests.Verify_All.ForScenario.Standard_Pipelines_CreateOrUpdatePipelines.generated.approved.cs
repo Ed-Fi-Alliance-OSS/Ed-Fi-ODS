@@ -167,6 +167,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class BarrierToInternetAccessInResidenceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.BarrierToInternetAccessInResidenceDescriptor.EdFi.BarrierToInternetAccessInResidenceDescriptor, Entities.NHibernate.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptor>
+    {
+        public BarrierToInternetAccessInResidenceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class BehaviorDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.BehaviorDescriptor.EdFi.BehaviorDescriptor, Entities.NHibernate.BehaviorDescriptorAggregate.EdFi.BehaviorDescriptor>
     {
         public BehaviorDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -731,6 +737,18 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class InternetAccessTypeInResidenceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.InternetAccessTypeInResidenceDescriptor.EdFi.InternetAccessTypeInResidenceDescriptor, Entities.NHibernate.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptor>
+    {
+        public InternetAccessTypeInResidenceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InternetPerformanceInResidenceDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.InternetPerformanceInResidenceDescriptor.EdFi.InternetPerformanceInResidenceDescriptor, Entities.NHibernate.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptor>
+    {
+        public InternetPerformanceInResidenceDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class InterventionCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.Intervention.EdFi.Intervention, Entities.NHibernate.InterventionAggregate.EdFi.Intervention>
     {
         public InterventionCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1034,6 +1052,24 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class PostSecondaryInstitutionLevelDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.PostSecondaryInstitutionLevelDescriptor.EdFi.PostSecondaryInstitutionLevelDescriptor, Entities.NHibernate.PostSecondaryInstitutionLevelDescriptorAggregate.EdFi.PostSecondaryInstitutionLevelDescriptor>
     {
         public PostSecondaryInstitutionLevelDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAccessDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.PrimaryLearningDeviceAccessDescriptor.EdFi.PrimaryLearningDeviceAccessDescriptor, Entities.NHibernate.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptor>
+    {
+        public PrimaryLearningDeviceAccessDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAwayFromSchoolDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.PrimaryLearningDeviceAwayFromSchoolDescriptor.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor, Entities.NHibernate.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor>
+    {
+        public PrimaryLearningDeviceAwayFromSchoolDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceProviderDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.PrimaryLearningDeviceProviderDescriptor.EdFi.PrimaryLearningDeviceProviderDescriptor, Entities.NHibernate.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptor>
+    {
+        public PrimaryLearningDeviceProviderDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

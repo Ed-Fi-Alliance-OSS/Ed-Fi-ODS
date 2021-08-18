@@ -2143,6 +2143,48 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.AttendanceEventCategoryDescri
         // -------------------------------------------------------------
     }
 }
+// Aggregate: BarrierToInternetAccessInResidenceDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.BarrierToInternetAccessInResidenceDescriptor table of the BarrierToInternetAccessInResidenceDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class BarrierToInternetAccessInResidenceDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int BarrierToInternetAccessInResidenceDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: BehaviorDescriptor
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.BehaviorDescriptorAggregate.EdFi
@@ -4703,6 +4745,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
         public virtual decimal EarnedCredits  { get; set; }
         public virtual int? EarnedCreditTypeDescriptorId  { get; set; }
         public virtual int? ExternalEducationOrganizationId  { get; set; }
+        public virtual string ExternalEducationOrganizationNameOfInstitution  { get; set; }
         public virtual string FinalLetterGradeEarned  { get; set; }
         public virtual decimal? FinalNumericGradeEarned  { get; set; }
         public virtual int? MethodCreditEarnedDescriptorId  { get; set; }
@@ -4716,6 +4759,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
         public virtual ICollection<CourseTranscriptAlternativeCourseIdentificationCodeQ> CourseTranscriptAlternativeCourseIdentificationCodes { get; set; }
         public virtual ICollection<CourseTranscriptCreditCategoryQ> CourseTranscriptCreditCategories { get; set; }
         public virtual ICollection<CourseTranscriptEarnedAdditionalCreditsQ> CourseTranscriptEarnedAdditionalCredits { get; set; }
+        public virtual ICollection<CourseTranscriptPartialCourseTranscriptAwardsQ> CourseTranscriptPartialCourseTranscriptAwards { get; set; }
 
         // -------------------------------------------------------------
 
@@ -4909,6 +4953,53 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.CourseTranscriptAggregate.EdF
 
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.AdditionalCreditTypeDescriptorAggregate.EdFi.AdditionalCreditTypeDescriptorQ AdditionalCreditTypeDescriptor { get; set; }
+        // -------------------------------------------------------------
+    }
+
+    /// <summary>
+    /// A class which represents the edfi.CourseTranscriptPartialCourseTranscriptAwards table of the CourseTranscript aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class CourseTranscriptPartialCourseTranscriptAwardsQ : EntityWithCompositeKey
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptQ CourseTranscript { get; set; }
+        [DomainSignature]
+        public virtual DateTime AwardDate { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Discriminator
+        // -------------------------------------------------------------
+
+        public virtual string Discriminator { get; set; }
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual decimal EarnedCredits  { get; set; }
+        public virtual string LetterGradeEarned  { get; set; }
+        public virtual int? MethodCreditEarnedDescriptorId  { get; set; }
+        public virtual string NumericGradeEarned  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.MethodCreditEarnedDescriptorAggregate.EdFi.MethodCreditEarnedDescriptorQ MethodCreditEarnedDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 }
@@ -9736,6 +9827,90 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.InternetAccessDescriptorAggre
         // -------------------------------------------------------------
     }
 }
+// Aggregate: InternetAccessTypeInResidenceDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.InternetAccessTypeInResidenceDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.InternetAccessTypeInResidenceDescriptor table of the InternetAccessTypeInResidenceDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class InternetAccessTypeInResidenceDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int InternetAccessTypeInResidenceDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: InternetPerformanceInResidenceDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.InternetPerformanceInResidenceDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.InternetPerformanceInResidenceDescriptor table of the InternetPerformanceInResidenceDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class InternetPerformanceInResidenceDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int InternetPerformanceInResidenceDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
 // Aggregate: Intervention
 
 namespace EdFi.Ods.Entities.NHibernate.QueryModels.InterventionAggregate.EdFi
@@ -12689,6 +12864,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.MethodCreditEarnedDescriptorA
 
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptPartialCourseTranscriptAwardsQ> CourseTranscriptPartialCourseTranscriptAwards  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.CourseTranscriptAggregate.EdFi.CourseTranscriptQ> CourseTranscripts  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
@@ -14760,6 +14938,132 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.PostSecondaryInstitutionLevel
         // External references for NHibernate mappings and HQL query usage
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.PostSecondaryInstitutionAggregate.EdFi.PostSecondaryInstitutionQ> PostSecondaryInstitutions  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: PrimaryLearningDeviceAccessDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.PrimaryLearningDeviceAccessDescriptor table of the PrimaryLearningDeviceAccessDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAccessDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int PrimaryLearningDeviceAccessDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: PrimaryLearningDeviceAwayFromSchoolDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor table of the PrimaryLearningDeviceAwayFromSchoolDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAwayFromSchoolDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int PrimaryLearningDeviceAwayFromSchoolDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
+    #pragma warning restore 114
+        // -------------------------------------------------------------
+    }
+}
+// Aggregate: PrimaryLearningDeviceProviderDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.QueryModels.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi
+{
+
+    /// <summary>
+    /// A class which represents the edfi.PrimaryLearningDeviceProviderDescriptor table of the PrimaryLearningDeviceProviderDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable]
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceProviderDescriptorQ : QueryModels.DescriptorAggregate.EdFi.DescriptorQ
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int PrimaryLearningDeviceProviderDescriptorId { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              External references for HQL Queries
+        // -------------------------------------------------------------
+
+        // External references for NHibernate mappings and HQL query usage
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ> StudentEducationOrganizationAssociations  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }
@@ -22041,10 +22345,17 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        public virtual int? BarrierToInternetAccessInResidenceDescriptorId  { get; set; }
         public virtual bool? HispanicLatinoEthnicity  { get; set; }
+        public virtual bool? InternetAccessInResidence  { get; set; }
+        public virtual int? InternetAccessTypeInResidenceDescriptorId  { get; set; }
+        public virtual int? InternetPerformanceInResidenceDescriptorId  { get; set; }
         public virtual int? LimitedEnglishProficiencyDescriptorId  { get; set; }
         public virtual string LoginId  { get; set; }
         public virtual int? OldEthnicityDescriptorId  { get; set; }
+        public virtual int? PrimaryLearningDeviceAccessDescriptorId  { get; set; }
+        public virtual int? PrimaryLearningDeviceAwayFromSchoolDescriptorId  { get; set; }
+        public virtual int? PrimaryLearningDeviceProviderDescriptorId  { get; set; }
         public virtual string ProfileThumbnail  { get; set; }
         public virtual int SexDescriptorId  { get; set; }
         // -------------------------------------------------------------
@@ -22074,9 +22385,15 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // -------------------------------------------------------------
 
         // External references for NHibernate mappings and HQL query usage
+        protected virtual NHibernate.QueryModels.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptorQ BarrierToInternetAccessInResidenceDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.EducationOrganizationAggregate.EdFi.EducationOrganizationQ EducationOrganization { get; set; }
+        protected virtual NHibernate.QueryModels.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptorQ InternetAccessTypeInResidenceDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptorQ InternetPerformanceInResidenceDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.LimitedEnglishProficiencyDescriptorAggregate.EdFi.LimitedEnglishProficiencyDescriptorQ LimitedEnglishProficiencyDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.OldEthnicityDescriptorAggregate.EdFi.OldEthnicityDescriptorQ OldEthnicityDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptorQ PrimaryLearningDeviceAccessDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorQ PrimaryLearningDeviceAwayFromSchoolDescriptor { get; set; }
+        protected virtual NHibernate.QueryModels.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptorQ PrimaryLearningDeviceProviderDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.SexDescriptorAggregate.EdFi.SexDescriptorQ SexDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ Student { get; set; }
         // -------------------------------------------------------------

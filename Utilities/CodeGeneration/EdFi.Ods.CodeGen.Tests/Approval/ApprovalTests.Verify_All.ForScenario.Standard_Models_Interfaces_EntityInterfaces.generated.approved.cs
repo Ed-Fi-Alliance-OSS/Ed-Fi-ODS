@@ -961,6 +961,24 @@ namespace EdFi.Ods.Entities.Common.EdFi
     }
 
     /// <summary>
+    /// Defines available properties and methods for the abstraction of the BarrierToInternetAccessInResidenceDescriptor model.
+    /// </summary>
+    public interface IBarrierToInternetAccessInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int BarrierToInternetAccessInResidenceDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
     /// Defines available properties and methods for the abstraction of the BehaviorDescriptor model.
     /// </summary>
     public interface IBehaviorDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
@@ -2119,6 +2137,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         decimal EarnedCredits { get; set; }
         string EarnedCreditTypeDescriptor { get; set; }
         int? ExternalEducationOrganizationId { get; set; }
+        string ExternalEducationOrganizationNameOfInstitution { get; set; }
         string FinalLetterGradeEarned { get; set; }
         decimal? FinalNumericGradeEarned { get; set; }
         string MethodCreditEarnedDescriptor { get; set; }
@@ -2131,6 +2150,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         ICollection<ICourseTranscriptAlternativeCourseIdentificationCode> CourseTranscriptAlternativeCourseIdentificationCodes { get; set; }
         ICollection<ICourseTranscriptCreditCategory> CourseTranscriptCreditCategories { get; set; }
         ICollection<ICourseTranscriptEarnedAdditionalCredits> CourseTranscriptEarnedAdditionalCredits { get; set; }
+        ICollection<ICourseTranscriptPartialCourseTranscriptAwards> CourseTranscriptPartialCourseTranscriptAwards { get; set; }
 
         // Resource reference data
         Guid? CourseResourceId { get; set; }
@@ -2217,6 +2237,30 @@ namespace EdFi.Ods.Entities.Common.EdFi
 
         // Non-PK properties
         decimal Credits { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the CourseTranscriptPartialCourseTranscriptAwards model.
+    /// </summary>
+    public interface ICourseTranscriptPartialCourseTranscriptAwards : ISynchronizable, IMappable, IHasExtensions, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        ICourseTranscript CourseTranscript { get; set; }
+        [NaturalKeyMember]
+        DateTime AwardDate { get; set; }
+
+        // Non-PK properties
+        decimal EarnedCredits { get; set; }
+        string LetterGradeEarned { get; set; }
+        string MethodCreditEarnedDescriptor { get; set; }
+        string NumericGradeEarned { get; set; }
 
         // One-to-one relationships
 
@@ -4363,6 +4407,42 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // Primary Key properties
         [NaturalKeyMember][AutoIncrement]
         int InternetAccessDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the InternetAccessTypeInResidenceDescriptor model.
+    /// </summary>
+    public interface IInternetAccessTypeInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int InternetAccessTypeInResidenceDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the InternetPerformanceInResidenceDescriptor model.
+    /// </summary>
+    public interface IInternetPerformanceInResidenceDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int InternetPerformanceInResidenceDescriptorId { get; set; }
 
         // Non-PK properties
 
@@ -6698,6 +6778,60 @@ namespace EdFi.Ods.Entities.Common.EdFi
         IPostSecondaryInstitution PostSecondaryInstitution { get; set; }
         [NaturalKeyMember]
         string MediumOfInstructionDescriptor { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the PrimaryLearningDeviceAccessDescriptor model.
+    /// </summary>
+    public interface IPrimaryLearningDeviceAccessDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int PrimaryLearningDeviceAccessDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the PrimaryLearningDeviceAwayFromSchoolDescriptor model.
+    /// </summary>
+    public interface IPrimaryLearningDeviceAwayFromSchoolDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int PrimaryLearningDeviceAwayFromSchoolDescriptorId { get; set; }
+
+        // Non-PK properties
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the PrimaryLearningDeviceProviderDescriptor model.
+    /// </summary>
+    public interface IPrimaryLearningDeviceProviderDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int PrimaryLearningDeviceProviderDescriptorId { get; set; }
 
         // Non-PK properties
 
@@ -10069,10 +10203,17 @@ namespace EdFi.Ods.Entities.Common.EdFi
         string StudentUniqueId { get; set; }
 
         // Non-PK properties
+        string BarrierToInternetAccessInResidenceDescriptor { get; set; }
         bool? HispanicLatinoEthnicity { get; set; }
+        bool? InternetAccessInResidence { get; set; }
+        string InternetAccessTypeInResidenceDescriptor { get; set; }
+        string InternetPerformanceInResidenceDescriptor { get; set; }
         string LimitedEnglishProficiencyDescriptor { get; set; }
         string LoginId { get; set; }
         string OldEthnicityDescriptor { get; set; }
+        string PrimaryLearningDeviceAccessDescriptor { get; set; }
+        string PrimaryLearningDeviceAwayFromSchoolDescriptor { get; set; }
+        string PrimaryLearningDeviceProviderDescriptor { get; set; }
         string ProfileThumbnail { get; set; }
         string SexDescriptor { get; set; }
 
