@@ -133,6 +133,13 @@
     ]
   },
   {
+    "resource": "/ed-fi/barrierToInternetAccessInResidenceDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
     "resource": "/ed-fi/behaviorDescriptors",
     "order": 1,
     "operations": [
@@ -595,6 +602,20 @@
     ]
   },
   {
+    "resource": "/ed-fi/internetAccessTypeInResidenceDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/internetPerformanceInResidenceDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
     "resource": "/ed-fi/interventionClassDescriptors",
     "order": 1,
     "operations": [
@@ -834,6 +855,27 @@
   },
   {
     "resource": "/ed-fi/postSecondaryInstitutionLevelDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/primaryLearningDeviceAccessDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/primaryLearningDeviceAwayFromSchoolDescriptors",
+    "order": 1,
+    "operations": [
+      "Create"
+    ]
+  },
+  {
+    "resource": "/ed-fi/primaryLearningDeviceProviderDescriptors",
     "order": 1,
     "operations": [
       "Create"
