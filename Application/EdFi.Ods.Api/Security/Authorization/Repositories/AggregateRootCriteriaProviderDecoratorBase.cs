@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common.Extensions;
 using NHibernate;
 using NHibernate.Criterion;
 using EdFi.Ods.Common;
@@ -102,7 +103,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        var parameterValues = new Dictionary<string, object> { { filterDetails.ClaimEndpointName, filterDetails.ClaimValues } };
+                        var parameterValues = new Dictionary<string, object> { { filterDetails.ClaimEndpointName.EqualsIgnoreCase("EducationOrganizationId")
+                            ? "SourceEducationOrganizationId":filterDetails.ClaimEndpointName, filterDetails.ClaimValues } };
 
                         applicator(criteria, disjunction, parameterValues, hasMultipleClaimEndpoints ? JoinType.LeftOuterJoin : JoinType.InnerJoin);
                     }
