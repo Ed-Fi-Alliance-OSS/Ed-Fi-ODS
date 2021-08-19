@@ -355,7 +355,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         public static FilterApplicationDetails LocalEducationAgencyIdToSchoolId => _localEducationAgencyIdToSchoolId.Value;
 
         public static FilterApplicationDetails LocalEducationAgencyIdToOrganizationDepartmentId => _localEducationAgencyIdToOrganizationDepartmentId.Value;
-        
+
         public static FilterApplicationDetails OrganizationDepartmentIdToSchoolId => _organizationDepartmentIdToSchoolId.Value;
 
         public static FilterApplicationDetails CommunityOrganizationIdToEducationOrganizationId
