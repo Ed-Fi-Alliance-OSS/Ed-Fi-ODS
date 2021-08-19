@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Conventions;
 
 namespace EdFi.Ods.Api.Security.Authorization
@@ -24,7 +25,7 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <returns>The authorization view name (without the schema).</returns>
         public static string GetAuthorizationViewName(string endpoint1, string endpoint2, string authorizationPathModifier)
         {
-            if (endpoint1.Equals("StudentUSI") && endpoint2.Equals("EducationOrganizationId"))
+            if (endpoint1.EqualsIgnoreCase("StudentUSI") && endpoint2.EqualsIgnoreCase("EducationOrganizationId"))
             {
                 return $"{endpoint1}To{endpoint2}{authorizationPathModifier}";
             }
