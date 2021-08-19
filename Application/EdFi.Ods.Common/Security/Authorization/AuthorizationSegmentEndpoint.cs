@@ -26,7 +26,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <summary>
         /// Gets the name of the rule value (e.g. a property name from the <see cref="EdFiRelationshipsAuthorizationContextData"/>).
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the <see cref="Type"/> of the rule value.

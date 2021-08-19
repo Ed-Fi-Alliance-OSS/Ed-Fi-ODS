@@ -110,8 +110,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         errorMessages.Add(
                             $"Authorization denied.  The claims associated with an identifier of '{name}' " +
                             $"cannot be used to authorize a request associated with an identifier of '{segment.SubjectEndpoint.Name}'.");
-
-                        ;
                     }
                     else
                     {

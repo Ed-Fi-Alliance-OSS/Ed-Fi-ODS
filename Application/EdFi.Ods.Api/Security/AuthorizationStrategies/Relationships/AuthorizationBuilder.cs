@@ -119,9 +119,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     }
 
                     // NOTE: Embedded convention (Concrete EducationOrganization identifiers use format of "TypeName+Id")
-                    //var claimNameValueTuple = Tuple.Create(
-                    //    "EducationOrganizationId",
-                    //    (object) educationOrganizationId);
                     var claimNameValueTuple = Tuple.Create(
                         identifiers.EducationOrganizationType + "Id",
                         (object) educationOrganizationId);
@@ -222,35 +219,82 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <returns>The <see cref="AuthorizationBuilder{TContextData}"/> instance, for chaining methods together.</returns>
         public AuthorizationBuilder<TContextData> ClaimsMustBeAssociatedWith(params SegmentProperty[] segmentProperties)
         {
-            if (_contextData == null)
-            {
-                foreach (var segmentProperty in segmentProperties)
-                {
-                    _claimsAuthorizationSegments.Add(
-                        new ClaimsAuthorizationSegment(
-                            _claimAuthorizationValues.Value,
-                            new AuthorizationSegmentEndpoint(
-                                segmentProperty.PropertyName,
-                                segmentProperty.PropertyType),
-                            segmentProperty.AuthorizationPathModifier));
-                }
-            }
-            else
-            {
-                foreach (var segmentProperty in segmentProperties)
-                {
-                    _claimsAuthorizationSegments.Add(
-                        new ClaimsAuthorizationSegment(
-                            _claimAuthorizationValues.Value,
-                            new AuthorizationSegmentEndpointWithValue(
-                                segmentProperty.PropertyName,
-                                segmentProperty.PropertyType,
-                                segmentProperty.PropertyValue),
-                            segmentProperty.AuthorizationPathModifier));
-                }
-            }
+            AddClaimsAuthorizationSegmentList(_claimAuthorizationValues.Value, segmentProperties);
 
             return this;
+        }
+
+        private void AddClaimsAuthorizationSegmentList(
+            List<Tuple<string, object>> claimNamesAndValues,
+            params SegmentProperty[] segmentProperties)
+        {
+            foreach (var segmentProperty in segmentProperties)
+            {
+                IEnumerable<AuthorizationSegmentEndpointWithValue> claimsEndpoints = null;
+
+                var segmentPropertyName = string.Empty;
+
+                var entities = new List<string>()
+                {
+                    "ParentUSI",
+                    "StaffUSI"
+                };
+
+                // When subject Endpoint ends with StudentUSI and authorizationPathModifier does not have  ThroughEdOrgAssociation
+                // use new Student view 
+                if (segmentProperty.PropertyName.EqualsIgnoreCase("StudentUSI") &&
+                    !segmentProperty.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation"))
+                {
+                    claimsEndpoints = claimNamesAndValues
+                        .Select(
+                            cv =>
+                                new AuthorizationSegmentEndpointWithValue(
+                                    "EducationOrganizationId",
+                                    cv.Item2.GetType(),
+                                    cv.Item2));
+                }
+
+                // When subject Endpoint does not have ParentUSI or StaffUSI and
+                // authorizationPathModifier does not have  ThroughEdOrgAssociation
+                // Then use tuple table for authorization 
+                else if (!entities.Contains(segmentProperty.PropertyName) &&
+                         !segmentProperty.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation"))
+                {
+                    claimsEndpoints = claimNamesAndValues
+                        .Select(
+                            cv =>
+                                new AuthorizationSegmentEndpointWithValue(
+                                    "EducationOrganizationId",
+                                    cv.Item2.GetType(),
+                                    cv.Item2));
+
+                    segmentPropertyName = "EducationOrganizationId";
+                }
+                else
+                {
+                    claimsEndpoints = claimNamesAndValues
+                        .Select(
+                            cv =>
+                                new AuthorizationSegmentEndpointWithValue(
+                                    cv.Item1,
+                                    cv.Item2.GetType(),
+                                    cv.Item2));
+                }
+
+                segmentPropertyName = string.IsNullOrWhiteSpace(segmentPropertyName)
+                    ? segmentProperty.PropertyName
+                    : segmentPropertyName;
+
+                var claimsAuthorizationSegment = new ClaimsAuthorizationSegment(
+                    claimsEndpoints.ToList().AsReadOnly(),
+                    _contextData == null
+                        ? new AuthorizationSegmentEndpoint(segmentProperty.PropertyName, segmentProperty.PropertyType)
+                        : new AuthorizationSegmentEndpointWithValue(
+                            segmentPropertyName, segmentProperty.PropertyType, segmentProperty.PropertyValue),
+                    segmentProperty.AuthorizationPathModifier);
+
+                _claimsAuthorizationSegments.Add(claimsAuthorizationSegment);
+            }
         }
 
         private SegmentProperty CreateSegment(string propertyName, string authorizationPathModifier)

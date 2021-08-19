@@ -33,6 +33,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
         private const int SuppliedPostSecondaryInstitutionId = 111;
 
+        private const int SchoolId = 121;
+
         private static RelationshipsAuthorizationContextData _suppliedAuthorizationContext;
         private static EdFiResourceClaimValue _suppliedClaim;
         private static readonly List<int> AllSuppliedLeaIds = new List<int>
@@ -41,6 +43,72 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             SuppliedLea2,
             SuppliedLea3
         };
+
+        [TestFixture]
+        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_StudentUSI
+        {
+            [Test]
+            public void Should_generate_valid_sql_and_parameters()
+            {
+                var mockISessionFactory = A.Fake<ISessionFactory>();
+
+                var mockAuthorizationViewsProvider = A.Fake<AuthorizationViewsProvider>(
+                    x => x.WithArgumentsForConstructor(new object[] {mockISessionFactory}));
+
+                A.CallTo(() => mockAuthorizationViewsProvider.GetAuthorizationViews())
+                    .Returns(
+                        new List<string>
+                        {
+                            "auth.StudentUSIToEducationOrganizationId",
+                            "auth.EducationOrganizationIdToEducationOrganizationId"
+                        });
+
+                var authorizationSegmentsSqlProvider =
+                    new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationViewsProvider);
+
+                var parameterIndex = 0;
+
+                var authorizationSegments = GetRelationshipAuthorizationSegments(
+                    AllSuppliedLeaIds,
+                    builder => builder.ClaimsMustBeAssociatedWith(x => x.StudentUSI));
+
+                var result = authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(
+                    authorizationSegments, ref parameterIndex);
+
+                result.ShouldSatisfyAllConditions(
+                    () => result.ShouldNotBeNull(),
+
+                    // 2 parameters are the SQL Server TVP and the StudentUSI segment
+                    () => result.Parameters.Length.ShouldBe(2),
+                    () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
+                        .ShouldBeFalse(),
+
+                    // TVP parameters is defined as expected
+                    () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
+                    () => result.Parameters[0].Value.ShouldBeOfType<DataTable>(),
+                    () => ((DataTable) result.Parameters[0].Value).Rows[0][0]
+                        .ShouldBe(_suppliedClaim.EducationOrganizationIds[0]),
+                    () => ((DataTable) result.Parameters[0].Value).Rows[1][0]
+                        .ShouldBe(_suppliedClaim.EducationOrganizationIds[1]),
+                    () => ((DataTable) result.Parameters[0].Value).Rows[2][0]
+                        .ShouldBe(_suppliedClaim.EducationOrganizationIds[2]),
+
+                    // Second parameter is for the LEA to StaffUSI segment
+                    () => result.Parameters[1].ParameterName.ShouldBe("@p1"),
+                    () => result.Parameters[1].Value.ShouldBe(_suppliedAuthorizationContext.StudentUSI)
+                );
+
+                var sql = result.Sql;
+
+                var expectedSql =
+                    $@"SELECT 1 WHERE
+(
+EXISTS (SELECT 1 FROM auth.StudentUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StudentUSI = @p1)
+);";
+
+                sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
+            }
+        }
 
         [TestFixture]
         public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_StaffUSI
@@ -557,7 +625,8 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
             _suppliedAuthorizationContext = new RelationshipsAuthorizationContextData
             {
                 SchoolId = 880001,
-                StaffUSI = 738953
+                StaffUSI = 738953,
+                StudentUSI = 34334
             };
 
             _suppliedClaim = new EdFiResourceClaimValue(
@@ -580,6 +649,9 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
 
             A.CallTo(() => educationOrganizationCache.GetEducationOrganizationIdentifiers(SuppliedPostSecondaryInstitutionId))
                 .Returns(new EducationOrganizationIdentifiers(0, "PostSecondaryInstitution"));
+
+            A.CallTo(() => educationOrganizationCache.GetEducationOrganizationIdentifiers(SchoolId))
+                .Returns(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
 
             var builder = new AuthorizationBuilder<RelationshipsAuthorizationContextData>(
                 suppliedClaims,
