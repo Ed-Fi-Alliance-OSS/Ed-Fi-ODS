@@ -57,11 +57,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
                 A.CallTo(() => mockAuthorizationViewsProvider.GetAuthorizationViews())
                     .Returns(
-                        new List<string>
-                        {
-                            "auth.StudentUSIToEducationOrganizationId",
-                            "auth.EducationOrganizationIdToEducationOrganizationId"
-                        });
+                        new List<string> {"auth.StudentUSIToEducationOrganizationId"});
 
                 var authorizationSegmentsSqlProvider =
                     new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationViewsProvider);

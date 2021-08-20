@@ -883,6 +883,30 @@
   },
   {
     "SchemaOwner": "auth",
+    "Name": "StaffUSIToEducationOrganizationId",
+    "Columns": [
+      {
+        "Name": "SourceEducationOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "StaffUSI",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
+    "SchemaOwner": "auth",
     "Name": "StudentUSIToEducationOrganizationId",
     "Columns": [
       {
