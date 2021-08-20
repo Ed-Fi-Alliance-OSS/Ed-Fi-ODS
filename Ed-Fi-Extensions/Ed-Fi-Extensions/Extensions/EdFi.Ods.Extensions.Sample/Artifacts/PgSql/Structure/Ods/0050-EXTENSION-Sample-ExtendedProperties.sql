@@ -28,7 +28,7 @@ COMMENT ON COLUMN sample.BusRoute.DisabilityDescriptorId IS 'The disability serv
 COMMENT ON COLUMN sample.BusRoute.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN sample.BusRoute.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.BusRoute.StaffClassificationDescriptorId IS 'The titles of employment, official status, or rank of education staff.';
-COMMENT ON COLUMN sample.BusRoute.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the LEA.';
+COMMENT ON COLUMN sample.BusRoute.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the education organization.';
 
 -- Extended Properties [sample].[BusRouteBusYear] --
 COMMENT ON TABLE sample.BusRouteBusYear IS 'The years in which the bus route has been in active.';
