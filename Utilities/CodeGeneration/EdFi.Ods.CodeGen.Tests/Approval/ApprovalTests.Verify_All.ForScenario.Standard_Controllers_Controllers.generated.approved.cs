@@ -908,6 +908,37 @@ namespace EdFi.Ods.Api.Services.Controllers.AttendanceEventCategoryDescriptors.E
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.BarrierToInternetAccessInResidenceDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/barrierToInternetAccessInResidenceDescriptors")]
+    public partial class BarrierToInternetAccessInResidenceDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.BarrierToInternetAccessInResidenceDescriptor.EdFi.BarrierToInternetAccessInResidenceDescriptor,
+        Api.Common.Models.Resources.BarrierToInternetAccessInResidenceDescriptor.EdFi.BarrierToInternetAccessInResidenceDescriptor,
+        Entities.Common.EdFi.IBarrierToInternetAccessInResidenceDescriptor,
+        Entities.NHibernate.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptor,
+        Api.Common.Models.Requests.BarrierToInternetAccessInResidenceDescriptors.EdFi.BarrierToInternetAccessInResidenceDescriptorPut,
+        Api.Common.Models.Requests.BarrierToInternetAccessInResidenceDescriptors.EdFi.BarrierToInternetAccessInResidenceDescriptorPost,
+        Api.Common.Models.Requests.BarrierToInternetAccessInResidenceDescriptors.EdFi.BarrierToInternetAccessInResidenceDescriptorDelete,
+        Api.Common.Models.Requests.BarrierToInternetAccessInResidenceDescriptors.EdFi.BarrierToInternetAccessInResidenceDescriptorGetByExample>
+    {
+        public BarrierToInternetAccessInResidenceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.BarrierToInternetAccessInResidenceDescriptors.EdFi.BarrierToInternetAccessInResidenceDescriptorGetByExample request, Entities.Common.EdFi.IBarrierToInternetAccessInResidenceDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.BarrierToInternetAccessInResidenceDescriptorId = request.BarrierToInternetAccessInResidenceDescriptorId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.BehaviorDescriptors.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -2151,6 +2182,7 @@ namespace EdFi.Ods.Api.Services.Controllers.CourseTranscripts.EdFi
             specification.EarnedCreditTypeDescriptor = request.EarnedCreditTypeDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.ExternalEducationOrganizationId = request.ExternalEducationOrganizationId;
+            specification.ExternalEducationOrganizationNameOfInstitution = request.ExternalEducationOrganizationNameOfInstitution;
             specification.FinalLetterGradeEarned = request.FinalLetterGradeEarned;
             specification.FinalNumericGradeEarned = request.FinalNumericGradeEarned;
             specification.Id = request.Id;
@@ -4039,6 +4071,68 @@ namespace EdFi.Ods.Api.Services.Controllers.InternetAccessDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Services.Controllers.InternetAccessTypeInResidenceDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/internetAccessTypeInResidenceDescriptors")]
+    public partial class InternetAccessTypeInResidenceDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.InternetAccessTypeInResidenceDescriptor.EdFi.InternetAccessTypeInResidenceDescriptor,
+        Api.Common.Models.Resources.InternetAccessTypeInResidenceDescriptor.EdFi.InternetAccessTypeInResidenceDescriptor,
+        Entities.Common.EdFi.IInternetAccessTypeInResidenceDescriptor,
+        Entities.NHibernate.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptor,
+        Api.Common.Models.Requests.InternetAccessTypeInResidenceDescriptors.EdFi.InternetAccessTypeInResidenceDescriptorPut,
+        Api.Common.Models.Requests.InternetAccessTypeInResidenceDescriptors.EdFi.InternetAccessTypeInResidenceDescriptorPost,
+        Api.Common.Models.Requests.InternetAccessTypeInResidenceDescriptors.EdFi.InternetAccessTypeInResidenceDescriptorDelete,
+        Api.Common.Models.Requests.InternetAccessTypeInResidenceDescriptors.EdFi.InternetAccessTypeInResidenceDescriptorGetByExample>
+    {
+        public InternetAccessTypeInResidenceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.InternetAccessTypeInResidenceDescriptors.EdFi.InternetAccessTypeInResidenceDescriptorGetByExample request, Entities.Common.EdFi.IInternetAccessTypeInResidenceDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.InternetAccessTypeInResidenceDescriptorId = request.InternetAccessTypeInResidenceDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.InternetPerformanceInResidenceDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/internetPerformanceInResidenceDescriptors")]
+    public partial class InternetPerformanceInResidenceDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.InternetPerformanceInResidenceDescriptor.EdFi.InternetPerformanceInResidenceDescriptor,
+        Api.Common.Models.Resources.InternetPerformanceInResidenceDescriptor.EdFi.InternetPerformanceInResidenceDescriptor,
+        Entities.Common.EdFi.IInternetPerformanceInResidenceDescriptor,
+        Entities.NHibernate.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptor,
+        Api.Common.Models.Requests.InternetPerformanceInResidenceDescriptors.EdFi.InternetPerformanceInResidenceDescriptorPut,
+        Api.Common.Models.Requests.InternetPerformanceInResidenceDescriptors.EdFi.InternetPerformanceInResidenceDescriptorPost,
+        Api.Common.Models.Requests.InternetPerformanceInResidenceDescriptors.EdFi.InternetPerformanceInResidenceDescriptorDelete,
+        Api.Common.Models.Requests.InternetPerformanceInResidenceDescriptors.EdFi.InternetPerformanceInResidenceDescriptorGetByExample>
+    {
+        public InternetPerformanceInResidenceDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.InternetPerformanceInResidenceDescriptors.EdFi.InternetPerformanceInResidenceDescriptorGetByExample request, Entities.Common.EdFi.IInternetPerformanceInResidenceDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.InternetPerformanceInResidenceDescriptorId = request.InternetPerformanceInResidenceDescriptorId;
+        }
+    }
+}
+
 namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
 {
     [ApiExplorerSettings(IgnoreApi = true)]
@@ -5716,6 +5810,99 @@ namespace EdFi.Ods.Api.Services.Controllers.PostSecondaryInstitutionLevelDescrip
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.PostSecondaryInstitutionLevelDescriptorId = request.PostSecondaryInstitutionLevelDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceAccessDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/primaryLearningDeviceAccessDescriptors")]
+    public partial class PrimaryLearningDeviceAccessDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PrimaryLearningDeviceAccessDescriptor.EdFi.PrimaryLearningDeviceAccessDescriptor,
+        Api.Common.Models.Resources.PrimaryLearningDeviceAccessDescriptor.EdFi.PrimaryLearningDeviceAccessDescriptor,
+        Entities.Common.EdFi.IPrimaryLearningDeviceAccessDescriptor,
+        Entities.NHibernate.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptor,
+        Api.Common.Models.Requests.PrimaryLearningDeviceAccessDescriptors.EdFi.PrimaryLearningDeviceAccessDescriptorPut,
+        Api.Common.Models.Requests.PrimaryLearningDeviceAccessDescriptors.EdFi.PrimaryLearningDeviceAccessDescriptorPost,
+        Api.Common.Models.Requests.PrimaryLearningDeviceAccessDescriptors.EdFi.PrimaryLearningDeviceAccessDescriptorDelete,
+        Api.Common.Models.Requests.PrimaryLearningDeviceAccessDescriptors.EdFi.PrimaryLearningDeviceAccessDescriptorGetByExample>
+    {
+        public PrimaryLearningDeviceAccessDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PrimaryLearningDeviceAccessDescriptors.EdFi.PrimaryLearningDeviceAccessDescriptorGetByExample request, Entities.Common.EdFi.IPrimaryLearningDeviceAccessDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.PrimaryLearningDeviceAccessDescriptorId = request.PrimaryLearningDeviceAccessDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceAwayFromSchoolDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/primaryLearningDeviceAwayFromSchoolDescriptors")]
+    public partial class PrimaryLearningDeviceAwayFromSchoolDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PrimaryLearningDeviceAwayFromSchoolDescriptor.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor,
+        Api.Common.Models.Resources.PrimaryLearningDeviceAwayFromSchoolDescriptor.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor,
+        Entities.Common.EdFi.IPrimaryLearningDeviceAwayFromSchoolDescriptor,
+        Entities.NHibernate.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor,
+        Api.Common.Models.Requests.PrimaryLearningDeviceAwayFromSchoolDescriptors.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorPut,
+        Api.Common.Models.Requests.PrimaryLearningDeviceAwayFromSchoolDescriptors.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorPost,
+        Api.Common.Models.Requests.PrimaryLearningDeviceAwayFromSchoolDescriptors.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorDelete,
+        Api.Common.Models.Requests.PrimaryLearningDeviceAwayFromSchoolDescriptors.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorGetByExample>
+    {
+        public PrimaryLearningDeviceAwayFromSchoolDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PrimaryLearningDeviceAwayFromSchoolDescriptors.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptorGetByExample request, Entities.Common.EdFi.IPrimaryLearningDeviceAwayFromSchoolDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.PrimaryLearningDeviceAwayFromSchoolDescriptorId = request.PrimaryLearningDeviceAwayFromSchoolDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.PrimaryLearningDeviceProviderDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/primaryLearningDeviceProviderDescriptors")]
+    public partial class PrimaryLearningDeviceProviderDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.PrimaryLearningDeviceProviderDescriptor.EdFi.PrimaryLearningDeviceProviderDescriptor,
+        Api.Common.Models.Resources.PrimaryLearningDeviceProviderDescriptor.EdFi.PrimaryLearningDeviceProviderDescriptor,
+        Entities.Common.EdFi.IPrimaryLearningDeviceProviderDescriptor,
+        Entities.NHibernate.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptor,
+        Api.Common.Models.Requests.PrimaryLearningDeviceProviderDescriptors.EdFi.PrimaryLearningDeviceProviderDescriptorPut,
+        Api.Common.Models.Requests.PrimaryLearningDeviceProviderDescriptors.EdFi.PrimaryLearningDeviceProviderDescriptorPost,
+        Api.Common.Models.Requests.PrimaryLearningDeviceProviderDescriptors.EdFi.PrimaryLearningDeviceProviderDescriptorDelete,
+        Api.Common.Models.Requests.PrimaryLearningDeviceProviderDescriptors.EdFi.PrimaryLearningDeviceProviderDescriptorGetByExample>
+    {
+        public PrimaryLearningDeviceProviderDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.PrimaryLearningDeviceProviderDescriptors.EdFi.PrimaryLearningDeviceProviderDescriptorGetByExample request, Entities.Common.EdFi.IPrimaryLearningDeviceProviderDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.PrimaryLearningDeviceProviderDescriptorId = request.PrimaryLearningDeviceProviderDescriptorId;
         }
     }
 }
@@ -8197,12 +8384,19 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentEducationOrganizationAssociat
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
+            specification.BarrierToInternetAccessInResidenceDescriptor = request.BarrierToInternetAccessInResidenceDescriptor;
             specification.EducationOrganizationId = request.EducationOrganizationId;
             specification.HispanicLatinoEthnicity = request.HispanicLatinoEthnicity;
             specification.Id = request.Id;
+            specification.InternetAccessInResidence = request.InternetAccessInResidence;
+            specification.InternetAccessTypeInResidenceDescriptor = request.InternetAccessTypeInResidenceDescriptor;
+            specification.InternetPerformanceInResidenceDescriptor = request.InternetPerformanceInResidenceDescriptor;
             specification.LimitedEnglishProficiencyDescriptor = request.LimitedEnglishProficiencyDescriptor;
             specification.LoginId = request.LoginId;
             specification.OldEthnicityDescriptor = request.OldEthnicityDescriptor;
+            specification.PrimaryLearningDeviceAccessDescriptor = request.PrimaryLearningDeviceAccessDescriptor;
+            specification.PrimaryLearningDeviceAwayFromSchoolDescriptor = request.PrimaryLearningDeviceAwayFromSchoolDescriptor;
+            specification.PrimaryLearningDeviceProviderDescriptor = request.PrimaryLearningDeviceProviderDescriptor;
             specification.ProfileThumbnail = request.ProfileThumbnail;
             specification.SexDescriptor = request.SexDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;

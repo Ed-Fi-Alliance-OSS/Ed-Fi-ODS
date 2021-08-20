@@ -28,6 +28,7 @@
 <node id="/ed-fi/assessmentScoreRangeLearningStandards"/>
 <node id="/ed-fi/attemptStatusDescriptors"/>
 <node id="/ed-fi/attendanceEventCategoryDescriptors"/>
+<node id="/ed-fi/barrierToInternetAccessInResidenceDescriptors"/>
 <node id="/ed-fi/behaviorDescriptors"/>
 <node id="/ed-fi/bellSchedules"/>
 <node id="/ed-fi/budgets"/>
@@ -122,6 +123,8 @@
 <node id="/ed-fi/institutionTelephoneNumberTypeDescriptors"/>
 <node id="/ed-fi/interactivityStyleDescriptors"/>
 <node id="/ed-fi/internetAccessDescriptors"/>
+<node id="/ed-fi/internetAccessTypeInResidenceDescriptors"/>
+<node id="/ed-fi/internetPerformanceInResidenceDescriptors"/>
 <node id="/ed-fi/interventionClassDescriptors"/>
 <node id="/ed-fi/interventionEffectivenessRatingDescriptors"/>
 <node id="/ed-fi/interventionPrescriptions"/>
@@ -173,6 +176,9 @@
 <node id="/ed-fi/postSecondaryEvents"/>
 <node id="/ed-fi/postSecondaryInstitutionLevelDescriptors"/>
 <node id="/ed-fi/postSecondaryInstitutions"/>
+<node id="/ed-fi/primaryLearningDeviceAccessDescriptors"/>
+<node id="/ed-fi/primaryLearningDeviceAwayFromSchoolDescriptors"/>
+<node id="/ed-fi/primaryLearningDeviceProviderDescriptors"/>
 <node id="/ed-fi/proficiencyDescriptors"/>
 <node id="/ed-fi/programAssignmentDescriptors"/>
 <node id="/ed-fi/programCharacteristicDescriptors"/>
@@ -356,6 +362,7 @@
 <edge source="/ed-fi/attendanceEventCategoryDescriptors" target="/ed-fi/studentProgramAttendanceEvents"/>
 <edge source="/ed-fi/attendanceEventCategoryDescriptors" target="/ed-fi/studentSchoolAttendanceEvents"/>
 <edge source="/ed-fi/attendanceEventCategoryDescriptors" target="/ed-fi/studentSectionAttendanceEvents"/>
+<edge source="/ed-fi/barrierToInternetAccessInResidenceDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/behaviorDescriptors" target="/ed-fi/disciplineIncidents"/>
 <edge source="/ed-fi/behaviorDescriptors" target="/ed-fi/studentDisciplineIncidentAssociations"/>
 <edge source="/ed-fi/behaviorDescriptors" target="/ed-fi/studentDisciplineIncidentBehaviorAssociations"/>
@@ -739,6 +746,8 @@
 <edge source="/ed-fi/institutionTelephoneNumberTypeDescriptors" target="/ed-fi/stateEducationAgencies"/>
 <edge source="/ed-fi/interactivityStyleDescriptors" target="/ed-fi/educationContents"/>
 <edge source="/ed-fi/internetAccessDescriptors" target="/ed-fi/schools"/>
+<edge source="/ed-fi/internetAccessTypeInResidenceDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
+<edge source="/ed-fi/internetPerformanceInResidenceDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/interventionClassDescriptors" target="/ed-fi/interventionPrescriptions"/>
 <edge source="/ed-fi/interventionClassDescriptors" target="/ed-fi/interventions"/>
 <edge source="/ed-fi/interventionClassDescriptors" target="/ed-fi/interventionStudies"/>
@@ -976,6 +985,9 @@
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/surveyResponseEducationOrganizationTargetAssociations"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/surveys"/>
 <edge source="/ed-fi/postSecondaryInstitutions" target="/ed-fi/surveySectionResponseEducationOrganizationTargetAssociations"/>
+<edge source="/ed-fi/primaryLearningDeviceAccessDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
+<edge source="/ed-fi/primaryLearningDeviceAwayFromSchoolDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
+<edge source="/ed-fi/primaryLearningDeviceProviderDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/proficiencyDescriptors" target="/ed-fi/studentLanguageInstructionProgramAssociations"/>
 <edge source="/ed-fi/programAssignmentDescriptors" target="/ed-fi/openStaffPositions"/>
 <edge source="/ed-fi/programAssignmentDescriptors" target="/ed-fi/staffSchoolAssociations"/>

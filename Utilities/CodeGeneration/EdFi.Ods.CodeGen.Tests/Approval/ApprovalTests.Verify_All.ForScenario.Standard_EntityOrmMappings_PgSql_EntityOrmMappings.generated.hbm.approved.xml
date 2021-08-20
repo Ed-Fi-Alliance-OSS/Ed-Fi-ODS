@@ -2261,6 +2261,7 @@
     <property name="EarnedCredits" column="EarnedCredits" type="decimal" not-null="true" />
     <property name="EarnedCreditTypeDescriptorId" column="EarnedCreditTypeDescriptorId" type="int" />
     <property name="ExternalEducationOrganizationId" column="ExternalEducationOrganizationId" type="int" />
+    <property name="ExternalEducationOrganizationNameOfInstitution" column="ExternalEducationOrganizationNameOfInstitution" type="string" length="75" />
     <property name="FinalLetterGradeEarned" column="FinalLetterGradeEarned" type="string" length="20" />
     <property name="FinalNumericGradeEarned" column="FinalNumericGradeEarned" type="decimal" />
     <property name="MethodCreditEarnedDescriptorId" column="MethodCreditEarnedDescriptorId" type="int" />
@@ -2334,6 +2335,19 @@
         <column name="TermDescriptorId" />
       </key>
       <one-to-many class="EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscriptEarnedAdditionalCredits" />
+    </set>
+
+    <set name="CourseTranscriptPartialCourseTranscriptAwards" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="CourseAttemptResultDescriptorId" />
+        <column name="CourseCode" />
+        <column name="CourseEducationOrganizationId" />
+        <column name="EducationOrganizationId" />
+        <column name="SchoolYear" />
+        <column name="StudentUSI" />
+        <column name="TermDescriptorId" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscriptPartialCourseTranscriptAwards" />
     </set>
 
 </class>
@@ -2454,6 +2468,40 @@
 
     <!-- Properties -->
     <property name="Credits" column="Credits" type="decimal" not-null="true" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.CourseTranscriptAggregate.EdFi.CourseTranscriptPartialCourseTranscriptAwards" table="CourseTranscriptPartialCourseTranscriptAwards" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="AwardDate" column="AwardDate" type="date" />
+      <key-many-to-one name="CourseTranscript">
+        <column name="CourseAttemptResultDescriptorId" />
+        <column name="CourseCode" />
+        <column name="CourseEducationOrganizationId" />
+        <column name="EducationOrganizationId" />
+        <column name="SchoolYear" />
+        <column name="StudentUSI" />
+        <column name="TermDescriptorId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="EarnedCredits" column="EarnedCredits" type="decimal" not-null="true" />
+    <property name="LetterGradeEarned" column="LetterGradeEarned" type="string" length="20" />
+    <property name="MethodCreditEarnedDescriptorId" column="MethodCreditEarnedDescriptorId" type="int" />
+    <property name="NumericGradeEarned" column="NumericGradeEarned" type="string" length="20" />
 
     <!-- Aggregate references -->
 
@@ -2906,6 +2954,20 @@
 
           <!-- PK properties -->
           <property name="AttendanceEventCategoryDescriptorId" column="AttendanceEventCategoryDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.BarrierToInternetAccessInResidenceDescriptorAggregate.EdFi.BarrierToInternetAccessInResidenceDescriptor" table="BarrierToInternetAccessInResidenceDescriptor" lazy="false">
+          <key>
+            <column name="BarrierToInternetAccessInResidenceDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="BarrierToInternetAccessInResidenceDescriptorId" column="BarrierToInternetAccessInResidenceDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -3837,6 +3899,34 @@
 
           <!-- Collections -->
       </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.InternetAccessTypeInResidenceDescriptorAggregate.EdFi.InternetAccessTypeInResidenceDescriptor" table="InternetAccessTypeInResidenceDescriptor" lazy="false">
+          <key>
+            <column name="InternetAccessTypeInResidenceDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="InternetAccessTypeInResidenceDescriptorId" column="InternetAccessTypeInResidenceDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.InternetPerformanceInResidenceDescriptorAggregate.EdFi.InternetPerformanceInResidenceDescriptor" table="InternetPerformanceInResidenceDescriptor" lazy="false">
+          <key>
+            <column name="InternetPerformanceInResidenceDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="InternetPerformanceInResidenceDescriptorId" column="InternetPerformanceInResidenceDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.InterventionClassDescriptorAggregate.EdFi.InterventionClassDescriptor" table="InterventionClassDescriptor" lazy="false">
           <key>
             <column name="InterventionClassDescriptorId" />
@@ -4320,6 +4410,48 @@
 
           <!-- PK properties -->
           <property name="PostSecondaryInstitutionLevelDescriptorId" column="PostSecondaryInstitutionLevelDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PrimaryLearningDeviceAccessDescriptorAggregate.EdFi.PrimaryLearningDeviceAccessDescriptor" table="PrimaryLearningDeviceAccessDescriptor" lazy="false">
+          <key>
+            <column name="PrimaryLearningDeviceAccessDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="PrimaryLearningDeviceAccessDescriptorId" column="PrimaryLearningDeviceAccessDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PrimaryLearningDeviceAwayFromSchoolDescriptorAggregate.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor" table="PrimaryLearningDeviceAwayFromSchoolDescriptor" lazy="false">
+          <key>
+            <column name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" column="PrimaryLearningDeviceAwayFromSchoolDescriptorId" type="int" not-null="true" insert="false" update="false"/>
+
+          <!-- Properties -->
+
+          <!-- Aggregate references -->
+
+          <!-- Collections -->
+      </joined-subclass>
+    <joined-subclass name="EdFi.Ods.Entities.NHibernate.PrimaryLearningDeviceProviderDescriptorAggregate.EdFi.PrimaryLearningDeviceProviderDescriptor" table="PrimaryLearningDeviceProviderDescriptor" lazy="false">
+          <key>
+            <column name="PrimaryLearningDeviceProviderDescriptorId" />
+          </key>
+
+          <!-- PK properties -->
+          <property name="PrimaryLearningDeviceProviderDescriptorId" column="PrimaryLearningDeviceProviderDescriptorId" type="int" not-null="true" insert="false" update="false"/>
 
           <!-- Properties -->
 
@@ -14866,10 +14998,17 @@
     <property name="Id" column="Id" type="guid" not-null="true" />
 
     <!-- Properties -->
+    <property name="BarrierToInternetAccessInResidenceDescriptorId" column="BarrierToInternetAccessInResidenceDescriptorId" type="int" />
     <property name="HispanicLatinoEthnicity" column="HispanicLatinoEthnicity" type="bool" />
+    <property name="InternetAccessInResidence" column="InternetAccessInResidence" type="bool" />
+    <property name="InternetAccessTypeInResidenceDescriptorId" column="InternetAccessTypeInResidenceDescriptorId" type="int" />
+    <property name="InternetPerformanceInResidenceDescriptorId" column="InternetPerformanceInResidenceDescriptorId" type="int" />
     <property name="LimitedEnglishProficiencyDescriptorId" column="LimitedEnglishProficiencyDescriptorId" type="int" />
     <property name="LoginId" column="LoginId" type="string" length="60" />
     <property name="OldEthnicityDescriptorId" column="OldEthnicityDescriptorId" type="int" />
+    <property name="PrimaryLearningDeviceAccessDescriptorId" column="PrimaryLearningDeviceAccessDescriptorId" type="int" />
+    <property name="PrimaryLearningDeviceAwayFromSchoolDescriptorId" column="PrimaryLearningDeviceAwayFromSchoolDescriptorId" type="int" />
+    <property name="PrimaryLearningDeviceProviderDescriptorId" column="PrimaryLearningDeviceProviderDescriptorId" type="int" />
     <property name="ProfileThumbnail" column="ProfileThumbnail" type="string" length="255" />
     <property name="SexDescriptorId" column="SexDescriptorId" type="int" not-null="true" />
 

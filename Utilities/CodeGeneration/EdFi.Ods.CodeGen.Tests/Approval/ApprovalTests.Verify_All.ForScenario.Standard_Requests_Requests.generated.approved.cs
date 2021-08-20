@@ -1302,6 +1302,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.AttendanceEventCategoryDescriptors
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.BarrierToInternetAccessInResidenceDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class BarrierToInternetAccessInResidenceDescriptorGetByExample
+    {
+        public int BarrierToInternetAccessInResidenceDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class BarrierToInternetAccessInResidenceDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public BarrierToInternetAccessInResidenceDescriptorGetByIds() { }
+
+        public BarrierToInternetAccessInResidenceDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class BarrierToInternetAccessInResidenceDescriptorPost : Resources.BarrierToInternetAccessInResidenceDescriptor.EdFi.BarrierToInternetAccessInResidenceDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class BarrierToInternetAccessInResidenceDescriptorPut : Resources.BarrierToInternetAccessInResidenceDescriptor.EdFi.BarrierToInternetAccessInResidenceDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class BarrierToInternetAccessInResidenceDescriptorDelete : IHasIdentifier
+    {
+        public BarrierToInternetAccessInResidenceDescriptorDelete() { }
+
+        public BarrierToInternetAccessInResidenceDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.BehaviorDescriptors.EdFi
 {
 
@@ -3065,6 +3111,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.CourseTranscripts.EdFi
         public string EarnedCreditTypeDescriptor { get; set; }
         public int EducationOrganizationId { get; set; }
         public int ExternalEducationOrganizationId { get; set; }
+        public string ExternalEducationOrganizationNameOfInstitution { get; set; }
         public string FinalLetterGradeEarned { get; set; }
         public decimal FinalNumericGradeEarned { get; set; }
         public Guid Id { get; set; }
@@ -5843,6 +5890,98 @@ namespace EdFi.Ods.Api.Common.Models.Requests.InternetAccessDescriptors.EdFi
     }
 }
 
+namespace EdFi.Ods.Api.Common.Models.Requests.InternetAccessTypeInResidenceDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class InternetAccessTypeInResidenceDescriptorGetByExample
+    {
+        public int InternetAccessTypeInResidenceDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InternetAccessTypeInResidenceDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public InternetAccessTypeInResidenceDescriptorGetByIds() { }
+
+        public InternetAccessTypeInResidenceDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InternetAccessTypeInResidenceDescriptorPost : Resources.InternetAccessTypeInResidenceDescriptor.EdFi.InternetAccessTypeInResidenceDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InternetAccessTypeInResidenceDescriptorPut : Resources.InternetAccessTypeInResidenceDescriptor.EdFi.InternetAccessTypeInResidenceDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InternetAccessTypeInResidenceDescriptorDelete : IHasIdentifier
+    {
+        public InternetAccessTypeInResidenceDescriptorDelete() { }
+
+        public InternetAccessTypeInResidenceDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.InternetPerformanceInResidenceDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class InternetPerformanceInResidenceDescriptorGetByExample
+    {
+        public int InternetPerformanceInResidenceDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InternetPerformanceInResidenceDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public InternetPerformanceInResidenceDescriptorGetByIds() { }
+
+        public InternetPerformanceInResidenceDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InternetPerformanceInResidenceDescriptorPost : Resources.InternetPerformanceInResidenceDescriptor.EdFi.InternetPerformanceInResidenceDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InternetPerformanceInResidenceDescriptorPut : Resources.InternetPerformanceInResidenceDescriptor.EdFi.InternetPerformanceInResidenceDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class InternetPerformanceInResidenceDescriptorDelete : IHasIdentifier
+    {
+        public InternetPerformanceInResidenceDescriptorDelete() { }
+
+        public InternetPerformanceInResidenceDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
 namespace EdFi.Ods.Api.Common.Models.Requests.Interventions.EdFi
 {
 
@@ -8281,6 +8420,144 @@ namespace EdFi.Ods.Api.Common.Models.Requests.PostSecondaryInstitutionLevelDescr
         public PostSecondaryInstitutionLevelDescriptorDelete() { }
 
         public PostSecondaryInstitutionLevelDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.PrimaryLearningDeviceAccessDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAccessDescriptorGetByExample
+    {
+        public int PrimaryLearningDeviceAccessDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAccessDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public PrimaryLearningDeviceAccessDescriptorGetByIds() { }
+
+        public PrimaryLearningDeviceAccessDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAccessDescriptorPost : Resources.PrimaryLearningDeviceAccessDescriptor.EdFi.PrimaryLearningDeviceAccessDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAccessDescriptorPut : Resources.PrimaryLearningDeviceAccessDescriptor.EdFi.PrimaryLearningDeviceAccessDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAccessDescriptorDelete : IHasIdentifier
+    {
+        public PrimaryLearningDeviceAccessDescriptorDelete() { }
+
+        public PrimaryLearningDeviceAccessDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.PrimaryLearningDeviceAwayFromSchoolDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAwayFromSchoolDescriptorGetByExample
+    {
+        public int PrimaryLearningDeviceAwayFromSchoolDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAwayFromSchoolDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public PrimaryLearningDeviceAwayFromSchoolDescriptorGetByIds() { }
+
+        public PrimaryLearningDeviceAwayFromSchoolDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAwayFromSchoolDescriptorPost : Resources.PrimaryLearningDeviceAwayFromSchoolDescriptor.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAwayFromSchoolDescriptorPut : Resources.PrimaryLearningDeviceAwayFromSchoolDescriptor.EdFi.PrimaryLearningDeviceAwayFromSchoolDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceAwayFromSchoolDescriptorDelete : IHasIdentifier
+    {
+        public PrimaryLearningDeviceAwayFromSchoolDescriptorDelete() { }
+
+        public PrimaryLearningDeviceAwayFromSchoolDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.PrimaryLearningDeviceProviderDescriptors.EdFi
+{
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceProviderDescriptorGetByExample
+    {
+        public int PrimaryLearningDeviceProviderDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceProviderDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public PrimaryLearningDeviceProviderDescriptorGetByIds() { }
+
+        public PrimaryLearningDeviceProviderDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceProviderDescriptorPost : Resources.PrimaryLearningDeviceProviderDescriptor.EdFi.PrimaryLearningDeviceProviderDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceProviderDescriptorPut : Resources.PrimaryLearningDeviceProviderDescriptor.EdFi.PrimaryLearningDeviceProviderDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class PrimaryLearningDeviceProviderDescriptorDelete : IHasIdentifier
+    {
+        public PrimaryLearningDeviceProviderDescriptorDelete() { }
+
+        public PrimaryLearningDeviceProviderDescriptorDelete(Guid id)
         {
             Id = id;
         }
@@ -11811,12 +12088,19 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentEducationOrganizationAssoci
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationGetByExample
     {
+        public string BarrierToInternetAccessInResidenceDescriptor { get; set; }
         public int EducationOrganizationId { get; set; }
         public bool HispanicLatinoEthnicity { get; set; }
         public Guid Id { get; set; }
+        public bool InternetAccessInResidence { get; set; }
+        public string InternetAccessTypeInResidenceDescriptor { get; set; }
+        public string InternetPerformanceInResidenceDescriptor { get; set; }
         public string LimitedEnglishProficiencyDescriptor { get; set; }
         public string LoginId { get; set; }
         public string OldEthnicityDescriptor { get; set; }
+        public string PrimaryLearningDeviceAccessDescriptor { get; set; }
+        public string PrimaryLearningDeviceAwayFromSchoolDescriptor { get; set; }
+        public string PrimaryLearningDeviceProviderDescriptor { get; set; }
         public string ProfileThumbnail { get; set; }
         public string SexDescriptor { get; set; }
         public string StudentUniqueId { get; set; }

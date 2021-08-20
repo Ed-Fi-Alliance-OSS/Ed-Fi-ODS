@@ -1699,12 +1699,19 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentEducationOrganizationAssoci
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationGetByExample
     {
+        public string BarrierToInternetAccessInResidenceDescriptor { get; set; }
         public int EducationOrganizationId { get; set; }
         public bool HispanicLatinoEthnicity { get; set; }
         public Guid Id { get; set; }
+        public bool InternetAccessInResidence { get; set; }
+        public string InternetAccessTypeInResidenceDescriptor { get; set; }
+        public string InternetPerformanceInResidenceDescriptor { get; set; }
         public string LimitedEnglishProficiencyDescriptor { get; set; }
         public string LoginId { get; set; }
         public string OldEthnicityDescriptor { get; set; }
+        public string PrimaryLearningDeviceAccessDescriptor { get; set; }
+        public string PrimaryLearningDeviceAwayFromSchoolDescriptor { get; set; }
+        public string PrimaryLearningDeviceProviderDescriptor { get; set; }
         public string ProfileThumbnail { get; set; }
         public string SexDescriptor { get; set; }
         public string StudentUniqueId { get; set; }
@@ -1743,12 +1750,19 @@ namespace EdFi.Ods.Api.Common.Models.Requests.StudentEducationOrganizationAssoci
     [ExcludeFromCodeCoverage]
     public class StudentEducationOrganizationAssociationGetByExample
     {
+        public string BarrierToInternetAccessInResidenceDescriptor { get; set; }
         public int EducationOrganizationId { get; set; }
         public bool HispanicLatinoEthnicity { get; set; }
         public Guid Id { get; set; }
+        public bool InternetAccessInResidence { get; set; }
+        public string InternetAccessTypeInResidenceDescriptor { get; set; }
+        public string InternetPerformanceInResidenceDescriptor { get; set; }
         public string LimitedEnglishProficiencyDescriptor { get; set; }
         public string LoginId { get; set; }
         public string OldEthnicityDescriptor { get; set; }
+        public string PrimaryLearningDeviceAccessDescriptor { get; set; }
+        public string PrimaryLearningDeviceAwayFromSchoolDescriptor { get; set; }
+        public string PrimaryLearningDeviceProviderDescriptor { get; set; }
         public string ProfileThumbnail { get; set; }
         public string SexDescriptor { get; set; }
         public string StudentUniqueId { get; set; }

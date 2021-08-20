@@ -303,6 +303,10 @@ COMMENT ON COLUMN edfi.AttemptStatusDescriptor.AttemptStatusDescriptorId IS 'A u
 COMMENT ON TABLE edfi.AttendanceEventCategoryDescriptor IS 'This descriptor holds the category of the attendance event (e.g., tardy). The map to known enumeration values is required.';
 COMMENT ON COLUMN edfi.AttendanceEventCategoryDescriptor.AttendanceEventCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [edfi].[BarrierToInternetAccessInResidenceDescriptor] --
+COMMENT ON TABLE edfi.BarrierToInternetAccessInResidenceDescriptor IS 'An indication of the barrier to having internet access in the student’s primary place of residence.';
+COMMENT ON COLUMN edfi.BarrierToInternetAccessInResidenceDescriptor.BarrierToInternetAccessInResidenceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [edfi].[BehaviorDescriptor] --
 COMMENT ON TABLE edfi.BehaviorDescriptor IS 'This descriptor holds the categories of behavior describing a discipline incident.';
 COMMENT ON COLUMN edfi.BehaviorDescriptor.BehaviorDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -664,6 +668,7 @@ COMMENT ON COLUMN edfi.CourseTranscript.CourseTitle IS 'The descriptive name giv
 COMMENT ON COLUMN edfi.CourseTranscript.AlternativeCourseTitle IS 'The descriptive name given to a course of study offered in the school, if different from the CourseTitle.';
 COMMENT ON COLUMN edfi.CourseTranscript.AlternativeCourseCode IS 'The local code assigned by the school that identifies the course offering, the code from an external educational organization, or other alternate course code.';
 COMMENT ON COLUMN edfi.CourseTranscript.ExternalEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.CourseTranscript.ExternalEducationOrganizationNameOfInstitution IS 'Name of the external institution where the student completed the course; to be used only when the reference ExternalEducationOrganization is not available.';
 COMMENT ON COLUMN edfi.CourseTranscript.AssigningOrganizationIdentificationCode IS 'The organization code or name assigning the course identification code.';
 COMMENT ON COLUMN edfi.CourseTranscript.CourseCatalogURL IS 'The URL for the course catalog that defines the course identification code.';
 
@@ -730,6 +735,25 @@ COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.SchoolYear IS 'Th
 COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.TermDescriptorId IS 'The term for the session during the school year.';
 COMMENT ON COLUMN edfi.CourseTranscriptEarnedAdditionalCredits.Credits IS 'The value of credits or units of value awarded for the completion of a course';
+
+-- Extended Properties [edfi].[CourseTranscriptPartialCourseTranscriptAwards] --
+COMMENT ON TABLE edfi.CourseTranscriptPartialCourseTranscriptAwards IS 'A collection of partial credits and/or grades a student earned against the course over the session, used when awards of credit are incremental.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.AwardDate IS 'The date the partial credits and/or grades were awarded or earned.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.CourseAttemptResultDescriptorId IS 'The result from the student''s attempt to take the course, for example:
+        Pass
+        Fail
+        Incomplete
+        Withdrawn.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.CourseCode IS 'A unique alphanumeric code assigned to a course.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.CourseEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.EarnedCredits IS 'The number of credits a student earned for completing a given course.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.MethodCreditEarnedDescriptorId IS 'The method the credits were earned.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.LetterGradeEarned IS 'The indicator of student performance as submitted by the instructor.';
+COMMENT ON COLUMN edfi.CourseTranscriptPartialCourseTranscriptAwards.NumericGradeEarned IS 'The indicator of student performance as submitted by the instructor.';
 
 -- Extended Properties [edfi].[Credential] --
 COMMENT ON TABLE edfi.Credential IS 'The legal document giving authorization to perform teaching assignment services.';
@@ -1421,6 +1445,14 @@ COMMENT ON COLUMN edfi.InteractivityStyleDescriptor.InteractivityStyleDescriptor
 -- Extended Properties [edfi].[InternetAccessDescriptor] --
 COMMENT ON TABLE edfi.InternetAccessDescriptor IS 'The type of Internet access available.';
 COMMENT ON COLUMN edfi.InternetAccessDescriptor.InternetAccessDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[InternetAccessTypeInResidenceDescriptor] --
+COMMENT ON TABLE edfi.InternetAccessTypeInResidenceDescriptor IS 'The primary type of internet service used in the student’s primary place of residence.';
+COMMENT ON COLUMN edfi.InternetAccessTypeInResidenceDescriptor.InternetAccessTypeInResidenceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[InternetPerformanceInResidenceDescriptor] --
+COMMENT ON TABLE edfi.InternetPerformanceInResidenceDescriptor IS 'An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.';
+COMMENT ON COLUMN edfi.InternetPerformanceInResidenceDescriptor.InternetPerformanceInResidenceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[Intervention] --
 COMMENT ON TABLE edfi.Intervention IS 'An implementation of an instructional approach focusing on the specific techniques and materials used to teach a given subject.';
@@ -2133,6 +2165,18 @@ COMMENT ON COLUMN edfi.PostSecondaryInstitutionLevelDescriptor.PostSecondaryInst
 COMMENT ON TABLE edfi.PostSecondaryInstitutionMediumOfInstruction IS 'The categories in which an institution serves the students.';
 COMMENT ON COLUMN edfi.PostSecondaryInstitutionMediumOfInstruction.MediumOfInstructionDescriptorId IS 'The categories in which an institution serves the students.';
 COMMENT ON COLUMN edfi.PostSecondaryInstitutionMediumOfInstruction.PostSecondaryInstitutionId IS 'The ID of the post secondary institution.';
+
+-- Extended Properties [edfi].[PrimaryLearningDeviceAccessDescriptor] --
+COMMENT ON TABLE edfi.PrimaryLearningDeviceAccessDescriptor IS 'An indication of whether the primary learning device is shared or not shared with another individual.';
+COMMENT ON COLUMN edfi.PrimaryLearningDeviceAccessDescriptor.PrimaryLearningDeviceAccessDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[PrimaryLearningDeviceAwayFromSchoolDescriptor] --
+COMMENT ON TABLE edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor IS 'The type of device the student uses most often to complete learning activities away from school.';
+COMMENT ON COLUMN edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor.PrimaryLearningDeviceAwayFromSchoolDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [edfi].[PrimaryLearningDeviceProviderDescriptor] --
+COMMENT ON TABLE edfi.PrimaryLearningDeviceProviderDescriptor IS 'The provider of the primary learning device.';
+COMMENT ON COLUMN edfi.PrimaryLearningDeviceProviderDescriptor.PrimaryLearningDeviceProviderDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[ProficiencyDescriptor] --
 COMMENT ON TABLE edfi.ProficiencyDescriptor IS 'This descriptor defines proficiency levels for a yearly English language assessment.';
@@ -3461,6 +3505,13 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.OldEthnicityDescr
         5 - White, not of Hispanic origin.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.LimitedEnglishProficiencyDescriptorId IS 'An indication that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.LoginId IS 'The login ID for the user; used for security access control interface.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.PrimaryLearningDeviceAwayFromSchoolDescriptorId IS 'The type of device the student uses most often to complete learning activities away from school.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.PrimaryLearningDeviceAccessDescriptorId IS 'An indication of whether the primary learning device is shared or not shared with another individual.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.PrimaryLearningDeviceProviderDescriptorId IS 'The provider of the primary learning device.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.InternetAccessInResidence IS 'An indication of whether the student is able to access the internet in their primary place of residence.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.BarrierToInternetAccessInResidenceDescriptorId IS 'An indication of the barrier to having internet access in the student’s primary place of residence.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.InternetAccessTypeInResidenceDescriptorId IS 'The primary type of internet service used in the student’s primary place of residence.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociation.InternetPerformanceInResidenceDescriptorId IS 'An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationAddress] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';

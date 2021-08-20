@@ -460,6 +460,12 @@ CREATE TABLE edfi.AttendanceEventCategoryDescriptor (
     CONSTRAINT AttendanceEventCategoryDescriptor_PK PRIMARY KEY (AttendanceEventCategoryDescriptorId)
 ); 
 
+-- Table edfi.BarrierToInternetAccessInResidenceDescriptor --
+CREATE TABLE edfi.BarrierToInternetAccessInResidenceDescriptor (
+    BarrierToInternetAccessInResidenceDescriptorId INT NOT NULL,
+    CONSTRAINT BarrierToInternetAccessInResidenceDescriptor_PK PRIMARY KEY (BarrierToInternetAccessInResidenceDescriptorId)
+); 
+
 -- Table edfi.BehaviorDescriptor --
 CREATE TABLE edfi.BehaviorDescriptor (
     BehaviorDescriptorId INT NOT NULL,
@@ -1026,6 +1032,7 @@ CREATE TABLE edfi.CourseTranscript (
     AlternativeCourseTitle VARCHAR(60) NULL,
     AlternativeCourseCode VARCHAR(60) NULL,
     ExternalEducationOrganizationId INT NULL,
+    ExternalEducationOrganizationNameOfInstitution VARCHAR(75) NULL,
     AssigningOrganizationIdentificationCode VARCHAR(60) NULL,
     CourseCatalogURL VARCHAR(255) NULL,
     Discriminator VARCHAR(128) NULL,
@@ -1101,6 +1108,25 @@ CREATE TABLE edfi.CourseTranscriptEarnedAdditionalCredits (
     CONSTRAINT CourseTranscriptEarnedAdditionalCredits_PK PRIMARY KEY (AdditionalCreditTypeDescriptorId, CourseAttemptResultDescriptorId, CourseCode, CourseEducationOrganizationId, EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId)
 ); 
 ALTER TABLE edfi.CourseTranscriptEarnedAdditionalCredits ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.CourseTranscriptPartialCourseTranscriptAwards --
+CREATE TABLE edfi.CourseTranscriptPartialCourseTranscriptAwards (
+    AwardDate DATE NOT NULL,
+    CourseAttemptResultDescriptorId INT NOT NULL,
+    CourseCode VARCHAR(60) NOT NULL,
+    CourseEducationOrganizationId INT NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    EarnedCredits DECIMAL(9, 3) NOT NULL,
+    MethodCreditEarnedDescriptorId INT NULL,
+    LetterGradeEarned VARCHAR(20) NULL,
+    NumericGradeEarned VARCHAR(20) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT CourseTranscriptPartialCourseTranscriptAwards_PK PRIMARY KEY (AwardDate, CourseAttemptResultDescriptorId, CourseCode, CourseEducationOrganizationId, EducationOrganizationId, SchoolYear, StudentUSI, TermDescriptorId)
+); 
+ALTER TABLE edfi.CourseTranscriptPartialCourseTranscriptAwards ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table edfi.Credential --
 CREATE TABLE edfi.Credential (
@@ -2151,6 +2177,18 @@ CREATE TABLE edfi.InteractivityStyleDescriptor (
 CREATE TABLE edfi.InternetAccessDescriptor (
     InternetAccessDescriptorId INT NOT NULL,
     CONSTRAINT InternetAccessDescriptor_PK PRIMARY KEY (InternetAccessDescriptorId)
+); 
+
+-- Table edfi.InternetAccessTypeInResidenceDescriptor --
+CREATE TABLE edfi.InternetAccessTypeInResidenceDescriptor (
+    InternetAccessTypeInResidenceDescriptorId INT NOT NULL,
+    CONSTRAINT InternetAccessTypeInResidenceDescriptor_PK PRIMARY KEY (InternetAccessTypeInResidenceDescriptorId)
+); 
+
+-- Table edfi.InternetPerformanceInResidenceDescriptor --
+CREATE TABLE edfi.InternetPerformanceInResidenceDescriptor (
+    InternetPerformanceInResidenceDescriptorId INT NOT NULL,
+    CONSTRAINT InternetPerformanceInResidenceDescriptor_PK PRIMARY KEY (InternetPerformanceInResidenceDescriptorId)
 ); 
 
 -- Table edfi.Intervention --
@@ -3263,6 +3301,24 @@ CREATE TABLE edfi.PostSecondaryInstitutionMediumOfInstruction (
     CONSTRAINT PostSecondaryInstitutionMediumOfInstruction_PK PRIMARY KEY (MediumOfInstructionDescriptorId, PostSecondaryInstitutionId)
 ); 
 ALTER TABLE edfi.PostSecondaryInstitutionMediumOfInstruction ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table edfi.PrimaryLearningDeviceAccessDescriptor --
+CREATE TABLE edfi.PrimaryLearningDeviceAccessDescriptor (
+    PrimaryLearningDeviceAccessDescriptorId INT NOT NULL,
+    CONSTRAINT PrimaryLearningDeviceAccessDescriptor_PK PRIMARY KEY (PrimaryLearningDeviceAccessDescriptorId)
+); 
+
+-- Table edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor --
+CREATE TABLE edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor (
+    PrimaryLearningDeviceAwayFromSchoolDescriptorId INT NOT NULL,
+    CONSTRAINT PrimaryLearningDeviceAwayFromSchoolDescriptor_PK PRIMARY KEY (PrimaryLearningDeviceAwayFromSchoolDescriptorId)
+); 
+
+-- Table edfi.PrimaryLearningDeviceProviderDescriptor --
+CREATE TABLE edfi.PrimaryLearningDeviceProviderDescriptor (
+    PrimaryLearningDeviceProviderDescriptorId INT NOT NULL,
+    CONSTRAINT PrimaryLearningDeviceProviderDescriptor_PK PRIMARY KEY (PrimaryLearningDeviceProviderDescriptorId)
+); 
 
 -- Table edfi.ProficiencyDescriptor --
 CREATE TABLE edfi.ProficiencyDescriptor (
@@ -5053,6 +5109,13 @@ CREATE TABLE edfi.StudentEducationOrganizationAssociation (
     OldEthnicityDescriptorId INT NULL,
     LimitedEnglishProficiencyDescriptorId INT NULL,
     LoginId VARCHAR(60) NULL,
+    PrimaryLearningDeviceAwayFromSchoolDescriptorId INT NULL,
+    PrimaryLearningDeviceAccessDescriptorId INT NULL,
+    PrimaryLearningDeviceProviderDescriptorId INT NULL,
+    InternetAccessInResidence BOOLEAN NULL,
+    BarrierToInternetAccessInResidenceDescriptorId INT NULL,
+    InternetAccessTypeInResidenceDescriptorId INT NULL,
+    InternetPerformanceInResidenceDescriptorId INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
