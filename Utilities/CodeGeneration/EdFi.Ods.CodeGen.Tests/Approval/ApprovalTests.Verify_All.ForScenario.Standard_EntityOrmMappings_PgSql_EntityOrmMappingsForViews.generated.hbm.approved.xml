@@ -758,6 +758,30 @@
 
 
   <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StaffUSIToEducationOrganizationId" table="StaffUSIToEducationOrganizationId" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="StaffUSI" column="StaffUSI" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="StaffUSI" column="StaffUSI" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
   <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId" table="StudentUSIToEducationOrganizationId" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
