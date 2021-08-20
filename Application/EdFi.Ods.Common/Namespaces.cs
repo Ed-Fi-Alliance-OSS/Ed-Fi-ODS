@@ -85,7 +85,8 @@ namespace EdFi.Ods.Common
 
                 public static string BaseNamespace => $"{OdsBaseNamespace}.{RelativeNamespace}";
 
-                public static string GetAggregateNamespace(string aggregateName, string properCaseName, bool isExtensionEntity = false)
+                public static string GetAggregateNamespace(string aggregateName, string properCaseName,
+                    bool isExtensionEntity = false)
                 {
                     return AggregateNamespace(
                         BaseNamespace,
@@ -115,12 +116,14 @@ namespace EdFi.Ods.Common
                             properCaseName);
                 }
 
-                private static string AggregateNamespaceForExtensionEntity(string baseNamespace, string aggregateName, string schemaProperCaseName)
+                private static string AggregateNamespaceForExtensionEntity(string baseNamespace, string aggregateName,
+                    string schemaProperCaseName)
                 {
                     return $"{baseNamespace}.{aggregateName}Aggregate.{schemaProperCaseName}";
                 }
 
-                public static string AggregateNamespaceForEntity(string baseNamespace, string aggregateName, string schemaProperCaseName)
+                public static string AggregateNamespaceForEntity(string baseNamespace, string aggregateName,
+                    string schemaProperCaseName)
                 {
                     return $"{baseNamespace}.{aggregateName}Aggregate.{schemaProperCaseName}";
                 }
@@ -133,9 +136,16 @@ namespace EdFi.Ods.Common
 
                     public static string Views => $"{BaseNamespace}.Views";
 
+                    public static string Tables => $"{BaseNamespace}.Tables";
+
                     public static string GetViewNamespace(string viewName)
                     {
                         return $"{Views}.{viewName}";
+                    }
+
+                    public static string GetTableNamespace(string tableName)
+                    {
+                        return $"{Tables}.{tableName}";
                     }
 
                     public static string GetAggregateNamespace(

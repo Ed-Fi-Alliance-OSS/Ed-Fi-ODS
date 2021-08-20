@@ -35,13 +35,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 () =>
                     new FilterApplicationDetails(
                         "EducationOrganizationIdToEducationOrganizationId",
-                        @"TargetEducationOrganizationId IN (
+                        @"EducationOrganizationId IN (
                             SELECT {newAlias1}.TargetEducationOrganizationId 
                             FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
-                        @"{currentAlias}.TargetEducationOrganizationId IN (
+                        @"{currentAlias}.EducationOrganizationId IN (
                             SELECT {newAlias1}.TargetEducationOrganizationId 
-                            FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() +
+                            FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() +
                         @" {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
@@ -473,6 +473,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         private static string GetFullNameForView(this string viewName)
         {
             return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
+        }
+
+        private static string GetFullNameForTable(this string viewName)
+        {
+            return Namespaces.Entities.NHibernate.QueryModels.GetTableNamespace(viewName);
         }
     }
 }
