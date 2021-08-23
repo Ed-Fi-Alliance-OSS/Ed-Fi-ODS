@@ -11606,7 +11606,6 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
-        ICollection<IStudentSectionAttendanceEventClassPeriod> StudentSectionAttendanceEventClassPeriods { get; set; }
 
         // Resource reference data
         Guid? SectionResourceId { get; set; }
@@ -11649,6 +11648,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         // One-to-one relationships
 
         // Lists
+        ICollection<IStudentSectionAttendanceEventClassPeriod> StudentSectionAttendanceEventClassPeriods { get; set; }
 
         // Resource reference data
         Guid? SectionResourceId { get; set; }

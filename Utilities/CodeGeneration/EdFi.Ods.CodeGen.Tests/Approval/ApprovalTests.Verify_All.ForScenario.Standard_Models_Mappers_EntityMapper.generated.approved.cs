@@ -77166,20 +77166,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAttendanceEventAggregat
 
 
             // Sync lists
-            if (sourceSupport == null || sourceSupport.IsStudentSectionAttendanceEventClassPeriodsSupported)
-            {
-                isModified |=
-                    source.StudentSectionAttendanceEventClassPeriods.SynchronizeCollectionTo(
-                        target.StudentSectionAttendanceEventClassPeriods,
-                        onChildAdded: child =>
-                            {
-                                child.StudentSectionAttendanceEvent = target;
-                            },
-                        includeItem: sourceSupport == null
-                            ? null
-                            : sourceSupport.IsStudentSectionAttendanceEventClassPeriodIncluded);
-            }
-
             // Sync extensions
             isModified |= source.SynchronizeExtensionsTo(target);
 
@@ -77246,16 +77232,6 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentProgramAttendanceEventAggregat
             // ----------------------------------
 
             // Map lists
-
-            if (sourceSynchSupport.IsStudentSectionAttendanceEventClassPeriodsSupported)
-            {
-                targetSynchSupport.IsStudentSectionAttendanceEventClassPeriodIncluded = sourceSynchSupport.IsStudentSectionAttendanceEventClassPeriodIncluded;
-                source.StudentSectionAttendanceEventClassPeriods.MapCollectionTo(target.StudentSectionAttendanceEventClassPeriods, target);
-            }
-            else
-            {
-                targetSynchSupport.IsStudentSectionAttendanceEventClassPeriodsSupported = false;
-            }
 
             // Map extensions
             source.MapExtensionsTo(target);
@@ -78762,6 +78738,20 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAttendanceEventAggregat
 
 
             // Sync lists
+            if (sourceSupport == null || sourceSupport.IsStudentSectionAttendanceEventClassPeriodsSupported)
+            {
+                isModified |=
+                    source.StudentSectionAttendanceEventClassPeriods.SynchronizeCollectionTo(
+                        target.StudentSectionAttendanceEventClassPeriods,
+                        onChildAdded: child =>
+                            {
+                                child.StudentSectionAttendanceEvent = target;
+                            },
+                        includeItem: sourceSupport == null
+                            ? null
+                            : sourceSupport.IsStudentSectionAttendanceEventClassPeriodIncluded);
+            }
+
             // Sync extensions
             isModified |= source.SynchronizeExtensionsTo(target);
 
@@ -78837,6 +78827,16 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentSectionAttendanceEventAggregat
             // ----------------------------------
 
             // Map lists
+
+            if (sourceSynchSupport.IsStudentSectionAttendanceEventClassPeriodsSupported)
+            {
+                targetSynchSupport.IsStudentSectionAttendanceEventClassPeriodIncluded = sourceSynchSupport.IsStudentSectionAttendanceEventClassPeriodIncluded;
+                source.StudentSectionAttendanceEventClassPeriods.MapCollectionTo(target.StudentSectionAttendanceEventClassPeriods, target);
+            }
+            else
+            {
+                targetSynchSupport.IsStudentSectionAttendanceEventClassPeriodsSupported = false;
+            }
 
             // Map extensions
             source.MapExtensionsTo(target);

@@ -16815,55 +16815,6 @@
     <!-- Back references -->
 
     <!-- Collections -->
-    <set name="StudentSectionAttendanceEventClassPeriods" cascade="all-delete-orphan" inverse="true" lazy="false">
-      <key>
-        <column name="AttendanceEventCategoryDescriptorId" />
-        <column name="EventDate" />
-        <column name="LocalCourseCode" />
-        <column name="SchoolId" />
-        <column name="SchoolYear" />
-        <column name="SectionIdentifier" />
-        <column name="SessionName" />
-        <column name="StudentUSI" />
-      </key>
-      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriod" />
-    </set>
-
-</class>
-
-
-
-  <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriod" table="StudentSectionAttendanceEventClassPeriod" lazy="false">
-    <!-- Composite primary key -->
-    <composite-id>
-      <key-property name="ClassPeriodName" column="ClassPeriodName" type="string" length="60" />
-      <key-many-to-one name="StudentSectionAttendanceEvent">
-        <column name="AttendanceEventCategoryDescriptorId" />
-        <column name="EventDate" />
-        <column name="LocalCourseCode" />
-        <column name="SchoolId" />
-        <column name="SchoolYear" />
-        <column name="SectionIdentifier" />
-        <column name="SessionName" />
-        <column name="StudentUSI" />
-      </key-many-to-one>
-    </composite-id>
-    <!-- Transient state detection -->
-    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
-
-
-    <!-- Properties -->
-
-    <!-- Aggregate references -->
-    <many-to-one name="ClassPeriodReferenceData" class="EdFi.Ods.Entities.NHibernate.ClassPeriodAggregate.EdFi.ClassPeriodReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
-      <column name="ClassPeriodName" />
-      <column name="SchoolId" />
-    </many-to-one>
-
-    <!-- Back references -->
-
-    <!-- Collections -->
 </class>
 
 
@@ -17000,6 +16951,55 @@
     </many-to-one>
     <many-to-one name="StudentReferenceData" class="EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi.StudentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
       <column name="StudentUSI" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+    <set name="StudentSectionAttendanceEventClassPeriods" cascade="all-delete-orphan" inverse="true" lazy="false">
+      <key>
+        <column name="AttendanceEventCategoryDescriptorId" />
+        <column name="EventDate" />
+        <column name="LocalCourseCode" />
+        <column name="SchoolId" />
+        <column name="SchoolYear" />
+        <column name="SectionIdentifier" />
+        <column name="SessionName" />
+        <column name="StudentUSI" />
+      </key>
+      <one-to-many class="EdFi.Ods.Entities.NHibernate.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriod" />
+    </set>
+
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.StudentSectionAttendanceEventAggregate.EdFi.StudentSectionAttendanceEventClassPeriod" table="StudentSectionAttendanceEventClassPeriod" lazy="false">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="ClassPeriodName" column="ClassPeriodName" type="string" length="60" />
+      <key-many-to-one name="StudentSectionAttendanceEvent">
+        <column name="AttendanceEventCategoryDescriptorId" />
+        <column name="EventDate" />
+        <column name="LocalCourseCode" />
+        <column name="SchoolId" />
+        <column name="SchoolYear" />
+        <column name="SectionIdentifier" />
+        <column name="SessionName" />
+        <column name="StudentUSI" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+
+    <!-- Aggregate references -->
+    <many-to-one name="ClassPeriodReferenceData" class="EdFi.Ods.Entities.NHibernate.ClassPeriodAggregate.EdFi.ClassPeriodReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="ClassPeriodName" />
+      <column name="SchoolId" />
     </many-to-one>
 
     <!-- Back references -->

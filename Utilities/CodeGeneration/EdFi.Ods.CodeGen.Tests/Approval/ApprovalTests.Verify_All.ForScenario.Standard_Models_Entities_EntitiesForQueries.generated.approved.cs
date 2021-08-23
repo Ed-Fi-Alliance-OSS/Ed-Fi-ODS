@@ -24658,7 +24658,6 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggre
         // =============================================================
         //                          Collections
         // -------------------------------------------------------------
-        public virtual ICollection<StudentSectionAttendanceEventClassPeriodQ> StudentSectionAttendanceEventClassPeriods { get; set; }
 
         // -------------------------------------------------------------
 
@@ -24960,6 +24959,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentSectionAttendanceEvent
         // =============================================================
         //                          Collections
         // -------------------------------------------------------------
+        public virtual ICollection<StudentSectionAttendanceEventClassPeriodQ> StudentSectionAttendanceEventClassPeriods { get; set; }
 
         // -------------------------------------------------------------
 
