@@ -49,7 +49,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                             "SourceEducationOrganizationId", jt),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
 
-        private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToStudentUSI
+        private static readonly Lazy<FilterApplicationDetails> _studentUSIToEducationOrganizationId
             = new Lazy<FilterApplicationDetails>(
                 () =>
                     new FilterApplicationDetails(
@@ -404,7 +404,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         public static FilterApplicationDetails StateEducationAgencyIdToStateEducationAgencyId
             => _stateEducationAgencyIdToStateEducationAgencyId.Value;
 
-        public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSI => _localEducationAgencyIdToStudentUSI.Value;
+        public static FilterApplicationDetails StudentUSIToEducationOrganizationId => _studentUSIToEducationOrganizationId.Value;
 
         public static FilterApplicationDetails EducationOrganizationIdToEducationOrganizationId
             => _educationOrganizationIdToEducationOrganizationId.Value;
@@ -429,8 +429,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             => _educationOrganizationIdToLocalEducationAgencyId.Value;
 
         public static FilterApplicationDetails EducationOrganizationIdToSchoolId => _educationOrganizationIdToSchoolId.Value;
-
-        public static FilterApplicationDetails LocalEducationAgencyIdToSchoolId => _localEducationAgencyIdToSchoolId.Value;
 
         public static FilterApplicationDetails LocalEducationAgencyIdToOrganizationDepartmentId
             => _localEducationAgencyIdToOrganizationDepartmentId.Value;
@@ -475,9 +473,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
         }
 
-        private static string GetFullNameForTable(this string viewName)
+        private static string GetFullNameForTable(this string tableName)
         {
-            return Namespaces.Entities.NHibernate.QueryModels.GetTableNamespace(viewName);
+            return Namespaces.Entities.NHibernate.QueryModels.GetTableNamespace(tableName);
         }
     }
 }

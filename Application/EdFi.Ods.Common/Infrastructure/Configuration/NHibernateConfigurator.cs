@@ -12,12 +12,10 @@ using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Extensibility;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Providers.Criteria;
-using EdFi.Ods.Common.Utils.Extensions;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Cfg.MappingSchema;
@@ -34,13 +32,13 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly INHibernateFilterConfigurator[] _authorizationStrategyConfigurators;
         private readonly INHibernateBeforeBindMappingActivity[] _beforeBindMappingActivities;
         private readonly INHibernateConfigurationActivity[] _configurationActivities;
+        private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
         private readonly IDictionary<string, HbmBag[]> _entityExtensionHbmBagsByEntityName;
         private readonly IExtensionNHibernateConfigurationProvider[] _extensionConfigurationProviders;
         private readonly IDictionary<string, HbmSubclass[]> _extensionDerivedEntityByEntityName;
         private readonly IDictionary<string, HbmJoinedSubclass[]> _extensionDescriptorByEntityName;
         private readonly IFilterCriteriaApplicatorProvider _filterCriteriaApplicatorProvider;
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
-        private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,

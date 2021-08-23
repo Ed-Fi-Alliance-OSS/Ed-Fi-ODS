@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 // Local Education Agency/School to Person relationships
                 RelationshipsAuthorizationFilters.EducationOrganizationIdToEducationOrganizationId,
-                RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSI,
+                RelationshipsAuthorizationFilters.StudentUSIToEducationOrganizationId,
                 RelationshipsAuthorizationFilters.SchoolIdToStudentUSI,
                 RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStaffUSI,
                 RelationshipsAuthorizationFilters.SchoolIdToStaffUSI,

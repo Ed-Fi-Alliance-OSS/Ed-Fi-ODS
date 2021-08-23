@@ -21,8 +21,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             var filters = new List<FilterApplicationDetails>
             {
                 // Local Education Agency/School to Person relationships
-                RelationshipsAuthorizationFilters.EducationOrganizationIdToEducationOrganizationId,
-                RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSI,
+                RelationshipsAuthorizationFilters.StudentUSIToEducationOrganizationId,
                 RelationshipsAuthorizationFilters.SchoolIdToStudentUSI,
                 RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStaffUSI,
                 RelationshipsAuthorizationFilters.SchoolIdToStaffUSI,
@@ -32,7 +31,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 // EdOrg to EdOrg relationships
                 RelationshipsAuthorizationFilters.EducationOrganizationIdToLocalEducationAgencyId,
                 RelationshipsAuthorizationFilters.EducationOrganizationIdToSchoolId,
-                RelationshipsAuthorizationFilters.LocalEducationAgencyIdToSchoolId,
+                RelationshipsAuthorizationFilters.EducationOrganizationIdToEducationOrganizationId,
                 RelationshipsAuthorizationFilters.LocalEducationAgencyIdToOrganizationDepartmentId,
                 RelationshipsAuthorizationFilters.OrganizationDepartmentIdToSchoolId,
                 RelationshipsAuthorizationFilters.CommunityOrganizationIdToEducationOrganizationId,

@@ -288,7 +288,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 var claimsAuthorizationSegment = new ClaimsAuthorizationSegment(
                     claimsEndpoints.ToList().AsReadOnly(),
                     _contextData == null
-                        ? new AuthorizationSegmentEndpoint(segmentProperty.PropertyName, segmentProperty.PropertyType)
+                        ? new AuthorizationSegmentEndpoint(segmentPropertyName, segmentProperty.PropertyType)
                         : new AuthorizationSegmentEndpointWithValue(
                             segmentPropertyName, segmentProperty.PropertyType, segmentProperty.PropertyValue),
                     segmentProperty.AuthorizationPathModifier);

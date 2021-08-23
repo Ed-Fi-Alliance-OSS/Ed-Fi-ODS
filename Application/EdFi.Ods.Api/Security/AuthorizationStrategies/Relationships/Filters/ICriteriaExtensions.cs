@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using NHibernate;
@@ -34,20 +35,27 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string filterPropertyName,
             JoinType joinType)
         {
-            string authViewAlias = $"authView{viewName}";
+            string authViewAlias = viewName.EqualsIgnoreCase("EducationOrganizationIdToEducationOrganizationId")
+                ? $"authTable{viewName}"
+                : $"authView{viewName}";
+
+            string entityName = viewName.EqualsIgnoreCase("EducationOrganizationIdToEducationOrganizationId")
+                ? $"{viewName.GetAuthorizationTableClassName()}".GetFullNameForTable()
+                : $"{viewName.GetAuthorizationViewClassName()}".GetFullNameForView();
 
             // Apply authorization join using ICriteria
             criteria.CreateEntityAlias(
                 authViewAlias,
                 Restrictions.EqProperty($"aggregateRoot.{joinPropertyName}", $"{authViewAlias}.{joinPropertyName}"),
-                joinType,
-                $"{viewName.GetAuthorizationViewClassName()}".GetFullNameForView());
+                joinType, entityName);
 
             object value;
 
             // Defensive check to ensure required parameter is present
             if (!parameters.TryGetValue(filterPropertyName, out value))
+            {
                 throw new Exception($"Unable to find parameter for filtering '{filterPropertyName}' on view '{viewName}'.");
+            }
 
             var arrayOfValues = value as object[];
 
@@ -62,7 +70,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     var and = new AndExpression(
                         Restrictions.In($"{authViewAlias}.{filterPropertyName}", arrayOfValues),
                         Restrictions.IsNotNull($"{authViewAlias}.{joinPropertyName}"));
-                
                     whereJunction.Add(and);
                 }
             }
@@ -77,7 +84,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     var and = new AndExpression(
                         Restrictions.Eq($"{authViewAlias}.{filterPropertyName}", value),
                         Restrictions.IsNotNull($"{authViewAlias}.{joinPropertyName}"));
-                
                     whereJunction.Add(and);
                 }
             }
@@ -86,6 +92,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         private static string GetFullNameForView(this string viewName)
         {
             return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
+        }
+
+        private static string GetFullNameForTable(this string tableName)
+        {
+            return Namespaces.Entities.NHibernate.QueryModels.GetTableNamespace(tableName);
         }
     }
 }
