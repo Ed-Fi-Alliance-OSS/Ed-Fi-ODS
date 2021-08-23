@@ -36,8 +36,11 @@ namespace EdFi.Ods.Api.Caching
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(PersonUniqueIdToUsiCache));
         private readonly IPersonIdentifiersProvider _personIdentifiersProvider;
-        private readonly bool _synchronousInitialization;
         private readonly IUniqueIdToUsiValueMapper _uniqueIdToUsiValueMapper;
+        private readonly bool _synchronousInitialization;
+        private readonly bool _cacheStudents;
+        private readonly bool _cacheStaff;
+        private readonly bool _cacheParents;
 
         private readonly TimeSpan _slidingExpiration;
         private readonly TimeSpan _absoluteExpirationPeriod;
@@ -52,6 +55,9 @@ namespace EdFi.Ods.Api.Caching
         /// <param name="slidingExpiration">Indicates how long the cache values will remain in memory after being used before all the cached values are removed.</param>
         /// <param name="absoluteExpirationPeriod">Indicates the maximum time that the cache values will remain in memory before being refreshed.</param>
         /// <param name="synchronousInitialization">Indicates whether the cache should wait until all the Person identifiers are loaded before responding, or if using the value mappers initially to avoid an initial delay is preferable.</param>
+        /// <param name="cacheStudents">Indicates whether student UniqueId/USI mappings should be cached, or retrieved on demand with each request.</param>
+        /// <param name="cacheStaff">Indicates whether staff UniqueId/USI mappings should be cached, or retrieved on demand with each request.</param>
+        /// <param name="cacheParents">Indicates whether parent UniqueId/USI mappings should be cached, or retrieved on demand with each request.</param>
         public PersonUniqueIdToUsiCache(
             ICacheProvider cacheProvider,
             IEdFiOdsInstanceIdentificationProvider edFiOdsInstanceIdentificationProvider,
@@ -59,13 +65,19 @@ namespace EdFi.Ods.Api.Caching
             IPersonIdentifiersProvider personIdentifiersProvider,
             TimeSpan slidingExpiration,
             TimeSpan absoluteExpirationPeriod,
-            bool synchronousInitialization)
+            bool synchronousInitialization,
+            bool cacheStudents,
+            bool cacheStaff,
+            bool cacheParents)
         {
             _cacheProvider = cacheProvider;
             _edFiOdsInstanceIdentificationProvider = edFiOdsInstanceIdentificationProvider;
             _uniqueIdToUsiValueMapper = uniqueIdToUsiValueMapper;
             _personIdentifiersProvider = personIdentifiersProvider;
             _synchronousInitialization = synchronousInitialization;
+            _cacheStudents = cacheStudents;
+            _cacheStaff = cacheStaff;
+            _cacheParents = cacheParents;
 
             if (slidingExpiration < TimeSpan.Zero)
             {
@@ -108,6 +120,16 @@ namespace EdFi.Ods.Api.Caching
                 return default(string);
             }
 
+            if ((!_cacheStudents && personType == "Student")
+                || (!_cacheStaff && personType == "Staff")
+                || (!_cacheParents && personType == "Parent"))
+            {
+                // Call the value mapper for the individual value
+                var valueMapForParent = GetUniqueIdValueMap(personType, usi);
+
+                return valueMapForParent.UniqueId;
+            }
+            
             string context = GetUsiKeyTokenContext();
 
             string key = GetUniqueIdByUsiCacheKey(personType, usi, context);
@@ -371,6 +393,15 @@ namespace EdFi.Ods.Api.Caching
                     : default(int);
             }
 
+            if ((!_cacheStudents && personType == "Student")
+                || (!_cacheStaff && personType == "Staff")
+                || (!_cacheParents && personType == "Parent"))
+            {
+                var valueMapForParent = GetUsiValueMap(personType, uniqueId);
+
+                return valueMapForParent.Usi;
+            }
+            
             string context = GetUsiKeyTokenContext();
 
             string key = GetUsiByUniqueIdCacheKey(personType, uniqueId, context);
