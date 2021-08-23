@@ -1,0 +1,28 @@
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="EdFi.Ods.Standard" namespace="EdFi.Ods.Entities.NHibernate.QueryModels.Tables" default-access="property" auto-import="false">
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Tables.auth_EducationOrganizationIdToEducationOrganizationId" table="EducationOrganizationIdToEducationOrganizationId" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="TargetEducationOrganizationId" column="TargetEducationOrganizationId" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="TargetEducationOrganizationId" column="TargetEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+</hibernate-mapping>
+

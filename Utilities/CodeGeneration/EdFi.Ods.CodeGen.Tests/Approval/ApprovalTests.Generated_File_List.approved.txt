@@ -64,13 +64,16 @@ Ed-Fi-ODS\Application\EdFi.Ods.Profiles.Test\Resources\Resources.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Controllers\Controllers.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\EntityOrmMappings\MsSql\EntityOrmMappings.generated.hbm.xml
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\EntityOrmMappings\MsSql\EntityOrmMappingsForQueries.generated.hbm.xml
+Ed-Fi-ODS\Application\EdFi.Ods.Standard\EntityOrmMappings\MsSql\EntityOrmMappingsForTupleTable.generated.hbm.xml
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\EntityOrmMappings\MsSql\EntityOrmMappingsForViews.generated.hbm.xml
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\EntityOrmMappings\PgSql\EntityOrmMappings.generated.hbm.xml
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\EntityOrmMappings\PgSql\EntityOrmMappingsForQueries.generated.hbm.xml
+Ed-Fi-ODS\Application\EdFi.Ods.Standard\EntityOrmMappings\PgSql\EntityOrmMappingsForTupleTable.generated.hbm.xml
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\EntityOrmMappings\PgSql\EntityOrmMappingsForViews.generated.hbm.xml
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\ExceptionHandling\DatabaseMetadata.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Entities\Entities.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Entities\EntitiesForQueries.generated.cs
+Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Entities\EntitiesForQueriesTupleTable.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Entities\EntitiesForQueriesViews.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Interfaces\EntityInterfaces.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Mappers\EntityMapper.generated.cs
