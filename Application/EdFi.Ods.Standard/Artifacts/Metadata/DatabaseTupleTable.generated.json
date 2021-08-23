@@ -1,0 +1,24 @@
+{
+  "SchemaOwner": "auth",
+  "Name": "EducationOrganizationIdToEducationOrganizationId",
+  "Columns": [
+    {
+      "Name": "SourceEducationOrganizationId",
+      "DbDataType": "int",
+      "IsPrimaryKey": true,
+      "Length": null,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false
+    },
+    {
+      "Name": "TargetEducationOrganizationId",
+      "DbDataType": "int",
+      "IsPrimaryKey": true,
+      "Length": null,
+      "Precision": 10,
+      "Scale": 0,
+      "Nullable": false
+    }
+  ]
+}

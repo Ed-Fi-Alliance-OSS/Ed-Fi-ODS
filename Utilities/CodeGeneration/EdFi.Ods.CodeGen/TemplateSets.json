@@ -11,6 +11,11 @@
       "OutputPath": "Artifacts/Metadata/DatabaseViews.generated.json"
     },
     {
+      "Name": "DatabaseTupleTable",
+      "Driver": "DatabaseTupleTable",
+      "OutputPath": "Artifacts/Metadata/DatabaseTupleTable.generated.json"
+    },
+    {
       "Name": "Entities",
       "Driver": "Entities",
       "OutputPath": "Models/Entities/Entities.generated.cs"
