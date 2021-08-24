@@ -167,30 +167,30 @@ namespace EdFi.Ods.Api.Container.Modules
                         }))
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.Name.Equals("cacheStudents", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) => p.Name.Equals("suppressStudentCache", StringComparison.InvariantCultureIgnoreCase),
                         (p, c) =>
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:CacheStudents") ?? true;
+                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStudentCache") ?? true;
                         }))
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.Name.Equals("cacheStaff", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) => p.Name.Equals("suppressStaffCache", StringComparison.InvariantCultureIgnoreCase),
                         (p, c) =>
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:CacheStaff") ?? true;
+                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStaffCache") ?? true;
                         }))
                 .WithParameter(
                     new ResolvedParameter(
-                        (p, c) => p.Name.Equals("cacheParents", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) => p.Name.Equals("suppressParentCache", StringComparison.InvariantCultureIgnoreCase),
                         (p, c) =>
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:CacheParents") ?? true;
+                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressParentCache") ?? true;
                         }))
                 .As<IPersonUniqueIdToUsiCache>()
                 .SingleInstance();
