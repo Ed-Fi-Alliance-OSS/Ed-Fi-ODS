@@ -212,14 +212,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     }
                     else
                     {
-                        // The claims endpoints we checked couldn't authorize this segment.
-                        // If there are not any others to check (i.e. using relationships in the database), then we should preemptively fail authorization now.
-                        if (!nonInlinableClaimsEndpoints.Any())
-                        {
-                            throw new EdFiSecurityException(
-                                $"Authorization denied.  Access to the requested '{subjectEndpointWithValue.Name}' was denied.");
-                        }
-
                         //The segment could not be authorized inline, so add it for subsequent authorization
                         subsequentAuthorizationSegments.Add(claimsAuthorizationSegment);
                     }
