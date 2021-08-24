@@ -142,7 +142,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             public void Should_create_first_segment_as_a_school_to_the_first_supplied_property_name()
             {
                 _actualSegments.ElementAt(0)
-                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
+                    .ClaimsEndpoints.All(x => x.Name == "EducationOrganizationId")
                     .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
@@ -192,7 +192,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             public void Should_create_first_segment_as_a_school_to_the_first_supplied_property_name()
             {
                 _actualSegments.ElementAt(0)
-                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
+                    .ClaimsEndpoints.All(x => x.Name == "EducationOrganizationId")
                     .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
@@ -243,7 +243,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 Should_create_first_segment_as_a_school_to_the_first_supplied_property_name_with_the_supplied_authorization_path_modifer_intact()
             {
                 _actualSegments.ElementAt(0)
-                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
+                    .ClaimsEndpoints.All(x => x.Name == "EducationOrganizationId")
                     .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
@@ -529,9 +529,9 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
             _actualLocalEducationAgencySegment = _actualAuthorizationSegments.FirstOrDefault(
                 s =>
-                    s.SubjectEndpoint.Name == "LocalEducationAgencyId"
+                    s.SubjectEndpoint.Name == "StudentUSI"
                     || s.ClaimsEndpoints.All(
-                        x => x.Name == "LocalEducationAgencyId"));
+                        x => x.Name == "EducationOrganizationId"));
         }
 
         [Assert]
@@ -570,7 +570,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 .ShouldBeTrue();
 
             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => x.Name)
-                .All(n => n == "LocalEducationAgencyId")
+                .All(n => n == "EducationOrganizationId")
                 .ShouldBeTrue();
         }
 

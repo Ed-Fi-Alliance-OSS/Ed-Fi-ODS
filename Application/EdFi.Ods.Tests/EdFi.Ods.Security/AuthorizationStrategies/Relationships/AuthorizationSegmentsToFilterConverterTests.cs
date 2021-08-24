@@ -196,7 +196,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 _actualFilters.Count.ShouldBe(1);
 
                 _actualFilters.Single().FilterName
-                    .ShouldBe("LocalEducationAgencyIdToStudentUSIOverTheRiverAndThroughTheWoods");
+                    .ShouldBe("StudentUSIToEducationOrganizationIdOverTheRiverAndThroughTheWoods");
             }
 
             [Assert]
@@ -207,7 +207,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
+                actualFilter.ClaimEndpointName.ShouldBe("EducationOrganizationId");
 
                 parameterValues
                     .ShouldBe(
