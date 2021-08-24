@@ -182,7 +182,7 @@
 									"pm.test(\"Should return the item with SchoolId of the resource is empty string\", () => {",
 									"     ",
 									"     const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"Access to the resource item could not be authorized because the \\'SchoolId\\' of the resource is empty\");",
+									"     pm.expect(responseItem.message).to.include(\"Access to the resource item could not be authorized because the \\'EducationOrganizationId\\' of the resource is empty\");",
 									"});",
 									""
 								],
