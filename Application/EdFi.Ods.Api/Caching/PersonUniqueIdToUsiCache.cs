@@ -110,15 +110,13 @@ namespace EdFi.Ods.Api.Caching
 
             string context = GetUsiKeyTokenContext();
 
-            string key = GetUniqueIdByUsiCacheKey(personType, usi, context);
-
             string uniqueId;
 
             // Get the cache first, initializing it if necessary
             var uniqueIdByUsi = GetUniqueIdByUsiMap(personType, context);
 
             // Check the cache for the value
-            if (uniqueIdByUsi != null && uniqueIdByUsi.TryGetValue(key, out uniqueId))
+            if (uniqueIdByUsi != null && uniqueIdByUsi.TryGetValue(usi, out uniqueId))
             {
                 return uniqueId;
             }
@@ -129,10 +127,10 @@ namespace EdFi.Ods.Api.Caching
             // Save the value
             if (valueMap.UniqueId != null && uniqueIdByUsi != null)
             {
-                uniqueIdByUsi.TryAdd(key, valueMap.UniqueId);
+                uniqueIdByUsi.TryAdd(usi, valueMap.UniqueId);
 
                 GetUsiByUniqueIdMap(personType, context)
-                   .AddOrUpdate(GetUsiByUniqueIdCacheKey(personType, valueMap.UniqueId), usi, (x, y) => usi);
+                   .AddOrUpdate(valueMap.UniqueId, usi, (x, y) => usi);
             }
 
             return valueMap.UniqueId;
@@ -167,7 +165,7 @@ namespace EdFi.Ods.Api.Caching
                 : usi;
         }
 
-        private ConcurrentDictionary<string, string> GetUniqueIdByUsiMap(string personType, string context)
+        private ConcurrentDictionary<int, string> GetUniqueIdByUsiMap(string personType, string context)
         {
             IdentityValueMaps identityValueMaps;
 
@@ -281,7 +279,7 @@ namespace EdFi.Ods.Api.Caching
             try
             {
                 // Start building the data
-                var uniqueIdByUsi = new ConcurrentDictionary<string, string>();
+                var uniqueIdByUsi = new ConcurrentDictionary<int, string>();
                 var usiByUniqueId = new ConcurrentDictionary<string, int>();
 
                 Stopwatch stopwatch = null;
@@ -295,11 +293,8 @@ namespace EdFi.Ods.Api.Caching
                 foreach (
                     var valueMap in await _personIdentifiersProvider.GetAllPersonIdentifiers(personType))
                 {
-                    string key = GetUniqueIdByUsiCacheKey(personType, valueMap.Usi, context);
-                    uniqueIdByUsi.TryAdd(key, valueMap.UniqueId);
-
-                    string key2 = GetUsiByUniqueIdCacheKey(personType, valueMap.UniqueId, context);
-                    usiByUniqueId.TryAdd(key2, valueMap.Usi);
+                    uniqueIdByUsi.TryAdd(valueMap.Usi, valueMap.UniqueId);
+                    usiByUniqueId.TryAdd(valueMap.UniqueId, valueMap.Usi);
                 }
 
                 if (_logger.IsDebugEnabled)
@@ -336,22 +331,6 @@ namespace EdFi.Ods.Api.Caching
             return CacheKeyPrefix + personType + "_" + context;
         }
 
-        private string GetUniqueIdByUsiCacheKey(string personType, int usi)
-        {
-            return GetUniqueIdByUsiCacheKey(personType, usi, GetUsiKeyTokenContext());
-        }
-
-        private string GetUniqueIdByUsiCacheKey(string personType, int usi, string context)
-        {
-            string key = string.Format(
-                "{0}_{1}_{2}",
-                personType,
-                usi,
-                context);
-
-            return key;
-        }
-
         private PersonIdentifiersValueMap GetUniqueIdValueMap(string personTypeName, int usi)
         {
             return _uniqueIdToUsiValueMapper.GetUniqueId(personTypeName, usi);
@@ -373,8 +352,6 @@ namespace EdFi.Ods.Api.Caching
 
             string context = GetUsiKeyTokenContext();
 
-            string key = GetUsiByUniqueIdCacheKey(personType, uniqueId, context);
-
             int usi;
 
             // Get the cache first, initializing it if necessary
@@ -388,7 +365,7 @@ namespace EdFi.Ods.Api.Caching
                     : 0);
 
             // Check the cache for the value
-            if (usiByUniqueId != null && usiByUniqueId.TryGetValue(key, out usi))
+            if (usiByUniqueId != null && usiByUniqueId.TryGetValue(uniqueId, out usi))
             {
                 if (usi != default(int))
                 {
@@ -401,10 +378,10 @@ namespace EdFi.Ods.Api.Caching
             // Save the value
             if (usiByUniqueId != null && valueMap.Usi != default(int))
             {
-                usiByUniqueId.TryAdd(key, valueMap.Usi);
+                usiByUniqueId.TryAdd(uniqueId, valueMap.Usi);
 
                 GetUniqueIdByUsiMap(personType, context)
-                   .AddOrUpdate(GetUniqueIdByUsiCacheKey(personType, valueMap.Usi), uniqueId, (x, y) => uniqueId);
+                   .AddOrUpdate(valueMap.Usi, uniqueId, (x, y) => uniqueId);
             }
 
             //NOTE: This code is here for future use.
@@ -420,16 +397,6 @@ namespace EdFi.Ods.Api.Caching
             return valueMap.Usi;
         }
 
-        private string GetUsiByUniqueIdCacheKey(string personTypeName, string uniqueId)
-        {
-            return GetUsiByUniqueIdCacheKey(personTypeName, uniqueId, GetUsiKeyTokenContext());
-        }
-
-        private string GetUsiByUniqueIdCacheKey(string personTypeName, string uniqueId, string context)
-        {
-            return string.Format("{0}_usi_{1}_by_uniqueid_{2}", personTypeName, context, uniqueId);
-        }
-
         private string GetUsiKeyTokenContext()
         {
             return string.Format((string) "from_{0}", (object) _edFiOdsInstanceIdentificationProvider.GetInstanceIdentification());
@@ -439,11 +406,11 @@ namespace EdFi.Ods.Api.Caching
         {
             private readonly ReaderWriterLockSlim _mapLock = new ReaderWriterLockSlim();
 
-            private ConcurrentDictionary<string, string> _uniqueIdByUsi;
+            private ConcurrentDictionary<int, string> _uniqueIdByUsi;
 
             private ConcurrentDictionary<string, int> _usiByUniqueId;
 
-            public ConcurrentDictionary<string, string> UniqueIdByUsi
+            public ConcurrentDictionary<int, string> UniqueIdByUsi
             {
                 get
                 {
@@ -487,7 +454,7 @@ namespace EdFi.Ods.Api.Caching
 
             public void SetMaps(
                 ConcurrentDictionary<string, int> usiByUniqueId,
-                ConcurrentDictionary<string, string> uniqueIdByUsi)
+                ConcurrentDictionary<int, string> uniqueIdByUsi)
             {
                 try
                 {
