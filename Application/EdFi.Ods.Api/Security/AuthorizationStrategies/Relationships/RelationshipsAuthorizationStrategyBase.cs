@@ -175,7 +175,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     // Find all the claims endpoint (values) on this segment that *could* be used to authorize the segment
                     var inlinableClaimsEndpoints =
                         claimsAuthorizationSegment.ClaimsEndpoints
-                            .Where(x => x.Name.EqualsIgnoreCase(subjectEndpointWithValue.Name))
+                            .Where(
+                                x => x.Name.EqualsIgnoreCase(subjectEndpointWithValue.Name) &&
+                                     !subjectEndpointWithValue.Name.EqualsIgnoreCase("EducationOrganizationId"))
                             .ToList();
 
                     var nonInlinableClaimsEndpoints =

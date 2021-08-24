@@ -18,6 +18,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         protected const string LocalEducationAgency = "LocalEducationAgency";
         protected const string School = "School";
         protected const string StateEducationAgency = "StateEducationAgency";
+        protected const string EducationOrganization = "EducationOrganization";
 
         private readonly AdjacencyGraph<string, Edge<string>> _graph = new AdjacencyGraph<string, Edge<string>>();
 
@@ -25,9 +26,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             // Define the referential structure of the core ODS EducationOrganization-related tables
             AddRelatedOrganizations(StateEducationAgency, EducationServiceCenter);
+            AddRelatedOrganizations(StateEducationAgency, EducationOrganization);
             AddRelatedOrganizations(StateEducationAgency, LocalEducationAgency);
             AddRelatedOrganizations(EducationServiceCenter, LocalEducationAgency);
             AddRelatedOrganizations(LocalEducationAgency, School);
+            AddRelatedOrganizations(EducationOrganization, School);
         }
 
         /// <summary>
