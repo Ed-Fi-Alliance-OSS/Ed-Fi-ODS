@@ -30,11 +30,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         private static readonly Lazy<FilterApplicationDetails> _stateEducationAgencyIdToStateEducationAgencyId =
             new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("StateEducationAgencyId"));
 
-        private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToStudentUSI
+        
+        private static readonly Lazy<FilterApplicationDetails> _studentUSIToEducationOrganizationId
             = new Lazy<FilterApplicationDetails>(
                 () =>
                     new FilterApplicationDetails(
-                        "LocalEducationAgencyIdToStudentUSI",
+                        "StudentUSIToEducationOrganizationId",
                         @"StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
                             FROM auth.StudentUSIToEducationOrganizationId {newAlias1} 
@@ -375,7 +376,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         public static FilterApplicationDetails StateEducationAgencyIdToStateEducationAgencyId
             => _stateEducationAgencyIdToStateEducationAgencyId.Value;
 
-        public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSI => _localEducationAgencyIdToStudentUSI.Value;
+        public static FilterApplicationDetails StudentUSIToEducationOrganizationId => _studentUSIToEducationOrganizationId.Value;
 
         public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation
             => _localEducationAgencyIdToStudentUSIThroughEdOrgAssociation.Value;

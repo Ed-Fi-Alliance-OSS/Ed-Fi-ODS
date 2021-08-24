@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using EdFi.Common;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Domain;
@@ -344,7 +345,10 @@ namespace EdFi.Ods.Features.Composites
                         // Copy over the values of the named parameters, but only if they are actually present in the filter
                         var authorizationFilterDetails = filterInfo.Value;
 
-                        string parameterName = authorizationFilterDetails.ClaimEndpointName;
+                        string parameterName =
+                            authorizationFilterDetails.ClaimEndpointName.EqualsIgnoreCase("EducationOrganizationId")
+                                ? "SourceEducationOrganizationId"
+                                : authorizationFilterDetails.ClaimEndpointName;
 
                         if (filterHql.Contains($":{parameterName}"))
                         {
