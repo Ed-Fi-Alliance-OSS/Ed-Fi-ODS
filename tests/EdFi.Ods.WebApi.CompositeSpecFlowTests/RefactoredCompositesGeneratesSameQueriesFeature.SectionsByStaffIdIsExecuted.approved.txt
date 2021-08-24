@@ -1,4 +1,4 @@
-HQL:
+﻿HQL:
 select distinct 
 	comp_aaa.Id As __BaseEntityId__,
 	comp_aaa.LocalCourseCode as PK1a_LocalCourseCode,
