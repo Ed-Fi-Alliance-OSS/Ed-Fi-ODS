@@ -1,4 +1,4 @@
-HQL:
+﻿HQL:
 select 
 	comp_aaa.StudentUSI As __BaseEntityId__,
 	comp_aaa.StudentUSI as PK1a_StudentUSI
