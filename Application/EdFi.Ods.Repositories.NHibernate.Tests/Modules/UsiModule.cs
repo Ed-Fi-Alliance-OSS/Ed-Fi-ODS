@@ -22,6 +22,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
                 .WithParameter(new NamedParameter("synchronousInitialization", false))
                 .WithParameter(new NamedParameter("slidingExpiration", TimeSpan.FromSeconds(14400)))
                 .WithParameter(new NamedParameter("absoluteExpirationPeriod", TimeSpan.FromSeconds(86400)))
+                .WithParameter(new NamedParameter("cacheStudents", true))
+                .WithParameter(new NamedParameter("cacheStaff", true))
+                .WithParameter(new NamedParameter("cacheParents", true))
                 .As<IPersonUniqueIdToUsiCache>().SingleInstance();
         }
     }
