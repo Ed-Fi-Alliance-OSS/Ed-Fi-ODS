@@ -165,6 +165,33 @@ namespace EdFi.Ods.Api.Container.Modules
 
                             return TimeSpan.FromSeconds(period);
                         }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("suppressStudentCache", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var configuration = c.Resolve<IConfiguration>();
+
+                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStudentCache") ?? false;
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("suppressStaffCache", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var configuration = c.Resolve<IConfiguration>();
+
+                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStaffCache") ?? false;
+                        }))
+                .WithParameter(
+                    new ResolvedParameter(
+                        (p, c) => p.Name.Equals("suppressParentCache", StringComparison.InvariantCultureIgnoreCase),
+                        (p, c) =>
+                        {
+                            var configuration = c.Resolve<IConfiguration>();
+
+                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressParentCache") ?? false;
+                        }))
                 .As<IPersonUniqueIdToUsiCache>()
                 .SingleInstance();
 

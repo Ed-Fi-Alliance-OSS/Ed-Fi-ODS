@@ -116,7 +116,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _personIdentifiersProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
-                        synchronousInitialization: true);
+                        synchronousInitialization: true,
+                        suppressStudentCache: false,
+                        suppressStaffCache: false,
+                        suppressParentCache: false);
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
                 }
@@ -242,7 +245,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     _personIdentifiersProvider,
                     TimeSpan.Zero,
                     TimeSpan.Zero,
-                    synchronousInitialization: true);
+                    synchronousInitialization: true,
+                    suppressStudentCache: false,
+                    suppressStaffCache: false,
+                    suppressParentCache: false);
             }
 
             protected override void Act()
@@ -397,7 +403,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     _usiCache = new PersonUniqueIdToUsiCache(
                         _memoryCacheProvider, _edfiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
                         TimeSpan.Zero, TimeSpan.Zero,
-                        synchronousInitialization: false);
+                        synchronousInitialization: false,
+                        suppressStudentCache: false,
+                        suppressStaffCache: false,
+                        suppressParentCache: false);
                 }
             }
 
@@ -508,7 +517,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                 _usiCache = new PersonUniqueIdToUsiCache(
                     _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
                     TimeSpan.Zero, TimeSpan.Zero,
-                    synchronousInitialization: true);
+                    synchronousInitialization: true,
+                    suppressStudentCache: false,
+                    suppressStaffCache: false,
+                    suppressParentCache: false);
             }
 
             protected override void Act()
@@ -573,7 +585,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                     _usiCache = new PersonUniqueIdToUsiCache(
                         _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
                         TimeSpan.Zero, TimeSpan.Zero,
-                        synchronousInitialization: true);
+                        synchronousInitialization: true,
+                        suppressStudentCache: false,
+                        suppressStaffCache: false,
+                        suppressParentCache: false);
                 }
             }
 
@@ -647,7 +662,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _personIdentifiersProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
-                        synchronousInitialization: true);
+                        synchronousInitialization: true,
+                        suppressStudentCache: false,
+                        suppressStaffCache: false,
+                        suppressParentCache: false);
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
                 }
@@ -739,7 +757,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _personIdentifiersProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
-                        synchronousInitialization: true);
+                        synchronousInitialization: true,
+                        suppressStudentCache: false,
+                        suppressStaffCache: false,
+                        suppressParentCache: false);
 
                     PersonUniqueIdToUsiCache.GetCache = () => _usiCache;
                 }
@@ -848,7 +869,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _personIdentifiersProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
-                        synchronousInitialization: true);
+                        synchronousInitialization: true,
+                        suppressStudentCache: false,
+                        suppressStaffCache: false,
+                        suppressParentCache: false);
                 }
             }
 
@@ -946,7 +970,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _personIdentifiersProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
-                        synchronousInitialization: true);
+                        synchronousInitialization: true,
+                        suppressStudentCache: false,
+                        suppressStaffCache: false,
+                        suppressParentCache: false);
                 }
             }
 
@@ -1050,7 +1077,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
                         _personIdentifiersProvider,
                         TimeSpan.Zero,
                         TimeSpan.Zero,
-                        synchronousInitialization: true);
+                        synchronousInitialization: true,
+                        suppressStudentCache: false,
+                        suppressStaffCache: false,
+                        suppressParentCache: false);
                 }
             }
 
@@ -1164,6 +1194,99 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.UniqueIdIntegration
             {
                 _actualFirstValue.ShouldBe("ABC123");
                 _actualSecondValue.ShouldBe("ABC123");
+            }
+        }
+
+        public class When_getting_StudentUsi_for_StudentUniqueId_and_caching_is_disabled_for_the_Student
+            : When_getting_Usi_for_UniqueId_and_caching_is_disabled_for_the_person_type
+        {
+            protected override string PersonType => "Student";
+        }
+        
+        public class When_getting_StaffUsi_for_StaffUniqueId_and_caching_is_disabled_for_the_Staff
+            : When_getting_Usi_for_UniqueId_and_caching_is_disabled_for_the_person_type
+        {
+            protected override string PersonType => "Staff";
+        }
+        
+        public class When_getting_ParentUsi_for_ParentUniqueId_and_caching_is_disabled_for_the_Parent
+            : When_getting_Usi_for_UniqueId_and_caching_is_disabled_for_the_person_type
+        {
+            protected override string PersonType => "Parent";
+        }
+
+        public abstract class When_getting_Usi_for_UniqueId_and_caching_is_disabled_for_the_person_type : TestFixtureBase
+        {
+            // Actual results
+            private int? _actualUsi;
+            private string _actualUniqueId;
+
+            // External dependencies
+            private IEdFiOdsInstanceIdentificationProvider _edFiOdsInstanceIdentificationProvider;
+            private IUniqueIdToUsiValueMapper _usiValueMapper;
+            private IPersonIdentifiersProvider _personIdentifiersProvider;
+            private MemoryCacheProvider _memoryCacheProvider;
+            private PersonUniqueIdToUsiCache _usiCache;
+            private MemoryCache _memoryCache;
+
+            protected abstract string PersonType { get; }
+            
+            protected override void Arrange()
+            {
+                _edFiOdsInstanceIdentificationProvider = Stub<IEdFiOdsInstanceIdentificationProvider>();
+                _personIdentifiersProvider = Stub<IPersonIdentifiersProvider>();
+
+                A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(A<string>._))
+                    .Returns(Task.FromResult(Enumerable.Empty<PersonIdentifiersValueMap>()));
+
+                _usiValueMapper = Stub<IUniqueIdToUsiValueMapper>();
+
+                A.CallTo(() => _usiValueMapper.GetUsi(PersonType, "ABC123"))
+                    .Returns(new PersonIdentifiersValueMap() { UniqueId = "ABC123", Usi = 100});
+
+                A.CallTo(() => _usiValueMapper.GetUniqueId(PersonType, 200))
+                    .Returns(new PersonIdentifiersValueMap() { UniqueId = "CDE234", Usi = 200});
+
+                _memoryCache = new MemoryCache(new MemoryCacheOptions());
+                _memoryCacheProvider = new MemoryCacheProvider(_memoryCache);
+
+                _usiCache = new PersonUniqueIdToUsiCache(
+                    _memoryCacheProvider, _edFiOdsInstanceIdentificationProvider, _usiValueMapper, _personIdentifiersProvider,
+                    TimeSpan.Zero, TimeSpan.Zero,
+                    synchronousInitialization: false,
+                    suppressStudentCache: PersonType == "Student",
+                    suppressStaffCache: PersonType == "Staff",
+                    suppressParentCache: PersonType == "Parent");
+            }
+
+            protected override void Act()
+            {
+                _actualUsi = _usiCache.GetUsiNullable(PersonType, "ABC123");
+                _actualUniqueId = _usiCache.GetUniqueId(PersonType, 200);
+            }
+
+            [Test]
+            public void Should_use_value_mapper_to_retrieve_the_USI()
+            {
+                _actualUsi.ShouldBe(100);
+            }
+
+            [Test]
+            public void Should_use_value_mapper_to_retrieve_the_UniqueId()
+            {
+                _actualUniqueId.ShouldBe("CDE234");
+            }
+
+            [Test]
+            public void Should_not_modify_the_memory_cache()
+            {
+                _memoryCache.Count.ShouldBe(0);
+            }
+
+            [Test]
+            public void Should_not_attempt_to_load_all_mappings()
+            {
+                A.CallTo(() => _personIdentifiersProvider.GetAllPersonIdentifiers(PersonType)).MustNotHaveHappened();
             }
         }
     }
