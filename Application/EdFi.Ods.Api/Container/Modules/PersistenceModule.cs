@@ -172,7 +172,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStudentCache") ?? true;
+                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStudentCache") ?? false;
                         }))
                 .WithParameter(
                     new ResolvedParameter(
@@ -181,7 +181,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStaffCache") ?? true;
+                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressStaffCache") ?? false;
                         }))
                 .WithParameter(
                     new ResolvedParameter(
@@ -190,7 +190,7 @@ namespace EdFi.Ods.Api.Container.Modules
                         {
                             var configuration = c.Resolve<IConfiguration>();
 
-                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressParentCache") ?? true;
+                            return configuration.GetValue<bool?>("Caching:PersonUniqueIdToUsi:SuppressParentCache") ?? false;
                         }))
                 .As<IPersonUniqueIdToUsiCache>()
                 .SingleInstance();
