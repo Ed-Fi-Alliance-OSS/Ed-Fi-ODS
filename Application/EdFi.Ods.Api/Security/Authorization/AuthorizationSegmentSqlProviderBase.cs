@@ -98,20 +98,25 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                     string CreateSegmentExpression(ref int index)
                     {
-                        if (string.Compare(subjectEndpointName, claimEndpointName, StringComparison.InvariantCultureIgnoreCase) < 0)
+                        if (string.Compare(subjectEndpointName, claimEndpointName, StringComparison.InvariantCultureIgnoreCase) <
+                            0)
                         {
                             return string.Format(
                                 StatementTemplate,
                                 subjectEndpointName,
                                 GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
-                                claimEndpointName,
+                                claimEndpointName.ContainsIgnoreCase("EducationOrganizationId")
+                                    ? "SourceEducationOrganizationId"
+                                    : claimEndpointName,
                                 GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
                                 derivedAuthorizationViewName);
                         }
 
                         return string.Format(
                             StatementTemplate,
-                            claimEndpointName,
+                            claimEndpointName.ContainsIgnoreCase("EducationOrganizationId")
+                                ? "SourceEducationOrganizationId"
+                                : claimEndpointName,
                             GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
                             subjectEndpointName,
                             GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
