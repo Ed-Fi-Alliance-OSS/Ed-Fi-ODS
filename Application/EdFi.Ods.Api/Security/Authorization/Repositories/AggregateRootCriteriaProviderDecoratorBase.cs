@@ -6,7 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Providers.Criteria;
@@ -100,18 +99,31 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                     isSubjectNameAuthorizable = true;
 
+                    var filtersBackedByNewAuthViews = new List<string>
+                    {
+                        "LocalEducationAgencyIdToParentUSI",
+                        "ParentUSIToSchoolId",
+                        "LocalEducationAgencyIdToStudentUSI",
+                        "SchoolIdToStudentUSI"
+                    };
+
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        var parameterValues = new Dictionary<string, object>
+                        Dictionary<string, object> parameterValues;
+
+                        if (filtersBackedByNewAuthViews.Contains(filterDetails.FilterName, StringComparer.OrdinalIgnoreCase))
                         {
+                            parameterValues =
+                                new Dictionary<string, object> {{"SourceEducationOrganizationId", filterDetails.ClaimValues}};
+                        }
+                        else
+                        {
+                            parameterValues = new Dictionary<string, object>
                             {
-                                filterDetails.ClaimEndpointName.EqualsIgnoreCase("EducationOrganizationId")
-                                    ? "SourceEducationOrganizationId"
-                                    : filterDetails.ClaimEndpointName,
-                                filterDetails.ClaimValues
-                            }
-                        };
+                                {filterDetails.ClaimEndpointName, filterDetails.ClaimValues}
+                            };
+                        }
 
                         applicator(
                             criteria, disjunction, parameterValues, hasMultipleClaimEndpoints

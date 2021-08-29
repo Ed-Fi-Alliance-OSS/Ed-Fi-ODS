@@ -41,7 +41,7 @@ where comp_aaa.SchoolId IN (:BaseEntityId) AND (comp_aae.SchoolId IN (
                         WHERE fltr_aar.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aae.StudentUSI IN (
                             SELECT fltr_aab.StudentUSI 
                             FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId fltr_aab 
-                            WHERE fltr_aab.SourceEducationOrganizationId IN (:SourceEducationOrganizationId)))
+                            WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.SchoolId,
 	comp_aae.EntryDate,
 	comp_aae.StudentUSI

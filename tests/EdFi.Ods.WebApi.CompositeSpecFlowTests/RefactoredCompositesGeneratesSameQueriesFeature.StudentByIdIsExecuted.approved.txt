@@ -14,7 +14,7 @@ from
 where comp_aaa.Id = :Id AND (comp_aaa.StudentUSI IN (
                             SELECT fltr_aab.StudentUSI 
                             FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId fltr_aab 
-                            WHERE fltr_aab.SourceEducationOrganizationId IN (:SourceEducationOrganizationId)))
+                            WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.StudentUSI
 HQL:
 select 
@@ -40,7 +40,7 @@ where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aab.SchoolId IN (
                         WHERE fltr_aar.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aab.StudentUSI IN (
                             SELECT fltr_aab.StudentUSI 
                             FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId fltr_aab 
-                            WHERE fltr_aab.SourceEducationOrganizationId IN (:SourceEducationOrganizationId)))
+                            WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.StudentUSI,
 	comp_aab.EntryDate,
 	comp_aab.SchoolId
@@ -66,7 +66,7 @@ where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aaf.EducationOrganization
                         WHERE fltr_aan.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aaf.StudentUSI IN (
                             SELECT fltr_aab.StudentUSI 
                             FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId fltr_aab 
-                            WHERE fltr_aab.SourceEducationOrganizationId IN (:SourceEducationOrganizationId)))
+                            WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.StudentUSI,
 	comp_aaf.EducationOrganizationId
 HQL:

@@ -219,54 +219,35 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <returns>The <see cref="AuthorizationBuilder{TContextData}"/> instance, for chaining methods together.</returns>
         public AuthorizationBuilder<TContextData> ClaimsMustBeAssociatedWith(params SegmentProperty[] segmentProperties)
         {
-            AddClaimsAuthorizationSegmentList(_claimAuthorizationValues.Value, segmentProperties);
+            if (_contextData == null)
+            {
+                foreach (var segmentProperty in segmentProperties)
+                {
+                    _claimsAuthorizationSegments.Add(
+                        new ClaimsAuthorizationSegment(
+                            _claimAuthorizationValues.Value,
+                            new AuthorizationSegmentEndpoint(
+                                segmentProperty.PropertyName,
+                                segmentProperty.PropertyType),
+                            segmentProperty.AuthorizationPathModifier));
+                }
+            }
+            else
+            {
+                foreach (var segmentProperty in segmentProperties)
+                {
+                    _claimsAuthorizationSegments.Add(
+                        new ClaimsAuthorizationSegment(
+                            _claimAuthorizationValues.Value,
+                            new AuthorizationSegmentEndpointWithValue(
+                                segmentProperty.PropertyName,
+                                segmentProperty.PropertyType,
+                                segmentProperty.PropertyValue),
+                            segmentProperty.AuthorizationPathModifier));
+                }
+            }
 
             return this;
-        }
-
-        private void AddClaimsAuthorizationSegmentList(
-            List<Tuple<string, object>> claimNamesAndValues,
-            params SegmentProperty[] segmentProperties)
-        {
-            foreach (var segmentProperty in segmentProperties)
-            {
-                IEnumerable<AuthorizationSegmentEndpointWithValue> claimsEndpoints = null;
-
-
-                // When subject Endpoint ends with StudentUSI and authorizationPathModifier does not have  ThroughEdOrgAssociation
-                // use new Student view 
-                if (segmentProperty.PropertyName.EqualsIgnoreCase("StudentUSI") &&
-                    !segmentProperty.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation"))
-                {
-                    claimsEndpoints = claimNamesAndValues
-                        .Select(
-                            cv =>
-                                new AuthorizationSegmentEndpointWithValue(
-                                    "EducationOrganizationId",
-                                    cv.Item2.GetType(),
-                                    cv.Item2));
-                }
-                else
-                {
-                    claimsEndpoints = claimNamesAndValues
-                        .Select(
-                            cv =>
-                                new AuthorizationSegmentEndpointWithValue(
-                                    cv.Item1,
-                                    cv.Item2.GetType(),
-                                    cv.Item2));
-                }
-
-                var claimsAuthorizationSegment = new ClaimsAuthorizationSegment(
-                    claimsEndpoints.ToList().AsReadOnly(),
-                    _contextData == null
-                        ? new AuthorizationSegmentEndpoint(segmentProperty.PropertyName, segmentProperty.PropertyType)
-                        : new AuthorizationSegmentEndpointWithValue(
-                            segmentProperty.PropertyName, segmentProperty.PropertyType, segmentProperty.PropertyValue),
-                    segmentProperty.AuthorizationPathModifier);
-
-                _claimsAuthorizationSegments.Add(claimsAuthorizationSegment);
-            }
         }
 
         private SegmentProperty CreateSegment(string propertyName, string authorizationPathModifier)
