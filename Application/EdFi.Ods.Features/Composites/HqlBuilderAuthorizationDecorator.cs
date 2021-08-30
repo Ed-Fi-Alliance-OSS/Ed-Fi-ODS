@@ -67,7 +67,7 @@ namespace EdFi.Ods.Features.Composites
                     $"Unable to evaluate resource '{resourceClass.FullName}' for inclusion in HQL query because it is not the root class of the resource.");
             }
 
-            var resource = (Resource)resourceClass;
+            var resource = (Resource) resourceClass;
 
             // --------------------------
             //   Determine inclusion
