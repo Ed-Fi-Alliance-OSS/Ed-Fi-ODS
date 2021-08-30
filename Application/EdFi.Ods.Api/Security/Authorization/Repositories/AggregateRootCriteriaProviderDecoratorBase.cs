@@ -1,4 +1,4 @@
-﻿﻿// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -99,29 +99,10 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                     isSubjectNameAuthorizable = true;
 
-                    var filtersBackedByNewAuthViews = new List<string>
-                    {
-                        "LocalEducationAgencyIdToStudentUSI",
-                        "SchoolIdToStudentUSI"
-                    };
-
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        Dictionary<string, object> parameterValues;
-
-                        if (filtersBackedByNewAuthViews.Contains(filterDetails.FilterName, StringComparer.OrdinalIgnoreCase))
-                        {
-                            parameterValues =
-                                new Dictionary<string, object> {{"SourceEducationOrganizationId", filterDetails.ClaimValues}};
-                        }
-                        else
-                        {
-                            parameterValues = new Dictionary<string, object>
-                            {
-                                {filterDetails.ClaimEndpointName, filterDetails.ClaimValues}
-                            };
-                        }
+                        var parameterValues = new Dictionary<string, object> { { filterDetails.ClaimEndpointName, filterDetails.ClaimValues } };
 
                         applicator(criteria, disjunction, parameterValues, hasMultipleClaimEndpoints ? JoinType.LeftOuterJoin : JoinType.InnerJoin);
                     }
