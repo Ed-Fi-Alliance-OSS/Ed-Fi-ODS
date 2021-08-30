@@ -6,13 +6,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Api.Security.Authorization.Filtering;
+using NHibernate;
+using NHibernate.Criterion;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Security;
+using EdFi.Ods.Api.Security.Authorization.Filtering;
 using log4net;
-using NHibernate;
-using NHibernate.Criterion;
 using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
@@ -25,9 +25,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         : IAggregateRootCriteriaProvider<TEntity>
         where TEntity : class
     {
-        private readonly IFilterCriteriaApplicatorProvider _authorizationCriteriaApplicatorProvider;
-        private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IAggregateRootCriteriaProvider<TEntity> _decoratedInstance;
+        private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
+        private readonly IFilterCriteriaApplicatorProvider _authorizationCriteriaApplicatorProvider;
 
         private readonly ILog _logger;
 
@@ -110,25 +110,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        Dictionary<string, object> parameterValues;
+                        var parameterValues = new Dictionary<string, object> { { filterDetails.ClaimEndpointName, filterDetails.ClaimValues } };
 
-                        if (filtersBackedByNewAuthViews.Contains(filterDetails.FilterName, StringComparer.OrdinalIgnoreCase))
-                        {
-                            parameterValues =
-                                new Dictionary<string, object> {{"SourceEducationOrganizationId", filterDetails.ClaimValues}};
-                        }
-                        else
-                        {
-                            parameterValues = new Dictionary<string, object>
-                            {
-                                {filterDetails.ClaimEndpointName, filterDetails.ClaimValues}
-                            };
-                        }
-
-                        applicator(
-                            criteria, disjunction, parameterValues, hasMultipleClaimEndpoints
-                                ? JoinType.LeftOuterJoin
-                                : JoinType.InnerJoin);
+                        applicator(criteria, disjunction, parameterValues, hasMultipleClaimEndpoints ? JoinType.LeftOuterJoin : JoinType.InnerJoin);
                     }
                 }
 
@@ -136,8 +120,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 {
                     if (_logger.IsDebugEnabled)
                     {
-                        _logger.Debug(
-                            $"Unable to authorize access to '{typeof(TEntity).FullName}' because none of the following authorization filters were defined: '{string.Join($"', '", unsupportedAuthorizationFilters)}'.");
+                        _logger.Debug($"Unable to authorize access to '{typeof(TEntity).FullName}' because none of the following authorization filters were defined: '{string.Join($"', '", unsupportedAuthorizationFilters)}'.");
                     }
 
                     throw new EdFiSecurityException(

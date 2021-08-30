@@ -40,7 +40,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         @"StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
                             FROM auth.StudentUSIToEducationOrganizationId {newAlias1} 
-                            WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
+                            WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         @"{currentAlias}.StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
                             FROM " + "auth_StudentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
@@ -78,7 +78,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         @"StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
                             FROM auth.StudentUSIToEducationOrganizationId {newAlias1} 
-                            WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
+                            WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         @"{currentAlias}.StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
                             FROM " + "auth_StudentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
