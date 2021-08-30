@@ -6,11 +6,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -126,7 +126,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 builder.ClaimsMustBeAssociatedWith(
                     new[]
                     {
-                        "StudentUSI", "StaffUSI"
+                        "StudentUSI",
+                        "StaffUSI"
                     });
 
                 _actualSegments = builder.GetSegments();
@@ -142,7 +143,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             public void Should_create_first_segment_as_a_school_to_the_first_supplied_property_name()
             {
                 _actualSegments.ElementAt(0)
-                    .ClaimsEndpoints.All(x => x.Name == "EducationOrganizationId")
+                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
                     .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
@@ -211,7 +212,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             }
         }
 
-        public class When_building_segments_using_2_calls_with_individual_property_names_and_one_with_an_authorization_path_modifier
+        public class
+            When_building_segments_using_2_calls_with_individual_property_names_and_one_with_an_authorization_path_modifier
             : TestFixtureBase
         {
             // Supplied values
@@ -243,7 +245,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 Should_create_first_segment_as_a_school_to_the_first_supplied_property_name_with_the_supplied_authorization_path_modifer_intact()
             {
                 _actualSegments.ElementAt(0)
-                    .ClaimsEndpoints.All(x => x.Name == "EducationOrganizationId")
+                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
                     .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
@@ -254,7 +256,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             }
 
             [Assert]
-            public void Should_create_second_segment_as_a_school_to_the_second_supplied_property_name_with_no_authorization_path_modifier()
+            public void
+                Should_create_second_segment_as_a_school_to_the_second_supplied_property_name_with_no_authorization_path_modifier()
             {
                 _actualSegments.ElementAt(1)
                     .ClaimsEndpoints.All(x => x.Name == "SchoolId")
@@ -268,13 +271,15 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             }
         }
 
-  #region Givens
+#region Givens
+
         private static IEducationOrganizationCache Given_a_cache_that_indicates_no_organizations_exist()
         {
             return A.Fake<IEducationOrganizationCache>();
         }
 
-        private static IEducationOrganizationCache Given_a_cache_that_indicates_all_education_organizations_exist_and_are_schools()
+        private static IEducationOrganizationCache
+            Given_a_cache_that_indicates_all_education_organizations_exist_and_are_schools()
         {
             var educationOrganizationCache = A.Fake<IEducationOrganizationCache>();
 
@@ -292,10 +297,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                     "someResource",
                     new EdFiResourceClaimValue(
                         "something",
-                        new List<int>
-                        {
-                            999
-                        }))
+                        new List<int> {999}))
             };
         }
 
@@ -311,7 +313,8 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             return educationOrganizationCache;
         }
 
-        private static IEnumerable<Claim> Given_a_claimset_with_a_claim_for_LocalEducationAgencies(params int[] localEducationAgencyIds)
+        private static IEnumerable<Claim> Given_a_claimset_with_a_claim_for_LocalEducationAgencies(
+            params int[] localEducationAgencyIds)
         {
             return new[]
             {
@@ -334,12 +337,10 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
         private static RelationshipsAuthorizationContextData
             Given_authorization_context_data_with_some_StaffUniqueId()
         {
-            return new RelationshipsAuthorizationContextData
-            {
-                StaffUSI = 1234
-            };
+            return new RelationshipsAuthorizationContextData {StaffUSI = 1234};
         }
- #endregion
+
+#endregion
     }
 
     public class
@@ -361,7 +362,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
         protected override void Arrange()
         {
- #region Commented out code for integration testing against SQL Server
+#region Commented out code for integration testing against SQL Server
 
             //private IDatabaseConnectionStringProvider connectionStringProvider;
 
@@ -371,6 +372,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
             //var executor = new EdFiOdsAuthorizationRulesExecutor(connectionStringProvider);
             //executor.Execute(actualAuthorizationRules);
+
 #endregion
 
             _suppliedContextData = new RelationshipsAuthorizationContextData
@@ -383,15 +385,17 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 "manage",
                 new List<int>
                 {
-                     780, 880, 980
+                    780,
+                    880,
+                    980
                 });
 
             _suppliedClaims = new List<Claim>
-             {
-                 JsonClaimHelper.CreateClaim(
-                     "http://ed-fi.org/ods/identity/claims/domains/generalData",
-                     _suppliedEdFiResourceClaimValue)
-             };
+            {
+                JsonClaimHelper.CreateClaim(
+                    "http://ed-fi.org/ods/identity/claims/domains/generalData",
+                    _suppliedEdFiResourceClaimValue)
+            };
 
             _educationOrganizationCache = Stub<IEducationOrganizationCache>();
 
@@ -442,7 +446,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
 
             // Make sure all the LEA Ids are present
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
+            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int) x.Value)
                 .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
                 .ShouldBeTrue();
 
@@ -489,24 +493,23 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 
         protected override void Arrange()
         {
-            suppliedContextData = new RelationshipsAuthorizationContextData
-            {
-                StudentUSI = 11111
-            };
+            suppliedContextData = new RelationshipsAuthorizationContextData {StudentUSI = 11111};
 
             _suppliedEdFiResourceClaimValue = new EdFiResourceClaimValue(
                 "manage",
                 new List<int>
                 {
-                     1, 2, 3
+                    1,
+                    2,
+                    3
                 });
 
             suppliedClaims = new List<Claim>
-             {
-                 JsonClaimHelper.CreateClaim(
-                     "http://ed-fi.org/ods/identity/claims/domains/generalData",
-                     _suppliedEdFiResourceClaimValue)
-             };
+            {
+                JsonClaimHelper.CreateClaim(
+                    "http://ed-fi.org/ods/identity/claims/domains/generalData",
+                    _suppliedEdFiResourceClaimValue)
+            };
 
             _educationOrganizationCache = Stub<IEducationOrganizationCache>();
 
@@ -565,7 +568,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 .ShouldBe(_suppliedEdFiResourceClaimValue.EducationOrganizationIds.Count);
 
             // Make sure all the LEA Ids are present
-            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int)x.Value)
+            _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => (int) x.Value)
                 .All(cv => _suppliedEdFiResourceClaimValue.EducationOrganizationIds.Contains(cv))
                 .ShouldBeTrue();
 

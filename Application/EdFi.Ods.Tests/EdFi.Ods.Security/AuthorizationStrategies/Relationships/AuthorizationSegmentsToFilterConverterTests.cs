@@ -6,10 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.TestFixture;
 using FakeItEasy;
 using FakeItEasy.Configuration;
@@ -52,7 +52,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             return dependency;
         }
 
-        public static IReturnValueArgumentValidationConfiguration<EducationOrganizationIdentifiers> that_given_education_organization_id(
+        public static IReturnValueArgumentValidationConfiguration<EducationOrganizationIdentifiers>
+            that_given_education_organization_id(
             this IEducationOrganizationCache dependency,
             int identifier)
         {
@@ -70,7 +71,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             var builder = new AuthorizationBuilder<RelationshipsAuthorizationContextData>(
                 new[]
                 {
-                     JsonClaimHelper.CreateClaim("someResource", new EdFiResourceClaimValue("action", new List<int>(identifiers)))
+                    JsonClaimHelper.CreateClaim(
+                        "someResource", new EdFiResourceClaimValue("action", new List<int>(identifiers)))
                 },
                 cache);
 
@@ -149,10 +151,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues
                     .ShouldBe(
-                        new object[]
-                        {
-                             999
-                        });
+                        new object[] {999});
             }
         }
 
@@ -191,12 +190,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             }
 
             [Assert]
-            public void Should_create_a_single_filter_named_for_the_segment_endpoint_values_applying_the_authorization_path_modifier_as_a_suffix()
+            public void
+                Should_create_a_single_filter_named_for_the_segment_endpoint_values_applying_the_authorization_path_modifier_as_a_suffix()
             {
                 _actualFilters.Count.ShouldBe(1);
 
                 _actualFilters.Single().FilterName
-                    .ShouldBe("StudentUSIToEducationOrganizationIdOverTheRiverAndThroughTheWoods");
+                    .ShouldBe("LocalEducationAgencyIdToStudentUSIOverTheRiverAndThroughTheWoods");
             }
 
             [Assert]
@@ -207,14 +207,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe("EducationOrganizationId");
+                actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
 
                 parameterValues
                     .ShouldBe(
-                        new object[]
-                        {
-                             999
-                        });
+                        new object[] {999});
             }
         }
 
@@ -266,12 +263,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 _actualFilters[0].FilterName.ShouldBe("LocalEducationAgencyIdToSchoolId");
                 _actualFilters[0].ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
                 _actualFilters[0].SubjectEndpointName.ShouldBe("SchoolId");
-                _actualFilters[0].ClaimValues.ShouldBe(new object[] { 999 });
+                _actualFilters[0].ClaimValues.ShouldBe(new object[] {999});
 
                 _actualFilters[1].FilterName.ShouldBe("SchoolIdToSchoolId");
                 _actualFilters[1].ClaimEndpointName.ShouldBe("SchoolId");
                 _actualFilters[1].SubjectEndpointName.ShouldBe("SchoolId");
-                _actualFilters[1].ClaimValues.ShouldBe(new object[] { 1000 });
+                _actualFilters[1].ClaimValues.ShouldBe(new object[] {1000});
             }
         }
 
@@ -322,10 +319,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues
                     .ShouldBe(
-                        new object[]
-                        {
-                             999
-                        });
+                        new object[] {999});
             }
         }
 
@@ -368,14 +362,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues
                     .ShouldBe(
-                        new object[]
-                        {
-                             999
-                        });
+                        new object[] {999});
             }
         }
 
-        public class When_converting_to_filters_from_a_segment_with_a_target_endpoint_that_is_a_uniqueId_for_an_entity_WITHOUT_a_uniqueId_property
+        public class
+            When_converting_to_filters_from_a_segment_with_a_target_endpoint_that_is_a_uniqueId_for_an_entity_WITHOUT_a_uniqueId_property
             : ScenarioFor<AuthorizationSegmentsToFiltersConverter>
         {
             private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
@@ -402,7 +394,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             }
 
             [Assert]
-            public void Should_convert_UniqueId_properties_to_USI_in_the_constructed_view_name_when_the_property_DOES_NOT_exist_on_the_targeted_entity()
+            public void
+                Should_convert_UniqueId_properties_to_USI_in_the_constructed_view_name_when_the_property_DOES_NOT_exist_on_the_targeted_entity()
             {
                 var filter = _actualFilters.Single();
                 var viewName = filter.FilterName;
