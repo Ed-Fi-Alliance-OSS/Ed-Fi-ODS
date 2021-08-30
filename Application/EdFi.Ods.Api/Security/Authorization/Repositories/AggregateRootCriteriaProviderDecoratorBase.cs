@@ -101,8 +101,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                     var filtersBackedByNewAuthViews = new List<string>
                     {
-                        "LocalEducationAgencyIdToParentUSI",
-                        "ParentUSIToSchoolId",
                         "LocalEducationAgencyIdToStudentUSI",
                         "SchoolIdToStudentUSI"
                     };
