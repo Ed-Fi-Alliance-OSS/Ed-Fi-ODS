@@ -193,7 +193,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
             public void Should_create_first_segment_as_a_school_to_the_first_supplied_property_name()
             {
                 _actualSegments.ElementAt(0)
-                    .ClaimsEndpoints.All(x => x.Name == "EducationOrganizationId")
+                    .ClaimsEndpoints.All(x => x.Name == "SchoolId")
                     .ShouldBeTrue();
 
                 _actualSegments.ElementAt(0)
@@ -573,7 +573,7 @@ namespace EdFi.Ods.Tests.EdFi.Security.Authorization
                 .ShouldBeTrue();
 
             _actualLocalEducationAgencySegment.ClaimsEndpoints.Select(x => x.Name)
-                .All(n => n == "EducationOrganizationId")
+                .All(n => n == "LocalEducationAgencyId")
                 .ShouldBeTrue();
         }
 
