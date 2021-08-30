@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Security.Claims;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -32,7 +33,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             = new ConcurrentDictionary<string, object>();
 
         private static readonly IDictionary<string, PropertyInfo> _propertyInfoByName;
-
+        
         private readonly Lazy<List<Tuple<string, object>>> _claimAuthorizationValues;
         private readonly List<ClaimsAuthorizationSegment> _claimsAuthorizationSegments = new List<ClaimsAuthorizationSegment>();
         private readonly TContextData _contextData;
@@ -44,10 +45,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             _propertyInfoByName = typeof(TContextData)
                 .GetProperties()
                 .ToDictionary(
-                    p => p.Name,
+                    p => p.Name, 
                     p => p);
         }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorizationBuilder{TContextData}"/> class using the
         /// specified <see cref="RelationshipsAuthorizationContextData"/> and collection of <see cref="Claim"/>s.
@@ -141,10 +142,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 if (_relevantClaims.Any(
                     x => !x.ToEdFiResourceClaimValue()
-                        .EducationOrganizationIds.Any()))
+                           .EducationOrganizationIds.Any()))
                 {
-                    throw new EdFiSecurityException(
-                        "The request can not be authorized because there were no education organizations on the claim.");
+                    throw new EdFiSecurityException("The request can not be authorized because there were no education organizations on the claim.");
                 }
 
                 throw new EdFiSecurityException(
@@ -180,8 +180,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <param name="propertyName">The names of the property with which the claim must be associated.</param>
         /// <param name="authorizationPathModifier">An optional value that identifies an alternative path through the ODS data model for authorization.</param>
         /// <returns>The <see cref="AuthorizationBuilder{TContextData}"/> instance, for chaining methods together.</returns>
-        public AuthorizationBuilder<TContextData> ClaimsMustBeAssociatedWith(string propertyName,
-            string authorizationPathModifier = null)
+        public AuthorizationBuilder<TContextData> ClaimsMustBeAssociatedWith(string propertyName, string authorizationPathModifier = null)
         {
             if (_contextData == null)
             {
@@ -202,12 +201,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 return ClaimsMustBeAssociatedWith(
                     propertyNames.Select(pn => CreateSegment(pn, null))
-                        .ToArray());
+                                 .ToArray());
             }
 
             return ClaimsMustBeAssociatedWith(
                 propertyNames.Select(pn => CreateSegmentWithValue(pn, null))
-                    .ToArray());
+                             .ToArray());
         }
 
         /// <summary>
@@ -299,7 +298,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 }
 
                 var nonRoleNamedContextDataPropertyName = nonRoleNamedContextDataPropertyNames.SingleOrDefault();
-
+                
                 // If we're unable to find the non-role named equivalent (by convention), stop now.
                 if (nonRoleNamedContextDataPropertyName == null)
                 {
@@ -311,8 +310,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 propertyInfo = _propertyInfoByName[propertyName];
             }
 
-            return new SegmentProperty(
-                propertyName, propertyInfo.PropertyType, propertyInfo.GetValue(_contextData), authorizationPathModifier);
+            return new SegmentProperty(propertyName, propertyInfo.PropertyType, propertyInfo.GetValue(_contextData), authorizationPathModifier);
 
             string ApplyEducationOrganizationIdPropertyNameResolution(string presentedPropertyName)
             {
@@ -326,8 +324,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             }
         }
 
-        private SegmentProperty CreateSegment<TResult1>(Expression<Func<TContextData, TResult1>> propertyExpression,
-            string authorizationPathModifier)
+        private SegmentProperty CreateSegment<TResult1>(Expression<Func<TContextData, TResult1>> propertyExpression, string authorizationPathModifier)
         {
             var expr = propertyExpression.Body as MemberExpression;
 
@@ -369,7 +366,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
             // Get (or save) the compiled Func, by name
             var getValue = (Func<TContextData, TResult>) _propertyAccessorsByName
-                .GetOrAdd(name, n => propertySelection.Compile());
+               .GetOrAdd(name, n => propertySelection.Compile());
 
             // Get the value off the authorization context data instance
             object authorizationValue = _contextData == null
