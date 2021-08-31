@@ -34,8 +34,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string joinPropertyName,
             string filterPropertyName,
             JoinType joinType,
-            string authViewAlias)
+            string authViewAlias = null)
         {
+            authViewAlias = string.IsNullOrWhiteSpace(authViewAlias)
+                ? $"authView{viewName}"
+                : authViewAlias;
+
             // Apply authorization join using ICriteria
             criteria.CreateEntityAlias(
                 authViewAlias,
@@ -47,7 +51,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
             // Defensive check to ensure required parameter is present
             if (!parameters.TryGetValue(filterPropertyName, out value))
+            {
                 throw new Exception($"Unable to find parameter for filtering '{filterPropertyName}' on view '{viewName}'.");
+            }
 
             var arrayOfValues = value as object[];
 
@@ -62,7 +68,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     var and = new AndExpression(
                         Restrictions.In($"{authViewAlias}.{filterPropertyName}", arrayOfValues),
                         Restrictions.IsNotNull($"{authViewAlias}.{joinPropertyName}"));
-                
+
                     whereJunction.Add(and);
                 }
             }
@@ -77,7 +83,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     var and = new AndExpression(
                         Restrictions.Eq($"{authViewAlias}.{filterPropertyName}", value),
                         Restrictions.IsNotNull($"{authViewAlias}.{joinPropertyName}"));
-                
+
                     whereJunction.Add(and);
                 }
             }
