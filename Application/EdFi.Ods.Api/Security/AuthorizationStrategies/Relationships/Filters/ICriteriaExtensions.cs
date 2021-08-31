@@ -25,6 +25,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         /// <param name="joinPropertyName">The name of the property to be joined between the entity being queried and the authorization view.</param>
         /// <param name="filterPropertyName">The name of the property to be used for applying filter values.</param>
         /// <param name="joinType">The <see cref="JoinType" /> to be used.</param>
+        /// <param name="authViewAlias">The name of the property to be used for auth View Alias name.</param>
         public static void ApplyJoinFilter(
             this ICriteria criteria,
             Junction whereJunction,
@@ -32,10 +33,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string viewName,
             string joinPropertyName,
             string filterPropertyName,
-            JoinType joinType)
+            JoinType joinType,
+            string authViewAlias)
         {
-            string authViewAlias = $"authView{viewName}";
-
             // Apply authorization join using ICriteria
             criteria.CreateEntityAlias(
                 authViewAlias,
