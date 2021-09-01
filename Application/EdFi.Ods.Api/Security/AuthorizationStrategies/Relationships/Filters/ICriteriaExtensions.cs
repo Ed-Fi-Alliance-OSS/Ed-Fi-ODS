@@ -38,7 +38,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         {
             authViewAlias = string.IsNullOrWhiteSpace(authViewAlias)
                 ? $"authView{viewName}"
-                : authViewAlias;
+                : $"authView{authViewAlias}";
 
             // Apply authorization join using ICriteria
             criteria.CreateEntityAlias(
