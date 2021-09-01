@@ -83,7 +83,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 bool isSubjectNameAuthorizable = false;
                 var unsupportedAuthorizationFilters = new List<string>();
 
-                foreach (var filterDetails in subjectNameGroupinC:\src\EdFi-OSS\Ed-Fi-ODS\Application\EdFi.Ods.Api\Security\Authorization\Repositories\AggregateRootCriteriaProviderDecoratorBase.csg)
+                foreach (var filterDetails in subjectNameGrouping)
                 {
                     IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators;
 
@@ -117,7 +117,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         {
                             parameterValues =
                                 new Dictionary<string, object> {{"SourceEducationOrganizationId", filterDetails.ClaimValues}};
-                        else
                         }
                         else
                         {
