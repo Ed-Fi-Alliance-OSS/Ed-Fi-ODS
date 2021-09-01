@@ -1,4 +1,4 @@
-HQL:
+﻿HQL:
 select distinct 
 	comp_aaa.Id As __BaseEntityId__,
 	comp_aaa.LocalCourseCode as PK1a_LocalCourseCode,
@@ -106,8 +106,8 @@ where comp_aaa.Id IN (:BaseEntityId) AND (comp_aan.SchoolId IN (
                         FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToSchoolId fltr_aar 
                         WHERE fltr_aar.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aan.StudentUSI IN (
                             SELECT fltr_aab.StudentUSI 
-                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStudentUSI fltr_aab 
-                            WHERE fltr_aab.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId fltr_aab 
+                            WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.LocalCourseCode,
 	comp_aaa.SchoolId,
 	comp_aaa.SchoolYear,

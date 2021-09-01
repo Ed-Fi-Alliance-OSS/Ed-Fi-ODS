@@ -25,6 +25,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         /// <param name="joinPropertyName">The name of the property to be joined between the entity being queried and the authorization view.</param>
         /// <param name="filterPropertyName">The name of the property to be used for applying filter values.</param>
         /// <param name="joinType">The <see cref="JoinType" /> to be used.</param>
+        /// <param name="authViewAlias">The name of the property to be used for auth View Alias name.</param>
         public static void ApplyJoinFilter(
             this ICriteria criteria,
             Junction whereJunction,
@@ -32,9 +33,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string viewName,
             string joinPropertyName,
             string filterPropertyName,
-            JoinType joinType)
+            JoinType joinType,
+            string authViewAlias = null)
         {
-            string authViewAlias = $"authView{viewName}";
+            authViewAlias = string.IsNullOrWhiteSpace(authViewAlias)
+                ? $"authView{viewName}"
+                : $"authView{authViewAlias}";
 
             // Apply authorization join using ICriteria
             criteria.CreateEntityAlias(
@@ -47,7 +51,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
             // Defensive check to ensure required parameter is present
             if (!parameters.TryGetValue(filterPropertyName, out value))
+            {
                 throw new Exception($"Unable to find parameter for filtering '{filterPropertyName}' on view '{viewName}'.");
+            }
 
             var arrayOfValues = value as object[];
 
@@ -62,7 +68,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     var and = new AndExpression(
                         Restrictions.In($"{authViewAlias}.{filterPropertyName}", arrayOfValues),
                         Restrictions.IsNotNull($"{authViewAlias}.{joinPropertyName}"));
-                
+
                     whereJunction.Add(and);
                 }
             }
@@ -77,7 +83,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     var and = new AndExpression(
                         Restrictions.Eq($"{authViewAlias}.{filterPropertyName}", value),
                         Restrictions.IsNotNull($"{authViewAlias}.{joinPropertyName}"));
-                
+
                     whereJunction.Add(and);
                 }
             }

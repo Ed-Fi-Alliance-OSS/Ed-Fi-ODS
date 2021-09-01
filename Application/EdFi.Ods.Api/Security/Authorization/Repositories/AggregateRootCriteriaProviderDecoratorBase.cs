@@ -99,10 +99,29 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                     isSubjectNameAuthorizable = true;
 
+                    var filtersBackedByNewAuthViews = new List<string>
+                    {
+                        "LocalEducationAgencyIdToStudentUSI",
+                        "SchoolIdToStudentUSI"
+                    };
+
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        var parameterValues = new Dictionary<string, object> { { filterDetails.ClaimEndpointName, filterDetails.ClaimValues } };
+                        Dictionary<string, object> parameterValues;
+
+                        if (filtersBackedByNewAuthViews.Contains(filterDetails.FilterName, StringComparer.OrdinalIgnoreCase))
+                        {
+                            parameterValues =
+                                new Dictionary<string, object> {{"SourceEducationOrganizationId", filterDetails.ClaimValues}};
+                        }
+                        else
+                        {
+                            parameterValues = new Dictionary<string, object>
+                            {
+                                {filterDetails.ClaimEndpointName, filterDetails.ClaimValues}
+                            };
+                        }
 
                         applicator(criteria, disjunction, parameterValues, hasMultipleClaimEndpoints ? JoinType.LeftOuterJoin : JoinType.InnerJoin);
                     }
