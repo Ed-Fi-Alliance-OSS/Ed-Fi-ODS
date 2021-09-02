@@ -102,8 +102,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     var filtersBackedByNewAuthViews = new List<string>
                     {
                         "LocalEducationAgencyIdToStudentUSI",
-                        "SchoolIdToStudentUSI"
+                        "SchoolIdToStudentUSI",
+                        "LocalEducationAgencyIdToParentUSI",
+                        "ParentUSIToSchoolId"
                     };
+
 
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
