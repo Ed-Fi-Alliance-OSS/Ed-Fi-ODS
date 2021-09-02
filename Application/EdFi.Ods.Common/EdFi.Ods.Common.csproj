@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PackageId>EdFi.Suite3.Ods.Common</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Configurations>Debug;Release</Configurations>
