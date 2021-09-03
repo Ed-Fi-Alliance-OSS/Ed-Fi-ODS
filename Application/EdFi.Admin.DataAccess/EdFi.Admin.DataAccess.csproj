@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PackageId>EdFi.Admin.DataAccess</PackageId>
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <AssemblyName>EdFi.Admin.DataAccess</AssemblyName>

@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <PackageId>EdFi.Security.DataAccess</PackageId>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>EdFi.Security.DataAccess</AssemblyName>
     <RootNamespace>EdFi.Security.DataAccess</RootNamespace>
