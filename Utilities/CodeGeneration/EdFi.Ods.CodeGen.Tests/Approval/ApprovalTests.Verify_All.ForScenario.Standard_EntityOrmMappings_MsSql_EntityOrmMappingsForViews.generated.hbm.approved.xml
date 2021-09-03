@@ -804,5 +804,29 @@
 </class>
 
 
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationIdThroughEdOrgAssociation" table="StudentUSIToEducationOrganizationIdThroughEdOrgAssociation" lazy="false" schema="auth">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
+      <key-property name="StudentUSI" column="StudentUSI" type="int" />
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" not-null="true" insert="false" update="false" />
+    <property name="StudentUSI" column="StudentUSI" type="int" not-null="true" insert="false" update="false" />
+
+    <!-- Aggregate references -->
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
 </hibernate-mapping>
 
