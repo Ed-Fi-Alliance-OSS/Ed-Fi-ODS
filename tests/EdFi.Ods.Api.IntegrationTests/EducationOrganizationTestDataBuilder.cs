@@ -291,7 +291,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-
         public EducationOrganizationTestDataBuilder UpdateSchool(int schoolId, int? localEducationAgencyId = null)
         {
             _sql.AppendLine(
