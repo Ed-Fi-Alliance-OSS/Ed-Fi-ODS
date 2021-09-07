@@ -65,6 +65,16 @@ namespace EdFi.Ods.Api.IntegrationTests
 
         [TestFixture]
         [Explicit]
+        public class PostgreSqlStudentUsiToEducationOrganizationIdThroughEdOrgAssociationAuthViewTests : StudentUsiToEducationOrganizationIdThroughEdOrgAssociationAuthViewTests
+        {
+            protected override IDbConnection BuildTestConnection()
+            {
+                return BuildPostgreSqlConnection();
+            }
+        }
+
+        [TestFixture]
+        [Explicit]
         public class PostgreSqlParentUsiToEducationOrganizationIdAuthViewTests : ParentUsiToEducationOrganizationIdAuthViewTests
         {
             protected override IDbConnection BuildTestConnection()
