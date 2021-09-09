@@ -75,8 +75,8 @@ where comp_aaa.Id IN (:BaseEntityId) AND (comp_aak.SchoolId IN (
                         FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToSchoolId fltr_aar 
                         WHERE fltr_aar.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aak.StaffUSI IN (
                         SELECT fltr_aaf.StaffUSI 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_LocalEducationAgencyIdToStaffUSI fltr_aaf 
-                        WHERE fltr_aaf.LocalEducationAgencyId IN (:LocalEducationAgencyId)))
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StaffUSIToEducationOrganizationId fltr_aaf 
+                        WHERE fltr_aaf.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.LocalCourseCode,
 	comp_aaa.SchoolId,
 	comp_aaa.SchoolYear,

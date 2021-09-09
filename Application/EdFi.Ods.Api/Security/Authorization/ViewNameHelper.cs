@@ -30,6 +30,16 @@ namespace EdFi.Ods.Api.Security.Authorization
                 return $"{endpoint1}To{endpoint2}{authorizationPathModifier}";
             }
 
+            if (endpoint1.EqualsIgnoreCase("StaffUSI") && endpoint2.EqualsIgnoreCase("EducationOrganizationId"))
+            {
+                return $"{endpoint1}To{endpoint2}{authorizationPathModifier}";
+            }
+
+            if (endpoint1.EqualsIgnoreCase("ParentUSI") && endpoint2.EqualsIgnoreCase("EducationOrganizationId"))
+            {
+                return $"{endpoint1}To{endpoint2}{authorizationPathModifier}";
+            }
+
             if (string.Compare(endpoint1, endpoint2, StringComparison.InvariantCultureIgnoreCase) < 0)
             {
                 return $"{endpoint1}To{endpoint2}{authorizationPathModifier}";

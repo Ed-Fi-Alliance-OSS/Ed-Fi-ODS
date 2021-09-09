@@ -104,7 +104,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         "LocalEducationAgencyIdToStudentUSI",
                         "SchoolIdToStudentUSI",
                         "LocalEducationAgencyIdToParentUSI",
-                        "ParentUSIToSchoolId"
+                        "ParentUSIToSchoolId",
+                        "LocalEducationAgencyIdToStaffUSI",
+                        "SchoolIdToStaffUSI"
                     };
 
 
