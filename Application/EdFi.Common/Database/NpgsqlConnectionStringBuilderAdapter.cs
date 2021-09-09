@@ -37,5 +37,19 @@ namespace EdFi.Common.Database
                 _builder.Database = value;
             }
         }
+
+        public string ServerName
+        {
+            get => _builder?.Host;
+            set
+            {
+                if (_builder == null)
+                {
+                    throw new InvalidOperationException("Connection string has not been set.");
+                }
+
+                _builder.Host = value;
+            }
+        }
     }
 }
