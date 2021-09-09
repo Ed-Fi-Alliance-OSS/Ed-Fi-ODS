@@ -28,6 +28,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         public void TearDown()  
         {
             _transaction.Dispose();
+            Connection?.Dispose();
         }
 
         protected virtual IDbConnection BuildTestConnection()

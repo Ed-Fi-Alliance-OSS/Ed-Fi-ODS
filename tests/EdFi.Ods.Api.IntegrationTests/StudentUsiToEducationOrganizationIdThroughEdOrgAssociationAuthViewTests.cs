@@ -106,7 +106,6 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .Execute();
 
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
-            ;
 
             Builder
                 .AddStudentEducationOrganizationAssociation(9702, studentUsi)

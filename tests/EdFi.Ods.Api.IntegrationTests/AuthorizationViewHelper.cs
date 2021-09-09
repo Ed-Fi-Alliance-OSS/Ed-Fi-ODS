@@ -60,25 +60,11 @@ namespace EdFi.Ods.Api.IntegrationTests
             return result;
         }
 
-        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, PersonType personType)
+        private static IEnumerable<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, PersonType personType)
         {
-            var sql = @$"
-                SELECT SourceEducationOrganizationId, {personType}USI
-                FROM auth.{personType}USIToEducationOrganizationId";
+            var viewName = $"{personType}USIToEducationOrganizationId";
 
-            using var command = connection.CreateCommand();
-            command.CommandText = sql;
-
-            using var reader = command.ExecuteReader();
-
-            var actualTuples = new List<(int, int)>();
-
-            while (reader.Read())
-            {
-                actualTuples.Add((reader.GetInt32(0), reader.GetInt32(1)));
-            }
-
-            return actualTuples;
+            return GetRecordsForAuthorizationView(connection, viewName);
         }
 
         private static bool IsDuplicateRecordExistForAuthorizationView(IDbConnection connection, PersonType personType)
