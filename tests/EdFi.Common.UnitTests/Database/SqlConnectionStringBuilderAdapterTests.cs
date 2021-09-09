@@ -76,52 +76,5 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 ActualException.ShouldBeOfType<InvalidOperationException>();
             }
         }
-
-        public class When_getting_and_setting_the_server_name_in_a_SQL_Server_connection_string
-            : TestFixtureBase
-        {
-            private string _actualServerName;
-            private string _actualModifiedServerName;
-
-            protected override void Act()
-            {
-                var adapter = new SqlConnectionStringBuilderAdapter();
-
-                adapter.ConnectionString = @"Server=(local);Database=SomeDatabase;Trusted_Connection=True;Application Name=EdFi.Ods.WebApi;";
-                _actualServerName = adapter.ServerName;
-
-                adapter.ServerName = "ModifiedServerName";
-                _actualModifiedServerName = adapter.ServerName;
-            }
-
-            [Test]
-            public void Should_initially_return_the_server_name_from_the_connection_string()
-            {
-                _actualServerName.ShouldBe("(local)");
-            }
-
-            [Test]
-            public void Should_return_the_modified_server_name_after_it_has_been_changed()
-            {
-                _actualModifiedServerName.ShouldBe("ModifiedServerName");
-            }
-        }
-
-        public class When_setting_the_server_name_before_setting_the_connection_string : TestFixtureBase
-        {
-            protected override void Act()
-            {
-                new SqlConnectionStringBuilderAdapter
-                {
-                    ServerName = "SomeServer"
-                };
-            }
-
-            [Test]
-            public void Should_throw_an_InvalidOperationException()
-            {
-                ActualException.ShouldBeOfType<InvalidOperationException>();
-            }
-        }
     }
 }
