@@ -20,6 +20,7 @@ using EdFi.Ods.Common.Validation;
 using FluentValidation;
 using log4net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace EdFi.Ods.Api.Helpers
 {
@@ -146,6 +147,34 @@ namespace EdFi.Ods.Api.Helpers
                 yield break;
             }
 
+            var apiModelFiles = Directory.GetFiles(pluginFolder, "ApiModel-EXTENSION.json", SearchOption.AllDirectories);
+
+            var physicalNames = new List<string>();
+
+            foreach (var apiModelFilePath in apiModelFiles)
+            {
+                var myJsonString = File.ReadAllText(apiModelFilePath);
+
+                var myJsonObject = JObject.Parse(myJsonString);
+
+                JToken physicalNameJToken = myJsonObject.SelectToken("$.schemaDefinition.physicalName");
+
+                if (physicalNameJToken != null)
+                {
+                    physicalNames.Add(physicalNameJToken.Value<string>());
+                }
+            }
+
+            var duplicatePhysicalName = physicalNames.GroupBy(x => x)
+                .Where(group => group.Count() > 1)
+                .Select(group => group.Key).ToList();
+
+            if (duplicatePhysicalName.Any())
+            {
+                _logger.Debug($"Plugin folder has '{duplicatePhysicalName[0]}' duplicate schema name .");
+                throw new Exception($"Plugin folder has '{duplicatePhysicalName[0]}' duplicate schema name .");
+            }
+
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
 
             var pluginAssemblyLoadContext = new PluginAssemblyLoadContext();
@@ -236,7 +265,8 @@ namespace EdFi.Ods.Api.Helpers
 
             if (resourceName == null)
             {
-                throw new Exception($"Assembly metadata embedded resource '{AssemblyMetadataSearchString}' not found in assembly '{Path.GetFileName(assembly.Location)}'.");
+                throw new Exception(
+                    $"Assembly metadata embedded resource '{AssemblyMetadataSearchString}' not found in assembly '{Path.GetFileName(assembly.Location)}'.");
             }
 
             var stream = assembly.GetManifestResourceStream(resourceName);
@@ -259,6 +289,7 @@ namespace EdFi.Ods.Api.Helpers
         private class AssemblyMetadata
         {
             public string AssemblyModelType { get; set; }
+
             public string AssemblyMetadataFormatVersion { get; set; }
         }
     }
