@@ -4,7 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Data.Common;
+using System.Linq;
+using System.Threading.Tasks;
+using Docker.DotNet;
+using Docker.DotNet.Models;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Test.Common;
@@ -19,15 +24,79 @@ namespace EdFi.Ods.Api.IntegrationTests
         private IConfigurationRoot _configuration;
 
         public static string SqlServerConnectionString { get; private set; }
+
         public static string PostgreSqlConnectionString { get; private set; }
 
+        public async Task EnsureDockerContainer()
+        {
+            var dockerUri = Environment.OSVersion.Platform == PlatformID.Win32NT
+                ? "npipe://./pipe/docker_engine"
+                : "unix:///var/run/docker.sock";
+
+            var dockerClient = new DockerClientConfiguration(new Uri(dockerUri)).CreateClient();
+
+            await dockerClient.Images.CreateImageAsync(
+                new ImagesCreateParameters {FromImage = "postgres:11-alpine"}, null, new Progress<JSONMessage>());
+
+            var volumes = await dockerClient.Volumes.ListAsync();
+            var volumeCount = volumes.Volumes.Count(v => v.Name == $"{DatabasePrefix}Volume");
+
+            if (volumeCount <= 0)
+            {
+                await dockerClient.Volumes.CreateAsync(new VolumesCreateParameters {Name = $"{DatabasePrefix}Volume"});
+            }
+
+            var containers = await dockerClient
+                .Containers.ListContainersAsync(new ContainersListParameters {All = true});
+
+            var testContainer = containers.FirstOrDefault(
+                c => c.Names.Any(n => n.Contains($"{DatabasePrefix}Container")));
+
+            if (testContainer != null)
+            {
+                return;
+            }
+
+            var postgresContainer = await dockerClient
+                .Containers
+                .CreateContainerAsync(
+                    new CreateContainerParameters
+                    {
+                        Name = $"{DatabasePrefix}Container",
+                        Image = "postgres:11-alpine",
+                        Env = new List<string> {"POSTGRES_PASSWORD=docker"},
+                        HostConfig = new HostConfig
+                        {
+                            PortBindings = new Dictionary<string, IList<PortBinding>>
+                            {
+                                {
+                                    "5432/tcp",
+                                    new PortBinding[]
+                                    {
+                                        new PortBinding
+                                        {
+                                            HostPort = "5432"
+                                        }
+                                    }
+                                }
+                            },
+                        }
+                    });
+
+            await dockerClient
+                .Containers
+                .StartContainerAsync(postgresContainer.ID, new ContainerStartParameters());
+        }
+
         [OneTimeSetUp]
-        public void Setup()
+        public async Task Setup()
         {
             _configuration = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", optional: true)
                 .Build();
+
+            await EnsureDockerContainer();
 
             var sqlServerConnectionString = _configuration.GetConnectionString("EdFi_Ods");
 
@@ -37,7 +106,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                     "Invalid configuration for integration tests.  Verify a valid sql server connection string for 'EdFi_Ods'");
             }
 
-            var connectionStringBuilder = new DbConnectionStringBuilder {ConnectionString = sqlServerConnectionString };
+            var connectionStringBuilder = new DbConnectionStringBuilder {ConnectionString = sqlServerConnectionString};
             var sourceDatabaseName = connectionStringBuilder["Database"] as string;
             var testDatabaseName = $"{DatabasePrefix}{Guid.NewGuid():N}";
 
