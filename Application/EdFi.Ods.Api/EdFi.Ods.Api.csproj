@@ -17,7 +17,7 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.1" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FluentValidation" Version="8.6.3" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
