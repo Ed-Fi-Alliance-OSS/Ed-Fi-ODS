@@ -26,6 +26,8 @@ namespace EdFi.Ods.Api.IntegrationTests
         public int TestGradeLevelDescriptorId { get; private set; }
         public int TestEmploymentStatusDescriptorId { get; private set; }
         public int TestStaffClassificationDescriptorId { get; private set; }
+        public int TestSexDescriptorId { get; private set; }
+
 
         private EducationOrganizationTestDataBuilder()
         {
@@ -54,8 +56,12 @@ namespace EdFi.Ods.Api.IntegrationTests
             command.CommandText = "SELECT StaffClassificationDescriptorId FROM edfi.StaffClassificationDescriptor;";
             builder.TestStaffClassificationDescriptorId = Convert.ToInt32(command.ExecuteScalar());
 
+            command.CommandText = "SELECT SexDescriptorId FROM edfi.SexDescriptor;";
+            builder.TestSexDescriptorId = Convert.ToInt32(command.ExecuteScalar());
+
             return builder;
         }
+
 
         public EducationOrganizationTestDataBuilder AddStaffEducationOrganizationEmploymentAssociation(int schoolId, int staffUSI, DateTime? entryDate = null)
         {
@@ -269,6 +275,21 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
+        public EducationOrganizationTestDataBuilder AddStudentEducationOrganizationAssociation(int schoolId, int studentUSI)
+        {
+            _sql.AppendLine(
+                $@"INSERT INTO edfi.StudentEducationOrganizationAssociation (
+                    EducationOrganizationId,
+                    StudentUSI,
+                    SexDescriptorId)
+                VALUES (
+                    {schoolId},
+                    {studentUSI},
+                    {TestSexDescriptorId});"
+            );
+
+            return this;
+        }
 
         public EducationOrganizationTestDataBuilder UpdateSchool(int schoolId, int? localEducationAgencyId = null)
         {

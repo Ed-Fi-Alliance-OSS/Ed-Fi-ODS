@@ -930,6 +930,30 @@
     ]
   },
   {
+    "SchemaOwner": "auth",
+    "Name": "StudentUSIToEducationOrganizationIdThroughEdOrgAssociation",
+    "Columns": [
+      {
+        "Name": "SourceEducationOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "StudentUSI",
+        "DbDataType": "int",
+        "IsPrimaryKey": false,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      }
+    ]
+  },
+  {
     "SchemaOwner": "interop",
     "Name": "OperationalContextSupport",
     "Columns": [

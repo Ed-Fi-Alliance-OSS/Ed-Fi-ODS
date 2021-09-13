@@ -6,7 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Shouldly;
+
 namespace EdFi.Ods.Api.IntegrationTests
 {
     public static class AuthorizationViewHelper
@@ -35,6 +37,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             return GetPersonUsi(connection, PersonType.Student, studentUniqueId);
         }
+
         public static int GetStaffUsi(IDbConnection connection, string staffUniqueId)
         {
             return GetPersonUsi(connection, PersonType.Staff, staffUniqueId);
@@ -57,38 +60,70 @@ namespace EdFi.Ods.Api.IntegrationTests
             return result;
         }
 
-        private static List<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, PersonType personType)
+        private static IEnumerable<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, PersonType personType)
         {
-            var sql = @$"
-                SELECT SourceEducationOrganizationId, {personType}USI 
-                FROM auth.{personType}USIToEducationOrganizationId";
+            var viewName = $"{personType}USIToEducationOrganizationId";
 
-            using var command = connection.CreateCommand();
-            command.CommandText = sql;
-
-            using var reader = command.ExecuteReader();
-
-            var actualTuples = new List<(int, int)>();
-
-            while (reader.Read())
-            {
-                actualTuples.Add((reader.GetInt32(0), reader.GetInt32(1)));
-            }
-
-            return actualTuples;
+            return GetRecordsForAuthorizationView(connection, viewName);
         }
 
         private static bool IsDuplicateRecordExistForAuthorizationView(IDbConnection connection, PersonType personType)
         {
             var sql = @$"
                 SELECT COUNT(*)
-                FROM auth.{personType}USIToEducationOrganizationId 
-                GROUP BY SourceEducationOrganizationId,{personType}USI 
+                FROM auth.{personType}USIToEducationOrganizationId
+                GROUP BY SourceEducationOrganizationId, {personType}USI
                 HAVING COUNT(*) > 1;";
 
             using var command = connection.CreateCommand();
             command.CommandText = sql;
             return 1 == Convert.ToInt32(command.ExecuteScalar());
+        }
+
+        private static IEnumerable<(int, int)> GetRecordsForAuthorizationView(IDbConnection connection, string viewName)
+        {
+            var sql = @$"SELECT * FROM auth.{viewName}";
+
+            using var command = connection.CreateCommand();
+            command.CommandText = sql;
+
+            using var reader = command.ExecuteReader();
+            var result = new List<(int, int)>();
+
+            while (reader.Read())
+            {
+                result.Add((reader.GetInt32(0), reader.GetInt32(1)));
+            }
+
+            return result;
+        }
+
+        public static bool HasDuplicateRecordsForAuthorizationView(IDbConnection connection, string viewName)
+        {
+            return GetRecordsForAuthorizationView(connection, viewName).GroupBy(
+                x => new
+                {
+                    x.Item1,
+                    x.Item2
+                }).Any(x => x.Count() > 1);
+        }
+
+        public static void ShouldContainTuples(
+            IDbConnection connection,
+            string viewName,
+            params (int, int)[] expectedTuples)
+        {
+            var actualTuples = GetRecordsForAuthorizationView(connection, viewName);
+            expectedTuples.ShouldBeSubsetOf(actualTuples);
+        }
+
+        public static void ShouldNotContainTuples(
+            IDbConnection connection,
+            string viewName,
+            params (int, int)[] expectedTuples)
+        {
+            var actualTuples = GetRecordsForAuthorizationView(connection, viewName);
+            expectedTuples.ShouldAllBe(item => !actualTuples.Contains(item));
         }
     }
 }
