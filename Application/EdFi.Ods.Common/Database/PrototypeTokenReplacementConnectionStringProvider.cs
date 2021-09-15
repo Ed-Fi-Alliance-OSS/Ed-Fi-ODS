@@ -17,7 +17,7 @@ namespace EdFi.Ods.Common.Database
     /// Gets the connection string using a configured named connection string as a prototype for the connection string
     /// with an injected <see cref="IDatabaseNameReplacementTokenProvider"/> to replace token in database name.
     /// </summary>
-    public class PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider : IOdsDatabaseConnectionStringProvider
+    public class PrototypeTokenReplacementConnectionStringProvider : IOdsDatabaseConnectionStringProvider
     {
         private readonly IConfigConnectionStringsProvider _configConnectionStringsProvider;
 
@@ -27,7 +27,7 @@ namespace EdFi.Ods.Common.Database
         private readonly string _prototypeConnectionStringName;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider"/> class using
+        /// Initializes a new instance of the <see cref="PrototypeTokenReplacementConnectionStringProvider"/> class using
         /// the specified "prototype" named connection string from the application configuration file and the supplied database name replacement token provider.
         /// </summary>
         /// <param name="prototypeConnectionStringName">The named connection string to use as the basis for building the connection string.</param>
@@ -35,7 +35,7 @@ namespace EdFi.Ods.Common.Database
         /// <param name="configConnectionStringsProvider"></param>
         /// <param name="dbConnectionStringBuilderAdapterFactory"></param>
         /// <param name="databaseServerNameProvider"></param>
-        public PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider(
+        public PrototypeTokenReplacementConnectionStringProvider(
             string prototypeConnectionStringName,
             IDatabaseNameReplacementTokenProvider databaseNameReplacementTokenProvider,
             IConfigConnectionStringsProvider configConnectionStringsProvider,

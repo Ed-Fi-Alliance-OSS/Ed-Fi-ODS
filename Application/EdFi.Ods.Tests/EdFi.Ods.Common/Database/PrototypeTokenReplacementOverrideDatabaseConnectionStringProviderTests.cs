@@ -54,7 +54,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         protected override void Act()
         {
             // Perform the action to be tested
-            var provider = new PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider(
+            var provider = new PrototypeTokenReplacementConnectionStringProvider(
                 "SomeConnectionStringName",
                 _databaseNameReplacementTokenProvider,
                 _configConnectionStringsProvider,
@@ -124,7 +124,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         protected override void Act()
         {
             // Perform the action to be tested
-            var provider = new PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider(
+            var provider = new PrototypeTokenReplacementConnectionStringProvider(
                 "SomeConnectionStringName",
                 _databaseNameReplacementTokenProvider,
                 _configConnectionStringsProvider,
@@ -184,7 +184,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 
         protected override void Act()
         {
-            var provider = new PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider(
+            var provider = new PrototypeTokenReplacementConnectionStringProvider(
                 "SomeConnectionStringName",
                 _databaseNameReplacementTokenProvider,
                 _configConnectionStringsProvider,
