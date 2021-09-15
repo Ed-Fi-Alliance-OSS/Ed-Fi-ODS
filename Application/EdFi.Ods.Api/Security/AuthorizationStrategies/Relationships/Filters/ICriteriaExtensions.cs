@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
 using NHibernate;
@@ -36,16 +37,28 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             JoinType joinType,
             string authViewAlias = null)
         {
-            authViewAlias = string.IsNullOrWhiteSpace(authViewAlias)
-                ? $"authView{viewName}"
-                : $"authView{authViewAlias}";
+            if (viewName.ContainsIgnoreCase("EducationOrganizationIdToEducationOrganizationId"))
+            {
+                authViewAlias = $"authTable{viewName}";
+            }
+            else if (!string.IsNullOrWhiteSpace(authViewAlias))
+            {
+                authViewAlias = $"authView{authViewAlias}";
+            }
+            else
+            {
+                authViewAlias = $"authView{viewName}";
+            }
+
+            string entityName = viewName.EqualsIgnoreCase("EducationOrganizationIdToEducationOrganizationId")
+                ? $"{viewName.GetAuthorizationTableClassName()}".GetFullNameForTable()
+                : $"{viewName.GetAuthorizationViewClassName()}".GetFullNameForView();
 
             // Apply authorization join using ICriteria
             criteria.CreateEntityAlias(
                 authViewAlias,
                 Restrictions.EqProperty($"aggregateRoot.{joinPropertyName}", $"{authViewAlias}.{joinPropertyName}"),
-                joinType,
-                $"{viewName.GetAuthorizationViewClassName()}".GetFullNameForView());
+                joinType, entityName);
 
             object value;
 
@@ -92,6 +105,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         private static string GetFullNameForView(this string viewName)
         {
             return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
+        }
+
+        private static string GetFullNameForTable(this string tableName)
+        {
+            return Namespaces.Entities.NHibernate.QueryModels.GetTableNamespace(tableName);
         }
     }
 }
