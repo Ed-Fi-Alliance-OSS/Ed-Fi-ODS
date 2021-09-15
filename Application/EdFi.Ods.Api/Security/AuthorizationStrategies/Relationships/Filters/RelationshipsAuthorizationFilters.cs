@@ -30,6 +30,25 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         private static readonly Lazy<FilterApplicationDetails> _stateEducationAgencyIdToStateEducationAgencyId =
             new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("StateEducationAgencyId"));
 
+        private static readonly Lazy<FilterApplicationDetails> _educationOrganizationIdToEducationOrganizationId
+            = new Lazy<FilterApplicationDetails>(
+                () =>
+                    new FilterApplicationDetails(
+                        "EducationOrganizationIdToEducationOrganizationId",
+                        @"EducationOrganizationId IN (
+                            SELECT {newAlias1}.TargetEducationOrganizationId 
+                            FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
+                            WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
+                        @"{currentAlias}.EducationOrganizationId IN (
+                            SELECT {newAlias1}.TargetEducationOrganizationId 
+                            FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() +
+                        @" {newAlias1} 
+                            WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
+                        (c, w, p, jt) => c.ApplyJoinFilter(
+                            w, p, "EducationOrganizationIdToEducationOrganizationId", "TargetEducationOrganizationId",
+                            "SourceEducationOrganizationId", jt),
+                        (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
+
         private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToStudentUSI
             = new Lazy<FilterApplicationDetails>(
                 () =>
@@ -357,6 +376,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
 
         // Add non-join authorization entries for each EdOrg which can be associated with an API client
+
+        public static FilterApplicationDetails EducationOrganizationIdToEducationOrganizationId
+            => _educationOrganizationIdToEducationOrganizationId.Value;
+
         public static FilterApplicationDetails SchoolIdToSchoolId => _schoolIdToSchoolId.Value;
 
         public static FilterApplicationDetails LocalEducationAgencyIdToLocalEducationAgencyId

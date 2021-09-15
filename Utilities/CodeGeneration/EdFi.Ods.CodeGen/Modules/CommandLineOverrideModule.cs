@@ -42,6 +42,14 @@ namespace EdFi.Ods.CodeGen.Modules
             builder.RegisterType<JsonViewsProvider>()
                 .As<IViewsProvider>()
                 .OnlyIf(x => !Options.ViewsFromDatabase);
+
+            builder.RegisterType<DatabaseTupleTableProvider>()
+                .As<ITupleTableProvider>()
+                .OnlyIf(x => Options.TupleTableFromDatabase);
+
+            builder.RegisterType<JsonTupleTableProvider>()
+                .As<ITupleTableProvider>()
+                .OnlyIf(x => !Options.TupleTableFromDatabase);
         }
     }
 }

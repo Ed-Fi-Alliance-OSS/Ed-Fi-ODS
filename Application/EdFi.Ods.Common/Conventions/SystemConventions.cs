@@ -12,6 +12,10 @@ namespace EdFi.Ods.Common.Conventions
 {
     public static class SystemConventions
     {
+        public const string OneToOneEntityPropertyNameSuffix = "PersistentList";
+
+        public const string AuthSchema = "auth";
+
         /// <summary>
         /// Gets the "name" assigned to the HbmBag in the dynamic NHibernate mapping created for aggregate extensions.
         /// </summary>
@@ -19,8 +23,12 @@ namespace EdFi.Ods.Common.Conventions
         /// <returns>The name of the bag.</returns>
         public static string GetAggregateExtensionBagName(this AssociationView association)
         {
-            if (association.AssociationType != AssociationViewType.OneToMany && association.AssociationType != AssociationViewType.OneToOneOutgoing)
-                throw new Exception($"For aggregate extensions, the association must be {AssociationViewType.OneToMany} or {AssociationViewType.OneToOneOutgoing}.");
+            if (association.AssociationType != AssociationViewType.OneToMany &&
+                association.AssociationType != AssociationViewType.OneToOneOutgoing)
+            {
+                throw new Exception(
+                    $"For aggregate extensions, the association must be {AssociationViewType.OneToMany} or {AssociationViewType.OneToOneOutgoing}.");
+            }
 
             return $"{association.OtherEntity.SchemaProperCaseName()}_{association.OtherEntity.PluralName}";
         }
@@ -30,11 +38,12 @@ namespace EdFi.Ods.Common.Conventions
         /// </summary>
         /// <param name="associationView"></param>
         /// <returns></returns>
+
         // Note this is different than alphabetical in a few edge cases, which is why this is required.
         public static IEnumerable<EntityProperty> GetOrderedAssociationTargetColumns(this AssociationView associationView)
         {
             return RecursivelyGetOrderedAssociationTargetColumns(associationView, new AssociationView[0])
-               .Select(p => p);
+                .Select(p => p);
 
             IEnumerable<EntityProperty> RecursivelyGetOrderedAssociationTargetColumns(
                 AssociationView childAssociationView,
@@ -67,16 +76,49 @@ namespace EdFi.Ods.Common.Conventions
                     var parentAssociationView = childAssociationView.ThisEntity.ParentAssociation;
                     var parentsChildAssociation = parentAssociationView.Inverse;
 
-                    var newAssociationViews = new[]
-                    {
-                        childAssociationView
-                    }.Concat(associationViews);
+                    var newAssociationViews = new[] {childAssociationView}.Concat(associationViews);
 
-                    foreach (var property in RecursivelyGetOrderedAssociationTargetColumns(parentsChildAssociation, newAssociationViews))
+                    foreach (var property in RecursivelyGetOrderedAssociationTargetColumns(
+                        parentsChildAssociation, newAssociationViews))
                     {
                         yield return property;
                     }
-                } }
+                }
+            }
+        }
+
+        public static ExtensionBagNameParts GetExtensionBagNameParts(string extensionBagName)
+        {
+            string[] parts = extensionBagName.Split('_');
+
+            if (parts.Length != 2)
+            {
+                throw new Exception($"Supplied extension bag name '{extensionBagName}' did not match the expected format.");
+            }
+
+            return new ExtensionBagNameParts(parts[0], parts[1]);
+        }
+
+        public static string GetMappedAssociationPropertyName(this AssociationView association)
+        {
+            if (association.AssociationType == AssociationViewType.OneToOneOutgoing)
+            {
+                return association.Name + OneToOneEntityPropertyNameSuffix;
+            }
+
+            return association.Name;
+        }
+
+        public static bool IsAuthSchema(this string schema) => schema.Equals(AuthSchema);
+
+        public static string GetAuthorizationViewClassName(this string authorizationViewName)
+        {
+            return $"auth_{authorizationViewName}";
+        }
+
+        public static string GetAuthorizationTableClassName(this string authorizationTableName)
+        {
+            return $"auth_{authorizationTableName}";
         }
 
         public class ExtensionBagNameParts
@@ -87,37 +129,9 @@ namespace EdFi.Ods.Common.Conventions
                 PluralName = pluralName;
             }
 
-            public string SchemaProperCaseName { get; private set; }
-            public string PluralName { get; private set; }
-        }
+            public string SchemaProperCaseName { get; }
 
-        public static ExtensionBagNameParts GetExtensionBagNameParts(string extensionBagName)
-        {
-            string[] parts = extensionBagName.Split('_');
-
-            if (parts.Length != 2)
-                throw new Exception($"Supplied extension bag name '{extensionBagName}' did not match the expected format.");
-
-            return new ExtensionBagNameParts(parts[0], parts[1]);
-        }
-
-        public static string GetMappedAssociationPropertyName(this AssociationView association)
-        {
-            if (association.AssociationType == AssociationViewType.OneToOneOutgoing)
-                return association.Name + OneToOneEntityPropertyNameSuffix;
-
-            return association.Name;
-        }
-
-        public const string OneToOneEntityPropertyNameSuffix = "PersistentList";
-
-        public const string AuthSchema = "auth";
-
-        public static bool IsAuthSchema(this string schema) => schema.Equals(AuthSchema);
-
-        public static string GetAuthorizationViewClassName(this string authorizationViewName)
-        {
-            return $"auth_{authorizationViewName}";
+            public string PluralName { get; }
         }
     }
 }

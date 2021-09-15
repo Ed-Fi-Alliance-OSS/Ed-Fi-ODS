@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
@@ -18,34 +18,35 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         public IReadOnlyList<FilterApplicationDetails> GetFilters()
         {
             var filters = new List<FilterApplicationDetails>
-                          {
-                              // EdOrg to EdOrg relationships
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToLocalEducationAgencyId,
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToSchoolId,
-                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToSchoolId,
-                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToOrganizationDepartmentId,
-                              RelationshipsAuthorizationFilters.OrganizationDepartmentIdToSchoolId,
-                              RelationshipsAuthorizationFilters.CommunityOrganizationIdToEducationOrganizationId,
-                              RelationshipsAuthorizationFilters.CommunityProviderIdToEducationOrganizationId,
-                              RelationshipsAuthorizationFilters.CommunityOrganizationIdToCommunityProviderId,
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToPostSecondaryInstitutionId,
+            {
+                // EdOrg to EdOrg relationships
+                RelationshipsAuthorizationFilters.EducationOrganizationIdToEducationOrganizationId,
+                RelationshipsAuthorizationFilters.EducationOrganizationIdToLocalEducationAgencyId,
+                RelationshipsAuthorizationFilters.EducationOrganizationIdToSchoolId,
+                RelationshipsAuthorizationFilters.LocalEducationAgencyIdToSchoolId,
+                RelationshipsAuthorizationFilters.LocalEducationAgencyIdToOrganizationDepartmentId,
+                RelationshipsAuthorizationFilters.OrganizationDepartmentIdToSchoolId,
+                RelationshipsAuthorizationFilters.CommunityOrganizationIdToEducationOrganizationId,
+                RelationshipsAuthorizationFilters.CommunityProviderIdToEducationOrganizationId,
+                RelationshipsAuthorizationFilters.CommunityOrganizationIdToCommunityProviderId,
+                RelationshipsAuthorizationFilters.EducationOrganizationIdToPostSecondaryInstitutionId,
 
-                              // Property-based filter authorizations (for direct API Client associations)
-                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToLocalEducationAgencyId,
-                              RelationshipsAuthorizationFilters.SchoolIdToSchoolId,
-                              RelationshipsAuthorizationFilters.CommunityProviderIdToCommunityProviderId,
-                              RelationshipsAuthorizationFilters.CommunityOrganizationIdToCommunityOrganizationId,
-                              RelationshipsAuthorizationFilters.PostSecondaryInstitutionIdToPostSecondaryInstitutionId,
-                              RelationshipsAuthorizationFilters.StateEducationAgencyIdToStateEducationAgencyId,
+                // Property-based filter authorizations (for direct API Client associations)
+                RelationshipsAuthorizationFilters.LocalEducationAgencyIdToLocalEducationAgencyId,
+                RelationshipsAuthorizationFilters.SchoolIdToSchoolId,
+                RelationshipsAuthorizationFilters.CommunityProviderIdToCommunityProviderId,
+                RelationshipsAuthorizationFilters.CommunityOrganizationIdToCommunityOrganizationId,
+                RelationshipsAuthorizationFilters.PostSecondaryInstitutionIdToPostSecondaryInstitutionId,
+                RelationshipsAuthorizationFilters.StateEducationAgencyIdToStateEducationAgencyId,
 
-                              // TPDM
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToUniversityId,
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToTeacherPreparationProviderId,
+                // TPDM
+                RelationshipsAuthorizationFilters.EducationOrganizationIdToUniversityId,
+                RelationshipsAuthorizationFilters.EducationOrganizationIdToTeacherPreparationProviderId,
 
-                              // TPDM property-based filter authorizations (for direct API Client associations)
-                              RelationshipsAuthorizationFilters.UniversityIdToUniversityId,
-                              RelationshipsAuthorizationFilters.TeacherPreparationProviderIdToTeacherPreparationProviderId,
-                          };
+                // TPDM property-based filter authorizations (for direct API Client associations)
+                RelationshipsAuthorizationFilters.UniversityIdToUniversityId,
+                RelationshipsAuthorizationFilters.TeacherPreparationProviderIdToTeacherPreparationProviderId,
+            };
 
             return filters;
         }

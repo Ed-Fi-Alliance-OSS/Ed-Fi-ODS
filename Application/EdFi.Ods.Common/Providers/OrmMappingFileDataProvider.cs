@@ -6,7 +6,6 @@
 using System;
 using EdFi.Common;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Dtos;
 
@@ -33,7 +32,8 @@ namespace EdFi.Ods.Common.Providers
                         {
                             $"{assemblyName}.{OrmMappingFileConventions.EntityOrmMappings}.{databaseEngine.ScriptsFolderName}.{OrmMappingFileConventions.EntityOrmMappingsGeneratedHbm}",
                             $"{assemblyName}.{OrmMappingFileConventions.EntityOrmMappings}.{databaseEngine.ScriptsFolderName}.{OrmMappingFileConventions.EntityOrmMappingsForQueriesGeneratedHbm}",
-                            $"{assemblyName}.{OrmMappingFileConventions.EntityOrmMappings}.{databaseEngine.ScriptsFolderName}.{OrmMappingFileConventions.EntityOrmMappingsForViewsGeneratedHbm}"
+                            $"{assemblyName}.{OrmMappingFileConventions.EntityOrmMappings}.{databaseEngine.ScriptsFolderName}.{OrmMappingFileConventions.EntityOrmMappingsForViewsGeneratedHbm}",
+                            $"{assemblyName}.{OrmMappingFileConventions.EntityOrmMappings}.{databaseEngine.ScriptsFolderName}.{OrmMappingFileConventions.EntityOrmMappingsForTupleTableGeneratedHbm}",
                         }
                     };
                 });

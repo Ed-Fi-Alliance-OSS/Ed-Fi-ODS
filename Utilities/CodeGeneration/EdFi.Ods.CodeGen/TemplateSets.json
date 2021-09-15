@@ -11,6 +11,11 @@
       "OutputPath": "Artifacts/Metadata/DatabaseViews.generated.json"
     },
     {
+      "Name": "DatabaseTupleTable",
+      "Driver": "DatabaseTupleTable",
+      "OutputPath": "Artifacts/Metadata/DatabaseTupleTable.generated.json"
+    },
+    {
       "Name": "Entities",
       "Driver": "Entities",
       "OutputPath": "Models/Entities/Entities.generated.cs"
@@ -24,6 +29,11 @@
       "Name": "EntitiesForQueriesViews",
       "Driver": "EntitiesForQueriesViews",
       "OutputPath": "Models/Entities/EntitiesForQueriesViews.generated.cs"
+    },
+    {
+      "Name": "EntitiesForQueriesTupleTable",
+      "Driver": "EntitiesForQueriesTupleTable",
+      "OutputPath": "Models/Entities/EntitiesForQueriesTupleTable.generated.cs"
     },
     {
       "Name": "EntityInterfaces",
@@ -80,6 +90,12 @@
     },
     {
       "Name": "EntityOrmMappings",
+      "Driver": "EntityOrmMappingsForTupleTable",
+      "DatabaseEngine": "sqlServer",
+      "OutputPath": "EntityOrmMappings/MsSql/EntityOrmMappingsForTupleTable.generated.hbm.xml"
+    },
+    {
+      "Name": "EntityOrmMappings",
       "Driver": "EntityOrmMappings",
       "DatabaseEngine": "postgreSql",
       "OutputPath": "EntityOrmMappings/PgSql/EntityOrmMappings.generated.hbm.xml"
@@ -95,6 +111,12 @@
       "Driver": "EntityOrmMappingsForViews",
       "DatabaseEngine": "postgreSql",
       "OutputPath": "EntityOrmMappings/PgSql/EntityOrmMappingsForViews.generated.hbm.xml"
+    },
+    {
+      "Name": "EntityOrmMappings",
+      "Driver": "EntityOrmMappingsForTupleTable",
+      "DatabaseEngine": "postgreSql",
+      "OutputPath": "EntityOrmMappings/PgSql/EntityOrmMappingsForTupleTable.generated.hbm.xml"
     }
   ],
   "database": [

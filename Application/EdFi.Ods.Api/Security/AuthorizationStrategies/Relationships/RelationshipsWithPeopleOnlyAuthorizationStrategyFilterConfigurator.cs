@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
@@ -19,15 +19,16 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         public IReadOnlyList<FilterApplicationDetails> GetFilters()
         {
             var filters = new List<FilterApplicationDetails>
-                          {
-                              // Local Education Agency/School to Person relationships
-                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSI,
-                              RelationshipsAuthorizationFilters.SchoolIdToStudentUSI,
-                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStaffUSI,
-                              RelationshipsAuthorizationFilters.SchoolIdToStaffUSI,
-                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToParentUSI,
-                              RelationshipsAuthorizationFilters.ParentUSIToSchoolId
-                          };
+            {
+                // Local Education Agency/School to Person relationships
+                RelationshipsAuthorizationFilters.EducationOrganizationIdToEducationOrganizationId,
+                RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSI,
+                RelationshipsAuthorizationFilters.SchoolIdToStudentUSI,
+                RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStaffUSI,
+                RelationshipsAuthorizationFilters.SchoolIdToStaffUSI,
+                RelationshipsAuthorizationFilters.LocalEducationAgencyIdToParentUSI,
+                RelationshipsAuthorizationFilters.ParentUSIToSchoolId
+            };
 
             return filters;
         }
