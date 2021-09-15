@@ -169,6 +169,11 @@ namespace EdFi.LoadTools.BulkLoadClient.Application
 
             string ResolvedUrl(string url)
             {
+                if (url == null)
+                {
+                    return null;
+                }
+
                 return apiMode == ApiMode.YearSpecific
                     ? Regex.Replace(
 
