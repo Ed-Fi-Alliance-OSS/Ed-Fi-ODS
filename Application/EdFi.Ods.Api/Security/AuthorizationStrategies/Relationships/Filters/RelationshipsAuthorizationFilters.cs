@@ -464,5 +464,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         {
             return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
         }
+
+        private static string GetFullNameForTable(this string tableName)
+        {
+            return Namespaces.Entities.NHibernate.QueryModels.GetTableNamespace(tableName);
+        }
     }
 }
