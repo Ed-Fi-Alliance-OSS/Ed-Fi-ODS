@@ -23,6 +23,7 @@ namespace EdFi.Ods.Common.Database
 
         private readonly IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
         private readonly IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
+        private readonly IDatabaseServerNameProvider _databaseServerNameProvider;
         private readonly string _prototypeConnectionStringName;
 
         /// <summary>
@@ -33,16 +34,19 @@ namespace EdFi.Ods.Common.Database
         /// <param name="databaseNameReplacementTokenProvider">The provider that builds the database name replacement token for use in the resulting connection string.</param>
         /// <param name="configConnectionStringsProvider"></param>
         /// <param name="dbConnectionStringBuilderAdapterFactory"></param>
+        /// <param name="databaseServerNameProvider"></param>
         public PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider(
             string prototypeConnectionStringName,
             IDatabaseNameReplacementTokenProvider databaseNameReplacementTokenProvider,
             IConfigConnectionStringsProvider configConnectionStringsProvider,
-            IDbConnectionStringBuilderAdapterFactory dbConnectionStringBuilderAdapterFactory)
+            IDbConnectionStringBuilderAdapterFactory dbConnectionStringBuilderAdapterFactory,
+            IDatabaseServerNameProvider databaseServerNameProvider)
         {
             _prototypeConnectionStringName = prototypeConnectionStringName;
             _databaseNameReplacementTokenProvider = databaseNameReplacementTokenProvider;
             _configConnectionStringsProvider = configConnectionStringsProvider;
             _dbConnectionStringBuilderAdapterFactory = dbConnectionStringBuilderAdapterFactory;
+            _databaseServerNameProvider = databaseServerNameProvider;
         }
 
         /// <summary>
@@ -70,6 +74,14 @@ namespace EdFi.Ods.Common.Database
                     connectionStringBuilder.DatabaseName,
                     _databaseNameReplacementTokenProvider.GetReplacementToken())
                 : connectionStringBuilder.DatabaseName;
+
+            // Override the Server Name, format if string coming in has a format replacement token,
+            // otherwise use server name set in the Data Source.
+            connectionStringBuilder.ServerName = connectionStringBuilder.ServerName.IsFormatString()
+                ? string.Format(
+                    connectionStringBuilder.ServerName,
+                    _databaseServerNameProvider.GetDatabaseServerName())
+                : connectionStringBuilder.ServerName;
 
             return connectionStringBuilder.ConnectionString;
 

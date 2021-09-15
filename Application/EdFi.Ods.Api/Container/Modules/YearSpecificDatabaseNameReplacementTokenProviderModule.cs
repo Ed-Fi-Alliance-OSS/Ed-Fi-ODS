@@ -23,6 +23,10 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<YearSpecificDatabaseNameReplacementTokenProvider>()
                 .As<IDatabaseNameReplacementTokenProvider>()
                 .SingleInstance();
+
+            builder.RegisterType<ConventionSpecificDatabaseServerNameProvider>()
+                .As<IDatabaseServerNameProvider>()
+                .SingleInstance();
         }
     }
 }

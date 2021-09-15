@@ -26,6 +26,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
         private IConfigConnectionStringsProvider _configConnectionStringsProvider;
         private IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
+        private IDatabaseServerNameProvider _databaseServerNameProvider;
 
         protected override void Arrange()
         {
@@ -46,6 +47,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             _dbConnectionStringBuilderAdapterFactory = A.Fake<IDbConnectionStringBuilderAdapterFactory>();
 
             A.CallTo(() => _dbConnectionStringBuilderAdapterFactory.Get()).Returns(new SqlConnectionStringBuilderAdapter());
+
+            _databaseServerNameProvider = A.Fake<IDatabaseServerNameProvider>();
         }
 
         protected override void Act()
@@ -55,7 +58,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 "SomeConnectionStringName",
                 _databaseNameReplacementTokenProvider,
                 _configConnectionStringsProvider,
-                _dbConnectionStringBuilderAdapterFactory);
+                _dbConnectionStringBuilderAdapterFactory,
+                _databaseServerNameProvider);
 
             _actualConnectionString = provider.GetConnectionString();
         }
@@ -90,6 +94,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
         private IConfigConnectionStringsProvider _configConnectionStringsProvider;
         private IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
+        private IDatabaseServerNameProvider _databaseServerNameProvider;
 
         protected override void Arrange()
         {
@@ -112,6 +117,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             _dbConnectionStringBuilderAdapterFactory = A.Fake<IDbConnectionStringBuilderAdapterFactory>();
 
             A.CallTo(() => _dbConnectionStringBuilderAdapterFactory.Get()).Returns(new SqlConnectionStringBuilderAdapter());
+
+            _databaseServerNameProvider = A.Fake<IDatabaseServerNameProvider>();
         }
 
         protected override void Act()
@@ -121,7 +128,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                 "SomeConnectionStringName",
                 _databaseNameReplacementTokenProvider,
                 _configConnectionStringsProvider,
-                _dbConnectionStringBuilderAdapterFactory);
+                _dbConnectionStringBuilderAdapterFactory,
+                _databaseServerNameProvider);
 
             _actualConnectionString1 = provider.GetConnectionString();
             _actualConnectionString2 = provider.GetConnectionString();
@@ -135,6 +143,63 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             _actualConnectionString1.ShouldContain("=EdFi_OneDatabase;");
             _actualConnectionString2.ShouldContain("=EdFi_AnotherDatabase;");
             _actualConnectionString3.ShouldContain("=EdFi_OneDatabase;");
+        }
+    }
+
+    public class When_building_connection_string_based_on_a_prototype_from_the_connectionStrings_config_section_with_different_server_names
+        : TestFixtureBase
+    {
+        private string _actualConnectionStringWithPrefix;
+        private string _actualConnectionStringWithoutTemplate;
+
+        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IConfigConnectionStringsProvider _configConnectionStringsProvider;
+        private IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
+        private IDatabaseServerNameProvider _databaseServerNameProvider;
+
+        protected override void Arrange()
+        {
+            _databaseNameReplacementTokenProvider = A.Fake<IDatabaseNameReplacementTokenProvider>();
+
+            _databaseServerNameProvider = A.Fake<IDatabaseServerNameProvider>();
+
+            A.CallTo(() => _databaseServerNameProvider.GetDatabaseServerName()).Returns("OneDatabase");
+
+            _configConnectionStringsProvider = A.Fake<IConfigConnectionStringsProvider>();
+
+            A.CallTo(() => _configConnectionStringsProvider.Count).Returns(1);
+
+            A.CallTo(() => _configConnectionStringsProvider.GetConnectionString(A<string>.Ignored))
+                .Returns("Server=SomeServer; Database=SomeDatabase; UID=SomeUser; Password=SomePassword")
+                .Once();
+
+            A.CallTo(() => _configConnectionStringsProvider.GetConnectionString(A<string>.Ignored))
+                .Returns("Server=prefix_{0}_suffix; Database=SomeDatabase; UID=SomeUser; Password=SomePassword")
+                .Once();
+
+            _dbConnectionStringBuilderAdapterFactory = A.Fake<IDbConnectionStringBuilderAdapterFactory>();
+
+            A.CallTo(() => _dbConnectionStringBuilderAdapterFactory.Get()).Returns(new SqlConnectionStringBuilderAdapter());
+        }
+
+        protected override void Act()
+        {
+            var provider = new PrototypeWithDatabaseNameTokenReplacementConnectionStringProvider(
+                "SomeConnectionStringName",
+                _databaseNameReplacementTokenProvider,
+                _configConnectionStringsProvider,
+                _dbConnectionStringBuilderAdapterFactory,
+                _databaseServerNameProvider);
+
+            _actualConnectionStringWithPrefix = provider.GetConnectionString();
+            _actualConnectionStringWithoutTemplate = provider.GetConnectionString();
+        }
+
+        [Assert]
+        public void Should_properly_modify_connection_string_template_with_varying_server_names()
+        {
+            _actualConnectionStringWithPrefix.ShouldContain("=prefix_OneDatabase_suffix;");
+            _actualConnectionStringWithoutTemplate.ShouldContain("=SomeServer;");
         }
     }
 }

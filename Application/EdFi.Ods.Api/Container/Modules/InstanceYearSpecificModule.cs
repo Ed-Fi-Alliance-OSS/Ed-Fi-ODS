@@ -70,6 +70,10 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterType<InstanceSecurityDatabaseNameTokenReplacementConnectionStringProvider>()
                 .As<ISecurityDatabaseConnectionStringProvider>()
                 .SingleInstance();
+
+            builder.RegisterType<ConventionSpecificDatabaseServerNameProvider>()
+                .As<IDatabaseServerNameProvider>()
+                .SingleInstance();
         }
     }
 }
