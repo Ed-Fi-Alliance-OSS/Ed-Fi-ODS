@@ -4,6 +4,7 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>  
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>EdFi.Ods.Api</AssemblyName>
+    <AssemblyVersion>99.99.99</AssemblyVersion>
     <RootNamespace>EdFi.Ods.Api</RootNamespace>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
