@@ -23,6 +23,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
             builder.RegisterType<SandboxDatabaseNameReplacementTokenProvider>()
                 .As<IDatabaseNameReplacementTokenProvider>()
                 .SingleInstance();
+
+            builder.RegisterType<ConventionSpecificDatabaseServerNameProvider>()
+                .As<IDatabaseServerNameProvider>()
+                .SingleInstance();
         }
     }
 }
