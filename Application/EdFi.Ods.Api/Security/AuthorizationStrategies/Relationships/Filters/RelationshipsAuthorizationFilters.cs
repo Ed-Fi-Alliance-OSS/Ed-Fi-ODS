@@ -361,9 +361,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
         // Add non-join authorization entries for each EdOrg which can be associated with an API client
 
-        public static FilterApplicationDetails EducationOrganizationIdToEducationOrganizationId
-            => _educationOrganizationIdToEducationOrganizationId.Value;
-
         public static FilterApplicationDetails SchoolIdToSchoolId => _schoolIdToSchoolId.Value;
 
         public static FilterApplicationDetails LocalEducationAgencyIdToLocalEducationAgencyId
