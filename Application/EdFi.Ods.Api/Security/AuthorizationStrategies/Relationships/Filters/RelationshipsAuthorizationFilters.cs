@@ -232,7 +232,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         SELECT {newAlias1}.TargetEducationOrganizationId 
                         FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
-                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "OrganizationDepartmentId", "SourceEducationOrganizationId", "TargetEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
+                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "OrganizationDepartmentId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("OrganizationDepartmentId")));
 
         private static readonly Lazy<FilterApplicationDetails> _organizationDepartmentIdToSchoolId
