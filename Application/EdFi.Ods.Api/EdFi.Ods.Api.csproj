@@ -18,7 +18,9 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.43" />
     <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.43" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FluentValidation" Version="8.6.3" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
@@ -45,8 +47,6 @@
     <EmbeddedResource Include="Services\Metadata\Resources\*.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
-    <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
     <ItemGroup>
