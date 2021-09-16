@@ -62,7 +62,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
             public void Should_contain_the_assembly_requested() => _result.Assembly.ShouldNotBeNull();
 
             [Test]
-            public void Should_contain_three_mapping_file_paths_to_be_loaded() => _result.MappingFileFullNames.Length.ShouldBe(3);
+            public void Should_contain_four_mapping_file_paths_to_be_loaded() => _result.MappingFileFullNames.Length.ShouldBe(4);
 
             [Test]
             public void Should_return_the_mapping_file_paths_for_sqlServer()
@@ -103,7 +103,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
             public void Should_contain_the_assembly_requested() => _result.Assembly.ShouldNotBeNull();
 
             [Test]
-            public void Should_contain_three_mapping_file_paths_to_be_loaded() => _result.MappingFileFullNames.Length.ShouldBe(3);
+            public void Should_contain_four_mapping_file_paths_to_be_loaded() => _result.MappingFileFullNames.Length.ShouldBe(4);
 
             [Test]
             public void Should_return_the_mapping_file_paths_for_postgreSql()
@@ -144,7 +144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Providers
             public void Should_contain_a_null_assembly() => _result.Assembly.ShouldBeNull();
 
             [Test]
-            public void Should_contain_three_mapping_file_paths_to_be_loaded() => _result.MappingFileFullNames.Length.ShouldBe(3);
+            public void Should_contain_four_mapping_file_paths_to_be_loaded() => _result.MappingFileFullNames.Length.ShouldBe(4);
 
             [Test]
             public void Should_return_the_mapping_file_paths_for_sqlServer()
