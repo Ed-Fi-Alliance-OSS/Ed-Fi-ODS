@@ -8,6 +8,7 @@
     <RestorePackages>true</RestorePackages>
     <RootNamespace>EdFi.Ods.Common</RootNamespace>
     <AssemblyName>EdFi.Ods.Common</AssemblyName>
+    <AssemblyVersion>99.99.99.00</AssemblyVersion>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS</PackageProjectUrl>
   </PropertyGroup>
