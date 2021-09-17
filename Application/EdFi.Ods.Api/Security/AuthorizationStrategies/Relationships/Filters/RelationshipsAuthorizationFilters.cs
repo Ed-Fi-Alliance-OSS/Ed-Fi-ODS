@@ -177,7 +177,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         SELECT {newAlias1}.TargetEducationOrganizationId 
                         FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
-                        @"{currentAlias}.TargetEducationOrganizationId IN (
+                        @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
                         FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
