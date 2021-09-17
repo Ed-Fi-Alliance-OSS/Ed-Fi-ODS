@@ -43,7 +43,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
             if (viewName.ContainsIgnoreCase("EducationOrganizationIdToEducationOrganizationId"))
             {
-                authViewAlias = $"authTable{viewName}";
+                authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authTable{viewName}" : $"authTable{authViewAlias}";
                 entityName = $"{viewName.GetAuthorizationTableClassName()}".GetFullNameForTable();
             }
             else if (!string.IsNullOrWhiteSpace(authViewAlias))
