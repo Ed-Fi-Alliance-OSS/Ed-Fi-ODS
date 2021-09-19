@@ -6,9 +6,9 @@ select
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ comp_aaa
 where comp_aaa.Id = :Id AND (comp_aaa.EducationOrganizationId IN (
-                        SELECT fltr_aan.EducationOrganizationId 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToLocalEducationAgencyId fltr_aan 
-                        WHERE fltr_aan.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aaa.StudentUSI IN (
+                        SELECT fltr_aan.TargetEducationOrganizationId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Tables.auth_EducationOrganizationIdToEducationOrganizationId fltr_aan 
+                        WHERE fltr_aan.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aaa.StudentUSI IN (
                             SELECT fltr_aab.StudentUSI 
                             FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId fltr_aab 
                             WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
