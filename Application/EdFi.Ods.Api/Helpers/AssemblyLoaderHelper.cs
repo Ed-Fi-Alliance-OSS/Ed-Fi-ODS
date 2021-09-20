@@ -171,8 +171,7 @@ namespace EdFi.Ods.Api.Helpers
 
             if (duplicatePhysicalName.Any())
             {
-                _logger.Debug($"Plugin folder has '{duplicatePhysicalName[0]}' duplicate schema name .");
-                throw new Exception($"Plugin folder has '{duplicatePhysicalName[0]}' duplicate schema name .");
+                throw new Exception($"Plugin folder has '{string.Join(",", duplicatePhysicalName)}' duplicate schema name .");
             }
 
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
