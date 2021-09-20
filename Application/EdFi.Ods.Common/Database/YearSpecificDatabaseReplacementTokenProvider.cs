@@ -9,16 +9,16 @@ using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Common.Database
 {
-    public class YearSpecificDatabaseNameReplacementTokenProvider : IDatabaseNameReplacementTokenProvider
+    public class YearSpecificDatabaseReplacementTokenProvider : IDatabaseReplacementTokenProvider
     {
         private readonly ISchoolYearContextProvider schoolYearContextProvider;
 
-        public YearSpecificDatabaseNameReplacementTokenProvider(ISchoolYearContextProvider schoolYearContextProvider)
+        public YearSpecificDatabaseReplacementTokenProvider(ISchoolYearContextProvider schoolYearContextProvider)
         {
             this.schoolYearContextProvider = schoolYearContextProvider;
         }
 
-        public string GetReplacementToken()
+        public string GetDatabaseNameReplacementToken()
         {
             //Convention: "Ods_" + school year.
             int schoolYear = schoolYearContextProvider.GetSchoolYear();

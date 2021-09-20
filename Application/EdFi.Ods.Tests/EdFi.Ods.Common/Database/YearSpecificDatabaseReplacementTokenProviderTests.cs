@@ -13,12 +13,12 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 {
-    public class When_using_year_specific_database_name_replacement_token_provider_with_valid_school_year_context
+    public class When_using_year_specific_database_replacement_token_provider_with_valid_school_year_context
         : TestFixtureBase
     {
         private string _actualReplacementToken;
 
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -27,13 +27,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => schoolYearContextProvider.GetSchoolYear())
                 .Returns(2020);
 
-            _databaseNameReplacementTokenProvider =
-                new YearSpecificDatabaseNameReplacementTokenProvider(schoolYearContextProvider);
+            _databaseReplacementTokenProvider =
+                new YearSpecificDatabaseReplacementTokenProvider(schoolYearContextProvider);
         }
 
         protected override void Act()
         {
-            _actualReplacementToken = _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _actualReplacementToken = _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]
@@ -43,9 +43,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_year_specific_database_name_replacement_token_provider_with_missing_school_year_context : TestFixtureBase
+    public class When_using_year_specific_database_replacement_token_provider_with_missing_school_year_context : TestFixtureBase
     {
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -54,13 +54,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => schoolYearContextProvider.GetSchoolYear())
                 .Returns(0);
 
-            _databaseNameReplacementTokenProvider =
-                new YearSpecificDatabaseNameReplacementTokenProvider(schoolYearContextProvider);
+            _databaseReplacementTokenProvider =
+                new YearSpecificDatabaseReplacementTokenProvider(schoolYearContextProvider);
         }
 
         protected override void Act()
         {
-            _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]

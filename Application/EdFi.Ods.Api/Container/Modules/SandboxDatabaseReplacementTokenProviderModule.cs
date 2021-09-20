@@ -9,23 +9,19 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Database;
 
-namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
+namespace EdFi.Ods.Api.Container.Modules
 {
-    public class SandboxDatabaseNameReplacementTokenProviderModule : ConditionalModule
+    public class SandboxDatabaseReplacementTokenProviderModule : ConditionalModule
     {
-        public SandboxDatabaseNameReplacementTokenProviderModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(SandboxDatabaseNameReplacementTokenProviderModule)) { }
+        public SandboxDatabaseReplacementTokenProviderModule(ApiSettings apiSettings)
+            : base(apiSettings, nameof(SandboxDatabaseReplacementTokenProviderModule)) { }
 
         public override bool IsSelected() => ApiSettings.GetApiMode() == ApiMode.Sandbox;
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<SandboxDatabaseNameReplacementTokenProvider>()
-                .As<IDatabaseNameReplacementTokenProvider>()
-                .SingleInstance();
-
-            builder.RegisterType<ConventionSpecificDatabaseServerNameProvider>()
-                .As<IDatabaseServerNameProvider>()
+            builder.RegisterType<SandboxDatabaseReplacementTokenProvider>()
+                .As<IDatabaseReplacementTokenProvider>()
                 .SingleInstance();
         }
     }

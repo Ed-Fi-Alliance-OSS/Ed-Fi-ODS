@@ -14,13 +14,13 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 {
-    public class When_using_sandbox_database_name_replacement_token_provider_with_valid_api_key
+    public class When_using_sandbox_database_replacement_token_provider_with_valid_api_key
         : TestFixtureBase
     {
         private const string ApiKey = "UrzHS2q8Oh0R9ovVusGQp";
         private string _actualReplacementToken;
 
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -35,13 +35,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                         string.Empty,
                         null, null));
 
-            _databaseNameReplacementTokenProvider =
-                new SandboxDatabaseNameReplacementTokenProvider(apiKeyContextProvider);
+            _databaseReplacementTokenProvider =
+                new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
         }
 
         protected override void Act()
         {
-            _actualReplacementToken = _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _actualReplacementToken = _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]
@@ -51,13 +51,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_sandbox_database_name_replacement_token_provider_with_blank_api_key
+    public class When_using_sandbox_database_replacement_token_provider_with_blank_api_key
         : TestFixtureBase
     {
         private const string ApiKey = "   ";
         private string _actualReplacementToken;
 
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -72,13 +72,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     string.Empty,
                     null, null));
 
-            _databaseNameReplacementTokenProvider =
-                new SandboxDatabaseNameReplacementTokenProvider(apiKeyContextProvider);
+            _databaseReplacementTokenProvider =
+                new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
         }
 
         protected override void Act()
         {
-            _actualReplacementToken = _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _actualReplacementToken = _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]
@@ -88,9 +88,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_sandbox_database_name_replacement_token_provider_with_null_api_key : TestFixtureBase
+    public class When_using_sandbox_database_replacement_token_provider_with_null_api_key : TestFixtureBase
     {
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -105,13 +105,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     string.Empty,
                     null, null));
 
-            _databaseNameReplacementTokenProvider =
-                new SandboxDatabaseNameReplacementTokenProvider(apiKeyContextProvider);
+            _databaseReplacementTokenProvider =
+                new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
         }
 
         protected override void Act()
         {
-            _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]
@@ -121,9 +121,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_sandbox_database_name_replacement_token_provider_with_empty_api_key : TestFixtureBase
+    public class When_using_sandbox_database_replacement_token_provider_with_empty_api_key : TestFixtureBase
     {
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -138,13 +138,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     string.Empty,
                     null, null));
 
-            _databaseNameReplacementTokenProvider =
-                new SandboxDatabaseNameReplacementTokenProvider(apiKeyContextProvider);
+            _databaseReplacementTokenProvider =
+                new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
         }
 
         protected override void Act()
         {
-            _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]

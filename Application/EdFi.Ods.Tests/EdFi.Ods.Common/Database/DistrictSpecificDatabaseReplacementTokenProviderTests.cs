@@ -16,13 +16,13 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 {
-    public class When_using_district_specific_database_name_replacement_token_provider_with_one_valid_education_organization
+    public class When_using_district_specific_database_replacement_token_provider_with_one_valid_education_organization
         : TestFixtureBase
     {
         private const int EducationOrganizationId = 777777;
         private string _actualReplacementToken;
 
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -37,13 +37,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     string.Empty,
                     null, null));
 
-            _databaseNameReplacementTokenProvider =
-                new DistrictSpecificDatabaseNameReplacementTokenProvider(apiKeyContextProvider);
+            _databaseReplacementTokenProvider =
+                new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
         }
 
         protected override void Act()
         {
-            _actualReplacementToken = _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _actualReplacementToken = _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]
@@ -53,10 +53,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_district_specific_database_name_replacement_token_provider_with_no_api_key_context
+    public class When_using_district_specific_database_replacement_token_provider_with_no_api_key_context
         : TestFixtureBase
     {
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -65,13 +65,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(null);
 
-            _databaseNameReplacementTokenProvider =
-                new DistrictSpecificDatabaseNameReplacementTokenProvider(apiKeyContextProvider);
+            _databaseReplacementTokenProvider =
+                new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
         }
 
         protected override void Act()
         {
-            _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]
@@ -82,10 +82,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_district_specific_database_name_replacement_token_provider_with_no_education_organizations
+    public class When_using_district_specific_database_replacement_token_provider_with_no_education_organizations
         : TestFixtureBase
     {
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -100,13 +100,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     string.Empty,
                     null, null));
 
-            _databaseNameReplacementTokenProvider =
-                new DistrictSpecificDatabaseNameReplacementTokenProvider(apiKeyContextProvider);
+            _databaseReplacementTokenProvider =
+                new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
         }
 
         protected override void Act()
         {
-            _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]
@@ -117,12 +117,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_district_specific_database_name_replacement_token_provider_with_more_than_one_education_organization
+    public class When_using_district_specific_database_replacement_token_provider_with_more_than_one_education_organization
         : TestFixtureBase
     {
         private const int EducationOrganizationId = 777777;
 
-        private IDatabaseNameReplacementTokenProvider _databaseNameReplacementTokenProvider;
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
         {
@@ -137,13 +137,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
                     string.Empty,
                     null, null));
 
-            _databaseNameReplacementTokenProvider =
-                new DistrictSpecificDatabaseNameReplacementTokenProvider(apiKeyContextProvider);
+            _databaseReplacementTokenProvider =
+                new DistrictSpecificDatabaseReplacementTokenProvider(apiKeyContextProvider);
         }
 
         protected override void Act()
         {
-            _databaseNameReplacementTokenProvider.GetReplacementToken();
+            _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
         }
 
         [Test]

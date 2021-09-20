@@ -11,21 +11,17 @@ using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
-    public class YearSpecificDatabaseNameReplacementTokenProviderModule : ConditionalModule
+    public class YearSpecificDatabaseReplacementTokenProviderModule : ConditionalModule
     {
-        public YearSpecificDatabaseNameReplacementTokenProviderModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(YearSpecificDatabaseNameReplacementTokenProviderModule)) { }
+        public YearSpecificDatabaseReplacementTokenProviderModule(ApiSettings apiSettings)
+            : base(apiSettings, nameof(YearSpecificDatabaseReplacementTokenProviderModule)) { }
 
         public override bool IsSelected() => ApiSettings.GetApiMode() == ApiMode.YearSpecific;
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<YearSpecificDatabaseNameReplacementTokenProvider>()
-                .As<IDatabaseNameReplacementTokenProvider>()
-                .SingleInstance();
-
-            builder.RegisterType<ConventionSpecificDatabaseServerNameProvider>()
-                .As<IDatabaseServerNameProvider>()
+            builder.RegisterType<YearSpecificDatabaseReplacementTokenProvider>()
+                .As<IDatabaseReplacementTokenProvider>()
                 .SingleInstance();
         }
     }

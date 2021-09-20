@@ -5,11 +5,11 @@
 
 namespace EdFi.Ods.Common.Database
 {
-    public class SharedInstanceDatabaseNameReplacementTokenProvider : IDatabaseNameReplacementTokenProvider
+    public class SharedInstanceDatabaseReplacementTokenProvider : IDatabaseReplacementTokenProvider
     {
         private const string Ods = "Ods";
 
-        public string GetReplacementToken()
+        public string GetDatabaseNameReplacementToken()
         {
             return Ods;
         }

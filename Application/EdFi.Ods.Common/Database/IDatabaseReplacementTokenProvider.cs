@@ -6,8 +6,8 @@
 
 namespace EdFi.Ods.Common.Database
 {
-    public interface IDatabaseServerNameProvider
+    public interface IDatabaseReplacementTokenProvider
     {
-        string GetDatabaseServerName();
+        string GetDatabaseNameReplacementToken();
     }
 }

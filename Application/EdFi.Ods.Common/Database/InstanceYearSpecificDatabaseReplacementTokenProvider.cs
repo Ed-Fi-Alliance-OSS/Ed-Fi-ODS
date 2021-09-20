@@ -8,18 +8,18 @@ using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Common.Database
 {
-    public class InstanceYearSpecificDatabaseNameReplacementTokenProvider : IDatabaseNameReplacementTokenProvider
+    public class InstanceYearSpecificDatabaseReplacementTokenProvider : IDatabaseReplacementTokenProvider
     {
         private readonly IInstanceIdContextProvider instanceIdContextProvider;
         private readonly ISchoolYearContextProvider schoolYearContextProvider;
 
-        public InstanceYearSpecificDatabaseNameReplacementTokenProvider(ISchoolYearContextProvider schoolYearContextProvider, IInstanceIdContextProvider instanceIdContextProvider)
+        public InstanceYearSpecificDatabaseReplacementTokenProvider(ISchoolYearContextProvider schoolYearContextProvider, IInstanceIdContextProvider instanceIdContextProvider)
         {
             this.instanceIdContextProvider = instanceIdContextProvider;
             this.schoolYearContextProvider = schoolYearContextProvider;
         }
 
-        public string GetReplacementToken()
+        public string GetDatabaseNameReplacementToken()
         {
             //Convention: "Ods_" + instance id + "_"+ school year.
 

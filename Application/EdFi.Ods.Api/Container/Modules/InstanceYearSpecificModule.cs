@@ -51,8 +51,8 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<ISecurityDatabaseNameReplacementTokenProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<InstanceYearSpecificDatabaseNameReplacementTokenProvider>()
-                .As<IDatabaseNameReplacementTokenProvider>()
+            builder.RegisterType<InstanceYearSpecificDatabaseReplacementTokenProvider>()
+                .As<IDatabaseReplacementTokenProvider>()
                 .SingleInstance();
 
             builder.RegisterType<InstanceSecurityRepository>()
@@ -69,10 +69,6 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<InstanceSecurityDatabaseNameTokenReplacementConnectionStringProvider>()
                 .As<ISecurityDatabaseConnectionStringProvider>()
-                .SingleInstance();
-
-            builder.RegisterType<ConventionSpecificDatabaseServerNameProvider>()
-                .As<IDatabaseServerNameProvider>()
                 .SingleInstance();
         }
     }

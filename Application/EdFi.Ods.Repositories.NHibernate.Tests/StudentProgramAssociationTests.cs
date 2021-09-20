@@ -413,7 +413,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
                 builder.Register(c => apiSettings.GetDatabaseEngine()).As<DatabaseEngine>();
 
-                builder.RegisterModule(new SandboxDatabaseNameReplacementTokenProviderModule(apiSettings));
+                builder.RegisterModule(new SandboxDatabaseReplacementTokenProviderModule(apiSettings));
                 builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
                 builder.RegisterModule(new ContextProviderModule());
                 builder.RegisterModule(new ContextStorageModule());

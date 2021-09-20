@@ -83,7 +83,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterModule(new ContextStorageModule());
             builder.RegisterModule(new ContextProviderModule());
             builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
-            builder.RegisterModule(new SandboxDatabaseNameReplacementTokenProviderModule(apiSettings));
+            builder.RegisterModule(new SandboxDatabaseReplacementTokenProviderModule(apiSettings));
 
             Container = builder.Build();
         }
