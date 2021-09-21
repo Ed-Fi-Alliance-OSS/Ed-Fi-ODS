@@ -149,7 +149,9 @@ namespace EdFi.Ods.Api.Helpers
 
             var apiModelFiles = Directory.GetFiles(pluginFolder, "ApiModel-EXTENSION.json", SearchOption.AllDirectories);
 
-            var physicalNames = new List<string>();
+            var physicalNames = new List<KeyValuePair<string, string>>();
+
+            Array.Sort(apiModelFiles, StringComparer.InvariantCulture);
 
             foreach (var apiModelFilePath in apiModelFiles)
             {
@@ -161,17 +163,32 @@ namespace EdFi.Ods.Api.Helpers
 
                 if (physicalNameJToken != null)
                 {
-                    physicalNames.Add(physicalNameJToken.Value<string>());
-                }
+                    string[] foldernames = apiModelFilePath.Split('\\');
+                    foreach (string folder in foldernames)
+                    {
+                        if (folder.Contains("Extensions"))
+                        {
+                            string key = physicalNameJToken.Value<string>();
+                            var element = new KeyValuePair<string, string>(key, folder);
+                            physicalNames.Add(element);
+                        }
+                    }
+                } 
             }
 
-            var duplicatePhysicalName = physicalNames.GroupBy(x => x)
-                .Where(group => group.Count() > 1)
-                .Select(group => group.Key).ToList();
-
-            if (duplicatePhysicalName.Any())
+            string duplicatePhysicalName = "";
+            string duplicatePluginFolder = "";
+            foreach (var physicalName in physicalNames)             
             {
-                throw new Exception($"Plugin folder has '{string.Join(",", duplicatePhysicalName)}' duplicate schema name .");
+                if(physicalName.Key.EqualsIgnoreCase(duplicatePhysicalName))
+                {
+                    _logger.Debug($"found duplicate extension schema name '{physicalName.Key}' in plugin folder." +
+                        $" You will be able to deploy only one of the following plugins '{physicalName.Value}' and '{duplicatePluginFolder}' folder name." +
+                        $" Please remove the conflicting plugins and retry");
+                    throw new Exception();
+                }
+                duplicatePhysicalName = physicalName.Key;
+                duplicatePluginFolder = physicalName.Value;
             }
 
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
