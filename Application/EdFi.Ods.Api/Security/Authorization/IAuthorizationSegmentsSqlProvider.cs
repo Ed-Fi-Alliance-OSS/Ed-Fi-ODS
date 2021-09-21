@@ -18,13 +18,15 @@ namespace EdFi.Ods.Api.Security.Authorization
 
     public class QueryMetadata
     {
-        public QueryMetadata(string sql, DbParameter[] parameters)
+        public QueryMetadata(string sql, DbParameter[] parameters, string edOrgTypes)
         {
             Sql = sql;
             Parameters = parameters;
+            EdOrgTypes = edOrgTypes;
         }
 
         public string Sql { get; }
         public DbParameter[] Parameters { get; }
+        public string EdOrgTypes { get; }
     }
 }

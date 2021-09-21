@@ -45,7 +45,7 @@ namespace EdFi.Ods.Api.Security.Authorization
         {
             var segmentStatements = new List<string>();
             var parameters = new List<DbParameter>();
-
+            string edOrgTypes = "";
             foreach (var authorizationSegment in authorizationSegments)
             {
                 // Within each claim segment, group the values by ed org type, and combine with "OR"
@@ -119,17 +119,15 @@ namespace EdFi.Ods.Api.Security.Authorization
                     }
                 }
 
+                edOrgTypes = string.Join("', '", authorizationSegment.ClaimsEndpoints
+                    .Select(s => s.Name.TrimSuffix("Id"))
+                    .Distinct()
+                    .OrderBy(x => x));
+
                 if (!segmentExpressions.Any())
                 {
                     _logger.Debug("Unable to authorize resource item because none of the following authorization views exist: "
                         + $"'{string.Join("', '", unsupportedAuthorizationViews)}'");
-
-                    string edOrgTypes = string.Join(
-                        "', '",
-                        authorizationSegment.ClaimsEndpoints
-                            .Select(s => s.Name.TrimSuffix("Id"))
-                            .Distinct()
-                            .OrderBy(x => x));
 
                     throw new EdFiSecurityException(
                         $"Unable to authorize the request because there is no authorization support for associating the "
@@ -146,7 +144,7 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             string sql = string.Format(MainTemplate, statements);
 
-            return new QueryMetadata(sql, parameters.ToArray());
+            return new QueryMetadata(sql, parameters.ToArray(), edOrgTypes);
         }
 
         private static void ValidateTableNameParts(

@@ -80,7 +80,9 @@ namespace EdFi.Ods.Api.Security.Authorization
                 if (result == null)
                 {
                     throw new EdFiSecurityException(
-                        "Authorization denied.  The claim does not have any established relationships with the requested resource.");
+                        $"Unable to authorize the request because there is no authorization support for associating the "
+                        + $"API client's associated education organization types ('{queryMetadata.EdOrgTypes}') with the resource.");
+
                 }
             }
         }
