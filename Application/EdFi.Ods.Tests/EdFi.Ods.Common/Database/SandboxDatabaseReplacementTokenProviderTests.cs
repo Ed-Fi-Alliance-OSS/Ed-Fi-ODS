@@ -18,7 +18,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         : TestFixtureBase
     {
         private const string ApiKey = "UrzHS2q8Oh0R9ovVusGQp";
-        private string _actualReplacementToken;
+        private string _actualDatabaseNameReplacementToken;
+        private string _actualServerNameReplacementToken;
 
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
@@ -41,13 +42,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 
         protected override void Act()
         {
-            _actualReplacementToken = _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
+            _actualDatabaseNameReplacementToken = _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
+            _actualServerNameReplacementToken = _databaseReplacementTokenProvider.GetServerNameReplacementToken();
         }
 
         [Test]
-        public void Should_return_correct_value()
+        public void Should_return_correct_database_name_replacement_token()
         {
-            _actualReplacementToken.ShouldBe($"Ods_Sandbox_{ApiKey}");
+            _actualDatabaseNameReplacementToken.ShouldBe($"Ods_Sandbox_{ApiKey}");
+        }
+
+        [Test]
+        public void Should_return_correct_server_name_replacement_token()
+        {
+            _actualServerNameReplacementToken.ShouldBe($"Ods_Sandbox_{ApiKey}");
         }
     }
 
@@ -88,7 +96,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_sandbox_database_replacement_token_provider_with_null_api_key : TestFixtureBase
+    public class When_getting_database_name_replacement_token_with_null_api_key : TestFixtureBase
     {
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
@@ -121,7 +129,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_sandbox_database_replacement_token_provider_with_empty_api_key : TestFixtureBase
+    public class When_getting_database_name_replacement_token_with_empty_api_key : TestFixtureBase
     {
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
@@ -145,6 +153,72 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         protected override void Act()
         {
             _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
+        }
+
+        [Test]
+        public void Should_throw_an_InvalidOperationException()
+        {
+            ActualException.ShouldBeOfType<InvalidOperationException>();
+        }
+    }
+
+    public class When_getting_server_name_replacement_token_with_null_api_key : TestFixtureBase
+    {
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
+
+        protected override void Arrange()
+        {
+            var apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
+
+            A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
+                .Returns(new ApiKeyContext(null,
+                    string.Empty,
+                    Enumerable.Empty<int>(),
+                    Enumerable.Empty<string>(),
+                    Enumerable.Empty<string>(),
+                    string.Empty,
+                    null, null));
+
+            _databaseReplacementTokenProvider =
+                new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
+        }
+
+        protected override void Act()
+        {
+            _databaseReplacementTokenProvider.GetServerNameReplacementToken();
+        }
+
+        [Test]
+        public void Should_throw_an_InvalidOperationException()
+        {
+            ActualException.ShouldBeOfType<InvalidOperationException>();
+        }
+    }
+
+    public class When_getting_server_name_replacement_token_with_empty_api_key : TestFixtureBase
+    {
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
+
+        protected override void Arrange()
+        {
+            var apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
+
+            A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
+                .Returns(new ApiKeyContext(string.Empty,
+                    string.Empty,
+                    Enumerable.Empty<int>(),
+                    Enumerable.Empty<string>(),
+                    Enumerable.Empty<string>(),
+                    string.Empty,
+                    null, null));
+
+            _databaseReplacementTokenProvider =
+                new SandboxDatabaseReplacementTokenProvider(apiKeyContextProvider);
+        }
+
+        protected override void Act()
+        {
+            _databaseReplacementTokenProvider.GetServerNameReplacementToken();
         }
 
         [Test]

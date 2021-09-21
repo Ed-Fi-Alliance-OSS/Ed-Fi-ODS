@@ -31,5 +31,7 @@ namespace EdFi.Ods.Common.Database
 
             return string.Format("Ods_{0}", schoolYear);
         }
+
+        public string GetServerNameReplacementToken() => GetDatabaseNameReplacementToken();
     }
 }

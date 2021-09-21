@@ -31,5 +31,7 @@ namespace EdFi.Ods.Common.Database
 
             return string.Format("Ods_Sandbox_{0}", apiKey);
         }
+
+        public string GetServerNameReplacementToken() => GetDatabaseNameReplacementToken();
     }
 }

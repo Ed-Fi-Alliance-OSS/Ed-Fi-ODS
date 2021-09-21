@@ -47,5 +47,7 @@ namespace EdFi.Ods.Features.ChangeQueries.DatabaseNaming
 
             return _next.GetDatabaseNameReplacementToken() + $"_SS{snapshotContext.SnapshotIdentifier}";
         }
+
+        public string GetServerNameReplacementToken() => _next.GetServerNameReplacementToken();
     }
 }

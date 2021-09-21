@@ -16,7 +16,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
     public class When_using_instance_year_specific_database_replacement_token_provider_with_valid_instance_and_with_valid_school_year_context
         : TestFixtureBase
     {
-        private string _actualReplacementToken;
+        private string _actualDatabaseNameReplacementToken;
+        private string _actualServerNameReplacementToken;
 
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
@@ -37,17 +38,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 
         protected override void Act()
         {
-            _actualReplacementToken = _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
+            _actualDatabaseNameReplacementToken = _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
+            _actualServerNameReplacementToken = _databaseReplacementTokenProvider.GetServerNameReplacementToken();
         }
 
         [Test]
-        public void Should_return_correct_value()
+        public void Should_return_correct_database_name_replacement_token()
         {
-            _actualReplacementToken.ShouldBe("Ods_instance1_2020");
+            _actualDatabaseNameReplacementToken.ShouldBe("Ods_instance1_2020");
+        }
+
+        [Test]
+        public void Should_return_correct_server_name_replacement_token()
+        {
+            _actualServerNameReplacementToken.ShouldBe("Ods_instance1_2020");
         }
     }
 
-    public class When_using_instance_year_specific_database_replacement_token_provider_with_valid_instance_and_with_missing_school_year_context : TestFixtureBase
+    public class When_getting_database_name_replacement_token_with_valid_instance_and_with_missing_school_year_context : TestFixtureBase
     {
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
@@ -78,7 +86,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_instance_year_specific_database_replacement_token_provider_with_missing_instance_and_with_valid_school_year_context : TestFixtureBase
+    public class When_getting_database_name_replacement_token_with_missing_instance_and_with_valid_school_year_context : TestFixtureBase
     {
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
@@ -109,11 +117,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         }
     }
 
-    public class When_using_instance_year_specific_database_replacement_token_provider_with_missing_instance_and_with_missing_school_year_context
+    public class When_getting_database_name_replacement_token_with_missing_instance_and_with_missing_school_year_context
         : TestFixtureBase
     {
-        private string _actualReplacementToken;
-
         private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
 
         protected override void Arrange()
@@ -133,7 +139,101 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
 
         protected override void Act()
         {
-            _actualReplacementToken = _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
+            _databaseReplacementTokenProvider.GetDatabaseNameReplacementToken();
+        }
+
+        [Test]
+        public void Should_throw_an_InvalidOperationException()
+        {
+            ActualException.ShouldBeOfType<InvalidOperationException>();
+        }
+    }
+
+    public class When_getting_server_name_replacement_token_with_valid_instance_and_with_missing_school_year_context : TestFixtureBase
+    {
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
+
+        protected override void Arrange()
+        {
+            var schoolYearContextProvider = A.Fake<ISchoolYearContextProvider>();
+            var instanceIdContextProvider = A.Fake<IInstanceIdContextProvider>();
+
+            A.CallTo(() => schoolYearContextProvider.GetSchoolYear())
+                .Returns(0);
+
+            A.CallTo(() => instanceIdContextProvider.GetInstanceId())
+                .Returns("instance1");
+
+            _databaseReplacementTokenProvider =
+                new InstanceYearSpecificDatabaseReplacementTokenProvider(schoolYearContextProvider, instanceIdContextProvider);
+        }
+
+        protected override void Act()
+        {
+            _databaseReplacementTokenProvider.GetServerNameReplacementToken();
+        }
+
+        [Test]
+        public void Should_throw_an_InvalidOperationException()
+        {
+            ActualException.ShouldBeOfType<InvalidOperationException>();
+        }
+    }
+
+    public class When_getting_server_name_replacement_token_with_missing_instance_and_with_valid_school_year_context : TestFixtureBase
+    {
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
+
+        protected override void Arrange()
+        {
+            var schoolYearContextProvider = A.Fake<ISchoolYearContextProvider>();
+            var instanceIdContextProvider = A.Fake<IInstanceIdContextProvider>();
+
+            A.CallTo(() => schoolYearContextProvider.GetSchoolYear())
+                .Returns(2020);
+
+            A.CallTo(() => instanceIdContextProvider.GetInstanceId())
+                .Returns("");
+
+            _databaseReplacementTokenProvider =
+                new InstanceYearSpecificDatabaseReplacementTokenProvider(schoolYearContextProvider, instanceIdContextProvider);
+        }
+
+        protected override void Act()
+        {
+            _databaseReplacementTokenProvider.GetServerNameReplacementToken();
+        }
+
+        [Test]
+        public void Should_throw_an_InvalidOperationException()
+        {
+            ActualException.ShouldBeOfType<InvalidOperationException>();
+        }
+    }
+
+    public class When_getting_server_name_replacement_token_with_missing_instance_and_with_missing_school_year_context
+        : TestFixtureBase
+    {
+        private IDatabaseReplacementTokenProvider _databaseReplacementTokenProvider;
+
+        protected override void Arrange()
+        {
+            var schoolYearContextProvider = A.Fake<ISchoolYearContextProvider>();
+            var instanceIdContextProvider = A.Fake<IInstanceIdContextProvider>();
+
+            A.CallTo(() => schoolYearContextProvider.GetSchoolYear())
+                .Returns(0);
+
+            A.CallTo(() => instanceIdContextProvider.GetInstanceId())
+                .Returns("");
+
+            _databaseReplacementTokenProvider =
+                new InstanceYearSpecificDatabaseReplacementTokenProvider(schoolYearContextProvider, instanceIdContextProvider);
+        }
+
+        protected override void Act()
+        {
+            _databaseReplacementTokenProvider.GetServerNameReplacementToken();
         }
 
         [Test]

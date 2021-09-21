@@ -74,11 +74,11 @@ namespace EdFi.Ods.Common.Database
 
             // Override the Server Name, format if string coming in has a format replacement token,
             // otherwise use server name set in the Data Source.
-            //connectionStringBuilder.ServerName = connectionStringBuilder.ServerName.IsFormatString()
-            //    ? string.Format(
-            //        connectionStringBuilder.ServerName,
-            //        _databaseServerNameProvider.GetDatabaseServerName())
-            //    : connectionStringBuilder.ServerName;
+            connectionStringBuilder.ServerName = connectionStringBuilder.ServerName.IsFormatString()
+                ? string.Format(
+                    connectionStringBuilder.ServerName,
+                    _databaseReplacementTokenProvider.GetServerNameReplacementToken())
+                : connectionStringBuilder.ServerName;
 
             return connectionStringBuilder.ConnectionString;
 

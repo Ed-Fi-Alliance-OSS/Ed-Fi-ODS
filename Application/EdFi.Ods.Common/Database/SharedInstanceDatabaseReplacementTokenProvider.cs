@@ -13,5 +13,7 @@ namespace EdFi.Ods.Common.Database
         {
             return Ods;
         }
+
+        public string GetServerNameReplacementToken() => GetDatabaseNameReplacementToken();
     }
 }

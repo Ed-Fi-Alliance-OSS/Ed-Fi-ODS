@@ -38,5 +38,7 @@ namespace EdFi.Ods.Common.Database
             //Convention: "Ods_" + local education agency id
             return $"Ods_{availableEducationOrganizations.Single()}";
         }
+
+        public string GetServerNameReplacementToken() => GetDatabaseNameReplacementToken();
     }
 }

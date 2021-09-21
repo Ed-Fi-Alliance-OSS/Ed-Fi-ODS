@@ -132,9 +132,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         public void Should_properly_modify_connection_string_template_with_varying_database_names()
         {
             // Assert the expected results
-            _actualConnectionString1.ShouldContain("=EdFi_OneDatabase;");
-            _actualConnectionString2.ShouldContain("=EdFi_AnotherDatabase;");
-            _actualConnectionString3.ShouldContain("=EdFi_OneDatabase;");
+            _actualConnectionString1.ShouldContain("Initial Catalog=EdFi_OneDatabase;");
+            _actualConnectionString2.ShouldContain("Initial Catalog=EdFi_AnotherDatabase;");
+            _actualConnectionString3.ShouldContain("Initial Catalog=EdFi_OneDatabase;");
         }
     }
 
@@ -151,6 +151,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         protected override void Arrange()
         {
             _databaseReplacementTokenProvider = A.Fake<IDatabaseReplacementTokenProvider>();
+
+            A.CallTo(() => _databaseReplacementTokenProvider.GetServerNameReplacementToken()).Returns("OneDatabase");
 
             _configConnectionStringsProvider = A.Fake<IConfigConnectionStringsProvider>();
 
@@ -184,8 +186,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
         [Assert]
         public void Should_properly_modify_connection_string_template_with_varying_server_names()
         {
-            _actualConnectionStringWithPrefix.ShouldContain("=prefix_OneDatabase_suffix;");
-            _actualConnectionStringWithoutTemplate.ShouldContain("=SomeServer;");
+            _actualConnectionStringWithPrefix.ShouldContain("Data Source=prefix_OneDatabase_suffix;");
+            _actualConnectionStringWithoutTemplate.ShouldContain("Data Source=SomeServer;");
         }
     }
 }
