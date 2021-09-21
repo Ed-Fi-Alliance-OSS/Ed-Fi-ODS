@@ -178,7 +178,7 @@ namespace EdFi.Ods.Api.Helpers
 
             string duplicatePhysicalName = "";
             string duplicatePluginFolder = "";
-            foreach (var physicalName in physicalNames)             
+            foreach (var physicalName in physicalNames)
             {
                 if(physicalName.Key.EqualsIgnoreCase(duplicatePhysicalName))
                 {
