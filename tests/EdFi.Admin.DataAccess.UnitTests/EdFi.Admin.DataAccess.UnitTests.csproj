@@ -16,6 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.43" />
     <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FakeItEasy" Version="6.2.1" />
@@ -28,8 +29,5 @@
     </PackageReference>
     <PackageReference Include="Shouldly" Version="3.0.2" />
     <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.23" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
   </ItemGroup>
 </Project>

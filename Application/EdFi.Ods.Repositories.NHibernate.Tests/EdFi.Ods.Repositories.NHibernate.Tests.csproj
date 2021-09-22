@@ -19,6 +19,7 @@
   <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
     <PackageReference Include="Autofac" Version="5.1.2" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.43" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FakeItEasy" Version="6.2.1" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
@@ -41,7 +42,6 @@
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
-    <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">

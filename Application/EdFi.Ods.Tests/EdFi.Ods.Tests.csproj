@@ -17,6 +17,8 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.43" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.43" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="Autofac.Extras.FakeItEasy" Version="6.0.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
@@ -48,10 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj" />
-    <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
-    <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Composites.Test\EdFi.Ods.Composites.Test.csproj" />
