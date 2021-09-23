@@ -12,11 +12,11 @@
     </xs:annotation>
     <xs:complexType>
       <xs:choice maxOccurs="unbounded">
-        <xs:element name="StateEducationAgency" type="EXTENSION-StateEducationAgencyExtension" />
+        <xs:element name="StateEducationAgency" type="StateEducationAgency" />
         <xs:element name="EducationServiceCenter" type="EducationServiceCenter" />
         <xs:element name="FeederSchoolAssociation" type="FeederSchoolAssociation" />
-        <xs:element name="LocalEducationAgency" type="EXTENSION-LocalEducationAgencyExtension" />
-        <xs:element name="School" type="EXTENSION-SchoolExtension" />
+        <xs:element name="LocalEducationAgency" type="LocalEducationAgency" />
+        <xs:element name="School" type="School" />
         <xs:element name="Location" type="Location" />
         <xs:element name="ClassPeriod" type="ClassPeriod" />
         <xs:element name="Course" type="Course" />
@@ -28,7 +28,7 @@
         <xs:element name="CommunityOrganization" type="CommunityOrganization" />
         <xs:element name="CommunityProvider" type="CommunityProvider" />
         <xs:element name="CommunityProviderLicense" type="CommunityProviderLicense" />
-        <xs:element name="PostSecondaryInstitution" type="EXTENSION-PostSecondaryInstitutionExtension" />
+        <xs:element name="PostSecondaryInstitution" type="PostSecondaryInstitution" />
         <xs:element name="OrganizationDepartment" type="OrganizationDepartment" />
         <xs:element name="EducatorPreparationProgram" type="EXTENSION-EducatorPreparationProgram" />
       </xs:choice>

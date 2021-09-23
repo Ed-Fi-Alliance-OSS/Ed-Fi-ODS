@@ -15,18 +15,13 @@
         <xs:element name="Candidate" type="EXTENSION-Candidate" />
         <xs:element name="StudentAcademicRecord" type="StudentAcademicRecord" />
         <xs:element name="CourseTranscript" type="CourseTranscript" />
-        <xs:element name="FieldworkExperience" type="EXTENSION-FieldworkExperience" />
-        <xs:element name="Certification" type="EXTENSION-Certification" />
-        <xs:element name="CertificationExam" type="EXTENSION-CertificationExam" />
-        <xs:element name="CertificationExamResult" type="EXTENSION-CertificationExamResult" />
-        <xs:element name="CredentialEvent" type="EXTENSION-CredentialEvent" />
         <xs:element name="Person" type="Person" />
-        <xs:element name="CandidateRelationshipToStaffAssociation" type="EXTENSION-CandidateRelationshipToStaffAssociation" />
+        <xs:element name="EducatorPreparationProgram" type="EXTENSION-EducatorPreparationProgram" />
+        <xs:element name="FinancialAid" type="EXTENSION-FinancialAid" />
         <xs:element name="CandidateEducatorPreparationProgramAssociation" type="EXTENSION-CandidateEducatorPreparationProgramAssociation" />
         <xs:element name="StudentSchoolAssociation" type="StudentSchoolAssociation" />
         <xs:element name="StudentEducationOrganizationAssociation" type="StudentEducationOrganizationAssociation" />
         <xs:element name="StudentEducationOrganizationResponsibilityAssociation" type="StudentEducationOrganizationResponsibilityAssociation" />
-        <xs:element name="FieldworkExperienceSectionAssociation" type="EXTENSION-FieldworkExperienceSectionAssociation" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

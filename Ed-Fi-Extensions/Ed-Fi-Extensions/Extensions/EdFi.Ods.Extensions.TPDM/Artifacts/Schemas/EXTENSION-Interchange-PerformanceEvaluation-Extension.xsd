@@ -6,7 +6,7 @@
   </xs:annotation>
   <xs:element name="InterchangePerformanceEvaluation">
     <xs:annotation>
-      <xs:documentation></xs:documentation>
+      <xs:documentation>This interchange defines performance evaluations and contains all their identifying information</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:choice maxOccurs="unbounded">
@@ -16,14 +16,10 @@
         <xs:element name="EvaluationElementRating" type="EXTENSION-EvaluationElementRating" />
         <xs:element name="EvaluationObjective" type="EXTENSION-EvaluationObjective" />
         <xs:element name="EvaluationObjectiveRating" type="EXTENSION-EvaluationObjectiveRating" />
-        <xs:element name="Goal" type="EXTENSION-Goal" />
         <xs:element name="PerformanceEvaluation" type="EXTENSION-PerformanceEvaluation" />
         <xs:element name="PerformanceEvaluationRating" type="EXTENSION-PerformanceEvaluationRating" />
-        <xs:element name="QuantitativeMeasure" type="EXTENSION-QuantitativeMeasure" />
-        <xs:element name="QuantitativeMeasureScore" type="EXTENSION-QuantitativeMeasureScore" />
         <xs:element name="RubricDimension" type="EXTENSION-RubricDimension" />
-        <xs:element name="SurveySection" type="EXTENSION-SurveySectionExtension" />
-        <xs:element name="SurveySectionAggregateResponse" type="EXTENSION-SurveySectionAggregateResponse" />
+        <xs:element name="SurveySection" type="SurveySection" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

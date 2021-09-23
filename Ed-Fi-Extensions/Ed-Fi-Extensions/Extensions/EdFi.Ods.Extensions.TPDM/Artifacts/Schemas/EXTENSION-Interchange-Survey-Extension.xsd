@@ -14,7 +14,7 @@
         <xs:element name="SurveyQuestion" type="SurveyQuestion" />
         <xs:element name="SurveyQuestionResponse" type="SurveyQuestionResponse" />
         <xs:element name="SurveyResponse" type="EXTENSION-SurveyResponseExtension" />
-        <xs:element name="SurveySection" type="EXTENSION-SurveySectionExtension" />
+        <xs:element name="SurveySection" type="SurveySection" />
         <xs:element name="SurveySectionResponse" type="SurveySectionResponse" />
         <xs:element name="SurveyCourseAssociation" type="SurveyCourseAssociation" />
         <xs:element name="SurveySectionAssociation" type="SurveySectionAssociation" />
@@ -23,6 +23,8 @@
         <xs:element name="SurveyResponseStaffTargetAssociation" type="SurveyResponseStaffTargetAssociation" />
         <xs:element name="SurveySectionResponseEducationOrganizationTargetAssociation" type="SurveySectionResponseEducationOrganizationTargetAssociation" />
         <xs:element name="SurveySectionResponseStaffTargetAssociation" type="SurveySectionResponseStaffTargetAssociation" />
+        <xs:element name="SurveyResponsePersonTargetAssociation" type="EXTENSION-SurveyResponsePersonTargetAssociation" />
+        <xs:element name="SurveySectionResponsePersonTargetAssociation" type="EXTENSION-SurveySectionResponsePersonTargetAssociation" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

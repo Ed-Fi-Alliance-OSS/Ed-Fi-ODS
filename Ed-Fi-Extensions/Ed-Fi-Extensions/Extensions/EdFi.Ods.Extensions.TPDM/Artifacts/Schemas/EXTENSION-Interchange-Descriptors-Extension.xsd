@@ -196,58 +196,21 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="WeaponDescriptor" type="WeaponDescriptor" />
         <xs:element name="AccreditationStatusDescriptor" type="EXTENSION-AccreditationStatusDescriptor" />
         <xs:element name="AidTypeDescriptor" type="EXTENSION-AidTypeDescriptor" />
-        <xs:element name="ApplicationEventResultDescriptor" type="EXTENSION-ApplicationEventResultDescriptor" />
-        <xs:element name="ApplicationEventTypeDescriptor" type="EXTENSION-ApplicationEventTypeDescriptor" />
-        <xs:element name="ApplicationSourceDescriptor" type="EXTENSION-ApplicationSourceDescriptor" />
-        <xs:element name="ApplicationStatusDescriptor" type="EXTENSION-ApplicationStatusDescriptor" />
-        <xs:element name="BackgroundCheckStatusDescriptor" type="EXTENSION-BackgroundCheckStatusDescriptor" />
-        <xs:element name="BackgroundCheckTypeDescriptor" type="EXTENSION-BackgroundCheckTypeDescriptor" />
-        <xs:element name="CandidateCharacteristicDescriptor" type="EXTENSION-CandidateCharacteristicDescriptor" />
-        <xs:element name="CertificationExamStatusDescriptor" type="EXTENSION-CertificationExamStatusDescriptor" />
-        <xs:element name="CertificationExamTypeDescriptor" type="EXTENSION-CertificationExamTypeDescriptor" />
-        <xs:element name="CertificationFieldDescriptor" type="EXTENSION-CertificationFieldDescriptor" />
-        <xs:element name="CertificationLevelDescriptor" type="EXTENSION-CertificationLevelDescriptor" />
         <xs:element name="CertificationRouteDescriptor" type="EXTENSION-CertificationRouteDescriptor" />
-        <xs:element name="CertificationStandardDescriptor" type="EXTENSION-CertificationStandardDescriptor" />
         <xs:element name="CoteachingStyleObservedDescriptor" type="EXTENSION-CoteachingStyleObservedDescriptor" />
-        <xs:element name="CredentialEventTypeDescriptor" type="EXTENSION-CredentialEventTypeDescriptor" />
         <xs:element name="CredentialStatusDescriptor" type="EXTENSION-CredentialStatusDescriptor" />
-        <xs:element name="DegreeDescriptor" type="EXTENSION-DegreeDescriptor" />
-        <xs:element name="EducatorPreparationProgramTypeDescriptor" type="EXTENSION-EducatorPreparationProgramTypeDescriptor" />
         <xs:element name="EducatorRoleDescriptor" type="EXTENSION-EducatorRoleDescriptor" />
         <xs:element name="EnglishLanguageExamDescriptor" type="EXTENSION-EnglishLanguageExamDescriptor" />
-        <xs:element name="EPPDegreeTypeDescriptor" type="EXTENSION-EPPDegreeTypeDescriptor" />
         <xs:element name="EPPProgramPathwayDescriptor" type="EXTENSION-EPPProgramPathwayDescriptor" />
         <xs:element name="EvaluationElementRatingLevelDescriptor" type="EXTENSION-EvaluationElementRatingLevelDescriptor" />
         <xs:element name="EvaluationPeriodDescriptor" type="EXTENSION-EvaluationPeriodDescriptor" />
         <xs:element name="EvaluationRatingLevelDescriptor" type="EXTENSION-EvaluationRatingLevelDescriptor" />
         <xs:element name="EvaluationTypeDescriptor" type="EXTENSION-EvaluationTypeDescriptor" />
-        <xs:element name="FederalLocaleCodeDescriptor" type="EXTENSION-FederalLocaleCodeDescriptor" />
-        <xs:element name="FieldworkTypeDescriptor" type="EXTENSION-FieldworkTypeDescriptor" />
-        <xs:element name="FundingSourceDescriptor" type="EXTENSION-FundingSourceDescriptor" />
         <xs:element name="GenderDescriptor" type="EXTENSION-GenderDescriptor" />
-        <xs:element name="GoalTypeDescriptor" type="EXTENSION-GoalTypeDescriptor" />
-        <xs:element name="HireStatusDescriptor" type="EXTENSION-HireStatusDescriptor" />
-        <xs:element name="HiringSourceDescriptor" type="EXTENSION-HiringSourceDescriptor" />
-        <xs:element name="InstructionalSettingDescriptor" type="EXTENSION-InstructionalSettingDescriptor" />
-        <xs:element name="LengthOfContractDescriptor" type="EXTENSION-LengthOfContractDescriptor" />
         <xs:element name="ObjectiveRatingLevelDescriptor" type="EXTENSION-ObjectiveRatingLevelDescriptor" />
-        <xs:element name="OpenStaffPositionEventStatusDescriptor" type="EXTENSION-OpenStaffPositionEventStatusDescriptor" />
-        <xs:element name="OpenStaffPositionEventTypeDescriptor" type="EXTENSION-OpenStaffPositionEventTypeDescriptor" />
-        <xs:element name="OpenStaffPositionReasonDescriptor" type="EXTENSION-OpenStaffPositionReasonDescriptor" />
         <xs:element name="PerformanceEvaluationRatingLevelDescriptor" type="EXTENSION-PerformanceEvaluationRatingLevelDescriptor" />
         <xs:element name="PerformanceEvaluationTypeDescriptor" type="EXTENSION-PerformanceEvaluationTypeDescriptor" />
-        <xs:element name="PreviousCareerDescriptor" type="EXTENSION-PreviousCareerDescriptor" />
-        <xs:element name="ProfessionalDevelopmentOfferedByDescriptor" type="EXTENSION-ProfessionalDevelopmentOfferedByDescriptor" />
-        <xs:element name="ProgramGatewayDescriptor" type="EXTENSION-ProgramGatewayDescriptor" />
-        <xs:element name="QuantitativeMeasureDatatypeDescriptor" type="EXTENSION-QuantitativeMeasureDatatypeDescriptor" />
-        <xs:element name="QuantitativeMeasureTypeDescriptor" type="EXTENSION-QuantitativeMeasureTypeDescriptor" />
-        <xs:element name="RecruitmentEventAttendeeTypeDescriptor" type="EXTENSION-RecruitmentEventAttendeeTypeDescriptor" />
-        <xs:element name="RecruitmentEventTypeDescriptor" type="EXTENSION-RecruitmentEventTypeDescriptor" />
         <xs:element name="RubricRatingLevelDescriptor" type="EXTENSION-RubricRatingLevelDescriptor" />
-        <xs:element name="SalaryTypeDescriptor" type="EXTENSION-SalaryTypeDescriptor" />
-        <xs:element name="StaffToCandidateRelationshipDescriptor" type="EXTENSION-StaffToCandidateRelationshipDescriptor" />
-        <xs:element name="WithdrawReasonDescriptor" type="EXTENSION-WithdrawReasonDescriptor" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

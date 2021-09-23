@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>EdFi.Ods.Extensions.TPDM</id>
+    <id>EdFi.Ods.Extensions.TPDM.Core</id>
     <version>0.0.0</version>
     <authors>Ed-Fi Alliance</authors>
     <owners>Ed-Fi Alliance</owners>
     <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>EdFi.Ods.Extensions.TPDM</description>
+    <description>EdFi.Ods.Extensions.TPDM.Core</description>
     <releaseNotes></releaseNotes>
     <license type="file">LICENSE.txt</license>
   </metadata>
