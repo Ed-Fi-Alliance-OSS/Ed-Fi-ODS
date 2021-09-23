@@ -15,13 +15,13 @@ namespace EdFi.Ods.Features.ChangeQueries.DatabaseNaming
     /// to allow API requests to be serviced off a static snapshot of the ODS for the purposes
     /// of maintaining a fully isolated context for client API publishing using Change Queries.
     /// </summary>
-    public class SnapshotSuffixDatabaseNameReplacementTokenProvider : IDatabaseNameReplacementTokenProvider
+    public class SnapshotSuffixDatabaseReplacementTokenProvider : IDatabaseReplacementTokenProvider
     {
-        private readonly IDatabaseNameReplacementTokenProvider _next;
+        private readonly IDatabaseReplacementTokenProvider _next;
         private readonly ISnapshotContextProvider _snapshotContextProvider;
 
-        public SnapshotSuffixDatabaseNameReplacementTokenProvider(
-            IDatabaseNameReplacementTokenProvider next,
+        public SnapshotSuffixDatabaseReplacementTokenProvider(
+            IDatabaseReplacementTokenProvider next,
             ISnapshotContextProvider snapshotContextProvider)
         {
             _next = next;
@@ -34,18 +34,20 @@ namespace EdFi.Ods.Features.ChangeQueries.DatabaseNaming
         /// <returns>The configured token replacement with a snapshot database suffix appended.</returns>
         /// <exception cref="FormatException">Occurs if the snapshot identifier in context
         /// is not an alphanumeric value.</exception>
-        public string GetReplacementToken()
+        public string GetDatabaseNameReplacementToken()
         {
             var snapshotContext = _snapshotContextProvider.GetSnapshotContext();
 
             if (snapshotContext == null || string.IsNullOrEmpty(snapshotContext.SnapshotIdentifier))
-                return _next.GetReplacementToken();
+                return _next.GetDatabaseNameReplacementToken();
 
             // To prevent possible tampering, snapshot identifier must only contain letters or numbers.
             if (snapshotContext.SnapshotIdentifier.Any(c => !(char.IsLetter(c) || char.IsDigit(c))))
                 throw new FormatException("Invalid value for snapshot identifier.");
 
-            return _next.GetReplacementToken() + $"_SS{snapshotContext.SnapshotIdentifier}";
+            return _next.GetDatabaseNameReplacementToken() + $"_SS{snapshotContext.SnapshotIdentifier}";
         }
+
+        public string GetServerNameReplacementToken() => _next.GetServerNameReplacementToken();
     }
 }

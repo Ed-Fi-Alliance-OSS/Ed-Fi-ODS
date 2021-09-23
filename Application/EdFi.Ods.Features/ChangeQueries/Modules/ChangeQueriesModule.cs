@@ -67,8 +67,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 .SingleInstance();
 
             builder.RegisterDecorator<
-                    SnapshotSuffixDatabaseNameReplacementTokenProvider,
-                    IDatabaseNameReplacementTokenProvider>();
+                    SnapshotSuffixDatabaseReplacementTokenProvider,
+                    IDatabaseReplacementTokenProvider>();
 
             builder.RegisterType<SnapshotGoneExceptionTranslator>()
                 .As<IExceptionTranslator>()

@@ -11,17 +11,17 @@ using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
-    public class DistrictSpecificDatabaseNameReplacementTokenProviderModule : ConditionalModule
+    public class SharedInstanceDatabaseReplacementTokenProviderModule : ConditionalModule
     {
-        public DistrictSpecificDatabaseNameReplacementTokenProviderModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(DistrictSpecificDatabaseNameReplacementTokenProviderModule)) { }
+        public SharedInstanceDatabaseReplacementTokenProviderModule(ApiSettings apiSettings)
+            : base(apiSettings, nameof(SharedInstanceDatabaseReplacementTokenProviderModule)) { }
 
-        public override bool IsSelected() => ApiSettings.GetApiMode() == ApiMode.DistrictSpecific;
+        public override bool IsSelected() => ApiSettings.GetApiMode() == ApiMode.SharedInstance;
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<DistrictSpecificDatabaseNameReplacementTokenProvider>()
-                .As<IDatabaseNameReplacementTokenProvider>()
+            builder.RegisterType<SharedInstanceDatabaseReplacementTokenProvider>()
+                .As<IDatabaseReplacementTokenProvider>()
                 .SingleInstance();
         }
     }

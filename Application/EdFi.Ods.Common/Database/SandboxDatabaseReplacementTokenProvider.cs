@@ -8,16 +8,16 @@ using System;
 
 namespace EdFi.Ods.Common.Database
 {
-    public class SandboxDatabaseNameReplacementTokenProvider : IDatabaseNameReplacementTokenProvider
+    public class SandboxDatabaseReplacementTokenProvider : IDatabaseReplacementTokenProvider
     {
         private readonly IApiKeyContextProvider apiKeyContextProvider;
 
-        public SandboxDatabaseNameReplacementTokenProvider(IApiKeyContextProvider apiKeyContextProvider)
+        public SandboxDatabaseReplacementTokenProvider(IApiKeyContextProvider apiKeyContextProvider)
         {
             this.apiKeyContextProvider = apiKeyContextProvider;
         }
 
-        public string GetReplacementToken()
+        public string GetDatabaseNameReplacementToken()
         {
             //Convention: "Ods_Sandbox_" + vendor's api key.
             string apiKey = apiKeyContextProvider.GetApiKeyContext()
@@ -31,5 +31,7 @@ namespace EdFi.Ods.Common.Database
 
             return string.Format("Ods_Sandbox_{0}", apiKey);
         }
+
+        public string GetServerNameReplacementToken() => GetDatabaseNameReplacementToken();
     }
 }

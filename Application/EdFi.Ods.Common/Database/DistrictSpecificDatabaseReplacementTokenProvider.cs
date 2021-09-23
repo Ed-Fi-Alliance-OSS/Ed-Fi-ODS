@@ -10,16 +10,16 @@ using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Common.Database
 {
-    public class DistrictSpecificDatabaseNameReplacementTokenProvider : IDatabaseNameReplacementTokenProvider
+    public class DistrictSpecificDatabaseReplacementTokenProvider : IDatabaseReplacementTokenProvider
     {
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
 
-        public DistrictSpecificDatabaseNameReplacementTokenProvider(IApiKeyContextProvider apiKeyContextProvider)
+        public DistrictSpecificDatabaseReplacementTokenProvider(IApiKeyContextProvider apiKeyContextProvider)
         {
             _apiKeyContextProvider = apiKeyContextProvider;
         }
 
-        public string GetReplacementToken()
+        public string GetDatabaseNameReplacementToken()
         {
             List<int> availableEducationOrganizations = _apiKeyContextProvider.GetApiKeyContext()?.EducationOrganizationIds?.ToList() ??
                                                         new List<int>();
@@ -38,5 +38,7 @@ namespace EdFi.Ods.Common.Database
             //Convention: "Ods_" + local education agency id
             return $"Ods_{availableEducationOrganizations.Single()}";
         }
+
+        public string GetServerNameReplacementToken() => GetDatabaseNameReplacementToken();
     }
 }
