@@ -163,7 +163,7 @@ namespace EdFi.Ods.Api.Helpers
 
                 if (physicalNameJToken != null)
                 {
-                    string[] foldernames = apiModelFilePath.Split('\\');
+                    string[] foldernames = apiModelFilePath.Split(Path.DirectorySeparatorChar);
                     foreach (string folder in foldernames)
                     {
                         if (folder.Contains("Extensions"))
@@ -178,17 +178,29 @@ namespace EdFi.Ods.Api.Helpers
 
             string duplicatePhysicalName = "";
             string duplicatePluginFolder = "";
+            bool IsDuplicateExist = false;
+
             foreach (var physicalName in physicalNames)
             {
-                if(physicalName.Key.EqualsIgnoreCase(duplicatePhysicalName))
+                if (physicalName.Key.EqualsIgnoreCase(duplicatePhysicalName))
                 {
-                    _logger.Debug($"found duplicate extension schema name '{physicalName.Key}' in plugin folder." +
+                    _logger.Error($"found duplicate extension schema name '{physicalName.Key}' in plugin folder." +
                         $" You will be able to deploy only one of the following plugins '{physicalName.Value}' and '{duplicatePluginFolder}' folder name." +
                         $" Please remove the conflicting plugins and retry");
-                    throw new Exception();
+                    IsDuplicateExist = true;
+                    duplicatePhysicalName = "";
+                    duplicatePluginFolder = "";
                 }
-                duplicatePhysicalName = physicalName.Key;
-                duplicatePluginFolder = physicalName.Value;
+                else
+                {
+                    duplicatePhysicalName = physicalName.Key;
+                    duplicatePluginFolder = physicalName.Value;
+                }
+            }
+
+            if(IsDuplicateExist)
+            {
+                throw new Exception();
             }
 
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
