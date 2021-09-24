@@ -163,8 +163,8 @@ namespace EdFi.Ods.Api.Helpers
 
                 if (physicalNameJToken != null)
                 {
-                    string[] foldernames = apiModelFilePath.Split(Path.DirectorySeparatorChar);
-                    foreach (string folder in foldernames)
+                    string[] folderNames = apiModelFilePath.Split(Path.DirectorySeparatorChar);
+                    foreach (string folder in folderNames)
                     {
                         if (folder.Contains("Extensions"))
                         {
@@ -176,31 +176,23 @@ namespace EdFi.Ods.Api.Helpers
                 } 
             }
 
-            string duplicatePhysicalName = "";
-            string duplicatePluginFolder = "";
-            bool IsDuplicateExist = false;
+            bool isDuplicate = false;
+            var duplicateExtensionPlugins = physicalNames.ToLookup( x => x.Key).Where(x => x.Count() > 1);
 
-            foreach (var physicalName in physicalNames)
+            foreach (var duplicateExtensionPlugin in duplicateExtensionPlugins)
             {
-                if (physicalName.Key.EqualsIgnoreCase(duplicatePhysicalName))
-                {
-                    _logger.Error($"found duplicate extension schema name '{physicalName.Key}' in plugin folder." +
-                        $" You will be able to deploy only one of the following plugins '{physicalName.Value}' and '{duplicatePluginFolder}' folder name." +
-                        $" Please remove the conflicting plugins and retry");
-                    IsDuplicateExist = true;
-                    duplicatePhysicalName = "";
-                    duplicatePluginFolder = "";
-                }
-                else
-                {
-                    duplicatePhysicalName = physicalName.Key;
-                    duplicatePluginFolder = physicalName.Value;
-                }
+                isDuplicate = true;
+                var pluginFolders = duplicateExtensionPlugin.Aggregate(string.Empty, (s, v) => s + v + " and ");
+                pluginFolders = pluginFolders.Replace(duplicateExtensionPlugin.Key+",",string.Empty);
+                pluginFolders = pluginFolders.Remove(pluginFolders.LastIndexOf(" and"));
+                _logger.Error($"found duplicate extension schema name '{duplicateExtensionPlugin.Key}' in plugin folder." +
+                    $" You will be able to deploy only one of the following plugins '{pluginFolders}' folder name." +
+                    $" Please remove the conflicting plugins and retry");
             }
 
-            if(IsDuplicateExist)
+            if(isDuplicate)
             {
-                throw new Exception();
+                throw new Exception("found duplicate extension schema name , Please look into logs for more details");
             }
 
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
