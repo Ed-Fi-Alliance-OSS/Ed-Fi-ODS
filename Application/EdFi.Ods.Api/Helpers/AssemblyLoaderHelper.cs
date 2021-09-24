@@ -182,11 +182,9 @@ namespace EdFi.Ods.Api.Helpers
             foreach (var duplicateExtensionPlugin in duplicateExtensionPlugins)
             {
                 isDuplicate = true;
-                var pluginFolders = duplicateExtensionPlugin.Aggregate(string.Empty, (s, v) => s + v + " and ");
-                pluginFolders = pluginFolders.Replace(duplicateExtensionPlugin.Key+",",string.Empty);
-                pluginFolders = pluginFolders.Remove(pluginFolders.LastIndexOf(" and"));
+                var pluginFolders = duplicateExtensionPlugin.Select(s => s.Value); 
                 _logger.Error($"found duplicate extension schema name '{duplicateExtensionPlugin.Key}' in plugin folder." +
-                    $" You will be able to deploy only one of the following plugins '{pluginFolders}' folder name." +
+                    $" You will be able to deploy only one of the following plugins '{string.Join("' and '", pluginFolders)}' folder name." +
                     $" Please remove the conflicting plugins and retry");
             }
 
