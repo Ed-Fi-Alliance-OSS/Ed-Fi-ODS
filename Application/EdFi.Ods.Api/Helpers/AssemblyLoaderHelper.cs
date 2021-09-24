@@ -190,7 +190,8 @@ namespace EdFi.Ods.Api.Helpers
 
             if(isDuplicate)
             {
-                throw new Exception("found duplicate extension schema name , Please look into logs for more details");
+                throw new Exception("Found duplicate plugin extension schema name. Please see logs for more details.");
+
             }
 
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
