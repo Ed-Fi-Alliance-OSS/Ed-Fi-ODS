@@ -20,6 +20,7 @@ using EdFi.Ods.Common.Validation;
 using FluentValidation;
 using log4net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace EdFi.Ods.Api.Helpers
 {
@@ -146,6 +147,53 @@ namespace EdFi.Ods.Api.Helpers
                 yield break;
             }
 
+            var apiModelFiles = Directory.GetFiles(pluginFolder, "ApiModel-EXTENSION.json", SearchOption.AllDirectories);
+
+            var physicalNames = new List<KeyValuePair<string, string>>();
+
+            Array.Sort(apiModelFiles, StringComparer.InvariantCulture);
+
+            foreach (var apiModelFilePath in apiModelFiles)
+            {
+                var myJsonString = File.ReadAllText(apiModelFilePath);
+
+                var myJsonObject = JObject.Parse(myJsonString);
+
+                JToken physicalNameJToken = myJsonObject.SelectToken("$.schemaDefinition.physicalName");
+
+                if (physicalNameJToken != null)
+                {
+                    string[] folderNames = apiModelFilePath.Split(Path.DirectorySeparatorChar);
+                    foreach (string folder in folderNames)
+                    {
+                        if (folder.Contains("Extensions"))
+                        {
+                            string key = physicalNameJToken.Value<string>();
+                            var element = new KeyValuePair<string, string>(key, folder);
+                            physicalNames.Add(element);
+                        }
+                    }
+                } 
+            }
+
+            bool isDuplicate = false;
+            var duplicateExtensionPlugins = physicalNames.ToLookup( x => x.Key).Where(x => x.Count() > 1);
+
+            foreach (var duplicateExtensionPlugin in duplicateExtensionPlugins)
+            {
+                isDuplicate = true;
+                var pluginFolders = duplicateExtensionPlugin.Select(s => s.Value); 
+                _logger.Error($"found duplicate extension schema name '{duplicateExtensionPlugin.Key}' in plugin folder." +
+                    $" You will be able to deploy only one of the following plugins '{string.Join("' and '", pluginFolders)}' folder name." +
+                    $" Please remove the conflicting plugins and retry");
+            }
+
+            if(isDuplicate)
+            {
+                throw new Exception("Found duplicate plugin extension schema name. Please see logs for more details.");
+
+            }
+
             var assemblies = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.AllDirectories);
 
             var pluginAssemblyLoadContext = new PluginAssemblyLoadContext();
@@ -236,7 +284,8 @@ namespace EdFi.Ods.Api.Helpers
 
             if (resourceName == null)
             {
-                throw new Exception($"Assembly metadata embedded resource '{AssemblyMetadataSearchString}' not found in assembly '{Path.GetFileName(assembly.Location)}'.");
+                throw new Exception(
+                    $"Assembly metadata embedded resource '{AssemblyMetadataSearchString}' not found in assembly '{Path.GetFileName(assembly.Location)}'.");
             }
 
             var stream = assembly.GetManifestResourceStream(resourceName);
@@ -259,6 +308,7 @@ namespace EdFi.Ods.Api.Helpers
         private class AssemblyMetadata
         {
             public string AssemblyModelType { get; set; }
+
             public string AssemblyMetadataFormatVersion { get; set; }
         }
     }
