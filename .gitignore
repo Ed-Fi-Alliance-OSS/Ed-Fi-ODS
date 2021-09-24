@@ -92,4 +92,7 @@ Utilities/SdkGen/EdFi.SdkGen.Console/sdk-generate.jar
 # Keep older versions of MetaEd artifacts out of source control
 Application/EdFi.Ods.CodeGen/App_Packages
 
+# Keep generated SDK out of source control
+Utilities/SdkGen/EdFi.SdkGen.Console/csharp
+
 *.log
