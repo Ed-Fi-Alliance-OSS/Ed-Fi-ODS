@@ -14,53 +14,62 @@ using SqlKata;
 using SqlKata.Compilers;
 using SqlKata.Execution;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
+namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
-    public class DeletedItemsQueriesProvider : IDeletedItemsQueriesProvider
+    public class KeyChangesQueriesProvider : IKeyChangesQueriesProvider
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(DeletedItemsQueriesProvider));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(KeyChangesQueriesProvider));
 
         private readonly Compiler _sqlCompiler;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
         private readonly IDatabaseNamingConvention _namingConvention;
-        private readonly IDeletedItemsQueryMetadataProvider _deletedItemsQueryMetadataProvider;
+        private readonly IKeyChangesQueryMetadataProvider _keyChangesQueryMetadataProvider;
 
-        public DeletedItemsQueriesProvider(
+        public KeyChangesQueriesProvider(
             Compiler sqlCompiler, 
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             IDatabaseNamingConvention namingConvention,
-            IDeletedItemsQueryMetadataProvider deletedItemsQueryMetadataProvider)
+            IKeyChangesQueryMetadataProvider keyChangesQueryMetadataProvider)
         {
             _sqlCompiler = sqlCompiler;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _namingConvention = namingConvention;
-            _deletedItemsQueryMetadataProvider = deletedItemsQueryMetadataProvider;
+            _keyChangesQueryMetadataProvider = keyChangesQueryMetadataProvider;
         }
         
         public TrackedChangesQueries GetQueries(DbConnection connection, Resource resource, IQueryParameters queryParameters)
         {
             var db = new QueryFactory(connection, _sqlCompiler);
 
-            var templateQuery = _deletedItemsQueryMetadataProvider.GetTemplateQuery(resource);
+            if (_logger.IsDebugEnabled)
+            {
+                db.Logger = compiled =>
+                {
+                    _logger.Debug(compiled.ToString());
+                };
+            }
+            
+            var templateQuery = _keyChangesQueryMetadataProvider.GetTemplateQuery(resource);
 
             // Prepare the queries
-            var deletedItemsQueries = new TrackedChangesQueries(GetDeletedItemsQuery(), GetCountQuery());
-            return deletedItemsQueries;
+            var keyChangesQueries = new TrackedChangesQueries(GetKeyChangesQuery(), GetCountQuery());
             
-            Query GetDeletedItemsQuery()
+            return keyChangesQueries;
+            
+            Query GetKeyChangesQuery()
             {
-                var deletesQuery = db.FromQuery(templateQuery);
+                var keyChangesQuery = db.FromQuery(templateQuery);
 
-                ApplyPaging(deletesQuery);
-                ApplyChangeVersionCriteria(deletesQuery);
+                ApplyPaging(keyChangesQuery);
+                ApplyChangeVersionCriteria(keyChangesQuery);
 
                 if (_logger.IsDebugEnabled)
                 {
-                    var sqlResult = _sqlCompiler.Compile(deletesQuery);
+                    var sqlResult = _sqlCompiler.Compile(keyChangesQuery);
                     _logger.Debug(sqlResult.Sql);
                 }
 
-                return deletesQuery;
+                return keyChangesQuery;
             }
 
             Query GetCountQuery()

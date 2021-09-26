@@ -47,7 +47,7 @@ namespace EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers
                 }
                 else
                 {
-                    _logger.Warn($"Unable to locate entity '{expectedFullName}' for NHibernate entity type '{mappedEntityType.FullName}'. .NET Type will not be available on the entity in the model.");
+                    _logger.Debug($"Unable to locate entity '{expectedFullName}' for NHibernate entity type '{mappedEntityType.FullName}'. .NET Type will not be available on the entity in the model.");
                 }
             }
         }

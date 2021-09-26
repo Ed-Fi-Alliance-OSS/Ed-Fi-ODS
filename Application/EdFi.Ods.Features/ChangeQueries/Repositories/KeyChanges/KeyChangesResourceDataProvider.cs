@@ -12,87 +12,95 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 using EdFi.Ods.Features.ChangeQueries.Resources;
 using EdFi.Ods.Generator.Database.NamingConventions;
 using log4net;
 using SqlKata;
 using SqlKata.Execution;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
+namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
-    public class DeletedItemsResourceDataProvider : IDeletedItemsResourceDataProvider
+    public class KeyChangesResourceDataProvider : IKeyChangesResourceDataProvider
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(DeletedItemsResourceDataProvider));
         
         private readonly DbProviderFactory _dbProviderFactory;
         private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
 
-        private readonly IDeletedItemsQueryMetadataProvider _deletedItemsQueryMetadataProvider;
-        private readonly IDeletedItemsQueriesProvider _deletedItemsQueriesProvider;
+        private readonly IKeyChangesQueryMetadataProvider _keyChangesQueryMetadataProvider;
+        private readonly IKeyChangesQueriesProvider _keyChangesQueriesProvider;
         private readonly IDatabaseNamingConvention _namingConvention;
 
-        public DeletedItemsResourceDataProvider(
+        public KeyChangesResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
-            IDeletedItemsQueryMetadataProvider deletedItemsQueryMetadataProvider,
-            IDeletedItemsQueriesProvider deletedItemsQueriesProvider,
+            IKeyChangesQueryMetadataProvider keyChangesQueryMetadataProvider,
+            IKeyChangesQueriesProvider keyChangesQueriesProvider,
             IDatabaseNamingConvention namingConvention)
         {
             _dbProviderFactory = dbProviderFactory;
             _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
-            _deletedItemsQueryMetadataProvider = deletedItemsQueryMetadataProvider;
-            _deletedItemsQueriesProvider = deletedItemsQueriesProvider;
+            _keyChangesQueryMetadataProvider = keyChangesQueryMetadataProvider;
+            _keyChangesQueriesProvider = keyChangesQueriesProvider;
             _namingConvention = namingConvention;
         }
 
-        public async Task<DeletedItemsResourceData> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
+        public async Task<KeyChangesResourceData> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
             using (var conn = _dbProviderFactory.CreateConnection())
             {
                 conn.ConnectionString = _odsDatabaseConnectionStringProvider.GetConnectionString();
                 await conn.OpenAsync();
 
-                var queries = _deletedItemsQueriesProvider.GetQueries(conn, resource, queryParameters);
+                var queries = _keyChangesQueriesProvider.GetQueries(conn, resource, queryParameters);
 
-                var responseData = new DeletedItemsResourceData
+                var responseData = new KeyChangesResourceData()
                 {
-                    DeletedResources = await GetDataAsync(queries.DataQuery),
+                    KeyChanges = await GetDataAsync(queries.DataQuery),
                     Count = await GetCountAsync(queries.CountQuery),
                 };
 
                 return responseData;
             }
 
-            async Task<IReadOnlyList<DeletedResourceItem>> GetDataAsync(Query dataQuery)
+            async Task<IReadOnlyList<KeyChange>> GetDataAsync(Query dataQuery)
             {
                 if (dataQuery != null)
                 {
                     // Execute query, casting to strong type to avoid use of dynamic
-                    var deletedItems = (List<object>) await dataQuery.GetAsync();
+                    var keyChangesRawData = (List<object>) await dataQuery.GetAsync();
 
-                    var deletedResources = deletedItems
+                    var keyChanges = keyChangesRawData
                         .Cast<IDictionary<string, object>>()
                         .Select(
-                            deletedItem => new DeletedResourceItem
+                            keyChange => new KeyChange()
                             {
-                                Id = (Guid) deletedItem[_namingConvention.ColumnName("Id")],
+                                Id = (Guid) keyChange[_namingConvention.ColumnName("Id")],
                                 ChangeVersion =
-                                    (long) deletedItem[_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)],
-                                KeyValues =
+                                    (long) keyChange[_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)],
+                                OldKeyValues = 
                                     GetIdentifierKeyValues(
-                                        _deletedItemsQueryMetadataProvider.GetIdentifierProjections(resource),
-                                        deletedItem),
+                                        _keyChangesQueryMetadataProvider.GetIdentifierProjections(resource),
+                                        keyChange, 
+                                        ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix),
+                                NewKeyValues = 
+                                    GetIdentifierKeyValues(
+                                        _keyChangesQueryMetadataProvider.GetIdentifierProjections(resource),
+                                        keyChange, 
+                                        ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix),
                             })
                         .ToList();
 
-                    return deletedResources;
+                    return keyChanges;
                 }
 
                 return null;
                 
                 Dictionary<string, object> GetIdentifierKeyValues(
                     QueryProjection[] identifierProjections, 
-                    IDictionary<string, object> deletedItem)
+                    IDictionary<string, object> keyChange,
+                    string columnPrefix)
                 {
                     var keyValues = new Dictionary<string, object>();
 
@@ -100,8 +108,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                     {
                         if (identifierMetadata.IsDescriptorUsage)
                         {
-                            string namespaceColumn = identifierMetadata.SelectColumns.FirstOrDefault(c => c.ColumnAlias.EndsWithIgnoreCase("Namespace"))?.ColumnAlias;
-                            string codeValueColumn = identifierMetadata.SelectColumns.FirstOrDefault(c => c.ColumnAlias.EndsWithIgnoreCase("CodeValue"))?.ColumnAlias;
+                            string namespaceColumn = identifierMetadata.SelectColumns.Where(c => c.Qualifier.EqualsIgnoreCase(columnPrefix)).FirstOrDefault(c => c.ColumnAlias.EndsWithIgnoreCase("Namespace"))?.ColumnAlias;
+                            string codeValueColumn = identifierMetadata.SelectColumns.Where(c => c.Qualifier.EqualsIgnoreCase(columnPrefix)).FirstOrDefault(c => c.ColumnAlias.EndsWithIgnoreCase("CodeValue"))?.ColumnAlias;
 
                             if (namespaceColumn == null)
                             {
@@ -114,13 +122,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                             }
                     
                             keyValues[identifierMetadata.JsonPropertyName] =
-                                $"{deletedItem[namespaceColumn]}#{deletedItem[codeValueColumn]}";
+                                $"{keyChange[namespaceColumn]}#{keyChange[codeValueColumn]}";
                         }
                         else
                         {
-                            foreach (var selectColumn in identifierMetadata.SelectColumns)
+                            foreach (var selectColumn in identifierMetadata.SelectColumns.Where(c => c.Qualifier.EqualsIgnoreCase(columnPrefix)))
                             {
-                                keyValues[selectColumn.JsonPropertyName] = deletedItem[selectColumn.ColumnAlias];
+                                keyValues[selectColumn.JsonPropertyName] = keyChange[selectColumn.ColumnAlias];
                             }
                         }
                     }

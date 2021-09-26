@@ -7,20 +7,21 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
+using EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges;
 using EdFi.Ods.Generator.Database.NamingConventions;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
-    public class DeletedItemsQueriesProviderAuthorizationDecorator
-        : TrackedChangesQueriesProviderAuthorizationDecorator, IDeletedItemsQueriesProvider
+    public class KeyChangesQueriesProviderAuthorizationDecorator
+        : TrackedChangesQueriesProviderAuthorizationDecorator, IKeyChangesQueriesProvider
     {
-        public DeletedItemsQueriesProviderAuthorizationDecorator(
+        public KeyChangesQueriesProviderAuthorizationDecorator(
             IAuthorizationContextProvider authorizationContextProvider,
             IEdFiAuthorizationProvider edFiAuthorizationProvider,
             IDomainModelProvider domainModelProvider,
             IDomainModelEnhancer domainModelEnhancer,
             IDatabaseNamingConvention namingConvention,
-            IDeletedItemsQueriesProvider next)
+            IKeyChangesQueriesProvider next)
             : base(
                 authorizationContextProvider,
                 edFiAuthorizationProvider,
