@@ -4,14 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Ods.Features.ChangeQueries.Resources;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
+namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
-    public class DeletedItemsResourceData
+    public class ResourceData<TItem>
     {
-        public IReadOnlyList<DeletedResourceItem> DeletedResources { get; set; }
-            
+        public IReadOnlyList<TItem> Items { get; set; }
         public long? Count { get; set; }
     }
 }

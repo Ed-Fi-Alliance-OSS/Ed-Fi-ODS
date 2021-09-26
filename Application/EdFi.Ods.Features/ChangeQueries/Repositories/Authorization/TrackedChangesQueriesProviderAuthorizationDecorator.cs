@@ -13,14 +13,13 @@ using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
-using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 using EdFi.Ods.Generator.Database.NamingConventions;
 using log4net;
 using SqlKata;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
-    public abstract class TrackedChangesQueriesProviderAuthorizationDecorator : ITrackedChangesQueriesProvider
+    public class TrackedChangesQueriesProviderAuthorizationDecorator : ITrackedChangesQueriesProvider
     {
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly IEdFiAuthorizationProvider _edFiAuthorizationProvider;
@@ -29,7 +28,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(TrackedChangesQueriesProviderAuthorizationDecorator));
 
-        protected TrackedChangesQueriesProviderAuthorizationDecorator(
+        public TrackedChangesQueriesProviderAuthorizationDecorator(
             IAuthorizationContextProvider authorizationContextProvider,
             IEdFiAuthorizationProvider edFiAuthorizationProvider,
             IDomainModelProvider domainModelProvider,
@@ -45,9 +44,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             domainModelEnhancer.Enhance(domainModelProvider.GetDomainModel());
         }
 
-        public TrackedChangesQueries GetQueries(DbConnection connection, Resource resource, IQueryParameters queryParameters)
+        public TrackedChangesQueries GetQueries(DbConnection connection, Resource resource, IQueryParameters queryParameters, Query templateQuery)
         {
-            var queries = _next.GetQueries(connection, resource, queryParameters);
+            var queries = _next.GetQueries(connection, resource, queryParameters, templateQuery);
 
             if (queries.DataQuery != null)
             {

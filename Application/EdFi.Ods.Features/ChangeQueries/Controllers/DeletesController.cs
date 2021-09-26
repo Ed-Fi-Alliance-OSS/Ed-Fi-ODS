@@ -88,7 +88,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             // Explicitly serialize the response to remain backwards compatible with pre .net core
             return new ContentResult
             {
-                Content = JsonConvert.SerializeObject(deletedItemsResponse.DeletedResources),
+                Content = JsonConvert.SerializeObject(deletedItemsResponse.Items),
                 ContentType = MediaTypeNames.Application.Json,
                 StatusCode = StatusCodes.Status200OK
             };
