@@ -23,18 +23,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
         private readonly Compiler _sqlCompiler;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
         private readonly IDatabaseNamingConvention _namingConvention;
-        private readonly IKeyChangesQueryMetadataProvider _keyChangesQueryMetadataProvider;
+        private readonly IKeyChangesTemplateQueryProvider _keyChangesTemplateQueryProvider;
 
         public KeyChangesQueriesProvider(
             Compiler sqlCompiler, 
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             IDatabaseNamingConvention namingConvention,
-            IKeyChangesQueryMetadataProvider keyChangesQueryMetadataProvider)
+            IKeyChangesTemplateQueryProvider keyChangesTemplateQueryProvider)
         {
             _sqlCompiler = sqlCompiler;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _namingConvention = namingConvention;
-            _keyChangesQueryMetadataProvider = keyChangesQueryMetadataProvider;
+            _keyChangesTemplateQueryProvider = keyChangesTemplateQueryProvider;
         }
         
         public TrackedChangesQueries GetQueries(DbConnection connection, Resource resource, IQueryParameters queryParameters)
@@ -49,7 +49,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 };
             }
             
-            var templateQuery = _keyChangesQueryMetadataProvider.GetTemplateQuery(resource);
+            var templateQuery = _keyChangesTemplateQueryProvider.GetTemplateQuery(resource);
 
             // Prepare the queries
             var keyChangesQueries = new TrackedChangesQueries(GetKeyChangesQuery(), GetCountQuery());

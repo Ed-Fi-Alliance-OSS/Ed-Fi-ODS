@@ -1,9 +1,9 @@
 using EdFi.Ods.Common.Models.Resource;
 using SqlKata;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
+namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
-    public interface IDeletedItemsQueryMetadataProvider
+    public interface IKeyChangesTemplateQueryProvider
     {
         Query GetTemplateQuery(Resource resource);
         

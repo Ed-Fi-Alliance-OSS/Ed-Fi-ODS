@@ -28,20 +28,20 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
         private readonly DbProviderFactory _dbProviderFactory;
         private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
 
-        private readonly IKeyChangesQueryMetadataProvider _keyChangesQueryMetadataProvider;
+        private readonly IKeyChangesTemplateQueryProvider _keyChangesTemplateQueryProvider;
         private readonly IKeyChangesQueriesProvider _keyChangesQueriesProvider;
         private readonly IDatabaseNamingConvention _namingConvention;
 
         public KeyChangesResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
-            IKeyChangesQueryMetadataProvider keyChangesQueryMetadataProvider,
+            IKeyChangesTemplateQueryProvider keyChangesTemplateQueryProvider,
             IKeyChangesQueriesProvider keyChangesQueriesProvider,
             IDatabaseNamingConvention namingConvention)
         {
             _dbProviderFactory = dbProviderFactory;
             _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
-            _keyChangesQueryMetadataProvider = keyChangesQueryMetadataProvider;
+            _keyChangesTemplateQueryProvider = keyChangesTemplateQueryProvider;
             _keyChangesQueriesProvider = keyChangesQueriesProvider;
             _namingConvention = namingConvention;
         }
@@ -81,13 +81,15 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                                     (long) keyChange[_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)],
                                 OldKeyValues = 
                                     GetIdentifierKeyValues(
-                                        _keyChangesQueryMetadataProvider.GetIdentifierProjections(resource),
+                                        _keyChangesTemplateQueryProvider.GetIdentifierProjections(resource),
                                         keyChange, 
+                                        ColumnGroup.OldValue,
                                         ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix),
                                 NewKeyValues = 
                                     GetIdentifierKeyValues(
-                                        _keyChangesQueryMetadataProvider.GetIdentifierProjections(resource),
+                                        _keyChangesTemplateQueryProvider.GetIdentifierProjections(resource),
                                         keyChange, 
+                                        ColumnGroup.NewValue,
                                         ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix),
                             })
                         .ToList();
@@ -100,6 +102,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 Dictionary<string, object> GetIdentifierKeyValues(
                     QueryProjection[] identifierProjections, 
                     IDictionary<string, object> keyChange,
+                    ColumnGroup columnGroup,
                     string columnPrefix)
                 {
                     var keyValues = new Dictionary<string, object>();
@@ -108,8 +111,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                     {
                         if (identifierMetadata.IsDescriptorUsage)
                         {
-                            string namespaceColumn = identifierMetadata.SelectColumns.Where(c => c.Qualifier.EqualsIgnoreCase(columnPrefix)).FirstOrDefault(c => c.ColumnAlias.EndsWithIgnoreCase("Namespace"))?.ColumnAlias;
-                            string codeValueColumn = identifierMetadata.SelectColumns.Where(c => c.Qualifier.EqualsIgnoreCase(columnPrefix)).FirstOrDefault(c => c.ColumnAlias.EndsWithIgnoreCase("CodeValue"))?.ColumnAlias;
+                            string namespaceColumn = identifierMetadata.SelectColumns.Where(c => c.ColumnGroup == columnGroup).FirstOrDefault(c => c.ColumnName.EndsWithIgnoreCase("Namespace"))?.ColumnName;
+                            string codeValueColumn = identifierMetadata.SelectColumns.Where(c => c.ColumnGroup == columnGroup).FirstOrDefault(c => c.ColumnName.EndsWithIgnoreCase("CodeValue"))?.ColumnName;
 
                             if (namespaceColumn == null)
                             {
@@ -126,9 +129,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                         }
                         else
                         {
-                            foreach (var selectColumn in identifierMetadata.SelectColumns.Where(c => c.Qualifier.EqualsIgnoreCase(columnPrefix)))
+                            foreach (var selectColumn in identifierMetadata.SelectColumns.Where(c => c.ColumnGroup == columnGroup))
                             {
-                                keyValues[selectColumn.JsonPropertyName] = keyChange[selectColumn.ColumnAlias];
+                                keyValues[selectColumn.JsonPropertyName] = keyChange[selectColumn.ColumnName];
                             }
                         }
                     }

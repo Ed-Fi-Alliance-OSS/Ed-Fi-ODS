@@ -27,20 +27,20 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
         private readonly DbProviderFactory _dbProviderFactory;
         private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
 
-        private readonly IDeletedItemsQueryMetadataProvider _deletedItemsQueryMetadataProvider;
+        private readonly IDeletedItemsTemplateQueryProvider _deletedItemsTemplateQueryProvider;
         private readonly IDeletedItemsQueriesProvider _deletedItemsQueriesProvider;
         private readonly IDatabaseNamingConvention _namingConvention;
 
         public DeletedItemsResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
-            IDeletedItemsQueryMetadataProvider deletedItemsQueryMetadataProvider,
+            IDeletedItemsTemplateQueryProvider deletedItemsTemplateQueryProvider,
             IDeletedItemsQueriesProvider deletedItemsQueriesProvider,
             IDatabaseNamingConvention namingConvention)
         {
             _dbProviderFactory = dbProviderFactory;
             _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
-            _deletedItemsQueryMetadataProvider = deletedItemsQueryMetadataProvider;
+            _deletedItemsTemplateQueryProvider = deletedItemsTemplateQueryProvider;
             _deletedItemsQueriesProvider = deletedItemsQueriesProvider;
             _namingConvention = namingConvention;
         }
@@ -80,8 +80,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                                     (long) deletedItem[_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)],
                                 KeyValues =
                                     GetIdentifierKeyValues(
-                                        _deletedItemsQueryMetadataProvider.GetIdentifierProjections(resource),
-                                        deletedItem),
+                                        _deletedItemsTemplateQueryProvider.GetIdentifierProjections(resource),
+                                        deletedItem,
+                                        ColumnGroup.OldValue),
                             })
                         .ToList();
 
@@ -92,7 +93,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                 
                 Dictionary<string, object> GetIdentifierKeyValues(
                     QueryProjection[] identifierProjections, 
-                    IDictionary<string, object> deletedItem)
+                    IDictionary<string, object> deletedItem,
+                    ColumnGroup columnGroup)
                 {
                     var keyValues = new Dictionary<string, object>();
 
@@ -100,8 +102,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                     {
                         if (identifierMetadata.IsDescriptorUsage)
                         {
-                            string namespaceColumn = identifierMetadata.SelectColumns.FirstOrDefault(c => c.ColumnAlias.EndsWithIgnoreCase("Namespace"))?.ColumnAlias;
-                            string codeValueColumn = identifierMetadata.SelectColumns.FirstOrDefault(c => c.ColumnAlias.EndsWithIgnoreCase("CodeValue"))?.ColumnAlias;
+                            string namespaceColumn = identifierMetadata.SelectColumns.Where(c => c.ColumnGroup == columnGroup).FirstOrDefault(c => c.ColumnName.EndsWithIgnoreCase("Namespace"))?.ColumnName;
+                            string codeValueColumn = identifierMetadata.SelectColumns.Where(c => c.ColumnGroup == columnGroup).FirstOrDefault(c => c.ColumnName.EndsWithIgnoreCase("CodeValue"))?.ColumnName;
 
                             if (namespaceColumn == null)
                             {
@@ -118,9 +120,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                         }
                         else
                         {
-                            foreach (var selectColumn in identifierMetadata.SelectColumns)
+                            foreach (var selectColumn in identifierMetadata.SelectColumns.Where(c => c.ColumnGroup == columnGroup))
                             {
-                                keyValues[selectColumn.JsonPropertyName] = deletedItem[selectColumn.ColumnAlias];
+                                keyValues[selectColumn.JsonPropertyName] = deletedItem[selectColumn.ColumnName];
                             }
                         }
                     }
