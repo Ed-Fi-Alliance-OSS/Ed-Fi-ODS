@@ -23,25 +23,25 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
         private readonly Compiler _sqlCompiler;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
         private readonly IDatabaseNamingConvention _namingConvention;
-        private readonly IDeletedItemsQueryMetadataProvider _deletedItemsQueryMetadataProvider;
+        private readonly IDeletedItemsTemplateQueryProvider _deletedItemsTemplateQueryProvider;
 
         public DeletedItemsQueriesProvider(
             Compiler sqlCompiler, 
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             IDatabaseNamingConvention namingConvention,
-            IDeletedItemsQueryMetadataProvider deletedItemsQueryMetadataProvider)
+            IDeletedItemsTemplateQueryProvider deletedItemsTemplateQueryProvider)
         {
             _sqlCompiler = sqlCompiler;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _namingConvention = namingConvention;
-            _deletedItemsQueryMetadataProvider = deletedItemsQueryMetadataProvider;
+            _deletedItemsTemplateQueryProvider = deletedItemsTemplateQueryProvider;
         }
         
         public TrackedChangesQueries GetQueries(DbConnection connection, Resource resource, IQueryParameters queryParameters)
         {
             var db = new QueryFactory(connection, _sqlCompiler);
 
-            var templateQuery = _deletedItemsQueryMetadataProvider.GetTemplateQuery(resource);
+            var templateQuery = _deletedItemsTemplateQueryProvider.GetTemplateQuery(resource);
 
             // Prepare the queries
             var deletedItemsQueries = new TrackedChangesQueries(GetDeletedItemsQuery(), GetCountQuery());

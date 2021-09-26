@@ -22,13 +22,17 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
     {
         public string ColumnName { get; set; }
         
-        public string ColumnAlias { get; set; }
-        
         public string JsonPropertyName { get; set; }
 
         /// <summary>
         /// Indicates whether the column represents an old or new value.
         /// </summary>
-        public string Qualifier { get; set; }
+        public ColumnGroup ColumnGroup { get; set; }
+    }
+
+    public enum ColumnGroup
+    {
+        OldValue,
+        NewValue
     }
 }

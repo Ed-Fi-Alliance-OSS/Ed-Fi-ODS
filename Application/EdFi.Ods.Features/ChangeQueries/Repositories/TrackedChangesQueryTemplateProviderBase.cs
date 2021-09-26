@@ -1,8 +1,3 @@
-// SPDX-License-Identifier: Apache-2.0
-// Licensed to the Ed-Fi Alliance under one or more agreements.
-// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
-// See the LICENSE and NOTICES files in the project root for more information.
-
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +8,18 @@ using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Generator.Database.NamingConventions;
 using SqlKata;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
+namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
-    public class KeyChangesQueryMetadataProvider : IKeyChangesQueryMetadataProvider
+    public abstract class TrackedChangesQueryTemplateProviderBase
     {
         private readonly IDatabaseNamingConvention _namingConvention;
 
-        private readonly ConcurrentDictionary<FullName, KeyChangesQueryMetadata> _queryMetadataByResourceName =
-            new ConcurrentDictionary<FullName, KeyChangesQueryMetadata>();
+        private readonly ConcurrentDictionary<FullName, QueryMetadata> _queryMetadataByResourceName =
+            new ConcurrentDictionary<FullName, QueryMetadata>();
 
         private const string SourceTableAlias = "src";
         
-        public KeyChangesQueryMetadataProvider(IDatabaseNamingConvention namingConvention)
+        protected TrackedChangesQueryTemplateProviderBase(IDatabaseNamingConvention namingConvention)
         {
             _namingConvention = namingConvention;
         }
@@ -32,24 +27,24 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
         public Query GetTemplateQuery(Resource resource)
         {
             // Optimize by caching the constructed query
-            var keyChangesQueryMetadata = _queryMetadataByResourceName.GetOrAdd(
+            var queryMetadata = _queryMetadataByResourceName.GetOrAdd(
                 resource.FullName,
-                (fn) => CreateKeyChangesTemplateQuery(resource));
+                (fn) => CreateTemplateQuery(resource));
 
-            return keyChangesQueryMetadata.TemplateQuery;
+            return queryMetadata.TemplateQuery;
         }
         
         public QueryProjection[] GetIdentifierProjections(Resource resource)
         {
             // Optimize by caching the constructed query
-            var keyChangesQueryMetadata = _queryMetadataByResourceName.GetOrAdd(
+            var queryMetadata = _queryMetadataByResourceName.GetOrAdd(
                 resource.FullName,
-                (fn) => CreateKeyChangesTemplateQuery(resource));
+                (fn) => CreateTemplateQuery(resource));
 
-            return keyChangesQueryMetadata.Projections;
+            return queryMetadata.Projections;
         }
         
-        private KeyChangesQueryMetadata CreateKeyChangesTemplateQuery(Resource resource)
+        private QueryMetadata CreateTemplateQuery(Resource resource)
         {
             var entity = resource.Entity;
             
@@ -59,81 +54,45 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 ? (ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix + _namingConvention.Schema(entity.BaseEntity), _namingConvention.TableName(entity.BaseEntity)) 
                 : (ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix + _namingConvention.Schema(entity), _namingConvention.TableName(entity));
 
-            var keyChangesQuery = new Query($"{changeTableSchema}.{changeTableName} AS {ChangeQueriesDatabaseConstants.TrackedChangesAlias}");
+            var templateQuery = new Query($"{changeTableSchema}.{changeTableName} AS {ChangeQueriesDatabaseConstants.TrackedChangesAlias}");
 
-            keyChangesQuery.Select($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}", $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
+            templateQuery.Select($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}", $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
             
             SelectIdentifyingColumns();
 
-            keyChangesQuery.OrderBy($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
-
-            // ApplySourceTableExclusionForUndeletedItems();
+            templateQuery.OrderBy($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
 
             ApplyDiscriminatorCriteriaForDerivedEntities();
 
-            ApplyKeyChangesOnlyCriteria();
+            ApplyScenarioSpecificFilters(templateQuery, entity, identifierProjections);
 
-            return new KeyChangesQueryMetadata
+            return new QueryMetadata
             {
-                TemplateQuery = keyChangesQuery,
+                TemplateQuery = templateQuery,
                 Projections = identifierProjections
             };
 
             void SelectIdentifyingColumns()
             {
                 string[] selectColumns = identifierProjections.SelectMany(x => x.SelectColumns)
-                    .Select(
-                        sc => sc.ColumnAlias == null
-                            ? $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{sc.ColumnName}"
-                            : $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{sc.ColumnName} AS {sc.ColumnAlias}")
+                    .Select(sc => $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{sc.ColumnName}")
+                    // sc => sc.ColumnAlias == null
+                    //     ? $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{sc.ColumnName}"
+                    //     : $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{sc.ColumnName} AS {sc.ColumnAlias}")
                     .ToArray();
 
-                keyChangesQuery.Select(selectColumns);
+                templateQuery.Select(selectColumns);
             }
-
-            // void ApplySourceTableExclusionForUndeletedItems()
-            // {
-            //     // Source table exclusion to prevent items that have been re-added during the same change window from showing up as deletes
-            //     keyChangesQuery.LeftJoin(
-            //         $"{_namingConvention.Schema(entity)}.{_namingConvention.TableName(entity)} AS {SourceTableAlias}",
-            //         join =>
-            //         {
-            //             foreach (var projection in identifierProjections)
-            //             {
-            //                 @join.On(
-            //                     $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{projection.ChangeTableJoinColumnName}",
-            //                     $"{SourceTableAlias}.{projection.SourceTableJoinColumnName}");
-            //             }
-            //
-            //             return @join;
-            //         });
-            //
-            //     keyChangesQuery.WhereNull(string.Concat(SourceTableAlias, ".", identifierProjections.First().SourceTableJoinColumnName));
-            // }
 
             void ApplyDiscriminatorCriteriaForDerivedEntities()
             {
                 // Add discriminator criteria, for derived types with a Discriminator on the base type only
                 if (entity.IsDerived)
                 {
-                    keyChangesQuery.Where($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Discriminator")}", entity.FullName.ToString());
+                    templateQuery.Where($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Discriminator")}", entity.FullName.ToString());
                 }
             }
 
-            // NEW
-            void ApplyKeyChangesOnlyCriteria()
-            {
-                // Only return deletes
-                var firstIdentifierProperty = // (IsDerivedFromEntityWithDiscriminator(entity) 
-                    (entity.IsDerived ? entity.BaseEntity : entity)
-                    .Identifier.Properties.First();
-
-                string columnName = _namingConvention.ColumnName(
-                    $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");
-                
-                keyChangesQuery.WhereNotNull($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{columnName}");
-            }
-            
             QueryProjection[] CreateIdentifierProjections()
             {
                 var projections = resource
@@ -147,11 +106,11 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                             {
                                 JsonPropertyName = rp.JsonPropertyName,
                                 SelectColumns = GetSelectColumns(rp).ToArray(),
-
-                                // TODO: Remove if really not used
-                                //ChangeTableJoinColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{changeTableJoinProperty}"),
-                                //SourceTableJoinColumnName = _namingConvention.ColumnName(rp.EntityProperty),
                                 IsDescriptorUsage = rp.IsDescriptorUsage,
+
+                                // Columns for performing join to source table
+                                ChangeTableJoinColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{changeTableJoinProperty}"),
+                                SourceTableJoinColumnName = _namingConvention.ColumnName(rp.EntityProperty),
                             };
                         })
                     .ToArray();
@@ -184,19 +143,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                         
                         yield return new SelectColumn
                         {
+                            ColumnGroup = ColumnGroup.OldValue,
                             ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{changeQueryColumnName}"),
-                            ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{changeQueryColumnName}"),
+                            // ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{changeQueryColumnName}"),
                             JsonPropertyName = changeQueryColumnName.ToCamelCase(),
-                            Qualifier = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix,
                         };
                         
-                        // NEW value
                         yield return new SelectColumn
                         {
+                            ColumnGroup = ColumnGroup.NewValue,
                             ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{changeQueryColumnName}"),
-                            ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{changeQueryColumnName}"),
+                            // ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{changeQueryColumnName}"),
                             JsonPropertyName = changeQueryColumnName.ToCamelCase(),
-                            Qualifier = ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix,
                         };
                     }
 
@@ -213,19 +171,19 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                     {
                         yield return new SelectColumn
                         {
+                            ColumnGroup = ColumnGroup.OldValue,
                             ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
-                            ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
+                            // ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
                             JsonPropertyName = naturalIdentifyingProperty.PropertyName.ToCamelCase(),
-                            Qualifier = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix,
                         };
                         
                         // NEW value
                         yield return new SelectColumn
                         {
+                            ColumnGroup = ColumnGroup.NewValue,
                             ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
-                            ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
+                            // ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{naturalIdentifyingProperty.PropertyName}"),
                             JsonPropertyName = naturalIdentifyingProperty.PropertyName.ToCamelCase(),
-                            Qualifier = ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix,
                         };
                     }
                     
@@ -236,19 +194,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 {
                     yield return new SelectColumn
                     {
+                        ColumnGroup = ColumnGroup.OldValue,
                         ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
-                        ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
+                        // ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
                         JsonPropertyName = resourceProperty.JsonPropertyName,
-                        Qualifier = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix,
                     };
                     
-                    // NEW value
                     yield return new SelectColumn
                     {
+                        ColumnGroup = ColumnGroup.NewValue,
                         ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
-                        ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
+                        // ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{entityProperty.BaseProperty.PropertyName}"),
                         JsonPropertyName = resourceProperty.JsonPropertyName,
-                        Qualifier = ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix,
                     };
                     
                     yield break;
@@ -257,23 +214,33 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 // Just return the column
                 yield return new SelectColumn
                 {
+                    ColumnGroup = ColumnGroup.OldValue,
                     ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.PropertyName}"),
-                    ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.PropertyName}"),
+                    // ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{entityProperty.PropertyName}"),
                     JsonPropertyName = resourceProperty.JsonPropertyName,
-                    Qualifier = ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix,
                 };
 
-                // NEW value
                 yield return new SelectColumn
                 {
+                    ColumnGroup = ColumnGroup.NewValue,
                     ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{entityProperty.PropertyName}"),
-                    ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{entityProperty.PropertyName}"),
+                    // ColumnAlias = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{entityProperty.PropertyName}"),
                     JsonPropertyName = resourceProperty.JsonPropertyName,
-                    Qualifier = ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix,
                 };
             }
             
             bool IsDerivedFromEntityWithDiscriminator(Entity entity) => entity.BaseEntity?.HasDiscriminator() == true;
+        }
+
+        protected abstract void ApplyScenarioSpecificFilters(
+            Query templateQuery,
+            Entity entity,
+            QueryProjection[] identifierProjections);
+        
+        private class QueryMetadata
+        {
+            public Query TemplateQuery { get; set; }
+            public QueryProjection[] Projections { get; set; } 
         }
     }
 }
