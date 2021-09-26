@@ -14,30 +14,27 @@ using SqlKata;
 using SqlKata.Compilers;
 using SqlKata.Execution;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
+namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
-    public class KeyChangesQueriesProvider : IKeyChangesQueriesProvider
+    public class TrackedChangesQueriesProvider : ITrackedChangesQueriesProvider
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(KeyChangesQueriesProvider));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(TrackedChangesQueriesProvider));
 
         private readonly Compiler _sqlCompiler;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
         private readonly IDatabaseNamingConvention _namingConvention;
-        private readonly IKeyChangesTemplateQueryProvider _keyChangesTemplateQueryProvider;
 
-        public KeyChangesQueriesProvider(
+        public TrackedChangesQueriesProvider(
             Compiler sqlCompiler, 
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
-            IDatabaseNamingConvention namingConvention,
-            IKeyChangesTemplateQueryProvider keyChangesTemplateQueryProvider)
+            IDatabaseNamingConvention namingConvention)
         {
             _sqlCompiler = sqlCompiler;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
             _namingConvention = namingConvention;
-            _keyChangesTemplateQueryProvider = keyChangesTemplateQueryProvider;
         }
         
-        public TrackedChangesQueries GetQueries(DbConnection connection, Resource resource, IQueryParameters queryParameters)
+        public TrackedChangesQueries GetQueries(DbConnection connection, Resource resource, IQueryParameters queryParameters, Query templateQuery)
         {
             var db = new QueryFactory(connection, _sqlCompiler);
 
@@ -49,27 +46,24 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 };
             }
             
-            var templateQuery = _keyChangesTemplateQueryProvider.GetTemplateQuery(resource);
-
             // Prepare the queries
-            var keyChangesQueries = new TrackedChangesQueries(GetKeyChangesQuery(), GetCountQuery());
+            var queries = new TrackedChangesQueries(GetDeletedItemsQuery(), GetCountQuery());
+            return queries;
             
-            return keyChangesQueries;
-            
-            Query GetKeyChangesQuery()
+            Query GetDeletedItemsQuery()
             {
-                var keyChangesQuery = db.FromQuery(templateQuery);
+                var query = db.FromQuery(templateQuery);
 
-                ApplyPaging(keyChangesQuery);
-                ApplyChangeVersionCriteria(keyChangesQuery);
+                ApplyPaging(query);
+                ApplyChangeVersionCriteria(query);
 
                 if (_logger.IsDebugEnabled)
                 {
-                    var sqlResult = _sqlCompiler.Compile(keyChangesQuery);
+                    var sqlResult = _sqlCompiler.Compile(query);
                     _logger.Debug(sqlResult.Sql);
                 }
 
-                return keyChangesQuery;
+                return query;
             }
 
             Query GetCountQuery()

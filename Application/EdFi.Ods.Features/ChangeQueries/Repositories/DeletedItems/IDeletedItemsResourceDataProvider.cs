@@ -6,11 +6,12 @@
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Features.ChangeQueries.Resources;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
     public interface IDeletedItemsResourceDataProvider
     {
-        Task<DeletedItemsResourceData> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters);
+        Task<ResourceData<DeletedResourceItem>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters);
     }
 }

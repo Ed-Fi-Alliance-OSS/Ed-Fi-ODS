@@ -17,8 +17,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         private readonly ConcurrentDictionary<FullName, QueryMetadata> _queryMetadataByResourceName =
             new ConcurrentDictionary<FullName, QueryMetadata>();
 
-        private const string SourceTableAlias = "src";
-        
         protected TrackedChangesQueryTemplateProviderBase(IDatabaseNamingConvention namingConvention)
         {
             _namingConvention = namingConvention;
@@ -76,9 +74,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             {
                 string[] selectColumns = identifierProjections.SelectMany(x => x.SelectColumns)
                     .Select(sc => $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{sc.ColumnName}")
-                    // sc => sc.ColumnAlias == null
-                    //     ? $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{sc.ColumnName}"
-                    //     : $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{sc.ColumnName} AS {sc.ColumnAlias}")
                     .ToArray();
 
                 templateQuery.Select(selectColumns);

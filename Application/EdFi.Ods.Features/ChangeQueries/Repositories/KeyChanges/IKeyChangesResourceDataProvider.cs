@@ -6,11 +6,12 @@
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Features.ChangeQueries.Resources;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
     public interface IKeyChangesResourceDataProvider
     {
-        Task<KeyChangesResourceData> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters);
+        Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters);
     }
 }
