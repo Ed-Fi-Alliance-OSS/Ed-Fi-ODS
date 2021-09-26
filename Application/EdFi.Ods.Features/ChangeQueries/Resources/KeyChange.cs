@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.ChangeQueries.Resources
 {
+    [DataContract]
     public class KeyChange
     {
         [DataMember(Name="id")]

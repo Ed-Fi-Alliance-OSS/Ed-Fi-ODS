@@ -5,11 +5,11 @@
 
 using SqlKata;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
+namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
-    public class DeletedItemsQueries
+    public class TrackedChangesQueries
     {
-        public DeletedItemsQueries(Query dataQuery, Query countQuery)
+        public TrackedChangesQueries(Query dataQuery, Query countQuery)
         {
             DataQuery = dataQuery;
             CountQuery = countQuery;

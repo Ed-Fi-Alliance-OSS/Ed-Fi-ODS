@@ -5,6 +5,7 @@
 
 using System.Net.Mime;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models;
@@ -58,16 +59,14 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             {
                 _logger.Debug("ChangeQueries is not enabled.");
 
-                // TODO: GKM - Align with other "not found" result handling
-                return NotFound();
+                return ControllerHelpers.NotFound();
             }
             
             var resourceClass = _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByApiCollectionName(schema, resource);
 
             if (resourceClass == null)
             {
-                // TODO: GKM - Align with other "not found" result handling
-                return NotFound();
+                return ControllerHelpers.NotFound();
             }
             
             // Set authorization context (should this be moved?)
