@@ -88,9 +88,12 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 // TODO: Decompose this conditional logic into an array of injected IDeletedItemsAuthorizationFilterHandler instances
                 if (filter.FilterName == "Namespace")
                 {
+                    string namespaceColumnName =
+                        _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}Namespace");
+                    
                     if (filter.ClaimValues.Length == 1)
                     {
-                        query.WhereLike("namespace", filter.ClaimValues[0]);
+                        query.WhereLike(namespaceColumnName, filter.ClaimValues[0]);
                     }
                     else if (filter.ClaimValues.Length > 1)
                     {
@@ -98,7 +101,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                             q => q.Where(
                                 q2 =>
                                 {
-                                    filter.ClaimValues.ForEach(cv => q2.OrWhereLike("namespace", cv));
+                                    filter.ClaimValues.ForEach(cv => q2.OrWhereLike(namespaceColumnName, cv));
 
                                     return q2;
                                 }));
