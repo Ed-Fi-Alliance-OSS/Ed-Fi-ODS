@@ -93,6 +93,5 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         {
             return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
         }
-
     }
 }
