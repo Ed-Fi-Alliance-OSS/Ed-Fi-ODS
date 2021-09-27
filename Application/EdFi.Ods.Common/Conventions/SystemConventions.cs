@@ -76,8 +76,7 @@ namespace EdFi.Ods.Common.Conventions
                     {
                         yield return property;
                     }
-                }
-            }
+                } }
         }
 
         public class ExtensionBagNameParts

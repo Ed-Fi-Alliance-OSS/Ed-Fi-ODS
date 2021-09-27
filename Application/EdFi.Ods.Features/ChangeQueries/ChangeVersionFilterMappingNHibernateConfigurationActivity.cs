@@ -6,6 +6,7 @@
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using log4net;
 using NHibernate.Cfg;
@@ -42,11 +43,13 @@ namespace EdFi.Ods.Features.ChangeQueries
                 {
                     name = ChangeQueriesDatabaseConstants.ChangeVersionColumnName,
                     column = ChangeQueriesDatabaseConstants.ChangeVersionColumnName,
-                    type = new HbmType {name = "long"},
+                    type = new HbmType
+                           {
+                               name = "long"
+                           },
                     notnull = true,
                     generated = HbmPropertyGeneration.Always
                 };
-
                 classMapping.Items = classMapping.Items.Concat(changeVersionProperty).ToArray();
             }
         }
