@@ -179,7 +179,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -195,7 +195,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -211,7 +211,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.SchoolId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
                             w, p, "EducationOrganizationIdToEducationOrganizationId", "SchoolId", "TargetEducationOrganizationId",
@@ -230,7 +230,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.OrganizationDepartmentId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "OrganizationDepartmentId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("OrganizationDepartmentId")));
@@ -246,7 +246,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.OrganizationDepartmentId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "OrganizationDepartmentId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("OrganizationDepartmentId")));
@@ -262,7 +262,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:CommunityOrganizationId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -278,7 +278,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:CommunityProviderId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -294,7 +294,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.CommunityProviderId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:CommunityOrganizationId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "CommunityProviderId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("CommunityProviderId")));
@@ -310,7 +310,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
                         SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForTable() + @" {newAlias1} 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:PostSecondaryInstitutionId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -443,11 +443,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         private static string GetFullNameForView(this string viewName)
         {
             return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);
-        }
-
-        private static string GetFullNameForTable(this string tableName)
-        {
-            return Namespaces.Entities.NHibernate.QueryModels.GetTableNamespace(tableName);
         }
     }
 }

@@ -115,11 +115,6 @@ namespace EdFi.Ods.Common.Conventions
             return $"auth_{authorizationViewName}";
         }
 
-        public static string GetAuthorizationTableClassName(this string authorizationTableName)
-        {
-            return $"auth_{authorizationTableName}";
-        }
-
         public class ExtensionBagNameParts
         {
             public ExtensionBagNameParts(string schemaProperCaseName, string pluralName)

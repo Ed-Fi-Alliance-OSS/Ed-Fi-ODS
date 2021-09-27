@@ -39,27 +39,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             JoinType joinType,
             string authViewAlias = null)
         {
-            string entityName = $"{viewName.GetAuthorizationViewClassName()}".GetFullNameForView();
-
-            if (viewName.ContainsIgnoreCase("EducationOrganizationIdToEducationOrganizationId"))
-            {
-                authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authTable{viewName}" : $"authTable{authViewAlias}";
-                entityName = $"{viewName.GetAuthorizationTableClassName()}".GetFullNameForTable();
-            }
-            else if (!string.IsNullOrWhiteSpace(authViewAlias))
-            {
-                authViewAlias = $"authView{authViewAlias}";
-            }
-            else
-            {
-                authViewAlias = $"authView{viewName}";
-            }
+            authViewAlias = string.IsNullOrWhiteSpace(authViewAlias) ? $"authView{viewName}" : $"authView{authViewAlias}";
 
             // Apply authorization join using ICriteria
             criteria.CreateEntityAlias(
                 authViewAlias,
                 Restrictions.EqProperty($"aggregateRoot.{aggregateRootPropertyName}", $"{authViewAlias}.{authViewPropertyName}"),
-                joinType, entityName);
+                joinType, $"{viewName.GetAuthorizationViewClassName()}".GetFullNameForView());
 
             object value;
 

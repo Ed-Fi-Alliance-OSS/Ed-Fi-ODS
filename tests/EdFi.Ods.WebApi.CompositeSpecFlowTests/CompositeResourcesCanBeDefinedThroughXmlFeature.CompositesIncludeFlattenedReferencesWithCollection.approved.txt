@@ -9,7 +9,7 @@ from
 	join comp_aaa.School comp_aab
 where comp_aaa.Id = :Id AND (comp_aaa.SchoolId IN (
                         SELECT fltr_aar.TargetEducationOrganizationId 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Tables.auth_EducationOrganizationIdToEducationOrganizationId fltr_aar 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aar 
                         WHERE fltr_aar.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aaa.StudentUSI IN (
                             SELECT fltr_aab.StudentUSI 
                             FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId fltr_aab 
