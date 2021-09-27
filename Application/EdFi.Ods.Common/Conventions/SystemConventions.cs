@@ -38,7 +38,6 @@ namespace EdFi.Ods.Common.Conventions
         /// </summary>
         /// <param name="associationView"></param>
         /// <returns></returns>
-
         // Note this is different than alphabetical in a few edge cases, which is why this is required.
         public static IEnumerable<EntityProperty> GetOrderedAssociationTargetColumns(this AssociationView associationView)
         {

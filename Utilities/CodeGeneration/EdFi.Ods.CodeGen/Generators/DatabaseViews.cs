@@ -11,34 +11,21 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class DatabaseViews : GeneratorBase
     {
-        private readonly IViewsProvider _viewsProvider;
+        private readonly IAuthorizationDatabaseTableViewsProvider _viewsProvider;
 
-        public DatabaseViews(IViewsProvider viewsProvider)
+        public DatabaseViews(IAuthorizationDatabaseTableViewsProvider viewsProvider)
         {
             _viewsProvider = viewsProvider;
         }
 
         protected override object Build()
         {
-            var views = _viewsProvider.LoadViews().Select(
-                v => new
-                {
-                    SchemaOwner = v.SchemaOwner,
-                    Name = v.Name,
-                    Columns = v.Columns.Select(
-                        c => new
-                        {
-                            Name = c.Name,
-                            DbDataType = c.DbDataType,
-                            IsPrimaryKey = c.IsPrimaryKey,
-                            Length = c.Length,
-                            Precision = c.Precision,
-                            Scale = c.Scale,
-                            Nullable = c.Nullable
-                        }),
-                });
+            var views = _viewsProvider.LoadViews();
 
-            return new {Views = JsonConvert.SerializeObject(views, Formatting.Indented)};
+            return new {
+                Views = JsonConvert.SerializeObject(views, Formatting.Indented , new JsonSerializerSettings
+                        {  ReferenceLoopHandling = ReferenceLoopHandling.Ignore       })
+                };
         }
     }
 }

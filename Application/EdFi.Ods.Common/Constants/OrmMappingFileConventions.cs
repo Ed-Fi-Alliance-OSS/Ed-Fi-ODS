@@ -11,7 +11,6 @@ namespace EdFi.Ods.Common.Constants
         public const string EntityOrmMappingsGeneratedHbm = "EntityOrmMappings.generated.hbm.xml";
         public const string EntityOrmMappingsForQueriesGeneratedHbm = "EntityOrmMappingsForQueries.generated.hbm.xml";
         public const string EntityOrmMappingsForViewsGeneratedHbm = "EntityOrmMappingsForViews.generated.hbm.xml";
-        public const string EntityOrmMappingsForTupleTableGeneratedHbm = "EntityOrmMappingsForTupleTable.generated.hbm.xml";
         public const string OrmMappingAssembly = "EdFi.Ods.Standard";
     }
 }

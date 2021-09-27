@@ -34,10 +34,5 @@ namespace EdFi.Ods.CodeGen
             HelpText = "Array of paths for the Extension location to determine if plugin assemblies are included",
             Separator = ',')]
         public IEnumerable<string> ExtensionPaths { get; set; }
-
-        [Option(
-            't', "tupletableFromDatabase", Required = false, HelpText = "Request tuple table metadata from an existing empty database.",
-            Default = false)]
-        public bool TupleTableFromDatabase { get; set; }
     }
 }

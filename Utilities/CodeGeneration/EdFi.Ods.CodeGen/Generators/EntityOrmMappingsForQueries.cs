@@ -10,7 +10,7 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class EntityOrmMappingsForQueries : EntityOrmMappings
     {
-        public EntityOrmMappingsForQueries(IViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
+        public EntityOrmMappingsForQueries(IAuthorizationDatabaseTableViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
             : base(viewsProvider, databaseTypeTranslator) { }
 
         protected override void Configure()

@@ -23,8 +23,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         /// <param name="whereJunction">The <see cref="ICriterion" /> container for adding WHERE clause criterion.</param>
         /// <param name="parameters">The named parameters to be used to satisfy additional filtering requirements.</param>
         /// <param name="viewName">The name of the view to be filtered.</param>
-        /// <param name="aggregateRootPropertyName">The name of the property to be joined between the entity being queried .</param>
-        /// <param name="authViewPropertyName">The name of the property to be joined for the authorization view.</param>
+        /// <param name="aggregateRootPropertyName">The name of the property to be joined for the entity being queried .</param>
+        /// <param name="authViewPropertyName">The name of the property to be joined for the other property as authorization view.</param> 
         /// <param name="filterPropertyName">The name of the property to be used for applying filter values.</param>
         /// <param name="joinType">The <see cref="JoinType" /> to be used.</param>
         /// <param name="authViewAlias">The name of the property to be used for auth View Alias name.</param>

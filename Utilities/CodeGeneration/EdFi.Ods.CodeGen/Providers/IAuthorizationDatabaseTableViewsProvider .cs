@@ -5,10 +5,11 @@
 
 using System.Collections.Generic;
 using DatabaseSchemaReader.DataSchema;
+using EdFi.Ods.CodeGen.Models;
 
 namespace EdFi.Ods.CodeGen.Providers {
-    public interface IViewsProvider
+    public interface IAuthorizationDatabaseTableViewsProvider
     {
-        List<DatabaseView> LoadViews();
+        List<AuthorizationDatabaseTable> LoadViews();
     }
 }
