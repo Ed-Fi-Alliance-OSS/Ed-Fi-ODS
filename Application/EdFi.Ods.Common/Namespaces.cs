@@ -136,16 +136,9 @@ namespace EdFi.Ods.Common
 
                     public static string Views => $"{BaseNamespace}.Views";
 
-                    public static string Tables => $"{BaseNamespace}.Tables";
-
                     public static string GetViewNamespace(string viewName)
                     {
                         return $"{Views}.{viewName}";
-                    }
-
-                    public static string GetTableNamespace(string tableName)
-                    {
-                        return $"{Tables}.{tableName}";
                     }
 
                     public static string GetAggregateNamespace(
