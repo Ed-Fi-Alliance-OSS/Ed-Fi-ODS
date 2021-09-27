@@ -71,7 +71,6 @@ Ed-Fi-ODS\Application\EdFi.Ods.Standard\EntityOrmMappings\PgSql\EntityOrmMapping
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\ExceptionHandling\DatabaseMetadata.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Entities\Entities.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Entities\EntitiesForQueries.generated.cs
-Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Entities\EntitiesForQueriesTupleTable.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Entities\EntitiesForQueriesViews.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Interfaces\EntityInterfaces.generated.cs
 Ed-Fi-ODS\Application\EdFi.Ods.Standard\Models\Mappers\EntityMapper.generated.cs
