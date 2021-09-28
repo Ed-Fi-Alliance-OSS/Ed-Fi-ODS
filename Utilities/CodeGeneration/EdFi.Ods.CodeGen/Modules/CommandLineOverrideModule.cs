@@ -35,12 +35,12 @@ namespace EdFi.Ods.CodeGen.Modules
                 .WithParameter(new NamedParameter("includePlugins", Options.IncludePlugins))
                 .As<IIncludePluginsProvider>();
 
-            builder.RegisterType<DatabaseViewsProvider>()
-                .As<IViewsProvider>()
+            builder.RegisterType<AuthorizationDatabaseTableViewsProvider>()
+                .As<IAuthorizationDatabaseTableViewsProvider>()
                 .OnlyIf(x => Options.ViewsFromDatabase);
 
             builder.RegisterType<JsonViewsProvider>()
-                .As<IViewsProvider>()
+                .As<IAuthorizationDatabaseTableViewsProvider>()
                 .OnlyIf(x => !Options.ViewsFromDatabase);
         }
     }

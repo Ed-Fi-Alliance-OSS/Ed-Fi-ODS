@@ -23,18 +23,18 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class EntityOrmMappings : GeneratorBase
     {
-        private readonly IViewsProvider _viewsProvider;
+        private readonly IAuthorizationDatabaseTableViewsProvider _authorizationDatabaseTableViewsProvider;
         private readonly IDatabaseTypeTranslator _databaseTypeTranslator;
         private Dictionary<Entity, List<ClassMappingContext>> _classMappingsForEntities;
         private Func<Entity, bool> _shouldRenderEntityForSchema;
         private readonly string _propertyAccessor = $"EdFi.Ods.Common.Infrastructure.Accessors.EmbeddedObjectPropertyAccessor, EdFi.Ods.Common";
 
-        public EntityOrmMappings(IViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
+        public EntityOrmMappings(IAuthorizationDatabaseTableViewsProvider authorizationDatabaseTableViewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
         {
-            Preconditions.ThrowIfNull(viewsProvider, nameof(viewsProvider));
+            Preconditions.ThrowIfNull(authorizationDatabaseTableViewsProvider, nameof(authorizationDatabaseTableViewsProvider));
             Preconditions.ThrowIfNull(databaseTypeTranslator, nameof(databaseTypeTranslator));
 
-            _viewsProvider = viewsProvider;
+            _authorizationDatabaseTableViewsProvider = authorizationDatabaseTableViewsProvider;
             _databaseTypeTranslator = databaseTypeTranslator;
         }
 

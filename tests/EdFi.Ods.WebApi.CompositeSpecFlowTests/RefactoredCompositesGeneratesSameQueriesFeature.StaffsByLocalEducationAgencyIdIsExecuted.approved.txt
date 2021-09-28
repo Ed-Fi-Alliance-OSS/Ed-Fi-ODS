@@ -1,4 +1,4 @@
-HQL:
+﻿HQL:
 select distinct 
 	comp_aaa.StaffUSI As __BaseEntityId__,
 	comp_aaa.StaffUSI as PK1a_StaffUSI,
@@ -120,9 +120,9 @@ from
 		left join comp_aas.StaffClassificationDescriptor comp_aat 
 	join comp_aas.EducationOrganization comp_aau
 where comp_aaa.StaffUSI IN (:BaseEntityId) AND (comp_aas.EducationOrganizationId IN (
-                        SELECT fltr_aan.EducationOrganizationId 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToLocalEducationAgencyId fltr_aan 
-                        WHERE fltr_aan.LocalEducationAgencyId IN (:LocalEducationAgencyId))) AND (comp_aas.StaffUSI IN (
+                        SELECT fltr_aan.TargetEducationOrganizationId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aan 
+                        WHERE fltr_aan.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aas.StaffUSI IN (
                         SELECT fltr_aaf.StaffUSI 
                         FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StaffUSIToEducationOrganizationId fltr_aaf 
                         WHERE fltr_aaf.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))

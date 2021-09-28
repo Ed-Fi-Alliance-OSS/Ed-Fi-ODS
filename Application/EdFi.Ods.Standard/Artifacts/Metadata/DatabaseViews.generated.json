@@ -954,40 +954,22 @@
     ]
   },
   {
-    "SchemaOwner": "interop",
-    "Name": "OperationalContextSupport",
+    "SchemaOwner": "auth",
+    "Name": "EducationOrganizationIdToEducationOrganizationId",
     "Columns": [
       {
-        "Name": "SourceDescriptorUri",
-        "DbDataType": "nvarchar",
-        "IsPrimaryKey": false,
-        "Length": 306,
-        "Precision": null,
-        "Scale": null,
-        "Nullable": false
-      },
-      {
-        "Name": "TargetOperationalContextUri",
-        "DbDataType": "nvarchar",
-        "IsPrimaryKey": false,
-        "Length": 255,
-        "Precision": null,
-        "Scale": null,
-        "Nullable": false
-      },
-      {
-        "Name": "TargetDescriptorUri",
-        "DbDataType": "nvarchar",
-        "IsPrimaryKey": false,
-        "Length": 306,
-        "Precision": null,
-        "Scale": null,
-        "Nullable": false
-      },
-      {
-        "Name": "IsGeneralized",
+        "Name": "SourceEducationOrganizationId",
         "DbDataType": "int",
-        "IsPrimaryKey": false,
+        "IsPrimaryKey": true,
+        "Length": null,
+        "Precision": 10,
+        "Scale": 0,
+        "Nullable": false
+      },
+      {
+        "Name": "TargetEducationOrganizationId",
+        "DbDataType": "int",
+        "IsPrimaryKey": true,
         "Length": null,
         "Precision": 10,
         "Scale": 0,

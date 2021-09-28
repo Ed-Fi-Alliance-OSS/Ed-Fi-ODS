@@ -11,16 +11,16 @@ namespace EdFi.Ods.CodeGen.Generators
 {
     public class DatabaseViews : GeneratorBase
     {
-        private readonly IViewsProvider _viewsProvider;
+        private readonly IAuthorizationDatabaseTableViewsProvider _authorizationDatabaseTableViewsProvider;
 
-        public DatabaseViews(IViewsProvider viewsProvider)
+        public DatabaseViews(IAuthorizationDatabaseTableViewsProvider authorizationDatabaseTableViewsProvider)
         {
-            _viewsProvider = viewsProvider;
+            _authorizationDatabaseTableViewsProvider = authorizationDatabaseTableViewsProvider;
         }
 
         protected override object Build()
         {
-            var views = _viewsProvider.LoadViews().Select(
+            var views = _authorizationDatabaseTableViewsProvider.LoadViews().Select(
                 v => new
                 {
                     SchemaOwner = v.SchemaOwner,
@@ -38,7 +38,8 @@ namespace EdFi.Ods.CodeGen.Generators
                         }),
                 });
 
-            return new {Views = JsonConvert.SerializeObject(views, Formatting.Indented)};
+            return new {Views = JsonConvert.SerializeObject(views, Formatting.Indented ,
+                new JsonSerializerSettings {ReferenceLoopHandling = ReferenceLoopHandling.Ignore})};
         }
     }
 }

@@ -9,6 +9,7 @@ using DatabaseSchemaReader.DataSchema;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Ods.CodeGen.Database.DatabaseSchema;
+using EdFi.Ods.CodeGen.Models;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Conventions;
@@ -19,15 +20,15 @@ namespace EdFi.Ods.CodeGen.Generators
     public class EntitiesForQueriesViews : GeneratorBase
     {
         private const object NotRendered = null;
-        private readonly IViewsProvider _viewsProvider;
+        private readonly IAuthorizationDatabaseTableViewsProvider _authorizationDatabaseTableViewsProvider;
         private static IDatabaseTypeTranslator _databaseTypeTranslator;
 
-        public EntitiesForQueriesViews(IViewsProvider viewsProvider,
+        public EntitiesForQueriesViews(IAuthorizationDatabaseTableViewsProvider authorizationDatabaseTableViewsProvider,
             IDatabaseTypeTranslator databaseTypeTranslator)
         {
-            Preconditions.ThrowIfNull(viewsProvider, nameof(viewsProvider));
+            Preconditions.ThrowIfNull(authorizationDatabaseTableViewsProvider, nameof(authorizationDatabaseTableViewsProvider));
             Preconditions.ThrowIfNull(databaseTypeTranslator, nameof(databaseTypeTranslator));
-            _viewsProvider = viewsProvider;
+            _authorizationDatabaseTableViewsProvider = authorizationDatabaseTableViewsProvider;
             _databaseTypeTranslator = databaseTypeTranslator;
         }
 
@@ -47,9 +48,9 @@ namespace EdFi.Ods.CodeGen.Generators
                 }
             };
 
-            var views = _viewsProvider.LoadViews();
+            var views = _authorizationDatabaseTableViewsProvider.LoadViews();
 
-            string GetCSharpNullSuffix(DatabaseColumn c)
+            string GetCSharpNullSuffix(AuthorizationDatabaseColumn c)
                 => c.Nullable && _databaseTypeTranslator.GetSysType(c.DbDataType) != "string"
                     ? "?"
                     : string.Empty;
