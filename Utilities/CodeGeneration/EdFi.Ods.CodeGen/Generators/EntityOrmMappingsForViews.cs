@@ -18,21 +18,21 @@ namespace EdFi.Ods.CodeGen.Generators
     public class EntityOrmMappingsForViews : GeneratorBase
     {
         private const string NotRendered = null;
-        private readonly IAuthorizationDatabaseTableViewsProvider _viewsProvider;
+        private readonly IAuthorizationDatabaseTableViewsProvider _authorizationDatabaseTableViewsProvider;
         private readonly IDatabaseTypeTranslator _databaseTypeTranslator;
 
-        public EntityOrmMappingsForViews(IAuthorizationDatabaseTableViewsProvider viewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
+        public EntityOrmMappingsForViews(IAuthorizationDatabaseTableViewsProvider authorizationDatabaseTableViewsProvider, IDatabaseTypeTranslator databaseTypeTranslator)
         {
-            Preconditions.ThrowIfNull(viewsProvider, nameof(viewsProvider));
+            Preconditions.ThrowIfNull(authorizationDatabaseTableViewsProvider, nameof(authorizationDatabaseTableViewsProvider));
             Preconditions.ThrowIfNull(databaseTypeTranslator, nameof(databaseTypeTranslator));
 
-            _viewsProvider = viewsProvider;
+            _authorizationDatabaseTableViewsProvider = authorizationDatabaseTableViewsProvider;
             _databaseTypeTranslator = databaseTypeTranslator;
         }
 
         protected override object Build()
         {
-            var views = _viewsProvider.LoadViews();
+            var views = _authorizationDatabaseTableViewsProvider.LoadViews();
 
             return
                 new OrmMapping

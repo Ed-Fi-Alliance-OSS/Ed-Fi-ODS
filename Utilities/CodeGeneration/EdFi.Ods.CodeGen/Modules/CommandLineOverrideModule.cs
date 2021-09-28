@@ -42,8 +42,6 @@ namespace EdFi.Ods.CodeGen.Modules
             builder.RegisterType<JsonViewsProvider>()
                 .As<IAuthorizationDatabaseTableViewsProvider>()
                 .OnlyIf(x => !Options.ViewsFromDatabase);
-
-
         }
     }
 }

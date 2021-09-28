@@ -20,15 +20,15 @@ namespace EdFi.Ods.CodeGen.Generators
     public class EntitiesForQueriesViews : GeneratorBase
     {
         private const object NotRendered = null;
-        private readonly IAuthorizationDatabaseTableViewsProvider _viewsProvider;
+        private readonly IAuthorizationDatabaseTableViewsProvider _authorizationDatabaseTableViewsProvider;
         private static IDatabaseTypeTranslator _databaseTypeTranslator;
 
-        public EntitiesForQueriesViews(IAuthorizationDatabaseTableViewsProvider viewsProvider,
+        public EntitiesForQueriesViews(IAuthorizationDatabaseTableViewsProvider authorizationDatabaseTableViewsProvider,
             IDatabaseTypeTranslator databaseTypeTranslator)
         {
-            Preconditions.ThrowIfNull(viewsProvider, nameof(viewsProvider));
+            Preconditions.ThrowIfNull(authorizationDatabaseTableViewsProvider, nameof(authorizationDatabaseTableViewsProvider));
             Preconditions.ThrowIfNull(databaseTypeTranslator, nameof(databaseTypeTranslator));
-            _viewsProvider = viewsProvider;
+            _authorizationDatabaseTableViewsProvider = authorizationDatabaseTableViewsProvider;
             _databaseTypeTranslator = databaseTypeTranslator;
         }
 
@@ -48,7 +48,7 @@ namespace EdFi.Ods.CodeGen.Generators
                 }
             };
 
-            var views = _viewsProvider.LoadViews();
+            var views = _authorizationDatabaseTableViewsProvider.LoadViews();
 
             string GetCSharpNullSuffix(AuthorizationDatabaseColumn c)
                 => c.Nullable && _databaseTypeTranslator.GetSysType(c.DbDataType) != "string"
@@ -65,7 +65,7 @@ namespace EdFi.Ods.CodeGen.Generators
                         TableName = view.Name,
                         SchemaName = view.SchemaOwner,
                         Properties = view.Columns.OrderBy(c => c.Name).Select(
-                            c => new 
+                            c => new
                             {
                                 PropertyName = c.Name.ToMixedCase(),
                                 CSharpDeclaredType = _databaseTypeTranslator.GetSysType(c.DbDataType) + GetCSharpNullSuffix(c),

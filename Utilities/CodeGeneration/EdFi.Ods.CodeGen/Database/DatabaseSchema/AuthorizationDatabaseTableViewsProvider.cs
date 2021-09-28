@@ -45,7 +45,7 @@ namespace EdFi.Ods.CodeGen.Database.DatabaseSchema
                 using (var dr = new DatabaseReader(connection))
                 {
                     dr.CommandTimeout = 60;
-                    var dataTupleTable = dr.Table("EducationOrganizationIdToEducationOrganizationId");
+
                     _views = dr.AllViews().Select(
                     v => new AuthorizationDatabaseTable()
                     {
@@ -62,6 +62,8 @@ namespace EdFi.Ods.CodeGen.Database.DatabaseSchema
                             Scale = x.Scale
                         })
                     }).ToList();
+
+                    var dataTupleTable = dr.Table("EducationOrganizationIdToEducationOrganizationId");
 
                     _views.Add(new AuthorizationDatabaseTable()
                     {
