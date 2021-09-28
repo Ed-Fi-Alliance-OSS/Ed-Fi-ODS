@@ -10,7 +10,7 @@ using SqlKata;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
-    public class DeletedItemsTemplateQueryProvider : TrackedChangesQueryTemplateProviderBase, IDeletedItemsTemplateQueryProvider
+    public class DeletedItemsTemplateQueryProvider : TrackedChangesTemplateQueryProviderBase, IDeletedItemsTemplateQueryProvider
     {
         private readonly IDatabaseNamingConvention _namingConvention;
 

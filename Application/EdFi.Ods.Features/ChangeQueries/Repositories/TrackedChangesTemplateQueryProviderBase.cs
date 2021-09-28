@@ -10,14 +10,14 @@ using SqlKata;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
-    public abstract class TrackedChangesQueryTemplateProviderBase
+    public abstract class TrackedChangesTemplateQueryProviderBase
     {
         private readonly IDatabaseNamingConvention _namingConvention;
 
         private readonly ConcurrentDictionary<FullName, QueryMetadata> _queryMetadataByResourceName =
             new ConcurrentDictionary<FullName, QueryMetadata>();
 
-        protected TrackedChangesQueryTemplateProviderBase(IDatabaseNamingConvention namingConvention)
+        protected TrackedChangesTemplateQueryProviderBase(IDatabaseNamingConvention namingConvention)
         {
             _namingConvention = namingConvention;
         }
@@ -54,7 +54,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
             var templateQuery = new Query($"{changeTableSchema}.{changeTableName} AS {ChangeQueriesDatabaseConstants.TrackedChangesAlias}");
 
-            templateQuery.Select($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}", $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
+            templateQuery.Select(
+                $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}", 
+                $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
             
             SelectIdentifyingColumns();
 

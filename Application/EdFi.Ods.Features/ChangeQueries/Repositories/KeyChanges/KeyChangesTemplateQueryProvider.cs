@@ -10,7 +10,7 @@ using SqlKata;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
-    public class KeyChangesTemplateQueryProvider : TrackedChangesQueryTemplateProviderBase, IKeyChangesTemplateQueryProvider
+    public class KeyChangesTemplateQueryProvider : TrackedChangesTemplateQueryProviderBase, IKeyChangesTemplateQueryProvider
     {
         private readonly IDatabaseNamingConvention _namingConvention;
 
