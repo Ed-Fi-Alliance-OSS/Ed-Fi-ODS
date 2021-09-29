@@ -146,7 +146,7 @@ namespace EdFi.Ods.Api.Caching
 
                 var resourceClaimAuthorizationMetadata =
                     context.ResourceClaimAuthorizationMetadatas.Include(rcas => rcas.Action)
-                           .Include(rcas => rcas.AuthorizationStrategy)
+                           .Include(rcas => rcas.ResourceClaimActionAuthorizationStrategies)
                            .Include(rcas => rcas.ResourceClaim)
                            .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                            .ToList();

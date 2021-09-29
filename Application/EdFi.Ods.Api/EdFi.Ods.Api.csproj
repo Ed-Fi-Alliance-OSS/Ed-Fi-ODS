@@ -45,6 +45,11 @@
     <EmbeddedResource Include="Services\Metadata\Resources\*.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Security\AuthorizationStrategies\NewFolder\**" />
+    <EmbeddedResource Remove="Security\AuthorizationStrategies\NewFolder\**" />
+    <None Remove="Security\AuthorizationStrategies\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />

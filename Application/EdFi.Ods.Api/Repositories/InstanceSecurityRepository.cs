@@ -71,7 +71,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 a => a.AuthorizationStrategyName.Equals(authorizationStrategyName, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public virtual IEnumerable<ClaimSetResourceClaim> GetClaimsForClaimSet(string claimSetName)
+        public virtual IEnumerable<ClaimSetResourceClaimActionAuthorizations> GetClaimsForClaimSet(string claimSetName)
         {
             var instanceId = _instanceIdContextProvider.GetInstanceId();
             if (string.IsNullOrEmpty(instanceId))
@@ -142,16 +142,16 @@ namespace EdFi.Security.DataAccess.Repositories
         /// <param name="resourceClaimUri">The resource claim URI for which metadata is to be retrieved.</param>
         /// <param name="action">The action for claim.</param>
         /// <returns>The resource claim's lineage of authorization metadata.</returns>
-        public virtual IEnumerable<ResourceClaimAuthorizationMetadata> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
+        public virtual IEnumerable<ResourceClaimActionAuthorization> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
         {
-            var strategies = new List<ResourceClaimAuthorizationMetadata>();
+            var strategies = new List<ResourceClaimActionAuthorization>();
 
             AddStrategiesForResourceClaimLineage(strategies, resourceClaimUri, action);
 
             return strategies;
         }
 
-        private void AddStrategiesForResourceClaimLineage(List<ResourceClaimAuthorizationMetadata> strategies, string resourceClaimUri, string action)
+        private void AddStrategiesForResourceClaimLineage(List<ResourceClaimActionAuthorization> strategies, string resourceClaimUri, string action)
         {
             var instanceId = _instanceIdContextProvider.GetInstanceId();
             if (string.IsNullOrEmpty(instanceId))

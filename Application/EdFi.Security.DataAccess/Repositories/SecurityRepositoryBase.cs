@@ -23,9 +23,9 @@ namespace EdFi.Security.DataAccess.Repositories
 
         protected List<AuthorizationStrategy> AuthorizationStrategies { get; private set; }
 
-        protected List<ClaimSetResourceClaim> ClaimSetResourceClaims { get; private set; }
+        protected List<ClaimSetResourceClaimActionAuthorizations> ClaimSetResourceClaims { get; private set; }
 
-        protected List<ResourceClaimAuthorizationMetadata> ResourceClaimAuthorizationMetadata { get; private set; }
+        protected List<ResourceClaimActionAuthorization> ResourceClaimAuthorizationMetadata { get; private set; }
 
         protected void Initialize(
             Application application,
@@ -33,8 +33,8 @@ namespace EdFi.Security.DataAccess.Repositories
             List<ClaimSet> claimSets,
             List<ResourceClaim> resourceClaims,
             List<AuthorizationStrategy> authorizationStrategies,
-            List<ClaimSetResourceClaim> claimSetResourceClaims,
-            List<ResourceClaimAuthorizationMetadata> resourceClaimAuthorizationMetadata)
+            List<ClaimSetResourceClaimActionAuthorizations> claimSetResourceClaims,
+            List<ResourceClaimActionAuthorization> resourceClaimAuthorizationMetadata)
         {
             Application = application;
             Actions = actions;
@@ -79,7 +79,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 a => a.AuthorizationStrategyName.Equals(authorizationStrategyName, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public virtual IEnumerable<ClaimSetResourceClaim> GetClaimsForClaimSet(string claimSetName)
+        public virtual IEnumerable<ClaimSetResourceClaimActionAuthorizations> GetClaimsForClaimSet(string claimSetName)
         {
             return ClaimSetResourceClaims.Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
         }
@@ -131,16 +131,16 @@ namespace EdFi.Security.DataAccess.Repositories
         /// </summary>
         /// <param name="resourceClaimUri">The resource claim URI for which metadata is to be retrieved.</param>
         /// <returns>The resource claim's lineage of authorization metadata.</returns>
-        public virtual IEnumerable<ResourceClaimAuthorizationMetadata> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
+        public virtual IEnumerable<ResourceClaimActionAuthorization> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
         {
-            var strategies = new List<ResourceClaimAuthorizationMetadata>();
+            var strategies = new List<ResourceClaimActionAuthorization>();
 
             AddStrategiesForResourceClaimLineage(strategies, resourceClaimUri, action);
 
             return strategies;
         }
 
-        private void AddStrategiesForResourceClaimLineage(List<ResourceClaimAuthorizationMetadata> strategies, string resourceClaimUri, string action)
+        private void AddStrategiesForResourceClaimLineage(List<ResourceClaimActionAuthorization> strategies, string resourceClaimUri, string action)
         {
             //check for exact match on resource and action
             var claimAndStrategy = ResourceClaimAuthorizationMetadata

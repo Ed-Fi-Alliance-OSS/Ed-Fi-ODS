@@ -36,7 +36,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <summary>
         /// The name of the strategy to be used in the authorization decision.
         /// </summary>
-        public string AuthorizationStrategy { get; set; }
+        public IReadOnlyList<string> AuthorizationStrategies { get; set; }
 
         /// <summary>
         /// The name of the validation rule set to be executed during authorization of data modifying operations.

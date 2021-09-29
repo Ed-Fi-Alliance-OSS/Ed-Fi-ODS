@@ -447,7 +447,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // Issue Resource claim with action
                 Claim[] claims =
                 {
-                    JsonClaimHelper.CreateClaim(resourceClaimUri, new EdFiResourceClaimValue(actionUri, authorizationStrategyNameOverride))
+                    JsonClaimHelper.CreateClaim(resourceClaimUri, new EdFiResourceClaimValue(actionUri, new List<string> { authorizationStrategyNameOverride }))
                 };
 
                 return
@@ -468,19 +468,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                             {
                                 new ResourceClaimAuthorizationMetadata
                                 {
-                                    ClaimName = Resource1ClaimUri, AuthorizationStrategy = null //"First"
+                                    ClaimName = Resource1ClaimUri, AuthorizationStrategies = null //"First"
                                 },
                                 new ResourceClaimAuthorizationMetadata
                                 {
-                                    ClaimName = Resource2ClaimUri, AuthorizationStrategy = "Second"
+                                    ClaimName = Resource2ClaimUri, AuthorizationStrategies = new List<string> { "Second" }
                                 },
                                 new ResourceClaimAuthorizationMetadata
                                 {
-                                    ClaimName = Resource3ClaimUri, AuthorizationStrategy = null
+                                    ClaimName = Resource3ClaimUri, AuthorizationStrategies = null
                                 },
                                 new ResourceClaimAuthorizationMetadata
                                 {
-                                    ClaimName = Resource4ClaimUri, AuthorizationStrategy = "Fourth"
+                                    ClaimName = Resource4ClaimUri, AuthorizationStrategies = new List<string> { "Fourth" }
                                 }
                             }
 
@@ -601,7 +601,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     // rather than the order in which the claims are issued to the caller in the claim set.
                     // In this case, Resource2 is "lower" in the hierarchy, and should be the one matched first.
                     JsonClaimHelper.CreateClaim(Resource3ClaimUri, new EdFiResourceClaimValue(ReadActionUri)),
-                    JsonClaimHelper.CreateClaim(Resource1ClaimUri, new EdFiResourceClaimValue(ReadActionUri, "Override"))
+                    JsonClaimHelper.CreateClaim(Resource1ClaimUri, new EdFiResourceClaimValue(ReadActionUri, new List<string> { "Override" }))
 
                     // This claim is "below" requested resource, so it should be ignored
                     // (NOTE: This will not happen with the current implementation of the API, but has been added for full coverage/definition of expected behavior)
@@ -991,7 +991,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                                     ClaimName = Resource4ClaimUri, ValidationRuleSetName = "RuleSetFor4",
 
                                     // We need an authorization strategy defined somewhere in the lineage
-                                    AuthorizationStrategy = "Fourth"
+                                    AuthorizationStrategies = new List<string> { "Fourth" }
                                 }
                             }
 
@@ -1744,7 +1744,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 {
                     new ResourceClaimAuthorizationMetadata
                     {
-                        ClaimName = claim, AuthorizationStrategy = strategy
+                        ClaimName = claim, AuthorizationStrategies  = new List<string> { strategy }
                     }
                 };
             }
@@ -2019,7 +2019,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                         {
                             new ResourceClaimAuthorizationMetadata
                             {
-                                ClaimName = resourceClaim, AuthorizationStrategy = authorizationStrategyName
+                                ClaimName = resourceClaim,  AuthorizationStrategies  = new List<string> { authorizationStrategyName }
                             }
                         }
                         .ToList());

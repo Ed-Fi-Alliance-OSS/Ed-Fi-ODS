@@ -33,9 +33,9 @@ namespace EdFi.Ods.Common.Security.Claims
         /// Initializes a new instance of the <see cref="EdFiResourceClaimValue"/> class using the specified action and authorization strategy name override.
         /// </summary>
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
-        /// <param name="authorizationStrategyNameOverride">The name of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
-        public EdFiResourceClaimValue(string action, string authorizationStrategyNameOverride)
-            : this(action, null, authorizationStrategyNameOverride) { }
+        /// <param name="authorizationStrategyNameOverrides">its list names of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
+        public EdFiResourceClaimValue(string action, IReadOnlyList<string> authorizationStrategyNameOverrides)
+            : this(action, null, authorizationStrategyNameOverrides) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EdFiResourceClaimValue"/> class using the specified action and Education Organization ids.
@@ -54,12 +54,12 @@ namespace EdFi.Ods.Common.Security.Claims
         /// </summary>
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
         /// <param name="educationOrganizationIds">The Local Education Agency Ids to which the claim applies.</param>
-        /// <param name="authorizationStrategyNameOverride">The name of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
-        public EdFiResourceClaimValue(string action, List<int> educationOrganizationIds, string authorizationStrategyNameOverride)
+        /// <param name="authorizationStrategyNameOverrides">List of names of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
+        public EdFiResourceClaimValue(string action, List<int> educationOrganizationIds, IReadOnlyList<string> authorizationStrategyNameOverrides)
         {
             Actions = new[]
                       {
-                          new ResourceAction(action, authorizationStrategyNameOverride)
+                          new ResourceAction(action, authorizationStrategyNameOverrides)
                       };
 
             EducationOrganizationIds = educationOrganizationIds;
@@ -70,17 +70,17 @@ namespace EdFi.Ods.Common.Security.Claims
         /// </summary>
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
         /// <param name="educationOrganizationIds">The Local Education Agency Ids to which the claim applies.</param>
-        /// <param name="authorizationStrategyNameOverride">The name of the authorization strategy that should be used for authorization (in lieu of any default defined for the resource).</param>
+        /// <param name="authorizationStrategyNameOverrides">List of names of the authorization strategy that should be used for authorization (in lieu of any default defined for the resource).</param>
         /// <param name="validationRuleSetNameOverride">The name of the validation rule set to be executed during authorization (in lieu of any default defined for the resource).</param>
         public EdFiResourceClaimValue(
             string action,
             List<int> educationOrganizationIds,
-            string authorizationStrategyNameOverride,
+            IReadOnlyList<string> authorizationStrategyNameOverrides,
             string validationRuleSetNameOverride)
         {
             Actions = new[]
                       {
-                          new ResourceAction(action, authorizationStrategyNameOverride, validationRuleSetNameOverride)
+                          new ResourceAction(action, authorizationStrategyNameOverrides, validationRuleSetNameOverride)
                       };
 
             EducationOrganizationIds = educationOrganizationIds;
@@ -100,13 +100,13 @@ namespace EdFi.Ods.Common.Security.Claims
         /// Attempts to obtain an authorization strategy override for the specified action.
         /// </summary>
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
-        /// <param name="authorizationStrategyNameOverride">If found, will contain the name of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
+        /// <param name="authorizationStrategyNameOverrides">If found, will contain the names of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
         /// <returns><b>true</b> if the specified action had an authorization strategy override; otherwise <b>false</b>.</returns>
-        public bool TryGetAuthorizationStrategyOverride(string action, out string authorizationStrategyNameOverride)
+        public bool TryGetAuthorizationStrategyOverride(string action, out IReadOnlyList<string> authorizationStrategyNameOverrides)
         {
-            authorizationStrategyNameOverride = GetAuthorizationStrategyNameOverride(action);
+            authorizationStrategyNameOverrides = GetAuthorizationStrategyNameOverrides(action);
 
-            return !string.IsNullOrEmpty(authorizationStrategyNameOverride);
+            return authorizationStrategyNameOverrides != null;
         }
 
         /// <summary>
@@ -114,12 +114,11 @@ namespace EdFi.Ods.Common.Security.Claims
         /// </summary>
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
         /// <returns>The authorization strategy override for the specified action; otherwise <b>null</b>.</returns>
-        public string GetAuthorizationStrategyNameOverride(string action)
+        public IReadOnlyList<string> GetAuthorizationStrategyNameOverrides(string action)
         {
             return
-                Actions.Where(x => x.Name == action)
-                       .Select(x => x.AuthorizationStrategyNameOverride)
-                       .FirstOrDefault();
+                Actions.FirstOrDefault(x => x.Name == action)
+                       ?.AuthorizationStrategyNameOverrides;
         }
 
         /// <summary>
@@ -157,20 +156,20 @@ namespace EdFi.Ods.Common.Security.Claims
         /// Initializes a new instance of the <see cref="ResourceAction"/> class using the specified action and authorization strategy name override.
         /// </summary>
         /// <param name="name">The name (URI) of the action.</param>
-        /// <param name="authorizationStrategyNameOverride">The name of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
-        public ResourceAction(string name, string authorizationStrategyNameOverride)
-            : this(name, authorizationStrategyNameOverride, null) { }
+        /// <param name="authorizationStrategyNameOverrides">List of names of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
+        public ResourceAction(string name, IReadOnlyList<string> authorizationStrategyNameOverrides)
+            : this(name, authorizationStrategyNameOverrides, null) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResourceAction"/> class using the specified action and overrides for authorization strategy name and validation rule set name.
         /// </summary>
         /// <param name="name">The name (URI) of the action.</param>
-        /// <param name="authorizationStrategyNameOverride">The name of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
+        /// <param name="authorizationStrategyNameOverrides">List of names of the authorization strategy that should be used for authorization (in lieu of the default for the resource).</param>
         /// <param name="validationRuleSetNameOverride">The name of the rule set to be executed.</param>
-        public ResourceAction(string name, string authorizationStrategyNameOverride, string validationRuleSetNameOverride)
+        public ResourceAction(string name, IReadOnlyList<string> authorizationStrategyNameOverrides, string validationRuleSetNameOverride)
         {
             Name = name;
-            AuthorizationStrategyNameOverride = authorizationStrategyNameOverride;
+            AuthorizationStrategyNameOverrides = authorizationStrategyNameOverrides;
             ValidationRuleSetNameOverride = validationRuleSetNameOverride;
         }
 
@@ -180,9 +179,9 @@ namespace EdFi.Ods.Common.Security.Claims
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the authorization strategy that should be used for authorization (in lieu of the default for the resource).
+        /// Gets or sets the list of names of the authorization strategy that should be used for authorization (in lieu of the default for the resource).
         /// </summary>
-        public string AuthorizationStrategyNameOverride { get; set; }
+        public IReadOnlyList<string> AuthorizationStrategyNameOverrides { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the rule set that should be used to validate the entity for the action.

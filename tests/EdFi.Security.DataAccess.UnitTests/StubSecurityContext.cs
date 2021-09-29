@@ -27,9 +27,9 @@ namespace EdFi.Security.DataAccess.UnitTests
             securityContext.Actions = GetFakeDbSet<Action>().SetupData();
             securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>().SetupData();
             securityContext.ClaimSets = GetFakeDbSet<ClaimSet>().SetupData();
-            securityContext.ClaimSetResourceClaims = GetFakeDbSet<ClaimSetResourceClaim>().SetupData();
+            securityContext.ClaimSetResourceClaims = GetFakeDbSet<ClaimSetResourceClaimActionAuthorizations>().SetupData();
             securityContext.ResourceClaims = GetFakeDbSet<ResourceClaim>().SetupData();
-            securityContext.ResourceClaimAuthorizationMetadatas = GetFakeDbSet<ResourceClaimAuthorizationMetadata>().SetupData();
+            securityContext.ResourceClaimAuthorizationMetadatas = GetFakeDbSet<ResourceClaimActionAuthorization>().SetupData();
 
             return securityContext;
         }
