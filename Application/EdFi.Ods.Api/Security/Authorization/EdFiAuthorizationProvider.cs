@@ -123,15 +123,8 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             try
             {
-
                 var tasks = details.AuthorizationStrategies.Select(x => x.AuthorizeSingleItemAsync(new[] { details.RelevantClaim }, authorizationContext, cancellationToken));
-
                 await Task.WhenAll(tasks);
-
-            }
-            catch (AggregateException ex)
-            {
-                throw ex.InnerException;
             }
             catch (Exception ex)
             {
