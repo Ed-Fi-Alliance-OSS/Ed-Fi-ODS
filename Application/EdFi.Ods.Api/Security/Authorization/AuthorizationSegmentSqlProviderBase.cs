@@ -82,6 +82,27 @@ namespace EdFi.Ods.Api.Security.Authorization
                     // Perform defensive checks against the remote possibility of SQL injection attack
                     ValidateTableNameParts(claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
+                    var tupleBackedByNewAuthViews = new List<string>
+                    {
+                        "LocalEducationAgencyIdToSchoolId",
+                        "CommunityOrganizationIdToCommunityProviderId",
+                        "EducationOrganizationIdToLocalEducationAgencyId",
+                        "EducationOrganizationIdToPostSecondaryInstitutionId",
+                        "EducationOrganizationIdToSchoolId",
+                        "CommunityOrganizationIdToEducationOrganizationId",
+                        "CommunityProviderIdToEducationOrganizationId",
+                        "LocalEducationAgencyIdToOrganizationDepartmentId",
+                        "OrganizationDepartmentIdToSchoolId"
+                    };
+
+                    string authViewName = $"{subjectEndpointName}To{claimEndpointName}";
+
+                    if (tupleBackedByNewAuthViews.Contains(authViewName))
+                    {
+                        subjectEndpointName = "EducationOrganizationId";
+                        claimEndpointName = "EducationOrganizationId";
+                    }
+
                     string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
                         subjectEndpointName,
                         claimEndpointName,
@@ -92,6 +113,12 @@ namespace EdFi.Ods.Api.Security.Authorization
                         unsupportedAuthorizationViews.Add(derivedAuthorizationViewName);
 
                         continue;
+                    }
+
+                    if (derivedAuthorizationViewName.Contains(authViewName))
+                    {
+                        subjectEndpointName = "TargetEducationOrganizationId";
+                        claimEndpointName = "SourceEducationOrganizationId";
                     }
 
                     segmentExpressions.Add(CreateSegmentExpression(ref parameterIndex));

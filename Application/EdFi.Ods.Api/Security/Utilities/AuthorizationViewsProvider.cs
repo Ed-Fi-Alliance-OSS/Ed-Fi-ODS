@@ -34,7 +34,7 @@ namespace EdFi.Ods.Api.Security.Utilities
             using (var session = _sessionFactory.OpenStatelessSession())
             {
                 return session.CreateSQLQuery(
-                        "SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_SCHEMA = 'auth'")
+                        "SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'auth'")
                     .List<string>();
             }
         }
