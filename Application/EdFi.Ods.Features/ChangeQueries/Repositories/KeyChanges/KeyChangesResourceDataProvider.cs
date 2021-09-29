@@ -14,39 +14,46 @@ using EdFi.Ods.Generator.Database.NamingConventions;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
-    public class KeyChangesResourceDataProvider : TrackedChangesResourceDataProviderBase<KeyChange>, IKeyChangesResourceDataProvider
+    public class KeyChangesResourceDataProvider
+        : TrackedChangesResourceDataProviderBase<KeyChange>, IKeyChangesResourceDataProvider
     {
-        private readonly IKeyChangesTemplateQueryProvider _keyChangesTemplateQueryProvider;
         private readonly IDatabaseNamingConvention _namingConvention;
+        private readonly IKeyChangesQueryFactory _keyChangesQueryFactory;
+        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
 
         public KeyChangesResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
-            IKeyChangesTemplateQueryProvider keyChangesTemplateQueryProvider,
-            ITrackedChangesQueriesProvider trackedChangesQueriesProvider,
-            IDatabaseNamingConvention namingConvention)
-            : base(dbProviderFactory, odsDatabaseConnectionStringProvider, trackedChangesQueriesProvider, namingConvention)
+            IKeyChangesQueriesPreparer keyChangesQueriesPreparer,
+            IDatabaseNamingConvention namingConvention,
+            IKeyChangesQueryFactory keyChangesQueryFactory,
+            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
+            : base(dbProviderFactory, odsDatabaseConnectionStringProvider, keyChangesQueriesPreparer, namingConvention)
         {
-            _keyChangesTemplateQueryProvider = keyChangesTemplateQueryProvider;
             _namingConvention = namingConvention;
+            _keyChangesQueryFactory = keyChangesQueryFactory;
+            _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
         }
 
         public async Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
-            var identifierProjections = _keyChangesTemplateQueryProvider.GetIdentifierProjections(resource);
-            var templateQuery = _keyChangesTemplateQueryProvider.GetTemplateQuery(resource);
+            var changeWindowCteQuery = _keyChangesQueryFactory.CreateMainQuery(resource);
+            var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
+            string changeVersionColumnName = _namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName);
+            string idColumnName = _namingConvention.ColumnName("Id");
+            
             return await base.GetResourceDataAsync(
                 resource,
                 queryParameters,
-                templateQuery,
+                changeWindowCteQuery,
                 itemData => 
                     new KeyChange
                     {
-                        Id = (Guid) itemData[_namingConvention.ColumnName("Id")],
-                        ChangeVersion = (long) itemData[_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)],
-                        OldKeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroup.OldValue),
-                        NewKeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroup.NewValue),
+                        Id = (Guid)itemData[idColumnName],
+                        ChangeVersion = (long) itemData[changeVersionColumnName],
+                        OldKeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroups.OldValue),
+                        NewKeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroups.NewValue),
                     });
         }
     }

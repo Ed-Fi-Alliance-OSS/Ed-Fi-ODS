@@ -4,64 +4,39 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.Common;
 using System.Security;
 using System.Security.Claims;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
 using EdFi.Ods.Generator.Database.NamingConventions;
-using log4net;
 using SqlKata;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
-    public class TrackedChangesQueriesProviderAuthorizationDecorator : ITrackedChangesQueriesProvider
+    public class TrackedChangesQueryFactoryAuthorizationDecoratorBase
     {
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
         private readonly IEdFiAuthorizationProvider _edFiAuthorizationProvider;
         private readonly IDatabaseNamingConvention _namingConvention;
-        private readonly ITrackedChangesQueriesProvider _next;
 
-        private readonly ILog _logger = LogManager.GetLogger(typeof(TrackedChangesQueriesProviderAuthorizationDecorator));
-
-        public TrackedChangesQueriesProviderAuthorizationDecorator(
+        protected TrackedChangesQueryFactoryAuthorizationDecoratorBase(
             IAuthorizationContextProvider authorizationContextProvider,
             IEdFiAuthorizationProvider edFiAuthorizationProvider,
-            IDomainModelProvider domainModelProvider,
-            IDomainModelEnhancer domainModelEnhancer,
             IDatabaseNamingConvention namingConvention,
-            ITrackedChangesQueriesProvider next)
+            IDomainModelProvider domainModelProvider,
+            IDomainModelEnhancer domainModelEnhancer)
         {
             _authorizationContextProvider = authorizationContextProvider;
             _edFiAuthorizationProvider = edFiAuthorizationProvider;
             _namingConvention = namingConvention;
-            _next = next;
-
+            
             domainModelEnhancer.Enhance(domainModelProvider.GetDomainModel());
         }
 
-        public TrackedChangesQueries GetQueries(DbConnection connection, Resource resource, IQueryParameters queryParameters, Query templateQuery)
-        {
-            var queries = _next.GetQueries(connection, resource, queryParameters, templateQuery);
-
-            if (queries.DataQuery != null)
-            {
-                ApplyAuthorizationFilters(resource, queries.DataQuery);
-            }
-
-            if (queries.CountQuery != null)
-            {
-                ApplyAuthorizationFilters(resource, queries.CountQuery);
-            }
-
-            return queries;
-        }
-
-        private void ApplyAuthorizationFilters(Resource resource, Query query)
+        protected void ApplyAuthorizationFilters(Resource resource, Query query)
         {
             Type entityType = ((dynamic)resource.Entity).NHibernateEntityType;
 
