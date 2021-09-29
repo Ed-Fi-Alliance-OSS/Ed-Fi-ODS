@@ -5,18 +5,24 @@
 
 using SqlKata;
 
-namespace EdFi.Ods.Features.ChangeQueries.Repositories
+namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
     public class TrackedChangesQueries
     {
-        public TrackedChangesQueries(Query dataQuery, Query countQuery)
+        public TrackedChangesQueries(Query mainQuery, Query countQuery)
         {
-            DataQuery = dataQuery;
+            MainQuery = mainQuery;
             CountQuery = countQuery;
         }
 
-        public Query DataQuery { get; }
+        /// <summary>
+        /// Gets the main driving query for the results (i.e. a query that should be filtered for authorization purposes).
+        /// </summary>
+        public Query MainQuery { get; }
         
+        /// <summary>
+        /// Gets the count query for the results (i.e. a query that should be filtered for authorization purposes).
+        /// </summary>
         public Query CountQuery { get; }
     }
 }

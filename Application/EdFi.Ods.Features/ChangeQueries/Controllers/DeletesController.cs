@@ -49,6 +49,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             _authorizationContextProvider = authorizationContextProvider;
             _resourceClaimUriProvider = resourceClaimUriProvider;
             _securityRepository = securityRepository;
+
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
         }
 
@@ -73,10 +74,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             _authorizationContextProvider.SetResourceUris(_resourceClaimUriProvider.GetResourceClaimUris(resourceClass));
             _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
 
+            // TODO: Validate the parameter here rather than deeper in the call stack
             var queryParameter = new QueryParameters(urlQueryParametersRequest);
 
-            // TODO: GKM - Validate the parameter here rather than deeper in the call stack
-            
             var deletedItemsResponse = await _deletedItemsResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameter);
 
             // Add the total count, if requested

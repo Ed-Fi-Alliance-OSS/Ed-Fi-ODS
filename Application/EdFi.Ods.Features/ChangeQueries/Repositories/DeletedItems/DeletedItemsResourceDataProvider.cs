@@ -14,27 +14,34 @@ using EdFi.Ods.Generator.Database.NamingConventions;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
-    public class DeletedItemsResourceDataProvider : TrackedChangesResourceDataProviderBase<DeletedResourceItem>, IDeletedItemsResourceDataProvider
+    public class DeletedItemsResourceDataProvider 
+        : TrackedChangesResourceDataProviderBase<DeletedResourceItem>, IDeletedItemsResourceDataProvider
     {
-        private readonly IDeletedItemsTemplateQueryProvider _deletedItemsTemplateQueryProvider;
+        private readonly IDeletedItemsQueryFactory _deletedItemsQueryFactory;
         private readonly IDatabaseNamingConvention _namingConvention;
+        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
 
         public DeletedItemsResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
-            ITrackedChangesQueriesProvider trackedChangesQueriesProvider,
-            IDeletedItemsTemplateQueryProvider deletedItemsTemplateQueryProvider,
-            IDatabaseNamingConvention namingConvention)
-            : base(dbProviderFactory, odsDatabaseConnectionStringProvider, trackedChangesQueriesProvider, namingConvention)
+            IDeletedItemsQueriesPreparer deletedItemsQueriesPreparer,
+            IDeletedItemsQueryFactory deletedItemsQueryFactory,
+            IDatabaseNamingConvention namingConvention,
+            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
+            : base(dbProviderFactory, odsDatabaseConnectionStringProvider, deletedItemsQueriesPreparer, namingConvention)
         {
-            _deletedItemsTemplateQueryProvider = deletedItemsTemplateQueryProvider;
+            _deletedItemsQueryFactory = deletedItemsQueryFactory;
             _namingConvention = namingConvention;
+            _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
         }
 
         public async Task<ResourceData<DeletedResourceItem>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
-            var identifierProjections = _deletedItemsTemplateQueryProvider.GetIdentifierProjections(resource);
-            var templateQuery = _deletedItemsTemplateQueryProvider.GetTemplateQuery(resource);
+            var templateQuery = _deletedItemsQueryFactory.CreateMainQuery(resource);
+            var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
+
+            string changeVersionColumnName = _namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName);
+            string idColumnName = _namingConvention.ColumnName("Id");
 
             return await base.GetResourceDataAsync(
                 resource, 
@@ -43,9 +50,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                 itemData => 
                     new DeletedResourceItem
                     { 
-                        Id = (Guid) itemData[_namingConvention.ColumnName("Id")],
-                        ChangeVersion = (long) itemData[_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)],
-                        KeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroup.OldValue),
+                        Id = (Guid) itemData[idColumnName],
+                        ChangeVersion = (long) itemData[changeVersionColumnName],
+                        KeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroups.OldValue),
                     });
         }
     }

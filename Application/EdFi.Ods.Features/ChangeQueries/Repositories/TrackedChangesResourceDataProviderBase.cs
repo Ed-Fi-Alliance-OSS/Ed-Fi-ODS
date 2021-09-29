@@ -7,7 +7,6 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 using EdFi.Ods.Generator.Database.NamingConventions;
 using SqlKata;
 using SqlKata.Execution;
@@ -18,39 +17,38 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
     {
         private readonly DbProviderFactory _dbProviderFactory;
         private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
-        private readonly ITrackedChangesQueriesProvider _trackedChangesQueriesProvider;
+        private readonly ITrackedChangesQueriesPreparer _deletedItemsQueriesPreparer;
         private readonly IDatabaseNamingConvention _namingConvention;
 
         protected TrackedChangesResourceDataProviderBase(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
-            ITrackedChangesQueriesProvider trackedChangesQueriesProvider,
+            ITrackedChangesQueriesPreparer deletedItemsQueriesPreparer,
             IDatabaseNamingConvention namingConvention)
         {
             _dbProviderFactory = dbProviderFactory;
             _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
-            _trackedChangesQueriesProvider = trackedChangesQueriesProvider;
+            _deletedItemsQueriesPreparer = deletedItemsQueriesPreparer;
             _namingConvention = namingConvention;
         }
-        
-        public async Task<ResourceData<TItem>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters, 
+
+        protected async Task<ResourceData<TItem>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters, 
             Query templateQuery, Func<IDictionary<string, object>, TItem> createItem)
         {
-            using (var conn = _dbProviderFactory.CreateConnection())
+            await using var conn = _dbProviderFactory.CreateConnection();
+
+            conn.ConnectionString = _odsDatabaseConnectionStringProvider.GetConnectionString();
+            await conn.OpenAsync();
+
+            var queries = _deletedItemsQueriesPreparer.PrepareQueries(conn, templateQuery, queryParameters, resource);
+
+            var responseData = new ResourceData<TItem>()
             {
-                conn.ConnectionString = _odsDatabaseConnectionStringProvider.GetConnectionString();
-                await conn.OpenAsync();
+                Items = await GetDataAsync(queries.MainQuery),
+                Count = await GetCountAsync(queries.CountQuery),
+            };
 
-                var queries = _trackedChangesQueriesProvider.GetQueries(conn, resource, queryParameters, templateQuery);
-
-                var responseData = new ResourceData<TItem>()
-                {
-                    Items = await GetDataAsync(queries.DataQuery),
-                    Count = await GetCountAsync(queries.CountQuery),
-                };
-
-                return responseData;
-            }
+            return responseData;
 
             async Task<IReadOnlyList<TItem>> GetDataAsync(Query dataQuery)
             {
@@ -85,7 +83,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         protected Dictionary<string, object> GetIdentifierKeyValues(
             QueryProjection[] identifierProjections, 
             IDictionary<string, object> itemData,
-            ColumnGroup columnGroup)
+            ColumnGroups columnGroup)
         {
             var keyValues = new Dictionary<string, object>();
 

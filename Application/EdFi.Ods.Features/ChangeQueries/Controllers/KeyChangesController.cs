@@ -72,11 +72,11 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 return ControllerHelpers.NotFound();
             }
             
-            // Set authorization context (should this be moved?)
+            // Set authorization context (should this be moved to an authorization component?)
             _authorizationContextProvider.SetResourceUris(_resourceClaimUriProvider.GetResourceClaimUris(resourceClass));
             _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
 
-            // TODO: Validate the parameter here (and rather than deeper in the call stack)
+            // TODO: Validate the parameters here (and rather than deeper in the call stack)
             var queryParameter = new QueryParameters(urlQueryParametersRequest);
 
             var keyChangesResponse = await _keyChangesResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameter);
@@ -87,7 +87,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 Response.Headers.Add("Total-Count", keyChangesResponse.Count.ToString());
             }
             
-            // Explicitly serialize the response to remain backwards compatible with pre .net core
+            // Explicitly serialize the response to remain backwards compatible with .NET Framework implementation responses
             return new ContentResult
             {
                 Content = JsonConvert.SerializeObject(keyChangesResponse.Items, new Iso8601UtcDateOnlyConverter()),
