@@ -71,7 +71,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     var allTerms = SplitTerms(entityProperty.PropertyName);
                     var baseTerms = TrimFinalTerm(allTerms);
                     
-                    // For Descriptors, this returns Namespace/CodeValue, for Student/Staff/Parent is returns the UniqueId
+                    // For Descriptors, this returns Namespace/CodeValue, for Student/Staff/Parent it returns the UniqueId
                     var naturalIdentifyingProperties = entityProperty.DefiningProperty.Entity.NaturalIdentifyingProperties();
 
                     foreach (var naturalIdentifyingProperty in naturalIdentifyingProperties)
@@ -91,9 +91,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                         yield return new SelectColumn
                         {
                             ColumnGroup = ColumnGroups.NewValue,
-                            ColumnName = _namingConvention.ColumnName(
-                                $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{changeQueryColumnName}"),
-
+                            ColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{changeQueryColumnName}"),
                             JsonPropertyName = changeQueryColumnName.ToCamelCase(),
                         };
                     }

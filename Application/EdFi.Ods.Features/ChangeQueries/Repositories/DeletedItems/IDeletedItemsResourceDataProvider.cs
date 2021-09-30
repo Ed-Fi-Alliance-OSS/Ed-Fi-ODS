@@ -10,6 +10,9 @@ using EdFi.Ods.Features.ChangeQueries.Resources;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
+    /// <summary>
+    /// Defines a method for obtaining the data needed to provide a response to a deleted item API request.
+    /// </summary>
     public interface IDeletedItemsResourceDataProvider
     {
         Task<ResourceData<DeletedResourceItem>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters);
