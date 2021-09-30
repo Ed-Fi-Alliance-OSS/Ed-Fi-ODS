@@ -22574,6 +22574,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // =============================================================
         //                          Properties
         // -------------------------------------------------------------
+        public virtual int? TermDescriptorId  { get; set; }
         // -------------------------------------------------------------
 
         // =============================================================
@@ -22589,6 +22590,7 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationA
         // External references for NHibernate mappings and HQL query usage
         protected virtual NHibernate.QueryModels.CohortYearTypeDescriptorAggregate.EdFi.CohortYearTypeDescriptorQ CohortYearTypeDescriptor { get; set; }
         protected virtual NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ SchoolYearType { get; set; }
+        protected virtual NHibernate.QueryModels.TermDescriptorAggregate.EdFi.TermDescriptorQ TermDescriptor { get; set; }
         // -------------------------------------------------------------
     }
 
@@ -26702,6 +26704,9 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.TermDescriptorAggregate.EdFi
     #pragma warning restore 114
     #pragma warning disable 114
         protected virtual ICollection<NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordQ> StudentAcademicRecords  { get; set; }
+    #pragma warning restore 114
+    #pragma warning disable 114
+        protected virtual ICollection<NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationCohortYearQ> StudentEducationOrganizationAssociationCohortYears  { get; set; }
     #pragma warning restore 114
         // -------------------------------------------------------------
     }

@@ -10335,6 +10335,7 @@ namespace EdFi.Ods.Entities.Common.EdFi
         short SchoolYear { get; set; }
 
         // Non-PK properties
+        string TermDescriptor { get; set; }
 
         // One-to-one relationships
 

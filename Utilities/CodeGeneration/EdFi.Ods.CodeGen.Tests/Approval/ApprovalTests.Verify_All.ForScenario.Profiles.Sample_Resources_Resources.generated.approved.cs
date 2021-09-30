@@ -3912,7 +3912,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -7883,7 +7883,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -10759,7 +10759,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -15342,7 +15342,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]

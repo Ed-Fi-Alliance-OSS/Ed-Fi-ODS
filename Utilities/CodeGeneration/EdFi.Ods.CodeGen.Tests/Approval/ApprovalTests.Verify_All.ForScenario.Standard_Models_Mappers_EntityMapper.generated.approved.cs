@@ -71318,6 +71318,13 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
 
             // Copy non-PK properties
 
+            if ((sourceSupport == null || sourceSupport.IsTermDescriptorSupported)
+                && target.TermDescriptor != source.TermDescriptor)
+            {
+                target.TermDescriptor = source.TermDescriptor;
+                isModified = true;
+            }
+
 
             // Sync lists
             // Sync extensions
@@ -71338,6 +71345,11 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
             target.SchoolYear = source.SchoolYear;
 
             // Copy non-PK properties
+
+            if (sourceSynchSupport.IsTermDescriptorSupported)
+                target.TermDescriptor = source.TermDescriptor;
+            else
+                targetSynchSupport.IsTermDescriptorSupported = false;
 
             // Copy Aggregate Reference Data
             if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
@@ -71381,6 +71393,7 @@ namespace EdFi.Ods.Entities.Common.EdFi //.StudentEducationOrganizationAssociati
     /// </summary>
     public interface IStudentEducationOrganizationAssociationCohortYearSynchronizationSourceSupport : IExtensionsSynchronizationSourceSupport
     {
+        bool IsTermDescriptorSupported { get; set; }
     }
 
     [ExcludeFromCodeCoverage]
