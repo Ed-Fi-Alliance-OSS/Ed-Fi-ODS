@@ -3555,8 +3555,9 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationAncestryEthnicOrig
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationCohortYear IS 'The type and year of a cohort (e.g., 9th grade) the student belongs to as determined by the year that student entered a specific grade.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.CohortYearTypeDescriptorId IS 'The type of cohort year (9th grade, graduation).';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.SchoolYear IS 'The value of the  school year for the Cohort.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.SchoolYear IS 'The school year associated with the cohort; for example, the intended school year of graduation.';
 COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentEducationOrganizationAssociationCohortYear.TermDescriptorId IS 'The term associated with the cohort year; for example, the intended term of graduation.';
 
 -- Extended Properties [edfi].[StudentEducationOrganizationAssociationDisability] --
 COMMENT ON TABLE edfi.StudentEducationOrganizationAssociationDisability IS 'The disability condition(s) that best describes an individual''s impairment, as determined by evaluation(s) conducted by the education organization.';

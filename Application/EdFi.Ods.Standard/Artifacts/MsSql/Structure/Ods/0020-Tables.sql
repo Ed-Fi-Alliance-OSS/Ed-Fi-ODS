@@ -7786,6 +7786,7 @@ CREATE TABLE [edfi].[StudentEducationOrganizationAssociationCohortYear] (
     [EducationOrganizationId] [INT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationCohortYear_PK] PRIMARY KEY CLUSTERED (
         [CohortYearTypeDescriptorId] ASC,
