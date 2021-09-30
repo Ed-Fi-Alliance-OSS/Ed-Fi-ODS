@@ -10,6 +10,9 @@ using EdFi.Ods.Features.ChangeQueries.Resources;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
+    /// <summary>
+    /// Defines a method for obtaining the data needed to provide a response to a key changes API request.
+    /// </summary>
     public interface IKeyChangesResourceDataProvider
     {
         Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters);

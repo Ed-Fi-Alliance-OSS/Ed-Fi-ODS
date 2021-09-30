@@ -11,6 +11,9 @@ using SqlKata;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
+    /// <summary>
+    /// Defines a method for preparing the queries for a tracked changes request.
+    /// </summary>
     public interface ITrackedChangesQueriesPreparer
     {
         TrackedChangesQueries PrepareQueries(
