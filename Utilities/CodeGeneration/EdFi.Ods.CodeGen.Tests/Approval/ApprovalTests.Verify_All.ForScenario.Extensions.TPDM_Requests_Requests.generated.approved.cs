@@ -949,6 +949,7 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatings
         public DateTime EvaluationDate { get; set; }
         public string EvaluationPeriodDescriptor { get; set; }
         public string EvaluationRatingLevelDescriptor { get; set; }
+        public string EvaluationRatingStatusDescriptor { get; set; }
         public string EvaluationTitle { get; set; }
         public Guid Id { get; set; }
         public string LocalCourseCode { get; set; }
@@ -1038,6 +1039,52 @@ namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatingLevelDescript
         public EvaluationRatingLevelDescriptorDelete() { }
 
         public EvaluationRatingLevelDescriptorDelete(Guid id)
+        {
+            Id = id;
+        }
+
+        public Guid Id { get; set; }
+    }
+}
+
+namespace EdFi.Ods.Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors
+{
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingStatusDescriptorGetByExample
+    {
+        public int EvaluationRatingStatusDescriptorId { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingStatusDescriptorGetByIds : IHasIdentifiers<Guid>
+    {
+        public EvaluationRatingStatusDescriptorGetByIds() { }
+
+        public EvaluationRatingStatusDescriptorGetByIds(params Guid[] ids)
+        {
+            Ids = new List<Guid>(ids);
+        }
+
+        public List<Guid> Ids { get; set; }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingStatusDescriptorPost : Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingStatusDescriptorPut : Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor
+    {
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingStatusDescriptorDelete : IHasIdentifier
+    {
+        public EvaluationRatingStatusDescriptorDelete() { }
+
+        public EvaluationRatingStatusDescriptorDelete(Guid id)
         {
             Id = id;
         }

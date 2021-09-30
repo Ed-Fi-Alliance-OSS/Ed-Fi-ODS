@@ -125,6 +125,12 @@ namespace EdFi.Ods.Api.Pipelines.TPDM
     }
 
     [ExcludeFromCodeCoverage]
+    public class EvaluationRatingStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor, Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate.TPDM.EvaluationRatingStatusDescriptor>
+    {
+        public EvaluationRatingStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class EvaluationTypeDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.EvaluationTypeDescriptor.TPDM.EvaluationTypeDescriptor, Entities.NHibernate.EvaluationTypeDescriptorAggregate.TPDM.EvaluationTypeDescriptor>
     {
         public EvaluationTypeDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }

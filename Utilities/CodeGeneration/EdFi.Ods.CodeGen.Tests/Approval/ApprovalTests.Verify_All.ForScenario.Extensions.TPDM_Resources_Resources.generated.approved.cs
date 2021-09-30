@@ -921,7 +921,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         public string FirstName { get; set; }
 
         /// <summary>
-        /// The gender with which a person associates.
+        /// The gender of the candidate.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="genderDescriptor")]
@@ -1011,7 +1011,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
 
         /// <summary>
-        /// A person's gender.
+        /// The sex of the candidate.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="sexDescriptor")]
@@ -6720,7 +6720,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         public string CredentialStatusDescriptor { get; set; }
 
         /// <summary>
-        /// The role authorized by the Credential (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.
+        /// The specific roles or positions within an organization that the credential is intended to authorize (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="educatorRoleDescriptor")]
@@ -15687,7 +15687,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// The date for the person's evaluation.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
-        [DataMember(Name="evaluationDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        [DataMember(Name="evaluationDate"), NaturalKeyMember]
         public DateTime EvaluationDate { get; set; }
 
         /// <summary>
@@ -16041,6 +16041,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         public string EvaluationRatingLevelDescriptor { get; set; }
 
         /// <summary>
+        /// The Status of the poerformance evaluation.
+        /// </summary>
+        // NOT in a reference, IS a lookup column 
+        [DataMember(Name="evaluationRatingStatusDescriptor")]
+        public string EvaluationRatingStatusDescriptor { get; set; }
+
+        /// <summary>
         /// The local code assigned by the School that identifies the course offering provided for the instruction of students.
         /// </summary>
         // IS in a reference, NOT a lookup column 
@@ -16284,13 +16291,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         // =============================================================
         //                Synchronization Source Support
         // -------------------------------------------------------------
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingLevelDescriptorSupported  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultsSupported          { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewersSupported        { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsLocalCourseCodeSupported                  { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSchoolIdSupported                         { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSectionIdentifierSupported                { get { return true; } set { } }
-        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSessionNameSupported                      { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingLevelDescriptorSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultsSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingReviewersSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingStatusDescriptorSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsLocalCourseCodeSupported                   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSchoolIdSupported                          { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSectionIdentifierSupported                 { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsSessionNameSupported                       { get { return true; } set { } }
 
         // Child collection item filter delegates
         Func<Entities.Common.TPDM.IEvaluationRatingResult, bool> Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingResultIncluded
@@ -17697,6 +17705,294 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
     public class EvaluationRatingLevelDescriptorPutPostRequestValidator : FluentValidation.AbstractValidator<EvaluationRatingLevelDescriptor>
     {
         protected override bool PreValidate(FluentValidation.ValidationContext<EvaluationRatingLevelDescriptor> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
+// Aggregate: EvaluationRatingStatusDescriptor
+
+namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM
+{
+    /// <summary>
+    /// A class which represents the tpdm.EvaluationRatingStatusDescriptor table of the EvaluationRatingStatusDescriptor aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingStatusDescriptor : Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+
+        /// <summary>
+        /// The unique identifier for the EvaluationRatingStatusDescriptor resource.
+        /// </summary>
+        [DataMember(Name="id")]
+        [JsonConverter(typeof(GuidConverter))]
+        public Guid Id { get; set; }
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="evaluationRatingStatusDescriptorId"), NaturalKeyMember]
+        public int EvaluationRatingStatusDescriptorId { get; set; }
+
+        int IDescriptor.DescriptorId
+        {
+            get { return EvaluationRatingStatusDescriptorId; }
+            set { EvaluationRatingStatusDescriptorId = value; }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+
+            // Derived Property
+            if ((this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId == null
+                || !(this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId.Equals(compareTo.EvaluationRatingStatusDescriptorId))
+                return false;
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+
+                //Derived Property
+                if ((this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId != null)
+                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// A code or abbreviation that is used to refer to the descriptor.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="codeValue")]
+        public string CodeValue { get; set; }
+
+        /// <summary>
+        /// The description of the descriptor.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// The beginning date of the period when the descriptor is in effect. If omitted, the default is immediate effectiveness.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="effectiveBeginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? EffectiveBeginDate { get; set; }
+
+        /// <summary>
+        /// The end date of the period when the descriptor is in effect.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="effectiveEndDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
+        public DateTime? EffectiveEndDate { get; set; }
+
+        /// <summary>
+        /// A globally unique namespace that identifies this descriptor set. Author is strongly encouraged to use the Universal Resource Identifier (http, ftp, file, etc.) for the source of the descriptor definition. Best practice is for this source to be the descriptor file itself, so that it can be machine-readable and be fetched in real-time, if necessary.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="namespace")]
+        public string Namespace { get; set; }
+
+        /// <summary>
+        /// A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="priorDescriptorId")]
+        public int? PriorDescriptorId { get; set; }
+
+        /// <summary>
+        /// A shortened description for the descriptor.
+        /// </summary>
+        // NOT in a reference, NOT a lookup column 
+        [DataMember(Name="shortDescription")]
+        public string ShortDescription { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+
+        [DataMember(Name="_etag")]
+        public virtual string ETag { get; set; }
+
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.TPDM.EvaluationRatingStatusDescriptorMapper.SynchronizeTo(this, (Entities.Common.TPDM.IEvaluationRatingStatusDescriptor)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.TPDM.EvaluationRatingStatusDescriptorMapper.MapTo(this, (Entities.Common.TPDM.IEvaluationRatingStatusDescriptor)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported         { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported  { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported    { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported           { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported   { get { return true; } set { } }
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported    { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingStatusDescriptorPutPostRequestValidator : FluentValidation.AbstractValidator<EvaluationRatingStatusDescriptor>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<EvaluationRatingStatusDescriptor> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
             {
@@ -23404,6 +23700,298 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
     public class RubricRatingLevelDescriptorPutPostRequestValidator : FluentValidation.AbstractValidator<RubricRatingLevelDescriptor>
     {
         protected override bool PreValidate(FluentValidation.ValidationContext<RubricRatingLevelDescriptor> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
+// Aggregate: School
+
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
+{
+    /// <summary>
+    /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+
+        private bool _postSecondaryInstitutionReferenceExplicitlyAssigned;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference _postSecondaryInstitutionReference;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference ImplicitPostSecondaryInstitutionReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_postSecondaryInstitutionReference == null && !_postSecondaryInstitutionReferenceExplicitlyAssigned)
+                    _postSecondaryInstitutionReference = new PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference();
+
+                return _postSecondaryInstitutionReference;
+            }
+        }
+
+        [DataMember(Name="postSecondaryInstitutionReference")]
+        public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_postSecondaryInstitutionReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    return ImplicitPostSecondaryInstitutionReference;
+
+                return null;
+            }
+            set
+            {
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = true;
+                _postSecondaryInstitutionReference = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.ISchool _school;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.ISchool Entities.Common.TPDM.ISchoolExtension.School
+        {
+            get { return _school; }
+            set { SetSchool(value); }
+        }
+
+        internal Entities.Common.EdFi.ISchool School
+        {
+            set { SetSchool(value); }
+        }
+
+        private void SetSchool(Entities.Common.EdFi.ISchool value)
+        {
+            _school = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.TPDM.ISchoolExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_school == null || !_school.Equals(compareTo.School))
+                return false;
+
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_school != null)
+                    hash = hash * 23 + _school.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The ID of the post secondary institution.
+        /// </summary>
+        // IS in a reference, NOT a lookup column 
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        {
+            get
+            {
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
+                    }
+
+                return default(int?);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // PostSecondaryInstitution
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = false;
+                ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId = value.GetValueOrDefault();
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.TPDM.SchoolExtensionMapper.SynchronizeTo(this, (Entities.Common.TPDM.ISchoolExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.TPDM.SchoolExtensionMapper.MapTo(this, (Entities.Common.TPDM.ISchoolExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported  { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return null; }
+            set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
+        }
+
+
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<SchoolExtension>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<SchoolExtension> context, FluentValidation.Results.ValidationResult result)
         {
             if (context.InstanceToValidate == null)
             {

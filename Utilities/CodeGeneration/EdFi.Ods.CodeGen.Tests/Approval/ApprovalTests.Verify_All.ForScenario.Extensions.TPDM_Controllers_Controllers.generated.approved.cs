@@ -710,6 +710,7 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatings
             specification.EvaluationDate = request.EvaluationDate;
             specification.EvaluationPeriodDescriptor = request.EvaluationPeriodDescriptor;
             specification.EvaluationRatingLevelDescriptor = request.EvaluationRatingLevelDescriptor;
+            specification.EvaluationRatingStatusDescriptor = request.EvaluationRatingStatusDescriptor;
             specification.EvaluationTitle = request.EvaluationTitle;
             specification.Id = request.Id;
             specification.LocalCourseCode = request.LocalCourseCode;
@@ -753,6 +754,37 @@ namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingLevelDescriptor
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.EvaluationRatingLevelDescriptorId = request.EvaluationRatingLevelDescriptorId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.TPDM.EvaluationRatingStatusDescriptors
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("tpdm/evaluationRatingStatusDescriptors")]
+    public partial class EvaluationRatingStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor,
+        Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.TPDM.EvaluationRatingStatusDescriptor,
+        Entities.Common.TPDM.IEvaluationRatingStatusDescriptor,
+        Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate.TPDM.EvaluationRatingStatusDescriptor,
+        Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorPut,
+        Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorPost,
+        Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorDelete,
+        Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorGetByExample>
+    {
+        public EvaluationRatingStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.TPDM.EvaluationRatingStatusDescriptors.EvaluationRatingStatusDescriptorGetByExample request, Entities.Common.TPDM.IEvaluationRatingStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.EvaluationRatingStatusDescriptorId = request.EvaluationRatingStatusDescriptorId;
         }
     }
 }

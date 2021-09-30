@@ -1024,6 +1024,7 @@ namespace EdFi.Ods.Entities.Common.TPDM
 
         // Non-PK properties
         string EvaluationRatingLevelDescriptor { get; set; }
+        string EvaluationRatingStatusDescriptor { get; set; }
         string LocalCourseCode { get; set; }
         int? SchoolId { get; set; }
         string SectionIdentifier { get; set; }
@@ -1147,6 +1148,24 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Non-PK properties
         int? InterRaterReliabilityScore { get; set; }
         DateTime? ReceivedTrainingDate { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the EvaluationRatingStatusDescriptor model.
+    /// </summary>
+    public interface IEvaluationRatingStatusDescriptor : EdFi.IDescriptor, ISynchronizable, IMappable, IHasIdentifier, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember][AutoIncrement]
+        int EvaluationRatingStatusDescriptorId { get; set; }
+
+        // Non-PK properties
 
         // One-to-one relationships
 
@@ -1524,6 +1543,26 @@ namespace EdFi.Ods.Entities.Common.TPDM
         // Lists
 
         // Resource reference data
+    }
+
+    /// <summary>
+    /// Defines available properties and methods for the abstraction of the SchoolExtension model.
+    /// </summary>
+    public interface ISchoolExtension : ISynchronizable, IMappable, IGetByExample
+    {
+        // Primary Key properties
+        [NaturalKeyMember]
+        EdFi.ISchool School { get; set; }
+
+        // Non-PK properties
+        int? PostSecondaryInstitutionId { get; set; }
+
+        // One-to-one relationships
+
+        // Lists
+
+        // Resource reference data
+        Guid? PostSecondaryInstitutionResourceId { get; set; }
     }
 
     /// <summary>
