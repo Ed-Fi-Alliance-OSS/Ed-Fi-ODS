@@ -15,7 +15,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <param name="logicalName">The friendly name of the schema.</param>
         /// <param name="physicalName">The database schema name.</param>
         /// <param name="version">The database schema version.</param>
-        public Schema(string logicalName, string physicalName, string version = null)
+        public Schema(string logicalName, string physicalName, string version = null, string informationalVersion = null)
         {
             if (logicalName == null)
             {
@@ -40,6 +40,7 @@ namespace EdFi.Ods.Common.Models.Domain
             LogicalName = logicalName;
             PhysicalName = physicalName;
             Version = version;
+            InformationalVersion = informationalVersion;
         }
 
         public string LogicalName { get; }
@@ -47,6 +48,8 @@ namespace EdFi.Ods.Common.Models.Domain
         public string PhysicalName { get; }
 
         public string Version { get; }
+
+        public string InformationalVersion { get; }
 
         public override string ToString()
         {

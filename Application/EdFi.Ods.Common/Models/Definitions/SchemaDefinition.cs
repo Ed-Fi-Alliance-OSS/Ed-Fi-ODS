@@ -18,11 +18,12 @@ namespace EdFi.Ods.Common.Models.Definitions
         /// <param name="logicalName">The friendly name of the schema.</param>
         /// <param name="physicalName">The database schema name.</param>
         /// <param name="version">The database schema version.</param>
-        public SchemaDefinition(string logicalName, string physicalName, string version = null)
+        public SchemaDefinition(string logicalName, string physicalName, string version = null, string description = null)
         {
             LogicalName = logicalName;
             PhysicalName = physicalName;
             Version = string.IsNullOrWhiteSpace(version) ? null : version;
+            Description = string.IsNullOrWhiteSpace(description) ? null : description;
         }
 
         public string LogicalName { get; set; }
@@ -30,5 +31,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         public string PhysicalName { get; set; }
 
         public string Version { get; set; }
+
+        public string Description { get; set; }
     }
 }
