@@ -715,6 +715,9 @@ namespace EdFi.Ods.Common.Models.Domain
         public IReadOnlyList<AssociationView> SelfReferencingAssociations => OutgoingAssociations.Where(a => a.IsSelfReferencing)
                                                                                                  .ToList();
 
+        /// <summary>
+        /// Indicates whether the entity is a concrete descriptor entity (i.e. an entity derived from the abstract base descriptor).
+        /// </summary>
         public bool IsDescriptorEntity => IsDerived && BaseEntity?.IsDescriptorBaseEntity() == true;
 
         public string Description { get; }

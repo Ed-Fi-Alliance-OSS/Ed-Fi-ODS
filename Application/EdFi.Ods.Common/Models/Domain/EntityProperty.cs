@@ -22,6 +22,7 @@ namespace EdFi.Ods.Common.Models.Domain
         private Lazy<Entity> _descriptorEntity;
         private Lazy<bool> _isUnified;
         private Lazy<EntityProperty> _definingProperty;
+        private Lazy<EntityProperty> _definingConcreteProperty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityProperty" /> class using the specified property definition.
@@ -67,14 +68,16 @@ namespace EdFi.Ods.Common.Models.Domain
             _isUnified = new Lazy<bool>(
                 () => IncomingAssociations.Count > 1);
 
-            _definingProperty = new Lazy<EntityProperty>(GetDefiningProperty);
+            _definingProperty = new Lazy<EntityProperty>(() => GetDefiningProperty(restrictToConcreteEntity: false));
+            
+            _definingConcreteProperty = new Lazy<EntityProperty>(() => GetDefiningProperty(restrictToConcreteEntity: true));
             
             _descriptorEntity = new Lazy<Entity>(
                 () =>
                 {
-                    if (DefiningProperty?.Entity?.IsDescriptorEntity == true && DefiningProperty.Entity != Entity)
+                    if (DefiningConcreteProperty?.Entity?.IsDescriptorEntity == true && DefiningConcreteProperty.Entity != Entity)
                     {
-                        return DefiningProperty.Entity;
+                        return DefiningConcreteProperty.Entity;
                     }
 
                     return null;
@@ -212,15 +215,38 @@ namespace EdFi.Ods.Common.Models.Domain
         public bool IsLocallyDefined { get; internal set; }
 
         /// <summary>
-        /// Gets the <see cref="EntityProperty" /> where the property was originally defined (will be a property associated with
-        /// a different <see cref="Entity" /> if the property is part of a foreign key relationship). 
+        /// Gets the <see cref="EntityProperty" /> where the property was originally defined in a concrete entity (i.e. it will not
+        /// return the property of the abstract base entity). If the property is part of a foreign key relationship, the property
+        /// returned will be a property associated with a different <see cref="Entity" />. 
         /// </summary>
+        /// <remarks>
+        /// For properties that are identifying properties of an abstract base type (e.g. descriptors,
+        /// education organizations, student program associations, etc.), this will return the property of the concrete (derived)
+        /// <see cref="Entity" />.
+        /// </remarks>
+        /// <seealso cref="DefiningProperty"/>
+        public EntityProperty DefiningConcreteProperty
+        {
+            get => _definingConcreteProperty.Value;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="EntityProperty" /> where the property was originally defined in the model regardless of whether
+        /// the original definition is in a concrete or abstract entity. If the property is part of a foreign key relationship, the property returned will be a property associated
+        /// with a different <see cref="Entity" />. 
+        /// </summary>
+        /// <remarks>
+        /// For properties that are identifying properties of an abstract base type (e.g. descriptors,
+        /// education organizations, student program associations, etc.), this will return that property (rather than the property
+        /// as it is represented in the concrete (derived) <see cref="Entity" />.
+        /// </remarks>
+        /// <seealso cref="DefiningConcreteProperty"/>
         public EntityProperty DefiningProperty
         {
             get => _definingProperty.Value;
         }
 
-        private EntityProperty GetDefiningProperty()
+        private EntityProperty GetDefiningProperty(bool restrictToConcreteEntity)
         {
             if (IsLocallyDefined)
             {
@@ -229,7 +255,13 @@ namespace EdFi.Ods.Common.Models.Domain
             
             var currentProperty = this;
 
-            while (currentProperty.IncomingAssociations.Any())
+            while (currentProperty.IncomingAssociations.Any(a => 
+                a.AssociationType == AssociationViewType.ManyToOne 
+                || a.AssociationType == AssociationViewType.OneToOneIncoming
+                // Follow relationship into the core Ed-Fi model from an extension
+                || a.AssociationType == AssociationViewType.FromCore
+                // Follow base type relationships if allowed by caller
+                || (!restrictToConcreteEntity && a.AssociationType == AssociationViewType.FromBase)))
             {
                 currentProperty = currentProperty.IncomingAssociations.First()
                     .PropertyMappingByThisName[currentProperty.PropertyName]
