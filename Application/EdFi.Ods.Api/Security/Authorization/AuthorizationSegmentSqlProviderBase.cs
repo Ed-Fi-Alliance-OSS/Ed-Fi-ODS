@@ -115,12 +115,6 @@ namespace EdFi.Ods.Api.Security.Authorization
                         continue;
                     }
 
-                    if (derivedAuthorizationViewName.Contains(authViewName))
-                    {
-                        subjectEndpointName = "TargetEducationOrganizationId";
-                        claimEndpointName = "SourceEducationOrganizationId";
-                    }
-
                     segmentExpressions.Add(CreateSegmentExpression(ref parameterIndex));
 
                     string CreateSegmentExpression(ref int index)
@@ -129,18 +123,18 @@ namespace EdFi.Ods.Api.Security.Authorization
                         {
                             return string.Format(
                                 StatementTemplate,
-                                subjectEndpointName,
+                                subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId")? "TargetEducationOrganizationId" : subjectEndpointName,
                                 GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
-                                claimEndpointName,
+                                claimEndpointName.ContainsIgnoreCase("EducationOrganizationId") ? "SourceEducationOrganizationId" : claimEndpointName,
                                 GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
                                 derivedAuthorizationViewName);
                         }
 
                         return string.Format(
                             StatementTemplate,
-                            claimEndpointName,
+                            claimEndpointName.ContainsIgnoreCase("EducationOrganizationId") ? "SourceEducationOrganizationId" : claimEndpointName,
                             GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
-                            subjectEndpointName,
+                            subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId") ? "TargetEducationOrganizationId" : subjectEndpointName,
                             GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
                             derivedAuthorizationViewName);
                     }
