@@ -40,7 +40,9 @@ namespace EdFi.Ods.Common.Models.Domain
             LogicalName = logicalName;
             PhysicalName = physicalName;
             Version = version;
-            InformationalVersion = informationalVersion;
+
+            if (!string.IsNullOrEmpty(informationalVersion))
+                InformationalVersion = informationalVersion;
         }
 
         public string LogicalName { get; }
