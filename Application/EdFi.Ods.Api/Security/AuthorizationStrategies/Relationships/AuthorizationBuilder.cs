@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Specifications;
 using log4net;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
@@ -231,43 +232,28 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
                 var segmentPropertyName = string.Empty;
 
-                var entities = new List<string>()
-                {
-                    "ParentUSI",
-                    "StaffUSI",
-                    "StudentUSI"
-                };
+                string claimPropertyName = claimNamesAndValues.Select(x => x.Item1).First();
 
-                // When subject Endpoint does not have StudentUSI or ParentUSI or StaffUSI and
-                // authorizationPathModifier does not have  ThroughEdOrgAssociation
-                // Then use tuple table for authorization 
-                if (!entities.Contains(segmentProperty.PropertyName) &&
-                         !segmentProperty.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation"))
-                {
-                    claimsEndpoints = claimNamesAndValues
-                        .Select(
-                            cv =>
-                                new AuthorizationSegmentEndpointWithValue(
-                                    "EducationOrganizationId",
-                                    cv.Item2.GetType(),
-                                    cv.Item2));
 
+                // When claim has any one of Ed Org Types and not any one of PersonType ,Then use tuple table for authorization
+                
+                if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(claimPropertyName) &&
+                    (!PersonEntitySpecification.IsPersonIdentifier(segmentProperty.PropertyName)) &&
+                    (!segmentProperty.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation")))
+                {
+                    claimsEndpoints = claimNamesAndValues.Select(
+                                        cv => new AuthorizationSegmentEndpointWithValue("EducationOrganizationId", cv.Item2.GetType(), cv.Item2));
                     segmentPropertyName = "EducationOrganizationId";
                 }
                 else
                 {
-                    claimsEndpoints = claimNamesAndValues
-                        .Select(
-                            cv =>
-                                new AuthorizationSegmentEndpointWithValue(
-                                    cv.Item1,
-                                    cv.Item2.GetType(),
-                                    cv.Item2));
+                    claimsEndpoints = claimNamesAndValues.Select(
+                                        cv =>  new AuthorizationSegmentEndpointWithValue(cv.Item1, cv.Item2.GetType(), cv.Item2));
                 }
 
                 segmentPropertyName = string.IsNullOrWhiteSpace(segmentPropertyName)
-                    ? segmentProperty.PropertyName
-                    : segmentPropertyName;
+                                      ? segmentProperty.PropertyName
+                                      : segmentPropertyName;
 
                 var claimsAuthorizationSegment = new ClaimsAuthorizationSegment(
                     claimsEndpoints.ToList().AsReadOnly(),
@@ -275,7 +261,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         ? new AuthorizationSegmentEndpoint(segmentPropertyName, segmentProperty.PropertyType)
                         : new AuthorizationSegmentEndpointWithValue(
                             segmentPropertyName, segmentProperty.PropertyType, segmentProperty.PropertyValue),
-                    segmentProperty.AuthorizationPathModifier);
+                            segmentProperty.AuthorizationPathModifier);
 
                 _claimsAuthorizationSegments.Add(claimsAuthorizationSegment);
             }
