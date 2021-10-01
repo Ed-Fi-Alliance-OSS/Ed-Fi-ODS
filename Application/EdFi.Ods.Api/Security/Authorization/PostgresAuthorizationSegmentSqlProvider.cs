@@ -12,7 +12,7 @@ namespace EdFi.Ods.Api.Security.Authorization
 {
     public class PostgresAuthorizationSegmentSqlProvider : AuthorizationSegmentSqlProviderBase
     {
-        public PostgresAuthorizationSegmentSqlProvider(IAuthorizationViewsProvider authorizationViewsProvider)
+        public PostgresAuthorizationSegmentSqlProvider(IAuthorizationTableViewsProvider authorizationViewsProvider)
             : base(authorizationViewsProvider)
         {
         }

@@ -14,7 +14,7 @@ namespace EdFi.Ods.Api.Security.Authorization
 {
     public class SqlServerAuthorizationSegmentSqlProvider : AuthorizationSegmentSqlProviderBase
     {
-        public SqlServerAuthorizationSegmentSqlProvider(IAuthorizationViewsProvider authorizationViewsProvider)
+        public SqlServerAuthorizationSegmentSqlProvider(IAuthorizationTableViewsProvider authorizationViewsProvider)
             : base(authorizationViewsProvider)
         {
         }
