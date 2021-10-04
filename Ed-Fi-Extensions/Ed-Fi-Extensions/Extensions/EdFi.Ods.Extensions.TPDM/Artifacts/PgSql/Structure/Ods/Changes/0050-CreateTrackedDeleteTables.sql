@@ -130,7 +130,7 @@ CREATE TABLE tracked_deletes_tpdm.EvaluationElement
 CREATE TABLE tracked_deletes_tpdm.EvaluationElementRating
 (
        EducationOrganizationId INT NOT NULL,
-       EvaluationDate DATE NOT NULL,
+       EvaluationDate TIMESTAMP NOT NULL,
        EvaluationElementTitle VARCHAR(255) NOT NULL,
        EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
        EvaluationPeriodDescriptorId INT NOT NULL,
@@ -172,7 +172,7 @@ CREATE TABLE tracked_deletes_tpdm.EvaluationObjective
 CREATE TABLE tracked_deletes_tpdm.EvaluationObjectiveRating
 (
        EducationOrganizationId INT NOT NULL,
-       EvaluationDate DATE NOT NULL,
+       EvaluationDate TIMESTAMP NOT NULL,
        EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
        EvaluationPeriodDescriptorId INT NOT NULL,
        EvaluationTitle VARCHAR(50) NOT NULL,
@@ -198,7 +198,7 @@ CREATE TABLE tracked_deletes_tpdm.EvaluationPeriodDescriptor
 CREATE TABLE tracked_deletes_tpdm.EvaluationRating
 (
        EducationOrganizationId INT NOT NULL,
-       EvaluationDate DATE NOT NULL,
+       EvaluationDate TIMESTAMP NOT NULL,
        EvaluationPeriodDescriptorId INT NOT NULL,
        EvaluationTitle VARCHAR(50) NOT NULL,
        PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
@@ -218,6 +218,14 @@ CREATE TABLE tracked_deletes_tpdm.EvaluationRatingLevelDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT EvaluationRatingLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationRatingStatusDescriptor
+(
+       EvaluationRatingStatusDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationRatingStatusDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.EvaluationTypeDescriptor

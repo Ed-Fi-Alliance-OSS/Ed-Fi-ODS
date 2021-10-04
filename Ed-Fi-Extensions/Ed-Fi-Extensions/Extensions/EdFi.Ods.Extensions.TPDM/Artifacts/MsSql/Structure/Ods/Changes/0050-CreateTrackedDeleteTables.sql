@@ -117,7 +117,7 @@ CREATE TABLE [tracked_deletes_tpdm].[EvaluationElement]
 CREATE TABLE [tracked_deletes_tpdm].[EvaluationElementRating]
 (
        EducationOrganizationId [INT] NOT NULL,
-       EvaluationDate [DATE] NOT NULL,
+       EvaluationDate [DATETIME2](7) NOT NULL,
        EvaluationElementTitle [NVARCHAR](255) NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
        EvaluationPeriodDescriptorId [INT] NOT NULL,
@@ -156,7 +156,7 @@ CREATE TABLE [tracked_deletes_tpdm].[EvaluationObjective]
 CREATE TABLE [tracked_deletes_tpdm].[EvaluationObjectiveRating]
 (
        EducationOrganizationId [INT] NOT NULL,
-       EvaluationDate [DATE] NOT NULL,
+       EvaluationDate [DATETIME2](7) NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
        EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
@@ -180,7 +180,7 @@ CREATE TABLE [tracked_deletes_tpdm].[EvaluationPeriodDescriptor]
 CREATE TABLE [tracked_deletes_tpdm].[EvaluationRating]
 (
        EducationOrganizationId [INT] NOT NULL,
-       EvaluationDate [DATE] NOT NULL,
+       EvaluationDate [DATETIME2](7) NOT NULL,
        EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
@@ -199,6 +199,13 @@ CREATE TABLE [tracked_deletes_tpdm].[EvaluationRatingLevelDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_EvaluationRatingLevelDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_tpdm].[EvaluationRatingStatusDescriptor]
+(
+       EvaluationRatingStatusDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_EvaluationRatingStatusDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 CREATE TABLE [tracked_deletes_tpdm].[EvaluationTypeDescriptor]
 (

@@ -32,7 +32,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An appendage, 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The person''s maiden name.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'MaidenName'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A person''s gender.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'SexDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The sex of the candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'SexDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which an individual was born.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'BirthDate'
 GO
@@ -58,7 +58,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates a state health or weather related event that displaces a group of students, and may require additional funding, educational, or social services.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'DisplacementStatus'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The gender with which a person associates.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'GenderDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The gender of the candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'GenderDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates that a person passed, failed, or did not take an English Language assessment (e.g., TOEFFL).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'EnglishLanguageExamDescriptorId'
 GO
@@ -335,7 +335,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The current st
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the credential status was effective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CredentialExtension', @level2type=N'COLUMN', @level2name=N'CredentialStatusDate'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The role authorized by the Credential (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CredentialExtension', @level2type=N'COLUMN', @level2name=N'EducatorRoleDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The specific roles or positions within an organization that the credential is intended to authorize (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CredentialExtension', @level2type=N'COLUMN', @level2name=N'EducatorRoleDescriptorId'
 GO
 
 -- Extended Properties [tpdm].[CredentialStatusDescriptor] --
@@ -387,7 +387,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of pr
 GO
 
 -- Extended Properties [tpdm].[EducatorRoleDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducatorRoleDescriptor'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The role authorized by the Credential or Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducatorRoleDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducatorRoleDescriptor', @level2type=N'COLUMN', @level2name=N'EducatorRoleDescriptorId'
 GO
@@ -529,7 +529,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum nu
 GO
 
 -- Extended Properties [tpdm].[EvaluationElementRatingLevelDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The rating level achieved based upon the rating or score.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevelDescriptor'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Rating levels for Evaluation Elements.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevelDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevelDescriptor', @level2type=N'COLUMN', @level2name=N'EvaluationElementRatingLevelDescriptorId'
 GO
@@ -725,6 +725,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'SchoolId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Status of the poerformance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'EvaluationRatingStatusDescriptorId'
+GO
 
 -- Extended Properties [tpdm].[EvaluationRatingLevel] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevel'
@@ -751,7 +753,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum nu
 GO
 
 -- Extended Properties [tpdm].[EvaluationRatingLevelDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The rating level achieved based upon the rating or score.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevelDescriptor'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Rating levels for Evaluations.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevelDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevelDescriptor', @level2type=N'COLUMN', @level2name=N'EvaluationRatingLevelDescriptorId'
 GO
@@ -850,6 +852,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A score indicating how much homogeneity, or consensus, there is in the ratings given by judges. Most commonly a percentage scale (1-100)', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'InterRaterReliabilityScore'
 GO
 
+-- Extended Properties [tpdm].[EvaluationRatingStatusDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Represents the status of a Evaluation Rating.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingStatusDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingStatusDescriptor', @level2type=N'COLUMN', @level2name=N'EvaluationRatingStatusDescriptorId'
+GO
+
 -- Extended Properties [tpdm].[EvaluationTypeDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationTypeDescriptor'
 GO
@@ -875,13 +883,13 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates a pe
 GO
 
 -- Extended Properties [tpdm].[GenderDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The gender with which a person associates.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GenderDescriptor'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A person''s gender.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GenderDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GenderDescriptor', @level2type=N'COLUMN', @level2name=N'GenderDescriptorId'
 GO
 
 -- Extended Properties [tpdm].[ObjectiveRatingLevelDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The rating level achieved based upon the rating or score.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ObjectiveRatingLevelDescriptor'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Rating levels for Evaluation Objectives.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ObjectiveRatingLevelDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ObjectiveRatingLevelDescriptor', @level2type=N'COLUMN', @level2name=N'ObjectiveRatingLevelDescriptorId'
 GO
@@ -983,7 +991,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum nu
 GO
 
 -- Extended Properties [tpdm].[PerformanceEvaluationRatingLevelDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The rating level achieved based upon the rating or score.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevelDescriptor'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Rating levels for Performance Evaluations.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevelDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevelDescriptor', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationRatingLevelDescriptorId'
 GO
@@ -1107,9 +1115,17 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The order for 
 GO
 
 -- Extended Properties [tpdm].[RubricRatingLevelDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The rating level achieved for the rubric dimension.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricRatingLevelDescriptor'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Rating levels for Rubric Dimensions.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricRatingLevelDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricRatingLevelDescriptor', @level2type=N'COLUMN', @level2name=N'RubricRatingLevelDescriptorId'
+GO
+
+-- Extended Properties [tpdm].[SchoolExtension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolExtension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolExtension', @level2type=N'COLUMN', @level2name=N'SchoolId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The ID of the post secondary institution.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SchoolExtension', @level2type=N'COLUMN', @level2name=N'PostSecondaryInstitutionId'
 GO
 
 -- Extended Properties [tpdm].[SurveyResponseExtension] --

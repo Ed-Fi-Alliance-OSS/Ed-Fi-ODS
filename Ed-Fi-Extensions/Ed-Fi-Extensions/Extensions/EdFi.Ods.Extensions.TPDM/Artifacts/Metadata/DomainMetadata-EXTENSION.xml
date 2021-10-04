@@ -82,6 +82,9 @@
   <Aggregate root="EvaluationRatingLevelDescriptor">
     <Entity table="EvaluationRatingLevelDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
+  <Aggregate root="EvaluationRatingStatusDescriptor">
+    <Entity table="EvaluationRatingStatusDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
   <Aggregate root="EvaluationTypeDescriptor">
     <Entity table="EvaluationTypeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>

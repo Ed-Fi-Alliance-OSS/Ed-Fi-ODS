@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.0-b" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.3.0-b" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.1-b" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.3.1-b" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="Ed-Fi-Core.xsd" />
   <xs:annotation>
-    <xs:documentation>===== Ed-Fi 3.3.0-b Extensions =====</xs:documentation>
+    <xs:documentation>===== Ed-Fi 3.3.1-b Extensions =====</xs:documentation>
   </xs:annotation>
   <xs:annotation>
     <xs:documentation>===== Domain Entities =====</xs:documentation>
@@ -34,7 +34,7 @@
           </xs:element>
           <xs:element name="Sex" type="SexDescriptorReferenceType">
             <xs:annotation>
-              <xs:documentation>A person's gender.</xs:documentation>
+              <xs:documentation>The sex of the candidate.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>SexDescriptor</ann:Descriptor>
               </xs:appinfo>
@@ -103,7 +103,7 @@
           </xs:element>
           <xs:element name="Gender" type="EXTENSION-GenderDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The gender with which a person associates.</xs:documentation>
+              <xs:documentation>The gender of the candidate.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-GenderDescriptor</ann:Descriptor>
               </xs:appinfo>
@@ -184,7 +184,7 @@
           </xs:element>
           <xs:element name="EducatorRole" type="EXTENSION-EducatorRoleDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The role authorized by the Credential (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.</xs:documentation>
+              <xs:documentation>The specific roles or positions within an organization that the credential is intended to authorize (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-EducatorRoleDescriptor</ann:Descriptor>
               </xs:appinfo>
@@ -532,7 +532,7 @@
               <xs:documentation>The Evaluation applied for the person.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="EvaluationDate" type="xs:date">
+          <xs:element name="EvaluationDate" type="xs:dateTime">
             <xs:annotation>
               <xs:documentation>The date for the person's evaluation.</xs:documentation>
             </xs:annotation>
@@ -558,6 +558,14 @@
           <xs:element name="SectionReference" type="SectionReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The section associated with a classroom evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EvaluationRatingStatus" type="EXTENSION-EvaluationRatingStatusDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The Status of the poerformance evaluation.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-EvaluationRatingStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -817,6 +825,25 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-SchoolExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="School">
+        <xs:sequence>
+          <xs:element name="PostSecondaryInstitutionReference" type="PostSecondaryInstitutionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The postsecondary institution or university associated as an organization component for the School, if applicable</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-SurveyResponseExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -896,7 +923,7 @@
   </xs:complexType>
   <xs:complexType name="EXTENSION-EducatorRoleDescriptor">
     <xs:annotation>
-      <xs:documentation>The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.</xs:documentation>
+      <xs:documentation>The role authorized by the Credential or Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -929,7 +956,7 @@
   </xs:complexType>
   <xs:complexType name="EXTENSION-EvaluationElementRatingLevelDescriptor">
     <xs:annotation>
-      <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+      <xs:documentation>Rating levels for Evaluation Elements.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -951,7 +978,18 @@
   </xs:complexType>
   <xs:complexType name="EXTENSION-EvaluationRatingLevelDescriptor">
     <xs:annotation>
-      <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+      <xs:documentation>Rating levels for Evaluations.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-EvaluationRatingStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>Represents the status of a Evaluation Rating.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -973,7 +1011,7 @@
   </xs:complexType>
   <xs:complexType name="EXTENSION-GenderDescriptor">
     <xs:annotation>
-      <xs:documentation>The gender with which a person associates.</xs:documentation>
+      <xs:documentation>A person's gender.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -984,7 +1022,7 @@
   </xs:complexType>
   <xs:complexType name="EXTENSION-ObjectiveRatingLevelDescriptor">
     <xs:annotation>
-      <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+      <xs:documentation>Rating levels for Evaluation Objectives.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -995,7 +1033,7 @@
   </xs:complexType>
   <xs:complexType name="EXTENSION-PerformanceEvaluationRatingLevelDescriptor">
     <xs:annotation>
-      <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+      <xs:documentation>Rating levels for Performance Evaluations.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -1017,7 +1055,7 @@
   </xs:complexType>
   <xs:complexType name="EXTENSION-RubricRatingLevelDescriptor">
     <xs:annotation>
-      <xs:documentation>The rating level achieved for the rubric dimension.</xs:documentation>
+      <xs:documentation>Rating levels for Rubric Dimensions.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -1459,7 +1497,7 @@
           <xs:documentation>The Evaluation applied for the person.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="EvaluationDate" type="xs:date">
+      <xs:element name="EvaluationDate" type="xs:dateTime">
         <xs:annotation>
           <xs:documentation>The date for the person's evaluation.</xs:documentation>
         </xs:annotation>
@@ -1825,7 +1863,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-EducatorRoleDescriptorReferenceType">
     <xs:annotation>
-      <xs:documentation>The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.</xs:documentation>
+      <xs:documentation>The role authorized by the Credential or Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -1852,7 +1890,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-EvaluationElementRatingLevelDescriptorReferenceType">
     <xs:annotation>
-      <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+      <xs:documentation>Rating levels for Evaluation Elements.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -1870,7 +1908,16 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-EvaluationRatingLevelDescriptorReferenceType">
     <xs:annotation>
-      <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+      <xs:documentation>Rating levels for Evaluations.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-EvaluationRatingStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Represents the status of a Evaluation Rating.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -1888,7 +1935,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-GenderDescriptorReferenceType">
     <xs:annotation>
-      <xs:documentation>The gender with which a person associates.</xs:documentation>
+      <xs:documentation>A person's gender.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -1897,7 +1944,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-ObjectiveRatingLevelDescriptorReferenceType">
     <xs:annotation>
-      <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+      <xs:documentation>Rating levels for Evaluation Objectives.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -1906,7 +1953,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-PerformanceEvaluationRatingLevelDescriptorReferenceType">
     <xs:annotation>
-      <xs:documentation>The rating level achieved based upon the rating or score.</xs:documentation>
+      <xs:documentation>Rating levels for Performance Evaluations.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -1924,7 +1971,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-RubricRatingLevelDescriptorReferenceType">
     <xs:annotation>
-      <xs:documentation>The rating level achieved for the rubric dimension.</xs:documentation>
+      <xs:documentation>Rating levels for Rubric Dimensions.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>

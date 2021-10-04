@@ -320,6 +320,24 @@ ALTER TABLE [tpdm].[EvaluationRatingLevelDescriptor] ENABLE TRIGGER [tpdm_Evalua
 GO
 
 
+CREATE TRIGGER [tpdm].[tpdm_EvaluationRatingStatusDescriptor_TR_DeleteTracking] ON [tpdm].[EvaluationRatingStatusDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationRatingStatusDescriptor](EvaluationRatingStatusDescriptorId, Id, ChangeVersion)
+    SELECT  d.EvaluationRatingStatusDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationRatingStatusDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationRatingStatusDescriptor] ENABLE TRIGGER [tpdm_EvaluationRatingStatusDescriptor_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [tpdm].[tpdm_EvaluationRating_TR_DeleteTracking] ON [tpdm].[EvaluationRating] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 

@@ -389,7 +389,7 @@ ALTER TABLE tpdm.EvaluationElement ALTER COLUMN LastModifiedDate SET DEFAULT cur
 -- Table tpdm.EvaluationElementRating --
 CREATE TABLE tpdm.EvaluationElementRating (
     EducationOrganizationId INT NOT NULL,
-    EvaluationDate DATE NOT NULL,
+    EvaluationDate TIMESTAMP NOT NULL,
     EvaluationElementTitle VARCHAR(255) NOT NULL,
     EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
     EvaluationPeriodDescriptorId INT NOT NULL,
@@ -443,7 +443,7 @@ CREATE TABLE tpdm.EvaluationElementRatingLevelDescriptor (
 -- Table tpdm.EvaluationElementRatingResult --
 CREATE TABLE tpdm.EvaluationElementRatingResult (
     EducationOrganizationId INT NOT NULL,
-    EvaluationDate DATE NOT NULL,
+    EvaluationDate TIMESTAMP NOT NULL,
     EvaluationElementTitle VARCHAR(255) NOT NULL,
     EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
     EvaluationPeriodDescriptorId INT NOT NULL,
@@ -490,7 +490,7 @@ ALTER TABLE tpdm.EvaluationObjective ALTER COLUMN LastModifiedDate SET DEFAULT c
 -- Table tpdm.EvaluationObjectiveRating --
 CREATE TABLE tpdm.EvaluationObjectiveRating (
     EducationOrganizationId INT NOT NULL,
-    EvaluationDate DATE NOT NULL,
+    EvaluationDate TIMESTAMP NOT NULL,
     EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
     EvaluationPeriodDescriptorId INT NOT NULL,
     EvaluationTitle VARCHAR(50) NOT NULL,
@@ -533,7 +533,7 @@ ALTER TABLE tpdm.EvaluationObjectiveRatingLevel ALTER COLUMN CreateDate SET DEFA
 -- Table tpdm.EvaluationObjectiveRatingResult --
 CREATE TABLE tpdm.EvaluationObjectiveRatingResult (
     EducationOrganizationId INT NOT NULL,
-    EvaluationDate DATE NOT NULL,
+    EvaluationDate TIMESTAMP NOT NULL,
     EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
     EvaluationPeriodDescriptorId INT NOT NULL,
     EvaluationTitle VARCHAR(50) NOT NULL,
@@ -560,7 +560,7 @@ CREATE TABLE tpdm.EvaluationPeriodDescriptor (
 -- Table tpdm.EvaluationRating --
 CREATE TABLE tpdm.EvaluationRating (
     EducationOrganizationId INT NOT NULL,
-    EvaluationDate DATE NOT NULL,
+    EvaluationDate TIMESTAMP NOT NULL,
     EvaluationPeriodDescriptorId INT NOT NULL,
     EvaluationTitle VARCHAR(50) NOT NULL,
     PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
@@ -574,6 +574,7 @@ CREATE TABLE tpdm.EvaluationRating (
     LocalCourseCode VARCHAR(60) NULL,
     SessionName VARCHAR(60) NULL,
     SchoolId INT NULL,
+    EvaluationRatingStatusDescriptorId INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -610,7 +611,7 @@ CREATE TABLE tpdm.EvaluationRatingLevelDescriptor (
 -- Table tpdm.EvaluationRatingResult --
 CREATE TABLE tpdm.EvaluationRatingResult (
     EducationOrganizationId INT NOT NULL,
-    EvaluationDate DATE NOT NULL,
+    EvaluationDate TIMESTAMP NOT NULL,
     EvaluationPeriodDescriptorId INT NOT NULL,
     EvaluationTitle VARCHAR(50) NOT NULL,
     PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
@@ -630,7 +631,7 @@ ALTER TABLE tpdm.EvaluationRatingResult ALTER COLUMN CreateDate SET DEFAULT curr
 -- Table tpdm.EvaluationRatingReviewer --
 CREATE TABLE tpdm.EvaluationRatingReviewer (
     EducationOrganizationId INT NOT NULL,
-    EvaluationDate DATE NOT NULL,
+    EvaluationDate TIMESTAMP NOT NULL,
     EvaluationPeriodDescriptorId INT NOT NULL,
     EvaluationTitle VARCHAR(50) NOT NULL,
     FirstName VARCHAR(75) NOT NULL,
@@ -651,7 +652,7 @@ ALTER TABLE tpdm.EvaluationRatingReviewer ALTER COLUMN CreateDate SET DEFAULT cu
 -- Table tpdm.EvaluationRatingReviewerReceivedTraining --
 CREATE TABLE tpdm.EvaluationRatingReviewerReceivedTraining (
     EducationOrganizationId INT NOT NULL,
-    EvaluationDate DATE NOT NULL,
+    EvaluationDate TIMESTAMP NOT NULL,
     EvaluationPeriodDescriptorId INT NOT NULL,
     EvaluationTitle VARCHAR(50) NOT NULL,
     FirstName VARCHAR(75) NOT NULL,
@@ -668,6 +669,12 @@ CREATE TABLE tpdm.EvaluationRatingReviewerReceivedTraining (
     CONSTRAINT EvaluationRatingReviewerReceivedTraining_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ); 
 ALTER TABLE tpdm.EvaluationRatingReviewerReceivedTraining ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationRatingStatusDescriptor --
+CREATE TABLE tpdm.EvaluationRatingStatusDescriptor (
+    EvaluationRatingStatusDescriptorId INT NOT NULL,
+    CONSTRAINT EvaluationRatingStatusDescriptor_PK PRIMARY KEY (EvaluationRatingStatusDescriptorId)
+); 
 
 -- Table tpdm.EvaluationTypeDescriptor --
 CREATE TABLE tpdm.EvaluationTypeDescriptor (
@@ -882,6 +889,15 @@ CREATE TABLE tpdm.RubricRatingLevelDescriptor (
     RubricRatingLevelDescriptorId INT NOT NULL,
     CONSTRAINT RubricRatingLevelDescriptor_PK PRIMARY KEY (RubricRatingLevelDescriptorId)
 ); 
+
+-- Table tpdm.SchoolExtension --
+CREATE TABLE tpdm.SchoolExtension (
+    SchoolId INT NOT NULL,
+    PostSecondaryInstitutionId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT SchoolExtension_PK PRIMARY KEY (SchoolId)
+); 
+ALTER TABLE tpdm.SchoolExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.SurveyResponseExtension --
 CREATE TABLE tpdm.SurveyResponseExtension (

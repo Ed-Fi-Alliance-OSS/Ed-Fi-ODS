@@ -609,6 +609,13 @@ REFERENCES tpdm.EvaluationRatingLevelDescriptor (EvaluationRatingLevelDescriptor
 CREATE INDEX FK_bfaa20_EvaluationRatingLevelDescriptor
 ON tpdm.EvaluationRating (EvaluationRatingLevelDescriptorId ASC);
 
+ALTER TABLE tpdm.EvaluationRating ADD CONSTRAINT FK_bfaa20_EvaluationRatingStatusDescriptor FOREIGN KEY (EvaluationRatingStatusDescriptorId)
+REFERENCES tpdm.EvaluationRatingStatusDescriptor (EvaluationRatingStatusDescriptorId)
+;
+
+CREATE INDEX FK_bfaa20_EvaluationRatingStatusDescriptor
+ON tpdm.EvaluationRating (EvaluationRatingStatusDescriptorId ASC);
+
 ALTER TABLE tpdm.EvaluationRating ADD CONSTRAINT FK_bfaa20_PerformanceEvaluationRating FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 REFERENCES tpdm.PerformanceEvaluationRating (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ;
@@ -676,6 +683,11 @@ ON tpdm.EvaluationRatingReviewer (ReviewerPersonId ASC, ReviewerSourceSystemDesc
 
 ALTER TABLE tpdm.EvaluationRatingReviewerReceivedTraining ADD CONSTRAINT FK_608112_EvaluationRatingReviewer FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 REFERENCES tpdm.EvaluationRatingReviewer (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE tpdm.EvaluationRatingStatusDescriptor ADD CONSTRAINT FK_4b53ea_Descriptor FOREIGN KEY (EvaluationRatingStatusDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
@@ -869,6 +881,18 @@ ON tpdm.RubricDimension (RubricRatingLevelDescriptorId ASC);
 
 ALTER TABLE tpdm.RubricRatingLevelDescriptor ADD CONSTRAINT FK_f24609_Descriptor FOREIGN KEY (RubricRatingLevelDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE tpdm.SchoolExtension ADD CONSTRAINT FK_2199be_PostSecondaryInstitution FOREIGN KEY (PostSecondaryInstitutionId)
+REFERENCES edfi.PostSecondaryInstitution (PostSecondaryInstitutionId)
+;
+
+CREATE INDEX FK_2199be_PostSecondaryInstitution
+ON tpdm.SchoolExtension (PostSecondaryInstitutionId ASC);
+
+ALTER TABLE tpdm.SchoolExtension ADD CONSTRAINT FK_2199be_School FOREIGN KEY (SchoolId)
+REFERENCES edfi.School (SchoolId)
 ON DELETE CASCADE
 ;
 

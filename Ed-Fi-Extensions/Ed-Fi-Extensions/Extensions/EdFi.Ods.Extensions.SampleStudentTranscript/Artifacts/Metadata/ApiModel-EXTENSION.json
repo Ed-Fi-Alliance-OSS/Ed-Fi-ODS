@@ -3,6 +3,7 @@
   "schemaDefinition": {
     "logicalName": "SampleStudentTranscript",
     "physicalName": "samplestudenttranscript",
+    "description": "",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [

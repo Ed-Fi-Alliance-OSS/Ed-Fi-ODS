@@ -3,6 +3,7 @@
   "schemaDefinition": {
     "logicalName": "Sample",
     "physicalName": "sample",
+    "description": "",
     "version": "1.0.0"
   },
   "aggregateDefinitions": [
@@ -13611,7 +13612,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
+          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -13685,7 +13686,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:\n        Probationary\n        Contractual\n        Substitute/temporary\n        Tenured or permanent\n        Volunteer/no contract\n        ...",
+          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {

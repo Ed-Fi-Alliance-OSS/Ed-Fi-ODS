@@ -338,6 +338,18 @@
     {
       "aggregateRootEntityName": {
         "schema": "tpdm",
+        "name": "EvaluationRatingStatusDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "tpdm",
+          "name": "EvaluationRatingStatusDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "tpdm",
         "name": "EvaluationTypeDescriptor"
       },
       "aggregateEntityNames": [
@@ -2634,7 +2646,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.",
+      "description": "The role authorized by the Credential or Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.",
       "tableNames": {
         "sqlServer": "EducatorRoleDescriptor",
         "postgreSql": "EducatorRoleDescriptor"
@@ -3308,7 +3320,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The rating level achieved based upon the rating or score.",
+      "description": "Rating levels for Evaluation Elements.",
       "tableNames": {
         "sqlServer": "EvaluationElementRatingLevelDescriptor",
         "postgreSql": "EvaluationElementRatingLevelDescriptor"
@@ -3924,7 +3936,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -4118,7 +4130,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The rating level achieved based upon the rating or score.",
+      "description": "Rating levels for Evaluations.",
       "tableNames": {
         "sqlServer": "EvaluationRatingLevelDescriptor",
         "postgreSql": "EvaluationRatingLevelDescriptor"
@@ -4390,6 +4402,31 @@
     },
     {
       "schema": "tpdm",
+      "name": "EvaluationRatingStatusDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "EvaluationRatingStatusDescriptor_PK",
+          "identifyingPropertyNames": [
+            "EvaluationRatingStatusDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "EvaluationRatingStatusDescriptor_PK",
+            "postgreSql": "EvaluationRatingStatusDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Represents the status of a Evaluation Rating.",
+      "tableNames": {
+        "sqlServer": "EvaluationRatingStatusDescriptor",
+        "postgreSql": "EvaluationRatingStatusDescriptor"
+      }
+    },
+    {
+      "schema": "tpdm",
       "name": "EvaluationTypeDescriptor",
       "locallyDefinedProperties": [],
       "identifiers": [
@@ -4608,7 +4645,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The gender with which a person associates.",
+      "description": "A person's gender.",
       "tableNames": {
         "sqlServer": "GenderDescriptor",
         "postgreSql": "GenderDescriptor"
@@ -4633,7 +4670,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The rating level achieved based upon the rating or score.",
+      "description": "Rating levels for Evaluation Objectives.",
       "tableNames": {
         "sqlServer": "ObjectiveRatingLevelDescriptor",
         "postgreSql": "ObjectiveRatingLevelDescriptor"
@@ -5116,7 +5153,7 @@
         }
       ],
       "isAbstract": false,
-      "description": "The rating level achieved based upon the rating or score.",
+      "description": "Rating levels for Performance Evaluations.",
       "tableNames": {
         "sqlServer": "PerformanceEvaluationRatingLevelDescriptor",
         "postgreSql": "PerformanceEvaluationRatingLevelDescriptor"
@@ -5573,10 +5610,53 @@
         }
       ],
       "isAbstract": false,
-      "description": "The rating level achieved for the rubric dimension.",
+      "description": "Rating levels for Rubric Dimensions.",
       "tableNames": {
         "sqlServer": "RubricRatingLevelDescriptor",
         "postgreSql": "RubricRatingLevelDescriptor"
+      }
+    },
+    {
+      "schema": "tpdm",
+      "name": "SchoolExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "SchoolExtension_PK",
+          "identifyingPropertyNames": [
+            "SchoolId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "SchoolExtension_PK",
+            "postgreSql": "SchoolExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "",
+      "tableNames": {
+        "sqlServer": "SchoolExtension",
+        "postgreSql": "SchoolExtension"
       }
     },
     {
@@ -6096,7 +6176,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The gender with which a person associates.",
+          "description": "The gender of the candidate.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -6310,7 +6390,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A person's gender.",
+          "description": "The sex of the candidate.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -9501,7 +9581,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The role authorized by the Credential (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.",
+          "description": "The specific roles or positions within an organization that the credential is intended to authorize (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -11547,7 +11627,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -11740,7 +11820,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -12399,7 +12479,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -12609,7 +12689,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -13515,7 +13595,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -13691,7 +13771,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14299,7 +14379,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -14492,7 +14572,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -15109,6 +15189,66 @@
       "constraintNames": {
         "sqlServer": "FK_EvaluationRating_EvaluationRatingLevelDescriptor",
         "postgreSql": "FK_bfaa20_EvaluationRatingLevelDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_EvaluationRating_EvaluationRatingStatusDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EvaluationRatingStatusDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EvaluationRatingStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EvaluationRatingStatusDescriptorId",
+            "postgreSql": "EvaluationRatingStatusDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EvaluationRating"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EvaluationRatingStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The Status of the poerformance evaluation.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EvaluationRatingStatusDescriptorId",
+            "postgreSql": "EvaluationRatingStatusDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_EvaluationRating_EvaluationRatingStatusDescriptor",
+        "postgreSql": "FK_bfaa20_EvaluationRatingStatusDescriptor"
       },
       "potentiallyLogical": false
     },
@@ -16021,7 +16161,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -16197,7 +16337,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -16447,7 +16587,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -16623,7 +16763,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -16907,7 +17047,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -17117,7 +17257,7 @@
         {
           "propertyName": "EvaluationDate",
           "propertyType": {
-            "dbType": "Date",
+            "dbType": "DateTime2",
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
@@ -17307,6 +17447,66 @@
       "constraintNames": {
         "sqlServer": "FK_EvaluationRatingReviewerReceivedTraining_EvaluationRatingReviewer",
         "postgreSql": "FK_608112_EvaluationRatingReviewer"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_EvaluationRatingStatusDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "EvaluationRatingStatusDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EvaluationRatingStatusDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "EvaluationRatingStatusDescriptorId",
+            "postgreSql": "EvaluationRatingStatusDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_EvaluationRatingStatusDescriptor_Descriptor",
+        "postgreSql": "FK_4b53ea_Descriptor"
       },
       "potentiallyLogical": false
     },
@@ -20681,6 +20881,125 @@
         "postgreSql": "FK_f24609_Descriptor"
       },
       "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_SchoolExtension_PostSecondaryInstitution"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "PostSecondaryInstitution"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "PostSecondaryInstitutionId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The ID of the post secondary institution.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostSecondaryInstitutionId",
+            "postgreSql": "PostSecondaryInstitutionId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "SchoolExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "PostSecondaryInstitutionId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The ID of the post secondary institution.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PostSecondaryInstitutionId",
+            "postgreSql": "PostSecondaryInstitutionId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_SchoolExtension_PostSecondaryInstitution",
+        "postgreSql": "FK_2199be_PostSecondaryInstitution"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "tpdm",
+        "name": "FK_SchoolExtension_School"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "School"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "tpdm",
+        "name": "SchoolExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_SchoolExtension_School",
+        "postgreSql": "FK_2199be_School"
+      }
     },
     {
       "fullName": {

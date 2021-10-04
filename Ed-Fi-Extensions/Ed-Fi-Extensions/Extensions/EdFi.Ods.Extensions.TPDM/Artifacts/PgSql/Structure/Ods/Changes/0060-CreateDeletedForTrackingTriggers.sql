@@ -248,6 +248,20 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationRatingLevelDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationRatingLevelDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationRatingStatusDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationRatingStatusDescriptor(EvaluationRatingStatusDescriptorId, Id, ChangeVersion)
+    SELECT OLD.EvaluationRatingStatusDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.EvaluationRatingStatusDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationRatingStatusDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationRatingStatusDescriptor_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_tpdm.EvaluationRating_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$

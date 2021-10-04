@@ -20,7 +20,7 @@ COMMENT ON COLUMN tpdm.Candidate.MiddleName IS 'A secondary name given to an ind
 COMMENT ON COLUMN tpdm.Candidate.LastSurname IS 'The name borne in common by members of a family.';
 COMMENT ON COLUMN tpdm.Candidate.GenerationCodeSuffix IS 'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).';
 COMMENT ON COLUMN tpdm.Candidate.MaidenName IS 'The person''s maiden name.';
-COMMENT ON COLUMN tpdm.Candidate.SexDescriptorId IS 'A person''s gender.';
+COMMENT ON COLUMN tpdm.Candidate.SexDescriptorId IS 'The sex of the candidate.';
 COMMENT ON COLUMN tpdm.Candidate.BirthDate IS 'The month, day, and year on which an individual was born.';
 COMMENT ON COLUMN tpdm.Candidate.BirthCity IS 'The city the student was born in.';
 COMMENT ON COLUMN tpdm.Candidate.BirthStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which an individual was born.';
@@ -33,7 +33,7 @@ COMMENT ON COLUMN tpdm.Candidate.HispanicLatinoEthnicity IS 'An indication that 
 COMMENT ON COLUMN tpdm.Candidate.EconomicDisadvantaged IS 'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.';
 COMMENT ON COLUMN tpdm.Candidate.LimitedEnglishProficiencyDescriptorId IS 'An indication that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient.';
 COMMENT ON COLUMN tpdm.Candidate.DisplacementStatus IS 'Indicates a state health or weather related event that displaces a group of students, and may require additional funding, educational, or social services.';
-COMMENT ON COLUMN tpdm.Candidate.GenderDescriptorId IS 'The gender with which a person associates.';
+COMMENT ON COLUMN tpdm.Candidate.GenderDescriptorId IS 'The gender of the candidate.';
 COMMENT ON COLUMN tpdm.Candidate.EnglishLanguageExamDescriptorId IS 'Indicates that a person passed, failed, or did not take an English Language assessment (e.g., TOEFFL).';
 COMMENT ON COLUMN tpdm.Candidate.FirstGenerationStudent IS 'Indicator of whether individual is a first generation college student.';
 COMMENT ON COLUMN tpdm.Candidate.PersonId IS 'A unique alphanumeric code assigned to a person.';
@@ -189,7 +189,7 @@ COMMENT ON COLUMN tpdm.CredentialExtension.CertificationRouteDescriptorId IS 'Th
 COMMENT ON COLUMN tpdm.CredentialExtension.BoardCertificationIndicator IS 'Indicator that the credential was granted under the authority of a national Board Certification.';
 COMMENT ON COLUMN tpdm.CredentialExtension.CredentialStatusDescriptorId IS 'The current status of the credential (e.g., active, suspended, etc.).';
 COMMENT ON COLUMN tpdm.CredentialExtension.CredentialStatusDate IS 'The month, day, and year on which the credential status was effective.';
-COMMENT ON COLUMN tpdm.CredentialExtension.EducatorRoleDescriptorId IS 'The role authorized by the Credential (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.';
+COMMENT ON COLUMN tpdm.CredentialExtension.EducatorRoleDescriptorId IS 'The specific roles or positions within an organization that the credential is intended to authorize (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.';
 
 -- Extended Properties [tpdm].[CredentialStatusDescriptor] --
 COMMENT ON TABLE tpdm.CredentialStatusDescriptor IS 'The current status of the credential.';
@@ -220,7 +220,7 @@ COMMENT ON COLUMN tpdm.EducatorPreparationProgramGradeLevel.ProgramName IS 'The 
 COMMENT ON COLUMN tpdm.EducatorPreparationProgramGradeLevel.ProgramTypeDescriptorId IS 'The type of program.';
 
 -- Extended Properties [tpdm].[EducatorRoleDescriptor] --
-COMMENT ON TABLE tpdm.EducatorRoleDescriptor IS 'The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.';
+COMMENT ON TABLE tpdm.EducatorRoleDescriptor IS 'The role authorized by the Credential or Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.';
 COMMENT ON COLUMN tpdm.EducatorRoleDescriptor.EducatorRoleDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[EnglishLanguageExamDescriptor] --
@@ -298,7 +298,7 @@ COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.MinRating IS 'The minimum nu
 COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.MaxRating IS 'The maximum numerical rating or score to achieve the evaluation rating level.';
 
 -- Extended Properties [tpdm].[EvaluationElementRatingLevelDescriptor] --
-COMMENT ON TABLE tpdm.EvaluationElementRatingLevelDescriptor IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON TABLE tpdm.EvaluationElementRatingLevelDescriptor IS 'Rating levels for Evaluation Elements.';
 COMMENT ON COLUMN tpdm.EvaluationElementRatingLevelDescriptor.EvaluationElementRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[EvaluationElementRatingResult] --
@@ -403,6 +403,7 @@ COMMENT ON COLUMN tpdm.EvaluationRating.SectionIdentifier IS 'The local identifi
 COMMENT ON COLUMN tpdm.EvaluationRating.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN tpdm.EvaluationRating.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
 COMMENT ON COLUMN tpdm.EvaluationRating.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN tpdm.EvaluationRating.EvaluationRatingStatusDescriptorId IS 'The Status of the poerformance evaluation.';
 
 -- Extended Properties [tpdm].[EvaluationRatingLevel] --
 COMMENT ON TABLE tpdm.EvaluationRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for the evaluation.';
@@ -418,7 +419,7 @@ COMMENT ON COLUMN tpdm.EvaluationRatingLevel.MinRating IS 'The minimum numerical
 COMMENT ON COLUMN tpdm.EvaluationRatingLevel.MaxRating IS 'The maximum numerical rating or score to achieve the evaluation rating level.';
 
 -- Extended Properties [tpdm].[EvaluationRatingLevelDescriptor] --
-COMMENT ON TABLE tpdm.EvaluationRatingLevelDescriptor IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON TABLE tpdm.EvaluationRatingLevelDescriptor IS 'Rating levels for Evaluations.';
 COMMENT ON COLUMN tpdm.EvaluationRatingLevelDescriptor.EvaluationRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[EvaluationRatingResult] --
@@ -471,6 +472,10 @@ COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.TermDescriptorId
 COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.ReceivedTrainingDate IS 'The date on which the person administering the performance meausre received training on how to conduct performance measures.';
 COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.InterRaterReliabilityScore IS 'A score indicating how much homogeneity, or consensus, there is in the ratings given by judges. Most commonly a percentage scale (1-100)';
 
+-- Extended Properties [tpdm].[EvaluationRatingStatusDescriptor] --
+COMMENT ON TABLE tpdm.EvaluationRatingStatusDescriptor IS 'Represents the status of a Evaluation Rating.';
+COMMENT ON COLUMN tpdm.EvaluationRatingStatusDescriptor.EvaluationRatingStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [tpdm].[EvaluationTypeDescriptor] --
 COMMENT ON TABLE tpdm.EvaluationTypeDescriptor IS 'The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).';
 COMMENT ON COLUMN tpdm.EvaluationTypeDescriptor.EvaluationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -486,11 +491,11 @@ COMMENT ON COLUMN tpdm.FinancialAid.AidAmount IS 'The amount of financial aid aw
 COMMENT ON COLUMN tpdm.FinancialAid.PellGrantRecipient IS 'Indicates a person who receives Pell Grant aid.';
 
 -- Extended Properties [tpdm].[GenderDescriptor] --
-COMMENT ON TABLE tpdm.GenderDescriptor IS 'The gender with which a person associates.';
+COMMENT ON TABLE tpdm.GenderDescriptor IS 'A person''s gender.';
 COMMENT ON COLUMN tpdm.GenderDescriptor.GenderDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[ObjectiveRatingLevelDescriptor] --
-COMMENT ON TABLE tpdm.ObjectiveRatingLevelDescriptor IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON TABLE tpdm.ObjectiveRatingLevelDescriptor IS 'Rating levels for Evaluation Objectives.';
 COMMENT ON COLUMN tpdm.ObjectiveRatingLevelDescriptor.ObjectiveRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[PerformanceEvaluation] --
@@ -546,7 +551,7 @@ COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevel.MinRating IS 'The minimu
 COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevel.MaxRating IS 'The maximum numerical rating or score to achieve the evaluation rating level.';
 
 -- Extended Properties [tpdm].[PerformanceEvaluationRatingLevelDescriptor] --
-COMMENT ON TABLE tpdm.PerformanceEvaluationRatingLevelDescriptor IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON TABLE tpdm.PerformanceEvaluationRatingLevelDescriptor IS 'Rating levels for Performance Evaluations.';
 COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevelDescriptor.PerformanceEvaluationRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[PerformanceEvaluationRatingResult] --
@@ -614,8 +619,13 @@ COMMENT ON COLUMN tpdm.RubricDimension.CriterionDescription IS 'The criterion de
 COMMENT ON COLUMN tpdm.RubricDimension.DimensionOrder IS 'The order for the rubric dimension.';
 
 -- Extended Properties [tpdm].[RubricRatingLevelDescriptor] --
-COMMENT ON TABLE tpdm.RubricRatingLevelDescriptor IS 'The rating level achieved for the rubric dimension.';
+COMMENT ON TABLE tpdm.RubricRatingLevelDescriptor IS 'Rating levels for Rubric Dimensions.';
 COMMENT ON COLUMN tpdm.RubricRatingLevelDescriptor.RubricRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[SchoolExtension] --
+COMMENT ON TABLE tpdm.SchoolExtension IS '';
+COMMENT ON COLUMN tpdm.SchoolExtension.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN tpdm.SchoolExtension.PostSecondaryInstitutionId IS 'The ID of the post secondary institution.';
 
 -- Extended Properties [tpdm].[SurveyResponseExtension] --
 COMMENT ON TABLE tpdm.SurveyResponseExtension IS '';
