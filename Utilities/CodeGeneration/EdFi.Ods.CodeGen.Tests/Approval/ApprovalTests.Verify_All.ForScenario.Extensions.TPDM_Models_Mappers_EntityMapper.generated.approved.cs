@@ -6162,6 +6162,13 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
                 isModified = true;
             }
 
+            if ((sourceSupport == null || sourceSupport.IsEvaluationRatingStatusDescriptorSupported)
+                && target.EvaluationRatingStatusDescriptor != source.EvaluationRatingStatusDescriptor)
+            {
+                target.EvaluationRatingStatusDescriptor = source.EvaluationRatingStatusDescriptor;
+                isModified = true;
+            }
+
             if ((sourceSupport == null || sourceSupport.IsLocalCourseCodeSupported)
                 && target.LocalCourseCode != source.LocalCourseCode)
             {
@@ -6253,6 +6260,11 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             else
                 targetSynchSupport.IsEvaluationRatingLevelDescriptorSupported = false;
 
+            if (sourceSynchSupport.IsEvaluationRatingStatusDescriptorSupported)
+                target.EvaluationRatingStatusDescriptor = source.EvaluationRatingStatusDescriptor;
+            else
+                targetSynchSupport.IsEvaluationRatingStatusDescriptorSupported = false;
+
             if (sourceSynchSupport.IsLocalCourseCodeSupported)
                 target.LocalCourseCode = source.LocalCourseCode;
             else
@@ -6341,6 +6353,7 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
         bool IsEvaluationRatingLevelDescriptorSupported { get; set; }
         bool IsEvaluationRatingResultsSupported { get; set; }
         bool IsEvaluationRatingReviewersSupported { get; set; }
+        bool IsEvaluationRatingStatusDescriptorSupported { get; set; }
         bool IsLocalCourseCodeSupported { get; set; }
         bool IsSchoolIdSupported { get; set; }
         bool IsSectionIdentifierSupported { get; set; }
@@ -6865,6 +6878,185 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
     /// operation.
     /// </summary>
     public interface IEvaluationRatingLevelDescriptorSynchronizationSourceSupport 
+    {
+        bool IsCodeValueSupported { get; set; }
+        bool IsDescriptionSupported { get; set; }
+        bool IsEffectiveBeginDateSupported { get; set; }
+        bool IsEffectiveEndDateSupported { get; set; }
+        bool IsNamespaceSupported { get; set; }
+        bool IsPriorDescriptorIdSupported { get; set; }
+        bool IsShortDescriptionSupported { get; set; }
+    }
+
+}
+// Aggregate: EvaluationRatingStatusDescriptor
+
+namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class EvaluationRatingStatusDescriptorMapper
+    {
+        public static bool SynchronizeTo(this IEvaluationRatingStatusDescriptor source, IEvaluationRatingStatusDescriptor target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as IEvaluationRatingStatusDescriptorSynchronizationSourceSupport;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+            if (source.EvaluationRatingStatusDescriptorId != target.EvaluationRatingStatusDescriptorId)
+            {
+                source.EvaluationRatingStatusDescriptorId = target.EvaluationRatingStatusDescriptorId;
+            }
+
+            // Copy inherited non-PK properties
+
+
+            if ((sourceSupport == null || sourceSupport.IsCodeValueSupported)
+                && target.CodeValue != source.CodeValue)
+            {
+                target.CodeValue = source.CodeValue;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsDescriptionSupported)
+                && target.Description != source.Description)
+            {
+                target.Description = source.Description;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveBeginDateSupported)
+                && target.EffectiveBeginDate != source.EffectiveBeginDate)
+            {
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsEffectiveEndDateSupported)
+                && target.EffectiveEndDate != source.EffectiveEndDate)
+            {
+                target.EffectiveEndDate = source.EffectiveEndDate;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsNamespaceSupported)
+                && target.Namespace != source.Namespace)
+            {
+                target.Namespace = source.Namespace;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsPriorDescriptorIdSupported)
+                && target.PriorDescriptorId != source.PriorDescriptorId)
+            {
+                target.PriorDescriptorId = source.PriorDescriptorId;
+                isModified = true;
+            }
+
+            if ((sourceSupport == null || sourceSupport.IsShortDescriptionSupported)
+                && target.ShortDescription != source.ShortDescription)
+            {
+                target.ShortDescription = source.ShortDescription;
+                isModified = true;
+            }
+
+            // Copy non-PK properties
+
+
+            // Synch inherited lists
+
+            // Sync lists
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this IEvaluationRatingStatusDescriptor source, IEvaluationRatingStatusDescriptor target, Action<IEvaluationRatingStatusDescriptor, IEvaluationRatingStatusDescriptor> onMapped)
+        {
+            var sourceSynchSupport = source as IEvaluationRatingStatusDescriptorSynchronizationSourceSupport;
+            var targetSynchSupport = target as IEvaluationRatingStatusDescriptorSynchronizationSourceSupport;
+
+            // Copy resource Id
+            target.Id = source.Id;
+
+            // Copy contextual primary key values
+            target.EvaluationRatingStatusDescriptorId = source.EvaluationRatingStatusDescriptorId;
+
+            // Copy inherited non-PK properties
+
+            if (sourceSynchSupport.IsCodeValueSupported)
+                target.CodeValue = source.CodeValue;
+            else
+                targetSynchSupport.IsCodeValueSupported = false;
+
+            if (sourceSynchSupport.IsDescriptionSupported)
+                target.Description = source.Description;
+            else
+                targetSynchSupport.IsDescriptionSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveBeginDateSupported)
+                target.EffectiveBeginDate = source.EffectiveBeginDate;
+            else
+                targetSynchSupport.IsEffectiveBeginDateSupported = false;
+
+            if (sourceSynchSupport.IsEffectiveEndDateSupported)
+                target.EffectiveEndDate = source.EffectiveEndDate;
+            else
+                targetSynchSupport.IsEffectiveEndDateSupported = false;
+
+            if (sourceSynchSupport.IsNamespaceSupported)
+                target.Namespace = source.Namespace;
+            else
+                targetSynchSupport.IsNamespaceSupported = false;
+
+            if (sourceSynchSupport.IsPriorDescriptorIdSupported)
+                target.PriorDescriptorId = source.PriorDescriptorId;
+            else
+                targetSynchSupport.IsPriorDescriptorIdSupported = false;
+
+            if (sourceSynchSupport.IsShortDescriptionSupported)
+                target.ShortDescription = source.ShortDescription;
+            else
+                targetSynchSupport.IsShortDescriptionSupported = false;
+
+            // Copy non-PK properties
+
+            // Copy Aggregate Reference Data
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map inherited lists
+
+            // Map lists
+
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface IEvaluationRatingStatusDescriptorSynchronizationSourceSupport 
     {
         bool IsCodeValueSupported { get; set; }
         bool IsDescriptionSupported { get; set; }
@@ -9249,6 +9441,101 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
         bool IsNamespaceSupported { get; set; }
         bool IsPriorDescriptorIdSupported { get; set; }
         bool IsShortDescriptionSupported { get; set; }
+    }
+
+}
+// Aggregate: School
+
+namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
+{
+    [ExcludeFromCodeCoverage]
+    public static class SchoolExtensionMapper
+    {
+        public static bool SynchronizeTo(this ISchoolExtension source, ISchoolExtension target)
+        {
+            bool isModified = false;
+
+            var sourceSupport = source as ISchoolExtensionSynchronizationSourceSupport;
+
+            var sourceExtensionSupport = source.School as IExtensionsSynchronizationSourceSupport;
+
+            if (!sourceExtensionSupport.IsExtensionAvailable("TPDM"))
+                return false;
+
+            // Back synch non-reference portion of PK (PK properties cannot be changed, therefore they can be omitted in the resource payload, but we need them for proper comparisons for persistence)
+
+            // Copy non-PK properties
+
+            if ((sourceSupport == null || sourceSupport.IsPostSecondaryInstitutionIdSupported)
+                && target.PostSecondaryInstitutionId != source.PostSecondaryInstitutionId)
+            {
+                target.PostSecondaryInstitutionId = source.PostSecondaryInstitutionId;
+                isModified = true;
+            }
+
+
+            // Sync lists
+
+            return isModified;
+        }
+
+
+
+        public static void MapTo(this ISchoolExtension source, ISchoolExtension target, Action<ISchoolExtension, ISchoolExtension> onMapped)
+        {
+            var sourceSynchSupport = source as ISchoolExtensionSynchronizationSourceSupport;
+            var targetSynchSupport = target as ISchoolExtensionSynchronizationSourceSupport;
+
+            // Copy contextual primary key values
+
+            // Copy non-PK properties
+
+            if (sourceSynchSupport.IsPostSecondaryInstitutionIdSupported)
+                target.PostSecondaryInstitutionId = source.PostSecondaryInstitutionId;
+            else
+                targetSynchSupport.IsPostSecondaryInstitutionIdSupported = false;
+
+            // Copy Aggregate Reference Data
+            if (GeneratedArtifactStaticDependencies.AuthorizationContextProvider == null
+                || GeneratedArtifactStaticDependencies.AuthorizationContextProvider.GetAction() == RequestActions.ReadActionUri)
+            {
+                target.PostSecondaryInstitutionResourceId = source.PostSecondaryInstitutionResourceId;
+            }
+
+
+
+            // ----------------------------------
+            //   Map One-to-one relationships
+            // ----------------------------------
+
+            // Map lists
+
+
+            var eTagProvider = new ETagProvider();
+
+            // Convert value to ETag, if appropriate
+            var entityWithETag = target as IHasETag;
+
+            if (entityWithETag != null)
+                entityWithETag.ETag = eTagProvider.GetETag(source);
+
+            // Convert value to LastModifiedDate, if appropriate
+            var dateVersionedEntity = target as IDateVersionedEntity;
+            var etagSource = source as IHasETag;
+
+            if (dateVersionedEntity != null && etagSource != null)
+                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+        }
+    }
+
+    /// <summary>
+    /// Defines properties that indicate whether a particular property of the model abstraction
+    /// is supported by a model implementation being used as the source in a "synchronization"
+    /// operation.
+    /// </summary>
+    public interface ISchoolExtensionSynchronizationSourceSupport 
+    {
+        bool IsPostSecondaryInstitutionIdSupported { get; set; }
     }
 
 }

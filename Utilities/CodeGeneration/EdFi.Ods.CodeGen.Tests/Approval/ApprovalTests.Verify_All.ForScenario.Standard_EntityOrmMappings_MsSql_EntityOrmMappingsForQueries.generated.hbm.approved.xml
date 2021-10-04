@@ -7916,6 +7916,13 @@
             <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentAcademicRecordAggregate.EdFi.StudentAcademicRecordQ" />
           </set>
 
+          <set name="StudentEducationOrganizationAssociationCohortYears" cascade="none" lazy="true">
+            <key>
+              <column name="TermDescriptorId" />
+            </key>
+            <one-to-many class="EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationCohortYearQ" />
+          </set>
+
       </joined-subclass>
     <joined-subclass name="EdFi.Ods.Entities.NHibernate.QueryModels.TitleIPartAParticipantDescriptorAggregate.EdFi.TitleIPartAParticipantDescriptorQ" table="TitleIPartAParticipantDescriptor" lazy="false">
           <key>
@@ -19683,6 +19690,7 @@
 
 
     <!-- Properties -->
+    <property name="TermDescriptorId" column="TermDescriptorId" type="int" />
 
     <!-- Aggregate references -->
 
@@ -19692,6 +19700,9 @@
     </many-to-one>
     <many-to-one name="SchoolYearType" class="EdFi.Ods.Entities.NHibernate.QueryModels.SchoolYearTypeAggregate.EdFi.SchoolYearTypeQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
         <column name="SchoolYear" />
+    </many-to-one>
+    <many-to-one name="TermDescriptor" class="EdFi.Ods.Entities.NHibernate.QueryModels.TermDescriptorAggregate.EdFi.TermDescriptorQ" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+        <column name="TermDescriptorId" />
     </many-to-one>
 
     <!-- Collections -->

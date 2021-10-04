@@ -10285,16 +10285,25 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationElementRatingAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature, RequiredWithNonDefault, SqlServerDateTimeRange]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _evaluationDate = new DateTime(value.Year, value.Month, value.Day); }
+            set
+            {
+                // This is only stored as a UTC DateTime in the DB and NHibernate will retrieve it back as the (UTC) DateTime.Kind.
+                // Note ToUniversal will work differently based on DateTime.Kind
+                // See https://docs.microsoft.com/en-us/dotnet/api/system.datetime.touniversaltime?view=netframework-4.5#System_DateTime_ToUniversalTime
+                // Utc - No conversion is performed.
+                // Local - The current DateTime object is converted to UTC.
+                // Unspecified - The current DateTime object is assumed to be a local time, and the conversion is performed as if Kind were Local.
+                if (value != (DateTime)typeof(DateTime).GetDefaultValue())
+                    _evaluationDate = value.ToUniversalTime();
+            }
         }
 
         private DateTime _evaluationDate;
-        
+
         [DomainSignature, RequiredWithNonDefault, StringLength(255), NoDangerousText, NoWhitespace]
         public virtual string EvaluationElementTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
@@ -12156,16 +12165,25 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationObjectiveRatingAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature, RequiredWithNonDefault, SqlServerDateTimeRange]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _evaluationDate = new DateTime(value.Year, value.Month, value.Day); }
+            set
+            {
+                // This is only stored as a UTC DateTime in the DB and NHibernate will retrieve it back as the (UTC) DateTime.Kind.
+                // Note ToUniversal will work differently based on DateTime.Kind
+                // See https://docs.microsoft.com/en-us/dotnet/api/system.datetime.touniversaltime?view=netframework-4.5#System_DateTime_ToUniversalTime
+                // Utc - No conversion is performed.
+                // Local - The current DateTime object is converted to UTC.
+                // Unspecified - The current DateTime object is assumed to be a local time, and the conversion is performed as if Kind were Local.
+                if (value != (DateTime)typeof(DateTime).GetDefaultValue())
+                    _evaluationDate = value.ToUniversalTime();
+            }
         }
 
         private DateTime _evaluationDate;
-        
+
         [DomainSignature, RequiredWithNonDefault, StringLength(50), NoDangerousText, NoWhitespace]
         public virtual string EvaluationObjectiveTitle  { get; set; }
         [DomainSignature, RequiredWithNonDefault]
@@ -13222,16 +13240,25 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         // -------------------------------------------------------------
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EducationOrganizationId  { get; set; }
-        [DomainSignature, RequiredWithNonDefault]
+        [DomainSignature, RequiredWithNonDefault, SqlServerDateTimeRange]
         public virtual DateTime EvaluationDate 
         {
             get { return _evaluationDate; }
-            //This is only stored as a Date in the DB and NHibernate will retrieve it using the default (local) DateTime.Kind.  We must ensure it is set consistently for any equality/change evaluation.
-            set { _evaluationDate = new DateTime(value.Year, value.Month, value.Day); }
+            set
+            {
+                // This is only stored as a UTC DateTime in the DB and NHibernate will retrieve it back as the (UTC) DateTime.Kind.
+                // Note ToUniversal will work differently based on DateTime.Kind
+                // See https://docs.microsoft.com/en-us/dotnet/api/system.datetime.touniversaltime?view=netframework-4.5#System_DateTime_ToUniversalTime
+                // Utc - No conversion is performed.
+                // Local - The current DateTime object is converted to UTC.
+                // Unspecified - The current DateTime object is assumed to be a local time, and the conversion is performed as if Kind were Local.
+                if (value != (DateTime)typeof(DateTime).GetDefaultValue())
+                    _evaluationDate = value.ToUniversalTime();
+            }
         }
 
         private DateTime _evaluationDate;
-        
+
         [DomainSignature, RequiredWithNonDefault]
         public virtual int EvaluationPeriodDescriptorId 
         {
@@ -13424,6 +13451,40 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
                 _evaluationRatingLevelDescriptorId = default(int?);
             }
         }
+        public virtual int? EvaluationRatingStatusDescriptorId 
+        {
+            get
+            {
+                if (_evaluationRatingStatusDescriptorId == default(int?))
+                    _evaluationRatingStatusDescriptorId = string.IsNullOrWhiteSpace(_evaluationRatingStatusDescriptor) ? default(int?) : DescriptorsCache.GetCache().GetId("EvaluationRatingStatusDescriptor", _evaluationRatingStatusDescriptor);
+
+                return _evaluationRatingStatusDescriptorId;
+            } 
+            set
+            {
+                _evaluationRatingStatusDescriptorId = value;
+                _evaluationRatingStatusDescriptor = null;
+            }
+        }
+
+        private int? _evaluationRatingStatusDescriptorId;
+        private string _evaluationRatingStatusDescriptor;
+
+        public virtual string EvaluationRatingStatusDescriptor
+        {
+            get
+            {
+                if (_evaluationRatingStatusDescriptor == null)
+                    _evaluationRatingStatusDescriptor = _evaluationRatingStatusDescriptorId == null ? null : DescriptorsCache.GetCache().GetValue("EvaluationRatingStatusDescriptor", _evaluationRatingStatusDescriptorId.Value);
+                    
+                return _evaluationRatingStatusDescriptor;
+            }
+            set
+            {
+                _evaluationRatingStatusDescriptor = value;
+                _evaluationRatingStatusDescriptorId = default(int?);
+            }
+        }
         [StringLength(60), NoDangerousText]
         public virtual string LocalCourseCode  { get; set; }
         public virtual int? SchoolId  { get; set; }
@@ -13614,6 +13675,7 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
             {
                 { "EvaluationPeriodDescriptor", new LookupColumnDetails { PropertyName = "EvaluationPeriodDescriptorId", LookupTypeName = "EvaluationPeriodDescriptor"} },
                 { "EvaluationRatingLevelDescriptor", new LookupColumnDetails { PropertyName = "EvaluationRatingLevelDescriptorId", LookupTypeName = "EvaluationRatingLevelDescriptor"} },
+                { "EvaluationRatingStatusDescriptor", new LookupColumnDetails { PropertyName = "EvaluationRatingStatusDescriptorId", LookupTypeName = "EvaluationRatingStatusDescriptor"} },
                 { "PerformanceEvaluationTypeDescriptor", new LookupColumnDetails { PropertyName = "PerformanceEvaluationTypeDescriptorId", LookupTypeName = "PerformanceEvaluationTypeDescriptor"} },
                 { "SourceSystemDescriptor", new LookupColumnDetails { PropertyName = "SourceSystemDescriptorId", LookupTypeName = "SourceSystemDescriptor"} },
                 { "TermDescriptor", new LookupColumnDetails { PropertyName = "TermDescriptorId", LookupTypeName = "TermDescriptor"} },
@@ -13744,6 +13806,13 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingAggregate.TPDM
         {
             get { return _isEvaluationRatingReviewersSupported; }
             set { _isEvaluationRatingReviewersSupported = value; }
+        }
+
+        private bool _isEvaluationRatingStatusDescriptorSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport.IsEvaluationRatingStatusDescriptorSupported
+        {
+            get { return _isEvaluationRatingStatusDescriptorSupported; }
+            set { _isEvaluationRatingStatusDescriptorSupported = value; }
         }
 
         private bool _isLocalCourseCodeSupported = true;
@@ -14780,6 +14849,253 @@ namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingLevelDescriptorAggregate.
 
         private bool _isShortDescriptionSupported = true;
         bool Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
+        {
+            get { return _isShortDescriptionSupported; }
+            set { _isShortDescriptionSupported = value; }
+        }
+
+        // -----------------------------------------
+    }
+}
+// Aggregate: EvaluationRatingStatusDescriptor
+
+namespace EdFi.Ods.Entities.NHibernate.EvaluationRatingStatusDescriptorAggregate.TPDM
+{
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.EvaluationRatingStatusDescriptor table of the EvaluationRatingStatusDescriptor aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class EvaluationRatingStatusDescriptor : DescriptorAggregate.EdFi.Descriptor,
+        Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport, IEdFiDescriptor
+    {
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature]
+        public virtual int EvaluationRatingStatusDescriptorId 
+        {
+            get { return base.DescriptorId; }
+            set { base.DescriptorId = value; }
+        }
+        
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        string IDescriptor.CodeValue
+        {
+            get { return CodeValue; }
+            set { CodeValue = value; }
+        }
+        string IDescriptor.Description
+        {
+            get { return Description; }
+            set { Description = value; }
+        }
+        DateTime? IDescriptor.EffectiveBeginDate
+        {
+            get { return EffectiveBeginDate; }
+            set { EffectiveBeginDate = value; }
+        }
+        DateTime? IDescriptor.EffectiveEndDate
+        {
+            get { return EffectiveEndDate; }
+            set { EffectiveEndDate = value; }
+        }
+        string IDescriptor.Namespace
+        {
+            get { return Namespace; }
+            set { Namespace = value; }
+        }
+        int? IDescriptor.PriorDescriptorId
+        {
+            get { return PriorDescriptorId; }
+            set { PriorDescriptorId = value; }
+        }
+        string IDescriptor.ShortDescription
+        {
+            get { return ShortDescription; }
+            set { ShortDescription = value; }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Initialize a new dictionary to hold the key values
+            var keyValues = new OrderedDictionary();
+
+            // Add current key values
+            keyValues.Add("EvaluationRatingStatusDescriptorId", EvaluationRatingStatusDescriptorId);
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.IEvaluationRatingStatusDescriptor)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.IEvaluationRatingStatusDescriptor) target, null);
+        }
+
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        private bool _isCodeValueSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsCodeValueSupported
+        {
+            get { return _isCodeValueSupported; }
+            set { _isCodeValueSupported = value; }
+        }
+
+        private bool _isDescriptionSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsDescriptionSupported
+        {
+            get { return _isDescriptionSupported; }
+            set { _isDescriptionSupported = value; }
+        }
+
+        private bool _isEffectiveBeginDateSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveBeginDateSupported
+        {
+            get { return _isEffectiveBeginDateSupported; }
+            set { _isEffectiveBeginDateSupported = value; }
+        }
+
+        private bool _isEffectiveEndDateSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsEffectiveEndDateSupported
+        {
+            get { return _isEffectiveEndDateSupported; }
+            set { _isEffectiveEndDateSupported = value; }
+        }
+
+        private bool _isNamespaceSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsNamespaceSupported
+        {
+            get { return _isNamespaceSupported; }
+            set { _isNamespaceSupported = value; }
+        }
+
+        private bool _isPriorDescriptorIdSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsPriorDescriptorIdSupported
+        {
+            get { return _isPriorDescriptorIdSupported; }
+            set { _isPriorDescriptorIdSupported = value; }
+        }
+
+        private bool _isShortDescriptionSupported = true;
+        bool Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport.IsShortDescriptionSupported
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
@@ -19669,6 +19985,200 @@ namespace EdFi.Ods.Entities.NHibernate.RubricRatingLevelDescriptorAggregate.TPDM
         {
             get { return _isShortDescriptionSupported; }
             set { _isShortDescriptionSupported = value; }
+        }
+
+        // -----------------------------------------
+    }
+}
+// Aggregate: School
+
+namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM
+{
+// disable warnings for inheritance from classes marked Obsolete within this generated code only
+#pragma warning disable 612, 618
+
+    /// <summary>
+    /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS database.
+    /// </summary>
+    [Serializable, Schema("tpdm")]
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtension : EntityWithCompositeKey, IChildEntity,
+        Entities.Common.TPDM.ISchoolExtension, IHasPrimaryKeyValues, IHasLookupColumnPropertyMap, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
+    {
+        public virtual void SuspendReferenceAssignmentCheck() { }
+
+        public SchoolExtension()
+        {
+        }
+// restore warnings for inheritance from classes marked Obsolete
+#pragma warning restore 612, 618
+
+        // =============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        [DomainSignature, JsonIgnore, IgnoreDataMember]
+        public virtual EdFi.School School { get; set; }
+
+        Entities.Common.EdFi.ISchool ISchoolExtension.School
+        {
+            get { return School; }
+            set { School = (EdFi.School) value; }
+        }
+
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+        public virtual int? PostSecondaryInstitutionId  { get; set; }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Extensions
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Reference Data
+        // -------------------------------------------------------------
+        public virtual NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData PostSecondaryInstitutionReferenceData { get; set; }
+
+        /// <summary>
+        /// Read-only property that allows the PostSecondaryInstitution resource identifier value to be mapped to the resource reference.
+        /// </summary>
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return PostSecondaryInstitutionReferenceData?.Id; }
+            set { }
+        }
+
+        // -------------------------------------------------------------
+
+        //=============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // Provide lookup property map
+        private static readonly Dictionary<string, LookupColumnDetails> _idPropertyByLookupProperty = new Dictionary<string, LookupColumnDetails>(StringComparer.InvariantCultureIgnoreCase)
+            {
+            };
+
+        Dictionary<string, LookupColumnDetails> IHasLookupColumnPropertyMap.IdPropertyByLookupProperty
+        {
+            get { return _idPropertyByLookupProperty; }
+        }
+
+        // Provide primary key information
+        OrderedDictionary IHasPrimaryKeyValues.GetPrimaryKeyValues()
+        {
+            // Get parent key values
+            var keyValues = (School as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            // Add current key values
+
+            return keyValues;
+        }
+
+        #region Overrides for Equals() and GetHashCode()
+        public override bool Equals(object obj)
+        {
+            var compareTo = obj as IHasPrimaryKeyValues;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            var theseKeys = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+            var thoseKeys = compareTo.GetPrimaryKeyValues();
+
+            foreach (DictionaryEntry entry in theseKeys)
+            {
+                if (entry.Value is string)
+                {
+                    if (!((string) entry.Value).EqualsIgnoreCase((string) thoseKeys[entry.Key]))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!entry.Value.Equals(thoseKeys[entry.Key]))
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+                if (keyValues.Count == 0)
+                    return base.GetHashCode();
+
+                int hashCode = this.GetType().GetHashCode();
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    if (entry.Value == null)
+                        continue;
+
+                    if (entry.Value is string)
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
+                    }
+                    else
+                    {
+                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    }
+                }
+
+                return hashCode;
+            }
+        }
+        #endregion
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return this.SynchronizeTo((Entities.Common.TPDM.ISchoolExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            this.MapTo((Entities.Common.TPDM.ISchoolExtension) target, null);
+        }
+
+        void IChildEntity.SetParent(object value)
+        {
+            School = (EdFi.School) value;
+        }
+
+        // =========================================
+        //        Synchronization Support
+        // -----------------------------------------
+
+        private bool _isPostSecondaryInstitutionIdSupported = true;
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported
+        {
+            get { return _isPostSecondaryInstitutionIdSupported; }
+            set { _isPostSecondaryInstitutionIdSupported = value; }
         }
 
         // -----------------------------------------

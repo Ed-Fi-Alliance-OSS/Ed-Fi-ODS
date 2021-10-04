@@ -1327,6 +1327,7 @@
 <edge source="/ed-fi/telephoneNumberTypeDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/termDescriptors" target="/ed-fi/sessions"/>
 <edge source="/ed-fi/termDescriptors" target="/ed-fi/studentAcademicRecords"/>
+<edge source="/ed-fi/termDescriptors" target="/ed-fi/studentEducationOrganizationAssociations"/>
 <edge source="/ed-fi/titleIPartAParticipantDescriptors" target="/ed-fi/studentTitleIPartAProgramAssociations"/>
 <edge source="/ed-fi/titleIPartAProgramServiceDescriptors" target="/ed-fi/studentTitleIPartAProgramAssociations"/>
 <edge source="/ed-fi/titleIPartASchoolDesignationDescriptors" target="/ed-fi/schools"/>

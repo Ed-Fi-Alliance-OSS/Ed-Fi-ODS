@@ -6600,6 +6600,14 @@ CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationCohortYear_
 ON [edfi].[StudentEducationOrganizationAssociationCohortYear] ([EducationOrganizationId] ASC, [StudentUSI] ASC)
 GO
 
+ALTER TABLE [edfi].[StudentEducationOrganizationAssociationCohortYear] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationCohortYear_TermDescriptor] FOREIGN KEY ([TermDescriptorId])
+REFERENCES [edfi].[TermDescriptor] ([TermDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationCohortYear_TermDescriptor]
+ON [edfi].[StudentEducationOrganizationAssociationCohortYear] ([TermDescriptorId] ASC)
+GO
+
 ALTER TABLE [edfi].[StudentEducationOrganizationAssociationDisability] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationDisability_DisabilityDescriptor] FOREIGN KEY ([DisabilityDescriptorId])
 REFERENCES [edfi].[DisabilityDescriptor] ([DisabilityDescriptorId])
 GO

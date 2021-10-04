@@ -998,7 +998,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="EvaluationDate" column="EvaluationDate" type="date"  />
+            <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime"  />
             <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string"  length="255"  />
             <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
@@ -1022,7 +1022,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="EvaluationDate" column="EvaluationDate" type="date" />
+      <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime" />
       <key-property name="EvaluationElementTitle" column="EvaluationElementTitle" type="string" length="255" />
       <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
@@ -1263,7 +1263,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="EvaluationDate" column="EvaluationDate" type="date"  />
+            <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime"  />
             <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string"  length="50"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
             <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
@@ -1286,7 +1286,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="EvaluationDate" column="EvaluationDate" type="date" />
+      <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime" />
       <key-property name="EvaluationObjectiveTitle" column="EvaluationObjectiveTitle" type="string" length="50" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
       <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
@@ -1402,7 +1402,7 @@
         <!-- Composite primary key -->
         <composite-id>
             <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int"  />
-            <key-property name="EvaluationDate" column="EvaluationDate" type="date"  />
+            <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime"  />
             <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int"  />
             <key-property name="EvaluationTitle" column="EvaluationTitle" type="string"  length="50"  />
             <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string"  length="50"  />
@@ -1424,7 +1424,7 @@
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
-      <key-property name="EvaluationDate" column="EvaluationDate" type="date" />
+      <key-property name="EvaluationDate" column="EvaluationDate" type="UtcDateTime" />
       <key-property name="EvaluationPeriodDescriptorId" column="EvaluationPeriodDescriptorId" type="int" />
       <key-property name="EvaluationTitle" column="EvaluationTitle" type="string" length="50" />
       <key-property name="PerformanceEvaluationTitle" column="PerformanceEvaluationTitle" type="string" length="50" />
@@ -1449,6 +1449,7 @@
 
     <!-- Properties -->
     <property name="EvaluationRatingLevelDescriptorId" column="EvaluationRatingLevelDescriptorId" type="int" />
+    <property name="EvaluationRatingStatusDescriptorId" column="EvaluationRatingStatusDescriptorId" type="int" />
     <property name="LocalCourseCode" column="LocalCourseCode" type="string" length="60" />
     <property name="SchoolId" column="SchoolId" type="int" />
     <property name="SectionIdentifier" column="SectionIdentifier" type="string" length="255" />
@@ -2139,6 +2140,33 @@
       <column name="PerformanceEvaluationTypeDescriptorId" />
       <column name="SchoolYear" />
       <column name="TermDescriptorId" />
+    </many-to-one>
+
+    <!-- Back references -->
+
+    <!-- Collections -->
+</class>
+
+
+
+  <!-- Class definition -->
+  <class name="EdFi.Ods.Entities.NHibernate.SchoolAggregate.TPDM.SchoolExtension" table="SchoolExtension" lazy="false" schema="tpdm">
+    <!-- Composite primary key -->
+    <composite-id>
+      <key-many-to-one name="School">
+        <column name="SchoolId" />
+      </key-many-to-one>
+    </composite-id>
+    <!-- Transient state detection -->
+    <property name="CreateDate" column="CreateDate" type="UtcDateTime" not-null="true" />
+
+
+    <!-- Properties -->
+    <property name="PostSecondaryInstitutionId" column="PostSecondaryInstitutionId" type="int" />
+
+    <!-- Aggregate references -->
+    <many-to-one name="PostSecondaryInstitutionReferenceData" class="EdFi.Ods.Entities.NHibernate.EducationOrganizationAggregate.EdFi.EducationOrganizationReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
+      <column name="PostSecondaryInstitutionId" />
     </many-to-one>
 
     <!-- Back references -->

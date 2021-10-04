@@ -5181,6 +5181,7 @@ CREATE TABLE edfi.StudentEducationOrganizationAssociationCohortYear (
     EducationOrganizationId INT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
     StudentUSI INT NOT NULL,
+    TermDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationCohortYear_PK PRIMARY KEY (CohortYearTypeDescriptorId, EducationOrganizationId, SchoolYear, StudentUSI)
 ); 

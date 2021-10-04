@@ -15262,6 +15262,7 @@
 
 
     <!-- Properties -->
+    <property name="TermDescriptorId" column="TermDescriptorId" type="int" />
 
     <!-- Aggregate references -->
     <many-to-one name="SchoolYearTypeReferenceData" class="EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.EdFi.SchoolYearTypeReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">

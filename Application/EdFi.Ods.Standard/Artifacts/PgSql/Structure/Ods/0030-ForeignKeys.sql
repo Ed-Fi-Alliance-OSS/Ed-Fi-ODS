@@ -5919,6 +5919,13 @@ ON DELETE CASCADE
 CREATE INDEX FK_69dd58_StudentEducationOrganizationAssociation
 ON edfi.StudentEducationOrganizationAssociationCohortYear (EducationOrganizationId ASC, StudentUSI ASC);
 
+ALTER TABLE edfi.StudentEducationOrganizationAssociationCohortYear ADD CONSTRAINT FK_69dd58_TermDescriptor FOREIGN KEY (TermDescriptorId)
+REFERENCES edfi.TermDescriptor (TermDescriptorId)
+;
+
+CREATE INDEX FK_69dd58_TermDescriptor
+ON edfi.StudentEducationOrganizationAssociationCohortYear (TermDescriptorId ASC);
+
 ALTER TABLE edfi.StudentEducationOrganizationAssociationDisability ADD CONSTRAINT FK_4ca65b_DisabilityDescriptor FOREIGN KEY (DisabilityDescriptorId)
 REFERENCES edfi.DisabilityDescriptor (DisabilityDescriptorId)
 ;

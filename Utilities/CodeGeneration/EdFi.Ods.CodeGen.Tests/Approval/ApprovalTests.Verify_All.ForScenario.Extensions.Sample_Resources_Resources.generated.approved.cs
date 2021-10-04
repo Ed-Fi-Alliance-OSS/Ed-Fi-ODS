@@ -18514,7 +18514,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         }
 
         /// <summary>
-        /// Reflects the type of employment or contract; for example:         Probationary         Contractual         Substitute/temporary         Tenured or permanent         Volunteer/no contract         ...
+        /// Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...
         /// </summary>
 
         // IS in a reference (StudentParentAssociationStaffEducationOrganizationEmploymentAssociation.EmploymentStatusDescriptorId), IS a lookup column 

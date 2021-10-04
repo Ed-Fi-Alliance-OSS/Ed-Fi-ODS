@@ -297,7 +297,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -543,7 +543,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationIdentificationCodeSynchronizationSourceSupport.IsIdentificationCodeSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -865,7 +865,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -1121,7 +1121,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -1367,7 +1367,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationInstitutionTelephoneSynchronizationSourceSupport.IsTelephoneNumberSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -1677,7 +1677,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationInternationalAddressSynchronizationSourceSupport.IsLongitudeSupported          { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -2343,7 +2343,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -2656,7 +2656,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -3568,6 +3568,298 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
     // -----------------------------------------------------------------
 
 }
+// Aggregate: School
+
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Readable.Extensions.TPDM
+{
+    /// <summary>
+    /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+
+        private bool _postSecondaryInstitutionReferenceExplicitlyAssigned;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference _postSecondaryInstitutionReference;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference ImplicitPostSecondaryInstitutionReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_postSecondaryInstitutionReference == null && !_postSecondaryInstitutionReferenceExplicitlyAssigned)
+                    _postSecondaryInstitutionReference = new PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference();
+
+                return _postSecondaryInstitutionReference;
+            }
+        }
+
+        [DataMember(Name="postSecondaryInstitutionReference")]
+        public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_postSecondaryInstitutionReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    return ImplicitPostSecondaryInstitutionReference;
+
+                return null;
+            }
+            set
+            {
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = true;
+                _postSecondaryInstitutionReference = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.ISchool _school;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.ISchool Entities.Common.TPDM.ISchoolExtension.School
+        {
+            get { return _school; }
+            set { SetSchool(value); }
+        }
+
+        internal Entities.Common.EdFi.ISchool School
+        {
+            set { SetSchool(value); }
+        }
+
+        private void SetSchool(Entities.Common.EdFi.ISchool value)
+        {
+            _school = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.TPDM.ISchoolExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_school == null || !_school.Equals(compareTo.School))
+                return false;
+
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_school != null)
+                    hash = hash * 23 + _school.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The ID of the post secondary institution.
+        /// </summary>
+        // IS in a reference, NOT a lookup column 
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        {
+            get
+            {
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
+                    }
+
+                return default(int?);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // PostSecondaryInstitution
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = false;
+                ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId = value.GetValueOrDefault();
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.TPDM.SchoolExtensionMapper.SynchronizeTo(this, (Entities.Common.TPDM.ISchoolExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.TPDM.SchoolExtensionMapper.MapTo(this, (Entities.Common.TPDM.ISchoolExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported  { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return null; }
+            set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
+        }
+
+
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<SchoolExtension>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<SchoolExtension> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
 // Aggregate: EducationOrganization
 
 namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.School
@@ -3912,7 +4204,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -4033,7 +4325,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -4289,7 +4581,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationAddressPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -4527,7 +4819,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -4773,7 +5065,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationIdentificationCodeSynchronizationSourceSupport.IsIdentificationCodeSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -5095,7 +5387,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -5351,7 +5643,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -5597,7 +5889,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationInstitutionTelephoneSynchronizationSourceSupport.IsTelephoneNumberSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -6315,7 +6607,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -6627,7 +6919,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -7539,6 +7831,298 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
     // -----------------------------------------------------------------
 
 }
+// Aggregate: School
+
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ExcludeOnly_Writable.Extensions.TPDM
+{
+    /// <summary>
+    /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+
+        private bool _postSecondaryInstitutionReferenceExplicitlyAssigned;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference _postSecondaryInstitutionReference;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference ImplicitPostSecondaryInstitutionReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_postSecondaryInstitutionReference == null && !_postSecondaryInstitutionReferenceExplicitlyAssigned)
+                    _postSecondaryInstitutionReference = new PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference();
+
+                return _postSecondaryInstitutionReference;
+            }
+        }
+
+        [DataMember(Name="postSecondaryInstitutionReference")]
+        public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_postSecondaryInstitutionReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    return ImplicitPostSecondaryInstitutionReference;
+
+                return null;
+            }
+            set
+            {
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = true;
+                _postSecondaryInstitutionReference = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.ISchool _school;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.ISchool Entities.Common.TPDM.ISchoolExtension.School
+        {
+            get { return _school; }
+            set { SetSchool(value); }
+        }
+
+        internal Entities.Common.EdFi.ISchool School
+        {
+            set { SetSchool(value); }
+        }
+
+        private void SetSchool(Entities.Common.EdFi.ISchool value)
+        {
+            _school = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.TPDM.ISchoolExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_school == null || !_school.Equals(compareTo.School))
+                return false;
+
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_school != null)
+                    hash = hash * 23 + _school.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The ID of the post secondary institution.
+        /// </summary>
+        // IS in a reference, NOT a lookup column 
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        {
+            get
+            {
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
+                    }
+
+                return default(int?);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // PostSecondaryInstitution
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = false;
+                ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId = value.GetValueOrDefault();
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.TPDM.SchoolExtensionMapper.SynchronizeTo(this, (Entities.Common.TPDM.ISchoolExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.TPDM.SchoolExtensionMapper.MapTo(this, (Entities.Common.TPDM.ISchoolExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported  { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return null; }
+            set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
+        }
+
+
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<SchoolExtension>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<SchoolExtension> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
 // Aggregate: EducationOrganization
 
 namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_Profile_Resource_IncludeOnly_Readable.School
@@ -7883,7 +8467,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -10759,7 +11343,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -10880,7 +11464,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -11136,7 +11720,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationAddressPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -11374,7 +11958,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -11620,7 +12204,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationIdentificationCodeSynchronizationSourceSupport.IsIdentificationCodeSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -11942,7 +12526,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -12198,7 +12782,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -12444,7 +13028,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationInstitutionTelephoneSynchronizationSourceSupport.IsTelephoneNumberSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -12754,7 +13338,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationInternationalAddressSynchronizationSourceSupport.IsLongitudeSupported          { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -13516,7 +14100,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -13848,7 +14432,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -14086,7 +14670,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -14998,6 +15582,298 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
     // -----------------------------------------------------------------
 
 }
+// Aggregate: School
+
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_ReadOnly_Readable.Extensions.TPDM
+{
+    /// <summary>
+    /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+
+        private bool _postSecondaryInstitutionReferenceExplicitlyAssigned;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference _postSecondaryInstitutionReference;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference ImplicitPostSecondaryInstitutionReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_postSecondaryInstitutionReference == null && !_postSecondaryInstitutionReferenceExplicitlyAssigned)
+                    _postSecondaryInstitutionReference = new PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference();
+
+                return _postSecondaryInstitutionReference;
+            }
+        }
+
+        [DataMember(Name="postSecondaryInstitutionReference")]
+        public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_postSecondaryInstitutionReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    return ImplicitPostSecondaryInstitutionReference;
+
+                return null;
+            }
+            set
+            {
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = true;
+                _postSecondaryInstitutionReference = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.ISchool _school;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.ISchool Entities.Common.TPDM.ISchoolExtension.School
+        {
+            get { return _school; }
+            set { SetSchool(value); }
+        }
+
+        internal Entities.Common.EdFi.ISchool School
+        {
+            set { SetSchool(value); }
+        }
+
+        private void SetSchool(Entities.Common.EdFi.ISchool value)
+        {
+            _school = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.TPDM.ISchoolExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_school == null || !_school.Equals(compareTo.School))
+                return false;
+
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_school != null)
+                    hash = hash * 23 + _school.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The ID of the post secondary institution.
+        /// </summary>
+        // IS in a reference, NOT a lookup column 
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        {
+            get
+            {
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
+                    }
+
+                return default(int?);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // PostSecondaryInstitution
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = false;
+                ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId = value.GetValueOrDefault();
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.TPDM.SchoolExtensionMapper.SynchronizeTo(this, (Entities.Common.TPDM.ISchoolExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.TPDM.SchoolExtensionMapper.MapTo(this, (Entities.Common.TPDM.ISchoolExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported  { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return null; }
+            set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
+        }
+
+
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<SchoolExtension>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<SchoolExtension> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+
+            // Recursively invoke the child collection item validators
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
 // Aggregate: EducationOrganization
 
 namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_Profile_Resource_WriteOnly_Writable.School
@@ -15342,7 +16218,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -15463,7 +16339,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -15719,7 +16595,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationAddressPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -15957,7 +16833,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -16203,7 +17079,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationIdentificationCodeSynchronizationSourceSupport.IsIdentificationCodeSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -16525,7 +17401,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -16781,7 +17657,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationIndicatorPeriodSynchronizationSourceSupport.IsEndDateSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -17027,7 +17903,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationInstitutionTelephoneSynchronizationSourceSupport.IsTelephoneNumberSupported  { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -17337,7 +18213,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         bool Entities.Common.EdFi.IEducationOrganizationInternationalAddressSynchronizationSourceSupport.IsLongitudeSupported          { get { return true; } set { } }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -18099,7 +18975,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -18431,7 +19307,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -18669,7 +19545,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         // -------------------------------------------------------------
         // -------------------------------------------------------------
 
-        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample",  }.Contains(name); }
+        bool IExtensionsSynchronizationSourceSupport.IsExtensionSupported(string name) { return new [] { "Sample", "TPDM",  }.Contains(name); }
         void IExtensionsSynchronizationSourceSupport.SetExtensionSupported(string name, bool isSupported) { }
         bool IExtensionsSynchronizationSourceSupport.IsExtensionAvailable(string name) { return true; }
         void IExtensionsSynchronizationSourceSupport.SetExtensionAvailable(string name, bool isSupported) { }
@@ -19564,6 +20440,298 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
                     failures.AddRange(validationResult.Errors);
             }
 
+
+            if (failures.Any())
+            {
+                foreach (var failure in failures)
+                {
+                    result.Errors.Add(failure);
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+    }
+    // -----------------------------------------------------------------
+
+}
+// Aggregate: School
+
+namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource_WriteOnly_Writable.Extensions.TPDM
+{
+    /// <summary>
+    /// A class which represents the tpdm.SchoolExtension table of the School aggregate in the ODS Database.
+    /// </summary>
+    [Serializable, DataContract]
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtension : Entities.Common.TPDM.ISchoolExtension, Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport
+    {
+#pragma warning disable 414
+        private bool _SuspendReferenceAssignmentCheck = false;
+        public void SuspendReferenceAssignmentCheck() { _SuspendReferenceAssignmentCheck = true; }
+#pragma warning restore 414
+
+        // =============================================================
+        //                         Constructor
+        // -------------------------------------------------------------
+
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                Unique Identifier
+        // ------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // =============================================================
+        //                         References
+        // -------------------------------------------------------------
+
+        private bool _postSecondaryInstitutionReferenceExplicitlyAssigned;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference _postSecondaryInstitutionReference;
+        private PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference ImplicitPostSecondaryInstitutionReference
+        {
+            get
+            {
+                // if the Reference is null, it is instantiated unless it has been explicitly assigned to null
+                if (_postSecondaryInstitutionReference == null && !_postSecondaryInstitutionReferenceExplicitlyAssigned)
+                    _postSecondaryInstitutionReference = new PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference();
+
+                return _postSecondaryInstitutionReference;
+            }
+        }
+
+        [DataMember(Name="postSecondaryInstitutionReference")]
+        public PostSecondaryInstitution.EdFi.PostSecondaryInstitutionReference PostSecondaryInstitutionReference
+        {
+            get
+            {
+                // Only return the reference if it's non-null, and all its properties have non-default values assigned
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_postSecondaryInstitutionReferenceExplicitlyAssigned || _SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    return ImplicitPostSecondaryInstitutionReference;
+
+                return null;
+            }
+            set
+            {
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = true;
+                _postSecondaryInstitutionReference = value;
+            }
+        }
+        // -------------------------------------------------------------
+
+        //==============================================================
+        //                         Primary Key
+        // -------------------------------------------------------------
+        private Entities.Common.EdFi.ISchool _school;
+
+        [IgnoreDataMember]
+        Entities.Common.EdFi.ISchool Entities.Common.TPDM.ISchoolExtension.School
+        {
+            get { return _school; }
+            set { SetSchool(value); }
+        }
+
+        internal Entities.Common.EdFi.ISchool School
+        {
+            set { SetSchool(value); }
+        }
+
+        private void SetSchool(Entities.Common.EdFi.ISchool value)
+        {
+            _school = value;
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Equality
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// Determines equality based on the natural key properties of the resource.
+        /// </summary>
+        /// <returns>
+        /// A boolean value indicating equality result of the compared resources.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            #pragma warning disable 472
+            var compareTo = obj as Entities.Common.TPDM.ISchoolExtension;
+
+            if (ReferenceEquals(this, compareTo))
+                return true;
+
+            if (compareTo == null)
+                return false;
+
+            // Parent Property
+            if (_school == null || !_school.Equals(compareTo.School))
+                return false;
+
+            #pragma warning disable 472
+
+            return true;
+        }
+
+        /// <summary>
+        /// Builds the hash code based on the unique identifying values.
+        /// </summary>
+        /// <returns>
+        /// A hash code for the resource.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            #pragma warning disable 472
+            unchecked
+            {
+                int hash = 17;
+                //Parent Property
+                if (_school != null)
+                    hash = hash * 23 + _school.GetHashCode();
+                return hash;
+            }
+            #pragma warning restore 472
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                      Inherited Properties
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Properties
+        // -------------------------------------------------------------
+
+        /// <summary>
+        /// The ID of the post secondary institution.
+        /// </summary>
+        // IS in a reference, NOT a lookup column 
+        int? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionId
+        {
+            get
+            {
+                if (ImplicitPostSecondaryInstitutionReference != null
+                    && (_SuspendReferenceAssignmentCheck || ImplicitPostSecondaryInstitutionReference.IsReferenceFullyDefined()))
+                    {
+                        return ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId;
+                    }
+
+                return default(int?);
+            }
+            set
+            {
+                // When a property is assigned, Reference should not be null even if it has been explicitly assigned to null.
+                // All ExplicitlyAssigned are reset to false in advanced
+
+                // PostSecondaryInstitution
+                _postSecondaryInstitutionReferenceExplicitlyAssigned = false;
+                ImplicitPostSecondaryInstitutionReference.PostSecondaryInstitutionId = value.GetValueOrDefault();
+            }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //              Inherited One-to-one relationships
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Inherited Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                     Extensions
+        // -------------------------------------------------------------
+        // NOT a lookup column, Not supported by this model, so there's "null object pattern" style implementation
+        public System.Collections.IDictionary Extensions {
+            get { return null; }
+            set { }
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                          Collections
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                         Versioning
+        // -------------------------------------------------------------
+        // -------------------------------------------------------------
+
+        // -------------------------------------------------------------
+        //                        OnDeserialize
+        // -------------------------------------------------------------
+        // ------------------------------------------------------------
+
+        // ============================================================
+        //                      Data Synchronization
+        // ------------------------------------------------------------
+        bool ISynchronizable.Synchronize(object target)
+        {
+            return Entities.Common.TPDM.SchoolExtensionMapper.SynchronizeTo(this, (Entities.Common.TPDM.ISchoolExtension)target);
+        }
+
+        void IMappable.Map(object target)
+        {
+            Entities.Common.TPDM.SchoolExtensionMapper.MapTo(this, (Entities.Common.TPDM.ISchoolExtension)target, null);
+        }
+        // -------------------------------------------------------------
+
+        // =============================================================
+        //                Synchronization Source Support
+        // -------------------------------------------------------------
+        bool Entities.Common.TPDM.ISchoolExtensionSynchronizationSourceSupport.IsPostSecondaryInstitutionIdSupported  { get { return true; } set { } }
+        // -------------------------------------------------------------
+
+
+        // =================================================================
+        //                    Resource Reference Data
+        // -----------------------------------------------------------------
+        Guid? Entities.Common.TPDM.ISchoolExtension.PostSecondaryInstitutionResourceId
+        {
+            get { return null; }
+            set { ImplicitPostSecondaryInstitutionReference.ResourceId = value ?? default(Guid); }
+        }
+
+
+        // -----------------------------------------------------------------
+    }
+
+    // =================================================================
+    //                         Validators
+    // -----------------------------------------------------------------
+
+    [ExcludeFromCodeCoverage]
+    public class SchoolExtensionPutPostRequestValidator : FluentValidation.AbstractValidator<SchoolExtension>
+    {
+        protected override bool PreValidate(FluentValidation.ValidationContext<SchoolExtension> context, FluentValidation.Results.ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+            {
+                result.Errors.Add(new ValidationFailure("", "Please ensure a model was supplied."));
+
+                return false;
+            }
+
+            var instance = context.InstanceToValidate;
+
+            var failures = new List<ValidationFailure>();
+
+            // -----------------------
+            //  Validate unified keys
+            // -----------------------
+
+            // Recursively invoke the child collection item validators
 
             if (failures.Any())
             {
