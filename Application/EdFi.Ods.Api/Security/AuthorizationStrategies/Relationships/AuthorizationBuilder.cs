@@ -228,28 +228,28 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             foreach (var segmentProperty in segmentProperties)
             {
-                IEnumerable<AuthorizationSegmentEndpointWithValue> claimsEndpoints = null;
+                List<AuthorizationSegmentEndpointWithValue> claimsEndpoints = new List<AuthorizationSegmentEndpointWithValue>();
 
                 var segmentPropertyName = string.Empty;
 
-                string claimPropertyName = claimNamesAndValues.Select(x => x.Item1).First();
-
-
-                // When claim has any one of Ed Org Types and not any one of PersonType ,Then use tuple table for authorization
-                
-                if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(claimPropertyName) &&
-                    (!PersonEntitySpecification.IsPersonIdentifier(segmentProperty.PropertyName)) &&
-                    (!segmentProperty.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation")))
-                {
-                    claimsEndpoints = claimNamesAndValues.Select(
-                                        cv => new AuthorizationSegmentEndpointWithValue("EducationOrganizationId", cv.Item2.GetType(), cv.Item2));
-                    segmentPropertyName = "EducationOrganizationId";
-                }
-                else
-                {
-                    claimsEndpoints = claimNamesAndValues.Select(
-                                        cv =>  new AuthorizationSegmentEndpointWithValue(cv.Item1, cv.Item2.GetType(), cv.Item2));
-                }
+                claimNamesAndValues.ForEach(m =>
+                 {
+                     string claimPropertyName = m.Item1;
+                     
+                     if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(claimPropertyName) &&
+                        (!PersonEntitySpecification.IsPersonIdentifier(segmentProperty.PropertyName)) &&
+                        (!segmentProperty.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation")))
+                     {
+                         claimsEndpoints.Add(claimNamesAndValues.Where(x=>x.Item1== claimPropertyName).Select(
+                                        cv => new AuthorizationSegmentEndpointWithValue("EducationOrganizationId", m.Item2.GetType(), m.Item2)).First());
+                         segmentPropertyName = "EducationOrganizationId";
+                     }
+                     else
+                     {
+                         claimsEndpoints.Add(claimNamesAndValues.Where(x => x.Item1 == claimPropertyName).Select(
+                                        cv => new AuthorizationSegmentEndpointWithValue(m.Item1, m.Item2.GetType(), m.Item2)).First());
+                     }
+                 });
 
                 segmentPropertyName = string.IsNullOrWhiteSpace(segmentPropertyName)
                                       ? segmentProperty.PropertyName

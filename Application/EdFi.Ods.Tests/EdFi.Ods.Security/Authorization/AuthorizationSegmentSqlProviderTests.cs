@@ -116,6 +116,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                     {
                         "auth.LocalEducationAgencyIdToSchoolId",
                         "auth.LocalEducationAgencyIdToStaffUSI",
+                        "auth.EducationOrganizationIdToEducationOrganizationId",
                         "auth.SchoolIdToStaffUSI"
                     });
 
@@ -170,7 +171,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
 )
 AND
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p2) and a.SchoolId = @p3)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p2) and a.TargetEducationOrganizationId = @p3)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -191,9 +192,8 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                     .Returns(new List<string>
                     {
                         "auth.PostSecondaryInstitutionIdToStaffUSI",
-                        "auth.PostSecondaryInstitutionIdToSchoolId",
                         "auth.LocalEducationAgencyIdToStaffUSI",
-                        "auth.LocalEducationAgencyIdToSchoolId",
+                        "auth.EducationOrganizationIdToEducationOrganizationId",
                         "auth.SchoolIdToStaffUSI"
                     });
 
@@ -216,7 +216,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                     () => result.ShouldNotBeNull(),
 
                     // 4 parameters are the SQL Server TVP for each of the StaffUSI and School segments
-                    () => result.Parameters.Length.ShouldBe(8),
+                    () => result.Parameters.Length.ShouldBe(6),
 
                     () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
                         .ShouldBeFalse(),
@@ -250,20 +250,13 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                     () => result.Parameters[4].ParameterName.ShouldBe("@p4"),
                     () => result.Parameters[4].Value.ShouldBeOfType<DataTable>(),
                     () => ((DataTable)result.Parameters[4].Value).Rows[0][0].ShouldBe(SuppliedLea1),
-                    () => ((DataTable)result.Parameters[4].Value).Rows[1][0].ShouldBe(SuppliedLea2),
+                    () => ((DataTable)result.Parameters[4].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable)result.Parameters[4].Value).Rows[2][0].ShouldBe(SuppliedLea2),
 
                     // Second parameter is for the LEA to SchoolId segment
                     () => result.Parameters[5].ParameterName.ShouldBe("@p5"),
-                    () => result.Parameters[5].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId),
+                    () => result.Parameters[5].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
 
-                    // Single-value parameter for PostSecondary is defined as expected
-                    () => result.Parameters[6].ParameterName.ShouldBe("@p6"),
-                    () => result.Parameters[6].Value.ShouldBeOfType<int>(),
-                    () => result.Parameters[6].Value.ShouldBe(SuppliedPostSecondaryInstitutionId),
-
-                    // Second parameter is for the PostSecondary to SchoolId segment
-                    () => result.Parameters[7].ParameterName.ShouldBe("@p7"),
-                    () => result.Parameters[7].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
                 );
 
                 var sql = result.Sql;
@@ -276,8 +269,7 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.Pos
 )
 AND
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p4) and a.SchoolId = @p5)
-OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.PostSecondaryInstitutionId = @p6 and a.SchoolId = @p7)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p4) and a.TargetEducationOrganizationId = @p5)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -303,7 +295,7 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
 
                         // Not supported for this test:
                         // "auth.PostSecondaryInstitutionIdToSchoolId",
-                        "auth.LocalEducationAgencyIdToSchoolId",
+                        "auth.EducationOrganizationIdToEducationOrganizationId",
 
                         "auth.SchoolIdToStaffUSI"
                     });
@@ -352,7 +344,8 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
                     () => result.Parameters[2].ParameterName.ShouldBe("@p2"),
                     () => result.Parameters[2].Value.ShouldBeOfType<DataTable>(),
                     () => ((DataTable)result.Parameters[2].Value).Rows[0][0].ShouldBe(SuppliedLea1),
-                    () => ((DataTable)result.Parameters[2].Value).Rows[1][0].ShouldBe(SuppliedLea2),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[2][0].ShouldBe(SuppliedLea2),
 
                     // Second parameter is for the LEA to SchoolId segment
                     () => result.Parameters[3].ParameterName.ShouldBe("@p3"),
@@ -368,7 +361,7 @@ EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.PostSe
 )
 AND
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p2) and a.SchoolId = @p3)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p2) and a.TargetEducationOrganizationId = @p3)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -417,7 +410,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                         () => authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex)
                     )
                     .Message.ShouldBe(
-                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency', 'PostSecondaryInstitution') with the resource.");
+                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('EducationOrganization') with the resource.");
             }
         }
 
