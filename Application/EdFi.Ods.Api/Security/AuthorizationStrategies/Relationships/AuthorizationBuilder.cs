@@ -228,8 +228,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             foreach (var segmentProperty in segmentProperties)
             {
-                List<AuthorizationSegmentEndpointWithValue> claimsEndpoints = new List<AuthorizationSegmentEndpointWithValue>();
-
+                var claimsEndpoints = new List<AuthorizationSegmentEndpointWithValue>();
                 var segmentPropertyName = string.Empty;
 
                 claimNamesAndValues.ForEach(m =>
@@ -256,7 +255,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                                       : segmentPropertyName;
 
                 var claimsAuthorizationSegment = new ClaimsAuthorizationSegment(
-                    claimsEndpoints.ToList().AsReadOnly(),
+                    claimsEndpoints.AsReadOnly(),
                     _contextData == null
                         ? new AuthorizationSegmentEndpoint(segmentPropertyName, segmentProperty.PropertyType)
                         : new AuthorizationSegmentEndpointWithValue(
