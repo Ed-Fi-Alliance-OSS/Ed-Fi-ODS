@@ -3,14 +3,10 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-IF OBJECT_ID('auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation', 'V') IS NOT NULL
-    DROP VIEW auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation
-GO
-
-CREATE VIEW auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation AS
-SELECT tuple.SourceEducationOrganizationId, seoa.StudentUSI
-FROM edfi.StudentEducationOrganizationAssociation seoa
-INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuple
-ON seoa.EducationOrganizationId = tuple.TargetEducationOrganizationId
-
+CREATE OR ALTER VIEW auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation AS
+    SELECT  edOrgs.SourceEducationOrganizationId, seora.StudentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN edfi.StudentEducationOrganizationResponsibilityAssociation seora
+                ON edOrgs.TargetEducationOrganizationId = seora.EducationOrganizationId
+    GROUP BY edOrgs.SourceEducationOrganizationId, seora.StudentUSI
 GO

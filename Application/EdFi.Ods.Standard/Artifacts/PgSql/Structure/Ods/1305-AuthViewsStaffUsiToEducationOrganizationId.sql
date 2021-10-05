@@ -5,14 +5,16 @@
 
 CREATE OR REPLACE VIEW auth.StaffUSIToEducationOrganizationId
 AS
-SELECT SourceEducationOrganizationId, StaffUSI
-FROM edfi.StaffEducationOrganizationAssignmentAssociation
-INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId
-ON EducationOrganizationId = TargetEducationOrganizationId
+    -- EdOrg Assignments
+    SELECT  edOrgs.SourceEducationOrganizationId, seo_assign.StaffUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN edfi.StaffEducationOrganizationAssignmentAssociation seo_assign
+                ON edOrgs.TargetEducationOrganizationId =  seo_assign.EducationOrganizationId
+    
+    UNION
 
-UNION
-
-SELECT SourceEducationOrganizationId, StaffUSI
-FROM edfi.StaffEducationOrganizationEmploymentAssociation
-INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId
-ON EducationOrganizationId = TargetEducationOrganizationId
+    -- EdOrg Employment
+    SELECT  edOrgs.SourceEducationOrganizationId, seo_empl.StaffUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN edfi.StaffEducationOrganizationEmploymentAssociation seo_empl
+                ON edOrgs.TargetEducationOrganizationId = seo_empl.EducationOrganizationId

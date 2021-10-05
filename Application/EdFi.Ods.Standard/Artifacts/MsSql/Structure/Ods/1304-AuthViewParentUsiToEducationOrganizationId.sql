@@ -3,13 +3,14 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-CREATE OR ALTER VIEW auth.ParentUSIToEducationOrganizationId AS
-SELECT tuple.SourceEducationOrganizationId AS SourceEducationOrganizationId, spa.ParentUSI AS ParentUSI
-FROM edfi.StudentSchoolAssociation ssa 
-INNER JOIN edfi.StudentParentAssociation spa ON
-ssa.StudentUSI = spa.StudentUSI
-INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuple
-ON ssa.SchoolId = tuple.TargetEducationOrganizationId
-GROUP BY tuple.SourceEducationOrganizationId, spa.ParentUSI
-
+CREATE OR ALTER VIEW auth.ParentUSIToEducationOrganizationId 
+    WITH SCHEMABINDING AS
+    SELECT  edOrgs.SourceEducationOrganizationId, spa.ParentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN edfi.StudentSchoolAssociation ssa 
+                ON edOrgs.TargetEducationOrganizationId = ssa.SchoolId
+            INNER JOIN edfi.StudentParentAssociation spa 
+                ON ssa.StudentUSI = spa.StudentUSI
+    GROUP BY edOrgs.SourceEducationOrganizationId, spa.ParentUSI
+    
 GO
