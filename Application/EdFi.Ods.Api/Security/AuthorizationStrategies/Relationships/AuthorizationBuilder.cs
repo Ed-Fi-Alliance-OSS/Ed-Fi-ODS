@@ -16,7 +16,6 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Common.Specifications;
 using log4net;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
