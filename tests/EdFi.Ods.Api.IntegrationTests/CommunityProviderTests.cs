@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class CommunityProviderTests : DatabaseTestFixtureBase
+    public abstract class CommunityProviderTests : DatabaseTestFixtureBase
     {
         [Test]
         public void When_inserting_and_deleting_community_provider_without_community_organization_should_update_tuples()
@@ -45,7 +45,8 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void When_updating_community_provider_without_community_organization_to_with_community_organization_should_update_tuples()
+        public void
+            When_updating_community_provider_without_community_organization_to_with_community_organization_should_update_tuples()
         {
             Builder
                 .AddCommunityOrganization(900)
@@ -62,7 +63,8 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void When_updating_community_provider_with_community_organization_to_without_community_organization_should_update_tuples()
+        public void
+            When_updating_community_provider_with_community_organization_to_without_community_organization_should_update_tuples()
         {
             Builder
                 .AddCommunityOrganization(900)

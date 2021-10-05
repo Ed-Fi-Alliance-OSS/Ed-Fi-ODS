@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class OrganizationDepartmentTests : DatabaseTestFixtureBase
+    public abstract class OrganizationDepartmentTests : DatabaseTestFixtureBase
     {
         [Test]
         public void

@@ -10,7 +10,7 @@ using Shouldly;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class StudentUsiToEducationOrganizationIdThroughEdOrgAssociationAuthViewTests : DatabaseTestFixtureBase
+    public abstract class StudentUsiToEducationOrganizationIdThroughEdOrgAssociationAuthViewTests : DatabaseTestFixtureBase
     {
         private const string ViewName = "StudentUSIToEducationOrganizationIdThroughEdOrgAssociation";
 

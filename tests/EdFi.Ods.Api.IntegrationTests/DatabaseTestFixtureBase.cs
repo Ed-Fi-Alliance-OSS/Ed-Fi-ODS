@@ -15,6 +15,22 @@ namespace EdFi.Ods.Api.IntegrationTests
         private TransactionScope _transaction;
         protected IDbConnection Connection { get; private set; }
         protected EducationOrganizationTestDataBuilder Builder { get; private set; }
+        protected virtual string TestFailedReason { get; } = null;
+        protected virtual string TestDisabledReason { get; } = null;
+
+        [OneTimeSetUp]
+        public void BaseTestFixtureSetup()
+        {
+            if (!string.IsNullOrEmpty(TestFailedReason))
+            {
+                Assert.Fail(TestFailedReason);
+            }
+
+            if (!string.IsNullOrEmpty(TestDisabledReason))
+            {
+                Assert.Ignore(TestDisabledReason);
+            }
+        }
 
         [SetUp]
         public void Setup()
@@ -31,11 +47,6 @@ namespace EdFi.Ods.Api.IntegrationTests
             Connection?.Dispose();
         }
 
-        protected virtual IDbConnection BuildTestConnection()
-        {
-            var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.SqlServerConnectionString);
-            connection.Open();
-            return connection;
-        }
+        protected abstract IDbConnection BuildTestConnection();
     }
 }

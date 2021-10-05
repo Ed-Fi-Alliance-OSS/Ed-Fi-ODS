@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class EducationOrganizationTests : DatabaseTestFixtureBase
+    public abstract class EducationOrganizationTests : DatabaseTestFixtureBase
     {
         [Test]
         public void When_inserting_and_deleting_single_education_organization_should_update_tuples()
@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(99990000)
                 .Execute();
 
-            var expectedTuples = new[] {(99990000, 99990000)};
+            var expectedTuples = new[] { (99990000, 99990000) };
 
             EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuples);
 
