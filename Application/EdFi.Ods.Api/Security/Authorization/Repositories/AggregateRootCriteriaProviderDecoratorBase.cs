@@ -117,7 +117,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         "CommunityOrganizationIdToEducationOrganizationId",
                         "CommunityProviderIdToEducationOrganizationId",
                         "LocalEducationAgencyIdToOrganizationDepartmentId",
-                        "EducationOrganizationIdToEducationOrganizationId",
                         "OrganizationDepartmentIdToSchoolId"
                     };
 
