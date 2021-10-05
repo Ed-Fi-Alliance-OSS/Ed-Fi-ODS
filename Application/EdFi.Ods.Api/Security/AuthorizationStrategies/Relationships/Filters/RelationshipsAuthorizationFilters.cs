@@ -169,22 +169,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         (t, p) => p.HasPropertyNamed("ParentUSI")));
 
 
-        private static readonly Lazy<FilterApplicationDetails> _educationOrganizationIdToEducationOrganizationId
-            = new Lazy<FilterApplicationDetails>(
-                () =>
-                    new FilterApplicationDetails(
-                        "EducationOrganizationIdToEducationOrganizationId",
-                        @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
-                        WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
-                        @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
-                        WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
-                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "SchoolId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
-                        (t, p) => p.HasPropertyNamed("SchoolId")));
-
         private static readonly Lazy<FilterApplicationDetails> _educationOrganizationIdToLocalEducationAgencyId
             = new Lazy<FilterApplicationDetails>(
                 () =>
@@ -414,9 +398,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
         public static FilterApplicationDetails EducationOrganizationIdToLocalEducationAgencyId
             => _educationOrganizationIdToLocalEducationAgencyId.Value;
-
-        public static FilterApplicationDetails EducationOrganizationIdToEducationOrganizationId
-            => _educationOrganizationIdToEducationOrganizationId.Value;
 
         public static FilterApplicationDetails EducationOrganizationIdToSchoolId => _educationOrganizationIdToSchoolId.Value;
 
