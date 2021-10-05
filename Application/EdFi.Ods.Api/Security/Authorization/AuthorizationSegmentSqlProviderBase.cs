@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Api.Security.Utilities;
 using log4net;
+using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Security.Authorization
 {
@@ -82,6 +83,13 @@ namespace EdFi.Ods.Api.Security.Authorization
                     // Perform defensive checks against the remote possibility of SQL injection attack
                     ValidateTableNameParts(claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
+                    if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(claimEndpointName) &&
+                       (!PersonEntitySpecification.IsPersonIdentifier(subjectEndpointName)) &&
+                       (!authorizationSegment.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation")))
+                    {
+                        claimEndpointName = "EducationOrganizationId";
+                        subjectEndpointName = "EducationOrganizationId";
+                    }
                     string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
                         subjectEndpointName,
                         claimEndpointName,

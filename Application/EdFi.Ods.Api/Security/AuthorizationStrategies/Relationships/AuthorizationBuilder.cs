@@ -219,52 +219,37 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <returns>The <see cref="AuthorizationBuilder{TContextData}"/> instance, for chaining methods together.</returns>
         public AuthorizationBuilder<TContextData> ClaimsMustBeAssociatedWith(params SegmentProperty[] segmentProperties)
         {
-            AddClaimsAuthorizationSegmentList(_claimAuthorizationValues.Value, segmentProperties);
+            if (_contextData == null)
+            {
+                foreach (var segmentProperty in segmentProperties)
+                {
+                    _claimsAuthorizationSegments.Add(
+                        new ClaimsAuthorizationSegment(
+                            _claimAuthorizationValues.Value,
+                            new AuthorizationSegmentEndpoint(
+                                segmentProperty.PropertyName,
+                                segmentProperty.PropertyType),
+                            segmentProperty.AuthorizationPathModifier));
+                }
+            }
+            else
+            {
+                foreach (var segmentProperty in segmentProperties)
+                {
+                    _claimsAuthorizationSegments.Add(
+                        new ClaimsAuthorizationSegment(
+                            _claimAuthorizationValues.Value,
+                            new AuthorizationSegmentEndpointWithValue(
+                                segmentProperty.PropertyName,
+                                segmentProperty.PropertyType,
+                                segmentProperty.PropertyValue),
+                            segmentProperty.AuthorizationPathModifier));
+                }
+            }
 
             return this;
         }
 
-        private void AddClaimsAuthorizationSegmentList(List<Tuple<string, object>> claimNamesAndValues, params SegmentProperty[] segmentProperties)
-        {
-            foreach (var segmentProperty in segmentProperties)
-            {
-                var claimsEndpoints = new List<AuthorizationSegmentEndpointWithValue>();
-                var segmentPropertyName = string.Empty;
-
-                claimNamesAndValues.ForEach(m =>
-                 {
-                     string claimPropertyName = m.Item1;
-                     
-                     if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(claimPropertyName) &&
-                        (!PersonEntitySpecification.IsPersonIdentifier(segmentProperty.PropertyName)) &&
-                        (!segmentProperty.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation")))
-                     {
-                         claimsEndpoints.Add(claimNamesAndValues.Where(x=>x.Item1== claimPropertyName).Select(
-                                        cv => new AuthorizationSegmentEndpointWithValue("EducationOrganizationId", m.Item2.GetType(), m.Item2)).First());
-                         segmentPropertyName = "EducationOrganizationId";
-                     }
-                     else
-                     {
-                         claimsEndpoints.Add(claimNamesAndValues.Where(x => x.Item1 == claimPropertyName).Select(
-                                        cv => new AuthorizationSegmentEndpointWithValue(m.Item1, m.Item2.GetType(), m.Item2)).First());
-                     }
-                 });
-
-                segmentPropertyName = string.IsNullOrWhiteSpace(segmentPropertyName)
-                                      ? segmentProperty.PropertyName
-                                      : segmentPropertyName;
-
-                var claimsAuthorizationSegment = new ClaimsAuthorizationSegment(
-                    claimsEndpoints.AsReadOnly(),
-                    _contextData == null
-                        ? new AuthorizationSegmentEndpoint(segmentPropertyName, segmentProperty.PropertyType)
-                        : new AuthorizationSegmentEndpointWithValue(
-                            segmentPropertyName, segmentProperty.PropertyType, segmentProperty.PropertyValue),
-                            segmentProperty.AuthorizationPathModifier);
-
-                _claimsAuthorizationSegments.Add(claimsAuthorizationSegment);
-            }
-        }
         private SegmentProperty CreateSegment(string propertyName, string authorizationPathModifier)
         {
             if (!_propertyInfoByName.TryGetValue(propertyName, out var propertyInfo))
