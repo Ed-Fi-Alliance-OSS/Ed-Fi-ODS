@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 .AddLocalEducationAgency(99990000)
                 .Execute();
 
-            var expectedTuples = new[] { (99990000, 99990000) };
+            var expectedTuples = new[] {(99990000, 99990000)};
 
             EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuples);
 

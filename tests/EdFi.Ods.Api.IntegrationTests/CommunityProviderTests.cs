@@ -45,8 +45,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void
-            When_updating_community_provider_without_community_organization_to_with_community_organization_should_update_tuples()
+        public void When_updating_community_provider_without_community_organization_to_with_community_organization_should_update_tuples()
         {
             Builder
                 .AddCommunityOrganization(900)
@@ -63,8 +62,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [Test]
-        public void
-            When_updating_community_provider_with_community_organization_to_without_community_organization_should_update_tuples()
+        public void When_updating_community_provider_with_community_organization_to_without_community_organization_should_update_tuples()
         {
             Builder
                 .AddCommunityOrganization(900)
