@@ -31,7 +31,8 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             var configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                .AddJsonFile("appsettings.json", true);
+                .AddJsonFile("appsettings.json", true)
+                .AddEnvironmentVariables(); 
 
             var engine = configurationBuilder
                 .Build()
@@ -46,6 +47,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var configuration = configurationBuilder
                 .AddJsonFile($"appsettings.{(DatabaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true)
+                .AddEnvironmentVariables()
                 .Build();
 
             var isStrictMode = configuration.GetValue<bool?>("StrictMode");
