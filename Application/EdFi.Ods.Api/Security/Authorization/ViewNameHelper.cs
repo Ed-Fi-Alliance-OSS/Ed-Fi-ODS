@@ -6,6 +6,7 @@
 using System;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Security.Authorization
 {
@@ -25,7 +26,17 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <returns>The authorization view name (without the schema).</returns>
         public static string GetAuthorizationViewName(string endpoint1, string endpoint2, string authorizationPathModifier)
         {
-           return $"{endpoint1}To{endpoint2}{authorizationPathModifier}";
+            if (PersonEntitySpecification.IsPersonIdentifier(endpoint1) && endpoint2.EqualsIgnoreCase("EducationOrganizationId"))
+            {
+                return $"{endpoint1}To{endpoint2}{authorizationPathModifier}";
+            }
+
+            if (string.Compare(endpoint1, endpoint2, StringComparison.InvariantCultureIgnoreCase) < 0)
+            {
+                return $"{endpoint1}To{endpoint2}{authorizationPathModifier}";
+            }
+
+            return $"{endpoint2}To{endpoint1}{authorizationPathModifier}";
         }
 
         /// <summary>
