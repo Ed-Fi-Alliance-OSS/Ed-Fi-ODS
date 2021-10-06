@@ -51,11 +51,13 @@ namespace EdFi.Ods.Api.Security.Authorization
             {
                 eachSegment.ClaimsEndpoints.ToList().ForEach(eachClaimEndpoint =>
                 {
-                    if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(eachClaimEndpoint.Name) &&
-                      (!PersonEntitySpecification.IsPersonIdentifier(eachSegment.SubjectEndpoint.Name)) &&
-                      (!eachSegment.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation")))
+                    if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(eachClaimEndpoint.Name))
                     {
                         eachClaimEndpoint.Name = "EducationOrganizationId";
+                    }
+                    
+                    if (!PersonEntitySpecification.IsPersonIdentifier(eachSegment.SubjectEndpoint.Name))
+                    {
                         eachSegment.SubjectEndpoint.Name = "EducationOrganizationId";
                     }
                 });
@@ -120,7 +122,7 @@ namespace EdFi.Ods.Api.Security.Authorization
                                 (subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId") && claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))
                                 ? "TargetEducationOrganizationId" : subjectEndpointName,
                                 GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
-                                (subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId") && claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))
+                                (claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))
                                 ? "SourceEducationOrganizationId" : claimEndpointName,
                                 GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
                                 derivedAuthorizationViewName);
@@ -128,7 +130,7 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                         return string.Format(
                             StatementTemplate,
-                            (subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId") && claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))
+                            (claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))
                                 ? "SourceEducationOrganizationId" : claimEndpointName,
                             GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
                             (subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId") && claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))

@@ -55,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.LocalEducationAgencyIdToStaffUSI",
+                        "auth.StaffUSIToEducationOrganizationId",
                         "auth.SchoolIdToStaffUSI"
                     });
 
@@ -94,7 +94,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -115,7 +115,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                     .Returns(new List<string>
                     {
                         "auth.LocalEducationAgencyIdToSchoolId",
-                        "auth.LocalEducationAgencyIdToStaffUSI",
+                        "auth.StaffUSIToEducationOrganizationId",
                         "auth.EducationOrganizationIdToEducationOrganizationId",
                         "auth.SchoolIdToStaffUSI"
                     });
@@ -167,7 +167,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
 AND
 (
@@ -192,7 +192,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     .Returns(new List<string>
                     {
                         "auth.PostSecondaryInstitutionIdToStaffUSI",
-                        "auth.LocalEducationAgencyIdToStaffUSI",
+                        "auth.StaffUSIToEducationOrganizationId",
                         "auth.EducationOrganizationIdToEducationOrganizationId",
                         "auth.SchoolIdToStaffUSI"
                     });
@@ -216,7 +216,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     () => result.ShouldNotBeNull(),
 
                     // 4 parameters are the SQL Server TVP for each of the StaffUSI and School segments
-                    () => result.Parameters.Length.ShouldBe(6),
+                    () => result.Parameters.Length.ShouldBe(4),
 
                     () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
                         .ShouldBeFalse(),
@@ -228,7 +228,8 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
                     () => result.Parameters[0].Value.ShouldBeOfType<DataTable>(),
                     () => ((DataTable)result.Parameters[0].Value).Rows[0][0].ShouldBe(SuppliedLea1),
-                    () => ((DataTable)result.Parameters[0].Value).Rows[1][0].ShouldBe(SuppliedLea2),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[2][0].ShouldBe(SuppliedLea2),
 
                     // Second parameter is for the LEA to StaffUSI segment
                     () => result.Parameters[1].ParameterName.ShouldBe("@p1"),
@@ -236,26 +237,13 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
 
                     // Single-value parameter for PostSecondary is defined as expected
                     () => result.Parameters[2].ParameterName.ShouldBe("@p2"),
-                    () => result.Parameters[2].Value.ShouldBeOfType<int>(),
-                    () => result.Parameters[2].Value.ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => result.Parameters[2].Value.ShouldBeOfType<DataTable>(),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[0][0].ShouldBe(SuppliedLea1),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
 
                     // Second parameter is for the PostSecondary to StaffUSI segment
                     () => result.Parameters[3].ParameterName.ShouldBe("@p3"),
-                    () => result.Parameters[3].Value.ShouldBe(_suppliedAuthorizationContext.StaffUSI),
-
-                    // ---------------------------
-                    // Claims to SchoolId segment
-                    // ---------------------------
-                    // TVP parameters for LEAIds is defined as expected
-                    () => result.Parameters[4].ParameterName.ShouldBe("@p4"),
-                    () => result.Parameters[4].Value.ShouldBeOfType<DataTable>(),
-                    () => ((DataTable)result.Parameters[4].Value).Rows[0][0].ShouldBe(SuppliedLea1),
-                    () => ((DataTable)result.Parameters[4].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
-                    () => ((DataTable)result.Parameters[4].Value).Rows[2][0].ShouldBe(SuppliedLea2),
-
-                    // Second parameter is for the LEA to SchoolId segment
-                    () => result.Parameters[5].ParameterName.ShouldBe("@p5"),
-                    () => result.Parameters[5].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
+                    () => result.Parameters[3].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
 
                 );
 
@@ -264,12 +252,11 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
-OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.PostSecondaryInstitutionId = @p2 and a.StaffUSI = @p3)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
 AND
 (
-EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p4) and a.TargetEducationOrganizationId = @p5)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p2) and a.TargetEducationOrganizationId = @p3)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -291,7 +278,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     {
                         // Not supported for this test:
                         // "auth.LocalEducationAgencyIdToStaffUSI",
-                        "auth.PostSecondaryInstitutionIdToStaffUSI",
+                        "auth.StaffUSIToEducationOrganizationId",
 
                         // Not supported for this test:
                         // "auth.PostSecondaryInstitutionIdToSchoolId",
@@ -330,8 +317,10 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     // -----------------------------
                     // Single-value parameter for PostSecondary is defined as expected
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
-                    () => result.Parameters[0].Value.ShouldBeOfType<int>(),
-                    () => result.Parameters[0].Value.ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => result.Parameters[0].Value.ShouldBeOfType<DataTable>(),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[0][0].ShouldBe(SuppliedLea1),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[2][0].ShouldBe(SuppliedLea2),
 
                     // Second parameter is for the PostSecondary to StaffUSI segment
                     () => result.Parameters[1].ParameterName.ShouldBe("@p1"),
@@ -357,7 +346,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.PostSecondaryInstitutionId = @p0 and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
 AND
 (
@@ -428,7 +417,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     .Returns(new List<string>
                     {
                         // Not supported in this test:
-                        // "auth.LocalEducationAgencyIdToStaffUSI",
+                        "auth.EducationOrganizationIdToStaffUSI",
                         "auth.SchoolIdToStaffUSI"
                     });
 
@@ -447,7 +436,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                                 ref parameterIndex);
                         })
                     .Message.ShouldBe(
-                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency') with the resource.");
+                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('EducationOrganization') with the resource.");
             }
         }
 
@@ -464,7 +453,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.LocalEducationAgencyIdToStaffUSI",
+                        "auth.StaffUSIToEducationOrganizationId",
                         "auth.SchoolIdToStaffUSI"
                     });
 
@@ -505,7 +494,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (@p0, @p1, @p2) and a.StaffUSI = @p3)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (@p0, @p1, @p2) and a.StaffUSI = @p3)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
