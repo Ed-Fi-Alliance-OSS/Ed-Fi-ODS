@@ -7,7 +7,7 @@ namespace Test.Common
 {
     public interface IDatabaseHelper
     {
-        public void CopyDatabase(string originalDatabaseName, string newDatabaseName);
-        public void DropMatchingDatabases(string databaseNamePattern);
+        void CopyDatabase(string originalDatabaseName, string newDatabaseName);
+        void DropMatchingDatabases(string databaseNamePattern);
     }
 }
