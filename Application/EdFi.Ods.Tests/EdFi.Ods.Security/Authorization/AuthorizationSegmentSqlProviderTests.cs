@@ -50,16 +50,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationTableViewsProvider = A.Fake<AuthorizationTableViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationTableViewsProvider.GetAuthorizationTableViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
                         "auth.LocalEducationAgencyIdToStaffUSI",
                         "auth.SchoolIdToStaffUSI"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTableViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -109,9 +109,9 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationTableViewsProvider = A.Fake<AuthorizationTableViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationTableViewsProvider.GetAuthorizationTableViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
                         "auth.LocalEducationAgencyIdToSchoolId",
@@ -120,7 +120,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                         "auth.SchoolIdToStaffUSI"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTableViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -186,9 +186,9 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationTableViewsProvider = A.Fake<AuthorizationTableViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationTableViewsProvider.GetAuthorizationTableViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
                         "auth.PostSecondaryInstitutionIdToStaffUSI",
@@ -197,7 +197,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         "auth.SchoolIdToStaffUSI"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTableViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -284,9 +284,9 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationTableViewsProvider = A.Fake<AuthorizationTableViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationTableViewsProvider.GetAuthorizationTableViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
                         // Not supported for this test:
@@ -300,7 +300,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         "auth.SchoolIdToStaffUSI"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTableViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -376,9 +376,9 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationTableViewsProvider = A.Fake<AuthorizationTableViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationTableViewsProvider.GetAuthorizationTableViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
                         // Not supported for this test:
@@ -392,7 +392,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         "auth.SchoolIdToStaffUSI"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTableViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -422,9 +422,9 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationTableViewsProvider = A.Fake<AuthorizationTableViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationTableViewsProvider.GetAuthorizationTableViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
                         // Not supported in this test:
@@ -432,7 +432,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         "auth.SchoolIdToStaffUSI"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTableViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -459,16 +459,16 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationTableViewsProvider = A.Fake<AuthorizationTableViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationTableViewsProvider.GetAuthorizationTableViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
                         "auth.LocalEducationAgencyIdToStaffUSI",
                         "auth.SchoolIdToStaffUSI"
                     });
 
-                var authorizationSegmentsSqlProvider = new PostgresAuthorizationSegmentSqlProvider(mockAuthorizationTableViewsProvider);
+                var authorizationSegmentsSqlProvider = new PostgresAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(

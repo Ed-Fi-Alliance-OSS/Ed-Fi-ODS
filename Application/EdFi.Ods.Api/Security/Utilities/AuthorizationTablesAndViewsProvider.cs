@@ -12,14 +12,14 @@ namespace EdFi.Ods.Api.Security.Utilities
     /// <summary>
     /// Retrieves authorization views and authorization tuple table from Ods database
     /// </summary>
-    public class AuthorizationTableViewsProvider : IAuthorizationTableViewsProvider
+    public class AuthorizationTablesAndViewsProvider : IAuthorizationTablesAndViewsProvider
     {
-        private readonly Lazy<IList<string>> _authorizationTableViews;
+        private readonly Lazy<IList<string>> _authorizationTablesAndViews;
         private readonly ISessionFactory _sessionFactory;
 
-        public AuthorizationTableViewsProvider(ISessionFactory sessionFactory)
+        public AuthorizationTablesAndViewsProvider(ISessionFactory sessionFactory)
         {
-            _authorizationTableViews = new Lazy<IList<string>>(LoadAuthorizationTableViews);
+            _authorizationTablesAndViews = new Lazy<IList<string>>(LoadAuthorizationTablesAndViews);
             _sessionFactory = sessionFactory;
         }
 
@@ -27,12 +27,12 @@ namespace EdFi.Ods.Api.Security.Utilities
         /// Returns a list of implemented authorization views and authorization tuple table
         /// </summary>
         /// <returns>List of valid authorization views and authorization tuple table </returns>
-        public virtual IList<string> GetAuthorizationTableViews()
+        public virtual IList<string> GetAuthorizationTablesAndViews()
         {
-            return _authorizationTableViews.Value;
+            return _authorizationTablesAndViews.Value;
         }
 
-        private IList<string> LoadAuthorizationTableViews()
+        private IList<string> LoadAuthorizationTablesAndViews()
         {
             using (var session = _sessionFactory.OpenStatelessSession())
             {

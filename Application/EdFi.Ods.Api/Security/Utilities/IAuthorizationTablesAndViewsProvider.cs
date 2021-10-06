@@ -7,8 +7,8 @@ using System.Collections.Generic;
 
 namespace EdFi.Ods.Api.Security.Utilities
 {
-    public interface IAuthorizationTableViewsProvider
+    public interface IAuthorizationTablesAndViewsProvider
     {
-        IList<string> GetAuthorizationTableViews();
+        IList<string> GetAuthorizationTablesAndViews();
     }
 }

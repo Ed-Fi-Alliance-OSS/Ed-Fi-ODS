@@ -34,10 +34,10 @@ namespace EdFi.Ods.Api.Security.Authorization
         private static readonly Regex _identifierRegex = new Regex(@"^[\w]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationSegmentSqlProviderBase));
 
-        public AuthorizationSegmentSqlProviderBase(IAuthorizationTableViewsProvider authorizationViewsProvider)
+        public AuthorizationSegmentSqlProviderBase(IAuthorizationTablesAndViewsProvider authorizationTablesAndViewsProvider)
         {
             _supportedAuthorizationViewNames =
-                new Lazy<IReadOnlyList<string>>(() => authorizationViewsProvider.GetAuthorizationTableViews().ToReadOnlyList());
+                new Lazy<IReadOnlyList<string>>(() => authorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews().ToReadOnlyList());
         }
 
         public QueryMetadata GetAuthorizationQueryMetadata(
