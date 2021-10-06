@@ -41,7 +41,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     "Invalid configuration for integration tests.  Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
             }
 
-            var databaseHelper = new DatabaseHelper(Configuration);
+            var databaseHelper = new MsSqlDatabaseHelper(Configuration);
             databaseHelper.CopyDatabase(PopulatedDatabaseName, TestPopulatedDatabaseName);
 
             Assembly.Load("EdFi.Ods.Common");
@@ -51,7 +51,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [OneTimeTearDown]
         public void TearDown()
         {
-            var databaseHelper = new DatabaseHelper(Configuration);
+            var databaseHelper = new MsSqlDatabaseHelper(Configuration);
             databaseHelper.DropMatchingDatabases(DatabasePrefix + "%");
         }
     }

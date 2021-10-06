@@ -3,24 +3,22 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using AutoMapper.Configuration;
-using Microsoft.Extensions.Configuration;
 
 namespace Test.Common
 {
-    public class DatabaseHelper
+    public class MsSqlDatabaseHelper : IDatabaseHelper
     {
         private const int CommandTimeout = 120;
 
         private readonly string _connectionString;
 
-        public DatabaseHelper(IConfigurationRoot config)
+        public MsSqlDatabaseHelper(IConfigurationRoot config)
         {
             _connectionString = config.GetConnectionString("EdFi_master");
         }
