@@ -244,7 +244,7 @@ namespace EdFi.Ods.Common.Models.Domain
 
         internal void AddSchema(SchemaDefinition schemaDefinition)
         {
-            Schema schema = new Schema(schemaDefinition.LogicalName, schemaDefinition.PhysicalName, schemaDefinition.Version);
+            Schema schema = new Schema(schemaDefinition.LogicalName, schemaDefinition.PhysicalName, schemaDefinition.Version, schemaDefinition.Description);
             _schemas.Add(schema.PhysicalName, schema);
         }
 
