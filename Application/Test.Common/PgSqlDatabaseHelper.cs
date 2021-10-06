@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Test.Common
 {
-    public class PgSqlDatabaseHelper
+    public class PgSqlDatabaseHelper : IDatabaseHelper
     {
         private const int CommandTimeout = 120;
 

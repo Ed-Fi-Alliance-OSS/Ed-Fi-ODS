@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public abstract class EducationOrganizationTests : DatabaseTestFixtureBase
+    public class EducationOrganizationTests : DatabaseTestFixtureBase
     {
         [Test]
         public void When_inserting_and_deleting_single_education_organization_should_update_tuples()

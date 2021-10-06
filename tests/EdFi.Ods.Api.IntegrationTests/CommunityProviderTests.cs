@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public abstract class CommunityProviderTests : DatabaseTestFixtureBase
+    public class CommunityProviderTests : DatabaseTestFixtureBase
     {
         [Test]
         public void When_inserting_and_deleting_community_provider_without_community_organization_should_update_tuples()

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public abstract class SchoolTests : DatabaseTestFixtureBase
+    public class SchoolTests : DatabaseTestFixtureBase
     {
         [Test]
         public void When_inserting_and_deleting_school_without_local_education_agency_should_update_tuples()
