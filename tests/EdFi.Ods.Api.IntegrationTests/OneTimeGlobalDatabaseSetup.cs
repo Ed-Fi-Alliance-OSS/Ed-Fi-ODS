@@ -29,8 +29,6 @@ namespace EdFi.Ods.Api.IntegrationTests
         [OneTimeSetUp]
         public void Setup()
         {
-            Assert.Fail("testing ...");
-
             var configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", true);
