@@ -340,7 +340,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     // ---------------------------
                     // Claims to SchoolId segment
                     // ---------------------------
-                    // TVP parameters for LEAIds is defined as expected
+                    // TVP parameters for LEAIds and PostSecondaryInstitution is defined as expected
                     () => result.Parameters[2].ParameterName.ShouldBe("@p2"),
                     () => result.Parameters[2].Value.ShouldBeOfType<DataTable>(),
                     () => ((DataTable)result.Parameters[2].Value).Rows[0][0].ShouldBe(SuppliedLea1),
@@ -410,7 +410,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         () => authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex)
                     )
                     .Message.ShouldBe(
-                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency', 'PostSecondaryInstitution') with the resource.");
+             "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('EducationOrganization') with the resource.");
             }
         }
 

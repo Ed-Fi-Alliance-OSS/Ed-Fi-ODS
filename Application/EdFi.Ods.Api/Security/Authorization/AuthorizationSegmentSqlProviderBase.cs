@@ -47,6 +47,20 @@ namespace EdFi.Ods.Api.Security.Authorization
             var segmentStatements = new List<string>();
             var parameters = new List<DbParameter>();
 
+            authorizationSegments.ToList().ForEach(eachSegment =>
+            {
+                eachSegment.ClaimsEndpoints.ToList().ForEach(eachClaimEndpoint =>
+                {
+                    if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(eachClaimEndpoint.Name) &&
+                      (!PersonEntitySpecification.IsPersonIdentifier(eachSegment.SubjectEndpoint.Name)) &&
+                      (!eachSegment.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation")))
+                    {
+                        eachClaimEndpoint.Name = "EducationOrganizationId";
+                        eachSegment.SubjectEndpoint.Name = "EducationOrganizationId";
+                    }
+                });
+            });
+
             foreach (var authorizationSegment in authorizationSegments)
             {
                 // Within each claim segment, group the values by ed org type, and combine with "OR"
@@ -83,13 +97,6 @@ namespace EdFi.Ods.Api.Security.Authorization
                     // Perform defensive checks against the remote possibility of SQL injection attack
                     ValidateTableNameParts(claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
-                    if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(claimEndpointName) &&
-                       (!PersonEntitySpecification.IsPersonIdentifier(subjectEndpointName)) &&
-                       (!authorizationSegment.AuthorizationPathModifier.EndsWithIgnoreCase("ThroughEdOrgAssociation")))
-                    {
-                        claimEndpointName = "EducationOrganizationId";
-                        subjectEndpointName = "EducationOrganizationId";
-                    }
                     string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
                         subjectEndpointName,
                         claimEndpointName,
@@ -102,12 +109,6 @@ namespace EdFi.Ods.Api.Security.Authorization
                         continue;
                     }
 
-                    if(subjectEndpointName.EqualsIgnoreCase("EducationOrganizationId") 
-                        && claimEndpointName.EqualsIgnoreCase("EducationOrganizationId"))
-                    {
-                        subjectEndpointName= $"Target{subjectEndpointName}";
-                        claimEndpointName = $"Source{claimEndpointName}";
-                    }
                     segmentExpressions.Add(CreateSegmentExpression(ref parameterIndex));
 
                     string CreateSegmentExpression(ref int index)
@@ -116,18 +117,22 @@ namespace EdFi.Ods.Api.Security.Authorization
                         {
                             return string.Format(
                                 StatementTemplate,
-                                subjectEndpointName,
+                                (subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId") && claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))
+                                ? "TargetEducationOrganizationId" : subjectEndpointName,
                                 GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
-                                claimEndpointName,
+                                (subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId") && claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))
+                                ? "SourceEducationOrganizationId" : claimEndpointName,
                                 GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
                                 derivedAuthorizationViewName);
                         }
 
                         return string.Format(
                             StatementTemplate,
-                            claimEndpointName,
+                            (subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId") && claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))
+                                ? "SourceEducationOrganizationId" : claimEndpointName,
                             GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
-                            subjectEndpointName,
+                            (subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId") && claimEndpointName.ContainsIgnoreCase("EducationOrganizationId"))
+                                ? "TargetEducationOrganizationId" : subjectEndpointName,
                             GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
                             derivedAuthorizationViewName);
                     }
