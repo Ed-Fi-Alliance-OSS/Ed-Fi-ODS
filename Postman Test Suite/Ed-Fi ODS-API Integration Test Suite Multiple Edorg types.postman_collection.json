@@ -908,7 +908,7 @@
 											"",
 											"const responseItems = pm.response.json();",
 											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied.  The claim does not have any established relationships with the requested resource.\");",
+											"        pm.expect(responseItems.message).to.equal(\"Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('CommunityProvider') with the resource.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1440,7 +1440,7 @@
 											"});",
 											"const responseItems = pm.response.json();",
 											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied.  The claim does not have any established relationships with the requested resource.\");",
+											"        pm.expect(responseItems.message).to.equal(\"Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('CommunityProvider') with the resource.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1600,7 +1600,7 @@
 											"});",
 											"const responseItems = pm.response.json();",
 											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied.  The claim does not have any established relationships with the requested resource.\");",
+											"        pm.expect(responseItems.message).to.equal(\"Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('School') with the resource.\");",
 											"});"
 										],
 										"type": "text/javascript"
