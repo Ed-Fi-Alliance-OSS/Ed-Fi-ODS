@@ -19,6 +19,7 @@ namespace EdFi.Ods.Api.IntegrationTests
     public class OneTimeGlobalDatabaseSetup
     {
         private const string TestDbPrefix = "EdFi_Integration_Test_";
+        private const string ConfigEnvironmentVariablesPrefix = "EdFiOdsApiIntegrationTests_";
 
         private static DatabaseEngine DatabaseEngine { get; set; }
         private static string TestDbConnectionString { get; set; }
@@ -32,22 +33,16 @@ namespace EdFi.Ods.Api.IntegrationTests
             var configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", true)
-                .AddEnvironmentVariables(); 
+                .AddEnvironmentVariables(ConfigEnvironmentVariablesPrefix); 
 
             var engine = configurationBuilder
                 .Build()
                 .GetValue<string>("Engine");
-            if (string.IsNullOrWhiteSpace(engine))
-            {
-                throw new ApplicationException(
-                    "Missing configuration entry: Engine");
-            }
-
             DatabaseEngine = DatabaseEngine.TryParseEngine(engine);
 
             var configuration = configurationBuilder
                 .AddJsonFile($"appsettings.{(DatabaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true)
-                .AddEnvironmentVariables()
+                .AddEnvironmentVariables(ConfigEnvironmentVariablesPrefix)
                 .Build();
 
             var isStrictMode = configuration.GetValue<bool?>("StrictMode");
@@ -61,14 +56,14 @@ namespace EdFi.Ods.Api.IntegrationTests
             if (string.IsNullOrWhiteSpace(maintenanceConnectionString))
             {
                 throw new ApplicationException(
-                    "Missing configuration entry: ConnectionStrings/EdFi_Master");
+                    $"Missing configuration entry: ConnectionStrings{ConfigurationPath.KeyDelimiter}EdFi_Master");
             }
 
             var odsConnectionString = configuration.GetConnectionString("EdFi_Ods");
             if (string.IsNullOrWhiteSpace(odsConnectionString))
             {
                 throw new ApplicationException(
-                    "Missing configuration entry: ConnectionStrings/EdFi_Ods");
+                    $"Missing configuration entry: ConnectionStrings{ConfigurationPath.KeyDelimiter}EdFi_Ods");
             }
 
             IDbConnectionStringBuilderAdapter connectionStringBuilder;
@@ -93,7 +88,7 @@ namespace EdFi.Ods.Api.IntegrationTests
                 // TODO implement [ODS-5110 Create Test Container] here
 
                 var reason =
-                    "Couldn't connect to database server, verify ConnectionStrings/EdFi_Master";
+                    $"Couldn't connect to database server, verify ConnectionStrings{ConfigurationPath.KeyDelimiter}EdFi_Master";
                 if (isStrictMode.Value)
                 {
                     Assert.Fail(reason);
@@ -112,7 +107,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             {
                 // TODO implement [ODS-5109 Download Test Database] here
 
-                var reason = "Couldn't open template database, verify ConnectionStrings/EdFi_Ods";
+                var reason = $"Couldn't open template database, verify ConnectionStrings{ConfigurationPath.KeyDelimiter}EdFi_Ods";
                 if (isStrictMode.Value)
                 {
                     Assert.Fail(reason);
