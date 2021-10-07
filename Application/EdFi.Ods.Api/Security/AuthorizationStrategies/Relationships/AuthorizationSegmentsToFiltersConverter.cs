@@ -39,7 +39,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         string claimEndpointName = g.Key;
 
                         // Get the name of the view to use for this segment
-                        string filterName = ViewNameHelper.GetAuthorizationViewName(
+                        string filterName = FilterNameHelper.GetAuthorizationFilterName(
                             subjectEndpointName,
                             claimEndpointName,
                             segment.AuthorizationPathModifier);

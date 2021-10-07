@@ -399,7 +399,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         () => authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex)
                     )
                     .Message.ShouldBe(
-             "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('EducationOrganization') with the resource.");
+             "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency', 'PostSecondaryInstitution') with the resource.");
             }
         }
 
@@ -436,7 +436,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                                 ref parameterIndex);
                         })
                     .Message.ShouldBe(
-                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('EducationOrganization') with the resource.");
+                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency') with the resource.");
             }
         }
 
