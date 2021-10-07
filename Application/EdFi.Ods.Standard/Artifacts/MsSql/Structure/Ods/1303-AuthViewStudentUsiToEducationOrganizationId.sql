@@ -3,14 +3,12 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-IF OBJECT_ID('auth.StudentUSIToEducationOrganizationId', 'V') IS NOT NULL
-    DROP VIEW auth.StudentUSIToEducationOrganizationId
-GO
-
-CREATE VIEW auth.StudentUSIToEducationOrganizationId AS
-SELECT tuple.SourceEducationOrganizationId, ssa.StudentUSI
-FROM edfi.StudentSchoolAssociation ssa
-INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuple
-ON ssa.SchoolId = tuple.TargetEducationOrganizationId
+CREATE OR ALTER VIEW auth.StudentUSIToEducationOrganizationId 
+    WITH SCHEMABINDING AS
+    SELECT  edOrgs.SourceEducationOrganizationId, ssa.StudentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+        INNER JOIN edfi.StudentSchoolAssociation ssa
+            ON edOrgs.TargetEducationOrganizationId = ssa.SchoolId
+    GROUP BY edOrgs.SourceEducationOrganizationId, ssa.StudentUSI
 
 GO
