@@ -51,19 +51,14 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             foreach (var authorizationSegment in authorizationSegments)
             {
-                string claimEndpointName = authorizationSegment.ClaimsEndpoints.FirstOrDefault().Name;
+                string claimEndpointName = EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.ClaimsEndpoints.FirstOrDefault().Name)
+                        ? "EducationOrganizationId"
+                        : throw new NotSupportedException(
+                            $"Claim endpoint name of '{authorizationSegment.ClaimsEndpoints.FirstOrDefault().Name}' is not yet supported for authorization.");
 
-                if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(claimEndpointName))
-                {
-                    claimEndpointName = "EducationOrganizationId";
-                }
-
-                string subjectEndpointName = authorizationSegment.SubjectEndpoint.Name;
-
-                if (EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(subjectEndpointName))
-                {
-                    subjectEndpointName = "EducationOrganizationId";
-                }
+                string subjectEndpointName = EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.SubjectEndpoint.Name)
+                        ? "EducationOrganizationId"
+                        : authorizationSegment.SubjectEndpoint.Name;
 
                 var subjectEndpointWithValue =
                     authorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
@@ -106,8 +101,9 @@ namespace EdFi.Ods.Api.Security.Authorization
                     return string.Format(
                         StatementTemplate,
                         GetMultiValueCriteriaExpression(authorizationSegment.ClaimsEndpoints.ToList(), parameters, ref index),
-                        subjectEndpointName.ContainsIgnoreCase("EducationOrganizationId")
-                        ? "TargetEducationOrganizationId" : subjectEndpointName,
+                        subjectEndpointName.EqualsIgnoreCase("EducationOrganizationId")
+                        ? "TargetEducationOrganizationId"
+                        : subjectEndpointName,
                         GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
                         derivedAuthorizationViewName);
                 }
