@@ -6,7 +6,7 @@
 CREATE OR ALTER VIEW auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation AS
     SELECT  edOrgs.SourceEducationOrganizationId, seora.StudentUSI
     FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
-            INNER JOIN edfi.StudentEducationOrganizationResponsibilityAssociation seora
+            INNER JOIN edfi.StudentEducationOrganizationAssociation seora
                 ON edOrgs.TargetEducationOrganizationId = seora.EducationOrganizationId
     GROUP BY edOrgs.SourceEducationOrganizationId, seora.StudentUSI
 GO
