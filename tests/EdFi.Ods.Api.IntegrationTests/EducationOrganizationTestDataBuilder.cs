@@ -26,7 +26,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         public int TestGradeLevelDescriptorId { get; private set; }
         public int TestEmploymentStatusDescriptorId { get; private set; }
         public int TestStaffClassificationDescriptorId { get; private set; }
-        public int TestSexDescriptorId { get; private set; }
+        public int TestResponsibilityDescriptorId { get; private set; }
 
 
         private EducationOrganizationTestDataBuilder()
@@ -56,8 +56,8 @@ namespace EdFi.Ods.Api.IntegrationTests
             command.CommandText = "SELECT StaffClassificationDescriptorId FROM edfi.StaffClassificationDescriptor;";
             builder.TestStaffClassificationDescriptorId = Convert.ToInt32(command.ExecuteScalar());
 
-            command.CommandText = "SELECT SexDescriptorId FROM edfi.SexDescriptor;";
-            builder.TestSexDescriptorId = Convert.ToInt32(command.ExecuteScalar());
+            command.CommandText = "SELECT ResponsibilityDescriptorId FROM edfi.ResponsibilityDescriptor;";
+            builder.TestResponsibilityDescriptorId = Convert.ToInt32(command.ExecuteScalar());
 
             return builder;
         }
@@ -275,17 +275,24 @@ namespace EdFi.Ods.Api.IntegrationTests
             return this;
         }
 
-        public EducationOrganizationTestDataBuilder AddStudentEducationOrganizationAssociation(int schoolId, int studentUSI)
+        public EducationOrganizationTestDataBuilder AddStudentEducationOrganizationResponsibilityAssociation(int schoolId, int studentUSI, DateTime? entryDate = null)
         {
+            if (!entryDate.HasValue)
+            {
+                entryDate = DateTime.UtcNow.Date;
+            }
+
             _sql.AppendLine(
-                $@"INSERT INTO edfi.StudentEducationOrganizationAssociation (
+                $@"INSERT INTO edfi.StudentEducationOrganizationResponsibilityAssociation (
+                    BeginDate,
                     EducationOrganizationId,
                     StudentUSI,
-                    SexDescriptorId)
+                    ResponsibilityDescriptorId)
                 VALUES (
+                    '{entryDate}',
                     {schoolId},
                     {studentUSI},
-                    {TestSexDescriptorId});"
+                    {TestResponsibilityDescriptorId});"
             );
 
             return this;

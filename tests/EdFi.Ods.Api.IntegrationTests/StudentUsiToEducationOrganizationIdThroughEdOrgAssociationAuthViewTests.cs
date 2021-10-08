@@ -28,7 +28,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationAssociation(9705, studentUsi)
+                .AddStudentEducationOrganizationResponsibilityAssociation(9705, studentUsi)
                 .Execute();
 
             AuthorizationViewHelper.HasDuplicateRecordsForAuthorizationView(Connection, ViewName).ShouldBeFalse();
@@ -48,8 +48,8 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationAssociation(9703, studentUsi)
-                .AddStudentEducationOrganizationAssociation(9704, studentUsi)
+                .AddStudentEducationOrganizationResponsibilityAssociation(9703, studentUsi)
+                .AddStudentEducationOrganizationResponsibilityAssociation(9704, studentUsi)
                 .Execute();
 
             AuthorizationViewHelper.HasDuplicateRecordsForAuthorizationView(Connection, ViewName).ShouldBeFalse();
@@ -88,7 +88,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationAssociation(9701, studentUsi)
+                .AddStudentEducationOrganizationResponsibilityAssociation(9701, studentUsi)
                 .Execute();
 
             AuthorizationViewHelper.ShouldContainTuples(Connection, ViewName, (9701, studentUsi));
@@ -108,7 +108,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationAssociation(9702, studentUsi)
+                .AddStudentEducationOrganizationResponsibilityAssociation(9702, studentUsi)
                 .Execute();
 
             var expectedTuples = new[] {(9722, studentUsi)};
@@ -130,8 +130,8 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationAssociation(9703, studentUsi)
-                .AddStudentEducationOrganizationAssociation(9704, studentUsi)
+                .AddStudentEducationOrganizationResponsibilityAssociation(9703, studentUsi)
+                .AddStudentEducationOrganizationResponsibilityAssociation(9704, studentUsi)
                 .Execute();
 
             var expectedTuples = new (int, int)[]
@@ -174,7 +174,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationAssociation(9705, studentUsi)
+                .AddStudentEducationOrganizationResponsibilityAssociation(9705, studentUsi)
                 .Execute();
 
             var expectedTuples = new (int, int)[]
@@ -203,7 +203,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             var studentUsi = AuthorizationViewHelper.GetStudentUsi(Connection, studentUniqueId);
 
             Builder
-                .AddStudentEducationOrganizationAssociation(9706, studentUsi)
+                .AddStudentEducationOrganizationResponsibilityAssociation(9706, studentUsi)
                 .Execute();
 
             var expectedTuples = new[]
