@@ -5,10 +5,10 @@
 
 CREATE OR REPLACE VIEW auth.ParentUSIToEducationOrganizationId 
 AS
-SELECT tuple.SourceEducationOrganizationId AS SourceEducationOrganizationId, spa.ParentUSI AS ParentUSI
-FROM edfi.StudentSchoolAssociation ssa 
-INNER JOIN edfi.StudentParentAssociation spa ON
-ssa.StudentUSI = spa.StudentUSI
-INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuple
-ON ssa.SchoolId = tuple.TargetEducationOrganizationId
-GROUP BY tuple.SourceEducationOrganizationId, spa.ParentUSI
+    SELECT  edOrgs.SourceEducationOrganizationId, spa.ParentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN edfi.StudentSchoolAssociation ssa 
+                ON edOrgs.TargetEducationOrganizationId = ssa.SchoolId
+            INNER JOIN edfi.StudentParentAssociation spa 
+                ON ssa.StudentUSI = spa.StudentUSI
+    GROUP BY edOrgs.SourceEducationOrganizationId, spa.ParentUSI

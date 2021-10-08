@@ -61,7 +61,8 @@ namespace EdFi.Ods.Api.Controllers
                         s => new
                         {
                             name = s.LogicalName,
-                            version = s.Version
+                            version = s.Version,
+                            informationalVersion = s.InformationalVersion
                         })
                     .ToArray(),
                 urls = GetUrlsByName()

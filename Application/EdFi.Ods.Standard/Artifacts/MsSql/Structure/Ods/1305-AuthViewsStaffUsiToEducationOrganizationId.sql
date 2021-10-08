@@ -4,15 +4,19 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 CREATE OR ALTER VIEW auth.StaffUSIToEducationOrganizationId 
-AS
-SELECT SourceEducationOrganizationId, StaffUSI
-FROM edfi.StaffEducationOrganizationAssignmentAssociation
-INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId
-ON EducationOrganizationId = TargetEducationOrganizationId
+    WITH SCHEMABINDING AS
 
-UNION
+    -- EdOrg Assignments
+    SELECT  edOrgs.SourceEducationOrganizationId, seo_assign.StaffUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN edfi.StaffEducationOrganizationAssignmentAssociation seo_assign
+                ON edOrgs.TargetEducationOrganizationId =  seo_assign.EducationOrganizationId
+    
+    UNION
 
-SELECT SourceEducationOrganizationId, StaffUSI
-FROM edfi.StaffEducationOrganizationEmploymentAssociation
-INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId
-ON EducationOrganizationId = TargetEducationOrganizationId
+    -- EdOrg Employment
+    SELECT  edOrgs.SourceEducationOrganizationId, seo_empl.StaffUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN edfi.StaffEducationOrganizationEmploymentAssociation seo_empl
+                ON edOrgs.TargetEducationOrganizationId = seo_empl.EducationOrganizationId
+GO
