@@ -13,7 +13,6 @@
     DROP VIEW IF EXISTS auth.LocalEducationAgency;    
     DROP VIEW IF EXISTS auth.EducationOrganizationIdToStateAgencyId;
     DROP VIEW IF EXISTS auth.EducationOrganizationIdToEducationServiceCenterId;
-    DROP VIEW IF EXISTS auth.EducationOrganizationIdentifiers;
     DROP VIEW IF EXISTS auth.CommunityOrganizationIdToCommunityProviderId;
     DROP VIEW IF EXISTS auth.CommunityOrganizationIdToEducationOrganizationId;
     DROP VIEW IF EXISTS auth.EducationOrganizationIdToStudentUSI;

@@ -35,10 +35,6 @@ IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationO
     DROP VIEW auth.EducationOrganizationIdToEducationServiceCenterId;
 GO
 
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdentifiers'))
-    DROP VIEW auth.EducationOrganizationIdentifiers;
-GO
-
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.CommunityProviderIdToStaffUSI'))
     DROP VIEW auth.CommunityProviderIdToStaffUSI;
 GO
