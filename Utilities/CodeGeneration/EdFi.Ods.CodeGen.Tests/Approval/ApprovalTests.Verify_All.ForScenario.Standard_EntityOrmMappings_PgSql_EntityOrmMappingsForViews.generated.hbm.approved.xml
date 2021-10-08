@@ -806,7 +806,7 @@
 
 
   <!-- Class definition -->
-  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationIdThroughEdOrgAssociation" table="StudentUSIToEducationOrganizationIdThroughEdOrgAssociation" lazy="false" schema="auth">
+  <class name="EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToStudentEdOrgResponsibilityAssociation" table="StudentUSIToStudentEdOrgResponsibilityAssociation" lazy="false" schema="auth">
     <!-- Composite primary key -->
     <composite-id>
       <key-property name="SourceEducationOrganizationId" column="SourceEducationOrganizationId" type="int" />
