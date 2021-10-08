@@ -3,6 +3,10 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToStudentUSI'))
+    DROP VIEW auth.EducationOrganizationIdToStudentUSI;
+GO
+
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.LocalEducationAgencyIdToStudentUSI'))
     DROP VIEW auth.LocalEducationAgencyIdToStudentUSI;
 GO
