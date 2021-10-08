@@ -36,12 +36,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "LocalEducationAgencyIdToStudentUSI",
                         @"StudentUSI IN (
-                            SELECT {newAlias1}.StudentUSI
-                            FROM auth.StudentUSIToEducationOrganizationId {newAlias1}
+                            SELECT {newAlias1}.StudentUSI 
+                            FROM auth.StudentUSIToEducationOrganizationId {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.StudentUSI IN (
-                            SELECT {newAlias1}.StudentUSI
-                            FROM " + "auth_StudentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                            SELECT {newAlias1}.StudentUSI 
+                            FROM " + "auth_StudentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
                             w, p, "StudentUSIToEducationOrganizationId", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId",
@@ -55,13 +55,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation",
                         @"StudentUSI IN (
-                            SELECT {newAlias1}.StudentUSI
-                            FROM auth.StudentUSIToStudentEdOrgResponsibilityAssociation {newAlias1}
+                            SELECT {newAlias1}.StudentUSI 
+                            FROM auth.StudentUSIToStudentEdOrgResponsibilityAssociation {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.StudentUSI IN (
-                            SELECT {newAlias1}.StudentUSI
+                            SELECT {newAlias1}.StudentUSI 
                             FROM " + "auth_StudentUSIToStudentEdOrgResponsibilityAssociation".GetFullNameForView() +
-                        @" {newAlias1}
+                        @" {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
                             w, p, "StudentUSIToStudentEdOrgResponsibilityAssociation", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId", jt),
@@ -73,12 +73,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "SchoolIdToStudentUSI",
                         @"StudentUSI IN (
-                            SELECT {newAlias1}.StudentUSI
-                            FROM auth.StudentUSIToEducationOrganizationId {newAlias1}
+                            SELECT {newAlias1}.StudentUSI 
+                            FROM auth.StudentUSIToEducationOrganizationId {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.StudentUSI IN (
-                            SELECT {newAlias1}.StudentUSI
-                            FROM " + "auth_StudentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                            SELECT {newAlias1}.StudentUSI 
+                            FROM " + "auth_StudentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
                             w, p, "StudentUSIToEducationOrganizationId", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId", jt,
@@ -91,12 +91,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "SchoolIdToStudentUSIThroughEdOrgAssociation",
                         @"StudentUSI IN (
-                        SELECT {newAlias1}.StudentUSI
-                        FROM auth.StudentUSIToStudentEdOrgResponsibilityAssociation {newAlias1}
+                        SELECT {newAlias1}.StudentUSI 
+                        FROM auth.StudentUSIToStudentEdOrgResponsibilityAssociation {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.StudentUSI IN (
-                        SELECT {newAlias1}.StudentUSI
-                        FROM " + "auth_StudentUSIToStudentEdOrgResponsibilityAssociation".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.StudentUSI 
+                        FROM " + "auth_StudentUSIToStudentEdOrgResponsibilityAssociation".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "StudentUSIToStudentEdOrgResponsibilityAssociation", "StudentUSI", "StudentUSI", "SchoolId", jt),
                         (t, p) => p.HasPropertyNamed("StudentUSI")));
@@ -107,12 +107,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "LocalEducationAgencyIdToStaffUSI",
                         @"StaffUSI IN (
-                        SELECT {newAlias1}.StaffUSI
-                        FROM auth.StaffUSIToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.StaffUSI 
+                        FROM auth.StaffUSIToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.StaffUSI IN (
-                        SELECT {newAlias1}.StaffUSI
-                        FROM " + "auth_StaffUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.StaffUSI 
+                        FROM " + "auth_StaffUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
                             w, p, "StaffUSIToEducationOrganizationId", "StaffUSI", "StaffUSI", "SourceEducationOrganizationId", jt,
@@ -125,12 +125,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "SchoolIdToStaffUSI",
                         @"StaffUSI IN (
-                    SELECT {newAlias1}.StaffUSI
-                    FROM auth.StaffUSIToEducationOrganizationId {newAlias1}
+                    SELECT {newAlias1}.StaffUSI 
+                    FROM auth.StaffUSIToEducationOrganizationId {newAlias1} 
                     WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.StaffUSI IN (
-                    SELECT {newAlias1}.StaffUSI
-                    FROM " + "auth_StaffUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                    SELECT {newAlias1}.StaffUSI 
+                    FROM " + "auth_StaffUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                     WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
                             w, p, "StaffUSIToEducationOrganizationId", "StaffUSI", "StaffUSI", "SourceEducationOrganizationId", jt),
@@ -142,12 +142,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "LocalEducationAgencyIdToParentUSI",
                         @"ParentUSI IN (
-                        SELECT {newAlias1}.ParentUSI
-                        FROM auth.ParentUSIToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.ParentUSI 
+                        FROM auth.ParentUSIToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         @"{currentAlias}.ParentUSI IN (
-                        SELECT {newAlias1}.ParentUSI
-                        FROM " + "auth_ParentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.ParentUSI 
+                        FROM " + "auth_ParentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "ParentUSIToEducationOrganizationId", "ParentUSI", "ParentUSI", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("ParentUSI")));
@@ -158,12 +158,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "ParentUSIToSchoolId",
                         @"ParentUSI IN (
-                        SELECT {newAlias1}.ParentUSI
-                        FROM auth.ParentUSIToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.ParentUSI 
+                        FROM auth.ParentUSIToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         @"{currentAlias}.ParentUSI IN (
-                        SELECT {newAlias1}.ParentUSI
-                        FROM " + "auth_ParentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.ParentUSI 
+                        FROM " + "auth_ParentUSIToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "ParentUSIToEducationOrganizationId", "ParentUSI", "ParentUSI", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("ParentUSI")));
@@ -174,12 +174,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "EducationOrganizationIdToLocalEducationAgencyId",
                         @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -190,12 +190,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "EducationOrganizationIdToSchoolId",
                         @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -206,12 +206,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "LocalEducationAgencyIdToSchoolId",
                         @"SchoolId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.SchoolId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
                             w, p, "EducationOrganizationIdToEducationOrganizationId", "SchoolId", "TargetEducationOrganizationId",
@@ -225,12 +225,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "LocalEducationAgencyIdToOrganizationDepartmentId",
                         @"OrganizationDepartmentId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.OrganizationDepartmentId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "OrganizationDepartmentId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("OrganizationDepartmentId")));
@@ -241,12 +241,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "OrganizationDepartmentIdToSchoolId",
                         @"OrganizationDepartmentId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.OrganizationDepartmentId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "OrganizationDepartmentId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("OrganizationDepartmentId")));
@@ -257,12 +257,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "CommunityOrganizationIdToEducationOrganizationId",
                         @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:CommunityOrganizationId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -273,12 +273,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "CommunityProviderIdToEducationOrganizationId",
                         @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:CommunityProviderId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -289,12 +289,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "CommunityOrganizationIdToCommunityProviderId",
                         @"CommunityProviderId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.CommunityProviderId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:CommunityOrganizationId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "CommunityProviderId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("CommunityProviderId")));
@@ -305,12 +305,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "EducationOrganizationIdToPostSecondaryInstitutionId",
                         @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.TargetEducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:PostSecondaryInstitutionId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
@@ -327,12 +327,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "EducationOrganizationIdToUniversityId",
                         @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.EducationOrganizationId
-                        FROM auth.EducationOrganizationIdToUniversityId {newAlias1}
+                        SELECT {newAlias1}.EducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToUniversityId {newAlias1} 
                         WHERE {newAlias1}.UniversityId IN (:UniversityId))",
                         @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.EducationOrganizationId
-                        FROM " + "auth_EducationOrganizationIdToUniversityId".GetFullNameForView() + @" {newAlias1}
+                        SELECT {newAlias1}.EducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToUniversityId".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.UniversityId IN (:UniversityId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
                             w, p, "EducationOrganizationIdToUniversityId", "EducationOrganizationId", "EducationOrganizationId", "UniversityId", jt
@@ -345,13 +345,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     new FilterApplicationDetails(
                         "EducationOrganizationIdToTeacherPreparationProviderId",
                         @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.EducationOrganizationId
-                        FROM auth.EducationOrganizationIdToTeacherPreparationProviderId {newAlias1}
+                        SELECT {newAlias1}.EducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToTeacherPreparationProviderId {newAlias1} 
                         WHERE {newAlias1}.TeacherPreparationProviderId IN (:TeacherPreparationProviderId))",
                         @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.EducationOrganizationId
+                        SELECT {newAlias1}.EducationOrganizationId 
                         FROM " + "auth_EducationOrganizationIdToTeacherPreparationProviderId".GetFullNameForView() +
-                        @" {newAlias1}
+                        @" {newAlias1} 
                         WHERE {newAlias1}.TeacherPreparationProviderId IN (:TeacherPreparationProviderId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
                             w, p, "EducationOrganizationIdToTeacherPreparationProviderId", "EducationOrganizationId", "EducationOrganizationId",
