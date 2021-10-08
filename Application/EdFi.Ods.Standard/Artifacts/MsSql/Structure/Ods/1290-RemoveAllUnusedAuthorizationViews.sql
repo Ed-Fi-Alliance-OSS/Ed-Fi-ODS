@@ -3,6 +3,54 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.SchoolIdToStaffUSI'))
+    DROP VIEW auth.SchoolIdToStaffUSI;
+GO 
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.School'))
+    DROP VIEW auth.School;
+GO 
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationToStaffUSI_Employment'))
+    DROP VIEW auth.EducationOrganizationToStaffUSI_Employment;
+GO      
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationToStaffUSI_Assignment'))
+    DROP VIEW auth.EducationOrganizationToStaffUSI_Assignment;
+GO
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.PostSecondaryInstitutionIdToStaffUSI'))
+    DROP VIEW auth.PostSecondaryInstitutionIdToStaffUSI;
+GO
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.LocalEducationAgency'))
+    DROP VIEW auth.LocalEducationAgency;
+GO
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToStateAgencyId'))
+    DROP VIEW auth.EducationOrganizationIdToStateAgencyId;
+GO
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToEducationServiceCenterId'))
+    DROP VIEW auth.EducationOrganizationIdToEducationServiceCenterId;
+GO
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdentifiers'))
+    DROP VIEW auth.EducationOrganizationIdentifiers;
+GO
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.CommunityProviderIdToStaffUSI'))
+    DROP VIEW auth.CommunityProviderIdToStaffUSI;
+GO
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.CommunityOrganizationIdToCommunityProviderId'))
+    DROP VIEW auth.CommunityOrganizationIdToCommunityProviderId;
+GO
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.CommunityOrganizationIdToEducationOrganizationId'))
+    DROP VIEW auth.CommunityOrganizationIdToEducationOrganizationId;
+GO
+
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToStudentUSI'))
     DROP VIEW auth.EducationOrganizationIdToStudentUSI;
 GO
@@ -38,7 +86,6 @@ GO
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.ParentUSIToSchoolId'))
     DROP VIEW auth.ParentUSIToSchoolId;
 GO
-
 
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToLocalEducationAgencyId'))
     DROP VIEW auth.EducationOrganizationIdToLocalEducationAgencyId;
@@ -83,4 +130,3 @@ GO
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToTeacherPreparationProviderId'))
     DROP VIEW auth.EducationOrganizationIdToTeacherPreparationProviderId;
 GO
-
