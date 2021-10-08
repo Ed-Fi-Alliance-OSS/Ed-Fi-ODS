@@ -98,7 +98,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         SELECT {newAlias1}.StudentUSI 
                         FROM " + "auth_StudentUSIToStudentEdOrgResponsibilityAssociation".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
-                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "StudentUSIToStudentEdOrgResponsibilityAssociation", "StudentUSI", "StudentUSI", "SchoolId", jt),
+                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "StudentUSIToStudentEdOrgResponsibilityAssociation", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId", jt),
                         (t, p) => p.HasPropertyNamed("StudentUSI")));
 
         private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToStaffUSI
