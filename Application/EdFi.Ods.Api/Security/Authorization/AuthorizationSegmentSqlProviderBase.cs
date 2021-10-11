@@ -47,14 +47,17 @@ namespace EdFi.Ods.Api.Security.Authorization
             var segmentStatements = new List<string>();
             var parameters = new List<DbParameter>();
             var unsupportedAuthorizationViews = new List<string>();
-            var edOrgTypes = new List<string>();
+            var authorizationPathModifiers = new List<string>();
 
             foreach (var authorizationSegment in authorizationSegments)
             {
-                string claimEndpointName = EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.ClaimsEndpoints.FirstOrDefault().Name)
-                        ? "EducationOrganizationId"
-                        : throw new NotSupportedException(
-                            $"Claim endpoint name of '{authorizationSegment.ClaimsEndpoints.FirstOrDefault().Name}' is not yet supported for authorization.");
+                if(!EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.ClaimsEndpoints.FirstOrDefault().Name))
+                {
+                    throw new NotSupportedException(
+                         $"Claim endpoint name of '{authorizationSegment.ClaimsEndpoints.FirstOrDefault().Name}' is not yet supported for authorization.");
+                }
+
+                string claimEndpointName = "EducationOrganizationId";
 
                 string subjectEndpointName = EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.SubjectEndpoint.Name)
                         ? "EducationOrganizationId"
@@ -88,8 +91,7 @@ namespace EdFi.Ods.Api.Security.Authorization
                 {
                     unsupportedAuthorizationViews.Add(derivedAuthorizationViewName);
 
-                    edOrgTypes.AddRange(authorizationSegment.ClaimsEndpoints
-                       .Select(s => s.Name.TrimSuffix("Id")));                    
+                    authorizationPathModifiers.Add(authorizationSegment.AuthorizationPathModifier);                    
 
                     continue;
                 }
@@ -111,14 +113,13 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             if (unsupportedAuthorizationViews.Any())
             {
-                _logger.Debug("Unable to authorize resource item because none of the following authorization views exist: "
-                    + $"'{string.Join("', '", unsupportedAuthorizationViews)}'");
+                var authorizationPathModifierValues = string.Join("', '", authorizationPathModifiers.Distinct().OrderBy(x => x));
 
-                var edOrgTypeValues = string.Join("', '", edOrgTypes.Distinct().OrderBy(x => x));
+                _logger.Debug($"Unable to authorize resource item because '{authorizationPathModifierValues}' AuthorizationPathModifier is invalid.");
 
                 throw new EdFiSecurityException(
-                    $"Unable to authorize the request because there is no authorization support for associating the "
-                    + $"API client's associated education organization types ('{edOrgTypeValues}') with the resource.");
+                    $"Unable to authorize the request because there is no authorization support for the associated '{authorizationPathModifierValues}' authorizationPathModifier " +
+                    $"with the resource.");
             }
 
             // Combine multiple authorization segments with AND (forcing all segments to be satisfied)

@@ -388,7 +388,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         () => authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex)
                     )
                     .Message.ShouldBe(
-             "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency') with the resource.");
+                "Unable to authorize the request because there is no authorization support for the associated 'somethingelseAuthorizationPathModifier' authorizationPathModifier with the resource.");
             }
         }
 
@@ -445,43 +445,6 @@ EXISTS (SELECT 1 FROM auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssoci
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
-            }
-        }
-
-        [TestFixture]
-        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_without_a_supporting_authorization_view
-        {
-            [Test]
-            public void Should_throw_an_exception_when_convention_based_view_name_is_not_supported()
-            {
-                var mockISessionFactory = A.Fake<ISessionFactory>();
-
-                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
-
-                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
-                    .Returns(new List<string>
-                    {
-                        // Not supported in this test:
-                        "auth.EducationOrganizationIdToStaffUSI",
-                        "auth.SchoolIdToStaffUSI"
-                    });
-
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
-                var parameterIndex = 0;
-
-                var authorizationSegments = GetRelationshipAuthorizationSegments(
-                    AllSuppliedLeaIds,
-                    builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI));
-
-                Should.Throw<Exception>(
-                        () =>
-                        {
-                            authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(
-                                authorizationSegments,
-                                ref parameterIndex);
-                        })
-                    .Message.ShouldBe(
-                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency') with the resource.");
             }
         }
 

@@ -19,12 +19,12 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// Gets the convention-based authorization view name (without the schema), constructed by sorting the specified
         /// endpoint names alphabetically and adding the specified modifier as a suffix (if present).
         /// </summary>
-        /// <param name="subject">The name of one endpoint represented in the view.</param>
         /// <param name="claim">The name of the claim represented in the view.</param>
+        /// <param name="subject">The name of one endpoint represented in the view.</param>
         /// <param name="authorizationPathModifier">The path modifier for authorization, if applicable, indicating an alternative mechanism for
         /// establishing a relationship between the two supplied endpoints.</param>
         /// <returns>The authorization view name (without the schema).</returns>
-        public static string GetAuthorizationViewName(string subject, string claim, string authorizationPathModifier)
+        public static string GetAuthorizationViewName(string claim, string subject, string authorizationPathModifier)
         {
             return $"{subject}To{claim}{authorizationPathModifier}";        
         }
@@ -33,14 +33,14 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// Gets the fully qualified convention-based authorization view name (including the schema), constructed by sorting the specified
         /// endpoint names alphabetically and adding the specified modifier as a suffix (if present).
         /// </summary>
-        /// <param name="subject">The name of subject represented in the view.</param>
         /// <param name="claim">The name of the claim represented in the view.</param>
+        /// <param name="subject">The name of subject represented in the view.</param>
         /// <param name="authorizationPathModifier">The path modifier for authorization, if applicable, indicating an alternative mechanism for
         /// establishing a relationship between the two supplied endpoints.</param>
         /// <returns>The authorization view name (without the schema).</returns>
-        public static string GetFullyQualifiedAuthorizationViewName(string subject, string claim, string authorizationPathModifier)
+        public static string GetFullyQualifiedAuthorizationViewName(string claim, string subject, string authorizationPathModifier)
         {
-            return $"{SystemConventions.AuthSchema}.{GetAuthorizationViewName(subject, claim, authorizationPathModifier)}";
+            return $"{SystemConventions.AuthSchema}.{GetAuthorizationViewName(claim, subject, authorizationPathModifier)}";
         }
     }
 }
