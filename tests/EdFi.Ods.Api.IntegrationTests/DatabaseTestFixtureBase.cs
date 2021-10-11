@@ -3,10 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Data;
-using System.Data.SqlClient;
-using System.Transactions;
 using NUnit.Framework;
+using System.Data;
+using System.Transactions;
 
 namespace EdFi.Ods.Api.IntegrationTests
 {
@@ -25,17 +24,12 @@ namespace EdFi.Ods.Api.IntegrationTests
         }
 
         [TearDown]
-        public void TearDown()  
+        public void TearDown()
         {
             _transaction.Dispose();
             Connection?.Dispose();
         }
 
-        protected virtual IDbConnection BuildTestConnection()
-        {
-            var connection = new SqlConnection(OneTimeGlobalDatabaseSetup.SqlServerConnectionString);
-            connection.Open();
-            return connection;
-        }
+        protected virtual IDbConnection BuildTestConnection() => OneTimeGlobalDatabaseSetup.BuildConnection();
     }
 }

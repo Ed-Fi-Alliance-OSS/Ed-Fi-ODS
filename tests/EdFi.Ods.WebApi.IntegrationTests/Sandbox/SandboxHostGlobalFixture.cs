@@ -18,7 +18,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
     [SetUpFixture]
     public class SandboxHostGlobalFixture
     {
-        private DatabaseHelper _databaseHelper;
+        private MsSqlDatabaseHelper _databaseHelper;
 
         public static IHost Host { get; set; }
 
@@ -57,7 +57,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
                         "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
                 }
 
-                _databaseHelper = new DatabaseHelper((IConfigurationRoot) Configuration);
+                _databaseHelper = new MsSqlDatabaseHelper((IConfigurationRoot) Configuration);
 
                 // sandbox databases
                 _databaseHelper.CopyDatabase(populatedTemplateDatabaseName, GlobalWebApiIntegrationTestFixture.DatabaseName);

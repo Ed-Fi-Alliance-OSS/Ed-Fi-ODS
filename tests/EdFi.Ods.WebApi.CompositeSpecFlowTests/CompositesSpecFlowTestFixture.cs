@@ -25,7 +25,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
         public static IHost Host { get; private set; }
 
-        public static DatabaseHelper DatabaseHelper { get; private set; }
+        public static MsSqlDatabaseHelper DatabaseHelper { get; private set; }
 
         public static IServiceProvider ServiceProvider { get; private set; }
 
@@ -62,7 +62,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
             }
 
-            DatabaseHelper = new DatabaseHelper(configuration);
+            DatabaseHelper = new MsSqlDatabaseHelper(configuration);
             DatabaseHelper.CopyDatabase(populatedTemplateDatabaseName, SpecFlowDatabaseName);
 
             await Host.StartAsync();

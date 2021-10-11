@@ -19,7 +19,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
     [SetUpFixture]
     public class YearSpecificHostGlobalFixture
     {
-        private DatabaseHelper _databaseHelper;
+        private MsSqlDatabaseHelper _databaseHelper;
 
         public static IHost Host { get; set; }
 
@@ -67,7 +67,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
                         "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
                 }
 
-                _databaseHelper = new DatabaseHelper((IConfigurationRoot) Configuration);
+                _databaseHelper = new MsSqlDatabaseHelper((IConfigurationRoot) Configuration);
 
                 // year specific databases
                 _databaseHelper.CopyDatabase(
