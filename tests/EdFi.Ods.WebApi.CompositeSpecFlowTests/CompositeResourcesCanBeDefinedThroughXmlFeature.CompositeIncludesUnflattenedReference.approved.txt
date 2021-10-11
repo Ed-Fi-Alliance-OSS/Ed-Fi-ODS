@@ -34,4 +34,22 @@ where comp_aaa.Id IN (:BaseEntityId) AND (comp_aab.StudentUSI IN (
                             WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.EntryDate,
 	comp_aaa.SchoolId,
+	comp_aaa.StudentUSIHQL:
+select 
+	comp_aaa.Id As __BaseEntityId__,
+	comp_aaa.EntryDate as PK1a_EntryDate,
+	comp_aaa.SchoolId as PK1a_SchoolId,
+	comp_aaa.StudentUSI as PK1a_StudentUSI,
+	comp_aab.FirstName as firstName,
+	comp_aab.MiddleName as middleName,
+	comp_aab.LastSurname as lastSurname
+from 
+	EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ comp_aaa
+	join comp_aaa.Student comp_aab
+where comp_aaa.Id IN (:BaseEntityId) AND (comp_aab.StudentUSI IN (
+                            SELECT fltr_aab.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId fltr_aab 
+                            WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
+order by comp_aaa.EntryDate,
+	comp_aaa.SchoolId,
 	comp_aaa.StudentUSI
