@@ -83,8 +83,8 @@ namespace EdFi.Ods.Api.Security.Authorization
                 ValidateTableNameParts(claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
                 string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
-                    subjectEndpointName,
                     claimEndpointName,
+                    subjectEndpointName,
                     authorizationSegment.AuthorizationPathModifier);
 
                 if (!IsAuthorizationViewSupported(derivedAuthorizationViewName))
