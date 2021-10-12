@@ -49,19 +49,21 @@ namespace EdFi.Ods.Api.Security.Authorization
             var unsupportedAuthorizationViews = new List<string>();
             var authorizationPathModifiers = new List<string>();
 
+            // Perform defensive check against non-EdOrg-based claim endpoints
+            // NOTE: Assumption here is that the claims endpoints will only contain identifiers for EdOrg-derived entities.
+            var unsupportedClaimEndpointNames = authorizationSegments.First()
+                .ClaimsEndpoints.Select(x => x.Name)
+                .Distinct()
+                .Where(x => !EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(x))
+                .ToArray();
+
+            if (unsupportedClaimEndpointNames.Any())
+            {
+                throw new NotSupportedException($"Claim endpoint names of '{string.Join("', '", unsupportedClaimEndpointNames)}' are not supported for authorization.");
+            }
+
             foreach (var authorizationSegment in authorizationSegments)
             {
-                var claimsEndpointNames =authorizationSegment.ClaimsEndpoints.Select(x => x.Name).Distinct().ToList();
-
-                claimsEndpointNames.ForEach(x =>
-                {
-                     if (!EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(x))
-                     {
-                         throw new NotSupportedException(
-                               $"Claim endpoint name of '{x}' is not yet supported for authorization.");
-                     }
-                });
-
                 string claimEndpointName = "EducationOrganizationId";
 
                 string subjectEndpointName = EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.SubjectEndpoint.Name)
