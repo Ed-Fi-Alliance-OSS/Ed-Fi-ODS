@@ -51,11 +51,16 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             foreach (var authorizationSegment in authorizationSegments)
             {
-                if(!EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.ClaimsEndpoints.FirstOrDefault().Name))
+                var claimsEndpointNames =authorizationSegment.ClaimsEndpoints.Select(x => x.Name).Distinct().ToList();
+
+                claimsEndpointNames.ForEach(x =>
                 {
-                    throw new NotSupportedException(
-                         $"Claim endpoint name of '{authorizationSegment.ClaimsEndpoints.FirstOrDefault().Name}' is not yet supported for authorization.");
-                }
+                     if (!EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(x))
+                     {
+                         throw new NotSupportedException(
+                               $"Claim endpoint name of '{x}' is not yet supported for authorization.");
+                     }
+                });
 
                 string claimEndpointName = "EducationOrganizationId";
 
