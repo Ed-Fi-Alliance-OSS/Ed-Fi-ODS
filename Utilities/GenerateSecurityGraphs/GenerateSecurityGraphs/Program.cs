@@ -928,10 +928,11 @@ order by
             var tempZipPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz.zip");
             var tempDirPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz");
 
+            // Some antiviruses have false positives and detect Graphviz as a trojan, more info: https://gitlab.com/graphviz/graphviz/-/issues/1773
             using var webClient = new WebClient();
             webClient.DownloadFile(
                 new Uri(
-                    "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.48.0/stable_windows_10_msbuild_Release_Win32_graphviz-2.48.0-win32.zip"),
+                    "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.46.1/stable_windows_10_msbuild_Release_Win32_graphviz-2.46.1-win32.zip"),
                 tempZipPath
             );
 
