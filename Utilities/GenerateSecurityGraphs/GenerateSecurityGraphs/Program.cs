@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Text;
 using CommandLine;
 using CommandLine.Text;
+using Dapper;
 using GenerateSecurityGraphs.Models.AuthorizationMetadata;
 using GenerateSecurityGraphs.Models.Query;
 using QuikGraph;
@@ -99,6 +100,7 @@ namespace GenerateSecurityGraphs
     internal class Program
     {
         private static string renderingClaimSetName;
+        private static Dictionary<string, string> claimNamesToDisplayNames;
 
         private static void Main(string[] args)
         {
@@ -256,7 +258,7 @@ namespace GenerateSecurityGraphs
                      select new
                      {
                          Subgraph = subgraph,
-                         OutputFileName = Path.Combine(outputFolder, rootNode.Name),
+                         OutputFileName = Path.Combine(outputFolder, claimNamesToDisplayNames[rootNode.Name]),
                          UnflattenToDepth =
                                     subgraph.Vertices.Count() < 20
                                         ? 0
@@ -312,41 +314,49 @@ namespace GenerateSecurityGraphs
         {
             var resourceGraph = new AdjacencyGraph<Resource, Edge<Resource>>();
 
-            const string providerName = "System.Data.SqlClient";
-
             string metadataSql = @"
-select	rc.ResourceClaimId, rc.ClaimName, prc.ClaimName as ParentClaimName, a.ActionName, as_.AuthorizationStrategyName
-from	dbo.ResourceClaims rc
-        left join dbo.ResourceClaims prc
-            ON rc.ParentResourceClaimId = prc.ResourceClaimId
-        left join dbo.ResourceClaimAuthorizationMetadatas rcas
-            ON rc.ResourceClaimId = rcas.ResourceClaim_ResourceClaimId
-        left join dbo.AuthorizationStrategies as_
-            ON rcas.AuthorizationStrategy_AuthorizationStrategyId = as_.AuthorizationStrategyId
-        left join dbo.Actions a
-            ON rcas.Action_ActionId = a.ActionId
-order by rc.ClaimName, a.ActionId, as_.AuthorizationStrategyName";
+select	
+	  rc.ClaimName
+	, rc.DisplayName
+	, prc.ClaimName as ParentClaimName
+    , prc.DisplayName as ParentDisplayName
+	, a.ActionName
+	, as_.AuthorizationStrategyName
+from dbo.ResourceClaims rc
+        left join dbo.ResourceClaims prc ON rc.ParentResourceClaimId = prc.ResourceClaimId
+        left join dbo.ResourceClaimAuthorizationMetadatas rcas ON rc.ResourceClaimId = rcas.ResourceClaim_ResourceClaimId
+        left join dbo.AuthorizationStrategies as_ ON rcas.AuthorizationStrategy_AuthorizationStrategyId = as_.AuthorizationStrategyId
+        left join dbo.Actions a ON rcas.Action_ActionId = a.ActionId
+order by 
+	  rc.DisplayName
+	, a.ActionId
+	, as_.AuthorizationStrategyName
+";
 
             string claimSetSql = @"
-select	ClaimSetId, ClaimSetName, ClaimName, ActionName, null As StrategyName
+select	
+	  ClaimSetName
+	, ClaimName
+	, ActionName, null As StrategyName
 from	dbo.ClaimSets cs
         left join dbo.ClaimSetResourceClaims csrc ON cs.ClaimSetId = csrc.ClaimSet_ClaimSetId
         left join dbo.Actions a ON csrc.Action_ActionId = a.ActionId
         left join dbo.ResourceClaims rc ON csrc.ResourceClaim_ResourceClaimId = rc.ResourceClaimId
-order by ClaimSetName, ClaimName, Action_ActionId
+order by 
+	  ClaimSetName
+	, DisplayName
+	, Action_ActionId
 ";
 
-            var metadataEdges = GetResourceClaimMetadata(connectionString, providerName, metadataSql);
-            var claimsetResourceActions = GetClaimSetMetadata(connectionString, providerName, claimSetSql);
+            using var conn = new SqlConnection(connectionString);
+            var metadataEdges = conn.Query<ResourceSegmentData>(metadataSql);
+            var claimsetResourceActions = conn.Query<ClaimsetResourceActionData>(claimSetSql);
 
-            var distinctMetadataEdges =
-                (from e in metadataEdges
-                 select new
-                 {
-                     e.ClaimName,
-                     e.ParentClaimName
-                 }
-                ).Distinct();
+            var distinctMetadataEdges = metadataEdges
+                .GroupBy(e => (e.ClaimName, e.ParentClaimName))
+                .Select(grp => grp.First());
+
+            claimNamesToDisplayNames = distinctMetadataEdges.ToDictionary(e => e.ClaimName, e => e.DisplayName);
 
             // First process the segments into the graph
             foreach (var metadataEdge in distinctMetadataEdges)
@@ -485,102 +495,6 @@ order by ClaimSetName, ClaimName, Action_ActionId
         //    }
         //}
 
-        private static List<ClaimsetResourceActionData> GetClaimSetMetadata(string connectionString, string providerName, string claimSetSql)
-        {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = claimSetSql;
-
-                var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                int actionNameCol = reader.GetOrdinal("ActionName");
-                int claimSetNameCol = reader.GetOrdinal("ClaimSetName");
-                int claimNameCol = reader.GetOrdinal("ClaimName");
-                int strategyNameCol = reader.GetOrdinal("StrategyName");
-
-                var results = new List<ClaimsetResourceActionData>();
-
-                while (reader.Read())
-                {
-                    var item = new ClaimsetResourceActionData();
-
-                    if (!reader.IsDBNull(actionNameCol))
-                    {
-                        item.ActionName = reader.GetFieldValue<string>(actionNameCol);
-                    }
-
-                    if (!reader.IsDBNull(claimSetNameCol))
-                    {
-                        item.ClaimSetName = reader.GetFieldValue<string>(claimSetNameCol);
-                    }
-
-                    if (!reader.IsDBNull(claimNameCol))
-                    {
-                        item.ClaimName = reader.GetFieldValue<string>(claimNameCol);
-                    }
-
-                    if (!reader.IsDBNull(strategyNameCol))
-                    {
-                        item.StrategyName = reader.GetFieldValue<string>(strategyNameCol);
-                    }
-
-                    results.Add(item);
-                }
-
-                return results;
-            }
-        }
-
-        private static List<ResourceSegmentData> GetResourceClaimMetadata(string connectionString, string providerName, string metadataSql)
-        {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = metadataSql;
-
-                var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                int actionNameCol = reader.GetOrdinal("ActionName");
-                int authorizationStrategyNameCol = reader.GetOrdinal("AuthorizationStrategyName");
-                int parentClaimNameCol = reader.GetOrdinal("ParentClaimName");
-                int claimNameCol = reader.GetOrdinal("ClaimName");
-
-                var results = new List<ResourceSegmentData>();
-
-                while (reader.Read())
-                {
-                    var item = new ResourceSegmentData();
-
-                    if (!reader.IsDBNull(actionNameCol))
-                    {
-                        item.ActionName = reader.GetFieldValue<string>(actionNameCol);
-                    }
-
-                    if (!reader.IsDBNull(authorizationStrategyNameCol))
-                    {
-                        item.AuthorizationStrategyName = reader.GetFieldValue<string>(authorizationStrategyNameCol);
-                    }
-
-                    if (!reader.IsDBNull(parentClaimNameCol))
-                    {
-                        item.ParentClaimName = reader.GetFieldValue<string>(parentClaimNameCol);
-                    }
-
-                    if (!reader.IsDBNull(claimNameCol))
-                    {
-                        item.ClaimName = reader.GetFieldValue<string>(claimNameCol);
-                    }
-
-                    results.Add(item);
-                }
-
-                return results;
-            }
-        }
-
         private static void SetParentReferences(
             Resource parentResource,
             Resource childResource,
@@ -678,7 +592,7 @@ order by ClaimSetName, ClaimName, Action_ActionId
 </TR>
 </TABLE>
 >",
-                    resource.Name,
+                    claimNamesToDisplayNames[resource.Name],
                     Colors.Header,
                     GetActionColor(effectiveCreatePermissions),
                     EmphasizeExplicitStart(effectiveCreatePermissions),
@@ -747,7 +661,7 @@ order by ClaimSetName, ClaimName, Action_ActionId
 </TR>
 </TABLE>
 >",
-                    resource.Name,
+                    claimNamesToDisplayNames[resource.Name],
                     GetActionColor(effectiveCreatePermissions), effectiveCreatePermissions.AuthorizationStrategy,
                     GetAuthorizationStrategyText(effectiveCreatePermissions),
                     GetActionColor(effectiveReadPermissions), effectiveReadPermissions.AuthorizationStrategy,
@@ -842,7 +756,7 @@ order by ClaimSetName, ClaimName, Action_ActionId
                 if (effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyInherited)
                 {
                     // Add on originating resource name for the inherited overrides
-                    sb.Append(@" (" + effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyOriginatingClaimName + ")");
+                    sb.Append(@" (" + claimNamesToDisplayNames[effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyOriginatingClaimName] + ")");
                     sb.Append(@"</i>");
                 }
 
@@ -864,7 +778,7 @@ order by ClaimSetName, ClaimName, Action_ActionId
                 if (effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyInherited)
                 {
                     // Add on originating resource name for the inherited overrides
-                    sb.Append(@" (" + effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyOriginatingClaimName + ")");
+                    sb.Append(@" (" + claimNamesToDisplayNames[effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyOriginatingClaimName] + ")");
                     sb.Append(@"</i>");
                 }
 
