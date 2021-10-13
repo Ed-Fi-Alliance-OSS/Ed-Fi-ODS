@@ -72,6 +72,61 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.School
     FOR EACH ROW EXECUTE PROCEDURE auth.edfi_School_TR_Update();
 
+CREATE FUNCTION auth.edfi_LocalEducationAgency_TR_Insert()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId
+    SELECT NEW.EducationServiceCenterId, NEW.LocalEducationAgencyId
+    WHERE NEW.EducationServiceCenterId IS NOT NULL
+    ON CONFLICT DO NOTHING;
+
+    INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId
+    SELECT p.SourceEducationOrganizationId, NEW.LocalEducationAgencyId
+    FROM auth.EducationOrganizationIdToEducationOrganizationId p
+    WHERE NEW.EducationServiceCenterId IS NOT NULL
+      AND NEW.EducationServiceCenterId = p.TargetEducationOrganizationId
+    ON CONFLICT DO NOTHING;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON edfi.LocalEducationAgency
+    FOR EACH ROW EXECUTE PROCEDURE auth.edfi_LocalEducationAgency_TR_Insert();
+
+CREATE FUNCTION auth.edfi_LocalEducationAgency_TR_Update()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    DELETE FROM auth.EducationOrganizationIdToEducationOrganizationId
+    WHERE TargetEducationOrganizationId = OLD.LocalEducationAgencyId
+        AND SourceEducationOrganizationId IN (
+        SELECT SourceEducationOrganizationId
+        FROM auth.EducationOrganizationIdToEducationOrganizationId p
+        WHERE OLD.EducationServiceCenterId IS NOT NULL
+            AND TargetEducationOrganizationId = OLD.EducationServiceCenterId
+            AND (NEW.EducationServiceCenterId IS NULL
+                 OR OLD.EducationServiceCenterId <> NEW.EducationServiceCenterId));
+
+    INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId
+    SELECT NEW.EducationServiceCenterId, NEW.LocalEducationAgencyId
+    WHERE NEW.EducationServiceCenterId IS NOT NULL
+    ON CONFLICT DO NOTHING;
+
+    INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId
+    SELECT p.SourceEducationOrganizationId, NEW.LocalEducationAgencyId
+    FROM auth.EducationOrganizationIdToEducationOrganizationId p
+    WHERE NEW.EducationServiceCenterId IS NOT NULL
+      AND NEW.EducationServiceCenterId = p.TargetEducationOrganizationId
+    ON CONFLICT DO NOTHING;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER UpdateAuthTuples AFTER UPDATE ON edfi.LocalEducationAgency
+    FOR EACH ROW EXECUTE PROCEDURE auth.edfi_LocalEducationAgency_TR_Update();
+
 CREATE FUNCTION auth.edfi_CommunityProvider_TR_Insert()
     RETURNS trigger AS
 $BODY$

@@ -77,5 +77,41 @@ namespace EdFi.Ods.Api.IntegrationTests
             EducationOrganizationHelper.ShouldContainTuples(Connection, (9001, 9001));
             EducationOrganizationHelper.ShouldNotContainTuples(Connection, (900, 9001));
         }
+
+        [Test]
+        public void When_inserting_and_deleting_school_without_local_education_agency_and_education_service_center_should_update_tuples()
+        {
+            Builder
+                .AddEducationServiceCenter(90)
+                .AddLocalEducationAgency(900, educationServiceCenterId: 90)
+                .AddSchool(9001, 900)
+                .Execute();
+
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (90, 900), (90, 9001), (900, 9001), (9001, 9001));
+
+            Builder
+                .DeleteEducationOrganization(9001)
+                .Execute();
+
+            EducationOrganizationHelper.ShouldNotContainTuples(Connection, (90, 9001), (900, 9001), (9001, 9001));
+        }
+
+        [Test]
+        public void When_updating_school_without_local_education_agency_to_with_local_education_agency_with_education_service_center_should_update_tuples()
+        {
+            Builder
+                .AddEducationServiceCenter(90)
+                .AddLocalEducationAgency(900, educationServiceCenterId: 90)
+                .AddSchool(9001)
+                .Execute();
+
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (90, 900), (9001, 9001));
+
+            Builder
+                .UpdateSchool(9001, 900)
+                .Execute();
+
+            EducationOrganizationHelper.ShouldContainTuples(Connection, (90, 900), (9001, 9001), (90, 9001), (900, 9001));
+        }
     }
 }
