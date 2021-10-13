@@ -76,23 +76,23 @@ namespace GenerateSecurityGraphs
 
     internal struct AuthorizationKey
     {
-        public AuthorizationKey(string claimSetName, string resourceName, string actionName)
+        public AuthorizationKey(string claimSetName, string claimName, string actionName)
             : this()
         {
             ClaimSetName = claimSetName;
-            ResourceName = resourceName;
+            ClaimName = claimName;
             ActionName = actionName;
         }
 
         public string ClaimSetName { get; set; }
 
-        public string ResourceName { get; set; }
+        public string ClaimName { get; set; }
 
         public string ActionName { get; set; }
 
         public override string ToString()
         {
-            return ResourceName + " (" + ClaimSetName + "; " + ActionName + ")";
+            return ClaimName + " (" + ClaimSetName + "; " + ActionName + ")";
         }
     }
 
@@ -315,7 +315,7 @@ namespace GenerateSecurityGraphs
             const string providerName = "System.Data.SqlClient";
 
             string metadataSql = @"
-select	rc.ResourceClaimId, rc.ResourceName, prc.ResourceName as ParentResourceName, a.ActionName, as_.AuthorizationStrategyName
+select	rc.ResourceClaimId, rc.ClaimName, prc.ClaimName as ParentClaimName, a.ActionName, as_.AuthorizationStrategyName
 from	dbo.ResourceClaims rc
         left join dbo.ResourceClaims prc
             ON rc.ParentResourceClaimId = prc.ResourceClaimId
@@ -325,15 +325,15 @@ from	dbo.ResourceClaims rc
             ON rcas.AuthorizationStrategy_AuthorizationStrategyId = as_.AuthorizationStrategyId
         left join dbo.Actions a
             ON rcas.Action_ActionId = a.ActionId
-order by rc.ResourceName, a.ActionId, as_.AuthorizationStrategyName";
+order by rc.ClaimName, a.ActionId, as_.AuthorizationStrategyName";
 
             string claimSetSql = @"
-select	ClaimSetId, ClaimSetName, ResourceName, ActionName, null As StrategyName
+select	ClaimSetId, ClaimSetName, ClaimName, ActionName, null As StrategyName
 from	dbo.ClaimSets cs
         left join dbo.ClaimSetResourceClaims csrc ON cs.ClaimSetId = csrc.ClaimSet_ClaimSetId
         left join dbo.Actions a ON csrc.Action_ActionId = a.ActionId
         left join dbo.ResourceClaims rc ON csrc.ResourceClaim_ResourceClaimId = rc.ResourceClaimId
-order by ClaimSetName, ResourceName, Action_ActionId
+order by ClaimSetName, ClaimName, Action_ActionId
 ";
 
             var metadataEdges = GetResourceClaimMetadata(connectionString, providerName, metadataSql);
@@ -343,22 +343,22 @@ order by ClaimSetName, ResourceName, Action_ActionId
                 (from e in metadataEdges
                  select new
                  {
-                     e.ResourceName,
-                     e.ParentResourceName
+                     e.ClaimName,
+                     e.ParentClaimName
                  }
                 ).Distinct();
 
             // First process the segments into the graph
             foreach (var metadataEdge in distinctMetadataEdges)
             {
-                if (string.IsNullOrEmpty(metadataEdge.ParentResourceName))
+                if (string.IsNullOrEmpty(metadataEdge.ParentClaimName))
                 {
-                    resourceGraph.AddVertex(new Resource(metadataEdge.ResourceName));
+                    resourceGraph.AddVertex(new Resource(metadataEdge.ClaimName));
                 }
                 else
                 {
                     resourceGraph.AddVerticesAndEdge(
-                        new Edge<Resource>(new Resource(metadataEdge.ParentResourceName), new Resource(metadataEdge.ResourceName)));
+                        new Edge<Resource>(new Resource(metadataEdge.ParentClaimName), new Resource(metadataEdge.ClaimName)));
                 }
             }
 
@@ -366,11 +366,11 @@ order by ClaimSetName, ResourceName, Action_ActionId
             var edgesGroupedByResoureName =
                 from e in metadataEdges
                 where e.ActionName != null
-                group e by e.ResourceName
+                group e by e.ClaimName
                 into g
                 select new
                 {
-                    ResourceName = g.Key,
+                    ClaimName = g.Key,
                     Actions = g.Select(
                                x => new
                                {
@@ -382,7 +382,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
             // Augment each vertex with the actions/strategies
             foreach (var edge in edgesGroupedByResoureName)
             {
-                var vertex = resourceGraph.Vertices.Single(x => x.Name == edge.ResourceName);
+                var vertex = resourceGraph.Vertices.Single(x => x.Name == edge.ClaimName);
 
                 vertex.ActionAndStrategyPairs.AddRange(
                     from e in edge.Actions
@@ -403,11 +403,11 @@ order by ClaimSetName, ResourceName, Action_ActionId
                      ClaimSetName = mainGroup.Key,
                      Resources =
                                 (from mg in mainGroup
-                                 group mg by mg.ResourceName
+                                 group mg by mg.ClaimName
                                  into subGroup
                                  select new
                                  {
-                                     ResourceName = subGroup.Key,
+                                     ClaimName = subGroup.Key,
                                      ActionStrategy =
                                                 (from sg in subGroup
                                                  where !string.IsNullOrEmpty(sg.ActionName)
@@ -428,7 +428,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
                 foreach (var resourceItem in claimsetItem.Resources)
                 {
-                    var resourceVertex = resourceGraph.Vertices.Single(x => x.Name == resourceItem.ResourceName);
+                    var resourceVertex = resourceGraph.Vertices.Single(x => x.Name == resourceItem.ClaimName);
 
                     foreach (var actionStrategyItem in resourceItem.ActionStrategy)
                     {
@@ -497,7 +497,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
                 int actionNameCol = reader.GetOrdinal("ActionName");
                 int claimSetNameCol = reader.GetOrdinal("ClaimSetName");
-                int resourceNameCol = reader.GetOrdinal("ResourceName");
+                int claimNameCol = reader.GetOrdinal("ClaimName");
                 int strategyNameCol = reader.GetOrdinal("StrategyName");
 
                 var results = new List<ClaimsetResourceActionData>();
@@ -516,9 +516,9 @@ order by ClaimSetName, ResourceName, Action_ActionId
                         item.ClaimSetName = reader.GetFieldValue<string>(claimSetNameCol);
                     }
 
-                    if (!reader.IsDBNull(resourceNameCol))
+                    if (!reader.IsDBNull(claimNameCol))
                     {
-                        item.ResourceName = reader.GetFieldValue<string>(resourceNameCol);
+                        item.ClaimName = reader.GetFieldValue<string>(claimNameCol);
                     }
 
                     if (!reader.IsDBNull(strategyNameCol))
@@ -545,8 +545,8 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
                 int actionNameCol = reader.GetOrdinal("ActionName");
                 int authorizationStrategyNameCol = reader.GetOrdinal("AuthorizationStrategyName");
-                int parentResourceNameCol = reader.GetOrdinal("ParentResourceName");
-                int resourceNameCol = reader.GetOrdinal("ResourceName");
+                int parentClaimNameCol = reader.GetOrdinal("ParentClaimName");
+                int claimNameCol = reader.GetOrdinal("ClaimName");
 
                 var results = new List<ResourceSegmentData>();
 
@@ -564,14 +564,14 @@ order by ClaimSetName, ResourceName, Action_ActionId
                         item.AuthorizationStrategyName = reader.GetFieldValue<string>(authorizationStrategyNameCol);
                     }
 
-                    if (!reader.IsDBNull(parentResourceNameCol))
+                    if (!reader.IsDBNull(parentClaimNameCol))
                     {
-                        item.ParentResourceName = reader.GetFieldValue<string>(parentResourceNameCol);
+                        item.ParentClaimName = reader.GetFieldValue<string>(parentClaimNameCol);
                     }
 
-                    if (!reader.IsDBNull(resourceNameCol))
+                    if (!reader.IsDBNull(claimNameCol))
                     {
-                        item.ResourceName = reader.GetFieldValue<string>(resourceNameCol);
+                        item.ClaimName = reader.GetFieldValue<string>(claimNameCol);
                     }
 
                     results.Add(item);
@@ -842,7 +842,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
                 if (effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyInherited)
                 {
                     // Add on originating resource name for the inherited overrides
-                    sb.Append(@" (" + effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyOriginatingResourceName + ")");
+                    sb.Append(@" (" + effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyOriginatingClaimName + ")");
                     sb.Append(@"</i>");
                 }
 
@@ -864,7 +864,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
                 if (effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyInherited)
                 {
                     // Add on originating resource name for the inherited overrides
-                    sb.Append(@" (" + effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyOriginatingResourceName + ")");
+                    sb.Append(@" (" + effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyOriginatingClaimName + ")");
                     sb.Append(@"</i>");
                 }
 
@@ -888,7 +888,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
                  where pair != null
                  select new
                  {
-                     OriginatingResourceName = r.Name,
+                     OriginatingClaimName = r.Name,
                      ActionAndStrategy = pair
                  })
                .Reverse()
@@ -898,7 +898,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
             {
                 effectiveActionAndStrategy.TrySetAuthorizationStrategy(
                     pair.ActionAndStrategy.AuthorizationStrategy,
-                    pair.OriginatingResourceName,
+                    pair.OriginatingClaimName,
                     inherited: true,
                     isDefault: true);
             }
@@ -941,7 +941,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
                  where claimsetPair != null
                  select new
                  {
-                     OriginatingResourceName = r.Name,
+                     OriginatingClaimName = r.Name,
                      ActionAndStrategy = claimsetPair
                  })
                .ToList();
@@ -952,7 +952,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
                 effectiveActionAndStrategy.TrySetAuthorizationStrategy(
                     pair.ActionAndStrategy.AuthorizationStrategy,
-                    pair.OriginatingResourceName,
+                    pair.OriginatingClaimName,
                     inherited: true,
                     isDefault: false);
             }

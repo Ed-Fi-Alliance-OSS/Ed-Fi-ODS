@@ -7,13 +7,13 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 {
     public class EffectiveActionAndStrategy
     {
-        public EffectiveActionAndStrategy(string resourceName, string actionName)
+        public EffectiveActionAndStrategy(string claimName, string actionName)
         {
-            ResourceName = resourceName;
+            ClaimName = claimName;
             ActionName = actionName;
         }
 
-        public string ResourceName { get; }
+        public string ClaimName { get; }
 
         public string ActionName { get; }
 
@@ -23,7 +23,7 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
         public string AuthorizationStrategy { get; private set; }
 
-        public string AuthorizationStrategyOriginatingResourceName { get; private set; }
+        public string AuthorizationStrategyOriginatingClaimName { get; private set; }
 
         public bool AuthorizationStrategyInherited { get; private set; }
 
@@ -33,13 +33,13 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
         public string OverriddenClaimSetAuthorizationStrategy { get; private set; }
 
-        public string OverriddenClaimSetAuthorizationStrategyOriginatingResourceName { get; private set; }
+        public string OverriddenClaimSetAuthorizationStrategyOriginatingClaimName { get; private set; }
 
         public bool OverriddenClaimSetAuthorizationStrategyInherited { get; private set; }
 
         public string OverriddenDefaultAuthorizationStrategy { get; private set; }
 
-        public string OverriddenDefaultAuthorizationStrategyOriginatingResourceName { get; private set; }
+        public string OverriddenDefaultAuthorizationStrategyOriginatingClaimName { get; private set; }
 
         public bool OverriddenDefaultAuthorizationStrategyInherited { get; private set; }
 
@@ -58,7 +58,7 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
         // This method must be called in increasing order of significance
 
-        public bool TrySetAuthorizationStrategy(string strategyName, string originatingResourceName, bool inherited, bool isDefault)
+        public bool TrySetAuthorizationStrategy(string strategyName, string originatingClaimName, bool inherited, bool isDefault)
         {
             // Strategy name is required
             if (string.IsNullOrEmpty(strategyName))
@@ -80,8 +80,8 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
                     if (AuthorizationStrategyInherited)
                     {
-                        OverriddenDefaultAuthorizationStrategyOriginatingResourceName =
-                            AuthorizationStrategyOriginatingResourceName;
+                        OverriddenDefaultAuthorizationStrategyOriginatingClaimName =
+                            AuthorizationStrategyOriginatingClaimName;
                     }
                 }
                 else
@@ -91,14 +91,14 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
                     if (AuthorizationStrategyInherited)
                     {
-                        OverriddenClaimSetAuthorizationStrategyOriginatingResourceName =
-                            AuthorizationStrategyOriginatingResourceName;
+                        OverriddenClaimSetAuthorizationStrategyOriginatingClaimName =
+                            AuthorizationStrategyOriginatingClaimName;
                     }
                 }
             }
 
             AuthorizationStrategy = strategyName;
-            AuthorizationStrategyOriginatingResourceName = originatingResourceName;
+            AuthorizationStrategyOriginatingClaimName = originatingClaimName;
             AuthorizationStrategyInherited = inherited;
             AuthorizationStrategyIsDefault = isDefault;
 

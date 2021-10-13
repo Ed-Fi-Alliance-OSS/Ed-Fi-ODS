@@ -9,7 +9,7 @@ namespace GenerateSecurityGraphs.Models.Query
     {
         public string ClaimSetName { get; set; }
 
-        public string ResourceName { get; set; }
+        public string ClaimName { get; set; }
 
         public string ActionName { get; set; }
 
@@ -21,7 +21,7 @@ namespace GenerateSecurityGraphs.Models.Query
         //    get
         //    {
         //        if (ClaimSetName == "SIS Vendor"
-        //            && ResourceName == "course"
+        //            && ClaimName == "course"
         //            && ActionName == "Read")
         //        {
         //            return "PrimaryRelationships";
