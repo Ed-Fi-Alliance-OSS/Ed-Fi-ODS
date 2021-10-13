@@ -197,6 +197,8 @@ namespace GenerateSecurityGraphs
                 }
             }
 
+            Console.WriteLine("Generating graphs, please wait ...");
+
             // Load all authorization metadata into a graph and a list of claim sets
             var authorizationMetadata = new Dictionary<AuthorizationKey, EffectiveActionAndStrategy>();
 
@@ -271,8 +273,6 @@ namespace GenerateSecurityGraphs
                      where sg.Subgraph.Vertices.Count() < 2
                      select sg)
                    .ToList();
-
-                Console.WriteLine("Generating, please wait ...");
 
                 // Generate all larger graphs
                 foreach (var subgraph in subgraphs.Except(subgraphsToCombine))
@@ -594,7 +594,7 @@ order by
 </TR>
 </TABLE>
 >",
-                    claimNamesToDisplayNames[resource.Name],
+                    GetVertexDisplayName(resource.Name),
                     Colors.Header,
                     GetActionColor(effectiveCreatePermissions),
                     EmphasizeExplicitStart(effectiveCreatePermissions),
@@ -663,7 +663,7 @@ order by
 </TR>
 </TABLE>
 >",
-                    claimNamesToDisplayNames[resource.Name],
+                    GetVertexDisplayName(resource.Name),
                     GetActionColor(effectiveCreatePermissions), effectiveCreatePermissions.AuthorizationStrategy,
                     GetAuthorizationStrategyText(effectiveCreatePermissions),
                     GetActionColor(effectiveReadPermissions), effectiveReadPermissions.AuthorizationStrategy,
@@ -685,6 +685,23 @@ order by
 
             f.Label = htmlLabel;
             f.Shape = GraphvizVertexShape.Plaintext;
+        }
+
+        private static string GetVertexDisplayName(string claimName)
+        {
+            // If it has "domains" in the URI. Just use the display name, unmodified in the graph.
+            // If the next to last segment is "claims", add "(ed-fi)" to the display name. Example: student(ed - fi)
+            // If the next to last semgent is anything else, add that segment in parenthesis to the display name.Example: teacherCandidate(tpdm)
+
+            var displayName = claimNamesToDisplayNames[claimName];
+
+            if (claimName.Contains("/domains/", StringComparison.InvariantCultureIgnoreCase)) return displayName;
+
+            var nextToLastSegment = claimName.Split('/')[^2];
+
+            return string.Equals(nextToLastSegment, "claims", StringComparison.InvariantCultureIgnoreCase) ?
+                $"{displayName} (ed-fi)"
+                : $"{displayName} ({nextToLastSegment})";
         }
 
         private static string EmphasizeExplicitStart(EffectiveActionAndStrategy effectiveActionAndStrategy)
