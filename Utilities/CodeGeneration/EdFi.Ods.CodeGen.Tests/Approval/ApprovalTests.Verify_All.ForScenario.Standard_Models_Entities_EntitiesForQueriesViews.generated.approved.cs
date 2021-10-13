@@ -1047,11 +1047,11 @@ namespace EdFi.Ods.Entities.NHibernate.QueryModels.Views
     }
 
     /// <summary>
-    /// A class which represents the auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation table of the (unspecified) aggregate in the ODS database.
+    /// A class which represents the auth.StudentUSIToStudentEdOrgResponsibilityAssociation table of the (unspecified) aggregate in the ODS database.
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class auth_StudentUSIToEducationOrganizationIdThroughEdOrgAssociation : AggregateRootWithCompositeKey
+    public class auth_StudentUSIToStudentEdOrgResponsibilityAssociation : AggregateRootWithCompositeKey
     {
 
         // =============================================================
