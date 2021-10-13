@@ -931,7 +931,7 @@
   },
   {
     "SchemaOwner": "auth",
-    "Name": "StudentUSIToEducationOrganizationIdThroughEdOrgAssociation",
+    "Name": "StudentUSIToStudentEdOrgResponsibilityAssociation",
     "Columns": [
       {
         "Name": "SourceEducationOrganizationId",
