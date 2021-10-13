@@ -272,6 +272,8 @@ namespace GenerateSecurityGraphs
                      select sg)
                    .ToList();
 
+                Console.WriteLine("Generating, please wait ...");
+
                 // Generate all larger graphs
                 foreach (var subgraph in subgraphs.Except(subgraphsToCombine))
                 {
