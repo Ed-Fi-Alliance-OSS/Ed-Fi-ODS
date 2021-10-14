@@ -6,6 +6,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using QuikGraph.Graphviz;
 using QuikGraph.Graphviz.Dot;
 
@@ -60,7 +61,9 @@ namespace GenerateSecurityGraphs
                         UseShellExecute = false,
                         CreateNoWindow = true,
                         RedirectStandardOutput = true
-                    });
+                    })
+                    // Wait, otherwise parent process might exit and kill this process before it completes
+                    .WaitForExit();
 
                 outputFileName = outputFileName + ".unflattened";
             }
@@ -70,7 +73,7 @@ namespace GenerateSecurityGraphs
                 "png", "svg"
             };
 
-            foreach (string outputType in outputTypes)
+            Parallel.ForEach(outputTypes, outputType =>
             {
                 string outputImageFileName = Path.ChangeExtension(outputFileName, outputType);
 
@@ -87,8 +90,10 @@ namespace GenerateSecurityGraphs
                         CreateNoWindow = true,
                         RedirectStandardOutput = true,
                         WorkingDirectory = _assetsFolder
-                    });
-            }
+                    })
+                     // Wait, otherwise parent process might exit and kill this process before it completes
+                    .WaitForExit();
+            });
 
             return outputFileName;
         }

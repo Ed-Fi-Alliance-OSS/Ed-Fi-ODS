@@ -15,6 +15,7 @@ using System.Reflection;
 using System.Text;
 using CommandLine;
 using CommandLine.Text;
+using Dapper;
 using GenerateSecurityGraphs.Models.AuthorizationMetadata;
 using GenerateSecurityGraphs.Models.Query;
 using QuikGraph;
@@ -76,29 +77,30 @@ namespace GenerateSecurityGraphs
 
     internal struct AuthorizationKey
     {
-        public AuthorizationKey(string claimSetName, string resourceName, string actionName)
+        public AuthorizationKey(string claimSetName, string claimName, string actionName)
             : this()
         {
             ClaimSetName = claimSetName;
-            ResourceName = resourceName;
+            ClaimName = claimName;
             ActionName = actionName;
         }
 
         public string ClaimSetName { get; set; }
 
-        public string ResourceName { get; set; }
+        public string ClaimName { get; set; }
 
         public string ActionName { get; set; }
 
         public override string ToString()
         {
-            return ResourceName + " (" + ClaimSetName + "; " + ActionName + ")";
+            return ClaimName + " (" + ClaimSetName + "; " + ActionName + ")";
         }
     }
 
     internal class Program
     {
         private static string renderingClaimSetName;
+        private static Dictionary<string, string> claimNamesToDisplayNames;
 
         private static void Main(string[] args)
         {
@@ -195,6 +197,8 @@ namespace GenerateSecurityGraphs
                 }
             }
 
+            Console.WriteLine("Generating graphs, please wait ...");
+
             // Load all authorization metadata into a graph and a list of claim sets
             var authorizationMetadata = new Dictionary<AuthorizationKey, EffectiveActionAndStrategy>();
 
@@ -256,7 +260,7 @@ namespace GenerateSecurityGraphs
                      select new
                      {
                          Subgraph = subgraph,
-                         OutputFileName = Path.Combine(outputFolder, rootNode.Name),
+                         OutputFileName = Path.Combine(outputFolder, claimNamesToDisplayNames[rootNode.Name]),
                          UnflattenToDepth =
                                     subgraph.Vertices.Count() < 20
                                         ? 0
@@ -312,53 +316,61 @@ namespace GenerateSecurityGraphs
         {
             var resourceGraph = new AdjacencyGraph<Resource, Edge<Resource>>();
 
-            const string providerName = "System.Data.SqlClient";
-
             string metadataSql = @"
-select	rc.ResourceClaimId, rc.ResourceName, prc.ResourceName as ParentResourceName, a.ActionName, as_.AuthorizationStrategyName
-from	dbo.ResourceClaims rc
-        left join dbo.ResourceClaims prc
-            ON rc.ParentResourceClaimId = prc.ResourceClaimId
-        left join dbo.ResourceClaimAuthorizationMetadatas rcas
-            ON rc.ResourceClaimId = rcas.ResourceClaim_ResourceClaimId
-        left join dbo.AuthorizationStrategies as_
-            ON rcas.AuthorizationStrategy_AuthorizationStrategyId = as_.AuthorizationStrategyId
-        left join dbo.Actions a
-            ON rcas.Action_ActionId = a.ActionId
-order by rc.ResourceName, a.ActionId, as_.AuthorizationStrategyName";
+select	
+	  rc.ClaimName
+	, rc.DisplayName
+	, prc.ClaimName as ParentClaimName
+    , prc.DisplayName as ParentDisplayName
+	, a.ActionName
+	, as_.AuthorizationStrategyName
+from dbo.ResourceClaims rc
+        left join dbo.ResourceClaims prc ON rc.ParentResourceClaimId = prc.ResourceClaimId
+        left join dbo.ResourceClaimAuthorizationMetadatas rcas ON rc.ResourceClaimId = rcas.ResourceClaim_ResourceClaimId
+        left join dbo.AuthorizationStrategies as_ ON rcas.AuthorizationStrategy_AuthorizationStrategyId = as_.AuthorizationStrategyId
+        left join dbo.Actions a ON rcas.Action_ActionId = a.ActionId
+order by 
+	  rc.DisplayName
+	, a.ActionId
+	, as_.AuthorizationStrategyName
+";
 
             string claimSetSql = @"
-select	ClaimSetId, ClaimSetName, ResourceName, ActionName, null As StrategyName
+select	
+	  ClaimSetName
+	, ClaimName
+	, ActionName, null As StrategyName
 from	dbo.ClaimSets cs
         left join dbo.ClaimSetResourceClaims csrc ON cs.ClaimSetId = csrc.ClaimSet_ClaimSetId
         left join dbo.Actions a ON csrc.Action_ActionId = a.ActionId
         left join dbo.ResourceClaims rc ON csrc.ResourceClaim_ResourceClaimId = rc.ResourceClaimId
-order by ClaimSetName, ResourceName, Action_ActionId
+order by 
+	  ClaimSetName
+	, DisplayName
+	, Action_ActionId
 ";
 
-            var metadataEdges = GetResourceClaimMetadata(connectionString, providerName, metadataSql);
-            var claimsetResourceActions = GetClaimSetMetadata(connectionString, providerName, claimSetSql);
+            using var conn = new SqlConnection(connectionString);
+            var metadataEdges = conn.Query<ResourceSegmentData>(metadataSql);
+            var claimsetResourceActions = conn.Query<ClaimsetResourceActionData>(claimSetSql);
 
-            var distinctMetadataEdges =
-                (from e in metadataEdges
-                 select new
-                 {
-                     e.ResourceName,
-                     e.ParentResourceName
-                 }
-                ).Distinct();
+            var distinctMetadataEdges = metadataEdges
+                .GroupBy(e => (e.ClaimName, e.ParentClaimName))
+                .Select(grp => grp.First());
+
+            claimNamesToDisplayNames = distinctMetadataEdges.ToDictionary(e => e.ClaimName, e => e.DisplayName);
 
             // First process the segments into the graph
             foreach (var metadataEdge in distinctMetadataEdges)
             {
-                if (string.IsNullOrEmpty(metadataEdge.ParentResourceName))
+                if (string.IsNullOrEmpty(metadataEdge.ParentClaimName))
                 {
-                    resourceGraph.AddVertex(new Resource(metadataEdge.ResourceName));
+                    resourceGraph.AddVertex(new Resource(metadataEdge.ClaimName));
                 }
                 else
                 {
                     resourceGraph.AddVerticesAndEdge(
-                        new Edge<Resource>(new Resource(metadataEdge.ParentResourceName), new Resource(metadataEdge.ResourceName)));
+                        new Edge<Resource>(new Resource(metadataEdge.ParentClaimName), new Resource(metadataEdge.ClaimName)));
                 }
             }
 
@@ -366,11 +378,11 @@ order by ClaimSetName, ResourceName, Action_ActionId
             var edgesGroupedByResoureName =
                 from e in metadataEdges
                 where e.ActionName != null
-                group e by e.ResourceName
+                group e by e.ClaimName
                 into g
                 select new
                 {
-                    ResourceName = g.Key,
+                    ClaimName = g.Key,
                     Actions = g.Select(
                                x => new
                                {
@@ -382,7 +394,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
             // Augment each vertex with the actions/strategies
             foreach (var edge in edgesGroupedByResoureName)
             {
-                var vertex = resourceGraph.Vertices.Single(x => x.Name == edge.ResourceName);
+                var vertex = resourceGraph.Vertices.Single(x => x.Name == edge.ClaimName);
 
                 vertex.ActionAndStrategyPairs.AddRange(
                     from e in edge.Actions
@@ -403,11 +415,11 @@ order by ClaimSetName, ResourceName, Action_ActionId
                      ClaimSetName = mainGroup.Key,
                      Resources =
                                 (from mg in mainGroup
-                                 group mg by mg.ResourceName
+                                 group mg by mg.ClaimName
                                  into subGroup
                                  select new
                                  {
-                                     ResourceName = subGroup.Key,
+                                     ClaimName = subGroup.Key,
                                      ActionStrategy =
                                                 (from sg in subGroup
                                                  where !string.IsNullOrEmpty(sg.ActionName)
@@ -428,7 +440,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
                 foreach (var resourceItem in claimsetItem.Resources)
                 {
-                    var resourceVertex = resourceGraph.Vertices.Single(x => x.Name == resourceItem.ResourceName);
+                    var resourceVertex = resourceGraph.Vertices.Single(x => x.Name == resourceItem.ClaimName);
 
                     foreach (var actionStrategyItem in resourceItem.ActionStrategy)
                     {
@@ -484,102 +496,6 @@ order by ClaimSetName, ResourceName, Action_ActionId
         //        return metadataEdges;
         //    }
         //}
-
-        private static List<ClaimsetResourceActionData> GetClaimSetMetadata(string connectionString, string providerName, string claimSetSql)
-        {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = claimSetSql;
-
-                var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                int actionNameCol = reader.GetOrdinal("ActionName");
-                int claimSetNameCol = reader.GetOrdinal("ClaimSetName");
-                int resourceNameCol = reader.GetOrdinal("ResourceName");
-                int strategyNameCol = reader.GetOrdinal("StrategyName");
-
-                var results = new List<ClaimsetResourceActionData>();
-
-                while (reader.Read())
-                {
-                    var item = new ClaimsetResourceActionData();
-
-                    if (!reader.IsDBNull(actionNameCol))
-                    {
-                        item.ActionName = reader.GetFieldValue<string>(actionNameCol);
-                    }
-
-                    if (!reader.IsDBNull(claimSetNameCol))
-                    {
-                        item.ClaimSetName = reader.GetFieldValue<string>(claimSetNameCol);
-                    }
-
-                    if (!reader.IsDBNull(resourceNameCol))
-                    {
-                        item.ResourceName = reader.GetFieldValue<string>(resourceNameCol);
-                    }
-
-                    if (!reader.IsDBNull(strategyNameCol))
-                    {
-                        item.StrategyName = reader.GetFieldValue<string>(strategyNameCol);
-                    }
-
-                    results.Add(item);
-                }
-
-                return results;
-            }
-        }
-
-        private static List<ResourceSegmentData> GetResourceClaimMetadata(string connectionString, string providerName, string metadataSql)
-        {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = metadataSql;
-
-                var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                int actionNameCol = reader.GetOrdinal("ActionName");
-                int authorizationStrategyNameCol = reader.GetOrdinal("AuthorizationStrategyName");
-                int parentResourceNameCol = reader.GetOrdinal("ParentResourceName");
-                int resourceNameCol = reader.GetOrdinal("ResourceName");
-
-                var results = new List<ResourceSegmentData>();
-
-                while (reader.Read())
-                {
-                    var item = new ResourceSegmentData();
-
-                    if (!reader.IsDBNull(actionNameCol))
-                    {
-                        item.ActionName = reader.GetFieldValue<string>(actionNameCol);
-                    }
-
-                    if (!reader.IsDBNull(authorizationStrategyNameCol))
-                    {
-                        item.AuthorizationStrategyName = reader.GetFieldValue<string>(authorizationStrategyNameCol);
-                    }
-
-                    if (!reader.IsDBNull(parentResourceNameCol))
-                    {
-                        item.ParentResourceName = reader.GetFieldValue<string>(parentResourceNameCol);
-                    }
-
-                    if (!reader.IsDBNull(resourceNameCol))
-                    {
-                        item.ResourceName = reader.GetFieldValue<string>(resourceNameCol);
-                    }
-
-                    results.Add(item);
-                }
-
-                return results;
-            }
-        }
 
         private static void SetParentReferences(
             Resource parentResource,
@@ -678,7 +594,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
 </TR>
 </TABLE>
 >",
-                    resource.Name,
+                    GetVertexDisplayName(resource.Name),
                     Colors.Header,
                     GetActionColor(effectiveCreatePermissions),
                     EmphasizeExplicitStart(effectiveCreatePermissions),
@@ -747,7 +663,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
 </TR>
 </TABLE>
 >",
-                    resource.Name,
+                    GetVertexDisplayName(resource.Name),
                     GetActionColor(effectiveCreatePermissions), effectiveCreatePermissions.AuthorizationStrategy,
                     GetAuthorizationStrategyText(effectiveCreatePermissions),
                     GetActionColor(effectiveReadPermissions), effectiveReadPermissions.AuthorizationStrategy,
@@ -769,6 +685,23 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
             f.Label = htmlLabel;
             f.Shape = GraphvizVertexShape.Plaintext;
+        }
+
+        private static string GetVertexDisplayName(string claimName)
+        {
+            // If it has "domains" in the URI. Just use the display name, unmodified in the graph.
+            // If the next to last segment is "claims", add "(ed-fi)" to the display name. Example: student(ed - fi)
+            // If the next to last semgent is anything else, add that segment in parenthesis to the display name.Example: teacherCandidate(tpdm)
+
+            var displayName = claimNamesToDisplayNames[claimName];
+
+            if (claimName.Contains("/domains/", StringComparison.InvariantCultureIgnoreCase)) return displayName;
+
+            var nextToLastSegment = claimName.Split('/')[^2];
+
+            return string.Equals(nextToLastSegment, "claims", StringComparison.InvariantCultureIgnoreCase) ?
+                $"{displayName} (ed-fi)"
+                : $"{displayName} ({nextToLastSegment})";
         }
 
         private static string EmphasizeExplicitStart(EffectiveActionAndStrategy effectiveActionAndStrategy)
@@ -842,7 +775,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
                 if (effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyInherited)
                 {
                     // Add on originating resource name for the inherited overrides
-                    sb.Append(@" (" + effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyOriginatingResourceName + ")");
+                    sb.Append(@" (" + claimNamesToDisplayNames[effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyOriginatingClaimName] + ")");
                     sb.Append(@"</i>");
                 }
 
@@ -864,7 +797,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
                 if (effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyInherited)
                 {
                     // Add on originating resource name for the inherited overrides
-                    sb.Append(@" (" + effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyOriginatingResourceName + ")");
+                    sb.Append(@" (" + claimNamesToDisplayNames[effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyOriginatingClaimName] + ")");
                     sb.Append(@"</i>");
                 }
 
@@ -888,7 +821,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
                  where pair != null
                  select new
                  {
-                     OriginatingResourceName = r.Name,
+                     OriginatingClaimName = r.Name,
                      ActionAndStrategy = pair
                  })
                .Reverse()
@@ -898,7 +831,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
             {
                 effectiveActionAndStrategy.TrySetAuthorizationStrategy(
                     pair.ActionAndStrategy.AuthorizationStrategy,
-                    pair.OriginatingResourceName,
+                    pair.OriginatingClaimName,
                     inherited: true,
                     isDefault: true);
             }
@@ -941,7 +874,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
                  where claimsetPair != null
                  select new
                  {
-                     OriginatingResourceName = r.Name,
+                     OriginatingClaimName = r.Name,
                      ActionAndStrategy = claimsetPair
                  })
                .ToList();
@@ -952,7 +885,7 @@ order by ClaimSetName, ResourceName, Action_ActionId
 
                 effectiveActionAndStrategy.TrySetAuthorizationStrategy(
                     pair.ActionAndStrategy.AuthorizationStrategy,
-                    pair.OriginatingResourceName,
+                    pair.OriginatingClaimName,
                     inherited: true,
                     isDefault: false);
             }
@@ -1014,10 +947,11 @@ order by ClaimSetName, ResourceName, Action_ActionId
             var tempZipPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz.zip");
             var tempDirPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz");
 
+            // Some antiviruses have false positives and detect Graphviz as a trojan, more info: https://gitlab.com/graphviz/graphviz/-/issues/1773
             using var webClient = new WebClient();
             webClient.DownloadFile(
                 new Uri(
-                    "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.48.0/stable_windows_10_msbuild_Release_Win32_graphviz-2.48.0-win32.zip"),
+                    "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.46.1/stable_windows_10_msbuild_Release_Win32_graphviz-2.46.1-win32.zip"),
                 tempZipPath
             );
 

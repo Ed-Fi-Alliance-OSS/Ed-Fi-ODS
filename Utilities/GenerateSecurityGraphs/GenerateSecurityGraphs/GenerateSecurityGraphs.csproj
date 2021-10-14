@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Dapper" Version="2.0.90" />
     <PackageReference Include="QuikGraph" Version="2.2.0" />
     <PackageReference Include="QuikGraph.Graphviz" Version="2.2.0" />
     <PackageReference Include="QuikGraph.Serialization" Version="2.2.2" />

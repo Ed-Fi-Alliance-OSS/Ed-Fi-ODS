@@ -7,10 +7,12 @@ namespace GenerateSecurityGraphs.Models.Query
 {
     public class ResourceSegmentData
     {
-        public string ResourceName { get; set; }
+        public string ClaimName { get; set; }
+        
+        public string DisplayName { get; set; }
 
-        public string ParentResourceName { get; set; }
-
+        public string ParentClaimName { get; set; }
+        
         public string ActionName { get; set; }
 
         public string AuthorizationStrategyName { get; set; }
