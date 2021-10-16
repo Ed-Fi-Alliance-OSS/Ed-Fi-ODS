@@ -10,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Api.Security.Utilities;
@@ -29,6 +28,9 @@ namespace EdFi.Ods.Api.Security.Authorization
         // TODO: Embedded convention, append authorization path modifier to view name
         private const string StatementTemplate = "EXISTS (SELECT 1 FROM {3} a WHERE a.SourceEducationOrganizationId{0} and a.{1}{2})";
 
+        private const string EducationOrganizationIdEndpointName = "EducationOrganizationId";
+        private const string TargetEducationOrganizationIdColumnName = "TargetEducationOrganizationId";
+
         private readonly Lazy<IReadOnlyList<string>> _supportedAuthorizationViewNames;
 
         private static readonly Regex _identifierRegex = new Regex(@"^[\w]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -46,32 +48,20 @@ namespace EdFi.Ods.Api.Security.Authorization
         {
             var segmentStatements = new List<string>();
             var parameters = new List<DbParameter>();
-            var unsupportedAuthorizationViews = new List<string>();
-            var authorizationPathModifiers = new List<string>();
+            var missingAuthorizationViews = new List<string>();
 
-            // Perform defensive check against non-EdOrg-based claim endpoints
-            // NOTE: Assumption here is that the claims endpoints will only contain identifiers for EdOrg-derived entities.
-            var unsupportedClaimEndpointNames = authorizationSegments.First()
-                .ClaimsEndpoints.Select(x => x.Name)
-                .Distinct()
-                .Where(x => !EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(x))
-                .ToArray();
-
-            if (unsupportedClaimEndpointNames.Any())
-            {
-                throw new NotSupportedException($"Claim endpoint names of '{string.Join("', '", unsupportedClaimEndpointNames)}' are not supported for authorization.");
-            }
+            // NOTE: Assumption is that all claim endpoints are EdOrgIds.
+            // We are not checking this for performance reasons.
 
             foreach (var authorizationSegment in authorizationSegments)
             {
-                string claimEndpointName = "EducationOrganizationId";
+                const string ClaimEndpointName = EducationOrganizationIdEndpointName;
 
                 string subjectEndpointName = EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.SubjectEndpoint.Name)
-                        ? "EducationOrganizationId"
+                        ? EducationOrganizationIdEndpointName
                         : authorizationSegment.SubjectEndpoint.Name;
 
-                var subjectEndpointWithValue =
-                    authorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
+                var subjectEndpointWithValue = authorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
 
                 // This should never happen
                 if (subjectEndpointWithValue == null)
@@ -87,19 +77,16 @@ namespace EdFi.Ods.Api.Security.Authorization
                 }
 
                 // Perform defensive checks against the remote possibility of SQL injection attack
-                ValidateTableNameParts(claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
+                ValidateTableNameParts(ClaimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
-                string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
-                    claimEndpointName,
+                string authorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
+                    ClaimEndpointName,
                     subjectEndpointName,
                     authorizationSegment.AuthorizationPathModifier);
 
-                if (!IsAuthorizationViewSupported(derivedAuthorizationViewName))
+                if (!IsAuthorizationViewSupported(authorizationViewName))
                 {
-                    unsupportedAuthorizationViews.Add(derivedAuthorizationViewName);
-
-                    authorizationPathModifiers.Add(authorizationSegment.AuthorizationPathModifier);                    
-
+                    missingAuthorizationViews.Add(authorizationViewName);
                     continue;
                 }
 
@@ -110,23 +97,18 @@ namespace EdFi.Ods.Api.Security.Authorization
                     return string.Format(
                         StatementTemplate,
                         GetMultiValueCriteriaExpression(authorizationSegment.ClaimsEndpoints.ToList(), parameters, ref index),
-                        subjectEndpointName.EqualsIgnoreCase("EducationOrganizationId")
-                        ? "TargetEducationOrganizationId"
-                        : subjectEndpointName,
+                        subjectEndpointName.EqualsIgnoreCase(EducationOrganizationIdEndpointName)
+                            ? TargetEducationOrganizationIdColumnName
+                            : subjectEndpointName,
                         GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
-                        derivedAuthorizationViewName);
+                        authorizationViewName);
                 }
             }
 
-            if (unsupportedAuthorizationViews.Any())
+            if (missingAuthorizationViews.Any())
             {
-                var authorizationPathModifierValues = string.Join("', '", authorizationPathModifiers.Distinct().OrderBy(x => x));
-
-                _logger.Debug($"Unable to authorize resource item because '{authorizationPathModifierValues}' AuthorizationPathModifier is invalid.");
-
                 throw new EdFiSecurityException(
-                    $"Unable to authorize the request because there is no authorization support for the associated '{authorizationPathModifierValues}' authorizationPathModifier " +
-                    $"with the resource.");
+                    $"Unable to authorize the request because the following authorization view(s) could not be found: '{string.Join("', '", missingAuthorizationViews)}'.");
             }
 
             // Combine multiple authorization segments with AND (forcing all segments to be satisfied)
