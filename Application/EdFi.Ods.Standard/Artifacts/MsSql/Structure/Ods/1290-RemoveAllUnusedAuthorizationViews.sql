@@ -83,6 +83,10 @@ IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.ParentUSIT
     DROP VIEW auth.ParentUSIToSchoolId;
 GO
 
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.ParentUSIToStudentUSI'))
+    DROP VIEW auth.ParentUSIToStudentUSI;
+GO
+
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdToLocalEducationAgencyId'))
     DROP VIEW auth.EducationOrganizationIdToLocalEducationAgencyId;
 GO
