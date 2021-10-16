@@ -76,8 +76,8 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<INHibernateFilterConfigurator>()
                 .SingleInstance();
 
-            builder.RegisterType<AuthorizationViewsProvider>()
-                .As<IAuthorizationViewsProvider>()
+            builder.RegisterType<AuthorizationTablesAndViewsProvider>()
+                .As<IAuthorizationTablesAndViewsProvider>()
                 .SingleInstance();
 
             builder.RegisterType<ClaimsIdentityProvider>()

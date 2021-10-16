@@ -27,19 +27,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
     [TestFixture]
     public class AuthorizationSegmentsSqlProviderTests
     {
-        private const int SuppliedLea1 = 780;
-        private const int SuppliedLea2 = 880;
-        private const int SuppliedLea3 = 980;
+        private const int SuppliedEdOrg1 = 780;
+        private const int SuppliedEdOrg2 = 880;
+        private const int SuppliedEdOrg3 = 980;
 
         private const int SuppliedPostSecondaryInstitutionId = 111;
 
         private static RelationshipsAuthorizationContextData _suppliedAuthorizationContext;
         private static EdFiResourceClaimValue _suppliedClaim;
-        private static readonly List<int> AllSuppliedLeaIds = new List<int>
+        private static readonly List<int> AllSuppliedEdOrgIds = new List<int>
         {
-            SuppliedLea1,
-            SuppliedLea2,
-            SuppliedLea3
+            SuppliedEdOrg1,
+            SuppliedEdOrg2,
+            SuppliedEdOrg3
         };
 
         [TestFixture]
@@ -50,20 +50,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationViewsProvider = A.Fake<AuthorizationViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationViewsProvider.GetAuthorizationViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.LocalEducationAgencyIdToStaffUSI",
-                        "auth.SchoolIdToStaffUSI"
+                        "auth.StaffUSIToEducationOrganizationId",
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
-                    AllSuppliedLeaIds,
+                    AllSuppliedEdOrgIds,
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI));
 
                 var result = authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex);
@@ -71,11 +70,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 result.ShouldSatisfyAllConditions(
                     () => result.ShouldNotBeNull(),
 
-                    // 2 parameters are the SQL Server TVP and the StaffUSI segment
+                    // 2 parameters are the SQL Server TVP holding the claim EdOrgId values and the StaffUSI
                     () => result.Parameters.Length.ShouldBe(2),
 
-                    () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
-                        .ShouldBeFalse(),
+                    () => result.Parameters.ShouldAllBe(p => p is SqlParameter),
 
                     // TVP parameters is defined as expected
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
@@ -84,7 +82,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     () => ((DataTable)result.Parameters[0].Value).Rows[1][0].ShouldBe(_suppliedClaim.EducationOrganizationIds[1]),
                     () => ((DataTable)result.Parameters[0].Value).Rows[2][0].ShouldBe(_suppliedClaim.EducationOrganizationIds[2]),
 
-                    // Second parameter is for the LEA to StaffUSI segment
+                    // Second parameter is for the StaffUSI
                     () => result.Parameters[1].ParameterName.ShouldBe("@p1"),
                     () => result.Parameters[1].Value.ShouldBe(_suppliedAuthorizationContext.StaffUSI)
                 );
@@ -94,7 +92,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -109,21 +107,20 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationViewsProvider = A.Fake<AuthorizationViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationViewsProvider.GetAuthorizationViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.LocalEducationAgencyIdToSchoolId",
-                        "auth.LocalEducationAgencyIdToStaffUSI",
-                        "auth.SchoolIdToStaffUSI"
+                        "auth.EducationOrganizationIdToEducationOrganizationId",
+                        "auth.StaffUSIToEducationOrganizationId",
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
-                    AllSuppliedLeaIds,
+                    AllSuppliedEdOrgIds,
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                         .ClaimsMustBeAssociatedWith(x => x.SchoolId));
 
@@ -132,11 +129,10 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                 result.ShouldSatisfyAllConditions(
                     () => result.ShouldNotBeNull(),
 
-                    // 2 parameters are the SQL Server TVP and the StaffUSI segment
+                    // 2 parameters for each segment are the SQL Server TVP containing claim EdOrgId values and the StaffUSI (or SchoolId) value
                     () => result.Parameters.Length.ShouldBe(4),
 
-                    () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
-                        .ShouldBeFalse(),
+                    () => result.Parameters.ShouldAllBe(p => p is SqlParameter),
 
                     // TVP parameters is defined as expected
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
@@ -145,18 +141,18 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                     () => ((DataTable)result.Parameters[0].Value).Rows[1][0].ShouldBe(_suppliedClaim.EducationOrganizationIds[1]),
                     () => ((DataTable)result.Parameters[0].Value).Rows[2][0].ShouldBe(_suppliedClaim.EducationOrganizationIds[2]),
 
-                    // Second parameter is for the LEA to StaffUSI segment
+                    // Second parameter is for the StaffUSI auth context value
                     () => result.Parameters[1].ParameterName.ShouldBe("@p1"),
                     () => result.Parameters[1].Value.ShouldBe(_suppliedAuthorizationContext.StaffUSI),
 
-                    // TVP parameters is defined as expected
+                    // TVP parameters is defined with the EdOrgId claim values
                     () => result.Parameters[2].ParameterName.ShouldBe("@p2"),
                     () => result.Parameters[2].Value.ShouldBeOfType<DataTable>(),
                     () => ((DataTable)result.Parameters[2].Value).Rows[0][0].ShouldBe(_suppliedClaim.EducationOrganizationIds[0]),
                     () => ((DataTable)result.Parameters[2].Value).Rows[1][0].ShouldBe(_suppliedClaim.EducationOrganizationIds[1]),
                     () => ((DataTable)result.Parameters[2].Value).Rows[2][0].ShouldBe(_suppliedClaim.EducationOrganizationIds[2]),
 
-                    // Second parameter is for the LEA to SchoolId segment
+                    // Second parameter is for the SchoolId auth context value
                     () => result.Parameters[3].ParameterName.ShouldBe("@p3"),
                     () => result.Parameters[3].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
                 );
@@ -166,11 +162,11 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
 AND
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p2) and a.SchoolId = @p3)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p2) and a.TargetEducationOrganizationId = @p3)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -185,85 +181,61 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationViewsProvider = A.Fake<AuthorizationViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationViewsProvider.GetAuthorizationViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.PostSecondaryInstitutionIdToStaffUSI",
-                        "auth.PostSecondaryInstitutionIdToSchoolId",
-                        "auth.LocalEducationAgencyIdToStaffUSI",
-                        "auth.LocalEducationAgencyIdToSchoolId",
-                        "auth.SchoolIdToStaffUSI"
+                        "auth.EducationOrganizationIdToEducationOrganizationId",
+                        "auth.StaffUSIToEducationOrganizationId",
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
                     new List<int>
                     {
-                        SuppliedLea1,
+                        SuppliedEdOrg1,
                         SuppliedPostSecondaryInstitutionId,
-                        SuppliedLea2
+                        SuppliedEdOrg2
                     }, // Multiple types of EdOrgIds
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                         .ClaimsMustBeAssociatedWith(x => x.SchoolId));
 
                 var result = authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex);
 
-                result.ShouldSatisfyAllConditions(
-                    () => result.ShouldNotBeNull(),
+                result.ShouldSatisfyAllConditions(() => result.ShouldNotBeNull(),
 
-                    // 4 parameters are the SQL Server TVP for each of the StaffUSI and School segments
-                    () => result.Parameters.Length.ShouldBe(8),
-
-                    () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
-                        .ShouldBeFalse(),
+                    // 4 parameters are the SQL Server TVP containing the EdOrgId claim values, and the StaffUSI (or SchoolId) auth context value
+                    () => result.Parameters.Length.ShouldBe(4), () => result.Parameters.ShouldAllBe(p => p is SqlParameter),
 
                     // -----------------------------
                     // Claims to StaffUSI segment
                     // -----------------------------
-                    // TVP parameters for LEA Ids is defined as expected
+                    // TVP parameters for EdOrgId claim values is defined as expected
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
-                    () => result.Parameters[0].Value.ShouldBeOfType<DataTable>(),
-                    () => ((DataTable)result.Parameters[0].Value).Rows[0][0].ShouldBe(SuppliedLea1),
-                    () => ((DataTable)result.Parameters[0].Value).Rows[1][0].ShouldBe(SuppliedLea2),
+                    () => result.Parameters[0].Value.ShouldBeOfType<DataTable>(), 
+                    () => ((DataTable)result.Parameters[0].Value).Rows.Count.ShouldBe(3),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[0][0].ShouldBe(SuppliedEdOrg1),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[2][0].ShouldBe(SuppliedEdOrg2),
 
-                    // Second parameter is for the LEA to StaffUSI segment
+                    // Second parameter is for the StaffUSI auth context value
                     () => result.Parameters[1].ParameterName.ShouldBe("@p1"),
                     () => result.Parameters[1].Value.ShouldBe(_suppliedAuthorizationContext.StaffUSI),
 
                     // Single-value parameter for PostSecondary is defined as expected
                     () => result.Parameters[2].ParameterName.ShouldBe("@p2"),
-                    () => result.Parameters[2].Value.ShouldBeOfType<int>(),
-                    () => result.Parameters[2].Value.ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => result.Parameters[2].Value.ShouldBeOfType<DataTable>(),
+                    () => ((DataTable)result.Parameters[2].Value).Rows.Count.ShouldBe(3),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[0][0].ShouldBe(SuppliedEdOrg1),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[2][0].ShouldBe(SuppliedEdOrg2),
 
                     // Second parameter is for the PostSecondary to StaffUSI segment
                     () => result.Parameters[3].ParameterName.ShouldBe("@p3"),
-                    () => result.Parameters[3].Value.ShouldBe(_suppliedAuthorizationContext.StaffUSI),
-
-                    // ---------------------------
-                    // Claims to SchoolId segment
-                    // ---------------------------
-                    // TVP parameters for LEAIds is defined as expected
-                    () => result.Parameters[4].ParameterName.ShouldBe("@p4"),
-                    () => result.Parameters[4].Value.ShouldBeOfType<DataTable>(),
-                    () => ((DataTable)result.Parameters[4].Value).Rows[0][0].ShouldBe(SuppliedLea1),
-                    () => ((DataTable)result.Parameters[4].Value).Rows[1][0].ShouldBe(SuppliedLea2),
-
-                    // Second parameter is for the LEA to SchoolId segment
-                    () => result.Parameters[5].ParameterName.ShouldBe("@p5"),
-                    () => result.Parameters[5].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId),
-
-                    // Single-value parameter for PostSecondary is defined as expected
-                    () => result.Parameters[6].ParameterName.ShouldBe("@p6"),
-                    () => result.Parameters[6].Value.ShouldBeOfType<int>(),
-                    () => result.Parameters[6].Value.ShouldBe(SuppliedPostSecondaryInstitutionId),
-
-                    // Second parameter is for the PostSecondary to SchoolId segment
-                    () => result.Parameters[7].ParameterName.ShouldBe("@p7"),
-                    () => result.Parameters[7].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
+                    () => result.Parameters[3].Value.ShouldBe(_suppliedAuthorizationContext.SchoolId)
                 );
 
                 var sql = result.Sql;
@@ -271,13 +243,11 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
-OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.PostSecondaryInstitutionId = @p2 and a.StaffUSI = @p3)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
 AND
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p4) and a.SchoolId = @p5)
-OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.PostSecondaryInstitutionId = @p6 and a.SchoolId = @p7)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p2) and a.TargetEducationOrganizationId = @p3)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -292,32 +262,25 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationViewsProvider = A.Fake<AuthorizationViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationViewsProvider.GetAuthorizationViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        // Not supported for this test:
-                        // "auth.LocalEducationAgencyIdToStaffUSI",
-                        "auth.PostSecondaryInstitutionIdToStaffUSI",
-
-                        // Not supported for this test:
-                        // "auth.PostSecondaryInstitutionIdToSchoolId",
-                        "auth.LocalEducationAgencyIdToSchoolId",
-
-                        "auth.SchoolIdToStaffUSI"
+                        "auth.StaffUSIToEducationOrganizationId",
+                        "auth.EducationOrganizationIdToEducationOrganizationId",
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
                     new List<int>
                     {
                         // Multiple types of EdOrgIds
-                        SuppliedLea1,
+                        SuppliedEdOrg1,
                         SuppliedPostSecondaryInstitutionId,
-                        SuppliedLea2
+                        SuppliedEdOrg2
                     },
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
                         .ClaimsMustBeAssociatedWith(x => x.SchoolId));
@@ -327,19 +290,21 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
                 result.ShouldSatisfyAllConditions(
                     () => result.ShouldNotBeNull(),
 
-                    // 4 parameters are the SQL Server TVP for each of the StaffUSI and School segments
+                    // 4 parameters are the SQL Server TVPs for the EdOrgId claims, and auth context values for each of the StaffUSI and School segments
                     () => result.Parameters.Length.ShouldBe(4),
 
-                    () => result.Parameters.Any(x => x.GetType() != typeof(SqlParameter))
-                        .ShouldBeFalse(),
+                    () => result.Parameters.ShouldAllBe(p => p is SqlParameter),
 
                     // -----------------------------
                     // Claims to StaffUSI segment
                     // -----------------------------
                     // Single-value parameter for PostSecondary is defined as expected
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
-                    () => result.Parameters[0].Value.ShouldBeOfType<int>(),
-                    () => result.Parameters[0].Value.ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => result.Parameters[0].Value.ShouldBeOfType<DataTable>(),
+                    () => ((DataTable)result.Parameters[0].Value).Rows.Count.ShouldBe(3),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[0][0].ShouldBe(SuppliedEdOrg1),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable)result.Parameters[0].Value).Rows[2][0].ShouldBe(SuppliedEdOrg2),
 
                     // Second parameter is for the PostSecondary to StaffUSI segment
                     () => result.Parameters[1].ParameterName.ShouldBe("@p1"),
@@ -348,11 +313,13 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
                     // ---------------------------
                     // Claims to SchoolId segment
                     // ---------------------------
-                    // TVP parameters for LEAIds is defined as expected
+                    // TVP parameters for LEAIds and PostSecondaryInstitution is defined as expected
                     () => result.Parameters[2].ParameterName.ShouldBe("@p2"),
                     () => result.Parameters[2].Value.ShouldBeOfType<DataTable>(),
-                    () => ((DataTable)result.Parameters[2].Value).Rows[0][0].ShouldBe(SuppliedLea1),
-                    () => ((DataTable)result.Parameters[2].Value).Rows[1][0].ShouldBe(SuppliedLea2),
+                    () => ((DataTable)result.Parameters[2].Value).Rows.Count.ShouldBe(3),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[0][0].ShouldBe(SuppliedEdOrg1),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[1][0].ShouldBe(SuppliedPostSecondaryInstitutionId),
+                    () => ((DataTable)result.Parameters[2].Value).Rows[2][0].ShouldBe(SuppliedEdOrg2),
 
                     // Second parameter is for the LEA to SchoolId segment
                     () => result.Parameters[3].ParameterName.ShouldBe("@p3"),
@@ -364,11 +331,11 @@ OR EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToSchoolId a WHERE a.Pos
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.PostSecondaryInstitutionIdToStaffUSI a WHERE a.PostSecondaryInstitutionId = @p0 and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
 AND
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEducationAgencyId IN (SELECT Id from @p2) and a.SchoolId = @p3)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p2) and a.TargetEducationOrganizationId = @p3)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -376,85 +343,92 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
         }
 
         [TestFixture]
-        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_StaffUSI_and_SchoolId_with_multiple_EdOrg_types_with_all_authorization_views_of_one_segment_not_supported
+        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_StudentUSI_with_one_EdOrg_types_with_authorization_views_of_authorizationPathModifier_not_supported
         {
             [Test]
             public void Should_generate_valid_sql_and_parameters()
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationViewsProvider = A.Fake<AuthorizationViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationViewsProvider.GetAuthorizationViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        // Not supported for this test:
-                        // "auth.LocalEducationAgencyIdToStaffUSI",
-                        "auth.PostSecondaryInstitutionIdToStaffUSI",
-
-                        // Not supported for this test:
-                        // "auth.PostSecondaryInstitutionIdToSchoolId",
-                        // "auth.LocalEducationAgencyIdToSchoolId",
-
-                        "auth.SchoolIdToStaffUSI"
+                        "auth.StudentUSIToEducationOrganizationId",
+                        "auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
                     new List<int>
                     {
-                        // Multiple types of EdOrgIds
-                        SuppliedLea1,
-                        SuppliedPostSecondaryInstitutionId,
-                        SuppliedLea2
+                        SuppliedEdOrg1
                     },
-                    builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI)
-                        .ClaimsMustBeAssociatedWith(x => x.SchoolId));
+                    builder => builder.ClaimsMustBeAssociatedWith(x => x.StudentUSI, "ThroughSomethingElse"));
 
                 Should.Throw<EdFiSecurityException>(
                         () => authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex)
                     )
                     .Message.ShouldBe(
-                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency', 'PostSecondaryInstitution') with the resource.");
+                "Unable to authorize the request because the following authorization view(s) could not be found: 'auth.StudentUSIToEducationOrganizationIdThroughSomethingElse'.");
             }
         }
 
         [TestFixture]
-        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_without_a_supporting_authorization_view
+        public class When_building_the_SqlServer_specific_sql_for_relationship_authorization_segments_associated_with_StudentUSI_with_one_EdOrg_types_with_authorization_views_of_authorizationPathModifier_supported
         {
             [Test]
-            public void Should_throw_an_exception_when_convention_based_view_name_is_not_supported()
+            public void Should_generate_valid_sql_and_parameters()
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationViewsProvider = A.Fake<AuthorizationViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationViewsProvider.GetAuthorizationViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        // Not supported in this test:
-                        // "auth.LocalEducationAgencyIdToStaffUSI",
-                        "auth.SchoolIdToStaffUSI"
+                        "auth.StudentUSIToEducationOrganizationId",
+                        "auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationViewsProvider);
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
-                    AllSuppliedLeaIds,
-                    builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI));
+                    new List<int>
+                    {
+                        SuppliedEdOrg1
+                    },
+                    builder => builder.ClaimsMustBeAssociatedWith(x => x.StudentUSI, "ThroughEdOrgAssociation"));
 
-                Should.Throw<Exception>(
-                        () =>
-                        {
-                            authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(
-                                authorizationSegments,
-                                ref parameterIndex);
-                        })
-                    .Message.ShouldBe(
-                        "Unable to authorize the request because there is no authorization support for associating the API client's associated education organization types ('LocalEducationAgency') with the resource.");
+                var result = authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex);
+
+                result.ShouldSatisfyAllConditions(
+                            () => result.ShouldNotBeNull(),
+                            () => result.Parameters.Length.ShouldBe(2),
+
+                            () => result.Parameters.ShouldAllBe(p => p is SqlParameter),
+
+                            () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
+                            () => result.Parameters[0].Value.ShouldBe(SuppliedEdOrg1),
+
+                            () => result.Parameters[1].ParameterName.ShouldBe("@p1"),
+                            () => result.Parameters[1].Value.ShouldBe(_suppliedAuthorizationContext.StudentUSI)
+
+                        );
+
+                var sql = result.Sql;
+
+                var expectedSql =
+                    $@"SELECT 1 WHERE
+(
+EXISTS (SELECT 1 FROM auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation a WHERE a.SourceEducationOrganizationId = @p0 and a.StudentUSI = @p1)
+);";
+
+                sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
             }
         }
 
@@ -466,20 +440,20 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
             {
                 var mockISessionFactory = A.Fake<ISessionFactory>();
 
-                var mockAuthorizationViewsProvider = A.Fake<AuthorizationViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
+                var mockAuthorizationTablesAndViewsProvider = A.Fake<AuthorizationTablesAndViewsProvider>(x => x.WithArgumentsForConstructor(new object[] { mockISessionFactory }));
 
-                A.CallTo(() => mockAuthorizationViewsProvider.GetAuthorizationViews())
+                A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.LocalEducationAgencyIdToStaffUSI",
+                        "auth.StaffUSIToEducationOrganizationId",
                         "auth.SchoolIdToStaffUSI"
                     });
 
-                var authorizationSegmentsSqlProvider = new PostgresAuthorizationSegmentSqlProvider(mockAuthorizationViewsProvider);
+                var authorizationSegmentsSqlProvider = new PostgresAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
-                    AllSuppliedLeaIds,
+                    AllSuppliedEdOrgIds,
                     builder => builder.ClaimsMustBeAssociatedWith(x => x.StaffUSI));
 
                 var result = authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex);
@@ -491,8 +465,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                         // + 1 is for StaffUSI segment
                         _suppliedClaim.EducationOrganizationIds.Count + 1),
 
-                    () => result.Parameters.Any(x => x.GetType() != typeof(NpgsqlParameter))
-                        .ShouldBeFalse(),
+                    () => result.Parameters.ShouldAllBe(p => p is NpgsqlParameter),
 
                     () => result.Parameters[0].ParameterName.ShouldBe("@p0"),
                     () => result.Parameters[0].Value.ShouldBe(_suppliedClaim.EducationOrganizationIds[0]),
@@ -512,7 +485,7 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToSchoolId a WHERE a.LocalEduca
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEducationAgencyId IN (@p0, @p1, @p2) and a.StaffUSI = @p3)
+EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (@p0, @p1, @p2) and a.StaffUSI = @p3)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -526,7 +499,8 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
             _suppliedAuthorizationContext = new RelationshipsAuthorizationContextData
             {
                 SchoolId = 880001,
-                StaffUSI = 738953
+                StaffUSI = 738953,
+                StudentUSI = 9999
             };
 
             _suppliedClaim = new EdFiResourceClaimValue(
@@ -542,8 +516,13 @@ EXISTS (SELECT 1 FROM auth.LocalEducationAgencyIdToStaffUSI a WHERE a.LocalEduca
 
             var educationOrganizationCache = A.Fake<IEducationOrganizationCache>();
 
-            A.CallTo(() => educationOrganizationCache.GetEducationOrganizationIdentifiers(
-                    A<int>.That.Matches(x => x == SuppliedLea1 || x == SuppliedLea2 || x == SuppliedLea3)))
+            A.CallTo(() => educationOrganizationCache.GetEducationOrganizationIdentifiers(SuppliedEdOrg1))
+                .Returns(new EducationOrganizationIdentifiers(0, "StateEducationAgency"));
+            
+            A.CallTo(() => educationOrganizationCache.GetEducationOrganizationIdentifiers(SuppliedEdOrg2))
+                .Returns(new EducationOrganizationIdentifiers(0, "EducationServiceCenter"));
+            
+            A.CallTo(() => educationOrganizationCache.GetEducationOrganizationIdentifiers(SuppliedEdOrg3))
                 .Returns(new EducationOrganizationIdentifiers(0, "LocalEducationAgency"));
 
             A.CallTo(() => educationOrganizationCache.GetEducationOrganizationIdentifiers(SuppliedPostSecondaryInstitutionId))

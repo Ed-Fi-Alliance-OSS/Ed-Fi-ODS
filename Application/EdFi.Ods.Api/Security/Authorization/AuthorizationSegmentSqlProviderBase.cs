@@ -10,11 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Api.Security.Utilities;
 using log4net;
+using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Security.Authorization
 {
@@ -26,17 +26,20 @@ namespace EdFi.Ods.Api.Security.Authorization
 {0}
 );";
         // TODO: Embedded convention, append authorization path modifier to view name
-        private const string StatementTemplate = "EXISTS (SELECT 1 FROM {4} a WHERE a.{0}{1} and a.{2}{3})";
+        private const string StatementTemplate = "EXISTS (SELECT 1 FROM {3} a WHERE a.SourceEducationOrganizationId{0} and a.{1}{2})";
+
+        private const string EducationOrganizationIdEndpointName = "EducationOrganizationId";
+        private const string TargetEducationOrganizationIdColumnName = "TargetEducationOrganizationId";
 
         private readonly Lazy<IReadOnlyList<string>> _supportedAuthorizationViewNames;
 
         private static readonly Regex _identifierRegex = new Regex(@"^[\w]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationSegmentSqlProviderBase));
 
-        public AuthorizationSegmentSqlProviderBase(IAuthorizationViewsProvider authorizationViewsProvider)
+        public AuthorizationSegmentSqlProviderBase(IAuthorizationTablesAndViewsProvider authorizationTablesAndViewsProvider)
         {
             _supportedAuthorizationViewNames =
-                new Lazy<IReadOnlyList<string>>(() => authorizationViewsProvider.GetAuthorizationViews().ToReadOnlyList());
+                new Lazy<IReadOnlyList<string>>(() => authorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews().ToReadOnlyList());
         }
 
         public QueryMetadata GetAuthorizationQueryMetadata(
@@ -45,100 +48,67 @@ namespace EdFi.Ods.Api.Security.Authorization
         {
             var segmentStatements = new List<string>();
             var parameters = new List<DbParameter>();
+            var missingAuthorizationViews = new List<string>();
+
+            // NOTE: Assumption is that all claim endpoints are EdOrgIds.
+            // We are not checking this for performance reasons.
 
             foreach (var authorizationSegment in authorizationSegments)
             {
-                // Within each claim segment, group the values by ed org type, and combine with "OR"
-                var claimEndpointsGroupedByName = authorizationSegment.ClaimsEndpoints
-                    .GroupBy(ep => ep.Name)
-                    .Select(g => g)
-                    .ToList();
+                const string ClaimEndpointName = EducationOrganizationIdEndpointName;
 
-                var segmentExpressions = new List<string>();
+                string subjectEndpointName = EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.SubjectEndpoint.Name)
+                        ? EducationOrganizationIdEndpointName
+                        : authorizationSegment.SubjectEndpoint.Name;
 
-                var unsupportedAuthorizationViews = new List<string>();
+                var subjectEndpointWithValue = authorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
 
-                foreach (var claimEndpointsWithSameName in claimEndpointsGroupedByName)
+                // This should never happen
+                if (subjectEndpointWithValue == null)
                 {
-                    string claimEndpointName = claimEndpointsWithSameName.Key;
-                    string subjectEndpointName = authorizationSegment.SubjectEndpoint.Name;
-
-                    var subjectEndpointWithValue =
-                        authorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
-
-                    // This should never happen
-                    if (subjectEndpointWithValue == null)
-                    {
-                        throw new Exception(
-                            "The claims-based authorization segment subject endpoint for a single-item authorization was not defined with a value.");
-                    }
-
-                    if (subjectEndpointWithValue.Value == null)
-                    {
-                        throw new EdFiSecurityException(
-                            $"Access to the resource item could not be authorized because the '{subjectEndpointWithValue.Name}' of the resource is empty.");
-                    }
-
-                    // Perform defensive checks against the remote possibility of SQL injection attack
-                    ValidateTableNameParts(claimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
-
-                    string derivedAuthorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
-                        subjectEndpointName,
-                        claimEndpointName,
-                        authorizationSegment.AuthorizationPathModifier);
-
-                    if (!IsAuthorizationViewSupported(derivedAuthorizationViewName))
-                    {
-                        unsupportedAuthorizationViews.Add(derivedAuthorizationViewName);
-
-                        continue;
-                    }
-
-                    segmentExpressions.Add(CreateSegmentExpression(ref parameterIndex));
-
-                    string CreateSegmentExpression(ref int index)
-                    {
-                        if (string.Compare(subjectEndpointName, claimEndpointName, StringComparison.InvariantCultureIgnoreCase) < 0)
-                        {
-                            return string.Format(
-                                StatementTemplate,
-                                subjectEndpointName,
-                                GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
-                                claimEndpointName,
-                                GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
-                                derivedAuthorizationViewName);
-                        }
-
-                        return string.Format(
-                            StatementTemplate,
-                            claimEndpointName,
-                            GetMultiValueCriteriaExpression(claimEndpointsWithSameName.ToList(), parameters, ref index),
-                            subjectEndpointName,
-                            GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
-                            derivedAuthorizationViewName);
-                    }
+                    throw new Exception(
+                        "The claims-based authorization segment subject endpoint for a single-item authorization was not defined with a value.");
                 }
 
-                if (!segmentExpressions.Any())
+                if (subjectEndpointWithValue.Value == null)
                 {
-                    _logger.Debug("Unable to authorize resource item because none of the following authorization views exist: "
-                        + $"'{string.Join("', '", unsupportedAuthorizationViews)}'");
-
-                    string edOrgTypes = string.Join(
-                        "', '",
-                        authorizationSegment.ClaimsEndpoints
-                            .Select(s => s.Name.TrimSuffix("Id"))
-                            .Distinct()
-                            .OrderBy(x => x));
-
                     throw new EdFiSecurityException(
-                        $"Unable to authorize the request because there is no authorization support for associating the "
-                        + $"API client's associated education organization types ('{edOrgTypes}') with the resource.");
+                        $"Access to the resource item could not be authorized because the '{subjectEndpointWithValue.Name}' of the resource is empty.");
                 }
 
-                // Combine multiple statements resulting from multiple EdOrg types in the API client's claims using "OR"
-                // (This forces at least 1 of the relationships with the EdOrg types to exist)
-                segmentStatements.Add(string.Join($"{Environment.NewLine}OR ", segmentExpressions));
+                // Perform defensive checks against the remote possibility of SQL injection attack
+                ValidateTableNameParts(ClaimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
+
+                string authorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
+                    ClaimEndpointName,
+                    subjectEndpointName,
+                    authorizationSegment.AuthorizationPathModifier);
+
+                if (!IsAuthorizationViewSupported(authorizationViewName))
+                {
+                    missingAuthorizationViews.Add(authorizationViewName);
+                    continue;
+                }
+
+                segmentStatements.Add(CreateSegmentExpression(ref parameterIndex));
+
+                string CreateSegmentExpression(ref int index)
+                {
+                    return string.Format(
+                        StatementTemplate,
+                        GetMultiValueCriteriaExpression(authorizationSegment.ClaimsEndpoints.ToList(), parameters, ref index),
+                        subjectEndpointName.EqualsIgnoreCase(EducationOrganizationIdEndpointName)
+                            ? TargetEducationOrganizationIdColumnName
+                            : subjectEndpointName,
+                        GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
+                        authorizationViewName);
+                }
+            }
+
+            if (missingAuthorizationViews.Any())
+            {
+                throw new EdFiSecurityException(
+                    $"Unable to authorize the request because the following authorization view(s) could not be found: '{string.Join("', '", missingAuthorizationViews)}'.");
             }
 
             // Combine multiple authorization segments with AND (forcing all segments to be satisfied)

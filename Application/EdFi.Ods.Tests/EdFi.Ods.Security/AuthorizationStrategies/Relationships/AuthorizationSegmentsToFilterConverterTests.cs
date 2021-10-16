@@ -264,11 +264,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 _actualFilters[0].ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
                 _actualFilters[0].SubjectEndpointName.ShouldBe("SchoolId");
                 _actualFilters[0].ClaimValues.ShouldBe(new object[] {999});
-
-                _actualFilters[1].FilterName.ShouldBe("SchoolIdToSchoolId");
-                _actualFilters[1].ClaimEndpointName.ShouldBe("SchoolId");
-                _actualFilters[1].SubjectEndpointName.ShouldBe("SchoolId");
-                _actualFilters[1].ClaimValues.ShouldBe(new object[] {1000});
             }
         }
 
