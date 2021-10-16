@@ -3,11 +3,11 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-  	DROP VIEW IF EXISTS auth.School;
-	DROP VIEW IF EXISTS auth.EducationOrganizationIdToStaffUSI;	
-	DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStaffUSI;   	
+    DROP VIEW IF EXISTS auth.School;
+    DROP VIEW IF EXISTS auth.EducationOrganizationIdToStaffUSI;	
+    DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStaffUSI;   	
     DROP VIEW IF EXISTS auth.CommunityProviderIdToStaffUSI;
-	DROP VIEW IF EXISTS auth.PostSecondaryInstitutionIdToStaffUSI;
+    DROP VIEW IF EXISTS auth.PostSecondaryInstitutionIdToStaffUSI;
     DROP VIEW IF EXISTS auth.EducationOrganizationToStaffUSI_Employment;
     DROP VIEW IF EXISTS auth.EducationOrganizationToStaffUSI_Assignment;    
     DROP VIEW IF EXISTS auth.LocalEducationAgency;    
@@ -24,6 +24,7 @@
     DROP VIEW IF EXISTS auth.EducationOrganizationIdToParentUSI;
     DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToParentUSI;
     DROP VIEW IF EXISTS auth.ParentUSIToSchoolId;
+    DROP VIEW IF EXISTS auth.ParentUSIToStudentUSI;
     DROP VIEW IF EXISTS auth.EducationOrganizationIdToLocalEducationAgencyId;
     DROP VIEW IF EXISTS auth.EducationOrganizationIdToSchoolId;
     DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToSchoolId;
