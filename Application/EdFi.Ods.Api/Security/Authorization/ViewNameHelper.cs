@@ -26,7 +26,7 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <returns>The authorization view name (without the schema).</returns>
         public static string GetAuthorizationViewName(string claim, string subject, string authorizationPathModifier)
         {
-            return $"{subject}To{claim}{authorizationPathModifier}";        
+            return $"{claim}To{subject}{authorizationPathModifier}";        
         }
 
         /// <summary>

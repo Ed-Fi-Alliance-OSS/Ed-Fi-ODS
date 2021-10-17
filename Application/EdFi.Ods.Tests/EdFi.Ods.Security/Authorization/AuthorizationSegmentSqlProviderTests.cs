@@ -55,7 +55,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.StaffUSIToEducationOrganizationId",
+                        "auth.EducationOrganizationIdToStaffUSI",
                     });
 
                 var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
@@ -92,7 +92,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStaffUSI a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -113,7 +113,7 @@ EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEdu
                     .Returns(new List<string>
                     {
                         "auth.EducationOrganizationIdToEducationOrganizationId",
-                        "auth.StaffUSIToEducationOrganizationId",
+                        "auth.EducationOrganizationIdToStaffUSI",
                     });
 
                 var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
@@ -162,7 +162,7 @@ EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEdu
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStaffUSI a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
 AND
 (
@@ -187,7 +187,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     .Returns(new List<string>
                     {
                         "auth.EducationOrganizationIdToEducationOrganizationId",
-                        "auth.StaffUSIToEducationOrganizationId",
+                        "auth.EducationOrganizationIdToStaffUSI",
                     });
 
                 var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
@@ -243,7 +243,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStaffUSI a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
 AND
 (
@@ -267,7 +267,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.StaffUSIToEducationOrganizationId",
+                        "auth.EducationOrganizationIdToStaffUSI",
                         "auth.EducationOrganizationIdToEducationOrganizationId",
                     });
 
@@ -331,7 +331,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStaffUSI a WHERE a.SourceEducationOrganizationId IN (SELECT Id from @p0) and a.StaffUSI = @p1)
 )
 AND
 (
@@ -355,8 +355,8 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.StudentUSIToEducationOrganizationId",
-                        "auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation"
+                        "auth.EducationOrganizationIdToStudentUSI",
+                        "auth.EducationOrganizationIdToStudentUSIThroughEdOrgAssociation"
                     });
 
                 var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
@@ -390,8 +390,8 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.StudentUSIToEducationOrganizationId",
-                        "auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation"
+                        "auth.EducationOrganizationIdToStudentUSI",
+                        "auth.EducationOrganizationIdToStudentUSIThroughEdOrgAssociation"
                     });
 
                 var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
@@ -425,7 +425,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssociation a WHERE a.SourceEducationOrganizationId = @p0 and a.StudentUSI = @p1)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStudentUSIThroughEdOrgAssociation a WHERE a.SourceEducationOrganizationId = @p0 and a.StudentUSI = @p1)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
@@ -445,7 +445,7 @@ EXISTS (SELECT 1 FROM auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssoci
                 A.CallTo(() => mockAuthorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews())
                     .Returns(new List<string>
                     {
-                        "auth.StaffUSIToEducationOrganizationId",
+                        "auth.EducationOrganizationIdToStaffUSI",
                         "auth.SchoolIdToStaffUSI"
                     });
 
@@ -485,7 +485,7 @@ EXISTS (SELECT 1 FROM auth.StudentUSIToEducationOrganizationIdThroughEdOrgAssoci
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.StaffUSIToEducationOrganizationId a WHERE a.SourceEducationOrganizationId IN (@p0, @p1, @p2) and a.StaffUSI = @p3)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStaffUSI a WHERE a.SourceEducationOrganizationId IN (@p0, @p1, @p2) and a.StaffUSI = @p3)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
