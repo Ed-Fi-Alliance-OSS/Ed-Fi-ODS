@@ -19,6 +19,7 @@ DROP VIEW IF EXISTS auth.EducationOrganizationIdToStudentUSI;
 DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStudentUSI;
 DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation;
 DROP VIEW IF EXISTS auth.SchoolIdToStudentUSI;
+DROP VIEW IF EXISTS auth.ParentUSIToStudentUSI;
 DROP VIEW IF EXISTS auth.SchoolIdToStudentUSIThroughEdOrgAssociation;
 DROP VIEW IF EXISTS auth.SchoolIdToStaffUSI;
 DROP VIEW IF EXISTS auth.EducationOrganizationIdToParentUSI;
