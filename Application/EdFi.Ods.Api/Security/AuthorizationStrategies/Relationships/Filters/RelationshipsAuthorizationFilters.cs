@@ -321,43 +321,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         private static readonly Lazy<FilterApplicationDetails> _teacherPreparationProviderIdToTeacherPreparationProviderId =
             new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("TeacherPreparationProviderId"));
 
-        private static readonly Lazy<FilterApplicationDetails> _educationOrganizationIdToUniversityId
-            = new Lazy<FilterApplicationDetails>(
-                () =>
-                    new FilterApplicationDetails(
-                        "EducationOrganizationIdToUniversityId",
-                        @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.EducationOrganizationId 
-                        FROM auth.EducationOrganizationIdToUniversityId {newAlias1} 
-                        WHERE {newAlias1}.UniversityId IN (:UniversityId))",
-                        @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.EducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToUniversityId".GetFullNameForView() + @" {newAlias1} 
-                        WHERE {newAlias1}.UniversityId IN (:UniversityId))",
-                        (c, w, p, jt) => c.ApplyJoinFilter(
-                            w, p, "EducationOrganizationIdToUniversityId", "EducationOrganizationId", "EducationOrganizationId", "UniversityId", jt
-                            ),
-                        (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
-
-        private static readonly Lazy<FilterApplicationDetails> _educationOrganizationIdToTeacherPreparationProviderId
-            = new Lazy<FilterApplicationDetails>(
-                () =>
-                    new FilterApplicationDetails(
-                        "EducationOrganizationIdToTeacherPreparationProviderId",
-                        @"EducationOrganizationId IN (
-                        SELECT {newAlias1}.EducationOrganizationId 
-                        FROM auth.EducationOrganizationIdToTeacherPreparationProviderId {newAlias1} 
-                        WHERE {newAlias1}.TeacherPreparationProviderId IN (:TeacherPreparationProviderId))",
-                        @"{currentAlias}.EducationOrganizationId IN (
-                        SELECT {newAlias1}.EducationOrganizationId 
-                        FROM " + "auth_EducationOrganizationIdToTeacherPreparationProviderId".GetFullNameForView() +
-                        @" {newAlias1} 
-                        WHERE {newAlias1}.TeacherPreparationProviderId IN (:TeacherPreparationProviderId))",
-                        (c, w, p, jt) => c.ApplyJoinFilter(
-                            w, p, "EducationOrganizationIdToTeacherPreparationProviderId", "EducationOrganizationId", "EducationOrganizationId",
-                            "TeacherPreparationProviderId", jt),
-                        (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
-
         // Add non-join authorization entries for each EdOrg which can be associated with an API client
 
         public static FilterApplicationDetails SchoolIdToSchoolId => _schoolIdToSchoolId.Value;
@@ -423,12 +386,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
         public static FilterApplicationDetails TeacherPreparationProviderIdToTeacherPreparationProviderId
             => _teacherPreparationProviderIdToTeacherPreparationProviderId.Value;
-
-        public static FilterApplicationDetails EducationOrganizationIdToUniversityId
-            => _educationOrganizationIdToUniversityId.Value;
-
-        public static FilterApplicationDetails EducationOrganizationIdToTeacherPreparationProviderId
-            => _educationOrganizationIdToTeacherPreparationProviderId.Value;
 
         private static FilterApplicationDetails CreateClaimValuePropertyFilter(string propertyName)
         {
