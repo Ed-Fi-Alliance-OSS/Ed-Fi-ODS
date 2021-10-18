@@ -44,7 +44,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                             FROM " + "auth_EducationOrganizationIdToStudentUSI".GetFullNameForView() + @" {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
-                            w, p, "StudentUSIToEducationOrganizationId", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId",
+                            w, p, "EducationOrganizationIdToStudentUSI", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId",
                             jt, Guid.NewGuid().ToString("N")
                             ),
                         (t, p) => p.HasPropertyNamed("StudentUSI")));
@@ -64,7 +64,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         @" {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
-                            w, p, "StudentUSIToStudentEdOrgResponsibilityAssociation", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId", jt),
+                            w, p, "EducationOrganizationIdToStudentUSIThroughResponsibility", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId", jt),
                         (t, p) => p.HasPropertyNamed("StudentUSI")));
 
         private static readonly Lazy<FilterApplicationDetails> _schoolIdToStudentUSI
@@ -81,7 +81,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                             FROM " + "auth_EducationOrganizationIdToStudentUSI".GetFullNameForView() + @" {newAlias1} 
                             WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
-                            w, p, "StudentUSIToEducationOrganizationId", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId", jt,
+                            w, p, "EducationOrganizationIdToStudentUSI", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId", jt,
                             Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("StudentUSI")));
 
@@ -98,7 +98,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         SELECT {newAlias1}.StudentUSI 
                         FROM " + "auth_EducationOrganizationIdToStudentUSIThroughResponsibility".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
-                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "StudentUSIToStudentEdOrgResponsibilityAssociation", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId", jt),
+                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToStudentUSIThroughResponsibility", "StudentUSI", "StudentUSI", "SourceEducationOrganizationId", jt),
                         (t, p) => p.HasPropertyNamed("StudentUSI")));
 
         private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToStaffUSI
@@ -115,7 +115,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         FROM " + "auth_EducationOrganizationIdToStaffUSI".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
-                            w, p, "StaffUSIToEducationOrganizationId", "StaffUSI", "StaffUSI", "SourceEducationOrganizationId", jt,
+                            w, p, "EducationOrganizationIdToStaffUSI", "StaffUSI", "StaffUSI", "SourceEducationOrganizationId", jt,
                             Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("StaffUSI")));
 
@@ -133,7 +133,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     FROM " + "auth_EducationOrganizationIdToStaffUSI".GetFullNameForView() + @" {newAlias1} 
                     WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
                         (c, w, p, jt) => c.ApplyJoinFilter(
-                            w, p, "StaffUSIToEducationOrganizationId", "StaffUSI", "StaffUSI", "SourceEducationOrganizationId", jt),
+                            w, p, "EducationOrganizationIdToStaffUSI", "StaffUSI", "StaffUSI", "SourceEducationOrganizationId", jt),
                         (t, p) => p.HasPropertyNamed("StaffUSI")));
 
         private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToParentUSI
@@ -149,7 +149,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         SELECT {newAlias1}.ParentUSI 
                         FROM " + "auth_EducationOrganizationIdToParentUSI".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:LocalEducationAgencyId))",
-                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "ParentUSIToEducationOrganizationId", "ParentUSI", "ParentUSI", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
+                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToParentUSI", "ParentUSI", "ParentUSI", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("ParentUSI")));
 
         private static readonly Lazy<FilterApplicationDetails> _parentUSIToSchoolId
@@ -165,7 +165,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         SELECT {newAlias1}.ParentUSI 
                         FROM " + "auth_EducationOrganizationIdToParentUSI".GetFullNameForView() + @" {newAlias1} 
                         WHERE {newAlias1}.SourceEducationOrganizationId IN (:SchoolId))",
-                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "ParentUSIToEducationOrganizationId", "ParentUSI", "ParentUSI", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
+                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToParentUSI", "ParentUSI", "ParentUSI", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("ParentUSI")));
 
         private static readonly Lazy<FilterApplicationDetails> _educationOrganizationIdToLocalEducationAgencyId

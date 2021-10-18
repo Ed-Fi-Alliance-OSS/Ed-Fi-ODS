@@ -373,7 +373,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         () => authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex)
                     )
                     .Message.ShouldBe(
-                "Unable to authorize the request because the following authorization view(s) could not be found: 'auth.StudentUSIToEducationOrganizationIdThroughSomethingElse'.");
+                "Unable to authorize the request because the following authorization view(s) could not be found: 'auth.EducationOrganizationIdToStudentUSIThroughSomethingElse'.");
             }
         }
 
