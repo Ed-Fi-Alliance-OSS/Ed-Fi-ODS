@@ -356,7 +356,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     .Returns(new List<string>
                     {
                         "auth.EducationOrganizationIdToStudentUSI",
-                        "auth.EducationOrganizationIdToStudentUSIThroughEdOrgAssociation"
+                        "auth.EducationOrganizationIdToStudentUSIThroughResponsibility"
                     });
 
                 var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
@@ -391,7 +391,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     .Returns(new List<string>
                     {
                         "auth.EducationOrganizationIdToStudentUSI",
-                        "auth.EducationOrganizationIdToStudentUSIThroughEdOrgAssociation"
+                        "auth.EducationOrganizationIdToStudentUSIThroughResponsibility"
                     });
 
                 var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
@@ -402,7 +402,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                     {
                         SuppliedEdOrg1
                     },
-                    builder => builder.ClaimsMustBeAssociatedWith(x => x.StudentUSI, "ThroughEdOrgAssociation"));
+                    builder => builder.ClaimsMustBeAssociatedWith(x => x.StudentUSI, "ThroughResponsibility"));
 
                 var result = authorizationSegmentsSqlProvider.GetAuthorizationQueryMetadata(authorizationSegments, ref parameterIndex);
 
@@ -425,7 +425,7 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                 var expectedSql =
                     $@"SELECT 1 WHERE
 (
-EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStudentUSIThroughEdOrgAssociation a WHERE a.SourceEducationOrganizationId = @p0 and a.StudentUSI = @p1)
+EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStudentUSIThroughResponsibility a WHERE a.SourceEducationOrganizationId = @p0 and a.StudentUSI = @p1)
 );";
 
                 sql.ShouldBe(expectedSql, StringCompareShould.IgnoreLineEndings);
