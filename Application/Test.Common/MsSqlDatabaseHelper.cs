@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.IO.Compression;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Test.Common
 {
@@ -35,6 +38,55 @@ namespace Test.Common
                 BackupDatabase(originalDatabaseName, backup, conn);
                 var logicalName = RestoreFileList(backup, conn);
                 RestoreDatabase(newDatabaseName, backup, logicalName, datafile, logfile, conn);
+            }
+        }
+
+        public void DownloadAndRestoreDatabase(string uri, string packageName, string fileName, string databaseName)
+        {
+            var downloadPath = "C:/Downloads";
+            if (!Directory.Exists(downloadPath))
+            {
+                Directory.CreateDirectory(downloadPath);
+            }
+
+            var backupZip = Path.Combine(downloadPath, packageName + ".zip");
+            var backup = Path.Combine(downloadPath, databaseName + ".bak");
+            
+            if (!File.Exists(backupZip))
+            {
+                using (var webClient = new WebClient())
+                {
+                    webClient.DownloadFile(uri, backupZip);
+                }
+            }
+
+            GetBackupFileFromPackage(backupZip, backup, fileName);
+
+            var dataPath = GetServerDefaultDataPath(DataPathType.Data);
+            var logPath = GetServerDefaultDataPath(DataPathType.Log);
+            var datafile = Path.Combine(dataPath, string.Format("{0}.mdf", databaseName));
+            var logfile = Path.Combine(logPath, string.Format("{0}.ldf", databaseName));
+
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var logicalName = RestoreFileList(backup, conn);
+                RestoreDatabase(databaseName, backup, logicalName, datafile, logfile, conn);
+                File.Delete(backup);
+            }
+        }
+
+        private static void GetBackupFileFromPackage(string sourcePath, string destinationPath, string backupFileName)
+        {
+            if (File.Exists(sourcePath))
+            {
+                var unzipFolderName = sourcePath.Replace(".zip", "");
+
+                ZipFile.ExtractToDirectory(sourcePath, unzipFolderName, true);
+                File.Copy($"{unzipFolderName}/{backupFileName}", destinationPath, true);
+
+                Directory.Delete(unzipFolderName, true);
             }
         }
 
@@ -218,6 +270,34 @@ namespace Test.Common
                     cmd.CommandText = sql;
                     conn.Open();
                     var fullPath = (string) cmd.ExecuteScalar();
+                    path = Path.GetDirectoryName(fullPath);
+                }
+            }
+
+            return path;
+        }
+
+        private string GetServerDefaultDataPath(DataPathType dataPathType)
+        {
+            var type = (int)dataPathType;
+
+            // Since we know we have an existing database, use its data file location to figure out where to put new databases
+            var sql = "SELECT SERVERPROPERTY('INSTANCEDEFAULTDATAPATH') as [Default_data_path]";
+
+            if (dataPathType == DataPathType.Log)
+            {
+                sql = "SELECT SERVERPROPERTY('INSTANCEDEFAULTLOGPATH') as [Default_log_path]";
+            }
+
+            string path;
+
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = sql;
+                    conn.Open();
+                    var fullPath = (string)cmd.ExecuteScalar();
                     path = Path.GetDirectoryName(fullPath);
                 }
             }

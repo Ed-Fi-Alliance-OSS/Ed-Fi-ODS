@@ -11,6 +11,7 @@ using NUnit.Framework;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using Test.Common;
 
 namespace EdFi.Ods.Api.IntegrationTests
@@ -42,6 +43,13 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var configuration = configurationBuilder
                 .AddJsonFile($"appsettings.{(DatabaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true)
+                .AddEnvironmentVariables(ConfigEnvironmentVariablesPrefix)
+                .Build();
+
+            var jsonPath = Path.GetFullPath("../../../../../../Ed-Fi-ODS-Implementation/configuration.packages.json");
+
+            var packageConfiguration = configurationBuilder
+                .AddJsonFile(jsonPath, true)
                 .AddEnvironmentVariables(ConfigEnvironmentVariablesPrefix)
                 .Build();
 
@@ -99,27 +107,35 @@ namespace EdFi.Ods.Api.IntegrationTests
                 }
             }
 
+            connectionStringBuilder.ConnectionString = odsConnectionString;
+
             try
             {
                 BuildConnection(odsConnectionString);
             }
             catch
             {
-                // TODO implement [ODS-5109 Download Test Database] here
+                var packageName = packageConfiguration.GetValue<string>("packages:GrandBend:PackageName");
+                var packageVersion = packageConfiguration.GetValue<string>("packages:GrandBend:PackageVersion");
+                var fileName = "EdFi.Ods.Populated.Template.bak";
 
-                var reason = $"Couldn't open template database, verify ConnectionStrings{ConfigurationPath.KeyDelimiter}EdFi_Ods";
-                if (isStrictMode.Value)
+                if (DatabaseEngine == DatabaseEngine.Postgres)
                 {
-                    Assert.Fail(reason);
+                    packageName = packageConfiguration.GetValue<string>("packages:PostgreSqlPopulatedTemplate:PackageName");
+                    packageVersion = packageConfiguration.GetValue<string>("packages:PostgreSqlPopulatedTemplate:PackageVersion");
+                    fileName = "EdFi.Ods.Populated.Template.sql";
                 }
-                else
-                {
-                    Assert.Ignore(reason);
-                }
+
+                var packageURL = string.Format(configuration.GetValue<string>("URL_Template"), packageName, packageVersion);
+                _databaseHelper.DownloadAndRestoreDatabase(
+                    packageURL, 
+                    $"{packageName}.{packageVersion}",
+                    fileName, 
+                    connectionStringBuilder.DatabaseName
+                );
             }
 
             var testDbName = $"{TestDbPrefix}{Guid.NewGuid():N}";
-            connectionStringBuilder.ConnectionString = odsConnectionString;
 
             _databaseHelper.CopyDatabase(connectionStringBuilder.DatabaseName, testDbName);
             _isTestDbCreated = true;
