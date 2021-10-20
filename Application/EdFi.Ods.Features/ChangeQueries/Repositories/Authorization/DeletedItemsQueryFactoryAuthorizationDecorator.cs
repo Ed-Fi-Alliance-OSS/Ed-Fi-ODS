@@ -16,10 +16,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
     public class DeletedItemsQueryFactoryAuthorizationDecorator : TrackedChangesQueryFactoryAuthorizationDecoratorBase, IDeletedItemsQueryFactory
     {
-        private readonly IKeyChangesQueryFactory _next;
+        private readonly IDeletedItemsQueryFactory _next;
 
         public DeletedItemsQueryFactoryAuthorizationDecorator(
-            IKeyChangesQueryFactory next,
+            IDeletedItemsQueryFactory next,
             IAuthorizationContextProvider authorizationContextProvider,
             IEdFiAuthorizationProvider edFiAuthorizationProvider,
             IDatabaseNamingConvention namingConvention,
