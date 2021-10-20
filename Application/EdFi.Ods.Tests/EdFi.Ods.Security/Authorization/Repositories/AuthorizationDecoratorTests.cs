@@ -115,7 +115,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     apiClientDetails.EducationOrganizationIds,
                     apiClientDetails.ClaimSetName,
                     apiClientDetails.NamespacePrefixes,
-                    apiClientDetails.Profiles.ToList(), apiClientDetails.OwnershipTokenIds.ToList());
+                    apiClientDetails.Profiles.ToList(), 
+                    apiClientDetails.OwnershipTokenIds.ToList());
 
                 ClaimsPrincipal.ClaimsPrincipalSelector = () => new ClaimsPrincipal(claimsIdentity);
             }

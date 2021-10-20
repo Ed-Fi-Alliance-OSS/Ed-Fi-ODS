@@ -15,17 +15,17 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
         public IReadOnlyList<FilterApplicationDetails> GetFilters()
         {
             var filters = new List<FilterApplicationDetails>
-                          {
-                              new FilterApplicationDetails(
-                                  "CreatedByOwnershipTokenId",
-                                  @"(CreatedByOwnershipTokenId IS NOT NULL AND CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
-                                  @"({currentAlias}.CreatedByOwnershipTokenId IS NOT NULL AND {currentAlias}.CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
-                                  (c,w, p,jt) =>
-                                  {
-                                       w.ApplyPropertyFilters(p,"CreatedByOwnershipTokenId");
-                                  },
-                                  (t, p) => !DescriptorEntitySpecification.IsEdFiDescriptorEntity(t) && p.HasPropertyNamed("CreatedByOwnershipTokenId")),
-                          }.AsReadOnly();
+            {
+                new FilterApplicationDetails(
+                    "CreatedByOwnershipTokenId",
+                    @"(CreatedByOwnershipTokenId IS NOT NULL AND CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
+                    @"({currentAlias}.CreatedByOwnershipTokenId IS NOT NULL AND {currentAlias}.CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
+                    (c, w, p, jt) =>
+                    {
+                        w.ApplyPropertyFilters(p,"CreatedByOwnershipTokenId");
+                    },
+                    (t, p) => !DescriptorEntitySpecification.IsEdFiDescriptorEntity(t) && p.HasPropertyNamed("CreatedByOwnershipTokenId")),
+            }.AsReadOnly();
 
             return filters;
         }

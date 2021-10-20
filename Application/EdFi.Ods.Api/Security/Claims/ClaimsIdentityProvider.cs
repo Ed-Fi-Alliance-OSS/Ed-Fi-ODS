@@ -67,9 +67,9 @@ namespace EdFi.Ods.Api.Security.Claims
                             Actions = g.Select(
                                     x => new ResourceAction(
                                         x.Action.ActionUri,
-                                        x.ClaimSetResourceClaimActionAuthorizationStrategyOverrides == null
-                                            ? null
-                                            : x.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Select(y => y.AuthorizationStrategy.AuthorizationStrategyName).ToList(),
+                                        x.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+                                            ?.Select(y => y.AuthorizationStrategy.AuthorizationStrategyName)
+                                            .ToArray(),
                                         x.ValidationRuleSetNameOverride))
                                 .ToArray(),
                             EducationOrganizationIds = educationOrganizationIds.ToList()
@@ -91,7 +91,7 @@ namespace EdFi.Ods.Api.Security.Claims
             // Add list of OwnershipTokenIds
             ownershipTokenIds.ForEach(
                 ownershipToken =>
-                    claims.Add(new Claim(EdFiOdsApiClaimTypes.OwnershipTokenIds, ownershipToken.ToString())));
+                    claims.Add(new Claim(EdFiOdsApiClaimTypes.OwnershipTokenId, ownershipToken.ToString())));
 
             return new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth);
         }

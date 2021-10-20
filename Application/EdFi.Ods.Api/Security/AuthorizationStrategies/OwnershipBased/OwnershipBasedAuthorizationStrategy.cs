@@ -28,20 +28,22 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
 
             if (contextData == null)
             {               
-                    throw new NotSupportedException(
-                        "No 'OwnershipToken' property could be found on the resource in order to perform authorization.  Should a different authorization strategy be used?");
+                throw new NotSupportedException(
+                    "No 'OwnershipToken' property could be found on the resource in order to perform authorization.  Should a different authorization strategy be used?");
             }
 
             if (contextData != null)
             {
                 if (contextData.CreatedByOwnershipTokenId != null)
                 {
-                    var tokens = authorizationContext.Principal.Claims.Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenIds)
-                                                                   .Where(c => c.Value == contextData.CreatedByOwnershipTokenId.ToString());
+                    var tokens = authorizationContext.Principal.Claims.Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId &&
+                                                                       c.Value == contextData.CreatedByOwnershipTokenId.ToString());
 
                     if (!tokens.Any())
+                    {
                         throw new EdFiSecurityException(
                             "Access to the resource item could not be authorized caller's Ownership token is not matching with resources Ownership token");
+                    }
                 }
                 else
                 {
@@ -63,7 +65,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            var tokens = authorizationContext.Principal.Claims.Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenIds).Select(x => x.Value).ToArray();
+            var tokens = authorizationContext.Principal.Claims.Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId).Select(x => x.Value).ToArray();
 
             return new[]
             {
@@ -75,7 +77,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
                    ClaimValues = tokens
                 }
             };
-
         }        
     }
 }

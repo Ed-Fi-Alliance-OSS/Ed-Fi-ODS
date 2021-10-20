@@ -472,7 +472,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                                 },
                                 new ResourceClaimAuthorizationMetadata
                                 {
-                                    ClaimName = Resource2ClaimUri, AuthorizationStrategies = new List<string> { "Second" }
+                                    ClaimName = Resource2ClaimUri, AuthorizationStrategies = new [] { "Second" }
                                 },
                                 new ResourceClaimAuthorizationMetadata
                                 {

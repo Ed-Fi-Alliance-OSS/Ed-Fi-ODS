@@ -26,8 +26,8 @@ namespace EdFi.Ods.Common.Security
         public const string ClaimSetName = @"http://ed-fi.org/claims/claimSetName";
 
         /// <summary>
-        /// List of the OwnershipTokenIds to callers of the Ed-Fi ODS API.
+        /// An ownership token assigned to the Ed-Fi ODS API client.
         /// </summary>
-        public const string OwnershipTokenIds = @"http://ed-fi.org/claims/ownershipTokenIds";
+        public const string OwnershipTokenId = @"http://ed-fi.org/claims/ownershipTokenId";
     }
 }

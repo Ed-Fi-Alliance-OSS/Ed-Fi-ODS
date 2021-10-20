@@ -121,15 +121,8 @@ namespace EdFi.Ods.Api.Security.Authorization
                 }
             }
 
-            try
-            {
                 var tasks = details.AuthorizationStrategies.Select(x => x.AuthorizeSingleItemAsync(new[] { details.RelevantClaim }, authorizationContext, cancellationToken));
                 await Task.WhenAll(tasks);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
 
         /// <summary>
@@ -143,17 +136,19 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             var authorizationFilters = new List<AuthorizationFilterDetails>();
 
-            details.AuthorizationStrategies.Distinct().
-                ForEach(x =>
+            details.AuthorizationStrategies
+                .Distinct().ForEach(x =>
                 {
-                    IEnumerable<IReadOnlyList<AuthorizationFilterDetails>> items =
+                    var items =
                     new[]
                     {
                     x.GetAuthorizationFilters(new[] { details.RelevantClaim }, authorizationContext)
                     };
 
                     foreach (var item in items)
+                    {
                         authorizationFilters.Add(item.FirstOrDefault());
+                    }
                 });
 
             return authorizationFilters;
@@ -289,17 +284,22 @@ namespace EdFi.Ods.Api.Security.Authorization
             var relevantPrincipalClaim = relevantPrincipalClaims.First();
 
             // Look for an authorization strategy override on the caller's claims (flow the overrides down, even if they aren't the first claim encountered going up the hierarchy)
-            IReadOnlyList<string> authorizationStrategyOverrideNames =
-                (from rpc in relevantPrincipalClaims
-                 select rpc.ToEdFiResourceClaimValue()
-                           .GetAuthorizationStrategyNameOverrides(claimCheckResponse.RequestedAction))
-               .FirstOrDefault(x => x != null);
+            //IReadOnlyList<string> authorizationStrategyOverrideNames =
+            //    (from rpc in relevantPrincipalClaims
+            //     select rpc.ToEdFiResourceClaimValue()
+            //               .GetAuthorizationStrategyNameOverrides(claimCheckResponse.RequestedAction))
+            //   .FirstOrDefault(x => x != null);
 
-            IReadOnlyList<string> metadataAuthorizationStrategyNames =
+            var authorizationStrategyOverrideNames = relevantPrincipalClaims
+                    .Select(rpc => rpc.ToEdFiResourceClaimValue()
+                    .GetAuthorizationStrategyNameOverrides(claimCheckResponse.RequestedAction))
+                    .FirstOrDefault(x => x != null);
+
+            var metadataAuthorizationStrategyNames =
                 claimCheckResponse.AuthorizationMetadata
-                                  .SkipWhile(s => s.AuthorizationStrategies == null)
-                                  .SelectMany(s => s.AuthorizationStrategies)
-                                  .ToList();
+                                    .SkipWhile(s => s.AuthorizationStrategies == null)
+                                    .SelectMany(s => s.AuthorizationStrategies)
+                                    .ToList();
 
             // TODO: GKM - When claimset-specific override support is added, use this logic
             //string claimSpecificOverrideAuthorizationStrategyName =
@@ -313,7 +313,7 @@ namespace EdFi.Ods.Api.Security.Authorization
             //string authorizationStrategyName = 
             //    claimSpecificAuthorizationStrategyName ?? metadataAuthorizationStrategyName;
 
-            IReadOnlyList<string> authorizationStrategyNames =
+            var authorizationStrategyNames =
               authorizationStrategyOverrideNames
               ?? metadataAuthorizationStrategyNames;
 
@@ -322,7 +322,7 @@ namespace EdFi.Ods.Api.Security.Authorization
             {
                 throw new Exception(
                     string.Format(
-                        "No authorization strategy was defined for the requested action '{0}' against resource URIs ['{1}'] matched by the caller's claim '{2}'.",
+                        "No authorization strategies were defined for the requested action '{0}' against resource URIs ['{1}'] matched by the caller's claim '{2}'.",
                         claimCheckResponse.RequestedAction,
                         string.Join("', '", claimCheckResponse.RequestedResourceUris),
                         relevantPrincipalClaim.Type));
@@ -330,7 +330,7 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             _logger.DebugFormat(
                 "Authorization strategy '{0}' selected for request against resource '{1}'.",
-                authorizationStrategyNames,
+                string.Join("', '", authorizationStrategyNames),
                 authorizationContext.Resource.First()
                                     .Value);
 

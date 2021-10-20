@@ -99,8 +99,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                         {
                             new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                             {
-                                AuthorizationStrategy = new AuthorizationStrategy
-                                { AuthorizationStrategyName=  "actionUri-1a-Strategy" }
+                                AuthorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName=  "actionUri-1a-Strategy" }
                             }                                                  
                         },
                         ValidationRuleSetNameOverride = null
@@ -113,8 +112,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                         {
                             new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                             {
-                                AuthorizationStrategy = new AuthorizationStrategy
-                                { AuthorizationStrategyName=  "actionUri-1b-Strategy" }
+                                AuthorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName=  "actionUri-1b-Strategy" }
                             }
                         },
                         ValidationRuleSetNameOverride = "actionUri-1b-RuleSetName"
@@ -386,8 +384,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                         {
                             new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                             {
-                                AuthorizationStrategy = new AuthorizationStrategy
-                                { AuthorizationStrategyName=  "actionUri-1a-Strategy" }
+                                AuthorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName=  "actionUri-1a-Strategy" }
                             }
                         },
                         ValidationRuleSetNameOverride = null
@@ -400,8 +397,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                         {
                             new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                             {
-                                AuthorizationStrategy = new AuthorizationStrategy
-                                { AuthorizationStrategyName=  "actionUri-1b-Strategy" }
+                                AuthorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName=  "actionUri-1b-Strategy" }
                             }
                         },
                         ValidationRuleSetNameOverride = "actionUri-1b-RuleSetName"
