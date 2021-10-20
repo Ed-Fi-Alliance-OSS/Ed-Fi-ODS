@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 using EdFi.Ods.Security.Authorization;
 using EdFi.Security.DataAccess.Repositories;
@@ -88,7 +89,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             // Explicitly serialize the response to remain backwards compatible with pre .net core
             return new ContentResult
             {
-                Content = JsonConvert.SerializeObject(deletedItemsResponse.Items),
+                Content = JsonConvert.SerializeObject(deletedItemsResponse.Items, new Iso8601UtcDateOnlyConverter()),
                 ContentType = MediaTypeNames.Application.Json,
                 StatusCode = StatusCodes.Status200OK
             };
