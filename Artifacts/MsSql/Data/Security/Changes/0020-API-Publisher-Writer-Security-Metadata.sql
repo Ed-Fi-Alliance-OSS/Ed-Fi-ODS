@@ -18,7 +18,7 @@ BEGIN
         @readActionId AS INT,
         @updateActionId AS INT,
         @deleteActionId AS INT,
-		@readChangesActionId AS INT
+        @readChangesActionId AS INT
 
     DECLARE @claimIdStack AS TABLE (Id INT IDENTITY, ResourceClaimId INT)
 
@@ -37,7 +37,7 @@ BEGIN
     SELECT @deleteActionId = ActionId
     FROM [dbo].[Actions] WHERE ActionName = 'Delete';
 
-	SELECT @readChangesActionId = ActionId
+    SELECT @readChangesActionId = ActionId
     FROM [dbo].[Actions] WHERE ActionName = 'ReadChanges';
 
     BEGIN TRANSACTION
@@ -113,7 +113,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -130,7 +130,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -147,7 +147,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -164,7 +164,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -241,7 +241,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -258,7 +258,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -275,7 +275,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -292,7 +292,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -369,7 +369,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -386,7 +386,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -403,7 +403,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -420,7 +420,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -825,7 +825,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -842,7 +842,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -859,7 +859,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -876,7 +876,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -957,7 +957,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -974,7 +974,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -991,7 +991,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1008,7 +1008,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1085,7 +1085,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1102,7 +1102,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1119,7 +1119,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1136,7 +1136,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1321,7 +1321,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1338,7 +1338,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1355,7 +1355,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1372,7 +1372,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1449,7 +1449,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1466,7 +1466,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1483,7 +1483,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
@@ -1500,7 +1500,7 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.DisplayName = 'NoFurtherAuthorizationRequired'
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
     
 
     IF @authorizationStrategyId IS NULL
