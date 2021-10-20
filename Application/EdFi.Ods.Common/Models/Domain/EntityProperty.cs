@@ -260,8 +260,9 @@ namespace EdFi.Ods.Common.Models.Domain
                 || a.AssociationType == AssociationViewType.OneToOneIncoming
                 // Follow relationship into the core Ed-Fi model from an extension
                 || a.AssociationType == AssociationViewType.FromCore
-                // Follow base type relationships if allowed by caller
-                || (!restrictToConcreteEntity && a.AssociationType == AssociationViewType.FromBase)))
+                // Follow base type relationships if they don't originate there, or are explicitly allowed by caller
+                || (a.AssociationType == AssociationViewType.FromBase 
+                    && (a.OtherProperties.Any(p => !p.IsLocallyDefined) || !restrictToConcreteEntity))))
             {
                 currentProperty = currentProperty.IncomingAssociations.First()
                     .PropertyMappingByThisName[currentProperty.PropertyName]
