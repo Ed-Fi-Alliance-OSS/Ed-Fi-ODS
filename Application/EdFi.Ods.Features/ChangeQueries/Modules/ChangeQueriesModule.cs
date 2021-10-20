@@ -140,8 +140,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                     .As<IDomainModelEnhancer>()
                     .SingleInstance();
             
-                builder.RegisterDecorator<KeyChangesQueryFactoryAuthorizationDecorator, ITrackedChangesQueryFactory>();
-                builder.RegisterDecorator<DeletedItemsQueryFactoryAuthorizationDecorator, ITrackedChangesQueryFactory>();
+                builder.RegisterDecorator<KeyChangesQueryFactoryAuthorizationDecorator, IKeyChangesQueryFactory>();
+                builder.RegisterDecorator<DeletedItemsQueryFactoryAuthorizationDecorator, IDeletedItemsQueryFactory>();
             }
         }
     }
