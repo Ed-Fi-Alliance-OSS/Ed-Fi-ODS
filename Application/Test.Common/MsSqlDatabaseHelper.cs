@@ -271,34 +271,6 @@ namespace Test.Common
             return path;
         }
 
-        private string GetServerDefaultDataPath(DataPathType dataPathType)
-        {
-            var type = (int)dataPathType;
-
-            // Since we know we have an existing database, use its data file location to figure out where to put new databases
-            var sql = "SELECT SERVERPROPERTY('INSTANCEDEFAULTDATAPATH') as [Default_data_path]";
-
-            if (dataPathType == DataPathType.Log)
-            {
-                sql = "SELECT SERVERPROPERTY('INSTANCEDEFAULTLOGPATH') as [Default_log_path]";
-            }
-
-            string path;
-
-            using (var conn = new SqlConnection(_connectionString))
-            {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = sql;
-                    conn.Open();
-                    var fullPath = (string)cmd.ExecuteScalar();
-                    path = Path.GetDirectoryName(fullPath);
-                }
-            }
-
-            return path;
-        }
-
         private void GetDatabaseFiles(string originalDatabaseName, string newDatabaseName, out string data, out string log)
         {
             var dataPath = GetSqlDataPath(originalDatabaseName, DataPathType.Data);
