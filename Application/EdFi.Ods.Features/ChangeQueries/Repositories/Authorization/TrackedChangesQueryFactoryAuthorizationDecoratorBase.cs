@@ -86,15 +86,29 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                         throw new SecurityException("No namespaces found in claims.");
                     }
                 }
+                // Determine if this matches the relationship-based authorization strategy naming pattern
                 else if (filter.FilterName.Contains("To"))
                 {
-                    // Generalize relationships-based naming convention
-                    query.Join(
-                        $"auth.{filter.FilterName.ToLower()} AS rba{filterIndex}",
-                        $"c.{_namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{filter.SubjectEndpointName}")}",
-                        $"rba{filterIndex}.{_namingConvention.ColumnName(filter.SubjectEndpointName)}");
+                    // If the endpoint names do not match, then use an authorization view join
+                    if (filter.ClaimEndpointName != filter.SubjectEndpointName)
+                    {
+                        // TODO: For v5.3, view and filter names don't match due to the new EdOrgIdToEdOrgId auth view generalization
+                        string viewName = filter.FilterName;
+                        
+                        // Generalize relationships-based naming convention
+                        query.Join(
+                            $"auth.{_namingConvention.IdentifierName(viewName)} AS rba{filterIndex}",
+                            $"c.{_namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{filter.SubjectEndpointName}")}",
+                            $"rba{filterIndex}.{_namingConvention.ColumnName(filter.SubjectEndpointName)}");
 
-                    query.WhereIn($"rba{filterIndex}.{_namingConvention.ColumnName(filter.ClaimEndpointName)}", filter.ClaimValues);
+                        // Apply claim value criteria
+                        query.WhereIn($"rba{filterIndex}.{_namingConvention.ColumnName(filter.ClaimEndpointName)}", filter.ClaimValues);
+                    }
+                    else
+                    {
+                        // Apply claim value criteria directly to the column value
+                        query.WhereIn($"c.{_namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{filter.ClaimEndpointName}")}", filter.ClaimValues);
+                    }
                 }
                 else
                 {
