@@ -14,6 +14,12 @@ CREATE TABLE [dbo].[ClaimSetResourceClaimActionAuthorizations](
  CONSTRAINT [PK_dbo.ClaimSetResourceClaimActionAuthorizations] PRIMARY KEY CLUSTERED 
 (
 	[ClaimSetResourceClaimActionAuthorizationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [ClaimSetResourceClaimActionAuthorizations_AK] UNIQUE NONCLUSTERED 
+(
+	[Action_ActionId] ASC,
+	[ClaimSet_ClaimSetId] ASC,
+	[ResourceClaim_ResourceClaimId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -51,9 +57,15 @@ CREATE TABLE [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides](
  CONSTRAINT [PK_dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides] PRIMARY KEY CLUSTERED 
 (
 	[ClaimSetResourceClaimActionAuthorizationStrategyOverrideId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [ClaimSetResourceClaimActionAuthorizationStrategyOverrides_AK] UNIQUE NONCLUSTERED 
+(
+	[AuthorizationStrategy_AuthorizationStrategyId] ASC,
+	[ClaimSetResourceClaimActionAuthorization_ClaimSetResourceClaimActionAuthorizationId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
 
 ALTER TABLE [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides_dbo.AuthorizationStrategies_AuthorizationStrategy_Authorization] FOREIGN KEY([AuthorizationStrategy_AuthorizationStrategyId])
 REFERENCES [dbo].[AuthorizationStrategies] ([AuthorizationStrategyId])
@@ -80,6 +92,11 @@ CREATE TABLE [dbo].[ResourceClaimActionAuthorizations](
  CONSTRAINT [PK_dbo.ResourceClaimActionAuthorizations] PRIMARY KEY CLUSTERED 
 (
 	[ResourceClaimActionAuthorizationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [ResourceClaimActionAuthorizations_AK] UNIQUE NONCLUSTERED 
+(
+	[Action_ActionId] ASC,
+	[ResourceClaim_ResourceClaimId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -110,6 +127,11 @@ CREATE TABLE [dbo].[ResourceClaimActionAuthorizationStrategies](
  CONSTRAINT [PK_dbo.ResourceClaimActionAuthorizationStrategies] PRIMARY KEY CLUSTERED 
 (
 	[ResourceClaimActionAuthorizationStrategyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY],
+ CONSTRAINT [ResourceClaimActionAuthorizationStrategies_AK] UNIQUE NONCLUSTERED 
+(
+	[AuthorizationStrategy_AuthorizationStrategyId] ASC,
+	[ResourceClaimActionAuthorization_ResourceClaimActionAuthorizationId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

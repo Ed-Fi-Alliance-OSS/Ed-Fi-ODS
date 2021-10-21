@@ -17,6 +17,17 @@ DECLARE @surveyDomainResourceClaimId INT;
 /* --------------------------------- */
 
 /* --------------------------------- */
+/*           Applications            */
+/* --------------------------------- */
+
+INSERT INTO [dbo].[Applications] ([ApplicationName])
+VALUES ('Ed-Fi ODS API');
+
+SELECT @applicationId = (SELECT applicationid FROM [dbo].[Applications] WHERE [ApplicationName] = 'Ed-Fi ODS API');
+
+/* --------------------------------- */
+
+/* --------------------------------- */
 /*      Authorization Strategies     */
 /* --------------------------------- */
 
