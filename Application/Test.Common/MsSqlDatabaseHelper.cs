@@ -46,18 +46,18 @@ namespace Test.Common
             try
             {
                 var psScript = @"
-                $ErrorActionPreference = 'Stop'
+                    $ErrorActionPreference = 'Stop'
 
-                .\Initialize-PowershellForDevelopment.ps1
+                    .\Initialize-PowershellForDevelopment.ps1
 
-                $settings = @{ 
-                    ApiSettings = @{ Engine = 'SQLServer' } 
-                    ConnectionStrings = @{ EdFi_Ods = '" + _odsConnectionString + @"' } 
-                }
-                Set-DeploymentSettings $settings
+                    $settings = @{ 
+                        ApiSettings = @{ Engine = 'SQLServer' } 
+                        ConnectionStrings = @{ EdFi_Ods = '" + _odsConnectionString + @"' } 
+                    }
+                    Set-DeploymentSettings $settings
 
-                Reset-TestPopulatedTemplateDatabase
-            ";
+                    Reset-TestPopulatedTemplateDatabase
+                ";
 
                 var info = new ProcessStartInfo("powershell", psScript)
                 {
