@@ -9,6 +9,6 @@ namespace Test.Common
     {
         void CopyDatabase(string originalDatabaseName, string newDatabaseName);
         void DropMatchingDatabases(string databaseNamePattern);
-        void DownloadAndRestoreDatabase(string uri, string packageName, string fileName, string databaseName);
+        string DownloadAndRestoreDatabase();
     }
 }

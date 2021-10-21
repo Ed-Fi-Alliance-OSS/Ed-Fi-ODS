@@ -11,7 +11,6 @@ using NUnit.Framework;
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using Test.Common;
 
 namespace EdFi.Ods.Api.IntegrationTests
@@ -43,13 +42,6 @@ namespace EdFi.Ods.Api.IntegrationTests
 
             var configuration = configurationBuilder
                 .AddJsonFile($"appsettings.{(DatabaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true)
-                .AddEnvironmentVariables(ConfigEnvironmentVariablesPrefix)
-                .Build();
-
-            var jsonPath = Path.GetFullPath("../../../../../../Ed-Fi-ODS-Implementation/configuration.packages.json");
-
-            var packageConfiguration = configurationBuilder
-                .AddJsonFile(jsonPath, true)
                 .AddEnvironmentVariables(ConfigEnvironmentVariablesPrefix)
                 .Build();
 
@@ -107,35 +99,29 @@ namespace EdFi.Ods.Api.IntegrationTests
                 }
             }
 
-            connectionStringBuilder.ConnectionString = odsConnectionString;
-
             try
             {
                 BuildConnection(odsConnectionString);
             }
             catch
             {
-                var packageName = packageConfiguration.GetValue<string>("packages:GrandBend:PackageName");
-                var packageVersion = packageConfiguration.GetValue<string>("packages:GrandBend:PackageVersion");
-                var fileName = "EdFi.Ods.Populated.Template.bak";
+                var reason = _databaseHelper.DownloadAndRestoreDatabase();
 
-                if (DatabaseEngine == DatabaseEngine.Postgres)
+                if (!string.IsNullOrWhiteSpace(reason))
                 {
-                    packageName = packageConfiguration.GetValue<string>("packages:PostgreSqlPopulatedTemplate:PackageName");
-                    packageVersion = packageConfiguration.GetValue<string>("packages:PostgreSqlPopulatedTemplate:PackageVersion");
-                    fileName = "EdFi.Ods.Populated.Template.sql";
+                    if (isStrictMode.Value)
+                    {
+                        Assert.Fail(reason);
+                    }
+                    else
+                    {
+                        Assert.Ignore(reason);
+                    }
                 }
-
-                var packageURL = string.Format(configuration.GetValue<string>("URL_Template"), packageName, packageVersion);
-                _databaseHelper.DownloadAndRestoreDatabase(
-                    packageURL, 
-                    $"{packageName}.{packageVersion}",
-                    fileName, 
-                    connectionStringBuilder.DatabaseName
-                );
             }
 
             var testDbName = $"{TestDbPrefix}{Guid.NewGuid():N}";
+            connectionStringBuilder.ConnectionString = odsConnectionString;
 
             _databaseHelper.CopyDatabase(connectionStringBuilder.DatabaseName, testDbName);
             _isTestDbCreated = true;

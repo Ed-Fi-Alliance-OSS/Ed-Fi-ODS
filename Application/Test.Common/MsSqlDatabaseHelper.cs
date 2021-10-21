@@ -8,10 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace Test.Common
 {
@@ -20,10 +18,12 @@ namespace Test.Common
         private const int CommandTimeout = 120;
 
         private readonly string _connectionString;
+        private readonly string _odsConnectionString;
 
         public MsSqlDatabaseHelper(IConfigurationRoot config)
         {
             _connectionString = config.GetConnectionString("EdFi_master");
+            _odsConnectionString = config.GetConnectionString("EdFi_Ods");
         }
 
         public void CopyDatabase(string originalDatabaseName, string newDatabaseName)
@@ -41,53 +41,47 @@ namespace Test.Common
             }
         }
 
-        public void DownloadAndRestoreDatabase(string uri, string packageName, string fileName, string databaseName)
+        public string DownloadAndRestoreDatabase()
         {
-            var downloadPath = "C:/Downloads";
-            if (!Directory.Exists(downloadPath))
+            try
             {
-                Directory.CreateDirectory(downloadPath);
-            }
+                var psScript = @"
+                $ErrorActionPreference = 'Stop'
 
-            var backupZip = Path.Combine(downloadPath, packageName + ".zip");
-            var backup = Path.Combine(downloadPath, databaseName + ".bak");
-            
-            if (!File.Exists(backupZip))
-            {
-                using (var webClient = new WebClient())
-                {
-                    webClient.DownloadFile(uri, backupZip);
+                .\Initialize-PowershellForDevelopment.ps1
+
+                $settings = @{ 
+                    ApiSettings = @{ Engine = 'SQLServer' } 
+                    ConnectionStrings = @{ EdFi_Ods = '" + _odsConnectionString + @"' } 
                 }
+                Set-DeploymentSettings $settings
+
+                Reset-TestPopulatedTemplateDatabase
+            ";
+
+                var info = new ProcessStartInfo("powershell", psScript)
+                {
+                    WorkingDirectory = Path.GetFullPath("../../../../../../Ed-Fi-ODS-Implementation"),
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                };
+
+                using var process = Process.Start(info);
+
+                process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                process.BeginOutputReadLine();
+
+                process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                process.BeginErrorReadLine();
+
+                process.WaitForExit();
+            }
+            catch
+            { 
+                return $"Couldn't download template database or restore failed";
             }
 
-            GetBackupFileFromPackage(backupZip, backup, fileName);
-
-            var dataPath = GetServerDefaultDataPath(DataPathType.Data);
-            var logPath = GetServerDefaultDataPath(DataPathType.Log);
-            var datafile = Path.Combine(dataPath, string.Format("{0}.mdf", databaseName));
-            var logfile = Path.Combine(logPath, string.Format("{0}.ldf", databaseName));
-
-            using (var conn = new SqlConnection(_connectionString))
-            {
-                conn.Open();
-
-                var logicalName = RestoreFileList(backup, conn);
-                RestoreDatabase(databaseName, backup, logicalName, datafile, logfile, conn);
-                File.Delete(backup);
-            }
-        }
-
-        private static void GetBackupFileFromPackage(string sourcePath, string destinationPath, string backupFileName)
-        {
-            if (File.Exists(sourcePath))
-            {
-                var unzipFolderName = sourcePath.Replace(".zip", "");
-
-                ZipFile.ExtractToDirectory(sourcePath, unzipFolderName, true);
-                File.Copy($"{unzipFolderName}/{backupFileName}", destinationPath, true);
-
-                Directory.Delete(unzipFolderName, true);
-            }
+            return "";
         }
 
         private static void BackupDatabase(string originalDatabaseName, string backup, SqlConnection conn)

@@ -6,11 +6,10 @@
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
+using System;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Net;
 
 namespace Test.Common
 {
@@ -20,13 +19,11 @@ namespace Test.Common
 
         private readonly string _connectionString;
         private readonly string _odsConnectionString;
-        private readonly string _psqlExecutable;
 
         public PgSqlDatabaseHelper(IConfigurationRoot config)
         {
             _connectionString = config.GetConnectionString("EdFi_master");
             _odsConnectionString = config.GetConnectionString("EdFi_Ods");
-            _psqlExecutable = config.GetSection("PsqlExecutable").Value;
         }
 
         public void CopyDatabase(string originalDatabaseName, string newDatabaseName)
@@ -42,110 +39,47 @@ namespace Test.Common
             NpgsqlConnection.ClearAllPools();
         }
 
-        public void DownloadAndRestoreDatabase(string uri, string packageName, string fileName, string databaseName)
+        public string DownloadAndRestoreDatabase()
         {
-            var downloadPath = "C:/Downloads";
-            if (!Directory.Exists(downloadPath))
+            try
             {
-                Directory.CreateDirectory(downloadPath);
-            }
+                var psScript = @"
+                $ErrorActionPreference = 'Stop'
 
-            var backupZip = Path.Combine(downloadPath, packageName + ".zip");
-            var sqlFile = Path.Combine(downloadPath, databaseName + ".sql");
+                .\Initialize-PowershellForDevelopment.ps1
 
-            if (!File.Exists(backupZip))
-            {
-                using (var webClient = new WebClient())
-                {
-                    webClient.DownloadFile(uri, backupZip);
+                $settings = @{ 
+                    ApiSettings = @{ Engine = 'PostgreSQL' } 
+                    ConnectionStrings = @{ EdFi_Ods = '" + _odsConnectionString + @"' } 
                 }
+                Set-DeploymentSettings $settings
+
+                Reset-TestPopulatedTemplateDatabase
+            ";
+
+                var info = new ProcessStartInfo("powershell", psScript)
+                {
+                    WorkingDirectory = Path.GetFullPath("../../../../../../Ed-Fi-ODS-Implementation"),
+                    RedirectStandardError = true,
+                    RedirectStandardOutput = true,
+                };
+
+                using var process = Process.Start(info);
+
+                process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                process.BeginOutputReadLine();
+
+                process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
+                process.BeginErrorReadLine();
+
+                process.WaitForExit();
+            }
+            catch
+            {
+                return $"Couldn't download template database or restore failed";
             }
 
-            GetSQLFileFromPackage(backupZip, sqlFile, fileName);
-
-            var createDatabaseSql = $"CREATE DATABASE \"{databaseName}\";";
-
-            using var conn = new NpgsqlConnection(_connectionString);
-            conn.Execute(createDatabaseSql, commandTimeout: CommandTimeout);
-
-            var builder = new NpgsqlConnectionStringBuilder(_odsConnectionString);
-
-            var arguments =
-                $"-P pager=off --tuples-only --echo-errors --no-password --host={builder.Host} --port={builder.Port} --username={builder.Username} --dbname={builder.Database} --file={sqlFile}";
-
-            NpgsqlConnection.ClearAllPools();
-
-            var psqlExecutable = EnsurePsqlExecutablePathExists(downloadPath);
-
-            var info = new ProcessStartInfo(psqlExecutable, arguments)
-            {
-                RedirectStandardInput = true,
-                RedirectStandardError = true
-            };
-
-            using var process = new Process { StartInfo = info };
-
-            process.Start();
-
-            process.WaitForExit();
-        }
-
-        private static void GetSQLFileFromPackage(string sourcePath, string destinationPath, string sqlFileName)
-        {
-            if (File.Exists(sourcePath))
-            {
-                var unzipFolderName = sourcePath.Replace(".zip", "");
-
-                ZipFile.ExtractToDirectory(sourcePath, unzipFolderName, true);
-                File.Copy($"{unzipFolderName}/{sqlFileName}", destinationPath, true);
-
-                Directory.Delete(unzipFolderName, true);
-            }
-        }
-
-        private string EnsurePsqlExecutablePathExists(string path)
-        {
-            var toolsPath = Path.GetFullPath(Path.Combine(path, "tool"));
-
-            if (!Directory.Exists(toolsPath))
-            {
-                Directory.CreateDirectory(toolsPath);
-            }
-
-            var pslExecutable = Path.Combine(toolsPath, "psql.exe");
-
-            if (File.Exists(pslExecutable))
-            {
-                return pslExecutable;
-            }
-
-            var tempDirectory = Path.Combine(path, "temp");
-
-            if (Directory.Exists(tempDirectory))
-            {
-                Directory.Delete(tempDirectory, true);
-            }
-
-            Directory.CreateDirectory(tempDirectory);
-
-            var zipFileName = Path.Combine(tempDirectory, $"psql.binaries.zip");
-
-            // Download the nuget package as a .zip
-            using (var webClient = new WebClient())
-            {
-                webClient.DownloadFile(_psqlExecutable, zipFileName);
-            }
-
-            ZipFile.ExtractToDirectory(zipFileName, tempDirectory);
-
-            var files = Directory.GetFiles(Path.Combine(tempDirectory, "tools"));
-
-            foreach (var file in files)
-            {
-                File.Move(file, Path.Combine(toolsPath, Path.GetFileName(file)));
-            }
-
-            return pslExecutable;
+            return "";
         }
 
         public void DropDatabase(string databaseName)
