@@ -134,24 +134,14 @@ namespace EdFi.Ods.Api.Security.Authorization
         {
             var details = GetAuthorizationDetails(authorizationContext);
 
-            var authorizationFilters = new List<AuthorizationFilterDetails>();
+            var relevantClaims = new[] { details.RelevantClaim };
 
-            details.AuthorizationStrategies
-                .Distinct().ForEach(x =>
-                {
-                    var items =
-                    new[]
-                    {
-                    x.GetAuthorizationFilters(new[] { details.RelevantClaim }, authorizationContext)
-                    };
+            var authorizationFilters = details.AuthorizationStrategies
+                .Distinct()
+                .SelectMany(x => x.GetAuthorizationFilters(relevantClaims, authorizationContext))
+                .ToArray();
 
-                    foreach (var item in items)
-                    {
-                        authorizationFilters.Add(item.FirstOrDefault());
-                    }
-                });
-
-            return authorizationFilters;
+            return authorizationFilters;            
         }
 
         /// <summary>
@@ -284,12 +274,6 @@ namespace EdFi.Ods.Api.Security.Authorization
             var relevantPrincipalClaim = relevantPrincipalClaims.First();
 
             // Look for an authorization strategy override on the caller's claims (flow the overrides down, even if they aren't the first claim encountered going up the hierarchy)
-            //IReadOnlyList<string> authorizationStrategyOverrideNames =
-            //    (from rpc in relevantPrincipalClaims
-            //     select rpc.ToEdFiResourceClaimValue()
-            //               .GetAuthorizationStrategyNameOverrides(claimCheckResponse.RequestedAction))
-            //   .FirstOrDefault(x => x != null);
-
             var authorizationStrategyOverrideNames = relevantPrincipalClaims
                     .Select(rpc => rpc.ToEdFiResourceClaimValue()
                     .GetAuthorizationStrategyNameOverrides(claimCheckResponse.RequestedAction))
@@ -310,14 +294,11 @@ namespace EdFi.Ods.Api.Security.Authorization
             //        .FirstOrDefault();
 
             // Use the claim's override, if present
-            //string authorizationStrategyName = 
-            //    claimSpecificAuthorizationStrategyName ?? metadataAuthorizationStrategyName;
-
             var authorizationStrategyNames =
               authorizationStrategyOverrideNames
               ?? metadataAuthorizationStrategyNames;
 
-            // Make sure an authorization strategy is defined for this request
+            // No authorization strategies were defined for this request
             if (authorizationStrategyNames == null)
             {
                 throw new Exception(
