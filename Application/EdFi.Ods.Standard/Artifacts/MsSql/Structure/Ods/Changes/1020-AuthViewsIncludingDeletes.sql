@@ -1,3 +1,8 @@
+-- SPDX-License-Identifier: Apache-2.0
+-- Licensed to the Ed-Fi Alliance under one or more agreements.
+-- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+-- See the LICENSE and NOTICES files in the project root for more information.
+
 DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStudentUSIIncludingDeletes;
 GO
 
@@ -5,14 +10,12 @@ CREATE VIEW auth.LocalEducationAgencyIdToStudentUSIIncludingDeletes AS
     SELECT sch.LocalEducationAgencyId, ssa.StudentUSI
     FROM edfi.School sch
         JOIN edfi.StudentSchoolAssociation ssa ON sch.SchoolId = ssa.SchoolId
-    GROUP BY sch.LocalEducationAgencyId, ssa.StudentUSI
 
     UNION
 
     SELECT sch.LocalEducationAgencyId, ssa_tc.OldStudentUSI as StudentUSI
     FROM edfi.School sch
-        JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON sch.SchoolId = ssa_tc.OldSchoolId
-    GROUP BY sch.LocalEducationAgencyId, ssa_tc.OldStudentUSI;
+        JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON sch.SchoolId = ssa_tc.OldSchoolId;
 GO
 
 DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes;
@@ -24,7 +27,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
     FROM edfi.LocalEducationAgency lea
         JOIN edfi.StaffEducationOrganizationEmploymentAssociation emp
             ON lea.LocalEducationAgencyId = emp.EducationOrganizationId
-    GROUP BY lea.LocalEducationAgencyId, emp.StaffUSI
 
     UNION
 
@@ -33,7 +35,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
     FROM edfi.LocalEducationAgency lea
         JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
             ON lea.LocalEducationAgencyId = emp_tc.OldEducationOrganizationId
-    GROUP BY lea.LocalEducationAgencyId, emp_tc.OldStaffUSI
 
     UNION
 
@@ -44,7 +45,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
             ON lea.LocalEducationAgencyId = od.ParentEducationOrganizationId
         JOIN edfi.StaffEducationOrganizationEmploymentAssociation emp
             ON od.OrganizationDepartmentId = emp.EducationOrganizationId
-    GROUP BY lea.LocalEducationAgencyId, emp.StaffUSI
 
     UNION
 
@@ -55,7 +55,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
             ON lea.LocalEducationAgencyId = od.ParentEducationOrganizationId
         JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
             ON od.OrganizationDepartmentId = emp_tc.OldEducationOrganizationId
-    GROUP BY lea.LocalEducationAgencyId, emp_tc.OldStaffUSI
 
     UNION
 
@@ -64,7 +63,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
     FROM edfi.LocalEducationAgency lea
         JOIN edfi.StaffEducationOrganizationAssignmentAssociation assgn
             ON lea.LocalEducationAgencyId = assgn.EducationOrganizationId
-    GROUP BY lea.LocalEducationAgencyId, assgn.StaffUSI
 
     UNION
 
@@ -73,7 +71,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
     FROM edfi.LocalEducationAgency lea
         JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
             ON lea.LocalEducationAgencyId = assgn_tc.OldEducationOrganizationId
-    GROUP BY lea.LocalEducationAgencyId, assgn_tc.OldStaffUSI
 
     UNION
 
@@ -84,7 +81,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
             ON lea.LocalEducationAgencyId = od.ParentEducationOrganizationId
         JOIN edfi.StaffEducationOrganizationAssignmentAssociation assgn
             ON od.OrganizationDepartmentId = assgn.EducationOrganizationId
-    GROUP BY lea.LocalEducationAgencyId, assgn.StaffUSI
 
     UNION
 
@@ -95,7 +91,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
             ON lea.LocalEducationAgencyId = od.ParentEducationOrganizationId
         JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
             ON od.OrganizationDepartmentId = assgn_tc.OldEducationOrganizationId
-    GROUP BY lea.LocalEducationAgencyId, assgn_tc.OldStaffUSI
 
     UNION
 
@@ -104,7 +99,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
     FROM edfi.School sch
         JOIN edfi.StaffEducationOrganizationEmploymentAssociation emp
             ON sch.SchoolId = emp.EducationOrganizationId
-    GROUP BY sch.LocalEducationAgencyId, emp.StaffUSI
 
     UNION
 
@@ -113,7 +107,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
     FROM edfi.School sch
         JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
             ON sch.SchoolId = emp_tc.OldEducationOrganizationId
-    GROUP BY sch.LocalEducationAgencyId, emp_tc.OldStaffUSI
 
     UNION
 
@@ -124,7 +117,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
             ON sch.SchoolId = od.ParentEducationOrganizationId
         JOIN edfi.StaffEducationOrganizationEmploymentAssociation emp
             ON od.OrganizationDepartmentId = emp.EducationOrganizationId
-    GROUP BY sch.LocalEducationAgencyId, emp.StaffUSI
 
     UNION
 
@@ -135,7 +127,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
             ON sch.SchoolId = od.ParentEducationOrganizationId
         JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
             ON od.OrganizationDepartmentId = emp_tc.OldEducationOrganizationId
-    GROUP BY sch.LocalEducationAgencyId, emp_tc.OldStaffUSI
 
     UNION
 
@@ -144,7 +135,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
     FROM edfi.School sch
         JOIN edfi.StaffEducationOrganizationAssignmentAssociation assgn
             ON sch.SchoolId = assgn.EducationOrganizationId
-    GROUP BY sch.LocalEducationAgencyId, assgn.StaffUSI
 
     UNION
 
@@ -153,7 +143,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
     FROM edfi.School sch
         JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
             ON sch.SchoolId = assgn_tc.OldEducationOrganizationId
-    GROUP BY sch.LocalEducationAgencyId, assgn_tc.OldStaffUSI
 
     UNION
 
@@ -164,7 +153,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
             ON sch.SchoolId = od.ParentEducationOrganizationId
         JOIN edfi.StaffEducationOrganizationAssignmentAssociation assgn
             ON od.OrganizationDepartmentId = assgn.EducationOrganizationId
-    GROUP BY sch.LocalEducationAgencyId, assgn.StaffUSI
 
     UNION
 
@@ -173,8 +161,7 @@ CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
         JOIN edfi.OrganizationDepartment od
             ON sch.SchoolId = od.ParentEducationOrganizationId
         JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
-            ON od.OrganizationDepartmentId = assgn_tc.OldEducationOrganizationId
-    GROUP BY sch.LocalEducationAgencyId, assgn_tc.OldStaffUSI;
+            ON od.OrganizationDepartmentId = assgn_tc.OldEducationOrganizationId;
 GO
 
 DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToParentUSIIncludingDeletes;
@@ -187,7 +174,7 @@ CREATE VIEW auth.LocalEducationAgencyIdToParentUSIIncludingDeletes AS
         JOIN edfi.StudentSchoolAssociation ssa ON sch.SchoolId = ssa.SchoolId
         JOIN edfi.Student s ON ssa.StudentUSI = s.StudentUSI
         JOIN edfi.StudentParentAssociation spa ON ssa.StudentUSI = spa.StudentUSI
-    GROUP BY sch.LocalEducationAgencyId, spa.ParentUSI
+
     UNION
 
     -- Intact StudentSchoolAssociation and deleted StudentParentAssociation
@@ -195,7 +182,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToParentUSIIncludingDeletes AS
     FROM edfi.School sch
         JOIN edfi.StudentSchoolAssociation ssa ON sch.SchoolId = ssa.SchoolId
         JOIN tracked_changes_edfi.StudentParentAssociation spa_tc ON ssa.StudentUSI = spa_tc.OldStudentUSI
-    GROUP BY sch.LocalEducationAgencyId, spa_tc.OldParentUSI
 
     UNION
 
@@ -204,7 +190,6 @@ CREATE VIEW auth.LocalEducationAgencyIdToParentUSIIncludingDeletes AS
     FROM edfi.School sch
         JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON sch.SchoolId = ssa_tc.OldSchoolId
         JOIN edfi.StudentParentAssociation spa ON ssa_tc.OldStudentUSI = spa.StudentUSI
-    GROUP BY sch.LocalEducationAgencyId, spa.ParentUSI
 
     UNION
 
@@ -212,6 +197,5 @@ CREATE VIEW auth.LocalEducationAgencyIdToParentUSIIncludingDeletes AS
     SELECT sch.LocalEducationAgencyId, spa_tc.OldParentUSI as ParentUSI
     FROM edfi.School sch
         JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON sch.SchoolId = ssa_tc.OldSchoolId
-        JOIN tracked_changes_edfi.StudentParentAssociation spa_tc ON ssa_tc.OldStudentUSI = spa_tc.OldStudentUSI
-    GROUP BY sch.LocalEducationAgencyId, spa_tc.OldParentUSI;
+        JOIN tracked_changes_edfi.StudentParentAssociation spa_tc ON ssa_tc.OldStudentUSI = spa_tc.OldStudentUSI;
 GO
