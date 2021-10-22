@@ -14,7 +14,7 @@ DROP VIEW IF EXISTS auth.EducationOrganizationIdToStateAgencyId;
 DROP VIEW IF EXISTS auth.EducationOrganizationIdToEducationServiceCenterId;
 DROP VIEW IF EXISTS auth.CommunityOrganizationIdToCommunityProviderId;
 DROP VIEW IF EXISTS auth.CommunityOrganizationIdToEducationOrganizationId;
-DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStudentUSI;
+DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStudentUSI CASCADE;
 DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation;
 DROP VIEW IF EXISTS auth.SchoolIdToStudentUSI;
 DROP VIEW IF EXISTS auth.ParentUSIToStudentUSI;
