@@ -3,7 +3,8 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-CREATE OR ALTER VIEW auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS
+CREATE OR ALTER VIEW auth.EducationOrganizationIdToStudentUSIThroughResponsibility
+    WITH SCHEMABINDING AS
     SELECT  edOrgs.SourceEducationOrganizationId, seora.StudentUSI
     FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
             INNER JOIN edfi.StudentEducationOrganizationResponsibilityAssociation seora
