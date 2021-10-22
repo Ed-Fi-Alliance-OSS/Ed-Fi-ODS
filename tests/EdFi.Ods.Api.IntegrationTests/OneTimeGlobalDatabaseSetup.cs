@@ -114,7 +114,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             {
                 try
                 {
-                    _databaseHelper.DownloadAndRestoreDatabase(Path.GetFullPath("../../../../../../Ed-Fi-ODS-Implementation"));
+                    _databaseHelper.DownloadAndRestoreDatabase(Path.GetFullPath(configuration.GetValue<string>("ODSImplementationFolderPath")));
                 }
                 catch(InvalidOperationException ex)
                 {
