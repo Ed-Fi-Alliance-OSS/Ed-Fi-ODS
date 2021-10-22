@@ -11,6 +11,7 @@ using NUnit.Framework;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using Test.Common;
 
 namespace EdFi.Ods.Api.IntegrationTests
@@ -67,6 +68,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             }
 
             IDbConnectionStringBuilderAdapter connectionStringBuilder;
+            var needDownloadAndRestore = false;
 
             if (DatabaseEngine == DatabaseEngine.SqlServer)
             {
@@ -105,17 +107,24 @@ namespace EdFi.Ods.Api.IntegrationTests
             }
             catch
             {
-                var reason = _databaseHelper.DownloadAndRestoreDatabase();
+                needDownloadAndRestore = true;
+            }
 
-                if (!string.IsNullOrWhiteSpace(reason))
+            if (needDownloadAndRestore)
+            {
+                try
+                {
+                    _databaseHelper.DownloadAndRestoreDatabase(Path.GetFullPath("../../../../../../Ed-Fi-ODS-Implementation"));
+                }
+                catch(InvalidOperationException ex)
                 {
                     if (isStrictMode.Value)
                     {
-                        Assert.Fail(reason);
+                        Assert.Fail(ex.Message);
                     }
                     else
                     {
-                        Assert.Ignore(reason);
+                        Assert.Ignore(ex.Message);
                     }
                 }
             }

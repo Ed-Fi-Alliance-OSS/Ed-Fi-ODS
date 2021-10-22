@@ -8,7 +8,6 @@ using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 
 namespace Test.Common
@@ -39,47 +38,34 @@ namespace Test.Common
             NpgsqlConnection.ClearAllPools();
         }
 
-        public string DownloadAndRestoreDatabase()
+        public void DownloadAndRestoreDatabase(string path)
         {
-            try
+            var psScript = @"
+                $ErrorActionPreference = 'Stop'
+
+                .\Initialize-PowershellForDevelopment.ps1
+
+                $settings = @{ 
+                    ApiSettings = @{ Engine = 'PostgreSQL' } 
+                    ConnectionStrings = @{ EdFi_Ods = '" + _odsConnectionString + @"' } 
+                }
+                Set-DeploymentSettings $settings
+
+                Reset-TestPopulatedTemplateDatabase
+            ";
+
+            var info = new ProcessStartInfo("powershell", psScript)
             {
-                var psScript = @"
-                    $ErrorActionPreference = 'Stop'
+                WorkingDirectory = path,
+            };
 
-                    .\Initialize-PowershellForDevelopment.ps1
+            using var process = Process.Start(info);
+            process.WaitForExit();
 
-                    $settings = @{ 
-                        ApiSettings = @{ Engine = 'PostgreSQL' } 
-                        ConnectionStrings = @{ EdFi_Ods = '" + _odsConnectionString + @"' } 
-                    }
-                    Set-DeploymentSettings $settings
-
-                    Reset-TestPopulatedTemplateDatabase
-                ";
-
-                var info = new ProcessStartInfo("powershell", psScript)
-                {
-                    WorkingDirectory = Path.GetFullPath("../../../../../../Ed-Fi-ODS-Implementation"),
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true,
-                };
-
-                using var process = Process.Start(info);
-
-                process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
-                process.BeginOutputReadLine();
-
-                process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
-                process.BeginErrorReadLine();
-
-                process.WaitForExit();
-            }
-            catch
+            if (process.ExitCode != 0)
             {
-                return $"Couldn't download template database or restore failed";
+                throw new InvalidOperationException("Couldn't download template database or restore failed");
             }
-
-            return "";
         }
 
         public void DropDatabase(string databaseName)

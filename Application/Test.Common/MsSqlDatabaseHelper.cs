@@ -41,47 +41,34 @@ namespace Test.Common
             }
         }
 
-        public string DownloadAndRestoreDatabase()
+        public void DownloadAndRestoreDatabase(string path)
         {
-            try
+            var psScript = @"
+                $ErrorActionPreference = 'Stop'
+
+                .\Initialize-PowershellForDevelopment.ps1
+
+                $settings = @{ 
+                    ApiSettings = @{ Engine = 'SQLServer' } 
+                    ConnectionStrings = @{ EdFi_Ods = '" + _odsConnectionString + @"' } 
+                }
+                Set-DeploymentSettings $settings
+
+                Reset-TestPopulatedTemplateDatabase
+            ";
+
+            var info = new ProcessStartInfo("powershell", psScript)
             {
-                var psScript = @"
-                    $ErrorActionPreference = 'Stop'
+                WorkingDirectory = path,
+            };
 
-                    .\Initialize-PowershellForDevelopment.ps1
+            using var process = Process.Start(info);
+            process.WaitForExit();
 
-                    $settings = @{ 
-                        ApiSettings = @{ Engine = 'SQLServer' } 
-                        ConnectionStrings = @{ EdFi_Ods = '" + _odsConnectionString + @"' } 
-                    }
-                    Set-DeploymentSettings $settings
-
-                    Reset-TestPopulatedTemplateDatabase
-                ";
-
-                var info = new ProcessStartInfo("powershell", psScript)
-                {
-                    WorkingDirectory = Path.GetFullPath("../../../../../../Ed-Fi-ODS-Implementation"),
-                    RedirectStandardError = true,
-                    RedirectStandardOutput = true,
-                };
-
-                using var process = Process.Start(info);
-
-                process.OutputDataReceived += (sender, e) => Console.WriteLine(e.Data);
-                process.BeginOutputReadLine();
-
-                process.ErrorDataReceived += (sender, e) => Console.WriteLine(e.Data);
-                process.BeginErrorReadLine();
-
-                process.WaitForExit();
+            if(process.ExitCode != 0)
+            {
+                throw new InvalidOperationException("Couldn't download template database or restore failed");
             }
-            catch
-            { 
-                return $"Couldn't download template database or restore failed";
-            }
-
-            return "";
         }
 
         private static void BackupDatabase(string originalDatabaseName, string backup, SqlConnection conn)
