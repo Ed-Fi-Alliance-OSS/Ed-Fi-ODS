@@ -4,7 +4,7 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 DROP VIEW IF EXISTS auth.School;
-DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStaffUSI;
+DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStaffUSI CASCADE;
 DROP VIEW IF EXISTS auth.CommunityProviderIdToStaffUSI;
 DROP VIEW IF EXISTS auth.PostSecondaryInstitutionIdToStaffUSI;
 DROP VIEW IF EXISTS auth.EducationOrganizationToStaffUSI_Employment;
