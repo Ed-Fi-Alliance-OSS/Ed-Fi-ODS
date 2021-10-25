@@ -11,6 +11,7 @@ using NUnit.Framework;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using Test.Common;
 
 namespace EdFi.Ods.Api.IntegrationTests
@@ -66,6 +67,13 @@ namespace EdFi.Ods.Api.IntegrationTests
                     $"Missing configuration entry: ConnectionStrings{ConfigurationPath.KeyDelimiter}EdFi_Ods");
             }
 
+            var odsImplementationFolderPath = configuration.GetValue<string>("ODSImplementationFolderPath");
+            if (string.IsNullOrWhiteSpace(odsImplementationFolderPath))
+            {
+                throw new ApplicationException(
+                    $"Missing configuration entry: ODSImplementationFolderPath");
+            }
+
             IDbConnectionStringBuilderAdapter connectionStringBuilder;
 
             if (DatabaseEngine == DatabaseEngine.SqlServer)
@@ -105,16 +113,20 @@ namespace EdFi.Ods.Api.IntegrationTests
             }
             catch
             {
-                // TODO implement [ODS-5109 Download Test Database] here
-
-                var reason = $"Couldn't open template database, verify ConnectionStrings{ConfigurationPath.KeyDelimiter}EdFi_Ods";
-                if (isStrictMode.Value)
+                try
                 {
-                    Assert.Fail(reason);
+                    _databaseHelper.DownloadAndRestoreDatabase(Path.GetFullPath(configuration.GetValue<string>("ODSImplementationFolderPath")));
                 }
-                else
+                catch (InvalidOperationException ex)
                 {
-                    Assert.Ignore(reason);
+                    if (isStrictMode.Value)
+                    {
+                        Assert.Fail(ex.Message);
+                    }
+                    else
+                    {
+                        Assert.Ignore(ex.Message);
+                    }
                 }
             }
 

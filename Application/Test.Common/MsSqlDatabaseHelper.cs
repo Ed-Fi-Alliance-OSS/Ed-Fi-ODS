@@ -3,24 +3,30 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using log4net;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 
 namespace Test.Common
 {
     public class MsSqlDatabaseHelper : IDatabaseHelper
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(MsSqlDatabaseHelper));
+
         private const int CommandTimeout = 120;
 
         private readonly string _connectionString;
+        private readonly string _odsConnectionString;
 
         public MsSqlDatabaseHelper(IConfigurationRoot config)
         {
             _connectionString = config.GetConnectionString("EdFi_master");
+            _odsConnectionString = config.GetConnectionString("EdFi_Ods");
         }
 
         public void CopyDatabase(string originalDatabaseName, string newDatabaseName)
@@ -35,6 +41,45 @@ namespace Test.Common
                 BackupDatabase(originalDatabaseName, backup, conn);
                 var logicalName = RestoreFileList(backup, conn);
                 RestoreDatabase(newDatabaseName, backup, logicalName, datafile, logfile, conn);
+            }
+        }
+
+        public void DownloadAndRestoreDatabase(string path)
+        {
+            var psScript = @"
+                $ErrorActionPreference = 'Stop'
+
+                .\Initialize-PowershellForDevelopment.ps1
+
+                $settings = @{ 
+                    ApiSettings = @{ Engine = 'SQLServer' } 
+                    ConnectionStrings = @{ EdFi_Ods = '" + _odsConnectionString + @"' } 
+                }
+                Set-DeploymentSettings $settings
+
+                Reset-TestPopulatedTemplateDatabase
+            ";
+
+            var info = new ProcessStartInfo("powershell", psScript)
+            {
+                WorkingDirectory = path,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
+            };
+
+            using var process = Process.Start(info);
+
+            process.OutputDataReceived += (sender, e) => { _logger.Info($"Output: {e.Data}"); };
+            process.BeginOutputReadLine();
+
+            process.ErrorDataReceived += (sender, e) => { _logger.Error($"Error: {e.Data}"); };
+            process.BeginErrorReadLine();
+
+            process.WaitForExit();
+
+            if(process.ExitCode != 0)
+            {
+                throw new InvalidOperationException("Couldn't download template database or restore failed");
             }
         }
 
