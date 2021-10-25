@@ -67,8 +67,14 @@ namespace EdFi.Ods.Api.IntegrationTests
                     $"Missing configuration entry: ConnectionStrings{ConfigurationPath.KeyDelimiter}EdFi_Ods");
             }
 
+            var odsImplementationFolderPath = configuration.GetValue<string>("ODSImplementationFolderPath");
+            if (string.IsNullOrWhiteSpace(odsImplementationFolderPath))
+            {
+                throw new ApplicationException(
+                    $"Missing configuration entry: ODSImplementationFolderPath");
+            }
+
             IDbConnectionStringBuilderAdapter connectionStringBuilder;
-            var needDownloadAndRestore = false;
 
             if (DatabaseEngine == DatabaseEngine.SqlServer)
             {
@@ -107,16 +113,11 @@ namespace EdFi.Ods.Api.IntegrationTests
             }
             catch
             {
-                needDownloadAndRestore = true;
-            }
-
-            if (needDownloadAndRestore)
-            {
                 try
                 {
                     _databaseHelper.DownloadAndRestoreDatabase(Path.GetFullPath(configuration.GetValue<string>("ODSImplementationFolderPath")));
                 }
-                catch(InvalidOperationException ex)
+                catch (InvalidOperationException ex)
                 {
                     if (isStrictMode.Value)
                     {

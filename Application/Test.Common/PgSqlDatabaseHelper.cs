@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Dapper;
+using log4net;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
@@ -14,6 +15,8 @@ namespace Test.Common
 {
     public class PgSqlDatabaseHelper : IDatabaseHelper
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(PgSqlDatabaseHelper));
+
         private const int CommandTimeout = 120;
 
         private readonly string _connectionString;
@@ -57,9 +60,18 @@ namespace Test.Common
             var info = new ProcessStartInfo("powershell", psScript)
             {
                 WorkingDirectory = path,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
             };
 
             using var process = Process.Start(info);
+
+            process.OutputDataReceived += (sender, e) => { _logger.Info($"Output: {e.Data}"); };
+            process.BeginOutputReadLine();
+
+            process.ErrorDataReceived += (sender, e) => { _logger.Error($"Error: {e.Data}"); };
+            process.BeginErrorReadLine();
+
             process.WaitForExit();
 
             if (process.ExitCode != 0)

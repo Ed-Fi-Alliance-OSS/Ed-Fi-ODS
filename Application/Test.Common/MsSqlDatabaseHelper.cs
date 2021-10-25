@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using log4net;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace Test.Common
 {
     public class MsSqlDatabaseHelper : IDatabaseHelper
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(MsSqlDatabaseHelper));
+
         private const int CommandTimeout = 120;
 
         private readonly string _connectionString;
@@ -60,9 +63,18 @@ namespace Test.Common
             var info = new ProcessStartInfo("powershell", psScript)
             {
                 WorkingDirectory = path,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
             };
 
             using var process = Process.Start(info);
+
+            process.OutputDataReceived += (sender, e) => { _logger.Info($"Output: {e.Data}"); };
+            process.BeginOutputReadLine();
+
+            process.ErrorDataReceived += (sender, e) => { _logger.Error($"Error: {e.Data}"); };
+            process.BeginErrorReadLine();
+
             process.WaitForExit();
 
             if(process.ExitCode != 0)
