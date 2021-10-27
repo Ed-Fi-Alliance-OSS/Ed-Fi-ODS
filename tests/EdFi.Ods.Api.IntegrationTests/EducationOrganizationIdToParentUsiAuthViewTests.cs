@@ -9,7 +9,7 @@ using NUnit.Framework;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class ParentUsiToEducationOrganizationIdAuthViewTests : DatabaseTestFixtureBase
+    public class EducationOrganizationIdToParentUsiAuthViewTests : DatabaseTestFixtureBase
     {
         [Test]
         public void When_parent_assigned_to_a_student_in_school_that_belongs_to_a_district_should_not_return_duplicate_records()

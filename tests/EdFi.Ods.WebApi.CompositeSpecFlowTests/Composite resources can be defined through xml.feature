@@ -128,6 +128,7 @@ Scenario: Composite includes unflattened reference with collection
     Then the queries generated should all match previously approved values
 
 #Linked collection -> properties
+@ignore
 Scenario: Composite includes linked collection with properties
     Given the subject of the request is a student with a StudentSchoolAssociation
     When a GET (by id) request is submitted to the "StudentLinkedCollectionWithProperty" composite
