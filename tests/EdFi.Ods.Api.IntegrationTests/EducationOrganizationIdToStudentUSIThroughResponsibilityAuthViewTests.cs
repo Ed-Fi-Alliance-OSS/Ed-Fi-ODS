@@ -10,9 +10,9 @@ using Shouldly;
 namespace EdFi.Ods.Api.IntegrationTests
 {
     [TestFixture]
-    public class StudentUSIToStudentEdOrgResponsibilityAssociationAuthViewTests : DatabaseTestFixtureBase
+    public class EducationOrganizationIdToStudentUSIThroughResponsibilityAuthViewTests : DatabaseTestFixtureBase
     {
-        private const string ViewName = "StudentUSIToStudentEdOrgResponsibilityAssociation";
+        private const string ViewName = "EducationOrganizationIdToStudentUSIThroughResponsibility";
 
         [Test]
         public void When_student_is_enrolled_in_school_that_belongs_to_a_district_should_not_return_duplicate_records()

@@ -62,7 +62,7 @@ namespace EdFi.Ods.Api.IntegrationTests
 
         private static IEnumerable<(int, int)> GetExistingRecordsInAuthorizationView(IDbConnection connection, PersonType personType)
         {
-            var viewName = $"{personType}USIToEducationOrganizationId";
+            var viewName = $"EducationOrganizationIdTo{personType}USI";
 
             return GetRecordsForAuthorizationView(connection, viewName);
         }
@@ -71,7 +71,7 @@ namespace EdFi.Ods.Api.IntegrationTests
         {
             var sql = @$"
                 SELECT COUNT(*)
-                FROM auth.{personType}USIToEducationOrganizationId
+                FROM auth.EducationOrganizationIdTo{personType}USI
                 GROUP BY SourceEducationOrganizationId, {personType}USI
                 HAVING COUNT(*) > 1;";
 

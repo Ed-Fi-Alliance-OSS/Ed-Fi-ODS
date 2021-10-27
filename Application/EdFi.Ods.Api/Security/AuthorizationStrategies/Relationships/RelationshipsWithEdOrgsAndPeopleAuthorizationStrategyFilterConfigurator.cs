@@ -47,10 +47,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                               RelationshipsAuthorizationFilters.PostSecondaryInstitutionIdToPostSecondaryInstitutionId,
                               RelationshipsAuthorizationFilters.StateEducationAgencyIdToStateEducationAgencyId,
 
-                              // TPDM
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToUniversityId,
-                              RelationshipsAuthorizationFilters.EducationOrganizationIdToTeacherPreparationProviderId,
-
                               // TPDM property-based filter authorizations (for direct API Client associations)
                               RelationshipsAuthorizationFilters.UniversityIdToUniversityId,
                               RelationshipsAuthorizationFilters.TeacherPreparationProviderIdToTeacherPreparationProviderId,

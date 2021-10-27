@@ -40,7 +40,7 @@ where comp_aaa.SchoolId IN (:BaseEntityId) AND (comp_aae.SchoolId IN (
                         FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aar 
                         WHERE fltr_aar.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aae.StudentUSI IN (
                             SELECT fltr_aab.StudentUSI 
-                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StudentUSIToEducationOrganizationId fltr_aab 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aab 
                             WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.SchoolId,
 	comp_aae.EntryDate,
@@ -59,7 +59,7 @@ where comp_aaa.SchoolId IN (:BaseEntityId) AND (comp_aag.SchoolId IN (
                         FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aar 
                         WHERE fltr_aar.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aag.StaffUSI IN (
                         SELECT fltr_aaf.StaffUSI 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StaffUSIToEducationOrganizationId fltr_aaf 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aaf 
                         WHERE fltr_aaf.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.SchoolId,
 	comp_aag.ProgramAssignmentDescriptorId,
@@ -77,7 +77,7 @@ from
 	join comp_aag.Staff comp_aah
 where comp_aaa.SchoolId IN (:BaseEntityId) AND (comp_aah.StaffUSI IN (
                         SELECT fltr_aaf.StaffUSI 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_StaffUSIToEducationOrganizationId fltr_aaf 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aaf 
                         WHERE fltr_aaf.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.SchoolId,
 	comp_aag.ProgramAssignmentDescriptorId,

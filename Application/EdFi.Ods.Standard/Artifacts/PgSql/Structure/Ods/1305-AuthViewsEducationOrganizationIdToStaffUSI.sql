@@ -3,7 +3,7 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-CREATE OR REPLACE VIEW auth.StaffUSIToEducationOrganizationId
+CREATE OR REPLACE VIEW auth.EducationOrganizationIdToStaffUSI
 AS
     -- EdOrg Assignments
     SELECT  edOrgs.SourceEducationOrganizationId, seo_assign.StaffUSI
