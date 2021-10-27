@@ -6,8 +6,7 @@
 CREATE TABLE auth.EducationOrganizationIdToEducationOrganizationId (
     SourceEducationOrganizationId INT NOT NULL,
     TargetEducationOrganizationId INT NOT NULL,
-    EducationOrganizationType nvarchar(128) NULL,
-    NameOfInstitution [nvarchar](75) NOT NULL
+    EducationOrganizationType nvarchar(128) NULL
     CONSTRAINT [EducationOrganizationIdToEducationOrganizationId_PK] PRIMARY KEY CLUSTERED (
         [SourceEducationOrganizationId] ASC,
         [TargetEducationOrganizationId] ASC
