@@ -7,7 +7,7 @@ CREATE TRIGGER edfi.edfi_EducationOrganization_TR_Insert ON edfi.EducationOrgani
 BEGIN
     SET NOCOUNT ON
     INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId
-    SELECT i.EducationOrganizationId, i.EducationOrganizationId
+    SELECT i.EducationOrganizationId, i.EducationOrganizationId, i.Discriminator, i.NameOfInstitution
     FROM inserted as i
 END
 GO
