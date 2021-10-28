@@ -90,42 +90,26 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 {
                     new EducationOrganizationIdentifiers(
                         9,
-                        "LocalEducationAgency",
-                        stateEducationAgencyId: 1,
-                        localEducationAgencyId: 9),
+                        "LocalEducationAgency"),
                     new EducationOrganizationIdentifiers(
                         99,
-                        "School",
-                        stateEducationAgencyId: 1,
-                        localEducationAgencyId: 9,
-                        schoolId: 99),
+                        "School"),
                     new EducationOrganizationIdentifiers(
                         999,
-                        "School",
-                        stateEducationAgencyId: 1,
-                        localEducationAgencyId: 9,
-                        schoolId: 999)
+                        "School")
                 };
 
                 var suppliedIdentifierSet2 = new List<EducationOrganizationIdentifiers>
                 {
                     new EducationOrganizationIdentifiers(
                         8,
-                        "LocalEducationAgency",
-                        stateEducationAgencyId: 1,
-                        localEducationAgencyId: 8),
+                        "LocalEducationAgency"),
                     new EducationOrganizationIdentifiers(
                         88,
-                        "School",
-                        stateEducationAgencyId: 1,
-                        localEducationAgencyId: 8,
-                        schoolId: 88),
+                        "School"),
                     new EducationOrganizationIdentifiers(
                         888,
-                        "School",
-                        stateEducationAgencyId: 1,
-                        localEducationAgencyId: 8,
-                        schoolId: 888)
+                        "School")
                 };
 
                 educationOrganizationCacheDataProvider.AddResult("String1", suppliedIdentifierSet1);
@@ -159,8 +143,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 Should_return_cached_data_retrieved_when_the_current_connection_matches_the_connection_where_the_requested_data_is_defined
                 ()
             {
-                _actual99ResultForString1.LocalEducationAgencyId.ShouldBe(9);
-                _actual88ResultForString2.LocalEducationAgencyId.ShouldBe(8);
+                _actual99ResultForString1.EducationOrganizationId.ShouldBe(99);
+                _actual88ResultForString2.EducationOrganizationId.ShouldBe(88);
             }
 
             [Test]
@@ -169,18 +153,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 ()
             {
                 _actual88ResultForString1.EducationOrganizationId.ShouldBe(default(int));
-                _actual88ResultForString1.EducationServiceCenterId.ShouldBeNull();
                 _actual88ResultForString1.EducationOrganizationType.ShouldBeNull();
-                _actual88ResultForString1.LocalEducationAgencyId.ShouldBeNull();
-                _actual88ResultForString1.SchoolId.ShouldBeNull();
-                _actual88ResultForString1.StateEducationAgencyId.ShouldBeNull();
-
                 _actual99ResultForString2.EducationOrganizationId.ShouldBe(default(int));
-                _actual99ResultForString2.EducationServiceCenterId.ShouldBeNull();
                 _actual99ResultForString2.EducationOrganizationType.ShouldBeNull();
-                _actual99ResultForString2.LocalEducationAgencyId.ShouldBeNull();
-                _actual99ResultForString2.SchoolId.ShouldBeNull();
-                _actual99ResultForString2.StateEducationAgencyId.ShouldBeNull();
             }
         }
 
@@ -209,10 +184,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // edorg value mapper
                 suppliedEdOrgValueMap = new EducationOrganizationIdentifiers(
                     educationOrganizationId: 123456,
-                    educationOrganizationType: "District",
-                    stateEducationAgencyId: 1,
-                    educationServiceCenterId: 330950,
-                    localEducationAgencyId: 123456);
+                    educationOrganizationType: "District");
 
 
                 A.CallTo(() => edOrgValueMapper.GetEducationOrganizationIdentifiers(default(int)))
@@ -222,10 +194,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // edorg identifiers provider
                 suppliedEducationOrganizationIdentifiers = new EducationOrganizationIdentifiers(
                     educationOrganizationId: 123456,
-                    educationOrganizationType: "District",
-                    stateEducationAgencyId: 1,
-                    educationServiceCenterId: 330950,
-                    localEducationAgencyId: 8675309);
+                    educationOrganizationType: "District");
 
 
                 A.CallTo(() => educationOrganizationIdentifiersProvider.GetAllEducationOrganizationIdentifiers())
@@ -297,9 +266,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             public void Should_return_education_organization_values_supplied_by_edorg_data_provider()
             {
                 Assert.That(actualEducationOrganizationIdentifiers
-                        .Select(x => x.LocalEducationAgencyId)
+                        .Select(x => x.EducationOrganizationId)
                         .Distinct(),
-                    Is.EqualTo(new[] {suppliedEducationOrganizationIdentifiers.LocalEducationAgencyId}));
+                    Is.EqualTo(new[] {suppliedEducationOrganizationIdentifiers.EducationOrganizationId}));
             }
         }
 
@@ -332,10 +301,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // edorg value mapper
                 _suppliedEdOrgValueMap = new EducationOrganizationIdentifiers(
                     educationOrganizationId: 123456,
-                    educationOrganizationType: "District",
-                    stateEducationAgencyId: 1,
-                    educationServiceCenterId: 330950,
-                    localEducationAgencyId: 123456);
+                    educationOrganizationType: "District");
 
                 A.CallTo(() => _edOrgValueMapper.GetEducationOrganizationIdentifiers(default(int)))
                     .WithAnyArguments()
@@ -344,10 +310,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // edorg identifiers provider
                 _suppliedEducationOrganizationIdentifiers = new EducationOrganizationIdentifiers(
                     educationOrganizationId: 123456,
-                    educationOrganizationType: "District",
-                    stateEducationAgencyId: 1,
-                    educationServiceCenterId: 330950,
-                    localEducationAgencyId: 8675309);
+                    educationOrganizationType: "District");
 
                 var memoryCacheProvider = Stub<MemoryCacheProvider>();
 
@@ -418,12 +381,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             public void Should_return_education_organization_values_supplied_by_edorg_data_provider()
             {
                 Assert.That(
-                    _actualEducationOrganizationIdentifiers.Select(x => x.LocalEducationAgencyId)
+                    _actualEducationOrganizationIdentifiers.Select(x => x.EducationOrganizationId)
                         .Distinct(),
                     Is.EqualTo(
                         new[]
                         {
-                             _suppliedEdOrgValueMap.LocalEducationAgencyId
+                             _suppliedEdOrgValueMap.EducationOrganizationId
                         }));
             }
         }
@@ -511,10 +474,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // edorg value mapper
                 suppliedEdOrgValueMap = new EducationOrganizationIdentifiers(
                     educationOrganizationId: 123456,
-                    educationOrganizationType: "District",
-                    stateEducationAgencyId: 1,
-                    educationServiceCenterId: 330950,
-                    localEducationAgencyId: 123456);
+                    educationOrganizationType: "District");
 
                 A.CallTo(() => edOrgValueMapper.GetEducationOrganizationIdentifiers(default(int)))
                     .WithAnyArguments()

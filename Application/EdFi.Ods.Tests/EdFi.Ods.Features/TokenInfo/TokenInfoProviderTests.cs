@@ -33,14 +33,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
                 "descriptor", null, null);
         }
 
-        private List<EducationOrganizationIdentifiers> CreateEducationOrganizationIdentifiers()
+        private List<TokenInfoEducationOrganizationIdentifiers> CreateEducationOrganizationIdentifiers()
         {
-            return new List<EducationOrganizationIdentifiers>
+            return new List<TokenInfoEducationOrganizationIdentifiers>
             {
-                new EducationOrganizationIdentifiers(
+                new TokenInfoEducationOrganizationIdentifiers(
                     1234, "LocalEducationAgency", fullEducationOrganizationType: "edfi.LocalEducationOrganization",
                     nameOfInstitution: "Test LEA"),
-                new EducationOrganizationIdentifiers(
+                new TokenInfoEducationOrganizationIdentifiers(
                     123401, "School", fullEducationOrganizationType: "edfi.School",
                     nameOfInstitution: "School belonging to LEA")
             };
@@ -73,10 +73,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
 
             A.CallTo(
                     () => edOrgIdentifierSqlQuery.SetResultTransformer(
-                        Transformers.AliasToBean<EducationOrganizationIdentifiers>()))
+                        Transformers.AliasToBean<TokenInfoEducationOrganizationIdentifiers>()))
                 .Returns(edOrgIdentifierSqlQuery);
 
-            A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None))
+            A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<TokenInfoEducationOrganizationIdentifiers>(CancellationToken.None))
                 .Returns(CreateEducationOrganizationIdentifiers());
 
             // Act
@@ -98,7 +98,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
             A.CallTo(() => session.CreateSQLQuery(A<string>.That.Contains("auth.educationorganizationidentifiers")))
                 .MustHaveHappenedOnceExactly();
 
-            A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None))
+            A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<TokenInfoEducationOrganizationIdentifiers>(CancellationToken.None))
                 .MustHaveHappenedOnceExactly();
 
             // validate we have a valid object

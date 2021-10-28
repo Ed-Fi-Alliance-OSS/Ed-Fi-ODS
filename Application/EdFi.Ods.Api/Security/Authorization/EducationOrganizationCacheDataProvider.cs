@@ -16,7 +16,9 @@ namespace EdFi.Ods.Api.Security.Authorization
 {
     public class EducationOrganizationCacheDataProvider : IEducationOrganizationCacheDataProvider, IEducationOrganizationIdentifiersValueMapper
     {
-        private const string Sql = @"SELECT * FROM auth.EducationOrganizationIdentifiers";
+        private const string Sql = @"SELECT EducationOrganizationId, REPLACE(Discriminator, 'edfi.', '') AS EducationOrganizationType,
+                                    Discriminator AS fullEducationOrganizationType, NameOfInstitution  FROM edfi.EducationOrganization";
+
         private readonly ISessionFactory _sessionFactory;
 
         public EducationOrganizationCacheDataProvider(ISessionFactory sessionFactory)

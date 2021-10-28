@@ -7,7 +7,7 @@ CREATE TRIGGER edfi.edfi_EducationOrganization_TR_Insert ON edfi.EducationOrgani
 BEGIN
     SET NOCOUNT ON
     INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId
-    SELECT i.EducationOrganizationId, i.EducationOrganizationId, i.Discriminator
+    SELECT i.EducationOrganizationId, i.EducationOrganizationId
     FROM inserted as i
 END
 GO
@@ -39,7 +39,7 @@ BEGIN
     ON eoeo1.SourceEducationOrganizationId = eoeo2.LocalEducationAgencyId
         AND eoeo1.TargetEducationOrganizationId = eoeo2.SchoolId
     WHEN NOT MATCHED THEN
-        INSERT VALUES(eoeo2.LocalEducationAgencyId, eoeo2.SchoolId , 'edfi.School');
+        INSERT VALUES(eoeo2.LocalEducationAgencyId, eoeo2.SchoolId);
 END
 GO
 
@@ -71,7 +71,7 @@ BEGIN
     ON eoeo1.SourceEducationOrganizationId = eoeo2.SourceEducationOrganizationId
         AND eoeo1.TargetEducationOrganizationId = eoeo2.SchoolId
     WHEN NOT MATCHED THEN
-        INSERT VALUES(eoeo2.SourceEducationOrganizationId, eoeo2.SchoolId , 'edfi.School');
+        INSERT VALUES(eoeo2.SourceEducationOrganizationId, eoeo2.SchoolId);
 END
 GO
 
@@ -86,7 +86,7 @@ BEGIN
     ON eoeo1.SourceEducationOrganizationId = eoeo2.CommunityOrganizationId
         AND eoeo1.TargetEducationOrganizationId = eoeo2.CommunityProviderId
     WHEN NOT MATCHED THEN
-        INSERT VALUES(eoeo2.CommunityOrganizationId, eoeo2.CommunityProviderId, 'edfi.CommunityProvider');
+        INSERT VALUES(eoeo2.CommunityOrganizationId, eoeo2.CommunityProviderId);
 END
 GO
 
@@ -116,7 +116,7 @@ BEGIN
     ON eoeo1.SourceEducationOrganizationId = eoeo2.SourceEducationOrganizationId
         AND eoeo1.TargetEducationOrganizationId = eoeo2.CommunityProviderId
     WHEN NOT MATCHED THEN
-        INSERT VALUES(eoeo2.SourceEducationOrganizationId, eoeo2.CommunityProviderId, 'edfi.CommunityProvider');
+        INSERT VALUES(eoeo2.SourceEducationOrganizationId, eoeo2.CommunityProviderId);
 END
 GO
 
@@ -131,7 +131,7 @@ BEGIN
     ON eoeo1.SourceEducationOrganizationId = eoeo2.ParentEducationOrganizationId
         AND eoeo1.TargetEducationOrganizationId = eoeo2.OrganizationDepartmentId
     WHEN NOT MATCHED THEN
-        INSERT VALUES(eoeo2.ParentEducationOrganizationId, eoeo2.OrganizationDepartmentId, 'edfi.OrganizationDepartment');
+        INSERT VALUES(eoeo2.ParentEducationOrganizationId, eoeo2.OrganizationDepartmentId);
 END
 GO
 
@@ -161,6 +161,6 @@ BEGIN
     ON eoeo1.SourceEducationOrganizationId = eoeo2.SourceEducationOrganizationId
         AND eoeo1.TargetEducationOrganizationId = eoeo2.OrganizationDepartmentId
     WHEN NOT MATCHED THEN
-        INSERT VALUES(eoeo2.SourceEducationOrganizationId, eoeo2.OrganizationDepartmentId, 'edfi.OrganizationDepartment');
+        INSERT VALUES(eoeo2.SourceEducationOrganizationId, eoeo2.OrganizationDepartmentId);
 END
 GO

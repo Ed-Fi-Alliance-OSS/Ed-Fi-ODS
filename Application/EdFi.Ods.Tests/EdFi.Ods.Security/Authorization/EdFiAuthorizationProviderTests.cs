@@ -1708,7 +1708,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 var edOrgCache = Stub<IEducationOrganizationCache>();
 
                 A.CallTo(() => edOrgCache.GetEducationOrganizationIdentifiers(A<int>.Ignored))
-                    .Returns(new EducationOrganizationIdentifiers(4, "School", 1, 2, 3, 4, 5, 6, 7));
+                    .Returns(new EducationOrganizationIdentifiers(4, "School"));
 
                 _securityRepository = new StubSecurityRepository();
             }
@@ -1795,7 +1795,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 var edOrgCache = Stub<IEducationOrganizationCache>();
 
                 A.CallTo(() => edOrgCache.GetEducationOrganizationIdentifiers(A<int>.Ignored))
-                    .Returns(new EducationOrganizationIdentifiers(4, "School", 1, 2, 3, 4, 5, 6, 7));
+                    .Returns(new EducationOrganizationIdentifiers(4, "School"));
 
                 return new IEdFiAuthorizationStrategy[]
                 {
