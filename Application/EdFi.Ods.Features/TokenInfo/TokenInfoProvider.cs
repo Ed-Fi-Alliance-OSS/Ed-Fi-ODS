@@ -40,8 +40,8 @@ namespace EdFi.Ods.Features.TokenInfo
 
                 var educationOrganizationIdentifiers =
                     await session.CreateSQLQuery(string.Format(EdOrgIdentifiersSql, whereClause))
-                        .SetResultTransformer(Transformers.AliasToBean<EducationOrganizationIdentifiers>())
-                        .ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None);
+                        .SetResultTransformer(Transformers.AliasToBean<TokenInfoEducationOrganizationIdentifiers>())
+                        .ListAsync<TokenInfoEducationOrganizationIdentifiers>(CancellationToken.None);
 
                 return TokenInfo.Create(apiContext, educationOrganizationIdentifiers);
             }

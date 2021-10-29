@@ -31,7 +31,7 @@ namespace EdFi.Ods.Features.TokenInfo
         public IEnumerable<string> AssignedProfiles { get; private set; }
 
         public static TokenInfo Create(ApiKeyContext apiKeyContext,
-            IList<EducationOrganizationIdentifiers> educationOrganizationIdentifiers)
+            IList<TokenInfoEducationOrganizationIdentifiers> educationOrganizationIdentifiers)
         {
             return new TokenInfo
             {

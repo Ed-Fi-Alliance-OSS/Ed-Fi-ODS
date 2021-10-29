@@ -73,8 +73,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 .Returns(
                     new EducationOrganizationIdentifiers(
                         educationOrganizationId,
-                        "LocalEducationAgency",
-                        localEducationAgencyId: educationOrganizationId));
+                        "LocalEducationAgency"));
 
             return dependency;
         }
