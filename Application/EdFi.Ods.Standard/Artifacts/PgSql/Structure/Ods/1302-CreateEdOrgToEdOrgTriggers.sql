@@ -3,14 +3,6 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
--- Drop FK constraints from EdOrg tuple table
-ALTER TABLE auth.educationorganizationidtoeducationorganizationid DROP CONSTRAINT IF EXISTS fk_source_educationorganization;
-ALTER TABLE auth.educationorganizationidtoeducationorganizationid DROP CONSTRAINT IF EXISTS fk_target_educationorganization;
-
--- Remove trigger from EducationOrganization
-DROP TRIGGER IF EXISTS insertauthtuples ON edfi.educationorganization;
-DROP FUNCTION IF EXISTS edfi_educationorganization_tr_insert;
-
 -- edfi.communityorganization
 DROP TRIGGER IF EXISTS InsertAuthTuples ON edfi.communityorganization;
 
