@@ -4,6 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Net.Mime;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,6 +29,9 @@ using log4net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using Npgsql;
+using Polly;
+using Polly.Retry;
 
 namespace EdFi.Ods.Api.Controllers
 {
@@ -67,6 +72,29 @@ namespace EdFi.Ods.Api.Controllers
 
         //protected IRepository<TAggregateRoot> repository;
         protected ISchoolYearContextProvider SchoolYearContextProvider;
+
+        // ReSharper disable once StaticMemberInGenericType
+        private static readonly AsyncRetryPolicy<PutResult> _retryPolicy;
+
+        static DataManagementControllerBase()
+        {
+            const int RetryCount = 5;
+            const int RetryStartingDelayMilliseconds = 100;
+        
+            _retryPolicy = Policy.HandleResult<PutResult>(res => res.ShouldRetry())
+                .WaitAndRetryAsync(
+                    RetryCount,
+                    (retryNumber, context) =>
+                    {
+                        var waitDuration = TimeSpan.FromMilliseconds(RetryStartingDelayMilliseconds * (Math.Pow(2, retryNumber)));
+
+                        (context["Logger"] as Lazy<ILog>)?.Value.Warn(
+                            $"Deadlock exception encountered during '{typeof(TAggregateRoot).Name}' entity persistence. Retrying transaction (retry #{retryNumber} of {RetryCount} after {waitDuration.TotalMilliseconds:N0}ms))...");
+
+                        return waitDuration;
+                    },
+                    onRetry: (res, ts, context) => { });
+        }
 
         protected DataManagementControllerBase(
             IPipelineFactory pipelineFactory,
@@ -234,9 +262,12 @@ namespace EdFi.Ods.Api.Controllers
             var validationState = new ValidationState();
 
             // Execute the pipeline (synchronously)
-            var result = await PutPipeline.Value.ProcessAsync(
-                new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState), CancellationToken.None);
-
+            var result = await _retryPolicy.ExecuteAsync(
+                (ctx) => PutPipeline.Value.ProcessAsync(
+                    new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState),
+                    CancellationToken.None),
+                contextData: new Dictionary<string, object>() { { "Logger", new Lazy<ILog>(() => Logger) } });
+            
             // Check for exceptions
             if (result.Exception != null)
             {
@@ -263,7 +294,6 @@ namespace EdFi.Ods.Api.Controllers
         public virtual async Task<IActionResult> Post([FromBody] TPostRequest request)
         {
             var validationState = new ValidationState();
-            PutResult result;
 
             // Make sure Id is not already set (no client-assigned Ids)
             if (request.Id != default(Guid))
@@ -278,8 +308,11 @@ namespace EdFi.Ods.Api.Controllers
 
             request.ETag = Unquoted(etag);
 
-            result = await PutPipeline.Value.ProcessAsync(
-                new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState), CancellationToken.None);
+            var result = await _retryPolicy.ExecuteAsync(
+                (ctx) => PutPipeline.Value.ProcessAsync(
+                    new PutContext<TResourceWriteModel, TAggregateRoot>(request, validationState),
+                    CancellationToken.None),
+                contextData: new Dictionary<string, object>() { { "Logger", new Lazy<ILog>(() => Logger) } });
 
             // Throw an exceptions that occurred for global exception handling
             if (result.Exception != null)
