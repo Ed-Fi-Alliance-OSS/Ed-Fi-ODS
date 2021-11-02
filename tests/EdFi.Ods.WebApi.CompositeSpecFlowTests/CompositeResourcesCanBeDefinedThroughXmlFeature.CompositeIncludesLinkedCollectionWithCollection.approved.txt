@@ -5,9 +5,9 @@ select
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
 where comp_aaa.Id = :Id AND (comp_aaa.StudentUSI IN (
-                            SELECT fltr_aab.StudentUSI 
-                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aab 
-                            WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
+                            SELECT fltr_aad.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aad 
+                            WHERE fltr_aad.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.StudentUSI
 HQL:
 select 
@@ -18,12 +18,12 @@ from
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
 	join comp_aaa.StudentEducationOrganizationAssociations comp_aab
 where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aab.EducationOrganizationId IN (
-                        SELECT fltr_aan.TargetEducationOrganizationId 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aan 
-                        WHERE fltr_aan.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aab.StudentUSI IN (
-                            SELECT fltr_aab.StudentUSI 
-                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aab 
-                            WHERE fltr_aab.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
+                        SELECT fltr_aav.TargetEducationOrganizationId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aav 
+                        WHERE fltr_aav.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aab.StudentUSI IN (
+                            SELECT fltr_aad.StudentUSI 
+                            FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aad 
+                            WHERE fltr_aad.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.StudentUSI,
 	comp_aab.EducationOrganizationId
 HQL:
