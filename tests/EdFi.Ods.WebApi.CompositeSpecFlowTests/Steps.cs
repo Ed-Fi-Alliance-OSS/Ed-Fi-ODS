@@ -27,6 +27,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 {
     [Binding]
     [UseReporter(typeof(DiffReporter))]
+    [IgnoreLineEndings(true)]
     public class Steps
     {
         private readonly Lazy<IOdsDatabaseConnectionStringProvider> _connectionStringProvider;
