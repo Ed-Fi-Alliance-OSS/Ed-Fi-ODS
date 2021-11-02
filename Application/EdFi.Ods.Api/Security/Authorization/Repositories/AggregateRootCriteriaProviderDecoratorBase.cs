@@ -103,8 +103,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     {
                         "LocalEducationAgencyIdToStudentUSI",
                         "SchoolIdToStudentUSI",
-                        "LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation",
-                        "SchoolIdToStudentUSIThroughEdOrgAssociation",
+                        "LocalEducationAgencyIdToStudentUSIThroughResponsibility",
+                        "SchoolIdToStudentUSIThroughResponsibility",
                         "LocalEducationAgencyIdToParentUSI",
                         "ParentUSIToSchoolId",
                         "LocalEducationAgencyIdToStaffUSI",

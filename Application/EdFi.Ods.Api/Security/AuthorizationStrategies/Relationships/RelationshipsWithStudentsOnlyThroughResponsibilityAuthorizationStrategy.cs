@@ -12,11 +12,11 @@ using EdFi.Ods.Api.Security.Authorization;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    public class RelationshipsWithStudentsOnlyThroughEdOrgAssociationAuthorizationStrategy<TContextData>
+    public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategy<TContextData>
         : RelationshipsAuthorizationStrategyBase<TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
-        public RelationshipsWithStudentsOnlyThroughEdOrgAssociationAuthorizationStrategy(IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData> concreteEducationOrganizationIdAuthorizationContextDataTransformer)
+        public RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategy(IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData> concreteEducationOrganizationIdAuthorizationContextDataTransformer)
             : base(concreteEducationOrganizationIdAuthorizationContextDataTransformer) { }
 
         protected override void BuildAuthorizationSegments(
@@ -25,7 +25,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             authorizationContextPropertyNames
                .Where(pn => PersonEntitySpecification.IsPersonIdentifier(pn, "Student"))
-               .ForEach(pn => authorizationBuilder.ClaimsMustBeAssociatedWith(pn, "ThroughEdOrgAssociation"));
+               .ForEach(pn => authorizationBuilder.ClaimsMustBeAssociatedWith(pn, "ThroughResponsibility"));
         }
     }
 }
