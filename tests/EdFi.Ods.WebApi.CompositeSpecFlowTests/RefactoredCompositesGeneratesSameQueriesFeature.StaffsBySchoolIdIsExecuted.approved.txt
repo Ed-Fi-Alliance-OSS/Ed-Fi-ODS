@@ -20,9 +20,9 @@ from
 	join comp_aad.Session comp_aae
 	join comp_aae.School comp_aaf
 where comp_aaf.Id = :School_Id AND (comp_aaa.StaffUSI IN (
-                        SELECT fltr_aaf.StaffUSI 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aaf 
-                        WHERE fltr_aaf.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
+                        SELECT fltr_aaj.StaffUSI 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aaj 
+                        WHERE fltr_aaj.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.StaffUSI
 HQL:
 select 
@@ -119,12 +119,12 @@ from
 		left join comp_aar.StaffClassificationDescriptor comp_aas 
 	join comp_aar.EducationOrganization comp_aat
 where comp_aaa.StaffUSI IN (:BaseEntityId) AND (comp_aar.EducationOrganizationId IN (
-                        SELECT fltr_aan.TargetEducationOrganizationId 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aan 
-                        WHERE fltr_aan.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aar.StaffUSI IN (
-                        SELECT fltr_aaf.StaffUSI 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aaf 
-                        WHERE fltr_aaf.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
+                        SELECT fltr_aav.TargetEducationOrganizationId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aav 
+                        WHERE fltr_aav.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aar.StaffUSI IN (
+                        SELECT fltr_aaj.StaffUSI 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aaj 
+                        WHERE fltr_aaj.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))
 order by comp_aaa.StaffUSI,
 	comp_aar.BeginDate,
 	comp_aar.EducationOrganizationId,

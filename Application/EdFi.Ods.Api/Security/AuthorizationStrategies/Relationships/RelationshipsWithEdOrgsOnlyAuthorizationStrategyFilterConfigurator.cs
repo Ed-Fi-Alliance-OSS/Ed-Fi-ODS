@@ -24,6 +24,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToSchoolId,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToSchoolId,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToOrganizationDepartmentId,
+                              RelationshipsAuthorizationFilters.EducationServiceCenterIdToLocalEducationAgencyId,
+                              RelationshipsAuthorizationFilters.EducationServiceCenterIdToSchoolId,
                               RelationshipsAuthorizationFilters.OrganizationDepartmentIdToSchoolId,
                               RelationshipsAuthorizationFilters.CommunityOrganizationIdToEducationOrganizationId,
                               RelationshipsAuthorizationFilters.CommunityProviderIdToEducationOrganizationId,
@@ -31,6 +33,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToPostSecondaryInstitutionId,
 
                               // Property-based filter authorizations (for direct API Client associations)
+                              RelationshipsAuthorizationFilters.EducationServiceCenterIdToEducationServiceCenterId,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToLocalEducationAgencyId,
                               RelationshipsAuthorizationFilters.SchoolIdToSchoolId,
                               RelationshipsAuthorizationFilters.CommunityProviderIdToCommunityProviderId,

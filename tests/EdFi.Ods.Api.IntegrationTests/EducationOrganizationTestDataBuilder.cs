@@ -208,9 +208,9 @@ namespace EdFi.Ods.Api.IntegrationTests
         public EducationOrganizationTestDataBuilder UpdateLocalEducationAgency(int localEducationAgencyId, int? stateEducationAgencyId = null, int? educationServiceCenterId = null, int? parentLocalEducationAgencyId = null)
         {
             _sql.AppendLine(
-                $@"UPDATE edfi.LocalEducationAgencyId SET
-                    StateEducationAgencyId = {ToSqlValue(stateEducationAgencyId)}
-                    EducationServiceCenterId = {ToSqlValue(educationServiceCenterId)}
+                $@"UPDATE edfi.LocalEducationAgency SET
+                    StateEducationAgencyId = {ToSqlValue(stateEducationAgencyId)},
+                    EducationServiceCenterId = {ToSqlValue(educationServiceCenterId)},
                     ParentLocalEducationAgencyId = {ToSqlValue(parentLocalEducationAgencyId)}
                 WHERE LocalEducationAgencyId = {localEducationAgencyId};"
             );
