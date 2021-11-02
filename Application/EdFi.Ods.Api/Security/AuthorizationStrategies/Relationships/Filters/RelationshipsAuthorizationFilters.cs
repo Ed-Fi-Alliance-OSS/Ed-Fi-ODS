@@ -31,7 +31,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("StateEducationAgencyId"));
 
         private static readonly Lazy<FilterApplicationDetails> _educationServiceCenterIdToEducationServiceCenterId =
-            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("EducationServiceCenter"));
+            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("EducationServiceCenterId"));
 
         private static readonly Lazy<FilterApplicationDetails> _educationServiceCenterIdToStudentUSI
             = new Lazy<FilterApplicationDetails>(
