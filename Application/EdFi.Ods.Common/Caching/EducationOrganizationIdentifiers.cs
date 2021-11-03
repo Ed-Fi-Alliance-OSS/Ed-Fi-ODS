@@ -30,9 +30,9 @@ namespace EdFi.Ods.Common.Caching
 
         public string EducationOrganizationType { get; private set; }
 
-        public string FullEducationOrganizationType { get; private set; }
-
         public string NameOfInstitution { get; private set; }
+
+        public string FullEducationOrganizationType { get; private set; }
 
         public bool IsDefault => EducationOrganizationId == default(int)
                                  && EducationOrganizationType == null;                              
