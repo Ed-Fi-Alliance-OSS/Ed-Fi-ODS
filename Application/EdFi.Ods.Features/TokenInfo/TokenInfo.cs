@@ -4,8 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using System.Dynamic;
-using EdFi.Common.Extensions;
+using System.Collections.Specialized;
+using System.Linq;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security;
 using Newtonsoft.Json;
@@ -32,29 +33,35 @@ namespace EdFi.Ods.Features.TokenInfo
         public IEnumerable<string> AssignedProfiles { get; private set; }
 
         public static TokenInfo Create(ApiKeyContext apiKeyContext,
-            IList<EducationOrganizationIdentifiers> educationOrganizationIdentifiers)
+            IList<TokenInfoData> tokenInfoData)
         {
-            var educationOrganizationIdentifierList = new List<dynamic>();
-            foreach (var educationOrganizationIdentifier in educationOrganizationIdentifiers)
+            var dataGroupedByEdOrgId = tokenInfoData
+                                        .GroupBy(x => (x.ClaimEducationOrganizationId, x.ClaimNameOfInstitution, x.ClaimDiscriminator), x => x);
+
+            var tokenInfoEducationOrganizations = new List<OrderedDictionary>();
+
+            foreach (var grouping in dataGroupedByEdOrgId)
             {
-                string propertyName = educationOrganizationIdentifier.EducationOrganizationType + "Id";
-                propertyName = propertyName.NormalizeCompositeTermForDisplay().Replace(' ', '_').ToLower();
+                var entry = new OrderedDictionary();
 
-                dynamic expandObjectInstance = new ExpandoObject();
-                var edOrgIdentifier = expandObjectInstance as IDictionary<string, object>;
+                var (educationOrganizationId, nameOfInstitution, discriminator) = grouping.Key;
 
-                AddProperty(edOrgIdentifier, "education_organization_id", educationOrganizationIdentifier.EducationOrganizationId);
-                AddProperty(edOrgIdentifier, "local_education_agency_id", educationOrganizationIdentifier.EducationOrganizationId);
+                // Add properties for current claim value
+                entry["education_organization_id"] = educationOrganizationId;
 
-                if (!educationOrganizationIdentifier.EducationOrganizationId.Equals(educationOrganizationIdentifier.LocalEducationAgencyId))
+                // Add alternate related EducationOrganizationIds
+                foreach (var alternateEducationOrganization in grouping)
                 {
-                    AddProperty(edOrgIdentifier, propertyName, educationOrganizationIdentifier.LocalEducationAgencyId); 
-                }
-                  
-                AddProperty(edOrgIdentifier, "name_of_institution", educationOrganizationIdentifier.NameOfInstitution);
-                AddProperty(edOrgIdentifier, "type", educationOrganizationIdentifier.EducationOrganizationType);
+                    string type = alternateEducationOrganization.Discriminator.Split('.')[1];
+                    string idPropertyName = Inflector.AddUnderscores($"{type}Id");
 
-                educationOrganizationIdentifierList.Add(edOrgIdentifier);
+                    entry[idPropertyName] = alternateEducationOrganization.EducationOrganizationId;
+                }
+
+                entry["name_of_institution"] = nameOfInstitution;
+                entry["type"] = discriminator;
+
+                tokenInfoEducationOrganizations.Add(entry);
             }
 
             return new TokenInfo
@@ -64,16 +71,9 @@ namespace EdFi.Ods.Features.TokenInfo
                 NamespacePrefixes = apiKeyContext.NamespacePrefixes,
                 AssignedProfiles = apiKeyContext.Profiles,
                 StudentIdentificationSystem = apiKeyContext.StudentIdentificationSystemDescriptor,
-                EducationOrganizations = educationOrganizationIdentifierList.ToArray()
+                EducationOrganizations = tokenInfoEducationOrganizations.ToArray()
             };
         }
 
-        private static void AddProperty(IDictionary<string, object> expandoDictionary, string propertyName, object propertyValue)
-        {
-            if (expandoDictionary.ContainsKey(propertyName))
-                expandoDictionary[propertyName] = propertyValue;
-            else
-                expandoDictionary.Add(propertyName, propertyValue);
-        }
     }
 }

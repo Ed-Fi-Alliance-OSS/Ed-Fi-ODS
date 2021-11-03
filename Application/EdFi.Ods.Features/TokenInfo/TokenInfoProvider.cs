@@ -14,12 +14,16 @@ namespace EdFi.Ods.Features.TokenInfo
 {
     public class TokenInfoProvider : ITokenInfoProvider
     {
-        private const string EdOrgIdentifiersSql = @"SELECT tuple.TargetEducationOrganizationId AS educationOrganizationId, 
-                             REPLACE(edorg.Discriminator, 'edfi.', '') AS educationOrganizationType, 
-                            edorg.Discriminator AS fullEducationOrganizationType,  edorg.NameOfInstitution AS nameOfInstitution,
-                            tuple.sourceEducationOrganizationId  AS localEducationAgencyId  FROM auth.EducationOrganizationIdToEducationOrganizationId tuple
-                            INNER JOIN edfi.EducationOrganization edorg 
-                            ON  tuple.TargetEducationOrganizationId = edorg.EducationOrganizationId WHERE SourceEducationOrganizationId in {0};";
+        private const string EdOrgIdentifiersSql = @"SELECT	targetEdOrg.EducationOrganizationId AS ClaimEducationOrganizationId, 
+		targetEdOrg.NameOfInstitution AS ClaimNameOfInstitution,
+		targetEdOrg.Discriminator AS ClaimDiscriminator,
+		sourceEdOrg.Discriminator, sourceEdOrg.EducationOrganizationId
+        FROM	auth.EducationOrganizationIdToEducationOrganizationId e2e
+		INNER JOIN edfi.EducationOrganization sourceEdOrg
+		ON e2e.SourceEducationOrganizationId = sourceEdOrg.EducationOrganizationId
+		INNER JOIN edfi.EducationOrganization targetEdOrg
+		ON e2e.TargetEducationOrganizationId = targetEdOrg.EducationOrganizationId
+        WHERE e2e.SourceEducationOrganizationId IN {0};";
 
         private readonly ISessionFactory _sessionFactory;
 
@@ -34,12 +38,12 @@ namespace EdFi.Ods.Features.TokenInfo
             {
                 string edOrgIds = string.Join(",", apiContext.EducationOrganizationIds);
 
-                var educationOrganizationIdentifiers =
+                var tokenInfoData =
                     await session.CreateSQLQuery(string.Format(EdOrgIdentifiersSql, $"({edOrgIds})"))
-                        .SetResultTransformer(Transformers.AliasToBean<EducationOrganizationIdentifiers>())
-                        .ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None);
+                        .SetResultTransformer(Transformers.AliasToBean<TokenInfoData>())
+                        .ListAsync<TokenInfoData>(CancellationToken.None);
 
-                return TokenInfo.Create(apiContext, educationOrganizationIdentifiers);
+                return TokenInfo.Create(apiContext, tokenInfoData);
             }
         }
     }

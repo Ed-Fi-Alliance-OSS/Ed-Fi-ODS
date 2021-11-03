@@ -18,14 +18,12 @@ namespace EdFi.Ods.Common.Caching
             int educationOrganizationId,
             string educationOrganizationType,
             string fullEducationOrganizationType = null,
-            string nameOfInstitution = null,
-            int? localEducationAgencyId = null)
+            string nameOfInstitution = null)
         {
             EducationOrganizationId = educationOrganizationId;
             EducationOrganizationType = educationOrganizationType;
             FullEducationOrganizationType = fullEducationOrganizationType;            
             NameOfInstitution = nameOfInstitution;
-            LocalEducationAgencyId = localEducationAgencyId;
         }
         
         public int EducationOrganizationId { get; private set; }
@@ -36,10 +34,7 @@ namespace EdFi.Ods.Common.Caching
 
         public string NameOfInstitution { get; private set; }
 
-        public int? LocalEducationAgencyId { get; private set; }
-
         public bool IsDefault => EducationOrganizationId == default(int)
-                                 && LocalEducationAgencyId == null
                                  && EducationOrganizationType == null;                              
 
         public static EducationOrganizationIdentifiers CreateLookupInstance(int educationOrganizationId)

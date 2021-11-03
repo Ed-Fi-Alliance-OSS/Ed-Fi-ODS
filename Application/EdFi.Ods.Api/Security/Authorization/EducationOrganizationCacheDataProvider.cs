@@ -17,7 +17,7 @@ namespace EdFi.Ods.Api.Security.Authorization
     {
         private const string Sql = @"SELECT DISTINCT EducationOrganizationId as educationOrganizationId, REPLACE(Discriminator, 'edfi.', '') 
                                     AS educationOrganizationType, Discriminator AS fullEducationOrganizationType, 
-                                    NameOfInstitution as nameOfInstitution, null as localEducationAgencyId FROM edfi.EducationOrganization";
+                                    NameOfInstitution as nameOfInstitution FROM edfi.EducationOrganization";
 
         private readonly ISessionFactory _sessionFactory;
 
