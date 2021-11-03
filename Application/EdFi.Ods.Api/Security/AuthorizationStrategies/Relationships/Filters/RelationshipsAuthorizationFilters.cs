@@ -71,11 +71,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                             ),
                         (t, p) => p.HasPropertyNamed("StudentUSI")));
 
-        private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToStudentUSIThroughEdOrgAssociation
+        private static readonly Lazy<FilterApplicationDetails> _localEducationAgencyIdToStudentUSIThroughResponsibility
             = new Lazy<FilterApplicationDetails>(
                 () =>
                     new FilterApplicationDetails(
-                        "LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation",
+                        "LocalEducationAgencyIdToStudentUSIThroughResponsibility",
                         @"StudentUSI IN (
                             SELECT {newAlias1}.StudentUSI 
                             FROM auth.EducationOrganizationIdToStudentUSIThroughResponsibility {newAlias1} 
@@ -107,11 +107,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                             Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("StudentUSI")));
 
-        private static readonly Lazy<FilterApplicationDetails> _schoolIdToStudentUSIThroughEdOrgAssociation
+        private static readonly Lazy<FilterApplicationDetails> _schoolIdToStudentUSIThroughResponsibility
             = new Lazy<FilterApplicationDetails>(
                 () =>
                     new FilterApplicationDetails(
-                        "SchoolIdToStudentUSIThroughEdOrgAssociation",
+                        "SchoolIdToStudentUSIThroughResponsibility",
                         @"StudentUSI IN (
                         SELECT {newAlias1}.StudentUSI 
                         FROM auth.EducationOrganizationIdToStudentUSIThroughResponsibility {newAlias1} 
@@ -425,13 +425,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
         public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSI => _localEducationAgencyIdToStudentUSI.Value;
 
-        public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation
-            => _localEducationAgencyIdToStudentUSIThroughEdOrgAssociation.Value;
+        public static FilterApplicationDetails LocalEducationAgencyIdToStudentUSIThroughResponsibility
+            => _localEducationAgencyIdToStudentUSIThroughResponsibility.Value;
 
         public static FilterApplicationDetails SchoolIdToStudentUSI => _schoolIdToStudentUSI.Value;
 
-        public static FilterApplicationDetails SchoolIdToStudentUSIThroughEdOrgAssociation
-            => _schoolIdToStudentUSIThroughEdOrgAssociation.Value;
+        public static FilterApplicationDetails SchoolIdToStudentUSIThroughResponsibility
+            => _schoolIdToStudentUSIThroughResponsibility.Value;
 
         public static FilterApplicationDetails EducationServiceCenterIdToStaffUSI => _educationServiceCenterIdToStaffUSI.Value;
 

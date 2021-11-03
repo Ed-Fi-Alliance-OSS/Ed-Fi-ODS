@@ -9,7 +9,7 @@ using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    public class RelationshipsWithStudentsOnlyThroughEdOrgAssociationAuthorizationStrategyFilterConfigurator
+    public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterConfigurator
         : INHibernateFilterConfigurator
     {
         /// <summary>
@@ -21,8 +21,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             var filters = new List<FilterApplicationDetails>
                           {
                               // Local Education Agency/School to Student relationships (through StudentEducationOrganizationAssociation)
-                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSIThroughEdOrgAssociation,
-                              RelationshipsAuthorizationFilters.SchoolIdToStudentUSIThroughEdOrgAssociation
+                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSIThroughResponsibility,
+                              RelationshipsAuthorizationFilters.SchoolIdToStudentUSIThroughResponsibility
                           };
 
             return filters;
