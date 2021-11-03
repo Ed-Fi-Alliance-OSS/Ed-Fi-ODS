@@ -5,5 +5,5 @@
 
 UPDATE  dbo.AuthorizationStrategies
 SET     AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyThroughResponsibility',
-	    DisplayName = 'Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation)'
+        DisplayName = 'Relationships with Students only (through StudentEducationOrganizationResponsibilityAssociation)'
 WHERE   AuthorizationStrategyName = 'RelationshipsWithStudentsOnlyThroughEdOrgAssociation'
