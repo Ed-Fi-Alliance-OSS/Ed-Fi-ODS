@@ -393,12 +393,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
 
-        private static readonly Lazy<FilterApplicationDetails> _universityIdToUniversityId =
-            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("UniversityId"));
-
-        private static readonly Lazy<FilterApplicationDetails> _teacherPreparationProviderIdToTeacherPreparationProviderId =
-            new Lazy<FilterApplicationDetails>(() => CreateClaimValuePropertyFilter("TeacherPreparationProviderId"));
-
         // Add non-join authorization entries for each EdOrg which can be associated with an API client
 
         public static FilterApplicationDetails SchoolIdToSchoolId => _schoolIdToSchoolId.Value;
@@ -470,11 +464,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
         public static FilterApplicationDetails EducationOrganizationIdToPostSecondaryInstitutionId
             => _educationOrganizationIdToPostSecondaryInstitutionId.Value;
-
-        public static FilterApplicationDetails UniversityIdToUniversityId => _universityIdToUniversityId.Value;
-
-        public static FilterApplicationDetails TeacherPreparationProviderIdToTeacherPreparationProviderId
-            => _teacherPreparationProviderIdToTeacherPreparationProviderId.Value;
 
         private static FilterApplicationDetails CreateClaimValuePropertyFilter(string propertyName)
         {

@@ -142,3 +142,7 @@ GO
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.StudentUSIToStudentEdOrgResponsibilityAssociation'))
     DROP VIEW auth.StudentUSIToStudentEdOrgResponsibilityAssociation;
 GO
+
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'auth.EducationOrganizationIdentifiers'))
+    DROP VIEW auth.EducationOrganizationIdentifiers;
+GO

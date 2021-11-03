@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Common;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using NHibernate;
 using NHibernate.Transform;
@@ -16,8 +15,9 @@ namespace EdFi.Ods.Api.Security.Authorization
 {
     public class EducationOrganizationCacheDataProvider : IEducationOrganizationCacheDataProvider, IEducationOrganizationIdentifiersValueMapper
     {
-        private const string Sql = @"SELECT DISTINCT EducationOrganizationId, REPLACE(Discriminator, 'edfi.', '') AS EducationOrganizationType,
-                                    Discriminator AS fullEducationOrganizationType, NameOfInstitution FROM edfi.EducationOrganization";
+        private const string Sql = @"SELECT DISTINCT EducationOrganizationId as educationOrganizationId, REPLACE(Discriminator, 'edfi.', '') 
+                                    AS educationOrganizationType, Discriminator AS fullEducationOrganizationType, 
+                                    NameOfInstitution as nameOfInstitution, null as localEducationAgencyId FROM edfi.EducationOrganization";
 
         private readonly ISessionFactory _sessionFactory;
 

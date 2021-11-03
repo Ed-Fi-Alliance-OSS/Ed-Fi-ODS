@@ -33,14 +33,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
                 "descriptor", null, null);
         }
 
-        private List<TokenInfoEducationOrganizationIdentifiers> CreateEducationOrganizationIdentifiers()
+        private List<EducationOrganizationIdentifiers> CreateEducationOrganizationIdentifiers()
         {
-            return new List<TokenInfoEducationOrganizationIdentifiers>
+            return new List<EducationOrganizationIdentifiers>
             {
-                new TokenInfoEducationOrganizationIdentifiers(
+                new EducationOrganizationIdentifiers(
                     1234, "LocalEducationAgency", fullEducationOrganizationType: "edfi.LocalEducationOrganization",
                     nameOfInstitution: "Test LEA"),
-                new TokenInfoEducationOrganizationIdentifiers(
+                new EducationOrganizationIdentifiers(
                     123401, "School", fullEducationOrganizationType: "edfi.School",
                     nameOfInstitution: "School belonging to LEA")
             };
@@ -56,27 +56,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
             A.CallTo(() => sessionFactory.OpenStatelessSession())
                 .Returns(session);
 
-            // info schema validation to get all the columns
-            var schemaSqlQuery = A.Fake<ISQLQuery>();
-
-            A.CallTo(() => session.CreateSQLQuery(A<string>.That.Contains("information_schema.columns")))
-                .Returns(schemaSqlQuery);
-
-            A.CallTo(() => schemaSqlQuery.ListAsync<string>(CancellationToken.None))
-                .Returns(new List<string>());
-
             // setting up education organization identifier calls, need to guarantee we are using the same object for each call.
             var edOrgIdentifierSqlQuery = A.Fake<ISQLQuery>();
 
-            A.CallTo(() => session.CreateSQLQuery(A<string>.That.Contains("auth.educationorganizationidentifiers")))
+            A.CallTo(() => session.CreateSQLQuery(A<string>.That.Contains("auth.EducationOrganizationIdToEducationOrganizationId")))
                 .Returns(edOrgIdentifierSqlQuery);
 
             A.CallTo(
                     () => edOrgIdentifierSqlQuery.SetResultTransformer(
-                        Transformers.AliasToBean<TokenInfoEducationOrganizationIdentifiers>()))
+                        Transformers.AliasToBean<EducationOrganizationIdentifiers>()))
                 .Returns(edOrgIdentifierSqlQuery);
 
-            A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<TokenInfoEducationOrganizationIdentifiers>(CancellationToken.None))
+            A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None))
                 .Returns(CreateEducationOrganizationIdentifiers());
 
             // Act
@@ -89,16 +80,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Providers
             A.CallTo(() => sessionFactory.OpenStatelessSession())
                 .MustHaveHappenedOnceExactly();
 
-            A.CallTo(() => session.CreateSQLQuery(A<string>.That.Contains("information_schema.columns")))
+
+            A.CallTo(() => session.CreateSQLQuery(A<string>.That.Contains("auth.EducationOrganizationIdToEducationOrganizationId")))
                 .MustHaveHappenedOnceExactly();
 
-            A.CallTo(() => schemaSqlQuery.ListAsync<string>(CancellationToken.None))
-                .MustHaveHappenedOnceExactly();
-
-            A.CallTo(() => session.CreateSQLQuery(A<string>.That.Contains("auth.educationorganizationidentifiers")))
-                .MustHaveHappenedOnceExactly();
-
-            A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<TokenInfoEducationOrganizationIdentifiers>(CancellationToken.None))
+            A.CallTo(() => edOrgIdentifierSqlQuery.ListAsync<EducationOrganizationIdentifiers>(CancellationToken.None))
                 .MustHaveHappenedOnceExactly();
 
             // validate we have a valid object
