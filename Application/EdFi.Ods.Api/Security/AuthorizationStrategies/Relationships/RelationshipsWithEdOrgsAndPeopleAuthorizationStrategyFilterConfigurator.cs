@@ -33,6 +33,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                               // EdOrg to EdOrg relationships
                               RelationshipsAuthorizationFilters.EducationServiceCenterIdToLocalEducationAgencyId,
                               RelationshipsAuthorizationFilters.EducationServiceCenterIdToSchoolId,
+                              RelationshipsAuthorizationFilters.EducationOrganizationIdToEducationServiceCenterId,
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToLocalEducationAgencyId,
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToSchoolId,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToSchoolId,
