@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -80,70 +80,34 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 // ICriterions combined using OR
                 var disjunction = new Disjunction();
 
-                bool isSubjectNameAuthorizable = false;
                 var unsupportedAuthorizationFilters = new List<string>();
 
                 foreach (var filterDetails in subjectNameGrouping)
                 {
-                    IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators;
-
                     if (!_authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
                         filterDetails.FilterName,
                         typeof(TEntity),
-                        out applicators))
+                        out IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators))
                     {
                         unsupportedAuthorizationFilters.Add(filterDetails.FilterName);
 
                         continue;
                     }
 
-                    isSubjectNameAuthorizable = true;
-
-                    var filtersBackedByNewAuthViews = new List<string>
-                    {
-                        "LocalEducationAgencyIdToStudentUSI",
-                        "SchoolIdToStudentUSI",
-                        "LocalEducationAgencyIdToStudentUSIThroughResponsibility",
-                        "SchoolIdToStudentUSIThroughResponsibility",
-                        "LocalEducationAgencyIdToParentUSI",
-                        "ParentUSIToSchoolId",
-                        "LocalEducationAgencyIdToStaffUSI",
-                        "SchoolIdToStaffUSI",
-                        "LocalEducationAgencyIdToSchoolId",
-                        "CommunityOrganizationIdToCommunityProviderId",
-                        "EducationOrganizationIdToLocalEducationAgencyId",
-                        "EducationOrganizationIdToPostSecondaryInstitutionId",
-                        "EducationOrganizationIdToSchoolId",
-                        "CommunityOrganizationIdToEducationOrganizationId",
-                        "CommunityProviderIdToEducationOrganizationId",
-                        "LocalEducationAgencyIdToOrganizationDepartmentId",
-                        "OrganizationDepartmentIdToSchoolId"
-                    };
-
-
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        Dictionary<string, object> parameterValues;
-
-                        if (filtersBackedByNewAuthViews.Contains(filterDetails.FilterName, StringComparer.OrdinalIgnoreCase))
+                        var parameterValues = new Dictionary<string, object>
                         {
-                            parameterValues =
-                                new Dictionary<string, object> {{"SourceEducationOrganizationId", filterDetails.ClaimValues}};
-                        }
-                        else
-                        {
-                            parameterValues = new Dictionary<string, object>
-                            {
-                                {filterDetails.ClaimEndpointName, filterDetails.ClaimValues}
-                            };
-                        }
+                            {"SourceEducationOrganizationId", filterDetails.ClaimValues},
+                            {filterDetails.ClaimEndpointName, filterDetails.ClaimValues},
+                        };
 
                         applicator(criteria, disjunction, parameterValues, hasMultipleClaimEndpoints ? JoinType.LeftOuterJoin : JoinType.InnerJoin);
                     }
                 }
 
-                if (!isSubjectNameAuthorizable)
+                if (unsupportedAuthorizationFilters.Any())
                 {
                     if (_logger.IsDebugEnabled)
                     {
