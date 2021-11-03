@@ -22,7 +22,7 @@ namespace EdFi.Ods.Common.Caching
         {
             EducationOrganizationId = educationOrganizationId;
             EducationOrganizationType = educationOrganizationType;
-            FullEducationOrganizationType = fullEducationOrganizationType;            
+            FullEducationOrganizationType = fullEducationOrganizationType;
             NameOfInstitution = nameOfInstitution;
         }
         
