@@ -82,6 +82,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                 var unsupportedAuthorizationFilters = new List<string>();
 
+                bool authorizationFilterApplied = false;
+                
                 foreach (var filterDetails in subjectNameGrouping)
                 {
                     if (!_authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
@@ -104,10 +106,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         };
 
                         applicator(criteria, disjunction, parameterValues, hasMultipleClaimEndpoints ? JoinType.LeftOuterJoin : JoinType.InnerJoin);
+                        authorizationFilterApplied = true;
                     }
                 }
 
-                if (unsupportedAuthorizationFilters.Any())
+                if (unsupportedAuthorizationFilters.Any() && !authorizationFilterApplied)
                 {
                     if (_logger.IsDebugEnabled)
                     {
@@ -116,7 +119,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                     throw new EdFiSecurityException(
                         $"Unable to authorize the request because there is no authorization support for associating the "
-                        + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource ('{typeof(TEntity).Name}').");
+                        + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with requested resource '{typeof(TEntity).Name}'.");
                 }
 
                 conjunction.Add(disjunction);
