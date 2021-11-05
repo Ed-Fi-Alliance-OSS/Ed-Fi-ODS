@@ -36,4 +36,4 @@ DROP VIEW IF EXISTS auth.StudentUSIToEducationOrganizationId;
 DROP VIEW IF EXISTS auth.ParentUSIToEducationOrganizationId;
 DROP VIEW IF EXISTS auth.StaffUSIToEducationOrganizationId;
 DROP VIEW IF EXISTS auth.StudentUSIToStudentEdOrgResponsibilityAssociation;
-
+DROP VIEW IF EXISTS auth.EducationOrganizationIdentifiers;

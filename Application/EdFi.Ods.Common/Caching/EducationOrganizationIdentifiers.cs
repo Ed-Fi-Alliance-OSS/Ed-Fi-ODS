@@ -17,13 +17,13 @@ namespace EdFi.Ods.Common.Caching
         public EducationOrganizationIdentifiers(
             int educationOrganizationId,
             string educationOrganizationType,
-            string nameOfInstitution = null,
-            string fullEducationOrganizationType = null)
+            string fullEducationOrganizationType = null,
+            string nameOfInstitution = null)
         {
             EducationOrganizationId = educationOrganizationId;
-            EducationOrganizationType = educationOrganizationType;      
-            NameOfInstitution = nameOfInstitution;
+            EducationOrganizationType = educationOrganizationType;
             FullEducationOrganizationType = fullEducationOrganizationType;
+            NameOfInstitution = nameOfInstitution;
         }
         
         public int EducationOrganizationId { get; private set; }

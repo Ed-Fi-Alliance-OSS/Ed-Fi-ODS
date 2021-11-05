@@ -4,7 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security;
 using Newtonsoft.Json;
@@ -19,45 +21,61 @@ namespace EdFi.Ods.Features.TokenInfo
         public string ApiKey { get; private set; }
 
         [JsonProperty("namespace_prefixes")]
-        public IEnumerable<string> NamespacePrefixes { get; private set; }
+        public IReadOnlyList<string> NamespacePrefixes { get; private set; }
 
         [JsonProperty("education_organizations")]
-        public IEnumerable<object> EducationOrganizations { get; private set; }
+        public IReadOnlyList<OrderedDictionary> EducationOrganizations { get; private set; }
 
         [JsonProperty("student_identification_system")]
         public string StudentIdentificationSystem { get; private set; }
 
         [JsonProperty("assigned_profiles")]
-        public IEnumerable<string> AssignedProfiles { get; private set; }
+        public IReadOnlyList<string> AssignedProfiles { get; private set; }
 
         public static TokenInfo Create(ApiKeyContext apiKeyContext,
-            IList<TokenInfoEducationOrganizationIdentifiers> educationOrganizationIdentifiers)
+            IList<TokenInfoEducationOrganizationData> tokenInfoData)
         {
+            var dataGroupedByEdOrgId = tokenInfoData
+                .GroupBy(
+                    x => (x.EducationOrganizationId, x.NameOfInstitution, x.Discriminator),
+                    x =>
+                    {
+                        string type = x.AncestorDiscriminator.Split('.')[1];
+                        string idPropertyName = Inflector.AddUnderscores($"{type}Id");
+
+                        return new { PropertyName = idPropertyName, EducationOrganizationId = x.AncestorEducationOrganizationId };
+                    });
+
+            var tokenInfoEducationOrganizations = new List<OrderedDictionary>();
+
+            foreach (var grouping in dataGroupedByEdOrgId)
+            {
+                var entry = new OrderedDictionary();
+
+                var (educationOrganizationId, nameOfInstitution, discriminator) = grouping.Key;
+
+                // Add properties for current claim value
+                entry["education_organization_id"] = educationOrganizationId;
+                entry["name_of_institution"] = nameOfInstitution;
+                entry["type"] = discriminator;
+
+                // Add related ancestor EducationOrganizationIds
+                foreach (var ancestorEducationOrganization in grouping)
+                {
+                    entry[ancestorEducationOrganization.PropertyName] = ancestorEducationOrganization.EducationOrganizationId;
+                }
+
+                tokenInfoEducationOrganizations.Add(entry);
+            }
+
             return new TokenInfo
             {
                 Active = true,
                 ApiKey = apiKeyContext.ApiKey,
-                NamespacePrefixes = apiKeyContext.NamespacePrefixes,
-                AssignedProfiles = apiKeyContext.Profiles,
+                NamespacePrefixes = apiKeyContext.NamespacePrefixes.ToArray(),
+                AssignedProfiles = apiKeyContext.Profiles.ToArray(),
                 StudentIdentificationSystem = apiKeyContext.StudentIdentificationSystemDescriptor,
-                EducationOrganizations = educationOrganizationIdentifiers
-                    .Select(
-                        x => new
-                        {
-                            education_organization_id = x.EducationOrganizationId,
-                            state_education_organization_id = x.StateEducationAgencyId,
-                            local_education_agency_id = x.LocalEducationAgencyId,
-                            school_id = x.SchoolId,
-                            community_organization_id = x.CommunityOrganizationId,
-                            community_provider_id = x.CommunityProviderId,
-                            organization_department_id = x.OrganizationDepartmentId,
-                            post_secondary_institution_id = x.PostSecondaryInstitutionId,
-                            university_id = x.UniversityId,
-                            teacher_preparation_provider_id = x.TeacherPreparationProviderId,
-                            name_of_institution = x.NameOfInstitution,
-                            type = x.FullEducationOrganizationType
-                        })
-                    .ToArray()
+                EducationOrganizations = tokenInfoEducationOrganizations.ToArray()
             };
         }
     }
