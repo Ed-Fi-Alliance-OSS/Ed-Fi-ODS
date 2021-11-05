@@ -29,7 +29,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
         {
             var countQueryCriteria = Session
                 .CreateCriteria<TEntity>("aggregateRoot")
-                .SetProjection(Projections.RowCountInt64());
+                .SetProjection(Projections.CountDistinct("Id"));
 
             // Add specification-based criteria
             ProcessSpecification(countQueryCriteria, specification);
