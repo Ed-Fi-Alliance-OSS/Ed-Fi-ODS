@@ -20,6 +20,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             var filters = new List<FilterApplicationDetails>
                           {
                               // EdOrg to EdOrg relationships
+                              RelationshipsAuthorizationFilters.EducationOrganizationIdToEducationServiceCenterId,
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToLocalEducationAgencyId,
                               RelationshipsAuthorizationFilters.EducationOrganizationIdToSchoolId,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToSchoolId,

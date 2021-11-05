@@ -20,9 +20,9 @@ from
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
 	join comp_aaa.StudentAcademicRecords comp_aab
 where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aab.EducationOrganizationId IN (
-                        SELECT fltr_aav.TargetEducationOrganizationId 
-                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aav 
-                        WHERE fltr_aav.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aab.StudentUSI IN (
+                        SELECT fltr_aax.TargetEducationOrganizationId 
+                        FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aax 
+                        WHERE fltr_aax.SourceEducationOrganizationId IN (:LocalEducationAgencyId))) AND (comp_aab.StudentUSI IN (
                             SELECT fltr_aad.StudentUSI 
                             FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aad 
                             WHERE fltr_aad.SourceEducationOrganizationId IN (:LocalEducationAgencyId)))

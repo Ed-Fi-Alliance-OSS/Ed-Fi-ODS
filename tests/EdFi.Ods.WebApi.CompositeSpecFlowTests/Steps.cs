@@ -479,6 +479,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         }
 
         [Then(@"the queries generated should all match previously approved values")]
+        [IgnoreLineEndings((true))]
         public void ThenTheQueriesGeneratedShouldAllMatchPreviouslyApprovedValues()
         {
             _scenarioContext.TryGetValue(ScenarioContextKeys.RequestCorrelationId, out string correlationId);

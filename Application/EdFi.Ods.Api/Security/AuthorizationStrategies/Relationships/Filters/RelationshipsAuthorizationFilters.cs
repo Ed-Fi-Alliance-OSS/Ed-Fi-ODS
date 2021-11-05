@@ -208,6 +208,22 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                         (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToParentUSI", "ParentUSI", "ParentUSI", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
                         (t, p) => p.HasPropertyNamed("ParentUSI")));
 
+        private static readonly Lazy<FilterApplicationDetails> _educationOrganizationIdToEducationServiceCenterId
+            = new Lazy<FilterApplicationDetails>(
+                () =>
+                    new FilterApplicationDetails(
+                        "EducationOrganizationIdToEducationServiceCenterId",
+                        @"EducationOrganizationId IN (
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM auth.EducationOrganizationIdToEducationOrganizationId {newAlias1} 
+                        WHERE {newAlias1}.SourceEducationOrganizationId IN (:SourceEducationOrganizationId))",
+                        @"{currentAlias}.EducationOrganizationId IN (
+                        SELECT {newAlias1}.TargetEducationOrganizationId 
+                        FROM " + "auth_EducationOrganizationIdToEducationOrganizationId".GetFullNameForView() + @" {newAlias1} 
+                        WHERE {newAlias1}.SourceEducationOrganizationId IN (:EducationServiceCenterId))",
+                        (c, w, p, jt) => c.ApplyJoinFilter(w, p, "EducationOrganizationIdToEducationOrganizationId", "EducationOrganizationId", "TargetEducationOrganizationId", "SourceEducationOrganizationId", jt, Guid.NewGuid().ToString("N")),
+                        (t, p) => p.HasPropertyNamed("EducationOrganizationId")));
+
         private static readonly Lazy<FilterApplicationDetails> _educationOrganizationIdToLocalEducationAgencyId
             = new Lazy<FilterApplicationDetails>(
                 () =>
@@ -436,6 +452,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         public static FilterApplicationDetails LocalEducationAgencyIdToParentUSI => _localEducationAgencyIdToParentUSI.Value;
 
         public static FilterApplicationDetails ParentUSIToSchoolId => _parentUSIToSchoolId.Value;
+
+        public static FilterApplicationDetails EducationOrganizationIdToEducationServiceCenterId
+            => _educationOrganizationIdToEducationServiceCenterId.Value;
 
         public static FilterApplicationDetails EducationOrganizationIdToLocalEducationAgencyId
             => _educationOrganizationIdToLocalEducationAgencyId.Value;
