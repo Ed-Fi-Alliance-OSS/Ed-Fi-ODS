@@ -46,7 +46,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
         public ICriteria GetCriteriaQuery(TEntity specification, IQueryParameters queryParameters)
         {
             var idQueryCriteria = Session.CreateCriteria<TEntity>("aggregateRoot")
-                .SetProjection(Projections.Distinct(GetCountColumnProjections()))
+                .SetProjection(Projections.Distinct(GetColumnProjectionsForDistinctWithOrderBy()))
                 .SetFirstResult(queryParameters.Offset ?? 0)
                 .SetMaxResults(queryParameters.Limit ?? 25);
 
@@ -60,14 +60,14 @@ namespace EdFi.Ods.Common.Providers.Criteria
 
             return idQueryCriteria;
             
-            IProjection GetCountColumnProjections()
+            IProjection GetColumnProjectionsForDistinctWithOrderBy()
             {
                 var projections = Projections.ProjectionList();
             
-                // Add the resource identifier for secondary "page" query
+                // Add the resource identifier (this is the value we need for the secondary "page" query)
                 projections.Add(Projections.Property("Id"));
             
-                // Add key values (required for use of DISTINCT with ORDER BY clause)
+                // Add the order by (primary key) columns (required when using DISTINCT with ORDER BY)
                 foreach (var identifierColumnName in _identifierColumnNames.Value)
                 {
                     projections.Add(Projections.Property(identifierColumnName));
