@@ -63,9 +63,9 @@ namespace EdFi.Ods.Common.Providers.Criteria
 
         private void AddDefaultOrdering(ICriteria queryCriteria)
         {
-            foreach (var identifierColumnNam in _identifierColumnNames.Value)
+            foreach (var identifierColumnName in _identifierColumnNames.Value)
             {
-                queryCriteria.AddOrder(Order.Asc(identifierColumnNam));
+                queryCriteria.AddOrder(Order.Asc(identifierColumnName));
             }
         }
 
