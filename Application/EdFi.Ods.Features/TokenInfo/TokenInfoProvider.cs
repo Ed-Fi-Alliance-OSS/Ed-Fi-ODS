@@ -14,16 +14,20 @@ namespace EdFi.Ods.Features.TokenInfo
 {
     public class TokenInfoProvider : ITokenInfoProvider
     {
-        private const string EdOrgIdentifiersSql = @"SELECT	targetEdOrg.EducationOrganizationId AS ClaimEducationOrganizationId, 
-		targetEdOrg.NameOfInstitution AS ClaimNameOfInstitution,
-		targetEdOrg.Discriminator AS ClaimDiscriminator,
-		sourceEdOrg.Discriminator, sourceEdOrg.EducationOrganizationId
-        FROM	auth.EducationOrganizationIdToEducationOrganizationId e2e
-		INNER JOIN edfi.EducationOrganization sourceEdOrg
-		ON e2e.SourceEducationOrganizationId = sourceEdOrg.EducationOrganizationId
-		INNER JOIN edfi.EducationOrganization targetEdOrg
-		ON e2e.TargetEducationOrganizationId = targetEdOrg.EducationOrganizationId
-        WHERE e2e.SourceEducationOrganizationId IN {0};";
+        private const string EdOrgIdentifiersSql = @"
+SELECT  accessibleEdOrg.EducationOrganizationId,
+        accessibleEdOrg.NameOfInstitution,
+        accessibleEdOrg.Discriminator,
+        ancestorTuples.SourceEducationOrganizationId AS AncestorEducationOrganizationId,
+        ancestorEdOrg.Discriminator AS AncestorDiscriminator
+FROM    auth.EducationOrganizationIdToEducationOrganizationId accessibleTuples
+        INNER JOIN edfi.EducationOrganization accessibleEdOrg
+            ON accessibleTuples.TargetEducationOrganizationId = accessibleEdOrg.EducationOrganizationId
+        INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId ancestorTuples
+            ON accessibleTuples.TargetEducationOrganizationId = ancestorTuples.TargetEducationOrganizationId
+        INNER JOIN edfi.EducationOrganization ancestorEdOrg
+            ON ancestorTuples.SourceEducationOrganizationId = ancestorEdOrg.EducationOrganizationId
+WHERE	accessibleTuples.SourceEducationOrganizationId IN ({0});";
 
         private readonly ISessionFactory _sessionFactory;
 
@@ -38,12 +42,12 @@ namespace EdFi.Ods.Features.TokenInfo
             {
                 string edOrgIds = string.Join(",", apiContext.EducationOrganizationIds);
 
-                var tokenInfoData =
-                    await session.CreateSQLQuery(string.Format(EdOrgIdentifiersSql, $"({edOrgIds})"))
-                        .SetResultTransformer(Transformers.AliasToBean<TokenInfoData>())
-                        .ListAsync<TokenInfoData>(CancellationToken.None);
+                var tokenInfoEducationOrganizationData =
+                    await session.CreateSQLQuery(string.Format(EdOrgIdentifiersSql, edOrgIds))
+                        .SetResultTransformer(Transformers.AliasToBean<TokenInfoEducationOrganizationData>())
+                        .ListAsync<TokenInfoEducationOrganizationData>(CancellationToken.None);
 
-                return TokenInfo.Create(apiContext, tokenInfoData);
+                return TokenInfo.Create(apiContext, tokenInfoEducationOrganizationData);
             }
         }
     }

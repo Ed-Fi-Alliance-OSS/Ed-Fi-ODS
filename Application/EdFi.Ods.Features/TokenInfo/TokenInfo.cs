@@ -21,22 +21,30 @@ namespace EdFi.Ods.Features.TokenInfo
         public string ApiKey { get; private set; }
 
         [JsonProperty("namespace_prefixes")]
-        public IEnumerable<string> NamespacePrefixes { get; private set; }
+        public IReadOnlyList<string> NamespacePrefixes { get; private set; }
 
         [JsonProperty("education_organizations")]
-        public IEnumerable<object> EducationOrganizations { get; private set; }
+        public IReadOnlyList<OrderedDictionary> EducationOrganizations { get; private set; }
 
         [JsonProperty("student_identification_system")]
         public string StudentIdentificationSystem { get; private set; }
 
         [JsonProperty("assigned_profiles")]
-        public IEnumerable<string> AssignedProfiles { get; private set; }
+        public IReadOnlyList<string> AssignedProfiles { get; private set; }
 
         public static TokenInfo Create(ApiKeyContext apiKeyContext,
-            IList<TokenInfoData> tokenInfoData)
+            IList<TokenInfoEducationOrganizationData> tokenInfoData)
         {
             var dataGroupedByEdOrgId = tokenInfoData
-                                        .GroupBy(x => (x.ClaimEducationOrganizationId, x.ClaimNameOfInstitution, x.ClaimDiscriminator), x => x);
+                .GroupBy(
+                    x => (x.EducationOrganizationId, x.NameOfInstitution, x.Discriminator),
+                    x =>
+                    {
+                        string type = x.AncestorDiscriminator.Split('.')[1];
+                        string idPropertyName = Inflector.AddUnderscores($"{type}Id");
+
+                        return new { PropertyName = idPropertyName, EducationOrganizationId = x.AncestorEducationOrganizationId };
+                    });
 
             var tokenInfoEducationOrganizations = new List<OrderedDictionary>();
 
@@ -48,18 +56,14 @@ namespace EdFi.Ods.Features.TokenInfo
 
                 // Add properties for current claim value
                 entry["education_organization_id"] = educationOrganizationId;
-
-                // Add alternate related EducationOrganizationIds
-                foreach (var alternateEducationOrganization in grouping)
-                {
-                    string type = alternateEducationOrganization.Discriminator.Split('.')[1];
-                    string idPropertyName = Inflector.AddUnderscores($"{type}Id");
-
-                    entry[idPropertyName] = alternateEducationOrganization.EducationOrganizationId;
-                }
-
                 entry["name_of_institution"] = nameOfInstitution;
                 entry["type"] = discriminator;
+
+                // Add related ancestor EducationOrganizationIds
+                foreach (var ancestorEducationOrganization in grouping)
+                {
+                    entry[ancestorEducationOrganization.PropertyName] = ancestorEducationOrganization.EducationOrganizationId;
+                }
 
                 tokenInfoEducationOrganizations.Add(entry);
             }
@@ -68,12 +72,11 @@ namespace EdFi.Ods.Features.TokenInfo
             {
                 Active = true,
                 ApiKey = apiKeyContext.ApiKey,
-                NamespacePrefixes = apiKeyContext.NamespacePrefixes,
-                AssignedProfiles = apiKeyContext.Profiles,
+                NamespacePrefixes = apiKeyContext.NamespacePrefixes.ToArray(),
+                AssignedProfiles = apiKeyContext.Profiles.ToArray(),
                 StudentIdentificationSystem = apiKeyContext.StudentIdentificationSystemDescriptor,
                 EducationOrganizations = tokenInfoEducationOrganizations.ToArray()
             };
         }
-
     }
 }
