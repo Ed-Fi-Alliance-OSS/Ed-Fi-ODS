@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Models.Domain;
 using NHibernate;
 using NHibernate.Criterion;
 
@@ -14,7 +15,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity to which criteria is being applied.</typeparam>
     public class TotalCountCriteriaProvider<TEntity> : AggregateRootCriteriaProviderBase<TEntity>, ITotalCountCriteriaProvider<TEntity>
-        where TEntity : class
+        where TEntity : AggregateRootWithCompositeKey
     {
         public TotalCountCriteriaProvider(ISessionFactory sessionFactory, IDescriptorsCache descriptorsCache)
             : base(sessionFactory, descriptorsCache) { }
@@ -29,7 +30,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
         {
             var countQueryCriteria = Session
                 .CreateCriteria<TEntity>("aggregateRoot")
-                .SetProjection(Projections.CountDistinct("Id"));
+                .SetProjection(Projections.CountDistinct<TEntity>(x => x.Id));
 
             // Add specification-based criteria
             ProcessSpecification(countQueryCriteria, specification);

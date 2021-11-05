@@ -100,7 +100,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     var countQueryCriteria = _totalCountCriteriaProvider.GetCriteriaQuery(specification, queryParameters);
                     SetChangeQueriesCriteria(countQueryCriteria);
 
-                    queryBatch.Add<object>(countQueryCriteria);
+                    queryBatch.Add<int>(countQueryCriteria);
                 }
 
                 int resultIndex = 0;
@@ -112,9 +112,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     : Array.Empty<Guid>();
                 
                 var totalCount = CountRequested()
-                    ? ((await queryBatch.GetResultAsync<object>(resultIndex, cancellationToken)))
-                        .Select(Convert.ToInt64)
-                        .First()
+                    ? (await queryBatch.GetResultAsync<int>(resultIndex, cancellationToken)).First()
                     : 0;
 
                 return new SpecificationResult
