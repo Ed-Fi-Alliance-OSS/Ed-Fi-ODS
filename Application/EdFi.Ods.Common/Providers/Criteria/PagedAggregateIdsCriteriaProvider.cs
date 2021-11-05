@@ -46,7 +46,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
         public ICriteria GetCriteriaQuery(TEntity specification, IQueryParameters queryParameters)
         {
             var idQueryCriteria = Session.CreateCriteria<TEntity>("aggregateRoot")
-                .SetProjection(Projections.Distinct(GetKeyProjections()))
+                .SetProjection(Projections.Distinct(GetCountColumnProjections()))
                 .SetFirstResult(queryParameters.Offset ?? 0)
                 .SetMaxResults(queryParameters.Limit ?? 25);
 
@@ -59,6 +59,22 @@ namespace EdFi.Ods.Common.Providers.Criteria
             ProcessQueryParameters(idQueryCriteria, queryParameters);
 
             return idQueryCriteria;
+            
+            IProjection GetCountColumnProjections()
+            {
+                var projections = Projections.ProjectionList();
+            
+                // Add the resource identifier for secondary "page" query
+                projections.Add(Projections.Property("Id"));
+            
+                // Add key values (required for use of DISTINCT with ORDER BY clause)
+                foreach (var identifierColumnName in _identifierColumnNames.Value)
+                {
+                    projections.Add(Projections.Property(identifierColumnName));
+                }
+
+                return projections;
+            }
         }
 
         private void AddDefaultOrdering(ICriteria queryCriteria)
@@ -67,22 +83,6 @@ namespace EdFi.Ods.Common.Providers.Criteria
             {
                 queryCriteria.AddOrder(Order.Asc(identifierColumnName));
             }
-        }
-
-        private IProjection GetKeyProjections()
-        {
-            var projections = Projections.ProjectionList();
-            
-            // Add the resource identifier for secondary "page" query
-            projections.Add(Projections.Property("Id"));
-            
-            // Add key values (required for use of DISTINCT with ORDER BY clause)
-            foreach (var identifierColumnName in _identifierColumnNames.Value)
-            {
-                projections.Add(Projections.Property(identifierColumnName));
-            }
-
-            return projections;
         }
     }
 }
