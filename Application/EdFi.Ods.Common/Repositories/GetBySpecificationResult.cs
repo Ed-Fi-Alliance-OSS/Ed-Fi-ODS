@@ -17,7 +17,7 @@ namespace EdFi.Ods.Common.Repositories
 
     public class ResultMetadata
     {
-        public long TotalCount { get; set; }
+        public int TotalCount { get; set; }
 
         public string CurrentPage { get; set; }
 

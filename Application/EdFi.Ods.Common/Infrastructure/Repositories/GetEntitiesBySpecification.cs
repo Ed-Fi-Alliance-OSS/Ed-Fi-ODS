@@ -143,7 +143,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private class SpecificationResult
         {
             public IList<Guid> Ids { get; set; }
-            public long TotalCount { get; set; }
+            public int TotalCount { get; set; }
         }
     }
 }
