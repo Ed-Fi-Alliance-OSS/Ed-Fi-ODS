@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Ods.Common.Caching;
 using NHibernate;
 using NHibernate.Criterion;
@@ -18,8 +19,24 @@ namespace EdFi.Ods.Common.Providers.Criteria
         where TEntity : class
     {
         public PagedAggregateIdsCriteriaProvider(ISessionFactory sessionFactory, IDescriptorsCache descriptorsCache)
-            : base(sessionFactory, descriptorsCache) { }
+            : base(sessionFactory, descriptorsCache)
+        {
+            _identifierColumnNames = new Lazy<string[]>(
+                () =>
+                {
+                    var persister = (AbstractEntityPersister) SessionFactory.GetClassMetadata(typeof(TEntity));
 
+                    if (persister.IdentifierColumnNames != null && persister.IdentifierColumnNames.Length > 0)
+                    {
+                        return persister.IdentifierColumnNames;
+                    }
+
+                    return new[] { "Id" };
+                });
+        }
+
+        private readonly Lazy<string[]> _identifierColumnNames;
+        
         /// <summary>
         /// Get a <see cref="NHibernate.ICriteria"/> query that retrieves the Ids for the next page of data.
         /// </summary>
@@ -29,7 +46,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
         public ICriteria GetCriteriaQuery(TEntity specification, IQueryParameters queryParameters)
         {
             var idQueryCriteria = Session.CreateCriteria<TEntity>("aggregateRoot")
-                .SetProjection(Projections.Property("Id"))
+                .SetProjection(Projections.Distinct(GetColumnProjectionsForDistinctWithOrderBy()))
                 .SetFirstResult(queryParameters.Offset ?? 0)
                 .SetMaxResults(queryParameters.Limit ?? 25);
 
@@ -42,22 +59,29 @@ namespace EdFi.Ods.Common.Providers.Criteria
             ProcessQueryParameters(idQueryCriteria, queryParameters);
 
             return idQueryCriteria;
+            
+            IProjection GetColumnProjectionsForDistinctWithOrderBy()
+            {
+                var projections = Projections.ProjectionList();
+            
+                // Add the resource identifier (this is the value we need for the secondary "page" query)
+                projections.Add(Projections.Property("Id"));
+            
+                // Add the order by (primary key) columns (required when using DISTINCT with ORDER BY)
+                foreach (var identifierColumnName in _identifierColumnNames.Value)
+                {
+                    projections.Add(Projections.Property(identifierColumnName));
+                }
+
+                return projections;
+            }
         }
 
         private void AddDefaultOrdering(ICriteria queryCriteria)
         {
-            var persister = (AbstractEntityPersister) SessionFactory.GetClassMetadata(typeof(TEntity));
-
-            if (persister.IdentifierColumnNames != null && persister.IdentifierColumnNames.Length > 0)
+            foreach (var identifierColumnName in _identifierColumnNames.Value)
             {
-                foreach (var identifierColumnName in persister.IdentifierColumnNames)
-                {
-                    queryCriteria.AddOrder(Order.Asc(identifierColumnName));
-                }
-            }
-            else
-            {
-                queryCriteria.AddOrder(Order.Asc("Id"));
+                queryCriteria.AddOrder(Order.Asc(identifierColumnName));
             }
         }
     }

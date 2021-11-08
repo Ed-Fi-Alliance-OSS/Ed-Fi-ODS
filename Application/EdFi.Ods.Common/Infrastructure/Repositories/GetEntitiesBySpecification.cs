@@ -91,7 +91,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     var idQueryCriteria = _pagedAggregateIdsCriteriaProvider.GetCriteriaQuery(specification, queryParameters);
                     SetChangeQueriesCriteria(idQueryCriteria);
 
-                    queryBatch.Add<Guid>(idQueryCriteria);
+                    queryBatch.Add<object[]>(idQueryCriteria);
                 }
 
                 // If requested, get a total count of available records
@@ -100,17 +100,19 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
                     var countQueryCriteria = _totalCountCriteriaProvider.GetCriteriaQuery(specification, queryParameters);
                     SetChangeQueriesCriteria(countQueryCriteria);
 
-                    queryBatch.Add<long>(countQueryCriteria);
+                    queryBatch.Add<int>(countQueryCriteria);
                 }
 
                 int resultIndex = 0;
                 
                 var ids = ItemsRequested()
-                    ? await queryBatch.GetResultAsync<Guid>(resultIndex++, cancellationToken)
-                    : new Guid[0];
+                    ? (await queryBatch.GetResultAsync<object[]>(resultIndex++, cancellationToken))
+                        .Select(r => (Guid) r[0])
+                        .ToArray()
+                    : Array.Empty<Guid>();
                 
                 var totalCount = CountRequested()
-                    ? (await queryBatch.GetResultAsync<long>(resultIndex, cancellationToken)).First()
+                    ? (await queryBatch.GetResultAsync<int>(resultIndex, cancellationToken)).First()
                     : 0;
 
                 return new SpecificationResult
@@ -141,7 +143,7 @@ namespace EdFi.Ods.Common.Infrastructure.Repositories
         private class SpecificationResult
         {
             public IList<Guid> Ids { get; set; }
-            public long TotalCount { get; set; }
+            public int TotalCount { get; set; }
         }
     }
 }
