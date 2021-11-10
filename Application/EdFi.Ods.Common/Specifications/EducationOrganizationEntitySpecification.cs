@@ -27,10 +27,7 @@ namespace EdFi.Ods.Common.Specifications
                 "CommunityProvider",
                 "PostSecondaryInstitution",
                 "EducationOrganizationNetworkAssociation",
-                "OrganizationDepartment",
-                // For TPDM Extension Support
-                "University",
-                "TeacherPreparationProvider"
+                "OrganizationDepartment"
             };
 
         public static bool IsEducationOrganizationEntity(Type type) => IsEducationOrganizationEntity(type.Name);

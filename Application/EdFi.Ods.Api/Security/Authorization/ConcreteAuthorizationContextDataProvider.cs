@@ -88,16 +88,6 @@ namespace EdFi.Ods.Api.Security.Authorization
                     concreteAuthorizationContextData.PostSecondaryInstitutionId = educationOrganizationId;
                     concreteAuthorizationContextData.ConcreteEducationOrganizationIdPropertyName = "PostSecondaryInstitutionId";
                     break;
-                // For TPDM Extension Support
-                case "University":
-                    concreteAuthorizationContextData.UniversityId = educationOrganizationId;
-                    concreteAuthorizationContextData.ConcreteEducationOrganizationIdPropertyName = "UniversityId";
-                    break;
-                // For TPDM Extension Support
-                case "TeacherPreparationProvider":
-                    concreteAuthorizationContextData.TeacherPreparationProviderId = educationOrganizationId;
-                    concreteAuthorizationContextData.ConcreteEducationOrganizationIdPropertyName = "TeacherPreparationProviderId";
-                    break;
                 default:
 
                     throw new NotSupportedException(

@@ -31,12 +31,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         
         public int? PostSecondaryInstitutionId { get; set; }
 
-        // For TPDM Extension Support
-        public int? UniversityId { get; set; }
-
-        // For TPDM Extension Support
-        public int? TeacherPreparationProviderId { get; set; }
-
         // People
         public int? StaffUSI { get; set; }
 
