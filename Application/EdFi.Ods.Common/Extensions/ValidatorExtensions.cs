@@ -6,12 +6,15 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
+using System.Reflection;
+using log4net;
 
 namespace EdFi.Ods.Common.Extensions
 {
     public static class ObjectValidatorExtensions
     {
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(ObjectValidatorExtensions));
+
         public static ICollection<ValidationResult> ValidateObject(this IEnumerable<IObjectValidator> validators, object @object)
         {
             var result = new List<ValidationResult>();
@@ -24,9 +27,14 @@ namespace EdFi.Ods.Common.Extensions
                     {
                         result.AddRange(validator.ValidateObject(@object));
                     }
+                    catch (TargetInvocationException ex)
+                    {
+                        _logger.Error($"Validation exception [{ex.GetType()}]: {ex.StackTrace}",ex);
+                        result.Add(new ValidationResult(ex.InnerException.Message));
+                    }
                     catch (Exception ex)
                     {
-                        Trace.TraceError("Validation exception [{0}]: {1}", ex.GetType(), ex.StackTrace);
+                        _logger.Error($"Validation exception [{ex.GetType()}]: {ex.StackTrace}", ex);
                         result.Add(new ValidationResult(ex.Message));
                     }
                 }
