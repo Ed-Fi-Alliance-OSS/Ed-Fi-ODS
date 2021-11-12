@@ -6,6 +6,7 @@
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
+using NHibernate;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.GetMany
 {
@@ -14,7 +15,9 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.GetMany
         where TResourceModel : IHasETag
         where TEntityModel : class
     {
-        public GetManyPipeline(IStep<GetManyContext<TResourceModel, TEntityModel>, GetManyResult<TResourceModel>>[] steps)
-            : base(steps) { }
+        public GetManyPipeline(
+            IStep<GetManyContext<TResourceModel, TEntityModel>, GetManyResult<TResourceModel>>[] steps,
+            ISessionFactory sessionFactory)
+            : base(steps, sessionFactory) { }
     }
 }
