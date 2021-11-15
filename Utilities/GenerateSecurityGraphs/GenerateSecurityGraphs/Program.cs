@@ -363,11 +363,11 @@ order by
             // First process the segments into the graph
             foreach (var metadataEdge in distinctMetadataEdges)
             {
-                var vertex = AddAndGetVertex(resourceGraph, metadataEdge.ClaimName);
+                var vertex = GetOrAddVertex(resourceGraph, metadataEdge.ClaimName);
 
                 if (!string.IsNullOrEmpty(metadataEdge.ParentClaimName))
                 {
-                    var parentVertex = AddAndGetVertex(resourceGraph, metadataEdge.ParentClaimName);
+                    var parentVertex = GetOrAddVertex(resourceGraph, metadataEdge.ParentClaimName);
                     resourceGraph.AddEdge(new Edge<Resource>(parentVertex, vertex));
                 }
             }
@@ -543,9 +543,10 @@ order by
             return subgraph;
         }
 
-        private static Resource AddAndGetVertex(AdjacencyGraph<Resource, Edge<Resource>> resourceGraph, string claimName)
+        private static Resource GetOrAddVertex(AdjacencyGraph<Resource, Edge<Resource>> resourceGraph, string claimName)
         {
             var vertex = resourceGraph.Vertices.SingleOrDefault(v => v.Name == claimName);
+
             if (vertex is null)
             {
                 vertex = new Resource(claimName);
