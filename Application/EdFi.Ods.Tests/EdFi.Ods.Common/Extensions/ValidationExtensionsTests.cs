@@ -10,7 +10,7 @@ using Shouldly;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Extensions
 {
-    public class ObjectValidationExtensionsTests
+    public class ValidationExtensionsTests
     {
         [TestFixture]
         public class When_class_with_required_non_default_throws_exception_during_validation

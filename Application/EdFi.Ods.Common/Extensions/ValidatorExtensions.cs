@@ -11,9 +11,9 @@ using log4net;
 
 namespace EdFi.Ods.Common.Extensions
 {
-    public static class ObjectValidatorExtensions
+    public static class ValidatorExtensions
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof(ObjectValidatorExtensions));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(ValidatorExtensions));
 
         public static ICollection<ValidationResult> ValidateObject(this IEnumerable<IObjectValidator> validators, object @object)
         {
