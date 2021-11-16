@@ -363,14 +363,12 @@ order by
             // First process the segments into the graph
             foreach (var metadataEdge in distinctMetadataEdges)
             {
-                if (string.IsNullOrEmpty(metadataEdge.ParentClaimName))
+                var vertex = GetOrAddVertex(resourceGraph, metadataEdge.ClaimName);
+
+                if (!string.IsNullOrEmpty(metadataEdge.ParentClaimName))
                 {
-                    resourceGraph.AddVertex(new Resource(metadataEdge.ClaimName));
-                }
-                else
-                {
-                    resourceGraph.AddVerticesAndEdge(
-                        new Edge<Resource>(new Resource(metadataEdge.ParentClaimName), new Resource(metadataEdge.ClaimName)));
+                    var parentVertex = GetOrAddVertex(resourceGraph, metadataEdge.ParentClaimName);
+                    resourceGraph.AddEdge(new Edge<Resource>(parentVertex, vertex));
                 }
             }
 
@@ -463,8 +461,7 @@ order by
                         actionVertex.ExplicitActionAndStrategyByClaimSetName[claimSetName] = new ActionAndStrategy
                         {
                             ActionName = actionStrategyItem.ActionName,
-                            AuthorizationStrategy =
-                                                                                                     actionStrategyItem.StrategyName
+                            AuthorizationStrategy = actionStrategyItem.StrategyName
                         };
                     }
                 }
@@ -544,6 +541,19 @@ order by
             AddChildren(resourceGraph, subgraph, rootNode);
 
             return subgraph;
+        }
+
+        private static Resource GetOrAddVertex(AdjacencyGraph<Resource, Edge<Resource>> resourceGraph, string claimName)
+        {
+            var vertex = resourceGraph.Vertices.SingleOrDefault(v => v.Name == claimName);
+
+            if (vertex is null)
+            {
+                vertex = new Resource(claimName);
+                resourceGraph.AddVertex(vertex);
+            }
+
+            return vertex;
         }
 
         private static void AddChildren(AdjacencyGraph<Resource, Edge<Resource>> resourceGraph, AdjacencyGraph<Resource, Edge<Resource>> subgraph,
