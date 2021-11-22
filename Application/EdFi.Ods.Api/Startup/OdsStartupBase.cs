@@ -236,8 +236,6 @@ namespace EdFi.Ods.Api.Startup
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ApiSettings apiSettings)
         {
-            loggerFactory.AddLog4Net();
-
             if (!string.IsNullOrEmpty(apiSettings.PathBase))
             {
                 var pathBase = apiSettings.PathBase.Trim('/');
