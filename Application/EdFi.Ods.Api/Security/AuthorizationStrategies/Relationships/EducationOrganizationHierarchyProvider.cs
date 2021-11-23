@@ -3,7 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
 using QuickGraph;
+using System;
+using System.Linq;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
@@ -13,21 +17,63 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     /// </summary>
     public class EducationOrganizationHierarchyProvider : IEducationOrganizationHierarchyProvider
     {
-        // Constants matching the core Ed-Fi types of education organizations
-        protected const string EducationServiceCenter = "EducationServiceCenter";
-        protected const string LocalEducationAgency = "LocalEducationAgency";
-        protected const string School = "School";
-        protected const string StateEducationAgency = "StateEducationAgency";
+        private IDomainModelProvider _domainModelProvider { get; set; }
 
-        private readonly AdjacencyGraph<string, Edge<string>> _graph = new AdjacencyGraph<string, Edge<string>>();
-
-        public EducationOrganizationHierarchyProvider()
+        private readonly Lazy<AdjacencyGraph<string, Edge<string>>> _educationOrganizationHierarchy;
+        public EducationOrganizationHierarchyProvider(IDomainModelProvider domainModelProvider)
         {
-            // Define the referential structure of the core ODS EducationOrganization-related tables
-            AddRelatedOrganizations(StateEducationAgency, EducationServiceCenter);
-            AddRelatedOrganizations(StateEducationAgency, LocalEducationAgency);
-            AddRelatedOrganizations(EducationServiceCenter, LocalEducationAgency);
-            AddRelatedOrganizations(LocalEducationAgency, School);
+            _domainModelProvider = domainModelProvider;
+            _educationOrganizationHierarchy = new Lazy<AdjacencyGraph<string, Edge<string>>>(() => AddRelatedOrganizations());
+        }
+
+        /// <summary>
+        /// Adds a relationship between two types of education organizations to the hierarchy.
+        /// </summary>
+        private AdjacencyGraph<string, Edge<string>> AddRelatedOrganizations()
+        {
+            var domainModel = _domainModelProvider.GetDomainModel();
+
+            var concreteEdOrgEntities = domainModel.Entities.Where(entity => entity.IsEducationOrganizationDerivedEntity());
+
+            var graph = new AdjacencyGraph<string, Edge<string>>();
+
+            var EducationOrganizationHierarchyProvider = concreteEdOrgEntities
+                .SelectMany(entity => entity.Properties
+                        .Select(p => new
+                        {
+                            Property = p,
+                            ParentEgOrgAssociation = p.IncomingAssociations.SingleOrDefault(a =>
+                                a.AssociationType == AssociationViewType.ManyToOne
+                                && !a.IsSelfReferencing
+                                && (a.OtherEntity.IsEducationOrganizationBaseEntity()
+                                    || a.OtherEntity.IsEducationOrganizationDerivedEntity()))
+                        })
+                        .Where(x => x.ParentEgOrgAssociation != null)
+                        .Select(x => new
+                        {
+                            SourcePropertyName = x.ParentEgOrgAssociation.PropertyMappings.Single().OtherProperty.PropertyName,
+                            TargetPropertyName = entity.Identifier.Properties.Single().PropertyName,
+                            SourceIsAbstract = x.ParentEgOrgAssociation.OtherEntity.IsAbstract
+                        }))
+                .SelectMany(x => {
+                    if (x.SourceIsAbstract)
+                    {
+                        return concreteEdOrgEntities
+                            .Select(e => new { SourcePropertyName = e.Identifier.Properties.Single().PropertyName, TargetPropertyName = x.TargetPropertyName })
+                            .Where(y => y.SourcePropertyName != y.TargetPropertyName);
+                    }
+                    else
+                    {
+                        return (new[] { x }).Select(y => new { SourcePropertyName = y.SourcePropertyName, TargetPropertyName = y.TargetPropertyName });
+                    }
+                })
+                .ToArray();
+
+            foreach (var edge in EducationOrganizationHierarchyProvider)
+            {
+                graph.AddVerticesAndEdge(new Edge<string>(edge.SourcePropertyName, edge.TargetPropertyName));
+            }
+            return graph;
         }
 
         /// <summary>
@@ -36,20 +82,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <returns>The hierarchy represented as a graph.</returns>
         public virtual AdjacencyGraph<string, Edge<string>> GetEducationOrganizationHierarchy()
         {
-            return _graph;
-        }
-
-        /// <summary>
-        /// Adds a relationship between two types of education organizations to the hierarchy.
-        /// </summary>
-        /// <param name="parentType">The type of the parent education organization (e.g. LocalEducationAgency).</param>
-        /// <param name="childType">The type of the child education organization (e.g. School).</param>
-        protected void AddRelatedOrganizations(string parentType, string childType)
-        {
-            _graph.AddVerticesAndEdge(
-                new Edge<string>(
-                    parentType,
-                    childType));
+            return _educationOrganizationHierarchy.Value;
         }
     }
 }

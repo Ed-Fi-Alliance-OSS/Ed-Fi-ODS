@@ -141,6 +141,22 @@ namespace EdFi.Ods.Common.Models.Domain
             => entity.FullName.Equals(new FullName(EdFiConventions.PhysicalSchemaName, "Descriptor"));
 
         /// <summary>
+        /// Checks if the entity is a EducationOrganization Base Entity
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns><b>true</b> if the type has a EducationOrganization Base Entity; otherwise <b>false</b>.</returns>
+        public static bool IsEducationOrganizationBaseEntity(this Entity entity)
+            => entity.FullName.Equals(new FullName(EdFiConventions.PhysicalSchemaName, "EducationOrganization"));
+
+        /// <summary>
+        /// Checks if the entity is a EducationOrganization Derived Entity
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns><b>true</b> if the type has a EducationOrganization Derived Entity; otherwise <b>false</b>.</returns>
+        public static bool IsEducationOrganizationDerivedEntity(this Entity entity)
+            => entity.BaseEntity?.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "EducationOrganization");
+
+        /// <summary>
         /// Indicates whether the supplied <see cref="Entity"/> has a discriminator.
         /// </summary>
         /// <param name="entity">The <see cref="Entity"/> that is being inspected.</param>
