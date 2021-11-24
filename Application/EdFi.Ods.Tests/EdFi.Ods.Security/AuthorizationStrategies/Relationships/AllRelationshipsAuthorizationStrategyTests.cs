@@ -33,7 +33,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
     using context_data_transformer = IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<RelationshipsAuthorizationContextData>;
     using edorgs_and_people_strategy = RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>;
     using education_organization_cache = IEducationOrganizationCache;
-    using education_organization_hierarchy_provider = IEducationOrganizationHierarchyProvider;
     using segments_to_filters_converter = IAuthorizationSegmentsToFiltersConverter;
 
     // -------------------------------------------------------
@@ -86,12 +85,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         //         A.CallTo(() => dependency.GetEducationOrganizationIdentifiers(educationOrganizationId));
         // }
 
-        public static IEducationOrganizationHierarchyProvider that_always_returns_an_empty_graph(
-            this IEducationOrganizationHierarchyProvider dependency)
+        public static IEducationOrganizationIdHierarchyProvider that_always_returns_an_empty_graph(
+            this IEducationOrganizationIdHierarchyProvider dependency)
         {
             A.CallTo(() =>
                     dependency
-                        .GetEducationOrganizationHierarchy())
+                        .GetEducationOrganizationIdHierarchy())
                 .Returns(new AdjacencyGraph<string, Edge<string>>());
 
             return dependency;
@@ -301,7 +300,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Given<education_organization_cache>()
                     .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"));
 
-                Given<education_organization_hierarchy_provider>()
+                Given<IEducationOrganizationIdHierarchyProvider>()
                     .that_always_returns_an_empty_graph();
 
                 Given<context_data_transformer>(
@@ -374,7 +373,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Given<education_organization_cache>()
                     .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"));
 
-                Given<education_organization_hierarchy_provider>()
+                Given<IEducationOrganizationIdHierarchyProvider>()
                     .that_always_returns_an_empty_graph();
 
                 Given<context_data_transformer>(
@@ -451,7 +450,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"))
                     .that_always_returns_a_Local_Education_Agency_for(777);
 
-                Given<education_organization_hierarchy_provider>()
+                Given<IEducationOrganizationIdHierarchyProvider>()
                     .that_always_returns_an_empty_graph();
 
                 Given<context_data_transformer>(

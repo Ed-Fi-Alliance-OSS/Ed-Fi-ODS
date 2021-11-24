@@ -1688,7 +1688,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             private EdFiAuthorizationContext _suppliedEdFiAuthorizationContext;
 
             private IResourceAuthorizationMetadataProvider _resourceAuthorizationMetadataProvider;
-            private IEducationOrganizationHierarchyProvider _educationOrganizationHierarchyProvider;
+            private IEducationOrganizationAuthorizationSegmentsValidator _educationOrganizationAuthorizationSegmentsValidator;
             private StubSecurityRepository _securityRepository;
 
             protected override void Arrange()
@@ -1787,10 +1787,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
             protected virtual IEdFiAuthorizationStrategy[] GetAuthorizationStrategies()
             {
-                _educationOrganizationHierarchyProvider = Stub<IEducationOrganizationHierarchyProvider>();
+                _educationOrganizationAuthorizationSegmentsValidator = Stub<IEducationOrganizationAuthorizationSegmentsValidator>();
 
-                A.CallTo(() => _educationOrganizationHierarchyProvider.GetEducationOrganizationHierarchy())
-                    .Returns(new AdjacencyGraph<string, Edge<string>>());
+                A.CallTo(() => _educationOrganizationAuthorizationSegmentsValidator.ValidateAuthorizationSegments(A<IReadOnlyList<ClaimsAuthorizationSegment>>.Ignored))
+                    .Returns(Array.Empty<string>());
 
                 var edOrgCache = Stub<IEducationOrganizationCache>();
 
@@ -1805,7 +1805,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                         AuthorizationSegmentsToFiltersConverter = Stub<IAuthorizationSegmentsToFiltersConverter>(),
                         AuthorizationSegmentsVerifier = Stub<IAuthorizationSegmentsVerifier>(),
                         EducationOrganizationCache = Stub<IEducationOrganizationCache>(),
-                        EducationOrganizationHierarchyProvider = _educationOrganizationHierarchyProvider,
+                        EducationOrganizationAuthorizationSegmentsValidator = _educationOrganizationAuthorizationSegmentsValidator,
                         RelationshipsAuthorizationContextDataProviderFactory =
                             Stub<IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>>()
                     },

@@ -88,8 +88,12 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IResourceClaimUriProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<EducationOrganizationHierarchyProvider>()
-                .As<IEducationOrganizationHierarchyProvider>()
+            builder.RegisterType<EducationOrganizationIdHierarchyProvider>()
+                .As<IEducationOrganizationIdHierarchyProvider>()
+                .SingleInstance();
+            
+            builder.RegisterType<EducationOrganizationAuthorizationSegmentsValidator>()
+                .As<IEducationOrganizationAuthorizationSegmentsValidator>()
                 .SingleInstance();
 
             // RelationshipsAuthorizationContextDataProviderFactory
