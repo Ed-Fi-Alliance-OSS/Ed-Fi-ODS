@@ -1825,7 +1825,7 @@
 											"});",
 											"const responseItems = pm.response.json();",
 											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied.  The claims associated with an identifier of 'PostSecondaryInstitutionId' cannot be used to authorize a request associated with an identifier of 'SchoolId'. Authorization denied.  The claims associated with an identifier of 'CommunityProviderId' cannot be used to authorize a request associated with an identifier of 'SchoolId'.\");",
+											"        pm.expect(responseItems.message).to.equal(\"Authorization denied. The claims associated with an identifier of 'PostSecondaryInstitutionId' cannot be used to authorize a request associated with an identifier of 'SchoolId'. The claims associated with an identifier of 'CommunityProviderId' cannot be used to authorize a request associated with an identifier of 'SchoolId'.\");",
 											"});"
 										],
 										"type": "text/javascript"

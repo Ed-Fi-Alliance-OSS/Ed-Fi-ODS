@@ -29,18 +29,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         private readonly IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData>
             _concreteEducationOrganizationIdAuthorizationContextDataTransformer;
 
-        private readonly Lazy<AdjacencyGraph<string, Edge<string>>> _educationOrganizationHierarchy;
-
         private List<ValidationResult> _dependencyValidationResults;
 
         protected RelationshipsAuthorizationStrategyBase(
             IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData> concreteEducationOrganizationIdAuthorizationContextDataTransformer)
         {
             _concreteEducationOrganizationIdAuthorizationContextDataTransformer = concreteEducationOrganizationIdAuthorizationContextDataTransformer;
-
-            _educationOrganizationHierarchy = new Lazy<AdjacencyGraph<string, Edge<string>>>(
-                () =>
-                    EducationOrganizationHierarchyProvider.GetEducationOrganizationHierarchy());
         }
 
         // Define all required dependencies, injected through property injection for brevity in custom implementations
@@ -57,7 +51,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         public IAuthorizationSegmentsVerifier AuthorizationSegmentsVerifier { get; set; }
 
         [Required]
-        public IEducationOrganizationHierarchyProvider EducationOrganizationHierarchyProvider { get; set; }
+        public IEducationOrganizationAuthorizationSegmentsValidator EducationOrganizationAuthorizationSegmentsValidator { get; set; }
 
         public async Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext,
             CancellationToken cancellationToken)
@@ -79,48 +73,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
             var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, concreteContextData);
 
-            var multipleSegmentsErrorMessages = new List<string>();
+            // Validate all EdOrg-based segments to detect those that are completely invalid.
+            var authorizationSegmentsValidationMessages = EducationOrganizationAuthorizationSegmentsValidator.ValidateAuthorizationSegments(authorizationSegments);
 
-            foreach (var segment in authorizationSegments)
+            if (authorizationSegmentsValidationMessages.Any())
             {
-                var isSubjectEndpointReachableFromAnyClaimEndpointsInSegment = false;
-                var errorMessages = new List<string>();
-
-                foreach (var name in segment.ClaimsEndpoints.Select(s => s.Name))
-                {
-                    // NOTE: Embedded convention (trimming Id suffix to get EdOrg type)
-                    string claimEducationOrganizationType = name.TrimSuffix("Id");
-
-                    // Get a list of identifiers that are not accessible from the claim's associated EdOrg
-                    var graph = _educationOrganizationHierarchy.Value;
-
-                    var inaccessibleIdentifierNames = graph
-                        .Vertices
-                        .Except(graph.GetDescendantsOrSelf(claimEducationOrganizationType))
-                        .Select(edOrgType => edOrgType + "Id") // NOTE: Embedded convention (adding Id suffix to EdOrg type)
-                        .ToList();
-
-                    if (inaccessibleIdentifierNames.Any(s => s.Equals(segment.SubjectEndpoint.Name)))
-                    {
-                        errorMessages.Add($"Authorization denied.  The claims associated with an identifier of '{name}' " +
-                            $"cannot be used to authorize a request associated with an identifier of '{segment.SubjectEndpoint.Name}'."); ;
-                    }
-                    else
-                    {
-                        isSubjectEndpointReachableFromAnyClaimEndpointsInSegment = true;
-                    }
-                }
-
-                if (!isSubjectEndpointReachableFromAnyClaimEndpointsInSegment)
-                {
-                    multipleSegmentsErrorMessages.AddRange(errorMessages);
-                }
-            }
-
-            // Validate all segments before throwing an exception if one or more segments are invalid.
-            if (multipleSegmentsErrorMessages.Any())
-            {
-                throw new EdFiSecurityException(string.Join(" ", multipleSegmentsErrorMessages));
+                throw new EdFiSecurityException($"Authorization denied. {string.Join(" ", authorizationSegmentsValidationMessages)}");
             }
 
             var inlineAuthorizationResults = PerformInlineClaimsAuthorizations();
