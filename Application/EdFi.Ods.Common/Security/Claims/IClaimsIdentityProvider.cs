@@ -31,7 +31,8 @@ namespace EdFi.Ods.Common.Security.Claims
             IEnumerable<int> localEducationAgencyIds,
             string claimSetName,
             IEnumerable<string> vendorNamespacePrefixes,
-            IReadOnlyList<string> assignedProfileNames);
+            IReadOnlyList<string> assignedProfileNames,
+            IReadOnlyList<short?> ownershipTokenIds);
     }
 
     /// <summary>

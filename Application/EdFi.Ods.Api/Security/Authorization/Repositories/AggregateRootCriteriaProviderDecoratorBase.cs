@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -56,77 +56,101 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             var authorizationFilters = _authorizationFilterContextProvider.GetFilterContext();
 
-            // This behavior was introduced to handle support for multiple EdOrg types, but this logic must handle all
-            // authorizations performed. Currently, there are no other authorization strategies that use multiple claim types
-            // so this is functional today, but would need to be revisited if such an authorization strategy was introduced.
-            string[] distinctClaimEndpointNames =
+            if (authorizationFilters.FirstOrDefault() != null)
+            {
+                // This behavior was introduced to handle support for multiple EdOrg types, but this logic must handle all
+                // authorizations performed. Currently, there are no other authorization strategies that use multiple claim types
+                // so this is functional today, but would need to be revisited if such an authorization strategy was introduced.
+                string[] distinctClaimEndpointNames =
                 authorizationFilters
                     .Select(s => s.ClaimEndpointName)
                     .Distinct()
                     .OrderBy(x => x)
                     .ToArray();
 
-            bool hasMultipleClaimEndpoints = distinctClaimEndpointNames.Length > 1;
+                bool hasMultipleClaimEndpoints = distinctClaimEndpointNames.Length > 1;
 
-            var allFiltersGroupedBySubjectName = authorizationFilters.GroupBy(
-                x => x.SubjectEndpointName,
-                x => x);
+                var allFiltersGroupedBySubjectName = authorizationFilters.GroupBy(
+                    x => x.SubjectEndpointName,
+                    x => x);
 
-            // ICriterions combined using AND
-            var conjunction = new Conjunction();
+                // ICriterions combined using AND
+                var conjunction = new Conjunction();
 
-            foreach (var subjectNameGrouping in allFiltersGroupedBySubjectName)
-            {
-                // ICriterions combined using OR
-                var disjunction = new Disjunction();
-
-                var unsupportedAuthorizationFilters = new List<string>();
-
-                bool authorizationFilterApplied = false;
-                
-                foreach (var filterDetails in subjectNameGrouping)
+                foreach (var subjectNameGrouping in allFiltersGroupedBySubjectName)
                 {
-                    if (!_authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
-                        filterDetails.FilterName,
-                        typeof(TEntity),
-                        out IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators))
-                    {
-                        unsupportedAuthorizationFilters.Add(filterDetails.FilterName);
+                    // ICriterions combined using OR
+                    var disjunction = new Disjunction();
 
-                        continue;
-                    }
+                    bool isSubjectNameAuthorizable = false;
+                    var unsupportedAuthorizationFilters = new List<string>();
 
-                    // Invoke the filter applicators against the current query
-                    foreach (var applicator in applicators)
+                    foreach (var filterDetails in subjectNameGrouping)
                     {
-                        var parameterValues = new Dictionary<string, object>
+                        IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators;
+
+                        if (!_authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
+                            filterDetails.FilterName,
+                            typeof(TEntity),
+                            out applicators))
                         {
-                            {"SourceEducationOrganizationId", filterDetails.ClaimValues},
-                            {filterDetails.ClaimEndpointName, filterDetails.ClaimValues},
+                            unsupportedAuthorizationFilters.Add(filterDetails.FilterName);
+
+                            continue;
+                        }
+
+                        isSubjectNameAuthorizable = true;
+
+                        var filtersBackedByNewAuthViews = new List<string>
+                        {
+                            "LocalEducationAgencyIdToStudentUSI",
+                            "SchoolIdToStudentUSI",
+                            "LocalEducationAgencyIdToParentUSI",
+                            "ParentUSIToSchoolId",
+                            "LocalEducationAgencyIdToStaffUSI",
+                            "SchoolIdToStaffUSI"
                         };
 
-                        applicator(criteria, disjunction, parameterValues, hasMultipleClaimEndpoints ? JoinType.LeftOuterJoin : JoinType.InnerJoin);
-                        authorizationFilterApplied = true;
-                    }
-                }
 
-                if (unsupportedAuthorizationFilters.Any() && !authorizationFilterApplied)
-                {
-                    if (_logger.IsDebugEnabled)
+                        // Invoke the filter applicators against the current query
+                        foreach (var applicator in applicators)
+                        {
+                            Dictionary<string, object> parameterValues;
+
+                            if (filtersBackedByNewAuthViews.Contains(filterDetails.FilterName, StringComparer.OrdinalIgnoreCase))
+                            {
+                                parameterValues =
+                                    new Dictionary<string, object> { { "SourceEducationOrganizationId", filterDetails.ClaimValues } };
+                            }
+                            else
+                            {
+                                parameterValues = new Dictionary<string, object>
+                                {
+                                    {filterDetails.ClaimEndpointName, filterDetails.ClaimValues}
+                                };
+                            }
+
+                            applicator(criteria, disjunction, parameterValues, hasMultipleClaimEndpoints ? JoinType.LeftOuterJoin : JoinType.InnerJoin);
+                        }
+                    }
+
+                    if (!isSubjectNameAuthorizable)
                     {
-                        _logger.Debug($"Unable to authorize access to '{typeof(TEntity).FullName}' because none of the following authorization filters were defined: '{string.Join($"', '", unsupportedAuthorizationFilters)}'.");
+                        if (_logger.IsDebugEnabled)
+                        {
+                            _logger.Debug($"Unable to authorize access to '{typeof(TEntity).FullName}' because none of the following authorization filters were defined: '{string.Join($"', '", unsupportedAuthorizationFilters)}'.");
+                        }
+
+                        throw new EdFiSecurityException(
+                            $"Unable to authorize the request because there is no authorization support for associating the "
+                            + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource ('{typeof(TEntity).Name}').");
                     }
 
-                    throw new EdFiSecurityException(
-                        $"Unable to authorize the request because there is no authorization support for associating the "
-                        + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource ('{typeof(TEntity).Name}').");
+                    conjunction.Add(disjunction);
                 }
 
-                conjunction.Add(disjunction);
+                criteria.Add(conjunction);
             }
-
-            criteria.Add(conjunction);
-
             return criteria;
         }
     }
