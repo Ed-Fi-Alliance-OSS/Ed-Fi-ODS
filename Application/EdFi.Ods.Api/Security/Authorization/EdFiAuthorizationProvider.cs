@@ -280,11 +280,11 @@ namespace EdFi.Ods.Api.Security.Authorization
                     .FirstOrDefault(x => x != null);
 
             var metadataAuthorizationStrategyNames =
-                claimCheckResponse.AuthorizationMetadata
-                                    .SkipWhile(s => s.AuthorizationStrategies == null)
-                                    .SelectMany(s => s.AuthorizationStrategies)
-                                    .ToList();
-
+                 claimCheckResponse.AuthorizationMetadata
+                                     .Where(s => s.AuthorizationStrategies != null && s.AuthorizationStrategies.All(x=>x !=null))
+                                     .SelectMany(s => s.AuthorizationStrategies )
+                                     .ToList();
+            
             // TODO: GKM - When claimset-specific override support is added, use this logic
             //string claimSpecificOverrideAuthorizationStrategyName =
             //    resourceClaimAuthorizationStrategies
@@ -299,7 +299,7 @@ namespace EdFi.Ods.Api.Security.Authorization
               ?? metadataAuthorizationStrategyNames;
 
             // No authorization strategies were defined for this request
-            if (authorizationStrategyNames == null)
+            if (authorizationStrategyNames == null || !authorizationStrategyNames.Any())
             {
                 throw new Exception(
                     string.Format(

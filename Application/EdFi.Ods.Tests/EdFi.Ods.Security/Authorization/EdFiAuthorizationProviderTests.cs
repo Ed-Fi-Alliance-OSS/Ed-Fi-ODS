@@ -533,7 +533,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
             }
         }
 
@@ -646,7 +646,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
                 OverrideAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
             }
         }
 
@@ -692,7 +692,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
             }
         }
 
@@ -890,7 +890,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 Should_resolve_claims_using_authorization_metadata_order_rather_than_callers_claims_order_and_invoke_lowest_matching_claims_authorization_strategy()
             {
                 SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
+                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
             }
         }
 
@@ -1984,10 +1984,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             }
 
             [Assert]
-            public void Should_throw_exception_indicating_that_no_authorization_strategy_was_defined_in_the_metadata()
+            public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
             {
                 ActualException.ShouldBeExceptionType<Exception>();
-                ActualException.Message.ShouldContain("No authorization strategy was defined");
+                ActualException.Message.ShouldContain("No authorization strategies were defined");
             }
         }
 
