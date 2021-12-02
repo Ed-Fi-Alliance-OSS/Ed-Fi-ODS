@@ -76,7 +76,7 @@ REFERENCES dbo.ResourceClaims (ResourceClaimId);
 
 CREATE TABLE dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(
 	ClaimSetResourceClaimActionAuthorizationStrategyOverrideId SERIAL NOT NULL,
-	ClaimSetResourceClaimActionAuthorization_ClaimActionAuthId INT NOT NULL,
+	ClaimSetResourceClaimActionAuthorizationId INT NOT NULL,
 	AuthorizationStrategy_AuthorizationStrategyId INT NOT NULL,
  CONSTRAINT ClaimSetResourceClaimActionAuthorizationStrategyOverrides_PK PRIMARY KEY  
 (
@@ -91,14 +91,14 @@ CREATE INDEX IF NOT EXISTS IX_ActionAuthorizationStrategyOverrides_Authorization
 
 CREATE INDEX IF NOT EXISTS IX_ActionAuthorizationStrategyOverrides__ClaimActionAuthId
     ON dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-	(ClaimSetResourceClaimActionAuthorization_ClaimActionAuthId);
+	(ClaimSetResourceClaimActionAuthorizationId);
 
 ALTER TABLE dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides  ADD  CONSTRAINT FK_ActionAuthorizationStrategyOverrides_AuthorizationStrategies FOREIGN KEY(AuthorizationStrategy_AuthorizationStrategyId)
 REFERENCES dbo.AuthorizationStrategies (AuthorizationStrategyId)
 ON DELETE CASCADE;
 
 
-ALTER TABLE dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides  ADD  CONSTRAINT FK_ActionAuthorizationStrategyOverrides_ActionAuthorizations FOREIGN KEY(ClaimSetResourceClaimActionAuthorization_ClaimActionAuthId)
+ALTER TABLE dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides  ADD  CONSTRAINT FK_ActionAuthorizationStrategyOverrides_ActionAuthorizations FOREIGN KEY(ClaimSetResourceClaimActionAuthorizationId)
 REFERENCES dbo.ClaimSetResourceClaimActionAuthorizations (ClaimSetResourceClaimActionAuthorizationId);
 
 ------------------------------ dbo.ResourceClaimActionAuthorizationStrategies -------------------------------------------------
@@ -106,7 +106,7 @@ REFERENCES dbo.ClaimSetResourceClaimActionAuthorizations (ClaimSetResourceClaimA
 
 CREATE TABLE dbo.ResourceClaimActionAuthorizationStrategies(
 	ResourceClaimActionAuthorizationStrategyId SERIAL NOT NULL,
-	ResourceClaimActionAuthorization_ClaimActionAuthId INT NOT NULL,
+	ResourceClaimActionAuthorizationId INT NOT NULL,
 	AuthorizationStrategy_AuthorizationStrategyId INT NOT NULL
 
  CONSTRAINT ResourceClaimActionAuthorizationStrategies_PK PRIMARY KEY
@@ -121,12 +121,12 @@ CREATE INDEX IF NOT EXISTS IX_ActionAuthorizationStrategies_AuthorizationStrateg
 
 CREATE INDEX IF NOT EXISTS IX_ActionAuthorizationStrategies_ClaimActionAuthId
     ON dbo.ResourceClaimActionAuthorizationStrategies
-	(ResourceClaimActionAuthorization_ClaimActionAuthId);
+	(ResourceClaimActionAuthorizationId);
 
 
 ALTER TABLE dbo.ResourceClaimActionAuthorizationStrategies   ADD  CONSTRAINT FK_ActionAuthorizationStrategies_AuthorizationStrategyId FOREIGN KEY(AuthorizationStrategy_AuthorizationStrategyId)
 REFERENCES dbo.AuthorizationStrategies (AuthorizationStrategyId)
 ON DELETE CASCADE;
 
-ALTER TABLE dbo.ResourceClaimActionAuthorizationStrategies   ADD  CONSTRAINT FK_ActionAuthorizationStrategies_ActionAuthorizationId FOREIGN KEY(ResourceClaimActionAuthorization_ClaimActionAuthId)
+ALTER TABLE dbo.ResourceClaimActionAuthorizationStrategies   ADD  CONSTRAINT FK_ActionAuthorizationStrategies_ActionAuthorizationId FOREIGN KEY(ResourceClaimActionAuthorizationId)
 REFERENCES dbo.ResourceClaimActionAuthorizations (ResourceClaimActionAuthorizationId);
