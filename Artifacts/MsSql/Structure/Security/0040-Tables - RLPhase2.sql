@@ -86,7 +86,7 @@ GO
 
 CREATE TABLE [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides](
 	[ClaimSetResourceClaimActionAuthorizationStrategyOverrideId] [int] IDENTITY(1,1) NOT NULL,
-	[ClaimSetResourceClaimActionAuthorization_ClaimSetResourceClaimActionAuthorizationId] [int] NOT NULL,
+	[ClaimSetResourceClaimActionAuthorizationId] [int] NOT NULL,
 	[AuthorizationStrategy_AuthorizationStrategyId] [int] NOT NULL,
  CONSTRAINT [PK_dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides] PRIMARY KEY CLUSTERED 
 (
@@ -95,7 +95,7 @@ CREATE TABLE [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides](
  CONSTRAINT [ClaimSetResourceClaimActionAuthorizationStrategyOverrides_AK] UNIQUE NONCLUSTERED 
 (
 	[AuthorizationStrategy_AuthorizationStrategyId] ASC,
-	[ClaimSetResourceClaimActionAuthorization_ClaimSetResourceClaimActionAuthorizationId] ASC
+	[ClaimSetResourceClaimActionAuthorizationId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -109,7 +109,7 @@ GO
 ALTER TABLE [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides] CHECK CONSTRAINT [FK_dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides_dbo.AuthorizationStrategies_AuthorizationStrategy_Authorization]
 GO
 
-ALTER TABLE [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides_dbo.ClaimSetResourceClaimActionAuthorizations_ClaimSetResourceC] FOREIGN KEY([ClaimSetResourceClaimActionAuthorization_ClaimSetResourceClaimActionAuthorizationId])
+ALTER TABLE [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides_dbo.ClaimSetResourceClaimActionAuthorizations_ClaimSetResourceC] FOREIGN KEY([ClaimSetResourceClaimActionAuthorizationId])
 REFERENCES [dbo].[ClaimSetResourceClaimActionAuthorizations] ([ClaimSetResourceClaimActionAuthorizationId])
 GO
 
@@ -120,7 +120,7 @@ GO
 
 CREATE TABLE [dbo].[ResourceClaimActionAuthorizationStrategies](
 	[ResourceClaimActionAuthorizationStrategyId] [int] IDENTITY(1,1) NOT NULL,
-	[ResourceClaimActionAuthorization_ResourceClaimActionAuthorizationId] [int] NOT NULL,
+	[ResourceClaimActionAuthorizationId] [int] NOT NULL,
 	[AuthorizationStrategy_AuthorizationStrategyId] [int] NOT NULL,
 
  CONSTRAINT [PK_dbo.ResourceClaimActionAuthorizationStrategies] PRIMARY KEY CLUSTERED 
@@ -130,7 +130,7 @@ CREATE TABLE [dbo].[ResourceClaimActionAuthorizationStrategies](
  CONSTRAINT [ResourceClaimActionAuthorizationStrategies_AK] UNIQUE NONCLUSTERED 
 (
 	[AuthorizationStrategy_AuthorizationStrategyId] ASC,
-	[ResourceClaimActionAuthorization_ResourceClaimActionAuthorizationId] ASC
+	[ResourceClaimActionAuthorizationId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -143,7 +143,7 @@ GO
 ALTER TABLE [dbo].[ResourceClaimActionAuthorizationStrategies] CHECK CONSTRAINT [FK_dbo.ResourceClaimActionAuthorizationStrategies_dbo.AuthorizationStrategies_AuthorizationStrategy_AuthorizationStrategyId]
 GO
 
-ALTER TABLE [dbo].[ResourceClaimActionAuthorizationStrategies]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ResourceClaimActionAuthorizationStrategies_dbo.ResourceClaimActionAuthorizations_ResourceClaimActionAuthorizations_Resour] FOREIGN KEY([ResourceClaimActionAuthorization_ResourceClaimActionAuthorizationId])
+ALTER TABLE [dbo].[ResourceClaimActionAuthorizationStrategies]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ResourceClaimActionAuthorizationStrategies_dbo.ResourceClaimActionAuthorizations_ResourceClaimActionAuthorizations_Resour] FOREIGN KEY([ResourceClaimActionAuthorizationId])
 REFERENCES [dbo].[ResourceClaimActionAuthorizations] ([ResourceClaimActionAuthorizationId])
 GO
 
