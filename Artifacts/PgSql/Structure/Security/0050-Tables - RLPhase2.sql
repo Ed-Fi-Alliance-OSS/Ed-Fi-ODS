@@ -8,8 +8,7 @@ CREATE TABLE dbo.ResourceClaimActionAuthorizations(
 	ResourceClaimActionAuthorizationId SERIAL NOT NULL,
 	Action_ActionId INT NOT NULL,
 	ResourceClaim_ResourceClaimId INT NOT NULL,
-	ValidationRuleSetName VARCHAR NULL
-
+	ValidationRuleSetName VARCHAR NULL,
  CONSTRAINT ResourceClaimActionAuthorizations_PK PRIMARY KEY
 (
 	ResourceClaimActionAuthorizationId 
@@ -42,7 +41,7 @@ CREATE TABLE dbo.ClaimSetResourceClaimActionAuthorizations(
 	Action_ActionId INT NOT NULL,
 	ClaimSet_ClaimSetId INT NOT NULL,
 	ResourceClaim_ResourceClaimId INT NOT NULL,
-	ValidationRuleSetNameOverride VARCHAR NULL
+	ValidationRuleSetNameOverride VARCHAR NULL,
  CONSTRAINT ClaimSetResourceClaimActionAuthorizations_PK PRIMARY KEY  
 (
 	ClaimSetResourceClaimActionAuthorizationId 
@@ -107,8 +106,7 @@ REFERENCES dbo.ClaimSetResourceClaimActionAuthorizations (ClaimSetResourceClaimA
 CREATE TABLE dbo.ResourceClaimActionAuthorizationStrategies(
 	ResourceClaimActionAuthorizationStrategyId SERIAL NOT NULL,
 	ResourceClaimActionAuthorizationId INT NOT NULL,
-	AuthorizationStrategy_AuthorizationStrategyId INT NOT NULL
-
+	AuthorizationStrategy_AuthorizationStrategyId INT NOT NULL,
  CONSTRAINT ResourceClaimActionAuthorizationStrategies_PK PRIMARY KEY
 (
 	ResourceClaimActionAuthorizationStrategyId 
