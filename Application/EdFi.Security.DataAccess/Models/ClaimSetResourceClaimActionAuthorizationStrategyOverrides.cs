@@ -14,6 +14,7 @@ namespace EdFi.Security.DataAccess.Models
 
         [Required]
         [Index(IsUnique = true, Order = 1)]
+        [ForeignKey("ClaimSetResourceClaimActionAuthorizationId")]
         public ClaimSetResourceClaimActionAuthorizations ClaimSetResourceClaimActionAuthorization { get; set; }
 
         [Required]
