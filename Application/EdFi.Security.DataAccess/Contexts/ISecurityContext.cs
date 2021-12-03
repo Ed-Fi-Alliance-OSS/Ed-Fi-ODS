@@ -21,11 +21,11 @@ namespace EdFi.Security.DataAccess.Contexts
 
         DbSet<ClaimSet> ClaimSets { get; set; }
 
-        DbSet<ClaimSetResourceClaimActionAuthorizations> ClaimSetResourceClaims { get; set; }
+        DbSet<ClaimSetResourceClaimActionAuthorizations> ClaimSetResourceClaimActionAuthorizations { get; set; }
 
         DbSet<ResourceClaim> ResourceClaims { get; set; }
 
-        DbSet<ResourceClaimActionAuthorization> ResourceClaimAuthorizationMetadatas { get; set; }
+        DbSet<ResourceClaimActionAuthorization> ResourceClaimActionAuthorizations { get; set; }
 
         DbSet<ClaimSetResourceClaimActionAuthorizationStrategyOverrides> ClaimSetResourceClaimActionAuthorizationStrategyOverrides { get; set; }
 

@@ -43,7 +43,7 @@ namespace EdFi.Security.DataAccess.Repositories
                                                      .Where(auth => auth.Application.ApplicationId.Equals(application.ApplicationId))
                                                      .ToList();
 
-                var claimSetResourceClaims = context.ClaimSetResourceClaims.Include(csrc => csrc.Action)
+                var claimSetResourceClaimActionAuthorizations = context.ClaimSetResourceClaimActionAuthorizations.Include(csrc => csrc.Action)
                                                     .Include(csrc => csrc.ClaimSet)
                                                     .Include(csrc => csrc.ResourceClaim)
                                                     .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
@@ -57,13 +57,13 @@ namespace EdFi.Security.DataAccess.Repositories
                                     .Include(rcaas => rcaas.ResourceClaimActionAuthorization)
                                     .ToList();
 
-                var resourceClaimAuthorizationMetadata =
-                    context.ResourceClaimAuthorizationMetadatas.Include(rcas => rcas.Action)                           
+                var resourceClaimActionAuthorizations =
+                    context.ResourceClaimActionAuthorizations.Include(rcas => rcas.Action)                           
                            .Include(rcas => rcas.ResourceClaim)
                            .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                            .ToList();
 
-                foreach (var a in resourceClaimAuthorizationMetadata)
+                foreach (var a in resourceClaimActionAuthorizations)
                 {
                     a.ResourceClaimActionAuthorizationStrategies = ResourceClaimActionAuthorizationStrategies.Where(r => r.ResourceClaimActionAuthorization.ResourceClaimActionAuthorizationId == a.ResourceClaimActionAuthorizationId).ToList();
                 }
@@ -74,8 +74,8 @@ namespace EdFi.Security.DataAccess.Repositories
                     claimSets,
                     resourceClaims,
                     authorizationStrategies,
-                    claimSetResourceClaims,
-                    resourceClaimAuthorizationMetadata);
+                    claimSetResourceClaimActionAuthorizations,
+                    resourceClaimActionAuthorizations);
             }
         }
     }

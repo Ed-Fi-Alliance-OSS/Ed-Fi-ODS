@@ -15,9 +15,9 @@ namespace EdFi.Security.DataAccess.Caching
 
         public List<AuthorizationStrategy> AuthorizationStrategies { get; }
 
-        public List<ClaimSetResourceClaimActionAuthorizations> ClaimSetResourceClaims { get; }
+        public List<ClaimSetResourceClaimActionAuthorizations> ClaimSetResourceClaimActionAuthorizations { get; }
 
-        public List<ResourceClaimActionAuthorization> ResourceClaimAuthorizationMetadata { get; }
+        public List<ResourceClaimActionAuthorization> ResourceClaimActionAuthorization { get; }
 
 
         public InstanceSecurityRepositoryCacheObject(
@@ -26,16 +26,16 @@ namespace EdFi.Security.DataAccess.Caching
             List<ClaimSet> claimSets,
             List<ResourceClaim> resourceClaims,
             List<AuthorizationStrategy> authorizationStrategies,
-            List<ClaimSetResourceClaimActionAuthorizations> claimSetResourceClaims,
-            List<ResourceClaimActionAuthorization> resourceClaimAuthorizationMetadata)
+            List<ClaimSetResourceClaimActionAuthorizations> claimSetResourceClaimActionAuthorizations,
+            List<ResourceClaimActionAuthorization> resourceClaimActionAuthorization)
         {
             Application = application;
             Actions = actions;
             ClaimSets = claimSets;
             ResourceClaims = resourceClaims;
             AuthorizationStrategies = authorizationStrategies;
-            ClaimSetResourceClaims = claimSetResourceClaims;
-            ResourceClaimAuthorizationMetadata = resourceClaimAuthorizationMetadata;
+            ClaimSetResourceClaimActionAuthorizations = claimSetResourceClaimActionAuthorizations;
+            ResourceClaimActionAuthorization = resourceClaimActionAuthorization;
         }
     }
 }

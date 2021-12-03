@@ -23,9 +23,9 @@ namespace EdFi.Security.DataAccess.Repositories
 
         protected List<AuthorizationStrategy> AuthorizationStrategies { get; private set; }
 
-        protected List<ClaimSetResourceClaimActionAuthorizations> ClaimSetResourceClaims { get; private set; }
+        protected List<ClaimSetResourceClaimActionAuthorizations> ClaimSetResourceClaimActionAuthorizations { get; private set; }
 
-        protected List<ResourceClaimActionAuthorization> ResourceClaimAuthorizationMetadata { get; private set; }
+        protected List<ResourceClaimActionAuthorization> ResourceClaimActionAuthorization { get; private set; }
 
         protected void Initialize(
             Application application,
@@ -34,15 +34,15 @@ namespace EdFi.Security.DataAccess.Repositories
             List<ResourceClaim> resourceClaims,
             List<AuthorizationStrategy> authorizationStrategies,
             List<ClaimSetResourceClaimActionAuthorizations> claimSetResourceClaims,
-            List<ResourceClaimActionAuthorization> resourceClaimAuthorizationMetadata)
+            List<ResourceClaimActionAuthorization> resourceClaimActionAuthorization)
         {
             Application = application;
             Actions = actions;
             ClaimSets = claimSets;
             ResourceClaims = resourceClaims;
             AuthorizationStrategies = authorizationStrategies;
-            ClaimSetResourceClaims = claimSetResourceClaims;
-            ResourceClaimAuthorizationMetadata = resourceClaimAuthorizationMetadata;
+            ClaimSetResourceClaimActionAuthorizations = claimSetResourceClaims;
+            ResourceClaimActionAuthorization = resourceClaimActionAuthorization;
         }
 
         public virtual Action GetActionByHttpVerb(string httpVerb)
@@ -81,7 +81,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual IEnumerable<ClaimSetResourceClaimActionAuthorizations> GetClaimsForClaimSet(string claimSetName)
         {
-            return ClaimSetResourceClaims.Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
+            return ClaimSetResourceClaimActionAuthorizations.Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace EdFi.Security.DataAccess.Repositories
         private void AddStrategiesForResourceClaimLineage(List<ResourceClaimActionAuthorization> strategies, string resourceClaimUri, string action)
         {
             //check for exact match on resource and action
-            var claimAndStrategy = ResourceClaimAuthorizationMetadata
+            var claimAndStrategy = ResourceClaimActionAuthorization
                .SingleOrDefault(
                     rcas =>
                         rcas.ResourceClaim.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase)
