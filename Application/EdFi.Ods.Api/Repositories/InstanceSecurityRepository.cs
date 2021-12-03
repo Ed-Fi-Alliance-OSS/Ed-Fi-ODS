@@ -82,7 +82,7 @@ namespace EdFi.Security.DataAccess.Repositories
             var instanceSecurityRepoCacheObject = InstanceSecurityRepositoryCache.GetCache()
                 .GetSecurityRepository(instanceId);
 
-            return instanceSecurityRepoCacheObject.ClaimSetResourceClaims.Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
+            return instanceSecurityRepoCacheObject.ClaimSetResourceClaimActionAuthorizations.Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 .GetSecurityRepository(instanceId);
 
             //check for exact match on resource and action
-            var claimAndStrategy = instanceSecurityRepoCacheObject.ResourceClaimAuthorizationMetadata
+            var claimAndStrategy = instanceSecurityRepoCacheObject.ResourceClaimActionAuthorization
                 .SingleOrDefault(
                     rcas =>
                         rcas.ResourceClaim.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase)

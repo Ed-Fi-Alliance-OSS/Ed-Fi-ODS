@@ -138,14 +138,14 @@ namespace EdFi.Ods.Api.Caching
                                                      .Where(auth => auth.Application.ApplicationId.Equals(application.ApplicationId))
                                                      .ToList();
 
-                var claimSetResourceClaims = context.ClaimSetResourceClaims.Include(csrc => csrc.Action)
+                var claimSetResourceClaims = context.ClaimSetResourceClaimActionAuthorizations.Include(csrc => csrc.Action)
                                                     .Include(csrc => csrc.ClaimSet)
                                                     .Include(csrc => csrc.ResourceClaim)
                                                     .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                                                     .ToList();
 
                 var resourceClaimAuthorizationMetadata =
-                    context.ResourceClaimAuthorizationMetadatas.Include(rcas => rcas.Action)
+                    context.ResourceClaimActionAuthorizations.Include(rcas => rcas.Action)
                            .Include(rcas => rcas.ResourceClaimActionAuthorizationStrategies)
                            .Include(rcas => rcas.ResourceClaim)
                            .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
