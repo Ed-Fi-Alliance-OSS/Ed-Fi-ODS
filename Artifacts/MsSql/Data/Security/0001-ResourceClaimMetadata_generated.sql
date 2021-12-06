@@ -1372,7 +1372,7 @@ INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies]
 
 SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
-    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.Action_ActionId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
     WHERE A.ActionName IN ('Read','Create','Update','Delete')
     AND RC.ResourceName IN ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain','systemDescriptors', 'managedDescriptors')
 
@@ -1383,7 +1383,7 @@ SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[A
 
 INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies]
     ([ResourceClaimActionId]
-    ,[AuthorizationStrategy_AuthorizationStrategyId])
+    ,[AuthorizationStrategyId])
 SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
@@ -1397,7 +1397,7 @@ SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[A
 
 INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies]
     ([ResourceClaimActionId]
-    ,[AuthorizationStrategy_AuthorizationStrategyId])
+    ,[AuthorizationStrategyId])
 SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
