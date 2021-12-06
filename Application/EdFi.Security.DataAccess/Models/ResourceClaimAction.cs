@@ -9,24 +9,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Security.DataAccess.Models
 {
-    public class ClaimSetResourceClaimActionAuthorizations
+    public class ResourceClaimAction
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ClaimSetResourceClaimActionAuthorizationId { get; set; }
+        public int ResourceClaimActionId { get; set; }
+
+        public int ActionId { get; set; }
 
         [Required]
+        [ForeignKey("ActionId")]
         public Action Action { get; set; }
 
-        [Required]
-        public ClaimSet ClaimSet { get; set; }
+        public List<ResourceClaimActionAuthorizationStrategies> ResourceClaimActionAuthorizationStrategies { get; set; }
+
+        public int ResourceClaimId { get; set; }
 
         [Required]
+        [ForeignKey("ResourceClaimId")]
         public ResourceClaim ResourceClaim { get; set; }
 
-        public List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides> ClaimSetResourceClaimActionAuthorizationStrategyOverrides { get; set; }
-
         [StringLength(255)]
-        public string ValidationRuleSetNameOverride { get; set; }
+        public string ValidationRuleSetName { get; set; }
     }
 }

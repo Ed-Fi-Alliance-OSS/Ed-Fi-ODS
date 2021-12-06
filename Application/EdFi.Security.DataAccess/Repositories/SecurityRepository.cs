@@ -43,29 +43,29 @@ namespace EdFi.Security.DataAccess.Repositories
                                                      .Where(auth => auth.Application.ApplicationId.Equals(application.ApplicationId))
                                                      .ToList();
 
-                var claimSetResourceClaimActionAuthorizations = context.ClaimSetResourceClaimActionAuthorizations.Include(csrc => csrc.Action)
+                var claimSetResourceClaimActions = context.ClaimSetResourceClaimActions.Include(csrc => csrc.Action)
                                                     .Include(csrc => csrc.ClaimSet)
                                                     .Include(csrc => csrc.ResourceClaim)
                                                     .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                                                     .ToList();
 
-                var ClaimActionAuthorizationStrategyOverrides = context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Include(csrcas => csrcas.AuthorizationStrategy)
-                                                   .Include(csrcas => csrcas.ClaimSetResourceClaimActionAuthorization)
+                var claimSetResourceClaimActionAuthorizationStrategyOverrides = context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Include(csrcas => csrcas.AuthorizationStrategy)
+                                                   .Include(csrcas => csrcas.ClaimSetResourceClaimAction)
                                                    .ToList();
 
-                var ResourceClaimActionAuthorizationStrategies = context.ResourceClaimActionAuthorizationStrategies.Include(rcaas => rcaas.AuthorizationStrategy)
-                                    .Include(rcaas => rcaas.ResourceClaimActionAuthorization)
+                var resourceClaimActionAuthorizationStrategies = context.ResourceClaimActionAuthorizationStrategies.Include(rcaas => rcaas.AuthorizationStrategy)
+                                    .Include(rcaas => rcaas.ResourceClaimAction)
                                     .ToList();
 
                 var resourceClaimActionAuthorizations =
-                    context.ResourceClaimActionAuthorizations.Include(rcas => rcas.Action)                           
+                    context.ResourceClaimActions.Include(rcas => rcas.Action)                           
                            .Include(rcas => rcas.ResourceClaim)
                            .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                            .ToList();
 
                 foreach (var a in resourceClaimActionAuthorizations)
                 {
-                    a.ResourceClaimActionAuthorizationStrategies = ResourceClaimActionAuthorizationStrategies.Where(r => r.ResourceClaimActionAuthorization.ResourceClaimActionAuthorizationId == a.ResourceClaimActionAuthorizationId).ToList();
+                    a.ResourceClaimActionAuthorizationStrategies = resourceClaimActionAuthorizationStrategies.Where(r => r.ResourceClaimAction.ResourceClaimActionId == a.ResourceClaimActionId).ToList();
                 }
 
                 Initialize(
@@ -74,7 +74,7 @@ namespace EdFi.Security.DataAccess.Repositories
                     claimSets,
                     resourceClaims,
                     authorizationStrategies,
-                    claimSetResourceClaimActionAuthorizations,
+                    claimSetResourceClaimActions,
                     resourceClaimActionAuthorizations);
             }
         }
