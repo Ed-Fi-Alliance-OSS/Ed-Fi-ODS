@@ -1422,7 +1422,7 @@ insert into dbo.ResourceClaimActionAuthorizationStrategies
     ,AuthorizationStrategyId)
 select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
     inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
-    inner join dbo.Actions A on A.ActionId = RCAA.Action_ActionId
+    inner join dbo.Actions A on A.ActionId = RCAA.ActionId
     where A.ActionName in ('Create')
     and RC.ResourceName in ('studentParentAssociation');
 
