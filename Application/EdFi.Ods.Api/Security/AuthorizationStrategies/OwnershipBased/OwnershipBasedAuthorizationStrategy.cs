@@ -29,27 +29,26 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             if (contextData == null)
             {               
                 throw new NotSupportedException(
-                    "No 'OwnershipToken' property could be found on the resource in order to perform authorization.  Should a different authorization strategy be used?");
+                    "No 'OwnershipTokenId' property could be found on the resource's underlying entity in order to perform authorization. Should a different authorization strategy be used?");
             }
 
-            if (contextData != null)
+            if (contextData.CreatedByOwnershipTokenId != null)
             {
-                if (contextData.CreatedByOwnershipTokenId != null)
-                {
-                    var tokens = authorizationContext.Principal.Claims.Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId &&
-                                                                       c.Value == contextData.CreatedByOwnershipTokenId.ToString());
+                var hasOwnershipToken = authorizationContext.Principal.Claims
+                    .Any(c => 
+                        c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId 
+                        && c.Value == contextData.CreatedByOwnershipTokenId.ToString());
 
-                    if (!tokens.Any())
-                    {
-                        throw new EdFiSecurityException(
-                            "Access to the resource item could not be authorized caller's Ownership token is not matching with resources Ownership token");
-                    }
-                }
-                else
+                if (!hasOwnershipToken)
                 {
                     throw new EdFiSecurityException(
-                            "Access to the resource item could not be authorized based on the caller's Ownership token");
+                        "Access to the resource item could not be authorized using any of the caller's ownership tokens.");
                 }
+            }
+            else
+            {
+                throw new EdFiSecurityException(
+                    "Access to the resource item could not be authorized based on the caller's ownership token because the resource item has no owner.");
             }
 
             return Task.CompletedTask;
@@ -65,7 +64,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            var tokens = authorizationContext.Principal.Claims.Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId).Select(x => x.Value).ToArray();
+            var tokens = authorizationContext.Principal.Claims
+                .Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId)
+                .Select(x => (object) x.Value)
+                .ToArray();
 
             return new[]
             {
