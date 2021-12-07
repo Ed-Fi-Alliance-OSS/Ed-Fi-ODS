@@ -6,21 +6,15 @@
 ------------------------------ dbo.ResourceClaimActions -------------------------------------------------
 CREATE TABLE dbo.ResourceClaimActions(
 	ResourceClaimActionId SERIAL NOT NULL,
-	ActionId INT NOT NULL,
 	ResourceClaimId INT NOT NULL,
+	ActionId INT NOT NULL,
 	ValidationRuleSetName VARCHAR NULL,
  CONSTRAINT ResourceClaimActionId_PK PRIMARY KEY
 (
 	ResourceClaimActionId 
 ));
 
-CREATE INDEX IF NOT EXISTS IX_ResourceClaimActions_ActionId
-    ON dbo.ResourceClaimActions
-	(ActionId);
-
-CREATE INDEX IF NOT EXISTS IX_ResourceClaimActions_ResourceClaimId
-    ON dbo.ResourceClaimActions
-	(ResourceClaimId);
+CREATE UNIQUE INDEX IF NOT EXISTS ResourceClaimActions_UI_ResourceClaimId_ActionId ON dbo.ResourceClaimActions(ResourceClaimId,ActionId);
 
 ALTER TABLE dbo.ResourceClaimActions  ADD  CONSTRAINT FK_ResourceClaimActions_Actions FOREIGN KEY(ActionId)
 REFERENCES dbo.Actions (ActionId)
@@ -34,24 +28,16 @@ ON DELETE CASCADE;
 
 CREATE TABLE dbo.ClaimSetResourceClaimActions(
 	ClaimSetResourceClaimActionId SERIAL NOT NULL,
-	ActionId INT NOT NULL,
 	ClaimSetId INT NOT NULL,
 	ResourceClaimId INT NOT NULL,
+	ActionId INT NOT NULL,
 	ValidationRuleSetNameOverride VARCHAR NULL,
  CONSTRAINT ClaimSetResourceClaimActions_PK PRIMARY KEY  
 (
 	ClaimSetResourceClaimActionId 
 ));
 
-CREATE INDEX IF NOT EXISTS IX_ClaimSetResourceClaimActions_ActionId
-    ON dbo.ClaimSetResourceClaimActions(ActionId);
-
-CREATE INDEX IF NOT EXISTS IX_ClaimSetResourceClaimActions_ClaimSetId
-    ON dbo.ClaimSetResourceClaimActions(ClaimSetId);
-
-CREATE INDEX IF NOT EXISTS IX_ClaimSetResourceClaimActions_ResourceClaimId
-    ON dbo.ClaimSetResourceClaimActions(ResourceClaimId);
-
+CREATE UNIQUE INDEX IF NOT EXISTS ClaimSetResourceClaimActions_UI_ClaimSetId_ResourceClaimId_ActionId ON dbo.ClaimSetResourceClaimActions(ClaimSetId,ResourceClaimId,ActionId);
 
 ALTER TABLE dbo.ClaimSetResourceClaimActions ADD CONSTRAINT FK_ClaimSetResourceClaimActions_Actions FOREIGN KEY(ActionId)
 REFERENCES dbo.Actions (ActionId)
@@ -78,15 +64,7 @@ CREATE TABLE dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(
 	ClaimSetResourceClaimActionAuthorizationStrategyOverrideId 
 ));
 
-
-CREATE INDEX IF NOT EXISTS IX_ActionAuthorizationStrategyOverrides_AuthorizationStrategyId
-    ON dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-	(AuthorizationStrategyId);
-
-
-CREATE INDEX IF NOT EXISTS IX_ActionAuthorizationStrategyOverrides__ClaimActionId
-    ON dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-	(ClaimSetResourceClaimActionId);
+CREATE UNIQUE INDEX IF NOT EXISTS ActionAuthorizationStrategyOverrides_UI_ClaimSetResourceClaimActionId_AuthorizationStrategyId ON dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(AuthorizationStrategyId,ClaimSetResourceClaimActionId);
 
 ALTER TABLE dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides  ADD  CONSTRAINT FK_ActionAuthorizationStrategyOverrides_AuthorizationStrategies FOREIGN KEY(AuthorizationStrategyId)
 REFERENCES dbo.AuthorizationStrategies (AuthorizationStrategyId)
@@ -98,7 +76,6 @@ REFERENCES dbo.ClaimSetResourceClaimActions (ClaimSetResourceClaimActionId);
 
 ------------------------------ dbo.ResourceClaimActionAuthorizationStrategies -------------------------------------------------
 
-
 CREATE TABLE dbo.ResourceClaimActionAuthorizationStrategies(
 	ResourceClaimActionAuthorizationStrategyId SERIAL NOT NULL,
 	ResourceClaimActionId INT NOT NULL,
@@ -108,15 +85,7 @@ CREATE TABLE dbo.ResourceClaimActionAuthorizationStrategies(
 	ResourceClaimActionAuthorizationStrategyId 
 ));
 
-
-CREATE INDEX IF NOT EXISTS IX_ActionAuthorizationStrategies_AuthorizationStrategyId
-    ON dbo.ResourceClaimActionAuthorizationStrategies
-	(AuthorizationStrategyId);
-
-CREATE INDEX IF NOT EXISTS IX_ActionAuthorizationStrategies_ClaimActionId
-    ON dbo.ResourceClaimActionAuthorizationStrategies
-	(ResourceClaimActionId);
-
+CREATE UNIQUE INDEX IF NOT EXISTS ResourceClaimActionAuthorizationStrategies_UI_ResourceClaimActionId_AuthorizationStrategyId ON dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId,AuthorizationStrategyId);
 
 ALTER TABLE dbo.ResourceClaimActionAuthorizationStrategies   ADD  CONSTRAINT FK_ActionAuthorizationStrategies_AuthorizationStrategyId FOREIGN KEY(AuthorizationStrategyId)
 REFERENCES dbo.AuthorizationStrategies (AuthorizationStrategyId)
