@@ -281,9 +281,9 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             var metadataAuthorizationStrategyNames =
                  claimCheckResponse.AuthorizationMetadata
-                                     .Where(s => s.AuthorizationStrategies != null && s.AuthorizationStrategies.All(x=>x !=null))
-                                     .SelectMany(s => s.AuthorizationStrategies )
-                                     .ToList();
+                                     .Where(s => s.AuthorizationStrategies != null && s.AuthorizationStrategies.Any())
+                                     .Select(s => s.AuthorizationStrategies )
+                                     .FirstOrDefault();
             
             // TODO: GKM - When claimset-specific override support is added, use this logic
             //string claimSpecificOverrideAuthorizationStrategyName =
