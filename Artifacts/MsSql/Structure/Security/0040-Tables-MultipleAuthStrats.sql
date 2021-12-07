@@ -25,7 +25,6 @@ GO
 -- FOREIGN KEY for [ActionId]  column
 ALTER TABLE [dbo].[ResourceClaimActions]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ResourceClaimActions_dbo.Actions_ActionId] FOREIGN KEY([ActionId])
 REFERENCES [dbo].[Actions] ([ActionId])
-ON DELETE CASCADE
 GO
 
 -- FOREIGN KEY for [[ResourceClaimId]]  column
@@ -58,7 +57,6 @@ GO
 -- FOREIGN KEY for [ActionId]  column
 ALTER TABLE [dbo].[ClaimSetResourceClaimActions]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ClaimSetResourceClaimActions_dbo.Actions_ActionId] FOREIGN KEY([ActionId])
 REFERENCES [dbo].[Actions] ([ActionId])
-ON DELETE CASCADE
 GO
 
 -- FOREIGN KEY for [ClaimSetId]  column
