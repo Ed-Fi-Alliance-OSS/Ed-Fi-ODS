@@ -41,7 +41,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// Initializes a new instance of the <see cref="EdFiResourceClaimValue"/> class using the specified action and Education Organization ids.
         /// </summary>
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
-        /// <param name="educationOrganizationIds">The Local Education Agency Ids to which the claim applies.</param>
+        /// <param name="educationOrganizationIds">The education organization ids to which the claim applies.</param>
         public EdFiResourceClaimValue(string action, List<int> educationOrganizationIds)
             : this(
                 action,
@@ -53,7 +53,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// Initializes a new instance of the <see cref="EdFiResourceClaimValue"/> class using the specified action, Education Organization ids, and authorization strategy name override.
         /// </summary>
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
-        /// <param name="educationOrganizationIds">The Local Education Agency Ids to which the claim applies.</param>
+        /// <param name="educationOrganizationIds">The education organization ids to which the claim applies.</param>
         /// <param name="authorizationStrategyNameOverrides">The names of the authorization strategies that should be used for authorization (in lieu of the default for the resource).</param>
         public EdFiResourceClaimValue(string action, List<int> educationOrganizationIds, IReadOnlyList<string> authorizationStrategyNameOverrides)
         {
@@ -69,7 +69,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// Initializes a new instance of the <see cref="EdFiResourceClaimValue"/> class using the specified action, Education Organization ids, and authorization strategy and validation rule set name overrides.
         /// </summary>
         /// <param name="action">The action URI representing the action that the claim is authorized to perform on the resource.</param>
-        /// <param name="educationOrganizationIds">The Local Education Agency Ids to which the claim applies.</param>
+        /// <param name="educationOrganizationIds">The education organization ids to which the claim applies.</param>
         /// <param name="authorizationStrategyNameOverrides">The names of the authorization strategies that should be used for authorization (in lieu of any default defined for the resource).</param>
         /// <param name="validationRuleSetNameOverride">The name of the validation rule set to be executed during authorization (in lieu of any default defined for the resource).</param>
         public EdFiResourceClaimValue(

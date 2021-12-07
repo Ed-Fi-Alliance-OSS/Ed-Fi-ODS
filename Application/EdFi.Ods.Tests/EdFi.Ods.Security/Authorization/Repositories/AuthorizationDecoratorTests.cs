@@ -102,13 +102,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                         .ToString("n"),
                     ApplicationId = 999,
                     ClaimSetName = "SomeClaimSet",
-                    NamespacePrefixes = new List<string> {"Namespace"},
-                    EducationOrganizationIds = new List<int>
+                    NamespacePrefixes = new [] {"Namespace"},
+                    EducationOrganizationIds = new []
                     {
                         123,
                         234
                     },
-                    OwnershipTokenIds = new List<short?> { 1 }
+                    OwnershipTokenIds = new short?[] { 1 }
                 };
 
                 var claimsIdentity = claimsIdentityProvider.GetClaimsIdentity(
