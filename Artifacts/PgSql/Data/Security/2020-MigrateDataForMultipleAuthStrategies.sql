@@ -8,7 +8,7 @@ BEGIN
     IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'resourceclaimauthorizationmetadatas')
     THEN
 
-        -- ResourceClaimAuthorizationMetadatas -> ResourceClaimActionAuthorizations
+        -- ResourceClaimAuthorizationMetadatas -> ResourceClaimActions
         WITH source AS (
             SELECT
                 ResourceClaim_ResourceClaimId,
@@ -16,9 +16,9 @@ BEGIN
                 ValidationRuleSetName
             FROM dbo.ResourceClaimAuthorizationMetadatas
         )
-        INSERT INTO dbo.ResourceClaimActionAuthorizations (
-            ResourceClaim_ResourceClaimId,
-            Action_ActionId,
+        INSERT INTO dbo.ResourceClaimActions (
+            ResourceClaimId,
+            ActionId,
             ValidationRuleSetName
         )
         SELECT
@@ -31,20 +31,20 @@ BEGIN
         -- ResourceClaimAuthorizationMetadatas.AuthorizationStrategy_AuthorizationStrategyId -> ResourceClaimActionAuthorizationStrategies
         WITH source AS (
             SELECT
-                rcaa.ResourceClaimActionAuthorizationId,
+                rca.ResourceClaimActionId,
                 rcam.AuthorizationStrategy_AuthorizationStrategyId
             FROM dbo.ResourceClaimAuthorizationMetadatas rcam
-            JOIN dbo.ResourceClaimActionAuthorizations rcaa
-                ON rcam.ResourceClaim_ResourceClaimId = rcaa.ResourceClaim_ResourceClaimId
-                    AND rcam.Action_ActionId = rcaa.Action_ActionId
+            JOIN dbo.ResourceClaimActions rca
+                ON rcam.ResourceClaim_ResourceClaimId = rca.ResourceClaimId
+                    AND rcam.Action_ActionId = rca.ActionId
             WHERE rcam.AuthorizationStrategy_AuthorizationStrategyId IS NOT NULL
         )
         INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies (
-            ResourceClaimActionAuthorization_ClaimActionAuthId,
-            AuthorizationStrategy_AuthorizationStrategyId
+            ResourceClaimActionId,
+            AuthorizationStrategyId
         )
         SELECT
-            source.ResourceClaimActionAuthorizationId,
+            source.ResourceClaimActionId,
             source.AuthorizationStrategy_AuthorizationStrategyId
         FROM source
         ON CONFLICT DO NOTHING;
@@ -54,7 +54,7 @@ BEGIN
     IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'claimsetresourceclaims')
     THEN
 
-        -- ClaimSetResourceClaims -> ClaimSetResourceClaimActionAuthorizations
+        -- ClaimSetResourceClaims -> ClaimSetResourceClaimActions
         WITH source AS (
             SELECT
                 ClaimSet_ClaimSetId,
@@ -63,10 +63,10 @@ BEGIN
                 ValidationRuleSetNameOverride
             FROM dbo.ClaimSetResourceClaims
         )
-        INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizations (
-            ClaimSet_ClaimSetId,
-            ResourceClaim_ResourceClaimId,
-            Action_ActionId,
+        INSERT INTO dbo.ClaimSetResourceClaimActions (
+            ClaimSetId,
+            ResourceClaimId,
+            ActionId,
             ValidationRuleSetNameOverride
         )
         SELECT
@@ -80,21 +80,21 @@ BEGIN
         -- ClaimSetResourceClaims.AuthorizationStrategyOverride_AuthorizationStrategyId -> ClaimSetResourceClaimActionAuthorizationStrategyOverrides
         WITH source AS (
             SELECT
-                csrcaa.ClaimSetResourceClaimActionAuthorizationId,
+                csrca.ClaimSetResourceClaimActionId,
                 csrc.AuthorizationStrategyOverride_AuthorizationStrategyId
             FROM dbo.ClaimSetResourceClaims csrc
-            INNER JOIN dbo.ClaimSetResourceClaimActionAuthorizations csrcaa
-                ON csrc.ClaimSet_ClaimSetId = csrcaa.ClaimSet_ClaimSetId
-                    AND csrc.ResourceClaim_ResourceClaimId = csrcaa.ResourceClaim_ResourceClaimId
-                    AND csrc.Action_ActionId = csrcaa.Action_ActionId
+            INNER JOIN dbo.ClaimSetResourceClaimActions csrca
+                ON csrc.ClaimSet_ClaimSetId = csrca.ClaimSetId
+                    AND csrc.ResourceClaim_ResourceClaimId = csrca.ResourceClaimId
+                    AND csrc.Action_ActionId = csrca.ActionId
             WHERE csrc.AuthorizationStrategyOverride_AuthorizationStrategyId IS NOT NULL
         )
         INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides (
-            ClaimSetResourceClaimActionAuthorization_ClaimActionAuthId,
-            AuthorizationStrategy_AuthorizationStrategyId
+            ClaimSetResourceClaimActionId,
+            AuthorizationStrategyId
         )
         SELECT
-            source.ClaimSetResourceClaimActionAuthorizationId,
+            source.ClaimSetResourceClaimActionId,
             source.AuthorizationStrategyOverride_AuthorizationStrategyId
         FROM source
         ON CONFLICT DO NOTHING;
