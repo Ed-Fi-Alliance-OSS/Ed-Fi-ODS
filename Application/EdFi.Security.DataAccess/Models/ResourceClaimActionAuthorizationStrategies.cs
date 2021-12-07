@@ -12,7 +12,7 @@ namespace EdFi.Security.DataAccess.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ResourceClaimActionAuthorizationStrategyId { get; set; }
 
-        public int ResourceClaimActionAuthorizationId { get; set; }
+        public int ResourceClaimActionId { get; set; }
 
         [Required]
         [ForeignKey("ResourceClaimActionId")]

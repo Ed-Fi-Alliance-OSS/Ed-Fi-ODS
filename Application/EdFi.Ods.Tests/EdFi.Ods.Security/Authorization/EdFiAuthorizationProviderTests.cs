@@ -533,7 +533,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             [Assert]
             public void Should_not_attempt_to_authorize_using_any_other_authorization_strategies()
             {
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
             }
         }
 
@@ -890,7 +890,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 Should_resolve_claims_using_authorization_metadata_order_rather_than_callers_claims_order_and_invoke_lowest_matching_claims_authorization_strategy()
             {
                 SecondAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
-                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeTrue();
+                FourthAuthorizationStrategy.SingleItemWasCalled.ShouldBeFalse();
             }
         }
 

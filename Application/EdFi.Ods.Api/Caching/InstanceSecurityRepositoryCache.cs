@@ -141,6 +141,7 @@ namespace EdFi.Ods.Api.Caching
                 var claimSetResourceClaims = context.ClaimSetResourceClaimActions.Include(csrc => csrc.Action)
                                                     .Include(csrc => csrc.ClaimSet)
                                                     .Include(csrc => csrc.ResourceClaim)
+                                                    .Include(csrc => csrc.ClaimSetResourceClaimActionAuthorizationStrategyOverrides)
                                                     .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                                                     .ToList();
 
