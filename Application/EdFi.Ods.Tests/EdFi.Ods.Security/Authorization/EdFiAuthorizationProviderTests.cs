@@ -2034,7 +2034,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     Given_authorization_metadata_for_resource_claim_and_action_with_authorization_strategy(
                         Resource1ClaimUri,
                         ReadActionUri,
-                        "Missing"),
+                        new [] {"Missing", "AnotherMissing"}),
                     Given_a_collection_of_unused_authorization_strategies(),
                     Given_a_security_repository_returning_all_actions(),
                     new IExplicitObjectValidator[0]);
@@ -2056,7 +2056,43 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             }
         }
 
-        public class When_there_is_no_authorization_strategy_defined_in_the_metadata_for_the_matched_claim
+        public class When_there_is_no_authorization_strategies_defined_in_the_metadata_for_the_matched_claim
+            : TestFixtureBase
+        {
+            // Supplied values
+
+            // Actual values
+
+            protected override void Act()
+            {
+                // Execute code under test
+
+                var provider = new EdFiAuthorizationProvider(
+                    Given_authorization_metadata_for_resource_claim_and_action_with_authorization_strategy(
+                        Resource2ClaimUri,
+                        ReadActionUri,
+                        Array.Empty<string>()),
+                    Given_a_collection_of_unused_authorization_strategies(),
+                    Given_a_security_repository_returning_all_actions(),
+                    new IExplicitObjectValidator[0]);
+
+                provider.AuthorizeSingleItemAsync(
+                        Given_an_authorization_context_for_a_request_to_read_a_resource_with_a_principal(
+                            Resource2ClaimUri,
+                            Given_a_ClaimsPrincipal_with_a_read_claim_for_resource(Resource2ClaimUri)),
+                        CancellationToken.None)
+                    .WaitSafely();
+            }
+
+            [Assert]
+            public void Should_throw_exception_indicating_that_no_authorization_strategy_were_defined_in_the_metadata()
+            {
+                ActualException.ShouldBeExceptionType<Exception>();
+                ActualException.Message.ShouldContain("No authorization strategies were defined");
+            }
+        }
+
+        public class When_there_is_no_value_present_for_the_authorization_strategies_defined_in_the_metadata_for_the_matched_claim
             : TestFixtureBase
         {
             // Supplied values
@@ -2110,7 +2146,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             Given_authorization_metadata_for_resource_claim_and_action_with_authorization_strategy(
             string resourceClaim,
             string actionUri,
-            string authorizationStrategyName)
+            string[] authorizationStrategyNames)
         {
             var authorizationMetadataProvider = A.Fake<IResourceAuthorizationMetadataProvider>();
 
@@ -2120,7 +2156,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                         {
                             new ResourceClaimAuthorizationMetadata
                             {
-                                ClaimName = resourceClaim,  AuthorizationStrategies  = new List<string> { authorizationStrategyName }
+                                ClaimName = resourceClaim,  
+                                AuthorizationStrategies  = authorizationStrategyNames
                             }
                         }
                         .ToList());
