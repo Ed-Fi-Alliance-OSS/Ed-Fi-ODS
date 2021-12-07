@@ -17,7 +17,7 @@ CREATE TABLE [dbo].[ResourceClaimActions](
 GO
 
 --UNIQUE NONCLUSTERED INDEX for [ActionId],[ResourceClaimId] columns 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_ResourceClaimId_ActionId] ON [edfi].[ResourceClaimActions] (
+CREATE UNIQUE NONCLUSTERED INDEX [IX_ResourceClaimId_ActionId] ON [dbo].[ResourceClaimActions] (
     [ResourceClaimId],[ActionId] ASC
 ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
@@ -49,7 +49,7 @@ CREATE TABLE [dbo].[ClaimSetResourceClaimActions](
 GO
 
 -- UNIQUE NONCLUSTERED INDEX for [ActionId],[ClaimSetId],[ResourceClaimId] columns 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_ClaimSetId_ResourceClaimId_ActionId] ON [edfi].[ClaimSetResourceClaimActions] (
+CREATE UNIQUE NONCLUSTERED INDEX [IX_ClaimSetId_ResourceClaimId_ActionId] ON [dbo].[ClaimSetResourceClaimActions] (
     [ClaimSetId],[ResourceClaimId],[ActionId] ASC
 ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
