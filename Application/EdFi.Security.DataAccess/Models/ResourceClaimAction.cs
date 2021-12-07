@@ -21,7 +21,7 @@ namespace EdFi.Security.DataAccess.Models
         [ForeignKey("ActionId")]
         public Action Action { get; set; }
 
-        public List<ResourceClaimActionAuthorizationStrategies> ResourceClaimActionAuthorizationStrategies { get; set; }
+        public List<ResourceClaimActionAuthorizationStrategies> AuthorizationStrategies { get; set; }
 
         public int ResourceClaimId { get; set; }
 

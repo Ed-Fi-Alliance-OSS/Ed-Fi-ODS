@@ -33,7 +33,7 @@ namespace EdFi.Security.DataAccess.Models
         [ForeignKey("ResourceClaimId")]
         public ResourceClaim ResourceClaim { get; set; }
 
-        public List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides> ClaimSetResourceClaimActionAuthorizationStrategyOverrides { get; set; }
+        public List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides> AuthorizationStrategyOverrides { get; set; }
 
         [StringLength(255)]
         public string ValidationRuleSetNameOverride { get; set; }
