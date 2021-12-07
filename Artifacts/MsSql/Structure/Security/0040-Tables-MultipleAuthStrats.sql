@@ -6,8 +6,8 @@
 ------------------------------ [dbo].[ResourceClaimActions] -------------------------------------------------
 CREATE TABLE [dbo].[ResourceClaimActions](
 	[ResourceClaimActionId] [int] IDENTITY(1,1) NOT NULL,
-	[ActionId] [int] NOT NULL,
 	[ResourceClaimId] [int] NOT NULL,
+	[ActionId] [int] NOT NULL,
 	[ValidationRuleSetName] [nvarchar](255) NULL,
  CONSTRAINT [PK_dbo.ResourceClaimActions] PRIMARY KEY CLUSTERED 
 (
@@ -16,9 +16,10 @@ CREATE TABLE [dbo].[ResourceClaimActions](
 ) ON [PRIMARY]
 GO
 
--- NONCLUSTERED INDEX for [ActionId],[ResourceClaimId] columns 
-CREATE NONCLUSTERED INDEX [IX_ActionId_ResourceClaimId]
-    ON [dbo].[ResourceClaimActions]([ActionId],[ResourceClaimId] ASC);
+--UNIQUE NONCLUSTERED INDEX for [ActionId],[ResourceClaimId] columns 
+CREATE UNIQUE NONCLUSTERED INDEX [IX_ResourceClaimId_ActionId] ON [edfi].[ResourceClaimActions] (
+    [ResourceClaimId],[ActionId] ASC
+) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
 -- FOREIGN KEY for [ActionId]  column
@@ -37,9 +38,9 @@ GO
 
 CREATE TABLE [dbo].[ClaimSetResourceClaimActions](
 	[ClaimSetResourceClaimActionId] [int] IDENTITY(1,1) NOT NULL,
-	[ActionId] [int] NOT NULL,
 	[ClaimSetId] [int] NOT NULL,
 	[ResourceClaimId] [int] NOT NULL,
+	[ActionId] [int] NOT NULL,
 	[ValidationRuleSetNameOverride] [nvarchar](255) NULL,
  CONSTRAINT [PK_dbo.ClaimSetResourceClaimActions] PRIMARY KEY CLUSTERED 
 (
@@ -48,9 +49,10 @@ CREATE TABLE [dbo].[ClaimSetResourceClaimActions](
 ) ON [PRIMARY]
 GO
 
--- NONCLUSTERED INDEX for [ActionId],[ClaimSetId],[ResourceClaimId] columns 
-CREATE NONCLUSTERED INDEX [IX_ActionId_ClaimSetId_ResourceClaimId]
-    ON [dbo].[ClaimSetResourceClaimActions]([ActionId],[ClaimSetId],[ResourceClaimId] ASC);
+-- UNIQUE NONCLUSTERED INDEX for [ActionId],[ClaimSetId],[ResourceClaimId] columns 
+CREATE UNIQUE NONCLUSTERED INDEX [IX_ClaimSetId_ResourceClaimId_ActionId] ON [edfi].[ClaimSetResourceClaimActions] (
+    [ClaimSetId],[ResourceClaimId],[ActionId] ASC
+) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
 -- FOREIGN KEY for [ActionId]  column
@@ -83,9 +85,10 @@ CREATE TABLE [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides](
 ) ON [PRIMARY]
 GO
 
--- NONCLUSTERED INDEX for [ClaimSetResourceClaimActionId],[AuthorizationStrategyId] columns 
-CREATE NONCLUSTERED INDEX [IX_ClaimSetResourceClaimActionId_AuthorizationStrategyId]
-    ON [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]([ClaimSetResourceClaimActionId],[AuthorizationStrategyId] ASC);
+-- UNIQUE NONCLUSTERED INDEX for [ClaimSetResourceClaimActionId],[AuthorizationStrategyId] columns 
+CREATE UNIQUE NONCLUSTERED INDEX [IX_ClaimSetResourceClaimActionId_AuthorizationStrategyId]
+    ON [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]([ClaimSetResourceClaimActionId],[AuthorizationStrategyId] ASC)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
 -- FOREIGN KEY for [AuthorizationStrategyId]  column
@@ -113,9 +116,10 @@ CREATE TABLE [dbo].[ResourceClaimActionAuthorizationStrategies](
 ) ON [PRIMARY]
 GO
 
--- NONCLUSTERED INDEX for [AuthorizationStrategyId],[ResourceClaimActionId] columns 
-CREATE NONCLUSTERED INDEX [IX_AuthorizationStrategyId_ResourceClaimActionId]
-    ON [dbo].[ResourceClaimActionAuthorizationStrategies]([AuthorizationStrategyId],[ResourceClaimActionId] ASC);
+-- UNIQUE NONCLUSTERED INDEX for [AuthorizationStrategyId],[ResourceClaimActionId] columns 
+CREATE UNIQUE NONCLUSTERED INDEX [IX_AuthorizationStrategyId_ResourceClaimActionId]
+    ON [dbo].[ResourceClaimActionAuthorizationStrategies]([AuthorizationStrategyId],[ResourceClaimActionId] ASC)
+WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 
 -- FOREIGN KEY for [AuthorizationStrategyId]  column
