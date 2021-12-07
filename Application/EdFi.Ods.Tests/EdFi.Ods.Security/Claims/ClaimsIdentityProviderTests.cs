@@ -89,9 +89,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                 _apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
                 A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
 
-                var suppliedResourceClaims = new List<ClaimSetResourceClaimActionAuthorizations>
+                var suppliedResourceClaims = new List<ClaimSetResourceClaimAction>
                 {
-                    new ClaimSetResourceClaimActionAuthorizations
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-1a" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
@@ -104,7 +104,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                         },
                         ValidationRuleSetNameOverride = null
                     },
-                    new ClaimSetResourceClaimActionAuthorizations
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-1b" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
@@ -117,7 +117,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                         },
                         ValidationRuleSetNameOverride = "actionUri-1b-RuleSetName"
                     },
-                    new ClaimSetResourceClaimActionAuthorizations
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-2" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName2" },
@@ -341,9 +341,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                 _apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
                 A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
 
-                var suppliedResourceClaims = new List<ClaimSetResourceClaimActionAuthorizations>
+                var suppliedResourceClaims = new List<ClaimSetResourceClaimAction>
                 {
-                    new ClaimSetResourceClaimActionAuthorizations
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-1a" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
@@ -356,7 +356,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                         },
                         ValidationRuleSetNameOverride = null
                     },
-                    new ClaimSetResourceClaimActionAuthorizations
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-1b" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
@@ -369,7 +369,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                         },
                         ValidationRuleSetNameOverride = "actionUri-1b-RuleSetName"
                     },
-                    new ClaimSetResourceClaimActionAuthorizations
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-2" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName2" },
