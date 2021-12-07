@@ -18,7 +18,10 @@ namespace EdFi.Security.DataAccess.Models
         [ForeignKey("ResourceClaimActionId")]
         public ResourceClaimAction ResourceClaimAction { get; set; }
 
+        public int AuthorizationStrategyId { get; set; }
+
         [Required]
+        [ForeignKey("AuthorizationStrategyId")]
         public AuthorizationStrategy AuthorizationStrategy { get; set; }
     }
 }
