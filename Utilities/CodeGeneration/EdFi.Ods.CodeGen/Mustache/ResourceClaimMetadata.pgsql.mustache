@@ -500,7 +500,7 @@ begin
     where AuthorizationStrategyName = 'NamespaceBased';
 
     insert into dbo.ResourceClaimActionAuthorizationStrategies
-    (ResourceClaimActionAuthorizationId
+    (ResourceClaimActionId
     ,AuthorizationStrategyId)
     select RCAA.ResourceClaimActionId,authorization_strategy_id FROM  dbo.ResourceClaimActions RCAA
     inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =RCAA.ResourceClaimId
