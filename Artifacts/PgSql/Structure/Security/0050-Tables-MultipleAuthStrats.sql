@@ -17,8 +17,8 @@ CREATE TABLE dbo.ResourceClaimActions(
 CREATE UNIQUE INDEX IF NOT EXISTS ResourceClaimActions_UI_ResourceClaimId_ActionId ON dbo.ResourceClaimActions(ResourceClaimId,ActionId);
 
 ALTER TABLE dbo.ResourceClaimActions  ADD  CONSTRAINT FK_ResourceClaimActions_Actions FOREIGN KEY(ActionId)
-REFERENCES dbo.Actions (ActionId)
-ON DELETE CASCADE;
+REFERENCES dbo.Actions (ActionId);
+
 
 ALTER TABLE dbo.ResourceClaimActions  ADD  CONSTRAINT FK_ResourceClaimActions_ResourceClaims FOREIGN KEY(ResourceClaimId)
 REFERENCES dbo.ResourceClaims (ResourceClaimId)
@@ -40,8 +40,8 @@ CREATE TABLE dbo.ClaimSetResourceClaimActions(
 CREATE UNIQUE INDEX IF NOT EXISTS ClaimSetResourceClaimActions_UI_ClaimSetId_ResourceClaimId_ActionId ON dbo.ClaimSetResourceClaimActions(ClaimSetId,ResourceClaimId,ActionId);
 
 ALTER TABLE dbo.ClaimSetResourceClaimActions ADD CONSTRAINT FK_ClaimSetResourceClaimActions_Actions FOREIGN KEY(ActionId)
-REFERENCES dbo.Actions (ActionId)
-ON DELETE CASCADE;
+REFERENCES dbo.Actions (ActionId);
+
 
 ALTER TABLE dbo.ClaimSetResourceClaimActions ADD CONSTRAINT FK_ClaimSetResourceClaimActions_ClaimSets FOREIGN KEY(ClaimSetId)
 REFERENCES dbo.ClaimSets (ClaimSetId)
