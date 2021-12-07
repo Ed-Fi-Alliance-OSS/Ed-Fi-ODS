@@ -18,7 +18,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.43" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.51" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.52" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="Autofac.Extras.FakeItEasy" Version="6.0.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
