@@ -89,9 +89,9 @@ namespace EdFi.Ods.Api.Security.Claims
             claims.Add(new Claim(EdFiOdsApiClaimTypes.ClaimSetName, claimSetName));
 
             // Add list of OwnershipTokenIds
-            ownershipTokenIds.ForEach(
-                ownershipToken =>
-                    claims.Add(new Claim(EdFiOdsApiClaimTypes.OwnershipTokenId, ownershipToken.ToString())));
+            claims.AddRange(
+                ownershipTokenIds.Select(ownershipToken 
+                    => new Claim(EdFiOdsApiClaimTypes.OwnershipTokenId, ownershipToken.ToString())));
 
             return new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth);
         }

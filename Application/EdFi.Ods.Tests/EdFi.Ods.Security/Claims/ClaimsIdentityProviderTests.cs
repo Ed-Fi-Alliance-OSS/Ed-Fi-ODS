@@ -100,7 +100,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                             new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                             {
                                 AuthorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName=  "actionUri-1a-Strategy" }
-                            }                                                  
+                            }
                         },
                         ValidationRuleSetNameOverride = null
                     },
