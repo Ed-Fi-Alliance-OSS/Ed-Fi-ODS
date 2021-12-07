@@ -65,7 +65,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
                 foreach (var a in resourceClaimActionAuthorizations)
                 {
-                    a.ResourceClaimActionAuthorizationStrategies = resourceClaimActionAuthorizationStrategies.Where(r => r.ResourceClaimAction.ResourceClaimActionId == a.ResourceClaimActionId).ToList();
+                    a.AuthorizationStrategies = resourceClaimActionAuthorizationStrategies.Where(r => r.ResourceClaimAction.ResourceClaimActionId == a.ResourceClaimActionId).ToList();
                 }
 
                 Initialize(
