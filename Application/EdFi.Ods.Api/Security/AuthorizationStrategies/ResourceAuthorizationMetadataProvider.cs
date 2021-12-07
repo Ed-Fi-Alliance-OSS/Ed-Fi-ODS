@@ -80,7 +80,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
                     AuthorizationStrategies =
                         resourceClaimLineageWithMetadata
                             .Where(x => c.EqualsIgnoreCase(x.ResourceClaim.ClaimName))
-                            .SelectMany(x => x.ResourceClaimActionAuthorizationStrategies.Select(y => y.AuthorizationStrategy.AuthorizationStrategyName))
+                            .SelectMany(x => x.AuthorizationStrategies.Select(y => y.AuthorizationStrategy.AuthorizationStrategyName))
                             .ToArray()
                 };
 

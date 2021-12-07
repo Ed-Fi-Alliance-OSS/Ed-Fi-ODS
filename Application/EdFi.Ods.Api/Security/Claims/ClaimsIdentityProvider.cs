@@ -67,7 +67,7 @@ namespace EdFi.Ods.Api.Security.Claims
                             Actions = g.Select(
                                     x => new ResourceAction(
                                         x.Action.ActionUri,
-                                        x.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+                                        x.AuthorizationStrategyOverrides
                                             ?.Select(y => y.AuthorizationStrategy.AuthorizationStrategyName)
                                             .ToArray(),
                                         x.ValidationRuleSetNameOverride))

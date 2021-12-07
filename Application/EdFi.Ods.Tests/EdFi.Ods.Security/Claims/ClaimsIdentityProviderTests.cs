@@ -95,7 +95,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                     {
                         Action = new Action { ActionUri = "actionUri-1a" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
-                        ClaimSetResourceClaimActionAuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
+                        AuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
                         {
                             new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                             {
@@ -108,7 +108,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                     {
                         Action = new Action { ActionUri = "actionUri-1b" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
-                        ClaimSetResourceClaimActionAuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
+                        AuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
                         {
                             new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                             {
@@ -121,7 +121,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                     {
                         Action = new Action { ActionUri = "actionUri-2" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName2" },
-                        ClaimSetResourceClaimActionAuthorizationStrategyOverrides = null,
+                        AuthorizationStrategyOverrides = null,
                         ValidationRuleSetNameOverride = "actionUri-2-RuleSetName"
                     }
                 };
@@ -347,7 +347,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                     {
                         Action = new Action { ActionUri = "actionUri-1a" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
-                        ClaimSetResourceClaimActionAuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
+                        AuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
                         {
                             new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                             {
@@ -360,7 +360,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                     {
                         Action = new Action { ActionUri = "actionUri-1b" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
-                        ClaimSetResourceClaimActionAuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
+                        AuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
                         {
                             new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                             {
@@ -373,7 +373,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                     {
                         Action = new Action { ActionUri = "actionUri-2" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName2" },
-                        ClaimSetResourceClaimActionAuthorizationStrategyOverrides = null,
+                        AuthorizationStrategyOverrides = null,
                         ValidationRuleSetNameOverride = "actionUri-2-RuleSetName"
                     }
                 };
