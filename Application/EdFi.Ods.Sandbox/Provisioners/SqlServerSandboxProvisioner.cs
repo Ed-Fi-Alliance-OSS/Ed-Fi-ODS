@@ -20,6 +20,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 {
     public class SqlServerSandboxProvisioner : SandboxProvisionerBase
     {
+        private const string Windows = "Windows";
         private readonly ILog _logger = LogManager.GetLogger(typeof(SqlServerSandboxProvisioner));
         private bool? _isSqlServerOnWindows;
 
@@ -191,13 +192,14 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 using (var conn = CreateConnection())
                 {
-                    // Get SQL Server OS
-                    var getHostPlatformSql = "SELECT host_platform FROM sys.dm_os_host_info";
+                    // Get SQL Server OS; sys.dm_os_host_info was introduced in SQL Server 2017 (alongside Linux support)
+                    //    if the table doesn't exist we can assume that the OS is Windows
+                    var getHostPlatformSql = $"IF OBJECT_ID('sys.dm_os_host_info') IS NOT NULL SELECT host_platform FROM sys.dm_os_host_info ELSE SELECT '{Windows}'";
 
                     string hostPlatform = await conn.ExecuteScalarAsync<string>(getHostPlatformSql, commandTimeout: CommandTimeout)
                         .ConfigureAwait(false);
 
-                    _isSqlServerOnWindows = hostPlatform.Equals("Windows", StringComparison.InvariantCultureIgnoreCase);
+                    _isSqlServerOnWindows = hostPlatform.Equals(Windows, StringComparison.InvariantCultureIgnoreCase);
                 }
             }
 
