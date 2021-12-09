@@ -21,14 +21,16 @@ BEGIN
 	WHERE   rc.ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations';
 
 	-- Remove existing claim set overrides for OrganizationDepartment
-	DELETE FROM dbo.ClaimSetResourceClaims
-	WHERE ClaimSetResourceClaimId IN (
-		SELECT  ClaimSetResourceClaimId
-		FROM    dbo.ClaimSetResourceClaims csrc
-			INNER JOIN dbo.ClaimSets cs
-				ON csrc.ClaimSet_ClaimSetId = cs.ClaimSetId
-			INNER JOIN dbo.AuthorizationStrategies strat
-				ON csrc.AuthorizationStrategyOverride_AuthorizationStrategyId = strat.AuthorizationStrategyId
+	DELETE FROM dbo.ClaimSetResourceClaimActions
+	WHERE ClaimSetResourceClaimActionId IN (
+		SELECT  ClaimSetResourceClaimActionId
+		FROM    dbo.ClaimSetResourceClaimActions csrc
+		INNER JOIN dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides csrcaaso
+			ON csrc.ClaimSetResourceClaimActionId = csrcaaso.ClaimSetResourceClaimActionId
+		INNER JOIN dbo.ClaimSets cs
+			ON csrc.ClaimSet_ClaimSetId = cs.ClaimSetId
+		INNER JOIN dbo.AuthorizationStrategies strat
+				ON csrcaaso.AuthorizationStrategyId = strat.AuthorizationStrategyId
 		WHERE   csrc.ResourceClaim_ResourceClaimId = organization_department_claim_id
 			AND cs.ClaimSetName IN ('SIS Vendor', 'Ed-Fi Sandbox', 'District Hosted SIS Vendor')
 			AND strat.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
@@ -59,17 +61,27 @@ BEGIN
 	WHERE   rc.ClaimName = 'http://ed-fi.org/ods/identity/claims/school';
 
 	-- Assign same permissions to School overrides for District Hosted SIS Vendor
-	IF NOT EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaims csrc INNER JOIN dbo.ClaimSets cs ON csrc.ClaimSet_ClaimSetId = cs.ClaimSetId WHERE cs.ClaimSetName = 'District Hosted SIS Vendor' AND csrc.ResourceClaim_ResourceClaimId = school_claim_id)
+	IF NOT EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActions csrc INNER JOIN dbo.ClaimSets cs ON csrc.ClaimSetId = cs.ClaimSetId WHERE cs.ClaimSetName = 'District Hosted SIS Vendor' AND csrc.ResourceClaimId = school_claim_id)
 	THEN
 		RAISE NOTICE 'Copying School overrides to OrganizationDepartment for District Hosted Vendor claim set.';
 
-		INSERT INTO dbo.ClaimSetResourceClaims(ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-		SELECT  csrc.ClaimSet_ClaimSetId, organization_department_claim_id, csrc.Action_ActionId, csrc.AuthorizationStrategyOverride_AuthorizationStrategyId
-		FROM    dbo.ClaimSetResourceClaims csrc
-			INNER JOIN dbo.ClaimSets cs
-				ON csrc.ClaimSet_ClaimSetId = cs.ClaimSetId
+		INSERT INTO dbo.ClaimSetResourceClaimActions(ClaimSetId, ResourceClaimId, ActionId)
+		SELECT  csrc.ClaimSetId, organization_department_claim_id, csrc.ActionId
+		FROM    dbo.ClaimSetResourceClaimActions csrc
+		INNER JOIN dbo.ClaimSets cs
+			ON csrc.ClaimSetId = cs.ClaimSetId
 		WHERE   cs.ClaimSetName = 'District Hosted SIS Vendor'
-			AND csrc.ResourceClaim_ResourceClaimId = school_claim_id;
+			AND csrc.ResourceClaimId = school_claim_id;
+			
+		INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
+		SELECT csrc.ClaimSetResourceClaimActionId, csrcaaso.AuthorizationStrategyId
+		FROM dbo.ClaimSetResourceClaimActions csrc
+		INNER JOIN dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides csrcaaso
+			ON csrc.ClaimSetResourceClaimActionId = csrcaaso.ClaimSetResourceClaimActionId
+		INNER JOIN dbo.ClaimSets cs
+			ON csrc.ClaimSetId = cs.ClaimSetId
+		WHERE cs.ClaimSetName = 'District Hosted SIS Vendor'
+			AND csrc.ResourceClaimId = @schoolClaimId;
 	END IF;
 
 END $$;

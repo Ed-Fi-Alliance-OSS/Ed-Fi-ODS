@@ -32,10 +32,10 @@ begin
 		from dbo.AuthorizationStrategies
 		where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
-		insert into dbo.ClaimSetResourceClaimActionAuthorizations
-			(Action_ActionId
-			,ClaimSet_ClaimSetId
-			,ResourceClaim_ResourceClaimId
+		insert into dbo.ClaimSetResourceClaimActions
+			(ActionId
+			,ClaimSetId
+			,ResourceClaimId
 			,ValidationRuleSetNameOverride)
 		select ac.ActionId, claim_set_id, ResourceClaimId, cast (null as int)
 		from dbo.ResourceClaims
@@ -72,13 +72,13 @@ begin
 		);
 		
 		insert into dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-			(AuthorizationStrategy_AuthorizationStrategyId
-			,ClaimSetResourceClaimActionAuthorization_ClaimSetResourceClaimActionAuthorizationId)
-		select authorization_strategy_id, ClaimSetResourceClaimActionAuthorizationId
-		from dbo.ClaimSetResourceClaimActionAuthorizations
-		inner join dbo.Actions on action_actionid=ActionId and ActionName IN ('Create')
-		inner join dbo.ResourceClaims on ResourceClaim_ResourceClaimId = ResourceClaimId
-		where ResourceName IN (
+			(AuthorizationStrategyId
+			,ClaimSetResourceClaimActionId)
+		select authorization_strategy_id, crc.ClaimSetResourceClaimActionId
+		from dbo.ClaimSetResourceClaimActions crc
+		inner join dbo.Actions a on crc.ActionId=a.ActionId and a.ActionName IN ('Create')
+		inner join dbo.ResourceClaims r on crc.ResourceClaimId = r.ResourceClaimId
+		where r.ResourceName IN (
 			'systemDescriptors',
 			'managedDescriptors',
 			'educationOrganizations',

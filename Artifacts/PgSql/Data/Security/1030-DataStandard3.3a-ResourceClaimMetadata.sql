@@ -72,7 +72,7 @@ BEGIN
     END IF;
 
     --Apply  No Further Authorization Required on this OrganizationDepartment resource
-	INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizations(Action_ActionId,ClaimSet_ClaimSetId,ResourceClaim_ResourceClaimId,ValidationRuleSetNameOverride)
+	INSERT INTO dbo.ClaimSetResourceClaimActions(ActionId,ClaimSetId,ResourceClaimId,ValidationRuleSetNameOverride)
 	SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, cast (null as INT)
 	FROM dbo.ResourceClaims
 	INNER JOIN lateral
@@ -83,11 +83,11 @@ BEGIN
 	WHERE ClaimSetName IN ('SIS Vendor','Ed-Fi Sandbox','District Hosted SIS Vendor')) as cs on true
 	WHERE ResourceName = 'organizationDepartment';
 
-	INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(AuthorizationStrategy_AuthorizationStrategyId,ClaimSetResourceClaimActionAuthorization_ClaimSetResourceClaimActionAuthorizationId)
-	SELECT noFurtherAuthRequiredAuthorizationStrategy_Id, ClaimSetResourceClaimActionAuthorizationId
-	FROM dbo.ClaimSetResourceClaimActionAuthorizations
-	INNER JOIN dbo.Actions ON action_actionid=ActionId AND ActionName IN ('Create','Read','Update','Delete')
-	INNER JOIN dbo.ResourceClaims ON ResourceClaim_ResourceClaimId = ResourceClaimId
-	WHERE ResourceName = 'organizationDepartment';
+	INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(AuthorizationStrategyId,ClaimSetResourceClaimActionId)
+	SELECT noFurtherAuthRequiredAuthorizationStrategy_Id, crc.ClaimSetResourceClaimActionId
+	FROM dbo.ClaimSetResourceClaimActions crc
+	INNER JOIN dbo.Actions a ON crc.ActionId=a.ActionId AND a.ActionName IN ('Create','Read','Update','Delete')
+	INNER JOIN dbo.ResourceClaims r ON crc.ResourceClaimId = r.ResourceClaimId
+	WHERE r.ResourceName = 'organizationDepartment';
 
 END $$;
