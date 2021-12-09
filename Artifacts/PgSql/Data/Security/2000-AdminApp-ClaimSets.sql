@@ -30,24 +30,22 @@ BEGIN
     FROM dbo.claimsets
     WHERE claimsetname = claimset_name;
 	
-	DELETE FROM dbo.ClaimSetResourceClaims WHERE ClaimSet_ClaimSetId = claimset_id;
+	DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizations WHERE ClaimSet_ClaimSetId = claimset_id;
 	
 	SELECT authorizationstrategyid INTO authorizationStrategy_id
     FROM dbo.authorizationstrategies
     WHERE authorizationstrategyname = 'NoFurtherAuthorizationRequired';
 	
-    IF EXISTS (SELECT 1 FROM dbo.claimsetresourceclaims WHERE claimset_claimsetid = claimset_id)
+    IF EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActionAuthorizations WHERE claimset_claimsetid = claimset_id)
     THEN
         RAISE NOTICE 'claims already exist for claim %', claimset_name;
     ELSE
         RAISE NOTICE 'Configuring Claims for % Claimset...', claimset_name;
-        INSERT INTO dbo.claimsetresourceclaims
+        INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizations
             (Action_ActionId
             ,ClaimSet_ClaimSetId
-            ,ResourceClaim_ResourceClaimId
-            ,AuthorizationStrategyOverride_AuthorizationStrategyId
-            ,ValidationRuleSetNameOverride)
-        SELECT ac.actionid, claimset_id, resourceclaimid, authorizationStrategy_id, CAST(null AS int)
+            ,ResourceClaim_ResourceClaimId)
+        SELECT ac.actionid, claimset_id, resourceclaimid
         FROM dbo.resourceclaims
         INNER JOIN LATERAL
             (SELECT actionid
@@ -55,21 +53,36 @@ BEGIN
             WHERE actionname in ('Create','Read','Update','Delete')) AS ac ON true
         WHERE resourcename IN ('educationOrganizations','systemDescriptors','managedDescriptors');
 		
-		INSERT INTO dbo.claimsetresourceclaims
-            (Action_ActionId
-            ,ClaimSet_ClaimSetId
-            ,ResourceClaim_ResourceClaimId
-            ,AuthorizationStrategyOverride_AuthorizationStrategyId
-            ,ValidationRuleSetNameOverride)
-        SELECT ac.actionid, claimset_id, resourceclaimid, authorizationStrategy_id, CAST(null AS int)
-        FROM dbo.resourceclaims
-        INNER JOIN LATERAL
-            (SELECT actionid
-            FROM dbo.actions
-            WHERE actionname in ('Read')) AS ac ON true
-        WHERE resourcename IN ('types');
+		INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+            (AuthorizationStrategy_AuthorizationStrategyId
+            ,ClaimSetResourceClaimActionAuthorization_ClaimSetResourceClaimActionAuthorizationId)
+        SELECT authorizationStrategy_id, ClaimSetResourceClaimActionAuthorizationId
+        FROM dbo.ClaimSetResourceClaimActionAuthorizations
+        INNER JOIN dbo.ResourceClaims ON ResourceClaim_ResourceClaimId = ResourceClaimId
+        WHERE resourcename IN ('educationOrganizations','systemDescriptors','managedDescriptors');
+		
     END IF;	
 	
+	INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizations
+		(Action_ActionId
+		,ClaimSet_ClaimSetId
+		,ResourceClaim_ResourceClaimId)
+	SELECT ac.actionid, claimset_id, resourceclaimid
+	FROM dbo.resourceclaims
+	INNER JOIN LATERAL
+		(SELECT actionid
+		FROM dbo.actions
+		WHERE actionname in ('Read')) AS ac ON true
+	WHERE resourcename IN ('types');
+	
+	INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+		(AuthorizationStrategy_AuthorizationStrategyId
+		,ClaimSetResourceClaimActionAuthorization_ClaimSetResourceClaimActionAuthorizationId)
+	SELECT authorizationStrategy_id, ClaimSetResourceClaimActionAuthorizationId
+	FROM dbo.ClaimSetResourceClaimActionAuthorizations
+	INNER JOIN dbo.ResourceClaims ON ResourceClaim_ResourceClaimId = ResourceClaimId
+	INNER JOIN dbo.Actions ON ActionId = Action_ActionId AND ActionName in ('READ')
+	WHERE resourcename IN ('types');
 END $$;
 
 -- Create and configure AB Connect claim set
@@ -102,21 +115,19 @@ BEGIN
     FROM dbo.claimsets
     WHERE claimsetname = claimset_name;
 	
-	DELETE FROM dbo.ClaimSetResourceClaims WHERE ClaimSet_ClaimSetId = claimset_id;
+	DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizations WHERE ClaimSet_ClaimSetId = claimset_id;
 
     -- Configure AB Connect ClaimSet
-    IF EXISTS (SELECT 1 FROM dbo.claimsetresourceclaims WHERE claimset_claimsetid = claimset_id)
+    IF EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActionAuthorizations WHERE claimset_claimsetid = claimset_id)
     THEN
         RAISE NOTICE 'claims already exist for claim %', claimset_name;
     ELSE
         RAISE NOTICE 'Configuring Claims for % Claimset...', claimset_name;
-        INSERT INTO dbo.claimsetresourceclaims
+        INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizations
             (Action_ActionId
             ,ClaimSet_ClaimSetId
-            ,ResourceClaim_ResourceClaimId
-            ,AuthorizationStrategyOverride_AuthorizationStrategyId
-            ,ValidationRuleSetNameOverride)
-        SELECT ac.actionid, claimset_id, resourceclaimid, CAST(null AS int), CAST(null AS int)
+            ,ResourceClaim_ResourceClaimId)
+        SELECT ac.actionid, claimset_id, resourceclaimid
         FROM dbo.resourceclaims
         INNER JOIN LATERAL
             (SELECT actionid
@@ -146,8 +157,10 @@ BEGIN
 
     RAISE NOTICE 'Updating educationStandards authorization strategy for READ.';
 
-    UPDATE dbo.resourceclaimauthorizationmetadatas
+    UPDATE dbo.ResourceClaimActionAuthorizationStrategies
     SET authorizationstrategy_authorizationstrategyid = authorization_strategy_id
+	INNER JOIN dbo.ResourceClaimActionAuthorizations
+		ON ResourceClaimActionAuthorizationId = ResourceClaimActionAuthorization_ResourceClaimActionAuthorizationId
     WHERE action_actionid = action_id AND resourceclaim_resourceclaimid = resource_claim_id;
 END $$;
 
@@ -165,20 +178,18 @@ BEGIN
     WHERE claimsetname = 'Assessment Vendor';
 
     IF EXISTS (SELECT 1
-               FROM dbo.claimsetresourceclaims
+               FROM dbo.ClaimSetResourceClaimActionAuthorizations 
                WHERE claimset_claimsetid = claimset_id AND resourceclaim_resourceclaimid = resourceclaim_id)
     THEN
-        DELETE FROM dbo.ClaimSetResourceClaims WHERE ResourceClaim_ResourceClaimId = resourceclaim_id AND ClaimSet_ClaimSetId = claimset_id;
+        DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizations WHERE ResourceClaim_ResourceClaimId = resourceclaim_id AND ClaimSet_ClaimSetId = claimset_id;
     END IF;
 	
 	RAISE NOTICE 'Ensuring create, read actions for performanceLevelDescriptor are assigned to Assessment Vendor claimset';
-    INSERT INTO dbo.claimsetresourceclaims
+    INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizations
         (Action_ActionId
         ,ClaimSet_ClaimSetId
-        ,ResourceClaim_ResourceClaimId
-        ,AuthorizationStrategyOverride_AuthorizationStrategyId
-        ,ValidationRuleSetNameOverride)
-    SELECT ac.actionid, claimset_id, resourceclaimid, CAST(null AS int), CAST(null AS int)
+        ,ResourceClaim_ResourceClaimId)
+    SELECT ac.actionid, claimset_id, resourceclaimid
     FROM dbo.resourceclaims
     INNER JOIN LATERAL
     (SELECT actionid
