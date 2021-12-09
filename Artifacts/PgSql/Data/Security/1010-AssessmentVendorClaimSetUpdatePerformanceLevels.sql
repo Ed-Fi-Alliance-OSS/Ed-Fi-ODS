@@ -5,10 +5,10 @@
 
 DO language plpgsql $$
 DECLARE
-	claim_set_name VARCHAR(100) := 'Assessment Vendor'
+	claim_set_name VARCHAR(100) := 'Assessment Vendor';
     application_name VARCHAR(50) := 'Ed-Fi ODS API';
     application_id INT;
-    assessment_vendor_claim_set_id INT;
+    claim_set_id INT;
 	create_action_id INT;
 	read_action_id INT;
 	update_action_id INT;
@@ -31,7 +31,7 @@ BEGIN
 		RETURN;
 	END IF;
 	
-	SELECT ClaimSetId INTO assessment_vendor_claim_set_id
+	SELECT ClaimSetId INTO claim_set_id
 	FROM dbo.ClaimSets
 	WHERE ClaimSetName = claim_set_name;
 
@@ -85,15 +85,15 @@ BEGIN
     FROM dbo.ResourceClaims rc
     WHERE rc.ResourceName = 'types';
 
-	IF (assessment_vendor_claim_set_id IS NOT NULL)
+	IF (claim_set_id IS NOT NULL)
 	THEN
 		DELETE FROM dbo.ClaimSetResourceClaimActions
-		WHERE ClaimSetId = assessment_vendor_claim_set_id
+		WHERE ClaimSetId = claim_set_id;
 	ELSE
 		--Create a new ClaimSet--
 		INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId) VALUES (claim_set_name,application_id);
 		
-		SELECT ClaimSetId INTO assessment_vendor_claim_set_id
+		SELECT ClaimSetId INTO claim_set_id
 		FROM dbo.ClaimSets
 		WHERE ClaimSetName = claim_set_name;
 	END IF;

@@ -6,7 +6,7 @@
 DO language plpgsql $$
 DECLARE
     claim_set_name VARCHAR(255) := 'District Hosted SIS Vendor';
-    application_name VARCHAR(MAX) := 'Ed-Fi ODS API';
+    application_name VARCHAR(200) := 'Ed-Fi ODS API';
     application_id INT;
     claim_set_id INT;
     create_action_id INT;

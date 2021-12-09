@@ -30,6 +30,11 @@ BEGIN
     FROM dbo.claimsets
     WHERE claimsetname = claimset_name;
 	
+	DELETE  
+	FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides csrcaaso
+	USING dbo.ClaimSetResourceClaimActions csrc
+	WHERE csrcaaso.ClaimSetResourceClaimActionId = csrc.ClaimSetResourceClaimActionId AND csrc.ClaimSetId = claimset_id;
+
 	DELETE FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claimset_id;
 	
 	SELECT authorizationstrategyid INTO authorizationStrategy_id
@@ -58,7 +63,7 @@ BEGIN
             ,ClaimSetResourceClaimActionId)
         SELECT authorizationStrategy_id, csrc.ClaimSetResourceClaimActionId
         FROM dbo.ClaimSetResourceClaimActions csrc
-        INNER JOIN dbo.ResourceClaims r ON csrc.ResourceClaimId = r.ResourceClaimId
+        INNER JOIN dbo.ResourceClaims r ON csrc.ResourceClaimId = r.ResourceClaimId AND csrc.ClaimSetId = claimset_id
         WHERE r.resourcename IN ('educationOrganizations','systemDescriptors','managedDescriptors');
 		
     END IF;	
@@ -157,11 +162,10 @@ BEGIN
 
     RAISE NOTICE 'Updating educationStandards authorization strategy for READ.';
 
-	UPDATE rcaas SET AuthorizationStrategyId = @authorization_strategy_id
-	FROM dbo.ResourceClaimActionAuthorizationStrategies rcaas
-	INNER JOIN dbo.ResourceClaimActions rca
-		ON rcaas.ResourceClaimActionId = rca.ResourceClaimActionId
-	WHERE  ActionId = @action_id AND ResourceClaimId = @resource_claim_id
+	UPDATE dbo.ResourceClaimActionAuthorizationStrategies rcaas 
+	SET AuthorizationStrategyId = authorization_strategy_id
+	FROM dbo.ResourceClaimActions rca
+	WHERE rcaas.ResourceClaimActionId = rca.ResourceClaimActionId AND ActionId = action_id AND ResourceClaimId = resource_claim_id;
 END $$;
 
 -- Add performanceLevel descriptor to the assessment vendor claimset (if not already present)

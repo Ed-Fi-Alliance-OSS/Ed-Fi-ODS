@@ -21,17 +21,32 @@ BEGIN
 	WHERE   rc.ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations';
 
 	-- Remove existing claim set overrides for OrganizationDepartment
-	DELETE FROM dbo.ClaimSetResourceClaimActions
+	DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
 	WHERE ClaimSetResourceClaimActionId IN (
-		SELECT  ClaimSetResourceClaimActionId
+		SELECT  csrc.ClaimSetResourceClaimActionId
 		FROM    dbo.ClaimSetResourceClaimActions csrc
 		INNER JOIN dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides csrcaaso
 			ON csrc.ClaimSetResourceClaimActionId = csrcaaso.ClaimSetResourceClaimActionId
 		INNER JOIN dbo.ClaimSets cs
-			ON csrc.ClaimSet_ClaimSetId = cs.ClaimSetId
+			ON csrc.ClaimSetId = cs.ClaimSetId
 		INNER JOIN dbo.AuthorizationStrategies strat
 				ON csrcaaso.AuthorizationStrategyId = strat.AuthorizationStrategyId
-		WHERE   csrc.ResourceClaim_ResourceClaimId = organization_department_claim_id
+		WHERE   csrc.ResourceClaimId = organization_department_claim_id
+			AND cs.ClaimSetName IN ('SIS Vendor', 'Ed-Fi Sandbox', 'District Hosted SIS Vendor')
+			AND strat.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+	);
+	
+	DELETE FROM dbo.ClaimSetResourceClaimActions
+	WHERE ClaimSetResourceClaimActionId IN (
+		SELECT  csrc.ClaimSetResourceClaimActionId
+		FROM    dbo.ClaimSetResourceClaimActions csrc
+		INNER JOIN dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides csrcaaso
+			ON csrc.ClaimSetResourceClaimActionId = csrcaaso.ClaimSetResourceClaimActionId
+		INNER JOIN dbo.ClaimSets cs
+			ON csrc.ClaimSetId = cs.ClaimSetId
+		INNER JOIN dbo.AuthorizationStrategies strat
+				ON csrcaaso.AuthorizationStrategyId = strat.AuthorizationStrategyId
+		WHERE   csrc.ResourceClaimId = organization_department_claim_id
 			AND cs.ClaimSetName IN ('SIS Vendor', 'Ed-Fi Sandbox', 'District Hosted SIS Vendor')
 			AND strat.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 	);
