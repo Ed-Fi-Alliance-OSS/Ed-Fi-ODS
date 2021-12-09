@@ -21,6 +21,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
     public class SqlServerSandboxProvisioner : SandboxProvisionerBase
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(SqlServerSandboxProvisioner));
+        private bool? _isSqlServerOnWindows;
 
         public SqlServerSandboxProvisioner(IConfiguration configuration,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
@@ -162,7 +163,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                     async Task<string> GetSqlDataPathAsync(string originalName, DataPathType dataPathType)
                     {
-                        var type = (int) dataPathType;
+                         var type = (int) dataPathType;
 
                         // Since we know we have an existing database, use its data file location to figure out where to put new databases
                         var sql =
@@ -170,6 +171,8 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                         string fullPath = await conn.ExecuteScalarAsync<string>(sql, commandTimeout: CommandTimeout)
                             .ConfigureAwait(false);
+
+                        fullPath = await NormalizePath(fullPath);
 
                         return Path.GetDirectoryName(fullPath);
                     }
@@ -180,6 +183,25 @@ namespace EdFi.Ods.Sandbox.Provisioners
                     throw;
                 }
             }
+        }
+        
+        private async Task<string> NormalizePath(string path)
+        {
+            if(_isSqlServerOnWindows is null)
+            {
+                using (var conn = CreateConnection())
+                {
+                    // Get SQL Server OS
+                    var getHostPlatformSql = "SELECT host_platform FROM sys.dm_os_host_info";
+
+                    string hostPlatform = await conn.ExecuteScalarAsync<string>(getHostPlatformSql, commandTimeout: CommandTimeout)
+                        .ConfigureAwait(false);
+
+                    _isSqlServerOnWindows = hostPlatform.Equals("Windows", StringComparison.InvariantCultureIgnoreCase);
+                }
+            }
+
+            return _isSqlServerOnWindows.Value ? path.Replace('\\', Path.DirectorySeparatorChar) : path;
         }
 
         private class SqlFileInfo
