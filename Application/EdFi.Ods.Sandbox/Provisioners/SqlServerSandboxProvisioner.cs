@@ -163,7 +163,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                     async Task<string> GetSqlDataPathAsync(string originalName, DataPathType dataPathType)
                     {
-                         var type = (int) dataPathType;
+                        var type = (int) dataPathType;
 
                         // Since we know we have an existing database, use its data file location to figure out where to put new databases
                         var sql =
