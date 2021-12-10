@@ -171,7 +171,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                         string fullPath = await conn.ExecuteScalarAsync<string>(sql, commandTimeout: CommandTimeout)
                             .ConfigureAwait(false);
-                        
+
                         return await GetDirectoryName(fullPath);
                     }
                 }
