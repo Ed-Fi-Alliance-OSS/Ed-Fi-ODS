@@ -75,32 +75,33 @@ BEGIN
 	    a.ActionName IN ('Create')
 	INNER JOIN [dbo].[ResourceClaims] r ON 
 	crc.ResourceClaimId = r.ResourceClaimId
-	WHERE r.ResourceName IN  (
-		'systemDescriptors',
-		'managedDescriptors',
-		'educationOrganizations',
-		-- from Interchange-Standards.xml
-		'learningObjective',
-		'learningStandard',
-		'learningStandardEquivalenceAssociation',
-		-- from Interchange-EducationOrganization.xml
-		'accountabilityRating',
-		'classPeriod',
-		'communityOrganization',
-		'communityProvider',
-		'communityProviderLicense',
-		'course',
-		'educationOrganizationNetwork',
-		'educationOrganizationNetworkAssociation',
-		'educationOrganizationPeerAssociation',
-		'educationServiceCenter',
-		'feederSchoolAssociation',
-		'localEducationAgency',
-		'location',
-		'postSecondaryInstitution',
-		'program',
-		'school',
-		'stateEducationAgency'
+	WHERE crc.ClaimSetId = @ClaimSetId 
+		AND r.ResourceName IN  (
+			'systemDescriptors',
+			'managedDescriptors',
+			'educationOrganizations',
+			-- from Interchange-Standards.xml
+			'learningObjective',
+			'learningStandard',
+			'learningStandardEquivalenceAssociation',
+			-- from Interchange-EducationOrganization.xml
+			'accountabilityRating',
+			'classPeriod',
+			'communityOrganization',
+			'communityProvider',
+			'communityProviderLicense',
+			'course',
+			'educationOrganizationNetwork',
+			'educationOrganizationNetworkAssociation',
+			'educationOrganizationPeerAssociation',
+			'educationServiceCenter',
+			'feederSchoolAssociation',
+			'localEducationAgency',
+			'location',
+			'postSecondaryInstitution',
+			'program',
+			'school',
+			'stateEducationAgency'
 	);
 END
 

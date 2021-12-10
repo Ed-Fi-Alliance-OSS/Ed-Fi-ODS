@@ -61,9 +61,12 @@
 		,[ClaimSetResourceClaimActionId])
 	SELECT @noFurtherAuthRequiredAuthorizationStrategyId, crc.ClaimSetResourceClaimActionId
 	FROM [dbo].[ClaimSetResourceClaimActions] crc
+	INNER JOIN [dbo].[ClaimSets] cs ON
+		crc.ClaimSetId = cs.ClaimSetId
 	INNER JOIN [dbo].[Actions] a ON
 		crc.ActionId=a.Actionid and 
 	    a.ActionName IN ('Create','Read','Update','Delete')
 	INNER JOIN [dbo].[ResourceClaims] r ON 
 	crc.ResourceClaimId = r.ResourceClaimId
-	WHERE r.ResourceName IN  ('organizationDepartment');
+	WHERE cs.ClaimSetName IN ('SIS Vendor','Ed-Fi Sandbox','District Hosted SIS Vendor') 
+		AND r.ResourceName IN  ('organizationDepartment');

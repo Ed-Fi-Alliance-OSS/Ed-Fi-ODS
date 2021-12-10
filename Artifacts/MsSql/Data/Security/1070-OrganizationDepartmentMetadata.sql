@@ -53,14 +53,21 @@ SELECT @relationshipsAuthorizationStrategyId = AuthorizationStrategyId
 FROM dbo.AuthorizationStrategies
 WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople'
 
-IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimAuthorizationMetadatas WHERE ResourceClaim_ResourceClaimId = @organizationDepartmentClaimId)
+IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = @organizationDepartmentClaimId)
 BEGIN
     PRINT 'Assigning default metadata for CRUD operations on OrganizationDepartment to the relationship-based authorization strategy.'
     
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    SELECT @organizationDepartmentClaimId, ActionId, @relationshipsAuthorizationStrategyId
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    SELECT @organizationDepartmentClaimId, ActionId
     FROM    dbo.Actions
     WHERE   ActionName IN ('Create', 'Read', 'Update', 'Delete')
+
+	INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies](ResourceClaimActionId, AuthorizationStrategyId)
+	SELECT rca.ResourceClaimActionId, @relationshipsAuthorizationStrategyId
+	FROM dbo.ResourceClaimActions rca
+	INNER JOIN dbo.Actions a
+		ON rca.ActionId = a.ActionId
+	WHERE rca.ResourceClaimId = @organizationDepartmentClaimId AND a.ActionName IN ('Create', 'Read', 'Update', 'Delete')
 END
 
 -- Move OrganizationDepartment under EducationOrganizations

@@ -86,8 +86,10 @@ BEGIN
 	INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(AuthorizationStrategyId,ClaimSetResourceClaimActionId)
 	SELECT noFurtherAuthRequiredAuthorizationStrategy_Id, crc.ClaimSetResourceClaimActionId
 	FROM dbo.ClaimSetResourceClaimActions crc
+	INNER JOIN dbo.ClaimSets cs ON crc.ClaimSetId = cs.ClaimSetId
 	INNER JOIN dbo.Actions a ON crc.ActionId=a.ActionId AND a.ActionName IN ('Create','Read','Update','Delete')
 	INNER JOIN dbo.ResourceClaims r ON crc.ResourceClaimId = r.ResourceClaimId
-	WHERE r.ResourceName = 'organizationDepartment';
+	WHERE cs.ClaimSetName IN ('SIS Vendor','Ed-Fi Sandbox','District Hosted SIS Vendor') 
+		AND r.ResourceName = 'organizationDepartment';
 
 END $$;

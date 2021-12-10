@@ -60,10 +60,17 @@ BEGIN
 	THEN
 		RAISE NOTICE 'Assigning default metadata for CRUD operations on OrganizationDepartment to the relationship-based authorization strategy.';
 
-		INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-		SELECT  organization_department_claim_id, ActionId, relationships_authorization_strategy_id
+		INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+		SELECT  organization_department_claim_id, ActionId
 		FROM    dbo.Actions
 		WHERE   ActionName IN ('Create', 'Read', 'Update', 'Delete');
+		
+		INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+		SELECT rca.ResourceClaimActionId, relationships_authorization_strategy_id
+		FROM dbo.ResourceClaimActions rca
+		INNER JOIN dbo.Actions a
+			ON rca.ActionId = a.ActionId
+		WHERE rca.ResourceClaimId = organization_department_claim_id AND a.ActionName IN ('Create', 'Read', 'Update', 'Delete')
 	END IF;
 
 	-- Move OrganizationDepartment under EducationOrganizations
