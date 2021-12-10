@@ -70,7 +70,7 @@ BEGIN
 		FROM dbo.ResourceClaimActions rca
 		INNER JOIN dbo.Actions a
 			ON rca.ActionId = a.ActionId
-		WHERE rca.ResourceClaimId = organization_department_claim_id AND a.ActionName IN ('Create', 'Read', 'Update', 'Delete')
+		WHERE rca.ResourceClaimId = organization_department_claim_id AND a.ActionName IN ('Create', 'Read', 'Update', 'Delete');
 	END IF;
 
 	-- Move OrganizationDepartment under EducationOrganizations
