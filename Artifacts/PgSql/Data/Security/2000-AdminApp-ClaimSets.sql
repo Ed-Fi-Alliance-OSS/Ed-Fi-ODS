@@ -86,7 +86,7 @@ BEGIN
 	SELECT authorizationStrategy_id, csrc.ClaimSetResourceClaimActionId
 	FROM dbo.ClaimSetResourceClaimActions csrc
 	INNER JOIN dbo.ResourceClaims r ON csrc.ResourceClaimId = r.ResourceClaimId
-	INNER JOIN dbo.Actions a ON a.ActionId = csrc.ActionId AND a.ActionName in ('READ')
+	INNER JOIN dbo.Actions a ON a.ActionId = csrc.ActionId AND a.ActionName in ('Read')
 	WHERE resourcename IN ('types');
 END $$;
 

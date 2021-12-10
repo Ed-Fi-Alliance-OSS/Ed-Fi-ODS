@@ -56,17 +56,19 @@ WHERE  AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 DECLARE @actionId int
 DECLARE @claimSetId int
 
-SELECT @actionId = ActionId FROM dbo.Actions WHERE ActionName = @actionName
 SELECT @claimSetId = ClaimSetId FROM dbo.ClaimSets WHERE ClaimSetName = @claimSetName
 
 PRINT 'Configuring Claims for Ed-Fi ODS Admin App Claimset...'
 IF NOT EXISTS (SELECT 1
                   FROM dbo.ClaimSetResourceClaimActions
-				  WHERE ActionId = @actionId AND ClaimSetId = @claimSetId)
+				  WHERE ClaimSetId = @claimSetId)
 BEGIN				  
 	INSERT INTO dbo.ClaimSetResourceClaimActions
 		(ActionId, ClaimSetId, ResourceClaimId)
 	SELECT ActionId, @claimSetId, ResourceClaimId  FROM dbo.Actions a, @resourceClaimIds rc
+	WHERE NOT EXISTS (SELECT 1
+                  FROM dbo.ClaimSetResourceClaimActions
+				  WHERE ActionId = a.ActionId AND ClaimSetId = @claimSetId AND ResourceClaimId = rc.ResourceClaimId)
 
 	INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
 		([AuthorizationStrategyId]
@@ -94,7 +96,7 @@ INNER JOIN [dbo].[ResourceClaims] r ON
 	csrc.ResourceClaimId = r.ResourceClaimId
 INNER JOIN [dbo].[Actions] a ON
 	a.actionId =csrc.ActionId
-	AND a.ActionName in ('READ')
+	AND a.ActionName in ('Read')
 WHERE r.ResourceName IN  ('types') AND csrc.ActionId = @actionId AND csrc.ClaimSetId = @claimSetId;
 
 GO
@@ -138,10 +140,8 @@ PRINT 'Creating Temporary Records.'
 INSERT INTO @resourceNames VALUES ('gradeLevelDescriptor'),('academicSubjectDescriptor'),('publicationStatusDescriptor'),('educationStandards')
 INSERT INTO @resourceClaimIds SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ResourceName IN (SELECT ResourceName FROM @resourceNames)
 
-DECLARE @actionId int
 DECLARE @claimSetId int
 
-SELECT @actionId = ActionId FROM dbo.Actions WHERE ActionName = @actionName
 SELECT @claimSetId = ClaimSetId FROM dbo.ClaimSets WHERE ClaimSetName = @claimSetName
 
 PRINT 'Configuring Claims for AB Connect Claimset...'
