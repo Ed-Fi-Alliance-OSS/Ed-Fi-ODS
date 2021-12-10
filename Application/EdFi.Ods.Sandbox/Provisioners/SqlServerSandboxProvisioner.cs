@@ -6,8 +6,8 @@
 using System;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Dapper;
 using EdFi.Admin.DataAccess.Utils;
@@ -20,9 +20,8 @@ namespace EdFi.Ods.Sandbox.Provisioners
 {
     public class SqlServerSandboxProvisioner : SandboxProvisionerBase
     {
-        private const string Windows = "Windows";
         private readonly ILog _logger = LogManager.GetLogger(typeof(SqlServerSandboxProvisioner));
-        private bool? _isSqlServerOnWindows;
+        private SqlServerHostPlatform _sqlServerHostPlatform;
 
         public SqlServerSandboxProvisioner(IConfiguration configuration,
             IConfigConnectionStringsProvider connectionStringsProvider, IDatabaseNameBuilder databaseNameBuilder)
@@ -79,7 +78,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                     _logger.Debug($"backup directory = {backupDirectory}");
 
-                    string backup = Path.Combine(backupDirectory, originalDatabaseName + ".bak");
+                    string backup = await PathCombine(backupDirectory, originalDatabaseName + ".bak");
                     _logger.Debug($"backup file = {backup}");
 
                     var sqlFileInfo = await GetDatabaseFilesAsync(originalDatabaseName, newDatabaseName)
@@ -157,8 +156,8 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                         return new SqlFileInfo
                         {
-                            Data = Path.Combine(dataPath, $"{newName}.mdf"),
-                            Log = Path.Combine(logPath, $"{newName}.ldf")
+                            Data = await PathCombine(dataPath, $"{newName}.mdf"),
+                            Log = await PathCombine(logPath, $"{newName}.ldf")
                         };
                     }
 
@@ -172,10 +171,8 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                         string fullPath = await conn.ExecuteScalarAsync<string>(sql, commandTimeout: CommandTimeout)
                             .ConfigureAwait(false);
-
-                        fullPath = await NormalizePath(fullPath);
-
-                        return Path.GetDirectoryName(fullPath);
+                        
+                        return await GetDirectoryName(fullPath);
                     }
                 }
                 catch (Exception e)
@@ -186,24 +183,81 @@ namespace EdFi.Ods.Sandbox.Provisioners
             }
         }
         
-        private async Task<string> NormalizePath(string path)
+        private async Task<SqlServerHostPlatform> GetSqlServerHostPlatform()
         {
-            if(_isSqlServerOnWindows is null)
+            if(_sqlServerHostPlatform is null)
             {
                 using (var conn = CreateConnection())
                 {
                     // Get SQL Server OS; sys.dm_os_host_info was introduced in SQL Server 2017 (alongside Linux support)
-                    //    if the table doesn't exist we can assume that the OS is Windows
+                    // if the table doesn't exist we can assume that the OS is Windows
+                    
+                    const string Windows = "Windows";
+
                     var getHostPlatformSql = $"IF OBJECT_ID('sys.dm_os_host_info') IS NOT NULL SELECT host_platform FROM sys.dm_os_host_info ELSE SELECT '{Windows}'";
 
                     string hostPlatform = await conn.ExecuteScalarAsync<string>(getHostPlatformSql, commandTimeout: CommandTimeout)
                         .ConfigureAwait(false);
 
-                    _isSqlServerOnWindows = hostPlatform.Equals(Windows, StringComparison.InvariantCultureIgnoreCase);
+                    var isWindows = hostPlatform.Equals(Windows, StringComparison.InvariantCultureIgnoreCase);
+
+                    _sqlServerHostPlatform = new SqlServerHostPlatform()
+                    {
+                        OsPlatform = isWindows ? OSPlatform.Windows : OSPlatform.Linux,
+                        DirectorySeparatorChar = isWindows ? '\\' : '/',
+                        VolumeSeparatorChar = isWindows ? ':' : '/'
+                    };
                 }
             }
 
-            return _isSqlServerOnWindows.Value ? path.Replace('\\', Path.DirectorySeparatorChar) : path;
+            return _sqlServerHostPlatform;
+        }
+
+        private async Task<string> PathCombine(string path1, string path2)
+        {
+            var hostPlatform = await GetSqlServerHostPlatform();
+
+            // Based on https://github.com/mono/mono/blob/main/mcs/class/corlib/System.IO/Path.cs#L99
+
+            if (path1.Length == 0)
+                return path2;
+
+            if (path2.Length == 0)
+                return path1;
+
+            char p1end = path1[path1.Length - 1];
+            if (p1end != hostPlatform.DirectorySeparatorChar && p1end != hostPlatform.VolumeSeparatorChar)
+                return path1 + hostPlatform.DirectorySeparatorChar + path2;
+
+            return path1 + path2;
+        }
+
+        private async Task<string> GetDirectoryName(string path)
+        {
+            var hostPlatform = await GetSqlServerHostPlatform();
+
+            // Based on: https://github.com/mono/mono/blob/main/mcs/class/corlib/System.IO/Path.cs#L203
+
+            int nLast = path.LastIndexOf(hostPlatform.DirectorySeparatorChar);
+            if (nLast == 0)
+                nLast++;
+
+            if (nLast > 0)
+            {
+                string ret = path.Substring(0, nLast);
+                int l = ret.Length;
+
+                if (l >= 2 && hostPlatform.DirectorySeparatorChar == '\\' && ret[l - 1] == hostPlatform.VolumeSeparatorChar)
+                    return ret + hostPlatform.DirectorySeparatorChar;
+                else if (l == 1 && hostPlatform.DirectorySeparatorChar == '\\' && path.Length >= 2 && path[nLast] == hostPlatform.VolumeSeparatorChar)
+                    return ret + hostPlatform.VolumeSeparatorChar;
+                else
+                {
+                    return ret;
+                }
+            }
+
+            return String.Empty;
         }
 
         private class SqlFileInfo
@@ -211,6 +265,15 @@ namespace EdFi.Ods.Sandbox.Provisioners
             public string Data { get; set; }
 
             public string Log { get; set; }
+        }
+
+        private class SqlServerHostPlatform
+        {
+            public OSPlatform OsPlatform { get; set; }
+
+            public char DirectorySeparatorChar { get; set; }
+
+            public char VolumeSeparatorChar { get; set; }
         }
 
         private enum DataPathType
