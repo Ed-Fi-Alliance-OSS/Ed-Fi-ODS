@@ -26,13 +26,12 @@ BEGIN
 	SELECT @ClaimSetId = (SELECT ClaimSetId FROM  dbo.ClaimSets  WHERE  ClaimSetName  = 'Bootstrap Descriptors and EdOrgs');
 	SELECT @AuthorizationStrategyId = (SELECT AuthorizationStrategyId FROM  dbo.AuthorizationStrategies  WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
 
-	INSERT INTO  dbo.ClaimSetResourceClaims 
-		( Action_ActionId 
-		, ClaimSet_ClaimSetId 
-		, ResourceClaim_ResourceClaimId 
-		, AuthorizationStrategyOverride_AuthorizationStrategyId 
+	INSERT INTO  dbo.ClaimSetResourceClaimActions 
+		( ActionId 
+		, ClaimSetId 
+		, ResourceClaimId
 		, ValidationRuleSetNameOverride )
-	SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, @AuthorizationStrategyId, null
+	SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null
 	FROM  dbo.ResourceClaims 
 	CROSS APPLY
 		(SELECT ActionId
@@ -64,6 +63,45 @@ BEGIN
 		'program',
 		'school',
 		'stateEducationAgency'
+	);
+
+	INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
+		([AuthorizationStrategyId]
+		,[ClaimSetResourceClaimActionId])
+	SELECT @AuthorizationStrategyId, crc.ClaimSetResourceClaimActionId
+	FROM [dbo].[ClaimSetResourceClaimActions] crc
+	INNER JOIN [dbo].[Actions] a ON
+		crc.ActionId=a.Actionid and 
+	    a.ActionName IN ('Create')
+	INNER JOIN [dbo].[ResourceClaims] r ON 
+	crc.ResourceClaimId = r.ResourceClaimId
+	WHERE crc.ClaimSetId = @ClaimSetId 
+		AND r.ResourceName IN  (
+			'systemDescriptors',
+			'managedDescriptors',
+			'educationOrganizations',
+			-- from Interchange-Standards.xml
+			'learningObjective',
+			'learningStandard',
+			'learningStandardEquivalenceAssociation',
+			-- from Interchange-EducationOrganization.xml
+			'accountabilityRating',
+			'classPeriod',
+			'communityOrganization',
+			'communityProvider',
+			'communityProviderLicense',
+			'course',
+			'educationOrganizationNetwork',
+			'educationOrganizationNetworkAssociation',
+			'educationOrganizationPeerAssociation',
+			'educationServiceCenter',
+			'feederSchoolAssociation',
+			'localEducationAgency',
+			'location',
+			'postSecondaryInstitution',
+			'program',
+			'school',
+			'stateEducationAgency'
 	);
 END
 
