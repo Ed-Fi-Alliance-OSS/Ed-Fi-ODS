@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
+using EdFi.Common.Extensions;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
@@ -79,8 +81,27 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 if (result == null)
                 {
+                    string[] claimEndpointNames =
+                        authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Select(x => x.Name).ToArray()
+                        ?? Array.Empty<string>();
+
+                    // NOTE: Embedded convention - UniqueId is suffix used for external representation of USI values
+                    string[] subjectEndpointNames = authorizationSegments
+                        .Select(x => x.SubjectEndpoint.Name.ReplaceSuffix("USI", "UniqueId"))
+                        .ToArray();
+
+                    string claimEndpointNamesText = $"'{string.Join("', '", claimEndpointNames)}'";
+                    string subjectEndpointNamesText = $"'{string.Join("', '", subjectEndpointNames)}'";
+                    
+                    string claimOrClaims = Inflector.Inflect("claim", claimEndpointNames.Length);
+                    string doOrDoes = Inflector.Inflect("ignored", claimEndpointNames.Length, "does", "do");
+                    string relationshipOrRelationships = Inflector.Inflect("relationship", subjectEndpointNames.Length);
+
                     throw new EdFiSecurityException(
-                        "Authorization denied.  The claim does not have any established relationships with the requested resource.");
+                        $"Authorization denied. The education organization {claimOrClaims} ({claimEndpointNamesText}) {doOrDoes} not have the necessary {relationshipOrRelationships} (with {subjectEndpointNamesText}) required to access the requested resource.");
+
+                    // throw new EdFiSecurityException(
+                    //     "Authorization denied.  The claim does not have any established relationships with the requested resource. ");
                 }
             }
         }
