@@ -81,6 +81,11 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 if (result == null)
                 {
+                    throw new EdFiSecurityException(GetAuthorizationFailureMessage());
+                }
+
+                string GetAuthorizationFailureMessage()
+                {
                     string[] claimEndpointNames =
                         authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Select(x => x.Name)
                             .Distinct()
@@ -102,28 +107,35 @@ namespace EdFi.Ods.Api.Security.Authorization
                     string claimValueOrValues = Inflector.Inflect(
                         "value", authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Count ?? 0);
 
-                    var claimEndpointValuesForDisplayText = authorizationSegments.FirstOrDefault()
-                        ?.ClaimsEndpoints.Select(x => x.Value.ToString())
-                        .Take(10)
-                        .Concat(new [] {"..."} )
-                        .Take(10)
-                        .ToArray() 
-                        ?? Array.Empty<string>();
+                    const int MaximumEdOrgClaimValuesToDisplay = 5;
 
+                    var claimEndpointValues =
+                        (authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Select(x => x.Value.ToString())
+                            ?? Array.Empty<string>())
+                        .Take(MaximumEdOrgClaimValuesToDisplay + 1)
+                        .ToArray();
+
+                    var claimEndpointValuesForDisplayText = claimEndpointValues
+                        ?.Take(MaximumEdOrgClaimValuesToDisplay)
+                        .ToList();
+
+                    if (claimEndpointValues.Length > MaximumEdOrgClaimValuesToDisplay)
+                    {
+                        claimEndpointValuesForDisplayText.Add("...");
+                    }
+                    
                     string claimEndpointValuesText = string.Join(", ", claimEndpointValuesForDisplayText);
                     
                     if (subjectEndpointNames.Length == 1)
                     {
-                        throw new
-                            EdFiSecurityException($"Authorization denied. No relationships have been established between the caller's education "
-                                + $"organization id {claimOrClaims} ({claimValueOrValues} [{claimEndpointValuesText}] of {typeOrTypes} {claimEndpointNamesText}) and the requested resource's "
-                                + $"{subjectEndpointNames} value.");
+                        return $"Authorization denied. No relationships have been established between the caller's education "
+                            + $"organization id {claimOrClaims} ({claimValueOrValues} [{claimEndpointValuesText}] of {typeOrTypes} {claimEndpointNamesText}) and the requested resource's "
+                            + $"{subjectEndpointNamesText} value.";
                     }
 
-                    throw new EdFiSecurityException(
-                        $"Authorization denied. No relationships have been established between the caller's education "
+                    return $"Authorization denied. No relationships have been established between the caller's education "
                         + $"organization id {claimOrClaims} ({claimValueOrValues} [{claimEndpointValuesText}] of {typeOrTypes} {claimEndpointNamesText}) and one of the following properties of "
-                        + $"the requested resource: {subjectEndpointNamesText}");
+                        + $"the requested resource: {subjectEndpointNamesText}";
                 }
             }
         }
