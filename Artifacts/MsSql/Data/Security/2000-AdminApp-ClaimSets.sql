@@ -60,8 +60,8 @@ SELECT @claimSetId = ClaimSetId FROM dbo.ClaimSets WHERE ClaimSetName = @claimSe
 
 PRINT 'Configuring Claims for Ed-Fi ODS Admin App Claimset...'
 IF NOT EXISTS (SELECT 1
-                  FROM dbo.ClaimSetResourceClaimActions
-				  WHERE ClaimSetId = @claimSetId)
+                  FROM dbo.ClaimSetResourceClaimActions csraa,dbo.Actions a, @resourceClaimIds rc
+				  WHERE csraa.ActionId = a.ActionId AND ClaimSetId = @claimSetId AND csraa.ResourceClaimId = rc.ResourceClaimId)
 BEGIN				  
 	INSERT INTO dbo.ClaimSetResourceClaimActions
 		(ActionId, ClaimSetId, ResourceClaimId)

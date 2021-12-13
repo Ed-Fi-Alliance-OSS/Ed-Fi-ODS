@@ -56,7 +56,7 @@ BEGIN
 	FROM dbo.AuthorizationStrategies
 	WHERE AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeople';
 
-	IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimAuthorizationMetadatas WHERE ResourceClaim_ResourceClaimId = organization_department_claim_id)
+	IF NOT EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = organization_department_claim_id)
 	THEN
 		RAISE NOTICE 'Assigning default metadata for CRUD operations on OrganizationDepartment to the relationship-based authorization strategy.';
 
