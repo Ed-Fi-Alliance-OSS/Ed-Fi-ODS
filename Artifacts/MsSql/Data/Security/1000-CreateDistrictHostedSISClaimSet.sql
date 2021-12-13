@@ -105,62 +105,62 @@ BEGIN
         WHERE rc.ResourceName = 'localEducationAgency'
     
         --Add claims from SIS Vendor ClaimSet
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @types, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @systemDescriptors, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @managedDescriptors, @create)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @managedDescriptors, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @managedDescriptors,  @update)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @managedDescriptors, @delete)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @educationOrganizations, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @people, @create)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @people, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @people,  @update)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @people, @delete)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @relationshipBasedData, @create)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @relationshipBasedData, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @relationshipBasedData,  @update)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @relationshipBasedData, @delete)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @assessmentMetadata, @create)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @assessmentMetadata, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @assessmentMetadata,  @update)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @assessmentMetadata, @delete)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @educationStandards, @create)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @educationStandards, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @educationStandards,  @update)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @educationStandards, @delete)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @primaryRelationships, @create)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @primaryRelationships, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @primaryRelationships,  @update)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @primaryRelationships, @delete)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @educationContent, @create)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @educationContent, @read)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @educationContent,  @update)
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@claimSetId, @educationContent, @delete)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @types, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @systemDescriptors, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @managedDescriptors, @create)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @managedDescriptors, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @managedDescriptors,  @update)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @managedDescriptors, @delete)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @educationOrganizations, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @people, @create)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @people, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @people,  @update)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @people, @delete)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @relationshipBasedData, @create)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @relationshipBasedData, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @relationshipBasedData,  @update)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @relationshipBasedData, @delete)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @assessmentMetadata, @create)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @assessmentMetadata, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @assessmentMetadata,  @update)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @assessmentMetadata, @delete)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @educationStandards, @create)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @educationStandards, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @educationStandards,  @update)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @educationStandards, @delete)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @primaryRelationships, @create)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @primaryRelationships, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @primaryRelationships,  @update)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @primaryRelationships, @delete)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @educationContent, @create)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @educationContent, @read)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @educationContent,  @update)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@claimSetId, @educationContent, @delete)
     
         --Add District Hosted SIS Vendor Claims
     
         -- Create Schools
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId)
         VALUES (@claimSetId, @schoolResourceClaimId, @create)
     
         -- Read Schools
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId)
         VALUES (@claimSetId, @schoolResourceClaimId, @read)
     
         -- Update Schools
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId)
         VALUES (@claimSetId, @schoolResourceClaimId,  @update)
     
         -- Delete Schools
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId)
         VALUES (@claimSetId, @schoolResourceClaimId, @delete)
     
         -- Read localEducationAgency
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId)
         VALUES (@claimSetId, @localEducationAgencyResourceClaimId, @read)
     
         -- Update localEducationAgency
-        INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId)
+        INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId)
         VALUES (@claimSetId, @localEducationAgencyResourceClaimId,  @update)
     END
 END
