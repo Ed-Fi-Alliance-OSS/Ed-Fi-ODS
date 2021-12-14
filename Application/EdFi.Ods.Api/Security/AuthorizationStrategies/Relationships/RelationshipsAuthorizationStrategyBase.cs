@@ -227,7 +227,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             BuildAuthorizationSegments(builder, signatureProperties);
 
             // Get the rules for execution
-            return builder.GetSegments();
+            var segments = builder.GetSegments();
+
+            foreach (var segment in segments)
+            {
+                segment.AuthorizationStrategyName = this.GetType().Name;
+            }
+
+            return segments;
         }
 
         protected abstract void BuildAuthorizationSegments(
