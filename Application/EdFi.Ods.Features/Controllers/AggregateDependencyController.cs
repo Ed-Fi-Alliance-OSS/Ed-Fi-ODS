@@ -49,10 +49,12 @@ namespace EdFi.Ods.Features.Controllers
 
             try
             {
+                var groupedLoadOrder = GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()).ToList();
+                ModifyLoadOrderForAuthorizationConcerns(groupedLoadOrder);
                 return Request.GetTypedHeaders().Accept != null
                     && Request.GetTypedHeaders().Accept.Any(a => a.MediaType.Value.EqualsIgnoreCase(CustomMediaContentTypes.GraphML))
                 ? Ok(CreateGraphML(_resourceLoadGraphFactory.CreateResourceLoadGraph()))
-                : Ok(GetGroupedLoadOrder(_resourceLoadGraphFactory.CreateResourceLoadGraph()));
+                : Ok(groupedLoadOrder);
             }
             catch (NonAcyclicGraphException e)
             {
@@ -120,5 +122,112 @@ namespace EdFi.Ods.Features.Controllers
 
         private static string GetNodeId(Resource resource)
             => $"/{resource.SchemaUriSegment()}/{resource.PluralName.ToCamelCase()}";
+
+        private static void ModifyLoadOrderForAuthorizationConcerns(IList<ResourceLoadOrder> resources)
+        {
+            ParseStudents(resources);
+            ParseStaff(resources);
+            ParseParent(resources);
+        }
+
+        private static void ParseParent(IList<ResourceLoadOrder> resources)
+        {
+            // StudentParentAssociation must be created before Parents can be updated.
+            // StudentSchoolAssociation must be created before Parents can be updated.
+            // StudentSchoolAssociation must be created before ParentAssociations can be updated.
+            var parentCreate = resources
+                .Single(r => r.Resource == "/ed-fi/parents");
+
+            var studentParentAssociation = resources
+                .Single(r => r.Resource == "/ed-fi/studentParentAssociations");
+
+            var studentSchoolAssociation = resources
+                .Single(r => r.Resource == "/ed-fi/studentSchoolAssociations");
+
+            var higherOrder = studentParentAssociation.Order > studentSchoolAssociation.Order
+                ? studentParentAssociation.Order
+                : studentSchoolAssociation.Order;
+
+            var parentUpdate = new ResourceLoadOrder
+            {
+                Resource = parentCreate.Resource,
+                Order = higherOrder + 1,
+                Operations = new List<string> { "Update" }
+            };
+
+            parentCreate.Operations.Remove("Update");
+
+            resources.Insert(
+                resources.IndexOf(resources.First(r => r.Order == parentUpdate.Order))
+                , parentUpdate
+            );
+
+            var studentParentUpdate = new ResourceLoadOrder
+            {
+                Resource = studentParentAssociation.Resource,
+                Order = studentSchoolAssociation.Order + 1,
+                Operations = new List<string> { "Update" }
+            };
+            studentParentAssociation.Operations.Remove("Update");
+            resources.Insert(
+                resources.IndexOf(resources.First(r => r.Order == studentParentUpdate.Order))
+                , studentParentUpdate);
+        }
+
+        private static void ParseStaff(IList<ResourceLoadOrder> resources)
+        {
+            // StaffEducationOrganizationEmploymentAssociation or StaffEducationOrganizationAssignmentAssociation
+            //must be created before Staff can be updated.
+            var staffCreate = resources
+                .Single(r => r.Resource == "/ed-fi/staffs");
+
+            var staffEducationOrganizationEmploymentAssociation = resources
+                .Single(r => r.Resource == "/ed-fi/staffEducationOrganizationEmploymentAssociations");
+
+            var staffEducationOrganizationAssignmentAssociation = resources
+                .Single(r => r.Resource == "/ed-fi/staffEducationOrganizationAssignmentAssociations");
+
+            var highestOrder = staffEducationOrganizationAssignmentAssociation.Order >
+                               staffEducationOrganizationEmploymentAssociation.Order
+                ? staffEducationOrganizationAssignmentAssociation.Order
+                : staffEducationOrganizationEmploymentAssociation.Order;
+
+            var staffUpdate = new ResourceLoadOrder()
+            {
+                Resource = staffCreate.Resource,
+                Order = highestOrder + 1,
+                Operations = new List<string> { "Update" }
+            };
+
+            staffCreate.Operations.Remove("Update");
+
+            resources.Insert(
+                resources.IndexOf(resources.First(r => r.Order == staffUpdate.Order))
+                , staffUpdate
+            );
+        }
+
+        private static void ParseStudents(IList<ResourceLoadOrder> resources)
+        {
+            var studentCreate = resources
+                .Single(r => r.Resource == "/ed-fi/students");
+
+            var studentSchoolAssociation = resources
+                .Single(r => r.Resource == "/ed-fi/studentSchoolAssociations");
+
+            var studentUpdate = new ResourceLoadOrder()
+            {
+                Resource = studentCreate.Resource,
+                Order = studentSchoolAssociation.Order + 1,
+                Operations = new List<string> {"Update"}
+            };
+
+            studentCreate.Operations.Remove("Update");
+
+            resources.Insert(
+                resources.IndexOf(resources.First(r => r.Order == studentUpdate.Order))
+                , studentUpdate
+            );
+        }
     }
 }
