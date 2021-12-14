@@ -161,17 +161,6 @@ namespace EdFi.Ods.Features.Controllers
                 resources.IndexOf(resources.First(r => r.Order == parentUpdate.Order))
                 , parentUpdate
             );
-
-            var studentParentUpdate = new ResourceLoadOrder
-            {
-                Resource = studentParentAssociation.Resource,
-                Order = studentSchoolAssociation.Order + 1,
-                Operations = new List<string> { "Update" }
-            };
-            studentParentAssociation.Operations.Remove("Update");
-            resources.Insert(
-                resources.IndexOf(resources.First(r => r.Order == studentParentUpdate.Order))
-                , studentParentUpdate);
         }
 
         private static void ParseStaff(IList<ResourceLoadOrder> resources)
