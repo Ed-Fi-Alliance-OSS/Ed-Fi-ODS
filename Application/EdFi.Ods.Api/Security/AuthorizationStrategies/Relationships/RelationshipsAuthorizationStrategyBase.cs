@@ -208,6 +208,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
             var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, null);
 
+            foreach (var authorizationSegment in authorizationSegments)
+            {
+                authorizationSegment.AuthorizationStrategyName = this.GetType().Name;
+            }
+            
             // Convert segments to general-purpose filters
             return AuthorizationSegmentsToFiltersConverter.Convert(authorizationSegments);
         }

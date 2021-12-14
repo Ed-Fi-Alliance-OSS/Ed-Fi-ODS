@@ -86,6 +86,10 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 string GetAuthorizationFailureMessage()
                 {
+                    string authorizationStrategyName = authorizationSegments.Select(x => x.AuthorizationStrategyName)
+                        .Distinct()
+                        .SingleOrDefault();
+                    
                     string[] claimEndpointNames =
                         authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Select(x => x.Name)
                             .Distinct()
@@ -130,12 +134,12 @@ namespace EdFi.Ods.Api.Security.Authorization
                     {
                         return $"Authorization denied. No relationships have been established between the caller's education "
                             + $"organization id {claimOrClaims} ({claimValueOrValues} [{claimEndpointValuesText}] of {typeOrTypes} {claimEndpointNamesText}) and the requested resource's "
-                            + $"{subjectEndpointNamesText} value.";
+                            + $"{subjectEndpointNamesText} value. (Authorization Strategy: {authorizationStrategyName})";
                     }
 
                     return $"Authorization denied. No relationships have been established between the caller's education "
                         + $"organization id {claimOrClaims} ({claimValueOrValues} [{claimEndpointValuesText}] of {typeOrTypes} {claimEndpointNamesText}) and one of the following properties of "
-                        + $"the requested resource: {subjectEndpointNamesText}";
+                        + $"the requested resource: {subjectEndpointNamesText}. (Authorization Strategy: {authorizationStrategyName})";
                 }
             }
         }

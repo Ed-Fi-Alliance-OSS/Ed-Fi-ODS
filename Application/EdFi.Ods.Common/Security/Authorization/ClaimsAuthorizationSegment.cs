@@ -74,6 +74,11 @@ namespace EdFi.Ods.Common.Security.Authorization
         public string AuthorizationPathModifier { get; }
 
         /// <summary>
+        /// Gets or sets the authorization strategy that created the segment. 
+        /// </summary>
+        public string AuthorizationStrategyName { get; set; }
+        
+        /// <summary>
         /// Returns a text representation of the claims authorization segment.
         /// </summary>
         /// <returns>A representation of the claims authorization segment.</returns>

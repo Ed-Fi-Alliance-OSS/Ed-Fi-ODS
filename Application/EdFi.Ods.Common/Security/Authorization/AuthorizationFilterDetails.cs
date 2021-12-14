@@ -31,5 +31,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// The values associated with the API client's claim.
         /// </summary>
         public object[] ClaimValues { get; set; }
+
+        public string AuthorizationStrategyName { get; set; }
     }
 }

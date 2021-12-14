@@ -50,6 +50,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                             SubjectEndpointName = subjectEndpointName,
                             ClaimEndpointName = claimEndpointName,
                             ClaimValues = g.Select(x => x.Value).Distinct().ToArray(),
+                            AuthorizationStrategyName = segment.AuthorizationStrategyName
                         };
                     });
 
