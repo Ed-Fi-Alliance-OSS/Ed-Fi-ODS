@@ -144,9 +144,7 @@ namespace EdFi.Ods.Features.Controllers
             var studentSchoolAssociation = resources
                 .Single(r => r.Resource == "/ed-fi/studentSchoolAssociations");
 
-            var higherOrder = studentParentAssociation.Order > studentSchoolAssociation.Order
-                ? studentParentAssociation.Order
-                : studentSchoolAssociation.Order;
+            var higherOrder = Math.Max(studentParentAssociation.Order, studentSchoolAssociation.Order);
 
             var parentUpdate = new ResourceLoadOrder
             {
@@ -176,10 +174,8 @@ namespace EdFi.Ods.Features.Controllers
             var staffEducationOrganizationAssignmentAssociation = resources
                 .Single(r => r.Resource == "/ed-fi/staffEducationOrganizationAssignmentAssociations");
 
-            var highestOrder = staffEducationOrganizationAssignmentAssociation.Order >
-                               staffEducationOrganizationEmploymentAssociation.Order
-                ? staffEducationOrganizationAssignmentAssociation.Order
-                : staffEducationOrganizationEmploymentAssociation.Order;
+            var highestOrder = Math.Max(
+                staffEducationOrganizationAssignmentAssociation.Order, staffEducationOrganizationEmploymentAssociation.Order);
 
             var staffUpdate = new ResourceLoadOrder()
             {
