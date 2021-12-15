@@ -125,18 +125,23 @@ namespace EdFi.Ods.Features.Controllers
 
         private static void ModifyLoadOrderForAuthorizationConcerns(IList<ResourceLoadOrder> resources)
         {
-            ParseStudents(resources);
-            ParseStaff(resources);
-            ParseParent(resources);
+            ApplyStudentTransformation(resources);
+            ApplyStaffTransformation(resources);
+            ApplyParentTransformation(resources);
         }
 
-        private static void ParseParent(IList<ResourceLoadOrder> resources)
+        private static void ApplyParentTransformation(IList<ResourceLoadOrder> resources)
         {
             // StudentParentAssociation must be created before Parents can be updated.
             // StudentSchoolAssociation must be created before Parents can be updated.
             // StudentSchoolAssociation must be created before ParentAssociations can be updated.
             var parentCreate = resources
-                .Single(r => r.Resource == "/ed-fi/parents");
+                .SingleOrDefault(r => r.Resource == "/ed-fi/parents");
+
+            if (parentCreate == null)
+            {
+                return;
+            }
 
             var studentParentAssociation = resources
                 .Single(r => r.Resource == "/ed-fi/studentParentAssociations");
@@ -156,17 +161,22 @@ namespace EdFi.Ods.Features.Controllers
             parentCreate.Operations.Remove("Update");
 
             resources.Insert(
-                resources.IndexOf(resources.First(r => r.Order == parentUpdate.Order))
+                resources.IndexOf(resources.FirstOrDefault(r => r.Order == parentUpdate.Order) ?? resources[^1])
                 , parentUpdate
             );
         }
 
-        private static void ParseStaff(IList<ResourceLoadOrder> resources)
+        private static void ApplyStaffTransformation(IList<ResourceLoadOrder> resources)
         {
             // StaffEducationOrganizationEmploymentAssociation or StaffEducationOrganizationAssignmentAssociation
             //must be created before Staff can be updated.
             var staffCreate = resources
-                .Single(r => r.Resource == "/ed-fi/staffs");
+                .SingleOrDefault(r => r.Resource == "/ed-fi/staffs");
+
+            if (staffCreate == null)
+            {
+                return;
+            }
 
             var staffEducationOrganizationEmploymentAssociation = resources
                 .Single(r => r.Resource == "/ed-fi/staffEducationOrganizationEmploymentAssociations");
@@ -187,15 +197,21 @@ namespace EdFi.Ods.Features.Controllers
             staffCreate.Operations.Remove("Update");
 
             resources.Insert(
-                resources.IndexOf(resources.First(r => r.Order == staffUpdate.Order))
+                resources.IndexOf(resources.FirstOrDefault(r => r.Order == staffUpdate.Order) ?? resources[^1])
                 , staffUpdate
             );
         }
 
-        private static void ParseStudents(IList<ResourceLoadOrder> resources)
+        private static void ApplyStudentTransformation(IList<ResourceLoadOrder> resources)
         {
             var studentCreate = resources
-                .Single(r => r.Resource == "/ed-fi/students");
+                .SingleOrDefault(r => r.Resource == "/ed-fi/students");
+
+            if (studentCreate == null)
+            {
+                return;
+            }
+
 
             var studentSchoolAssociation = resources
                 .Single(r => r.Resource == "/ed-fi/studentSchoolAssociations");
@@ -204,13 +220,13 @@ namespace EdFi.Ods.Features.Controllers
             {
                 Resource = studentCreate.Resource,
                 Order = studentSchoolAssociation.Order + 1,
-                Operations = new List<string> {"Update"}
+                Operations = new List<string> { "Update" }
             };
 
             studentCreate.Operations.Remove("Update");
 
             resources.Insert(
-                resources.IndexOf(resources.First(r => r.Order == studentUpdate.Order))
+                resources.IndexOf(resources.FirstOrDefault(r => r.Order == studentUpdate.Order) ?? resources[^1])
                 , studentUpdate
             );
         }
