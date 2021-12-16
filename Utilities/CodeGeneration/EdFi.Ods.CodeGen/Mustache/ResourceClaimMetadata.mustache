@@ -473,8 +473,33 @@ INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies]
 SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
-    WHERE A.ActionName IN ('Read','Create','Update','Delete')
-    AND RC.ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person','people')
+    WHERE A.ActionName IN ('Read')
+    AND RC.ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person')
+
+UNION
+
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Create')
+    AND RC.ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
+
+UNION
+
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Update')
+    AND RC.ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
+
+UNION
+
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Delete')
+    AND RC.ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
+
 
 /* NamespaceBased */
 
@@ -487,8 +512,16 @@ INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies]
 SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
-    WHERE A.ActionName IN ('Read','Create','Update','Delete')
-    AND RC.ResourceName IN ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain','systemDescriptors', 'managedDescriptors')
+    WHERE A.ActionName IN ('Read')
+    AND RC.ResourceName IN ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain' )
+
+UNION
+
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Create', 'Update', 'Delete')
+    AND RC.ResourceName IN ('systemDescriptors', 'managedDescriptors', 'assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain')
 
 
 /* RelationshipsWithEdOrgsAndPeople */
@@ -498,11 +531,25 @@ SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[A
 INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies]
     ([ResourceClaimActionId]
     ,[AuthorizationStrategyId])
+
 SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
-    WHERE A.ActionName IN ('Read','Create','Update','Delete')
+    WHERE A.ActionName IN ('Read', 'Update')
     AND RC.ResourceName IN ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData')
+UNION
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Create')
+    AND RC.ResourceName IN ('relationshipBasedData')
+UNION
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Delete')
+    AND RC.ResourceName IN ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships')
+
 
 
 /* RelationshipsWithStudentsOnly */
@@ -539,51 +586,48 @@ SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[Resource
 /* Bootstrap Descriptors and EdOrgs Claims */
 
 SELECT @AuthorizationStrategyId = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
+
 INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
     ([ClaimSetResourceClaimActionId]
     ,[AuthorizationStrategyId])
 
+
+SELECT CSRCAA.ClaimSetResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ClaimSetResourceClaimActions] CSRCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =CSRCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = CSRCAA.ActionId
+    WHERE A.ActionName IN ('Create','Read','Update','Delete')
+    AND RC.ResourceName IN ('communityProviderLicense')
+
+UNION
 
 SELECT CSRCAA.ClaimSetResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ClaimSetResourceClaimActions] CSRCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =CSRCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = CSRCAA.ActionId
     WHERE A.ActionName IN ('Create')
     AND RC.ResourceName IN (
-        'systemDescriptors',
-        'managedDescriptors',
-        'educationOrganizations',
-        -- from Interchange-Standards.xml
-        'learningObjective',
-        'learningStandard',
-        'learningStandardEquivalenceAssociation',
-        -- from Interchange-EducationOrganization.xml
-        'accountabilityRating',
-        'classPeriod',
-        'communityOrganization',
-        'communityProvider',
-        'communityProviderLicense',
-        'course',
-        'educationOrganizationNetwork',
-        'educationOrganizationNetworkAssociation',
-        'educationOrganizationPeerAssociation',
-        'educationServiceCenter',
-        'feederSchoolAssociation',
-        'localEducationAgency',
-        'location',
-        'postSecondaryInstitution',
-        'program',
-        'school',
-        'stateEducationAgency'
-    )
-
-
-SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
-INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
-    ([ClaimSetResourceClaimActionId]
-    ,[AuthorizationStrategyId])
-
-SELECT CSRCAA.ClaimSetResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ClaimSetResourceClaimActions] CSRCAA
-    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =CSRCAA.ResourceClaimId
-    INNER JOIN [dbo].[Actions] A on A.ActionId = CSRCAA.ActionId
-    WHERE A.ActionName IN ('Read','Update','Delete')
-    AND RC.ResourceName IN ('communityProviderLicense')
+    'systemDescriptors',
+    'managedDescriptors',
+    'educationOrganizations',
+    -- from Interchange-Standards.xml
+    'learningObjective',
+    'learningStandard',
+    'learningStandardEquivalenceAssociation',
+    -- from Interchange-EducationOrganization.xml
+    'accountabilityRating',
+    'classPeriod',
+    'communityOrganization',
+    'communityProvider',
+    'communityProviderLicense',
+    'course',
+    'educationOrganizationNetwork',
+    'educationOrganizationNetworkAssociation',
+    'educationOrganizationPeerAssociation',
+    'educationServiceCenter',
+    'feederSchoolAssociation',
+    'localEducationAgency',
+    'location',
+    'postSecondaryInstitution',
+    'program',
+    'school',
+    'stateEducationAgency'
+)
