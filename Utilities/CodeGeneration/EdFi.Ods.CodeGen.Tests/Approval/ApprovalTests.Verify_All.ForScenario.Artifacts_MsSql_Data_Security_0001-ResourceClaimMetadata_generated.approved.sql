@@ -1121,8 +1121,8 @@ CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Create')) AS ac
-WHERE ResourceName IN ( 'people', 'relationshipBasedData',
-    'assessmentMetadata',  'primaryRelationships', 'educationStandards',
+WHERE ResourceName IN ( 'educationOrganizations', 'people', 'relationshipBasedData',
+    'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
     'educationContent', 'surveyDomain');
 
 /* EdFi Sandbox Claims with Overrides */

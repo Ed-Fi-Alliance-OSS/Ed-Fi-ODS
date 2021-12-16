@@ -1132,8 +1132,8 @@ begin
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ( 'people', 'relationshipBasedData',
-    'assessmentMetadata',  'primaryRelationships', 'educationStandards',
+    where ResourceName IN ( 'educationOrganizations','people', 'relationshipBasedData',
+    'assessmentMetadata', 'managedDescriptors',  'primaryRelationships', 'educationStandards',
     'educationContent', 'surveyDomain');
 
     /* EdFi Sandbox Claims with Overrides */
