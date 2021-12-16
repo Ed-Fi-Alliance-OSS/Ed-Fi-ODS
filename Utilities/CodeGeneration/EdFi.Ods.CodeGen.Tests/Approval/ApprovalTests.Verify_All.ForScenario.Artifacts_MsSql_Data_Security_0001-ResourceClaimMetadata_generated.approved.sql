@@ -1060,11 +1060,24 @@ FROM [dbo].[ResourceClaims]
 CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
-    WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
+    WHERE ActionName IN ('Read','Update','Delete')) AS ac
 WHERE ResourceName IN ('people'
     , 'relationshipBasedData'
     , 'assessmentMetadata'
     , 'managedDescriptors'
+    , 'primaryRelationships'
+    , 'educationStandards'
+    , 'educationContent')
+UNION
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create')) AS ac
+WHERE ResourceName IN ('people'
+    , 'relationshipBasedData'
+    , 'assessmentMetadata'
     , 'primaryRelationships'
     , 'educationStandards'
     , 'educationContent');
@@ -1098,9 +1111,18 @@ SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null  FROM [dbo].[ResourceClai
 CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
-    WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
+    WHERE ActionName IN ('Read','Update','Delete')) AS ac
 WHERE ResourceName IN ('systemDescriptors', 'educationOrganizations', 'people', 'relationshipBasedData',
     'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
+    'educationContent', 'surveyDomain')
+UNION
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null  FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create')) AS ac
+WHERE ResourceName IN ( 'people', 'relationshipBasedData',
+    'assessmentMetadata',  'primaryRelationships', 'educationStandards',
     'educationContent', 'surveyDomain');
 
 /* EdFi Sandbox Claims with Overrides */
@@ -1203,21 +1225,12 @@ WHERE ResourceName IN (
     -- from Interchange-EducationOrganization.xml
     'accountabilityRating',
     'classPeriod',
-    'communityOrganization',
-    'communityProvider',
     'communityProviderLicense',
     'course',
-    'educationOrganizationNetwork',
-    'educationOrganizationNetworkAssociation',
     'educationOrganizationPeerAssociation',
-    'educationServiceCenter',
     'feederSchoolAssociation',
-    'localEducationAgency',
     'location',
-    'postSecondaryInstitution',
-    'program',
-    'school',
-    'stateEducationAgency'
+    'program'
 );
 
 /* --------------------------------- */

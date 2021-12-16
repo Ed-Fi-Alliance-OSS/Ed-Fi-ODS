@@ -1070,14 +1070,27 @@ begin
     inner join lateral
         (select ActionId
         from dbo.Actions
-        where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+        where ActionName IN ('Read','Update','Delete')) as ac on true
     where ResourceName IN ('people'
         , 'relationshipBasedData'
         , 'assessmentMetadata'
         , 'managedDescriptors'
         , 'primaryRelationships'
         , 'educationStandards'
-        , 'educationContent');
+        , 'educationContent')
+    union
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create')) as ac on true
+    where ResourceName IN ('people'
+    , 'relationshipBasedData'
+    , 'assessmentMetadata'
+    , 'primaryRelationships'
+    , 'educationStandards'
+    , 'educationContent');
 
     /* EdFi Sandbox Claims */
     select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Ed-Fi Sandbox';
@@ -1108,10 +1121,20 @@ begin
     inner join lateral
         (select ActionId
         from dbo.Actions
-        where ActionName IN ('Create','Read','Update','Delete')) as ac on true
+        where ActionName IN ('Read','Update','Delete')) as ac on true
     where ResourceName IN ('systemDescriptors', 'educationOrganizations', 'people', 'relationshipBasedData',
         'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
-        'educationContent', 'surveyDomain');
+        'educationContent', 'surveyDomain')
+     union
+    select ac.ActionId, claim_set_id, ResourceClaimId, cast(null as int)
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName IN ('Create')) as ac on true
+    where ResourceName IN ( 'people', 'relationshipBasedData',
+    'assessmentMetadata',  'primaryRelationships', 'educationStandards',
+    'educationContent', 'surveyDomain');
 
     /* EdFi Sandbox Claims with Overrides */
 
@@ -1201,31 +1224,22 @@ begin
         from dbo.Actions
         where ActionName IN ('Create')) as ac on true
     where ResourceName IN (
-        'systemDescriptors',
-        'managedDescriptors',
-        'educationOrganizations',
-        -- from Interchange-Standards.xml
-        'learningObjective',
-        'learningStandard',
-        'learningStandardEquivalenceAssociation',
-        -- from Interchange-EducationOrganization.xml
-        'accountabilityRating',
-        'classPeriod',
-        'communityOrganization',
-        'communityProvider',
-        'communityProviderLicense',
-        'course',
-        'educationOrganizationNetwork',
-        'educationOrganizationNetworkAssociation',
-        'educationOrganizationPeerAssociation',
-        'educationServiceCenter',
-        'feederSchoolAssociation',
-        'localEducationAgency',
-        'location',
-        'postSecondaryInstitution',
-        'program',
-        'school',
-        'stateEducationAgency'
+    'systemDescriptors',
+    'managedDescriptors',
+    'educationOrganizations',
+    -- from Interchange-Standards.xml
+    'learningObjective',
+    'learningStandard',
+    'learningStandardEquivalenceAssociation',
+    -- from Interchange-EducationOrganization.xml
+    'accountabilityRating',
+    'classPeriod',
+    'communityProviderLicense',
+    'course',
+    'educationOrganizationPeerAssociation',
+    'feederSchoolAssociation',
+    'location',
+    'program'
     );
 
 end $$;
