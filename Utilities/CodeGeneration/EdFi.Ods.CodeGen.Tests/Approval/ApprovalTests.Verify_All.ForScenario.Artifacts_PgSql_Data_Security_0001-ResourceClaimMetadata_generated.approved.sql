@@ -1132,7 +1132,7 @@ begin
         (select ActionId
         from dbo.Actions
         where ActionName IN ('Create')) as ac on true
-    where ResourceName IN ( 'educationOrganizations','people', 'relationshipBasedData',
+    where ResourceName IN ('systemDescriptors','educationOrganizations','people', 'relationshipBasedData',
     'assessmentMetadata', 'managedDescriptors',  'primaryRelationships', 'educationStandards',
     'educationContent', 'surveyDomain');
 

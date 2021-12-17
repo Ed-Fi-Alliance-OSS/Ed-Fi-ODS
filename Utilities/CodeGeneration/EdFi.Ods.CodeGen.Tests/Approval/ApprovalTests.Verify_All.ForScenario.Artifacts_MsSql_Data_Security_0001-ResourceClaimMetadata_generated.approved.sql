@@ -1121,7 +1121,7 @@ CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Create')) AS ac
-WHERE ResourceName IN ( 'educationOrganizations', 'people', 'relationshipBasedData',
+WHERE ResourceName IN ('systemDescriptors', 'educationOrganizations', 'people', 'relationshipBasedData',
     'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
     'educationContent', 'surveyDomain');
 
