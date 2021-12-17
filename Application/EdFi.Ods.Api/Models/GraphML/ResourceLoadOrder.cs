@@ -13,9 +13,10 @@ namespace EdFi.Ods.Api.Models.GraphML
 
         public int Order { get; set; }
 
-        public IReadOnlyList<string> Operations
+        public IList<string> Operations { get; set; } = new List<string>
         {
-            get => new [] {"Create"};
-        }
+            "Create",
+            "Update"
+        };
     }
 }
