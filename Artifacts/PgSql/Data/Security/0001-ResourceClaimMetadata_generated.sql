@@ -1512,6 +1512,7 @@ end $$;
 /* Bootstrap Descriptors and EdOrgs Claims */
 
 do $$
+    declare claim_set_id int;
     declare authorization_strategy_id int;
 begin
 
@@ -1519,19 +1520,30 @@ select AuthorizationStrategyId into authorization_strategy_id
 from dbo.AuthorizationStrategies
 where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
+select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Ed-Fi Sandbox';
+
 insert into dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     (ClaimSetResourceClaimActionId
     ,AuthorizationStrategyId)
 select CSRCAA.ClaimSetResourceClaimActionId,authorization_strategy_id FROM  dbo.ClaimSetResourceClaimActions CSRCAA
     inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =CSRCAA.ResourceClaimId
     inner join dbo.Actions A on A.ActionId = CSRCAA.ActionId
-    where A.ActionName in ('Create','Read','Update','Delete')
+    inner join dbo.ClaimSets CS on CS.ClaimSetId = CSRCAA.ClaimSetId
+    where CS.ClaimSetId =claim_set_id
+    and A.ActionName in ('Create','Read','Update','Delete')
     and RC.ResourceName in ('communityProviderLicense')
-	union
-	select CSRCAA.ClaimSetResourceClaimActionId,authorization_strategy_id FROM  dbo.ClaimSetResourceClaimActions CSRCAA
+
+select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Bootstrap Descriptors and EdOrgs';
+
+insert into dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    (ClaimSetResourceClaimActionId
+    ,AuthorizationStrategyId)
+select CSRCAA.ClaimSetResourceClaimActionId,authorization_strategy_id FROM  dbo.ClaimSetResourceClaimActions CSRCAA
     inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =CSRCAA.ResourceClaimId
     inner join dbo.Actions A on A.ActionId = CSRCAA.ActionId
-    where A.ActionName in ('Create')
+    inner join dbo.ClaimSets CS on CS.ClaimSetId = CSRCAA.ClaimSetId
+    where CS.ClaimSetId =claim_set_id
+    and A.ActionName in ('Create')
     and RC.ResourceName in (
 	'systemDescriptors',
     'managedDescriptors',
