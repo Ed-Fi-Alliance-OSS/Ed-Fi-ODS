@@ -1514,7 +1514,6 @@ end $$;
 do $$
     declare claim_set_id int;
     declare authorization_strategy_id int;
-
 begin
 
 select AuthorizationStrategyId into authorization_strategy_id
