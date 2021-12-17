@@ -37,7 +37,7 @@ namespace EdFi.LoadTools.Engine.MappingFactories
                     j =>
                         new
                         {
-                            x, j, m = x.PercentMatchTo(j)
+                            x, j, m = x.ToUpperInvariant().PercentMatchTo(j.ToUpperInvariant())
                         }
                 )).OrderByDescending(o => o.m).ToList();
 
