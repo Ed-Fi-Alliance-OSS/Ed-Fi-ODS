@@ -1533,6 +1533,9 @@ select CSRCAA.ClaimSetResourceClaimActionId,authorization_strategy_id FROM  dbo.
     inner join dbo.Actions A on A.ActionId = CSRCAA.ActionId
     where A.ActionName in ('Create')
     and RC.ResourceName in (
+	'systemDescriptors',
+    'managedDescriptors',
+    'educationOrganizations',
     -- from Interchange-Standards.xml
     'learningObjective',
     'learningStandard',
