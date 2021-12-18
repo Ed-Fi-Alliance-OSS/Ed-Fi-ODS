@@ -55,7 +55,7 @@ namespace EdFi.Admin.DataAccess.Models
         public string Key { get; set; }
 
         /// <summary>
-        /// 128-bit crypto-strength string 
+        /// 128-bit crypto-strength string
         /// </summary>
         [Required]
         [StringLength(100)]
@@ -96,7 +96,7 @@ namespace EdFi.Admin.DataAccess.Models
         public string Status { get; set; }
 
         /// <summary>
-        /// Indicates client access status to the key. 
+        /// Indicates client access status to the key.
         /// "Not Sent": credentials has not been sent to the client yet
         /// "Sent": challenge has been sent to the client and waiting for activation
         /// "Active": client has successfully retrieved the credentials
@@ -120,12 +120,12 @@ namespace EdFi.Admin.DataAccess.Models
         public string ActivationCode { get; set; }
 
         /// <summary>
-        /// Number of retries client has done to get the credentials. 
+        /// Number of retries client has done to get the credentials.
         /// </summary>
         public int? ActivationRetried { get; set; }
 
         /// <summary>
-        /// Have a reference to OwnershipToken table ownershiptokenid for specific apiclient. 
+        /// Have a reference to OwnershipToken table ownershiptokenid for specific apiclient.
         /// </summary>
         public virtual OwnershipToken CreatorOwnershipTokenId { get; set; }
 
@@ -153,18 +153,18 @@ namespace EdFi.Admin.DataAccess.Models
         public Dictionary<string, string> Domains { get; set; }
 
         /// <summary>
-        /// Method to generate a new secret 128-bit crypto-strength random number 
+        /// Method to generate a new secret 128-bit crypto-strength random number
         /// and returns the new secret for display or other purposes.
         /// </summary>
         /// <param name="length">The length of the string to be generated</param>
-        /// <returns>Random string with only alphanumeric values (no '+' or '/')</returns>        
+        /// <returns>Random string with only alphanumeric values (no '+' or '/')</returns>
         private static string GenerateRandomString(int length = 24)
         {
             string result;
             var numBytes = (length + 3) / 4 * 3;
             var bytes = new byte[numBytes];
 
-            using (var rng = new RNGCryptoServiceProvider())
+            using (var rng = RandomNumberGenerator.Create())
             {
                 do
                 {
