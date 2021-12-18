@@ -53,6 +53,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Environment = NHibernate.Cfg.Environment;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -64,7 +65,7 @@ namespace EdFi.Ods.Api.Startup
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
         {
-            Configuration = (IConfigurationRoot) configuration;
+            Configuration = (IConfigurationRoot)configuration;
 
             ApiSettings = new ApiSettings();
 
@@ -97,7 +98,9 @@ namespace EdFi.Ods.Api.Startup
             services.AddScoped(
                 serviceProvider =>
                 {
-                    var actionContext = serviceProvider.GetRequiredService<IActionContextAccessor>().ActionContext;
+                    var actionContext = serviceProvider.GetRequiredService<IActionContextAccessor>()
+                        .ActionContext;
+
                     var factory = serviceProvider.GetRequiredService<IUrlHelperFactory>();
                     return factory.GetUrlHelper(actionContext);
                 });
@@ -223,18 +226,22 @@ namespace EdFi.Ods.Api.Startup
 
                     if (type.IsSubclassOf(typeof(ConditionalModule)))
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type, ApiSettings));
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type, ApiSettings));
                     }
                     else
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type));
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type));
                     }
                 }
             }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ApiSettings apiSettings)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            ILoggerFactory loggerFactory,
+            ApiSettings apiSettings)
         {
             if (!string.IsNullOrEmpty(apiSettings.PathBase))
             {
@@ -250,12 +257,25 @@ namespace EdFi.Ods.Api.Startup
                 app.UseDeveloperExceptionPage();
             }
 
+            var apiMode = ApiSettings.GetApiMode();
+
             app.UseRouting();
+
+            if (ApiSettings.IsFeatureEnabled(ApiFeature.Profiles.GetConfigKeyName()) &&
+                ApiSettings.IsFeatureEnabled(ApiFeature.UseExplicitProfiles.GetConfigKeyName()))
+            {
+                app.UseExplicitProfiles();
+            }
+
+            if (apiMode == ApiMode.YearSpecific || apiMode == ApiMode.InstanceYearSpecific)
+            {
+                _logger.Debug("Installing SchoolYearContext Middleware");
+                app.UseSchoolYearRouteContext();
+            }
+
             app.UseStaticFiles();
 
             app.UseCors(CorsPolicyName);
-
-            var apiMode = ApiSettings.GetApiMode();
 
             if (apiMode == ApiMode.YearSpecific || apiMode == ApiMode.InstanceYearSpecific)
             {
@@ -267,6 +287,8 @@ namespace EdFi.Ods.Api.Startup
                 app.UseInstanceIdSpecificRouteContext();
             }
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseEdFiApiAuthentication();
             app.UseAuthorization();
 
@@ -339,7 +361,7 @@ namespace EdFi.Ods.Api.Startup
                 DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
 
                 // Set NHibernate to use Autofac to resolve its dependencies
-                NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
+                Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
         }
 
