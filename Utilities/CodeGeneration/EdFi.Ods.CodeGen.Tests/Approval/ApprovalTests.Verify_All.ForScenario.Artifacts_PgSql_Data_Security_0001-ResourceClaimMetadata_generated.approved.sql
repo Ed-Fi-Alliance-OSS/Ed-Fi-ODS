@@ -1393,7 +1393,7 @@ begin
     inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
     inner join dbo.Actions A on A.ActionId = RCAA.ActionId
     where A.ActionName IN ('Read')
-    AND RC.ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person')
+    and RC.ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person')
 
     union
 
@@ -1401,7 +1401,7 @@ begin
         inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
         inner join dbo.Actions A on A.ActionId = RCAA.ActionId
         where A.ActionName IN ('Create')
-        AND RC.ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
+        and RC.ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
 
     union
 
@@ -1409,7 +1409,7 @@ begin
         inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
         inner join dbo.Actions A on A.ActionId = RCAA.ActionId
         where A.ActionName IN ('Update')
-        AND RC.ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
+        and RC.ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
 
     union
 
@@ -1417,7 +1417,7 @@ begin
         inner join dbo.ResourceClaims RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
         inner join dbo.Actions A on A.ActionId = RCAA.ActionId
         where A.ActionName IN ('Delete')
-        AND RC.ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
+        and RC.ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
 
 
 /* NamespaceBased */
@@ -1529,9 +1529,9 @@ select CSRCAA.ClaimSetResourceClaimActionId,authorization_strategy_id FROM  dbo.
     inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =CSRCAA.ResourceClaimId
     inner join dbo.Actions A on A.ActionId = CSRCAA.ActionId
     inner join dbo.ClaimSets CS on CS.ClaimSetId = CSRCAA.ClaimSetId
-    where CS.ClaimSetId =claim_set_id
+    where CS.ClaimSetId = claim_set_id
     and A.ActionName in ('Create','Read','Update','Delete')
-    and RC.ResourceName in ('communityProviderLicense')
+    and RC.ResourceName in ('communityProviderLicense');
 
 select ClaimSetId INTO claim_set_id from dbo.ClaimSets where ClaimSetName = 'Bootstrap Descriptors and EdOrgs';
 
@@ -1542,7 +1542,7 @@ select CSRCAA.ClaimSetResourceClaimActionId,authorization_strategy_id FROM  dbo.
     inner join dbo.ResourceClaims RC on  RC.ResourceClaimId =CSRCAA.ResourceClaimId
     inner join dbo.Actions A on A.ActionId = CSRCAA.ActionId
     inner join dbo.ClaimSets CS on CS.ClaimSetId = CSRCAA.ClaimSetId
-    where CS.ClaimSetId =claim_set_id
+    where CS.ClaimSetId = claim_set_id
     and A.ActionName in ('Create')
     and RC.ResourceName in (
 	'systemDescriptors',
