@@ -89,6 +89,8 @@ namespace EdFi.Ods.Api.Startup
         {
             _logger.Debug("Building services collection");
 
+            var databaseEngine = Configuration["ApiSettings:Engine"];
+
             services.AddSingleton(ApiSettings);
             services.AddSingleton(Configuration);
 
@@ -192,7 +194,11 @@ namespace EdFi.Ods.Api.Startup
                                                    & ForwardedHeaders.XForwardedProto;
                     });
             }
+
+            services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(databaseEngine));
         }
+
+        private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.InvariantCultureIgnoreCase);
 
         // This method gets called by the runtime. Use this method to add services to the container.
 
@@ -282,8 +288,12 @@ namespace EdFi.Ods.Api.Startup
             }
 
             // required to get the base controller working
-            app.UseEndpoints(
-                endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints => 
+            { 
+                endpoints.MapControllers();
+
+                endpoints.MapHealthChecks("/health");
+            });
 
             SetStaticResolvers();
 
