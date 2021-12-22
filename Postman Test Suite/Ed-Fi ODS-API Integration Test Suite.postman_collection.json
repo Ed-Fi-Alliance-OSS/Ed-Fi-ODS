@@ -7,6 +7,58 @@
 	},
 	"item": [
 		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "api_is_healthy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a194cbc-1794-4604-88de-f09172283ace",
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"pm.test(\"Should return string Healthy\", () => {",
+									"    ",
+									"     pm.response.to.have.body(\"Healthy\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{ApiBaseUrl}}/health",
+							"host": [
+								"{{ApiBaseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "This api get method checks the health of API application"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {},
+			"_postman_isSubFolder": true
+		},
+		{
 			"name": "Initialize Known Data",
 			"item": [
 				{
