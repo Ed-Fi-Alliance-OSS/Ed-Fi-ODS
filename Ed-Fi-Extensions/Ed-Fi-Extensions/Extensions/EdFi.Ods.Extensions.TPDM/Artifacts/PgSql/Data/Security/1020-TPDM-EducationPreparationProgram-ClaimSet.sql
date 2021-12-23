@@ -13,7 +13,7 @@ BEGIN
     SELECT ClaimSetId INTO claim_set_id FROM dbo.ClaimSets WHERE ClaimSetName = claim_set_name;
 
     --Create CRUD action claims for all ClaimNames in @resourceClaimNames
-    INSERT INTO dbo.ClaimSetResourceClaims (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ActionId, ClaimSetId, ResourceClaimId)
     SELECT act.ActionId, claim_set_id, ResourceClaimId
     FROM dbo.ResourceClaims RC
     INNER JOIN LATERAL (
@@ -35,7 +35,7 @@ BEGIN
     );
 
     --Create R action claim for systemDescriptors
-    INSERT INTO dbo.ClaimSetResourceClaims (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ActionId, ClaimSetId, ResourceClaimId)
     SELECT (SELECT ActionId FROM dbo.Actions WHERE ActionName = 'Read'), claim_set_id, ResourceClaimId
     FROM dbo.ResourceClaims RC
     WHERE RC.ResourceName = 'systemDescriptors';
