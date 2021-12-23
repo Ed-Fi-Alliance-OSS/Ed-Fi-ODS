@@ -1060,7 +1060,21 @@ FROM [dbo].[ResourceClaims]
 CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
-    WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
+    WHERE ActionName IN ('Read','Update','Delete')) AS ac
+WHERE ResourceName IN ('people'
+    , 'relationshipBasedData'
+    , 'assessmentMetadata'
+    , 'managedDescriptors'
+    , 'primaryRelationships'
+    , 'educationStandards'
+    , 'educationContent')
+UNION
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create')) AS ac
 WHERE ResourceName IN ('people'
     , 'relationshipBasedData'
     , 'assessmentMetadata'
@@ -1098,7 +1112,16 @@ SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null  FROM [dbo].[ResourceClai
 CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
-    WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
+    WHERE ActionName IN ('Read','Update','Delete')) AS ac
+WHERE ResourceName IN ('systemDescriptors', 'educationOrganizations', 'people', 'relationshipBasedData',
+    'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
+    'educationContent', 'surveyDomain')
+UNION
+SELECT ac.ActionId, @ClaimSetId, ResourceClaimId, null  FROM [dbo].[ResourceClaims]
+CROSS APPLY
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create')) AS ac
 WHERE ResourceName IN ('systemDescriptors', 'educationOrganizations', 'people', 'relationshipBasedData',
     'assessmentMetadata', 'managedDescriptors', 'primaryRelationships', 'educationStandards',
     'educationContent', 'surveyDomain');
@@ -1203,21 +1226,12 @@ WHERE ResourceName IN (
     -- from Interchange-EducationOrganization.xml
     'accountabilityRating',
     'classPeriod',
-    'communityOrganization',
-    'communityProvider',
     'communityProviderLicense',
     'course',
-    'educationOrganizationNetwork',
-    'educationOrganizationNetworkAssociation',
     'educationOrganizationPeerAssociation',
-    'educationServiceCenter',
     'feederSchoolAssociation',
-    'localEducationAgency',
     'location',
-    'postSecondaryInstitution',
-    'program',
-    'school',
-    'stateEducationAgency'
+    'program'
 );
 
 /* --------------------------------- */
@@ -1359,8 +1373,33 @@ INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies]
 SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
-    WHERE A.ActionName IN ('Read','Create','Update','Delete')
-    AND RC.ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person','people')
+    WHERE A.ActionName IN ('Read')
+    AND RC.ResourceName IN ('types', 'systemDescriptors', 'educationOrganizations', 'course', 'managedDescriptors', 'identity', 'credential', 'person')
+
+UNION
+
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Create')
+    AND RC.ResourceName IN ('educationOrganizations', 'credential', 'people', 'identity', 'person')
+
+UNION
+
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Update')
+    AND RC.ResourceName IN ('educationOrganizations', 'identity', 'credential', 'person' )
+
+UNION
+
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Delete')
+    AND RC.ResourceName IN ('educationOrganizations', 'people', 'credential', 'person');
+
 
 /* NamespaceBased */
 
@@ -1373,8 +1412,16 @@ INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies]
 SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
-    WHERE A.ActionName IN ('Read','Create','Update','Delete')
-    AND RC.ResourceName IN ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain','systemDescriptors', 'managedDescriptors')
+    WHERE A.ActionName IN ('Read')
+    AND RC.ResourceName IN ('assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain' )
+
+UNION
+
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Create', 'Update', 'Delete')
+    AND RC.ResourceName IN ('systemDescriptors', 'managedDescriptors', 'assessmentMetadata', 'educationStandards', 'educationContent', 'surveyDomain')
 
 
 /* RelationshipsWithEdOrgsAndPeople */
@@ -1384,11 +1431,25 @@ SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[A
 INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies]
     ([ResourceClaimActionId]
     ,[AuthorizationStrategyId])
+
 SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
-    WHERE A.ActionName IN ('Read','Create','Update','Delete')
+    WHERE A.ActionName IN ('Read', 'Update')
     AND RC.ResourceName IN ('primaryRelationships', 'studentParentAssociation', 'people', 'relationshipBasedData')
+UNION
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Create')
+    AND RC.ResourceName IN ('relationshipBasedData')
+UNION
+SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ResourceClaimActions] RCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =RCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = RCAA.ActionId
+    WHERE A.ActionName IN ('Delete')
+    AND RC.ResourceName IN ('relationshipBasedData', 'studentParentAssociation', 'primaryRelationships')
+
 
 
 /* RelationshipsWithStudentsOnly */
@@ -1425,6 +1486,8 @@ SELECT RCAA.ResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[Resource
 /* Bootstrap Descriptors and EdOrgs Claims */
 
 SELECT @AuthorizationStrategyId = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
+SELECT @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Ed-Fi Sandbox');
+
 INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
     ([ClaimSetResourceClaimActionId]
     ,[AuthorizationStrategyId])
@@ -1433,43 +1496,48 @@ INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
 SELECT CSRCAA.ClaimSetResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ClaimSetResourceClaimActions] CSRCAA
     INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =CSRCAA.ResourceClaimId
     INNER JOIN [dbo].[Actions] A on A.ActionId = CSRCAA.ActionId
-    WHERE A.ActionName IN ('Create')
-    AND RC.ResourceName IN (
-        'systemDescriptors',
-        'managedDescriptors',
-        'educationOrganizations',
-        -- from Interchange-Standards.xml
-        'learningObjective',
-        'learningStandard',
-        'learningStandardEquivalenceAssociation',
-        -- from Interchange-EducationOrganization.xml
-        'accountabilityRating',
-        'classPeriod',
-        'communityOrganization',
-        'communityProvider',
-        'communityProviderLicense',
-        'course',
-        'educationOrganizationNetwork',
-        'educationOrganizationNetworkAssociation',
-        'educationOrganizationPeerAssociation',
-        'educationServiceCenter',
-        'feederSchoolAssociation',
-        'localEducationAgency',
-        'location',
-        'postSecondaryInstitution',
-        'program',
-        'school',
-        'stateEducationAgency'
-    )
-
-
-SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
-INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
-    ([ClaimSetResourceClaimActionId]
-    ,[AuthorizationStrategyId])
-
-SELECT CSRCAA.ClaimSetResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ClaimSetResourceClaimActions] CSRCAA
-    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =CSRCAA.ResourceClaimId
-    INNER JOIN [dbo].[Actions] A on A.ActionId = CSRCAA.ActionId
-    WHERE A.ActionName IN ('Read','Update','Delete')
+    INNER JOIN [dbo].[ClaimSets] CS on CS.ClaimSetId = CSRCAA.ClaimSetId
+    WHERE  CS.ClaimSetId =@ClaimSetId
+    AND A.ActionName IN ('Create','Read','Update','Delete')
     AND RC.ResourceName IN ('communityProviderLicense')
+
+
+SELECT @ClaimSetId = (SELECT ClaimSetId FROM [dbo].[ClaimSets] WHERE [ClaimSetName] = 'Bootstrap Descriptors and EdOrgs');
+
+INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
+    ([ClaimSetResourceClaimActionId]
+    ,[AuthorizationStrategyId])
+
+SELECT CSRCAA.ClaimSetResourceClaimActionId,@AuthorizationStrategyId FROM  [dbo].[ClaimSetResourceClaimActions] CSRCAA
+    INNER JOIN [dbo].[ResourceClaims] RC ON  RC.ResourceClaimId =CSRCAA.ResourceClaimId
+    INNER JOIN [dbo].[Actions] A on A.ActionId = CSRCAA.ActionId
+    INNER JOIN [dbo].[ClaimSets] CS on CS.ClaimSetId = CSRCAA.ClaimSetId
+    WHERE  CS.ClaimSetId =@ClaimSetId
+    AND A.ActionName IN ('Create')
+    AND RC.ResourceName IN (
+    'systemDescriptors',
+    'managedDescriptors',
+    'educationOrganizations',
+    -- from Interchange-Standards.xml
+    'learningObjective',
+    'learningStandard',
+    'learningStandardEquivalenceAssociation',
+    -- from Interchange-EducationOrganization.xml
+    'accountabilityRating',
+    'classPeriod',
+    'communityOrganization',
+    'communityProvider',
+    'communityProviderLicense',
+    'course',
+    'educationOrganizationNetwork',
+    'educationOrganizationNetworkAssociation',
+    'educationOrganizationPeerAssociation',
+    'educationServiceCenter',
+    'feederSchoolAssociation',
+    'localEducationAgency',
+    'location',
+    'postSecondaryInstitution',
+    'program',
+    'school',
+    'stateEducationAgency'
+)
