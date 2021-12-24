@@ -155,7 +155,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         subsequentAuthorizationSegments.Add(new ClaimsAuthorizationSegment(
                             nonInlinableClaimsEndpoints.ToArray(),
                             claimsAuthorizationSegment.SubjectEndpoint,
-                            claimsAuthorizationSegment.AuthorizationPathModifier));
+                            claimsAuthorizationSegment.AuthorizationPathModifier,
+                            claimsAuthorizationSegment.AuthorizationStrategyName));
                     }
                     else
                     {

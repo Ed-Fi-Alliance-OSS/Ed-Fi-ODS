@@ -50,11 +50,13 @@ namespace EdFi.Ods.Common.Security.Authorization
         public ClaimsAuthorizationSegment(
             IReadOnlyList<AuthorizationSegmentEndpointWithValue> claimsEndpoints,
             AuthorizationSegmentEndpoint subjectEndpoint,
-            string authorizationPathModifier)
+            string authorizationPathModifier,
+            string authorizationStrategyName)
         {
             ClaimsEndpoints = claimsEndpoints;
             SubjectEndpoint = subjectEndpoint;
             AuthorizationPathModifier = authorizationPathModifier;
+            AuthorizationStrategyName = authorizationStrategyName;
         }
 
         /// <summary>
