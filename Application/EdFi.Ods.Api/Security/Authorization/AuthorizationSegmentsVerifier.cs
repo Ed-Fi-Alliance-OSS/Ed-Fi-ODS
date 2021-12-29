@@ -86,10 +86,6 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 string GetAuthorizationFailureMessage()
                 {
-                    string authorizationStrategyName = authorizationSegments.Select(x => x.AuthorizationStrategyName)
-                        .Distinct()
-                        .SingleOrDefault();
-                    
                     string[] claimEndpointNames =
                         authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Select(x => x.Name)
                             .Distinct()
