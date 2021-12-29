@@ -14,7 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.43" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.7" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.8" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />
     <PackageReference Include="Dapper" Version="2.0.35" />
