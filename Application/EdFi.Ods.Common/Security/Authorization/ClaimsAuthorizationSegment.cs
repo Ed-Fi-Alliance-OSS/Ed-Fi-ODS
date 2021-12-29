@@ -50,13 +50,11 @@ namespace EdFi.Ods.Common.Security.Authorization
         public ClaimsAuthorizationSegment(
             IReadOnlyList<AuthorizationSegmentEndpointWithValue> claimsEndpoints,
             AuthorizationSegmentEndpoint subjectEndpoint,
-            string authorizationPathModifier,
-            string authorizationStrategyName)
+            string authorizationPathModifier)
         {
             ClaimsEndpoints = claimsEndpoints;
             SubjectEndpoint = subjectEndpoint;
             AuthorizationPathModifier = authorizationPathModifier;
-            AuthorizationStrategyName = authorizationStrategyName;
         }
 
         /// <summary>
@@ -75,11 +73,6 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <remarks>By convention, this value will be used as a suffix on the database view used for authorization, enabling alternative paths for authorization.</remarks>
         public string AuthorizationPathModifier { get; }
 
-        /// <summary>
-        /// Gets or sets the authorization strategy that created the segment. 
-        /// </summary>
-        public string AuthorizationStrategyName { get; set; }
-        
         /// <summary>
         /// Returns a text representation of the claims authorization segment.
         /// </summary>

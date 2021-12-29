@@ -133,13 +133,13 @@ namespace EdFi.Ods.Api.Security.Authorization
                     if (subjectEndpointNames.Length == 1)
                     {
                         return $"Authorization denied. No relationships have been established between the caller's education "
-                            + $"organization id {claimOrClaims} ({claimValueOrValues} [{claimEndpointValuesText}] of {typeOrTypes} {claimEndpointNamesText}) and the requested resource's "
-                            + $"{subjectEndpointNamesText} value. (Authorization Strategy: {authorizationStrategyName})";
+                            + $"organization id {claimOrClaims} ({claimValueOrValues} {claimEndpointValuesText} of {typeOrTypes} {claimEndpointNamesText}) and the requested resource's "
+                            + $"{subjectEndpointNamesText} value.";
                     }
 
                     return $"Authorization denied. No relationships have been established between the caller's education "
-                        + $"organization id {claimOrClaims} ({claimValueOrValues} [{claimEndpointValuesText}] of {typeOrTypes} {claimEndpointNamesText}) and one of the following properties of "
-                        + $"the requested resource: {subjectEndpointNamesText}. (Authorization Strategy: {authorizationStrategyName})";
+                        + $"organization id {claimOrClaims} ({claimValueOrValues} {claimEndpointValuesText} of {typeOrTypes} {claimEndpointNamesText}) and one of the following properties of "
+                        + $"the requested resource: {subjectEndpointNamesText}.";
                 }
             }
         }

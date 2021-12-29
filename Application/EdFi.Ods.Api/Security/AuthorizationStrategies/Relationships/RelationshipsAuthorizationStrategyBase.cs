@@ -155,8 +155,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         subsequentAuthorizationSegments.Add(new ClaimsAuthorizationSegment(
                             nonInlinableClaimsEndpoints.ToArray(),
                             claimsAuthorizationSegment.SubjectEndpoint,
-                            claimsAuthorizationSegment.AuthorizationPathModifier,
-                            claimsAuthorizationSegment.AuthorizationStrategyName));
+                            claimsAuthorizationSegment.AuthorizationPathModifier));
                     }
                     else
                     {
@@ -209,11 +208,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
             var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, null);
 
-            foreach (var authorizationSegment in authorizationSegments)
-            {
-                authorizationSegment.AuthorizationStrategyName = this.GetType().Name;
-            }
-            
             // Convert segments to general-purpose filters
             return AuthorizationSegmentsToFiltersConverter.Convert(authorizationSegments);
         }
@@ -228,14 +222,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             BuildAuthorizationSegments(builder, signatureProperties);
 
             // Get the rules for execution
-            var segments = builder.GetSegments();
-
-            foreach (var segment in segments)
-            {
-                segment.AuthorizationStrategyName = this.GetType().Name;
-            }
-
-            return segments;
+            return builder.GetSegments();
         }
 
         protected abstract void BuildAuthorizationSegments(
