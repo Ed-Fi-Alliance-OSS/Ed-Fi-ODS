@@ -416,7 +416,7 @@
 									"pm.test(\"Should return the item with Invalid SchoolId Validation string\", () => {",
 									"     ",
 									"     const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"Authorization denied.  The claim does not have any established relationships with the requested resource\");",
+									"     pm.expect(responseItem.message).to.include(\"Authorization denied. No relationships have been established between the caller's education organization id claim (value 255901 of type 'LocalEducationAgencyId') and the requested resource's 'SchoolId' value.\");",
 									"      ",
 									"});"
 								],

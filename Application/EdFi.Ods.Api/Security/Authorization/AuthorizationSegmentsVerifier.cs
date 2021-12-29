@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
+using EdFi.Common.Extensions;
+using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
@@ -79,8 +81,61 @@ namespace EdFi.Ods.Api.Security.Authorization
 
                 if (result == null)
                 {
-                    throw new EdFiSecurityException(
-                        "Authorization denied.  The claim does not have any established relationships with the requested resource.");
+                    throw new EdFiSecurityException(GetAuthorizationFailureMessage());
+                }
+
+                string GetAuthorizationFailureMessage()
+                {
+                    string[] claimEndpointNames =
+                        authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Select(x => x.Name)
+                            .Distinct()
+                            .ToArray()
+                        ?? Array.Empty<string>();
+
+                    // NOTE: Embedded convention - UniqueId is suffix used for external representation of USI values
+                    string[] subjectEndpointNames = authorizationSegments
+                        .Select(x => x.SubjectEndpoint.Name.ReplaceSuffix("USI", "UniqueId"))
+                        .Distinct()
+                        .ToArray();
+
+                    string claimEndpointNamesText = $"'{string.Join("', '", claimEndpointNames)}'";
+                    string subjectEndpointNamesText = $"'{string.Join("', '", subjectEndpointNames)}'";
+                    
+                    string typeOrTypes = Inflector.Inflect("type", claimEndpointNames.Length);
+                    string claimOrClaims = Inflector.Inflect("claim", claimEndpointNames.Length);
+
+                    string claimValueOrValues = Inflector.Inflect(
+                        "value", authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Count ?? 0);
+
+                    const int MaximumEdOrgClaimValuesToDisplay = 5;
+
+                    var claimEndpointValues =
+                        (authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Select(x => x.Value.ToString())
+                            ?? Array.Empty<string>())
+                        .Take(MaximumEdOrgClaimValuesToDisplay + 1)
+                        .ToArray();
+
+                    var claimEndpointValuesForDisplayText = claimEndpointValues
+                        ?.Take(MaximumEdOrgClaimValuesToDisplay)
+                        .ToList();
+
+                    if (claimEndpointValues.Length > MaximumEdOrgClaimValuesToDisplay)
+                    {
+                        claimEndpointValuesForDisplayText.Add("...");
+                    }
+                    
+                    string claimEndpointValuesText = string.Join(", ", claimEndpointValuesForDisplayText);
+                    
+                    if (subjectEndpointNames.Length == 1)
+                    {
+                        return $"Authorization denied. No relationships have been established between the caller's education "
+                            + $"organization id {claimOrClaims} ({claimValueOrValues} {claimEndpointValuesText} of {typeOrTypes} {claimEndpointNamesText}) and the requested resource's "
+                            + $"{subjectEndpointNamesText} value.";
+                    }
+
+                    return $"Authorization denied. No relationships have been established between the caller's education "
+                        + $"organization id {claimOrClaims} ({claimValueOrValues} {claimEndpointValuesText} of {typeOrTypes} {claimEndpointNamesText}) and one of the following properties of "
+                        + $"the requested resource: {subjectEndpointNamesText}.";
                 }
             }
         }

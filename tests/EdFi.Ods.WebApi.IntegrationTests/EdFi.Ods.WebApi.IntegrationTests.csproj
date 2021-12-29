@@ -20,7 +20,7 @@
     <PackageReference Include="ApprovalUtilities" Version="5.4.4" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Dapper" Version="2.0.35" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.8" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FakeItEasy" Version="6.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.10" />
