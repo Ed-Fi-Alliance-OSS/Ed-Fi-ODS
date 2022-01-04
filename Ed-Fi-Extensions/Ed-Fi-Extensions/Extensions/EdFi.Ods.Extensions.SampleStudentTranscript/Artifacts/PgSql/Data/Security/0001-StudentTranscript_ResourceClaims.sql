@@ -33,7 +33,7 @@ VALUES (
     , systemDescriptorsResourceClaimId
     , appId
     );
-	
+
 INSERT INTO dbo.ResourceClaims (
     DisplayName
     ,ResourceName
@@ -48,7 +48,7 @@ VALUES (
     , systemDescriptorsResourceClaimId
     , appId
     );
- 
+
 INSERT INTO dbo.ResourceClaims (
     DisplayName
     ,ResourceName
@@ -63,7 +63,7 @@ VALUES (
     , systemDescriptorsResourceClaimId
     , appId
     );
- 
+
 INSERT INTO dbo.ResourceClaims (
     DisplayName
     ,ResourceName
@@ -94,47 +94,60 @@ VALUES (
     , appId
     );
 
-  
 --Setup Authorization Strategy
-
-SELECT AuthorizationStrategyId INTO authStrategyId 
-FROM dbo.AuthorizationStrategies 
+SELECT AuthorizationStrategyId INTO authStrategyId
+FROM dbo.AuthorizationStrategies
 WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
 SELECT ResourceClaimId INTO postSecondaryOrganizationResourceClaimId
 FROM dbo.ResourceClaims
 WHERE ResourceName = 'postSecondaryOrganization';
-  
-INSERT INTO dbo.ResourceClaimAuthorizationMetadatas (
-    Action_ActionId, 
-	AuthorizationStrategy_AuthorizationStrategyId,
-	ResourceClaim_ResourceClaimId,
-	ValidationRuleSetName )
-SELECT ActionId
-    ,authStrategyId
-    ,postSecondaryOrganizationResourceClaimId
-    ,null
-FROM dbo.Actions;
+
+INSERT INTO dbo.ResourceClaimActions (
+    ResourceClaimId
+    ,ActionId
+    ,ValidationRuleSetName
+    )
+SELECT ResourceClaimId, a.ActionId, null
+FROM dbo.ResourceClaims
+INNER JOIN LATERAL (
+    SELECT ActionId
+    FROM dbo.Actions
+    WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete')) AS a ON true
+WHERE ResourceClaimId = postSecondaryOrganizationResourceClaimId;
+
+INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies (
+    ResourceClaimActionId
+    ,AuthorizationStrategyId
+    )
+SELECT ResourceClaimActionId, authStrategyId
+FROM dbo.ResourceClaimActions rca
+INNER JOIN dbo.ResourceClaims rc
+    ON rca.ResourceClaimId = rc.ResourceClaimId
+INNER JOIN dbo.Actions a
+    ON rca.ActionId = a.Actionid
+        AND a.ActionName IN ('Create','Read','Update','Delete')
+WHERE rc.ResourceClaimId = postSecondaryOrganizationResourceClaimId;
 
 --Add to SIS Vendor and Ed-Fi Sandbox claim sets
-INSERT INTO dbo.ClaimSetResourceClaims (
-    Action_ActionId, 
-	ClaimSet_ClaimSetId, 
-	ResourceClaim_ResourceClaimId, 
-	AuthorizationStrategyOverride_AuthorizationStrategyId, 
-	ValidationRulesetNameOverride)
-SELECT ActionId
-    ,ClaimSetId
+INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId)
+SELECT ClaimSetId
     ,ResourceClaimId
-    ,null
-    ,null
-FROM dbo.Actions a
-    ,dbo.ClaimSets c
+    ,ActionId
+FROM dbo.ClaimSets c
     ,dbo.ResourceClaims r
+    ,dbo.Actions a
 WHERE r.ResourceName = 'postSecondaryOrganization'
     AND (
         c.ClaimSetName = 'SIS Vendor'
         OR c.ClaimSetName = 'Ed-Fi Sandbox'
+        )
+    AND NOT EXISTS (
+        SELECT 1
+        FROM dbo.ClaimSetResourceClaimActions csrca
+        WHERE csrca.ActionId = a.ActionId
+            AND csrca.ClaimSetId = c.ClaimSetId
+                 AND csrca.ResourceClaimId = r.ResourceClaimId
         );
-		
+
 end $$
