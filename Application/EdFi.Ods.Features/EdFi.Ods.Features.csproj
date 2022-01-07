@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>EdFi.Ods.Features</RootNamespace>
     <AssemblyName>EdFi.Ods.Features</AssemblyName>
     <Configurations>Debug;Release</Configurations>
@@ -17,7 +17,7 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\ChangeQueries.json" />
@@ -32,6 +32,6 @@
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Primitives" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemlbyName>EdFi.Ods.Repositories.NHibernate.Tests</AssemlbyName>
     <RootNamespace>EdFi.Ods.Repositories.NHibernate.Tests</RootNamespace>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
@@ -18,23 +18,23 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
-    <PackageReference Include="Autofac" Version="5.1.2" />
+    <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.43" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="FakeItEasy" Version="6.2.1" />
+    <PackageReference Include="FakeItEasy" Version="7.2.0" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
-    <PackageReference Include="log4net" Version="2.0.12" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="NHibernate" Version="5.2.7" />
-    <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="NHibernate" Version="5.3.10" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
-    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.23" />
-    <PackageReference Include="Shouldly" Version="3.0.2" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.30" />
+    <PackageReference Include="Shouldly" Version="4.0.3" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj" />

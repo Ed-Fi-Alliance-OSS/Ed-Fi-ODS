@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <AssemblyName>EdFi.LoadTools.Test</AssemblyName>
         <RootNamespace>EdFi.LoadTools.Test</RootNamespace>
         <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
@@ -25,15 +25,15 @@
       <PackageReference Include="EdFi.Suite3.OdsApi.TestSdk" Version="5.3.243" />
       <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
       <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
-      <PackageReference Include="log4net" Version="2.0.12" />
-      <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.8" />
-      <PackageReference Include="Microsoft.Extensions.Primitives" Version="3.1.10" />
-      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
-      <PackageReference Include="Moq" Version="4.14.5" />
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-      <PackageReference Include="NUnit" Version="3.12.0" />
-      <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-      <PackageReference Include="Shouldly" Version="4.0.1" />
+      <PackageReference Include="log4net" Version="2.0.13" />
+      <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Primitives" Version="6.0.0" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+      <PackageReference Include="Moq" Version="4.16.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="NUnit" Version="3.13.2" />
+      <PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+      <PackageReference Include="Shouldly" Version="4.0.3" />
     </ItemGroup>
     <ItemGroup>
       <None Update="appsettings.json">

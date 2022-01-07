@@ -579,7 +579,6 @@ namespace {{ResourceClassesNamespace}}
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as {{NamespacePrefix}}I{{EntityName}};
 
             if (ReferenceEquals(this, compareTo))
@@ -598,49 +597,82 @@ namespace {{ResourceClassesNamespace}}
             {{#Usi}}
             {{#Property}}
             // Property
+            {{#IsNullable}}
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
                 || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
                 return false;
+            {{/IsNullable}}
+            {{^IsNullable}}
+            if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                return false;
+            {{/IsNullable}}
             {{/Property}}
             {{/Usi}}
             {{#Standard}}
             {{#Property}}
 
             // Standard Property
+            {{#IsNullable}}
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}} == null
                 || !(this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}}.Equals(compareTo.{{CSharpSafePropertyName}}))
                 return false;
+            {{/IsNullable}}
+            {{^IsNullable}}
+             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}}.Equals(compareTo.{{CSharpSafePropertyName}}))
+                return false;
+            {{/IsNullable}}
+
             {{/Property}}
             {{/Standard}}
             {{#Referenced}}
             {{#Property}}
 
             // Referenced Property
+            {{#IsNullable}}
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
                 || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
                 return false;
+            {{/IsNullable}}
+            {{^IsNullable}}
+            if (!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                return false;
+            {{/IsNullable}}
+
             {{/Property}}
             {{/Referenced}}
             {{#UnifiedType}}
             {{#Property}}
 
             // Unified Type Property
+            {{#IsNullable}}
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
                 ||!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
                 return false;
+            {{/IsNullable}}
+            {{^IsNullable}}
+            if (!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                return false;
+            {{/IsNullable}}
+
             {{/Property}}
             {{/UnifiedType}}
             {{#Derived}}
             {{#Property}}
 
             // Derived Property
+            {{#IsNullable}}
             if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} == null
                 || !(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
                 return false;
+            {{/IsNullable}}
+            {{^IsNullable}}
+            if (!(this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.Equals(compareTo.{{PropertyName}}))
+                return false;
+            {{/IsNullable}}
+
             {{/Property}}
             {{/Derived}}
             {{/Properties}}
-            #pragma warning disable 472
 
             return true;
         }
@@ -653,7 +685,6 @@ namespace {{ResourceClassesNamespace}}
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -667,46 +698,72 @@ namespace {{ResourceClassesNamespace}}
                 {{#Property}}
 
                 //Property
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
+                {{#IsNullable}}
+                 if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.GetHashCode();
+                {{/IsNullable}}
+                {{^IsNullable}}
+                hash = hash * 23 + (this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.GetHashCode();
+                {{/IsNullable}}
+
                 {{/Property}}
                 {{/Usi}}
                 {{#Standard}}
                 {{#Property}}
 
                 // Standard Property
+                {{#IsNullable}}
                 if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{CSharpSafePropertyName}}.GetHashCode();
+                {{/IsNullable}}
+                {{^IsNullable}}
+                 hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{CSharpSafePropertyName}}.GetHashCode();
+                {{/IsNullable}}
+
                 {{/Property}}
                 {{/Standard}}
                 {{#Referenced}}
                 {{#Property}}
 
                 //Referenced Property
+                {{#IsNullable}}
                 if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
+                {{/IsNullable}}
+                hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
                 {{/Property}}
                 {{/Referenced}}
                 {{#UnifiedType}}
                 {{#Property}}
 
                 //Unified Type Property
+                {{#IsNullalbe}}
                 if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
+                {{/IsNullalbe}}
+                {{^IsNullable}}
+                hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
+                {{/IsNullable}}
+
                 {{/Property}}
                 {{/UnifiedType}}
                 {{#Derived}}
                 {{#Property}}
 
                 //Derived Property
+                {{#IsNullable}}
                 if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
                     hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
+                {{/IsNullable}}
+                {{^IsNullable}}
+                hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
+                {{/IsNullable}}
+
                 {{/Property}}
                 {{/Derived}}
                 {{/Properties}}
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
         {{/Identifiers}}

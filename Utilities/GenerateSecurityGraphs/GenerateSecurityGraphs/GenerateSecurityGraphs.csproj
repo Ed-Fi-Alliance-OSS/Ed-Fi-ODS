@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
     <RestorePackages>true</RestorePackages>
@@ -10,11 +10,11 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="Dapper" Version="2.0.90" />
-    <PackageReference Include="QuikGraph" Version="2.2.0" />
-    <PackageReference Include="QuikGraph.Graphviz" Version="2.2.0" />
-    <PackageReference Include="QuikGraph.Serialization" Version="2.2.2" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="QuikGraph" Version="2.3.0" />
+    <PackageReference Include="QuikGraph.Graphviz" Version="2.3.1" />
+    <PackageReference Include="QuikGraph.Serialization" Version="2.3.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
   </ItemGroup>
 
   <ItemGroup>

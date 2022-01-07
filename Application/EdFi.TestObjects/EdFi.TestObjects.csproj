@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.TestObjects</AssemblyName>
     <RootNamespace>EdFi.TestObjects</RootNamespace>
     <Copyright>Copyright © 2019 Ed-Fi Alliance, LLC and Contributors</Copyright>
@@ -17,9 +17,9 @@
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="log4net" Version="2.0.12" />
-    <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
