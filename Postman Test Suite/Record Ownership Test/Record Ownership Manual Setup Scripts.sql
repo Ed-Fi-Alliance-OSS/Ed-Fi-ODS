@@ -40,10 +40,8 @@ Go
 
 DECLARE @OwnershipBasedAuthorizationStrategyId INT;
 
-INSERT INTO [dbo].[AuthorizationStrategies]   ([DisplayName],[AuthorizationStrategyName],[Application_ApplicationId]) VALUES ('Ownership Based','OwnershipBased', 1)
-
-SELECT @OwnershipBasedAuthorizationStrategyId= SCOPE_IDENTITY();
-
+SELECT @OwnershipBasedAuthorizationStrategyId=  AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies]
+WHERE [AuthorizationStrategyName]='OwnershipBased';
 
  --education organization resource claims for read update and delete
  INSERT INTO  [dbo].[ResourceClaimActionAuthorizationStrategies]
