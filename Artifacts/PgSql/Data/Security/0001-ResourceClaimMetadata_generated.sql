@@ -43,6 +43,9 @@ begin
     insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
     values ('Relationships with Students only (through StudentEducationOrganizationAssociation)', 'RelationshipsWithStudentsOnlyThroughEdOrgAssociation', application_id);
 
+    insert into dbo.AuthorizationStrategies (DisplayName, AuthorizationStrategyName, Application_ApplicationId)
+    values ('Ownership Based', 'OwnershipBased', application_id);
+
 end $$;
 
 /* --------------------------------- */

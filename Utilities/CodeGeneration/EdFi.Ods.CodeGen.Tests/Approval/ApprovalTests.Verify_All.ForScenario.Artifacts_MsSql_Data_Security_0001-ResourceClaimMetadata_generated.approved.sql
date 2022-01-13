@@ -61,6 +61,9 @@ VALUES ('Relationships with Students only', 'RelationshipsWithStudentsOnly', @ap
 INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
 VALUES ('Relationships with Students only (through StudentEducationOrganizationAssociation)', 'RelationshipsWithStudentsOnlyThroughEdOrgAssociation', @applicationId);
 
+INSERT INTO [dbo].[AuthorizationStrategies] ([DisplayName], [AuthorizationStrategyName], [Application_ApplicationId])
+VALUES ('Ownership Based', 'OwnershipBased', @applicationId);
+
 /* --------------------------------- */
 
 /* --------------------------------- */
