@@ -52,6 +52,7 @@ namespace EdFi.Ods.Common.Models.Resource
     {
         private ResourceMemberBase _containingMember;
         private Lazy<IReadOnlyList<ResourceProperty>> _unifiedProperties;
+        private Lazy<Resource> _descriptorResource;
 
         public ResourceProperty(ResourceClassBase resourceClass, EntityProperty entityProperty)
             : this(null, resourceClass, entityProperty) { }
@@ -76,13 +77,7 @@ namespace EdFi.Ods.Common.Models.Resource
             IsLocallyDefined = entityProperty.IsLocallyDefined;
             IsServerAssigned = entityProperty.IsServerAssigned;
 
-            DescriptorName = entityProperty.DescriptorEntity == null
-                ? null
-                : entityProperty.DescriptorEntity.Name;
-
-            DescriptorResource = entityProperty.DescriptorEntity == null
-                ? null
-                : resourceClass?.ResourceModel?.GetResourceByFullName(entityProperty.DescriptorEntity.FullName);
+            DescriptorName = entityProperty.DescriptorEntity?.Name;
 
             PropertyType = GetResourcePropertyType(entityProperty);
             Description = entityProperty.Description;
@@ -116,14 +111,8 @@ namespace EdFi.Ods.Common.Models.Resource
             IsLocallyDefined = characteristics.IsLocallyDefined;
             IsServerAssigned = characteristics.IsServerAssigned;
 
-            DescriptorName = characteristics.LookupEntityName == null
-                ? null
-                : characteristics.LookupEntityName.Value.Name;
+            DescriptorName = characteristics.LookupEntityName?.Name;
 
-            DescriptorResource = characteristics.LookupEntityName == null
-                ? null
-                : resourceClass?.ResourceModel?.GetResourceByFullName(characteristics.LookupEntityName.GetValueOrDefault());
-            
             if (resourceClass.Entity != null)
             {
                 ParentFullName = resourceClass.Entity.FullName;
@@ -144,6 +133,11 @@ namespace EdFi.Ods.Common.Models.Resource
 
                     return new ResourceProperty[0];
                 });
+
+            _descriptorResource = new Lazy<Resource>(
+                () => EntityProperty.DescriptorEntity == null
+                    ? null
+                    : ResourceClass?.ResourceModel?.GetResourceByFullName(EntityProperty.DescriptorEntity.FullName));
         }
         
         public string DescriptorName { get; }
@@ -155,7 +149,7 @@ namespace EdFi.Ods.Common.Models.Resource
         /// For descriptors, gets the <see cref="Resource" /> representing the descriptor referenced by the property;
         /// otherwise <b>null</b>.
         /// </summary>
-        public Resource DescriptorResource { get; }
+        public Resource DescriptorResource { get => _descriptorResource.Value; }
 
         public EntityProperty EntityProperty { get; }
 
