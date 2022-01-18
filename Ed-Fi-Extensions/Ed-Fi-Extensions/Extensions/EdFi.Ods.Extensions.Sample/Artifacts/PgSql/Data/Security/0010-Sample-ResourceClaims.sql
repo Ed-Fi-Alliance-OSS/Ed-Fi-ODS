@@ -132,18 +132,22 @@ VALUES (
 select AuthorizationStrategyId into authStrategyId from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
 --- These Resources need explicit metadata ---
-insert into dbo.ResourceClaimAuthorizationMetadatas
-    (Action_ActionId
-    ,AuthorizationStrategy_AuthorizationStrategyId
-    ,ResourceClaim_ResourceClaimId
-    ,ValidationRuleSetName)
-select ac.ActionId, authStrategyId, ResourceClaimId, null
-from dbo.ResourceClaims
-inner join lateral
-    (select ActionId
-    from dbo.Actions
-    where ActionName in ('Create', 'Read', 'Update', 'Delete')) as ac on true
-where ResourceName in ('studentGraduationPlanAssociation'
-, 'studentArtProgramAssociation');
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    SELECT   ResourceClaimId, ac.ActionId
+    from dbo.ResourceClaims
+    inner join lateral
+        (select ActionId
+        from dbo.Actions
+        where ActionName in ('Create', 'Read', 'Update', 'Delete')) as ac on true
+    where ResourceName in ('studentGraduationPlanAssociation', 'studentArtProgramAssociation');
+
+
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    select resourceClaimActionId,authStrategyId from dbo.ResourceClaimActions RCA
+    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = RCA.ResourceClaimId
+    INNER JOIN dbo.Actions  A  ON A.ActionId = RCA.ActionId
+    WHERE A.ActionName IN ('Create', 'Read', 'Update', 'Delete')
+    AND  RC.ResourceName IN ('studentArtProgramAssociation', 'studentGraduationPlanAssociation');
 
 end $$

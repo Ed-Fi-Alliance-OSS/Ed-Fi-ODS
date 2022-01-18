@@ -26,14 +26,14 @@ INSERT INTO ClaimSets (ClaimSetName, Application_ApplicationId) VALUES(@claimSet
 SELECT @claimSetId = ClaimSetId FROM ClaimSets WHERE ClaimSetName = @claimSetName
 
 --Create CRUD action claims for all ClaimNames in @resourceClaimNames
-INSERT INTO ClaimSetResourceClaims (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
+INSERT INTO dbo.ClaimSetResourceClaimActions (ActionId, ClaimSetId, ResourceClaimId)
 SELECT act.ActionId, @claimSetId, ResourceClaimId
-FROM ResourceClaims RC
+FROM dbo.ResourceClaims RC
 JOIN @resourceClaimNames RN ON RC.ClaimName = RN.resourceClaimName
-CROSS JOIN Actions act
+CROSS JOIN dbo.Actions act
 
 --Create R action claim for systemDescriptors
-INSERT INTO ClaimSetResourceClaims (Action_ActionId,ClaimSet_ClaimSetId,ResourceClaim_ResourceClaimId)
+INSERT INTO dbo.ClaimSetResourceClaimActions (ActionId,ClaimSetId,ResourceClaimId)
 SELECT (SELECT ActionId FROM Actions WHERE ActionName = 'read'), @claimSetId, ResourceClaimId
 FROM ResourceClaims RC
 WHERE RC.ResourceName = 'systemDescriptors'

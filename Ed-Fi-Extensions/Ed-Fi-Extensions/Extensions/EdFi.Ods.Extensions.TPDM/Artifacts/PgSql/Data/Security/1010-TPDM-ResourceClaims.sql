@@ -18,6 +18,8 @@ DECLARE
     update_action_id INTEGER;
     delete_action_id INTEGER;
     claim_id_stack INTEGER ARRAY;
+    resource_claim_action_id INTEGER;
+    claimset_resourceClaim_Action_id INTEGER;
 BEGIN
     SELECT applicationid INTO application_id
     FROM dbo.applications WHERE ApplicationName = 'Ed-Fi ODS API';
@@ -90,9 +92,23 @@ BEGIN
 
   
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-    DELETE FROM dbo.ClaimSetResourceClaims
-    WHERE ClaimSet_ClaimSetId = claim_set_id AND ResourceClaim_ResourceClaimId = claim_id;
     
+    IF EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id) THEN
+
+        SELECT CSRCAAS.ClaimSetResourceClaimActionId INTO claimset_resourceClaim_Action_id
+    FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides  CSRCAAS
+    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON CSRCAAS.ClaimSetResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
+    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
+    INNER JOIN dbo.ClaimSets CS   ON CS.ClaimSetId = CSRCA.ClaimSetId
+    WHERE CSRCA.ClaimSetId = claim_set_id AND CSRCA.ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides  
+    WHERE ClaimSetResourceClaimActionId =claimset_resourceClaim_Action_id;
+   
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    END IF;
+
 
     -- Claim set-specific Create authorization
     authorization_strategy_id := NULL;
@@ -104,8 +120,8 @@ BEGIN
         RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, Create_action_id, authorization_strategy_id); -- Create
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Create_action_id); -- Create
 
     -- Claim set-specific Read authorization
     authorization_strategy_id := NULL;
@@ -117,8 +133,8 @@ BEGIN
         RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, Read_action_id, authorization_strategy_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
 
     -- Claim set-specific Update authorization
     authorization_strategy_id := NULL;
@@ -130,8 +146,8 @@ BEGIN
         RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, Update_action_id, authorization_strategy_id); -- Update
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Update_action_id); -- Update
 
     -- Claim set-specific Delete authorization
     authorization_strategy_id := NULL;
@@ -142,9 +158,8 @@ BEGIN
     ELSE
         RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, Delete_action_id, authorization_strategy_id); -- Delete
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Delete_action_id); -- Delete
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
@@ -180,8 +195,19 @@ BEGIN
   
     -- Setting default authorization metadata
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = claim_id;
+    IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id) THEN
+
+    SELECT  RCAAS.ResourceClaimActionId INTO resource_claim_action_id
+    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
+    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
+    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
+    WHERE   CSRCA.ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  WHERE ResourceClaimActionId =@resourceClaimActionId;
+   
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = claim_id;
+
+    END IF;
     
     -- Default Create authorization
     authorization_strategy_id := NULL;
@@ -194,8 +220,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Create_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Create_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Create_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -208,8 +241,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Read_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Read_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Read_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -222,8 +262,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Update_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Update_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Update_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -236,8 +283,16 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Delete_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Delete_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -506,8 +561,21 @@ BEGIN
     
     -- Setting default authorization metadata
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = claim_id;
+
+
+    IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id) THEN
+
+    SELECT  RCAAS.ResourceClaimActionId INTO resource_claim_action_id
+    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
+    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
+    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
+    WHERE   CSRCA.ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  WHERE ResourceClaimActionId =@resourceClaimActionId;
+   
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = claim_id;
+
+    END IF;
     
     -- Default Create authorization
     authorization_strategy_id := NULL;
@@ -520,8 +588,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Create_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Create_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Create_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -534,8 +609,16 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Read_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Read_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Read_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -548,8 +631,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Update_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Update_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Update_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -562,9 +652,16 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Delete_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Delete_action_id;
 
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+    
 
     -- Pop the stack
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
@@ -600,8 +697,19 @@ BEGIN
   
     -- Setting default authorization metadata
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = claim_id;
+    IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id) THEN
+
+    SELECT  RCAAS.ResourceClaimActionId INTO resource_claim_action_id
+    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
+    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
+    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
+    WHERE   CSRCA.ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  WHERE ResourceClaimActionId =@resourceClaimActionId;
+   
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = claim_id;
+
+    END IF;
     
     -- Default Create authorization
     authorization_strategy_id := NULL;
@@ -614,8 +722,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Create_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Create_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Create_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -628,8 +743,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Read_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Read_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Read_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -642,8 +764,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Update_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Update_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Update_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -656,8 +785,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Delete_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Delete_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -828,8 +964,19 @@ BEGIN
 
     -- Setting default authorization metadata
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = claim_id;
+    IF EXISTS (SELECT 1 FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id) THEN
+
+    SELECT  RCAAS.ResourceClaimActionId INTO resource_claim_action_id
+    FROM dbo.ResourceClaimActionAuthorizationStrategies   RCAAS
+    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON RCAAS.ResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
+    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
+    WHERE   CSRCA.ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies  WHERE ResourceClaimActionId =@resourceClaimActionId;
+   
+    DELETE FROM dbo.ResourceClaimActions   WHERE ResourceClaimId = claim_id;
+
+    END IF;
     
     -- Default Create authorization
     authorization_strategy_id := NULL;
@@ -842,8 +989,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Create_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Create_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Create_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -856,8 +1010,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Read_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Read_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Read_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -870,8 +1031,16 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Update_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Update_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Update_action_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
+
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -884,9 +1053,15 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Delete_action_id) ;
+	
+    SELECT aca.ResourceClaimActionId INTO resource_claim_action_id
+    FROM    dbo.ResourceClaimActions aca
+    WHERE   aca.ResourceClaimId = claim_id AND ActionId =Delete_action_id;
 
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/tpdm/educatorPreparationProgram
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Bootstrap Descriptors and EdOrgs'
@@ -909,8 +1084,22 @@ BEGIN
 
   
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-    DELETE FROM dbo.ClaimSetResourceClaims
-    WHERE ClaimSet_ClaimSetId = claim_set_id AND ResourceClaim_ResourceClaimId = claim_id;
+    IF EXISTS (SELECT 1 FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id) THEN
+
+        SELECT CSRCAAS.ClaimSetResourceClaimActionId INTO claimset_resourceClaim_Action_id
+    FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides  CSRCAAS
+    INNER JOIN dbo.ClaimSetResourceClaimActions  CSRCA   ON CSRCAAS.ClaimSetResourceClaimActionId = CSRCA.ClaimSetResourceClaimActionId
+    INNER JOIN dbo.ResourceClaims  RC   ON RC.ResourceClaimId = CSRCA.ResourceClaimId
+    INNER JOIN dbo.ClaimSets CS   ON CS.ClaimSetId = CSRCA.ClaimSetId
+    WHERE CSRCA.ClaimSetId = claim_set_id AND CSRCA.ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides  
+    WHERE ClaimSetResourceClaimActionId =claimset_resourceClaim_Action_id;
+   
+    DELETE FROM dbo.ClaimSetResourceClaimActions   WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
+    END IF;
+
     
 
     -- Claim set-specific Create authorization
@@ -923,8 +1112,8 @@ BEGIN
         RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, Create_action_id, authorization_strategy_id); -- Create
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Create_action_id); -- Create
 
     -- Pop the stack
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);

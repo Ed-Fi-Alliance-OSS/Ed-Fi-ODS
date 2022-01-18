@@ -14,17 +14,19 @@ FROM ResourceClaims
 WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/tpdm/candidate'
 
 -- Create CRUD action claims for @resourceClaimName
-INSERT INTO ResourceClaimAuthorizationMetadatas (
-     Action_ActionId
-    ,AuthorizationStrategy_AuthorizationStrategyId
-    ,ResourceClaim_ResourceClaimId
+INSERT INTO dbo.ResourceClaimActions (
+     ActionId
+    ,ResourceClaimId
     ,ValidationRuleSetName
 )
-SELECT
-     a.ActionId
-    ,@authorizationStrategyId
-    ,ResourceClaimId
-    ,NULL
-FROM ResourceClaims RC
-CROSS JOIN Actions a
+SELECT a.ActionId ,ResourceClaimId ,NULL
+FROM dbo.ResourceClaims RC
+CROSS JOIN dbo.Actions a
 WHERE ResourceClaimId = @resourceClaimId
+
+INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+SELECT RCA.ResourceClaimActionId,@authorizationStrategyId FROM dbo.ResourceClaimActionS RCA 
+INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
+INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
+WHERE RCA.ResourceClaimId = @resourceClaimId
+

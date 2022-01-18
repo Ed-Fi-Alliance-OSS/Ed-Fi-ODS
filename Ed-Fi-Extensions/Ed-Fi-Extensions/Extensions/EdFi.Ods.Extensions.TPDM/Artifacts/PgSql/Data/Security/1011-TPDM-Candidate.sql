@@ -21,18 +21,21 @@ BEGIN
     WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/tpdm/candidate';
 
     -- Create CRUD action claims for @resourceClaimName
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas (
-         Action_ActionId
-        ,AuthorizationStrategy_AuthorizationStrategyId
-        ,ResourceClaim_ResourceClaimId
-        ,ValidationRuleSetName
+
+    INSERT INTO dbo.ResourceClaimActions (
+     ActionId
+    ,ResourceClaimId
+    ,ValidationRuleSetName
     )
-    SELECT
-         a.ActionId
-        ,authorization_strategy_id
-        ,ResourceClaimId
-        ,NULL
-    FROM dbo.ResourceClaims
+    SELECT a.ActionId ,ResourceClaimId ,NULL
+    FROM dbo.ResourceClaims RC
     CROSS JOIN dbo.Actions a
     WHERE ResourceClaimId = resource_claim_id;
+
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    SELECT RCA.ResourceClaimActionId,authorization_strategy_id FROM dbo.ResourceClaimActionS RCA 
+    INNER JOIN dbo.ResourceClaims RC ON RCA.ResourceClaimId = RC.ResourceClaimId
+    INNER JOIN dbo.Actions A ON RCA.ActionId = A.ActionId
+    WHERE RCA.ResourceClaimId = resource_claim_id;
+
 END $$;

@@ -5,15 +5,15 @@
 
 DECLARE @ApplicationId INT
 DECLARE @SystemDescriptorsId INT
-  
+
 SELECT @ApplicationId = ApplicationId
 FROM [dbo].[Applications]
 WHERE ApplicationName = 'Ed-Fi ODS API'
- 
+
 SELECT @SystemDescriptorsId = resourceclaimid
 FROM   [dbo].[resourceclaims]
 WHERE  displayname = 'systemDescriptors'
- 
+
 INSERT INTO [dbo].[resourceclaims]
             ([displayname],
              [resourcename],
@@ -25,7 +25,7 @@ VALUES      ( 'institutionControlDescriptor',
 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/institutionControlDescriptor',
 @SystemDescriptorsId,
 @ApplicationId )
- 
+
 INSERT INTO [dbo].[resourceclaims]
             ([displayname],
              [resourcename],
@@ -37,7 +37,7 @@ VALUES      ( 'institutionLevelDescriptor',
               'http://ed-fi.org/ods/identity/claims/sample-student-transcript/institutionLevelDescriptor',
               @SystemDescriptorsId,
               @ApplicationId )
- 
+
 INSERT INTO [dbo].[resourceclaims]
             ([displayname],
              [resourcename],
@@ -50,7 +50,7 @@ VALUES      ( 'specialEducationGraduationStatusDescriptor',
               ,
 @SystemDescriptorsId,
 @ApplicationId )
- 
+
 INSERT INTO [dbo].[resourceclaims]
             ([displayname],
              [resourcename],
@@ -62,7 +62,7 @@ VALUES      ( 'submissionCertificationDescriptor',
 'http://ed-fi.org/ods/identity/claims/sample-student-transcript/submissionCertificationDescriptor',
 @SystemDescriptorsId,
 @ApplicationId )
-  
+
 INSERT INTO [dbo].[ResourceClaims] (
     [DisplayName]
     ,[ResourceName]
@@ -77,40 +77,51 @@ VALUES (
     ,NULL
     ,@ApplicationId
     )
-  
+
 --Setup Authorization Strategy
-  
+
 DECLARE @AuthorizationStrategyId INT
 DECLARE @ResourceClaimId INT
-  
+
 SELECT @AuthorizationStrategyId = AuthorizationStrategyId
 FROM AuthorizationStrategies
 WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-  
+
 SELECT @ResourceClaimId = resourceclaimid
 FROM ResourceClaims
 WHERE ResourceName = 'postSecondaryOrganization'
-  
-INSERT INTO ResourceClaimAuthorizationMetadatas
-SELECT ActionId
-    ,@AuthorizationStrategyId
-    ,@ResourceClaimId
-    ,NULL
-FROM Actions a
-WHERE NOT EXISTS (
-        SELECT 1
-        FROM ResourceClaimAuthorizationMetadatas
-        WHERE Action_ActionId = a.ActionId
-            AND AuthorizationStrategy_AuthorizationStrategyId = @AuthorizationStrategyId
-            AND ResourceClaim_ResourceClaimId = @ResourceClaimId
-        )
-  
+
+INSERT INTO [dbo].[ResourceClaimActions] (
+    [ResourceClaimId]
+    ,[ActionId]
+    ,[ValidationRuleSetName]
+    )
+SELECT ResourceClaimId, a.ActionId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY (
+    SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete')) AS a
+WHERE ResourceClaimId = @ResourceClaimId
+
+INSERT INTO [dbo].[ResourceClaimActionAuthorizationStrategies] (
+    [ResourceClaimActionId]
+    ,[AuthorizationStrategyId]
+    )
+SELECT ResourceClaimActionId, @AuthorizationStrategyId
+FROM [dbo].[ResourceClaimActions] rca
+INNER JOIN [dbo].[ResourceClaims] rc
+    ON rca.[ResourceClaimId] = rc.[ResourceClaimId]
+INNER JOIN [dbo].[Actions] a
+    ON rca.ActionId = a.Actionid
+        AND a.ActionName IN ('Create','Read','Update','Delete')
+WHERE rc.ResourceClaimId = @ResourceClaimId
+
 --Add to SIS Vendor and Ed-Fi Sandbox claim sets
-INSERT INTO [dbo].[ClaimSetResourceClaims]
-SELECT [ActionId]
-    ,[ClaimSetId]
+INSERT INTO [dbo].[ClaimSetResourceClaimActions]
+SELECT [ClaimSetId]
     ,[ResourceClaimId]
-    ,NULL
+    ,[ActionId]
     ,NULL
 FROM Actions a
     ,ClaimSets c
@@ -122,8 +133,8 @@ WHERE r.ResourceName = 'postSecondaryOrganization'
         )
     AND NOT EXISTS (
         SELECT 1
-        FROM ClaimSetResourceClaims
-        WHERE Action_ActionId = a.ActionId
-            AND ClaimSet_ClaimSetId = c.ClaimSetId
-                 AND ResourceClaim_ResourceClaimId = r.ResourceClaimId
+        FROM ClaimSetResourceClaimActions csrca
+        WHERE csrca.ActionId = a.ActionId
+            AND csrca.ClaimSetId = c.ClaimSetId
+                 AND csrca.ResourceClaimId = r.ResourceClaimId
         )
