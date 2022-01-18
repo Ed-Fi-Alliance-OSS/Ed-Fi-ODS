@@ -31,7 +31,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             _identity = new Lazy<ClaimsIdentity>(
                 () => claimsIdentityProvider
                     .GetClaimsIdentity(
-                        _educationOrganizationIds.Value, ClaimSetName, _namespacePrefixes.Value, new List<string>()));
+                        _educationOrganizationIds.Value, ClaimSetName, _namespacePrefixes.Value, new List<string>(), new List<short?>()));
 
             _apiKeyContext = new Lazy<ApiKeyContext>(
                 () => new ApiKeyContext(

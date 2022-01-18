@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Context;
 using EdFi.Security.DataAccess.Models;
@@ -45,6 +46,7 @@ namespace EdFi.Security.DataAccess.Repositories
         public virtual Action GetActionByName(string actionName)
         {
             var instanceId = _instanceIdContextProvider.GetInstanceId();
+            
             if (string.IsNullOrEmpty(instanceId))
             {
                 throw new InvalidOperationException("Expected instanceId is null or empty.");
@@ -53,12 +55,14 @@ namespace EdFi.Security.DataAccess.Repositories
             var instanceSecurityRepoCacheObject = InstanceSecurityRepositoryCache.GetCache()
                 .GetSecurityRepository(instanceId);
 
-            return instanceSecurityRepoCacheObject.Actions.First(a => a.ActionName.Equals(actionName, StringComparison.InvariantCultureIgnoreCase));
+            return instanceSecurityRepoCacheObject.Actions
+                .First(a => a.ActionName.EqualsIgnoreCase(actionName));
         }
 
         public virtual AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
         {
             var instanceId = _instanceIdContextProvider.GetInstanceId();
+            
             if (string.IsNullOrEmpty(instanceId))
             {
                 throw new InvalidOperationException("Expected instanceId is null or empty.");
@@ -67,13 +71,14 @@ namespace EdFi.Security.DataAccess.Repositories
             var instanceSecurityRepoCacheObject = InstanceSecurityRepositoryCache.GetCache()
                 .GetSecurityRepository(instanceId);
 
-            return instanceSecurityRepoCacheObject.AuthorizationStrategies.First(
-                a => a.AuthorizationStrategyName.Equals(authorizationStrategyName, StringComparison.InvariantCultureIgnoreCase));
+            return instanceSecurityRepoCacheObject.AuthorizationStrategies
+                .First(a => a.AuthorizationStrategyName.EqualsIgnoreCase(authorizationStrategyName));
         }
 
-        public virtual IEnumerable<ClaimSetResourceClaim> GetClaimsForClaimSet(string claimSetName)
+        public virtual IEnumerable<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
         {
             var instanceId = _instanceIdContextProvider.GetInstanceId();
+            
             if (string.IsNullOrEmpty(instanceId))
             {
                 throw new InvalidOperationException("Expected instanceId is null or empty.");
@@ -82,7 +87,8 @@ namespace EdFi.Security.DataAccess.Repositories
             var instanceSecurityRepoCacheObject = InstanceSecurityRepositoryCache.GetCache()
                 .GetSecurityRepository(instanceId);
 
-            return instanceSecurityRepoCacheObject.ClaimSetResourceClaims.Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
+            return instanceSecurityRepoCacheObject.ClaimSetResourceClaimActions
+                .Where(c => c.ClaimSet.ClaimSetName.EqualsIgnoreCase(claimSetName));
         }
 
         /// <summary>
@@ -99,6 +105,7 @@ namespace EdFi.Security.DataAccess.Repositories
         private IEnumerable<ResourceClaim> GetResourceClaimLineageForResourceClaim(string resourceClaimUri)
         {
             var instanceId = _instanceIdContextProvider.GetInstanceId();
+            
             if (string.IsNullOrEmpty(instanceId))
             {
                 throw new InvalidOperationException("Expected instanceId is null or empty.");
@@ -114,7 +121,7 @@ namespace EdFi.Security.DataAccess.Repositories
             try
             {
                 resourceClaim = instanceSecurityRepoCacheObject.ResourceClaims
-                    .SingleOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase));
+                    .SingleOrDefault(rc => rc.ClaimName.EqualsIgnoreCase(resourceClaimUri));
             }
             catch (InvalidOperationException ex)
             {
@@ -142,18 +149,19 @@ namespace EdFi.Security.DataAccess.Repositories
         /// <param name="resourceClaimUri">The resource claim URI for which metadata is to be retrieved.</param>
         /// <param name="action">The action for claim.</param>
         /// <returns>The resource claim's lineage of authorization metadata.</returns>
-        public virtual IEnumerable<ResourceClaimAuthorizationMetadata> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
+        public virtual IEnumerable<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
         {
-            var strategies = new List<ResourceClaimAuthorizationMetadata>();
+            var resourceClaimActions = new List<ResourceClaimAction>();
 
-            AddStrategiesForResourceClaimLineage(strategies, resourceClaimUri, action);
+            AddResourceClaimsInLineage(resourceClaimActions, resourceClaimUri, action);
 
-            return strategies;
+            return resourceClaimActions;
         }
 
-        private void AddStrategiesForResourceClaimLineage(List<ResourceClaimAuthorizationMetadata> strategies, string resourceClaimUri, string action)
+        private void AddResourceClaimsInLineage(List<ResourceClaimAction> resourceClaimActions, string resourceClaimUri, string action)
         {
             var instanceId = _instanceIdContextProvider.GetInstanceId();
+            
             if (string.IsNullOrEmpty(instanceId))
             {
                 throw new InvalidOperationException("Expected instanceId is null or empty.");
@@ -163,31 +171,32 @@ namespace EdFi.Security.DataAccess.Repositories
                 .GetSecurityRepository(instanceId);
 
             //check for exact match on resource and action
-            var claimAndStrategy = instanceSecurityRepoCacheObject.ResourceClaimAuthorizationMetadata
+            var resourceClaimAction = instanceSecurityRepoCacheObject.ResourceClaimActions
                 .SingleOrDefault(
-                    rcas =>
-                        rcas.ResourceClaim.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase)
-                        && rcas.Action.ActionUri.Equals(action, StringComparison.InvariantCultureIgnoreCase));
+                    rca =>
+                        rca.ResourceClaim.ClaimName.EqualsIgnoreCase(resourceClaimUri)
+                        && rca.Action.ActionUri.EqualsIgnoreCase(action));
 
-            // Add the claim/strategy if it was found
-            if (claimAndStrategy != null)
+            // Add the resource claim (with strategies) if it was found
+            if (resourceClaimAction != null)
             {
-                strategies.Add(claimAndStrategy);
+                resourceClaimActions.Add(resourceClaimAction);
             }
 
-            var resourceClaim =
-                instanceSecurityRepoCacheObject.ResourceClaims.FirstOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase));
+            var resourceClaim = instanceSecurityRepoCacheObject.ResourceClaims
+                    .FirstOrDefault(rc => rc.ClaimName.EqualsIgnoreCase(resourceClaimUri));
 
-            // if there's a parent resource, recurse
+            // if there's a parent resource, recurse up the hierarchy
             if (resourceClaim != null && resourceClaim.ParentResourceClaim != null)
             {
-                AddStrategiesForResourceClaimLineage(strategies, resourceClaim.ParentResourceClaim.ClaimName, action);
+                AddResourceClaimsInLineage(resourceClaimActions, resourceClaim.ParentResourceClaim.ClaimName, action);
             }
         }
 
         public virtual ResourceClaim GetResourceByResourceName(string resourceName)
         {
             var instanceId = _instanceIdContextProvider.GetInstanceId();
+            
             if (string.IsNullOrEmpty(instanceId))
             {
                 throw new InvalidOperationException("Expected instanceId is null or empty.");
@@ -196,7 +205,8 @@ namespace EdFi.Security.DataAccess.Repositories
             var instanceSecurityRepoCacheObject = InstanceSecurityRepositoryCache.GetCache()
                 .GetSecurityRepository(instanceId);
 
-            return instanceSecurityRepoCacheObject.ResourceClaims.FirstOrDefault(rc => rc.ResourceName.Equals(resourceName, StringComparison.InvariantCultureIgnoreCase));
+            return instanceSecurityRepoCacheObject.ResourceClaims
+                .FirstOrDefault(rc => rc.ResourceName.EqualsIgnoreCase(resourceName));
         }
     }
 }

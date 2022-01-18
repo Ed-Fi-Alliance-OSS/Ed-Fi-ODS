@@ -120,36 +120,40 @@ namespace EdFi.Ods.Api.Caching
         {
             using (var context = _securityContextFactory.CreateContext())
             {
-                var application =
-                    context.Applications.First(
-                        app => app.ApplicationName.Equals(EdFiOdsApi, StringComparison.InvariantCultureIgnoreCase));
+                var application = context.Applications.First(
+                    app => app.ApplicationName.Equals(EdFiOdsApi, StringComparison.InvariantCultureIgnoreCase));
 
                 var actions = context.Actions.ToList();
 
-                var claimSets = context.ClaimSets.Include(cs => cs.Application)
-                                       .ToList();
+                var claimSets = context.ClaimSets
+                    .Include(cs => cs.Application)
+                    .ToList();
 
-                var resourceClaims = context.ResourceClaims.Include(rc => rc.Application)
-                                            .Include(rc => rc.ParentResourceClaim)
-                                            .Where(rc => rc.Application.ApplicationId.Equals(application.ApplicationId))
-                                            .ToList();
+                var resourceClaims = context.ResourceClaims
+                    .Include(rc => rc.Application)
+                    .Include(rc => rc.ParentResourceClaim)
+                    .Where(rc => rc.Application.ApplicationId.Equals(application.ApplicationId))
+                    .ToList();
 
-                var authorizationStrategies = context.AuthorizationStrategies.Include(auth => auth.Application)
-                                                     .Where(auth => auth.Application.ApplicationId.Equals(application.ApplicationId))
-                                                     .ToList();
+                var authorizationStrategies = context.AuthorizationStrategies
+                    .Include(auth => auth.Application)
+                    .Where(auth => auth.Application.ApplicationId.Equals(application.ApplicationId))
+                    .ToList();
 
-                var claimSetResourceClaims = context.ClaimSetResourceClaims.Include(csrc => csrc.Action)
-                                                    .Include(csrc => csrc.ClaimSet)
-                                                    .Include(csrc => csrc.ResourceClaim)
-                                                    .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
-                                                    .ToList();
+                var claimSetResourceClaims = context.ClaimSetResourceClaimActions
+                    .Include(csrc => csrc.Action)
+                    .Include(csrc => csrc.ClaimSet)
+                    .Include(csrc => csrc.ResourceClaim)
+                    .Include(csrc => csrc.AuthorizationStrategyOverrides)
+                    .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
+                    .ToList();
 
-                var resourceClaimAuthorizationMetadata =
-                    context.ResourceClaimAuthorizationMetadatas.Include(rcas => rcas.Action)
-                           .Include(rcas => rcas.AuthorizationStrategy)
-                           .Include(rcas => rcas.ResourceClaim)
-                           .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
-                           .ToList();
+                var resourceClaimAuthorizationMetadata = context.ResourceClaimActions
+                    .Include(rca => rca.Action)
+                    .Include(rca => rca.AuthorizationStrategies)
+                    .Include(rca => rca.ResourceClaim)
+                    .Where(rca => rca.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
+                    .ToList();
 
                 var repo = new InstanceSecurityRepositoryCacheObject(
                     application,
@@ -170,7 +174,7 @@ namespace EdFi.Ods.Api.Caching
 
             try
             {
-                return CacheProviderExtensions.TryGetCachedObject(_cacheProvider, lookupKey, out securityRepositoryCacheObject);
+                return _cacheProvider.TryGetCachedObject(lookupKey, out securityRepositoryCacheObject);
             }
             finally
             {
