@@ -32,9 +32,9 @@ namespace Test.Common._Stubs
             };
         }
 
-        public IEnumerable<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
+        public IEnumerable<ClaimSetResourceClaim> GetClaimsForClaimSet(string claimSetName)
         {
-            return new List<ClaimSetResourceClaimAction>();
+            return new List<ClaimSetResourceClaim>();
         }
 
         public IEnumerable<string> GetResourceClaimLineage(string resourceUri)
@@ -42,9 +42,9 @@ namespace Test.Common._Stubs
             return new List<string>();
         }
 
-        public IEnumerable<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
+        public IEnumerable<ResourceClaimAuthorizationMetadata> GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
         {
-            return new List<ResourceClaimAction>();
+            return new List<ResourceClaimAuthorizationMetadata>();
         }
 
         public Action GetActionByHttpVerb(string httpVerb)

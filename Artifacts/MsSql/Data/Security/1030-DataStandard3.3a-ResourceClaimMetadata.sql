@@ -45,8 +45,8 @@
     END
 
     --Apply  No Further Authorization Required on this OrganizationDepartment resource
-    INSERT INTO  dbo.ClaimSetResourceClaimActions( ActionId , ClaimSetId , ResourceClaimId , ValidationRuleSetNameOverride )
-    SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, null
+    INSERT INTO  dbo.ClaimSetResourceClaims( Action_ActionId , ClaimSet_ClaimSetId , ResourceClaim_ResourceClaimId , AuthorizationStrategyOverride_AuthorizationStrategyId , ValidationRuleSetNameOverride )
+    SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, @noFurtherAuthRequiredAuthorizationStrategyId, null
     FROM [dbo].[ResourceClaims]
     CROSS APPLY
     (SELECT ActionId  FROM [dbo].[Actions]
@@ -55,18 +55,3 @@
     (SELECT claimSetId  FROM dbo.ClaimSets
     WHERE ClaimSetName IN ('SIS Vendor','Ed-Fi Sandbox','District Hosted SIS Vendor')) AS cs
     WHERE ResourceName = 'organizationDepartment';
-
-	INSERT INTO [dbo].[ClaimSetResourceClaimActionAuthorizationStrategyOverrides]
-		([AuthorizationStrategyId]
-		,[ClaimSetResourceClaimActionId])
-	SELECT @noFurtherAuthRequiredAuthorizationStrategyId, crc.ClaimSetResourceClaimActionId
-	FROM [dbo].[ClaimSetResourceClaimActions] crc
-	INNER JOIN [dbo].[ClaimSets] cs ON
-		crc.ClaimSetId = cs.ClaimSetId
-	INNER JOIN [dbo].[Actions] a ON
-		crc.ActionId=a.Actionid and 
-	    a.ActionName IN ('Create','Read','Update','Delete')
-	INNER JOIN [dbo].[ResourceClaims] r ON 
-	crc.ResourceClaimId = r.ResourceClaimId
-	WHERE cs.ClaimSetName IN ('SIS Vendor','Ed-Fi Sandbox','District Hosted SIS Vendor') 
-		AND r.ResourceName IN  ('organizationDepartment');
