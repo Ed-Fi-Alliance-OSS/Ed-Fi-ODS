@@ -5,49 +5,35 @@
 
 DO language plpgsql $$
 DECLARE
-    claim_set_name VARCHAR(75) := 'Assessment Vendor';
+	claim_set_name VARCHAR(100) := 'Assessment Vendor';
     application_name VARCHAR(50) := 'Ed-Fi ODS API';
     application_id INT;
     claim_set_id INT;
-    create_action_id INT;
-    read_action_id INT;
-    update_action_id INT;
-    delete_action_id INT;
-    academic_subject_descriptor_resource_claim_id INT;
-    assessment_metadata_resource_claim_id INT;
-    learning_objective_resource_claim_id INT;
-    managed_descriptors_resource_claim_id INT;
-    student_resource_claim_id INT;
-    system_descriptors_resource_claim_id INT;
-    types_resource_claim_id INT;
-    learning_standard_resource_claim_id INT;
+	create_action_id INT;
+	read_action_id INT;
+	update_action_id INT;
+	delete_action_id INT;
+	academic_subject_descriptor_resource_claim_id INT;
+	assessment_metadata_resource_claim_id INT;
+	learning_objective_resource_claim_id INT;
+	learning_standard_resource_claim_id INT;
+	managed_descriptors_resource_claim_id INT;
+	student_resource_claim_id INT;
+	system_descriptors_resource_claim_id INT;
+	types_resource_claim_id INT;
 BEGIN
-    IF NOT EXISTS (SELECT 1 FROM dbo.Applications WHERE ApplicationName = application_name)
-    THEN
-        RAISE NOTICE '% does not exist', application_name;
-    END IF;
-
-    IF EXISTS (SELECT 1 FROM dbo.ClaimSets WHERE ClaimSetName = claim_set_name)
-    THEN
-        SELECT ClaimSetId INTO claim_set_id
-        FROM dbo.ClaimSets
-        WHERE ClaimSetName = claim_set_name;
-
-        --Remove existing claimsets--
-        DELETE FROM dbo.ClaimSetResourceClaims
-        WHERE ClaimSet_ClaimSetId = claim_set_id;
-    ElSE
-        --Create a new ClaimSet--
-        INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId) VALUES (claim_set_name,application_id);
-
-        SELECT ClaimSetId INTO claim_set_id
-        FROM dbo.ClaimSets
-        WHERE ClaimSetName = claim_set_name;
-    END IF;
-
     SELECT ApplicationId INTO application_id
-    FROM dbo.Applications
-    WHERE ApplicationName = application_name;
+	FROM dbo.Applications
+	WHERE ApplicationName = application_name;
+	
+	IF (application_id IS NULL)
+	THEN
+		RETURN;
+	END IF;
+	
+	SELECT ClaimSetId INTO claim_set_id
+	FROM dbo.ClaimSets
+	WHERE ClaimSetName = claim_set_name;
 
     --Actions--
     SELECT ActionId INTO create_action_id
@@ -99,39 +85,52 @@ BEGIN
     FROM dbo.ResourceClaims rc
     WHERE rc.ResourceName = 'types';
 
+	IF (claim_set_id IS NOT NULL)
+	THEN
+		DELETE FROM dbo.ClaimSetResourceClaimActions
+		WHERE ClaimSetId = claim_set_id;
+	ELSE
+		--Create a new ClaimSet--
+		INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId) VALUES (claim_set_name,application_id);
+		
+		SELECT ClaimSetId INTO claim_set_id
+		FROM dbo.ClaimSets
+		WHERE ClaimSetName = claim_set_name;
+	END IF;
+	
     --academicSubjectDescriptor CRUD--
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, academic_subject_descriptor_resource_claim_id, create_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, academic_subject_descriptor_resource_claim_id, read_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, academic_subject_descriptor_resource_claim_id, update_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, academic_subject_descriptor_resource_claim_id, delete_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, academic_subject_descriptor_resource_claim_id, create_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, academic_subject_descriptor_resource_claim_id, read_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, academic_subject_descriptor_resource_claim_id, update_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, academic_subject_descriptor_resource_claim_id, delete_action_id);
 
     --assessmentMetadata CRUD--
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, assessment_metadata_resource_claim_id, create_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, assessment_metadata_resource_claim_id, read_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, assessment_metadata_resource_claim_id, update_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, assessment_metadata_resource_claim_id, delete_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, assessment_metadata_resource_claim_id, create_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, assessment_metadata_resource_claim_id, read_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, assessment_metadata_resource_claim_id, update_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, assessment_metadata_resource_claim_id, delete_action_id);
 
     --learningObjective CRUD--
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, learning_objective_resource_claim_id, create_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, learning_objective_resource_claim_id, read_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, learning_objective_resource_claim_id, update_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, learning_objective_resource_claim_id, delete_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, learning_objective_resource_claim_id, create_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, learning_objective_resource_claim_id, read_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, learning_objective_resource_claim_id, update_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, learning_objective_resource_claim_id, delete_action_id);
 
     --learningStandards R--
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, read_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, read_action_id);
 
     --managedDescriptors CRUD--
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, managed_descriptors_resource_claim_id, create_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, managed_descriptors_resource_claim_id, read_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, managed_descriptors_resource_claim_id, update_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, managed_descriptors_resource_claim_id, delete_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, managed_descriptors_resource_claim_id, create_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, managed_descriptors_resource_claim_id, read_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, managed_descriptors_resource_claim_id, update_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, managed_descriptors_resource_claim_id, delete_action_id);
 
     --student R--
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, student_resource_claim_id, read_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, student_resource_claim_id, read_action_id);
 
     --systemDescriptors R--
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, system_descriptors_resource_claim_id, read_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, system_descriptors_resource_claim_id, read_action_id);
 
     --types R--
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, types_resource_claim_id, read_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, types_resource_claim_id, read_action_id);
 END $$;

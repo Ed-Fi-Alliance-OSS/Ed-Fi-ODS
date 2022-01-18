@@ -102,19 +102,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                         .ToString("n"),
                     ApplicationId = 999,
                     ClaimSetName = "SomeClaimSet",
-                    NamespacePrefixes = new List<string> {"Namespace"},
-                    EducationOrganizationIds = new List<int>
+                    NamespacePrefixes = new [] {"Namespace"},
+                    EducationOrganizationIds = new []
                     {
                         123,
                         234
-                    }
+                    },
+                    OwnershipTokenIds = new short?[] { 1 }
                 };
 
                 var claimsIdentity = claimsIdentityProvider.GetClaimsIdentity(
                     apiClientDetails.EducationOrganizationIds,
                     apiClientDetails.ClaimSetName,
                     apiClientDetails.NamespacePrefixes,
-                    apiClientDetails.Profiles.ToList());
+                    apiClientDetails.Profiles.ToList(), 
+                    apiClientDetails.OwnershipTokenIds.ToList());
 
                 ClaimsPrincipal.ClaimsPrincipalSelector = () => new ClaimsPrincipal(claimsIdentity);
             }

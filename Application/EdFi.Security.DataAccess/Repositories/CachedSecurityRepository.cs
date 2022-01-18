@@ -49,13 +49,13 @@ namespace EdFi.Security.DataAccess.Repositories
         public override AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
             => VerifyCacheAndExecute(() => base.GetAuthorizationStrategyByName(authorizationStrategyName));
 
-        public override IEnumerable<ClaimSetResourceClaim> GetClaimsForClaimSet(string claimSetName)
+        public override IEnumerable<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
             => VerifyCacheAndExecute(() => base.GetClaimsForClaimSet(claimSetName));
 
         public override IEnumerable<string> GetResourceClaimLineage(string resourceUri)
             => VerifyCacheAndExecute(() => base.GetResourceClaimLineage(resourceUri));
 
-        public override IEnumerable<ResourceClaimAuthorizationMetadata>
+        public override IEnumerable<ResourceClaimAction>
             GetResourceClaimLineageMetadata(string resourceClaimUri, string action)
             => VerifyCacheAndExecute(() => base.GetResourceClaimLineageMetadata(resourceClaimUri, action));
 

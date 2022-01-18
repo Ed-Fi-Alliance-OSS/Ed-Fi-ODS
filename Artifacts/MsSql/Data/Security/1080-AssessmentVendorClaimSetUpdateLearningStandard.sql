@@ -43,8 +43,8 @@ WHERE rc.ResourceName = 'LearningStandard'
 
 IF (@assessmentVendorClaimSetId IS NOT NULL)
  BEGIN
-    DELETE FROM [dbo].[ClaimSetResourceClaims]
-    WHERE [ClaimSet_ClaimSetId] = @assessmentVendorClaimSetId AND [ResourceClaim_ResourceClaimId] = @learningStandard
+    DELETE FROM [dbo].[ClaimSetResourceClaimActions]
+    WHERE [ClaimSetId] = @assessmentVendorClaimSetId AND [ResourceClaimId] = @learningStandard
  END
 
 ElSE IF (@assessmentVendorClaimSetId IS NULL )
@@ -58,8 +58,8 @@ ElSE IF (@assessmentVendorClaimSetId IS NULL )
  END
  
 --learningStandardDescriptor CRUD--
-INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@assessmentVendorClaimSetId, @learningStandard, @create)
-INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@assessmentVendorClaimSetId, @learningStandard, @read)
-INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@assessmentVendorClaimSetId, @learningStandard, @update)
-INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (@assessmentVendorClaimSetId, @learningStandard, @delete)
+INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@assessmentVendorClaimSetId, @learningStandard, @create)
+INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@assessmentVendorClaimSetId, @learningStandard, @read)
+INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@assessmentVendorClaimSetId, @learningStandard, @update)
+INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (@assessmentVendorClaimSetId, @learningStandard, @delete)
 

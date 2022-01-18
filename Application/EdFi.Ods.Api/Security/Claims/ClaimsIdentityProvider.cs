@@ -39,14 +39,16 @@ namespace EdFi.Ods.Api.Security.Claims
                 apiKeyContext.EducationOrganizationIds,
                 apiKeyContext.ClaimSetName,
                 apiKeyContext.NamespacePrefixes,
-                apiKeyContext.Profiles.ToList());
+                apiKeyContext.Profiles.ToList(),
+                apiKeyContext.OwnershipTokenIds.ToList());
         }
 
         public ClaimsIdentity GetClaimsIdentity(
             IEnumerable<int> educationOrganizationIds,
             string claimSetName,
             IEnumerable<string> namespacePrefixes,
-            IReadOnlyList<string> assignedProfileNames)
+            IReadOnlyList<string> assignedProfileNames,
+            IReadOnlyList<short?> ownershipTokenIds)
         {
             var nonEmptyNamespacePrefixes = namespacePrefixes.Where(np => !string.IsNullOrWhiteSpace(np)).ToList();
 
@@ -65,9 +67,9 @@ namespace EdFi.Ods.Api.Security.Claims
                             Actions = g.Select(
                                     x => new ResourceAction(
                                         x.Action.ActionUri,
-                                        x.AuthorizationStrategyOverride == null
-                                            ? null
-                                            : x.AuthorizationStrategyOverride.AuthorizationStrategyName,
+                                        x.AuthorizationStrategyOverrides
+                                            ?.Select(y => y.AuthorizationStrategy.AuthorizationStrategyName)
+                                            .ToArray(),
                                         x.ValidationRuleSetNameOverride))
                                 .ToArray(),
                             EducationOrganizationIds = educationOrganizationIds.ToList()
@@ -85,6 +87,11 @@ namespace EdFi.Ods.Api.Security.Claims
 
             // Add the claim set name
             claims.Add(new Claim(EdFiOdsApiClaimTypes.ClaimSetName, claimSetName));
+
+            // Add list of OwnershipTokenIds
+            claims.AddRange(
+                ownershipTokenIds.Select(ownershipToken 
+                    => new Claim(EdFiOdsApiClaimTypes.OwnershipTokenId, ownershipToken.ToString())));
 
             return new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth);
         }

@@ -40,8 +40,8 @@ BEGIN
         WHERE ClaimSetName = claim_set_name;
 
         --Remove existing claimsets--
-        DELETE FROM dbo.ClaimSetResourceClaims
-        WHERE ClaimSet_ClaimSetId = claim_set_id AND ResourceClaim_ResourceClaimId = learning_standard_resource_claim_id;
+        DELETE FROM dbo.ClaimSetResourceClaimActions
+        WHERE ClaimSetId = claim_set_id AND ResourceClaimId = learning_standard_resource_claim_id;
     ElSE
         --Create a new ClaimSet--
         INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId) VALUES (claim_set_name,application_id);
@@ -72,11 +72,10 @@ BEGIN
     FROM dbo.Actions a
     WHERE a.ActionName = 'Delete';
 
-
     --LearningStandard CRUD--
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, create_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, read_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, update_action_id);
-    INSERT INTO dbo.ClaimSetResourceClaims (ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId, Action_ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, delete_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, create_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, read_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, update_action_id);
+    INSERT INTO dbo.ClaimSetResourceClaimActions (ClaimSetId, ResourceClaimId, ActionId) VALUES (claim_set_id, learning_standard_resource_claim_id, delete_action_id);
 
 END $$;

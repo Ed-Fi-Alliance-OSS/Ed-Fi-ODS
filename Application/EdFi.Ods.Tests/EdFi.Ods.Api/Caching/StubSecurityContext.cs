@@ -27,9 +27,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Caching
             securityContext.Actions = GetFakeDbSet<Action>().SetupData();
             securityContext.AuthorizationStrategies = GetFakeDbSet<AuthorizationStrategy>().SetupData();
             securityContext.ClaimSets = GetFakeDbSet<ClaimSet>().SetupData();
-            securityContext.ClaimSetResourceClaims = GetFakeDbSet<ClaimSetResourceClaim>().SetupData();
+            securityContext.ClaimSetResourceClaimActions = GetFakeDbSet<ClaimSetResourceClaimAction>().SetupData();
             securityContext.ResourceClaims = GetFakeDbSet<ResourceClaim>().SetupData();
-            securityContext.ResourceClaimAuthorizationMetadatas = GetFakeDbSet<ResourceClaimAuthorizationMetadata>().SetupData();
+            securityContext.ResourceClaimActions = GetFakeDbSet<ResourceClaimAction>().SetupData();
 
             return securityContext;
         }

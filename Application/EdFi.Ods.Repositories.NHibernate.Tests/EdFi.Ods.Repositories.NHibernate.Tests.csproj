@@ -17,9 +17,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.8" />
     <PackageReference Include="Autofac" Version="5.1.2" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.43" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.54" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FakeItEasy" Version="6.2.1" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />

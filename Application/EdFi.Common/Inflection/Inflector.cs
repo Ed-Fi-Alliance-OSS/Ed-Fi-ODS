@@ -175,6 +175,29 @@ namespace EdFi.Common.Inflection
         }
 
         /// <summary>
+        /// Gets the singularized or pluralized form of the supplied word based on the basic count provided.
+        /// </summary>
+        /// <param name="word">The word to be inflected.</param>
+        /// <param name="basisCount">The basis for determining whether to singularize or pluralize the word.</param>
+        /// <param name="singularWordOverride">An override value to use for the singular form.</param>
+        /// <param name="pluralWordOverride">An override value to use for the plural form.</param>
+        /// <returns>The inflected word.</returns>
+        public static string Inflect(string word, int basisCount, string singularWordOverride = null, string pluralWordOverride = null)
+        {
+            if (basisCount < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(basisCount), "Value must be greater than or equal to 0.");
+            }
+            
+            if (basisCount == 1)
+            {
+                return singularWordOverride ?? MakeSingular(word);
+            }
+
+            return pluralWordOverride ?? MakePlural(word);
+        }
+        
+        /// <summary>
         ///     Applies the rules.
         /// </summary>
         /// <param name="rules">The rules.</param>

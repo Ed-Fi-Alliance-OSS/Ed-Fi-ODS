@@ -43,18 +43,30 @@ namespace EdFi.Security.DataAccess.Repositories
                                                      .Where(auth => auth.Application.ApplicationId.Equals(application.ApplicationId))
                                                      .ToList();
 
-                var claimSetResourceClaims = context.ClaimSetResourceClaims.Include(csrc => csrc.Action)
+                var claimSetResourceClaimActions = context.ClaimSetResourceClaimActions.Include(csrc => csrc.Action)
                                                     .Include(csrc => csrc.ClaimSet)
                                                     .Include(csrc => csrc.ResourceClaim)
                                                     .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                                                     .ToList();
 
-                var resourceClaimAuthorizationMetadata =
-                    context.ResourceClaimAuthorizationMetadatas.Include(rcas => rcas.Action)
-                           .Include(rcas => rcas.AuthorizationStrategy)
+                var claimSetResourceClaimActionAuthorizationStrategyOverrides = context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Include(csrcas => csrcas.AuthorizationStrategy)
+                                                   .Include(csrcas => csrcas.ClaimSetResourceClaimAction)
+                                                   .ToList();
+
+                var resourceClaimActionAuthorizationStrategies = context.ResourceClaimActionAuthorizationStrategies.Include(rcaas => rcaas.AuthorizationStrategy)
+                                    .Include(rcaas => rcaas.ResourceClaimAction)
+                                    .ToList();
+
+                var resourceClaimActionAuthorizations =
+                    context.ResourceClaimActions.Include(rcas => rcas.Action)                           
                            .Include(rcas => rcas.ResourceClaim)
                            .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                            .ToList();
+
+                foreach (var a in resourceClaimActionAuthorizations)
+                {
+                    a.AuthorizationStrategies = resourceClaimActionAuthorizationStrategies.Where(r => r.ResourceClaimAction.ResourceClaimActionId == a.ResourceClaimActionId).ToList();
+                }
 
                 Initialize(
                     application,
@@ -62,8 +74,8 @@ namespace EdFi.Security.DataAccess.Repositories
                     claimSets,
                     resourceClaims,
                     authorizationStrategies,
-                    claimSetResourceClaims,
-                    resourceClaimAuthorizationMetadata);
+                    claimSetResourceClaimActions,
+                    resourceClaimActionAuthorizations);
             }
         }
     }

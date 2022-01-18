@@ -77,11 +77,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies
                 select new ResourceClaimAuthorizationMetadata
                 {
                     ClaimName = c,
-                    AuthorizationStrategy =
+                    AuthorizationStrategies =
                         resourceClaimLineageWithMetadata
                             .Where(x => c.EqualsIgnoreCase(x.ResourceClaim.ClaimName))
-                            .Select(x => x.AuthorizationStrategy.AuthorizationStrategyName)
-                            .SingleOrDefault()
+                            .SelectMany(x => x.AuthorizationStrategies.Select(y => y.AuthorizationStrategy.AuthorizationStrategyName))
+                            .ToArray()
                 };
 
             return resourceClaimsLineage;
