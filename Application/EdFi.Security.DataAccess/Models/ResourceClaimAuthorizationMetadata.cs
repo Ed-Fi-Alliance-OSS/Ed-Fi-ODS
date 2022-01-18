@@ -3,30 +3,23 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Security.DataAccess.Models
 {
-    public class ResourceClaimAction
+    public class ResourceClaimAuthorizationMetadata
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ResourceClaimActionId { get; set; }
-
-        public int ActionId { get; set; }
+        public int ResourceClaimAuthorizationStrategyId { get; set; }
 
         [Required]
-        [ForeignKey("ActionId")]
         public Action Action { get; set; }
 
-        public List<ResourceClaimActionAuthorizationStrategies> AuthorizationStrategies { get; set; }
-
-        public int ResourceClaimId { get; set; }
+        public AuthorizationStrategy AuthorizationStrategy { get; set; }
 
         [Required]
-        [ForeignKey("ResourceClaimId")]
         public ResourceClaim ResourceClaim { get; set; }
 
         [StringLength(255)]

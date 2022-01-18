@@ -34,9 +34,9 @@ namespace EdFi.Ods.Common.Security.Claims
         public string ClaimName { get; set; }
 
         /// <summary>
-        /// The names of the strategies to be used in the authorization decision.
+        /// The name of the strategy to be used in the authorization decision.
         /// </summary>
-        public IReadOnlyList<string> AuthorizationStrategies { get; set; }
+        public string AuthorizationStrategy { get; set; }
 
         /// <summary>
         /// The name of the validation rule set to be executed during authorization of data modifying operations.
