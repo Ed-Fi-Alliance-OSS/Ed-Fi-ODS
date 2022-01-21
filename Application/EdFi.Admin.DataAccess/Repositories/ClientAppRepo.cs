@@ -551,6 +551,17 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
+        public OwnershipToken CreateOwnershipToken(OwnershipToken ownershipToken)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                context.OwnershipToken.Add(ownershipToken);
+                context.SaveChanges();
+            }
+
+            return ownershipToken;
+        }
+
         internal class EmailResult
         {
             public string Email { get; set; }

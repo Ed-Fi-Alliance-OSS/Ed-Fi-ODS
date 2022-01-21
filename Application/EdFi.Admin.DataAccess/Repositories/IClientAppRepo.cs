@@ -57,5 +57,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes);
 
         void AddLeaIdsToApplication(List<int> localEducationAgencyIds, int applicationId);
+
+        OwnershipToken CreateOwnershipToken(OwnershipToken ownershipToken);
     }
 }
