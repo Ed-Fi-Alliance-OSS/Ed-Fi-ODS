@@ -22,6 +22,7 @@ namespace EdFi.Admin.DataAccess.Models
         {
             ClientAccessTokens = new List<ClientAccessToken>();
             ApplicationEducationOrganizations = new Collection<ApplicationEducationOrganization>();
+            ApiClientOwnershipTokens = new Collection<ApiClientOwnershipToken>();
             Domains = new Dictionary<string, string>();
         }
 
@@ -141,6 +142,8 @@ namespace EdFi.Admin.DataAccess.Models
 
         public ICollection<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
 
+        public ICollection<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
+        
         public List<ClientAccessToken> ClientAccessTokens { get; set; }
 
         /// <summary>

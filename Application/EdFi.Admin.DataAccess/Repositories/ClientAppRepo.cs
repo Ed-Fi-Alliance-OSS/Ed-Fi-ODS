@@ -337,6 +337,45 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
+
+        public void AddApiClientOwnershipTokens(int userId, int apiClientId, IList<string> OwnershipTokens, int applicationId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var application = context.Applications
+                    .Include(a => a.ApplicationEducationOrganizations)
+                    .Single(a => a.ApplicationId == applicationId);
+
+                var user = context.Users.FirstOrDefault(u => u.UserId == userId);
+
+                var client = user?.ApiClients.FirstOrDefault(c => c.ApiClientId == apiClientId);
+
+                if (client == null)
+                {
+                    return;
+                }
+
+                client.Application = application;
+
+
+                foreach (var OwnershipToken in OwnershipTokens)
+                {
+                        var ownershipToken = context.OwnershipToken.FirstOrDefault(s => s.Description == OwnershipToken);
+
+                        if (ownershipToken == null)
+                        {
+                            context.OwnershipToken.Add(new OwnershipToken { Description = OwnershipToken });
+                            context.SaveChanges();
+                        }
+                        client.CreatorOwnershipTokenId = ownershipToken;
+                        client.ApiClientOwnershipTokens.Add(new ApiClientOwnershipToken());
+                        context.SaveChanges();
+                }
+
+                context.SaveChanges();
+            }
+        }
+                
         private void AddApplicationEducationOrganizations(IUsersContext context, int applicationId, ApiClient client)
         {
             var defaultApplication = context.Applications
