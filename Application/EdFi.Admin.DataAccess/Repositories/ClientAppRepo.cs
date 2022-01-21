@@ -562,6 +562,16 @@ namespace EdFi.Admin.DataAccess.Repositories
             return ownershipToken;
         }
 
+        public OwnershipToken GetOwnershipToken(string description)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return
+                    context.OwnershipToken.Include(u => u.Clients.Select(ac => ac.Application))
+                        .FirstOrDefault(x => x.Description == description);
+            }
+        }
+
         internal class EmailResult
         {
             public string Email { get; set; }

@@ -59,5 +59,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         void AddLeaIdsToApplication(List<int> localEducationAgencyIds, int applicationId);
 
         OwnershipToken CreateOwnershipToken(OwnershipToken ownershipToken);
+
+        OwnershipToken GetOwnershipToken(string description);
     }
 }
