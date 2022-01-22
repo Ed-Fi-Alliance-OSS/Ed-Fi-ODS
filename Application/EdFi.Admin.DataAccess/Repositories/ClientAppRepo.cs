@@ -80,6 +80,48 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
+        private OwnershipToken GetOrCreateOwnershipToken(string ownershipToken)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var ownershipTokens = context.OwnershipToken.FirstOrDefault(s => s.Description == ownershipToken);
+
+                if (ownershipTokens == null)
+                {
+                    context.OwnershipToken.Add(new OwnershipToken { Description = ownershipToken });
+                    context.SaveChanges();
+                }
+
+                return context.OwnershipToken.FirstOrDefault(s => s.Description == ownershipToken);
+            }
+        }
+
+
+        public void AddOwnershipTokensToApiClient(List<string> OwnershipTokens,int apiClientId)
+        {
+
+            using (var context = _contextFactory.CreateContext())
+            {
+                foreach (var ownershipToken in OwnershipTokens)
+                {
+                    var ownershiptoken = GetOrCreateOwnershipToken(ownershipToken);
+
+                    var currentOwnershipToken = context.OwnershipToken
+                        .Include(u => u.ApiClients)
+                        .FirstOrDefault(u => u.OwnershipTokenId == ownershiptoken.OwnershipTokenId);
+
+                    if (!currentOwnershipToken.ApiClients.Any(a => a.ApiClientId == apiClientId))
+                    {
+                        var apiClient = context.Clients.FirstOrDefault(a => a.ApiClientId == apiClientId);
+                        currentOwnershipToken.ApiClients.Add(apiClient);
+                    }
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+
         public void AddProfilesToApplication(List<string> profileNames, int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -178,7 +220,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
                     .Include(c => c.Application.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
-                    .Include(c => c.CreatorOwnershipTokenId)
+                    .Include(c => c.OwnershipToken)
                     .FirstOrDefault(c => c.Key == key);
             }
         }
@@ -192,7 +234,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     .Include(c => c.Application.Vendor.VendorNamespacePrefixes)
                     .Include(c => c.Application.Profiles)
                     .Include(c => c.ApplicationEducationOrganizations)
-                    .Include(c => c.CreatorOwnershipTokenId)
+                    .Include(c => c.OwnershipToken)
                     .FirstOrDefaultAsync(c => c.Key == key);
             }
         }
@@ -338,43 +380,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         }
 
 
-        public void AddApiClientOwnershipTokens(int userId, int apiClientId, IList<string> OwnershipTokens, int applicationId)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                var application = context.Applications
-                    .Include(a => a.ApplicationEducationOrganizations)
-                    .Single(a => a.ApplicationId == applicationId);
 
-                var user = context.Users.FirstOrDefault(u => u.UserId == userId);
-
-                var client = user?.ApiClients.FirstOrDefault(c => c.ApiClientId == apiClientId);
-
-                if (client == null)
-                {
-                    return;
-                }
-
-                client.Application = application;
-
-
-                foreach (var OwnershipToken in OwnershipTokens)
-                {
-                        var ownershipToken = context.OwnershipToken.FirstOrDefault(s => s.Description == OwnershipToken);
-
-                        if (ownershipToken == null)
-                        {
-                            context.OwnershipToken.Add(new OwnershipToken { Description = OwnershipToken });
-                            context.SaveChanges();
-                        }
-                        client.CreatorOwnershipTokenId = ownershipToken;
-                        client.ApiClientOwnershipTokens.Add(new ApiClientOwnershipToken());
-                        context.SaveChanges();
-                }
-
-                context.SaveChanges();
-            }
-        }
                 
         private void AddApplicationEducationOrganizations(IUsersContext context, int applicationId, ApiClient client)
         {
@@ -605,9 +611,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                return
-                    context.OwnershipToken.Include(u => u.Clients.Select(ac => ac.Application))
-                        .FirstOrDefault(x => x.Description == description);
+                return context.OwnershipToken.FirstOrDefault(x => x.Description == description);
             }
         }
 

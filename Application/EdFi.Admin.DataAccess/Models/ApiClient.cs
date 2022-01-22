@@ -22,7 +22,7 @@ namespace EdFi.Admin.DataAccess.Models
         {
             ClientAccessTokens = new List<ClientAccessToken>();
             ApplicationEducationOrganizations = new Collection<ApplicationEducationOrganization>();
-            ApiClientOwnershipTokens = new Collection<ApiClientOwnershipToken>();
+            OwnershipTokens = new Collection<OwnershipToken>();
             Domains = new Dictionary<string, string>();
         }
 
@@ -128,7 +128,7 @@ namespace EdFi.Admin.DataAccess.Models
         /// <summary>
         /// Have a reference to OwnershipToken table ownershiptokenid for specific apiclient. 
         /// </summary>
-        public virtual OwnershipToken CreatorOwnershipTokenId { get; set; }
+        public virtual OwnershipToken OwnershipToken { get; set; }
 
         /// <summary>
         /// Fully namespaced URI reference to the StudentIdentificationSystemDescriptor value to use for identification mapping
@@ -142,7 +142,7 @@ namespace EdFi.Admin.DataAccess.Models
 
         public ICollection<ApplicationEducationOrganization> ApplicationEducationOrganizations { get; set; }
 
-        public ICollection<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
+        public ICollection<OwnershipToken> OwnershipTokens { get; set; }
         
         public List<ClientAccessToken> ClientAccessTokens { get; set; }
 
