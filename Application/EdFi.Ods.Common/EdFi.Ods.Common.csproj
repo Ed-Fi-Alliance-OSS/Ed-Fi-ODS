@@ -16,7 +16,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.8" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.2" />
     <PackageReference Include="FluentValidation" Version="8.6.3" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
