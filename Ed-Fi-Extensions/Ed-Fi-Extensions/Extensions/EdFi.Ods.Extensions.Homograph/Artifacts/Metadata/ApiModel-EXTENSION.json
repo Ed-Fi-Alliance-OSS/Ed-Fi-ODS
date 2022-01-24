@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.3",
+  "odsApiVersion": "5.4",
   "schemaDefinition": {
     "logicalName": "Homograph",
     "physicalName": "homograph",
