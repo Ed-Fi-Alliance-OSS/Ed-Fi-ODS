@@ -117,7 +117,6 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-
         public void AddProfilesToApplication(List<string> profileNames, int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -375,9 +374,6 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-
-
-                
         private void AddApplicationEducationOrganizations(IUsersContext context, int applicationId, ApiClient client)
         {
             var defaultApplication = context.Applications
