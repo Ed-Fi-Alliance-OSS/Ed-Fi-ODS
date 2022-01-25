@@ -12,12 +12,14 @@ begin
     select ApplicationId into application_id from dbo.Applications where ApplicationName = 'Ed-Fi ODS API';
 	select ResourceClaimId into systemDescriptorsResourceClaim_id FROM dbo.ResourceClaims WHERE ResourceName = 'systemDescriptors' AND Application_ApplicationId = application_id;
 
+	/* new descriptors */
 	if not exists (select ResourceClaimId from dbo.ResourceClaims where ResourceName = 'gradePointAverageTypeDescriptor' and Application_ApplicationId = application_id)
 	then
 		insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 		values ('gradePointAverageTypeDescriptor', 'gradePointAverageTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/gradePointAverageTypeDescriptor', systemDescriptorsResourceClaim_id, application_id);
 	end if;
 
+	/* New claimset Bootstrap Descriptors and EdOrgs */
 	if not exists (select ClaimsetId from dbo.ClaimSets where ClaimSetName = 'Bootstrap Descriptors and EdOrgs' and  Application_ApplicationId = application_id)
 	then
 		insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
@@ -30,13 +32,12 @@ begin
 		from dbo.AuthorizationStrategies
 		where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
-		insert into dbo.ClaimSetResourceClaims
-			(Action_ActionId
-			,ClaimSet_ClaimSetId
-			,ResourceClaim_ResourceClaimId
-			,AuthorizationStrategyOverride_AuthorizationStrategyId
+		insert into dbo.ClaimSetResourceClaimActions
+			(ActionId
+			,ClaimSetId
+			,ResourceClaimId
 			,ValidationRuleSetNameOverride)
-		select ac.ActionId, claim_set_id, ResourceClaimId, authorization_strategy_id, cast (null as int)
+		select ac.ActionId, claim_set_id, ResourceClaimId, cast (null as int)
 		from dbo.ResourceClaims
 		inner join lateral
 			(select ActionId
@@ -68,6 +69,42 @@ begin
 			'program',
 			'school',
 			'stateEducationAgency'
+		);
+		
+		insert into dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+			(AuthorizationStrategyId
+			,ClaimSetResourceClaimActionId)
+		select authorization_strategy_id, crc.ClaimSetResourceClaimActionId
+		from dbo.ClaimSetResourceClaimActions crc
+		inner join dbo.Actions a on crc.ActionId=a.ActionId and a.ActionName IN ('Create')
+		inner join dbo.ResourceClaims r on crc.ResourceClaimId = r.ResourceClaimId
+		where crc.ClaimSetId = @ClaimSetId 
+			AND r.ResourceName IN (
+				'systemDescriptors',
+				'managedDescriptors',
+				'educationOrganizations',
+				-- from Interchange-Standards.xml
+				'learningObjective',
+				'learningStandard',
+				'learningStandardEquivalenceAssociation',
+				-- from Interchange-EducationOrganization.xml
+				'accountabilityRating',
+				'classPeriod',
+				'communityOrganization',
+				'communityProvider',
+				'communityProviderLicense',
+				'course',
+				'educationOrganizationNetwork',
+				'educationOrganizationNetworkAssociation',
+				'educationOrganizationPeerAssociation',
+				'educationServiceCenter',
+				'feederSchoolAssociation',
+				'localEducationAgency',
+				'location',
+				'postSecondaryInstitution',
+				'program',
+				'school',
+				'stateEducationAgency'
 		);
 	end if;
 end $$;

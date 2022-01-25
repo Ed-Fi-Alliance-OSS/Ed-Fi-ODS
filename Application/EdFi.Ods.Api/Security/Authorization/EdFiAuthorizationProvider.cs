@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
@@ -120,13 +121,8 @@ namespace EdFi.Ods.Api.Security.Authorization
                 }
             }
 
-            await details.AuthorizationStrategy.AuthorizeSingleItemAsync(
-                new[]
-                {
-                    details.RelevantClaim
-                },
-                authorizationContext, 
-                cancellationToken);
+            var tasks = details.AuthorizationStrategies.Select(x => x.AuthorizeSingleItemAsync(new[] { details.RelevantClaim }, authorizationContext, cancellationToken));
+            await Task.WhenAll(tasks);
         }
 
         /// <summary>
@@ -138,7 +134,14 @@ namespace EdFi.Ods.Api.Security.Authorization
         {
             var details = GetAuthorizationDetails(authorizationContext);
 
-            return details.AuthorizationStrategy.GetAuthorizationFilters(new[] {details.RelevantClaim}, authorizationContext);
+            var relevantClaims = new[] { details.RelevantClaim };
+
+            var authorizationFilters = details.AuthorizationStrategies
+                .Distinct()
+                .SelectMany(x => x.GetAuthorizationFilters(relevantClaims, authorizationContext))
+                .ToArray();
+
+            return authorizationFilters;
         }
 
         /// <summary>
@@ -271,18 +274,17 @@ namespace EdFi.Ods.Api.Security.Authorization
             var relevantPrincipalClaim = relevantPrincipalClaims.First();
 
             // Look for an authorization strategy override on the caller's claims (flow the overrides down, even if they aren't the first claim encountered going up the hierarchy)
-            string authorizationStrategyOverrideName =
-                (from rpc in relevantPrincipalClaims
-                 select rpc.ToEdFiResourceClaimValue()
-                           .GetAuthorizationStrategyNameOverride(claimCheckResponse.RequestedAction))
-               .FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+            var authorizationStrategyOverrideNames = relevantPrincipalClaims
+                    .Select(rpc => rpc.ToEdFiResourceClaimValue()
+                    .GetAuthorizationStrategyNameOverrides(claimCheckResponse.RequestedAction))
+                    .FirstOrDefault(x => x != null);
 
-            string metadataAuthorizationStrategyName =
-                claimCheckResponse.AuthorizationMetadata
-                                  .SkipWhile(s => string.IsNullOrWhiteSpace(s.AuthorizationStrategy))
-                                  .Select(s => s.AuthorizationStrategy)
-                                  .FirstOrDefault();
-
+            var metadataAuthorizationStrategyNames =
+                 claimCheckResponse.AuthorizationMetadata
+                                     .Where(s => s.AuthorizationStrategies != null && s.AuthorizationStrategies.Any())
+                                     .Select(s => s.AuthorizationStrategies )
+                                     .FirstOrDefault();
+            
             // TODO: GKM - When claimset-specific override support is added, use this logic
             //string claimSpecificOverrideAuthorizationStrategyName =
             //    resourceClaimAuthorizationStrategies
@@ -292,19 +294,16 @@ namespace EdFi.Ods.Api.Security.Authorization
             //        .FirstOrDefault();
 
             // Use the claim's override, if present
-            //string authorizationStrategyName = 
-            //    claimSpecificAuthorizationStrategyName ?? metadataAuthorizationStrategyName;
+            var authorizationStrategyNames =
+              authorizationStrategyOverrideNames
+              ?? metadataAuthorizationStrategyNames;
 
-            string authorizationStrategyName =
-                authorizationStrategyOverrideName
-                ?? metadataAuthorizationStrategyName;
-
-            // Make sure an authorization strategy is defined for this request
-            if (string.IsNullOrWhiteSpace(authorizationStrategyName))
+            // No authorization strategies were defined for this request
+            if (authorizationStrategyNames == null || !authorizationStrategyNames.Any())
             {
                 throw new Exception(
                     string.Format(
-                        "No authorization strategy was defined for the requested action '{0}' against resource URIs ['{1}'] matched by the caller's claim '{2}'.",
+                        "No authorization strategies were defined for the requested action '{0}' against resource URIs ['{1}'] matched by the caller's claim '{2}'.",
                         claimCheckResponse.RequestedAction,
                         string.Join("', '", claimCheckResponse.RequestedResourceUris),
                         relevantPrincipalClaim.Type));
@@ -312,7 +311,7 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             _logger.DebugFormat(
                 "Authorization strategy '{0}' selected for request against resource '{1}'.",
-                authorizationStrategyName,
+                string.Join("', '", authorizationStrategyNames),
                 authorizationContext.Resource.First()
                                     .Value);
 
@@ -334,7 +333,7 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             // Set outbound authorization details
             return new AuthorizationDetails(
-                GetAuthorizationStrategy(authorizationStrategyName),
+                GetAuthorizationStrategies(authorizationStrategyNames),
                 relevantPrincipalClaim,
                 ruleSetName);
         }
@@ -386,7 +385,7 @@ namespace EdFi.Ods.Api.Security.Authorization
                     .FirstOrDefault(x => x.Any());
 
             // Return the authorization metadata located, or an empty list.
-            return resourceClaimAuthorizationMetadata 
+            return resourceClaimAuthorizationMetadata
                 ?? new List<ResourceClaimAuthorizationMetadata>();
         }
 
@@ -415,7 +414,7 @@ namespace EdFi.Ods.Api.Security.Authorization
                 string apiClientClaimSetName =
                     principal.Claims.SingleOrDefault(c => c.Type == EdFiOdsApiClaimTypes.ClaimSetName)?.Value;
 
-                response.SecurityExceptionMessage = 
+                response.SecurityExceptionMessage =
                     $@"Access to the resource could not be authorized. Are you missing a claim? This resource can be authorized by the following claims:
     {string.Join(Environment.NewLine + "    ", authorizingClaimNames)}
 The API client has been assigned the '{apiClientClaimSetName}' claim set with the following resource claims:
@@ -427,9 +426,10 @@ The API client has been assigned the '{apiClientClaimSetName}' claim set with th
             // 2) Second check: Of the claims that apply for this resource do we have any that match the action requested or a higher action?
             var edfiClaimValuesToEvaluate = principalClaimsToEvaluate.Select(
                 x => new
-                     {
-                         Claim = x, EdFiResourceClaimValue = x.ToEdFiResourceClaimValue()
-                     });
+                {
+                    Claim = x,
+                    EdFiResourceClaimValue = x.ToEdFiResourceClaimValue()
+                });
 
             var claimsWithMatchingActions = edfiClaimValuesToEvaluate.Where(
                                                                           x => IsRequestedActionSatisfiedByClaimActions(
@@ -477,17 +477,22 @@ The API client has been assigned the '{apiClientClaimSetName}' claim set with th
             throw new NotSupportedException("The requested action is not a supported action.  Authorization cannot be performed.");
         }
 
-        private IEdFiAuthorizationStrategy GetAuthorizationStrategy(string strategyName)
+        private IReadOnlyList<IEdFiAuthorizationStrategy> GetAuthorizationStrategies(IReadOnlyList<string> strategyNames)
         {
-            if (!_authorizationStrategyByName.ContainsKey(strategyName))
-            {
-                throw new Exception(
-                    string.Format(
-                        "Could not find authorization implementation for strategy '{0}' based on naming convention of '{{strategyName}}AuthorizationStrategy'.",
-                        strategyName));
-            }
+            return strategyNames.Select(
+                    strategyName =>
+                    {
+                        if (!_authorizationStrategyByName.ContainsKey(strategyName))
+                        {
+                            throw new Exception(
+                                string.Format(
+                                    "Could not find authorization implementation for strategy '{0}' based on naming convention of '{{strategyName}}AuthorizationStrategy'.",
+                                    strategyName));
+                        }
 
-            return _authorizationStrategyByName[strategyName];
+                        return _authorizationStrategyByName[strategyName];
+                    })
+                .ToArray();
         }
 
         private class AuthorizationDetails
@@ -495,14 +500,14 @@ The API client has been assigned the '{apiClientClaimSetName}' claim set with th
             /// <summary>
             /// Initializes a new instance of the <see cref="AuthorizationDetails"/> class.
             /// </summary>
-            public AuthorizationDetails(IEdFiAuthorizationStrategy authorizationStrategy, Claim relevantClaim, string validationRuleSetName)
+            public AuthorizationDetails(IReadOnlyList<IEdFiAuthorizationStrategy> authorizationStrategies, Claim relevantClaim, string validationRuleSetName)
             {
-                AuthorizationStrategy = authorizationStrategy;
+                AuthorizationStrategies = authorizationStrategies;
                 RelevantClaim = relevantClaim;
                 ValidationRuleSetName = validationRuleSetName;
             }
 
-            public IEdFiAuthorizationStrategy AuthorizationStrategy { get; }
+            public IReadOnlyList<IEdFiAuthorizationStrategy> AuthorizationStrategies { get; }
 
             public Claim RelevantClaim { get; }
 

@@ -89,33 +89,39 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                 _apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
                 A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
 
-                var suppliedResourceClaims = new List<ClaimSetResourceClaim>
+                var suppliedResourceClaims = new List<ClaimSetResourceClaimAction>
                 {
-                    new ClaimSetResourceClaim
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-1a" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
-                        AuthorizationStrategyOverride = new AuthorizationStrategy
+                        AuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
                         {
-                            AuthorizationStrategyName = "actionUri-1a-Strategy"
+                            new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+                            {
+                                AuthorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName=  "actionUri-1a-Strategy" }
+                            }
                         },
                         ValidationRuleSetNameOverride = null
                     },
-                    new ClaimSetResourceClaim
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-1b" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
-                        AuthorizationStrategyOverride = new AuthorizationStrategy
+                        AuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
                         {
-                            AuthorizationStrategyName = "actionUri-1b-Strategy"
+                            new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+                            {
+                                AuthorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName=  "actionUri-1b-Strategy" }
+                            }
                         },
                         ValidationRuleSetNameOverride = "actionUri-1b-RuleSetName"
                     },
-                    new ClaimSetResourceClaim
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-2" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName2" },
-                        AuthorizationStrategyOverride = null,
+                        AuthorizationStrategyOverrides = null,
                         ValidationRuleSetNameOverride = "actionUri-2-RuleSetName"
                     }
                 };
@@ -189,27 +195,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                 edFiResourceClaim1.Actions.Count()
                     .ShouldBe(2);
 
-                Assert.That(
-                    edFiResourceClaim1.Actions.Select(
-                        x => new
-                        {
-                            x.Name,
-                            x.AuthorizationStrategyNameOverride
-                        }),
-                    Is.EquivalentTo(
-                        new[]
-                        {
-                            new
-                            {
-                                Name = "actionUri-1a",
-                                AuthorizationStrategyNameOverride = "actionUri-1a-Strategy"
-                            },
-                            new
-                            {
-                                Name = "actionUri-1b",
-                                AuthorizationStrategyNameOverride = "actionUri-1b-Strategy"
-                            }
-                        }));
+                Assert.AreEqual(edFiResourceClaim1.Actions.SelectMany(x => x.AuthorizationStrategyNameOverrides).ToArray(), new string[]{ "actionUri-1a-Strategy","actionUri-1b-Strategy" });
+                Assert.AreEqual(edFiResourceClaim1.Actions.Select(x => x.Name).ToArray(), new string[] { "actionUri-1a", "actionUri-1b" });
+                
             }
 
             [Assert]
@@ -218,25 +206,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                 var claim2 = _actualIdentity.Claims.SingleOrDefault(c => c.Type == "resourceClaimName2");
                 var edFiResourceClaim2 = claim2.ToEdFiResourceClaimValue();
 
-                edFiResourceClaim2.Actions.Count()
-                    .ShouldBe(1);
+                edFiResourceClaim2.Actions.Count().ShouldBe(1);
 
-                Assert.That(
-                    edFiResourceClaim2.Actions.Select(
-                        x => new
-                        {
-                            x.Name,
-                            x.AuthorizationStrategyNameOverride
-                        }),
-                    Is.EquivalentTo(
-                        new[]
-                        {
-                            new
-                            {
-                                Name = "actionUri-2",
-                                AuthorizationStrategyNameOverride = null as string
-                            }
-                        }));
+                Assert.AreEqual(edFiResourceClaim2.Actions.Where(x => x.AuthorizationStrategyNameOverrides != null).SelectMany(x => x.AuthorizationStrategyNameOverrides).ToArray(), new string[] {  });
+                Assert.AreEqual(edFiResourceClaim2.Actions.Select(x => x.Name).ToArray(), new string[] { "actionUri-2" });
             }
 
             [Assert]
@@ -368,33 +341,39 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Claims
                 _apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
                 A.CallTo(() => _apiKeyContextProvider.GetApiKeyContext()).Returns(apiKeyContext);
 
-                var suppliedResourceClaims = new List<ClaimSetResourceClaim>
+                var suppliedResourceClaims = new List<ClaimSetResourceClaimAction>
                 {
-                    new ClaimSetResourceClaim
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-1a" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
-                        AuthorizationStrategyOverride = new AuthorizationStrategy
+                        AuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
                         {
-                            AuthorizationStrategyName = "actionUri-1a-Strategy"
+                            new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+                            {
+                                AuthorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName=  "actionUri-1a-Strategy" }
+                            }
                         },
                         ValidationRuleSetNameOverride = null
                     },
-                    new ClaimSetResourceClaim
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-1b" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName1" },
-                        AuthorizationStrategyOverride = new AuthorizationStrategy
+                        AuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>
                         {
-                            AuthorizationStrategyName = "actionUri-1b-Strategy"
+                            new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+                            {
+                                AuthorizationStrategy = new AuthorizationStrategy { AuthorizationStrategyName=  "actionUri-1b-Strategy" }
+                            }
                         },
                         ValidationRuleSetNameOverride = "actionUri-1b-RuleSetName"
                     },
-                    new ClaimSetResourceClaim
+                    new ClaimSetResourceClaimAction
                     {
                         Action = new Action { ActionUri = "actionUri-2" },
                         ResourceClaim = new ResourceClaim { ClaimName = "resourceClaimName2" },
-                        AuthorizationStrategyOverride = null,
+                        AuthorizationStrategyOverrides = null,
                         ValidationRuleSetNameOverride = "actionUri-2-RuleSetName"
                     }
                 };

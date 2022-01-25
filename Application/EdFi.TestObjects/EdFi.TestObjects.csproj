@@ -15,7 +15,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.2" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="NUnit" Version="3.13.2" />
