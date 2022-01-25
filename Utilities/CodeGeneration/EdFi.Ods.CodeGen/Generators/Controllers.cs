@@ -386,7 +386,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                     Writable = pct.Writable,
                                     ProfileName = prm.ProfileName
                                 }))
-                    .OrderBy(spd => spd.ProfileName.ToLower())
+                    .OrderBy(spd => spd.ProfileName, StringComparer.InvariantCultureIgnoreCase)
                     .ThenBy(x => x.ResolvedResource.Name);
             }
 
