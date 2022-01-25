@@ -17,7 +17,7 @@ namespace EdFi.Admin.DataAccess.Models
     {
         public OwnershipToken()
         {
-            ApiClients = new Collection<ApiClient>();
+            ApiClients = new List<ApiClient>();            
         }
 
         /// <summary>
@@ -32,8 +32,7 @@ namespace EdFi.Admin.DataAccess.Models
         [StringLength(50)]
         public string Description { get; set; }
 
-
-        public virtual ICollection<ApiClient> ApiClients { get; set; }
+        public  List<ApiClient> ApiClients { get; set; }
 
     }
 }

@@ -55,7 +55,7 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         public IDbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
 
-        public IDbSet<OwnershipToken> OwnershipToken { get; set; }
+        public IDbSet<OwnershipToken> OwnershipTokens { get; set; }
 
         public IDbSet<WebPagesUsersInRoles> UsersInRoles { get; set; }
 

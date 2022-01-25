@@ -33,7 +33,7 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         IDbSet<VendorNamespacePrefix> VendorNamespacePrefixes { get; set; }
 
-        IDbSet<OwnershipToken> OwnershipToken { get; set; }
+        IDbSet<OwnershipToken> OwnershipTokens { get; set; }
 
         int SaveChanges();
 
