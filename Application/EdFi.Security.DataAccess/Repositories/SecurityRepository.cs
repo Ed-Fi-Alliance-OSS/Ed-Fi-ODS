@@ -33,7 +33,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 var ownershipBasedClaimSetId = context.ClaimSets.FirstOrDefault(a => a.ClaimSetName == "Ownership Based").ClaimSetId;
                 var ownershipBasedAuthorizationStrategyId = context.AuthorizationStrategies.FirstOrDefault(a => a.AuthorizationStrategyName == "OwnershipBased").AuthorizationStrategyId;
 
-                var resourceClaims = context.ResourceClaims.Where(x => claimNameList.Contains(x.ClaimName)).ToList();                
+                var resourceClaims = context.ResourceClaims.Where(x => claimNameList.Contains(x.ClaimName)).ToList();          
                 var actions = context.Actions.Where(x => actionNameList.Contains(x.ActionName)).ToList();
 
                 var claimSetResourceClaimActions = new List<ClaimSetResourceClaimAction>();
@@ -52,7 +52,7 @@ namespace EdFi.Security.DataAccess.Repositories
                                            ActionId = action.ActionId,
                                            ClaimSetId = ownershipBasedClaimSetId
                                        }); 
-                                }                               
+                                }
                             });
 
                 });
