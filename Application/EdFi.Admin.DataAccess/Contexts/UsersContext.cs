@@ -57,6 +57,8 @@ namespace EdFi.Admin.DataAccess.Contexts
 
         public IDbSet<OwnershipToken> OwnershipTokens { get; set; }
 
+        public DbSet<ApiClientOwnershipToken> ApiClientOwnershipTokens { get; set; }
+
         public IDbSet<WebPagesUsersInRoles> UsersInRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

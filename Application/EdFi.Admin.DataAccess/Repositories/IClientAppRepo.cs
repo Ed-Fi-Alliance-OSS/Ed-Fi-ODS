@@ -58,11 +58,8 @@ namespace EdFi.Admin.DataAccess.Repositories
 
         void AddLeaIdsToApplication(List<int> localEducationAgencyIds, int applicationId);
 
-        OwnershipToken CreateOwnershipToken(OwnershipToken ownershipToken);
-
-        OwnershipToken GetOwnershipToken(string description);
-
         void AddOwnershipTokensToApiClient(string ownershipToken, int apiClientId);
 
+        void AddApiClientOwnershipTokens(List<string> ownershipTokens, int apiClientId);
     }
 }

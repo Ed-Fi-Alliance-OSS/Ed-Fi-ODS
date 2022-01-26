@@ -117,6 +117,26 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
+        public void AddApiClientOwnershipTokens(List<string> ownershipTokens, int apiClientId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var apiClientOwnershipTokenList = new List<ApiClientOwnershipToken>();
+                foreach (var ownershipToken in ownershipTokens)
+                {
+                    var ownershiptoken = context.OwnershipTokens.FirstOrDefault(x => x.Description == ownershipToken);
+                    var apiClient = context.Clients.FirstOrDefault(u => u.ApiClientId == apiClientId);
+                    apiClientOwnershipTokenList.Add(new ApiClientOwnershipToken
+                    {
+                        ApiClient = apiClient,                        
+                        OwnershipToken = ownershiptoken
+                    });
+                }
+                context.ApiClientOwnershipTokens.AddRange(apiClientOwnershipTokenList);
+                context.SaveChanges();
+            }
+        }
+
         public void AddProfilesToApplication(List<string> profileNames, int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -367,9 +387,12 @@ namespace EdFi.Admin.DataAccess.Repositories
                 foreach (var applicationEducationOrganization in application.ApplicationEducationOrganizations.Where(
                     s => leaIds.Contains(s.EducationOrganizationId)))
                 {
-                    client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
+                    if (!context.ApplicationEducationOrganizations.Any(a => a.EducationOrganizationId == applicationEducationOrganization.EducationOrganizationId 
+                    && a.Application.ApplicationId == applicationId))
+                    {
+                        client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
+                    }
                 }
-
                 context.SaveChanges();
             }
         }
@@ -586,25 +609,6 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                     context.SaveChanges();
                 }
-            }
-        }
-
-        public OwnershipToken CreateOwnershipToken(OwnershipToken ownershipToken)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                context.OwnershipTokens.Add(ownershipToken);
-                context.SaveChanges();
-            }
-
-            return ownershipToken;
-        }
-
-        public OwnershipToken GetOwnershipToken(string description)
-        {
-            using (var context = _contextFactory.CreateContext())
-            {
-                return context.OwnershipTokens.FirstOrDefault(x => x.Description == description);
             }
         }
 
