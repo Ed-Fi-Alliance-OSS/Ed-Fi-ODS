@@ -42,19 +42,27 @@ namespace EdFi.Security.DataAccess.Repositories
                 {
                             actions.ForEach(action =>
                             {
-                                claimSetResourceClaimActions.Add(
-                                   new ClaimSetResourceClaimAction
-                                   {
-                                       ResourceClaimId = resourceClaim.ResourceClaimId,
-                                       ActionId = action.ActionId,
-                                       ClaimSetId = ownershipBasedClaimSetId
-                                   });                               
+                                if (!context.ClaimSetResourceClaimActions.Any(a => a.ActionId == action.ActionId && a.ResourceClaimId == resourceClaim.ResourceClaimId 
+                                && a.ClaimSetId == ownershipBasedClaimSetId))
+                                {
+                                    claimSetResourceClaimActions.Add(
+                                       new ClaimSetResourceClaimAction
+                                       {
+                                           ResourceClaimId = resourceClaim.ResourceClaimId,
+                                           ActionId = action.ActionId,
+                                           ClaimSetId = ownershipBasedClaimSetId
+                                       }); 
+                                }                               
                             });
 
                 });
 
-                context.ClaimSetResourceClaimActions.AddRange(claimSetResourceClaimActions);
-                context.SaveChanges();
+                if (claimSetResourceClaimActions.Any())
+                {
+                    context.ClaimSetResourceClaimActions.AddRange(claimSetResourceClaimActions);
+                    context.SaveChanges();
+                }
+
                 var resourceClaimList = resourceClaims.Select(x => x.ResourceClaimId);
                 var claimSetResourceClaimActionList = context.ClaimSetResourceClaimActions.Where(x => resourceClaimList.Contains(x.ResourceClaimId))
                     .Where(x=>x.ClaimSetId == ownershipBasedClaimSetId).ToList();
@@ -63,16 +71,23 @@ namespace EdFi.Security.DataAccess.Repositories
 
                 claimSetResourceClaimActionList.ForEach(claimSetResourceClaimAction =>
                 {
-                    claimSetResourceClaimActionAuthorizationStrategyOverrides.Add(
-                      new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-                      {
-                          ClaimSetResourceClaimActionId = claimSetResourceClaimAction.ClaimSetResourceClaimActionId,
-                          AuthorizationStrategyId = ownershipBasedAuthorizationStrategyId
-                      });
-
+                    if (!context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Any(a => a.ClaimSetResourceClaimActionId == claimSetResourceClaimAction.ClaimSetResourceClaimActionId 
+                        && a.AuthorizationStrategyId == ownershipBasedAuthorizationStrategyId))
+                    {
+                        claimSetResourceClaimActionAuthorizationStrategyOverrides.Add(
+                          new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+                          {
+                              ClaimSetResourceClaimActionId = claimSetResourceClaimAction.ClaimSetResourceClaimActionId,
+                              AuthorizationStrategyId = ownershipBasedAuthorizationStrategyId
+                          });
+                    }
                 });
-                context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.AddRange(claimSetResourceClaimActionAuthorizationStrategyOverrides);
-                context.SaveChanges();
+
+                if (claimSetResourceClaimActionAuthorizationStrategyOverrides.Any())
+                {
+                    context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.AddRange(claimSetResourceClaimActionAuthorizationStrategyOverrides);
+                    context.SaveChanges();
+                }
             }
         }
 
