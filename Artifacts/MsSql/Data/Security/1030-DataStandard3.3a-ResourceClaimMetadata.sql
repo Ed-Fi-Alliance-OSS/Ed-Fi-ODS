@@ -44,14 +44,4 @@
         VALUES (N'assessmentScoreRangeLearningStandard', N'assessmentScoreRangeLearningStandard', N'http://ed-fi.org/ods/identity/claims/assessmentScoreRangeLearningStandard', @assessmentMetadataResourceClaimId, @applicationId);
     END
 
-    --Apply  No Further Authorization Required on this OrganizationDepartment resource
-    INSERT INTO  dbo.ClaimSetResourceClaims( Action_ActionId , ClaimSet_ClaimSetId , ResourceClaim_ResourceClaimId , AuthorizationStrategyOverride_AuthorizationStrategyId , ValidationRuleSetNameOverride )
-    SELECT ac.ActionId, cs.claimSetId, ResourceClaimId, @noFurtherAuthRequiredAuthorizationStrategyId, null
-    FROM [dbo].[ResourceClaims]
-    CROSS APPLY
-    (SELECT ActionId  FROM [dbo].[Actions]
-    WHERE ActionName IN ('Create','Read','Update','Delete')) AS ac
-   CROSS APPLY
-    (SELECT claimSetId  FROM dbo.ClaimSets
-    WHERE ClaimSetName IN ('SIS Vendor','Ed-Fi Sandbox','District Hosted SIS Vendor')) AS cs
-    WHERE ResourceName = 'organizationDepartment';
+ 

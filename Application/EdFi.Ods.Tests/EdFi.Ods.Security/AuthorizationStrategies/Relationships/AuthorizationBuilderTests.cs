@@ -20,6 +20,7 @@ using Test.Common;
 
 namespace EdFi.Ods.Tests.EdFi.Security.Authorization
 {
+    [TestFixture]
     public class Feature_building_claims_authorization_segments
     {
         public class When_building_a_single_segment_for_a_claimset_that_has_no_education_organization_identifiers

@@ -145,14 +145,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     {
                         123,
                         234
-                    }
+                    },
+                    OwnershipTokenIds = new List<short?> { 1 }
                 };
 
                 var claimsIdentity = claimsIdentityProvider.GetClaimsIdentity(
                     apiClientDetails.EducationOrganizationIds,
                     apiClientDetails.ClaimSetName,
                     apiClientDetails.NamespacePrefixes,
-                    apiClientDetails.Profiles.ToList());
+                    apiClientDetails.Profiles.ToList(),
+                    apiClientDetails.OwnershipTokenIds.ToList());
 
                 _expectedClaimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 

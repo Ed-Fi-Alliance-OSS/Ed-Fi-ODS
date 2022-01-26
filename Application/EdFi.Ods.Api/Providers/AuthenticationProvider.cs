@@ -88,7 +88,8 @@ namespace EdFi.Ods.Api.Providers
                 apiClientDetails.EducationOrganizationIds,
                 apiClientDetails.ClaimSetName,
                 apiClientDetails.NamespacePrefixes,
-                apiClientDetails.Profiles.ToList());
+                apiClientDetails.Profiles.ToList(),
+                apiClientDetails.OwnershipTokenIds.ToList());
 
             var apiKeyContext = new ApiKeyContext(
                 apiClientDetails.ApiKey,

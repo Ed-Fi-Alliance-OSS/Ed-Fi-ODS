@@ -16,7 +16,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
         AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName);
 
-        IEnumerable<ClaimSetResourceClaim> GetClaimsForClaimSet(string claimSetName);
+        IEnumerable<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName);
 
         /// <summary>
         /// Gets the lineage up the taxonomy of resource claim URIs for the specified resource.
@@ -31,7 +31,7 @@ namespace EdFi.Security.DataAccess.Repositories
         /// </summary>
         /// <param name="resourceClaimUri">The resource claim URI representing the resource.</param>
         /// <returns>The resource claim authorization metadata.</returns>
-        IEnumerable<ResourceClaimAuthorizationMetadata> GetResourceClaimLineageMetadata(string resourceClaimUri, string action);
+        IEnumerable<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action);
 
         ResourceClaim GetResourceByResourceName(string resourceName);
     }

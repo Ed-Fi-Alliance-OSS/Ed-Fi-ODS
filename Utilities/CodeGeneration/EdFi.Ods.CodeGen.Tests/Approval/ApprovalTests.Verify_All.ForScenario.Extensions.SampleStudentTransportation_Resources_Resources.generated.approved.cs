@@ -296,7 +296,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.SampleStudentTransportation.IStudentTransportation;
 
             if (ReferenceEquals(this, compareTo))
@@ -307,25 +306,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
 
 
             // Standard Property
-            if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber == null
-                || !(this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber.Equals(compareTo.AMBusNumber))
+             if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber.Equals(compareTo.AMBusNumber))
                 return false;
+
 
             // Standard Property
-            if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber == null
-                || !(this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber.Equals(compareTo.PMBusNumber))
+             if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber.Equals(compareTo.PMBusNumber))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).SchoolId == null
-                || !(this as Entities.Common.SampleStudentTransportation.IStudentTransportation).SchoolId.Equals(compareTo.SchoolId))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId == null
-                || !(this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!(this as Entities.Common.SampleStudentTransportation.IStudentTransportation).SchoolId.Equals(compareTo.SchoolId))
                 return false;
-            #pragma warning disable 472
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+                return false;
+
 
             return true;
         }
@@ -338,29 +336,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber != null)
-                    hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber != null)
-                    hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).SchoolId != null)
-                    hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).SchoolId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).SchoolId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId != null)
-                    hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 

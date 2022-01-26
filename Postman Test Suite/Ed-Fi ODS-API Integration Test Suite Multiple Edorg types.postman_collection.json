@@ -908,7 +908,7 @@
 											"",
 											"const responseItems = pm.response.json();",
 											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied.  The claim does not have any established relationships with the requested resource.\");",
+											"        pm.expect(responseItems.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (value 5001 of type 'CommunityProviderId') and one of the following properties of the requested resource: 'SchoolId', 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1440,7 +1440,7 @@
 											"});",
 											"const responseItems = pm.response.json();",
 											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied.  The claim does not have any established relationships with the requested resource.\");",
+											"        pm.expect(responseItems.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (value 5001 of type 'CommunityProviderId') and the requested resource's 'SchoolId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1600,7 +1600,7 @@
 											"});",
 											"const responseItems = pm.response.json();",
 											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied.  The claim does not have any established relationships with the requested resource.\");",
+											"        pm.expect(responseItems.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (value 255901001 of type 'SchoolId') and the requested resource's 'CommunityProviderId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"

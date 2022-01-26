@@ -6,6 +6,7 @@
 using System.Linq;
 using EdFi.Common.Inflection;
 using NUnit.Framework;
+using Shouldly;
 
 namespace EdFi.Ods.Common.UnitTests.Inflection
 {
@@ -94,6 +95,53 @@ namespace EdFi.Ods.Common.UnitTests.Inflection
             Assert.IsTrue(result.Contains("BravoCharlie"));
             Assert.IsTrue(result.Contains("Charlie"));
             Assert.IsFalse(result.Contains(string.Empty));
+        }
+
+        [Test]
+        public void Words_are_inflected_to_singular_and_plural_forms_based_on_supplied_count_correctly()
+        {
+            "".ShouldSatisfyAllConditions(
+                // Singular form supplied
+                () => Inflector.Inflect("dog", 0).ShouldBe("dogs"),
+                () => Inflector.Inflect("dog", 1).ShouldBe("dog"),
+                () => Inflector.Inflect("dog", 2).ShouldBe("dogs"),
+                
+                // Plural form supplied
+                () => Inflector.Inflect("dogs", 0).ShouldBe("dogs"),
+                () => Inflector.Inflect("dogs", 1).ShouldBe("dog"),
+                () => Inflector.Inflect("dogs", 2).ShouldBe("dogs"),
+                
+                // Singular form supplied
+                () => Inflector.Inflect("doggy", 0).ShouldBe("doggies"),
+                () => Inflector.Inflect("doggy", 1).ShouldBe("doggy"),
+                () => Inflector.Inflect("doggy", 2).ShouldBe("doggies"),
+                
+                // Plural form supplied
+                () => Inflector.Inflect("doggies", 0).ShouldBe("doggies"),
+                () => Inflector.Inflect("doggies", 1).ShouldBe("doggy"),
+                () => Inflector.Inflect("doggies", 2).ShouldBe("doggies")
+            );
+        }
+        
+        [Test]
+        public void Words_are_inflected_using_overridden_singular_and_plural_forms_based_on_supplied_count_correctly()
+        {
+            "".ShouldSatisfyAllConditions(
+                // No overrides, showing default Inflection behavior
+                () => Inflector.Inflect("do", 0).ShouldBe("dos"),
+                () => Inflector.Inflect("do", 1).ShouldBe("do"),
+                () => Inflector.Inflect("do", 2).ShouldBe("dos"),
+                
+                // Overrides, showing Inflection using overrides
+                () => Inflector.Inflect("do", 0, "does", "do").ShouldBe("do"),
+                () => Inflector.Inflect("do", 1, "does", "do").ShouldBe("does"),
+                () => Inflector.Inflect("do", 2, "does", "do").ShouldBe("do"),
+                
+                // Overrides, showing Inflection using overrides (ignoring the supplied word completely)
+                () => Inflector.Inflect(null, 0, "does", "do").ShouldBe("do"),
+                () => Inflector.Inflect(null, 1, "does", "do").ShouldBe("does"),
+                () => Inflector.Inflect(null, 2, "does", "do").ShouldBe("do")
+            );
         }
     }
 }

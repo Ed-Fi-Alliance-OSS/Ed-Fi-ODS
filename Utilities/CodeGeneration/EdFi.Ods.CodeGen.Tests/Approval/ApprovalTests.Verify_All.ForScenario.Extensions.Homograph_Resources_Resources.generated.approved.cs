@@ -176,7 +176,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IName;
 
             if (ReferenceEquals(this, compareTo))
@@ -187,15 +186,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
 
 
             // Standard Property
-            if ((this as Entities.Common.Homograph.IName).FirstName == null
-                || !(this as Entities.Common.Homograph.IName).FirstName.Equals(compareTo.FirstName))
+             if ((this as Entities.Common.Homograph.IName).FirstName.Equals(compareTo.FirstName))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.Homograph.IName).LastSurname == null
-                || !(this as Entities.Common.Homograph.IName).LastSurname.Equals(compareTo.LastSurname))
+             if ((this as Entities.Common.Homograph.IName).LastSurname.Equals(compareTo.LastSurname))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -208,21 +206,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IName).FirstName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IName).FirstName.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Homograph.IName).FirstName.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IName).LastSurname != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IName).LastSurname.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Homograph.IName).LastSurname.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -577,7 +573,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IParent;
 
             if (ReferenceEquals(this, compareTo))
@@ -588,15 +583,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
 
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IParent).ParentFirstName == null
-                || !(this as Entities.Common.Homograph.IParent).ParentFirstName.Equals(compareTo.ParentFirstName))
+            if (!(this as Entities.Common.Homograph.IParent).ParentFirstName.Equals(compareTo.ParentFirstName))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IParent).ParentLastSurname == null
-                || !(this as Entities.Common.Homograph.IParent).ParentLastSurname.Equals(compareTo.ParentLastSurname))
+            if (!(this as Entities.Common.Homograph.IParent).ParentLastSurname.Equals(compareTo.ParentLastSurname))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -609,21 +603,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParent).ParentFirstName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IParent).ParentFirstName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IParent).ParentFirstName.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParent).ParentLastSurname != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IParent).ParentLastSurname.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IParent).ParentLastSurname.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -940,7 +930,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IParentAddress;
 
             if (ReferenceEquals(this, compareTo))
@@ -955,10 +944,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
 
             // Standard Property
-            if ((this as Entities.Common.Homograph.IParentAddress).City == null
-                || !(this as Entities.Common.Homograph.IParentAddress).City.Equals(compareTo.City))
+             if ((this as Entities.Common.Homograph.IParentAddress).City.Equals(compareTo.City))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -971,7 +959,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -980,11 +967,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
                     hash = hash * 23 + _parent.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IParentAddress).City != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IParentAddress).City.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Homograph.IParentAddress).City.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -1276,7 +1262,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IParentStudentSchoolAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -1291,20 +1276,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
 
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName == null
-                || !(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
+            if (!(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName == null
-                || !(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname == null
-                || !(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+            if (!(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
                 return false;
-            #pragma warning disable 472
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+                return false;
+
 
             return true;
         }
@@ -1317,7 +1301,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -1326,19 +1309,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
                     hash = hash * 23 + _parent.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -1652,7 +1631,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.ISchool;
 
             if (ReferenceEquals(this, compareTo))
@@ -1663,10 +1641,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
 
 
             // Standard Property
-            if ((this as Entities.Common.Homograph.ISchool).SchoolName == null
-                || !(this as Entities.Common.Homograph.ISchool).SchoolName.Equals(compareTo.SchoolName))
+             if ((this as Entities.Common.Homograph.ISchool).SchoolName.Equals(compareTo.SchoolName))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -1679,17 +1656,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.Homograph.ISchool).SchoolName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.ISchool).SchoolName.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Homograph.ISchool).SchoolName.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -1932,7 +1907,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.ISchoolAddress;
 
             if (ReferenceEquals(this, compareTo))
@@ -1945,7 +1919,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
             if (_school == null || !_school.Equals(compareTo.School))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -1958,7 +1931,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -1967,7 +1939,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
                     hash = hash * 23 + _school.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2242,7 +2213,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.ISchoolYearType;
 
             if (ReferenceEquals(this, compareTo))
@@ -2253,10 +2223,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
 
 
             // Standard Property
-            if ((this as Entities.Common.Homograph.ISchoolYearType).SchoolYear == null
-                || !(this as Entities.Common.Homograph.ISchoolYearType).SchoolYear.Equals(compareTo.SchoolYear))
+             if ((this as Entities.Common.Homograph.ISchoolYearType).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2269,17 +2238,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.Homograph.ISchoolYearType).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.ISchoolYearType).SchoolYear.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Homograph.ISchoolYearType).SchoolYear.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2634,7 +2601,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStaff;
 
             if (ReferenceEquals(this, compareTo))
@@ -2645,15 +2611,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
 
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IStaff).StaffFirstName == null
-                || !(this as Entities.Common.Homograph.IStaff).StaffFirstName.Equals(compareTo.StaffFirstName))
+            if (!(this as Entities.Common.Homograph.IStaff).StaffFirstName.Equals(compareTo.StaffFirstName))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IStaff).StaffLastSurname == null
-                || !(this as Entities.Common.Homograph.IStaff).StaffLastSurname.Equals(compareTo.StaffLastSurname))
+            if (!(this as Entities.Common.Homograph.IStaff).StaffLastSurname.Equals(compareTo.StaffLastSurname))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2666,21 +2631,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaff).StaffFirstName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStaff).StaffFirstName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStaff).StaffFirstName.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaff).StaffLastSurname != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStaff).StaffLastSurname.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStaff).StaffLastSurname.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2997,7 +2958,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStaffAddress;
 
             if (ReferenceEquals(this, compareTo))
@@ -3012,10 +2972,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
 
             // Standard Property
-            if ((this as Entities.Common.Homograph.IStaffAddress).City == null
-                || !(this as Entities.Common.Homograph.IStaffAddress).City.Equals(compareTo.City))
+             if ((this as Entities.Common.Homograph.IStaffAddress).City.Equals(compareTo.City))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -3028,7 +2987,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -3037,11 +2995,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
                     hash = hash * 23 + _staff.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IStaffAddress).City != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStaffAddress).City.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Homograph.IStaffAddress).City.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -3333,7 +3290,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStaffStudentSchoolAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -3348,20 +3304,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
 
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName == null
-                || !(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
+            if (!(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName == null
-                || !(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname == null
-                || !(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+            if (!(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
                 return false;
-            #pragma warning disable 472
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+                return false;
+
 
             return true;
         }
@@ -3374,7 +3329,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -3383,19 +3337,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
                     hash = hash * 23 + _staff.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -3791,7 +3741,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStudent;
 
             if (ReferenceEquals(this, compareTo))
@@ -3802,15 +3751,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
 
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IStudent).StudentFirstName == null
-                || !(this as Entities.Common.Homograph.IStudent).StudentFirstName.Equals(compareTo.StudentFirstName))
+            if (!(this as Entities.Common.Homograph.IStudent).StudentFirstName.Equals(compareTo.StudentFirstName))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IStudent).StudentLastSurname == null
-                || !(this as Entities.Common.Homograph.IStudent).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+            if (!(this as Entities.Common.Homograph.IStudent).StudentLastSurname.Equals(compareTo.StudentLastSurname))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -3823,21 +3771,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudent).StudentFirstName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStudent).StudentFirstName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStudent).StudentFirstName.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudent).StudentLastSurname != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStudent).StudentLastSurname.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStudent).StudentLastSurname.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -4146,7 +4090,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStudentAddress;
 
             if (ReferenceEquals(this, compareTo))
@@ -4161,10 +4104,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
 
             // Standard Property
-            if ((this as Entities.Common.Homograph.IStudentAddress).City == null
-                || !(this as Entities.Common.Homograph.IStudentAddress).City.Equals(compareTo.City))
+             if ((this as Entities.Common.Homograph.IStudentAddress).City.Equals(compareTo.City))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -4177,7 +4119,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -4186,11 +4127,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
                     hash = hash * 23 + _student.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Homograph.IStudentAddress).City != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStudentAddress).City.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Homograph.IStudentAddress).City.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -4596,7 +4536,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Homograph.IStudentSchoolAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -4607,20 +4546,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
 
 
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName == null
-                || !(this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
+            if (!(this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName.Equals(compareTo.SchoolName))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName == null
-                || !(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname == null
-                || !(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+            if (!(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName.Equals(compareTo.StudentFirstName))
                 return false;
-            #pragma warning disable 472
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname.Equals(compareTo.StudentLastSurname))
+                return false;
+
 
             return true;
         }
@@ -4633,25 +4571,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname != null)
-                    hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
