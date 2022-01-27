@@ -2,6 +2,7 @@ using System.Linq;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Generator.Database.NamingConventions;
 using SqlKata;
+using static EdFi.Ods.Features.ChangeQueries.ChangeQueriesDatabaseConstants;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
@@ -15,14 +16,14 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             // Add discriminator criteria, for derived types with a Discriminator on the base type only
             if (entity.IsDerived)
             {
-                query.Where($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{namingConvention.ColumnName("Discriminator")}", entity.FullName.ToString());
+                query.Where($"{TrackedChangesAlias}.{namingConvention.ColumnName("Discriminator")}", entity.FullName.ToString());
             }
         }
         
         public static string[] IdentifyingColumns(
             QueryProjection[] identifierProjections,
-            string oldColumnAlias = ChangeQueriesDatabaseConstants.TrackedChangesAlias, 
-            string newColumnAlias = ChangeQueriesDatabaseConstants.TrackedChangesAlias,
+            string oldColumnAlias = TrackedChangesAlias, 
+            string newColumnAlias = TrackedChangesAlias,
             ColumnGroups columnGroups = ColumnGroups.OldValue | ColumnGroups.NewValue)
         {
             string[] selectColumns = identifierProjections.SelectMany(x => x.SelectColumns)
@@ -36,13 +37,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         public static Query CreateBaseTrackedChangesQuery(IDatabaseNamingConvention namingConvention, Entity entity)
         {
             var (changeTableSchema, changeTableName) = entity.IsDerived
-                ? (ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix + namingConvention.Schema(entity.BaseEntity),
+                ? (TrackedChangesSchemaPrefix + namingConvention.Schema(entity.BaseEntity),
                     namingConvention.TableName(entity.BaseEntity))
-                : (ChangeQueriesDatabaseConstants.TrackedChangesSchemaPrefix + namingConvention.Schema(entity),
+                : (TrackedChangesSchemaPrefix + namingConvention.Schema(entity),
                     namingConvention.TableName(entity));
 
             var templateQuery =
-                new Query($"{changeTableSchema}.{changeTableName} AS {ChangeQueriesDatabaseConstants.TrackedChangesAlias}");
+                new Query($"{changeTableSchema}.{changeTableName} AS {TrackedChangesAlias}");
 
             return templateQuery;
         }

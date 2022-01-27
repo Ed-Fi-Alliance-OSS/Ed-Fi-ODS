@@ -50,7 +50,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                             IsDescriptorUsage = rp.IsDescriptorUsage,
 
                             // Columns for performing join to source table (if necessary)
-                            ChangeTableJoinColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{changeTableJoinProperty}"),
+                            ChangeTableJoinColumnName = _namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{changeTableJoinProperty.PropertyName}"),
                             SourceTableJoinColumnName = _namingConvention.ColumnName(rp.EntityProperty),
                         };
                     })

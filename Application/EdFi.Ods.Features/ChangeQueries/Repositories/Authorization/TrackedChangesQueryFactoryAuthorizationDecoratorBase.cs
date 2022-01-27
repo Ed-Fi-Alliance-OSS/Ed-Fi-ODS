@@ -95,10 +95,14 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                         // TODO: For v5.3, view and filter names don't match due to the new EdOrgIdToEdOrgId auth view generalization
                         string viewName = filter.FilterName;
                         
+                        string trackedChangesPropertyName = resource.Entity.IsDerived 
+                            ? GetBasePropertyNameForSubjectEndpointName() 
+                            : filter.SubjectEndpointName;
+
                         // Generalize relationships-based naming convention
                         query.Join(
                             $"auth.{_namingConvention.IdentifierName(viewName)} AS rba{filterIndex}",
-                            $"c.{_namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{filter.SubjectEndpointName}")}",
+                            $"c.{_namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{trackedChangesPropertyName}")}",
                             $"rba{filterIndex}.{_namingConvention.ColumnName(filter.SubjectEndpointName)}");
 
                         // Apply claim value criteria
@@ -117,6 +121,17 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 }
 
                 filterIndex++;
+
+                string GetBasePropertyNameForSubjectEndpointName()
+                {
+                    if (!resource.Entity.PropertyByName.TryGetValue(filter.SubjectEndpointName, out var entityProperty))
+                    {
+                        throw new Exception(
+                            $"Unable to find property '{filter.SubjectEndpointName}' on entity '{resource.Entity.FullName}'.");
+                    }
+
+                    return entityProperty.BaseProperty.PropertyName;
+                }
             }
         }
     }
