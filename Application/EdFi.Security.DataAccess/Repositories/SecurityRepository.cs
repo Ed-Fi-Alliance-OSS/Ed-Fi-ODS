@@ -97,6 +97,8 @@ namespace EdFi.Security.DataAccess.Repositories
                     context.SaveChanges();
                 }
             }
+
+            LoadSecurityConfigurationFromDatabase();
         }
 
         protected void LoadSecurityConfigurationFromDatabase()
