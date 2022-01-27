@@ -1,0 +1,1663 @@
+{
+	"info": {
+		"_postman_id": "b3df0f17-9180-40c9-be67-19c103a01468",
+		"name": "Ed-Fi ODS/API Record Ownership Test Suite",
+		"description": "Localhost integration testing using Postman Scripts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Record Ownership",
+			"item": [
+				{
+					"name": "Initial Setup",
+					"item": [
+						{
+							"name": "Initialize Education Organization Ids",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.environment.set('known:localEducationAgencyId',255901);\r",
+											"pm.environment.set('known:schoolId_9011',9011);\r",
+											"pm.environment.set('known:schoolId_9021',9021);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901-A}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Derived Resource",
+					"item": [
+						{
+							"name": "Client 1 has full CRUD - School 1",
+							"item": [
+								{
+									"name": "Create  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-9011');",
+													"pm.environment.set('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor', \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\");",
+													"pm.environment.set('supplied:'+scenarioId+':gradeLevelDescriptor', \"uri://ed-fi.org/GradeLevelDescriptor#Adult Education\");",
+													"pm.environment.set('supplied:'+scenarioId+':schoolCategoryDescriptor', \"uri://ed-fi.org/SchoolCategoryDescriptor#Adult School\");",
+													"pm.environment.set('supplied:'+scenarioId+':schoolTypeDescriptor', \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\");",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:School1:schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Get School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItems = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.test(\"Should match with Schools Response \", () => {    ",
+													"",
+													"        pm.expect(responseItems.nameOfInstitution).to.equal(pm.environment.get('supplied:'+scenarioId+':nameOfInstitution').toString());",
+													"        pm.expect(responseItems.educationOrganizationCategories[0].educationOrganizationCategoryDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor'));",
+													"        pm.expect(responseItems.gradeLevels[0].gradeLevelDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':gradeLevelDescriptor'));",
+													"        pm.expect(responseItems.schoolCategories[0].schoolCategoryDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':schoolCategoryDescriptor'));",
+													"        pm.expect(responseItems.schoolTypeDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':schoolTypeDescriptor'));",
+													"",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School1:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School1:schoolGuid}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													"",
+													"let SchoolsGetRequest = {",
+													"    url: pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/schools/\"+ pm.environment.get(\"known:School1:schoolGuid\"),",
+													"    method: 'GET',",
+													"    header: 'Authorization:bearer ' + pm.environment.get(\"AccessToken_255901-A\"),",
+													"    body: {}",
+													"};",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.test('nameOfInstitution contains substring of \"updated\"  ', () => {",
+													"",
+													"    pm.sendRequest(SchoolsGetRequest, function (err, Schools) {",
+													"        if (err) {",
+													"            console.log(err);",
+													"        } else {",
+													"            const responseItem = Schools.json();",
+													"                pm.expect(responseItem.nameOfInstitution).to.equal('Updated '+pm.environment.get('supplied:'+scenarioId+':nameOfInstitution').toString());",
+													"        }",
+													"    });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n \r\n  \"nameOfInstitution\":  \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School1:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School1:schoolGuid}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School1:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School1:schoolGuid}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Client 2 has full CRUD - School 1 also",
+							"item": [
+								{
+									"name": "Create  School using Client 1",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-9011');",
+													"pm.environment.set('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor', \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\");",
+													"pm.environment.set('supplied:'+scenarioId+':gradeLevelDescriptor', \"uri://ed-fi.org/GradeLevelDescriptor#Adult Education\");",
+													"pm.environment.set('supplied:'+scenarioId+':schoolCategoryDescriptor', \"uri://ed-fi.org/SchoolCategoryDescriptor#Adult School\");",
+													"pm.environment.set('supplied:'+scenarioId+':schoolTypeDescriptor', \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\");",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:School1:schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Update  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"pm.environment.set('known:School1:schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());",
+													"",
+													"let SchoolsGetRequest = {",
+													"    url: pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/schools/\"+ pm.environment.get(\"known:School1:schoolGuid\"),",
+													"    method: 'GET',",
+													"    header: 'Authorization:bearer ' + pm.environment.get(\"AccessToken_255901-B\"),",
+													"    body: {}",
+													"};",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.test('nameOfInstitution contains substring of \"updated\"  ', () => {",
+													"",
+													"    pm.sendRequest(SchoolsGetRequest, function (err, Schools) {",
+													"        if (err) {",
+													"            console.log(err);",
+													"        } else {",
+													"            const responseItem = Schools.json();",
+													"                pm.expect(responseItem.nameOfInstitution).to.equal('Updated '+pm.environment.get('supplied:'+scenarioId+':nameOfInstitution').toString());",
+													"        }",
+													"    });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9011}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Get School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItems = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.test(\"Should match with Schools Response \", () => {    ",
+													"",
+													"        pm.expect(responseItems.nameOfInstitution).to.equal('Updated '+pm.environment.get('supplied:'+scenarioId+':nameOfInstitution').toString());",
+													"        pm.expect(responseItems.educationOrganizationCategories[0].educationOrganizationCategoryDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor'));",
+													"        pm.expect(responseItems.gradeLevels[0].gradeLevelDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':gradeLevelDescriptor'));",
+													"        pm.expect(responseItems.schoolCategories[0].schoolCategoryDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':schoolCategoryDescriptor'));",
+													"        pm.expect(responseItems.schoolTypeDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':schoolTypeDescriptor'));",
+													"",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School1:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School1:schoolGuid}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													"",
+													"",
+													"let SchoolsGetRequest = {",
+													"    url: pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/schools/\"+ pm.environment.get(\"known:School1:schoolGuid\"),",
+													"    method: 'GET',",
+													"    header: 'Authorization:bearer ' + pm.environment.get(\"AccessToken_255901-B\"),",
+													"    body: {}",
+													"};",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.test('nameOfInstitution contains substring of \"updated\"  ', () => {",
+													"",
+													"    pm.sendRequest(SchoolsGetRequest, function (err, Schools) {",
+													"        if (err) {",
+													"            console.log(err);",
+													"        } else {",
+													"            const responseItem = Schools.json();",
+													"                pm.expect(responseItem.nameOfInstitution).to.equal('Re-Updated '+pm.environment.get('supplied:'+scenarioId+':nameOfInstitution').toString());",
+													"        }",
+													"    });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n \r\n  \"nameOfInstitution\":  \"Re-Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School1:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School1:schoolGuid}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School1:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School1:schoolGuid}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Client 2 has full CRUD - School 2",
+							"item": [
+								{
+									"name": "Create  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-9021');",
+													"pm.environment.set('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor', \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\");",
+													"pm.environment.set('supplied:'+scenarioId+':gradeLevelDescriptor', \"uri://ed-fi.org/GradeLevelDescriptor#Adult Education\");",
+													"pm.environment.set('supplied:'+scenarioId+':schoolCategoryDescriptor', \"uri://ed-fi.org/SchoolCategoryDescriptor#Adult School\");",
+													"pm.environment.set('supplied:'+scenarioId+':schoolTypeDescriptor', \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\");",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"pm.environment.set('known:School2:schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Get School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItems = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"",
+													"pm.test(\"Should match with Schools Response \", () => {    ",
+													"",
+													"        pm.expect(responseItems.nameOfInstitution).to.equal(pm.environment.get('supplied:'+scenarioId+':nameOfInstitution').toString());",
+													"        pm.expect(responseItems.educationOrganizationCategories[0].educationOrganizationCategoryDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor'));",
+													"        pm.expect(responseItems.gradeLevels[0].gradeLevelDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':gradeLevelDescriptor'));",
+													"        pm.expect(responseItems.schoolCategories[0].schoolCategoryDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':schoolCategoryDescriptor'));",
+													"        pm.expect(responseItems.schoolTypeDescriptor).to.equal(pm.environment.get('supplied:'+scenarioId+':schoolTypeDescriptor'));",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School2:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School2:schoolGuid}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});",
+													"",
+													"let SchoolsGetRequest = {",
+													"    url: pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/schools/\"+ pm.environment.get(\"known:School2:schoolGuid\"),",
+													"    method: 'GET',",
+													"    header: 'Authorization:bearer ' + pm.environment.get(\"AccessToken_255901-B\"),",
+													"    body: {}",
+													"};",
+													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.test('nameOfInstitution contains substring of \"updated\"  ', () => {",
+													"",
+													"    pm.sendRequest(SchoolsGetRequest, function (err, Schools) {",
+													"        if (err) {",
+													"            console.log(err);",
+													"        } else {",
+													"            const responseItem = Schools.json();",
+													"                pm.expect(responseItem.nameOfInstitution).to.equal('Updated '+pm.environment.get('supplied:'+scenarioId+':nameOfInstitution').toString());",
+													"        }",
+													"    });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n \r\n  \"nameOfInstitution\":  \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School2:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School2:schoolGuid}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"    pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School2:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School2:schoolGuid}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Client 1 not full CRUD - School 2",
+							"item": [
+								{
+									"name": "Create  School using Client 2",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"function createScenarioId() { return newGuid().substring(0,5); }",
+													"pm.environment.set('scenarioId', createScenarioId());",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-9021');",
+													"pm.environment.set('supplied:'+scenarioId+':educationOrganizationCategoryDescriptor', \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Local Education Agency\");",
+													"pm.environment.set('supplied:'+scenarioId+':gradeLevelDescriptor', \"uri://ed-fi.org/GradeLevelDescriptor#Adult Education\");",
+													"pm.environment.set('supplied:'+scenarioId+':schoolCategoryDescriptor', \"uri://ed-fi.org/SchoolCategoryDescriptor#Adult School\");",
+													"pm.environment.set('supplied:'+scenarioId+':schoolTypeDescriptor', \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\");",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"    pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:School2:schoolGuid',pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Update  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"",
+													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
+													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolId\":  \"{{known:schoolId_9021}}\",\r\n  \"localEducationAgencyReference\": {\r\n    \"localEducationAgencyId\": \"{{known:localEducationAgencyId}}\"\r\n  },\r\n  \"nameOfInstitution\":  \"Updated {{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n  \"schoolCategories\": [\r\n    {\r\n      \"schoolCategoryDescriptor\": \"{{supplied:{{scenarioId}}:schoolCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n  \"schoolTypeDescriptor\": \"{{supplied:{{scenarioId}}:schoolTypeDescriptor}}\",\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Get School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"",
+													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
+													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School2:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School2:schoolGuid}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"const uuid = require('uuid');",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
+													"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution',newGuid());",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"",
+													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
+													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"educationOrganizationCategories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\":  \"{{supplied:{{scenarioId}}:educationOrganizationCategoryDescriptor}}\"\r\n    }\r\n  ],\r\n   \"gradeLevels\": [\r\n    {\r\n      \"gradeLevelDescriptor\":  \"{{supplied:{{scenarioId}}:gradeLevelDescriptor}}\"\r\n    }\r\n  ],\r\n \r\n  \"nameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\",\r\n\r\n  \"shortNameOfInstitution\":  \"{{supplied:{{scenarioId}}:nameOfInstitution}}\"\r\n\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School2:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School2:schoolGuid}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Delete  School",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"",
+													"",
+													"",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {",
+													"    pm.expect(pm.response.code).to.equal(403);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"",
+													"pm.test(\"Should match with caller's ownership tokens Error Response \", () => {    ",
+													"    pm.expect(responseItem.message).to.equal(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-A}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:School2:schoolGuid}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												"{{known:School2:schoolGuid}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Clean up",
+							"item": [
+								{
+									"name": "Clean up School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItems = pm.response.json();",
+													"",
+													"pm.test('Delete schools with school Id 9021', () => {",
+													"",
+													"           responseItems.forEach(responseItem => {",
+													"            ",
+													"            if(isNaN(responseItem.id))",
+													"            {",
+													"                let SchoolDeleteRequest = {",
+													"                        url: pm.environment.get(\"ApiBaseUrl\") + \"/data/v3/ed-fi/schools/\" + responseItem.id,",
+													"                        method: 'DELETE',",
+													"                        header: 'Authorization:bearer ' + pm.environment.get(\"AccessToken_255901-B\"),",
+													"                        body: {}",
+													"                };",
+													"    ",
+													"                pm.sendRequest(SchoolDeleteRequest, function (err, SchoolDelete) {",
+													"                        if (err) {",
+													"                            console.log(err);",
+													"                        } else {}",
+													"                    });",
+													"           }",
+													"        });",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901-B}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/?schoolid={{known:schoolId_9021}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"schools",
+												""
+											],
+											"query": [
+												{
+													"key": "schoolid",
+													"value": "{{known:schoolId_9021}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"  //--Client 1 should be able to full CRUD their School 1.",
+									"  //--Derived Resource -Client 1 has full CRUD - School 1",
+									" // --Client 2 should be able to full CRUD School 2.",
+									"  //--Derived Resource -Client 2 has full CRUD - School 2",
+									"  //--Assuming Client 2 is assigned the extra ownership token, it should also be able to full CRUD School 1. ",
+									"  //--But Client 1, without the assignment to Ownership Token 2, should not be able to CRUD School 2."
+								]
+							}
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"  //--Client 1 should be able to full CRUD their School 1.",
+							"  //--Derived Resource -Client 1 has full CRUD - School 1",
+							" // --Client 2 should be able to full CRUD School 2.",
+							"  //--Derived Resource -Client 2 has full CRUD - School 2",
+							"",
+							"  //--Assuming Client 2 is assigned the extra ownership token, it should also be able to full CRUD School 1. ",
+							"  ",
+							"  //--But Client 1, without the assignment to Ownership Token 2, should not be able to CRUD School 2."
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken_255901-A}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"CreateAccessToken(\"TokenExpiry_255901-A\",",
+					"                  \"AccessToken_255901-A\",",
+					"                  \"ApiKey_255901-A\", ",
+					"                  \"ApiSecret_255901-A\")",
+					"                  ",
+					"CreateAccessToken(\"TokenExpiry_255901-B\",",
+					"                  \"AccessToken_255901-B\",",
+					"                  \"ApiKey_255901-B\", ",
+					"                  \"ApiSecret_255901-B\")",
+					"",
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
+					"function CreateAccessToken(TokenExpiry,AccessToken,ApiKey, ApiSecret)",
+					"                  {",
+					"let tokenExpiration = pm.environment.get(TokenExpiry);",
+					"let currentToken = pm.environment.get(AccessToken);",
+					"let  getToken = true;",
+					"if (!tokenExpiration || ",
+					"    !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"} else {",
+					"    getToken = false;",
+					"    console.log('Token and expiration date are still valid');",
+					"}",
+					"if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get(ApiKey);",
+					"    let clientSecret = pm.environment.get(ApiSecret);",
+					"    let grantType = 'client_credentials';",
+					"    ",
+					"    let getTokenRequest = {",
+					"        method: 'POST',",
+					"        url: tokenUrl,",
+					"        auth: {",
+					"            type: \"basic\",",
+					"            basic: [",
+					"                { key: \"username\", value: clientId },",
+					"                { key: \"password\", value: clientSecret }",
+					"            ]",
+					"        },",
+					"        header: [",
+					"            \"content-type:application/x-www-form-urlencoded\"",
+					"        ],",
+					"        body: {",
+					"            mode: \"urlencoded\",",
+					"            urlencoded: [{key: \"grant_type\", value: grantType}]",
+					"        }",
+					"    };",
+					"    ",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"        let jsonResponse = response.json(),",
+					"            newAccessToken = jsonResponse.access_token;",
+					"    ",
+					"        console.log({ err, jsonResponse, newAccessToken })",
+					"    ",
+					"        pm.environment.set(AccessToken, newAccessToken);",
+					"    ",
+					"        let expiryDate = new Date();",
+					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"        pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"    });",
+					"}",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"  //--Client 1 should be able to full CRUD their School 1.",
+					"  //--Derived Resource -Client 1 has full CRUD - School 1",
+					" // --Client 2 should be able to full CRUD School 2.",
+					"  //--Derived Resource -Client 2 has full CRUD - School 2",
+					"  //--Assuming Client 2 is assigned the extra ownership token, it should also be able to full CRUD School 1. ",
+					"  //--But Client 1, without the assignment to Ownership Token 2, should not be able to CRUD School 2."
+				]
+			}
+		}
+	]
+}
