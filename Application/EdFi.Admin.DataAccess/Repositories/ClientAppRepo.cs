@@ -96,7 +96,6 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
-
         public void AddOwnershipTokensToApiClient(string ownershipToken, int apiClientId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -128,7 +127,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     var apiClient = context.Clients.FirstOrDefault(u => u.ApiClientId == apiClientId);
                     apiClientOwnershipTokenList.Add(new ApiClientOwnershipToken
                     {
-                        ApiClient = apiClient,               
+                        ApiClient = apiClient,
                         OwnershipToken = ownershiptoken
                     });
                 }
