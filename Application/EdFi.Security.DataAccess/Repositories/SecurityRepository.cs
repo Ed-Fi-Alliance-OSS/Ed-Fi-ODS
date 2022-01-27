@@ -27,7 +27,16 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             using (var context = _securityContextFactory.CreateContext())
             {
-                var claimNameList = new string[] { "http://ed-fi.org/ods/identity/claims/domains/educationOrganizations", "http://ed-fi.org/ods/identity/claims/studentSectionAssociation" };
+                var claimNameList = new string[] { 
+                    "http://ed-fi.org/ods/identity/claims/domains/educationOrganizations",
+                    "http://ed-fi.org/ods/identity/claims/studentSectionAssociation",
+                    "http://ed-fi.org/ods/identity/claims/gradingPeriod",
+                    "http://ed-fi.org/ods/identity/claims/session",
+                    "http://ed-fi.org/ods/identity/claims/course",
+                    "http://ed-fi.org/ods/identity/claims/courseOffering",
+                    "http://ed-fi.org/ods/identity/claims/section",
+                    "http://ed-fi.org/ods/identity/claims/studentSchoolAssociation"
+                };
 
                 var ownershipBasedClaimSetId = context.ClaimSets.FirstOrDefault(a => a.ClaimSetName == "Ownership Based").ClaimSetId;
                 var ownershipBasedAuthorizationStrategyId = context.AuthorizationStrategies.FirstOrDefault(a => a.AuthorizationStrategyName == "OwnershipBased").AuthorizationStrategyId;
