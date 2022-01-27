@@ -27,14 +27,13 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             using (var context = _securityContextFactory.CreateContext())
             {
-                var actionNameList = new string[] { "Read", "Update", "Delete" };
                 var claimNameList = new string[] { "http://ed-fi.org/ods/identity/claims/domains/educationOrganizations", "http://ed-fi.org/ods/identity/claims/studentSectionAssociation" };
 
                 var ownershipBasedClaimSetId = context.ClaimSets.FirstOrDefault(a => a.ClaimSetName == "Ownership Based").ClaimSetId;
                 var ownershipBasedAuthorizationStrategyId = context.AuthorizationStrategies.FirstOrDefault(a => a.AuthorizationStrategyName == "OwnershipBased").AuthorizationStrategyId;
 
                 var resourceClaims = context.ResourceClaims.Where(x => claimNameList.Contains(x.ClaimName)).ToList();          
-                var actions = context.Actions.Where(x => actionNameList.Contains(x.ActionName)).ToList();
+                var actions = context.Actions.ToList();
 
                 var claimSetResourceClaimActions = new List<ClaimSetResourceClaimAction>();
 
