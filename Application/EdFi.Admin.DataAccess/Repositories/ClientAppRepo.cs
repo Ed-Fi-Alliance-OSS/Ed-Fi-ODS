@@ -128,7 +128,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     var apiClient = context.Clients.FirstOrDefault(u => u.ApiClientId == apiClientId);
                     apiClientOwnershipTokenList.Add(new ApiClientOwnershipToken
                     {
-                        ApiClient = apiClient,                        
+                        ApiClient = apiClient,               
                         OwnershipToken = ownershiptoken
                     });
                 }
@@ -389,6 +389,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                 {
                     client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
                 }
+
                 context.SaveChanges();
             }
         }
