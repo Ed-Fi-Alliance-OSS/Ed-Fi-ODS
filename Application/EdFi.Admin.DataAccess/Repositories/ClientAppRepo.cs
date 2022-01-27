@@ -387,11 +387,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                 foreach (var applicationEducationOrganization in application.ApplicationEducationOrganizations.Where(
                     s => leaIds.Contains(s.EducationOrganizationId)))
                 {
-                    if (!context.ApplicationEducationOrganizations.Any(a => a.EducationOrganizationId == applicationEducationOrganization.EducationOrganizationId 
-                    && a.Application.ApplicationId == applicationId))
-                    {
-                        client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
-                    }
+                    client.ApplicationEducationOrganizations.Add(applicationEducationOrganization);
                 }
                 context.SaveChanges();
             }
