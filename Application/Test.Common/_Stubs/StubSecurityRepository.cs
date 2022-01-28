@@ -77,5 +77,10 @@ namespace Test.Common._Stubs
         {
             return new ResourceClaim {ResourceName = resourceName};
         }
+
+        public void LoadRecordOwnershipData()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

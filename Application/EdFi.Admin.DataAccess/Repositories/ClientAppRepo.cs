@@ -80,6 +80,62 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
+        private OwnershipToken GetOrCreateOwnershipToken(string ownershipToken)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var ownershipTokens = context.OwnershipTokens.FirstOrDefault(s => s.Description == ownershipToken);
+
+                if (ownershipTokens == null)
+                {
+                    context.OwnershipTokens.Add(new OwnershipToken { Description = ownershipToken });
+                    context.SaveChanges();
+                }
+
+                return context.OwnershipTokens.FirstOrDefault(s => s.Description == ownershipToken);
+            }
+        }
+
+        public void AddOwnershipTokensToApiClient(string ownershipToken, int apiClientId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var ownershiptoken = GetOrCreateOwnershipToken(ownershipToken);
+
+                var currentOwnershipToken = context.OwnershipTokens
+                    .Include(u => u.ApiClients)
+                    .FirstOrDefault(u => u.OwnershipTokenId == ownershiptoken.OwnershipTokenId);
+
+                if (!currentOwnershipToken.ApiClients.Any(a => a.ApiClientId == apiClientId))
+                {
+                    var apiClient = context.Clients.FirstOrDefault(a => a.ApiClientId == apiClientId);
+                    currentOwnershipToken.ApiClients.Add(apiClient);
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        public void AddApiClientOwnershipTokens(List<string> ownershipTokens, int apiClientId)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                var apiClientOwnershipTokenList = new List<ApiClientOwnershipToken>();
+                foreach (var ownershipToken in ownershipTokens)
+                {
+                    var ownershiptoken = context.OwnershipTokens.FirstOrDefault(x => x.Description == ownershipToken);
+                    var apiClient = context.Clients.FirstOrDefault(u => u.ApiClientId == apiClientId);
+                    apiClientOwnershipTokenList.Add(new ApiClientOwnershipToken
+                    {
+                        ApiClient = apiClient,
+                        OwnershipToken = ownershiptoken
+                    });
+                }
+                context.ApiClientOwnershipTokens.AddRange(apiClientOwnershipTokenList);
+                context.SaveChanges();
+            }
+        }
+
         public void AddProfilesToApplication(List<string> profileNames, int applicationId)
         {
             using (var context = _contextFactory.CreateContext())
@@ -396,6 +452,7 @@ namespace EdFi.Admin.DataAccess.Repositories
                     dbContext.DeleteAll<ApplicationEducationOrganization>();
                     dbContext.DeleteAll<Application>();
                     dbContext.DeleteAll<Vendor>();
+                    dbContext.DeleteAll<OwnershipToken>();
                     context.SaveChanges();
                 }
             }
