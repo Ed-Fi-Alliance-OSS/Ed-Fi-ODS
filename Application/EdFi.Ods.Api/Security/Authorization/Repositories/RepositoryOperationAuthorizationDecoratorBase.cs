@@ -64,7 +64,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             await _authorizationProvider.AuthorizeSingleItemAsync(authorizationContext, cancellationToken);
         }
 
-        protected IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters<TEntity>()
+        protected IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering<TEntity>()
         {
             // Make sure Authorization context is present before proceeding
             _authorizationContextProvider.VerifyAuthorizationContextExists();
@@ -77,7 +77,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 typeof(TEntity));
 
             // Get authorization filters
-            return _authorizationProvider.GetAuthorizationFilters(authorizationContext);
+            return _authorizationProvider.GetAuthorizationFiltering(authorizationContext);
         }
 
         protected void AuthorizeResourceActionOnly(T entity, string actionUri)

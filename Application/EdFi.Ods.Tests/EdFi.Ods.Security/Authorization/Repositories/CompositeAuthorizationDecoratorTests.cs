@@ -273,7 +273,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             {
                 A.CallTo(() =>
                         Given<IEdFiAuthorizationProvider>()
-                            .GetAuthorizationFilters(A<EdFiAuthorizationContext>.Ignored))
+                            .GetAuthorizationFiltering(A<EdFiAuthorizationContext>.Ignored))
                     .Throws(new EdFiSecurityException("Test exception"));
             }
 
@@ -342,7 +342,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
             /// <param name="filterBuilder">A builder used to activate filters and assign parameter values.</param>
             /// <returns></returns>
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(EdFiAuthorizationContext authorizationContext)
+            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFiltering(EdFiAuthorizationContext authorizationContext)
             {
                 ActualAuthorizationContext = authorizationContext;
 

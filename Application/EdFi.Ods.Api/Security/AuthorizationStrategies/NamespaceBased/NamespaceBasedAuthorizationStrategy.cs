@@ -22,6 +22,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
         private readonly AuthorizationContextDataFactory _authorizationContextDataFactory
             = new AuthorizationContextDataFactory();
 
+        private const string AuthorizationStrategyName = "NamespaceBased";
+
         public Task AuthorizeSingleItemAsync(
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext,
@@ -62,21 +64,26 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
         /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The collection of authorization filters to be applied to the query.</returns>
-        public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+        public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
             var claimNamespacePrefixes = GetClaimNamespacePrefixes(authorizationContext);
 
-            return new[]
+            return new AuthorizationStrategyFiltering
             {
-                new AuthorizationFilterDetails
+                AuthorizationStrategyName = AuthorizationStrategyName,
+                Filters = new []
                 {
-                    FilterName = "Namespace",
-                    SubjectEndpointName = "Namespace",
-                    ClaimEndpointName = "Namespace",
-                    ClaimValues = claimNamespacePrefixes.Select(prefix => $"{prefix}%").Cast<object>().ToArray(),
-                }
+                    new AuthorizationFilterDetails
+                    {
+                        FilterName = "Namespace",
+                        SubjectEndpointName = "Namespace",
+                        ClaimEndpointName = "Namespace",
+                        ClaimValues = claimNamespacePrefixes.Select(prefix => $"{prefix}%").Cast<object>().ToArray(),
+                    }
+                },
+                Operator = FilterOperator.And
             };
         }
 

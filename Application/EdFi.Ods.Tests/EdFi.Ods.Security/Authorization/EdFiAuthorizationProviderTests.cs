@@ -214,7 +214,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 throw new NotImplementedException();
             }
 
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
                 IEnumerable<Claim> relevantClaims,
                 EdFiAuthorizationContext authorizationContext)
             {
@@ -230,7 +230,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 throw new NotImplementedException();
             }
 
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
                 IEnumerable<Claim> relevantClaims,
                 EdFiAuthorizationContext authorizationContext)
             {
@@ -308,7 +308,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 return Task.CompletedTask;
             }
 
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
                 IEnumerable<Claim> relevantClaims,
                 EdFiAuthorizationContext authorizationContext)
             {
@@ -2010,7 +2010,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 return Task.CompletedTask;
             }
 
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
                 IEnumerable<Claim> relevantClaims,
                 EdFiAuthorizationContext authorizationContext)
             {
