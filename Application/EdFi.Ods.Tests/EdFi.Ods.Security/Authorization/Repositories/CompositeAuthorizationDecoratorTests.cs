@@ -342,17 +342,24 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
             /// <param name="filterBuilder">A builder used to activate filters and assign parameter values.</param>
             /// <returns></returns>
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFiltering(EdFiAuthorizationContext authorizationContext)
+            public IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering(EdFiAuthorizationContext authorizationContext)
             {
                 ActualAuthorizationContext = authorizationContext;
 
                 return new[]
                 {
-                    new AuthorizationFilterDetails
+                    new AuthorizationStrategyFiltering()
                     {
-                        FilterName = _filterName,
-                        ClaimEndpointName = _parameterName,
-                        ClaimValues = new [] {_parameterValue}
+                        AuthorizationStrategyName = "Test",
+                        Filters = new[]
+                        {
+                            new AuthorizationFilterDetails
+                            {
+                                FilterName = _filterName,
+                                ClaimEndpointName = _parameterName,
+                                ClaimValues = new[] { _parameterValue }
+                            }
+                        } 
                     }
                 };
             }

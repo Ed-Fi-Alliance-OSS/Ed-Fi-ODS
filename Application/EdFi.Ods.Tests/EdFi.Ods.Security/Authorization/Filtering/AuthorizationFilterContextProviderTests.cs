@@ -27,13 +27,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Filtering
 
                 Given<ISession>();
                 contextstorage = new HashtableContextStorage();
-                Supplied<IReadOnlyList<AuthorizationFilterDetails>>(CreateTestParameters());
+                Supplied(CreateTestParameters());
                 authProvider = new AuthorizationFilterContextProvider(contextstorage);
             }
 
             protected override void Act()
             {
-                authProvider.SetFilterContext(Supplied<IReadOnlyList<AuthorizationFilterDetails>>());
+                authProvider.SetFilterContext(Supplied<IReadOnlyList<AuthorizationStrategyFiltering>>());
             }
 
             [Assert]
@@ -50,21 +50,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Filtering
                 Assert.That(authProvider.GetFilterContext(), Is.EquivalentTo(Supplied<IReadOnlyList<AuthorizationFilterDetails>>()));
             }
 
-            private static IReadOnlyList<AuthorizationFilterDetails> CreateTestParameters()
+            private static IReadOnlyList<AuthorizationStrategyFiltering> CreateTestParameters()
             {
-                return new List<AuthorizationFilterDetails>
+                return new[]
                 {
-                    new AuthorizationFilterDetails
+                    new AuthorizationStrategyFiltering()
                     {
-                        FilterName = "key1",
-                        ClaimEndpointName = "prop1",
-                        ClaimValues = new object[] {1}
-                    },
-                    new AuthorizationFilterDetails
-                    {
-                        FilterName = "key1",
-                        ClaimEndpointName = "prop2",
-                        ClaimValues = new object[] {2}
+                        AuthorizationStrategyName = "Test",
+                        Filters = new List<AuthorizationFilterDetails>
+                        {
+                            new AuthorizationFilterDetails
+                            {
+                                FilterName = "key1",
+                                ClaimEndpointName = "prop1",
+                                ClaimValues = new object[] { 1 }
+                            },
+                            new AuthorizationFilterDetails
+                            {
+                                FilterName = "key1",
+                                ClaimEndpointName = "prop2",
+                                ClaimValues = new object[] { 2 }
+                            }
+                        }
                     }
                 };
             }

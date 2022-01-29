@@ -314,7 +314,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 FilteringWasCalled = true;
 
-                return Array.Empty<AuthorizationFilterDetails>();
+                return new AuthorizationStrategyFiltering()
+                {
+                    AuthorizationStrategyName = "Test",
+                    Filters = Array.Empty<AuthorizationFilterDetails>()
+                };
             }
         }
 
@@ -2016,7 +2020,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             {
                 FilteringWasCalled = true;
 
-                return new AuthorizationFilterDetails[0];
+                return new AuthorizationStrategyFiltering()
+                {
+                    AuthorizationStrategyName = "Test",
+                    Filters = Array.Empty<AuthorizationFilterDetails>()
+                };
             }
         }
 
