@@ -81,12 +81,12 @@ namespace EdFi.Ods.Features.Composites
                 entityType);
 
             // Authorize and apply filtering
-            IReadOnlyList<AuthorizationFilterDetails> authorizationFilters;
+            IReadOnlyList<AuthorizationStrategyFiltering> authorizationFiltering;
 
             try
             {
                 // NOTE: Possible performance optimization - Allow for "Try" semantics (so no exceptions are thrown here)
-                authorizationFilters = _authorizationProvider.GetAuthorizationFilters(authorizationContext);
+                authorizationFiltering = _authorizationProvider.GetAuthorizationFiltering(authorizationContext);
             }
             catch (EdFiSecurityException ex)
             {
@@ -119,7 +119,10 @@ namespace EdFi.Ods.Features.Composites
             }
 
             // Save the filters to be applied to this query for use later in the process
-            builderContext.CurrentQueryFilterByName = authorizationFilters.ToDictionary(x => x.FilterName, x => x);
+            builderContext.CurrentQueryFilterByName = authorizationFiltering
+                // TODO: This was added to flatten the filters as per legacy code, but we still need to add correct support for multiple authorization strategies
+                .SelectMany(x => x.Filters)
+                .ToDictionary(x => x.FilterName, x => x);
 
             return true;
         }
