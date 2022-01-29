@@ -12,11 +12,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     /// Applies authorization filtering criteria to the paged queries.
     /// </summary>
     /// <typeparam name="TEntity">The type of the aggregate root entity being queried.</typeparam>
-    public class PagedAggregateIdsCriteriaProviderDecorator<TEntity>
-        : AggregateRootCriteriaProviderDecoratorBase<TEntity>, IPagedAggregateIdsCriteriaProvider<TEntity>
+    public class PagedAggregateIdsCriteriaProviderAuthorizationDecorator<TEntity>
+        : AggregateRootCriteriaProviderAuthorizationDecoratorBase<TEntity>, IPagedAggregateIdsCriteriaProvider<TEntity>
         where TEntity : class
     {
-        public PagedAggregateIdsCriteriaProviderDecorator(
+        public PagedAggregateIdsCriteriaProviderAuthorizationDecorator(
             IPagedAggregateIdsCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider)

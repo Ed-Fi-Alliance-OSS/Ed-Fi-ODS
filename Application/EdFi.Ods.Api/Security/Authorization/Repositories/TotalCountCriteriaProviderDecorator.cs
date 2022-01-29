@@ -12,11 +12,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     /// Applies authorization filtering criteria to the "total count" queries.
     /// </summary>
     /// <typeparam name="TEntity">The type of the aggregate root entity being queried.</typeparam>
-    public class TotalCountCriteriaProviderDecorator<TEntity>
-        : AggregateRootCriteriaProviderDecoratorBase<TEntity>, ITotalCountCriteriaProvider<TEntity>
+    public class TotalCountCriteriaProviderAuthorizationDecorator<TEntity>
+        : AggregateRootCriteriaProviderAuthorizationDecoratorBase<TEntity>, ITotalCountCriteriaProvider<TEntity>
         where TEntity : class
     {
-        public TotalCountCriteriaProviderDecorator(
+        public TotalCountCriteriaProviderAuthorizationDecorator(
             ITotalCountCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider)
