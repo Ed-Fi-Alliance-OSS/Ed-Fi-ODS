@@ -89,7 +89,7 @@ INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId])
 VALUES ('Bootstrap Descriptors and EdOrgs', @applicationId);
 
 INSERT INTO [dbo].[ClaimSets] ([ClaimSetName], [Application_ApplicationId])
-VALUES ('Ownership Based', @applicationId);
+VALUES ('Ownership Based Test', @applicationId);
 
 /* --------------------------------- */
 
