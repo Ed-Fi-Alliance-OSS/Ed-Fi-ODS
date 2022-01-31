@@ -710,7 +710,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n     \"educationOrganizationId\": \"{{known:schoolId}}\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"{{known:studentUniqueId}}\"\r\n    }\r\n  }"
+									"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n     \"educationOrganizationId\": \"{{known:schoolId}}\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"{{known:studentUniqueId}}\"\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": \"{{known:schoolId2}}\",\r\n       \"programName\":\"{{known:programName}}\",\r\n      \"programTypeDescriptor\":\"{{known:programTypeDescriptor}}\"\r\n    }\r\n  }"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:studentProgramAssociationGuid}}",
