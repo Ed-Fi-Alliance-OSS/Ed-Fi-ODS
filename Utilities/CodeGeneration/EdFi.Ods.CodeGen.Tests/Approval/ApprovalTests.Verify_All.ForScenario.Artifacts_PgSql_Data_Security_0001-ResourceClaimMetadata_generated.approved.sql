@@ -75,7 +75,7 @@ begin
     values ('Bootstrap Descriptors and EdOrgs', application_id);
 
     insert into dbo.ClaimSets (ClaimSetName, Application_ApplicationId)
-    values ('Ownership Based', application_id);
+    values ('Ownership Based Test', application_id);
 
 end $$;
 
