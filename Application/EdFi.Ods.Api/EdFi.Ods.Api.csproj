@@ -36,7 +36,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="NHibernate" Version="5.3.10" />
+    <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="Npgsql" Version="4.1.5" />
     <PackageReference Include="Polly" Version="7.2.2" />
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
