@@ -5,10 +5,10 @@
 
 using System.Linq;
 using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Security.Authorization;
 
-namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
+namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
     public class RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategy<TContextData>
         : RelationshipsAuthorizationStrategyBase<TContextData>

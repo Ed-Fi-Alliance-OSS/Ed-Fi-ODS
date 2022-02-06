@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using EdFi.Ods.Common.Infrastructure.Filtering;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 
 namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 {
@@ -33,7 +33,7 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
                 // School to Person relationships
                 RelationshipsAuthorizationFilters.SchoolIdToStudentUSIIncludingDeletes,
                 RelationshipsAuthorizationFilters.SchoolIdToStaffUSIIncludingDeletes,
-                RelationshipsAuthorizationFilters.SchoolIdToParentUSIIncludingDeletes,
+                RelationshipsAuthorizationFilters.ParentUSIToSchoolIdIncludingDeletes,
             };
 
             return filters;
