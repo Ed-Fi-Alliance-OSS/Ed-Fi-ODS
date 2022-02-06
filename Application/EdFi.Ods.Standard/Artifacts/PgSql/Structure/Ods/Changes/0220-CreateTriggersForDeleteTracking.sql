@@ -506,6 +506,23 @@ IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'tr
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.attendanceeventcategorydescriptor_deleted();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.barriertointernetaccessinresidencedescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.barriertointernetaccessinresidencedescriptorid, b.codevalue, b.namespace, b.id, 'edfi.BarrierToInternetAccessInResidenceDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.barriertointernetaccessinresidencedescriptorid = b.descriptorid;
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'barriertointernetaccessinresidencedescriptor') THEN
+    CREATE TRIGGER trackdeletes AFTER DELETE ON edfi.barriertointernetaccessinresidencedescriptor 
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.barriertointernetaccessinresidencedescriptor_deleted();
+END IF;
+
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.behaviordescriptor_deleted()
     RETURNS trigger AS
 $BODY$
@@ -2228,6 +2245,40 @@ IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'tr
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.internetaccessdescriptor_deleted();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.internetaccesstypeinresidencedescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.internetaccesstypeinresidencedescriptorid, b.codevalue, b.namespace, b.id, 'edfi.InternetAccessTypeInResidenceDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.internetaccesstypeinresidencedescriptorid = b.descriptorid;
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'internetaccesstypeinresidencedescriptor') THEN
+    CREATE TRIGGER trackdeletes AFTER DELETE ON edfi.internetaccesstypeinresidencedescriptor 
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.internetaccesstypeinresidencedescriptor_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.internetperformanceinresidencedescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.internetperformanceinresidencedescriptorid, b.codevalue, b.namespace, b.id, 'edfi.InternetPerformanceInResidenceDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.internetperformanceinresidencedescriptorid = b.descriptorid;
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'internetperformanceinresidencedescriptor') THEN
+    CREATE TRIGGER trackdeletes AFTER DELETE ON edfi.internetperformanceinresidencedescriptor 
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.internetperformanceinresidencedescriptor_deleted();
+END IF;
+
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.intervention_deleted()
     RETURNS trigger AS
 $BODY$
@@ -3115,6 +3166,57 @@ $BODY$ LANGUAGE plpgsql;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'postsecondaryinstitutionleveldescriptor') THEN
     CREATE TRIGGER trackdeletes AFTER DELETE ON edfi.postsecondaryinstitutionleveldescriptor 
         FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.postsecondaryinstitutionleveldescriptor_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.primarylearningdeviceaccessdescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.primarylearningdeviceaccessdescriptorid, b.codevalue, b.namespace, b.id, 'edfi.PrimaryLearningDeviceAccessDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.primarylearningdeviceaccessdescriptorid = b.descriptorid;
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'primarylearningdeviceaccessdescriptor') THEN
+    CREATE TRIGGER trackdeletes AFTER DELETE ON edfi.primarylearningdeviceaccessdescriptor 
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.primarylearningdeviceaccessdescriptor_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.primarylearningdeviceawayfromschooldescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.primarylearningdeviceawayfromschooldescriptorid, b.codevalue, b.namespace, b.id, 'edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.primarylearningdeviceawayfromschooldescriptorid = b.descriptorid;
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'primarylearningdeviceawayfromschooldescriptor') THEN
+    CREATE TRIGGER trackdeletes AFTER DELETE ON edfi.primarylearningdeviceawayfromschooldescriptor 
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.primarylearningdeviceawayfromschooldescriptor_deleted();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.primarylearningdeviceproviderdescriptor_deleted()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
+    SELECT OLD.primarylearningdeviceproviderdescriptorid, b.codevalue, b.namespace, b.id, 'edfi.PrimaryLearningDeviceProviderDescriptor', nextval('changes.ChangeVersionSequence')
+    FROM edfi.descriptor b WHERE old.primarylearningdeviceproviderdescriptorid = b.descriptorid;
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'trackdeletes' AND event_object_schema = 'edfi' AND event_object_table = 'primarylearningdeviceproviderdescriptor') THEN
+    CREATE TRIGGER trackdeletes AFTER DELETE ON edfi.primarylearningdeviceproviderdescriptor 
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.primarylearningdeviceproviderdescriptor_deleted();
 END IF;
 
 CREATE OR REPLACE FUNCTION tracked_changes_edfi.proficiencydescriptor_deleted()
