@@ -6,6 +6,7 @@
 using System.Net.Mime;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Helpers;
+using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models;
@@ -13,7 +14,6 @@ using EdFi.Ods.Common.Models.Queries;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Serialization;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
-using EdFi.Ods.Security.Authorization;
 using EdFi.Security.DataAccess.Repositories;
 using log4net;
 using Microsoft.AspNetCore.Authorization;

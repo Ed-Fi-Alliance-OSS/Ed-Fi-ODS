@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using EdFi.Ods.Common;
-using Newtonsoft.Json;
 
 namespace EdFi.Ods.Features.ChangeQueries.Resources
 {
