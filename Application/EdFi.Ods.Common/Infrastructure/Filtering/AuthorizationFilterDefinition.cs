@@ -70,7 +70,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// </summary>
         public Func<Type, PropertyInfo[], bool> ShouldApply { get; protected set; }
 
-        private static string ProcessFormatStringForAliases(string format)
+        protected static string ProcessFormatStringForAliases(string format)
         {
             Func<int, string> getFriendlyAliasKey = n => "{newAlias" + n + "}";
             var aliasGenerator = new AliasGenerator("fltr_", useSharedState: true);
