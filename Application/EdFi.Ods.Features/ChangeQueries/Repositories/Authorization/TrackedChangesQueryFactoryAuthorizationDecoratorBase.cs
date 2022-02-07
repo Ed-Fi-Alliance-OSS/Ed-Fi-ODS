@@ -7,6 +7,7 @@ using System;
 using System.Security;
 using System.Security.Claims;
 using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
@@ -67,12 +68,17 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                     
                     if (filter.ClaimValues.Length == 1)
                     {
-                        query.WhereLike(namespaceColumnName, filter.ClaimValues[0]);
+                        query.Where(
+                            q => q
+                                .WhereNotNull(namespaceColumnName)
+                                .WhereLike(namespaceColumnName, filter.ClaimValues[0]));
                     }
                     else if (filter.ClaimValues.Length > 1)
                     {
                         query.Where(
-                            q => q.Where(
+                            q => q
+                                .WhereNotNull(namespaceColumnName) 
+                                .Where(
                                 q2 =>
                                 {
                                     filter.ClaimValues.ForEach(cv => q2.OrWhereLike(namespaceColumnName, cv));
@@ -89,11 +95,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 // Determine if this matches the relationship-based authorization strategy naming pattern
                 else if (filter.FilterName.Contains("To"))
                 {
-                    // If the endpoint names do not match, then use an authorization view join
-                    if (filter.ClaimEndpointName != filter.SubjectEndpointName)
+                    if (filter.ClaimEndpointName == filter.SubjectEndpointName)
                     {
+                        // Apply claim value criteria directly to the column value
+                        query.WhereIn($"c.{_namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{filter.ClaimEndpointName}")}", filter.ClaimValues);
+                    }
+                    else
+                    {
+                        // Endpoint names do not match -- use an authorization view join
                         // TODO: For v5.3, view and filter names don't match due to the new EdOrgIdToEdOrgId auth view generalization
-                        string viewName = filter.FilterName;
+                        var filterDetails = RelationshipsAuthorizationFilters.GetViewFilterApplicationDetails(filter.FilterName);
+
+                        string viewName = filterDetails.ViewName;
                         
                         string trackedChangesPropertyName = resource.Entity.IsDerived 
                             ? GetBasePropertyNameForSubjectEndpointName() 
@@ -103,21 +116,16 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                         query.Join(
                             $"auth.{_namingConvention.IdentifierName(viewName)} AS rba{filterIndex}",
                             $"c.{_namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{trackedChangesPropertyName}")}",
-                            $"rba{filterIndex}.{_namingConvention.ColumnName(filter.SubjectEndpointName)}");
+                            $"rba{filterIndex}.{_namingConvention.ColumnName(filterDetails.ViewTargetEndpointName)}");
 
                         // Apply claim value criteria
-                        query.WhereIn($"rba{filterIndex}.{_namingConvention.ColumnName(filter.ClaimEndpointName)}", filter.ClaimValues);
-                    }
-                    else
-                    {
-                        // Apply claim value criteria directly to the column value
-                        query.WhereIn($"c.{_namingConvention.ColumnName($"{ChangeQueriesDatabaseConstants.OldKeyValueColumnPrefix}{filter.ClaimEndpointName}")}", filter.ClaimValues);
+                        query.WhereIn($"rba{filterIndex}.{_namingConvention.ColumnName(filterDetails.ViewSourceEndpointName)}", filter.ClaimValues);
                     }
                 }
                 else
                 {
                     throw new SecurityException(
-                        $"Support for filtering with filter '{filter.FilterName}' has not been implemented.");
+                        $"Support for filtering tracked changes with filter '{filter.FilterName}' has not been implemented.");
                 }
 
                 filterIndex++;
