@@ -170,7 +170,7 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
@@ -300,7 +300,7 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
@@ -430,7 +430,7 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
@@ -560,7 +560,7 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
@@ -690,7 +690,7 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
@@ -820,7 +820,7 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NamespaceBased''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NamespaceBased''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
@@ -950,7 +950,7 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NamespaceBased''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NamespaceBased''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
@@ -1080,7 +1080,7 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
@@ -1210,7 +1210,7 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
     END IF;
 
-    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NamespaceBased''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NamespaceBased''' || '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
