@@ -4,7 +4,6 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 DROP VIEW IF EXISTS auth.educationorganizationidtostudentusiincludingdeletes;
-GO
 
 CREATE VIEW auth.educationorganizationidtostudentusiincludingdeletes(sourceeducationorganizationid, studentusi) AS
     -- TODO: Remove this statement and UNION and compose in security metadata, when available (but must ensure uniqueness is retained)
@@ -17,13 +16,11 @@ CREATE VIEW auth.educationorganizationidtostudentusiincludingdeletes(sourceeduca
     FROM    auth.educationorganizationidtoeducationorganizationid edOrgs
         INNER JOIN tracked_changes_edfi.studentschoolassociation ssa_tc
             ON edOrgs.targeteducationorganizationid = ssa_tc.oldschoolid
-    GROUP BY edOrgs.sourceeducationorganizationid, ssa_tc.oldstudentusi
-GO
+    GROUP BY edOrgs.sourceeducationorganizationid, ssa_tc.oldstudentusi;
 
 ALTER TABLE auth.educationorganizationidtostudentusiincludingdeletes OWNER TO postgres;
 
 DROP VIEW IF EXISTS auth.educationorganizationidtostaffusiincludingdeletes;
-GO
 
 CREATE VIEW auth.educationorganizationidtostaffusiincludingdeletes(sourceeducationorganizationid, staffusi) AS
     -- TODO: Remove this statement and UNION and compose in security metadata, when available (but must ensure uniqueness is retained)
@@ -44,15 +41,13 @@ CREATE VIEW auth.educationorganizationidtostaffusiincludingdeletes(sourceeducati
     SELECT  edOrgs.sourceeducationorganizationid, seo_empl_tc.oldstaffusi AS staffusi
     FROM    auth.educationorganizationidtoeducationorganizationid edOrgs
             INNER JOIN tracked_changes_edfi.staffeducationorganizationemploymentassociation seo_empl_tc
-                ON edOrgs.targeteducationorganizationid = seo_empl_tc.oldeducationorganizationid
-GO
+                ON edOrgs.targeteducationorganizationid = seo_empl_tc.oldeducationorganizationid;
 
 ALTER TABLE auth.educationorganizationidtostaffusiincludingdeletes OWNER TO postgres;
 
 DROP VIEW IF EXISTS auth.educationorganizationidtoparentusiincludingdeletes;
-GO
 
-CREATE VIEW auth.educationorganizationidtoparentusiincludingdeletes(sourceeducationorganizationid, parentusi) WITH SCHEMABINDING AS
+CREATE VIEW auth.educationorganizationidtoparentusiincludingdeletes(sourceeducationorganizationid, parentusi) AS
     -- TODO: Remove this statement and UNION and compose in security metadata, when available (but must ensure uniqueness is retained)
     -- Intact StudentSchoolAssociation and intact StudentParentAssociation
     SELECT  a.sourceeducationorganizationid, a.parentusi
@@ -86,7 +81,6 @@ CREATE VIEW auth.educationorganizationidtoparentusiincludingdeletes(sourceeducat
             INNER JOIN tracked_changes_edfi.studentschoolassociation ssa_tc
                 ON edOrgs.targeteducationorganizationid = ssa_tc.oldschoolid
             INNER JOIN tracked_changes_edfi.studentparentassociation spa_tc
-                ON ssa_tc.oldstudentusi = spa_tc.oldstudentusi
-GO
+                ON ssa_tc.oldstudentusi = spa_tc.oldstudentusi;
 
 ALTER TABLE auth.educationorganizationidtoparentusiincludingdeletes OWNER TO postgres;
