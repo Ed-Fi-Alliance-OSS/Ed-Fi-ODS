@@ -3,199 +3,84 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStudentUSIIncludingDeletes;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToStudentUSIIncludingDeletes;
 GO
 
-CREATE VIEW auth.LocalEducationAgencyIdToStudentUSIIncludingDeletes AS
-    SELECT sch.LocalEducationAgencyId, ssa.StudentUSI
-    FROM edfi.School sch
-        JOIN edfi.StudentSchoolAssociation ssa ON sch.SchoolId = ssa.SchoolId
+CREATE VIEW auth.EducationOrganizationIdToStudentUSIIncludingDeletes AS
+    -- TODO: Remove this statement and UNION and compose in security metadata, when available (but must ensure uniqueness is retained)
+    SELECT a.SourceEducationOrganizationId, a.StudentUSI
+    FROM auth.EducationOrganizationIdToStudentUSI a
 
     UNION
 
-    SELECT sch.LocalEducationAgencyId, ssa_tc.OldStudentUSI as StudentUSI
-    FROM edfi.School sch
-        JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON sch.SchoolId = ssa_tc.OldSchoolId;
+    SELECT  edOrgs.SourceEducationOrganizationId, ssa_tc.OldStudentUSI AS StudentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+        INNER JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc
+            ON edOrgs.TargetEducationOrganizationId = ssa_tc.OldSchoolId
+    GROUP BY edOrgs.SourceEducationOrganizationId, ssa_tc.OldStudentUSI
 GO
 
-DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToStaffUSIIncludingDeletes;
 GO
 
-CREATE VIEW auth.LocalEducationAgencyIdToStaffUSIIncludingDeletes AS
-    -- LEA employment
-    SELECT lea.LocalEducationAgencyId, emp.StaffUSI
-    FROM edfi.LocalEducationAgency lea
-        JOIN edfi.StaffEducationOrganizationEmploymentAssociation emp
-            ON lea.LocalEducationAgencyId = emp.EducationOrganizationId
+CREATE VIEW auth.EducationOrganizationIdToStaffUSIIncludingDeletes AS
+    -- TODO: Remove this statement and UNION and compose in security metadata, when available (but must ensure uniqueness is retained)
+    SELECT a.SourceEducationOrganizationId, a.StaffUSI
+    FROM auth.EducationOrganizationIdToStaffUSI a
 
     UNION
 
-    -- LEA employment (deleted employment)
-    SELECT lea.LocalEducationAgencyId, emp_tc.OldStaffUSI as StaffUSI
-    FROM edfi.LocalEducationAgency lea
-        JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
-            ON lea.LocalEducationAgencyId = emp_tc.OldEducationOrganizationId
-
+    -- EdOrg Assignments
+    SELECT  edOrgs.SourceEducationOrganizationId, seo_assign_tc.OldStaffUSI AS StaffUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation seo_assign_tc
+                ON edOrgs.TargetEducationOrganizationId = seo_assign_tc.OldEducationOrganizationId
+    
     UNION
 
-    -- LEA-level organization department employment
-    SELECT lea.LocalEducationAgencyId, emp.StaffUSI
-    FROM edfi.LocalEducationAgency lea
-        JOIN edfi.OrganizationDepartment od
-            ON lea.LocalEducationAgencyId = od.ParentEducationOrganizationId
-        JOIN edfi.StaffEducationOrganizationEmploymentAssociation emp
-            ON od.OrganizationDepartmentId = emp.EducationOrganizationId
-
-    UNION
-
-    -- LEA-level organization department employment (deleted employment)
-    SELECT lea.LocalEducationAgencyId, emp_tc.OldStaffUSI as StaffUSI
-    FROM edfi.LocalEducationAgency lea
-        JOIN edfi.OrganizationDepartment od
-            ON lea.LocalEducationAgencyId = od.ParentEducationOrganizationId
-        JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
-            ON od.OrganizationDepartmentId = emp_tc.OldEducationOrganizationId
-
-    UNION
-
-    -- LEA assignment
-    SELECT lea.LocalEducationAgencyId, assgn.StaffUSI
-    FROM edfi.LocalEducationAgency lea
-        JOIN edfi.StaffEducationOrganizationAssignmentAssociation assgn
-            ON lea.LocalEducationAgencyId = assgn.EducationOrganizationId
-
-    UNION
-
-    -- LEA assignment (deleted assignment)
-    SELECT lea.LocalEducationAgencyId, assgn_tc.OldStaffUSI as StaffUSI
-    FROM edfi.LocalEducationAgency lea
-        JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
-            ON lea.LocalEducationAgencyId = assgn_tc.OldEducationOrganizationId
-
-    UNION
-
-    -- LEA-level organization department assignment
-    SELECT lea.LocalEducationAgencyId, assgn.StaffUSI
-    FROM edfi.LocalEducationAgency lea
-        JOIN edfi.OrganizationDepartment od
-            ON lea.LocalEducationAgencyId = od.ParentEducationOrganizationId
-        JOIN edfi.StaffEducationOrganizationAssignmentAssociation assgn
-            ON od.OrganizationDepartmentId = assgn.EducationOrganizationId
-
-    UNION
-
-    -- LEA-level organization department assignment (deleted assignment)
-    SELECT lea.LocalEducationAgencyId, assgn_tc.OldStaffUSI as StaffUSI
-    FROM edfi.LocalEducationAgency lea
-        JOIN edfi.OrganizationDepartment od
-            ON lea.LocalEducationAgencyId = od.ParentEducationOrganizationId
-        JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
-            ON od.OrganizationDepartmentId = assgn_tc.OldEducationOrganizationId
-
-    UNION
-
-    -- School employment
-    SELECT sch.LocalEducationAgencyId, emp.StaffUSI
-    FROM edfi.School sch
-        JOIN edfi.StaffEducationOrganizationEmploymentAssociation emp
-            ON sch.SchoolId = emp.EducationOrganizationId
-
-    UNION
-
-    -- School employment (deleted employment)
-    SELECT sch.LocalEducationAgencyId, emp_tc.OldStaffUSI as StaffUSI
-    FROM edfi.School sch
-        JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
-            ON sch.SchoolId = emp_tc.OldEducationOrganizationId
-
-    UNION
-
-    -- School-level organization department employment
-    SELECT sch.LocalEducationAgencyId, emp.StaffUSI
-    FROM edfi.School sch
-        JOIN edfi.OrganizationDepartment od
-            ON sch.SchoolId = od.ParentEducationOrganizationId
-        JOIN edfi.StaffEducationOrganizationEmploymentAssociation emp
-            ON od.OrganizationDepartmentId = emp.EducationOrganizationId
-
-    UNION
-
-    -- School-level organization department employment (deleted employment)
-    SELECT sch.LocalEducationAgencyId, emp_tc.OldStaffUSI as StaffUSI
-    FROM edfi.School sch
-        JOIN edfi.OrganizationDepartment od
-            ON sch.SchoolId = od.ParentEducationOrganizationId
-        JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
-            ON od.OrganizationDepartmentId = emp_tc.OldEducationOrganizationId
-
-    UNION
-
-    -- School assignment
-    SELECT sch.LocalEducationAgencyId, assgn.StaffUSI
-    FROM edfi.School sch
-        JOIN edfi.StaffEducationOrganizationAssignmentAssociation assgn
-            ON sch.SchoolId = assgn.EducationOrganizationId
-
-    UNION
-
-    -- School assignment (deleted assignment)
-    SELECT sch.LocalEducationAgencyId, assgn_tc.OldStaffUSI as StaffUSI
-    FROM edfi.School sch
-        JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
-            ON sch.SchoolId = assgn_tc.OldEducationOrganizationId
-
-    UNION
-
-    -- School-level organization department assignment
-    SELECT sch.LocalEducationAgencyId, assgn.StaffUSI
-    FROM edfi.School sch
-        JOIN edfi.OrganizationDepartment od
-            ON sch.SchoolId = od.ParentEducationOrganizationId
-        JOIN edfi.StaffEducationOrganizationAssignmentAssociation assgn
-            ON od.OrganizationDepartmentId = assgn.EducationOrganizationId
-
-    UNION
-
-    SELECT sch.LocalEducationAgencyId, assgn_tc.OldStaffUSI as StaffUSI
-    FROM edfi.School sch
-        JOIN edfi.OrganizationDepartment od
-            ON sch.SchoolId = od.ParentEducationOrganizationId
-        JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
-            ON od.OrganizationDepartmentId = assgn_tc.OldEducationOrganizationId;
+    -- EdOrg Employment
+    SELECT  edOrgs.SourceEducationOrganizationId, seo_empl_tc.OldStaffUSI AS StaffUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation seo_empl_tc
+                ON edOrgs.TargetEducationOrganizationId = seo_empl_tc.OldEducationOrganizationId
 GO
 
-DROP VIEW IF EXISTS auth.LocalEducationAgencyIdToParentUSIIncludingDeletes;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToParentUSIIncludingDeletes;
 GO
 
-CREATE VIEW auth.LocalEducationAgencyIdToParentUSIIncludingDeletes AS
+CREATE VIEW auth.EducationOrganizationIdToParentUSIIncludingDeletes WITH SCHEMABINDING AS
+    -- TODO: Remove this statement and UNION and compose in security metadata, when available (but must ensure uniqueness is retained)
     -- Intact StudentSchoolAssociation and intact StudentParentAssociation
-    SELECT sch.LocalEducationAgencyId, spa.ParentUSI
-    FROM edfi.School sch
-        JOIN edfi.StudentSchoolAssociation ssa ON sch.SchoolId = ssa.SchoolId
-        JOIN edfi.Student s ON ssa.StudentUSI = s.StudentUSI
-        JOIN edfi.StudentParentAssociation spa ON ssa.StudentUSI = spa.StudentUSI
+    SELECT  a.SourceEducationOrganizationId, a.ParentUSI
+    FROM    auth.EducationOrganizationIdToParentUSI a
 
     UNION
 
     -- Intact StudentSchoolAssociation and deleted StudentParentAssociation
-    SELECT sch.LocalEducationAgencyId, spa_tc.OldParentUSI as ParentUSI
-    FROM edfi.School sch
-        JOIN edfi.StudentSchoolAssociation ssa ON sch.SchoolId = ssa.SchoolId
-        JOIN tracked_changes_edfi.StudentParentAssociation spa_tc ON ssa.StudentUSI = spa_tc.OldStudentUSI
+    SELECT  edOrgs.SourceEducationOrganizationId, spa_tc.OldParentUSI AS ParentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN edfi.StudentSchoolAssociation ssa 
+                ON edOrgs.TargetEducationOrganizationId = ssa.SchoolId
+            INNER JOIN tracked_changes_edfi.StudentParentAssociation spa_tc
+                ON ssa.StudentUSI = spa_tc.OldStudentUSI
 
     UNION
 
     -- Deleted StudentSchoolAssociation and intact StudentParentAssociation
-    SELECT sch.LocalEducationAgencyId, spa.ParentUSI
-    FROM edfi.School sch
-        JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON sch.SchoolId = ssa_tc.OldSchoolId
-        JOIN edfi.StudentParentAssociation spa ON ssa_tc.OldStudentUSI = spa.StudentUSI
-
+    SELECT  edOrgs.SourceEducationOrganizationId, spa.ParentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc
+                ON edOrgs.TargetEducationOrganizationId = ssa_tc.OldSchoolId
+            INNER JOIN edfi.StudentParentAssociation spa 
+                ON ssa_tc.OldStudentUSI = spa.StudentUSI
+                
     UNION
 
-    -- Deleted StudentSchoolAssociation and StudentParentAssociation
-    SELECT sch.LocalEducationAgencyId, spa_tc.OldParentUSI as ParentUSI
-    FROM edfi.School sch
-        JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON sch.SchoolId = ssa_tc.OldSchoolId
-        JOIN tracked_changes_edfi.StudentParentAssociation spa_tc ON ssa_tc.OldStudentUSI = spa_tc.OldStudentUSI;
+    -- Deleted StudentSchoolAssociation and deleted StudentParentAssociation
+    SELECT  edOrgs.SourceEducationOrganizationId, spa_tc.OldParentUSI AS ParentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            INNER JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc
+                ON edOrgs.TargetEducationOrganizationId = ssa_tc.OldSchoolId
+            INNER JOIN tracked_changes_edfi.StudentParentAssociation spa_tc
+                ON ssa_tc.OldStudentUSI = spa_tc.OldStudentUSI
 GO
