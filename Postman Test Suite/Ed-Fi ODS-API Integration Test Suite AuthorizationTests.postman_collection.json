@@ -983,7 +983,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n}"
+											"raw": "{\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:birthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n    \"studentUniqueId\": \"{{supplied:{{scenarioId}}:studentUniqueId}}\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:{{scenarioId}}:studentGuid}}",
@@ -1762,7 +1762,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{ \r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n  \r\n}\r\n",
+											"raw": "{ \r\n  \"firstName\": \"{{supplied:{{scenarioId}}:firstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n    \"staffUniqueId\": \"{{supplied:{{scenarioId}}:staffUniqueId}}\"\r\n  \r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3226,7 +3226,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{ \r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n   \r\n}\r\n",
+											"raw": "{ \r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n    \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\"\r\n   \r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3585,7 +3585,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{ \r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\"\r\n   \r\n}\r\n",
+											"raw": "{ \r\n   \"firstName\":\"{{supplied:{{scenarioId}}:firstName}}\",\r\n   \"lastSurname\":\"{{supplied:{{scenarioId}}:lastSurname}}\",\r\n    \"parentUniqueId\":\"{{supplied:{{scenarioId}}:parentUniqueId}}\"\r\n   \r\n}\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
