@@ -2,7 +2,7 @@
 -- Licensed to the Ed-Fi Alliance under one or more agreements.
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
-  
+
 DO $$
 DECLARE
     application_id INTEGER;
@@ -39,7 +39,7 @@ BEGIN
 
     SELECT actionid INTO readchanges_action_id
     FROM dbo.actions WHERE ActionName = 'ReadChanges';
-    
+
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -73,7 +73,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/edFiTypes
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -94,23 +94,28 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -139,7 +144,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -160,29 +165,39 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -190,13 +205,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors'
@@ -226,7 +241,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/managedDescriptors
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -247,29 +262,39 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -277,13 +302,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations'
@@ -313,7 +338,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/educationOrganizations
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -334,29 +359,39 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -364,13 +399,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/people'
@@ -400,7 +435,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/people
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -421,29 +456,39 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -451,13 +496,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData'
@@ -487,7 +532,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -508,29 +553,39 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -538,13 +593,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -578,7 +633,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/communityProviderLicense
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -599,23 +654,28 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -623,20 +683,25 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -644,13 +709,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/person'
@@ -680,7 +745,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/person
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -701,23 +766,28 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -725,20 +795,25 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -746,13 +821,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
 
     -- Pop the stack
@@ -786,7 +861,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -807,29 +882,39 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -837,13 +922,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NamespaceBased''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educationStandards'
@@ -873,7 +958,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/educationStandards
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -894,29 +979,39 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -924,13 +1019,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NamespaceBased''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/primaryRelationships'
@@ -960,7 +1055,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/primaryRelationships
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -981,29 +1076,39 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -1011,13 +1116,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educationContent'
@@ -1047,7 +1152,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/educationContent
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -1068,29 +1173,39 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
 
     -- Claim set-specific ReadChanges authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id); -- ReadChanges
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -1098,13 +1213,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NamespaceBased''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/publishing/snapshot'
@@ -1134,7 +1249,7 @@ BEGIN
             WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
-  
+
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/publishing/snapshot
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
@@ -1155,23 +1270,28 @@ BEGIN
         INTO claim_set_id;
     END IF;
 
-  
+
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
 
     DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
     WHERE ClaimSetResourceClaimActionId IN (
         SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
-    
+
     DELETE FROM dbo.ClaimSetResourceClaimActions
     WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
 
-    
+
 
     -- Claim set-specific Read authorization
-    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').'
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
-    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, Action_ActionId)
-    VALUES (claim_id, claim_set_id, Read_action_id); -- Read
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
+
+
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -1179,13 +1299,13 @@ BEGIN
     WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE ERROR USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     RAISE NOTICE USING MESSAGE = 'Creating authorization strategy override entry of ''NoFurtherAuthorizationRequired''' + '(authorizationStrategyId = ' || authorization_strategy_id || ' for ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
 
     INSERT INTO dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides(ClaimSetResourceClaimActionId, AuthorizationStrategyId)
-    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id)
+    VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
 
     -- Pop the stack
