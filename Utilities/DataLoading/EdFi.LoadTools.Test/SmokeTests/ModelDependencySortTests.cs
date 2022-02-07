@@ -86,7 +86,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         }
 
         [Test]
-        [Category("Run Manually")]
+        [Category("RunManually")]
         public void Should_order_types_from_Sdk()
         {
             var cat = new SdkCategorizer(SdkLibraryFactory);
@@ -100,7 +100,7 @@ namespace EdFi.LoadTools.Test.SmokeTests
         }
 
         [Test]
-        [Category("Run Manually")]
+        [Category("RunManually")]
         public void Should_order_Apis_from_Sdk()
         {
             var cat = new SdkCategorizer(SdkLibraryFactory);
