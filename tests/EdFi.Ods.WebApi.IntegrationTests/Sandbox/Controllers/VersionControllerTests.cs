@@ -49,6 +49,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox.Controllers
             urls.Keys.Contains("oauth").ShouldBeTrue();
             urls.Keys.Contains("dataManagementApi").ShouldBeTrue();
             urls.Keys.Contains("xsdMetadata").ShouldBeTrue();
+			urls.Keys.Contains("composites").ShouldBeTrue();
+			urls.Keys.Contains("identity").ShouldBeTrue();
         }
     }
 }
