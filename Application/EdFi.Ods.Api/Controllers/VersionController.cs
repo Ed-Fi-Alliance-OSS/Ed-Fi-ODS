@@ -136,6 +136,41 @@ namespace EdFi.Ods.Api.Controllers
                                                    "xsd";
                 }
 
+                if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
+                {
+                    urlsByName["changeQueries"] = Request.RootUrl(useReverseProxyHeaders) +
+                                                  $"/changeQueries/v{ApiVersionConstants.ChangeQuery}/" +
+                                                  (isInstanceYearSpecific
+                                                      ? $"{instance}/"
+                                                      : string.Empty) +
+                                                  (isYearSpecific
+                                                      ? currentYear
+                                                      : string.Empty);
+                }
+
+                if (_apiSettings.IsFeatureEnabled(ApiFeature.Composites.GetConfigKeyName()))
+                {
+                    urlsByName["composites"] = Request.RootUrl(useReverseProxyHeaders) +
+                                                       $"/composites/v{ApiVersionConstants.Composite}/" +
+                                                       (isInstanceYearSpecific
+                                                           ? $"{instance}/"
+                                                           : string.Empty) +
+                                                       (isYearSpecific
+                                                           ? currentYear
+                                                           : string.Empty);
+                }
+
+                if (_apiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
+                {
+                    urlsByName["identity"] = Request.RootUrl(useReverseProxyHeaders) +
+                                             $"/identity/v{ApiVersionConstants.Identity}/" +
+                                             (isInstanceYearSpecific
+                                                 ? $"{instance}/"
+                                                 : string.Empty) +
+                                             (isYearSpecific
+                                                 ? currentYear
+                                                 : string.Empty);
+                }
                 return urlsByName;
             }
         }
