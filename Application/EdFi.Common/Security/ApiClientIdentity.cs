@@ -18,5 +18,7 @@ namespace EdFi.Common.Security
         public IList<string> NamespacePrefixes { get; set; }
 
         public IList<string> Profiles { get; set; }
+
+        public int ApiClientId { get; set; }
     }
 }
