@@ -56,7 +56,12 @@ namespace EdFi.LoadTools.Test
                     new Dictionary<string, string>
                     {
                         {"name", "Ed-Fi"},
-                        {"version", "3.2.0-c"}
+                        {"version", "3.3.1-b"}
+                    },
+                    new Dictionary<string, string>
+                    {
+                        {"name", "TPDM"},
+                        {"version", "1.1.0"}
                     }
                 }
             };
