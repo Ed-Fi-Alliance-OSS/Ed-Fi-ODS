@@ -61,5 +61,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         void AddOwnershipTokensToApiClient(string ownershipToken, int apiClientId);
 
         void AddApiClientOwnershipTokens(List<string> ownershipTokens, int apiClientId);
+
+        ApiClient GetClientByKey(string key);
     }
 }

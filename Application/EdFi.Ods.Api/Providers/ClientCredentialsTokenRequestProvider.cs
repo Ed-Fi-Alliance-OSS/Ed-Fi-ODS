@@ -44,7 +44,7 @@ namespace EdFi.Ods.Api.Providers
                 return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.InvalidClient)};
             }
 
-            // authenticate the client
+            // authenticate the client and get client information
             var authenticationResult = await _apiClientAuthenticator.TryAuthenticateAsync(
                 tokenRequest.Client_id,
                 tokenRequest.Client_secret);
@@ -53,9 +53,6 @@ namespace EdFi.Ods.Api.Providers
             {
                 return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.InvalidClient)};
             }
-
-            // get client information
-            var client = await _clientAppRepo.GetClientAsync(authenticationResult.ApiClientIdentity.Key);
 
             // Convert empty scope to null
             string tokenRequestScope = string.IsNullOrEmpty(tokenRequest.Scope)
@@ -75,8 +72,7 @@ namespace EdFi.Ods.Api.Providers
                     };
                 }
 
-                if (!client.ApplicationEducationOrganizations
-                    .Select(x => x.EducationOrganizationId)
+                if (!authenticationResult.ApiClientIdentity.EducationOrganizationIds
                     .Contains(educationOrganizationScope))
                 {
                     return new AuthenticationResponse
@@ -89,7 +85,7 @@ namespace EdFi.Ods.Api.Providers
             }
 
             // create a new token
-            var token = await _accessTokenClientRepo.AddClientAccessTokenAsync(client.ApiClientId, tokenRequestScope);
+            var token = await _accessTokenClientRepo.AddClientAccessTokenAsync(authenticationResult.ApiClientIdentity.ApiClientId, tokenRequestScope);
 
             var tokenResponse = new TokenResponse();
             tokenResponse.SetToken(token.Id, (int) token.Duration.TotalSeconds, token.Scope);

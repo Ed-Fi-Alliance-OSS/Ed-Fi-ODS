@@ -20,5 +20,10 @@ namespace EdFi.Common.Security
         public IList<string> Profiles { get; set; }
 
         public int ApiClientId { get; set; }
+
+        public bool IsHashed { get; set; }
+
+        public string Secret { get; set; }
+
     }
 }
