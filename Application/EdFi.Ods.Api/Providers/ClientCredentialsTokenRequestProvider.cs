@@ -17,15 +17,12 @@ namespace EdFi.Ods.Api.Providers
         : ITokenRequestProvider
     {
         private readonly IApiClientAuthenticator _apiClientAuthenticator;
-        private readonly IClientAppRepo _clientAppRepo;
         private readonly IAccessTokenClientRepo _accessTokenClientRepo;
 
         public ClientCredentialsTokenRequestProvider(
-            IClientAppRepo clientAppRepo, 
             IApiClientAuthenticator apiClientAuthenticator,
             IAccessTokenClientRepo accessTokenClientRepo)
         {
-            _clientAppRepo = clientAppRepo;
             _apiClientAuthenticator = apiClientAuthenticator;
             _accessTokenClientRepo = accessTokenClientRepo;
         }
