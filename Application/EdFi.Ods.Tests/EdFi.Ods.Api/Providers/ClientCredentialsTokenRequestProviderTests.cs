@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
@@ -29,7 +30,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             : TestFixtureBase
         {
             private TokenRequest _tokenRequest;
-            private IClientAppRepo _clientAppRepo;
             private IAccessTokenClientRepo _accessTokenClientRepo;
             private IApiClientAuthenticator _apiClientAuthenticator;
             private ClientCredentialsTokenRequestProvider _clientCredentialsTokenRequestProvider;
@@ -39,11 +39,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             {
                 var apiClient = new ApiClient { ApiClientId = 0 };
 
-                _clientAppRepo = A.Fake<IClientAppRepo>();
                 _accessTokenClientRepo = A.Fake<IAccessTokenClientRepo>();
                 _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
-
-                A.CallTo(() => _clientAppRepo.GetClient(A<string>._)).Returns(apiClient);
 
                 A.CallTo(() => _accessTokenClientRepo.AddClientAccessToken(A<int>._, A<string>._))
                     .Returns(new ClientAccessToken { ApiClient = new ApiClient() });
@@ -70,6 +67,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
                                 ApiClientIdentity = new ApiClientIdentity
                                 {
                                     Key = ClientId,
+                                    EducationOrganizationIds = new List<int>() { 997, 998, 999 }
                                 }
                             }));
             }
@@ -77,7 +75,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             protected override void Act()
             {
                 _clientCredentialsTokenRequestProvider =
-                    new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
+                    new ClientCredentialsTokenRequestProvider( _apiClientAuthenticator, _accessTokenClientRepo);
 
                 _actionResult = _clientCredentialsTokenRequestProvider.HandleAsync(_tokenRequest).GetResultSafely();
             }
@@ -92,14 +90,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             public void Should_have_action_result_type_of_authentication_success()
             {
                 Assert.That(_actionResult, Is.InstanceOf<AuthenticationResponse>());
-            }
-
-            [Assert]
-            public void Should_call_get_client_from_the_database_once()
-            {
-                A.CallTo(
-                        () => _clientAppRepo.GetClientAsync(ClientId))
-                    .MustHaveHappenedOnceExactly();
             }
 
             [Assert]
@@ -151,7 +141,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authentication.ClientCredentials
             protected override void Act()
             {
                 _clientCredentialsTokenRequestHandler =
-                    new ClientCredentialsTokenRequestProvider(_clientAppRepo, _apiClientAuthenticator, _accessTokenClientRepo);
+                    new ClientCredentialsTokenRequestProvider(_apiClientAuthenticator, _accessTokenClientRepo);
 
                 _actionResult = _clientCredentialsTokenRequestHandler.HandleAsync(_tokenRequest).Result;
             }

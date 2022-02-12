@@ -261,6 +261,14 @@ namespace EdFi.Admin.DataAccess.Repositories
             }
         }
 
+        public ApiClient GetClientByKey(string key)
+        {
+            using (var context = _contextFactory.CreateContext())
+            {
+                return context.Clients.FirstOrDefault(c => c.Key == key);
+            }
+        }
+
         public ApiClient UpdateClient(ApiClient client)
         {
             using (var context = _contextFactory.CreateContext())
