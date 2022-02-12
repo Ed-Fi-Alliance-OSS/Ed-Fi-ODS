@@ -11,8 +11,6 @@ namespace EdFi.Common.Security
     {
         ApiClientSecret GetSecret(string key);
 
-        Task<ApiClientSecret> GetSecretAsync(string key);
-
         void SetSecret(string key, ApiClientSecret secret);
     }
 }
