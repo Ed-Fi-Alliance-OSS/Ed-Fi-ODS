@@ -96,8 +96,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -3935,8 +3933,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -8199,8 +8195,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -9849,8 +9843,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -11074,8 +11066,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -15949,8 +15939,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {

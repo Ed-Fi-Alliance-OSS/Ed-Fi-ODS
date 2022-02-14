@@ -673,8 +673,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -4794,8 +4792,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -7733,8 +7729,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -9333,8 +9327,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -10256,8 +10248,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -11249,8 +11239,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -12936,8 +12924,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -13899,8 +13885,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -15502,8 +15486,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -18397,8 +18379,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -19424,8 +19404,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -20570,8 +20548,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
@@ -22849,8 +22825,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -24437,8 +24411,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
             if (resource == null || link.Rel == resource.Name)
                 return link;
 
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
-
             return new Link
             {
                 Rel = resource.Name,
@@ -25002,8 +24974,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
             // return the default link if the relationship is already correct, and/or if the resource is not found.
             if (resource == null || link.Rel == resource.Name)
                 return link;
-
-            var pm = resource.BaseResourcePropertyMappingsByOtherName();
 
             return new Link
             {
