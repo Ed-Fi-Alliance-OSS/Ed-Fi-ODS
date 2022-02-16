@@ -60,7 +60,7 @@ namespace EdFi.SdkGen.Console
             {
                 var downloadUrl = _options.CliDownloadUrl();
 
-                _log.Debug($"Downloading swagger-codegen-cli.jar from {downloadUrl}");
+                _log.Debug($"Downloading openApi-codegen-cli.jar from {downloadUrl}");
 
                 using (HttpResponseMessage response = await httpClient.GetAsync(downloadUrl))
                 {
