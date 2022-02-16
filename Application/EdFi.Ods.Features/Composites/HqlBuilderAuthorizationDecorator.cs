@@ -120,7 +120,7 @@ namespace EdFi.Ods.Features.Composites
 
             // Save the filters to be applied to this query for use later in the process
             builderContext.CurrentQueryFilterByName = authorizationFiltering
-                // TODO: This was added to flatten the filters as per legacy code, but we still need to add correct support for multiple authorization strategies
+                // Flattens the filters as per legacy code (effectively combining them using "AND" logic), but we still need to implement support for combining multiple authorization strategies correctly
                 .SelectMany(x => x.Filters)
                 .ToDictionary(x => x.FilterName, x => x);
 
