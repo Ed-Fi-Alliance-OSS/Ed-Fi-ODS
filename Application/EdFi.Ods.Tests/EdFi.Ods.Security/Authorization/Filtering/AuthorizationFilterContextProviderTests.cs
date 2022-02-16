@@ -41,13 +41,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Filtering
             {
                 Assert.That(
                     authProvider.GetFilterContext(),
-                    Is.EquivalentTo(Supplied<IReadOnlyList<AuthorizationFilterDetails>>()));
+                    Is.EquivalentTo(Supplied<IReadOnlyList<AuthorizationStrategyFiltering>>()));
             }
 
             [Assert]
             public void Should_return_the_saved_authorization_filter_context()
             {
-                Assert.That(authProvider.GetFilterContext(), Is.EquivalentTo(Supplied<IReadOnlyList<AuthorizationFilterDetails>>()));
+                Assert.That(authProvider.GetFilterContext(), Is.EquivalentTo(Supplied<IReadOnlyList<AuthorizationStrategyFiltering>>()));
             }
 
             private static IReadOnlyList<AuthorizationStrategyFiltering> CreateTestParameters()
