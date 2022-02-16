@@ -13,10 +13,10 @@ namespace EdFi.SdkGen.Console
     public sealed class Options
     {
         private const string SdkCodeGenExecuteable = "sdk-generate.jar";
-        private const string SdkCodegenVersionKey = "swagger-codgen-version";
-        private const string SwaggerCodegeCliJarName = "swagger-codegen-cli";
-        private const string CliDownloadUri = "https://oss.sonatype.org/content/repositories/releases/io/swagger/swagger-codegen-cli";
-
+        private const string SdkCodegenVersionKey = "openApi-codgen-version";
+        private const string OpenApiCliJarName = "openapi-generator";
+        private const string CliDownloadUri = "https://repo1.maven.org/maven2/org/openapitools/openapi-generator";
+        
         [Option(
             'm',
             "metaDataEndpoint",
@@ -28,8 +28,8 @@ namespace EdFi.SdkGen.Console
         [Option(
             'v',
             "cliVersion",
-            Default = "2.4.15",
-            HelpText = "the version of swagger-codegen-cli to download")]
+            Default = "5.1.1",
+            HelpText = "the version of openapi-codegen-cli to download")]
         public string CliVersion { get; set; }
 
         [Option(
@@ -83,7 +83,7 @@ namespace EdFi.SdkGen.Console
       
         public string CliVersionText() => $"{SdkCodegenVersionKey}:{CliVersion}";
 
-        public string CliDownloadUrl() => $"{CliDownloadUri}/{CliVersion}/{SwaggerCodegeCliJarName}-{CliVersion}.jar";
+        public string CliDownloadUrl() => $"{CliDownloadUri}/{CliVersion}/{OpenApiCliJarName}-{CliVersion}.jar";
 
         public string CliExecutableFullName() => Path.Combine(Environment.CurrentDirectory, SdkCodeGenExecuteable);
     }
