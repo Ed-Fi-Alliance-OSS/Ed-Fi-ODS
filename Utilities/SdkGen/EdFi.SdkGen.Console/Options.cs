@@ -12,15 +12,15 @@ namespace EdFi.SdkGen.Console
 {
     public sealed class Options
     {
-        private const string SdkCodeGenExecuteable = "sdk-generate.jar";
+        private const string SdkCodeGenExecuteable = "openapi-generator-cli.jar";
         private const string SdkCodegenVersionKey = "openApi-codgen-version";
-        private const string SwaggerCodegenCliJarName = "swagger-codegen-cli";
-        private const string CliDownloadUri = "https://oss.sonatype.org/content/repositories/releases/io/swagger/swagger-codegen-cli";
+        private const string SwaggerCodegenCliJarName = "openapi-generator-cli";
+        private const string CliDownloadUri = "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli";
                 
         [Option(
             'm',
             "metaDataEndpoint",
-            Default = "http://localhost:54746/metadata?sdk=true",
+            Default = "https://api.ed-fi.org/v5.3/api/metadata?sdk=true",
             HelpText = "the swagger metadata endpoint to download"
         )]
         public string MetaDataEndpoint { get; set; }
@@ -28,7 +28,7 @@ namespace EdFi.SdkGen.Console
         [Option(
             'v',
             "cliVersion",
-            Default = "2.4.9",
+            Default = "5.4.0",
             HelpText = "the version of swagger-codegen-cli to download")]
         public string CliVersion { get; set; }
 
@@ -49,7 +49,7 @@ namespace EdFi.SdkGen.Console
         [Option(
             'f',
             "forceCliUpdate",
-            Default = false,
+            Default = true,
             HelpText = "force the update of the swagger-codgen-cli to the version specified")]
         public bool Force { get; set; }
 

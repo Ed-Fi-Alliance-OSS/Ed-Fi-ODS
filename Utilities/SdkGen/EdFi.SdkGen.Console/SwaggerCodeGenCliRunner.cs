@@ -68,10 +68,14 @@ namespace EdFi.SdkGen.Console
                 // code-gen paramaters
                 string[] @params =
                 {
-                    $"-jar {_options.CliExecutableFullName()}", "generate", "-l csharp", $"-i {apiEndpoint.EndpointUri}",
+                    //$"-jar {_options.CliExecutableFullName()}", "generate", "-l csharp", $"-i {apiEndpoint.EndpointUri}",
+                    //$"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
+                    //$"--additional-properties packageName={_options.Namespace},targetFramework=v5.0,netCoreProjectFile=true", "-DmodelTests=false -DapiTests=false",
+                    //"-Dhttps.protocols=TLSv1.2"
+
+                    $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
-                    $"--additional-properties packageName={_options.Namespace},targetFramework=v5.0,netCoreProjectFile=true", "-DmodelTests=false -DapiTests=false",
-                    "-Dhttps.protocols=TLSv1.2"
+                    $"--additional-properties packageName={_options.Namespace},targetFramework=netcoreapp3.1,netCoreProjectFile=true"
                 };
 
                 _log.Info($"Generating C# SDK for {apiEndpoint.EndpointUri}");
