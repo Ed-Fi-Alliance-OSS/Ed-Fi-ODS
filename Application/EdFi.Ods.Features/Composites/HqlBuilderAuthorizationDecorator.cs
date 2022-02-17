@@ -37,26 +37,18 @@ namespace EdFi.Ods.Features.Composites
         private readonly ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> _next;
         private readonly INHibernateFilterTextProvider _nHibernateFilterTextProvider;
         private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
-        private Lazy<string[]> _concreteEducationOrganizationIdNames;
+        private readonly Lazy<string[]> _concreteEducationOrganizationIdNames;
 
         public HqlBuilderAuthorizationDecorator(
             ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> next,
             IEdFiAuthorizationProvider authorizationProvider,
             INHibernateFilterTextProvider nHibernateFilterTextProvider,
             IResourceClaimUriProvider resourceClaimUriProvider,
-            IDomainModelProvider domainModelProvider)
+            IConcreteEducationOrganizationIdNamesProvider concreteEducationOrganizationIdNamesProvider)
         {
 
-            _concreteEducationOrganizationIdNames = new Lazy<string[]>(
-                () =>
-                {
-                    // Get the EducationOrganization base entity
-                    var edOrgEntity = domainModelProvider.GetDomainModel()
-                        .EntityByFullName[new FullName(EdFiConventions.PhysicalSchemaName, "EducationOrganization")];
-
-                    // Process all derived entities for their concrete primary key names
-                    return edOrgEntity.DerivedEntities.Select(e => e.Identifier.Properties.Single().PropertyName).ToArray();
-                });
+            _concreteEducationOrganizationIdNames =
+                new Lazy<string[]>(concreteEducationOrganizationIdNamesProvider.GetNames);
                 
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _authorizationProvider = Preconditions.ThrowIfNull(authorizationProvider, nameof(authorizationProvider));

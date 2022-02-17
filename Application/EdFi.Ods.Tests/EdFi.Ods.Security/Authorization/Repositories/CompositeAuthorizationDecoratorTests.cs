@@ -115,6 +115,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
 
                 var suppliedFilterText = $"TheField = :{SuppliedParameterName}";
 
+                A.CallTo(() => 
+                        Given<IConcreteEducationOrganizationIdNamesProvider>()
+                            .GetNames())
+                            .Returns(Array.Empty<string>());
+                
                 A.CallTo(() =>
                         Given<INHibernateFilterTextProvider>()
                             .TryGetHqlFilterText(
