@@ -20,7 +20,7 @@ namespace EdFi.SdkGen.Console
         [Option(
             'm',
             "metaDataEndpoint",
-            Default = "https://api.ed-fi.org/v5.3/api/metadata?sdk=true",
+            Default = "http://localhost:54746/metadata?sdk=true",
             HelpText = "the swagger metadata endpoint to download"
         )]
         public string MetaDataEndpoint { get; set; }
@@ -77,7 +77,7 @@ namespace EdFi.SdkGen.Console
         [Option(
             'k',
             "core-only",
-            Default = false,
+            Default = true,
             HelpText = "include only Ed-Fi namespace in the generation of the assembly")]
         public bool CoreOnly { get; set; }
       
