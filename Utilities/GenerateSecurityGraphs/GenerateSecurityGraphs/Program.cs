@@ -317,42 +317,56 @@ namespace GenerateSecurityGraphs
             var resourceGraph = new AdjacencyGraph<Resource, Edge<Resource>>();
 
             string metadataSql = @"
-select	
-	  rc.ClaimName
-	, rc.DisplayName
-	, prc.ClaimName as ParentClaimName
-    , prc.DisplayName as ParentDisplayName
-	, a.ActionName
-	, as_.AuthorizationStrategyName
-from dbo.ResourceClaims rc
-        left join dbo.ResourceClaims prc ON rc.ParentResourceClaimId = prc.ResourceClaimId
-        left join dbo.ResourceClaimAuthorizationMetadatas rcas ON rc.ResourceClaimId = rcas.ResourceClaim_ResourceClaimId
-        left join dbo.AuthorizationStrategies as_ ON rcas.AuthorizationStrategy_AuthorizationStrategyId = as_.AuthorizationStrategyId
-        left join dbo.Actions a ON rcas.Action_ActionId = a.ActionId
-order by 
-	  rc.DisplayName
-	, a.ActionId
-	, as_.AuthorizationStrategyName
+SELECT rc.ClaimName,
+       rc.DisplayName,
+       prc.ClaimName   AS ParentClaimName,
+       prc.DisplayName AS ParentDisplayName,
+       a.ActionName,
+       as_.AuthorizationStrategyName
+FROM   dbo.ResourceClaims rc
+       LEFT JOIN dbo.ResourceClaims prc ON rc.ParentResourceClaimId = prc.ResourceClaimId
+       LEFT JOIN dbo.ResourceClaimActions rca ON rc.ResourceClaimId = rca.ResourceClaimId
+       LEFT JOIN dbo.ResourceClaimActionAuthorizationStrategies rcaas ON rca.ResourceClaimActionId = rcaas.ResourceClaimActionId
+       LEFT JOIN dbo.AuthorizationStrategies as_ ON rcaas.AuthorizationStrategyId = as_.AuthorizationStrategyId
+       LEFT JOIN dbo.Actions a ON rca.ActionId = a.ActionId
+ORDER  BY rc.DisplayName,
+          a.ActionId,
+          as_.AuthorizationStrategyName
 ";
 
             string claimSetSql = @"
-select	
-	  ClaimSetName
-	, ClaimName
-	, ActionName, null As StrategyName
-from	dbo.ClaimSets cs
-        left join dbo.ClaimSetResourceClaims csrc ON cs.ClaimSetId = csrc.ClaimSet_ClaimSetId
-        left join dbo.Actions a ON csrc.Action_ActionId = a.ActionId
-        left join dbo.ResourceClaims rc ON csrc.ResourceClaim_ResourceClaimId = rc.ResourceClaimId
-order by 
-	  ClaimSetName
-	, DisplayName
-	, Action_ActionId
+SELECT ClaimSetName,
+       ClaimName,
+       ActionName,
+       AuthorizationStrategyName AS StrategyName
+FROM   dbo.ClaimSets cs
+       LEFT JOIN dbo.ClaimSetResourceClaimActions csrca ON cs.ClaimSetId = csrca.ClaimSetId
+	   LEFT JOIN dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides csrcaaso ON csrca.ClaimSetResourceClaimActionId = csrcaaso.ClaimSetResourceClaimActionId
+       LEFT JOIN dbo.AuthorizationStrategies as_ ON csrcaaso.AuthorizationStrategyId = as_.AuthorizationStrategyId
+	   LEFT JOIN dbo.Actions a ON csrca.ActionId = a.ActionId
+       LEFT JOIN dbo.ResourceClaims rc ON csrca.ResourceClaimId = rc.ResourceClaimId
+ORDER  BY ClaimSetName,
+          rc.DisplayName,
+          a.ActionId 
 ";
-
             using var conn = new SqlConnection(connectionString);
             var metadataEdges = conn.Query<ResourceSegmentData>(metadataSql);
             var claimsetResourceActions = conn.Query<ClaimsetResourceActionData>(claimSetSql);
+
+            // Ignore ClaimSets that don't have ClaimSetResourceClaimActions ('Ownership Based Test', for example)
+            claimsetResourceActions = claimsetResourceActions
+                .Where(x => x.ClaimName != null)
+                .ToList();
+
+            // Pick the first authorization strategy when there are many defined (metadata)
+            metadataEdges = metadataEdges
+                .GroupBy(e => (e.ClaimName, e.ActionName))
+                .Select(grp => grp.First());
+
+            // Pick the first authorization strategy when there are many defined (overrides)
+            claimsetResourceActions = claimsetResourceActions
+                .GroupBy(e => (e.ClaimSetName, e.ClaimName, e.ActionName))
+                .Select(grp => grp.First());
 
             var distinctMetadataEdges = metadataEdges
                 .GroupBy(e => (e.ClaimName, e.ParentClaimName))
@@ -857,26 +871,9 @@ order by
                 inherited: false,
                 isDefault: true);
 
-            // Step 2: Process from bottom to top (least to most in terms of priority)
+            // Step 2: Process from top to bottom (least to most in terms of priority)
 
-            // Are there any explicit settings on the resource for the current actiona and claim set?
-            ActionAndStrategy explicitActionAndStrategyForAction;
-
-            if (localActionAndStrategy.ExplicitActionAndStrategyByClaimSetName.TryGetValue(
-                claimSetName,
-                out explicitActionAndStrategyForAction))
-            {
-                // There was a claim set specific setting on the current resource
-                effectiveActionAndStrategy.TrySetActionGranted(inherited: false);
-
-                effectiveActionAndStrategy.TrySetAuthorizationStrategy(
-                    explicitActionAndStrategyForAction.AuthorizationStrategy,
-                    resource.Name,
-                    inherited: false,
-                    isDefault: false);
-            }
-
-            // Now look for explicit claim set overrides up the resource claim lineage
+            // Look for explicit claim set overrides up the resource claim lineage
             var claimsetOverridePermissions =
                 (from r in resource.Ancestors
                  let pair = r.ActionAndStrategyPairs.SingleOrDefault(x => x.ActionName == actionName)
@@ -897,6 +894,23 @@ order by
                     pair.ActionAndStrategy.AuthorizationStrategy,
                     pair.OriginatingClaimName,
                     inherited: true,
+                    isDefault: false);
+            }
+
+            // Are there any explicit settings on the resource for the current action and claim set?
+            ActionAndStrategy explicitActionAndStrategyForAction;
+
+            if (localActionAndStrategy.ExplicitActionAndStrategyByClaimSetName.TryGetValue(
+                claimSetName,
+                out explicitActionAndStrategyForAction))
+            {
+                // There was a claim set specific setting on the current resource
+                effectiveActionAndStrategy.TrySetActionGranted(inherited: false);
+
+                effectiveActionAndStrategy.TrySetAuthorizationStrategy(
+                    explicitActionAndStrategyForAction.AuthorizationStrategy,
+                    resource.Name,
+                    inherited: false,
                     isDefault: false);
             }
 

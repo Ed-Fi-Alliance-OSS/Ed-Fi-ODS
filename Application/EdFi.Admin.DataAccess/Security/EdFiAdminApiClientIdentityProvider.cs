@@ -60,17 +60,10 @@ namespace EdFi.Admin.DataAccess.Security
                 EducationOrganizationIds = edOrgs,
                 Key = key,
                 NamespacePrefixes = namespacePrefixes,
-                Profiles = profiles
-            };
-        }
-
-        public async Task<ApiClientSecret> GetSecretAsync(string key)
-        {
-            var client = await GetClientAsync(key);
-
-            return new ApiClientSecret
-            {
-                Secret = client.Secret, IsHashed = client.SecretIsHashed
+                Profiles = profiles,
+                ApiClientId = client.ApiClientId,
+                Secret = client.Secret,
+                IsHashed = client.SecretIsHashed
             };
         }
 
@@ -86,7 +79,7 @@ namespace EdFi.Admin.DataAccess.Security
 
         public void SetSecret(string key, ApiClientSecret secret)
         {
-            var client = GetClient(key);
+            var client = GetClientByKey(key);
 
             client.Secret = secret.Secret;
             client.SecretIsHashed = secret.IsHashed;
@@ -108,6 +101,18 @@ namespace EdFi.Admin.DataAccess.Security
         private async Task<ApiClient> GetClientAsync(string key)
         {
             var client = await _clientAppRepo.GetClientAsync(key);
+
+            if (client == null)
+            {
+                throw new ArgumentException($"Invalid key:'{key}'");
+            }
+
+            return client;
+        }
+
+        private ApiClient GetClientByKey(string key)
+        {
+            var client =  _clientAppRepo.GetClientByKey(key);
 
             if (client == null)
             {

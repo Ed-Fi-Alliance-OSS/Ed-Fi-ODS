@@ -50,10 +50,18 @@ namespace EdFi.Common.Security
         public async Task<AuthenticationResult> TryAuthenticateAsync(string key, string secret)
         {
             ApiClientSecret apiClientSecret;
+            ApiClientIdentity apiClientIdentity;
 
             try
             {
-                apiClientSecret = await _apiClientSecretProvider.GetSecretAsync(key);
+                apiClientIdentity = await _apiClientIdentityProvider.GetApiClientIdentityAsync(key);
+
+                apiClientSecret = new ApiClientSecret
+                {
+                    Secret = apiClientIdentity.Secret,
+                    IsHashed = apiClientIdentity.IsHashed
+                };
+
             }
             catch (ArgumentException)
             {
@@ -68,7 +76,7 @@ namespace EdFi.Common.Security
             return new AuthenticationResult
             {
                 IsAuthenticated = true,
-                ApiClientIdentity = await _apiClientIdentityProvider.GetApiClientIdentityAsync(key)
+                ApiClientIdentity = apiClientIdentity
             };
         }
 

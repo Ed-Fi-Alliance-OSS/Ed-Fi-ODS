@@ -4,10 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using EdFi.Common;
 using EdFi.Security.DataAccess.Contexts;
+using EdFi.Security.DataAccess.Models;
 
 namespace EdFi.Security.DataAccess.Repositories
 {
@@ -18,6 +20,84 @@ namespace EdFi.Security.DataAccess.Repositories
         public SecurityRepository(ISecurityContextFactory securityContextFactory)
         {
             _securityContextFactory = Preconditions.ThrowIfNull(securityContextFactory, nameof(securityContextFactory));
+            LoadSecurityConfigurationFromDatabase();
+        }
+
+        public void LoadRecordOwnershipData()
+        {
+            using (var context = _securityContextFactory.CreateContext())
+            {
+                var claimNameList = new string[] { 
+                    "http://ed-fi.org/ods/identity/claims/domains/educationOrganizations",
+                    "http://ed-fi.org/ods/identity/claims/studentSectionAssociation",
+                    "http://ed-fi.org/ods/identity/claims/gradingPeriod",
+                    "http://ed-fi.org/ods/identity/claims/session",
+                    "http://ed-fi.org/ods/identity/claims/course",
+                    "http://ed-fi.org/ods/identity/claims/courseOffering",
+                    "http://ed-fi.org/ods/identity/claims/section",
+                    "http://ed-fi.org/ods/identity/claims/studentSchoolAssociation"
+                };
+
+                var ownershipBasedClaimSetId = context.ClaimSets.FirstOrDefault(a => a.ClaimSetName == "Ownership Based Test").ClaimSetId;
+                var ownershipBasedAuthorizationStrategyId = context.AuthorizationStrategies.FirstOrDefault(a => a.AuthorizationStrategyName == "OwnershipBased").AuthorizationStrategyId;
+
+                var resourceClaims = context.ResourceClaims.Where(x => claimNameList.Contains(x.ClaimName)).ToList();          
+                var actions = context.Actions.ToList();
+
+                var claimSetResourceClaimActions = new List<ClaimSetResourceClaimAction>();
+
+                resourceClaims.ForEach(resourceClaim =>
+                {
+                            actions.ForEach(action =>
+                            {
+                                if (!context.ClaimSetResourceClaimActions.Any(a => a.ActionId == action.ActionId && a.ResourceClaimId == resourceClaim.ResourceClaimId 
+                                && a.ClaimSetId == ownershipBasedClaimSetId))
+                                {
+                                    claimSetResourceClaimActions.Add(
+                                       new ClaimSetResourceClaimAction
+                                       {
+                                           ResourceClaimId = resourceClaim.ResourceClaimId,
+                                           ActionId = action.ActionId,
+                                           ClaimSetId = ownershipBasedClaimSetId
+                                       }); 
+                                }
+                            });
+
+                });
+
+                if (claimSetResourceClaimActions.Any())
+                {
+                    context.ClaimSetResourceClaimActions.AddRange(claimSetResourceClaimActions);
+                    context.SaveChanges();
+                }
+
+                var resourceClaimList = resourceClaims.Select(x => x.ResourceClaimId);
+                var claimSetResourceClaimActionList = context.ClaimSetResourceClaimActions.Where(x => resourceClaimList.Contains(x.ResourceClaimId))
+                    .Where(x=>x.ClaimSetId == ownershipBasedClaimSetId).ToList();
+
+                var claimSetResourceClaimActionAuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>();
+
+                claimSetResourceClaimActionList.ForEach(claimSetResourceClaimAction =>
+                {
+                    if (!context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Any(a => a.ClaimSetResourceClaimActionId == claimSetResourceClaimAction.ClaimSetResourceClaimActionId 
+                        && a.AuthorizationStrategyId == ownershipBasedAuthorizationStrategyId))
+                    {
+                        claimSetResourceClaimActionAuthorizationStrategyOverrides.Add(
+                          new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+                          {
+                              ClaimSetResourceClaimActionId = claimSetResourceClaimAction.ClaimSetResourceClaimActionId,
+                              AuthorizationStrategyId = ownershipBasedAuthorizationStrategyId
+                          });
+                    }
+                });
+
+                if (claimSetResourceClaimActionAuthorizationStrategyOverrides.Any())
+                {
+                    context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.AddRange(claimSetResourceClaimActionAuthorizationStrategyOverrides);
+                    context.SaveChanges();
+                }
+            }
+
             LoadSecurityConfigurationFromDatabase();
         }
 

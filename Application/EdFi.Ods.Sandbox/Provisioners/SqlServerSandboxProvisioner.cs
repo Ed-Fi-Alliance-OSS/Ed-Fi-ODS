@@ -100,7 +100,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                         _logger.Debug($"restoring files from {backup}.");
 
-                        using (var reader = await conn.ExecuteReaderAsync($@"RESTORE FILELISTONLY FROM DISK = '{backup}';")
+                        using (var reader = await conn.ExecuteReaderAsync($@"RESTORE FILELISTONLY FROM DISK = '{backup}';", commandTimeout: CommandTimeout)
                             .ConfigureAwait(false))
                         {
                             if (await reader.ReadAsync().ConfigureAwait(false))
@@ -113,7 +113,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
                         _logger.Debug($"Restoring database {newDatabaseName} from {backup}");
 
                         await conn.ExecuteAsync(
-                                $@"RESTORE DATABASE [{newDatabaseName}] FROM DISK = '{backup}' WITH REPLACE, MOVE '{logicalName}' TO '{sqlFileInfo.Data}', MOVE '{logicalName}_log' TO '{sqlFileInfo.Log}';")
+                                $@"RESTORE DATABASE [{newDatabaseName}] FROM DISK = '{backup}' WITH REPLACE, MOVE '{logicalName}' TO '{sqlFileInfo.Data}', MOVE '{logicalName}_log' TO '{sqlFileInfo.Log}';", commandTimeout: CommandTimeout)
                             .ConfigureAwait(false);
                     }
 

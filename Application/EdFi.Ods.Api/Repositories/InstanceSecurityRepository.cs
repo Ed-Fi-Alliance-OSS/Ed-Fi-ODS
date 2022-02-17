@@ -208,5 +208,10 @@ namespace EdFi.Security.DataAccess.Repositories
             return instanceSecurityRepoCacheObject.ResourceClaims
                 .FirstOrDefault(rc => rc.ResourceName.EqualsIgnoreCase(resourceName));
         }
+
+        public void LoadRecordOwnershipData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

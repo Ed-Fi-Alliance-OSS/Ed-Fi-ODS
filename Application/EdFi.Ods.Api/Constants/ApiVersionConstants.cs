@@ -40,6 +40,16 @@ namespace EdFi.Ods.Api.Constants
         public const string Suite = "3";
 
         /// <summary>
+        /// Current version of the change query api.
+        /// </summary>
+        public const string ChangeQuery = "1";
+
+        /// <summary>
+        /// Current version of the identity api.
+        /// </summary>
+        public const string Identity = "2";
+
+        /// <summary>
         /// Assembly version of the ods api.
         /// </summary>
         public static readonly string Build = Assembly.GetEntryAssembly()
