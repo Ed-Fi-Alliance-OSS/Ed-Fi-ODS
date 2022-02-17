@@ -3,8 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
@@ -50,6 +52,8 @@ namespace EdFi.SdkGen.Console
 
         private void RunCliCodegen(IEnumerable<SwaggerDetail> apiEndpoints)
         {
+            Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "csharp"));
+
             foreach (var apiEndpoint in apiEndpoints)
             {
                 // Profile/Composite section namespaces end with section name.
@@ -76,7 +80,7 @@ namespace EdFi.SdkGen.Console
 
                     $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
-                    $"--additional-properties packageName={_options.Namespace},targetFramework=netcoreapp3.1,netCoreProjectFile=true"
+                    $"--additional-properties packageName={_options.Namespace},targetFramework=v5.0,netCoreProjectFile=true"
                 };
 
                 _log.Info($"Generating C# SDK for {apiEndpoint.EndpointUri}");
