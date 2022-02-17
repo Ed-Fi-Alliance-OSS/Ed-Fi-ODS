@@ -12,6 +12,8 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 using log4net;
 using NHibernate.SqlCommand;
@@ -29,17 +31,20 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IAggregateRootCriteriaProvider<TEntity> _decoratedInstance;
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IFilterCriteriaApplicatorProvider _authorizationCriteriaApplicatorProvider;
+        private readonly IFilterApplicationDetailsProvider _filterApplicationDetailsProvider;
 
         private readonly ILog _logger;
 
         protected AggregateRootCriteriaProviderAuthorizationDecoratorBase(
             IAggregateRootCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
-            IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider)
+            IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider,
+            IFilterApplicationDetailsProvider filterApplicationDetailsProvider)
         {
             _decoratedInstance = decoratedInstance;
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
             _authorizationCriteriaApplicatorProvider = authorizationCriteriaApplicatorProvider;
+            _filterApplicationDetailsProvider = filterApplicationDetailsProvider;
 
             // Log entries for the concrete type
             _logger = LogManager.GetLogger(GetType());
@@ -57,58 +62,84 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
 
-            var unsupportedAuthorizationFilters = new List<string>();
+            var unsupportedAuthorizationFilters = new HashSet<string>();
 
-            var andStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.And).ToArray();
+            // Create the "AND" junction
+            var mainConjunction = new Conjunction();
             
-            // Combine 'AND' strategies
-            var rootConjunction = new Conjunction();
-            bool conjunctionFiltersApplied = false;
+            // Create the "OR" junction
+            var mainDisjunction = new Disjunction();
 
-            foreach (var andStrategy in andStrategies)
-            {
-                // var strategyConjunction = new Conjunction();
-                
-                conjunctionFiltersApplied |= TryApplyAndFilters(rootConjunction, andStrategy.Filters);
-                conjunctionFiltersApplied |= TryApplyOrFilters(rootConjunction, andStrategy.Filters);
-            }
+            // If there are multiple authorization strategies with views, we must use left outer joins and null/not null checks
+            var joinType = DetermineJoinType();
 
-            var orStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.Or).ToArray();
-            
-            // Combine 'OR' strategies
-            var rootDisjunction = new Disjunction();
-            bool disjunctionFiltersApplied = false;
+            bool conjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithAndLogic();
+            bool disjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithOrLogic();
 
-            foreach (var orStrategy in orStrategies)
-            {
-                var strategyConjunction = new Conjunction(); // Combine with 'AND'
-                
-                disjunctionFiltersApplied |= TryApplyAndFilters(strategyConjunction, orStrategy.Filters);
-                disjunctionFiltersApplied |= TryApplyOrFilters(strategyConjunction, orStrategy.Filters);
+            ApplyJunctionsToCriteriaQuery();
 
-                rootDisjunction.Add(strategyConjunction);
-            }
-
-            if (disjunctionFiltersApplied)
-            {
-                if (conjunctionFiltersApplied)
-                {
-                    rootConjunction.Add(rootDisjunction);
-                }
-                else
-                {
-                    criteria.Add(rootDisjunction);
-                }
-            }
-            
-            if (conjunctionFiltersApplied)
-            {
-                criteria.Add(rootConjunction);
-            }
-            
             EnsureRequestAuthorized();
 
             return criteria;
+
+            JoinType DetermineJoinType()
+            {
+                var countOfAuthorizationFiltersWithViewBasedFilters = authorizationFiltering.Count(
+                    af => af.Filters.Select(afd =>
+                        {
+                            if (_filterApplicationDetailsProvider.TryGetFilterApplicationDetails(afd.FilterName, out var filterDetails))
+                            {
+                                return filterDetails;
+                            };
+
+                            unsupportedAuthorizationFilters.Add(afd.FilterName);
+
+                            return null;
+                        })
+                        .Where(x => x != null)
+                        .OfType<ViewFilterApplicationDetails>()
+                        .Any());
+
+                return countOfAuthorizationFiltersWithViewBasedFilters > 1
+                    ? JoinType.LeftOuterJoin
+                    : JoinType.InnerJoin;
+            }
+
+            bool ApplyAuthorizationStrategiesCombinedWithAndLogic()
+            {
+                var andStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.And).ToArray();
+
+                // Combine 'AND' strategies
+                bool conjunctionFiltersApplied = false;
+
+                foreach (var andStrategy in andStrategies)
+                {
+                    conjunctionFiltersApplied |= TryApplyAndFilters(mainConjunction, andStrategy.Filters);
+                    conjunctionFiltersApplied |= TryApplyOrFilters(mainConjunction, andStrategy.Filters);
+                }
+
+                return conjunctionFiltersApplied;
+            }
+
+            bool ApplyAuthorizationStrategiesCombinedWithOrLogic()
+            {
+                var orStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.Or).ToArray();
+
+                // Combine 'OR' strategies
+                bool disjunctionFiltersApplied = false;
+
+                foreach (var orStrategy in orStrategies)
+                {
+                    var strategyConjunction = new Conjunction(); // Combine with 'AND'
+
+                    disjunctionFiltersApplied |= TryApplyAndFilters(strategyConjunction, orStrategy.Filters);
+                    disjunctionFiltersApplied |= TryApplyOrFilters(strategyConjunction, orStrategy.Filters);
+
+                    mainDisjunction.Add(strategyConjunction);
+                }
+
+                return disjunctionFiltersApplied;
+            }
 
             bool TryApplyAndFilters(Conjunction conjunction, IReadOnlyList<AuthorizationFilterDetails> filters)
             {
@@ -131,18 +162,15 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
+                        // Make claim values available under various names used by different contexts (NOTE: long term goal would be to eliminate this variation) 
                         var parameterValues = new Dictionary<string, object>
                         {
-                            // TODO: Consider renaming all parameters to "ClaimValue" rather than the divergence that is now present, requiring both to be added to ensure correct parameter assignment.
-                            // For Example: {"ClaimValue", filterDetails.ClaimValues}, in lieu of the next 2 lines. Will required additional changes to the filter definitions.
                             {"SourceEducationOrganizationId", filterDetails.ClaimValues},
                             {filterDetails.ClaimEndpointName, filterDetails.ClaimValues},
                         };
 
-                        // Original logic --> applicator(criteria, conjunction, parameterValues, JoinType.InnerJoin);
-                        
-                        // Multiple auth strategy logic
-                        applicator(criteria, conjunction, parameterValues, JoinType.LeftOuterJoin);
+                        // Apply the authorization strategy filter
+                        applicator(criteria, conjunction, parameterValues, joinType);
                         
                         filterApplied = true;
                     }
@@ -150,7 +178,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                 return filterApplied;
             }
-            
+
             bool TryApplyOrFilters(Conjunction conjunction, IReadOnlyList<AuthorizationFilterDetails> filters)
             {
                 bool filterApplied = false;
@@ -175,18 +203,15 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
+                        // Make claim values available under various names used by different contexts (NOTE: long term goal would be to eliminate this variation) 
                         var parameterValues = new Dictionary<string, object>
                         {
-                            // TODO: Consider renaming all parameters to "ClaimValue" rather than the divergence that is now present, requiring both to be added to ensure correct parameter assignment.
-                            // For Example: {"ClaimValue", filterDetails.ClaimValues}, in lieu of the next 2 lines. Will required additional changes to the filter definitions.
                             { "SourceEducationOrganizationId", filterDetails.ClaimValues },
                             { filterDetails.ClaimEndpointName, filterDetails.ClaimValues },
                         };
 
-                        applicator( criteria, disjunction, parameterValues, JoinType.LeftOuterJoin);
-                            // orFilters.Length > 1
-                            //     ? JoinType.LeftOuterJoin
-                            //     : JoinType.InnerJoin);
+                        // Apply the authorization strategy filter
+                        applicator( criteria, disjunction, parameterValues, joinType);
 
                         filterApplied = true;
                     }
@@ -200,9 +225,29 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 return filterApplied;
             }
 
+            void ApplyJunctionsToCriteriaQuery()
+            {
+                if (disjunctionFiltersWereApplied)
+                {
+                    if (conjunctionFiltersWereApplied)
+                    {
+                        mainConjunction.Add(mainDisjunction);
+                    }
+                    else
+                    {
+                        criteria.Add(mainDisjunction);
+                    }
+                }
+
+                if (conjunctionFiltersWereApplied)
+                {
+                    criteria.Add(mainConjunction);
+                }
+            }
+
             void EnsureRequestAuthorized()
             {
-                if (unsupportedAuthorizationFilters.Any() && !conjunctionFiltersApplied && !disjunctionFiltersApplied)
+                if (unsupportedAuthorizationFilters.Any() && !conjunctionFiltersWereApplied && !disjunctionFiltersWereApplied)
                 {
                     if (_logger.IsDebugEnabled)
                     {
