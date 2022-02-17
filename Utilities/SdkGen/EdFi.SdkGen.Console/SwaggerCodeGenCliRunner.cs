@@ -33,6 +33,7 @@ namespace EdFi.SdkGen.Console
         public void Run()
         {
             // run the task synchronously to avoid collisions to get the end points.
+            _options.MetaDataEndpoint = "https://api.ed-fi.org/v5.3/api/metadata?sdk=true";
             var endpointTask = Task.Run(() => GetSwaggerEndpoints(_options.MetaDataEndpoint));
             endpointTask.Wait();
             var coreEdfiNamespaceList = new[] { @".*/metadata/composites/v1/ed-fi/([A-Za-z\-]+)/swagger.json", @".*/metadata/data/v3/ed-fi/swagger.json" };           
