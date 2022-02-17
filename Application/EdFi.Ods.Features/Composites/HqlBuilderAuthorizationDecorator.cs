@@ -20,6 +20,8 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
+using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Models;
 using log4net;
 
 namespace EdFi.Ods.Features.Composites
@@ -35,13 +37,27 @@ namespace EdFi.Ods.Features.Composites
         private readonly ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> _next;
         private readonly INHibernateFilterTextProvider _nHibernateFilterTextProvider;
         private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
+        private Lazy<string[]> _concreteEducationOrganizationIdNames;
 
         public HqlBuilderAuthorizationDecorator(
             ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> next,
             IEdFiAuthorizationProvider authorizationProvider,
             INHibernateFilterTextProvider nHibernateFilterTextProvider,
-            IResourceClaimUriProvider resourceClaimUriProvider)
+            IResourceClaimUriProvider resourceClaimUriProvider,
+            IDomainModelProvider domainModelProvider)
         {
+
+            _concreteEducationOrganizationIdNames = new Lazy<string[]>(
+                () =>
+                {
+                    // Get the EducationOrganization base entity
+                    var edOrgEntity = domainModelProvider.GetDomainModel()
+                        .EntityByFullName[new FullName(EdFiConventions.PhysicalSchemaName, "EducationOrganization")];
+
+                    // Process all derived entities for their concrete primary key names
+                    return edOrgEntity.DerivedEntities.Select(e => e.Identifier.Properties.Single().PropertyName).ToArray();
+                });
+                
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _authorizationProvider = Preconditions.ThrowIfNull(authorizationProvider, nameof(authorizationProvider));
 
@@ -347,7 +363,10 @@ namespace EdFi.Ods.Features.Composites
                         // Copy over the values of the named parameters, but only if they are actually present in the filter
                         var authorizationFilterDetails = filterInfo.Value;
 
-                        string parameterName = authorizationFilterDetails.ClaimEndpointName;
+                        string parameterName =
+                            _concreteEducationOrganizationIdNames.Value.Contains(authorizationFilterDetails.ClaimEndpointName)
+                                ? "ClaimEducationOrganizationIds"
+                                : authorizationFilterDetails.ClaimEndpointName;
 
                         if (filterHql.Contains($":{parameterName}"))
                         {

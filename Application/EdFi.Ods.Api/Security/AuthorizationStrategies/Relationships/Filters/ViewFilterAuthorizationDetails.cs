@@ -23,11 +23,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 $@"{subjectEndpointName ?? viewTargetEndpointName} IN (
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM auth.{viewName} {{newAlias1}} 
-                    WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:SourceEducationOrganizationId))", // TODO: Rename to :ClaimValues 
+                    WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:SourceEducationOrganizationId))", // TODO: Rename to :ClaimEducationOrganizationIds 
                 $@"{{currentAlias}}.{subjectEndpointName ?? viewTargetEndpointName} IN (
-                    SELECT {{newAlias1}}.TargetEducationOrganizationId 
+                    SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM " + GetFullNameForView($"auth_{viewName}") + $@" {{newAlias1}} 
-                    WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:ClaimValues))",
+                    WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:ClaimEducationOrganizationIds))",
                 (c, w, p, jt) => c.ApplyJoinFilter(
                     w,
                     p,
