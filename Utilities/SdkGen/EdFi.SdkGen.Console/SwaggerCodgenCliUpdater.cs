@@ -78,7 +78,7 @@ namespace EdFi.SdkGen.Console
 
                     // if download is successful we can then move the temp file to the proper name.
                     _log.Debug($"Renaming {fileName} to {_options.CliExecutableFullName()}");
-                    File.Move(fileName, _options.CliExecutableFullName());
+                    File.Move(fileName, _options.CliExecutableFullName(),true);
                 }
             }
         }

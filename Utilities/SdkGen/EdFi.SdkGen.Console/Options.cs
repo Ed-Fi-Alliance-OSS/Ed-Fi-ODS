@@ -42,7 +42,7 @@ namespace EdFi.SdkGen.Console
         [Option(
             'o',
             "output",
-            Default = "./csharp",
+            Default = "csharp",
             HelpText = "the output folder for the swagger generation")]
         public string OutputFolder { get; set; }
 
