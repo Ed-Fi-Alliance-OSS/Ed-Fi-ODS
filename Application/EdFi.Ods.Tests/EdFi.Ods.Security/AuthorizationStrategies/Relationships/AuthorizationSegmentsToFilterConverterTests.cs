@@ -15,6 +15,7 @@ using FakeItEasy;
 using FakeItEasy.Configuration;
 using NHibernate;
 using NHibernate.Metadata;
+using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
@@ -397,6 +398,51 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 viewName.ShouldNotContain("ToStaffUniqueId");
                 viewName.ShouldContain("ToStaffUSI");
+            }
+        }
+
+        [TestFixture]
+        public class When_converting_to_filters_with_multiple_types_of_EdOrgs : TestFixtureBase
+        {
+            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+
+            protected override void Act()
+            {
+                var claimsAndValues = new[]
+                {
+                    Tuple.Create("LocalEducationAgencyId", (object) 12456),
+                    Tuple.Create("PostSecondaryInstitutionId", (object) 987654),
+                };
+
+                var studentSegmentEndpoint = new AuthorizationSegmentEndpoint("StudentUSI", typeof(int));
+                
+                var suppliedSegments = new[]
+                {
+                    new ClaimsAuthorizationSegment(claimsAndValues, studentSegmentEndpoint)
+                };
+                
+                var converter = new AuthorizationSegmentsToFiltersConverter();
+                _actualFilters = converter.Convert(suppliedSegments);
+            }
+
+            [Test]
+            public void Should_combine_EdOrg_types_into_a_single_filter()
+            {
+                _actualFilters.Count.ShouldBe(1);
+            }
+
+            [Test]
+            public void Should_rename_the_EdOrg_based_claim_endpoint_name_to_the_generalized_convention()
+            {
+                _actualFilters.Single().ClaimEndpointName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
+            }
+            
+            [Test]
+            public void Should_combine_the_EdOrgIds_into_a_single_array()
+            {
+                var claimValues = _actualFilters.Single().ClaimValues;
+                    
+                claimValues.ShouldBe(new object[] { 12456, 987654 });
             }
         }
     }

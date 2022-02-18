@@ -175,7 +175,10 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        var parameterValues = CreateParameterValuesFromClaims(filterDetails);
+                        var parameterValues = new Dictionary<string, object>
+                        {
+                            { filterDetails.ClaimEndpointName, filterDetails.ClaimValues }
+                        };
 
                         // Apply the authorization strategy filter
                         applicator(criteria, conjunction, parameterValues, joinType);
@@ -211,7 +214,10 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        var parameterValues = CreateParameterValuesFromClaims(filterDetails);
+                        var parameterValues = new Dictionary<string, object>
+                        {
+                            { filterDetails.ClaimEndpointName, filterDetails.ClaimValues }
+                        };
 
                         // Apply the authorization strategy filter
                         applicator( criteria, disjunction, parameterValues, joinType);
@@ -270,26 +276,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource ('{typeof(TEntity).Name}').");
                 }
             }
-        }
-
-        private Dictionary<string, object> CreateParameterValuesFromClaims(AuthorizationFilterDetails filterDetails)
-        {
-            string parameterName;
-
-            // Convert any concrete EdOrg claim endpoint to the parameter name used for all edOrgIds, by convention
-            if (_sortedEducationOrganizationIdNames.Value.BinarySearch(filterDetails.ClaimEndpointName) >= 0)
-            {
-                parameterName = RelationshipAuthorizationConventions.ClaimsParameterName;
-            }
-            else
-            {
-                parameterName = filterDetails.ClaimEndpointName;
-            }
-            
-            return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
-            {
-                { parameterName, filterDetails.ClaimValues }
-            };
         }
     }
 }

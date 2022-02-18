@@ -30,32 +30,18 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 var subjectEndpointName = segment.SubjectEndpoint.Name;
 
-                var segmentFilters = segment
-                    .ClaimsEndpoints
-                    .GroupBy(x => x.Name)
-                    .Select(g =>
-                    {
-                        string claimEndpointName = g.Key;
+                // Get the name of the view to use for this segment
+                string filterName = GetAuthorizationFilterName(subjectEndpointName, segment.AuthorizationPathModifier);
 
-                        // Get the name of the view to use for this segment
-                        string filterName = GetAuthorizationFilterName(subjectEndpointName, segment.AuthorizationPathModifier);
-
-                        return new AuthorizationFilterDetails
-                        {
-                            FilterName = filterName,
-                            ClaimEndpointName = claimEndpointName,
-                            ClaimValues = g.Select(x => x.Value).Distinct().ToArray(),
-                            SubjectEndpointName = subjectEndpointName,
-                        };
-                    });
-
-                foreach (var segmentFilter in segmentFilters)
+                var filter = new AuthorizationFilterDetails
                 {
-                    if (!filterByName.ContainsKey(segmentFilter.FilterName))
-                    {
-                        filterByName[segmentFilter.FilterName] = segmentFilter;
-                    }
-                }
+                    FilterName = filterName,
+                    ClaimEndpointName = RelationshipAuthorizationConventions.ClaimsParameterName,
+                    ClaimValues = segment.ClaimsEndpoints.Select(x => x.Value).ToArray(),
+                    SubjectEndpointName = subjectEndpointName,
+                };
+
+                filterByName.TryAdd(filterName, filter);
             }
 
             return filterByName.Values.ToArray();
