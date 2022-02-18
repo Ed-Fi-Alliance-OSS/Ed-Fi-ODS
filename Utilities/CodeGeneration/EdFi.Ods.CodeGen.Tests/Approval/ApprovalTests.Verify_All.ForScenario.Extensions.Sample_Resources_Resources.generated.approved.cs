@@ -90,7 +90,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IArtMediumDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -101,10 +100,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
 
 
             // Derived Property
-            if ((this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId == null
-                || !(this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId.Equals(compareTo.ArtMediumDescriptorId))
+            if (!(this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId.Equals(compareTo.ArtMediumDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -117,17 +115,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -452,7 +448,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBus;
 
             if (ReferenceEquals(this, compareTo))
@@ -463,10 +458,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IBus).BusId == null
-                || !(this as Entities.Common.Sample.IBus).BusId.Equals(compareTo.BusId))
+             if ((this as Entities.Common.Sample.IBus).BusId.Equals(compareTo.BusId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -479,17 +473,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBus).BusId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBus).BusId.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IBus).BusId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -809,7 +801,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRoute;
 
             if (ReferenceEquals(this, compareTo))
@@ -820,15 +811,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IBusRoute).BusId == null
-                || !(this as Entities.Common.Sample.IBusRoute).BusId.Equals(compareTo.BusId))
+             if ((this as Entities.Common.Sample.IBusRoute).BusId.Equals(compareTo.BusId))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.Sample.IBusRoute).BusRouteNumber == null
-                || !(this as Entities.Common.Sample.IBusRoute).BusRouteNumber.Equals(compareTo.BusRouteNumber))
+             if ((this as Entities.Common.Sample.IBusRoute).BusRouteNumber.Equals(compareTo.BusRouteNumber))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -841,21 +831,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRoute).BusId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRoute).BusId.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRoute).BusId.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRoute).BusRouteNumber != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRoute).BusRouteNumber.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRoute).BusRouteNumber.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -1510,7 +1498,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteBusYear;
 
             if (ReferenceEquals(this, compareTo))
@@ -1525,10 +1512,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IBusRouteBusYear).BusYear == null
-                || !(this as Entities.Common.Sample.IBusRouteBusYear).BusYear.Equals(compareTo.BusYear))
+             if ((this as Entities.Common.Sample.IBusRouteBusYear).BusYear.Equals(compareTo.BusYear))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -1541,7 +1527,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -1550,11 +1535,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                     hash = hash * 23 + _busRoute.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteBusYear).BusYear != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteBusYear).BusYear.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteBusYear).BusYear.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -1842,7 +1826,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteProgram;
 
             if (ReferenceEquals(this, compareTo))
@@ -1857,20 +1840,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramName == null
-                || !(this as Entities.Common.Sample.IBusRouteProgram).ProgramName.Equals(compareTo.ProgramName))
+            if (!(this as Entities.Common.Sample.IBusRouteProgram).ProgramName.Equals(compareTo.ProgramName))
                 return false;
 
+
             // Unified Type Property
-            if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor == null
-                ||!(this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!(this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -1883,7 +1865,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -1892,19 +1873,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                     hash = hash * 23 + _busRoute.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramName != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).ProgramName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).ProgramName.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2109,7 +2087,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteServiceAreaPostalCode;
 
             if (ReferenceEquals(this, compareTo))
@@ -2124,10 +2101,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode == null
-                || !(this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode.Equals(compareTo.ServiceAreaPostalCode))
+             if ((this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode.Equals(compareTo.ServiceAreaPostalCode))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2140,7 +2116,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -2149,11 +2124,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                     hash = hash * 23 + _busRoute.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2344,7 +2318,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteStartTime;
 
             if (ReferenceEquals(this, compareTo))
@@ -2359,10 +2332,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IBusRouteStartTime).StartTime == null
-                || !(this as Entities.Common.Sample.IBusRouteStartTime).StartTime.Equals(compareTo.StartTime))
+             if ((this as Entities.Common.Sample.IBusRouteStartTime).StartTime.Equals(compareTo.StartTime))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2375,7 +2347,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -2384,11 +2355,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                     hash = hash * 23 + _busRoute.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteStartTime).StartTime != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteStartTime).StartTime.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteStartTime).StartTime.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2586,7 +2556,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IBusRouteTelephone;
 
             if (ReferenceEquals(this, compareTo))
@@ -2601,15 +2570,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber == null
-                || !(this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber))
+             if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor == null
-                || !(this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor))
+             if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2622,7 +2590,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -2631,15 +2598,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
                     hash = hash * 23 + _busRoute.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2854,7 +2820,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IFavoriteBookCategoryDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -2865,10 +2830,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
 
 
             // Derived Property
-            if ((this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId == null
-                || !(this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId.Equals(compareTo.FavoriteBookCategoryDescriptorId))
+            if (!(this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId.Equals(compareTo.FavoriteBookCategoryDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2881,17 +2845,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -3142,7 +3104,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IMembershipTypeDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -3153,10 +3114,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
 
 
             // Derived Property
-            if ((this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId == null
-                || !(this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId.Equals(compareTo.MembershipTypeDescriptorId))
+            if (!(this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId.Equals(compareTo.MembershipTypeDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -3169,17 +3129,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -3433,7 +3391,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentAddressExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -3446,7 +3403,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             if (_parentAddress == null || !_parentAddress.Equals(compareTo.ParentAddress))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -3459,7 +3415,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -3468,7 +3423,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentAddress.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -3783,7 +3737,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentAddressSchoolDistrict;
 
             if (ReferenceEquals(this, compareTo))
@@ -3798,10 +3751,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict == null
-                || !(this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict))
+             if ((this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -3814,7 +3766,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -3823,11 +3774,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentAddressExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -4018,7 +3968,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentAddressTerm;
 
             if (ReferenceEquals(this, compareTo))
@@ -4033,10 +3982,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor == null
-                || !(this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor))
+             if ((this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -4049,7 +3997,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -4058,11 +4005,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentAddressExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -4253,7 +4199,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentAuthor;
 
             if (ReferenceEquals(this, compareTo))
@@ -4268,10 +4213,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IParentAuthor).Author == null
-                || !(this as Entities.Common.Sample.IParentAuthor).Author.Equals(compareTo.Author))
+             if ((this as Entities.Common.Sample.IParentAuthor).Author.Equals(compareTo.Author))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -4284,7 +4228,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -4293,11 +4236,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentAuthor).Author != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentAuthor).Author.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IParentAuthor).Author.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -4488,7 +4430,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentCeilingHeight;
 
             if (ReferenceEquals(this, compareTo))
@@ -4503,10 +4444,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight == null
-                || !(this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight.Equals(compareTo.CeilingHeight))
+             if ((this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight.Equals(compareTo.CeilingHeight))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -4519,7 +4459,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -4528,11 +4467,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -4716,7 +4654,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentCTEProgram;
 
             if (ReferenceEquals(this, compareTo))
@@ -4729,7 +4666,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             if (_parentExtension == null || !_parentExtension.Equals(compareTo.ParentExtension))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -4742,7 +4678,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -4751,7 +4686,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentExtension.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -5025,7 +4959,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentEducationContent;
 
             if (ReferenceEquals(this, compareTo))
@@ -5040,10 +4973,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier == null
-                || !(this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier.Equals(compareTo.ContentIdentifier))
+            if (!(this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier.Equals(compareTo.ContentIdentifier))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -5056,7 +4988,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -5065,11 +4996,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentExtension.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -5275,7 +5204,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -5288,7 +5216,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             if (_parent == null || !_parent.Equals(compareTo.Parent))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -5301,7 +5228,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -5310,7 +5236,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parent.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -5873,7 +5798,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentFavoriteBookTitle;
 
             if (ReferenceEquals(this, compareTo))
@@ -5888,10 +5812,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle == null
-                || !(this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle))
+             if ((this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -5904,7 +5827,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -5913,11 +5835,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -6280,7 +6201,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentStudentProgramAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -6295,35 +6215,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
 
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
+            if (!(this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId.Equals(compareTo.ProgramEducationOrganizationId))
+            if (!(this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+            if (!(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId.Equals(compareTo.ProgramEducationOrganizationId))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor == null
-                ||!(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!(this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId == null
-                || !(this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!(this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -6336,7 +6255,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -6345,31 +6263,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentExtension.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -6560,7 +6472,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IParentTeacherConference;
 
             if (ReferenceEquals(this, compareTo))
@@ -6573,7 +6484,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
             if (_parentExtension == null || !_parentExtension.Equals(compareTo.ParentExtension))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -6586,7 +6496,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -6595,7 +6504,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
                     hash = hash * 23 + _parentExtension.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -6808,7 +6716,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.ISchoolCTEProgram;
 
             if (ReferenceEquals(this, compareTo))
@@ -6821,7 +6728,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             if (_schoolExtension == null || !_schoolExtension.Equals(compareTo.SchoolExtension))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -6834,7 +6740,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -6843,7 +6748,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
                     hash = hash * 23 + _schoolExtension.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -7117,7 +7021,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.ISchoolDirectlyOwnedBus;
 
             if (ReferenceEquals(this, compareTo))
@@ -7132,10 +7035,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
 
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId == null
-                || !(this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.Equals(compareTo.DirectlyOwnedBusId))
+            if (!(this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.Equals(compareTo.DirectlyOwnedBusId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -7148,7 +7050,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -7157,11 +7058,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
                     hash = hash * 23 + _schoolExtension.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -7363,7 +7262,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.ISchoolExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -7376,7 +7274,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
             if (_school == null || !_school.Equals(compareTo.School))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -7389,7 +7286,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -7398,7 +7294,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
                     hash = hash * 23 + _school.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -7670,7 +7565,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStaffExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -7683,7 +7577,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             if (_staff == null || !_staff.Equals(compareTo.Staff))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -7696,7 +7589,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -7705,7 +7597,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
                     hash = hash * 23 + _staff.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -7975,7 +7866,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStaffPet;
 
             if (ReferenceEquals(this, compareTo))
@@ -7990,10 +7880,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStaffPet).PetName == null
-                || !(this as Entities.Common.Sample.IStaffPet).PetName.Equals(compareTo.PetName))
+             if ((this as Entities.Common.Sample.IStaffPet).PetName.Equals(compareTo.PetName))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -8006,7 +7895,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -8015,11 +7903,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
                     hash = hash * 23 + _staffExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStaffPet).PetName != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStaffPet).PetName.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStaffPet).PetName.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -8211,7 +8098,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStaffPetPreference;
 
             if (ReferenceEquals(this, compareTo))
@@ -8224,7 +8110,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
             if (_staffExtension == null || !_staffExtension.Equals(compareTo.StaffExtension))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -8237,7 +8122,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -8246,7 +8130,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
                     hash = hash * 23 + _staffExtension.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -8465,7 +8348,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentAquaticPet;
 
             if (ReferenceEquals(this, compareTo))
@@ -8480,15 +8362,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume == null
-                || !(this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.Equals(compareTo.MimimumTankVolume))
+             if ((this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.Equals(compareTo.MimimumTankVolume))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentAquaticPet).PetName == null
-                || !(this as Entities.Common.Sample.IStudentAquaticPet).PetName.Equals(compareTo.PetName))
+             if ((this as Entities.Common.Sample.IStudentAquaticPet).PetName.Equals(compareTo.PetName))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -8501,7 +8382,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -8510,15 +8390,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                     hash = hash * 23 + _studentExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentAquaticPet).PetName != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentAquaticPet).PetName.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentAquaticPet).PetName.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -8716,7 +8595,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -8729,7 +8607,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             if (_student == null || !_student.Equals(compareTo.Student))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -8742,7 +8619,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -8751,7 +8627,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                     hash = hash * 23 + _student.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -9117,7 +8992,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentFavoriteBook;
 
             if (ReferenceEquals(this, compareTo))
@@ -9132,10 +9006,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor.Equals(compareTo.FavoriteBookCategoryDescriptor))
+             if ((this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor.Equals(compareTo.FavoriteBookCategoryDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -9148,7 +9021,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -9157,11 +9029,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                     hash = hash * 23 + _studentExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -9418,7 +9289,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentFavoriteBookArtMedium;
 
             if (ReferenceEquals(this, compareTo))
@@ -9433,10 +9303,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor))
+             if ((this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -9449,7 +9318,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -9458,11 +9326,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                     hash = hash * 23 + _studentFavoriteBook.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -9661,7 +9528,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentPet;
 
             if (ReferenceEquals(this, compareTo))
@@ -9676,10 +9542,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentPet).PetName == null
-                || !(this as Entities.Common.Sample.IStudentPet).PetName.Equals(compareTo.PetName))
+             if ((this as Entities.Common.Sample.IStudentPet).PetName.Equals(compareTo.PetName))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -9692,7 +9557,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -9701,11 +9565,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                     hash = hash * 23 + _studentExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentPet).PetName != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentPet).PetName.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentPet).PetName.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -9897,7 +9760,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentPetPreference;
 
             if (ReferenceEquals(this, compareTo))
@@ -9910,7 +9772,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
             if (_studentExtension == null || !_studentExtension.Equals(compareTo.StudentExtension))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -9923,7 +9784,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -9932,7 +9792,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
                     hash = hash * 23 + _studentExtension.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -10431,7 +10290,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -10442,35 +10300,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
+             if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId.Equals(compareTo.ProgramEducationOrganizationId))
+            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId.Equals(compareTo.ProgramEducationOrganizationId))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor == null
-                ||!(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!(this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -10483,37 +10340,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -11120,7 +10971,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium;
 
             if (ReferenceEquals(this, compareTo))
@@ -11135,10 +10985,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor))
+             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor.Equals(compareTo.ArtMediumDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -11151,7 +11000,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -11160,11 +11008,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                     hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -11355,7 +11202,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears;
 
             if (ReferenceEquals(this, compareTo))
@@ -11370,10 +11216,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.Equals(compareTo.PortfolioYears))
+             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.Equals(compareTo.PortfolioYears))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -11386,7 +11231,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -11395,11 +11239,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                     hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -11590,7 +11433,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationService;
 
             if (ReferenceEquals(this, compareTo))
@@ -11605,10 +11447,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor.Equals(compareTo.ServiceDescriptor))
+             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor.Equals(compareTo.ServiceDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -11621,7 +11462,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -11630,11 +11470,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                     hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -11849,7 +11688,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentArtProgramAssociationStyle;
 
             if (ReferenceEquals(this, compareTo))
@@ -11864,10 +11702,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style == null
-                || !(this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style.Equals(compareTo.Style))
+             if ((this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style.Equals(compareTo.Style))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -11880,7 +11717,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -11889,11 +11725,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
                     hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -12082,7 +11917,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentCTEProgramAssociationExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -12095,7 +11929,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
             if (_studentCTEProgramAssociation == null || !_studentCTEProgramAssociation.Equals(compareTo.StudentCTEProgramAssociation))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -12108,7 +11941,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -12117,7 +11949,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
                     hash = hash * 23 + _studentCTEProgramAssociation.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -12327,7 +12158,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -12340,7 +12170,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             if (_studentEducationOrganizationAssociationAddress == null || !_studentEducationOrganizationAssociationAddress.Equals(compareTo.StudentEducationOrganizationAssociationAddress))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -12353,7 +12182,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -12362,7 +12190,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
                     hash = hash * 23 + _studentEducationOrganizationAssociationAddress.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -12677,7 +12504,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict;
 
             if (ReferenceEquals(this, compareTo))
@@ -12692,10 +12518,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict == null
-                || !(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict))
+             if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict.Equals(compareTo.SchoolDistrict))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -12708,7 +12533,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -12717,11 +12541,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
                     hash = hash * 23 + _studentEducationOrganizationAssociationAddressExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -12912,7 +12735,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm;
 
             if (ReferenceEquals(this, compareTo))
@@ -12927,10 +12749,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor))
+             if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -12943,7 +12764,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -12952,11 +12772,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
                     hash = hash * 23 + _studentEducationOrganizationAssociationAddressExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -13144,7 +12963,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -13157,7 +12975,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
             if (_studentEducationOrganizationAssociationStudentCharacteristic == null || !_studentEducationOrganizationAssociationStudentCharacteristic.Equals(compareTo.StudentEducationOrganizationAssociationStudentCharacteristic))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -13170,7 +12987,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -13179,7 +12995,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
                     hash = hash * 23 + _studentEducationOrganizationAssociationStudentCharacteristic.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -13428,7 +13243,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed;
 
             if (ReferenceEquals(this, compareTo))
@@ -13443,10 +13257,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate == null
-                || !(this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.Equals(compareTo.BeginDate))
+             if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.Equals(compareTo.BeginDate))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -13459,7 +13272,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -13468,11 +13280,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
                     hash = hash * 23 + _studentEducationOrganizationAssociationStudentCharacteristicExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -13958,7 +13769,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -13969,25 +13779,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor == null
-                ||!(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor.Equals(compareTo.GraduationPlanTypeDescriptor))
+            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor.Equals(compareTo.GraduationPlanTypeDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear.Equals(compareTo.GraduationSchoolYear))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear.Equals(compareTo.GraduationSchoolYear))
                 return false;
-            #pragma warning disable 472
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+                return false;
+
 
             return true;
         }
@@ -14000,29 +13809,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -14722,7 +14526,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject;
 
             if (ReferenceEquals(this, compareTo))
@@ -14737,10 +14540,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor.Equals(compareTo.AcademicSubjectDescriptor))
+             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor.Equals(compareTo.AcademicSubjectDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -14753,7 +14555,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -14762,11 +14563,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -14957,7 +14757,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode;
 
             if (ReferenceEquals(this, compareTo))
@@ -14972,10 +14771,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.Equals(compareTo.CareerPathwayCode))
+             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.Equals(compareTo.CareerPathwayCode))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -14988,7 +14786,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -14997,11 +14794,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -15185,7 +14981,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationCTEProgram;
 
             if (ReferenceEquals(this, compareTo))
@@ -15198,7 +14993,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
             if (_studentGraduationPlanAssociation == null || !_studentGraduationPlanAssociation.Equals(compareTo.StudentGraduationPlanAssociation))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -15211,7 +15005,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -15220,7 +15013,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -15443,7 +15235,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription;
 
             if (ReferenceEquals(this, compareTo))
@@ -15458,10 +15249,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description.Equals(compareTo.Description))
+             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description.Equals(compareTo.Description))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -15474,7 +15264,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -15483,11 +15272,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -15678,7 +15466,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy;
 
             if (ReferenceEquals(this, compareTo))
@@ -15693,10 +15480,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy.Equals(compareTo.DesignatedBy))
+             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy.Equals(compareTo.DesignatedBy))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -15709,7 +15495,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -15718,11 +15503,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -15913,7 +15697,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential;
 
             if (ReferenceEquals(this, compareTo))
@@ -15928,10 +15711,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential.Equals(compareTo.IndustryCredential))
+             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential.Equals(compareTo.IndustryCredential))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -15944,7 +15726,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -15953,11 +15734,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -16319,7 +16099,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -16334,10 +16113,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId.Equals(compareTo.ParentUniqueId))
+            if (!(this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId.Equals(compareTo.ParentUniqueId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -16350,7 +16128,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -16359,11 +16136,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -16598,7 +16373,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended;
 
             if (ReferenceEquals(this, compareTo))
@@ -16613,10 +16387,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended == null
-                || !(this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.Equals(compareTo.YearsAttended))
+             if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.Equals(compareTo.YearsAttended))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -16629,7 +16402,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -16638,11 +16410,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
                     hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -16838,7 +16609,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationDiscipline;
 
             if (ReferenceEquals(this, compareTo))
@@ -16853,10 +16623,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor.Equals(compareTo.DisciplineDescriptor))
+             if ((this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor.Equals(compareTo.DisciplineDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -16869,7 +16638,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -16878,11 +16646,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -17107,7 +16874,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -17120,7 +16886,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             if (_studentParentAssociation == null || !_studentParentAssociation.Equals(compareTo.StudentParentAssociation))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -17133,7 +16898,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -17142,7 +16906,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                     hash = hash * 23 + _studentParentAssociation.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -17762,7 +17525,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle;
 
             if (ReferenceEquals(this, compareTo))
@@ -17777,10 +17539,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle))
+             if ((this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle.Equals(compareTo.FavoriteBookTitle))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -17793,7 +17554,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -17802,11 +17562,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -17997,7 +17756,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek;
 
             if (ReferenceEquals(this, compareTo))
@@ -18012,10 +17770,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek.Equals(compareTo.HoursPerWeek))
+             if ((this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek.Equals(compareTo.HoursPerWeek))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -18028,7 +17785,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -18037,11 +17793,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -18232,7 +17987,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationPagesRead;
 
             if (ReferenceEquals(this, compareTo))
@@ -18247,10 +18001,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
 
             // Standard Property
-            if ((this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead.Equals(compareTo.PagesRead))
+             if ((this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead.Equals(compareTo.PagesRead))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -18263,7 +18016,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -18272,11 +18024,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -18589,7 +18340,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -18604,25 +18354,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
 
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor == null
-                ||!(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor.Equals(compareTo.EmploymentStatusDescriptor))
+            if (!(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor.Equals(compareTo.EmploymentStatusDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate.Equals(compareTo.HireDate))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId == null
-                || !(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId.Equals(compareTo.StaffUniqueId))
+            if (!(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate.Equals(compareTo.HireDate))
                 return false;
-            #pragma warning disable 472
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId.Equals(compareTo.StaffUniqueId))
+                return false;
+
 
             return true;
         }
@@ -18635,7 +18384,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -18644,23 +18392,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -18858,7 +18602,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentParentAssociationTelephone;
 
             if (ReferenceEquals(this, compareTo))
@@ -18871,7 +18614,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
             if (_studentParentAssociationExtension == null || !_studentParentAssociationExtension.Equals(compareTo.StudentParentAssociationExtension))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -18884,7 +18626,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -18893,7 +18634,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
                     hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -19122,7 +18862,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentSchoolAssociationExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -19135,7 +18874,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
             if (_studentSchoolAssociation == null || !_studentSchoolAssociation.Equals(compareTo.StudentSchoolAssociation))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -19148,7 +18886,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -19157,7 +18894,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
                     hash = hash * 23 + _studentSchoolAssociation.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -19358,7 +19094,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentSectionAssociationExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -19371,7 +19106,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
             if (_studentSectionAssociation == null || !_studentSectionAssociation.Equals(compareTo.StudentSectionAssociation))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -19384,7 +19118,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -19393,7 +19126,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
                     hash = hash * 23 + _studentSectionAssociation.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -19925,7 +19657,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -19940,30 +19671,29 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
 
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedBeginDate == null
-                || !(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedBeginDate.Equals(compareTo.RelatedBeginDate))
+            if (!(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedBeginDate.Equals(compareTo.RelatedBeginDate))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedEducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedEducationOrganizationId.Equals(compareTo.RelatedEducationOrganizationId))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramEducationOrganizationId == null
-                || !(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramEducationOrganizationId.Equals(compareTo.RelatedProgramEducationOrganizationId))
+            if (!(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedEducationOrganizationId.Equals(compareTo.RelatedEducationOrganizationId))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName == null
-                || !(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName.Equals(compareTo.RelatedProgramName))
+            if (!(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramEducationOrganizationId.Equals(compareTo.RelatedProgramEducationOrganizationId))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName.Equals(compareTo.RelatedProgramName))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor == null
-                ||!(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor.Equals(compareTo.RelatedProgramTypeDescriptor))
+            if (!(this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor.Equals(compareTo.RelatedProgramTypeDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -19976,7 +19706,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -19985,27 +19714,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
                     hash = hash * 23 + _studentSectionAssociationExtension.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedBeginDate != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedBeginDate.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedBeginDate.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedEducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedEducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedEducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramEducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramEducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramEducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 

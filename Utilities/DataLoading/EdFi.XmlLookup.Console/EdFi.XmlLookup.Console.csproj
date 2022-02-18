@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.XmlLookup.Console</AssemblyName>
     <RootNamespace>EdFi.XmlLookup.Console</RootNamespace>
     <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
@@ -26,17 +26,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.1.0" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="Autofac" Version="6.3.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.9" />
-    <PackageReference Include="log4net" Version="2.0.12" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.10" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.10" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.10" />
+    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EdFi.LoadTools\EdFi.LoadTools.csproj" />

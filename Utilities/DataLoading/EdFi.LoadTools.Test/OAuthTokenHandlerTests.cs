@@ -14,7 +14,7 @@ using NUnit.Framework;
 namespace EdFi.LoadTools.Test
 {
     /// <summary>
-    ///     These tests are meant to be run manually with a functioning API
+    ///     These tests are meant to be RunManually with a functioning API
     /// </summary>
     [TestFixture]
     public class OAuthTokenHandlerTests
@@ -31,7 +31,7 @@ namespace EdFi.LoadTools.Test
         }
 
         [Test]
-        [Category("Run Manually")]
+        [Category("RunManually")]
         public void ShouldSuccessfullyRetrieveBearerToken()
         {
             var config = new TestOAuthConfiguration

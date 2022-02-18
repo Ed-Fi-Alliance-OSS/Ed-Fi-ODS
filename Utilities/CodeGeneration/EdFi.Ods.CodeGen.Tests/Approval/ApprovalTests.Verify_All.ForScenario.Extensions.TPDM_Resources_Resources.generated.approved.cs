@@ -90,7 +90,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IAccreditationStatusDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -101,10 +100,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId == null
-                || !(this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId.Equals(compareTo.AccreditationStatusDescriptorId))
+            if (!(this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId.Equals(compareTo.AccreditationStatusDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -117,17 +115,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -378,7 +374,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IAidTypeDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -389,10 +384,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId == null
-                || !(this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId.Equals(compareTo.AidTypeDescriptorId))
+            if (!(this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId.Equals(compareTo.AidTypeDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -405,17 +399,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -784,7 +776,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidate;
 
             if (ReferenceEquals(this, compareTo))
@@ -795,10 +786,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidate).CandidateIdentifier == null
-                || !(this as Entities.Common.TPDM.ICandidate).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
+             if ((this as Entities.Common.TPDM.ICandidate).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -811,17 +801,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidate).CandidateIdentifier != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidate).CandidateIdentifier.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidate).CandidateIdentifier.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -1698,7 +1686,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateAddress;
 
             if (ReferenceEquals(this, compareTo))
@@ -1713,30 +1700,29 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor.Equals(compareTo.AddressTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor.Equals(compareTo.AddressTypeDescriptor))
                 return false;
 
-            // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateAddress).City == null
-                || !(this as Entities.Common.TPDM.ICandidateAddress).City.Equals(compareTo.City))
-                return false;
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateAddress).PostalCode == null
-                || !(this as Entities.Common.TPDM.ICandidateAddress).PostalCode.Equals(compareTo.PostalCode))
+             if ((this as Entities.Common.TPDM.ICandidateAddress).City.Equals(compareTo.City))
                 return false;
 
-            // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor.Equals(compareTo.StateAbbreviationDescriptor))
-                return false;
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName == null
-                || !(this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName.Equals(compareTo.StreetNumberName))
+             if ((this as Entities.Common.TPDM.ICandidateAddress).PostalCode.Equals(compareTo.PostalCode))
                 return false;
-            #pragma warning disable 472
+
+
+            // Standard Property
+             if ((this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor.Equals(compareTo.StateAbbreviationDescriptor))
+                return false;
+
+
+            // Standard Property
+             if ((this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName.Equals(compareTo.StreetNumberName))
+                return false;
+
 
             return true;
         }
@@ -1749,7 +1735,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -1758,27 +1743,26 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidate.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateAddress).City != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).City.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).City.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateAddress).PostalCode != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).PostalCode.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).PostalCode.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2099,7 +2083,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateAddressPeriod;
 
             if (ReferenceEquals(this, compareTo))
@@ -2114,10 +2097,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate == null
-                || !(this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate.Equals(compareTo.BeginDate))
+             if ((this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate.Equals(compareTo.BeginDate))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2130,7 +2112,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -2139,11 +2120,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidateAddress.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2346,7 +2326,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateDisability;
 
             if (ReferenceEquals(this, compareTo))
@@ -2361,10 +2340,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor.Equals(compareTo.DisabilityDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor.Equals(compareTo.DisabilityDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2377,7 +2355,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -2386,11 +2363,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidate.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2663,7 +2639,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateDisabilityDesignation;
 
             if (ReferenceEquals(this, compareTo))
@@ -2678,10 +2653,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor.Equals(compareTo.DisabilityDesignationDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor.Equals(compareTo.DisabilityDesignationDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2694,7 +2668,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -2703,11 +2676,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidateDisability.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -2905,7 +2877,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateElectronicMail;
 
             if (ReferenceEquals(this, compareTo))
@@ -2920,15 +2891,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress == null
-                || !(this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress.Equals(compareTo.ElectronicMailAddress))
+             if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress.Equals(compareTo.ElectronicMailAddress))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor.Equals(compareTo.ElectronicMailTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor.Equals(compareTo.ElectronicMailTypeDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -2941,7 +2911,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -2950,15 +2919,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidate.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -3169,7 +3137,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateLanguage;
 
             if (ReferenceEquals(this, compareTo))
@@ -3184,10 +3151,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor.Equals(compareTo.LanguageDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor.Equals(compareTo.LanguageDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -3200,7 +3166,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -3209,11 +3174,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidate.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -3462,7 +3426,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateLanguageUse;
 
             if (ReferenceEquals(this, compareTo))
@@ -3477,10 +3440,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor.Equals(compareTo.LanguageUseDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor.Equals(compareTo.LanguageUseDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -3493,7 +3455,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -3502,11 +3463,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidateLanguage.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -3697,7 +3657,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateOtherName;
 
             if (ReferenceEquals(this, compareTo))
@@ -3712,10 +3671,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor.Equals(compareTo.OtherNameTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor.Equals(compareTo.OtherNameTypeDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -3728,7 +3686,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -3737,11 +3694,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidate.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -3979,7 +3935,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument;
 
             if (ReferenceEquals(this, compareTo))
@@ -3994,15 +3949,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor.Equals(compareTo.IdentificationDocumentUseDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor.Equals(compareTo.IdentificationDocumentUseDescriptor))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor.Equals(compareTo.PersonalInformationVerificationDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor.Equals(compareTo.PersonalInformationVerificationDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -4015,7 +3969,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -4024,15 +3977,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidate.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -4263,7 +4215,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateRace;
 
             if (ReferenceEquals(this, compareTo))
@@ -4278,10 +4229,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor.Equals(compareTo.RaceDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor.Equals(compareTo.RaceDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -4294,7 +4244,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -4303,11 +4252,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidate.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -4505,7 +4453,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateTelephone;
 
             if (ReferenceEquals(this, compareTo))
@@ -4520,15 +4467,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber == null
-                || !(this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber))
+             if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber.Equals(compareTo.TelephoneNumber))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor.Equals(compareTo.TelephoneNumberTypeDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -4541,7 +4487,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -4550,15 +4495,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
                     hash = hash * 23 + _candidate.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -5025,7 +4969,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -5036,30 +4979,29 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate == null
-                || !(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
+             if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier == null
-                || !(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier.Equals(compareTo.CandidateIdentifier))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName == null
-                || !(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName.Equals(compareTo.ProgramName))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor == null
-                ||!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -5072,33 +5014,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -5511,7 +5448,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear;
 
             if (ReferenceEquals(this, compareTo))
@@ -5526,15 +5462,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor == null
-                || !(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor.Equals(compareTo.CohortYearTypeDescriptor))
+             if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor.Equals(compareTo.CohortYearTypeDescriptor))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear == null
-                || !(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -5547,7 +5482,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -5556,15 +5490,13 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
                     hash = hash * 23 + _candidateEducatorPreparationProgramAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -5770,7 +5702,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization;
 
             if (ReferenceEquals(this, compareTo))
@@ -5785,10 +5716,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization == null
-                || !(this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization.Equals(compareTo.MajorSpecialization))
+             if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization.Equals(compareTo.MajorSpecialization))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -5801,7 +5731,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -5810,11 +5739,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
                     hash = hash * 23 + _candidateEducatorPreparationProgramAssociation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -6021,7 +5949,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICertificationRouteDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -6032,10 +5959,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId == null
-                || !(this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId.Equals(compareTo.CertificationRouteDescriptorId))
+            if (!(this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId.Equals(compareTo.CertificationRouteDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -6048,17 +5974,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -6309,7 +6233,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -6320,10 +6243,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId == null
-                || !(this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId.Equals(compareTo.CoteachingStyleObservedDescriptorId))
+            if (!(this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId.Equals(compareTo.CoteachingStyleObservedDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -6336,17 +6258,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -6632,7 +6552,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICredentialExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -6645,7 +6564,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
             if (_credential == null || !_credential.Equals(compareTo.Credential))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -6658,7 +6576,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -6667,7 +6584,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
                     hash = hash * 23 + _credential.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -7152,7 +7068,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICredentialStudentAcademicRecord;
 
             if (ReferenceEquals(this, compareTo))
@@ -7167,25 +7082,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear == null
-                || !(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear.Equals(compareTo.SchoolYear))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId == null
-                || !(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor == null
-                ||!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -7198,7 +7112,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -7207,23 +7120,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
                     hash = hash * 23 + _credentialExtension.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -7428,7 +7337,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ICredentialStatusDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -7439,10 +7347,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId == null
-                || !(this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId.Equals(compareTo.CredentialStatusDescriptorId))
+            if (!(this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId.Equals(compareTo.CredentialStatusDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -7455,17 +7362,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -7865,7 +7770,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEducatorPreparationProgram;
 
             if (ReferenceEquals(this, compareTo))
@@ -7876,20 +7780,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
-            // Standard Property
-            if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName == null
-                || !(this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName.Equals(compareTo.ProgramName))
-                return false;
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor == null
-                || !(this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+             if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName.Equals(compareTo.ProgramName))
                 return false;
-            #pragma warning disable 472
+
+
+            // Standard Property
+             if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor.Equals(compareTo.ProgramTypeDescriptor))
+                return false;
+
 
             return true;
         }
@@ -7902,25 +7805,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -8203,7 +8103,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel;
 
             if (ReferenceEquals(this, compareTo))
@@ -8218,10 +8117,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor == null
-                || !(this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -8234,7 +8132,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -8243,11 +8140,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
                     hash = hash * 23 + _educatorPreparationProgram.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -8438,7 +8334,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEducatorRoleDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -8449,10 +8344,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId == null
-                || !(this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId.Equals(compareTo.EducatorRoleDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId.Equals(compareTo.EducatorRoleDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -8465,17 +8359,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -8726,7 +8618,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEnglishLanguageExamDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -8737,10 +8628,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId == null
-                || !(this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId.Equals(compareTo.EnglishLanguageExamDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId.Equals(compareTo.EnglishLanguageExamDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -8753,17 +8643,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -9014,7 +8902,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEPPProgramPathwayDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -9025,10 +8912,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId == null
-                || !(this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId.Equals(compareTo.EPPProgramPathwayDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId.Equals(compareTo.EPPProgramPathwayDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -9041,17 +8927,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -9569,7 +9453,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluation;
 
             if (ReferenceEquals(this, compareTo))
@@ -9580,40 +9463,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
+
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
+
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluation).EvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluation).EvaluationTitle.Equals(compareTo.EvaluationTitle))
+             if ((this as Entities.Common.TPDM.IEvaluation).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
+
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluation).SchoolYear == null
-                || !(this as Entities.Common.TPDM.IEvaluation).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluation).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
+
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluation).TermDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -9626,41 +9508,36 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluation).EvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).EvaluationTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).EvaluationTitle.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluation).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).SchoolYear.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluation).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).TermDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -9967,7 +9844,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingLevel;
 
             if (ReferenceEquals(this, compareTo))
@@ -9982,10 +9858,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor == null
-                || !(this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -9998,7 +9873,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -10007,11 +9881,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
                     hash = hash * 23 + _evaluation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -10541,7 +10414,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationElement;
 
             if (ReferenceEquals(this, compareTo))
@@ -10552,50 +10424,49 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
+
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
                 return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle.Equals(compareTo.EvaluationTitle))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElement).SchoolYear == null
-                || !(this as Entities.Common.TPDM.IEvaluationElement).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
+
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -10608,49 +10479,42 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElement).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).SchoolYear.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -10949,7 +10813,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationElementRatingLevel;
 
             if (ReferenceEquals(this, compareTo))
@@ -10964,10 +10827,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -10980,7 +10842,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -10989,11 +10850,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
                     hash = hash * 23 + _evaluationElement.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -11676,7 +11536,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationElementRating;
 
             if (ReferenceEquals(this, compareTo))
@@ -11687,65 +11546,64 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate.Equals(compareTo.EvaluationDate))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate.Equals(compareTo.EvaluationDate))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).PersonId == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRating).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).PersonId.Equals(compareTo.PersonId))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
-            // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
-                return false;
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
-            #pragma warning disable 472
+
+
+            // Unified Type Property
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+                return false;
+
 
             return true;
         }
@@ -11758,61 +11616,51 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).PersonId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).PersonId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).PersonId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor.GetHashCode();
+
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -12356,7 +12204,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationElementRatingResult;
 
             if (ReferenceEquals(this, compareTo))
@@ -12371,15 +12218,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating.Equals(compareTo.Rating))
+             if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -12392,7 +12238,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -12401,15 +12246,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
                     hash = hash * 23 + _evaluationElementRating.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -12608,7 +12452,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -12619,10 +12462,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId == null
-                || !(this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId.Equals(compareTo.EvaluationElementRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId.Equals(compareTo.EvaluationElementRatingLevelDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -12635,17 +12477,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -13191,7 +13031,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationObjective;
 
             if (ReferenceEquals(this, compareTo))
@@ -13202,45 +13041,44 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
+
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
                 return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle.Equals(compareTo.EvaluationTitle))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
+
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -13253,45 +13091,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle.GetHashCode();
+
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -13598,7 +13430,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel;
 
             if (ReferenceEquals(this, compareTo))
@@ -13613,10 +13444,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -13629,7 +13459,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -13638,11 +13467,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
                     hash = hash * 23 + _evaluationObjective.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -14293,7 +14121,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationObjectiveRating;
 
             if (ReferenceEquals(this, compareTo))
@@ -14304,60 +14131,59 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate.Equals(compareTo.EvaluationDate))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate.Equals(compareTo.EvaluationDate))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId.Equals(compareTo.PersonId))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
-            // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
-                return false;
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
-            #pragma warning disable 472
+
+
+            // Unified Type Property
+            if (!(this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+                return false;
+
 
             return true;
         }
@@ -14370,57 +14196,48 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor.GetHashCode();
+
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -14913,7 +14730,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationObjectiveRatingResult;
 
             if (ReferenceEquals(this, compareTo))
@@ -14928,15 +14744,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating.Equals(compareTo.Rating))
+             if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -14949,7 +14764,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -14958,15 +14772,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
                     hash = hash * 23 + _evaluationObjectiveRating.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -15165,7 +14978,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationPeriodDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -15176,10 +14988,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId == null
-                || !(this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId.Equals(compareTo.EvaluationPeriodDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId.Equals(compareTo.EvaluationPeriodDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -15192,17 +15003,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -15884,7 +15693,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationRating;
 
             if (ReferenceEquals(this, compareTo))
@@ -15895,55 +15703,54 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
+
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate == null
-                || !(this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate.Equals(compareTo.EvaluationDate))
+             if ((this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate.Equals(compareTo.EvaluationDate))
                 return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).PersonId == null
-                || !(this as Entities.Common.TPDM.IEvaluationRating).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).PersonId.Equals(compareTo.PersonId))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).SchoolYear == null
-                || !(this as Entities.Common.TPDM.IEvaluationRating).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
-            // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
-                return false;
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor == null
-                ||!(this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
-            #pragma warning disable 472
+
+
+            // Unified Type Property
+            if (!(this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+                return false;
+
 
             return true;
         }
@@ -15956,53 +15763,46 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate.GetHashCode();
+
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).PersonId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).PersonId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).PersonId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).SchoolYear.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor.GetHashCode();
+
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -16652,7 +16452,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingResult;
 
             if (ReferenceEquals(this, compareTo))
@@ -16667,15 +16466,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationRatingResult).Rating == null
-                || !(this as Entities.Common.TPDM.IEvaluationRatingResult).Rating.Equals(compareTo.Rating))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle == null
-                || !(this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -16688,7 +16486,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -16697,15 +16494,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                     hash = hash * 23 + _evaluationRating.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationRatingResult).Rating != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingResult).Rating.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingResult).Rating.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -16944,7 +16740,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingReviewer;
 
             if (ReferenceEquals(this, compareTo))
@@ -16959,15 +16754,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName == null
-                || !(this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname == null
-                || !(this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
+             if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -16980,7 +16774,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -16989,15 +16782,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                     hash = hash * 23 + _evaluationRating.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -17260,7 +17052,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingReviewerReceivedTraining;
 
             if (ReferenceEquals(this, compareTo))
@@ -17273,7 +17064,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
             if (_evaluationRatingReviewer == null || !_evaluationRatingReviewer.Equals(compareTo.EvaluationRatingReviewer))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -17286,7 +17076,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -17295,7 +17084,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
                     hash = hash * 23 + _evaluationRatingReviewer.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -17502,7 +17290,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -17513,10 +17300,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId == null
-                || !(this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId.Equals(compareTo.EvaluationRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId.Equals(compareTo.EvaluationRatingLevelDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -17529,17 +17315,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -17790,7 +17574,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -17801,10 +17584,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId == null
-                || !(this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId.Equals(compareTo.EvaluationRatingStatusDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId.Equals(compareTo.EvaluationRatingStatusDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -17817,17 +17599,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -18078,7 +17858,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IEvaluationTypeDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -18089,10 +17868,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId == null
-                || !(this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId.Equals(compareTo.EvaluationTypeDescriptorId))
+            if (!(this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId.Equals(compareTo.EvaluationTypeDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -18105,17 +17883,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -18511,7 +18287,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IFinancialAid;
 
             if (ReferenceEquals(this, compareTo))
@@ -18522,20 +18297,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor == null
-                || !(this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor.Equals(compareTo.AidTypeDescriptor))
+             if ((this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor.Equals(compareTo.AidTypeDescriptor))
                 return false;
+
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IFinancialAid).BeginDate == null
-                || !(this as Entities.Common.TPDM.IFinancialAid).BeginDate.Equals(compareTo.BeginDate))
+             if ((this as Entities.Common.TPDM.IFinancialAid).BeginDate.Equals(compareTo.BeginDate))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId == null
-                || !(this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId.Equals(compareTo.StudentUniqueId))
+            if (!(this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId.Equals(compareTo.StudentUniqueId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -18548,25 +18322,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IFinancialAid).BeginDate != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IFinancialAid).BeginDate.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IFinancialAid).BeginDate.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -18807,7 +18578,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IGenderDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -18818,10 +18588,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId == null
-                || !(this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId.Equals(compareTo.GenderDescriptorId))
+            if (!(this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId.Equals(compareTo.GenderDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -18834,17 +18603,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -19095,7 +18862,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -19106,10 +18872,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId == null
-                || !(this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId.Equals(compareTo.ObjectiveRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId.Equals(compareTo.ObjectiveRatingLevelDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -19122,17 +18887,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -19613,7 +19376,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluation;
 
             if (ReferenceEquals(this, compareTo))
@@ -19624,35 +19386,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
-            // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
-                return false;
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
+
+
+            // Standard Property
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+                return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -19665,37 +19426,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -20035,7 +19792,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel;
 
             if (ReferenceEquals(this, compareTo))
@@ -20050,10 +19806,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor.Equals(compareTo.GradeLevelDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -20066,7 +19821,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -20075,11 +19829,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
                     hash = hash * 23 + _performanceEvaluation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -20270,7 +20023,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel;
 
             if (ReferenceEquals(this, compareTo))
@@ -20285,10 +20037,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor.Equals(compareTo.EvaluationRatingLevelDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -20301,7 +20052,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -20310,11 +20060,10 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
                     hash = hash * 23 + _performanceEvaluation.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -20863,7 +20612,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRating;
 
             if (ReferenceEquals(this, compareTo))
@@ -20874,45 +20622,44 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
+
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor == null
-                ||!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
                 return false;
 
+
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor == null
-                ||!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId.Equals(compareTo.PersonId))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
-            // Unified Type Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor == null
-                ||!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
-                return false;
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor == null
-                ||!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
-            #pragma warning disable 472
+
+
+            // Unified Type Property
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor.Equals(compareTo.TermDescriptor))
+                return false;
+
 
             return true;
         }
@@ -20925,45 +20672,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor.GetHashCode();
+
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -21365,7 +21106,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingResult;
 
             if (ReferenceEquals(this, compareTo))
@@ -21380,15 +21120,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating.Equals(compareTo.Rating))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating.Equals(compareTo.Rating))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle.Equals(compareTo.RatingResultTitle))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -21401,7 +21140,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -21410,15 +21148,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
                     hash = hash * 23 + _performanceEvaluationRating.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -21657,7 +21394,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer;
 
             if (ReferenceEquals(this, compareTo))
@@ -21672,15 +21408,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName.Equals(compareTo.FirstName))
                 return false;
 
+
             // Standard Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
+             if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname.Equals(compareTo.LastSurname))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -21693,7 +21428,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -21702,15 +21436,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
                     hash = hash * 23 + _performanceEvaluationRating.GetHashCode();
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -21973,7 +21706,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewerReceivedTraining;
 
             if (ReferenceEquals(this, compareTo))
@@ -21986,7 +21718,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
             if (_performanceEvaluationRatingReviewer == null || !_performanceEvaluationRatingReviewer.Equals(compareTo.PerformanceEvaluationRatingReviewer))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -21999,7 +21730,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -22008,7 +21738,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
                     hash = hash * 23 + _performanceEvaluationRatingReviewer.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -22215,7 +21944,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -22226,10 +21954,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId.Equals(compareTo.PerformanceEvaluationRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId.Equals(compareTo.PerformanceEvaluationRatingLevelDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -22242,17 +21969,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -22503,7 +22228,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -22514,10 +22238,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId == null
-                || !(this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId.Equals(compareTo.PerformanceEvaluationTypeDescriptorId))
+            if (!(this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId.Equals(compareTo.PerformanceEvaluationTypeDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -22530,17 +22253,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -23138,7 +22859,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IRubricDimension;
 
             if (ReferenceEquals(this, compareTo))
@@ -23149,55 +22869,54 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId == null
-                || !(this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId.Equals(compareTo.EducationOrganizationId))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle == null
-                || !(this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle == null
-                || !(this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle.Equals(compareTo.EvaluationElementTitle))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle.Equals(compareTo.EvaluationObjectiveTitle))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor == null
-                ||!(this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor.Equals(compareTo.EvaluationPeriodDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle.Equals(compareTo.EvaluationTitle))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle == null
-                || !(this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle.Equals(compareTo.EvaluationTitle))
                 return false;
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle.Equals(compareTo.PerformanceEvaluationTitle))
+                return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor == null
-                ||!(this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor.Equals(compareTo.PerformanceEvaluationTypeDescriptor))
                 return false;
+
 
             // Standard Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).RubricRating == null
-                || !(this as Entities.Common.TPDM.IRubricDimension).RubricRating.Equals(compareTo.RubricRating))
+             if ((this as Entities.Common.TPDM.IRubricDimension).RubricRating.Equals(compareTo.RubricRating))
                 return false;
+
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).SchoolYear == null
-                || !(this as Entities.Common.TPDM.IRubricDimension).SchoolYear.Equals(compareTo.SchoolYear))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).SchoolYear.Equals(compareTo.SchoolYear))
                 return false;
 
+
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.IRubricDimension).TermDescriptor == null
-                ||!(this as Entities.Common.TPDM.IRubricDimension).TermDescriptor.Equals(compareTo.TermDescriptor))
+            if (!(this as Entities.Common.TPDM.IRubricDimension).TermDescriptor.Equals(compareTo.TermDescriptor))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -23210,53 +22929,45 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor.GetHashCode();
+
 
                 // Standard Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).RubricRating != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).RubricRating.GetHashCode();
+                 hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).RubricRating.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).SchoolYear != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).SchoolYear.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).SchoolYear.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.IRubricDimension).TermDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).TermDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).TermDescriptor.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -23489,7 +23200,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.IRubricRatingLevelDescriptor;
 
             if (ReferenceEquals(this, compareTo))
@@ -23500,10 +23210,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
 
 
             // Derived Property
-            if ((this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId == null
-                || !(this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId.Equals(compareTo.RubricRatingLevelDescriptorId))
+            if (!(this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId.Equals(compareTo.RubricRatingLevelDescriptorId))
                 return false;
-            #pragma warning disable 472
+
 
             return true;
         }
@@ -23516,17 +23225,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Derived Property
-                if ((this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId.GetHashCode();
+
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -23808,7 +23515,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ISchoolExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -23821,7 +23527,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
             if (_school == null || !_school.Equals(compareTo.School))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -23834,7 +23539,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -23843,7 +23547,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
                     hash = hash * 23 + _school.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -24100,7 +23803,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ISurveyResponseExtension;
 
             if (ReferenceEquals(this, compareTo))
@@ -24113,7 +23815,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
             if (_surveyResponse == null || !_surveyResponse.Equals(compareTo.SurveyResponse))
                 return false;
 
-            #pragma warning disable 472
 
             return true;
         }
@@ -24126,7 +23827,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
@@ -24135,7 +23835,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
                     hash = hash * 23 + _surveyResponse.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -24657,7 +24356,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -24668,30 +24366,29 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace == null
-                || !(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId == null
-                || !(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
                 return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor == null
-                ||!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier == null
-                || !(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier == null
-                || !(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
                 return false;
-            #pragma warning disable 472
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
+                return false;
+
 
             return true;
         }
@@ -24704,33 +24401,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
@@ -25246,7 +24937,6 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// </returns>
         public override bool Equals(object obj)
         {
-            #pragma warning disable 472
             var compareTo = obj as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation;
 
             if (ReferenceEquals(this, compareTo))
@@ -25257,35 +24947,34 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
 
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace == null
-                || !(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace.Equals(compareTo.Namespace))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId == null
-                || !(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId.Equals(compareTo.PersonId))
                 return false;
+
 
             // Unified Type Property
-            if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor == null
-                ||!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor.Equals(compareTo.SourceSystemDescriptor))
                 return false;
 
-            // Referenced Property
-            if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier == null
-                || !(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
-                return false;
 
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier == null
-                || !(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier.Equals(compareTo.SurveyIdentifier))
                 return false;
 
+
             // Referenced Property
-            if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle == null
-                || !(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle.Equals(compareTo.SurveySectionTitle))
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier.Equals(compareTo.SurveyResponseIdentifier))
                 return false;
-            #pragma warning disable 472
+
+
+            // Referenced Property
+            if (!(this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle.Equals(compareTo.SurveySectionTitle))
+                return false;
+
 
             return true;
         }
@@ -25298,37 +24987,30 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// </returns>
         public override int GetHashCode()
         {
-            #pragma warning disable 472
             unchecked
             {
                 int hash = 17;
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId.GetHashCode();
 
                 //Unified Type Property
-                if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor.GetHashCode();
+
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier.GetHashCode();
 
                 //Referenced Property
-                if ((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle != null)
-                    hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle.GetHashCode();
+                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle.GetHashCode();
                 return hash;
             }
-            #pragma warning restore 472
         }
         // -------------------------------------------------------------
 
