@@ -351,5 +351,27 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 (c, w, p, jt) => w.ApplyPropertyFilters(p, propertyName),
                 (t, p) => p.HasPropertyNamed(propertyName));
         }
+
+        private static readonly Lazy<IDictionary<string, ViewFilterApplicationDetails>> _viewFilterByName;
+
+        static RelationshipsAuthorizationFilters()
+        {
+            _viewFilterByName = new Lazy<IDictionary<string, ViewFilterApplicationDetails>>(
+                () =>
+                    typeof(RelationshipsAuthorizationFilters).GetProperties(BindingFlags.Public | BindingFlags.Static)
+                        .Select(p => new { Name = p.Name, Value = p.GetValue(null) as ViewFilterApplicationDetails })
+                        .Where(x => x.Value != null)
+                        .ToDictionary(x => x.Name, x => x.Value));
+        }
+        
+        public static ViewFilterApplicationDetails GetViewFilterApplicationDetails(string filterName)
+        {
+            if (_viewFilterByName.Value.TryGetValue(filterName, out var filter))
+            {
+                return filter;
+            }
+
+            throw new Exception($"View-based filter '{filterName}' not found.");
+        }
     }
 }
