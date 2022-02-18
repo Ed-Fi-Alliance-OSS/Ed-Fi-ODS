@@ -39,13 +39,4 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// </summary>
         public FilterOperator Operator { get; set; } = FilterOperator.And;
     }
-
-    /// <summary>
-    /// Defines possible values describing how a filter is combined with other filters.
-    /// </summary>
-    public enum FilterOperator
-    {
-        Or = 1,
-        And = 2,
-    }
 }

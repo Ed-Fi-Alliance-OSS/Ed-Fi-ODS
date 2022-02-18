@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Api.Security.Authorization;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
@@ -22,7 +21,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             if (!authorizationSegments.Any())
             {
-                return new AuthorizationFilterDetails[0];
+                return Array.Empty<AuthorizationFilterDetails>();
             }
 
             var filterByName = new Dictionary<string, AuthorizationFilterDetails>(StringComparer.InvariantCultureIgnoreCase);
@@ -39,17 +38,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         string claimEndpointName = g.Key;
 
                         // Get the name of the view to use for this segment
-                        string filterName = FilterNameHelper.GetAuthorizationFilterName(
-                            subjectEndpointName,
-                            claimEndpointName,
-                            segment.AuthorizationPathModifier);
+                        string filterName = GetAuthorizationFilterName(subjectEndpointName, segment.AuthorizationPathModifier);
 
                         return new AuthorizationFilterDetails
                         {
                             FilterName = filterName,
-                            SubjectEndpointName = subjectEndpointName,
                             ClaimEndpointName = claimEndpointName,
                             ClaimValues = g.Select(x => x.Value).Distinct().ToArray(),
+                            SubjectEndpointName = subjectEndpointName,
                         };
                     });
 
@@ -63,6 +59,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             }
 
             return filterByName.Values.ToArray();
+            
+            string GetAuthorizationFilterName(string subjectEndpointName, string authorizationPathModifier)
+            {
+                return $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{subjectEndpointName}{authorizationPathModifier}";
+            }
         }
     }
 }

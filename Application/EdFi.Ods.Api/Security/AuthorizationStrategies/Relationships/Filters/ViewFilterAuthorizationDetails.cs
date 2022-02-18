@@ -15,33 +15,30 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         public ViewFilterApplicationDetails(
             string filterName,
             string viewName,
-            string viewSourceEndpointName,
             string viewTargetEndpointName,
-            string subjectEndpointName = null)
+            string subjectEndpointName)
             : base(
                 filterName,
-                $@"{subjectEndpointName ?? viewTargetEndpointName} IN (
+                $@"{subjectEndpointName} IN (
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM auth.{viewName} {{newAlias1}} 
-                    WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:SourceEducationOrganizationId))", // TODO: Rename to :ClaimEducationOrganizationIds 
-                $@"{{currentAlias}}.{subjectEndpointName ?? viewTargetEndpointName} IN (
+                    WHERE {{newAlias1}}.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))", 
+                $@"{{currentAlias}}.{subjectEndpointName} IN (
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM " + GetFullNameForView($"auth_{viewName}") + $@" {{newAlias1}} 
-                    WHERE {{newAlias1}}.{viewSourceEndpointName} IN (:ClaimEducationOrganizationIds))",
+                    WHERE {{newAlias1}}.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
                 (c, w, p, jt) => c.ApplyJoinFilter(
                     w,
                     p,
                     viewName,
-                    subjectEndpointName ?? viewTargetEndpointName,
+                    subjectEndpointName,
                     viewTargetEndpointName,
-                    viewSourceEndpointName,
                     jt,
                     Guid.NewGuid().ToString("N")),
                 (t, p) => p.HasPropertyNamed(subjectEndpointName ?? viewTargetEndpointName))
         {
             FilterName = filterName;
             ViewName = viewName;
-            ViewSourceEndpointName = viewSourceEndpointName;
             ViewTargetEndpointName = viewTargetEndpointName;
             SubjectEndpointName = subjectEndpointName ?? viewTargetEndpointName;
         }
@@ -49,8 +46,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         public string FilterName { get; }
 
         public string ViewName { get; }
-
-        public string ViewSourceEndpointName { get; }
 
         public string ViewTargetEndpointName { get; }
 

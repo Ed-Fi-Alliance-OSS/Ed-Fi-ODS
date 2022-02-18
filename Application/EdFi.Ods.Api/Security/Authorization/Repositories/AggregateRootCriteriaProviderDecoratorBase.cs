@@ -12,6 +12,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
@@ -165,8 +166,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         // Make claim values available under various names used by different contexts (NOTE: long term goal would be to eliminate this variation) 
                         var parameterValues = new Dictionary<string, object>
                         {
-                            {"SourceEducationOrganizationId", filterDetails.ClaimValues},
-                            {filterDetails.ClaimEndpointName, filterDetails.ClaimValues},
+                            {RelationshipAuthorizationConventions.ClaimsParameterName, filterDetails.ClaimValues},
                         };
 
                         // Apply the authorization strategy filter
