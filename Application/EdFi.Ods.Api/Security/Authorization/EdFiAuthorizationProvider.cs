@@ -34,7 +34,6 @@ namespace EdFi.Ods.Api.Security.Authorization
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(EdFiAuthorizationProvider));
         private readonly IResourceAuthorizationMetadataProvider _resourceAuthorizationMetadataProvider;
-        private readonly ISecurityRepository _securityRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EdFiAuthorizationProvider"/> class using the specified
@@ -50,18 +49,12 @@ namespace EdFi.Ods.Api.Security.Authorization
             ISecurityRepository securityRepository,
             IExplicitObjectValidator[] explicitObjectValidators)
         {
-            if (resourceAuthorizationMetadataProvider == null)
-            {
-                throw new ArgumentNullException("resourceAuthorizationMetadataProvider");
-            }
-
             if (securityRepository == null)
             {
-                throw new ArgumentNullException("securityRepository");
+                throw new ArgumentNullException(nameof(securityRepository));
             }
 
-            _resourceAuthorizationMetadataProvider = resourceAuthorizationMetadataProvider;
-            _securityRepository = securityRepository;
+            _resourceAuthorizationMetadataProvider = resourceAuthorizationMetadataProvider ?? throw new ArgumentNullException(nameof(resourceAuthorizationMetadataProvider));
             _explicitObjectValidators = explicitObjectValidators;
 
             _authorizationStrategyByName = CreateAuthorizationStrategyByNameDictionary(authorizationStrategies);
@@ -69,28 +62,12 @@ namespace EdFi.Ods.Api.Security.Authorization
             // Lazy initialization
             _bitValuesByAction = new Lazy<Dictionary<string, int>>(
                 () => new Dictionary<string, int>
-                      {
-                          {
-                              _securityRepository.GetActionByName("Create")
-                                                 .ActionUri,
-                              0x1
-                          },
-                          {
-                              _securityRepository.GetActionByName("Read")
-                                                 .ActionUri,
-                              0x2
-                          },
-                          {
-                              _securityRepository.GetActionByName("Update")
-                                                 .ActionUri,
-                              0x4
-                          },
-                          {
-                              _securityRepository.GetActionByName("Delete")
-                                                 .ActionUri,
-                              0x8
-                          }
-                      });
+                {
+                    { securityRepository.GetActionByName("Create").ActionUri, 0x1 },
+                    { securityRepository.GetActionByName("Read").ActionUri, 0x2 },
+                    { securityRepository.GetActionByName("Update").ActionUri, 0x4 },
+                    { securityRepository.GetActionByName("Delete").ActionUri, 0x8 }
+                });
         }
 
         /// <summary>
@@ -241,8 +218,7 @@ namespace EdFi.Ods.Api.Security.Authorization
 
         private bool IsCreateUpdateOrDelete(EdFiAuthorizationContext authorizationContext)
         {
-            return (_bitValuesByAction.Value[authorizationContext.Action.Single()
-                                                                 .Value] & 13) != 0;
+            return (_bitValuesByAction.Value[authorizationContext.Action.Single().Value] & 13) != 0;
         }
 
         /// <summary>
