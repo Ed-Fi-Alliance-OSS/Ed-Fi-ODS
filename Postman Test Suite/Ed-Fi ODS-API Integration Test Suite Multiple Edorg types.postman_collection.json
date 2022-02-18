@@ -2460,8 +2460,6 @@
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
 											"});",
-											"/* ODS-5275 for Multiple authorization strategy support breaks the existing multiple EdOrg type implementation for this test.",
-											"   ODS-5301 will introduce additional auth simplification around EdOrgToEdOrg table and fix this functionality. ",
 											"",
 											"const __ = require('lodash');",
 											"const responseItems = pm.response.json();",
@@ -2486,8 +2484,7 @@
 											"      __.each(responseItems, (responseItem) => {                ",
 											"       pm.expect(responseItem.studentReference.studentUniqueId).to.equal(pm.environment.get('supplied:'+scenarioId+':StudentUniqueId'));",
 											"     });",
-											"});",
-											" */"
+											"});"
 										],
 										"type": "text/javascript"
 									}
