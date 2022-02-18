@@ -136,7 +136,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             {
                 _actualFilters.Count.ShouldBe(1);
 
-                _actualFilters.Single().FilterName.ShouldBe("LocalEducationAgencyIdToSchoolId");
+                _actualFilters.Single().FilterName.ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToSchoolId");
             }
 
             [Assert]
@@ -196,7 +196,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 _actualFilters.Count.ShouldBe(1);
 
                 _actualFilters.Single().FilterName
-                    .ShouldBe("LocalEducationAgencyIdToStudentUSIOverTheRiverAndThroughTheWoods");
+                    .ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToStudentUSIOverTheRiverAndThroughTheWoods");
             }
 
             [Assert]
@@ -260,7 +260,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             [Assert]
             public void Should_return_filters_for_each_associated_EdOrg_type()
             {
-                _actualFilters[0].FilterName.ShouldBe("LocalEducationAgencyIdToSchoolId");
+                _actualFilters[0].FilterName.ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToSchoolId");
                 _actualFilters[0].ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
                 _actualFilters[0].SubjectEndpointName.ShouldBe("SchoolId");
                 _actualFilters[0].ClaimValues.ShouldBe(new object[] {999});
@@ -299,7 +299,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 _actualFilters.Count.ShouldBe(1);
 
                 _actualFilters.Single().FilterName
-                    .ShouldBe("LocalEducationAgencyIdToLocalEducationAgencyId");
+                    .ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToLocalEducationAgencyId");
             }
 
             [Assert]
