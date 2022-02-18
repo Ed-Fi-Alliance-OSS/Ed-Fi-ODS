@@ -11,26 +11,80 @@ namespace EdFi.Ods.Common.Models.Domain
     /// <summary>
     /// Represents the fully qualified name that includes a schema and an object name.
     /// </summary>
-    public struct FullName : IComparable<FullName>, IEquatable<FullName>
+    public readonly struct FullName : IComparable<FullName>, IEquatable<FullName>
     {
+        private readonly int _hashCode;
+        private readonly string _asLowerCase;
+        private readonly string _toString;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FullName" /> class using the supplied schema and name.
+        /// </summary>
+        /// <param name="schema">The schema portion of the full name.</param>
+        /// <param name="name">The name portion of the full name.</param>
+        [JsonConstructor]
         public FullName(string schema, string name)
             : this()
         {
             Schema = schema;
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            
+            var schemaSegment = Schema != null
+                ? $"{Schema}."
+                : string.Empty;
+
+            _toString = $"{schemaSegment}{Name}";
+            _asLowerCase = _toString.ToLower();
+            _hashCode = _asLowerCase.GetHashCode();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FullName" /> class using the supplied fully-qualified name in the format of <i>{schema}.{name}</i>.
+        /// </summary>
+        /// <param name="fullyQualifiedName">The fully-qualified name in the format of <i>{schema}.{name}</i>.</param>
+        public FullName(string fullyQualifiedName)
+            : this()
+        {
+            var parts = fullyQualifiedName.Split('.', 2);
+
+            if (parts.Length != 2)
+            {
+                throw new ArgumentException($"{nameof(fullyQualifiedName)} parameter is expected to be in the format of '{{schema}}.{{name}}'.");
+            }
+
+            if (string.IsNullOrEmpty(parts[0]))
+            {
+                throw new ArgumentException($"Schema portion of {nameof(fullyQualifiedName)} must contain a value.");
+            }
+            
+            if (string.IsNullOrEmpty(parts[1]))
+            {
+                throw new ArgumentException($"Name portion of {nameof(fullyQualifiedName)} must contain a value.");
+            }
+
+            Schema = parts[0];
+            Name = parts[1];
+            
+            var schemaSegment = Schema != null
+                ? $"{Schema}."
+                : string.Empty;
+
+            _toString = $"{schemaSegment}{Name}";
+            _asLowerCase = _toString.ToLower();
+            _hashCode = _asLowerCase.GetHashCode();
         }
 
         /// <summary>
         /// Gets the name of the schema.
         /// </summary>
         [JsonProperty]
-        public string Schema { get; private set; }
+        public string Schema { get; }
 
         /// <summary>
         /// Gets the name of the object.
         /// </summary>
         [JsonProperty]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         /// <summary>
         /// Compares the current object with another object of the same type.
@@ -41,24 +95,32 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <param name="other">An object to compare with this object.</param>
         public int CompareTo(FullName other)
         {
-            int schemaCompareResult = string.Compare(Schema, other.Schema, StringComparison.InvariantCultureIgnoreCase);
-
-            if (schemaCompareResult != 0)
-            {
-                return schemaCompareResult;
-            }
-
-            return string.Compare(Name, other.Name, StringComparison.InvariantCultureIgnoreCase);
+            // ReSharper disable once StringCompareIsCultureSpecific.1
+            return string.Compare(_asLowerCase, other._asLowerCase);
         }
 
         public static bool operator ==(FullName first, FullName second)
         {
-            return first.CompareTo(second) == 0;
+            if (first._hashCode != second._hashCode)
+            {
+                return false;
+            }
+
+            try
+            {
+                return first._asLowerCase.Equals(second._asLowerCase);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+
+                throw;
+            }
         }
 
         public static bool operator !=(FullName first, FullName second)
         {
-            return first.CompareTo(second) != 0;
+            return first._hashCode != second._hashCode;
         }
 
         /// <summary>
@@ -98,9 +160,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </returns>
         public override int GetHashCode()
         {
-            return ToString()
-                  .ToLower()
-                  .GetHashCode();
+            return _hashCode;
         }
 
         /// <summary>
@@ -111,11 +171,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </returns>
         public override string ToString()
         {
-            var schemaSegment = Schema != null
-                ? $"{Schema}."
-                : string.Empty;
-
-            return $"{schemaSegment}{Name}";
+            return _toString;
         }
     }
 }
