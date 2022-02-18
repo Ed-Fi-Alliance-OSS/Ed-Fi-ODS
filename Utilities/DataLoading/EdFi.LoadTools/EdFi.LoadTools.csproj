@@ -26,11 +26,19 @@
     <PackageReference Include="EdFi.Suite3.Common" Version="5.4.9" />
     <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
     <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
+    <PackageReference Include="JsonSubTypes" Version="1.8.0" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.10" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.10" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Polly" Version="7.2.2" />
+    <PackageReference Include="RestSharp" Version="106.13.0" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EdFi.OdsApi.Sdk">
+      <HintPath>..\..\SdkGen\EdFi.SdkGen.Console\bin\Debug\netcoreapp3.1\csharp-netcore\src\EdFi.OdsApi.Sdk\bin\Debug\netstandard2.0\EdFi.OdsApi.Sdk.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

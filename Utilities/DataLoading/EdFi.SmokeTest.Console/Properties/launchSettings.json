@@ -3,7 +3,7 @@
   "profiles": {
     "EdFi.SmokeTests.Console": {
       "commandName": "Project",
-      "commandLineArgs": "-k QyNmM0uDkvKcWtrU4RXLa -s WkHPCr4cGuBXK6zxIMib7 -b \"http://localhost:54746\"  -t NonDestructiveApi"
+      "commandLineArgs": "-k 1QyxNdlnYF2E4kX0oP6eM -s IAuoLrTSFtvnacUVYG0D7 -b \"http://localhost:54746\"  -t DestructiveSdk -l \"C:\\OSS-Workspace\\Ed-Fi-ODS\\Utilities\\SdkGen\\EdFi.SdkGen.Console\\bin\\Debug\\netcoreapp3.1\\csharp-netcore\\src\\EdFi.OdsApi.Sdk\\bin\\Debug\\netstandard2.0\\EdFi.OdsApi.Sdk.dll"
     }
   }
 }

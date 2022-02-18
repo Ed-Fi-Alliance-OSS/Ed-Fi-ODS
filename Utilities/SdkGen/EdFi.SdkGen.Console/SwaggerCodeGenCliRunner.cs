@@ -52,7 +52,7 @@ namespace EdFi.SdkGen.Console
 
         private void RunCliCodegen(IEnumerable<SwaggerDetail> apiEndpoints)
         {
-            Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "csharp"));
+            Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "csharp-netcore"));
 
             foreach (var apiEndpoint in apiEndpoints)
             {
@@ -73,14 +73,10 @@ namespace EdFi.SdkGen.Console
                 // code-gen paramaters
                 string[] @params =
                 {
-                    //$"-jar {_options.CliExecutableFullName()}", "generate", "-l csharp", $"-i {apiEndpoint.EndpointUri}",
-                    //$"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
-                    //$"--additional-properties packageName={_options.Namespace},targetFramework=v5.0,netCoreProjectFile=true", "-DmodelTests=false -DapiTests=false",
-                    //"-Dhttps.protocols=TLSv1.2"
 
-                    $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp", $"-i {apiEndpoint.EndpointUri}",
+                    $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp-netcore", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
-                    $"--additional-properties packageName={_options.Namespace},targetFramework=v5.0,netCoreProjectFile=true"
+                    $"--additional-properties packageName={_options.Namespace},targetFramework=netstandard2.0,netCoreProjectFile=true"
                 };
 
                 _log.Info($"Generating C# SDK for {apiEndpoint.EndpointUri}");
