@@ -133,6 +133,10 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             builder.RegisterGeneric(typeof(SetAuthorizationContextForPost<,,,>))
                 .AsSelf()
                 .SingleInstance();
+            
+            builder.RegisterType<EducationOrganizationIdNamesProvider>()
+                .As<IEducationOrganizationIdNamesProvider>()
+                .SingleInstance();
         }
     }
 }

@@ -5,6 +5,7 @@
 
 using Autofac;
 using EdFi.Ods.Api.Providers;
+using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
@@ -59,10 +60,6 @@ namespace EdFi.Ods.Features.Container.Modules
 
             builder.RegisterType<CompositesRouteConvention>()
                 .As<IApplicationModelConvention>()
-                .SingleInstance();
-
-            builder.RegisterType<ConcreteEducationOrganizationIdNamesProvider>()
-                .As<IConcreteEducationOrganizationIdNamesProvider>()
                 .SingleInstance();
         }
     }

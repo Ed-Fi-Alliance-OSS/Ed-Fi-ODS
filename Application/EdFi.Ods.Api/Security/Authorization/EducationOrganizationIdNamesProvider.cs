@@ -9,13 +9,13 @@ using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 
-namespace EdFi.Ods.Features.Composites
+namespace EdFi.Ods.Api.Security.Authorization
 {
-    public class ConcreteEducationOrganizationIdNamesProvider : IConcreteEducationOrganizationIdNamesProvider
+    public class EducationOrganizationIdNamesProvider : IEducationOrganizationIdNamesProvider
     {
         private readonly Lazy<string[]> _concreteEducationOrganizationIdNames;
 
-        public ConcreteEducationOrganizationIdNamesProvider(IDomainModelProvider domainModelProvider)
+        public EducationOrganizationIdNamesProvider(IDomainModelProvider domainModelProvider)
         {
             _concreteEducationOrganizationIdNames = new Lazy<string[]>(
                 () =>
@@ -29,8 +29,14 @@ namespace EdFi.Ods.Features.Composites
                 });
         }
 
-        /// <inheritdoc cref="IConcreteEducationOrganizationIdNamesProvider.GetNames" />
-        public string[] GetNames()
+        /// <inheritdoc cref="IEducationOrganizationIdNamesProvider.GetAllNames" />
+        public string[] GetAllNames()
+        {
+            return new[] { "EducationOrganizationId" }.Concat(_concreteEducationOrganizationIdNames.Value).ToArray();
+        }
+
+        /// <inheritdoc cref="IEducationOrganizationIdNamesProvider.GetConcreteNames" />
+        public string[] GetConcreteNames()
         {
             return _concreteEducationOrganizationIdNames.Value;
         }
