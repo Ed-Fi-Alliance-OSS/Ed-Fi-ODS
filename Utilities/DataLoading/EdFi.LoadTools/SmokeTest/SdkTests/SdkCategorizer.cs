@@ -21,10 +21,10 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
 
         public SdkCategorizer(ISdkLibraryFactory sdkLibraryFactory)
         {
-            _apiTypes = sdkLibraryFactory.SdkLibrary.GetExportedTypes().Where(
+               _apiTypes = sdkLibraryFactory.SdkLibrary.GetExportedTypes().Where(
                                               x => x.Namespace != null
                                                    && !x.IsInterface
-                                                   && x.Namespace.Contains("Apis.All")
+                                                   && x.Namespace.Contains("Apis.Ed_Fi")
                                                    && !x.Name.Contains("TypesApi"))
                                          .ToArray();
 
@@ -32,7 +32,7 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 x => x.Namespace != null
                      && !x.IsInterface
                      && x.Namespace.Contains(
-                         "Models.All")).ToArray();
+                         "Models.Ed_Fi")).ToArray();
         }
 
         public IEnumerable<Type> ApiTypes => _apiTypes;

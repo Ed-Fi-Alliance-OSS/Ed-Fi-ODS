@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using EdFi.LoadTools.Engine;
 using log4net;
@@ -63,6 +64,13 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
                 }
 
                 var @params = GetParams(methodInfo);
+
+                var EdFiPersonObject = new OdsApi.Sdk.Models.Ed_Fi.EdFiPerson(null, "344353", "uri://ed-fi.org/SourceSystemDescriptor#State", null, null);
+
+                if (@params[0] != null)
+                {
+                    @params[0] = EdFiPersonObject;
+                }
 
                 if (@params == null)
                 {
@@ -139,9 +147,11 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             var getByIdMethod = ResourceApi.GetByIdMethod;
             var id = Path.GetFileName(resourceUri.ToString());
 
+            //GetPeopleByIdWithHttpInfo(string id, string ifNoneMatch = default(string), string snapshotIdentifier = default(string))
             var @params = new object[]
             {
                 id,
+                string.Empty,
                 string.Empty
             };
 
