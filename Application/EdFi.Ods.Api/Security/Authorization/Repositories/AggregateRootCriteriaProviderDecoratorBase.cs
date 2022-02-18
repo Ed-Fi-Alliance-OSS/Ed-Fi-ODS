@@ -33,6 +33,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IFilterCriteriaApplicatorProvider _authorizationCriteriaApplicatorProvider;
         private readonly IFilterApplicationDetailsProvider _filterApplicationDetailsProvider;
+        private readonly Lazy<List<string>> _sortedEducationOrganizationIdNames;
 
         private readonly ILog _logger;
 
@@ -40,12 +41,23 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IAggregateRootCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider,
-            IFilterApplicationDetailsProvider filterApplicationDetailsProvider)
+            IFilterApplicationDetailsProvider filterApplicationDetailsProvider,
+            IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
         {
             _decoratedInstance = decoratedInstance;
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
             _authorizationCriteriaApplicatorProvider = authorizationCriteriaApplicatorProvider;
             _filterApplicationDetailsProvider = filterApplicationDetailsProvider;
+
+            _sortedEducationOrganizationIdNames =
+                new Lazy<List<string>>(
+                    () =>
+                    {
+                        var sortedEdOrgNames = new List<string>(educationOrganizationIdNamesProvider.GetAllNames());
+                        sortedEdOrgNames.Sort();
+
+                        return sortedEdOrgNames;
+                    });
 
             // Log entries for the concrete type
             _logger = LogManager.GetLogger(GetType());
@@ -163,11 +175,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        // Make claim values available under various names used by different contexts (NOTE: long term goal would be to eliminate this variation) 
-                        var parameterValues = new Dictionary<string, object>
-                        {
-                            {RelationshipAuthorizationConventions.ClaimsParameterName, filterDetails.ClaimValues},
-                        };
+                        var parameterValues = CreateParameterValuesFromClaims(filterDetails);
 
                         // Apply the authorization strategy filter
                         applicator(criteria, conjunction, parameterValues, joinType);
@@ -203,12 +211,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        // Make claim values available under various names used by different contexts (NOTE: long term goal would be to eliminate this variation) 
-                        var parameterValues = new Dictionary<string, object>
-                        {
-                            { "SourceEducationOrganizationId", filterDetails.ClaimValues },
-                            { filterDetails.ClaimEndpointName, filterDetails.ClaimValues },
-                        };
+                        var parameterValues = CreateParameterValuesFromClaims(filterDetails);
 
                         // Apply the authorization strategy filter
                         applicator( criteria, disjunction, parameterValues, joinType);
@@ -267,6 +270,26 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource ('{typeof(TEntity).Name}').");
                 }
             }
+        }
+
+        private Dictionary<string, object> CreateParameterValuesFromClaims(AuthorizationFilterDetails filterDetails)
+        {
+            string parameterName;
+
+            // Convert any concrete EdOrg claim endpoint to the parameter name used for all edOrgIds, by convention
+            if (_sortedEducationOrganizationIdNames.Value.BinarySearch(filterDetails.ClaimEndpointName) >= 0)
+            {
+                parameterName = RelationshipAuthorizationConventions.ClaimsParameterName;
+            }
+            else
+            {
+                parameterName = filterDetails.ClaimEndpointName;
+            }
+            
+            return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase)
+            {
+                { parameterName, filterDetails.ClaimValues }
+            };
         }
     }
 }
