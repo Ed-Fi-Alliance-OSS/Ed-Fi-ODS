@@ -15,6 +15,6 @@
     <file src="../../../LICENSE.txt" />
     <file src="Artifacts/**/*.json" target="."/>
     <file src="Artifacts/**/*.sql" target="."/>
-    <file src="bin\$configuration$\netcoreapp3.1\EdFi.Ods.Extensions.SampleStudentTransportation.dll" target="."/>
+    <file src="bin\$configuration$\net6.0\EdFi.Ods.Extensions.SampleStudentTransportation.dll" target="."/>
   </files>
 </package>

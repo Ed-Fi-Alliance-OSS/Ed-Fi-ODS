@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>EdFi.Ods.Extensions.SampleStudentTransportation</AssemblyName>
     <RootNamespace>EdFi.Ods.Extensions.SampleStudentTransportation</RootNamespace>
     <RestorePackages>true</RestorePackages>
@@ -13,7 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Artifacts\**\Metadata\*.xml">

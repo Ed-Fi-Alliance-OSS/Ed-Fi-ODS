@@ -13,6 +13,6 @@
 </metadata>
 <files>
  <file src="../../../LICENSE.txt" />
- <file src="bin\$configuration$\netcoreapp3.1\EdFi.Ods.Profiles.Sample.dll" target="."/>
+ <file src="bin\$configuration$\net6.0\EdFi.Ods.Profiles.Sample.dll" target="."/>
 </files>
 </package>
