@@ -161,13 +161,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         disjunctionFiltersApplied = true;
                     }
                 }
-
-                // If we have some OR strategies, but no filters were applied, this is an error condition
-                if (orStrategies.Any() && !disjunctionFiltersApplied)
-                {
-                    throw new EdFiSecurityException(
-                        string.Join(" ", unsupportedAuthorizationFilters.Concat(unsupportedAuthorizationSegments)));
-                }
                 
                 return disjunctionFiltersApplied;
             }
