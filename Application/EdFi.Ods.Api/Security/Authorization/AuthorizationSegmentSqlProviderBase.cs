@@ -28,18 +28,30 @@ namespace EdFi.Ods.Api.Security.Authorization
         // TODO: Embedded convention, append authorization path modifier to view name
         private const string StatementTemplate = "EXISTS (SELECT 1 FROM {3} a WHERE a.SourceEducationOrganizationId{0} and a.{1}{2})";
 
-        private const string EducationOrganizationIdEndpointName = "EducationOrganizationId";
+        private const string GeneralizedEducationOrganizationIdSubjectEndpointName = "EducationOrganizationId";
         private const string TargetEducationOrganizationIdColumnName = "TargetEducationOrganizationId";
 
         private readonly Lazy<IReadOnlyList<string>> _supportedAuthorizationViewNames;
 
         private static readonly Regex _identifierRegex = new Regex(@"^[\w]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationSegmentSqlProviderBase));
+        private readonly Lazy<List<string>> _sortedEducationOrganizationIdNames;
 
-        public AuthorizationSegmentSqlProviderBase(IAuthorizationTablesAndViewsProvider authorizationTablesAndViewsProvider)
+        protected AuthorizationSegmentSqlProviderBase(
+            IAuthorizationTablesAndViewsProvider authorizationTablesAndViewsProvider,
+            IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
         {
-            _supportedAuthorizationViewNames =
-                new Lazy<IReadOnlyList<string>>(() => authorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews().ToReadOnlyList());
+            _supportedAuthorizationViewNames = new Lazy<IReadOnlyList<string>>(
+                () => authorizationTablesAndViewsProvider.GetAuthorizationTablesAndViews().ToReadOnlyList());
+
+            _sortedEducationOrganizationIdNames = new Lazy<List<string>>(
+                () =>
+                {
+                    var sortedNames = new List<string>(educationOrganizationIdNamesProvider.GetAllNames());
+                    sortedNames.Sort();
+
+                    return sortedNames;
+                });
         }
 
         public QueryMetadata GetAuthorizationQueryMetadata(
@@ -55,16 +67,13 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             foreach (var authorizationSegment in authorizationSegments)
             {
-                const string ClaimEndpointName = EducationOrganizationIdEndpointName;
-
-                string subjectEndpointName = EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier(authorizationSegment.SubjectEndpoint.Name)
-                        ? EducationOrganizationIdEndpointName
+                // If subject endpoint matches a known EdOrgId-based name, then generalize it to "EducationOrganizationId", otherwise use the name provided
+                string subjectEndpointName = _sortedEducationOrganizationIdNames.Value.BinarySearch(authorizationSegment.SubjectEndpoint.Name) >= 0
+                        ? GeneralizedEducationOrganizationIdSubjectEndpointName
                         : authorizationSegment.SubjectEndpoint.Name;
 
-                var subjectEndpointWithValue = authorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
-
                 // This should never happen
-                if (subjectEndpointWithValue == null)
+                if (authorizationSegment.SubjectEndpoint is not AuthorizationSegmentEndpointWithValue subjectEndpointWithValue)
                 {
                     throw new Exception(
                         "The claims-based authorization segment subject endpoint for a single-item authorization was not defined with a value.");
@@ -76,11 +85,14 @@ namespace EdFi.Ods.Api.Security.Authorization
                         $"Access to the resource item could not be authorized because the '{subjectEndpointWithValue.Name}' of the resource is empty.");
                 }
 
+                // After v5.3 release, all authorization views/tables now start with "EducationOrganizationId"
+                const string AuthorizationViewPrefix = "EducationOrganizationId";
+
                 // Perform defensive checks against the remote possibility of SQL injection attack
-                ValidateTableNameParts(ClaimEndpointName, subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
+                ValidateTableNameParts(subjectEndpointName, authorizationSegment.AuthorizationPathModifier);
 
                 string authorizationViewName = ViewNameHelper.GetFullyQualifiedAuthorizationViewName(
-                    ClaimEndpointName,
+                    AuthorizationViewPrefix,
                     subjectEndpointName,
                     authorizationSegment.AuthorizationPathModifier);
 
@@ -97,7 +109,7 @@ namespace EdFi.Ods.Api.Security.Authorization
                     return string.Format(
                         StatementTemplate,
                         GetMultiValueCriteriaExpression(authorizationSegment.ClaimsEndpoints.ToList(), parameters, ref index),
-                        subjectEndpointName.EqualsIgnoreCase(EducationOrganizationIdEndpointName)
+                        subjectEndpointName.EqualsIgnoreCase(GeneralizedEducationOrganizationIdSubjectEndpointName)
                             ? TargetEducationOrganizationIdColumnName
                             : subjectEndpointName,
                         GetSingleValueCriteriaExpression(subjectEndpointWithValue, parameters, ref index),
@@ -120,15 +132,9 @@ namespace EdFi.Ods.Api.Security.Authorization
         }
 
         private static void ValidateTableNameParts(
-            string claimEndpointName,
             string subjectEndpointName,
             string authorizationPathModifier)
         {
-            if (!_identifierRegex.IsMatch(claimEndpointName))
-            {
-                throw new Exception("Authorization claim endpoint name is not safe for use in SQL.");
-            }
-
             if (!_identifierRegex.IsMatch(subjectEndpointName))
             {
                 throw new Exception("Authorization subject endpoint name is not safe for use in SQL.");

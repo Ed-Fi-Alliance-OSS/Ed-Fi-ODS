@@ -58,7 +58,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                         "auth.EducationOrganizationIdToStaffUSI",
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
+                var mockEducationOrganizationIdNamesProvider = A.Fake<IEducationOrganizationIdNamesProvider>();
+                A.CallTo(() => mockEducationOrganizationIdNamesProvider.GetAllNames()).Returns(Array.Empty<string>());
+
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(
+                    mockAuthorizationTablesAndViewsProvider,
+                    mockEducationOrganizationIdNamesProvider);
+
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -116,7 +122,13 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStaffUSI a WHERE a.SourceEdu
                         "auth.EducationOrganizationIdToStaffUSI",
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
+                var mockEducationOrganizationIdNamesProvider = A.Fake<IEducationOrganizationIdNamesProvider>();
+                A.CallTo(() => mockEducationOrganizationIdNamesProvider.GetAllNames()).Returns(new [] { "SchoolId" });
+
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(
+                    mockAuthorizationTablesAndViewsProvider,
+                    mockEducationOrganizationIdNamesProvider);
+
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -190,7 +202,13 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         "auth.EducationOrganizationIdToStaffUSI",
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
+                var mockEducationOrganizationIdNamesProvider = A.Fake<IEducationOrganizationIdNamesProvider>();
+                A.CallTo(() => mockEducationOrganizationIdNamesProvider.GetAllNames()).Returns(new [] { "SchoolId" });
+
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(
+                    mockAuthorizationTablesAndViewsProvider,
+                    mockEducationOrganizationIdNamesProvider);
+
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -271,7 +289,13 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         "auth.EducationOrganizationIdToEducationOrganizationId",
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
+                var mockEducationOrganizationIdNamesProvider = A.Fake<IEducationOrganizationIdNamesProvider>();
+                A.CallTo(() => mockEducationOrganizationIdNamesProvider.GetAllNames()).Returns(new [] { "SchoolId" });
+
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(
+                    mockAuthorizationTablesAndViewsProvider,
+                    mockEducationOrganizationIdNamesProvider);
+                
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -359,7 +383,13 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         "auth.EducationOrganizationIdToStudentUSIThroughResponsibility"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
+                var mockEducationOrganizationIdNamesProvider = A.Fake<IEducationOrganizationIdNamesProvider>();
+                A.CallTo(() => mockEducationOrganizationIdNamesProvider.GetAllNames()).Returns(Array.Empty<string>());
+
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(
+                    mockAuthorizationTablesAndViewsProvider,
+                    mockEducationOrganizationIdNamesProvider);
+                
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -394,7 +424,13 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId a WH
                         "auth.EducationOrganizationIdToStudentUSIThroughResponsibility"
                     });
 
-                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
+                var mockEducationOrganizationIdNamesProvider = A.Fake<IEducationOrganizationIdNamesProvider>();
+                A.CallTo(() => mockEducationOrganizationIdNamesProvider.GetAllNames()).Returns(Array.Empty<string>());
+
+                var authorizationSegmentsSqlProvider = new SqlServerAuthorizationSegmentSqlProvider(
+                    mockAuthorizationTablesAndViewsProvider,
+                    mockEducationOrganizationIdNamesProvider);
+                
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(
@@ -449,7 +485,13 @@ EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStudentUSIThroughResponsibil
                         "auth.SchoolIdToStaffUSI"
                     });
 
-                var authorizationSegmentsSqlProvider = new PostgresAuthorizationSegmentSqlProvider(mockAuthorizationTablesAndViewsProvider);
+                var mockEducationOrganizationIdNamesProvider = A.Fake<IEducationOrganizationIdNamesProvider>();
+                A.CallTo(() => mockEducationOrganizationIdNamesProvider.GetAllNames()).Returns(Array.Empty<string>());
+
+                var authorizationSegmentsSqlProvider = new PostgresAuthorizationSegmentSqlProvider(
+                    mockAuthorizationTablesAndViewsProvider,
+                    mockEducationOrganizationIdNamesProvider);
+                
                 var parameterIndex = 0;
 
                 var authorizationSegments = GetRelationshipAuthorizationSegments(

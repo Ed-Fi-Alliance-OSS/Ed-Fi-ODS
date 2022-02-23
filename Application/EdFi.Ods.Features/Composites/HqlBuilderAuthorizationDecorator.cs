@@ -363,10 +363,7 @@ namespace EdFi.Ods.Features.Composites
                         // Copy over the values of the named parameters, but only if they are actually present in the filter
                         var authorizationFilterDetails = filterInfo.Value;
 
-                        string parameterName =
-                            _sortedEducationOrganizationIdNames.Value.BinarySearch(authorizationFilterDetails.ClaimEndpointName) >= 0
-                                ? RelationshipAuthorizationConventions.ClaimsParameterName
-                                : authorizationFilterDetails.ClaimEndpointName;
+                        string parameterName = authorizationFilterDetails.ClaimParameterName;
 
                         if (filterHql.Contains($":{parameterName}"))
                         {

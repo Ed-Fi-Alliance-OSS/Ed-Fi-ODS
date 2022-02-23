@@ -12,10 +12,10 @@ namespace EdFi.Ods.Api.Security.Authorization
 {
     public class PostgresAuthorizationSegmentSqlProvider : AuthorizationSegmentSqlProviderBase
     {
-        public PostgresAuthorizationSegmentSqlProvider(IAuthorizationTablesAndViewsProvider authorizationTablesAndViewsProvider)
-            : base(authorizationTablesAndViewsProvider)
-        {
-        }
+        public PostgresAuthorizationSegmentSqlProvider(
+            IAuthorizationTablesAndViewsProvider authorizationTablesAndViewsProvider,
+            IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
+            : base(authorizationTablesAndViewsProvider, educationOrganizationIdNamesProvider) { }
 
         protected override DbParameter CreateParameter(
             string parameterName,

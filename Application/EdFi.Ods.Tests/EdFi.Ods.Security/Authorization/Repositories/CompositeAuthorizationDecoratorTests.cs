@@ -361,7 +361,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                             new AuthorizationFilterDetails
                             {
                                 FilterName = _filterName,
-                                ClaimEndpointName = _parameterName,
+                                ClaimParameterName = _parameterName,
                                 ClaimValues = new[] { _parameterValue }
                             }
                         } 

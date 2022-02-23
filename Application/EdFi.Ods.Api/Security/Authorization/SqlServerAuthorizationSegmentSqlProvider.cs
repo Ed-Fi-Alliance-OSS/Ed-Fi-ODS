@@ -14,10 +14,10 @@ namespace EdFi.Ods.Api.Security.Authorization
 {
     public class SqlServerAuthorizationSegmentSqlProvider : AuthorizationSegmentSqlProviderBase
     {
-        public SqlServerAuthorizationSegmentSqlProvider(IAuthorizationTablesAndViewsProvider authorizationTablesAndViewsProvider)
-            : base(authorizationTablesAndViewsProvider)
-        {
-        }
+        public SqlServerAuthorizationSegmentSqlProvider(
+            IAuthorizationTablesAndViewsProvider authorizationTablesAndViewsProvider,
+            IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
+            : base(authorizationTablesAndViewsProvider, educationOrganizationIdNamesProvider) { }
 
         protected override DbParameter CreateParameter(
             string parameterName,

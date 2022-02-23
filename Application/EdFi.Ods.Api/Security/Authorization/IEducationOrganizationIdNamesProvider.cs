@@ -21,5 +21,16 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// </summary>
         /// <returns>An array containing the concrete property names.</returns>
         string[] GetConcreteNames();
+
+        /// <summary>
+        /// Indicates whether the supplied source and target education organization id property names are accessible through
+        /// the Ed-Fi model, and thus valid for authorization purposes.
+        /// </summary>
+        /// <param name="sourceEducationOrganizationIdPropertyName">The property name of the source education organization id endpoint.</param>
+        /// <param name="targetEducationOrganizationId">The property name of the target education organization id endpoint.</param>
+        /// <returns><b>true</b> if the target property is accessible from the source; otherwise <b>false</b>.</returns>
+        bool IsEducationOrganizationAccessible(
+            string sourceEducationOrganizationIdPropertyName,
+            string targetEducationOrganizationId);
     }
 }

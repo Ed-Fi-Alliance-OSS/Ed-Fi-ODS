@@ -148,7 +148,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
+                actualFilter.ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
 
                 parameterValues
                     .ShouldBe(
@@ -208,7 +208,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
+                actualFilter.ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
 
                 parameterValues
                     .ShouldBe(
@@ -264,7 +264,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 _actualFilters.ShouldSatisfyAllConditions(
                     () => _actualFilters.Count.ShouldBe(1),
                     () => _actualFilters[0].FilterName.ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToSchoolId"),
-                    () => _actualFilters[0].ClaimEndpointName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName),
+                    () => _actualFilters[0].ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName),
                     () => _actualFilters[0].SubjectEndpointName.ShouldBe("SchoolId"),
                     () => _actualFilters[0].ClaimValues.ShouldBe(new object[] { 999, 1000 }));
             }
@@ -313,7 +313,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
+                actualFilter.ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
 
                 parameterValues
                     .ShouldBe(
@@ -356,7 +356,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
+                actualFilter.ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
 
                 parameterValues
                     .ShouldBe(
@@ -436,7 +436,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             [Test]
             public void Should_rename_the_EdOrg_based_claim_endpoint_name_to_the_generalized_convention()
             {
-                _actualFilters.Single().ClaimEndpointName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
+                _actualFilters.Single().ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
             }
             
             [Test]
