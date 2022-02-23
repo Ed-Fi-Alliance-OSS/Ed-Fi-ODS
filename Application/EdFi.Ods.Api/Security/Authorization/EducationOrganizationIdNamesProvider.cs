@@ -6,8 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
@@ -108,8 +106,8 @@ namespace EdFi.Ods.Api.Security.Authorization
             return _concreteEducationOrganizationIdNames.Value;
         }
 
-        /// <inheritdoc cref="IEducationOrganizationIdNamesProvider.IsEducationOrganizationAccessible" />
-        public bool IsEducationOrganizationAccessible(
+        /// <inheritdoc cref="IEducationOrganizationIdNamesProvider.IsEducationOrganizationIdAccessible" />
+        public bool IsEducationOrganizationIdAccessible(
             string sourceEducationOrganizationIdPropertyName,
             string targetEducationOrganizationId)
         {

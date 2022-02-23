@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing.Text;
 using System.Linq;
 using NHibernate;
 using NHibernate.Criterion;
@@ -93,8 +92,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             bool disjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithOrLogic();
 
             ApplyJunctionsToCriteriaQuery();
-
-            // EnsureRequestAuthorized();
 
             return criteria;
 
@@ -196,7 +193,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         && _sortedEducationOrganizationIdNames.Value.BinarySearch(filterDetails.SubjectEndpointName) >= 0)
                     {
                         bool subjectIsInaccessible = filterDetails.ClaimEndpointNames.All(
-                            c => !_educationOrganizationIdNamesProvider.IsEducationOrganizationAccessible(
+                            c => !_educationOrganizationIdNamesProvider.IsEducationOrganizationIdAccessible(
                                 c,
                                 filterDetails.SubjectEndpointName));
 
@@ -242,50 +239,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 return filtersApplied;
             }
 
-            // bool TryApplyOrFilters(Conjunction conjunction, IReadOnlyList<AuthorizationFilterDetails> filters)
-            // {
-            //     bool filterApplied = false;
-            //     
-            //     // Combine these filters with OR
-            //     var disjunction = new Disjunction();
-            //
-            //     var orFilters = filters.Where(x => x.Operator == FilterOperator.Or).ToArray();
-            //
-            //     foreach (var filterDetails in orFilters)
-            //     {
-            //         if (!_authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
-            //                 filterDetails.FilterName,
-            //                 typeof(TEntity),
-            //                 out IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators))
-            //         {
-            //             unsupportedAuthorizationFilters.Add(filterDetails.FilterName);
-            //
-            //             continue;
-            //         }
-            //
-            //         // Invoke the filter applicators against the current query
-            //         foreach (var applicator in applicators)
-            //         {
-            //             var parameterValues = new Dictionary<string, object>
-            //             {
-            //                 { filterDetails.ClaimParameterName, filterDetails.ClaimValues }
-            //             };
-            //
-            //             // Apply the authorization strategy filter
-            //             applicator( criteria, disjunction, parameterValues, joinType);
-            //
-            //             filterApplied = true;
-            //         }
-            //     }
-            //
-            //     if (filterApplied)
-            //     {
-            //         conjunction.Add(disjunction);
-            //     }
-            //
-            //     return filterApplied;
-            // }
-
             void ApplyJunctionsToCriteriaQuery()
             {
                 if (disjunctionFiltersWereApplied)
@@ -305,45 +258,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     criteria.Add(mainConjunction);
                 }
             }
-
-            // void EnsureRequestAuthorized()
-            // {
-            //     // If we encounter any authorization filters that have not been defined we need to stop the request from processing
-            //     if (unsupportedAuthorizationFilters.Any())
-            //     {
-            //         // if (_logger.IsDebugEnabled)
-            //         // {
-            //         //     _logger.Debug(
-            //         //         $"Unable to authorize access to '{typeof(TEntity).FullName}' because none of the following authorization filters were defined: '{string.Join($"', '", unsupportedAuthorizationFilters)}'.");
-            //         // }
-            //
-            //         // This really shouldn't happen. It would indicate a missing authorization strategy implementation, probably related to an authorization path modifier
-            //         throw new EdFiSecurityException(
-            //             $"Unable to authorize access to '{typeof(TEntity).FullName}' because the following authorization filters have not been defined: '{string.Join($"', '", unsupportedAuthorizationFilters)}'.");
-            //             // $"Unable to authorize the request because the following authorization filters have not been defined: '{string.Join("', '", unsupportedAuthorizationFilters)}'");
-            //     }
-            //
-            //     // Look for inaccessible subjects in authorization filters
-            //     
-            //     string[] distinctClaimEndpointNames = authorizationFiltering
-            //         .SelectMany(s => s.Filters.Select(f => f.ClaimEndpointNames))
-            //         .Distinct()
-            //         .OrderBy(x => x)
-            //         .ToArray();
-            //
-            //     if (false) {
-            //         // TODO: Multiple authorization strategy support -- is there a better way to message the error (which used to combine claim endpoints from a single auth strategy)?
-            //         throw new EdFiSecurityException(
-            //             $"Unable to authorize the request because there is no authorization support for associating the API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource ('{typeof(TEntity).Name}').");
-            //     }
-            //
-            //     // Some criteria must have been applied, or we need to stop the request from processing
-            //     if (authorizationFiltering.Any() && !conjunctionFiltersWereApplied && !disjunctionFiltersWereApplied)
-            //     {
-            //         throw new EdFiSecurityException(
-            //             $"Unable to authorize access to '{typeof(TEntity).FullName}' because no authorization filters were applied to the request.");
-            //     }
-            // }
         }
     }
 }

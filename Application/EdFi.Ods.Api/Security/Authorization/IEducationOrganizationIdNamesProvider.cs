@@ -29,7 +29,7 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// <param name="sourceEducationOrganizationIdPropertyName">The property name of the source education organization id endpoint.</param>
         /// <param name="targetEducationOrganizationId">The property name of the target education organization id endpoint.</param>
         /// <returns><b>true</b> if the target property is accessible from the source; otherwise <b>false</b>.</returns>
-        bool IsEducationOrganizationAccessible(
+        bool IsEducationOrganizationIdAccessible(
             string sourceEducationOrganizationIdPropertyName,
             string targetEducationOrganizationId);
     }

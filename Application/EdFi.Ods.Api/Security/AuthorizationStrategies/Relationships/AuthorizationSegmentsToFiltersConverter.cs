@@ -45,27 +45,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 .ToArray();
 
             return authorizationFilterDetails; 
-
-            // foreach (var segment in authorizationSegments)
-            // {
-            //     var subjectEndpointName = segment.SubjectEndpoint.Name;
-            //
-            //     // Get the name of the view to use for this segment
-            //     string filterName = GetAuthorizationFilterName(subjectEndpointName, segment.AuthorizationPathModifier);
-            //
-            //     var filter = new AuthorizationFilterDetails
-            //     {
-            //         FilterName = filterName,
-            //         ClaimEndpointNames = segment.ClaimsEndpoints.Select(x => x.Name).ToArray(),
-            //         ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
-            //         ClaimValues = segment.ClaimsEndpoints.Select(x => x.Value).ToArray(),
-            //         SubjectEndpointName = subjectEndpointName,
-            //     };
-            //
-            //     filterByName.TryAdd(filterName, filter);
-            // }
-            //
-            // return filterByName.Values.ToArray();
             
             string GetAuthorizationFilterName(string subjectEndpointName, string authorizationPathModifier)
             {
