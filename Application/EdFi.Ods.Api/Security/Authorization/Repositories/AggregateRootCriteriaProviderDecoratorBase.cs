@@ -191,7 +191,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     }
                 
                     // If the filter has claim endpoint names captured (i.e. this is a relationship-based filter) and the subject is an EdOrgId
-                    if ((filterDetails.ClaimEndpointNames?.Any() ?? false) && _sortedEducationOrganizationIdNames.Value.BinarySearch(filterDetails.SubjectEndpointName) >= 0)
+                    if ((filterDetails.ClaimEndpointNames?.Any() ?? false) 
+                        && filterDetails.SubjectEndpointName != "EducationOrganizationId"
+                        && _sortedEducationOrganizationIdNames.Value.BinarySearch(filterDetails.SubjectEndpointName) >= 0)
                     {
                         bool subjectIsInaccessible = filterDetails.ClaimEndpointNames.All(
                             c => !_educationOrganizationIdNamesProvider.IsEducationOrganizationAccessible(
