@@ -26,7 +26,7 @@ namespace EdFi.Ods.Common.Security.Claims
         /// </summary>
         /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
         /// <returns>A collection of filters to be applied to the query.</returns>
-        IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(EdFiAuthorizationContext authorizationContext);
+        IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering(EdFiAuthorizationContext authorizationContext);
 
         /// <summary>
         /// Performs a claims authorization evaluation on the request related to the resource and action only 

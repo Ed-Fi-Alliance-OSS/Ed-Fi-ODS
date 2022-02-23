@@ -27,8 +27,8 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             // NHibernate authorization decorators
             {typeof(IGetEntityByKey<>), typeof(GetEntityByKeyAuthorizationDecorator<>)},
             {typeof(IGetEntitiesBySpecification<>), typeof(GetEntitiesBySpecificationAuthorizationDecorator<>)},
-            {typeof(IPagedAggregateIdsCriteriaProvider<>), typeof(PagedAggregateIdsCriteriaProviderDecorator<>)},
-            {typeof(ITotalCountCriteriaProvider<>), typeof(TotalCountCriteriaProviderDecorator<>)},
+            {typeof(IPagedAggregateIdsCriteriaProvider<>), typeof(PagedAggregateIdsCriteriaProviderAuthorizationDecorator<>)},
+            {typeof(ITotalCountCriteriaProvider<>), typeof(TotalCountCriteriaProviderAuthorizationDecorator<>)},
             {typeof(IGetEntityById<>), typeof(GetEntityByIdAuthorizationDecorator<>)},
             {typeof(IGetEntitiesByIds<>), typeof(GetEntitiesByIdsAuthorizationDecorator<>)},
             {typeof(ICreateEntity<>), typeof(CreateEntityAuthorizationDecorator<>)},

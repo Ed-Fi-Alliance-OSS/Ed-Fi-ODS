@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,6 +15,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
         private readonly AuthorizationContextDataFactory _authorizationContextDataFactory
             = new AuthorizationContextDataFactory();
 
+        private const string AuthorizationStrategyName = "OwnershipBased";
+        
         public Task AuthorizeSingleItemAsync(
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext,
@@ -60,7 +61,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
         /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The collection of authorization filters to be applied to the query.</returns>
-        public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+        public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
@@ -69,16 +70,21 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
                 .Select(x => (object) x.Value)
                 .ToArray();
 
-            return new[]
+            return new AuthorizationStrategyFiltering()
             {
-                new AuthorizationFilterDetails
+                AuthorizationStrategyName = AuthorizationStrategyName,
+                Filters = new[]
                 {
-                   FilterName ="CreatedByOwnershipTokenId",
-                   SubjectEndpointName ="CreatedByOwnershipTokenId",
-                   ClaimEndpointName ="CreatedByOwnershipTokenId",
-                   ClaimValues = tokens
-                }
+                    new AuthorizationFilterDetails
+                    {
+                        FilterName = "CreatedByOwnershipTokenId",
+                        SubjectEndpointName = "CreatedByOwnershipTokenId",
+                        ClaimEndpointName = "CreatedByOwnershipTokenId",
+                        ClaimValues = tokens,
+                    }
+                },
+                Operator = FilterOperator.And
             };
-        }        
+        }
     }
 }

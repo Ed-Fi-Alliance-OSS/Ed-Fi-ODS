@@ -32,7 +32,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The list of filters to be applied to the query for authorization.</returns>
-        IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+        AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext);
     }

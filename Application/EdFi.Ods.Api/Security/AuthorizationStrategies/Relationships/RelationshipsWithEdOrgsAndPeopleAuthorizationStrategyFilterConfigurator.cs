@@ -27,6 +27,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                               RelationshipsAuthorizationFilters.EducationServiceCenterIdToStaffUSI,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStaffUSI,
                               RelationshipsAuthorizationFilters.SchoolIdToStaffUSI,
+                              RelationshipsAuthorizationFilters.EducationServiceCenterIdToParentUSI,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToParentUSI,
                               RelationshipsAuthorizationFilters.ParentUSIToSchoolId,
 

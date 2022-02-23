@@ -17,12 +17,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Filtering
         /// Sets parameterized filters to the current context.
         /// </summary>
         /// <param name="filters">A list of authorization filters.</param>
-        void SetFilterContext(IReadOnlyList<AuthorizationFilterDetails> filters);
+        void SetFilterContext(IReadOnlyList<AuthorizationStrategyFiltering> filters);
 
         /// <summary>
-        /// Gets the authorization filters from the current context, or an empty list if none have been set.
+        /// Gets parameterized authorization strategy-based filtering from the current context, or an empty list if none have been set. 
         /// </summary>
-        /// <returns>A list of authorization filters.</returns>
-        IReadOnlyList<AuthorizationFilterDetails> GetFilterContext();
+        /// <returns>The list of strategy-based filtering.</returns>
+        IReadOnlyList<AuthorizationStrategyFiltering> GetFilterContext();
     }
 }
