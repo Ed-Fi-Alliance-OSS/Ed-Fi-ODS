@@ -32,6 +32,7 @@ Scenario: Composite includes specific properties
     Then the queries generated should all match previously approved values
 
 # Base -> Unflattened Reference
+@ignore
 Scenario: Composite includes unflattened reference
     Given the subject of the request is a StudentSchoolAssociation
     When a GET (by id) request is submitted to the "StudentSchoolUnflattenedReference" composite
