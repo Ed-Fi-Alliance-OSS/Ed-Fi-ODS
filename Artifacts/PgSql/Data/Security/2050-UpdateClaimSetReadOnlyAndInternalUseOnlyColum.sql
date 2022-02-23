@@ -8,7 +8,6 @@ SET IsInternalUseOnly = 'TRUE'
 WHERE ClaimSetName in ('Bootstrap Descriptors and EdOrgs','Ed-Fi ODS Admin App');
 
 UPDATE dbo.ClaimSets
-SET IsReadOnly = 'TRUE'
+SET IsPreset = 'TRUE'
 WHERE ClaimSetName in ('SIS Vendor','Ed-Fi Sandbox','Roster Vendor','Assessment Vendor','Assessment Read',
-'Bootstrap Descriptors and EdOrgs','Ownership Based Test','District Hosted SIS Vendor','Ed-Fi ODS Admin App',
-'AB Connect','Education Preparation Program');
+'Bootstrap Descriptors and EdOrgs','Ownership Based Test','District Hosted SIS Vendor','Ed-Fi ODS Admin App','AB Connect');

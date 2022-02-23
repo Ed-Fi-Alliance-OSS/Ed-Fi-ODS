@@ -3,6 +3,6 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-ALTER TABLE [dbo].[ClaimSets] ADD  IsReadOnly [BIT]  NOT NULL DEFAULT 0;
+ALTER TABLE [dbo].[ClaimSets] ADD  IsPreset [BIT]  NOT NULL DEFAULT 0;
 ALTER TABLE [dbo].[ClaimSets] ADD  IsInternalUseOnly [BIT]   NOT NULL DEFAULT 0;
 GO

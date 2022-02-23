@@ -9,8 +9,7 @@ WHERE [ClaimSetName] in ('Bootstrap Descriptors and EdOrgs','Ed-Fi ODS Admin App
 GO
 
 UPDATE [dbo].[ClaimSets]
-SET [IsReadOnly] = 1 
+SET [IsPreset] = 1 
 WHERE [ClaimSetName] in ('SIS Vendor','Ed-Fi Sandbox','Roster Vendor','Assessment Vendor','Assessment Read',
-'Bootstrap Descriptors and EdOrgs','Ownership Based Test','District Hosted SIS Vendor','Ed-Fi ODS Admin App',
-'AB Connect','Education Preparation Program')
+'Bootstrap Descriptors and EdOrgs','Ownership Based Test','District Hosted SIS Vendor','Ed-Fi ODS Admin App','AB Connect')
 GO
