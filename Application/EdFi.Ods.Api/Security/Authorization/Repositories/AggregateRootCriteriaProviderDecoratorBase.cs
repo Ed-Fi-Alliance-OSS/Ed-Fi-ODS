@@ -161,6 +161,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         disjunctionFiltersApplied = true;
                     }
                 }
+
+                // If we have some OR strategies with filters defined, but no filters were applied, this is an error condition
+                if (orStrategies.SelectMany(s => s.Filters).Any() && !disjunctionFiltersApplied)
+                {
+                    throw new EdFiSecurityException(
+                        string.Join(" ", unsupportedAuthorizationFilters.Concat(unsupportedAuthorizationSegments)));
+                }
                 
                 return disjunctionFiltersApplied;
             }
@@ -196,7 +203,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         if (subjectIsInaccessible)
                         {
                             unsupportedAuthorizationSegments.Add(
-                                $"Unable to authorize the request because there is no authorization support for associating the API client's associated education organization claim values (of type '{string.Join("', '", filterDetails.ClaimEndpointNames)}') with the '{filterDetails.SubjectEndpointName}' of the '{typeof(TEntity).Name}' resource.");
+                                $"Unable to authorize the request because there is no authorization support for associating the API client's associated education organization claim values (of type '{string.Join("', '", filterDetails.ClaimEndpointNames.OrderBy(x => x))}') with the '{filterDetails.SubjectEndpointName}' of the '{typeof(TEntity).Name}' resource.");
                             
                             allFiltersCanBeApplied = false;
                         }
