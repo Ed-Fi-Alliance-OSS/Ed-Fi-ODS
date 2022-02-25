@@ -52,8 +52,6 @@ namespace EdFi.SdkGen.Console
 
         private void RunCliCodegen(IEnumerable<SwaggerDetail> apiEndpoints)
         {
-            Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "csharp-netcore"));
-
             foreach (var apiEndpoint in apiEndpoints)
             {
                 // Profile/Composite section namespaces end with section name.
@@ -73,10 +71,10 @@ namespace EdFi.SdkGen.Console
                 // code-gen paramaters
                 string[] @params =
                 {
-
                     $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp-netcore", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
-                    $"--additional-properties packageName={_options.Namespace},targetFramework=netstandard2.0,netCoreProjectFile=true"
+                    $"--additional-properties packageName={_options.Namespace},targetFramework=netstandard2.0,netCoreProjectFile=true",
+                    "--global-property modelTests=false --global-property apiTests=false"
                 };
 
                 _log.Info($"Generating C# SDK for {apiEndpoint.EndpointUri}");
