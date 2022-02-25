@@ -4,10 +4,10 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 UPDATE dbo.ClaimSets
-SET IsInternalUseOnly = 'TRUE'
+SET ForApplicationUseOnly = 'TRUE'
 WHERE ClaimSetName in ('Bootstrap Descriptors and EdOrgs','Ed-Fi ODS Admin App');
 
 UPDATE dbo.ClaimSets
-SET IsPreset = 'TRUE'
+SET IsEdfiPreset = 'TRUE'
 WHERE ClaimSetName in ('SIS Vendor','Ed-Fi Sandbox','Roster Vendor','Assessment Vendor','Assessment Read',
 'Bootstrap Descriptors and EdOrgs','Ownership Based Test','District Hosted SIS Vendor','Ed-Fi ODS Admin App','AB Connect');
