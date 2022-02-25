@@ -5,7 +5,7 @@
 
 UPDATE dbo.ClaimSets
 SET ForApplicationUseOnly = 'TRUE'
-WHERE ClaimSetName in ('Bootstrap Descriptors and EdOrgs','Ed-Fi ODS Admin App');
+WHERE ClaimSetName in ('Bootstrap Descriptors and EdOrgs','Ed-Fi ODS Admin App', 'Ownership Based Test');
 
 UPDATE dbo.ClaimSets
 SET IsEdfiPreset = 'TRUE'
