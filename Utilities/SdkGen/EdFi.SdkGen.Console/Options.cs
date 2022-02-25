@@ -16,7 +16,7 @@ namespace EdFi.SdkGen.Console
         private const string SdkCodegenVersionKey = "openApi-codgen-version";
         private const string SwaggerCodegenCliJarName = "openapi-generator-cli";
         private const string CliDownloadUri = "https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli";
-                
+
         [Option(
             'm',
             "metaDataEndpoint",
@@ -42,14 +42,14 @@ namespace EdFi.SdkGen.Console
         [Option(
             'o',
             "output",
-            Default = "csharp-netcore",
+            Default = "./csharp",
             HelpText = "the output folder for the swagger generation")]
         public string OutputFolder { get; set; }
 
         [Option(
             'f',
             "forceCliUpdate",
-            Default = true,
+            Default = false,
             HelpText = "force the update of the swagger-codgen-cli to the version specified")]
         public bool Force { get; set; }
 
@@ -77,7 +77,7 @@ namespace EdFi.SdkGen.Console
         [Option(
             'k',
             "core-only",
-            Default = true,
+            Default = false,
             HelpText = "include only Ed-Fi namespace in the generation of the assembly")]
         public bool CoreOnly { get; set; }
       
