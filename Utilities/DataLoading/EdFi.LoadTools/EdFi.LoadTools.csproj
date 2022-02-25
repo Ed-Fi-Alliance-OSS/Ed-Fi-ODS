@@ -1,43 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RestorePackages>true</RestorePackages>
-    <Configurations>Debug;Release</Configurations>
-    <AssemblyName>EdFi.LoadTools</AssemblyName>
-    <RootNamespace>EdFi.LoadTools</RootNamespace>
-    <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/tree/master/Utilities/DataLoading</PackageProjectUrl>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <PackageId>EdFi.LoadTools</PackageId>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <DebugSymbols>true</DebugSymbols>
-  </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-    <None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.3.0" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.10" />
-    <PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
-    <PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
-    <PackageReference Include="log4net" Version="2.0.13" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.10" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Polly" Version="7.2.2" />
-    <PackageReference Include="RestSharp" Version="106.13.0" />
-    <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="EdFi.OdsApi.Sdk">
-      <HintPath>..\..\SdkGen\EdFi.SdkGen.Console\bin\Debug\netcoreapp3.1\csharp-netcore\src\EdFi.OdsApi.Sdk\bin\Debug\netstandard2.0\EdFi.OdsApi.Sdk.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<RestorePackages>true</RestorePackages>
+		<Configurations>Debug;Release</Configurations>
+		<AssemblyName>EdFi.LoadTools</AssemblyName>
+		<RootNamespace>EdFi.LoadTools</RootNamespace>
+		<Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
+		<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+		<PackageProjectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/tree/master/Utilities/DataLoading</PackageProjectUrl>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageId>EdFi.LoadTools</PackageId>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<DebugType>full</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+	<ItemGroup>
+		<Folder Include="Properties\" />
+		<None Include="../../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="6.3.0" />
+		<PackageReference Include="EdFi.Suite3.Common" Version="5.4.10" />
+		<PackageReference Include="FubarCoder.RestSharp.Portable.Core" Version="4.0.8" />
+		<PackageReference Include="FubarCoder.RestSharp.Portable.HttpClient" Version="4.0.8" />
+		<PackageReference Include="log4net" Version="2.0.13" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="3.1.10" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+		<PackageReference Include="Polly" Version="7.2.2" />
+		<PackageReference Include="RestSharp" Version="106.13.0" />
+		<PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
+	</ItemGroup>
 </Project>
