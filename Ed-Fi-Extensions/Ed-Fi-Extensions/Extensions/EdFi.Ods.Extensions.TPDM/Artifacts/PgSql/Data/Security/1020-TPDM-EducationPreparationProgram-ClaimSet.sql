@@ -9,7 +9,7 @@ DECLARE claim_set_id int;
 
 BEGIN
     --Create Claimset
-    INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId) VALUES(claim_set_name,1);
+    INSERT INTO dbo.ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset) VALUES(claim_set_name,1,'TRUE');
     SELECT ClaimSetId INTO claim_set_id FROM dbo.ClaimSets WHERE ClaimSetName = claim_set_name;
 
     --Create CRUD action claims for all ClaimNames in @resourceClaimNames

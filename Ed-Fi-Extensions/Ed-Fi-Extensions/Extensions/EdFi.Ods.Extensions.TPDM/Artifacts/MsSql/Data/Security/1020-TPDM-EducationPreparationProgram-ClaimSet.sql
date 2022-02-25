@@ -22,7 +22,7 @@ insert @resourceClaimNames(resourceClaimName) values
     ('http://ed-fi.org/ods/identity/claims/domains/educationOrganizations')
 
 --Create Claimset
-INSERT INTO ClaimSets (ClaimSetName, Application_ApplicationId) VALUES(@claimSetName,1)
+INSERT INTO ClaimSets (ClaimSetName, Application_ApplicationId, IsEdfiPreset) VALUES(@claimSetName,1,1)
 SELECT @claimSetId = ClaimSetId FROM ClaimSets WHERE ClaimSetName = @claimSetName
 
 --Create CRUD action claims for all ClaimNames in @resourceClaimNames
