@@ -61,13 +61,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             CancellationToken cancellationToken)
         {
             // Use the authorization subsystem to set filtering context
-            var authorizationFilters = GetAuthorizationFilters<TEntity>();
+            var authorizationFiltering = GetAuthorizationFiltering<TEntity>();
 
             // Ensure we've bound an NHibernate session to the current context
             using (new SessionScope(_sessionFactory))
             {
                 // Apply authorization filtering to the entity for the current session
-                _authorizationFilterContextProvider.SetFilterContext(authorizationFilters);
+                _authorizationFilterContextProvider.SetFilterContext(authorizationFiltering);
 
                 // Pass call through to the repository operation implementation to execute the query
                 return await _next.GetBySpecificationAsync(specification, queryParameters, cancellationToken);

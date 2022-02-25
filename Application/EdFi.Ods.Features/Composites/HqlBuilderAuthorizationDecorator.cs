@@ -20,6 +20,8 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
+using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Models;
 using log4net;
 
 namespace EdFi.Ods.Features.Composites
@@ -35,13 +37,19 @@ namespace EdFi.Ods.Features.Composites
         private readonly ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> _next;
         private readonly INHibernateFilterTextProvider _nHibernateFilterTextProvider;
         private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
+        private readonly Lazy<string[]> _concreteEducationOrganizationIdNames;
 
         public HqlBuilderAuthorizationDecorator(
             ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> next,
             IEdFiAuthorizationProvider authorizationProvider,
             INHibernateFilterTextProvider nHibernateFilterTextProvider,
-            IResourceClaimUriProvider resourceClaimUriProvider)
+            IResourceClaimUriProvider resourceClaimUriProvider,
+            IConcreteEducationOrganizationIdNamesProvider concreteEducationOrganizationIdNamesProvider)
         {
+
+            _concreteEducationOrganizationIdNames =
+                new Lazy<string[]>(concreteEducationOrganizationIdNamesProvider.GetNames);
+                
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _authorizationProvider = Preconditions.ThrowIfNull(authorizationProvider, nameof(authorizationProvider));
 
@@ -81,12 +89,12 @@ namespace EdFi.Ods.Features.Composites
                 entityType);
 
             // Authorize and apply filtering
-            IReadOnlyList<AuthorizationFilterDetails> authorizationFilters;
+            IReadOnlyList<AuthorizationStrategyFiltering> authorizationFiltering;
 
             try
             {
                 // NOTE: Possible performance optimization - Allow for "Try" semantics (so no exceptions are thrown here)
-                authorizationFilters = _authorizationProvider.GetAuthorizationFilters(authorizationContext);
+                authorizationFiltering = _authorizationProvider.GetAuthorizationFiltering(authorizationContext);
             }
             catch (EdFiSecurityException ex)
             {
@@ -119,7 +127,10 @@ namespace EdFi.Ods.Features.Composites
             }
 
             // Save the filters to be applied to this query for use later in the process
-            builderContext.CurrentQueryFilterByName = authorizationFilters.ToDictionary(x => x.FilterName, x => x);
+            builderContext.CurrentQueryFilterByName = authorizationFiltering
+                // Flattens the filters as per legacy code (effectively combining them using "AND" logic), but we still need to implement support for combining multiple authorization strategies correctly
+                .SelectMany(x => x.Filters)
+                .ToDictionary(x => x.FilterName, x => x);
 
             return true;
         }
@@ -344,7 +355,10 @@ namespace EdFi.Ods.Features.Composites
                         // Copy over the values of the named parameters, but only if they are actually present in the filter
                         var authorizationFilterDetails = filterInfo.Value;
 
-                        string parameterName = authorizationFilterDetails.ClaimEndpointName;
+                        string parameterName =
+                            _concreteEducationOrganizationIdNames.Value.Contains(authorizationFilterDetails.ClaimEndpointName)
+                                ? "ClaimEducationOrganizationIds"
+                                : authorizationFilterDetails.ClaimEndpointName;
 
                         if (filterHql.Contains($":{parameterName}"))
                         {

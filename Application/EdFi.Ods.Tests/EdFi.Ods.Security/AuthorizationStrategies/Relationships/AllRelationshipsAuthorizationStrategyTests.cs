@@ -170,7 +170,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
             protected override void Act()
             {
-                var authorizationFilters = SystemUnderTest.GetAuthorizationFilters(
+                var authorizationFilters = SystemUnderTest.GetAuthorizationStrategyFiltering(
                     new[] { Supplied<Claim>() },
                     Supplied<EdFiAuthorizationContext>());
             }
@@ -236,7 +236,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
             protected override void Act()
             {
-                SystemUnderTest.GetAuthorizationFilters(
+                SystemUnderTest.GetAuthorizationStrategyFiltering(
                     new[]
                     {
                         Supplied<Claim>()

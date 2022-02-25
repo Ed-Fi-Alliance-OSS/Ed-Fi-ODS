@@ -121,16 +121,19 @@ namespace EdFi.Ods.Api.Security.Authorization
                 }
             }
 
-            var tasks = details.AuthorizationStrategies.Select(x => x.AuthorizeSingleItemAsync(new[] { details.RelevantClaim }, authorizationContext, cancellationToken));
-            await Task.WhenAll(tasks);
+            // Process each strategy individually, but asynchronously
+            foreach (var authorizationStrategy in details.AuthorizationStrategies)
+            {
+                await authorizationStrategy.AuthorizeSingleItemAsync(new[] { details.RelevantClaim }, authorizationContext, cancellationToken);
+            }
         }
 
         /// <summary>
         /// Authorizes a multiple-item read request using the claims, resource, and action supplied in the <see cref="EdFiAuthorizationContext"/>.
         /// </summary>
         /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
-        /// <returns>The list of filters to be applied to the query for authorization.</returns>
-        public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(EdFiAuthorizationContext authorizationContext)
+        /// <returns>The list of authorization strategy-based filters to be applied to the query for authorization.</returns>
+        public IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering(EdFiAuthorizationContext authorizationContext)
         {
             var details = GetAuthorizationDetails(authorizationContext);
 
@@ -138,7 +141,7 @@ namespace EdFi.Ods.Api.Security.Authorization
 
             var authorizationFilters = details.AuthorizationStrategies
                 .Distinct()
-                .SelectMany(x => x.GetAuthorizationFilters(relevantClaims, authorizationContext))
+                .Select(x => x.GetAuthorizationStrategyFiltering(relevantClaims, authorizationContext))
                 .ToArray();
 
             return authorizationFilters;

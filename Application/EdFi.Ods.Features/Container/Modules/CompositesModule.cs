@@ -60,6 +60,10 @@ namespace EdFi.Ods.Features.Container.Modules
             builder.RegisterType<CompositesRouteConvention>()
                 .As<IApplicationModelConvention>()
                 .SingleInstance();
+
+            builder.RegisterType<ConcreteEducationOrganizationIdNamesProvider>()
+                .As<IConcreteEducationOrganizationIdNamesProvider>()
+                .SingleInstance();
         }
     }
 }

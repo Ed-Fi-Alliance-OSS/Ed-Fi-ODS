@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
@@ -17,6 +18,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization
     /// </summary>
     public class NoFurtherAuthorizationRequiredAuthorizationStrategy : IEdFiAuthorizationStrategy
     {
+        private const string AuthorizationStrategyName = "NoFurtherAuthorizationRequired";
+        
         public Task AuthorizeSingleItemAsync(
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext,
@@ -34,14 +37,18 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NoFurtherAuthorization
         /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The collection of authorization filters to be applied to the query.</returns>
-        public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+        public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
             // Note: all claim checks are done in the implementation of the IEdFiAuthorizationProvider.
             // Do nothing because the resource authorization metadata provider should have returned claims for the
             // requested action and the EdFi authorization provider should have validated.
-            return new AuthorizationFilterDetails[0];
+            return new AuthorizationStrategyFiltering()
+            {
+                AuthorizationStrategyName = AuthorizationStrategyName,
+                Filters = Array.Empty<AuthorizationFilterDetails>(),
+            };
         }
     }
 }

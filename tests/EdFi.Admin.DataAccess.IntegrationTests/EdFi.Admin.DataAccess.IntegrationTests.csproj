@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Company>Ed-Fi Alliance</Company>
     <Product>EdFi.Admin.DataAccess.IntegrationTests</Product>
     <Assembly>EdFi.Admin.DataAccess.IntegrationTests</Assembly>
@@ -16,21 +16,19 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="FakeItEasy" Version="6.2.1" />
+    <PackageReference Include="FakeItEasy" Version="7.2.0" />
     <PackageReference Include="NCrunch.Framework" Version="4.5.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0">
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Shouldly" Version="3.0.2" />
-    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.22" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.30" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />

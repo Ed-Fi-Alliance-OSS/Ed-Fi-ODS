@@ -93,49 +93,26 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         }
 
         /// <summary>
-        /// Creates a new filter definition, using the supplied parameter definitions.
-        /// </summary>
-        /// <param name="filterName">The name of the filter.</param>
-        /// <param name="friendlyDefaultConditionFormat">The default condition for the filter with numbered format specifiers marking where distinct aliases are required (e.g. "(Column1 LIKE :Parm1 OR Column2 IN (SELECT {0}.Column2 FROM Table1 {0})").</param>
-        /// <param name="friendlyHqlConditionFormat">The default condition (as HQL) for the filter with numbered format specifiers marking where distinct aliases are required, with {0} being the current alias (e.g. "({0}.Property1 LIKE :Parm1 OR {0}.Property2 IN (SELECT {1}.Property2 FROM EntityOneQ {1})").</param>
-        /// <param name="parameters">The named parameters and their data types (e.g. NHibernateUtil.String).</param>
-        /// <param name="shouldApply">A predicate function using a mapped entity's <see cref="System.Type"/> and properties used to determine whether the filter should be applied to a particular entity.</param>
-        public FilterApplicationDetails(
-            string filterName,
-            string friendlyDefaultConditionFormat,
-            string friendlyHqlConditionFormat,
-            IDictionary<string, IType> parameters,
-            Func<Type, PropertyInfo[], bool> shouldApply)
-        {
-            ShouldApply = shouldApply;
-
-            string defaultCondition = ProcessFormatStringForAliases(friendlyDefaultConditionFormat);
-
-            FilterDefinition = new FilterDefinition(filterName, defaultCondition, parameters, false);
-            HqlConditionFormatString = ProcessFormatStringForAliases(friendlyHqlConditionFormat);
-        }
-
-        /// <summary>
         /// Gets the NHibernate FilterDefinition to be added to the configuration.
         /// </summary>
-        public FilterDefinition FilterDefinition { get; }
+        public FilterDefinition FilterDefinition { get; protected set; }
 
         /// <summary>
         /// Gets a format string containing the filter condition expressed as HQL rather than SQL, and with all new aliases assigned and the 'currentAlias' marker as the '{0}' format specifier.
         /// </summary>
-        public string HqlConditionFormatString { get; }
+        public string HqlConditionFormatString { get; protected set; }
 
         /// <summary>
         /// Gets the function for applying the filter using NHibernate's <see cref="NHibernate.ICriteria"/> API.
         /// </summary>
-        public Action<ICriteria, Junction, IDictionary<string, object>, JoinType> CriteriaApplicator { get; }
+        public Action<ICriteria, Junction, IDictionary<string, object>, JoinType> CriteriaApplicator { get; protected set; }
 
         /// <summary>
         /// Gets the predicate functional for determining whether the filter should be applied to a particular entity.
         /// </summary>
-        public Func<Type, PropertyInfo[], bool> ShouldApply { get; }
+        public Func<Type, PropertyInfo[], bool> ShouldApply { get; protected set; }
 
-        private static string ProcessFormatStringForAliases(string format)
+        protected static string ProcessFormatStringForAliases(string format)
         {
             Func<int, string> getFriendlyAliasKey = n => "{newAlias" + n + "}";
             var aliasGenerator = new AliasGenerator("fltr_", useSharedState: true);
@@ -171,7 +148,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             return defaultCondition;
         }
 
-        private static IEnumerable<string> ParseDistinctParameterNames(string defaultCondition)
+        protected static IEnumerable<string> ParseDistinctParameterNames(string defaultCondition)
         {
             var matches = ParameterRegex.Matches(defaultCondition);
 

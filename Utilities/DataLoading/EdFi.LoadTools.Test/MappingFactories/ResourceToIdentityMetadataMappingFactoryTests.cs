@@ -54,7 +54,7 @@ namespace EdFi.LoadTools.Test.MappingFactories
         }
 
         [Test]
-        [Category("Run Manually")]
+        [Category("RunManually")]
         public void Should_map_resource_to_identity()
         {
             foreach (var mapping in _mappings.OrderBy(x => x.SourceName))

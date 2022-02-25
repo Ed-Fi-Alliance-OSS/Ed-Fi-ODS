@@ -214,7 +214,7 @@ namespace EdFi.Ods.Api.Controllers
             return Ok(result.Resources);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status412PreconditionFailed)]
         public virtual async Task<IActionResult> Get(Guid id)

@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Infrastructure.Filtering;
+
 namespace EdFi.Ods.Common.Security.Authorization
 {
     /// <summary>
@@ -31,5 +33,19 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// The values associated with the API client's claim.
         /// </summary>
         public object[] ClaimValues { get; set; }
+        
+        /// <summary>
+        /// Indicates which logical operator ('AND' or 'OR') should be used when combining with other filters.
+        /// </summary>
+        public FilterOperator Operator { get; set; } = FilterOperator.And;
+    }
+
+    /// <summary>
+    /// Defines possible values describing how a filter is combined with other filters.
+    /// </summary>
+    public enum FilterOperator
+    {
+        Or = 1,
+        And = 2,
     }
 }

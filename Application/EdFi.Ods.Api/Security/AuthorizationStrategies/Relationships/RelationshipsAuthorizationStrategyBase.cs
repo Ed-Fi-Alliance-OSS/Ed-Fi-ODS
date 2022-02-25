@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
@@ -31,10 +32,25 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
         private List<ValidationResult> _dependencyValidationResults;
 
+        private Lazy<string> _authorizationStrategyName;
+
         protected RelationshipsAuthorizationStrategyBase(
             IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData> concreteEducationOrganizationIdAuthorizationContextDataTransformer)
         {
             _concreteEducationOrganizationIdAuthorizationContextDataTransformer = concreteEducationOrganizationIdAuthorizationContextDataTransformer;
+
+            _authorizationStrategyName = new Lazy<string>(
+                () =>
+                {
+                    // Ensure name of class follows conventions
+                    if (!this.GetType().Name.TrimAt("`1").TryTrimSuffix("AuthorizationStrategy", out string authorizationStrategyName))
+                    {
+                        throw new Exception(
+                            $"Naming of authorization strategy implementation class '{this.GetType().Name}' did not follow expected convention of using a suffix of 'AuthorizationStrategy'.");
+                    }
+
+                    return authorizationStrategyName;
+                });
         }
 
         // Define all required dependencies, injected through property injection for brevity in custom implementations
@@ -196,7 +212,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
         /// <param name="authorizationContext">The authorization context.</param>
         /// <returns>The list of filters to be applied to the query for authorization.</returns>
-        public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+        public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
@@ -209,7 +225,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, null);
 
             // Convert segments to general-purpose filters
-            return AuthorizationSegmentsToFiltersConverter.Convert(authorizationSegments);
+            var filters = AuthorizationSegmentsToFiltersConverter.Convert(authorizationSegments);
+
+            return new AuthorizationStrategyFiltering
+            {
+                AuthorizationStrategyName = _authorizationStrategyName.Value,
+                Filters = filters,
+                Operator = FilterOperator.Or
+            };
         }
 
         private IReadOnlyList<ClaimsAuthorizationSegment> GetAuthorizationSegments(

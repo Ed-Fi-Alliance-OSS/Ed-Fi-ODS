@@ -214,7 +214,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 throw new NotImplementedException();
             }
 
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
                 IEnumerable<Claim> relevantClaims,
                 EdFiAuthorizationContext authorizationContext)
             {
@@ -230,7 +230,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 throw new NotImplementedException();
             }
 
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
                 IEnumerable<Claim> relevantClaims,
                 EdFiAuthorizationContext authorizationContext)
             {
@@ -308,13 +308,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 return Task.CompletedTask;
             }
 
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
                 IEnumerable<Claim> relevantClaims,
                 EdFiAuthorizationContext authorizationContext)
             {
                 FilteringWasCalled = true;
 
-                return Array.Empty<AuthorizationFilterDetails>();
+                return new AuthorizationStrategyFiltering()
+                {
+                    AuthorizationStrategyName = "Test",
+                    Filters = Array.Empty<AuthorizationFilterDetails>()
+                };
             }
         }
 
@@ -2010,13 +2014,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 return Task.CompletedTask;
             }
 
-            public IReadOnlyList<AuthorizationFilterDetails> GetAuthorizationFilters(
+            public AuthorizationStrategyFiltering GetAuthorizationStrategyFiltering(
                 IEnumerable<Claim> relevantClaims,
                 EdFiAuthorizationContext authorizationContext)
             {
                 FilteringWasCalled = true;
 
-                return new AuthorizationFilterDetails[0];
+                return new AuthorizationStrategyFiltering()
+                {
+                    AuthorizationStrategyName = "Test",
+                    Filters = Array.Empty<AuthorizationFilterDetails>()
+                };
             }
         }
 
