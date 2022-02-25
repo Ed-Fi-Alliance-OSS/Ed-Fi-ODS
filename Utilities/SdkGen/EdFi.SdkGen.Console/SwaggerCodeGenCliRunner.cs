@@ -35,10 +35,9 @@ namespace EdFi.SdkGen.Console
         public void Run()
         {
             // run the task synchronously to avoid collisions to get the end points.
-           var endpointTask = Task.Run(() => GetSwaggerEndpoints(_options.MetaDataEndpoint));
+            var endpointTask = Task.Run(() => GetSwaggerEndpoints(_options.MetaDataEndpoint));
             endpointTask.Wait();
-            //var coreEdfiNamespaceList = new[] { @".*/metadata/composites/v1/ed-fi/([A-Za-z\-]+)/swagger.json", @".*/metadata/data/v3/ed-fi/swagger.json" };
-            var coreEdfiNamespaceList = new[] { @".*/metadata/data/v3/ed-fi/swagger.json" };
+            var coreEdfiNamespaceList = new[] { @".*/metadata/composites/v1/ed-fi/([A-Za-z\-]+)/swagger.json", @".*/metadata/data/v3/ed-fi/swagger.json" };
             var apiEndPoints = endpointTask.Result
                                                 .Where(
                                                      x => x.Name.Equals(All) && !_options.CoreOnly
@@ -73,7 +72,7 @@ namespace EdFi.SdkGen.Console
                 {
                     $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp-netcore", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
-                    $"--additional-properties packageName={_options.Namespace},targetFramework=netstandard2.0,netCoreProjectFile=true",
+                    $"--additional-properties packageName={_options.Namespace},targetFramework=net6.0,netCoreProjectFile=true",
                     "--global-property modelTests=false --global-property apiTests=false"
                 };
 
