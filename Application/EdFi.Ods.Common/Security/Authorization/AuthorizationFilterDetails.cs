@@ -27,25 +27,17 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <summary>
         /// The property/column of the authorization view for which the API client has a claim value.
         /// </summary>
-        public string ClaimEndpointName { get; set; }
+        public string ClaimParameterName { get; set; }
 
         /// <summary>
         /// The values associated with the API client's claim.
         /// </summary>
         public object[] ClaimValues { get; set; }
-        
-        /// <summary>
-        /// Indicates which logical operator ('AND' or 'OR') should be used when combining with other filters.
-        /// </summary>
-        public FilterOperator Operator { get; set; } = FilterOperator.And;
-    }
 
-    /// <summary>
-    /// Defines possible values describing how a filter is combined with other filters.
-    /// </summary>
-    public enum FilterOperator
-    {
-        Or = 1,
-        And = 2,
+        /// <summary>
+        /// The names of the specific claims endpoints that are represented in the authorization filter details (primarily
+        /// useful for identifying concrete education organization ids associated with the API client). 
+        /// </summary>
+        public string[] ClaimEndpointNames { get; set; }
     }
 }

@@ -18,12 +18,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and entity mappings.</returns>
         public IReadOnlyList<FilterApplicationDetails> GetFilters()
         {
-            var filters = new List<FilterApplicationDetails>
+            var filters = new FilterApplicationDetails[]
                           {
-                              // Local Education Agency/School to Student relationships (through StudentEducationOrganizationAssociation)
-                              RelationshipsAuthorizationFilters.EducationServiceCenterIdToStudentUSIThroughResponsibility,
-                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSIThroughResponsibility,
-                              RelationshipsAuthorizationFilters.SchoolIdToStudentUSIThroughResponsibility
+                              new ViewFilterApplicationDetails(
+                                  $"{RelationshipAuthorizationConventions.FilterNamePrefix}ToStudentUSIThroughResponsibility",
+                                  "EducationOrganizationIdToStudentUSIThroughResponsibility",
+                                  "SourceEducationOrganizationId",
+                                  "StudentUSI")
                           };
 
             return filters;

@@ -15,6 +15,7 @@ using FakeItEasy;
 using FakeItEasy.Configuration;
 using NHibernate;
 using NHibernate.Metadata;
+using NUnit.Framework;
 using Shouldly;
 using Test.Common;
 
@@ -136,7 +137,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             {
                 _actualFilters.Count.ShouldBe(1);
 
-                _actualFilters.Single().FilterName.ShouldBe("LocalEducationAgencyIdToSchoolId");
+                _actualFilters.Single().FilterName.ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToSchoolId");
             }
 
             [Assert]
@@ -147,7 +148,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
+                actualFilter.ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
 
                 parameterValues
                     .ShouldBe(
@@ -196,7 +197,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 _actualFilters.Count.ShouldBe(1);
 
                 _actualFilters.Single().FilterName
-                    .ShouldBe("LocalEducationAgencyIdToStudentUSIOverTheRiverAndThroughTheWoods");
+                    .ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToStudentUSIOverTheRiverAndThroughTheWoods");
             }
 
             [Assert]
@@ -207,7 +208,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
+                actualFilter.ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
 
                 parameterValues
                     .ShouldBe(
@@ -258,12 +259,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             }
 
             [Assert]
-            public void Should_return_filters_for_each_associated_EdOrg_type()
+            public void Should_return_ONE_combined_filter()
             {
-                _actualFilters[0].FilterName.ShouldBe("LocalEducationAgencyIdToSchoolId");
-                _actualFilters[0].ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
-                _actualFilters[0].SubjectEndpointName.ShouldBe("SchoolId");
-                _actualFilters[0].ClaimValues.ShouldBe(new object[] {999});
+                _actualFilters.ShouldSatisfyAllConditions(
+                    () => _actualFilters.Count.ShouldBe(1),
+                    () => _actualFilters[0].FilterName.ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToSchoolId"),
+                    () => _actualFilters[0].ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName),
+                    () => _actualFilters[0].SubjectEndpointName.ShouldBe("SchoolId"),
+                    () => _actualFilters[0].ClaimValues.ShouldBe(new object[] { 999, 1000 }));
             }
         }
 
@@ -299,7 +302,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 _actualFilters.Count.ShouldBe(1);
 
                 _actualFilters.Single().FilterName
-                    .ShouldBe("LocalEducationAgencyIdToLocalEducationAgencyId");
+                    .ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToLocalEducationAgencyId");
             }
 
             [Assert]
@@ -310,7 +313,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
+                actualFilter.ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
 
                 parameterValues
                     .ShouldBe(
@@ -353,7 +356,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 parameterValues.Count().ShouldBe(1);
 
-                actualFilter.ClaimEndpointName.ShouldBe("LocalEducationAgencyId");
+                actualFilter.ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
 
                 parameterValues
                     .ShouldBe(
@@ -397,6 +400,51 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 viewName.ShouldNotContain("ToStaffUniqueId");
                 viewName.ShouldContain("ToStaffUSI");
+            }
+        }
+
+        [TestFixture]
+        public class When_converting_to_filters_with_multiple_types_of_EdOrgs : TestFixtureBase
+        {
+            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+
+            protected override void Act()
+            {
+                var claimsAndValues = new[]
+                {
+                    Tuple.Create("LocalEducationAgencyId", (object) 12456),
+                    Tuple.Create("PostSecondaryInstitutionId", (object) 987654),
+                };
+
+                var studentSegmentEndpoint = new AuthorizationSegmentEndpoint("StudentUSI", typeof(int));
+                
+                var suppliedSegments = new[]
+                {
+                    new ClaimsAuthorizationSegment(claimsAndValues, studentSegmentEndpoint)
+                };
+                
+                var converter = new AuthorizationSegmentsToFiltersConverter();
+                _actualFilters = converter.Convert(suppliedSegments);
+            }
+
+            [Test]
+            public void Should_combine_EdOrg_types_into_a_single_filter()
+            {
+                _actualFilters.Count.ShouldBe(1);
+            }
+
+            [Test]
+            public void Should_rename_the_EdOrg_based_claim_endpoint_name_to_the_generalized_convention()
+            {
+                _actualFilters.Single().ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName);
+            }
+            
+            [Test]
+            public void Should_combine_the_EdOrgIds_into_a_single_array()
+            {
+                var claimValues = _actualFilters.Single().ClaimValues;
+                    
+                claimValues.ShouldBe(new object[] { 12456, 987654 });
             }
         }
     }

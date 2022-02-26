@@ -20,6 +20,7 @@ using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models;
 using log4net;
@@ -37,18 +38,25 @@ namespace EdFi.Ods.Features.Composites
         private readonly ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> _next;
         private readonly INHibernateFilterTextProvider _nHibernateFilterTextProvider;
         private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
-        private readonly Lazy<string[]> _concreteEducationOrganizationIdNames;
+        private readonly Lazy<List<string>> _sortedEducationOrganizationIdNames;
 
         public HqlBuilderAuthorizationDecorator(
             ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> next,
             IEdFiAuthorizationProvider authorizationProvider,
             INHibernateFilterTextProvider nHibernateFilterTextProvider,
             IResourceClaimUriProvider resourceClaimUriProvider,
-            IConcreteEducationOrganizationIdNamesProvider concreteEducationOrganizationIdNamesProvider)
+            IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
         {
 
-            _concreteEducationOrganizationIdNames =
-                new Lazy<string[]>(concreteEducationOrganizationIdNamesProvider.GetNames);
+            _sortedEducationOrganizationIdNames =
+                new Lazy<List<string>>(
+                    () =>
+                    {
+                        var sortedEdOrgNames = new List<string>(educationOrganizationIdNamesProvider.GetAllNames());
+                        sortedEdOrgNames.Sort();
+
+                        return sortedEdOrgNames;
+                    });
                 
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _authorizationProvider = Preconditions.ThrowIfNull(authorizationProvider, nameof(authorizationProvider));
@@ -355,10 +363,7 @@ namespace EdFi.Ods.Features.Composites
                         // Copy over the values of the named parameters, but only if they are actually present in the filter
                         var authorizationFilterDetails = filterInfo.Value;
 
-                        string parameterName =
-                            _concreteEducationOrganizationIdNames.Value.Contains(authorizationFilterDetails.ClaimEndpointName)
-                                ? "ClaimEducationOrganizationIds"
-                                : authorizationFilterDetails.ClaimEndpointName;
+                        string parameterName = authorizationFilterDetails.ClaimParameterName;
 
                         if (filterHql.Contains($":{parameterName}"))
                         {

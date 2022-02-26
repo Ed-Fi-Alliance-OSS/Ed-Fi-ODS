@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Security.Authorization;
-using EdFi.Ods.Api.Security.Authorization;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
@@ -22,47 +21,35 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             if (!authorizationSegments.Any())
             {
-                return new AuthorizationFilterDetails[0];
+                return Array.Empty<AuthorizationFilterDetails>();
             }
 
-            var filterByName = new Dictionary<string, AuthorizationFilterDetails>(StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (var segment in authorizationSegments)
-            {
-                var subjectEndpointName = segment.SubjectEndpoint.Name;
-
-                var segmentFilters = segment
-                    .ClaimsEndpoints
-                    .GroupBy(x => x.Name)
-                    .Select(g =>
+            var authorizationFilterDetails = authorizationSegments.GroupBy(s => (s.SubjectEndpoint.Name, s.AuthorizationPathModifier))
+                .Select(
+                    g =>
                     {
-                        string claimEndpointName = g.Key;
+                        var (subjectEndpointName, authorizationPathModifier) = g.Key;
 
-                        // Get the name of the view to use for this segment
-                        string filterName = FilterNameHelper.GetAuthorizationFilterName(
-                            subjectEndpointName,
-                            claimEndpointName,
-                            segment.AuthorizationPathModifier);
+                        // Get the name of the filter to use for this segment
+                        string filterName = GetAuthorizationFilterName(subjectEndpointName, authorizationPathModifier);
 
                         return new AuthorizationFilterDetails
                         {
                             FilterName = filterName,
+                            ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
+                            ClaimValues = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Value)).Distinct().ToArray(),
                             SubjectEndpointName = subjectEndpointName,
-                            ClaimEndpointName = claimEndpointName,
-                            ClaimValues = g.Select(x => x.Value).Distinct().ToArray(),
+                            ClaimEndpointNames = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Name)).ToArray(),
                         };
-                    });
+                    })
+                .ToArray();
 
-                foreach (var segmentFilter in segmentFilters)
-                {
-                    if (!filterByName.ContainsKey(segmentFilter.FilterName))
-                    {
-                        filterByName[segmentFilter.FilterName] = segmentFilter;
-                    }
-                }
+            return authorizationFilterDetails; 
+            
+            string GetAuthorizationFilterName(string subjectEndpointName, string authorizationPathModifier)
+            {
+                return $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{subjectEndpointName}{authorizationPathModifier}";
             }
-
-            return filterByName.Values.ToArray();
         }
     }
 }

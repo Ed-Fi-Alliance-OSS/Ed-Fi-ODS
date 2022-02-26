@@ -11,6 +11,7 @@ using System.Reflection;
 using EdFi.Common;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Common.Conventions
@@ -268,5 +269,12 @@ namespace EdFi.Ods.Common.Conventions
         /// Gets the base URI used to represent a resource claim in the Ed-Fi security database.
         /// </summary>
         public static string EdFiOdsResourceClaimBaseUri => "http://ed-fi.org/ods/identity/claims";
+
+        /// <summary>
+        /// Gets the full name of the Ed-Fi EducationOrganization entity. 
+        /// </summary>
+        public static readonly FullName EducationOrganizationFullName = new FullName(
+            EdFiConventions.PhysicalSchemaName,
+            "EducationOrganization");
     }
 }

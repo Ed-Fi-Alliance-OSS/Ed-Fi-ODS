@@ -32,6 +32,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IFilterCriteriaApplicatorProvider _authorizationCriteriaApplicatorProvider;
         private readonly IFilterApplicationDetailsProvider _filterApplicationDetailsProvider;
+        private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
+        private readonly Lazy<List<string>> _sortedEducationOrganizationIdNames;
 
         private readonly ILog _logger;
 
@@ -39,12 +41,24 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IAggregateRootCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider,
-            IFilterApplicationDetailsProvider filterApplicationDetailsProvider)
+            IFilterApplicationDetailsProvider filterApplicationDetailsProvider,
+            IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
         {
             _decoratedInstance = decoratedInstance;
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
             _authorizationCriteriaApplicatorProvider = authorizationCriteriaApplicatorProvider;
             _filterApplicationDetailsProvider = filterApplicationDetailsProvider;
+            _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
+
+            _sortedEducationOrganizationIdNames =
+                new Lazy<List<string>>(
+                    () =>
+                    {
+                        var sortedEdOrgNames = new List<string>(_educationOrganizationIdNamesProvider.GetAllNames());
+                        sortedEdOrgNames.Sort();
+
+                        return sortedEdOrgNames;
+                    });
 
             // Log entries for the concrete type
             _logger = LogManager.GetLogger(GetType());
@@ -63,6 +77,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
+            var unsupportedAuthorizationSegments = new HashSet<string>();
 
             // Create the "AND" junction
             var mainConjunction = new Conjunction();
@@ -77,8 +92,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             bool disjunctionFiltersWereApplied = ApplyAuthorizationStrategiesCombinedWithOrLogic();
 
             ApplyJunctionsToCriteriaQuery();
-
-            EnsureRequestAuthorized();
 
             return criteria;
 
@@ -114,8 +127,14 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                 foreach (var andStrategy in andStrategies)
                 {
-                    conjunctionFiltersApplied |= TryApplyAndFilters(mainConjunction, andStrategy.Filters);
-                    conjunctionFiltersApplied |= TryApplyOrFilters(mainConjunction, andStrategy.Filters);
+                    if (!TryApplyFilters(mainConjunction, andStrategy.Filters))
+                    {
+                        // All filters for AND strategies must be applied, and if not, this is an error condition
+                        throw new EdFiSecurityException(
+                            string.Join(" ", unsupportedAuthorizationFilters.Concat(unsupportedAuthorizationSegments)));
+                    }
+
+                    conjunctionFiltersApplied = true;
                 }
 
                 return conjunctionFiltersApplied;
@@ -130,24 +149,31 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                 foreach (var orStrategy in orStrategies)
                 {
-                    var strategyConjunction = new Conjunction(); // Combine with 'AND'
+                    var filtersConjunction = new Conjunction(); // Combine filters with 'AND'
 
-                    disjunctionFiltersApplied |= TryApplyAndFilters(strategyConjunction, orStrategy.Filters);
-                    disjunctionFiltersApplied |= TryApplyOrFilters(strategyConjunction, orStrategy.Filters);
+                    if (TryApplyFilters(filtersConjunction, orStrategy.Filters))
+                    {
+                        mainDisjunction.Add(filtersConjunction);
 
-                    mainDisjunction.Add(strategyConjunction);
+                        disjunctionFiltersApplied = true;
+                    }
                 }
 
+                // If we have some OR strategies with filters defined, but no filters were applied, this is an error condition
+                if (orStrategies.SelectMany(s => s.Filters).Any() && !disjunctionFiltersApplied)
+                {
+                    throw new EdFiSecurityException(
+                        string.Join(" ", unsupportedAuthorizationFilters.Concat(unsupportedAuthorizationSegments)));
+                }
+                
                 return disjunctionFiltersApplied;
             }
 
-            bool TryApplyAndFilters(Conjunction conjunction, IReadOnlyList<AuthorizationFilterDetails> filters)
+            bool TryApplyFilters(Conjunction conjunction, IReadOnlyList<AuthorizationFilterDetails> filters)
             {
-                bool filterApplied = false;
+                bool allFiltersCanBeApplied = true;
                 
-                var andFilters = filters.Where(x => x.Operator == FilterOperator.And);
-
-                foreach (var filterDetails in andFilters)
+                foreach (var filterDetails in filters)
                 {
                     if (!_authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
                             filterDetails.FilterName,
@@ -156,73 +182,61 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     {
                         unsupportedAuthorizationFilters.Add(filterDetails.FilterName);
 
+                        allFiltersCanBeApplied = false;
+
                         continue;
                     }
                 
+                    // If the filter has claim endpoint names captured (i.e. this is a relationship-based filter) and the subject is an EdOrgId
+                    if ((filterDetails.ClaimEndpointNames?.Any() ?? false) 
+                        && filterDetails.SubjectEndpointName != "EducationOrganizationId"
+                        && _sortedEducationOrganizationIdNames.Value.BinarySearch(filterDetails.SubjectEndpointName) >= 0)
+                    {
+                        bool subjectIsInaccessible = filterDetails.ClaimEndpointNames.All(
+                            c => !_educationOrganizationIdNamesProvider.IsEducationOrganizationIdAccessible(
+                                c,
+                                filterDetails.SubjectEndpointName));
+
+                        if (subjectIsInaccessible)
+                        {
+                            unsupportedAuthorizationSegments.Add(
+                                $"Unable to authorize the request because there is no authorization support for associating the API client's associated education organization claim values (of type '{string.Join("', '", filterDetails.ClaimEndpointNames.OrderBy(x => x))}') with the '{filterDetails.SubjectEndpointName}' of the '{typeof(TEntity).Name}' resource.");
+                            
+                            allFiltersCanBeApplied = false;
+                        }
+                    }
+                }
+
+                if (!allFiltersCanBeApplied)
+                {
+                    return false;
+                }
+
+                bool filtersApplied = false;
+                
+                foreach (var filterDetails in filters)
+                {
+                    _authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
+                        filterDetails.FilterName,
+                        typeof(TEntity),
+                        out IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators);
+                    
                     // Invoke the filter applicators against the current query
                     foreach (var applicator in applicators)
                     {
-                        // Make claim values available under various names used by different contexts (NOTE: long term goal would be to eliminate this variation) 
                         var parameterValues = new Dictionary<string, object>
                         {
-                            {"SourceEducationOrganizationId", filterDetails.ClaimValues},
-                            {filterDetails.ClaimEndpointName, filterDetails.ClaimValues},
+                            { filterDetails.ClaimParameterName, filterDetails.ClaimValues }
                         };
 
                         // Apply the authorization strategy filter
                         applicator(criteria, conjunction, parameterValues, joinType);
-                        
-                        filterApplied = true;
+
+                        filtersApplied = true;
                     }
                 }
-
-                return filterApplied;
-            }
-
-            bool TryApplyOrFilters(Conjunction conjunction, IReadOnlyList<AuthorizationFilterDetails> filters)
-            {
-                bool filterApplied = false;
                 
-                // Combine these filters with OR
-                var disjunction = new Disjunction();
-
-                var orFilters = filters.Where(x => x.Operator == FilterOperator.Or).ToArray();
-            
-                foreach (var filterDetails in orFilters)
-                {
-                    if (!_authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
-                            filterDetails.FilterName,
-                            typeof(TEntity),
-                            out IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators))
-                    {
-                        unsupportedAuthorizationFilters.Add(filterDetails.FilterName);
-
-                        continue;
-                    }
-
-                    // Invoke the filter applicators against the current query
-                    foreach (var applicator in applicators)
-                    {
-                        // Make claim values available under various names used by different contexts (NOTE: long term goal would be to eliminate this variation) 
-                        var parameterValues = new Dictionary<string, object>
-                        {
-                            { "SourceEducationOrganizationId", filterDetails.ClaimValues },
-                            { filterDetails.ClaimEndpointName, filterDetails.ClaimValues },
-                        };
-
-                        // Apply the authorization strategy filter
-                        applicator( criteria, disjunction, parameterValues, joinType);
-
-                        filterApplied = true;
-                    }
-                }
-
-                if (filterApplied)
-                {
-                    conjunction.Add(disjunction);
-                }
-
-                return filterApplied;
+                return filtersApplied;
             }
 
             void ApplyJunctionsToCriteriaQuery()
@@ -242,29 +256,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 if (conjunctionFiltersWereApplied)
                 {
                     criteria.Add(mainConjunction);
-                }
-            }
-
-            void EnsureRequestAuthorized()
-            {
-                if (unsupportedAuthorizationFilters.Any() && !conjunctionFiltersWereApplied && !disjunctionFiltersWereApplied)
-                {
-                    if (_logger.IsDebugEnabled)
-                    {
-                        _logger.Debug(
-                            $"Unable to authorize access to '{typeof(TEntity).FullName}' because none of the following authorization filters were defined: '{string.Join($"', '", unsupportedAuthorizationFilters)}'.");
-                    }
-
-                    string[] distinctClaimEndpointNames = authorizationFiltering
-                        .SelectMany(s => s.Filters.Select(f => f.ClaimEndpointName))
-                        .Distinct()
-                        .OrderBy(x => x)
-                        .ToArray();
-
-                    // TODO: Multiple authorization strategy support -- is there a better way to message the error (which used to combine claim endpoints from a single auth strategy)?
-                    throw new EdFiSecurityException(
-                        $"Unable to authorize the request because there is no authorization support for associating the "
-                        + $"API client's associated claim values (of '{string.Join("', '", distinctClaimEndpointNames)}') with the requested resource ('{typeof(TEntity).Name}').");
                 }
             }
         }

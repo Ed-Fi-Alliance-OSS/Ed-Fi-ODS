@@ -22,12 +22,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         {
             foreach (var nameAndValue in parameters.Where(x => availableFilterProperties.Contains(x.Key, StringComparer.OrdinalIgnoreCase)))
             {
-                var arrayOfValues = nameAndValue.Value as object[];
-
-                if (arrayOfValues != null)
+                if (nameAndValue.Value is object[] arrayOfValues)
+                {
                     whereJunction.Add(Restrictions.In($"{nameAndValue.Key}", arrayOfValues));
+                }
                 else
+                {
                     whereJunction.Add(Restrictions.Eq($"{nameAndValue.Key}", nameAndValue.Value));
+                }
             }
         }
     }

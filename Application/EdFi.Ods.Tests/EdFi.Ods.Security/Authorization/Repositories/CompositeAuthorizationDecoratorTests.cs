@@ -116,8 +116,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                 var suppliedFilterText = $"TheField = :{SuppliedParameterName}";
 
                 A.CallTo(() => 
-                        Given<IConcreteEducationOrganizationIdNamesProvider>()
-                            .GetNames())
+                        Given<IEducationOrganizationIdNamesProvider>()
+                            .GetAllNames())
                             .Returns(Array.Empty<string>());
                 
                 A.CallTo(() =>
@@ -361,7 +361,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                             new AuthorizationFilterDetails
                             {
                                 FilterName = _filterName,
-                                ClaimEndpointName = _parameterName,
+                                ClaimParameterName = _parameterName,
                                 ClaimValues = new[] { _parameterValue }
                             }
                         } 

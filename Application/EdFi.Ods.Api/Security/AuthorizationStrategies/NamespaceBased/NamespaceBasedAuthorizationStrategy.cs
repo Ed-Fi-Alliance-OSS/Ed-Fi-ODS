@@ -79,7 +79,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
                     {
                         FilterName = "Namespace",
                         SubjectEndpointName = "Namespace",
-                        ClaimEndpointName = "Namespace",
+                        ClaimParameterName = "Namespace",
                         ClaimValues = claimNamespacePrefixes.Select(prefix => $"{prefix}%").Cast<object>().ToArray(),
                     }
                 },

@@ -146,7 +146,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <param name="entity"></param>
         /// <returns><b>true</b> if the type has a EducationOrganization Base Entity; otherwise <b>false</b>.</returns>
         public static bool IsEducationOrganizationBaseEntity(this Entity entity)
-            => entity.FullName.Equals(new FullName(EdFiConventions.PhysicalSchemaName, "EducationOrganization"));
+            => entity.FullName.Equals(EdFiConventions.EducationOrganizationFullName);
 
         /// <summary>
         /// Checks if the entity is a EducationOrganization Derived Entity
