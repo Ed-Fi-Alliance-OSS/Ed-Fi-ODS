@@ -18,6 +18,8 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.2.62" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.9" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\ChangeQueries.json" />
