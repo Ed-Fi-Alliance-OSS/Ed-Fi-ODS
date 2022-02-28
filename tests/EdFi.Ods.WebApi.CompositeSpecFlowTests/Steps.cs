@@ -114,7 +114,10 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         {
             const string query = @"
                     SELECT  TOP 1 sa.Id
-                    FROM    edfi.StudentSchoolAssociation sa ";
+                    FROM    edfi.StudentSchoolAssociation sa
+                    INNER JOIN edfi.School sc 
+                            ON sa.SchoolId = sc.SchoolId
+                    WHERE sc.LocalEducationAgencyId IS NOT NULL";
 
             await SetIdAsync(query);
             SetResource("StudentSchoolAssociation");
