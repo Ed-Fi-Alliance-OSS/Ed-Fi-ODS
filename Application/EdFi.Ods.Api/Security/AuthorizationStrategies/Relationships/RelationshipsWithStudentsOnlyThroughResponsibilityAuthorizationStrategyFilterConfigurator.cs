@@ -23,7 +23,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                               new ViewFilterApplicationDetails(
                                   $"{RelationshipAuthorizationConventions.FilterNamePrefix}ToStudentUSIThroughResponsibility",
                                   "EducationOrganizationIdToStudentUSIThroughResponsibility",
-                                  "SourceEducationOrganizationId",
+                                  "StudentUSI",
                                   "StudentUSI")
                           };
 
