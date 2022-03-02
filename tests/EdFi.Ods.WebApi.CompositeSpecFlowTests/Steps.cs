@@ -116,7 +116,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     SELECT  TOP 1 sa.Id
                     FROM    edfi.StudentSchoolAssociation sa
                     INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId edOrgs
-                            ON ssa.SchoolId = edOrgs.TargetEducationOrganizationId
+                            ON sa.SchoolId = edOrgs.TargetEducationOrganizationId
                     WHERE edOrgs.SourceEducationOrganizationId = 255901";
 
             await SetIdAsync(query);
