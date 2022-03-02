@@ -19,8 +19,8 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="3.1.1" />
-    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="3.1.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="6.0.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.1" />
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.19" />
     <PackageReference Include="EdFi.Suite3.Common" Version="5.4.10" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.9" />
@@ -37,7 +37,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
-    <PackageReference Include="Npgsql" Version="4.1.5" />
+    <PackageReference Include="Npgsql" Version="6.0.3" />
     <PackageReference Include="Polly" Version="7.2.2" />
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
