@@ -3,18 +3,17 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using Dapper;
+using EdFi.Admin.DataAccess.Utils;
+using EdFi.Common.Configuration;
+using log4net;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Dapper;
-using EdFi.Admin.DataAccess.Utils;
-using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
-using log4net;
-using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Sandbox.Provisioners
 {
@@ -35,7 +34,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 var results = await conn.QueryAsync<string>(
                         $"SELECT name FROM sys.databases WHERE name like @DbName;",
-                        new {DbName = _databaseNameBuilder.SandboxNameForKey("%")}, commandTimeout: CommandTimeout)
+                        new { DbName = _databaseNameBuilder.SandboxNameForKey("%") }, commandTimeout: CommandTimeout)
                     .ConfigureAwait(false);
 
                 return results.ToArray();
@@ -57,7 +56,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             {
                 var results = await conn.QueryAsync<SandboxStatus>(
                         $"SELECT name as Name, state as Code, state_desc as Description FROM sys.databases WHERE name = @DbName;",
-                        new {DbName = _databaseNameBuilder.SandboxNameForKey(clientKey)},
+                        new { DbName = _databaseNameBuilder.SandboxNameForKey(clientKey) },
                         commandTimeout: CommandTimeout)
                     .ConfigureAwait(false);
 
@@ -115,6 +114,15 @@ namespace EdFi.Ods.Sandbox.Provisioners
                         await conn.ExecuteAsync(
                                 $@"RESTORE DATABASE [{newDatabaseName}] FROM DISK = '{backup}' WITH REPLACE, MOVE '{logicalName}' TO '{sqlFileInfo.Data}', MOVE '{logicalName}_log' TO '{sqlFileInfo.Log}';", commandTimeout: CommandTimeout)
                             .ConfigureAwait(false);
+
+
+                        var changeLogicalDataName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME={logicalName}, NEWNAME={newDatabaseName})";
+                        await conn.ExecuteAsync(changeLogicalDataName, commandTimeout: CommandTimeout)
+                                  .ConfigureAwait(false);
+
+                        var changeLogicalLogName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME={logicalName}_log, NEWNAME={newDatabaseName}_log)";
+                        await conn.ExecuteAsync(changeLogicalLogName, commandTimeout: CommandTimeout)
+                                  .ConfigureAwait(false);
                     }
 
                     async Task<string> GetBackupDirectoryAsync()
@@ -163,7 +171,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                     async Task<string> GetSqlDataPathAsync(string originalName, DataPathType dataPathType)
                     {
-                        var type = (int) dataPathType;
+                        var type = (int)dataPathType;
 
                         // Since we know we have an existing database, use its data file location to figure out where to put new databases
                         var sql =
@@ -182,16 +190,16 @@ namespace EdFi.Ods.Sandbox.Provisioners
                 }
             }
         }
-        
+
         private async Task<SqlServerHostPlatform> GetSqlServerHostPlatform()
         {
-            if(_sqlServerHostPlatform is null)
+            if (_sqlServerHostPlatform is null)
             {
                 using (var conn = CreateConnection())
                 {
                     // Get SQL Server OS; sys.dm_os_host_info was introduced in SQL Server 2017 (alongside Linux support)
                     // if the table doesn't exist we can assume that the OS is Windows
-                    
+
                     const string Windows = "Windows";
 
                     var getHostPlatformSql = $"IF OBJECT_ID('sys.dm_os_host_info') IS NOT NULL SELECT host_platform FROM sys.dm_os_host_info ELSE SELECT '{Windows}'";
