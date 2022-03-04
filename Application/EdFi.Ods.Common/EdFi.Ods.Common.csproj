@@ -16,12 +16,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.10" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.11" />
     <PackageReference Include="FluentValidation" Version="8.6.3" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
-    <PackageReference Include="Npgsql" Version="4.1.5" />
+    <PackageReference Include="Npgsql" Version="6.0.3" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
