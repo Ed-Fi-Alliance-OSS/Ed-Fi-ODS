@@ -25,13 +25,13 @@
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.19" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.9" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.20" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.10" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="ApprovalTests" Version="5.7.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.10" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.11" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FakeItEasy" Version="7.3.0" />
     <PackageReference Include="FluentValidation" Version="8.6.3" />
