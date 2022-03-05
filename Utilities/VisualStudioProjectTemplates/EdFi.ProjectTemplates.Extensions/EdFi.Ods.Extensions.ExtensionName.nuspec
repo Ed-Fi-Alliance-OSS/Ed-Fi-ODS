@@ -14,6 +14,6 @@
     <file src="Artifacts/**/*.sql" target="."/>
     <file src="Artifacts/**/*.json" target="."/>
     <file src="assemblyMetadata.json" target="."/>
-    <file src="bin\$configuration$\netcoreapp3.1\$safeprojectname$.dll" target="."/>
+    <file src="bin\$configuration$\net6.0\$safeprojectname$.dll" target="."/>
   </files>
 </package>

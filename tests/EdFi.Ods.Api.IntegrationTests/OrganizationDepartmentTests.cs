@@ -201,7 +201,7 @@ namespace EdFi.Ods.Api.IntegrationTests
             // Move the LEA org department to the bottom of the hierarchy (under 2nd-level school org dept)
             Builder.UpdateOrganizationDepartment(8901, parentEducationOrganizationId: 88901002).Execute();
 
-            var afterMovedDownCount = EducationOrganizationHelper.GetExistingTuples(Connection).Count;
+            var afterMovedDown = EducationOrganizationHelper.GetExistingTuples(Connection);
 
             var expectedTuplesAfterMovedDown = new[]
             {
@@ -243,16 +243,14 @@ namespace EdFi.Ods.Api.IntegrationTests
             
             EducationOrganizationHelper.ShouldContainTuples(Connection, expectedTuplesAfterMovedDown);
             
-            afterMovedDownCount.ShouldBe(afterCreationCount + 6,
-                () =>
-                {
-                    return $"The following additional tuples were found: {Environment.NewLine}"
-                    + string.Join(Environment.NewLine, 
-                        EducationOrganizationHelper.GetExistingTuples(Connection)
+            afterMovedDown.Count.ShouldBe(afterCreationCount + 6,
+                    $"The following additional tuples were found: {Environment.NewLine}"
+                    + string.Join(Environment.NewLine,
+                        afterMovedDown
                             .Except(baselineTuples)
                             .Except(expectedTuplesAfterMovedDown)
-                            .Select(t => $"({t.Item1},{t.Item2})"));
-                });
+                            .Select(t => $"({t.Item1},{t.Item2})"))
+            );
             
             // Move the original LEA org department back to the LEA
             Builder.UpdateOrganizationDepartment(8901, parentEducationOrganizationId: 901).Execute();

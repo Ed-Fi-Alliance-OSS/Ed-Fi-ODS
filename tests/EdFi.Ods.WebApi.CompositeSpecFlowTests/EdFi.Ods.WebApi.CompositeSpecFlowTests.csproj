@@ -28,32 +28,32 @@
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.20" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.10" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
-    <PackageReference Include="ApprovalTests" Version="5.7.1" />
+    <PackageReference Include="ApprovalTests" Version="5.7.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="EdFi.Suite3.Common" Version="5.4.11" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="FakeItEasy" Version="7.2.0" />
+    <PackageReference Include="FakeItEasy" Version="7.3.0" />
     <PackageReference Include="FluentValidation" Version="8.6.3" />
-    <PackageReference Include="Gherkin" Version="6.0.0" />
+    <PackageReference Include="Gherkin" Version="22.0.0" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
     <PackageReference Include="log4net" Version="2.0.13" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0">
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
-    <PackageReference Include="Selenium.Support" Version="3.141.0" />
-    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
-    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.30" />
-    <PackageReference Include="Shouldly" Version="3.0.2" />
-    <PackageReference Include="SpecFlow" Version="3.5.5" />
-    <PackageReference Include="SpecFlow.NUnit" Version="3.5.5" />
-    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.5.5" />
+    <PackageReference Include="Selenium.Support" Version="4.1.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.1.0" />
+    <PackageReference Include="TeamCity.VSTest.TestAdapter" Version="1.0.36" />
+    <PackageReference Include="Shouldly" Version="4.0.3" />
+    <PackageReference Include="SpecFlow" Version="3.9.52" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.9.52" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.52" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">
