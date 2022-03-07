@@ -4659,7 +4659,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     [ExcludeFromCodeCoverage]
     public class CandidateEducatorPreparationProgramAssociationReference
     {
-        [DataMember(Name="beginDate"), NaturalKeyMember]
+        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="candidateIdentifier"), NaturalKeyMember]
@@ -18087,7 +18087,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         [DataMember(Name="aidTypeDescriptor"), NaturalKeyMember]
         public string AidTypeDescriptor { get; set; }
 
-        [DataMember(Name="beginDate"), NaturalKeyMember]
+        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="studentUniqueId"), NaturalKeyMember]
