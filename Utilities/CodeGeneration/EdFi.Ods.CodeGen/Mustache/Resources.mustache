@@ -38,7 +38,7 @@ namespace {{ResourceClassesNamespace}}
     public class {{ReferenceName}}Reference
     {
         {{#ReferenceIdentifiers}}
-        [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]
+        [DataMember(Name="{{JsonPropertyName}}"), NaturalKeyMember]{{#IsDateOnlyProperty}}[JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]{{/IsDateOnlyProperty}}{{#IsTimeSpanProperty}}[JsonConverter(typeof(UtcTimeConverter))]{{/IsTimeSpanProperty}}
         public {{PropertyType}} {{PropertyName}} { get; set; }
 
         {{/ReferenceIdentifiers}}
