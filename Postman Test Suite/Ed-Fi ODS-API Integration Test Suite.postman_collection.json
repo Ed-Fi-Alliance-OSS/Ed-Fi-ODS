@@ -1832,8 +1832,8 @@
 									"});",
 									"const __ = require('lodash');",
 									"const responseItems = pm.response.json();",
-									"pm.test(\"Should return the 25 items in response\", () => {",
-									"     pm.expect(responseItems).to.have.lengthOf(25);",
+									"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
+									"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
 									"});",
 									"pm.environment.set('known:courseCode', __.first(responseItems).courseCode);",
 									"pm.environment.set('known:totalCount', postman.getResponseHeader(\"Total-Count\"));"
@@ -4481,8 +4481,8 @@
 									"});",
 									"const __ = require('lodash');",
 									"const responseItems = pm.response.json();",
-									"pm.test(\"Should return the 25 items in response\", () => {",
-									"     pm.expect(responseItems).to.have.lengthOf(25);",
+									"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
+									"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
 									"});",
 									"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);",
 									"pm.environment.set('known:studentTotalCount', postman.getResponseHeader(\"Total-Count\"));"
@@ -4771,8 +4771,8 @@
 									"});",
 									"const __ = require('lodash');",
 									"const responseItems = pm.response.json();",
-									"pm.test(\"Should return the 25 items in response\", () => {",
-									"     pm.expect(responseItems).to.have.lengthOf(25);",
+									"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
+									"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
 									"});",
 									"pm.environment.set('known:staffUniqueId', __.first(responseItems).staffUniqueId);",
 									"pm.environment.set('known:staffTotalCount', postman.getResponseHeader(\"Total-Count\"));"
