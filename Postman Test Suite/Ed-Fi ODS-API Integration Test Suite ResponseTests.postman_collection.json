@@ -137,9 +137,9 @@
 															"    pm.expect(pm.response.code).to.equal(200);",
 															"});",
 															"",
-															"pm.test(\"Should return 25 items\", () => {",
+															"pm.test(\"Should return DefaultPageSizeLimit items\", () => {",
 															"     const responseItems = pm.response.json();",
-															"     pm.expect(responseItems.length).to.equal(25);",
+															"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
 															"});",
 															"",
 															"",
@@ -200,9 +200,9 @@
 															"    pm.expect(pm.response.code).to.equal(200);",
 															"});",
 															"",
-															"pm.test(\"Should return 25 items\", () => {",
+															"pm.test(\"Should return DefaultPageSizeLimit items\", () => {",
 															"     const responseItems = pm.response.json();",
-															"     pm.expect(responseItems.length).to.equal(25);",
+															"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
 															"});",
 															"",
 															"",
@@ -269,9 +269,9 @@
 															"    pm.expect(pm.response.code).to.equal(200);",
 															"});",
 															"",
-															"pm.test(\"Should return 25 items\", () => {",
+															"pm.test(\"Should return DefaultPageSizeLimit items\", () => {",
 															"     const responseItems = pm.response.json();",
-															"     pm.expect(responseItems.length).to.equal(25);",
+															"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
 															"});",
 															"",
 															"",
@@ -325,10 +325,10 @@
 									"_postman_isSubFolder": true
 								},
 								{
-									"name": "When_No_Parameters_are_supplied_should_return_25_results",
+									"name": "When_No_Parameters_are_supplied_should_return_DefaultPageSizeLimit_results",
 									"item": [
 										{
-											"name": "When_No_Parameters_are_supplied_should_return_25_results",
+											"name": "When_No_Parameters_are_supplied_should_return_DefaultPageSizeLimit_results",
 											"event": [
 												{
 													"listen": "test",
@@ -339,9 +339,9 @@
 															"    pm.expect(pm.response.code).to.equal(200);",
 															"});",
 															"",
-															"pm.test(\"Should return 25 items for verification\", () => {",
+															"pm.test(\"Should return DefaultPageSizeLimit items for verification\", () => {",
 															"     const responseItems = pm.response.json();",
-															"     pm.expect(responseItems.length).to.equal(25);",
+															"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
 															"});",
 															""
 														],
