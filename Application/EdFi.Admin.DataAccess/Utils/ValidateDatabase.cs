@@ -22,12 +22,7 @@ namespace EdFi.Admin.DataAccess.Utils
             {
                 if (!context.Database.Exists())
                 {
-                    throw new ConfigurationErrorsException("Admin database does not exist.");
-                }
-
-                if (!context.Database.CompatibleWithModel(true))
-                {
-                    throw new InvalidOperationException($"The {context.Database.Connection.Database} database is not compatible with the entity model.");
+                    throw new ConfigurationErrorsException("Unable to open connection to the Admin database.");
                 }
             }
         }
