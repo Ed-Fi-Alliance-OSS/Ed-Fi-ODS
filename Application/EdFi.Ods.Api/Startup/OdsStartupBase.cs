@@ -366,7 +366,7 @@ namespace EdFi.Ods.Api.Startup
             }
 
             // in a developer environment the plugin folder is relative to the WebApi project
-            // "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi\bin\Debug\netcoreapp3.1\..\..\..\" => "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi"
+            // "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi\bin\Debug\net6.0\..\..\..\" => "Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi"
             var projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory!, "..\\..\\..\\"));
             var relativeToProject = Path.GetFullPath(Path.Combine(projectDirectory, Plugin.Folder));
 

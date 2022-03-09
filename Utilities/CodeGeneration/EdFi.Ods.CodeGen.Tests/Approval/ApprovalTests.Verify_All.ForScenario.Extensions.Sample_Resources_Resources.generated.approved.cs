@@ -9940,7 +9940,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     [ExcludeFromCodeCoverage]
     public class StudentArtProgramAssociationReference
     {
-        [DataMember(Name="beginDate"), NaturalKeyMember]
+        [DataMember(Name="beginDate"), NaturalKeyMember][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime BeginDate { get; set; }
 
         [DataMember(Name="educationOrganizationId"), NaturalKeyMember]

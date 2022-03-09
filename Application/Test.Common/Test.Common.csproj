@@ -14,14 +14,14 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="10.1.1" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.9" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.10" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="FakeItEasy" Version="7.2.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0">
+    <PackageReference Include="FakeItEasy" Version="7.3.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
