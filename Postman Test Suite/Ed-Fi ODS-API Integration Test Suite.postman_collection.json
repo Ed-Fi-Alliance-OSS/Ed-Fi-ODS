@@ -4482,7 +4482,7 @@
 									"const __ = require('lodash');",
 									"const responseItems = pm.response.json();",
 									"pm.test(\"Should return the DefaultPageSizeLimit items in response\", () => {",
-									"     pm.expect(responseItems.length).to.be.at.least(1).and.at.most(500);",
+									"     pm.expect(responseItems.length).to.equal(500);",
 									"});",
 									"pm.environment.set('known:studentUniqueId', __.first(responseItems).studentUniqueId);",
 									"pm.environment.set('known:studentTotalCount', postman.getResponseHeader(\"Total-Count\"));"
