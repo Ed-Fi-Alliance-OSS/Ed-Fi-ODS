@@ -565,7 +565,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             var id = await StepsHelper.GetAsync<Guid>(
                 _connectionStringProvider.Value.GetConnectionString(), query, _cancellationToken.Value);
 
-            id.ShouldNotBeNull();
+            id.ShouldNotBe(default(Guid));
 
             _scenarioContext.Set(id, ScenarioContextKeys.CompositeSubjectId);
         }
