@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         {
                             FilterName = filterName,
                             ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
-                            ClaimValues = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Value)).Distinct().ToArray(),
+                            ClaimParameterValues = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Value)).Distinct().ToArray(),
                             SubjectEndpointName = subjectEndpointName,
                             ClaimEndpointNames = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Name)).ToArray(),
                         };

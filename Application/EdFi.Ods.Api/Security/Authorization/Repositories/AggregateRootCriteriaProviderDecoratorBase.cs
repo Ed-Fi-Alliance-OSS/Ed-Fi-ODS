@@ -226,7 +226,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     {
                         var parameterValues = new Dictionary<string, object>
                         {
-                            { filterDetails.ClaimParameterName, filterDetails.ClaimValues }
+                            { filterDetails.ClaimParameterName, filterDetails.ClaimParameterValues }
                         };
 
                         // Apply the authorization strategy filter

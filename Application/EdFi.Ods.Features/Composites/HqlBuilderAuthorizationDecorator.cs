@@ -367,15 +367,15 @@ namespace EdFi.Ods.Features.Composites
 
                         if (filterHql.Contains($":{parameterName}"))
                         {
-                            if (authorizationFilterDetails.ClaimValues.Length == 1)
+                            if (authorizationFilterDetails.ClaimParameterValues.Length == 1)
                             {
                                 builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
-                                    authorizationFilterDetails.ClaimValues.Single();
+                                    authorizationFilterDetails.ClaimParameterValues.Single();
                             }
                             else
                             {
                                 builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
-                                    authorizationFilterDetails.ClaimValues;
+                                    authorizationFilterDetails.ClaimParameterValues;
                             }
                         }
                     }

@@ -144,7 +144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             public void Should_assign_parameter_value_matching_the_claim_education_organization_type_and_value()
             {
                 var actualFilter = _actualFilters.Single();
-                var parameterValues = actualFilter.ClaimValues as object[];
+                var parameterValues = actualFilter.ClaimParameterValues as object[];
 
                 parameterValues.Count().ShouldBe(1);
 
@@ -204,7 +204,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             public void Should_assign_parameter_value_matching_the_claim_education_organization_type_and_value()
             {
                 var actualFilter = _actualFilters.Single();
-                var parameterValues = actualFilter.ClaimValues as object[];
+                var parameterValues = actualFilter.ClaimParameterValues as object[];
 
                 parameterValues.Count().ShouldBe(1);
 
@@ -266,7 +266,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     () => _actualFilters[0].FilterName.ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToSchoolId"),
                     () => _actualFilters[0].ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName),
                     () => _actualFilters[0].SubjectEndpointName.ShouldBe("SchoolId"),
-                    () => _actualFilters[0].ClaimValues.ShouldBe(new object[] { 999, 1000 }));
+                    () => _actualFilters[0].ClaimParameterValues.ShouldBe(new object[] { 999, 1000 }));
             }
         }
 
@@ -309,7 +309,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             public void Should_assign_parameter_value_matching_the_claim_education_organization_type_and_value()
             {
                 var actualFilter = _actualFilters.Single();
-                var parameterValues = actualFilter.ClaimValues as object[];
+                var parameterValues = actualFilter.ClaimParameterValues as object[];
 
                 parameterValues.Count().ShouldBe(1);
 
@@ -352,7 +352,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             public void Should_not_include_redundant_values_in_the_filter_values()
             {
                 var actualFilter = _actualFilters.Single();
-                var parameterValues = actualFilter.ClaimValues;
+                var parameterValues = actualFilter.ClaimParameterValues;
 
                 parameterValues.Count().ShouldBe(1);
 
@@ -442,7 +442,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             [Test]
             public void Should_combine_the_EdOrgIds_into_a_single_array()
             {
-                var claimValues = _actualFilters.Single().ClaimValues;
+                var claimValues = _actualFilters.Single().ClaimParameterValues;
                     
                 claimValues.ShouldBe(new object[] { 12456, 987654 });
             }

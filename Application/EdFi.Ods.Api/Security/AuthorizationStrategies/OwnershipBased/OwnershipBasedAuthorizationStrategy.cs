@@ -80,7 +80,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
                         FilterName = "CreatedByOwnershipTokenId",
                         SubjectEndpointName = "CreatedByOwnershipTokenId",
                         ClaimParameterName = "CreatedByOwnershipTokenId",
-                        ClaimValues = tokens
+                        ClaimParameterValues = tokens
                     }
                 },
                 Operator = FilterOperator.And

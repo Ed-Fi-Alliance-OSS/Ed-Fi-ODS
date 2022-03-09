@@ -32,7 +32,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <summary>
         /// The values associated with the API client's claim.
         /// </summary>
-        public object[] ClaimValues { get; set; }
+        public object[] ClaimParameterValues { get; set; }
 
         /// <summary>
         /// The names of the specific claims endpoints that are represented in the authorization filter details (primarily
