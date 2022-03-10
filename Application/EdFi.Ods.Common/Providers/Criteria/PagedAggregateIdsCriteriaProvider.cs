@@ -5,6 +5,7 @@
 
 using System;
 using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Configuration;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Persister.Entity;
@@ -18,7 +19,10 @@ namespace EdFi.Ods.Common.Providers.Criteria
     public class PagedAggregateIdsCriteriaProvider<TEntity> : AggregateRootCriteriaProviderBase<TEntity>, IPagedAggregateIdsCriteriaProvider<TEntity>
         where TEntity : class
     {
-        public PagedAggregateIdsCriteriaProvider(ISessionFactory sessionFactory, IDescriptorsCache descriptorsCache)
+        public PagedAggregateIdsCriteriaProvider(
+            ISessionFactory sessionFactory, 
+            IDescriptorsCache descriptorsCache, 
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
             : base(sessionFactory, descriptorsCache)
         {
             _identifierColumnNames = new Lazy<string[]>(
@@ -33,10 +37,13 @@ namespace EdFi.Ods.Common.Providers.Criteria
 
                     return new[] { "Id" };
                 });
+
+            _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
         }
 
         private readonly Lazy<string[]> _identifierColumnNames;
-        
+        private readonly int _defaultPageLimitSize;
+
         /// <summary>
         /// Get a <see cref="NHibernate.ICriteria"/> query that retrieves the Ids for the next page of data.
         /// </summary>
@@ -48,7 +55,7 @@ namespace EdFi.Ods.Common.Providers.Criteria
             var idQueryCriteria = Session.CreateCriteria<TEntity>("aggregateRoot")
                 .SetProjection(Projections.Distinct(GetColumnProjectionsForDistinctWithOrderBy()))
                 .SetFirstResult(queryParameters.Offset ?? 0)
-                .SetMaxResults(queryParameters.Limit ?? 25);
+                .SetMaxResults(queryParameters.Limit ?? _defaultPageLimitSize);
 
             AddDefaultOrdering(idQueryCriteria);
 
