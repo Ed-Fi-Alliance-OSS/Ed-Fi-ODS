@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
@@ -58,6 +59,11 @@ namespace EdFi.Ods.Api.Middleware
                 {
                     return authenticationResult.AuthenticateResult;
                 }
+            }
+            catch(ConfigurationException)
+            {
+                // The Security repository couldn't open a connection to the Security database
+                throw;
             }
             catch
             {
