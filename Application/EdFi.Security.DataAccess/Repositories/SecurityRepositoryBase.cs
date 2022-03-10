@@ -47,7 +47,7 @@ namespace EdFi.Security.DataAccess.Repositories
         }
 
         /// <summary>
-        /// Causes all the 
+        /// Clears the cache, the database will be hit lazily.
         /// </summary>
         protected void Reset()
         {
