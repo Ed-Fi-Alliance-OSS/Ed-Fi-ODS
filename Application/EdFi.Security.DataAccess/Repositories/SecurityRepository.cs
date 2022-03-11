@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using EdFi.Common;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
 
@@ -156,22 +157,26 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             using var context = _securityContextFactory.CreateContext();
 
-            return context.ClaimSetResourceClaimActions
+            var claimSetResourceClaimActions = context.ClaimSetResourceClaimActions
                 .Include(csrc => csrc.Action)
                 .Include(csrc => csrc.ClaimSet)
+                .Include(csrc => csrc.ClaimSet.Application)
                 .Include(csrc => csrc.ResourceClaim)
+                .Include(csrc => csrc.AuthorizationStrategyOverrides.Select(aso => aso.AuthorizationStrategy))
                 .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
                 .ToList();
+
+            // Replace empty lists with null since some consumers expect it that way
+            claimSetResourceClaimActions
+                .Where(csrc => csrc.AuthorizationStrategyOverrides.Count == 0)
+                .ForEach(csrc => csrc.AuthorizationStrategyOverrides = null);
+
+            return claimSetResourceClaimActions;
         }
 
         private List<ResourceClaimAction> GetResourceClaimActionAuthorizations()
         {
             using var context = _securityContextFactory.CreateContext();
-
-            var claimSetResourceClaimActionAuthorizationStrategyOverrides = context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
-                .Include(csrcas => csrcas.AuthorizationStrategy)
-                .Include(csrcas => csrcas.ClaimSetResourceClaimAction)
-                .ToList();
 
             var resourceClaimActionAuthorizationStrategies = context.ResourceClaimActionAuthorizationStrategies
                 .Include(rcaas => rcaas.AuthorizationStrategy)
@@ -181,6 +186,7 @@ namespace EdFi.Security.DataAccess.Repositories
             var resourceClaimActionAuthorizations = context.ResourceClaimActions
                 .Include(rcas => rcas.Action)
                 .Include(rcas => rcas.ResourceClaim)
+                .Include(rcas => rcas.AuthorizationStrategies.Select(ast => ast.AuthorizationStrategy.Application))
                 .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
                 .ToList();
 
