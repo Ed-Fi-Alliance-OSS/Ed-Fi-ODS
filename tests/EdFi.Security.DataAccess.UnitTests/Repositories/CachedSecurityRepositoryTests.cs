@@ -29,8 +29,9 @@ namespace EdFi.Security.DataAccess.UnitTests.Repositories
         protected void InitializeSystemUnderTest(int cacheTimeoutInMinutes)
         {
             _systemUnderTest = new CachedSecurityRepository(_securityContextFactory, cacheTimeoutInMinutes);
+            _systemUnderTest.GetClaimsForClaimSet("ClaimSet");
 
-            // Should hit the database on construction
+            // Should hit the database after calling a getter because it has lazy initialization
             A.CallTo(() => _securityContextFactory.CreateContext()).MustHaveHappened(1, Times.Exactly);
             Fake.ClearRecordedCalls(_securityContextFactory);
         }

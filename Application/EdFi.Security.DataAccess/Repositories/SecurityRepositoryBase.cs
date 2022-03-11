@@ -7,42 +7,57 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Security.DataAccess.Models;
+using EdFi.Security.DataAccess.Utils;
 using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Security.DataAccess.Repositories
 {
     public abstract class SecurityRepositoryBase
     {
-        protected Application Application { get; private set; }
+        protected ResettableLazy<Application> Application { get; private set; }
 
-        protected List<Action> Actions { get; private set; }
+        protected ResettableLazy<List<Action>> Actions { get; private set; }
 
-        protected List<ClaimSet> ClaimSets { get; private set; }
+        protected ResettableLazy<List<ClaimSet>> ClaimSets { get; private set; }
 
-        protected List<ResourceClaim> ResourceClaims { get; private set; }
+        protected ResettableLazy<List<ResourceClaim>> ResourceClaims { get; private set; }
 
-        protected List<AuthorizationStrategy> AuthorizationStrategies { get; private set; }
+        protected ResettableLazy<List<AuthorizationStrategy>> AuthorizationStrategies { get; private set; }
 
-        protected List<ClaimSetResourceClaimAction> ClaimSetResourceClaimActions { get; private set; }
+        protected ResettableLazy<List<ClaimSetResourceClaimAction>> ClaimSetResourceClaimActions { get; private set; }
 
-        protected List<ResourceClaimAction> ResourceClaimActions { get; private set; }
+        protected ResettableLazy<List<ResourceClaimAction>> ResourceClaimActions { get; private set; }
 
         protected void Initialize(
-            Application application,
-            List<Action> actions,
-            List<ClaimSet> claimSets,
-            List<ResourceClaim> resourceClaims,
-            List<AuthorizationStrategy> authorizationStrategies,
-            List<ClaimSetResourceClaimAction> claimSetResourceClaimActions,
-            List<ResourceClaimAction> resourceClaimActions)
+            Func<Application> application,
+            Func<List<Action>> actions,
+            Func<List<ClaimSet>> claimSets,
+            Func<List<ResourceClaim>> resourceClaims,
+            Func<List<AuthorizationStrategy>> authorizationStrategies,
+            Func<List<ClaimSetResourceClaimAction>> claimSetResourceClaimActions,
+            Func<List<ResourceClaimAction>> resourceClaimActions)
         {
-            Application = application;
-            Actions = actions;
-            ClaimSets = claimSets;
-            ResourceClaims = resourceClaims;
-            AuthorizationStrategies = authorizationStrategies;
-            ClaimSetResourceClaimActions = claimSetResourceClaimActions;
-            ResourceClaimActions = resourceClaimActions;
+            Application = new ResettableLazy<Application>(application);
+            Actions = new ResettableLazy<List<Action>>(actions);
+            ClaimSets = new ResettableLazy<List<ClaimSet>>(claimSets);
+            ResourceClaims = new ResettableLazy<List<ResourceClaim>>(resourceClaims);
+            AuthorizationStrategies = new ResettableLazy<List<AuthorizationStrategy>>(authorizationStrategies);
+            ClaimSetResourceClaimActions = new ResettableLazy<List<ClaimSetResourceClaimAction>>(claimSetResourceClaimActions);
+            ResourceClaimActions = new ResettableLazy<List<ResourceClaimAction>>(resourceClaimActions);
+        }
+
+        /// <summary>
+        /// Clears the cache, the database will be hit lazily.
+        /// </summary>
+        protected void Reset()
+        {
+            Application.Reset();
+            Actions.Reset();
+            ClaimSets.Reset();
+            ResourceClaims.Reset();
+            AuthorizationStrategies.Reset();
+            ClaimSetResourceClaimActions.Reset();
+            ResourceClaimActions.Reset();
         }
 
         public virtual Action GetActionByHttpVerb(string httpVerb)
@@ -70,18 +85,18 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual Action GetActionByName(string actionName)
         {
-            return Actions.First(a => a.ActionName.Equals(actionName, StringComparison.InvariantCultureIgnoreCase));
+            return Actions.Value.First(a => a.ActionName.Equals(actionName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public virtual AuthorizationStrategy GetAuthorizationStrategyByName(string authorizationStrategyName)
         {
-            return AuthorizationStrategies.First(
+            return AuthorizationStrategies.Value.First(
                 a => a.AuthorizationStrategyName.Equals(authorizationStrategyName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public virtual IEnumerable<ClaimSetResourceClaimAction> GetClaimsForClaimSet(string claimSetName)
         {
-            return ClaimSetResourceClaimActions.Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
+            return ClaimSetResourceClaimActions.Value.Where(c => c.ClaimSet.ClaimSetName.Equals(claimSetName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
@@ -104,6 +119,7 @@ namespace EdFi.Security.DataAccess.Repositories
             try
             {
                 resourceClaim = ResourceClaims
+                    .Value
                     .SingleOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase));
             }
             catch (InvalidOperationException ex)
@@ -144,6 +160,7 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             //check for exact match on resource and action
             var claimAndStrategy = ResourceClaimActions
+               .Value
                .SingleOrDefault(
                     rcas =>
                         rcas.ResourceClaim.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase)
@@ -155,8 +172,9 @@ namespace EdFi.Security.DataAccess.Repositories
                 strategies.Add(claimAndStrategy);
             }
 
-            var resourceClaim =
-                ResourceClaims.FirstOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase));
+            var resourceClaim = ResourceClaims
+                .Value
+                .FirstOrDefault(rc => rc.ClaimName.Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase));
 
             // if there's a parent resource, recurse
             if (resourceClaim != null && resourceClaim.ParentResourceClaim != null)
@@ -167,7 +185,9 @@ namespace EdFi.Security.DataAccess.Repositories
 
         public virtual ResourceClaim GetResourceByResourceName(string resourceName)
         {
-            return ResourceClaims.FirstOrDefault(rc => rc.ResourceName.Equals(resourceName, StringComparison.InvariantCultureIgnoreCase));
+            return ResourceClaims
+                .Value
+                .FirstOrDefault(rc => rc.ResourceName.Equals(resourceName, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }
