@@ -14,7 +14,8 @@ namespace EdFi.Security.DataAccess.Contexts
         protected SecurityContext(string connectionString)
             : base(connectionString)
         {
-            Database.SetInitializer(new ValidateDatabase<SecurityContext>());
+            Database.SetInitializer(new ValidateDatabase<SqlServerSecurityContext>());
+            Database.SetInitializer(new ValidateDatabase<PostgresSecurityContext>());
         }
 
         public DbSet<Application> Applications { get; set; }
