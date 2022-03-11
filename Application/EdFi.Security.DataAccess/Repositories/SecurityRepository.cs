@@ -24,7 +24,7 @@ namespace EdFi.Security.DataAccess.Repositories
 
             Initialize(
                 GetApplication,
-                GetAcctions,
+                GetActions,
                 GetClaimSets,
                 GetResourceClaims,
                 GetAuthorizationStrategies,
@@ -118,7 +118,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
         }
 
-        private List<Models.Action> GetAcctions()
+        private List<Models.Action> GetActions()
         {
             using var context = _securityContextFactory.CreateContext();
 
