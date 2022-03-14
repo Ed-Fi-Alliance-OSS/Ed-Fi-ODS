@@ -28,7 +28,8 @@ param(
 
 $solution = "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln"
 $projectFile = "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj"
-$version = "$InformationalVersion.$BuildCounter"
+$newRevision = ([int]$BuildCounter) + 10
+$version = "$InformationalVersion.$newRevision"
 $packageName = "EdFi.Suite3.Admin.DataAccess"
 $packageOutput = "$PSScriptRoot/NugetPackages"
 $packagePath = "$packageOutput/$packageName.$version.nupkg"
