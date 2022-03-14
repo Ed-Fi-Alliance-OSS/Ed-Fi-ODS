@@ -73,7 +73,7 @@ namespace EdFi.SdkGen.Console
                     $"-jar {_options.CliExecutableFullName()}", "generate", "-g csharp-netcore", $"-i {apiEndpoint.EndpointUri}",
                     $"--api-package {apiPackage}", $"--model-package {modelPackage}", $"-o {_options.OutputFolder}",
                     $"--additional-properties packageName={_options.Namespace},targetFramework=net6.0,netCoreProjectFile=true",
-                    "--global-property modelTests=false --global-property apiTests=false"
+                    "--global-property modelTests=false --global-property apiTests=false --skip-validate-spec"
                 };
 
                 _log.Info($"Generating C# SDK for {apiEndpoint.EndpointUri}");
