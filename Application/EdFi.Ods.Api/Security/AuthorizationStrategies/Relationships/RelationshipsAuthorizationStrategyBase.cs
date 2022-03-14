@@ -24,15 +24,16 @@ using QuickGraph;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    public abstract class RelationshipsAuthorizationStrategyBase<TContextData> : IEdFiAuthorizationStrategy
+    public abstract class RelationshipsAuthorizationStrategyBase<TContextData> : IAuthorizationStrategy
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
+        // TODO: GKM - Review for removal
         private readonly IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData>
             _concreteEducationOrganizationIdAuthorizationContextDataTransformer;
 
         private List<ValidationResult> _dependencyValidationResults;
 
-        private Lazy<string> _authorizationStrategyName;
+        private readonly Lazy<string> _authorizationStrategyName;
 
         protected RelationshipsAuthorizationStrategyBase(
             IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData> concreteEducationOrganizationIdAuthorizationContextDataTransformer)
@@ -69,122 +70,144 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         [Required]
         public IEducationOrganizationAuthorizationSegmentsValidator EducationOrganizationAuthorizationSegmentsValidator { get; set; }
 
-        public async Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext,
-            CancellationToken cancellationToken)
-        {
-            EnsureDependencies();
+//         public async Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext,
+//             CancellationToken cancellationToken)
+//         {
+//             EnsurePropertyDependenciesIninitialized();
+//
+//             // Find a generated context data provider for the entity
+//             var authorizationContextDataProvider = RelationshipsAuthorizationContextDataProviderFactory.GetProvider(authorizationContext.Data.GetType());
+//
+//             var authorizationContextPropertyNames = authorizationContextDataProvider.GetAuthorizationContextPropertyNames();
+//
+//             // Extract the context data for making the final authorization decision.
+//             var authorizationContextData = authorizationContextDataProvider.GetContextData(authorizationContext.Data);
+//
+//             // // Convert any EducationOrganizationIds into their concrete types
+//             // var concreteContextData =
+//             //     _concreteEducationOrganizationIdAuthorizationContextDataTransformer.GetConcreteAuthorizationContextData(contextData);
+//
+//             var authorizationSegments = GetAuthorizationSegments(
+//                 relevantClaims,
+//                 authorizationContextPropertyNames,
+//                 authorizationContextData);
+//
+//             // TODO: Reinstate before commit
+//             // ValidateSegmentsCanBeAuthorizedByEdOrgClaims(authorizationSegments);
+//
+//             // Convert segments to general-purpose filters
+//             var filters = AuthorizationSegmentsToFiltersConverter.Convert(authorizationSegments);
+//
+//             return new AuthorizationStrategyFiltering
+//             {
+//                 AuthorizationStrategyName = _authorizationStrategyName.Value,
+//                 Filters = filters,
+//                 Operator = FilterOperator.Or
+//             };
+//             /*
+//             var inlineAuthorizationResults = PerformInlineClaimsAuthorizations(authorizationSegments);
+//
+//             // Check for state where no more segments remain to be authorized
+//             if (!inlineAuthorizationResults.SegmentsStillRequiringAuthorization.Any())
+//             {
+//                 // If we got to this point and did not perform any inline authorizations, there's nothing that can authorize
+//                 if (!inlineAuthorizationResults.InlineAuthorizationOccurred)
+//                 {
+//                     // NOTE: It seems like this check and exception could be moved to right after the call to GetAuthorizationSegments,
+//                     // which would eliminate the need for tracking the InlineAuthorizationOccurred in the inline authorization results.
+//                     throw new NotSupportedException(
+//                         "Relationship-based authorization could not be performed on the request because there were no authorization segments defined indicating the resource shouldn't be authorized with a relationship-based strategy.");
+//                 }
+//
+//                 // Inline authorization was performed, was sufficient.
+//                 return;
+//             }
+//
+//             // Execute authorization
+//             await AuthorizationSegmentsVerifier.VerifyAsync(inlineAuthorizationResults.SegmentsStillRequiringAuthorization, cancellationToken);
+//
+//             InlineAuthorizationResults PerformInlineClaimsAuthorizations(IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments)
+//             {
+//                 // Create a list to store segments that have been locally authorized (because claim and entity values are the same type and are equal)
+//                 var subsequentAuthorizationSegments = new List<ClaimsAuthorizationSegment>();
+//
+//                 bool inlineAuthorizationOccurred = false;
+//
+//                 foreach (var claimsAuthorizationSegment in authorizationSegments)
+//                 {
+//                     var subjectEndpointWithValue = claimsAuthorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
+//
+//                     // This should never happen
+//                     if (subjectEndpointWithValue == null)
+//                     {
+//                         throw new Exception(
+//                             "The subject endpoint association for a single-item claims authorization check did not have a value available from context.");
+//                     }
+//
+//                     // Segment can possibly be authorized here using value if any of the claims are of the same type and value as the target
+//
+//                     // Find all the claims endpoint (values) on this segment that *could* be used to authorize the segment
+//                     var inlinableClaimsEndpoints =
+//                         claimsAuthorizationSegment.ClaimsEndpoints
+//                             .Where(x => x.Name.EqualsIgnoreCase(subjectEndpointWithValue.Name))
+//                             .ToList();
+//
+//                     var nonInlinableClaimsEndpoints =
+//                         claimsAuthorizationSegment.ClaimsEndpoints
+//                             .Where(x => !x.Name.EqualsIgnoreCase(subjectEndpointWithValue.Name))
+//                             .ToList();
+//
+//                     //If we found any claim values that *could* authorize the current segment...
+//                     if (inlinableClaimsEndpoints.Any())
+//                     {
+//                         // Do we have any that actually *do* authorize the segment?
+//                         if (inlinableClaimsEndpoints.Any(x => x.Value.Equals(subjectEndpointWithValue.Value)))
+//                         {
+//                             inlineAuthorizationOccurred = true;
+//                             continue;
+//                         }
+//
+//                         // The claims endpoints we checked couldn't authorize this segment.
+//                         // If there are not any others to check (i.e. using relationships in the database), then we should preemptively fail authorization now.
+//                         if (!nonInlinableClaimsEndpoints.Any())
+//                         {
+//                             throw new EdFiSecurityException(
+//                                 $"Authorization denied.  Access to the requested '{subjectEndpointWithValue.Name}' was denied.");
+//                         }
+//
+//                         // We found claim value(s) for inlining the authorization check, but it failed to authorize and should not be retried with the database.
+//                         // Therefore, create a new authorization segment that excludes these specific claim endpoints to allow the others to be checked through database relationships
+//                         subsequentAuthorizationSegments.Add(new ClaimsAuthorizationSegment(
+//                             nonInlinableClaimsEndpoints.ToArray(),
+//                             claimsAuthorizationSegment.SubjectEndpoint,
+//                             claimsAuthorizationSegment.AuthorizationPathModifier));
+//                     }
+//                     else
+//                     {
+//                         //The segment could not be authorized inline, so add it for subsequent authorization
+//                         subsequentAuthorizationSegments.Add(claimsAuthorizationSegment);
+//                     }
+//                 }
+//
+//                 // Continue with other rules that are not referencing the same types of values available on the claim (e.g. LEA Id to LEA Id)
+//                 return new InlineAuthorizationResults(subsequentAuthorizationSegments, inlineAuthorizationOccurred);
+//             }
+//
+//             void ValidateSegmentsCanBeAuthorizedByEdOrgClaims(IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments)
+//             {
+//                 // Validate all EdOrg-based segments to detect those that are completely invalid.
+//                 var authorizationSegmentsValidationMessages =
+//                     EducationOrganizationAuthorizationSegmentsValidator.ValidateAuthorizationSegments(authorizationSegments);
+//
+//                 if (authorizationSegmentsValidationMessages.Any())
+//                 {
+//                     throw new EdFiSecurityException($"Authorization denied. {string.Join(" ", authorizationSegmentsValidationMessages)}");
+//                 }
+//             }
+//             */
+//         }
 
-            // Find a generated context data provider for the entity
-            var authorizationContextDataProvider =
-                RelationshipsAuthorizationContextDataProviderFactory.GetProvider(authorizationContext.Data.GetType());
-
-            var authorizationContextPropertyNames = authorizationContextDataProvider.GetAuthorizationContextPropertyNames();
-
-            // Extract the context data for making the final authorization decision.
-            TContextData contextData = authorizationContextDataProvider.GetContextData(authorizationContext.Data);
-
-            // Convert any EducationOrganizationIds into their concrete types
-            var concreteContextData =
-                _concreteEducationOrganizationIdAuthorizationContextDataTransformer.GetConcreteAuthorizationContextData(contextData);
-
-            var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, concreteContextData);
-
-            // Validate all EdOrg-based segments to detect those that are completely invalid.
-            var authorizationSegmentsValidationMessages = EducationOrganizationAuthorizationSegmentsValidator.ValidateAuthorizationSegments(authorizationSegments);
-
-            if (authorizationSegmentsValidationMessages.Any())
-            {
-                throw new EdFiSecurityException($"Authorization denied. {string.Join(" ", authorizationSegmentsValidationMessages)}");
-            }
-
-            var inlineAuthorizationResults = PerformInlineClaimsAuthorizations();
-
-            // Check for state where no more segments remain to be authorized
-            if (!inlineAuthorizationResults.SegmentsStillRequiringAuthorization.Any())
-            {
-                // If we got to this point and did not perform any inline authorizations, there's nothing that can authorize
-                if (!inlineAuthorizationResults.InlineAuthorizationOccurred)
-                {
-                    // NOTE: It seems like this check and exception could be moved to right after the call to GetAuthorizationSegments,
-                    // which would eliminate the need for tracking the InlineAuthorizationOccurred in the inline authorization results.
-                    throw new NotSupportedException(
-                        "Relationship-based authorization could not be performed on the request because there were no authorization segments defined indicating the resource shouldn't be authorized with a relationship-based strategy.");
-                }
-
-                // Inline authorization was performed, was sufficient.
-                return;
-            }
-
-            // Execute authorization
-            await AuthorizationSegmentsVerifier.VerifyAsync(inlineAuthorizationResults.SegmentsStillRequiringAuthorization, cancellationToken);
-
-            InlineAuthorizationResults PerformInlineClaimsAuthorizations()
-            {
-                // Create a list to store segments that have been locally authorized (because claim and entity values are the same type and are equal)
-                var subsequentAuthorizationSegments = new List<ClaimsAuthorizationSegment>();
-
-                bool inlineAuthorizationOccurred = false;
-
-                foreach (var claimsAuthorizationSegment in authorizationSegments)
-                {
-                    var subjectEndpointWithValue = claimsAuthorizationSegment.SubjectEndpoint as AuthorizationSegmentEndpointWithValue;
-
-                    // This should never happen
-                    if (subjectEndpointWithValue == null)
-                    {
-                        throw new Exception(
-                            "The subject endpoint association for a single-item claims authorization check did not have a value available from context.");
-                    }
-
-                    // Segment can possibly be authorized here using value if any of the claims are of the same type and value as the target
-
-                    // Find all the claims endpoint (values) on this segment that *could* be used to authorize the segment
-                    var inlinableClaimsEndpoints =
-                        claimsAuthorizationSegment.ClaimsEndpoints
-                            .Where(x => x.Name.EqualsIgnoreCase(subjectEndpointWithValue.Name))
-                            .ToList();
-
-                    var nonInlinableClaimsEndpoints =
-                        claimsAuthorizationSegment.ClaimsEndpoints
-                            .Where(x => !x.Name.EqualsIgnoreCase(subjectEndpointWithValue.Name));
-
-                    //If we found any claim values that *could* authorize the current segment...
-                    if (inlinableClaimsEndpoints.Any())
-                    {
-                        // Do we have any that actually *do* authorize the segment?
-                        if (inlinableClaimsEndpoints.Any(x => x.Value.Equals(subjectEndpointWithValue.Value)))
-                        {
-                            inlineAuthorizationOccurred = true;
-                            continue;
-                        }
-
-                        // The claims endpoints we checked couldn't authorize this segment.
-                        // If there are not any others to check (i.e. using relationships in the database), then we should preemptively fail authorization now.
-                        if (!nonInlinableClaimsEndpoints.Any())
-                        {
-                            throw new EdFiSecurityException(
-                                $"Authorization denied.  Access to the requested '{subjectEndpointWithValue.Name}' was denied.");
-                        }
-
-                        // We found claim value(s) for inlining the authorization check, but it failed to authorize and should not be retried with the database.
-                        // Therefore, create a new authorization segment that excludes these specific claim endpoints to allow the others to be checked through database relationships
-                        subsequentAuthorizationSegments.Add(new ClaimsAuthorizationSegment(
-                            nonInlinableClaimsEndpoints.ToArray(),
-                            claimsAuthorizationSegment.SubjectEndpoint,
-                            claimsAuthorizationSegment.AuthorizationPathModifier));
-                    }
-                    else
-                    {
-                        //The segment could not be authorized inline, so add it for subsequent authorization
-                        subsequentAuthorizationSegments.Add(claimsAuthorizationSegment);
-                    }
-                }
-
-                // Continue with other rules that are not referencing the same types of values available on the claim (e.g. LEA Id to LEA Id)
-                return new InlineAuthorizationResults(subsequentAuthorizationSegments, inlineAuthorizationOccurred);
-            }
-        }
-
+        /*
         private class InlineAuthorizationResults
         {
             public InlineAuthorizationResults(
@@ -205,7 +228,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             /// </summary>
             public IReadOnlyList<ClaimsAuthorizationSegment> SegmentsStillRequiringAuthorization { get; }
         }
-
+        */
+        
         /// <summary>
         /// Applies filtering to a multiple-item request.
         /// </summary>
@@ -216,15 +240,20 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            EnsureDependencies();
+            EnsurePropertyDependenciesInitialized();
 
             // Find a generated context data provider for the entity
-            var authorizationContextDataProvider = RelationshipsAuthorizationContextDataProviderFactory.GetProvider(authorizationContext.Type);
+            var authorizationContextDataProvider = RelationshipsAuthorizationContextDataProviderFactory.GetProvider(authorizationContext.Type ?? authorizationContext.Data.GetType());
             var authorizationContextPropertyNames = authorizationContextDataProvider.GetAuthorizationContextPropertyNames();
 
-            var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, null);
+            // If present, extract the authorization context data for assembling the segments, with authorization subject's values
+            var authorizationContextData = authorizationContext.Data == null 
+                ? null 
+                : authorizationContextDataProvider.GetContextData(authorizationContext.Data);
 
-            // Convert segments to general-purpose filters
+            var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, authorizationContextData);
+
+            // Convert the segments to general-purpose filters
             var filters = AuthorizationSegmentsToFiltersConverter.Convert(authorizationSegments);
 
             return new AuthorizationStrategyFiltering
@@ -237,12 +266,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 
         private IReadOnlyList<ClaimsAuthorizationSegment> GetAuthorizationSegments(
             IEnumerable<Claim> claims,
-            string[] signatureProperties,
+            string[] authorizationContextPropertyNames,
             TContextData authorizationContextData)
         {
             var builder = new AuthorizationBuilder<TContextData>(claims, EducationOrganizationCache, authorizationContextData);
 
-            BuildAuthorizationSegments(builder, signatureProperties);
+            BuildAuthorizationSegments(builder, authorizationContextPropertyNames);
 
             // Get the rules for execution
             return builder.GetSegments();
@@ -255,7 +284,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// <summary>
         /// Verifies all required dependencies have been injected successfully through property injection.
         /// </summary>
-        private void EnsureDependencies()
+        private void EnsurePropertyDependenciesInitialized()
         {
             // Have we already validate the dependencies successfully?
             if (_dependencyValidationResults != null && !_dependencyValidationResults.Any())

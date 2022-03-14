@@ -90,13 +90,14 @@ namespace EdFi.Ods.Api.Container.Modules
                 .SingleInstance();
 
             // This is a cache, and it needs to be a singleton
-            builder.RegisterType<FilterCriteriaApplicatorProvider>()
-                .As<IFilterCriteriaApplicatorProvider>()
-                .SingleInstance();
+            // TODO: GKM - Delete this
+            // builder.RegisterType<FilterCriteriaApplicatorProvider>()
+            //     .As<IFilterCriteriaApplicatorProvider>()
+            //     .SingleInstance();
 
-            builder.RegisterGeneric(typeof(NHibernateRepository<>))
-                .As(typeof(IRepository<>))
-                .SingleInstance();
+            // builder.RegisterGeneric(typeof(NHibernateRepository<>))
+            //     .As(typeof(IRepository<>))
+            //     .SingleInstance();
 
             builder.RegisterGeneric(typeof(CreateEntity<>))
                 .As(typeof(ICreateEntity<>))

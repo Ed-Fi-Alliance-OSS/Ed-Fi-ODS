@@ -88,14 +88,6 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             builder.RegisterType<SecurityContextFactory>()
                 .As<ISecurityContextFactory>()
                 .SingleInstance();
-
-            builder.RegisterType<NHibernateFilterTextProvider>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.GetType() == typeof(NHibernate.Cfg.Configuration),
-                        (p, c) => c.Resolve<NHibernate.Cfg.Configuration>()))
-                .As<INHibernateFilterTextProvider>()
-                .SingleInstance();
         }
     }
 }

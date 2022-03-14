@@ -13,42 +13,42 @@ using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Common.Providers.Criteria
 {
-    /// <summary>
-    /// Provides methods for saving and subsequently accessing functions that apply filter criteria to queries using the <see cref="NHibernate.ICriteria"/> API.
-    /// </summary>
-    public class FilterCriteriaApplicatorProvider : IFilterCriteriaApplicatorProvider
-    {
-        private readonly ConcurrentDictionary<Tuple<string, Type>, IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>>> _applicatorsByEntityType =
-            new ConcurrentDictionary<Tuple<string, Type>, IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>>>();
-
-        /// <summary>
-        /// Adds the supplied <see cref="NHibernate.ICriteria"/> applicator for the specified filter name and entity.
-        /// </summary>
-        /// <param name="filterName">The name of the filter.</param>
-        /// <param name="entityType">The entity to which the filter applies.</param>
-        /// <param name="criteriaApplicator">The function that applies the filter's criteria to the <see cref="NHibernate.ICriteria"/> instance.</param>
-        public void AddCriteriaApplicator(string filterName, Type entityType, Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator)
-        {
-            var key = Tuple.Create(filterName, entityType);
-
-            _applicatorsByEntityType.AddOrUpdate(
-                key,
-                new List<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> { criteriaApplicator },
-                (k, v) => v.Concat(new [] {criteriaApplicator}).ToList());
-        }
-
-        /// <summary>
-        /// Attempts to retrieve the applicator functions for the specified filter name and entity.
-        /// </summary>
-        /// <param name="filterName">The name of the filter.</param>
-        /// <param name="entityType">The entity being queried.</param>
-        /// <param name="criteriaApplicators">The functions that apply the filter's criteria to the <see cref="NHibernate.ICriteria"/> instance.</param>
-        /// <returns><b>true</b> if any applicators were found; otherwise <b>false</b>.</returns>
-        public bool TryGetCriteriaApplicator(string filterName, Type entityType, out IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> criteriaApplicators)
-        {
-            var key = Tuple.Create(filterName, entityType);
-
-            return _applicatorsByEntityType.TryGetValue(key, out criteriaApplicators);
-        }
-    }
+    // /// <summary>
+    // /// Provides methods for saving and subsequently accessing functions that apply filter criteria to queries using the <see cref="NHibernate.ICriteria"/> API.
+    // /// </summary>
+    // public class FilterCriteriaApplicatorProvider : IFilterCriteriaApplicatorProvider
+    // {
+    //     private readonly ConcurrentDictionary<Tuple<string, Type>, IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>>> _applicatorsByEntityType =
+    //         new ConcurrentDictionary<Tuple<string, Type>, IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>>>();
+    //
+    //     /// <summary>
+    //     /// Adds the supplied <see cref="NHibernate.ICriteria"/> applicator for the specified filter name and entity.
+    //     /// </summary>
+    //     /// <param name="filterName">The name of the filter.</param>
+    //     /// <param name="entityType">The entity to which the filter applies.</param>
+    //     /// <param name="criteriaApplicator">The function that applies the filter's criteria to the <see cref="NHibernate.ICriteria"/> instance.</param>
+    //     public void AddCriteriaApplicator(string filterName, Type entityType, Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator)
+    //     {
+    //         var key = Tuple.Create(filterName, entityType);
+    //
+    //         _applicatorsByEntityType.AddOrUpdate(
+    //             key,
+    //             new List<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> { criteriaApplicator },
+    //             (k, v) => v.Concat(new [] {criteriaApplicator}).ToList());
+    //     }
+    //
+    //     /// <summary>
+    //     /// Attempts to retrieve the applicator functions for the specified filter name and entity.
+    //     /// </summary>
+    //     /// <param name="filterName">The name of the filter.</param>
+    //     /// <param name="entityType">The entity being queried.</param>
+    //     /// <param name="criteriaApplicators">The functions that apply the filter's criteria to the <see cref="NHibernate.ICriteria"/> instance.</param>
+    //     /// <returns><b>true</b> if any applicators were found; otherwise <b>false</b>.</returns>
+    //     public bool TryGetCriteriaApplicator(string filterName, Type entityType, out IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> criteriaApplicators)
+    //     {
+    //         var key = Tuple.Create(filterName, entityType);
+    //
+    //         return _applicatorsByEntityType.TryGetValue(key, out criteriaApplicators);
+    //     }
+    // }
 }

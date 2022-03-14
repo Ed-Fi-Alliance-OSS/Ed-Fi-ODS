@@ -13,15 +13,17 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
-                .As(typeof(IPagedAggregateIdsCriteriaProvider<>));
+                .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
+                .SingleInstance(); // TODO: GKM - Double check that there's no problem with this being a singleton.
 
             builder.RegisterGeneric(typeof(TotalCountCriteriaProvider<>))
-                .As(typeof(ITotalCountCriteriaProvider<>));
+                .As(typeof(ITotalCountCriteriaProvider<>))
+                .SingleInstance(); // TODO: GKM - Double check that there's no problem with this being a singleton.
 
             // This is a cache, and it needs to be a singleton
-            builder.RegisterType<FilterCriteriaApplicatorProvider>()
-                .As<IFilterCriteriaApplicatorProvider>()
-                .SingleInstance();
+            // builder.RegisterType<FilterCriteriaApplicatorProvider>()
+            //     .As<IFilterCriteriaApplicatorProvider>()
+            //     .SingleInstance();
         }
     }
 }

@@ -32,5 +32,12 @@ namespace EdFi.Ods.Api.Security.Authorization
         bool IsEducationOrganizationIdAccessible(
             string sourceEducationOrganizationIdPropertyName,
             string targetEducationOrganizationId);
+
+        /// <summary>
+        /// Indicates whether the supplied name is a known education organization id.
+        /// </summary>
+        /// <param name="candidateName">The name to be evaluated.</param>
+        /// <returns><b>true</b> if the name matches a known education organization id; otherwise <b>false</b>.</returns>
+        bool IsEducationOrganizationIdName(string candidateName);
     }
 }

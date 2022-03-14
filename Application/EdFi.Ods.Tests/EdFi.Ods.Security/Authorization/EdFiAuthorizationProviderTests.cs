@@ -42,7 +42,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // Create provider with stubs
                 var provider = new EdFiAuthorizationProvider(
                     Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IEdFiAuthorizationStrategy>(),
+                    Array.Empty<IAuthorizationStrategy>(),
                     Stub<ISecurityRepository>(),
                     Array.Empty<IExplicitObjectValidator>());
 
@@ -64,7 +64,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // Execute code under test
                 var provider = new EdFiAuthorizationProvider(
                     Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IEdFiAuthorizationStrategy>(),
+                    Array.Empty<IAuthorizationStrategy>(),
                     Stub<ISecurityRepository>(),
                     Array.Empty<IExplicitObjectValidator>());
 
@@ -93,7 +93,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // Execute code under test
                 var provider = new EdFiAuthorizationProvider(
                     Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IEdFiAuthorizationStrategy>(),
+                    Array.Empty<IAuthorizationStrategy>(),
                     Stub<ISecurityRepository>(),
                     Array.Empty<IExplicitObjectValidator>());
 
@@ -122,7 +122,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // Execute code under test
                 var provider = new EdFiAuthorizationProvider(
                     Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IEdFiAuthorizationStrategy>(),
+                    Array.Empty<IAuthorizationStrategy>(),
                     Stub<ISecurityRepository>(),
                     Array.Empty<IExplicitObjectValidator>());
 
@@ -151,7 +151,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // Execute code under test
                 var provider = new EdFiAuthorizationProvider(
                     Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IEdFiAuthorizationStrategy>(),
+                    Array.Empty<IAuthorizationStrategy>(),
                     Stub<ISecurityRepository>(),
                     Array.Empty<IExplicitObjectValidator>());
 
@@ -180,7 +180,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 // Execute code under test
                 var provider = new EdFiAuthorizationProvider(
                     Stub<IResourceAuthorizationMetadataProvider>(),
-                    Array.Empty<IEdFiAuthorizationStrategy>(),
+                    Array.Empty<IAuthorizationStrategy>(),
                     Stub<ISecurityRepository>(),
                     Array.Empty<IExplicitObjectValidator>());
 
@@ -206,7 +206,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
     [TestFixture]
     public class Feature_Validating_authorization_strategy_naming_conventions
     {
-        private class AuthorizationStrategyNotFollowingConventions : IEdFiAuthorizationStrategy
+        private class AuthorizationStrategyNotFollowingConventions : IAuthorizationStrategy
         {
             public Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext,
                 CancellationToken cancellationToken)
@@ -222,7 +222,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             }
         }
 
-        private class ConventionFollowingAuthorizationStrategy : IEdFiAuthorizationStrategy
+        private class ConventionFollowingAuthorizationStrategy : IAuthorizationStrategy
         {
             public Task AuthorizeSingleItemAsync(IEnumerable<Claim> relevantClaims, EdFiAuthorizationContext authorizationContext,
                 CancellationToken cancellationToken)
@@ -247,7 +247,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Execute code under test
-                var authorizationStrategies = new IEdFiAuthorizationStrategy[]
+                var authorizationStrategies = new IAuthorizationStrategy[]
                 {
                     new ConventionFollowingAuthorizationStrategy(), new ConventionFollowing2AuthorizationStrategy()
                 };
@@ -272,7 +272,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected override void Act()
             {
                 // Execute code under test
-                var authorizationStrategies = new IEdFiAuthorizationStrategy[]
+                var authorizationStrategies = new IAuthorizationStrategy[]
                 {
                     new ConventionFollowingAuthorizationStrategy(), new AuthorizationStrategyNotFollowingConventions()
                 };
@@ -296,7 +296,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
     [TestFixture]
     public class Feature_Authorization_strategy_selection
     {
-        public abstract class AuthorizationStrategyBase : IEdFiAuthorizationStrategy
+        public abstract class AuthorizationStrategyBase : IAuthorizationStrategy
         {
             public bool SingleItemWasCalled { get; private set; }
 
@@ -317,7 +317,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 return new AuthorizationStrategyFiltering()
                 {
                     AuthorizationStrategyName = "Test",
-                    Filters = Array.Empty<AuthorizationFilterDetails>()
+                    Filters = Array.Empty<AuthorizationFilterContext>()
                 };
             }
         }
@@ -351,14 +351,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             protected readonly AnotherOverrideAuthorizationStrategy AnotherOverrideAuthorizationStrategy = new AnotherOverrideAuthorizationStrategy();
 
             // Define all authorization strategies
-            protected IEdFiAuthorizationStrategy[] AuthorizationStrategies;
+            protected IAuthorizationStrategy[] AuthorizationStrategies;
             protected ISecurityRepository SecurityRepository;
 
             protected When_authorizing_a_request()
             {
                 SecurityRepository = Given_a_security_repository_returning_all_actions_and_appropriate_claim_name_lineage();
 
-                AuthorizationStrategies = new IEdFiAuthorizationStrategy[]
+                AuthorizationStrategies = new IAuthorizationStrategy[]
                 {
                     SecondAuthorizationStrategy, 
                     AnotherSecondAuthorizationStrategy, 
@@ -1890,7 +1890,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 return claimsPrincipal;
             }
 
-            protected virtual IEdFiAuthorizationStrategy[] GetAuthorizationStrategies()
+            protected virtual IAuthorizationStrategy[] GetAuthorizationStrategies()
             {
                 _educationOrganizationAuthorizationSegmentsValidator = Stub<IEducationOrganizationAuthorizationSegmentsValidator>();
 
@@ -1902,7 +1902,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 A.CallTo(() => edOrgCache.GetEducationOrganizationIdentifiers(A<int>.Ignored))
                     .Returns(new EducationOrganizationIdentifiers(4, "School"));
 
-                return new IEdFiAuthorizationStrategy[]
+                return new IAuthorizationStrategy[]
                 {
                     new RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>(
                         new ConcreteEducationOrganizationIdAuthorizationContextDataTransformer<RelationshipsAuthorizationContextData>(edOrgCache))
@@ -2000,7 +2000,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         private const string ReadActionUri = @"http://ACTIONS/read";
 
         // Feature artifacts
-        public class UnusedAuthorizationStrategy : IEdFiAuthorizationStrategy
+        public class UnusedAuthorizationStrategy : IAuthorizationStrategy
         {
             public bool SingleItemWasCalled { get; private set; }
 
@@ -2023,7 +2023,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                 return new AuthorizationStrategyFiltering()
                 {
                     AuthorizationStrategyName = "Test",
-                    Filters = Array.Empty<AuthorizationFilterDetails>()
+                    Filters = Array.Empty<AuthorizationFilterContext>()
                 };
             }
         }
@@ -2208,9 +2208,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             return securityRepository;
         }
 
-        private static IEdFiAuthorizationStrategy[] Given_a_collection_of_unused_authorization_strategies()
+        private static IAuthorizationStrategy[] Given_a_collection_of_unused_authorization_strategies()
         {
-            return new IEdFiAuthorizationStrategy[]
+            return new IAuthorizationStrategy[]
             {
                 new UnusedAuthorizationStrategy()
             };

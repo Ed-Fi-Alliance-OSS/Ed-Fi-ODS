@@ -28,6 +28,7 @@ namespace EdFi.Ods.Common.Security.Claims
             }
 
             // Establish the ClaimsPrincipal based on the current context
+            // TODO: GKM - Consider elimination of the use of the ClaimsIdentity for these values -- it just introduces unnecessary serialization/deserialization. Suggest using CallContext instead.
             var claimsIdentity = identityProvider.GetClaimsIdentity();
 
             return new ClaimsPrincipal(claimsIdentity);

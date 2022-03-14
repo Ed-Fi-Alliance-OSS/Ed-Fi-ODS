@@ -78,6 +78,7 @@ namespace EdFi.Ods.Common.Security.Claims
             Action.Add(new Claim(ClaimsName, action));
         }
 
+        // TODO: GKM - Consider adding the ApiKeyContext property here instead of using the ClaimsPrincipal
         public ClaimsPrincipal Principal { get; }
 
         /// <summary>

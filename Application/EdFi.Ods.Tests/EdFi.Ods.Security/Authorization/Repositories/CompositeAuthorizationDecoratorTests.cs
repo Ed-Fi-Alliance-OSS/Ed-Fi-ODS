@@ -28,6 +28,7 @@ using EdFi.Ods.Entities.NHibernate.StudentAggregate.EdFi;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.TestFixture;
@@ -108,7 +109,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             protected override void Arrange()
             {
                 Given<IEdFiAuthorizationProvider>(
-                    new FakeAuthorizationProvider(
+                    new FakeAuthorizationFilteringProvider(
                         SuppliedFilterName,
                         SuppliedParameterName,
                         SuppliedParameterValue));
@@ -211,7 +212,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     out buildResult);
 
                 _actualAuthorizationContext =
-                    (Given<IEdFiAuthorizationProvider>() as FakeAuthorizationProvider)
+                    (Given<IEdFiAuthorizationProvider>() as FakeAuthorizationFilteringProvider)
                     .ActualAuthorizationContext;
             }
 
@@ -315,13 +316,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             }
         }
 
-        private class FakeAuthorizationProvider : IEdFiAuthorizationProvider
+        private class FakeAuthorizationFilteringProvider : IAuthorizationFilteringProvider
         {
             private readonly string _filterName;
             private readonly string _parameterName;
             private readonly object _parameterValue;
 
-            public FakeAuthorizationProvider(string filterName, string parameterName, object parameterValue)
+            public FakeAuthorizationFilteringProvider(string filterName, string parameterName, object parameterValue)
             {
                 _filterName = filterName;
                 _parameterName = parameterName;
@@ -358,7 +359,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                         AuthorizationStrategyName = "Test",
                         Filters = new[]
                         {
-                            new AuthorizationFilterDetails
+                            new AuthorizationFilterContext
                             {
                                 FilterName = _filterName,
                                 ClaimParameterName = _parameterName,

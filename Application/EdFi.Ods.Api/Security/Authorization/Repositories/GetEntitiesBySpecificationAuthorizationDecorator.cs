@@ -11,6 +11,9 @@ using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Security;
+using EdFi.Security.DataAccess.Repositories;
 using NHibernate;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
@@ -34,14 +37,32 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="sessionFactory">The NHibernate session factory used to manage session (database connection) context.</param>
         /// <param name="authorizationFilterContextProvider">Applies authorization-related filters for the entity on the current NHiberate session.</param>
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
-        /// <param name="authorizationProvider">The component capable of authorizing the request, given necessary context.</param>
+        /// <param name="authorizationFilteringProvider">The component capable of authorizing the request, given necessary context.</param>
+        /// <param name="authorizationFilterDefinitionProvider"></param>
+        /// <param name="explicitObjectValidators"></param>
+        /// <param name="authorizationBasisMetadataSelector"></param>
+        /// <param name="securityRepository"></param>
+        /// <param name="apiKeyContextProvider"></param>
         public GetEntitiesBySpecificationAuthorizationDecorator(
             IGetEntitiesBySpecification<TEntity> next,
             ISessionFactory sessionFactory,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IAuthorizationContextProvider authorizationContextProvider,
-            IEdFiAuthorizationProvider authorizationProvider)
-            : base(authorizationContextProvider, authorizationProvider)
+            IAuthorizationFilteringProvider authorizationFilteringProvider,
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
+            IExplicitObjectValidator[] explicitObjectValidators,
+            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
+            ISecurityRepository securityRepository,
+            IApiKeyContextProvider apiKeyContextProvider)
+            : base(
+                authorizationContextProvider,
+                authorizationFilteringProvider,
+                authorizationFilterDefinitionProvider,
+                explicitObjectValidators,
+                authorizationBasisMetadataSelector,
+                securityRepository,
+                sessionFactory,
+                apiKeyContextProvider)
         {
             _next = next;
             _sessionFactory = sessionFactory;

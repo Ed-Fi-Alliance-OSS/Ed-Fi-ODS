@@ -7,16 +7,19 @@ using System;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Common.Security.Claims;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 {
-    public class ViewFilterApplicationDetails : FilterApplicationDetails
+    public class ViewBasedAuthorizationFilterDefinition : AuthorizationFilterDefinition
     {
-        public ViewFilterApplicationDetails(
+        public ViewBasedAuthorizationFilterDefinition(
             string filterName,
             string viewName,
             string viewTargetEndpointName,
-            string subjectEndpointName)
+            string subjectEndpointName,
+            Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance)
             : base(
                 filterName,
                 $@"{subjectEndpointName} IN (
@@ -27,20 +30,22 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM " + GetFullNameForView($"auth_{viewName}") + $@" {{newAlias1}} 
                     WHERE {{newAlias1}}.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))",
-                (c, w, p, jt) => c.ApplyJoinFilter(
-                    w,
-                    p,
+                (criteria, @where, parameters, joinType) => criteria.ApplyJoinFilter(
+                    @where,
+                    parameters,
                     viewName,
                     subjectEndpointName,
                     viewTargetEndpointName,
-                    jt,
-                    Guid.NewGuid().ToString("N")),
+                    joinType,
+                    Guid.NewGuid().ToString("N")), // TODO: GKM - review usage of alias generator here instead of generating GUIDs
+                authorizeInstance,
                 (t, p) => p.HasPropertyNamed(subjectEndpointName ?? viewTargetEndpointName))
         {
             FilterName = filterName;
             ViewName = viewName;
             ViewTargetEndpointName = viewTargetEndpointName;
             SubjectEndpointName = subjectEndpointName ?? viewTargetEndpointName;
+            ItemExistenceSql = $"SELECT 1 FROM auth.{viewName} AS authvw INNER JOIN @{RelationshipAuthorizationConventions.ClaimsParameterName} c ON authvw.{RelationshipAuthorizationConventions.ViewSourceColumnName} = c.Id AND authvw.{viewTargetEndpointName} = @{subjectEndpointName}";
         }
 
         public string FilterName { get; }
@@ -50,6 +55,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
         public string ViewTargetEndpointName { get; }
 
         public string SubjectEndpointName { get; }
+
+        public string ItemExistenceSql { get; }
 
         private static string GetFullNameForView(string viewName)
         {

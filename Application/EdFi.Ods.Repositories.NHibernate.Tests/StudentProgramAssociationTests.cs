@@ -90,6 +90,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 var assembly = typeof(Program).GetTypeInfo().Assembly;
                 XmlConfigurator.Configure(LogManager.GetRepository(assembly));
 
+                // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
                 ClaimsPrincipal.ClaimsPrincipalSelector =
                     () => EdFiClaimsPrincipalSelector.GetClaimsPrincipal(_container.Resolve<IClaimsIdentityProvider>());
 

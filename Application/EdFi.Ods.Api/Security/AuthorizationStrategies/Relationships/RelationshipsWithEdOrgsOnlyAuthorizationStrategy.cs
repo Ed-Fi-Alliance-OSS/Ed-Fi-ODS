@@ -14,7 +14,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         : RelationshipsAuthorizationStrategyBase<TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
-        public RelationshipsWithEdOrgsOnlyAuthorizationStrategy(IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData> concreteEducationOrganizationIdAuthorizationContextDataTransformer)
+        public RelationshipsWithEdOrgsOnlyAuthorizationStrategy(
+            IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData> concreteEducationOrganizationIdAuthorizationContextDataTransformer)
             : base(concreteEducationOrganizationIdAuthorizationContextDataTransformer) { }
 
         protected override void BuildAuthorizationSegments(

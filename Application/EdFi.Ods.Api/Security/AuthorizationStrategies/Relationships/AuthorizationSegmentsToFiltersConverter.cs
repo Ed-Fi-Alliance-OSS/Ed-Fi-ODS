@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Security.Authorization;
@@ -12,19 +13,22 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
     public interface IAuthorizationSegmentsToFiltersConverter
     {
-        IReadOnlyList<AuthorizationFilterDetails> Convert(IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments);
+        IReadOnlyList<AuthorizationFilterContext> Convert(IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments);
     }
 
     public class AuthorizationSegmentsToFiltersConverter : IAuthorizationSegmentsToFiltersConverter
     {
-        public IReadOnlyList<AuthorizationFilterDetails> Convert(IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments)
+        private readonly ConcurrentDictionary<(string, string), string> _filterNameBySubjectAndPathModifier = new();
+        
+        public IReadOnlyList<AuthorizationFilterContext> Convert(IReadOnlyList<ClaimsAuthorizationSegment> authorizationSegments)
         {
             if (!authorizationSegments.Any())
             {
-                return Array.Empty<AuthorizationFilterDetails>();
+                return Array.Empty<AuthorizationFilterContext>();
             }
 
-            var authorizationFilterDetails = authorizationSegments.GroupBy(s => (s.SubjectEndpoint.Name, s.AuthorizationPathModifier))
+            var authorizationFilterDetails = authorizationSegments
+                .GroupBy( s => (s.SubjectEndpoint.Name, s.AuthorizationPathModifier))
                 .Select(
                     g =>
                     {
@@ -33,12 +37,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         // Get the name of the filter to use for this segment
                         string filterName = GetAuthorizationFilterName(subjectEndpointName, authorizationPathModifier);
 
-                        return new AuthorizationFilterDetails
+                        return new AuthorizationFilterContext
                         {
                             FilterName = filterName,
                             ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
                             ClaimParameterValues = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Value)).Distinct().ToArray(),
                             SubjectEndpointName = subjectEndpointName,
+                            SubjectEndpointValue = g.Select(cs => cs.SubjectEndpoint).FirstOrDefault() is AuthorizationSegmentEndpointWithValue endpointWithValue ? endpointWithValue.Value : null,
                             ClaimEndpointNames = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Name)).ToArray(),
                         };
                     })
@@ -48,7 +53,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             
             string GetAuthorizationFilterName(string subjectEndpointName, string authorizationPathModifier)
             {
-                return $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{subjectEndpointName}{authorizationPathModifier}";
+                return _filterNameBySubjectAndPathModifier.GetOrAdd(
+                    (subjectEndpointName, authorizationPathModifier),
+                    (x) => $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{x.Item1}{x.Item2}");
             }
         }
     }

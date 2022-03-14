@@ -14,8 +14,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(NHibernateRepository<>))
-                .As(typeof(IRepository<>));
+            // builder.RegisterGeneric(typeof(NHibernateRepository<>))
+            //     .As(typeof(IRepository<>));
 
             builder.RegisterGeneric(typeof(CreateEntity<>))
                 .As(typeof(ICreateEntity<>));

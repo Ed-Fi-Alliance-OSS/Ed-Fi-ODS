@@ -5,24 +5,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using EdFi.Ods.Common.Infrastructure.SqlServer;
+using EdFi.Ods.Common.Security.Authorization;
+using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Engine;
 using NHibernate.SqlCommand;
-using NHibernate.Type;
 
 namespace EdFi.Ods.Common.Infrastructure.Filtering
 {
     /// <summary>
     /// Provides details for how to apply a filter, including an NHibernate FilterDefinition and a predicate function for identifying which entity mappings are to be impacted.
     /// </summary>
-    public class FilterApplicationDetails
+    public class AuthorizationFilterDefinition
     {
-        private static readonly Regex ParameterRegex = new Regex(@"\:(?<Parameter>\w+)", RegexOptions.Compiled);
+        // private static readonly Regex ParameterRegex = new Regex(@"\:(?<Parameter>\w+)", RegexOptions.Compiled);
 
         /// <summary>
         /// Creates a new filter definition, creating parameter definitions automatically using built-in conventions
@@ -32,6 +30,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// <param name="friendlyDefaultConditionFormat">The default condition (as SQL) for the filter with named format specifiers marking where distinct aliases are required (e.g. "(Column1 LIKE :Parm1 OR Column2 IN (SELECT {newAlias1}.Column2 FROM Table1 {newAlias1})").</param>
         /// <param name="friendlyHqlConditionFormat">The default condition (as HQL) for the filter with named format specifiers marking where distinct aliases are required, with {currentAlias} being the alias for the current entity in the context of the HQL query (e.g. "({currentAlias}.Property1 LIKE :Parm1 OR {currentAlias}.Property2 IN (SELECT {newAlias1}.Property2 FROM EntityOneQ {newAlias1})").</param>
         /// <param name="criteriaApplicator">A function to apply the filter to the query using NHibernate's <see cref="NHibernate.ICriteria"/> API.</param>
+        /// <param name="authorizeInstance">A function that authorizes the instance contained in the authorization context data, or indicates that authorization cannot be performed without a trip to the database.</param>
         /// <param name="shouldApply">A predicate function using a mapped entity's <see cref="System.Type"/> and properties used to determine whether the filter should be applied to a particular entity.</param>
         /// <remarks>This constructor makes some base level assumptions to simplify the declaration of the filters, but
         /// it could lead to incorrect results.  For parameters with names equal to "Id" or with names ending with "Id",
@@ -41,61 +40,66 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// <see cref="NHibernate.NHibernateUtil.String" />.  If these conventions don't work for a particular filter definition,
         /// use the other constructor overload.
         /// </remarks>
-        public FilterApplicationDetails(
+        public AuthorizationFilterDefinition(
             string filterName,
-            string friendlyDefaultConditionFormat,
+            string friendlyDefaultConditionFormat, // TODO: GKM - Eliminate if truly unused
             string friendlyHqlConditionFormat,
             Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator,
+            Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,
             Func<Type, PropertyInfo[], bool> shouldApply)
         {
-            ShouldApply = shouldApply;
-            CriteriaApplicator = criteriaApplicator;
-
-            string defaultCondition = ProcessFormatStringForAliases(friendlyDefaultConditionFormat);
-
-            var parameterNames = ParseDistinctParameterNames(friendlyDefaultConditionFormat);
-
-            var parameters = parameterNames.ToDictionary(
-                n => n,
-                n =>
-                {
-                    // Handle entity Ids as a Table-Valued Parameter containing Guids
-                    if (n == "Id")
-                    {
-                        return (IType) new SqlServerStructured<Guid>();
-                    }
-
-                    // Handle UniqueIds as strings
-                    if (n.EndsWith("UniqueId"))
-                    {
-                        return (IType) NHibernateUtil.String;
-                    }
-
-                    // Handle properties with "Id" suffixes as a Table-Valued Parameter containing integers
-                    if (n.EndsWith("Id"))
-                    {
-                        return (IType) new SqlServerStructured<int>();
-                    }
-
-                    // Handle dates
-                    if (n.EndsWith("Date"))
-                    {
-                        return (IType) NHibernateUtil.DateTime;
-                    }
-
-                    // Treat everything else a string
-                    return (IType) NHibernateUtil.String;
-                },
-                StringComparer.InvariantCultureIgnoreCase);
-
-            FilterDefinition = new FilterDefinition(filterName, defaultCondition, parameters, false);
+            FilterName = filterName;
             HqlConditionFormatString = ProcessFormatStringForAliases(friendlyHqlConditionFormat);
+            CriteriaApplicator = criteriaApplicator;
+            AuthorizeInstance = authorizeInstance;
+            ShouldApply = shouldApply;
+
+            // string defaultCondition = ProcessFormatStringForAliases(friendlyDefaultConditionFormat);
+
+            // var parameterNames = ParseDistinctParameterNames(friendlyDefaultConditionFormat);
+
+            // var parameters = parameterNames.ToDictionary(
+            //     n => n,
+            //     n =>
+            //     {
+            //         // Handle entity Ids as a Table-Valued Parameter containing Guids
+            //         if (n == "Id")
+            //         {
+            //             return (IType) new SqlServerStructured<Guid>();
+            //         }
+            //
+            //         // Handle UniqueIds as strings
+            //         if (n.EndsWith("UniqueId"))
+            //         {
+            //             return (IType) NHibernateUtil.String;
+            //         }
+            //
+            //         // Handle properties with "Id" suffixes as a Table-Valued Parameter containing integers
+            //         if (n.EndsWith("Id"))
+            //         {
+            //             return (IType) new SqlServerStructured<int>();
+            //         }
+            //
+            //         // Handle dates
+            //         if (n.EndsWith("Date"))
+            //         {
+            //             return (IType) NHibernateUtil.DateTime;
+            //         }
+            //
+            //         // Treat everything else a string
+            //         return (IType) NHibernateUtil.String;
+            //     },
+            //     StringComparer.InvariantCultureIgnoreCase);
+
+            // FilterDefinition = new FilterDefinition(filterName, defaultCondition, parameters, false);
         }
 
-        /// <summary>
-        /// Gets the NHibernate FilterDefinition to be added to the configuration.
-        /// </summary>
-        public FilterDefinition FilterDefinition { get; protected set; }
+        public string FilterName { get; set; }
+
+        // /// <summary>
+        // /// Gets the NHibernate FilterDefinition to be added to the configuration.
+        // /// </summary>
+        // public FilterDefinition FilterDefinition { get; protected set; }
 
         /// <summary>
         /// Gets a format string containing the filter condition expressed as HQL rather than SQL, and with all new aliases assigned and the 'currentAlias' marker as the '{0}' format specifier.
@@ -107,12 +111,14 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// </summary>
         public Action<ICriteria, Junction, IDictionary<string, object>, JoinType> CriteriaApplicator { get; protected set; }
 
+        public Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> AuthorizeInstance { get; }
+
         /// <summary>
         /// Gets the predicate functional for determining whether the filter should be applied to a particular entity.
         /// </summary>
         public Func<Type, PropertyInfo[], bool> ShouldApply { get; protected set; }
 
-        protected static string ProcessFormatStringForAliases(string format)
+        private static string ProcessFormatStringForAliases(string format)
         {
             Func<int, string> getFriendlyAliasKey = n => "{newAlias" + n + "}";
             var aliasGenerator = new AliasGenerator("fltr_", useSharedState: true);
@@ -148,28 +154,25 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             return defaultCondition;
         }
 
-        protected static IEnumerable<string> ParseDistinctParameterNames(string defaultCondition)
-        {
-            var matches = ParameterRegex.Matches(defaultCondition);
-
-            var parameterNames = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-
-            foreach (Match match in matches)
-            {
-                parameterNames.Add(
-                    match.Groups["Parameter"]
-                         .Value);
-            }
-
-            return parameterNames;
-        }
+        // protected static IEnumerable<string> ParseDistinctParameterNames(string defaultCondition)
+        // {
+        //     var matches = ParameterRegex.Matches(defaultCondition);
+        //
+        //     var parameterNames = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+        //
+        //     foreach (Match match in matches)
+        //     {
+        //         parameterNames.Add(
+        //             match.Groups["Parameter"]
+        //                  .Value);
+        //     }
+        //
+        //     return parameterNames;
+        // }
 
         public override string ToString()
         {
-            return string.Format(
-                "Filter: {0} (Parameters: {1})",
-                FilterDefinition.FilterName,
-                string.Join((string) ", ", (IEnumerable<string>) FilterDefinition.ParameterNames));
+            return $"Filter: {FilterName}";
         }
     }
 }

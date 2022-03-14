@@ -20,14 +20,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         public PagedAggregateIdsCriteriaProviderAuthorizationDecorator(
             IPagedAggregateIdsCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
-            IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider,
-            IFilterApplicationDetailsProvider filterApplicationDetailsProvider,
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
             : base(
                 decoratedInstance,
                 authorizationFilterContextProvider,
-                authorizationCriteriaApplicatorProvider,
-                filterApplicationDetailsProvider,
+                authorizationFilterDefinitionProvider,
                 educationOrganizationIdNamesProvider) { }
     }
 }

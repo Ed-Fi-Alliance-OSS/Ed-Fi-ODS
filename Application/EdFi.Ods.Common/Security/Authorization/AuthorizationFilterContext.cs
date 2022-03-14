@@ -12,10 +12,10 @@ namespace EdFi.Ods.Common.Security.Authorization
     /// an authorization segment (i.e. a particular property on the subject resource and a particular property/value on
     /// the API client's claim).
     /// </summary>
-    public class AuthorizationFilterDetails
+    public class AuthorizationFilterContext
     {
         /// <summary>
-        /// Get or sets the name of the filter definition as defined by an <see cref="INHibernateFilterConfigurator" /> implementation. 
+        /// Get or sets the name of the filter definition as defined by an <see cref="IAuthorizationFilterDefinitionsProvider" /> implementation. 
         /// </summary>
         public string FilterName { get; set; }
         
@@ -25,9 +25,14 @@ namespace EdFi.Ods.Common.Security.Authorization
         public string SubjectEndpointName { get; set; }
 
         /// <summary>
-        /// The property/column of the authorization view for which the API client has a claim value.
+        /// The name of the parameter representing a claim value held by the API client to be used in the query against the authorization view.
         /// </summary>
         public string ClaimParameterName { get; set; }
+
+        /// <summary>
+        /// The raw values associated with the API client's claim.
+        /// </summary>
+        public object[] ClaimEndpointValues { get; set; }
 
         /// <summary>
         /// The values associated with the API client's claim.
@@ -39,5 +44,10 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// useful for identifying concrete education organization ids associated with the API client). 
         /// </summary>
         public string[] ClaimEndpointNames { get; set; }
+
+        /// <summary>
+        /// For single item authorization scenarios, gets or sets the value associated with the subject endpoint for authorization.
+        /// </summary>
+        public object SubjectEndpointValue { get; set; }
     }
 }
