@@ -82,7 +82,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             CancellationToken cancellationToken)
         {
             // Use the authorization subsystem to set filtering context
-            var authorizationFiltering = GetAuthorizationFiltering<TEntity>();
+            var authorizationFiltering = GetAuthorizationFiltering();
 
             // Ensure we've bound an NHibernate session to the current context
             using (new SessionScope(_sessionFactory))

@@ -99,13 +99,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             await AuthorizeSingleItemAsync(entity, action, cancellationToken);
         }
 
-        
-        // /// <summary>
-        // /// Authorizes a single-item request using the claims, resource, action and entity instance supplied in the <see cref="EdFiAuthorizationContext"/>.
-        // /// </summary>
-        // /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
-        // Task AuthorizeSingleItemAsync(EdFiAuthorizationContext authorizationContext, CancellationToken cancellationToken);
-
         /// <summary>
         /// Invokes authorization of the request using the resource currently in context but wit 
         /// an override action (e.g. for converting the "Upsert" action to either "Create" or "Update").
@@ -132,30 +125,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             // Get the authorization filtering information
             var authorizationFiltering =
                 _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
-
-            // throw new NotImplementedException(
-            //     "Multiple authorization strategy support for single-item authorization is a work in progress.");
-            
-            // Authorize the call
-            //await _authorizationProvider.AuthorizeSingleItemAsync(authorizationContext, cancellationToken);
-            
-            // var andStrategies = authorizationFiltering
-            //     .Where(asf => asf.Operator == FilterOperator.And)
-            //     .ToArray();
-
-            // var andResults = andStrategies.SelectMany(
-            //         s => s.Filters.Select(
-            //             f => new
-            //             {
-            //                 FilterDefinition = _authorizationFilterDefinitionProvider.GetFilterDefinition(f.FilterName),
-            //                 FilterContext = f
-            //             }))
-            //     .Select(x => new 
-            //     { 
-            //         Result = x.FilterDefinition.AuthorizeInstance(authorizationContext, x.FilterContext),
-            //         FilterDefinition = x.FilterDefinition
-            //     })
-            //     .ToArray();
 
             var andResults = authorizationFiltering
                 .Where(asf => asf.Operator == FilterOperator.And)
@@ -206,27 +175,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         PendingExistenceChecks = x.FilterResults
                             .Where(y => y.Result.State == AuthorizationState.NotPerformed)
                             .ToArray(),
-                            // .Select(y => new
-                            // {
-                            //     FilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition,
-                            //     Result = y.Result,
-                            // }),
-                            // .Select(y => y.FilterDefinition)
-                            // .Cast<ViewBasedAuthorizationFilterDefinition>()
-                            // .Select(
-                            //     y => new
-                            //     {
-                            //         FilterName = y.FilterName,
-                            //         SubjectEndpointName = y.SubjectEndpointName,
-                            //         ItemExistenceSql = y.ItemExistenceSql
-                            //     })
                         AuthorizationExceptions = x.AuthorizationExceptions,
                     });
-
-            // var orStrategies = authorizationFiltering
-            //     .Where(f => f.Operator == FilterOperator.Or)
-            //     // .ToArray()
-            //     ;
                 
             var orResults = authorizationFiltering
                 .Where(f => f.Operator == FilterOperator.Or)
@@ -285,20 +235,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         PendingExistenceChecks = x.FilterResults
                             .Where(y => y.Result.State == AuthorizationState.NotPerformed)
                             .ToArray(),
-                            // .Select(y => new
-                            // {
-                            //     FilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition,
-                            //     Result = y.Result,
-                            // }),
-                            // .Select(y => y.FilterDefinition)
-                            // .Cast<ViewBasedAuthorizationFilterDefinition>()
-                            // .Select(
-                            //     y => new
-                            //     {
-                            //         FilterName = y.FilterName, 
-                            //         SubjectEndpointName = y.SubjectEndpointName,
-                            //         ItemExistenceSql = y.ItemExistenceSql,
-                            //     })
                         AuthorizationExceptions = x.AuthorizationExceptions,
                     });
 
@@ -308,66 +244,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             // Build the existence check SQL
             StringBuilder sql = new();
-
-            // TODO: GKM - BEGIN SQL Server specific code
-            // sql.AppendLine("DECLARE @claimEdOrgIds as dbo.IntTable");
-            // sql.Append("INSERT INTO @claimEdOrgIds VALUES ");
-            //
-            // var claimEdOrgIds= _apiKeyContextProvider.GetApiKeyContext().EducationOrganizationIds;
-            //
-            // claimEdOrgIds.ForEach(id =>
-            // {
-            //     sql.Append('(');
-            //     sql.Append(id);
-            //     sql.Append(')');
-            // });
-            // TODO: GKM - END SQL Server specific code
-            
-
-            // List<InstanceAuthorizationResult> resolvableResults = new();
-
-            #region Original commented out implementation - separate CASE statements
-
-            // sql.Append("SELECT ");
-
-            // allExistenceCheckSqlFragments.ForEach(
-            //     (x, i) =>
-            //     {
-            //         if (i > 0)
-            //         {
-            //             sql.Append(", ");
-            //         }
-            //
-            //         sql.Append("CASE WHEN ");
-            //
-            //         x.PendingExistenceChecks.ForEach(
-            //             (y, j) =>
-            //             {
-            //                 if (j > 0)
-            //                 {
-            //                     sql.Append(" AND ");
-            //                 }
-            //
-            //                 sql.Append("EXISTS (");
-            //                 sql.Append((y.FilterDefinition as ViewBasedAuthorizationFilterDefinition)?.ItemExistenceSql 
-            //                     ?? throw new InvalidOperationException("Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks."));
-            //                 sql.Append(')');
-            //                 
-            //                 // sql.Append(") THEN 1 ELSE 0 END AS IsAuthorized_");
-            //                 // sql.Append(i);
-            //                 // sql.Append("_");
-            //                 // sql.Append(j);
-            //                 
-            //                 // resolvableResults.Add(y.Result);
-            //                 
-            //                 // resolvableResults.Add(y.Result);
-            //             });
-            //         
-            //         sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized_");
-            //         sql.Append(i);
-            //     });
-
-            #endregion
 
             sql.Append("SELECT CASE WHEN ");
 
@@ -402,15 +278,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                             sql.Append((y.FilterDefinition as ViewBasedAuthorizationFilterDefinition)?.ItemExistenceSql 
                                 ?? throw new InvalidOperationException("Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks."));
                             sql.Append(')');
-                            
-                            // sql.Append(") THEN 1 ELSE 0 END AS IsAuthorized_");
-                            // sql.Append(i);
-                            // sql.Append("_");
-                            // sql.Append(j);
-                            
-                            // resolvableResults.Add(y.Result);
-                            
-                            // resolvableResults.Add(y.Result);
                         });
 
                     sql.Append(')');
@@ -418,12 +285,10 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized");
 
-            // ColumnNames in results -> {AuthorizationStrategyName}_{FilterName}_{SubjectEndpointName}
-
             // Execute the query
             using var sessionScope = new SessionScope(_sessionFactory);
 
-            using var cmd = sessionScope.Session.Connection.CreateCommand();
+            await using var cmd = sessionScope.Session.Connection.CreateCommand();
 
             // Assign the command text
             cmd.CommandText = sql.ToString();
@@ -445,7 +310,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 .ToArray());
 
             // Assign EdOrgId claims
-            // TDOO: GKM - Should this be added to the EdFiAuthorizationContext so that it can be retrieved once and passed along?
+            // TODO: GKM - Should this be added to the EdFiAuthorizationContext so that it can be retrieved once and passed along?
             var claimEdOrgIds= _apiKeyContextProvider.GetApiKeyContext().EducationOrganizationIds;
 
             // TODO: GKM - Need seam here for database-specific implementations
@@ -548,66 +413,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             //         + $"the requested resource: {subjectEndpointNamesText}.";
             // }
 
-            // TODO: GKM - Delete all this
-            #region Delete this
-
-            // await reader.ReadAsync(cancellationToken);
-            //
-            // for (int i = 0; i < reader.FieldCount; i++)
-            // {
-            //     if (reader.GetInt32(i) == 0)
-            //     {
-            //         resolvableResults[i].ResolveWithFailure(new EdFiSecurityException("No established relationships."));
-            //     }
-            //     else
-            //     {
-            //         resolvableResults[i].ResolveSuccessful();
-            //     }
-            // }
-            
-            // Process the pending OR checks, ensure that at least one of them has all 1s, or throw an exception
-            // bool orConditionSatisfied = orResults.Any(r => 
-            //     r.Filters.All(f => f.Result.AuthorizationPerformed && f.Result.Exception == null));
-            //
-            // if (!orConditionSatisfied)
-            // {
-            //     throw new EdFiSecurityException("Need better exception here.");
-            // }
-            
-            /*
-                DECLARE @claimEdOrgIds as dbo.IntTable, 
-                    @subjectStudentUSI INT = 954,
-                    @subjectEdOrgId INT = 255901044
-
-                INSERT INTO @claimEdOrgIds VALUES (255901044);
-
-                SELECT 
-                    CASE
-                        WHEN 
-                            EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId authvw INNER JOIN @claimEdOrgIds c ON authvw.SourceEducationOrganizationId = c.Id AND authvw.TargetEducationOrganizationId = @subjectEdOrgId)
-                            AND EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStudentUSI authvw INNER JOIN @claimEdOrgIds c ON authvw.SourceEducationOrganizationId = c.Id AND authvw.StudentUSI = @subjectStudentUSI)
-                        THEN 1
-                        ELSE 0
-                    END AS IsAuthorized_RelationshipsWithEdOrgsAndPeople,
-                    CASE
-                        WHEN 
-                            EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToEducationOrganizationId authvw INNER JOIN @claimEdOrgIds c ON authvw.SourceEducationOrganizationId = c.Id AND authvw.TargetEducationOrganizationId = @subjectEdOrgId)
-                            AND EXISTS (SELECT 1 FROM auth.EducationOrganizationIdToStudentUSIThroughResponsibility authvw INNER JOIN @claimEdOrgIds c ON authvw.SourceEducationOrganizationId = c.Id AND authvw.StudentUSI = @subjectStudentUSI)
-                        THEN 1
-                        ELSE 0
-                    END AS IsAuthorized_RelationshipsWithStudentsOnlyThroughResponsibilty
-             */
-            
-            // foreach (var filtering in andStrategies)
-            // {
-            //     foreach (AuthorizationFilterDetails filterDetails in filtering.Filters)
-            //     {
-            //         filterDetails.
-            //     }
-            // }
-
-            #endregion
-            
             bool IsCreateUpdateOrDelete(EdFiAuthorizationContext authorizationContext)
             {
                 return (_bitValuesByAction.Value[authorizationContext.Action.Single().Value] 
@@ -638,7 +443,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             }
         }
 
-        protected IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering<TEntity>()
+        protected IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering()
         {
             // Make sure Authorization context is present before proceeding
             _authorizationContextProvider.VerifyAuthorizationContextExists();
@@ -655,21 +460,5 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             return _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
         }
-
-        // protected void AuthorizeResourceActionOnly(TEntity entity, string actionUri)
-        // {
-        //     // Make sure Authorization context is present before proceeding
-        //     _authorizationContextProvider.VerifyAuthorizationContextExists();
-        //
-        //     // Build the AuthorizationContext
-        //     EdFiAuthorizationContext authorizationContext = new EdFiAuthorizationContext(
-        //         ClaimsPrincipal.Current,
-        //         _authorizationContextProvider.GetResourceUris(),
-        //         actionUri,
-        //         entity);
-        //
-        //     // Authorize the call
-        //     _authorizationProvider.AuthorizeResourceActionOnly(authorizationContext);
-        // }
     }
 }
