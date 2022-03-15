@@ -7,12 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
@@ -89,14 +85,14 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 
             if (contextData == null)
             {
-                return new InstanceAuthorizationResult(
+                return InstanceAuthorizationResult.Failed(
                     new NotSupportedException(
                         "No 'Namespace' property could be found on the resource in order to perform authorization. Should a different authorization strategy be used?"));
             }
 
             if (string.IsNullOrWhiteSpace(contextData.Namespace))
             {
-                return new InstanceAuthorizationResult(
+                return InstanceAuthorizationResult.Failed(
                     new EdFiSecurityException(
                     "Access to the resource item could not be authorized because the Namespace of the resource is empty."));
             }
@@ -107,12 +103,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
             {
                 string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
 
-                return new InstanceAuthorizationResult(
+                return InstanceAuthorizationResult.Failed(
                     new EdFiSecurityException(
                     $"Access to the resource item with namespace '{contextData.Namespace}' could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'."));
             }
 
-            return InstanceAuthorizationResult.Success;
+            return InstanceAuthorizationResult.Success();
         }
 
         /// <summary>

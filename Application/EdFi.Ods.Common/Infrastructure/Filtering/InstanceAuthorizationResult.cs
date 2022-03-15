@@ -10,135 +10,135 @@ using NHibernate.Engine.Query;
 
 namespace EdFi.Ods.Common.Infrastructure.Filtering;
 
-public interface IInstanceAuthorizationResult
-{
-    /// <summary>
-    /// Indicates whether instance-based authorization could be performed.
-    /// </summary>
-    bool AuthorizationPerformed { get; }
+// public interface IInstanceAuthorizationResult
+// {
+//     /// <summary>
+//     /// Indicates whether instance-based authorization could be performed.
+//     /// </summary>
+//     bool AuthorizationPerformed { get; }
+//
+//     /// <summary>
+//     /// Gets the Exception to be thrown, if necessary, to indicate authorization failure.
+//     /// </summary>
+//     Exception Exception { get; }
+// }
 
-    /// <summary>
-    /// Gets the Exception to be thrown, if necessary, to indicate authorization failure.
-    /// </summary>
-    Exception Exception { get; }
+public enum AuthorizationState
+{
+    NotPerformed,
+    Success,
+    Failed,
 }
 
-public class InstanceAuthorizationResult : IInstanceAuthorizationResult
+public class InstanceAuthorizationResult //: IInstanceAuthorizationResult
 {
     /// <summary>
     /// An instance authorization result indicating instance-based authorization could not be performed.
     /// </summary>
-    public static InstanceAuthorizationResult NotPerformed = new InstanceAuthorizationResult(authorizationPerformed: false);
-        
+    public static InstanceAuthorizationResult NotPerformed() => new(AuthorizationState.NotPerformed);
+    
     /// <summary>
     /// An instance authorization result indicating success.
     /// </summary>
-    public static InstanceAuthorizationResult Success = new InstanceAuthorizationResult(authorizationPerformed: true);
+    public static InstanceAuthorizationResult Success() => new(AuthorizationState.Success);
+
+    /// <summary>
+    /// An instance authorization result indicating success.
+    /// </summary>
+    public static InstanceAuthorizationResult Failed(Exception ex) => new(ex);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="InstanceAuthorizationResult"/> class to indicate failure with the
     /// supplied exception.
     /// </summary>
     /// <param name="ex">The exception that occurred.</param>
-    public InstanceAuthorizationResult(Exception ex)
+    private InstanceAuthorizationResult(Exception ex)
     {
+        State = AuthorizationState.Failed;
         Exception = ex;
-        AuthorizationPerformed = true;
-    }
-
-    private InstanceAuthorizationResult(bool authorizationPerformed)
-    {
-        AuthorizationPerformed = authorizationPerformed;
     }
 
     /// <summary>
-    /// Indicates whether instance-based authorization could be performed.
+    /// Initializes a new instance of the <see cref="InstanceAuthorizationResult"/> class using the supplied authorization state.
     /// </summary>
-    public bool AuthorizationPerformed { get; }
+    /// <param name="state"></param>
+    private InstanceAuthorizationResult(AuthorizationState state)
+    {
+        if (state == AuthorizationState.Failed)
+        {
+            throw new InvalidOperationException(
+                "Authorization state of error must have an associated exception. Use another constructor.");
+        }
         
+        State = state;
+    }
+
     /// <summary>
-    /// Gets the Exception to be thrown, if necessary, to indicate authorization failure.
+    /// Indicates the current state of authorization of the instance.
     /// </summary>
-    public Exception Exception { get; }
+    public AuthorizationState State { get; private set; }
 
-    // /// <summary>
-    // /// Indicates whether the authorization was successful.
-    // /// </summary>
-    // /// <returns><b>true</b> if authorization was successful, <b>false</b> if unsuccessful, or <b>null</b> if instance authorization could not be performed.</returns>
-    // public bool? IsAuthorized()
-    // {
-    //     if (!AuthorizationPerformed)
-    //     {
-    //         return null;
-    //     }
-    //
-    //     return Exception != null;
-    // }
-}
+    /// <summary>
+    /// Gets the Exception indicating the authorization failure.
+    /// </summary>
+    public Exception Exception { get; private set; }
 
-public interface IResolvableInstanceAuthorizationResult : IInstanceAuthorizationResult
-{
-    void ResolveSuccessful();
-
-    void ResolveWithFailure(Exception ex);
-}
-
-public class ResolvableInstanceAuthorizationResult : IResolvableInstanceAuthorizationResult
-{
-    private InstanceAuthorizationResult _result;
-
-    public ResolvableInstanceAuthorizationResult(InstanceAuthorizationResult initialResult)
-    {
-        _result = initialResult;
-    }
-
-    public bool AuthorizationPerformed
-    {
-        get => _result.AuthorizationPerformed;
-    }
-
-    public Exception Exception
-    {
-        get => _result.Exception;
-    }
-
+    /// <summary>
+    /// Resolve the authorization to a success state.
+    /// </summary>
     public void ResolveSuccessful()
     {
-        _result = InstanceAuthorizationResult.Success;
+        if (State != AuthorizationState.NotPerformed)
+        {
+            throw new InvalidOperationException("Cannot change the state of an authorization that has already been performed.");
+        }
+
+        State = AuthorizationState.Success;
     }
 
-    public void ResolveWithFailure(Exception ex)
+    /// <summary>
+    /// Resolve the authorization to a failed state with the supplied exception.
+    /// </summary>
+    /// <param name="ex"></param>
+    /// <exception cref="InvalidOperationException">Occurs when the current <see cref="State" /> is not <see cref="AuthorizationState.NotPerformed" />.</exception>
+    public void ResolveFailed(Exception ex)
     {
-        _result = new InstanceAuthorizationResult(ex);
+        if (State != AuthorizationState.NotPerformed)
+        {
+            throw new InvalidOperationException("Cannot change the state of an authorization that has already been performed.");
+        }
+        
+        State = AuthorizationState.Failed;
+        Exception = ex;
     }
 }
 
-public class CompositeResolvableInstanceAuthorizationResult : IResolvableInstanceAuthorizationResult
-{
-    public bool AuthorizationPerformed
-    {
-        get => _authorizationResults.All(x => x.AuthorizationPerformed);
-    }
-
-    public Exception Exception
-    {
-        get => _authorizationResults.FirstOrDefault(x => x.Exception != null)?.Exception;
-    }
-
-    private List<IResolvableInstanceAuthorizationResult> _authorizationResults = new();
-    
-    public void AddAuthorizationResult(IResolvableInstanceAuthorizationResult authorizationResult)
-    {
-        _authorizationResults.Add(authorizationResult);
-    }
-
-    public void ResolveSuccessful()
-    {
-        _authorizationResults.ForEach(x => x.ResolveSuccessful());
-    }
-
-    public void ResolveWithFailure(Exception ex)
-    {
-        _authorizationResults.ForEach(x => x.ResolveWithFailure(ex));
-    }
-}
+// public class CompositeResolvableInstanceAuthorizationResult : IResolvableInstanceAuthorizationResult
+// {
+//     public bool AuthorizationPerformed
+//     {
+//         get => _authorizationResults.All(x => x.AuthorizationPerformed);
+//     }
+//
+//     public Exception Exception
+//     {
+//         get => _authorizationResults.FirstOrDefault(x => x.Exception != null)?.Exception;
+//     }
+//
+//     private List<IResolvableInstanceAuthorizationResult> _authorizationResults = new();
+//     
+//     public void AddAuthorizationResult(IResolvableInstanceAuthorizationResult authorizationResult)
+//     {
+//         _authorizationResults.Add(authorizationResult);
+//     }
+//
+//     public void ResolveSuccessful()
+//     {
+//         _authorizationResults.ForEach(x => x.ResolveSuccessful());
+//     }
+//
+//     public void ResolveWithFailure(Exception ex)
+//     {
+//         _authorizationResults.ForEach(x => x.ResolveWithFailure(ex));
+//     }
+// }

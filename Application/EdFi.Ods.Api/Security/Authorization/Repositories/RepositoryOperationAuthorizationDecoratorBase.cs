@@ -14,6 +14,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
+using EdFi.Common.Inflection;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
@@ -125,7 +127,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(authorizationContext);
 
-            PerformAuthorizationValidation(authorizationContext, authorizationBasisMetadata);
+            ExecuteAuthorizationValidationRules(authorizationContext, authorizationBasisMetadata);
 
             // Get the authorization filtering information
             var authorizationFiltering =
@@ -137,9 +139,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             // Authorize the call
             //await _authorizationProvider.AuthorizeSingleItemAsync(authorizationContext, cancellationToken);
             
-            var andStrategies = authorizationFiltering
-                .Where(asf => asf.Operator == FilterOperator.And)
-                .ToArray();
+            // var andStrategies = authorizationFiltering
+            //     .Where(asf => asf.Operator == FilterOperator.And)
+            //     .ToArray();
 
             // var andResults = andStrategies.SelectMany(
             //         s => s.Filters.Select(
@@ -155,45 +157,60 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             //     })
             //     .ToArray();
 
-            var andResults = andStrategies.Select(
-                    s => new
+            var andResults = authorizationFiltering
+                .Where(asf => asf.Operator == FilterOperator.And)
+                .Select(
+                    s => 
+                        new
+                        {
+                            AuthorizationStrategyName = s.AuthorizationStrategyName,
+                            Operator = s.Operator,
+                            FilterResults = s.Filters
+                                .Select(
+                                    f => new
+                                    {
+                                        FilterDefinition = _authorizationFilterDefinitionProvider.GetFilterDefinition(f.FilterName),
+                                        FilterContext = f
+                                    })
+                                .Select(
+                                    x => new
+                                    {
+                                        FilterDefinition = x.FilterDefinition,
+                                        Result = x.FilterDefinition.AuthorizeInstance(authorizationContext, x.FilterContext),
+                                    })
+                                .ToArray()
+                        })
+                .Select(x => 
+                    new
                     {
-                        AuthorizationStrategyName = s.AuthorizationStrategyName,
-                        Filters = s.Filters
-                            .Select(
-                                f => new
-                                {
-                                    FilterDefinition = _authorizationFilterDefinitionProvider.GetFilterDefinition(f.FilterName),
-                                    FilterContext = f
-                                })
-                            .Select(
-                                x => new
-                                {
-                                    Result = new ResolvableInstanceAuthorizationResult(x.FilterDefinition.AuthorizeInstance(authorizationContext, x.FilterContext)), // as IInstanceAuthorizationResult,
-                                    FilterDefinition = x.FilterDefinition,
-                                })
-                            .ToArray()
+                        AuthorizationStrategyName = x.AuthorizationStrategyName,
+                        Operator = x.Operator,
+                        FilterResults = x.FilterResults,
+                        AuthorizationExceptions = x.FilterResults.Where(f => f.Result.State == AuthorizationState.Failed).Select(f => f.Result.Exception),
                     })
+
                 .ToArray();
             
-            // Throw exception for the first failure now, if any were encountered
+            // If any failures occurred with the AND strategies, throw the first exception now
             andResults
-                .SelectMany(x => x.Filters.Select(y => y.Result.Exception))
-                .Where(ex => ex != null)
-                .ForEach(ex => throw ex);
+                .SelectMany(x => x.FilterResults)
+                .Where(fr => fr.Result.State == AuthorizationState.Failed)
+                .ForEach(fr => throw fr.Result.Exception);
 
             // For remaining pending authorizations requiring database access, get the existence checks SQL fragments  
-            var pendingAndExistenceCheckSqlFragments = andResults.Select(
+            var pendingAndStrategies = andResults.Select(
                     x => new
                     {
                         AuthorizationStrategyName = x.AuthorizationStrategyName,
-                        PendingExistenceChecks = x.Filters
-                            .Where(y => !y.Result.AuthorizationPerformed)
-                            .Select(y => new
-                            {
-                                FilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition,
-                                Result = y.Result as ResolvableInstanceAuthorizationResult,
-                            })
+                        Operator = x.Operator,
+                        PendingExistenceChecks = x.FilterResults
+                            .Where(y => y.Result.State == AuthorizationState.NotPerformed)
+                            .ToArray(),
+                            // .Select(y => new
+                            // {
+                            //     FilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition,
+                            //     Result = y.Result,
+                            // }),
                             // .Select(y => y.FilterDefinition)
                             // .Cast<ViewBasedAuthorizationFilterDefinition>()
                             // .Select(
@@ -203,216 +220,359 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                             //         SubjectEndpointName = y.SubjectEndpointName,
                             //         ItemExistenceSql = y.ItemExistenceSql
                             //     })
+                        AuthorizationExceptions = x.AuthorizationExceptions,
                     });
 
-            var orStrategies = authorizationFiltering
-                .Where(f => f.Operator == FilterOperator.Or).ToArray();
+            // var orStrategies = authorizationFiltering
+            //     .Where(f => f.Operator == FilterOperator.Or)
+            //     // .ToArray()
+            //     ;
                 
-            var orResults = orStrategies
+            var orResults = authorizationFiltering
+                .Where(f => f.Operator == FilterOperator.Or)
                 .Select(s => 
-                        new
-                        {
-                            AuthorizationStrategyName = s.AuthorizationStrategyName,
-                            Filters = s.Filters
-                                .Select(f => new
-                                {
-                                    FilterDefinition = _authorizationFilterDefinitionProvider.GetFilterDefinition(f.FilterName),
-                                    FilterContext = f
-                                })
-                                .Select(x => new
-                                { 
-                                    Result = new ResolvableInstanceAuthorizationResult(x.FilterDefinition.AuthorizeInstance(authorizationContext, x.FilterContext)) as IInstanceAuthorizationResult,
-                                    FilterDefinition = x.FilterDefinition
-                                })
-                                .ToArray()
-                        }
-                    )
+                    new
+                    {
+                        AuthorizationStrategyName = s.AuthorizationStrategyName,
+                        Operator = s.Operator,
+                        FilterResults = s.Filters
+                            .Select(f => new
+                            {
+                                FilterDefinition = _authorizationFilterDefinitionProvider.GetFilterDefinition(f.FilterName),
+                                FilterContext = f
+                            })
+                            .Select(x => new
+                            { 
+                                FilterDefinition = x.FilterDefinition,
+                                Result = x.FilterDefinition.AuthorizeInstance(authorizationContext, x.FilterContext),
+                            })
+                            .ToArray()
+                    })
+                .Select(x => 
+                    new
+                    {
+                        AuthorizationStrategyName = x.AuthorizationStrategyName,
+                        Operator = x.Operator,
+                        FilterResults = x.FilterResults,
+                        AuthorizationExceptions = x.FilterResults.Where(f => f.Result.State == AuthorizationState.Failed).Select(f => f.Result.Exception),
+                    })
                 .ToArray();
 
-            bool orConditionAlreadySatisfied = orResults.Any(r => 
-                r.Filters.All(f => f.Result == InstanceAuthorizationResult.Success));
+            bool orConditionAlreadySatisfied = orResults
+                .Any(r => r.FilterResults.All(f => f.Result.State == AuthorizationState.Success));
 
             if (orConditionAlreadySatisfied)
             {
-                // Check pending ANDs
-                if (pendingAndExistenceCheckSqlFragments.Any())
+                // Check for pending ANDs
+                if (pendingAndStrategies.Any())
                 {
                     // Execute SQL to determine AND results
-                    throw new NotImplementedException("Or conditions satisfied, but AND SQL existence checks not yet supported");
+                    throw new NotImplementedException("Strategies combined with 'OR' satisfied, but 'AND' SQL existence checks are not yet supported.");
                 }
+
+                return;
+            }
+            
+            // We'll need to go to the database to check for relationship existence 
+            var pendingOrStrategies = orResults
+                // Only check any strategies that have no failures
+                .Where(x => x.FilterResults.All(f => f.Result.State != AuthorizationState.Failed))
+                .Select(
+                    x => new
+                    {
+                        AuthorizationStrategyName = x.AuthorizationStrategyName,
+                        Operator = x.Operator,
+                        PendingExistenceChecks = x.FilterResults
+                            .Where(y => y.Result.State == AuthorizationState.NotPerformed)
+                            .ToArray(),
+                            // .Select(y => new
+                            // {
+                            //     FilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition,
+                            //     Result = y.Result,
+                            // }),
+                            // .Select(y => y.FilterDefinition)
+                            // .Cast<ViewBasedAuthorizationFilterDefinition>()
+                            // .Select(
+                            //     y => new
+                            //     {
+                            //         FilterName = y.FilterName, 
+                            //         SubjectEndpointName = y.SubjectEndpointName,
+                            //         ItemExistenceSql = y.ItemExistenceSql,
+                            //     })
+                        AuthorizationExceptions = x.AuthorizationExceptions,
+                    });
+
+            var allPendingExistenceCheckStrategies = 
+                pendingAndStrategies.Where(x => x.PendingExistenceChecks.Any())
+                .Concat(pendingOrStrategies.Where(x => x.PendingExistenceChecks.Any()));
+
+            // Build the existence check SQL
+            StringBuilder sql = new();
+
+            // TODO: GKM - BEGIN SQL Server specific code
+            // sql.AppendLine("DECLARE @claimEdOrgIds as dbo.IntTable");
+            // sql.Append("INSERT INTO @claimEdOrgIds VALUES ");
+            //
+            // var claimEdOrgIds= _apiKeyContextProvider.GetApiKeyContext().EducationOrganizationIds;
+            //
+            // claimEdOrgIds.ForEach(id =>
+            // {
+            //     sql.Append('(');
+            //     sql.Append(id);
+            //     sql.Append(')');
+            // });
+            // TODO: GKM - END SQL Server specific code
+            
+
+            // List<InstanceAuthorizationResult> resolvableResults = new();
+
+            #region Original commented out implementation - separate CASE statements
+
+            // sql.Append("SELECT ");
+
+            // allExistenceCheckSqlFragments.ForEach(
+            //     (x, i) =>
+            //     {
+            //         if (i > 0)
+            //         {
+            //             sql.Append(", ");
+            //         }
+            //
+            //         sql.Append("CASE WHEN ");
+            //
+            //         x.PendingExistenceChecks.ForEach(
+            //             (y, j) =>
+            //             {
+            //                 if (j > 0)
+            //                 {
+            //                     sql.Append(" AND ");
+            //                 }
+            //
+            //                 sql.Append("EXISTS (");
+            //                 sql.Append((y.FilterDefinition as ViewBasedAuthorizationFilterDefinition)?.ItemExistenceSql 
+            //                     ?? throw new InvalidOperationException("Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks."));
+            //                 sql.Append(')');
+            //                 
+            //                 // sql.Append(") THEN 1 ELSE 0 END AS IsAuthorized_");
+            //                 // sql.Append(i);
+            //                 // sql.Append("_");
+            //                 // sql.Append(j);
+            //                 
+            //                 // resolvableResults.Add(y.Result);
+            //                 
+            //                 // resolvableResults.Add(y.Result);
+            //             });
+            //         
+            //         sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized_");
+            //         sql.Append(i);
+            //     });
+
+            #endregion
+
+            sql.Append("SELECT CASE WHEN ");
+
+            allPendingExistenceCheckStrategies
+                .ForEach(
+                (x, i) =>
+                {
+                    if (i > 0)
+                    {
+                        if (x.Operator == FilterOperator.And)
+                        {
+                            sql.Append(" AND ");
+                        }
+                        else
+                        {
+                            sql.Append(" OR ");
+                        }
+                    }
+
+                    sql.Append('(');
+
+                    x.PendingExistenceChecks.ForEach(
+                        (y, j) =>
+                        {
+                            if (j > 0)
+                            {
+                                // NOTE: Individual filters (segments) are always combined with AND
+                                sql.Append(" AND ");
+                            }
+
+                            sql.Append("EXISTS (");
+                            sql.Append((y.FilterDefinition as ViewBasedAuthorizationFilterDefinition)?.ItemExistenceSql 
+                                ?? throw new InvalidOperationException("Expected a ViewBasedAuthorizationFilterDefinition instance for performing existence checks."));
+                            sql.Append(')');
+                            
+                            // sql.Append(") THEN 1 ELSE 0 END AS IsAuthorized_");
+                            // sql.Append(i);
+                            // sql.Append("_");
+                            // sql.Append(j);
+                            
+                            // resolvableResults.Add(y.Result);
+                            
+                            // resolvableResults.Add(y.Result);
+                        });
+
+                    sql.Append(')');
+                });
+
+            sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized");
+
+            // ColumnNames in results -> {AuthorizationStrategyName}_{FilterName}_{SubjectEndpointName}
+
+            // Execute the query
+            using var sessionScope = new SessionScope(_sessionFactory);
+
+            using var cmd = sessionScope.Session.Connection.CreateCommand();
+
+            // Assign the command text
+            cmd.CommandText = sql.ToString();
+
+            // Assign all parameters
+            cmd.Parameters.AddRange(
+            authorizationFiltering.SelectMany(
+                x => x.Filters.Select(
+                    f =>
+                    {
+                        var parameter = cmd.CreateParameter();
+                        parameter.ParameterName = f.SubjectEndpointName;
+                        parameter.Value = f.SubjectEndpointValue;
+
+                        return parameter;
+                    }))
+                .GroupBy(x => x.ParameterName)
+                .Select(x => x.First())
+                .ToArray());
+
+            // Assign EdOrgId claims
+            // TDOO: GKM - Should this be added to the EdFiAuthorizationContext so that it can be retrieved once and passed along?
+            var claimEdOrgIds= _apiKeyContextProvider.GetApiKeyContext().EducationOrganizationIds;
+
+            // TODO: GKM - Need seam here for database-specific implementations
+            if (cmd is SqlCommand)
+            {
+                var sqlParameter = cmd.CreateParameter() as SqlParameter;
+
+                DataTable dt = new();
+                dt.Columns.Add("Id", typeof(int));
+
+                foreach (int claimEdOrgId in claimEdOrgIds)
+                {
+                    dt.Rows.Add(claimEdOrgId);
+                }
+
+                sqlParameter!.ParameterName = "ClaimEducationOrganizationIds";
+                sqlParameter.SqlDbType = SqlDbType.Structured;
+                sqlParameter.TypeName = "dbo.IntTable";
+                sqlParameter.Value = dt;
+
+                cmd.Parameters.Add(sqlParameter);
             }
             else
             {
-                // We'll need to go to the database to check for relationship existence 
-                var pendingOrExistenceCheckSqlFragments = orResults
-                    // Don't check any OR strategy that already has a failure
-                    .Where(x => x.Filters.All(f => f.Result.Exception == null))
-                    .Select(
-                        x => new
-                        {
-                            AuthorizationStrategyName = x.AuthorizationStrategyName,
-                            PendingExistenceChecks = x.Filters //.Select(x => x.Filters)
-                                .Where(y => !y.Result.AuthorizationPerformed)
-                                .Select(y => new
-                                {
-                                    FilterDefinition = y.FilterDefinition as ViewBasedAuthorizationFilterDefinition,
-                                    Result = y.Result as ResolvableInstanceAuthorizationResult,
-                                })
-                                // .Select(y => y.FilterDefinition)
-                                // .Cast<ViewBasedAuthorizationFilterDefinition>()
-                                // .Select(
-                                //     y => new
-                                //     {
-                                //         FilterName = y.FilterName, 
-                                //         SubjectEndpointName = y.SubjectEndpointName,
-                                //         ItemExistenceSql = y.ItemExistenceSql,
-                                //     })
-                                
-                        });
-
-                var existenceCheckSqlFragments = 
-                    pendingAndExistenceCheckSqlFragments.Concat(pendingOrExistenceCheckSqlFragments);
-
-                // Build the existence check SQL
-                StringBuilder sql = new();
-
-                // TODO: GKM - BEGIN SQL Server specific code
-                // sql.AppendLine("DECLARE @claimEdOrgIds as dbo.IntTable");
-                // sql.Append("INSERT INTO @claimEdOrgIds VALUES ");
-                //
-                // var claimEdOrgIds= _apiKeyContextProvider.GetApiKeyContext().EducationOrganizationIds;
-                //
-                // claimEdOrgIds.ForEach(id =>
-                // {
-                //     sql.Append('(');
-                //     sql.Append(id);
-                //     sql.Append(')');
-                // });
-                // TODO: GKM - END SQL Server specific code
-                
-                sql.Append("SELECT ");
-
-                List<CompositeResolvableInstanceAuthorizationResult> resolvableResults = new();
-                
-                existenceCheckSqlFragments.ForEach(
-                    (x, i) =>
-                    {
-                        if (i > 0)
-                        {
-                            sql.Append(", ");
-                        }
-
-                        sql.Append("CASE WHEN ");
-
-                        var compositeResolvableResult = new CompositeResolvableInstanceAuthorizationResult();
-                        resolvableResults.Add(compositeResolvableResult);
-                        
-                        x.PendingExistenceChecks.ForEach(
-                            (y, j) =>
-                            {
-                                if (j > 0)
-                                {
-                                    sql.Append(" AND ");
-                                }
-
-                                sql.Append("EXISTS (");
-                                sql.Append(y.FilterDefinition.ItemExistenceSql);
-                                sql.Append(')');
-                                
-                                // sql.Append(") THEN 1 ELSE 0 END AS IsAuthorized_");
-                                // sql.Append(i);
-                                // sql.Append("_");
-                                // sql.Append(j);
-                                
-                                compositeResolvableResult.AddAuthorizationResult(y.Result);
-                                // resolvableResults.Add(y.Result);
-                            });
-                        
-                        sql.Append(" THEN 1 ELSE 0 END AS IsAuthorized_");
-                        sql.Append(i);
-                    });
-
-                // ColumnNames in results -> {AuthorizationStrategyName}_{FilterName}_{SubjectEndpointName}
-
-                // Execute the query
-                using var sessionScope = new SessionScope(_sessionFactory);
-
-                using var cmd = sessionScope.Session.Connection.CreateCommand();
-
-                // Assign the command text
-                cmd.CommandText = sql.ToString();
-
-                // Assign all parameters
-                cmd.Parameters.AddRange(
-                authorizationFiltering.SelectMany(
-                    x => x.Filters.Select(
-                        f =>
-                        {
-                            var parameter = cmd.CreateParameter();
-                            parameter.ParameterName = f.SubjectEndpointName;
-                            parameter.Value = f.SubjectEndpointValue;
-
-                            return parameter;
-                        }))
-                    .GroupBy(x => x.ParameterName)
-                    .Select(x => x.First())
-                    .ToArray());
-
-                // Assign EdOrgId claims
-                var claimEdOrgIds= _apiKeyContextProvider.GetApiKeyContext().EducationOrganizationIds;
-
-                if (cmd is SqlCommand)
-                {
-                    var sqlParameter = cmd.CreateParameter() as SqlParameter;
-
-                    DataTable dt = new();
-                    dt.Columns.Add("Id", typeof(int));
-
-                    foreach (int claimEdOrgId in claimEdOrgIds)
-                    {
-                        dt.Rows.Add(claimEdOrgId);
-                    }
-
-                    sqlParameter!.ParameterName = "ClaimEducationOrganizationIds";
-                    sqlParameter.SqlDbType = SqlDbType.Structured;
-                    sqlParameter.TypeName = "dbo.IntTable";
-                    sqlParameter.Value = dt;
-
-                    cmd.Parameters.Add(sqlParameter);
-                }
-                else
-                {
-                    throw new NotImplementedException("PostgreSQL support not yet implemented.");
-                }
-                
-                // Process the pending AND SQL checks, ensure that they are all 1, or throw an exception
-                using var result = await cmd.ExecuteReaderAsync(cancellationToken);
-
-                await result.ReadAsync(cancellationToken);
-
-                for (int i = 0; i < result.FieldCount; i++)
-                {
-                    if (result.GetInt32(i) == 0)
-                    {
-                        resolvableResults[i].ResolveWithFailure(new EdFiSecurityException("No established relationships."));
-                    }
-                    else
-                    {
-                        resolvableResults[i].ResolveSuccessful();
-                    }
-                }
-                
-                // Process the pending OR checks, ensure that at least one of them has all 1s, or throw an exception
-                bool orConditionSatisfied = orResults.Any(r => 
-                    r.Filters.All(f => f.Result.AuthorizationPerformed && f.Result.Exception == null));
-
-                if (!orConditionSatisfied)
-                {
-                    throw new EdFiSecurityException("Need better exception here.");
-                }
+                throw new NotImplementedException("PostgreSQL support for view-based single-item authorization is not yet implemented.");
             }
             
-            // We're authorized
+            // Process the pending AND SQL checks, ensure that they are all 1, or throw an exception
+            var result = (int?) await cmd.ExecuteScalarAsync(cancellationToken);
+
+            if (result == 0)
+            {
+                throw new Exception(
+                    "Authorization denied. No relationships have been established between the caller's education organization id claims and the requested resource.");
+            }
+            
+            // TODO: GKM - Need to work through generating the same message as before
+            // string GetAuthorizationFailureMessage()
+            // {
+            //     // TODO: GKM - This is inefficient because it gets *all* claim endpoint names and applies distinct -- may include more endpoint names than relationship-based ones with multiple auth strategies in place
+            //     string[] claimEndpointNames = authorizationFiltering
+            //         .SelectMany(asf => asf.Filters.SelectMany(f => f.ClaimEndpointNames))
+            //         .Distinct()
+            //         .ToArray();
+            //     
+            //         // authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Select(x => x.Name)
+            //         //     .Distinct()
+            //         //     .ToArray()
+            //         // ?? Array.Empty<string>();
+            //
+            //     // NOTE: Embedded convention - UniqueId is suffix used for external representation of USI values
+            //     // TODO: GKM - This is inefficient because it gets *all* subject endpoint names and applies distinct -- may include more endpoint names than relationship-based ones with multiple auth strategies in place
+            //     string[] subjectEndpointNames = authorizationFiltering
+            //         .SelectMany(asf => asf.Filters.Select(f => f.SubjectEndpointName.ReplaceSuffix("USI", "UniqueId")))
+            //         .Distinct()
+            //         .ToArray();
+            //     
+            //         // authorizationSegments
+            //         // .Select(x => x.SubjectEndpoint.Name.ReplaceSuffix("USI", "UniqueId"))
+            //         // .Distinct()
+            //         // .ToArray();
+            //
+            //     string claimEndpointNamesText = $"'{string.Join("', '", claimEndpointNames)}'";
+            //     string subjectEndpointNamesText = $"'{string.Join("', '", subjectEndpointNames)}'";
+            //     
+            //     string typeOrTypes = Inflector.Inflect("type", claimEndpointNames.Length);
+            //     string claimOrClaims = Inflector.Inflect("claim", claimEndpointNames.Length);
+            //
+            //     string claimValueOrValues = Inflector.Inflect(
+            //         "value", authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Count ?? 0);
+            //
+            //     const int MaximumEdOrgClaimValuesToDisplay = 5;
+            //
+            //     var claimEndpointValues =
+            //         (authorizationSegments.FirstOrDefault()?.ClaimsEndpoints.Select(x => x.Value.ToString())
+            //             ?? Array.Empty<string>())
+            //         .Take(MaximumEdOrgClaimValuesToDisplay + 1)
+            //         .ToArray();
+            //
+            //     var claimEndpointValuesForDisplayText = claimEndpointValues
+            //         ?.Take(MaximumEdOrgClaimValuesToDisplay)
+            //         .ToList();
+            //
+            //     if (claimEndpointValues.Length > MaximumEdOrgClaimValuesToDisplay)
+            //     {
+            //         claimEndpointValuesForDisplayText.Add("...");
+            //     }
+            //     
+            //     string claimEndpointValuesText = string.Join(", ", claimEndpointValuesForDisplayText);
+            //     
+            //     if (subjectEndpointNames.Length == 1)
+            //     {
+            //         return $"Authorization denied. No relationships have been established between the caller's education "
+            //             + $"organization id {claimOrClaims} ({claimValueOrValues} {claimEndpointValuesText} of {typeOrTypes} {claimEndpointNamesText}) and the requested resource's "
+            //             + $"{subjectEndpointNamesText} value.";
+            //     }
+            //
+            //     return $"Authorization denied. No relationships have been established between the caller's education "
+            //         + $"organization id {claimOrClaims} ({claimValueOrValues} {claimEndpointValuesText} of {typeOrTypes} {claimEndpointNamesText}) and one of the following properties of "
+            //         + $"the requested resource: {subjectEndpointNamesText}.";
+            // }
+
+            // TODO: GKM - Delete all this
+            #region Delete this
+
+            // await reader.ReadAsync(cancellationToken);
+            //
+            // for (int i = 0; i < reader.FieldCount; i++)
+            // {
+            //     if (reader.GetInt32(i) == 0)
+            //     {
+            //         resolvableResults[i].ResolveWithFailure(new EdFiSecurityException("No established relationships."));
+            //     }
+            //     else
+            //     {
+            //         resolvableResults[i].ResolveSuccessful();
+            //     }
+            // }
+            
+            // Process the pending OR checks, ensure that at least one of them has all 1s, or throw an exception
+            // bool orConditionSatisfied = orResults.Any(r => 
+            //     r.Filters.All(f => f.Result.AuthorizationPerformed && f.Result.Exception == null));
+            //
+            // if (!orConditionSatisfied)
+            // {
+            //     throw new EdFiSecurityException("Need better exception here.");
+            // }
             
             /*
                 DECLARE @claimEdOrgIds as dbo.IntTable, 
@@ -445,6 +605,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             //         filterDetails.
             //     }
             // }
+
+            #endregion
             
             bool IsCreateUpdateOrDelete(EdFiAuthorizationContext authorizationContext)
             {
@@ -452,7 +614,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     & (Actions.Create | Actions.Update | Actions.Delete)) != 0;
             }
 
-            void PerformAuthorizationValidation(
+            void ExecuteAuthorizationValidationRules(
                 EdFiAuthorizationContext edFiAuthorizationContext,
                 AuthorizationBasisMetadata authorizationBasisMetadata1)
             {

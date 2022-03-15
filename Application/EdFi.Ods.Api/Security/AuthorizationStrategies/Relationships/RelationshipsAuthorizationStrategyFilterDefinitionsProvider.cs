@@ -101,11 +101,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 if (_apiKeyContextProvider.GetApiKeyContext()
                     .EducationOrganizationIds.Contains((int) filterContext.SubjectEndpointValue))
                 {
-                    return InstanceAuthorizationResult.Success;
+                    return InstanceAuthorizationResult.Success();
                 }
             }
 
-            return InstanceAuthorizationResult.NotPerformed;
+            return InstanceAuthorizationResult.NotPerformed();
         }
     }
 }

@@ -67,7 +67,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
 
             if (contextData == null)
             {
-                return new InstanceAuthorizationResult(
+                return InstanceAuthorizationResult.Failed(
                     new NotSupportedException(
                         "No 'OwnershipTokenId' property could be found on the resource's underlying entity in order to perform authorization. Should a different authorization strategy be used?"));
             }
@@ -81,19 +81,19 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
 
                 if (!hasOwnershipToken)
                 {
-                    return new InstanceAuthorizationResult(
+                    return InstanceAuthorizationResult.Failed(
                         new EdFiSecurityException(
                             "Access to the resource item could not be authorized using any of the caller's ownership tokens."));
                 }
             }
             else
             {
-                return new InstanceAuthorizationResult(
+                return InstanceAuthorizationResult.Failed(
                     new EdFiSecurityException(
                         "Access to the resource item could not be authorized based on the caller's ownership token because the resource item has no owner."));
             }
 
-            return InstanceAuthorizationResult.Success;
+            return InstanceAuthorizationResult.Success();
         }
 
         /// <summary>
