@@ -37,8 +37,6 @@
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EdFi.OdsApi.Sdk">
-      <HintPath>..\..\SdkGen\EdFi.SdkGen.Console\bin\Debug\netcoreapp3.1\csharp-netcore\src\EdFi.OdsApi.Sdk\bin\Debug\netstandard2.0\EdFi.OdsApi.Sdk.dll</HintPath>
-    </Reference>
+
   </ItemGroup>
 </Project>
