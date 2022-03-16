@@ -108,7 +108,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             /// </summary>
             protected override void Arrange()
             {
-                Given<IEdFiAuthorizationProvider>(
+                Given<IAuthorizationFilteringProvider>(
                     new FakeAuthorizationFilteringProvider(
                         SuppliedFilterName,
                         SuppliedParameterName,
@@ -120,14 +120,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                         Given<IEducationOrganizationIdNamesProvider>()
                             .GetAllNames())
                             .Returns(Array.Empty<string>());
-                
-                A.CallTo(() =>
-                        Given<INHibernateFilterTextProvider>()
-                            .TryGetHqlFilterText(
-                                A<Type>.Ignored,
-                                A<string>.Ignored,
-                                out suppliedFilterText))
-                    .Returns(true);
+
+                AuthorizationFilterDefinition ignored;
+
+                A.CallTo(
+                        () => Given<IAuthorizationFilterDefinitionProvider>()
+                            .TryGetAuthorizationFilterDefinition(SuppliedFilterName, out ignored))
+                    .Returns(true)
+                    .AssignsOutAndRefParameters(
+                        new AuthorizationFilterDefinition(
+                            SuppliedFilterName,
+                            null,
+                            // This is how the HQL filter text is now obtained (with elimination of the INHibernateFilterTextProvider) 
+                            suppliedFilterText,
+                            (criteria, junction, arg3, arg4) => { },
+                            (ctx1, ctx2) => null,
+                            (t, props) => false));
 
                 Supplied("ResourceUriValue", "uri://some-value");
 
@@ -212,7 +220,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     out buildResult);
 
                 _actualAuthorizationContext =
-                    (Given<IEdFiAuthorizationProvider>() as FakeAuthorizationFilteringProvider)
+                    (Given<IAuthorizationFilteringProvider>() as FakeAuthorizationFilteringProvider)
                     .ActualAuthorizationContext;
             }
 
@@ -278,8 +286,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             protected override void Arrange()
             {
                 A.CallTo(() =>
-                        Given<IEdFiAuthorizationProvider>()
-                            .GetAuthorizationFiltering(A<EdFiAuthorizationContext>.Ignored))
+                        Given<IAuthorizationFilteringProvider>()
+                            .GetAuthorizationFiltering(A<EdFiAuthorizationContext>.Ignored, A<AuthorizationBasisMetadata>.Ignored))
                     .Throws(new EdFiSecurityException("Test exception"));
             }
 
@@ -332,23 +340,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             public EdFiAuthorizationContext ActualAuthorizationContext { get; private set; }
 
             /// <summary>
-            /// Authorizes a single-item request using the claims, resource, action and entity instance supplied in the <see cref="EdFiAuthorizationContext"/>.
-            /// </summary>
-            /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
-            public Task AuthorizeSingleItemAsync(
-                EdFiAuthorizationContext authorizationContext,
-                CancellationToken cancellationToken)
-            {
-                throw new NotImplementedException();
-            }
-
-            /// <summary>
             /// Authorizes a multiple-item read request using the claims, resource, action and entity instance supplied in the <see cref="EdFiAuthorizationContext"/>.
             /// </summary>
             /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
-            /// <param name="filterBuilder">A builder used to activate filters and assign parameter values.</param>
+            /// <param name="authorizationBasisMetadata"></param>
             /// <returns></returns>
-            public IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering(EdFiAuthorizationContext authorizationContext)
+            public IReadOnlyList<AuthorizationStrategyFiltering> GetAuthorizationFiltering(EdFiAuthorizationContext authorizationContext, AuthorizationBasisMetadata authorizationBasisMetadata)
             {
                 ActualAuthorizationContext = authorizationContext;
 
@@ -362,23 +359,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                             new AuthorizationFilterContext
                             {
                                 FilterName = _filterName,
-                                ClaimParameterName = _parameterName,
-                                ClaimParameterValues = new[] { _parameterValue }
+                                ClaimEndpointValues = new[] { _parameterValue },
+                                ClaimParameterName = _parameterName
                             }
                         } 
                     }
                 };
-            }
-
-            public bool TryAuthorizeResourceActionOnly(EdFiAuthorizationContext authorizationContext,
-                out string securityExceptionMessage)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void AuthorizeResourceActionOnly(EdFiAuthorizationContext authorizationContext)
-            {
-                throw new NotImplementedException();
             }
         }
     }

@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -33,6 +34,10 @@ namespace EdFi.Ods.Api.Container.Modules
 
             builder.RegisterType<SqlServerDatabaseEngineNHibernateConfigurationActivity>()
                 .As<INHibernateConfigurationActivity>()
+                .SingleInstance();
+
+            builder.RegisterType<SqlServerViewBasedSingleItemAuthorizationQuerySupport>()
+                .As<IViewBasedSingleItemAuthorizationQuerySupport>()
                 .SingleInstance();
         }
     }

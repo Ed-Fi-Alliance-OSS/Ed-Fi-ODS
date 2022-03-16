@@ -16,9 +16,15 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     {
         public RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterDefinitionsProvider(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
-            IApiKeyContextProvider apiKeyContextProvider)
-            : base(educationOrganizationIdNamesProvider, apiKeyContextProvider) { }
+            IApiKeyContextProvider apiKeyContextProvider,
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
+            : base(educationOrganizationIdNamesProvider, apiKeyContextProvider, viewBasedSingleItemAuthorizationQuerySupport)
+        {
+            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
+        }
 
+        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
+        
         /// <summary>
         /// Gets the NHibernate filter definitions and a functional delegate for determining when to apply them.
         /// </summary>
@@ -32,7 +38,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                                   "EducationOrganizationIdToStudentUSIThroughResponsibility",
                                   "StudentUSI",
                                   "StudentUSI",
-                                  AuthorizeInstance)
+                                  AuthorizeInstance,
+                                  _viewBasedSingleItemAuthorizationQuerySupport)
                           };
 
             return filters;

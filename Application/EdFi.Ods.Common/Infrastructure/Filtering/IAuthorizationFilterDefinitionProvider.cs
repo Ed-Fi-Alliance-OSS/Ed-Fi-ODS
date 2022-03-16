@@ -18,11 +18,11 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         AuthorizationFilterDefinition GetFilterDefinition(string filterName);
         
         /// <summary>
-        /// Attempts to get the details for applying the specified filter in various contexts.
+        /// Attempts to get the filter definition containing information for applying the specified filter in various contexts.
         /// </summary>
         /// <param name="filterName">The name of the filter.</param>
-        /// <param name="authorizationFilterDefinition">The details for applying the filter in various contexts.</param>
+        /// <param name="authorizationFilterDefinition">The filter definition.</param>
         /// <returns><b>true</b> if the filter was found; otherwise <b>false</b>.</returns>
-        bool TryGetFilterApplicationDetails(string filterName, out AuthorizationFilterDefinition authorizationFilterDefinition);
+        bool TryGetAuthorizationFilterDefinition(string filterName, out AuthorizationFilterDefinition authorizationFilterDefinition);
     }
 }

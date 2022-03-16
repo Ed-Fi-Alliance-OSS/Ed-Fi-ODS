@@ -31,15 +31,15 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
         /// Gets the authorization strategy's NHibernate filter definitions and a functional delegate for determining when to apply them.
         /// </summary>
         /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and mappings.</returns>
-        IReadOnlyList<AuthorizationFilterDefinition> IAuthorizationFilterDefinitionsProvider.GetAuthorizationFilterDefinitions()
+        public IReadOnlyList<AuthorizationFilterDefinition> GetAuthorizationFilterDefinitions()
         {
             var filters = new List<AuthorizationFilterDefinition>
             {
-                new AuthorizationFilterDefinition(
+                new (
                     "Namespace",
                     @"(Namespace IS NOT NULL AND Namespace LIKE :Namespace)",
                     @"({currentAlias}.Namespace IS NOT NULL AND {currentAlias}.Namespace LIKE :Namespace)",
-                    ApplyAuthorizationCriteria, // (c, w, p, jt) => { ApplyAuthorizationCriteria(p, w); },
+                    ApplyAuthorizationCriteria,
                     AuthorizeInstance, 
                     (t, p) => !DescriptorEntitySpecification.IsEdFiDescriptorEntity(t) && p.HasPropertyNamed("Namespace")),
             }.AsReadOnly();
@@ -132,8 +132,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
                     {
                         FilterName = "Namespace",
                         SubjectEndpointName = "Namespace",
+                        ClaimEndpointValues = claimNamespacePrefixes.Cast<object>().ToArray(),
                         ClaimParameterName = "Namespace",
-                        ClaimParameterValues = claimNamespacePrefixes.Select(prefix => $"{prefix}%").Cast<object>().ToArray(),
+                        ClaimParameterValueMap =  prefix => $"{prefix}%"
                         // TODO: GKM - consider renaming to ClaimParameterRawValues and providing an optional ClaimParameterValuesMapper (a function that projects the raw values, according to the SQL parameter value requirements). Only makes sense if the values can also be used for instance-based authorization, which may not make sense.
                         // SubjectEndpointValue = authorizationContext.Data
                     }

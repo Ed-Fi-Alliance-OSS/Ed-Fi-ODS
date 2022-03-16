@@ -38,8 +38,8 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             return filterApplicationDetails;
         }
 
-        /// <inheritdoc cref="IAuthorizationFilterDefinitionProvider.TryGetFilterApplicationDetails" />
-        public bool TryGetFilterApplicationDetails(string filterName, out AuthorizationFilterDefinition authorizationFilterDefinition)
+        /// <inheritdoc cref="IAuthorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition" />
+        public bool TryGetAuthorizationFilterDefinition(string filterName, out AuthorizationFilterDefinition authorizationFilterDefinition)
         {
             return _filterDefinitionByName.Value.TryGetValue(filterName, out authorizationFilterDefinition);
         }

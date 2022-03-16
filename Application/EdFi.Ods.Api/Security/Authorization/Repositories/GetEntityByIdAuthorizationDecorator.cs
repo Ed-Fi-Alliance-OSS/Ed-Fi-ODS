@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -27,6 +28,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         where T : class, IHasIdentifier, IDateVersionedEntity
     {
         private readonly IGetEntityById<T> _next;
+        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GetEntityByIdAuthorizationDecorator{T}"/> class.
@@ -40,6 +42,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="securityRepository"></param>
         /// <param name="sessionFactory"></param>
         /// <param name="apiKeyContextProvider"></param>
+        /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         public GetEntityByIdAuthorizationDecorator(
             IGetEntityById<T> next,
             IAuthorizationContextProvider authorizationContextProvider,
@@ -49,7 +52,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             ISecurityRepository securityRepository,
             ISessionFactory sessionFactory,
-            IApiKeyContextProvider apiKeyContextProvider)
+            IApiKeyContextProvider apiKeyContextProvider,
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -58,9 +62,11 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 authorizationBasisMetadataSelector,
                 securityRepository,
                 sessionFactory,
-                apiKeyContextProvider)
+                apiKeyContextProvider,
+                viewBasedSingleItemAuthorizationQuerySupport)
         {
             _next = next;
+            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         /// <summary>

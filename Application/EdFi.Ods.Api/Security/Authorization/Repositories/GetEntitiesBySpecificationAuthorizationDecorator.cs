@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security;
 using EdFi.Security.DataAccess.Repositories;
@@ -27,6 +28,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         where TEntity : class, IHasIdentifier, IDateVersionedEntity
     {
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
+        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IGetEntitiesBySpecification<TEntity> _next;
         private readonly ISessionFactory _sessionFactory;
 
@@ -43,6 +45,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="authorizationBasisMetadataSelector"></param>
         /// <param name="securityRepository"></param>
         /// <param name="apiKeyContextProvider"></param>
+        /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         public GetEntitiesBySpecificationAuthorizationDecorator(
             IGetEntitiesBySpecification<TEntity> next,
             ISessionFactory sessionFactory,
@@ -53,7 +56,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IExplicitObjectValidator[] explicitObjectValidators,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             ISecurityRepository securityRepository,
-            IApiKeyContextProvider apiKeyContextProvider)
+            IApiKeyContextProvider apiKeyContextProvider,
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -62,11 +66,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 authorizationBasisMetadataSelector,
                 securityRepository,
                 sessionFactory,
-                apiKeyContextProvider)
+                apiKeyContextProvider,
+                viewBasedSingleItemAuthorizationQuerySupport)
         {
             _next = next;
             _sessionFactory = sessionFactory;
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
+            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         /// <summary>

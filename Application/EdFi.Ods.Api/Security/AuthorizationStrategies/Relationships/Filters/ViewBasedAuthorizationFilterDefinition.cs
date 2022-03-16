@@ -9,6 +9,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 {
@@ -19,7 +20,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string viewName,
             string viewTargetEndpointName,
             string subjectEndpointName,
-            Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance)
+            Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                 filterName,
                 $@"{subjectEndpointName} IN (
@@ -41,14 +43,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                 authorizeInstance,
                 (t, p) => p.HasPropertyNamed(subjectEndpointName ?? viewTargetEndpointName))
         {
-            FilterName = filterName;
             ViewName = viewName;
             ViewTargetEndpointName = viewTargetEndpointName;
             SubjectEndpointName = subjectEndpointName ?? viewTargetEndpointName;
-            ItemExistenceSql = $"SELECT 1 FROM auth.{viewName} AS authvw INNER JOIN @{RelationshipAuthorizationConventions.ClaimsParameterName} c ON authvw.{RelationshipAuthorizationConventions.ViewSourceColumnName} = c.Id AND authvw.{viewTargetEndpointName} = @{subjectEndpointName}";
+            ViewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
+            // GetItemExistenceSql = getItemExistenceSql;
         }
-
-        public string FilterName { get; }
 
         public string ViewName { get; }
 
@@ -56,8 +56,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
         public string SubjectEndpointName { get; }
 
-        public string ItemExistenceSql { get; }
+        // public Func<string, string, string, AuthorizationFilterContext, string> GetItemExistenceSql { get; }
 
+        public IViewBasedSingleItemAuthorizationQuerySupport ViewBasedSingleItemAuthorizationQuerySupport { get; set; }
+        
         private static string GetFullNameForView(string viewName)
         {
             return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);

@@ -62,14 +62,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Filtering
                             new AuthorizationFilterContext
                             {
                                 FilterName = "key1",
+                                ClaimEndpointValues = new object[] { 1 },
                                 ClaimParameterName = "prop1",
-                                ClaimParameterValues = new object[] { 1 }
                             },
                             new AuthorizationFilterContext
                             {
                                 FilterName = "key1",
-                                ClaimParameterName = "prop2",
-                                ClaimParameterValues = new object[] { 2 }
+                                ClaimEndpointValues = new object[] { 2 },
+                                ClaimParameterName = "prop2"
                             }
                         }
                     }

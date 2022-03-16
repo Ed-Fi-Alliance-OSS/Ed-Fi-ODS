@@ -40,11 +40,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         return new AuthorizationFilterContext
                         {
                             FilterName = filterName,
-                            ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
-                            ClaimParameterValues = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Value)).Distinct().ToArray(),
+                            ClaimEndpointNames = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Name)).ToArray(),
+                            ClaimEndpointValues = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Value)).Distinct().ToArray(),
                             SubjectEndpointName = subjectEndpointName,
                             SubjectEndpointValue = g.Select(cs => cs.SubjectEndpoint).FirstOrDefault() is AuthorizationSegmentEndpointWithValue endpointWithValue ? endpointWithValue.Value : null,
-                            ClaimEndpointNames = g.SelectMany(cs => cs.ClaimsEndpoints.Select(asv => asv.Name)).ToArray(),
+                            ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
                         };
                     })
                 .ToArray();

@@ -32,6 +32,7 @@ namespace EdFi.Ods.Features.Composites
     public class HqlBuilderAuthorizationDecorator : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
         private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
+        private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
@@ -47,13 +48,15 @@ namespace EdFi.Ods.Features.Composites
             IAuthorizationFilteringProvider authorizationFilteringProvider,
             IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
             IResourceClaimUriProvider resourceClaimUriProvider,
-            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector)
+            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
+            IApiKeyContextProvider apiKeyContextProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _authorizationFilteringProvider = Preconditions.ThrowIfNull(authorizationFilteringProvider, nameof(authorizationFilteringProvider));
             _authorizationFilterDefinitionProvider = Preconditions.ThrowIfNull(authorizationFilterDefinitionProvider, nameof(authorizationFilterDefinitionProvider));
             _resourceClaimUriProvider = Preconditions.ThrowIfNull(resourceClaimUriProvider, nameof(resourceClaimUriProvider));
             _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
+            _apiKeyContextProvider = apiKeyContextProvider;
         }
 
         /// <summary>
@@ -80,6 +83,7 @@ namespace EdFi.Ods.Features.Composites
             var entityType = GetEntityType(resource);
 
             var authorizationContext = new EdFiAuthorizationContext(
+                _apiKeyContextProvider.GetApiKeyContext(),
                 ClaimsPrincipal.Current, // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
                 _resourceClaimUriProvider.GetResourceClaimUris(resource),
                 RequestActions.ReadActionUri,
@@ -321,16 +325,13 @@ namespace EdFi.Ods.Features.Composites
                     // Get the filter text
                     string filterName = filterInfo.Key;
 
-                    if (!_authorizationFilterDefinitionProvider.TryGetFilterApplicationDetails(filterName, out var filterApplicationDetails))
+                    if (!_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(filterName, out var filterApplicationDetails))
                     {
                         // TODO: GKM - This exception would now be inaccurate, and the condition wouldn't actually be detected until
                         // query execution failure since there is no specific determination whether the filter is applicable to a particular
                         // entity type under the new implementation. This issue will need to be addressed here, and elsewhere.
                         throw new Exception(
-                            string.Format(
-                                "Unable to apply authorization to query because filter '{0}' could not be found on entity '{1}'.",
-                                filterName,
-                                entityType.Name));
+                            $"Unable to apply authorization to query because filter '{filterName}' could not be found.");
                     }
 
                     string filterHqlFormat = filterApplicationDetails.HqlConditionFormatString;

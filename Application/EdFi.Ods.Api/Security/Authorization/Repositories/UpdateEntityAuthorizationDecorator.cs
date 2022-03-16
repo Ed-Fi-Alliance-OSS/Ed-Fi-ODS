@@ -6,6 +6,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -28,6 +29,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     {
         private readonly IUpdateEntity<T> _next;
         private readonly ISecurityRepository _securityRepository;
+        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
 
         /// <summary>
         /// Initializes a new instance of UpdateEntityAuthorizationDecorator.
@@ -41,6 +43,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="authorizationBasisMetadataSelector"></param>
         /// <param name="sessionFactory"></param>
         /// <param name="apiKeyContextProvider"></param>
+        /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         public UpdateEntityAuthorizationDecorator(
             IUpdateEntity<T> next,
             ISecurityRepository securityRepository,
@@ -50,7 +53,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             IExplicitObjectValidator[] explicitObjectValidators,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             ISessionFactory sessionFactory,
-            IApiKeyContextProvider apiKeyContextProvider)
+            IApiKeyContextProvider apiKeyContextProvider,
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
                     authorizationContextProvider,
                     authorizationFilteringProvider,
@@ -59,10 +63,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     authorizationBasisMetadataSelector,
                     securityRepository,
                     sessionFactory,
-                    apiKeyContextProvider)
+                    apiKeyContextProvider,
+                    viewBasedSingleItemAuthorizationQuerySupport)
         {
             _next = next;
             _securityRepository = securityRepository;
+            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         /// <summary>

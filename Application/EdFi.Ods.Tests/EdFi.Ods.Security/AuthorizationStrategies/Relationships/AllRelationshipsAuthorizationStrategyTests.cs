@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using EdFi.Common.Extensions;
@@ -15,6 +16,7 @@ using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
@@ -127,7 +129,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
         private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(object entity)
         {
-            return new EdFiAuthorizationContext(new ClaimsPrincipal(), new[] { "resource" }, "action", entity);
+            return new EdFiAuthorizationContext(new ApiKeyContext(), new ClaimsPrincipal(), new[] { "resource" }, "action", entity);
         }
 
         private class passthrough_context_data_transformer : context_data_transformer
@@ -327,14 +329,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
             protected override void Act()
             {
-                SystemUnderTest.AuthorizeSingleItemAsync(
-                        new[]
-                        {
-                            Supplied<Claim>()
-                        },
-                        Given_an_authorization_context_with_entity_data(Supplied("entity")),
-                        CancellationToken.None)
-                    .WaitSafely();
+                SystemUnderTest.GetAuthorizationStrategyFiltering(
+                    new[] { Supplied<Claim>() },
+                    Given_an_authorization_context_with_entity_data(Supplied("entity")));
             }
 
             [Assert]
@@ -400,14 +397,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
             protected override void Act()
             {
-                SystemUnderTest.AuthorizeSingleItemAsync(
-                        new[]
-                        {
-                            Supplied<Claim>()
-                        },
-                        Given_an_authorization_context_with_entity_data(Supplied("entity")),
-                        CancellationToken.None)
-                    .WaitSafely();
+                SystemUnderTest.GetAuthorizationStrategyFiltering(
+                    new[] { Supplied<Claim>() },
+                    Given_an_authorization_context_with_entity_data(Supplied("entity")));
             }
 
             [Assert]
@@ -420,78 +412,96 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             }
         }
 
-        public class When_authorizing_a_single_item_request_with_claim_needed_for_local_request_authorization_but_EdOrg_values_dont_match
-            : ScenarioFor<RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>>
-        {
-            private class TestEntity
-            {
-                public TestEntity(int localEducationAgencyId)
-                {
-                    LocalEducationAgencyId = localEducationAgencyId;
-                }
-
-                public int LocalEducationAgencyId { get; }
-            }
-
-            protected override void Arrange()
-            {
-                Supplied(
-                    "entity",
-                    new TestEntity(
-                        Supplied("LocalEducationAgencyId", 999)));
-
-                Supplied(
-                    new RelationshipsAuthorizationContextData
-                    {
-                        LocalEducationAgencyId = Supplied<int>("LocalEducationAgencyId")
-                    });
-
-                Given<education_organization_cache>()
-                    .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"))
-                    .that_always_returns_a_Local_Education_Agency_for(777);
-
-                Given<IEducationOrganizationIdHierarchyProvider>()
-                    .that_always_returns_an_empty_graph();
-
-                Given<context_data_transformer>(
-                    new passthrough_context_data_transformer());
-
-                Given<context_data_provider>()
-                    .that_returns_property_names(
-                        Supplied(
-                            "propertyNames",
-                            new[]
-                            {
-                                "LocalEducationAgencyId"
-                            }))
-                    .that_given_entity(Supplied("entity"))
-                    .Returns(Supplied<RelationshipsAuthorizationContextData>());
-
-                Given<context_data_provider_factory>()
-                    .that_always_returns(Given<context_data_provider>());
-
-                Supplied(
-                    Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(777));
-            }
-
-            protected override void Act()
-            {
-                SystemUnderTest.AuthorizeSingleItemAsync(
-                        new[]
-                        {
-                            Supplied<Claim>()
-                        },
-                        Given_an_authorization_context_with_entity_data(Supplied("entity")),
-                        CancellationToken.None)
-                    .WaitSafely();
-            }
-
-            [Assert]
-            public void Should_throw_an_EdFiSecurityException_indicating_the_claims_did_not_provide_authorization_for_the_request()
-            {
-                ActualException.ShouldBeExceptionType<EdFiSecurityException>();
-                ActualException.MessageShouldContain("Access to the requested");
-            }
-        }
+        // TODO: GKM - Identify a redundant Postman test for this scenario.
+        // public class When_authorizing_a_single_item_request_with_claim_needed_for_local_request_authorization_but_EdOrg_values_dont_match
+        //     : ScenarioFor<RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>>
+        // {
+        //     private InstanceAuthorizationResult _actualResult;
+        //
+        //     private class TestEntity
+        //     {
+        //         public TestEntity(int localEducationAgencyId)
+        //         {
+        //             LocalEducationAgencyId = localEducationAgencyId;
+        //         }
+        //
+        //         public int LocalEducationAgencyId { get; }
+        //     }
+        //
+        //     protected override void Arrange()
+        //     {
+        //         Supplied(
+        //             "entity",
+        //             new TestEntity(
+        //                 Supplied("LocalEducationAgencyId", 999)));
+        //
+        //         Supplied(
+        //             new RelationshipsAuthorizationContextData
+        //             {
+        //                 LocalEducationAgencyId = Supplied<int>("LocalEducationAgencyId")
+        //             });
+        //
+        //         Given<education_organization_cache>()
+        //             .that_always_returns_a_Local_Education_Agency_for(Supplied<int>("LocalEducationAgencyId"))
+        //             .that_always_returns_a_Local_Education_Agency_for(777);
+        //
+        //         Given<IEducationOrganizationIdHierarchyProvider>()
+        //             .that_always_returns_an_empty_graph();
+        //
+        //         Given<context_data_transformer>(
+        //             new passthrough_context_data_transformer());
+        //
+        //         Given<context_data_provider>()
+        //             .that_returns_property_names(
+        //                 Supplied(
+        //                     "propertyNames",
+        //                     new[]
+        //                     {
+        //                         "LocalEducationAgencyId"
+        //                     }))
+        //             .that_given_entity(Supplied("entity"))
+        //             .Returns(Supplied<RelationshipsAuthorizationContextData>());
+        //
+        //         Given<context_data_provider_factory>()
+        //             .that_always_returns(Given<context_data_provider>());
+        //
+        //         Supplied(
+        //             Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(777));
+        //
+        //         var fakeNamesProvider = A.Fake<IEducationOrganizationIdNamesProvider>();
+        //         A.CallTo(() => fakeNamesProvider.GetAllNames()).Returns(new[] { "LocalEducationAgencyId" });
+        //         Supplied(fakeNamesProvider);
+        //
+        //         var apiKeyContextProvider = A.Fake<IApiKeyContextProvider>();
+        //         Supplied(apiKeyContextProvider);
+        //     }
+        //
+        //     protected override void Act()
+        //     {
+        //         var filtering = SystemUnderTest.GetAuthorizationStrategyFiltering(
+        //             new[] { Supplied<Claim>() },
+        //             Given_an_authorization_context_with_entity_data(Supplied("entity")));
+        //
+        //         var filterDefinitions = (new RelationshipsAuthorizationStrategyFilterDefinitionsProvider(
+        //             Supplied<IEducationOrganizationIdNamesProvider>(),
+        //             Supplied<IApiKeyContextProvider>())).GetAuthorizationFilterDefinitions();
+        //
+        //         const string FILTER_NAME = "ClaimEducationOrganizationIdsToLocalEducationAgencyId";
+        //         
+        //         var filterDefinition = filterDefinitions.SingleOrDefault(
+        //             fd => fd.FilterName == FILTER_NAME); //filtering.Filters.Single().FilterName);
+        //
+        //         _actualResult = filterDefinition.AuthorizeInstance(
+        //             Given_an_authorization_context_with_entity_data(Supplied("entity")),
+        //             filtering.Filters.Single(f => f.FilterName == FILTER_NAME));
+        //     }
+        //
+        //     [Assert]
+        //     public void Should_throw_an_EdFiSecurityException_indicating_the_claims_did_not_provide_authorization_for_the_request()
+        //     {
+        //         _actualResult.Exception.ShouldBeExceptionType<EdFiSecurityException>();
+        //         _actualResult.Exception.MessageShouldContain("Access to the requested");
+        //     }
+        // }
     }
 }

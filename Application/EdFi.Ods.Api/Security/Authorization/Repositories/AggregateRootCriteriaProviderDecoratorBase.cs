@@ -97,7 +97,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 var countOfAuthorizationFiltersWithViewBasedFilters = authorizationFiltering.Count(
                     af => af.Filters.Select(afd =>
                         {
-                            if (_authorizationFilterDefinitionProvider.TryGetFilterApplicationDetails(afd.FilterName, out var filterDetails))
+                            if (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(afd.FilterName, out var filterDetails))
                             {
                                 return filterDetails;
                             };
@@ -172,7 +172,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 
                 foreach (var filterDetails in filters)
                 {
-                    if (!_authorizationFilterDefinitionProvider.TryGetFilterApplicationDetails(
+                    if (!_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
                             filterDetails.FilterName,
                             out var ignored))
                     {
@@ -216,7 +216,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 
                 foreach (var filterDetails in filters)
                 {
-                    _authorizationFilterDefinitionProvider.TryGetFilterApplicationDetails(
+                    _authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
                         filterDetails.FilterName,
                         out var filterApplicationDetails);
 

@@ -25,13 +25,16 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     {
         private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
 
         public RelationshipsAuthorizationStrategyFilterDefinitionsProvider(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
-            IApiKeyContextProvider apiKeyContextProvider)
+            IApiKeyContextProvider apiKeyContextProvider,
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
         {
             _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
             _apiKeyContextProvider = apiKeyContextProvider;
+            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
         
         public virtual IReadOnlyList<AuthorizationFilterDefinition> GetAuthorizationFilterDefinitions()
@@ -51,8 +54,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         $"EducationOrganizationIdTo{usiName}",
                         usiName,
                         usiName,
-                        AuthorizeInstance
-                        ));
+                        AuthorizeInstance,
+                        _viewBasedSingleItemAuthorizationQuerySupport
+                    ));
             }
 
             IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToEducationOrganizationFilters()
@@ -65,7 +69,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         "EducationOrganizationIdToEducationOrganizationId",
                         "TargetEducationOrganizationId",
                         concreteEdOrgId,
-                        AuthorizeInstance));
+                        AuthorizeInstance,
+                        _viewBasedSingleItemAuthorizationQuerySupport));
             }
 
             IEnumerable<AuthorizationFilterDefinition> CreateEducationOrganizationToSelfPropertyValueFilters()

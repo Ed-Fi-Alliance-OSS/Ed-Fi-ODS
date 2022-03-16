@@ -28,7 +28,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
         /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and mappings.</returns>
         IReadOnlyList<AuthorizationFilterDefinition> IAuthorizationFilterDefinitionsProvider.GetAuthorizationFilterDefinitions()
         {
-            var filters = new AuthorizationFilterDefinition[]
+            var filters = new[]
             {
                 new AuthorizationFilterDefinition(
                     "CreatedByOwnershipTokenId",
@@ -74,7 +74,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
 
             if (contextData.CreatedByOwnershipTokenId != null)
             {
-                // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
+                // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it with use of CallContext or EdFiAuthorizationContext object
                 var hasOwnershipToken = authorizationContext.Principal.Claims.Any(
                     c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId
                         && c.Value == contextData.CreatedByOwnershipTokenId.ToString());
@@ -106,7 +106,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
+            // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it with use of CallContext or EdFiAuthorizationContext object
             var ownershipTokens = authorizationContext.Principal.Claims
                 .Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId)
                 .Select(x => (object) x.Value)
@@ -120,9 +120,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
                     new AuthorizationFilterContext
                     {
                         FilterName = "CreatedByOwnershipTokenId",
+                        ClaimEndpointValues = ownershipTokens,
                         SubjectEndpointName = "CreatedByOwnershipTokenId",
                         ClaimParameterName = "CreatedByOwnershipTokenId",
-                        ClaimParameterValues = ownershipTokens
                     }
                 },
                 Operator = FilterOperator.And
