@@ -22,6 +22,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="Npgsql" Version="6.0.3" />
+    <PackageReference Include="Quartz" Version="3.3.3" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
@@ -43,5 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EdFi.Admin.DataAccess">
+      <HintPath>..\EdFi.Admin.DataAccess\bin\Debug\net6.0\ref\EdFi.Admin.DataAccess.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

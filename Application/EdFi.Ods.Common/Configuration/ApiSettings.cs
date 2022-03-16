@@ -44,6 +44,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public List<Feature> Features { get; set; } = new List<Feature>();
 
+        public List<ScheduledJobSetting> ScheduledJobs { get; set; } = new List<ScheduledJobSetting>();
+
         public List<string> ExcludedExtensions { get; set; } = new List<string>();
 
         public bool? UseReverseProxyHeaders { get; set; }
@@ -56,5 +58,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public bool IsFeatureEnabled(string featureName)
             => Features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(featureName) && x.IsEnabled) != null;
+
+        public bool IsJobEnabled(string quartzJobName)
+            => ScheduledJobs.SingleOrDefault(x => x.Name.EqualsIgnoreCase(quartzJobName) && x.IsEnabled) != null;
     }
 }

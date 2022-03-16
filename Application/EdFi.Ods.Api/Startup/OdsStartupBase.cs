@@ -25,6 +25,7 @@ using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.MediaTypeFormatters;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Api.ScheduledJobs.Factories;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -53,6 +54,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Quartz;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -64,7 +66,7 @@ namespace EdFi.Ods.Api.Startup
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
         {
-            Configuration = (IConfigurationRoot) configuration;
+            Configuration = (IConfigurationRoot)configuration;
 
             ApiSettings = new ApiSettings();
 
@@ -196,6 +198,37 @@ namespace EdFi.Ods.Api.Startup
             }
 
             services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(databaseEngine));
+
+            ConfigureScheduledJobs(services);
+        }
+
+        // The purpose of the ConfigureScheduleJobs method is to wire-up background tasks to be handled by quartz-scheduler.net
+        private void ConfigureScheduledJobs(IServiceCollection services)
+        {
+            var enabledDistinctScheduledJobs =
+                ApiSettings.ScheduledJobs
+                    .Where(a => a.IsEnabled)
+                    .GroupBy(a => a.Name)
+                    .Select(a => a.First()).ToList();
+
+            if (!enabledDistinctScheduledJobs.Any())
+            {
+                return;
+            }
+
+            IScheduledJobsConfiguratorFactory scheduledJobsConfiguratorFactory = new ScheduledJobsConfiguratorFactory();
+
+            services.AddQuartz(
+                q =>
+                {
+                    q.UseMicrosoftDependencyInjectionJobFactory();
+                    enabledDistinctScheduledJobs.ForEach(scheduledJobSetting => scheduledJobsConfiguratorFactory.GetScheduledJobsConfigurator(scheduledJobSetting.Name).AddScheduledJob(q, scheduledJobSetting));
+                });
+
+            services.AddQuartzServer(options =>
+            {
+                options.WaitForJobsToComplete = true;
+            });
         }
 
         private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.InvariantCultureIgnoreCase);
@@ -229,11 +262,11 @@ namespace EdFi.Ods.Api.Startup
 
                     if (type.IsSubclassOf(typeof(ConditionalModule)))
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type, ApiSettings));
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type, ApiSettings));
                     }
                     else
                     {
-                        builder.RegisterModule((IModule) Activator.CreateInstance(type));
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type));
                     }
                 }
             }
@@ -288,8 +321,8 @@ namespace EdFi.Ods.Api.Startup
             }
 
             // required to get the base controller working
-            app.UseEndpoints(endpoints => 
-            { 
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
 
                 endpoints.MapHealthChecks("/health");
