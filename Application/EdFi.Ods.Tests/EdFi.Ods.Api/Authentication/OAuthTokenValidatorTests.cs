@@ -81,14 +81,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 A.CallTo(() => _accessTokenClientRepo.GetClientForTokenAsync(Guid.Parse(TokenGuid)))
                     .MustHaveHappened();
             }
-
-            [Test]
-            public void Then_delete_expired_tokens()
-            {
-                Act(TokenGuid);
-
-                A.CallTo(() => _accessTokenClientRepo.DeleteExpiredTokensAsync()).MustHaveHappened();
-            }
         }
     }
 }
