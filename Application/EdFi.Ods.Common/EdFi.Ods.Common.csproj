@@ -45,9 +45,4 @@
   <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="EdFi.Admin.DataAccess">
-      <HintPath>..\EdFi.Admin.DataAccess\bin\Debug\net6.0\ref\EdFi.Admin.DataAccess.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 </Project>
