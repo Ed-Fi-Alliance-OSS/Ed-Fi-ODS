@@ -36,7 +36,4 @@
     <PackageReference Include="RestSharp" Version="106.13.0" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
   </ItemGroup>
-  <ItemGroup>
-
-  </ItemGroup>
 </Project>
