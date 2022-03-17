@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0fbc4a44-5dcf-48bc-a22d-296e5d0f0c7d",
+		"_postman_id": "09d26144-d3d1-4519-937a-2e3546f0f3e5",
 		"name": "Ed-Fi ODS/API Integration Test Suite Multiple Edorg types",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -15,7 +15,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "028b6374-b112-4019-a8eb-3798558a8d62",
 								"exec": [
 									""
 								],
@@ -25,7 +24,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f2c2b139-8faf-465d-9cd7-10efa74eb609",
 								"exec": [
 									"pm.environment.set('known:schoolId',255901001);\r",
 									"pm.environment.set('known:schoolId2',255901044);\r",
@@ -58,7 +56,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "0bf49651-2d14-4570-8547-f2f049d9b4ea",
 								"exec": [
 									"const uuid = require('uuid');",
 									"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -75,7 +72,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "fdfe3050-6553-4784-9b18-928b15c358bb",
 								"exec": [
 									"pm.test(\"Status code is 200 or 201\", () => {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -120,7 +116,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "93c1d53c-1662-4072-a450-29d1a6dbc439",
 								"exec": [
 									""
 								],
@@ -130,7 +125,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "75237cac-5157-44d3-a7a2-64564bbcbaf5",
 								"exec": [
 									"pm.test(\"Status code is 200 or 201\", () => {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -175,7 +169,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "9961daa3-6a12-40b1-82fb-05cc8a7510a0",
 								"exec": [
 									"const scenarioId = pm.environment.get('scenarioId');",
 									"pm.environment.set('supplied:'+scenarioId+':nameOfInstitution', 'SCH-200101');",
@@ -192,7 +185,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "61d139f0-9d8b-49b5-8c46-7c87ffa434fb",
 								"exec": [
 									"pm.test(\"Status code is 200 or 201\", () => {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -232,8 +224,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Multiple Edorg types",
@@ -247,7 +238,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8ea97ffb-fc33-4f1b-8479-a8e4d3a05d5f",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
@@ -261,7 +251,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "d16e071a-fc26-494f-b357-654b63b324a7",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -327,7 +316,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f9c99556-8740-4831-ab0e-cbb1aa3f9ba3",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -343,7 +331,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "78db52ef-f952-4e12-a58e-fe192b7fa523",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -398,7 +385,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "03c98a87-a9e5-4664-b9e1-875cc32c0c0f",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -410,7 +396,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5b390ff1-9920-4348-b39d-8b446a0386bc",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -468,7 +453,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "bdfc2c24-3709-4bd6-af6a-c1c24bc10eee",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -484,7 +468,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9dfc844a-d4ef-478a-9c4f-3300ee286501",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -540,7 +523,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "edcf4ed7-bd1b-4650-a258-52302131caaa",
 										"exec": [
 											""
 										],
@@ -550,7 +532,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ff78c43a-d3d3-415b-86fb-c57e2dbef1b6",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -595,9 +576,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 2 Update  a StudentProgramAssociation  for a associated each EducationOrganization ",
@@ -608,7 +587,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "db3dfa51-b418-4896-9378-4859c8ee2cf4",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -623,7 +601,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8adbea19-7c99-49cd-9925-9167395c0aa7",
 										"exec": [
 											""
 										],
@@ -668,7 +645,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "3f26a214-2f50-4530-ba0d-d860cb2d0a07",
 										"exec": [
 											""
 										],
@@ -678,7 +654,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2bd0c204-e699-49e6-8394-c3e6a6556e0b",
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"    pm.expect(pm.response.code).to.equal(204);",
@@ -733,7 +708,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "fcfdf835-8182-4191-b197-e8ce8a436d9d",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -743,16 +717,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "36161b06-acf2-4767-a7c9-851bff99a4f0",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 3 Cannot Create a StudentProgramAssociation for a non-associated EducationOrganizationId value",
@@ -763,7 +734,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a6ae2b4c-0661-40f5-a3c1-d97f5c56ef31",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -778,7 +748,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "ec78903c-c60b-4f03-84f7-366bb9a2ed14",
 										"exec": [
 											""
 										],
@@ -823,7 +792,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d6e4f935-b0b3-45b2-9982-32c8ca149c36",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -839,7 +807,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "657d974b-e683-4278-abb1-6f1432dcdfc1",
 										"exec": [
 											""
 										],
@@ -884,7 +851,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "3724a242-1e96-4683-9243-06f90101b721",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -900,15 +866,15 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c88f3336-0d8d-452c-9268-c75d2d9021db",
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {",
 											"    pm.expect(pm.response.code).to.equal(403);",
 											"});",
 											"",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (value 5001 of type 'CommunityProviderId') and one of the following properties of the requested resource: 'SchoolId', 'StudentUniqueId'.\");",
+											"const responseItem = pm.response.json();",
+											"",
+											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 5001, 255901001 of types 'CommunityProviderId', 'SchoolId') and one of the following properties of the requested resource: 'EducationOrganizationId', 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -959,7 +925,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "cef30aaf-7bb7-4a96-bf51-8135a3d2ae25",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -969,16 +934,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a40a5628-076e-49f1-bbf9-5017175893e6",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 4  Create a DisciplineIncident (associated with the SchoolId)",
@@ -989,7 +951,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9f0aea30-ba5a-439c-883d-58737ff877af",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -1004,7 +965,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a813d00e-d9a5-4c18-ac84-d567744f4b38",
 										"exec": [
 											""
 										],
@@ -1049,7 +1009,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "90781dd6-009a-4ddc-8e46-61f415a7cdbc",
 										"exec": [
 											""
 										],
@@ -1059,7 +1018,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "56013cca-0186-4bc2-8cfa-6c6ec9345bbc",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -1115,7 +1073,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "88a60601-c05a-4340-9495-65a2b2de5935",
 										"exec": [
 											""
 										],
@@ -1125,7 +1082,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "e65b91fe-d49e-4678-9b01-419e42437521",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -1176,7 +1132,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ba6c1960-fd5d-409c-8592-5f8ea18174cd",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1186,16 +1141,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e9ff3f1c-0673-485c-b190-edf6ecd4f5fe",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 5  Create a CommunityProviderLicense (associated with the CommunityProviderId)",
@@ -1206,7 +1158,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6e6446e9-f16e-43b7-90a2-4d012611bb01",
 										"exec": [
 											""
 										],
@@ -1216,7 +1167,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5c17d468-ce92-43e2-b008-428ff220c148",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -1272,7 +1222,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8713bf99-8a6e-42fc-b8a1-c25c4f11a849",
 										"exec": [
 											""
 										],
@@ -1282,7 +1231,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "967451f7-956c-4f05-bf56-6029f8aff29c",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -1333,7 +1281,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "28356e92-ac84-4f4f-83e3-9e643d4cb84b",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1343,16 +1290,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "60b98f2b-542f-439a-be89-f061a6631db0",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 6  Cannot Create a DisciplineIncident (associated with the different SchoolId) ",
@@ -1363,7 +1307,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5222ce95-5176-4d8e-871f-394fa4160a07",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -1378,7 +1321,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a879f701-d815-4dbf-82a6-ea3408cfa9d3",
 										"exec": [
 											""
 										],
@@ -1423,7 +1365,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f9a3ec5a-bac5-4b89-be9d-3a5f75ccee35",
 										"exec": [
 											""
 										],
@@ -1433,14 +1374,15 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "4d54d588-bcaf-4c76-a003-74d68e68cc70",
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {",
-											"    pm.expect(pm.response.code).to.be.oneOf([403]);",
+											"    pm.expect(pm.response.code).to.equal(403);",
 											"});",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (value 5001 of type 'CommunityProviderId') and the requested resource's 'SchoolId' value.\");",
+											"",
+											"const responseItem = pm.response.json();",
+											"",
+											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 5001, 255901001 of types 'CommunityProviderId', 'SchoolId') and the requested resource's 'SchoolId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1491,7 +1433,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1e77e090-6801-41b6-9c7a-9acc7f333108",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1501,16 +1442,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "85294c6f-e20c-4583-89e8-043b4862e414",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 7  Cannot Create a CommunityProviderLicense (associated with the different CommunityProviderId) ",
@@ -1521,7 +1459,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e45abf2e-9bad-4cd2-bf4e-b8a63efb5155",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1538,7 +1475,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6caa2192-dd6e-4fa9-b6c7-d34dc6770ac1",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -1583,7 +1519,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5b3c9300-7981-4b47-b870-3e3b31632c81",
 										"exec": [
 											""
 										],
@@ -1593,14 +1528,15 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "e9cb4cbd-210f-43ba-bba5-3d7f131526bc",
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {",
 											"    pm.expect(pm.response.code).to.equal(403);",
 											"});",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (value 255901001 of type 'SchoolId') and the requested resource's 'CommunityProviderId' value.\");",
+											"",
+											"const responseItem = pm.response.json();",
+											"",
+											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 5001, 255901001 of types 'CommunityProviderId', 'SchoolId') and the requested resource's 'CommunityProviderId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1651,7 +1587,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "e65c7482-9b20-4667-81ea-72c523072285",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1661,16 +1596,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b30379ac-1420-450e-8ead-1c6417c1a113",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 8  Cannot Create a StudentProgramAssociation for either associated EdOrgId ( CommunityProviderId and PostSecondaryInstitutionId)",
@@ -1681,7 +1613,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "b35b86ac-e19c-4787-ba4c-1ec75615fb2d",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -1696,7 +1627,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "dc797bba-758c-46fe-917f-553eb90b98be",
 										"exec": [
 											""
 										],
@@ -1741,7 +1671,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "74a9b78c-c8ef-4bb0-a875-93c9ac43d8c7",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -1757,7 +1686,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "0aa6aa0d-873d-4c46-8da6-bc450dc2c899",
 										"exec": [
 											""
 										],
@@ -1802,7 +1730,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b720b08d-ee51-471b-98cf-bec47a77fc16",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -1818,14 +1745,15 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "481075e1-3a4e-4d9e-b3f8-d330cd214625",
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {",
 											"    pm.expect(pm.response.code).to.equal(403);",
 											"});",
-											"const responseItems = pm.response.json();",
-											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Authorization denied. The claims associated with an identifier of 'PostSecondaryInstitutionId' cannot be used to authorize a request associated with an identifier of 'SchoolId'. The claims associated with an identifier of 'CommunityProviderId' cannot be used to authorize a request associated with an identifier of 'SchoolId'.\");",
+											"",
+											"const responseItem = pm.response.json();",
+											"",
+											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 51, 5001 of types 'CommunityProviderId', 'PostSecondaryInstitutionId') and one of the following properties of the requested resource: 'EducationOrganizationId', 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1876,7 +1804,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "f28ded71-126f-49d1-95e1-5e80fd9f5d13",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -1886,16 +1813,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "16002bf1-7371-4156-8c5d-1c87af18b86a",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 9 GET request for StudentProgramAssociations should return all 3 records (SchoolId, a CommunityProviderId, and a PostSecondaryInstitutionId)",
@@ -1906,7 +1830,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "dd12d0a7-364c-464c-bb8e-84d6d1cede0d",
 										"exec": [
 											""
 										],
@@ -1916,7 +1839,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a55b6614-75d9-4a60-a217-ecbd64db9751",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -1992,7 +1914,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "19f34838-e377-44da-b6c2-b43263b41596",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
@@ -2006,7 +1927,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "94bf29d9-6d5c-4a9b-8325-1e051b32bfdb",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2049,10 +1969,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}",
-									"options": {
-										"raw": {}
-									}
+									"raw": "{\r\n   \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\",\r\n  \"birthDate\":\"{{supplied:{{scenarioId}}:BirthDate}}\",\r\n  \"firstName\": \"{{supplied:{{scenarioId}}:FirstName}}\",\r\n  \"lastSurname\": \"{{supplied:{{scenarioId}}:LastSurname}}\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -2075,7 +1992,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "5b6f7b4a-cffc-4398-87a8-407e20dd3e6a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -2091,7 +2007,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7de39f9c-b686-4044-a36d-5aef93e6d97e",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -2123,10 +2038,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId3}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n }",
-									"options": {
-										"raw": {}
-									}
+									"raw": "{ \r\n   \"schoolReference\":{ \r\n      \"schoolId\":\"{{known:schoolId3}}\"\r\n   },\r\n   \"studentReference\":{ \r\n      \"studentUniqueId\":\"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n   },\r\n   \"entryDate\":\"{{supplied:{{scenarioId}}:entryDate}}\",\r\n   \"entryGradeLevelDescriptor\":\"{{supplied:{{scenarioId}}:entryGradeLevelDescriptor}}\"\r\n }"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
@@ -2149,7 +2061,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7c69818f-135f-4cc3-9302-7f0a4573f430",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -2161,7 +2072,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "8602e275-10fa-4217-8254-081155b6283a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2196,10 +2106,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:schoolId3}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n}",
-									"options": {
-										"raw": {}
-									}
+									"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:schoolId3}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
@@ -2222,7 +2129,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "aff06c4d-4893-4f3e-be3a-4649b70e855c",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -2238,7 +2144,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1e555d9d-6356-4174-ba40-d86d071d523a",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -2271,10 +2176,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n     \"educationOrganizationId\": \"{{known:schoolId3}}\"\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": \"{{known:schoolId3}}\",\r\n       \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n      \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"2010-08-30\",\r\n    \"endDate\": \"2010-12-17\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n  }\r\n",
-									"options": {
-										"raw": {}
-									}
+									"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n     \"educationOrganizationId\": \"{{known:schoolId3}}\"\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": \"{{known:schoolId3}}\",\r\n       \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n      \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"2010-08-30\",\r\n    \"endDate\": \"2010-12-17\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n  }\r\n"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
@@ -2297,7 +2199,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "354fa977-9624-4c83-886c-6a42e8b84ab8",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -2309,7 +2210,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "d245f828-0ca8-4ca3-90bf-31cb5e07f90d",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2344,10 +2244,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:postSecondaryInstitutionId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n}",
-									"options": {
-										"raw": {}
-									}
+									"raw": "{ \r\n     \"educationOrganizationReference\":{ \r\n      \"educationOrganizationId\":\"{{known:postSecondaryInstitutionId}}\"\r\n   },\r\n   \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n   \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\",\r\n   \"programId\":\"{{supplied:{{scenarioId}}:programId}}\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/programs",
@@ -2370,7 +2267,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "bf0471d8-bec4-4c99-9c6e-b683f80f8809",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -2386,7 +2282,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "0bdf2fcc-da17-4a62-9b69-a5a06682951f",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -2419,10 +2314,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n     \"educationOrganizationId\": \"{{known:postSecondaryInstitutionId}}\"\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": \"{{known:postSecondaryInstitutionId}}\",\r\n       \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n      \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"2010-08-30\",\r\n    \"endDate\": \"2010-12-17\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n  }",
-									"options": {
-										"raw": {}
-									}
+									"raw": "  {\r\n    \"educationOrganizationReference\": {\r\n     \"educationOrganizationId\": \"{{known:postSecondaryInstitutionId}}\"\r\n    },\r\n    \"programReference\": {\r\n      \"educationOrganizationId\": \"{{known:postSecondaryInstitutionId}}\",\r\n       \"programName\":\"{{supplied:{{scenarioId}}:programName}}\",\r\n      \"programTypeDescriptor\":\"{{supplied:{{scenarioId}}:programTypeDescriptor}}\"\r\n    },\r\n    \"studentReference\": {\r\n      \"studentUniqueId\": \"{{supplied:{{scenarioId}}:StudentUniqueId}}\"\r\n    },\r\n    \"beginDate\": \"2010-08-30\",\r\n    \"endDate\": \"2010-12-17\",\r\n    \"reasonExitedDescriptor\": \"uri://ed-fi.org/ReasonExitedDescriptor#Moved out of state\"\r\n  }"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
@@ -2445,7 +2337,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "4521863f-8053-4b4e-882c-05c0b0664f8f",
 										"exec": [
 											""
 										],
@@ -2455,7 +2346,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "29914de8-5e37-4d99-93a8-b61f669dbee6",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2532,7 +2422,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "14789e3d-dbef-4abb-aa1d-61820cda340b",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2542,16 +2431,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "de1243d1-9478-4750-95f1-43dc2855ef38",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 10  GET request to CommunityProviderLicenses should not generate an error",
@@ -2562,7 +2448,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7f7d7f55-30a1-4434-aae0-2db2949a2b81",
 										"exec": [
 											""
 										],
@@ -2572,7 +2457,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a9698c56-56c9-45a1-aaef-ba7421b58866",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2627,7 +2511,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "45977d8d-d480-4312-90ce-3f0b5ea1cb41",
 										"exec": [
 											""
 										],
@@ -2637,7 +2520,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d5a25484-3d32-4eaf-a356-cec5abba26fd",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2702,7 +2584,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "44388c1d-40cd-4766-9025-fda5ac35322c",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2712,16 +2593,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b5609fb3-21c4-47b6-867d-2f558a93fcf8",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 11  GET request to StudentDisciplineIncidentAssociations should return 403 indicating there's no way to authorize the request",
@@ -2732,7 +2610,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "3eb1a948-db8b-45e2-a0e9-886d6a2a6f70",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -2746,7 +2623,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "372bc4c6-7472-48f1-8a7c-afdceea0dbdd",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2802,7 +2678,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "697a51ec-1b70-4f9e-b539-2a60202389ca",
 										"exec": [
 											""
 										],
@@ -2812,7 +2687,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2d7cfd4a-b312-4df0-a181-1dba9e87b843",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2858,7 +2732,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "72b24fbc-2d32-4cdf-9c2a-5a11da03b9ef",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2873,7 +2746,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "a55df8b4-eae4-4195-a50b-6b5169a515ac",
 										"exec": [
 											""
 										],
@@ -2918,7 +2790,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2926cef0-2ee5-4546-a4a7-c3f9a28b398b",
 										"exec": [
 											""
 										],
@@ -2928,7 +2799,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f77b7d93-f570-4caf-94c1-2b37bfdd9550",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2974,7 +2844,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6f0b0d5c-8a38-4ee7-addb-9625f23ea4c7",
 										"exec": [
 											""
 										],
@@ -2984,7 +2853,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "50561f54-5c15-4a96-85bb-442490e867eb",
 										"exec": [
 											"pm.test(\"Status code is 403\", () => {",
 											"    pm.expect(pm.response.code).to.equal(403);",
@@ -3040,7 +2908,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "63e4342c-4da3-4ce2-a9e5-acc20a9f3931",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3050,19 +2917,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "92c87139-fd27-423d-ac7e-3fb8db1dc146",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"auth": {
@@ -3079,7 +2942,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "ea19c514-59b1-45b4-ac6d-65242e69bc3f",
 				"type": "text/javascript",
 				"exec": [
 					"CreateAccessToken(\"TokenExpiry_255901\",",
@@ -3166,13 +3028,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "ade3081c-2b5a-4552-b6ac-f269a26138be",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

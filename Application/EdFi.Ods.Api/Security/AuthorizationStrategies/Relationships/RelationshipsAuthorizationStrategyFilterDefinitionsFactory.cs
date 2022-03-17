@@ -101,8 +101,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             if (filterContext.SubjectEndpointValue == null)
             {
                 // This should never happen
-                throw new Exception(
-                    "The subject endpoint association for a single-item claims authorization check did not have a value available from context.");
+                throw new EdFiSecurityException(
+                    $"Access to the resource item could not be authorized because the '{filterContext.SubjectEndpointName}' of the resource is empty.");
             }
 
             // If the subject's endpoint name is an Education Organization Id, we can try to authenticate it here.

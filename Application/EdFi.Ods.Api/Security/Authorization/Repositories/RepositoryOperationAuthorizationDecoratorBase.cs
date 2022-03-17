@@ -357,10 +357,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             string GetAuthorizationFailureMessage()
             {
-                // TODO: GKM - This is inefficient because it gets *all* claim endpoint names and applies distinct -- may include more endpoint names than relationship-based ones with multiple auth strategies in place
+                // TODO: GKM - Should this ultimately just be a constant EducationOrganizationId now?
+                // TODO: GKM - Also, this is slightly inefficient because it gets *all* claim endpoint names and applies distinct -- may include more endpoint names than relationship-based ones with multiple auth strategies in place
                 string[] claimEndpointNames = resultsWithPendingExistenceChecks
                     .SelectMany(asf => asf.FilterResults.SelectMany(f => f.FilterContext.ClaimEndpointNames))
                     .Distinct()
+                    .OrderBy(n => n)
                     .ToArray();
 
                 // NOTE: Embedded convention - UniqueId is suffix used for external representation of USI values
@@ -368,6 +370,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 string[] subjectEndpointNames = resultsWithPendingExistenceChecks.SelectMany(
                         asf => asf.FilterResults.Select(f => f.FilterContext.SubjectEndpointName.ReplaceSuffix("USI", "UniqueId")))
                     .Distinct()
+                    .OrderBy(n => n)
                     .ToArray();
 
                 string claimEndpointNamesText = $"'{string.Join("', '", claimEndpointNames)}'";
@@ -378,7 +381,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
                 object[] claimEndpointValues = resultsWithPendingExistenceChecks.SelectMany(x => x.FilterResults.Select(f => f.FilterContext))
                     .FirstOrDefault()
-                    ?.ClaimEndpointValues;
+                    ?.ClaimEndpointValues.OrderBy(Convert.ToInt32).ToArray();
 
                 string claimValueOrValues = Inflector.Inflect("value", claimEndpointValues?.Length ?? 0);
 
