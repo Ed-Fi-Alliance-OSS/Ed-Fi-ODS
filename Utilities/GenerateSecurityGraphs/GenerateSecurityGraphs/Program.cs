@@ -10,9 +10,11 @@ using System.Data.SqlClient;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
 using CommandLine;
 using CommandLine.Text;
 using Dapper;
@@ -75,34 +77,12 @@ namespace GenerateSecurityGraphs
         }
     }
 
-    internal struct AuthorizationKey
-    {
-        public AuthorizationKey(string claimSetName, string claimName, string actionName)
-            : this()
-        {
-            ClaimSetName = claimSetName;
-            ClaimName = claimName;
-            ActionName = actionName;
-        }
-
-        public string ClaimSetName { get; set; }
-
-        public string ClaimName { get; set; }
-
-        public string ActionName { get; set; }
-
-        public override string ToString()
-        {
-            return ClaimName + " (" + ClaimSetName + "; " + ActionName + ")";
-        }
-    }
-
     internal class Program
     {
         private static string renderingClaimSetName;
         private static Dictionary<string, string> claimNamesToDisplayNames;
 
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             // Parse the command line arguments
             var options = new Options();
@@ -183,7 +163,7 @@ namespace GenerateSecurityGraphs
 
                     try
                     {
-                        DownloadGraphviz(graphvizPath);
+                        await DownloadGraphviz(graphvizPath);
                     }
                     catch (Exception)
                     {
@@ -200,33 +180,10 @@ namespace GenerateSecurityGraphs
             Console.WriteLine("Generating graphs, please wait ...");
 
             // Load all authorization metadata into a graph and a list of claim sets
-            var authorizationMetadata = new Dictionary<AuthorizationKey, EffectiveActionAndStrategy>();
-
-            List<string> claimSetNames;
-            var resourceGraph = LoadAuthorizationMetadataGraph(connectionString, out claimSetNames);
-
-            foreach (string claimSetName in claimSetNames)
-            {
-                // Process every resource claim in the graph, for each claim set for effective claims
-                foreach (Resource resource in resourceGraph.Vertices)
-                {
-                    foreach (string actionName in new[]
-                                                  {
-                                                      "Create", "Read", "Update", "Delete"
-                                                  })
-                    {
-                        authorizationMetadata.Add(
-                            new AuthorizationKey(claimSetName, resource.Name, actionName),
-                            GetEffectiveActionPermissions(resource, actionName, claimSetName)
-                        );
-                    }
-                }
-            }
-
+            var resourceGraph = LoadAuthorizationMetadataGraph(connectionString, out var claimSetNames);
             var rootNodes = GetRootNodes(resourceGraph);
 
-            //ClearOutputFolder();
-            string assetsSourceFolder = Path.Combine(
+            var assetsSourceFolder = Path.Combine(
                 Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
                 "Assets");
 
@@ -238,7 +195,7 @@ namespace GenerateSecurityGraphs
             {
                 renderingClaimSetName = claimSetName;
 
-                string outputFolder = string.IsNullOrEmpty(claimSetName)
+                var outputFolder = string.IsNullOrEmpty(claimSetName)
                     ? baseFolderPath
 
                     // TODO: Make whitespace more robust, or embed quotes in command-line arguments
@@ -246,33 +203,33 @@ namespace GenerateSecurityGraphs
                         baseFolderPath,
                         claimSetName);
 
-                //claimSetName.Replace(" ", "_"));
-
                 // Copy assets to the output folder (to support SVG files, which doesn't embed the images)
                 Directory.CreateDirectory(outputFolder);
                 var iconFiles = Directory.GetFiles(assetsSourceFolder, "*_icon.png").ToList();
                 iconFiles.ForEach(x => File.Copy(x, Path.Combine(outputFolder, Path.GetFileName(x)), true));
 
                 // Create all the subgraphs
-                var subgraphs =
-                    (from rootNode in rootNodes
-                     let subgraph = GetSubgraph(resourceGraph, rootNode)
-                     select new
-                     {
-                         Subgraph = subgraph,
-                         OutputFileName = Path.Combine(outputFolder, claimNamesToDisplayNames[rootNode.Name]),
-                         UnflattenToDepth =
+
+                var subgraphs = rootNodes
+                    .Select(rootNode =>
+                    {
+                        var subgraph = GetSubgraph(resourceGraph, rootNode);
+
+                        return new
+                        {
+                            Subgraph = subgraph,
+                            OutputFileName = Path.Combine(outputFolder, claimNamesToDisplayNames[rootNode.ClaimName]),
+                            UnflattenToDepth =
                                     subgraph.Vertices.Count() < 20
                                         ? 0
                                         : subgraph.Vertices.Count() / 5
-                     })
-                   .ToList();
+                        };
+                    })
+                    .ToList();
 
-                var subgraphsToCombine =
-                    (from sg in subgraphs
-                     where sg.Subgraph.Vertices.Count() < 2
-                     select sg)
-                   .ToList();
+                var subgraphsToCombine = subgraphs
+                    .Where(subgraph => subgraph.Subgraph.Vertices.Count() < 2)
+                    .ToList();
 
                 // Generate all larger graphs
                 foreach (var subgraph in subgraphs.Except(subgraphsToCombine))
@@ -300,23 +257,12 @@ namespace GenerateSecurityGraphs
             }
         }
 
-        //private static void ClearOutputFolder()
-        //{
-        //    if (Directory.Exists(BaseOutputFolder))
-        //    {
-        //        Directory
-        //            .GetFiles(BaseOutputFolder)
-        //            .ToList()
-        //            .ForEach(File.Delete);
-        //    }
-        //}
-
         private static AdjacencyGraph<Resource, Edge<Resource>> LoadAuthorizationMetadataGraph(
             string connectionString, out List<string> claimSetNames)
         {
             var resourceGraph = new AdjacencyGraph<Resource, Edge<Resource>>();
 
-            string metadataSql = @"
+            var calimsSql = @"
 SELECT rc.ClaimName,
        rc.DisplayName,
        prc.ClaimName   AS ParentClaimName,
@@ -334,7 +280,7 @@ ORDER  BY rc.DisplayName,
           as_.AuthorizationStrategyName
 ";
 
-            string claimSetSql = @"
+            var claimSetsSql = @"
 SELECT ClaimSetName,
        ClaimName,
        ActionName,
@@ -350,133 +296,125 @@ ORDER  BY ClaimSetName,
           a.ActionId 
 ";
             using var conn = new SqlConnection(connectionString);
-            var metadataEdges = conn.Query<ResourceSegmentData>(metadataSql);
-            var claimsetResourceActions = conn.Query<ClaimsetResourceActionData>(claimSetSql);
+            var claims = conn.Query<ResourceSegmentData>(calimsSql);
+            var claimSets = conn.Query<ClaimsetResourceActionData>(claimSetsSql);
 
             // Ignore ClaimSets that don't have ClaimSetResourceClaimActions ('Ownership Based Test', for example)
-            claimsetResourceActions = claimsetResourceActions
+            claimSets = claimSets
                 .Where(x => x.ClaimName != null)
                 .ToList();
 
-            // Pick the first authorization strategy when there are many defined (metadata)
-            metadataEdges = metadataEdges
-                .GroupBy(e => (e.ClaimName, e.ActionName))
-                .Select(grp => grp.First());
-
-            // Pick the first authorization strategy when there are many defined (overrides)
-            claimsetResourceActions = claimsetResourceActions
-                .GroupBy(e => (e.ClaimSetName, e.ClaimName, e.ActionName))
-                .Select(grp => grp.First());
-
-            var distinctMetadataEdges = metadataEdges
+            var uniqueEdges = claims
                 .GroupBy(e => (e.ClaimName, e.ParentClaimName))
                 .Select(grp => grp.First());
 
-            claimNamesToDisplayNames = distinctMetadataEdges.ToDictionary(e => e.ClaimName, e => e.DisplayName);
+            claimNamesToDisplayNames = uniqueEdges.ToDictionary(e => e.ClaimName, e => e.DisplayName);
 
-            // First process the segments into the graph
-            foreach (var metadataEdge in distinctMetadataEdges)
+            // First add empty vertices and edges to the graph, each claim is a vertex
+            foreach (var edge in uniqueEdges)
             {
-                var vertex = GetOrAddVertex(resourceGraph, metadataEdge.ClaimName);
+                var vertex = GetOrAddVertex(resourceGraph, edge.ClaimName);
 
-                if (!string.IsNullOrEmpty(metadataEdge.ParentClaimName))
+                if (!string.IsNullOrEmpty(edge.ParentClaimName))
                 {
-                    var parentVertex = GetOrAddVertex(resourceGraph, metadataEdge.ParentClaimName);
+                    var parentVertex = GetOrAddVertex(resourceGraph, edge.ParentClaimName);
                     resourceGraph.AddEdge(new Edge<Resource>(parentVertex, vertex));
                 }
             }
 
-            // Now augment the vertices with authorization strategies and actions
-            var edgesGroupedByResoureName =
-                from e in metadataEdges
-                where e.ActionName != null
-                group e by e.ClaimName
-                into g
-                select new
+            var edgesGroupedByClaim = claims
+                .Where(resource => resource.ActionName != null)
+                .GroupBy(resource => resource.ClaimName)
+                .Select(resourcesByClaim => new
                 {
-                    ClaimName = g.Key,
-                    Actions = g.Select(
-                               x => new
-                               {
-                                   x.ActionName,
-                                   StrategyName = x.AuthorizationStrategyName
-                               })
-                };
+                    ClaimName = resourcesByClaim.Key,
+                    Actions = resourcesByClaim
+                        .GroupBy(resource => resource.ActionName)
+                        .Select(resourcesByAction => new
+                        {
+                            Name = resourcesByAction.Key,
+                            Strategies = resourcesByAction.Select(resource => resource.AuthorizationStrategyName).ToHashSet()
+                        })
+                });
 
-            // Augment each vertex with the actions/strategies
-            foreach (var edge in edgesGroupedByResoureName)
+            // Now augment the vertices with authorization strategies and actions
+            foreach (var edge in edgesGroupedByClaim)
             {
-                var vertex = resourceGraph.Vertices.Single(x => x.Name == edge.ClaimName);
+                var vertex = resourceGraph.Vertices.Single(x => x.ClaimName == edge.ClaimName);
 
                 vertex.ActionAndStrategyPairs.AddRange(
-                    from e in edge.Actions
-                    select new ActionAndStrategy
+                    edge.Actions.Select(action => new ActionAndStrategy
                     {
-                        ActionName = e.ActionName,
-                        AuthorizationStrategy = e.StrategyName
-                    });
+                        ActionName = action.Name,
+                        AuthorizationStrategy = action.Strategies
+                    })
+                );
             }
 
-            // Process claim set data
-            var claimsetMetadata =
-                (from c in claimsetResourceActions
-                 group c by c.ClaimSetName
-                 into mainGroup
-                 select new
-                 {
-                     ClaimSetName = mainGroup.Key,
-                     Resources =
-                                (from mg in mainGroup
-                                 group mg by mg.ClaimName
-                                 into subGroup
-                                 select new
-                                 {
-                                     ClaimName = subGroup.Key,
-                                     ActionStrategy =
-                                                (from sg in subGroup
-                                                 where !string.IsNullOrEmpty(sg.ActionName)
-                                                 select new
-                                                 {
-                                                     sg.ActionName,
-                                                     sg.StrategyName
-                                                 })
-                                               .ToList()
-                                 }).ToList()
-                 }).ToList();
-
-            claimSetNames = claimsetMetadata.Select(x => x.ClaimSetName).ToList();
-
-            foreach (var claimsetItem in claimsetMetadata)
-            {
-                string claimSetName = claimsetItem.ClaimSetName;
-
-                foreach (var resourceItem in claimsetItem.Resources)
+            var claimSetsGroupedByName = claimSets
+                .GroupBy(csra => csra.ClaimSetName)
+                .Select(csrasByClaimSet => new
                 {
-                    var resourceVertex = resourceGraph.Vertices.Single(x => x.Name == resourceItem.ClaimName);
+                    ClaimSetName = csrasByClaimSet.Key,
+                    Resources = csrasByClaimSet
+                                    .GroupBy(csra => csra.ClaimName)
+                                    .Select(csrasByClaim => new
+                                    {
+                                        ClaimName = csrasByClaim.Key,
+                                        ActionStrategy = csrasByClaim
+                                                            .Where(csra => !string.IsNullOrEmpty(csra.ActionName))
+                                                            .Select(csra => new
+                                                            {
+                                                                csra.ActionName,
+                                                                csra.StrategyName
+                                                            })
+                                                            .ToList()
+                                    })
+                                    .ToList()
+                })
+                .ToList();
 
-                    foreach (var actionStrategyItem in resourceItem.ActionStrategy)
+            claimSetNames = claimSetsGroupedByName.Select(x => x.ClaimSetName).ToList();
+
+            // Now augment the vertices with claimSet overrides
+            foreach (var claimSet in claimSetsGroupedByName)
+            {
+                var claimSetName = claimSet.ClaimSetName;
+
+                foreach (var resource in claimSet.Resources)
+                {
+                    var vertex = resourceGraph.Vertices.Single(x => x.ClaimName == resource.ClaimName);
+
+                    foreach (var actionStrategy in resource.ActionStrategy)
                     {
-                        var actionVertex = resourceVertex.ActionAndStrategyPairs.SingleOrDefault(x => x.ActionName == actionStrategyItem.ActionName);
+                        var actionAndStrategyPair = vertex.ActionAndStrategyPairs.SingleOrDefault(x => x.ActionName == actionStrategy.ActionName);
 
-                        // If action vertex doesn't yet exist in the graph, create it implicitly now
-                        if (actionVertex == null)
+                        if (actionAndStrategyPair == null)
                         {
-                            var newAction = new ActionAndStrategy
+                            // There are no ActionAndStrategyPairs because the resource doesn't have explicit metadata,
+                            //      but it has an override so add the ActionAndStrategyPair now
+                            var newActionAndStrategyPair = new ActionAndStrategy
                             {
-                                ActionName = actionStrategyItem.ActionName
+                                ActionName = actionStrategy.ActionName
+                                // AuthorizationStrategy stays null since it only stores metadata,
+                                //      overrides go to StrategyOverridesByClaimSetName
                             };
 
-                            resourceVertex.ActionAndStrategyPairs.Add(newAction);
+                            vertex.ActionAndStrategyPairs.Add(newActionAndStrategyPair);
 
-                            actionVertex = newAction;
+                            actionAndStrategyPair = newActionAndStrategyPair;
                         }
 
-                        // Make note that we've got metadata explicitly assigning this action
-                        actionVertex.ExplicitActionAndStrategyByClaimSetName[claimSetName] = new ActionAndStrategy
+                        // Make note that we've got an override explicitly assigned
+                        if (!actionAndStrategyPair.StrategyOverridesByClaimSetName.ContainsKey(claimSetName))
                         {
-                            ActionName = actionStrategyItem.ActionName,
-                            AuthorizationStrategy = actionStrategyItem.StrategyName
-                        };
+                            actionAndStrategyPair.StrategyOverridesByClaimSetName.Add(claimSetName, new HashSet<string>());
+                        }
+
+                        if (actionStrategy.StrategyName != null)
+                        {
+                            actionAndStrategyPair.StrategyOverridesByClaimSetName[claimSetName].Add(actionStrategy.StrategyName);
+                        }
                     }
                 }
 
@@ -489,24 +427,6 @@ ORDER  BY ClaimSetName,
 
             return resourceGraph;
         }
-
-        //private static List<ClaimsetResourceActionData> GetClaimSetMetadata(string connectionString, string providerName, string claimSetSql)
-        //{
-        //    using (var conn = new Database(connectionString, providerName))
-        //    {
-        //        var claimsetResourceActions = conn.Query<ClaimsetResourceActionData>(claimSetSql).ToList();
-        //        return claimsetResourceActions;
-        //    }
-        //}
-
-        //private static List<ResourceSegmentData> GetResourceClaimMetadata(string connectionString, string providerName, string metadataSql)
-        //{
-        //    using (var conn = new Database(connectionString, providerName))
-        //    {
-        //        var metadataEdges = conn.Query<ResourceSegmentData>(metadataSql).ToList();
-        //        return metadataEdges;
-        //    }
-        //}
 
         private static void SetParentReferences(
             Resource parentResource,
@@ -538,7 +458,7 @@ ORDER  BY ClaimSetName,
             // Identify each sub-graph by identifying all root nodes.
             foreach (Resource vertex in resourceGraph.Vertices)
             {
-                if (resourceGraph.Edges.All(x => x.Target.Name != vertex.Name))
+                if (resourceGraph.Edges.All(x => x.Target.ClaimName != vertex.ClaimName))
                 {
                     // We have a root node, so add its elements to a new graph
                     rootNodes.Add(vertex);
@@ -559,9 +479,9 @@ ORDER  BY ClaimSetName,
 
         private static Resource GetOrAddVertex(AdjacencyGraph<Resource, Edge<Resource>> resourceGraph, string claimName)
         {
-            var vertex = resourceGraph.Vertices.SingleOrDefault(v => v.Name == claimName);
+            var vertex = resourceGraph.Vertices.SingleOrDefault(v => v.ClaimName == claimName);
 
-            if (vertex is null)
+            if (vertex == null)
             {
                 vertex = new Resource(claimName);
                 resourceGraph.AddVertex(vertex);
@@ -590,11 +510,9 @@ ORDER  BY ClaimSetName,
 
         private static void FormatVertex(object sender, FormatVertexEventArgs<Resource> e)
         {
-            var f = e.VertexFormat;
-
             string htmlLabel;
 
-            Resource resource = e.Vertex;
+            var resource = e.Vertex;
 
             var effectiveCreatePermissions = GetEffectiveActionPermissions(resource, "Create", renderingClaimSetName);
             var effectiveReadPermissions = GetEffectiveActionPermissions(resource, "Read", renderingClaimSetName);
@@ -606,109 +524,85 @@ ORDER  BY ClaimSetName,
                 && effectiveUpdatePermissions.IsIndeterminate()
                 && effectiveDeletePermissions.IsIndeterminate())
             {
-                htmlLabel = string.Format(
-                    @"<
+                htmlLabel = $@"
 <TABLE BORDER=""0"" CELLBORDER=""1"" CELLSPACING=""0"" CELLPADDING=""4"">
-<TR><TD COLSPAN=""4"" BGCOLOR=""#{1}""><B>{0}</B></TD></TR>
-<TR>
-    <TD bgcolor=""#{2}"">{3}C{4}</TD>
-    <TD bgcolor=""#{5}"">{6}R{7}</TD>
-    <TD bgcolor=""#{8}"">{9}U{10}</TD>
-    <TD bgcolor=""#{11}"">{12}D{13}</TD>
-</TR>
-</TABLE>
->",
-                    GetVertexDisplayName(resource.Name),
-                    Colors.Header,
-                    GetActionColor(effectiveCreatePermissions),
-                    EmphasizeExplicitStart(effectiveCreatePermissions),
-                    EmphasizeExplicitStop(effectiveCreatePermissions),
-                    GetActionColor(effectiveReadPermissions),
-                    EmphasizeExplicitStart(effectiveReadPermissions),
-                    EmphasizeExplicitStop(effectiveReadPermissions),
-                    GetActionColor(effectiveUpdatePermissions),
-                    EmphasizeExplicitStart(effectiveUpdatePermissions),
-                    EmphasizeExplicitStop(effectiveUpdatePermissions),
-                    GetActionColor(effectiveDeletePermissions),
-                    EmphasizeExplicitStart(effectiveDeletePermissions),
-                    EmphasizeExplicitStop(effectiveDeletePermissions));
+    <TR>
+        <TD COLSPAN=""4"" BGCOLOR=""#{Colors.Header}"">
+            <B>{GetVertexDisplayName(resource.ClaimName)}</B>
+        </TD>
+    </TR>
+    <TR>
+        <TD bgcolor=""#{GetActionColor(effectiveCreatePermissions)}"">
+            {EmphasizeExplicit(effectiveCreatePermissions, "C")}
+        </TD>
+        <TD bgcolor=""#{GetActionColor(effectiveReadPermissions)}"">
+            {EmphasizeExplicit(effectiveReadPermissions, "R")}
+        </TD>
+        <TD bgcolor=""#{GetActionColor(effectiveUpdatePermissions)}"">
+            {EmphasizeExplicit(effectiveUpdatePermissions, "U")}
+        </TD>
+        <TD bgcolor=""#{GetActionColor(effectiveDeletePermissions)}"">
+            {EmphasizeExplicit(effectiveDeletePermissions, "D")}
+        </TD>
+    </TR>
+</TABLE>";
             }
             else
             {
-                htmlLabel = string.Format(
-                    @"<
+                htmlLabel = $@"
 <TABLE BORDER=""0"" CELLBORDER=""1"" CELLSPACING=""0"" CELLPADDING=""4"">
 <TR>
-    <TD COLSPAN=""2"" BGCOLOR=""#{13}""><font point-size=""16""><B>{0}</B></font></TD>
+    <TD COLSPAN=""2"" BGCOLOR=""#{Colors.Header}"">
+        <font point-size=""16"">
+            <B>{GetVertexDisplayName(resource.ClaimName)}</B>
+        </font>
+    </TD>
 </TR>
 <TR>
-    <TD bgcolor=""#{1}"">{14}C{15}</TD>
+    <TD bgcolor=""#{GetActionColor(effectiveCreatePermissions)}"">
+        {EmphasizeExplicit(effectiveCreatePermissions, "C")}
+    </TD>
     <TD>
         <TABLE border=""0"" cellborder=""0"">
-            <TR>
-                <TD align=""left""><IMG SRC=""{2}_icon.png""/></TD>
-                <TD align=""left"">{3}</TD>
-            </TR>
+            {GetAuthorizationStrategyRows(effectiveCreatePermissions)}
         </TABLE>
     </TD>
 </TR>
 <TR>
-    <TD bgcolor=""#{4}"">{16}R{17}</TD>
+    <TD bgcolor=""#{GetActionColor(effectiveReadPermissions)}"">
+        {EmphasizeExplicit(effectiveReadPermissions, "R")}
+    </TD>
     <TD>
         <TABLE border=""0"" cellborder=""0"">
-            <TR>
-                <TD align=""left""><IMG SRC=""{5}_icon.png""/></TD>
-                <TD align=""left"">{6}</TD>
-            </TR>
+            {GetAuthorizationStrategyRows(effectiveReadPermissions)}
         </TABLE>
     </TD>
 </TR>
 <TR>
-    <TD bgcolor=""#{7}"">{18}U{19}</TD>
+    <TD bgcolor=""#{GetActionColor(effectiveUpdatePermissions)}"">
+        {EmphasizeExplicit(effectiveUpdatePermissions, "U")}
+    </TD>
     <TD>
         <TABLE border=""0"" cellborder=""0"">
-            <TR>
-                <TD align=""left""><IMG SRC=""{8}_icon.png""/></TD>
-                <TD align=""left"">{9}</TD>
-            </TR>
+            {GetAuthorizationStrategyRows(effectiveUpdatePermissions)}
         </TABLE>
     </TD>
 </TR>
 <TR>
-    <TD bgcolor=""#{10}"">{20}D{21}</TD>
+    <TD bgcolor=""#{GetActionColor(effectiveDeletePermissions)}"">
+        {EmphasizeExplicit(effectiveDeletePermissions, "D")}
+    </TD>
     <TD>
         <TABLE border=""0"" cellborder=""0"">
-            <TR>
-                <TD align=""left""><IMG SRC=""{11}_icon.png""/></TD>
-                <TD align=""left"">{12}</TD>
-            </TR>
+            {GetAuthorizationStrategyRows(effectiveDeletePermissions)}
         </TABLE>
     </TD>
 </TR>
-</TABLE>
->",
-                    GetVertexDisplayName(resource.Name),
-                    GetActionColor(effectiveCreatePermissions), effectiveCreatePermissions.AuthorizationStrategy,
-                    GetAuthorizationStrategyText(effectiveCreatePermissions),
-                    GetActionColor(effectiveReadPermissions), effectiveReadPermissions.AuthorizationStrategy,
-                    GetAuthorizationStrategyText(effectiveReadPermissions),
-                    GetActionColor(effectiveUpdatePermissions), effectiveUpdatePermissions.AuthorizationStrategy,
-                    GetAuthorizationStrategyText(effectiveUpdatePermissions),
-                    GetActionColor(effectiveDeletePermissions), effectiveDeletePermissions.AuthorizationStrategy,
-                    GetAuthorizationStrategyText(effectiveDeletePermissions),
-                    Colors.Header,
-                    EmphasizeExplicitStart(effectiveCreatePermissions),
-                    EmphasizeExplicitStop(effectiveCreatePermissions),
-                    EmphasizeExplicitStart(effectiveReadPermissions),
-                    EmphasizeExplicitStop(effectiveReadPermissions),
-                    EmphasizeExplicitStart(effectiveUpdatePermissions),
-                    EmphasizeExplicitStop(effectiveUpdatePermissions),
-                    EmphasizeExplicitStart(effectiveDeletePermissions),
-                    EmphasizeExplicitStop(effectiveDeletePermissions));
+</TABLE>";
             }
 
-            f.Label = htmlLabel;
-            f.Shape = GraphvizVertexShape.Plaintext;
+            e.VertexFormat.Label = $"<{RemoveSpaces(htmlLabel)}>";
+            e.VertexFormat.Shape = GraphvizVertexShape.Plaintext;
         }
 
         private static string GetVertexDisplayName(string claimName)
@@ -719,7 +613,10 @@ ORDER  BY ClaimSetName,
 
             var displayName = claimNamesToDisplayNames[claimName];
 
-            if (claimName.Contains("/domains/", StringComparison.InvariantCultureIgnoreCase)) return displayName;
+            if (claimName.Contains("/domains/", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return displayName;
+            }
 
             var nextToLastSegment = claimName.Split('/')[^2];
 
@@ -728,73 +625,79 @@ ORDER  BY ClaimSetName,
                 : $"{displayName} ({nextToLastSegment})";
         }
 
-        private static string EmphasizeExplicitStart(EffectiveActionAndStrategy effectiveActionAndStrategy)
+        private static string EmphasizeExplicit(EffectiveActionAndStrategy effectiveActionAndStrategy, string text)
         {
             return !effectiveActionAndStrategy.ActionInherited
-                ? @"<B>"
-                : string.Empty;
+                ? $"<B>{text}</B>"
+                : $"<FONT>{text}</FONT>";
         }
 
-        private static string EmphasizeExplicitStop(EffectiveActionAndStrategy effectiveActionAndStrategy)
+        private static string GetAuthorizationStrategyRows(EffectiveActionAndStrategy effectiveActionAndStrategy)
         {
-            return !effectiveActionAndStrategy.ActionInherited
-                ? "</B>"
-                : string.Empty;
-        }
-
-        private static string GetAuthorizationStrategyText(EffectiveActionAndStrategy effectiveActionAndStrategy)
-        {
-            // If there is no authorization strategy in effect, just return an empty string
-            if (string.IsNullOrEmpty(effectiveActionAndStrategy.AuthorizationStrategy))
+            if (effectiveActionAndStrategy.AuthorizationStrategy == null)
             {
-                return string.Empty;
+                return @"
+<TR>
+    <TD></TD>
+</TR>";
             }
-
-            //bool authStrategyLocalAndClaimSetSpecific =
-            //!effectiveActionAndStrategy.AuthorizationStrategyInherited
-            //&& !effectiveActionAndStrategy.AuthorizationStrategyIsDefault;
 
             var sb = new StringBuilder();
 
-            // Inherited settings are grayed and italicized
-            if (effectiveActionAndStrategy.AuthorizationStrategyInherited)
+            foreach (var strategy in effectiveActionAndStrategy.AuthorizationStrategy)
             {
-                sb.Append(@"<font color=""#a0a0a0""><i>");
-            }
+                sb.Append(@$"
+<TR>
+    <TD align=""left""><IMG SRC=""{strategy}_icon.png""/></TD>
+    <TD align=""text"">");
 
-            // Claim Set specific settings are bold-faced
-            if (!effectiveActionAndStrategy.AuthorizationStrategyIsDefault)
-            {
-                sb.Append("<b>");
-            }
+                // Inherited settings are grayed and italicized
+                if (effectiveActionAndStrategy.AuthorizationStrategyInherited)
+                {
+                    sb.Append(@"<font color=""#a0a0a0""><i>");
+                }
 
-            // Append the strategy name
-            sb.Append(effectiveActionAndStrategy.AuthorizationStrategy);
+                // Claim Set specific settings are bold-faced
+                if (!effectiveActionAndStrategy.AuthorizationStrategyIsDefault)
+                {
+                    sb.Append("<b>");
+                }
 
-            // Claim Set specific settings are bold-faced
-            if (!effectiveActionAndStrategy.AuthorizationStrategyIsDefault)
-            {
-                sb.Append("</b>");
-            }
+                // Append the strategy name
+                sb.Append(strategy);
 
-            // Inherited settings are grayed and italicized
-            if (effectiveActionAndStrategy.AuthorizationStrategyInherited)
-            {
-                sb.Append(@"</i></font>");
+                // Claim Set specific settings are bold-faced
+                if (!effectiveActionAndStrategy.AuthorizationStrategyIsDefault)
+                {
+                    sb.Append("</b>");
+                }
+
+                // Inherited settings are grayed and italicized
+                if (effectiveActionAndStrategy.AuthorizationStrategyInherited)
+                {
+                    sb.Append(@"</i></font>");
+                }
+
+                sb.Append("</TD><TD></TD></TR>");
             }
 
             // Look for overrides
-            if (effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategy != null)
+            foreach (var strategy in effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategy ?? Enumerable.Empty<string>())
             {
+                sb.Append(@$"
+<TR>
+    <TD align=""left""><IMG SRC=""_icon.png""/></TD>
+    <TD align=""text"">");
+
                 // Overrides are displayed in red, strikethrough font (Claim Set overrides are bold-faced too)
-                sb.Append(@"<BR/><font color=""#FF0000""><s><b>");
+                sb.Append(@"<font color=""#FF0000""><s><b>");
 
                 if (effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyInherited)
                 {
                     sb.Append(@"<i>");
                 }
 
-                sb.Append(effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategy);
+                sb.Append(strategy);
 
                 if (effectiveActionAndStrategy.OverriddenClaimSetAuthorizationStrategyInherited)
                 {
@@ -803,20 +706,25 @@ ORDER  BY ClaimSetName,
                     sb.Append(@"</i>");
                 }
 
-                sb.Append(@"</b></s></font>");
+                sb.Append(@"</b></s></font></TD><TD></TD></TR>");
             }
 
-            if (effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategy != null)
+            foreach (var strategy in effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategy ?? Enumerable.Empty<string>())
             {
+                sb.Append(@$"
+<TR>
+    <TD align=""left""><IMG SRC=""_icon.png""/></TD>
+    <TD align=""text"">");
+
                 // Overrides are displayed in red, strikethrough font
-                sb.Append(@"<BR/><font color=""#FF0000""><s>");
+                sb.Append(@"<font color=""#FF0000""><s>");
 
                 if (effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyInherited)
                 {
                     sb.Append(@"<i>");
                 }
 
-                sb.Append(effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategy);
+                sb.Append(strategy);
 
                 if (effectiveActionAndStrategy.OverriddenDefaultAuthorizationStrategyInherited)
                 {
@@ -825,31 +733,51 @@ ORDER  BY ClaimSetName,
                     sb.Append(@"</i>");
                 }
 
-                sb.Append(@"</s></font>");
+                sb.Append(@"</s></font></TD><TD></TD></TR>");
             }
 
             return sb.ToString();
         }
 
+        private static string RemoveSpaces(string htmlText)
+        {
+            // Load the HTML string into an XmlWriter and write it back without indentation
+            using (var stringWriter = new StringWriter(new StringBuilder()))
+            {
+                using (var xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings
+                {
+                    OmitXmlDeclaration = true,
+                    ConformanceLevel = ConformanceLevel.Auto,
+                    Indent = false
+                }))
+                {
+                    var xmlDocument = new XmlDocument();
+                    xmlDocument.LoadXml(htmlText);
+                    xmlDocument.Save(xmlWriter);
+                }
+
+                return stringWriter.ToString();
+            }
+        }
+
         private static EffectiveActionAndStrategy GetEffectiveActionPermissions(
             Resource resource, string actionName, string claimSetName)
         {
-            var effectiveActionAndStrategy = new EffectiveActionAndStrategy(resource.Name, actionName);
+            var effectiveActionAndStrategy = new EffectiveActionAndStrategy(resource.ClaimName, actionName);
 
             // Step 1: Process default metadata, top to bottom (least to most in terms of priority)
 
             // Process ancestors first, top to bottom
-            var inheritedDefaultActionAndStrategyPairs =
-                (from r in resource.Ancestors
-                 let pair = r.ActionAndStrategyPairs.SingleOrDefault(x => x.ActionName == actionName)
-                 where pair != null
-                 select new
-                 {
-                     OriginatingClaimName = r.Name,
-                     ActionAndStrategy = pair
-                 })
-               .Reverse()
-               .ToList();
+            var inheritedDefaultActionAndStrategyPairs = resource.Ancestors
+                .Select(ancestor => new
+                {
+                    OriginatingClaimName = ancestor.ClaimName,
+                    ActionAndStrategy = ancestor.ActionAndStrategyPairs
+                                                .SingleOrDefault(x => x.ActionName == actionName)
+                })
+                .Where(i => i.ActionAndStrategy != null)
+                .Reverse()
+                .ToList();
 
             foreach (var pair in inheritedDefaultActionAndStrategyPairs)
             {
@@ -860,56 +788,51 @@ ORDER  BY ClaimSetName,
                     isDefault: true);
             }
 
-            var localActionAndStrategy = resource
-                                        .ActionAndStrategyPairs
-                                        .SingleOrDefault(x => x.ActionName == actionName)
-                                         ?? ActionAndStrategy.Empty;
+            var localActionAndStrategy = resource.ActionAndStrategyPairs
+                                        .SingleOrDefault(x => x.ActionName == actionName) ?? ActionAndStrategy.Empty;
 
             effectiveActionAndStrategy.TrySetAuthorizationStrategy(
                 localActionAndStrategy.AuthorizationStrategy,
-                resource.Name,
+                resource.ClaimName,
                 inherited: false,
                 isDefault: true);
 
             // Step 2: Process from top to bottom (least to most in terms of priority)
 
             // Look for explicit claim set overrides up the resource claim lineage
-            var claimsetOverridePermissions =
-                (from r in resource.Ancestors
-                 let pair = r.ActionAndStrategyPairs.SingleOrDefault(x => x.ActionName == actionName)
-                 let claimsetPair = GetClaimSetSpecificActionAndStrategy(pair, claimSetName)
-                 where claimsetPair != null
-                 select new
-                 {
-                     OriginatingClaimName = r.Name,
-                     ActionAndStrategy = claimsetPair
-                 })
-               .ToList();
+            var claimsetOverridePermissions = resource.Ancestors
+                .Select(ancestor => new
+                {
+                    OriginatingClaimName = ancestor.ClaimName,
+                    Strategy = GetClaimSetSpecificActionAndStrategy(ancestor.ActionAndStrategyPairs.SingleOrDefault(x => x.ActionName == actionName), claimSetName)
+                })
+                .Where(i => i.Strategy != null)
+                .Reverse()
+                .ToList();
 
             foreach (var pair in claimsetOverridePermissions)
             {
                 effectiveActionAndStrategy.TrySetActionGranted(inherited: true);
 
                 effectiveActionAndStrategy.TrySetAuthorizationStrategy(
-                    pair.ActionAndStrategy.AuthorizationStrategy,
+                    pair.Strategy,
                     pair.OriginatingClaimName,
                     inherited: true,
                     isDefault: false);
             }
 
             // Are there any explicit settings on the resource for the current action and claim set?
-            ActionAndStrategy explicitActionAndStrategyForAction;
-
-            if (localActionAndStrategy.ExplicitActionAndStrategyByClaimSetName.TryGetValue(
-                claimSetName,
-                out explicitActionAndStrategyForAction))
+            if (localActionAndStrategy.StrategyOverridesByClaimSetName.ContainsKey(claimSetName))
             {
+                var explicitStrategyForAction = localActionAndStrategy
+                    .StrategyOverridesByClaimSetName[claimSetName];
+
                 // There was a claim set specific setting on the current resource
                 effectiveActionAndStrategy.TrySetActionGranted(inherited: false);
 
                 effectiveActionAndStrategy.TrySetAuthorizationStrategy(
-                    explicitActionAndStrategyForAction.AuthorizationStrategy,
-                    resource.Name,
+                    explicitStrategyForAction,
+                    resource.ClaimName,
                     inherited: false,
                     isDefault: false);
             }
@@ -917,19 +840,19 @@ ORDER  BY ClaimSetName,
             return effectiveActionAndStrategy;
         }
 
-        private static ActionAndStrategy GetClaimSetSpecificActionAndStrategy(ActionAndStrategy pair, string claimSetName)
+        private static HashSet<string> GetClaimSetSpecificActionAndStrategy(ActionAndStrategy pair, string claimSetName)
         {
             if (pair == null)
             {
                 return null;
             }
 
-            if (!pair.ExplicitActionAndStrategyByClaimSetName.ContainsKey(claimSetName))
+            if (!pair.StrategyOverridesByClaimSetName.ContainsKey(claimSetName))
             {
                 return null;
             }
 
-            return pair.ExplicitActionAndStrategyByClaimSetName[claimSetName];
+            return pair.StrategyOverridesByClaimSetName[claimSetName];
         }
 
         private static string GetActionColor(EffectiveActionAndStrategy effectiveActionAndStrategy)
@@ -966,18 +889,22 @@ ORDER  BY ClaimSetName,
             }
         }
 
-        private static void DownloadGraphviz(string destinationDirectoryName)
+        private static async Task DownloadGraphviz(string destinationDirectoryName)
         {
             var tempZipPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz.zip");
             var tempDirPath = Path.Combine(AppContext.BaseDirectory, "temp_graphviz");
 
             // Some antiviruses have false positives and detect Graphviz as a trojan, more info: https://gitlab.com/graphviz/graphviz/-/issues/1773
-            using var webClient = new WebClient();
-            webClient.DownloadFile(
-                new Uri(
-                    "https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.46.1/stable_windows_10_msbuild_Release_Win32_graphviz-2.46.1-win32.zip"),
-                tempZipPath
+            using var httpClient = new HttpClient();
+
+            using var httpResponse = await httpClient.GetAsync(
+                new Uri("https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.46.1/stable_windows_10_msbuild_Release_Win32_graphviz-2.46.1-win32.zip")
             );
+
+            using (var fileStream = new FileStream(tempZipPath, FileMode.Create))
+            {
+                await httpResponse.Content.CopyToAsync(fileStream);
+            }
 
             ZipFile.ExtractToDirectory(tempZipPath, tempDirPath);
             Directory.Move(Path.Combine(tempDirPath, @"Graphviz"), destinationDirectoryName);
