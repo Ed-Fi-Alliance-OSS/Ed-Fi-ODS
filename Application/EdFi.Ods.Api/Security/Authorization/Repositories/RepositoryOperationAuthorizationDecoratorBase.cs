@@ -134,6 +134,8 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             // For remaining pending authorizations requiring database access, get the existence checks SQL fragments  
             var pendingAndStrategies = andResults
+                // Only check any strategies that have no failures
+                .Where(x => x.FilterResults.Any(f => f.Result.State == AuthorizationState.NotPerformed))
                 .Select(x => 
                     new AuthorizationStrategyFilterResults
                     {
