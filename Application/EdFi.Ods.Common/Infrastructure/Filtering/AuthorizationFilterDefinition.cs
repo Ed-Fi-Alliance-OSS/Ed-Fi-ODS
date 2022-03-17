@@ -53,45 +53,6 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             CriteriaApplicator = criteriaApplicator;
             AuthorizeInstance = authorizeInstance;
             ShouldApply = shouldApply;
-
-            // string defaultCondition = ProcessFormatStringForAliases(friendlyDefaultConditionFormat);
-
-            // var parameterNames = ParseDistinctParameterNames(friendlyDefaultConditionFormat);
-
-            // var parameters = parameterNames.ToDictionary(
-            //     n => n,
-            //     n =>
-            //     {
-            //         // Handle entity Ids as a Table-Valued Parameter containing Guids
-            //         if (n == "Id")
-            //         {
-            //             return (IType) new SqlServerStructured<Guid>();
-            //         }
-            //
-            //         // Handle UniqueIds as strings
-            //         if (n.EndsWith("UniqueId"))
-            //         {
-            //             return (IType) NHibernateUtil.String;
-            //         }
-            //
-            //         // Handle properties with "Id" suffixes as a Table-Valued Parameter containing integers
-            //         if (n.EndsWith("Id"))
-            //         {
-            //             return (IType) new SqlServerStructured<int>();
-            //         }
-            //
-            //         // Handle dates
-            //         if (n.EndsWith("Date"))
-            //         {
-            //             return (IType) NHibernateUtil.DateTime;
-            //         }
-            //
-            //         // Treat everything else a string
-            //         return (IType) NHibernateUtil.String;
-            //     },
-            //     StringComparer.InvariantCultureIgnoreCase);
-
-            // FilterDefinition = new FilterDefinition(filterName, defaultCondition, parameters, false);
         }
 
         public string FilterName { get; set; }
@@ -153,22 +114,6 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
 
             return defaultCondition;
         }
-
-        // protected static IEnumerable<string> ParseDistinctParameterNames(string defaultCondition)
-        // {
-        //     var matches = ParameterRegex.Matches(defaultCondition);
-        //
-        //     var parameterNames = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-        //
-        //     foreach (Match match in matches)
-        //     {
-        //         parameterNames.Add(
-        //             match.Groups["Parameter"]
-        //                  .Value);
-        //     }
-        //
-        //     return parameterNames;
-        // }
 
         public override string ToString()
         {

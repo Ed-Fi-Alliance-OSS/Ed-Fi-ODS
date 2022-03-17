@@ -22,6 +22,8 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         {
             _filterDefinitionByName = new Lazy<IDictionary<string, AuthorizationFilterDefinition>>(
                 () => authorizationFilterDefinitionsProviders
+                    // Sort the definitions providers to ensure a determinate alias generation during filter definition
+                    .OrderBy(p => p.GetType().FullName)
                     .SelectMany(c => c.CreateAuthorizationFilterDefinitions())
                     .Distinct()
                     .ToDictionary(f => f.FilterName, f => f));
