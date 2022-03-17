@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 {
@@ -11,23 +12,16 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
     {
         public static readonly ActionAndStrategy Empty = new ActionAndStrategy();
 
-        public ActionAndStrategy()
-        {
-            ExplicitActionAndStrategyByClaimSetName = new Dictionary<string, ActionAndStrategy>();
-        }
-
-        public string AuthorizationStrategy { get; set; }
+        public HashSet<string> AuthorizationStrategy { get; set; }
 
         public string ActionName { get; set; }
 
-        public Dictionary<string, ActionAndStrategy> ExplicitActionAndStrategyByClaimSetName { get; }
+        public Dictionary<string, HashSet<string>> StrategyOverridesByClaimSetName { get; } 
+            = new Dictionary<string, HashSet<string>>();
 
         public override string ToString()
         {
-            return ActionName
-                   + " ("
-                   + (AuthorizationStrategy ?? "*No Strategy*")
-                   + ")";
+            return $"{ActionName} ({(AuthorizationStrategy == null ? "*No Strategy*" : string.Join(", ", AuthorizationStrategy))})";
         }
     }
 }

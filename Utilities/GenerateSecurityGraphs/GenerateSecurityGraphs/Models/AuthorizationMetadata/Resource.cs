@@ -10,31 +10,16 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 {
     public class Resource
     {
-        public Resource(string name)
+        public Resource(string claimName)
         {
-            Name = name;
-
-            ActionAndStrategyPairs = new List<ActionAndStrategy>();
+            ClaimName = claimName;
         }
 
-        public string Name { get; set; }
+        public string ClaimName { get; set; }
 
-        public List<ActionAndStrategy> ActionAndStrategyPairs { get; set; }
+        public List<ActionAndStrategy> ActionAndStrategyPairs { get; set; } = new List<ActionAndStrategy>();
 
         public Resource Parent { get; set; }
-
-        public IEnumerable<Resource> AncestorsOrSelf
-        {
-            get
-            {
-                yield return this;
-
-                foreach (var ancestor in Ancestors)
-                {
-                    yield return ancestor;
-                }
-            }
-        }
 
         public IEnumerable<Resource> Ancestors
         {
@@ -54,19 +39,9 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
             }
         }
 
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Name.Equals(((Resource) obj).Name);
-        }
-
         public override string ToString()
         {
-            return Name + string.Format(
+            return ClaimName + string.Format(
                        "({{{0}}})",
                        string.Join("}, {", ActionAndStrategyPairs.Select(x => x.ToString())));
         }
