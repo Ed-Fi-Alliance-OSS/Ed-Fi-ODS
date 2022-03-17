@@ -18,11 +18,11 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// Initializes a new instance of the <see cref="AuthorizationFilterDefinitionProvider"/> class using the supplied filter configurators.
         /// </summary>
         /// <param name="authorizationFilterDefinitionsProviders"></param>
-        public AuthorizationFilterDefinitionProvider(IAuthorizationFilterDefinitionsProvider[] authorizationFilterDefinitionsProviders)
+        public AuthorizationFilterDefinitionProvider(IAuthorizationFilterDefinitionsFactory[] authorizationFilterDefinitionsProviders)
         {
             _filterDefinitionByName = new Lazy<IDictionary<string, AuthorizationFilterDefinition>>(
                 () => authorizationFilterDefinitionsProviders
-                    .SelectMany(c => c.GetAuthorizationFilterDefinitions())
+                    .SelectMany(c => c.CreateAuthorizationFilterDefinitions())
                     .Distinct()
                     .ToDictionary(f => f.FilterName, f => f));
         }

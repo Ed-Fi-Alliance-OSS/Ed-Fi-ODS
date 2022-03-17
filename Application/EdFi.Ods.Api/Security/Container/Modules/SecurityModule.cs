@@ -77,8 +77,8 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             }
 
             builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
-                .Where(t => typeof(IAuthorizationFilterDefinitionsProvider).IsAssignableFrom(t))
-                .As<IAuthorizationFilterDefinitionsProvider>()
+                .Where(t => typeof(IAuthorizationFilterDefinitionsFactory).IsAssignableFrom(t))
+                .As<IAuthorizationFilterDefinitionsFactory>()
                 .SingleInstance();
 
             builder.RegisterType<AuthorizationFilterDefinitionProvider>()

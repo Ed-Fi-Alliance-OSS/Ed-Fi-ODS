@@ -21,13 +21,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     /// Implements a filter configurator that uses the semantic API model to generate filters with default behavior
     /// for all permutations of education organizations and person types.  
     /// </summary>
-    public class RelationshipsAuthorizationStrategyFilterDefinitionsProvider : IAuthorizationFilterDefinitionsProvider
+    public class RelationshipsAuthorizationStrategyFilterDefinitionsFactory : IAuthorizationFilterDefinitionsFactory
     {
         private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
 
-        public RelationshipsAuthorizationStrategyFilterDefinitionsProvider(
+        public RelationshipsAuthorizationStrategyFilterDefinitionsFactory(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
@@ -37,7 +37,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
         
-        public virtual IReadOnlyList<AuthorizationFilterDefinition> GetAuthorizationFilterDefinitions()
+        public virtual IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
         {
             return CreateAllEducationOrganizationToPersonFilters()
                 .Concat(CreateAllEducationOrganizationToEducationOrganizationFilters())
@@ -46,7 +46,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             
             IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToPersonFilters()
             {
-                string[] personUsiNames = PersonEntitySpecification.ValidPersonTypes.Select(personType => $"{personType}USI").ToArray();
+                string[] personUsiNames = PersonEntitySpecification.ValidPersonTypes
+                    // Sort the person types to ensure a determinate alias generation during filter definition
+                    .OrderBy(p => p)
+                    .Select(personType => $"{personType}USI")
+                    .ToArray();
             
                 return personUsiNames.Select(usiName => 
                     new ViewBasedAuthorizationFilterDefinition(
@@ -63,7 +67,10 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 string[] concreteEdOrgIdNames = _educationOrganizationIdNamesProvider.GetAllNames(); 
             
-                return concreteEdOrgIdNames.Select(concreteEdOrgId => 
+                return concreteEdOrgIdNames
+                    // Sort the edorg id names to ensure a determinate alias generation during filter definition
+                    .OrderBy(n => n)
+                    .Select(concreteEdOrgId => 
                     new ViewBasedAuthorizationFilterDefinition(
                         $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{concreteEdOrgId}",
                         "EducationOrganizationIdToEducationOrganizationId",

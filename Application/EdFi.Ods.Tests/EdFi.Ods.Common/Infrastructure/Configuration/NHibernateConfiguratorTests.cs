@@ -41,7 +41,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
             {
                 var extensionConfigurationProviders = A.Fake<IEnumerable<ExtensionNHibernateConfigurationProvider>>();
                 var beforeBindMappingActivities = A.Fake<IEnumerable<INHibernateBeforeBindMappingActivity>>();
-                var authorizationStrategyConfigurators = A.Fake<IEnumerable<IAuthorizationFilterDefinitionsProvider>>();
+                var authorizationStrategyConfigurators = A.Fake<IEnumerable<IAuthorizationFilterDefinitionsFactory>>();
                 var configurationActivities = A.Fake<IEnumerable<INHibernateConfigurationActivity>>();
 
                 var connectionStringProvider = A.Fake<IOdsDatabaseConnectionStringProvider>();

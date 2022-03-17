@@ -11,10 +11,10 @@ using EdFi.Ods.Common.Security;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterDefinitionsProvider
-        : RelationshipsAuthorizationStrategyFilterDefinitionsProvider
+    public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterDefinitionsFactory
+        : RelationshipsAuthorizationStrategyFilterDefinitionsFactory
     {
-        public RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterDefinitionsProvider(
+        public RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterDefinitionsFactory(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
@@ -29,7 +29,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         /// Gets the NHibernate filter definitions and a functional delegate for determining when to apply them.
         /// </summary>
         /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and entity mappings.</returns>
-        public override IReadOnlyList<AuthorizationFilterDefinition> GetAuthorizationFilterDefinitions()
+        public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
         {
             var filters = new AuthorizationFilterDefinition[]
                           {

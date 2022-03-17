@@ -17,7 +17,7 @@ namespace EdFi.Ods.Common.Security.Authorization
     public class AuthorizationFilterContext
     {
         /// <summary>
-        /// Get or sets the name of the filter definition as defined by an <see cref="IAuthorizationFilterDefinitionsProvider" /> implementation. 
+        /// Get or sets the name of the filter definition as defined by an <see cref="IAuthorizationFilterDefinitionsFactory" /> implementation. 
         /// </summary>
         public string FilterName { get; set; }
         

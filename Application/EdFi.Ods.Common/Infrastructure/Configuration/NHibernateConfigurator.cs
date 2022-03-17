@@ -31,7 +31,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private const string AggregateExtensionMemberName = "AggregateExtensions";
 
         private readonly IDictionary<string, HbmBag[]> _aggregateExtensionHbmBagsByEntityName;
-        private readonly IAuthorizationFilterDefinitionsProvider[] _authorizationStrategyConfigurators;
+        private readonly IAuthorizationFilterDefinitionsFactory[] _authorizationStrategyConfigurators;
         private readonly INHibernateBeforeBindMappingActivity[] _beforeBindMappingActivities;
         private readonly INHibernateConfigurationActivity[] _configurationActivities;
         private readonly IDictionary<string, HbmBag[]> _entityExtensionHbmBagsByEntityName;
@@ -44,7 +44,7 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
-            IEnumerable<IAuthorizationFilterDefinitionsProvider> authorizationStrategyConfigurators,
+            IEnumerable<IAuthorizationFilterDefinitionsFactory> authorizationStrategyConfigurators,
             // IFilterCriteriaApplicatorProvider filterCriteriaApplicatorProvider,
             IEnumerable<INHibernateConfigurationActivity> configurationActivities,
             IOrmMappingFileDataProvider ormMappingFileDataProvider,

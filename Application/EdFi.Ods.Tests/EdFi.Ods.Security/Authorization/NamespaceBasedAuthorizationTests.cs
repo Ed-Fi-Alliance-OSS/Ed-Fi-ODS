@@ -80,7 +80,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             };
 
             //Act
-            var filterDefinition = strategy.GetAuthorizationFilterDefinitions().Single();
+            var filterDefinition = strategy.CreateAuthorizationFilterDefinitions().Single();
 
             var result = filterDefinition.AuthorizeInstance(
                 new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data),
@@ -144,7 +144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             };
 
             //Act
-            var filterDefinition = strategy.GetAuthorizationFilterDefinitions().Single();
+            var filterDefinition = strategy.CreateAuthorizationFilterDefinitions().Single();
 
             var result = filterDefinition.AuthorizeInstance(
                 new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data),

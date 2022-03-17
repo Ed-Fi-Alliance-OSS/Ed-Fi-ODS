@@ -20,7 +20,7 @@ using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 {
-    public class NamespaceBasedAuthorizationStrategy : IAuthorizationStrategy, IAuthorizationFilterDefinitionsProvider
+    public class NamespaceBasedAuthorizationStrategy : IAuthorizationStrategy, IAuthorizationFilterDefinitionsFactory
     {
         private readonly AuthorizationContextDataFactory _authorizationContextDataFactory = new();
 
@@ -31,7 +31,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
         /// Gets the authorization strategy's NHibernate filter definitions and a functional delegate for determining when to apply them.
         /// </summary>
         /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and mappings.</returns>
-        public IReadOnlyList<AuthorizationFilterDefinition> GetAuthorizationFilterDefinitions()
+        public IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
         {
             var filters = new List<AuthorizationFilterDefinition>
             {
