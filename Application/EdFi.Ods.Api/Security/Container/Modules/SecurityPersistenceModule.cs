@@ -61,18 +61,6 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 builder.RegisterDecorator(decoratorRegistration.Value, decoratorRegistration.Key);
             }
 
-            builder.RegisterType<EducationOrganizationCache>()
-                .WithParameter(new NamedParameter("synchronousInitialization", false))
-                .As<IEducationOrganizationCache>()
-                .AsSelf()
-                .SingleInstance();
-
-            builder.RegisterType<EducationOrganizationCacheDataProvider>()
-                .As<IEducationOrganizationCacheDataProvider>()
-                .As<IEducationOrganizationIdentifiersValueMapper>()
-                .AsSelf()
-                .SingleInstance();
-
             builder.RegisterType<ClientAppRepo>()
                 .As<IClientAppRepo>()
                 .SingleInstance();

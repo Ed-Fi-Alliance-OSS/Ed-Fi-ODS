@@ -28,10 +28,6 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<IParameterListSetter>()
                 .SingleInstance();
 
-            builder.RegisterType<PostgresAuthorizationSegmentSqlProvider>()
-                .As<IAuthorizationSegmentsSqlProvider>()
-                .SingleInstance();
-
             builder.RegisterType<PostgreSqlDatabaseEngineNHibernateConfigurationActivity>()
                 .As<INHibernateConfigurationActivity>()
                 .SingleInstance();

@@ -4,7 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.Api.Security.Authorization;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Intrinsics.X86;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
@@ -12,11 +14,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         : RelationshipsAuthorizationStrategyBase<TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
-        protected override void BuildAuthorizationSegments(
-            AuthorizationBuilder<TContextData> authorizationBuilder,
-            string[] authorizationContextPropertyNames)
+        protected override SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
+            IEnumerable<(string name, object value)> authorizationContextTuples)
         {
-            authorizationBuilder.ClaimsMustBeAssociatedWith(authorizationContextPropertyNames);
+            return authorizationContextTuples
+                .Select(nv => new SubjectEndpoint(nv))
+                .ToArray();
         }
     }
 }

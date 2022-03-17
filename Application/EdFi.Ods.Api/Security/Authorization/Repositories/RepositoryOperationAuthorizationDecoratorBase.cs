@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -371,17 +371,13 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     .OrderBy(n => n)
                     .ToArray();
 
-                string claimEndpointNamesText = $"'{string.Join("', '", claimEndpointNames)}'";
                 string subjectEndpointNamesText = $"'{string.Join("', '", subjectEndpointNames)}'";
-
-                string typeOrTypes = Inflector.Inflect("type", claimEndpointNames.Length);
-                string claimOrClaims = Inflector.Inflect("claim", claimEndpointNames.Length);
 
                 object[] claimEndpointValues = resultsWithPendingExistenceChecks.SelectMany(x => x.FilterResults.Select(f => f.FilterContext))
                     .FirstOrDefault()
                     ?.ClaimEndpointValues.OrderBy(Convert.ToInt32).ToArray();
 
-                string claimValueOrValues = Inflector.Inflect("value", claimEndpointValues?.Length ?? 0);
+                string claimOrClaims = Inflector.Inflect("claim", claimEndpointValues?.Length ?? 0);
 
                 const int MaximumEdOrgClaimValuesToDisplay = 5;
 
@@ -401,12 +397,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 if (subjectEndpointNames.Length == 1)
                 {
                     return $"Authorization denied. No relationships have been established between the caller's education "
-                        + $"organization id {claimOrClaims} ({claimValueOrValues} {claimEndpointValuesText} of {typeOrTypes} {claimEndpointNamesText}) and the requested resource's "
+                        + $"organization id {claimOrClaims} ({claimEndpointValuesText}) and the requested resource's "
                         + $"{subjectEndpointNamesText} value.";
                 }
 
                 return $"Authorization denied. No relationships have been established between the caller's education "
-                    + $"organization id {claimOrClaims} ({claimValueOrValues} {claimEndpointValuesText} of {typeOrTypes} {claimEndpointNamesText}) and one of the following properties of "
+                    + $"organization id {claimOrClaims} ({claimEndpointValuesText}) and one of the following properties of "
                     + $"the requested resource: {subjectEndpointNamesText}.";
             }
         }

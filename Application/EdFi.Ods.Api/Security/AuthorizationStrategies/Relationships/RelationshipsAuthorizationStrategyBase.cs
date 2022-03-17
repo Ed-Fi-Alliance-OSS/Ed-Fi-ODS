@@ -4,26 +4,40 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
 using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Extensions;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
-using EdFi.Ods.Api.Security.Authorization;
-using EdFi.Ods.Api.Security.Extensions;
-using QuickGraph;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
+    public class SubjectEndpoint
+    {
+        public SubjectEndpoint((string name, object value) tuple)
+        {
+            Name = tuple.name;
+            Value = tuple.value;
+        }
+        
+        public SubjectEndpoint((string name, object value) tuple, string authorizationPathModifier)
+        {
+            Name = tuple.name;
+            Value = tuple.value;
+            AuthorizationPathModifier = authorizationPathModifier;
+        }
+
+        public string Name { get; set; }
+        public string AuthorizationPathModifier { get; set; }
+        public object Value { get; set; }
+    }
+    
     public abstract class RelationshipsAuthorizationStrategyBase<TContextData> : IAuthorizationStrategy
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
@@ -51,18 +65,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         [Required]
         public IRelationshipsAuthorizationContextDataProviderFactory<TContextData> RelationshipsAuthorizationContextDataProviderFactory { get; set; }
 
-        [Required]
-        public IAuthorizationSegmentsToFiltersConverter AuthorizationSegmentsToFiltersConverter { get; set; }
-
-        [Required]
-        public IEducationOrganizationCache EducationOrganizationCache { get; set; }
-
-        [Required]
-        public IAuthorizationSegmentsVerifier AuthorizationSegmentsVerifier { get; set; }
-
-        [Required]
-        public IEducationOrganizationAuthorizationSegmentsValidator EducationOrganizationAuthorizationSegmentsValidator { get; set; }
-
         /// <summary>
         /// Applies filtering to a multiple-item request.
         /// </summary>
@@ -79,15 +81,62 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             var authorizationContextDataProvider = RelationshipsAuthorizationContextDataProviderFactory.GetProvider(authorizationContext.Type ?? authorizationContext.Data.GetType());
             var authorizationContextPropertyNames = authorizationContextDataProvider.GetAuthorizationContextPropertyNames();
 
-            // If present, extract the authorization context data for assembling the segments, with authorization subject's values
-            var authorizationContextData = authorizationContext.Data == null 
-                ? null 
-                : authorizationContextDataProvider.GetContextData(authorizationContext.Data);
+            // TODO: GKM - Modify codegen to produce this output directly rather than strongly typed context data
+            
+            // ---------------------------------------------------------------------
+            // Convert the authorization context to tuples
+            // ---------------------------------------------------------------------
+            IEnumerable<(string name, object value)> authorizationContextTuples;
 
-            var authorizationSegments = GetAuthorizationSegments(relevantClaims, authorizationContextPropertyNames, authorizationContextData);
+            if (authorizationContext.Data == null)
+            {
+                authorizationContextTuples = authorizationContextPropertyNames.Select(n => (n, null as object));
+            }
+            else
+            {
+                var authorizationContextData = authorizationContextDataProvider.GetContextData(authorizationContext.Data);
+                
+                // TODO: GKM - Would need optimization -- preferably would be provided by reimplementing code generated artifacts here
+                authorizationContextTuples = authorizationContextPropertyNames.Select(n => (n, (typeof(TContextData)).GetProperty(n).GetValue(authorizationContextData)));
+            }
+            // ---------------------------------------------------------------------
+            
+            // // If present, extract the authorization context data for assembling the segments, with authorization subject's values
+            // var authorizationContextData = authorizationContext.Data == null 
+            //     ? null 
+            //     : authorizationContextDataProvider.GetContextData(authorizationContext.Data);
+
+            var authorizationSubjectEndpoints = 
+                GetAuthorizationSubjectEndpoints(authorizationContextTuples);
 
             // Convert the segments to general-purpose filters
-            var filters = AuthorizationSegmentsToFiltersConverter.Convert(authorizationSegments);
+            // var filters = 
+            //     authorizationSegmentEndpoints.Select(x => new AuthorizationFilterContext
+            //     {
+            //         ClaimEndpointNames = new []{ "EducationOrganizationId" },
+            //         ClaimEndpointValues = authorizationContext.ApiKeyContext.EducationOrganizationIds.Cast<object>().ToArray(),
+            //         ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
+            //         FilterName = 
+            //     })
+
+            var filters = authorizationSubjectEndpoints
+                // .GroupBy( s => (s.Name, s.AuthorizationPathModifier))
+                .Select(subjectEndpoint =>
+                    {
+                        // Get the name of the filter to use for this segment
+                        string filterName = GetAuthorizationFilterName(subjectEndpoint.Name, subjectEndpoint.AuthorizationPathModifier);
+
+                        return new AuthorizationFilterContext
+                        {
+                            FilterName = filterName,
+                            ClaimEndpointNames = new [] { "EducationOrganizationId" },
+                            ClaimEndpointValues = authorizationContext.ApiKeyContext.EducationOrganizationIds.Cast<object>().ToArray(),
+                            SubjectEndpointName = subjectEndpoint.Name,
+                            SubjectEndpointValue = subjectEndpoint.Value,
+                            ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
+                        };
+                    })
+                .ToArray();
 
             return new AuthorizationStrategyFiltering
             {
@@ -95,24 +144,19 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 Filters = filters,
                 Operator = FilterOperator.Or
             };
+            
+            string GetAuthorizationFilterName(string subjectEndpointName, string authorizationPathModifier)
+            {
+                return _filterNameBySubjectAndPathModifier.GetOrAdd(
+                    (subjectEndpointName, authorizationPathModifier),
+                    (x) => $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{x.Item1}{x.Item2}");
+            }
         }
 
-        private IReadOnlyList<ClaimsAuthorizationSegment> GetAuthorizationSegments(
-            IEnumerable<Claim> claims,
-            string[] authorizationContextPropertyNames,
-            TContextData authorizationContextData)
-        {
-            var builder = new AuthorizationBuilder<TContextData>(claims, EducationOrganizationCache, authorizationContextData);
+        private readonly ConcurrentDictionary<(string, string), string> _filterNameBySubjectAndPathModifier = new();
 
-            BuildAuthorizationSegments(builder, authorizationContextPropertyNames);
-
-            // Get the rules for execution
-            return builder.GetSegments();
-        }
-
-        protected abstract void BuildAuthorizationSegments(
-            AuthorizationBuilder<TContextData> authorizationBuilder,
-            string[] authorizationContextPropertyNames);
+        protected abstract SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
+            IEnumerable<(string name, object value)> authorizationContextTuples);
 
         /// <summary>
         /// Verifies all required dependencies have been injected successfully through property injection.

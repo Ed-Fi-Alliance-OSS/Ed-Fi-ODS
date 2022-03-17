@@ -24,9 +24,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
         {
             builder.RegisterType<SqlServerTableValuedParameterListSetter>()
                 .As<IParameterListSetter>();
-
-            builder.RegisterType<SqlServerAuthorizationSegmentSqlProvider>()
-                .As<IAuthorizationSegmentsSqlProvider>();
         }
     }
 }

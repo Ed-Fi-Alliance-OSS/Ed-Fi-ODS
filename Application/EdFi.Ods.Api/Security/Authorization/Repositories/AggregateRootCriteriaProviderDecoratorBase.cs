@@ -1,9 +1,8 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
@@ -32,7 +31,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
         private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
-        private readonly Lazy<List<string>> _sortedEducationOrganizationIdNames;
 
         private readonly ILog _logger;
 
@@ -46,16 +44,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
             _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
-
-            _sortedEducationOrganizationIdNames =
-                new Lazy<List<string>>(
-                    () =>
-                    {
-                        var sortedEdOrgNames = new List<string>(_educationOrganizationIdNamesProvider.GetAllNames());
-                        sortedEdOrgNames.Sort();
-
-                        return sortedEdOrgNames;
-                    });
 
             // Log entries for the concrete type
             _logger = LogManager.GetLogger(GetType());
@@ -74,7 +62,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             var authorizationFiltering = _authorizationFilterContextProvider.GetFilterContext();
 
             var unsupportedAuthorizationFilters = new HashSet<string>();
-            var unsupportedAuthorizationSegments = new HashSet<string>();
 
             // Create the "AND" junction
             var mainConjunction = new Conjunction();
@@ -127,8 +114,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     if (!TryApplyFilters(mainConjunction, andStrategy.Filters))
                     {
                         // All filters for AND strategies must be applied, and if not, this is an error condition
-                        throw new EdFiSecurityException(
-                            string.Join(" ", unsupportedAuthorizationFilters.Concat(unsupportedAuthorizationSegments)));
+                        throw new EdFiSecurityException(string.Join(" ", unsupportedAuthorizationFilters));
                     }
 
                     conjunctionFiltersApplied = true;
@@ -159,8 +145,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 // If we have some OR strategies with filters defined, but no filters were applied, this is an error condition
                 if (orStrategies.SelectMany(s => s.Filters).Any() && !disjunctionFiltersApplied)
                 {
-                    throw new EdFiSecurityException(
-                        string.Join(" ", unsupportedAuthorizationFilters.Concat(unsupportedAuthorizationSegments)));
+                    throw new EdFiSecurityException(string.Join(" ", unsupportedAuthorizationFilters));
                 }
                 
                 return disjunctionFiltersApplied;
@@ -181,25 +166,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         allFiltersCanBeApplied = false;
 
                         continue;
-                    }
-                
-                    // If the filter has claim endpoint names captured (i.e. this is a relationship-based filter) and the subject is an EdOrgId
-                    if ((filterDetails.ClaimEndpointNames?.Any() ?? false) 
-                        && filterDetails.SubjectEndpointName != "EducationOrganizationId"
-                        && _sortedEducationOrganizationIdNames.Value.BinarySearch(filterDetails.SubjectEndpointName) >= 0)
-                    {
-                        bool subjectIsInaccessible = filterDetails.ClaimEndpointNames.All(
-                            c => !_educationOrganizationIdNamesProvider.IsEducationOrganizationIdAccessible(
-                                c,
-                                filterDetails.SubjectEndpointName));
-
-                        if (subjectIsInaccessible)
-                        {
-                            unsupportedAuthorizationSegments.Add(
-                                $"Unable to authorize the request because there is no authorization support for associating the API client's associated education organization claim values (of type '{string.Join("', '", filterDetails.ClaimEndpointNames.OrderBy(x => x))}') with the '{filterDetails.SubjectEndpointName}' of the '{typeof(TEntity).Name}' resource.");
-                            
-                            allFiltersCanBeApplied = false;
-                        }
                     }
                 }
 
