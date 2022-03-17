@@ -113,14 +113,6 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                         GetRelationshipBasedAuthorizationStrategyContextDataType()))
                 .SingleInstance();
 
-            // ConcreteEducationOrganizationIdAuthorizationContextDataTransformer
-            builder.RegisterType(
-                    typeof(ConcreteEducationOrganizationIdAuthorizationContextDataTransformer<>).MakeGenericType(
-                        GetRelationshipBasedAuthorizationStrategyContextDataType())).As(
-                    typeof(IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<>).MakeGenericType(
-                        GetRelationshipBasedAuthorizationStrategyContextDataType()))
-                .SingleInstance();
-
             Type GetRelationshipBasedAuthorizationStrategyContextDataType() => typeof(RelationshipsAuthorizationContextData);
 
             builder.RegisterGeneric(typeof(SetAuthorizationContextForGet<,,,>))

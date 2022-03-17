@@ -27,19 +27,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     public abstract class RelationshipsAuthorizationStrategyBase<TContextData> : IAuthorizationStrategy
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
-        // TODO: GKM - Review for removal
-        private readonly IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData>
-            _concreteEducationOrganizationIdAuthorizationContextDataTransformer;
-
         private List<ValidationResult> _dependencyValidationResults;
 
         private readonly Lazy<string> _authorizationStrategyName;
 
-        protected RelationshipsAuthorizationStrategyBase(
-            IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<TContextData> concreteEducationOrganizationIdAuthorizationContextDataTransformer)
+        protected RelationshipsAuthorizationStrategyBase()
         {
-            _concreteEducationOrganizationIdAuthorizationContextDataTransformer = concreteEducationOrganizationIdAuthorizationContextDataTransformer;
-
             _authorizationStrategyName = new Lazy<string>(
                 () =>
                 {

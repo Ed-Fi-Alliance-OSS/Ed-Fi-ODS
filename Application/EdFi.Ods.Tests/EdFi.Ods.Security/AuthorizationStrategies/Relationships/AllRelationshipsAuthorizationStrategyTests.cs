@@ -32,7 +32,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
     using context_data_provider_factory = IRelationshipsAuthorizationContextDataProviderFactory<RelationshipsAuthorizationContextData>;
 
     // Dependency type aliases (for readability)
-    using context_data_transformer = IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<RelationshipsAuthorizationContextData>;
     using edorgs_and_people_strategy = RelationshipsWithEdOrgsAndPeopleAuthorizationStrategy<RelationshipsAuthorizationContextData>;
     using education_organization_cache = IEducationOrganizationCache;
     using segments_to_filters_converter = IAuthorizationSegmentsToFiltersConverter;
@@ -79,14 +78,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             return dependency;
         }
 
-        // public static IReturnValueArgumentValidationConfiguration<EducationOrganizationIdentifiers> that_given_an_education_organization_id_of(
-        //     this IEducationOrganizationCache dependency,
-        //     int educationOrganizationId)
-        // {
-        //     return
-        //         A.CallTo(() => dependency.GetEducationOrganizationIdentifiers(educationOrganizationId));
-        // }
-
         public static IEducationOrganizationIdHierarchyProvider that_always_returns_an_empty_graph(
             this IEducationOrganizationIdHierarchyProvider dependency)
         {
@@ -104,16 +95,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         {
             return A.CallTo(() => dependency.GetContextData(entity));
         }
-
-        public static context_data_transformer that_just_performs_a_passthrough_on_the_context_data(
-            this context_data_transformer dependency,
-            RelationshipsAuthorizationContextData contextData)
-        {
-            A.CallTo(() => dependency.GetConcreteAuthorizationContextData(contextData))
-                .Returns(contextData);
-
-            return dependency;
-        }
     }
 
     // -------------------------------------------------------
@@ -130,15 +111,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(object entity)
         {
             return new EdFiAuthorizationContext(new ApiKeyContext(), new ClaimsPrincipal(), new[] { "resource" }, "action", entity);
-        }
-
-        private class passthrough_context_data_transformer : context_data_transformer
-        {
-            public RelationshipsAuthorizationContextData GetConcreteAuthorizationContextData(
-                RelationshipsAuthorizationContextData authorizationContextData)
-            {
-                return authorizationContextData;
-            }
         }
 
         public class When_authorizing_a_multiple_item_request
@@ -305,9 +277,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                 Given<IEducationOrganizationIdHierarchyProvider>()
                     .that_always_returns_an_empty_graph();
 
-                Given<context_data_transformer>(
-                    new passthrough_context_data_transformer());
-
                 Given<context_data_provider>()
                     .that_returns_property_names(
                         Supplied(
@@ -372,9 +341,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 Given<IEducationOrganizationIdHierarchyProvider>()
                     .that_always_returns_an_empty_graph();
-
-                Given<context_data_transformer>(
-                    new passthrough_context_data_transformer());
 
                 Given<context_data_provider>()
                     .that_returns_property_names(
