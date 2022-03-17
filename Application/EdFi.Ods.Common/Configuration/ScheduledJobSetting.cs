@@ -11,7 +11,5 @@ public class ScheduledJobSetting
 
     public bool IsEnabled { get; set; }
         
-    public double StartAtMinutes { get; set; }
-
     public string CronExpression { get; set; }
 }
