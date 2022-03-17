@@ -8,31 +8,36 @@ using log4net;
 using Quartz;
 using Quartz.Impl.Matchers;
 
-namespace EdFi.Ods.Api.ScheduledJobs.Jobs;
-public class SchedulerStatusScheduledJob : IJob
+namespace EdFi.Ods.Api.ScheduledJobs.Jobs
 {
-    private readonly ILog _logger = LogManager.GetLogger(typeof(SchedulerStatusScheduledJob));
-    public async Task Execute(IJobExecutionContext context)
+    public class SchedulerStatusScheduledJob : IJob
     {
-        var scheduler = context.Scheduler;
-        var jobGroupNames = await scheduler.GetJobGroupNames();
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SchedulerStatusScheduledJob));
 
-        foreach (var jobGroupName in jobGroupNames)
+        public async Task Execute(IJobExecutionContext context)
         {
-            var groupMatcher = GroupMatcher<JobKey>.GroupContains(jobGroupName);
-            var jobKeys = await scheduler.GetJobKeys(groupMatcher);
+            var scheduler = context.Scheduler;
+            var jobGroupNames = await scheduler.GetJobGroupNames();
 
-            foreach (var jobKey in jobKeys)
+            foreach (var jobGroupName in jobGroupNames)
             {
-                var triggers = await scheduler.GetTriggersOfJob(jobKey);
+                var groupMatcher = GroupMatcher<JobKey>.GroupContains(jobGroupName);
+                var jobKeys = await scheduler.GetJobKeys(groupMatcher);
 
-                foreach (ITrigger trigger in triggers)
+                foreach (var jobKey in jobKeys)
                 {
-                    _logger.Info($"Previous trigger for scheduled Job {jobKey.Name} was last executed at {trigger.GetPreviousFireTimeUtc()}");
-                    _logger.Info($"Next trigger for scheduled Job {jobKey.Name} is scheduled for {trigger.GetNextFireTimeUtc()}");
+                    var triggers = await scheduler.GetTriggersOfJob(jobKey);
+
+                    foreach (ITrigger trigger in triggers)
+                    {
+                        _logger.Info(
+                            $"Previous trigger for scheduled Job {jobKey.Name} was last executed at {trigger.GetPreviousFireTimeUtc()}");
+
+                        _logger.Info(
+                            $"Next trigger for scheduled Job {jobKey.Name} is scheduled for {trigger.GetNextFireTimeUtc()}");
+                    }
                 }
             }
         }
-        
     }
 }

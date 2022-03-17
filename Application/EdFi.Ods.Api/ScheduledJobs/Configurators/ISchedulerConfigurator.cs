@@ -8,12 +8,15 @@ using System.Threading.Tasks;
 using EdFi.Ods.Common.Configuration;
 using Quartz;
 
-namespace EdFi.Ods.Api.ScheduledJobs.Configurators;
-
-public interface ISchedulerConfigurator
+namespace EdFi.Ods.Api.ScheduledJobs.Configurators
 {
-    string Name { get; }
-    Task AddScheduledJob(IScheduler scheduler, ScheduledJobSetting scheduledJobSetting, CancellationToken cancellationToken = default);
+    public interface ISchedulerConfigurator
+    {
+        string Name { get; }
 
-    JobBuilder GetJobBuilder();
+        Task AddScheduledJob(IScheduler scheduler, ScheduledJobSetting scheduledJobSetting,
+            CancellationToken cancellationToken = default);
+
+        JobBuilder GetJobBuilder();
+    }
 }

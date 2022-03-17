@@ -3,25 +3,24 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using EdFi.Ods.Api.ScheduledJobs.Configurators;
 using EdFi.Ods.Api.ScheduledJobs.Jobs;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace EdFi.Ods.Api.ScheduledJobs.Providers;
-
-public class SchedulerConfiguratorProvider: ISchedulerConfiguratorProvider
+namespace EdFi.Ods.Api.ScheduledJobs.Providers
 {
-    private readonly List<ISchedulerConfigurator> _configurators = new()
-    { 
-        new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>(),
-        new SchedulerConfigurator<SchedulerStatusScheduledJob>()
-    };
-
-    public ISchedulerConfigurator GetSchedulerConfigurator(string name)
+    public class SchedulerConfiguratorProvider : ISchedulerConfiguratorProvider
     {
-        return _configurators.FirstOrDefault(a => a.Name == name);
+        private readonly List<ISchedulerConfigurator> _configurators = new()
+        {
+            new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>(),
+            new SchedulerConfigurator<SchedulerStatusScheduledJob>()
+        };
+
+        public ISchedulerConfigurator GetSchedulerConfigurator(string name)
+        {
+            return _configurators.FirstOrDefault(a => a.Name == name);
+        }
     }
 }
