@@ -21,10 +21,7 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
         public override string ToString()
         {
-            return ActionName
-                   + " ("
-                   + (string.Join(", ", AuthorizationStrategy ?? Enumerable.Empty<string>()) ?? "*No Strategy*")
-                   + ")";
+            return $"{ActionName} ({(AuthorizationStrategy == null ? "*No Strategy*" : string.Join(", ", AuthorizationStrategy))})";
         }
     }
 }

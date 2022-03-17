@@ -105,24 +105,14 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
         public bool IsIndeterminate()
         {
-            if (ActionGranted != true // We're not dealing with an actual claim grant
-                && (AuthorizationStrategy == null || AuthorizationStrategy != null && AuthorizationStrategyInherited)) // No local authorization
-            {
-                return true;
-            }
-
-            return false;
+            return ActionGranted != true // We're not dealing with an actual claim grant
+                && (AuthorizationStrategy == null || AuthorizationStrategy != null && AuthorizationStrategyInherited); // No local authorization
         }
 
         public override string ToString()
         {
-            return ActionGranted == true
-                ? "Granted - "
-                  + (AuthorizationStrategy == null
-                      ? "*No Strategy*"
-                      : AuthorizationStrategy)
-                  + " (inherited=" + AuthorizationStrategyInherited
-                  + "; isDefault=" + AuthorizationStrategyIsDefault + ")"
+            return ActionGranted == true 
+                ? $"Granted - {(AuthorizationStrategy == null ? "*No Strategy*" : string.Join(", ", AuthorizationStrategy))} (inherited={AuthorizationStrategyInherited}; isDefault={AuthorizationStrategyIsDefault})"
                 : "Not Granted";
         }
     }
