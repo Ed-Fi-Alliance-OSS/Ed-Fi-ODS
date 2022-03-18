@@ -13,91 +13,80 @@ using FakeItEasy;
 using NUnit.Framework;
 using Quartz;
 
-namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs;
-
-[TestFixture]
-public class SchedulerConfiguratorTests
+namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
 {
-    [Test]
-    public void MissingCronExpressionShouldApplyDefaultCronExpression()
+    [TestFixture]
+    public class SchedulerConfiguratorTests
     {
-        ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting();
-        var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
-
-        var expectedResult = SchedulerConfigurator<DeleteExpiredTokensScheduledJob>.DefaultCronExpression;
-        var actualResult = configurator.GetCronExpression(scheduledJobSetting);
-
-        Assert.AreEqual(expectedResult, actualResult);
-    }
-
-    [Test]
-    public void EmptyCronExpressionShouldApplyDefaultCronExpression()
-    {
-        ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting()
+        [Test]
+        public void MissingCronExpressionShouldApplyDefaultCronExpression()
         {
-            CronExpression = ""
-        };
+            ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting();
+            var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
 
-        var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
+            var expectedResult = SchedulerConfigurator<DeleteExpiredTokensScheduledJob>.DefaultCronExpression;
+            var actualResult = configurator.GetCronExpression(scheduledJobSetting);
 
-        var expectedResult = SchedulerConfigurator<DeleteExpiredTokensScheduledJob>.DefaultCronExpression;
-        var actualResult = configurator.GetCronExpression(scheduledJobSetting);
+            Assert.AreEqual(expectedResult, actualResult);
+        }
 
-        Assert.AreEqual(expectedResult, actualResult);
-    }
-
-    [Test]
-    public void InvalidCronExpressionShouldApplyDefaultCronExpression()
-    {
-        ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting()
+        [Test]
+        public void EmptyCronExpressionShouldApplyDefaultCronExpression()
         {
-            CronExpression = "INVALID_CRON_SCHEDULE"
-        };
+            ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting() {CronExpression = ""};
 
-        var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
+            var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
 
-        var expectedResult = SchedulerConfigurator<DeleteExpiredTokensScheduledJob>.DefaultCronExpression;
-        var actualResult = configurator.GetCronExpression(scheduledJobSetting);
+            var expectedResult = SchedulerConfigurator<DeleteExpiredTokensScheduledJob>.DefaultCronExpression;
+            var actualResult = configurator.GetCronExpression(scheduledJobSetting);
 
-        Assert.AreEqual(expectedResult, actualResult);
-    }
+            Assert.AreEqual(expectedResult, actualResult);
+        }
 
-    [Test]
-    public void ValidCronExpressionShouldApplyDefaultCronExpression()
-    {
-        string validCronSchedule = "0 0/20 * 1/1 * ? *";
-        ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting()
+        [Test]
+        public void InvalidCronExpressionShouldApplyDefaultCronExpression()
         {
-            CronExpression = validCronSchedule
-        };
+            ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting() {CronExpression = "INVALID_CRON_SCHEDULE"};
 
-        var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
+            var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
 
-        var expectedResult = validCronSchedule;
-        var actualResult = configurator.GetCronExpression(scheduledJobSetting);
+            var expectedResult = SchedulerConfigurator<DeleteExpiredTokensScheduledJob>.DefaultCronExpression;
+            var actualResult = configurator.GetCronExpression(scheduledJobSetting);
 
-        Assert.AreEqual(expectedResult, actualResult);
-    }
+            Assert.AreEqual(expectedResult, actualResult);
+        }
 
-    [Test]
-    public async Task AddSchedulerJobShouldCallScheduleJobOnScheduler()
-    {
-        IScheduler scheduler = A.Fake<IScheduler>();
-        CancellationToken cancellationToken = default(CancellationToken);
-        
-        string validCronSchedule = "0 0/20 * 1/1 * ? *";
-        ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting()
+        [Test]
+        public void ValidCronExpressionShouldApplyDefaultCronExpression()
         {
-            CronExpression = validCronSchedule
-        };
-        
-        var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
-        IJobDetail jobDetail = configurator.GetJobDetail(scheduledJobSetting);
-        ITrigger trigger = configurator.GetTrigger(scheduledJobSetting);
-        
-        await configurator.AddScheduledJob(scheduler, scheduledJobSetting, cancellationToken);
+            string validCronSchedule = "0 0/20 * 1/1 * ? *";
+            ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting() {CronExpression = validCronSchedule};
 
-        A.CallTo(
-            () => scheduler.ScheduleJob(jobDetail, trigger, cancellationToken)).MustHaveHappened();
+            var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
+
+            var expectedResult = validCronSchedule;
+            var actualResult = configurator.GetCronExpression(scheduledJobSetting);
+
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [Test]
+        public async Task AddSchedulerJobShouldCallScheduleJobOnScheduler()
+        {
+            IScheduler scheduler = A.Fake<IScheduler>();
+            CancellationToken cancellationToken = default(CancellationToken);
+
+            string validCronSchedule = "0 0/20 * 1/1 * ? *";
+            ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting() {CronExpression = validCronSchedule};
+
+            var configurator = new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>();
+            IJobDetail jobDetail = configurator.GetJobDetail(scheduledJobSetting);
+            ITrigger trigger = configurator.GetTrigger(scheduledJobSetting);
+
+            await configurator.AddScheduledJob(scheduler, scheduledJobSetting, cancellationToken);
+
+            A.CallTo(
+                () => scheduler.ScheduleJob(jobDetail, trigger, cancellationToken)).MustHaveHappened();
+        }
     }
 }
