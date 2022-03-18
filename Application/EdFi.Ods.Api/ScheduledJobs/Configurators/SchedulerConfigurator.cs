@@ -3,8 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using EdFi.Ods.Common.Configuration;
+using log4net;
 using Quartz;
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,11 +16,13 @@ namespace EdFi.Ods.Api.ScheduledJobs.Configurators
     public class SchedulerConfigurator<T> : ISchedulerConfigurator
         where T : IJob
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SchedulerConfigurator<T>));
+
         public const string DefaultCronExpression = "0 0/30 * 1/1 * ? *"; // Run every 30 minutes repeatedly
 
         public SchedulerConfigurator(string name)
         {
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
         public string Name { get; }
@@ -57,10 +62,15 @@ namespace EdFi.Ods.Api.ScheduledJobs.Configurators
 
         public string GetCronExpression(ScheduledJobSetting scheduledJobSetting)
         {
-            return scheduledJobSetting?.CronExpression != null &&
-                   CronExpression.IsValidExpression(scheduledJobSetting.CronExpression)
-                ? scheduledJobSetting.CronExpression
-                : DefaultCronExpression;
+            bool isCronExpressionValid = scheduledJobSetting?.CronExpression != null && CronExpression.IsValidExpression(scheduledJobSetting.CronExpression);
+
+            if (isCronExpressionValid)
+            {
+                return scheduledJobSetting.CronExpression;
+            }
+            
+            _logger.Warn($"Invalid cron expression provided for scheduled job: {scheduledJobSetting.Name}");
+            return DefaultCronExpression;
         }
     }
 }

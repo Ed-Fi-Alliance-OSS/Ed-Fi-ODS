@@ -397,7 +397,7 @@ namespace EdFi.Ods.Api.Startup
                 }
                 else
                 {
-                    _logger.Debug($"Scheduled job: {scheduledJobSetting.Name} is not available in the background task scheduling service");
+                    _logger.Warn($"Scheduled job: {scheduledJobSetting.Name} is not available in the background task scheduling service");
                 }
             });
         }
