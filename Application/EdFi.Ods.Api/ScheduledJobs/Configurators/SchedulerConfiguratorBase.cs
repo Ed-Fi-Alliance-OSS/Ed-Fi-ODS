@@ -3,34 +3,24 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using EdFi.Ods.Common.Configuration;
 using log4net;
 using Quartz;
-using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace EdFi.Ods.Api.ScheduledJobs.Configurators
 {
-    public class SchedulerConfigurator<T> : ISchedulerConfigurator
+    public abstract class SchedulerConfiguratorBase<T> : ISchedulerConfigurator
         where T : IJob
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(SchedulerConfigurator<T>));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SchedulerConfiguratorBase<T>));
 
         public const string DefaultCronExpression = "0 0/30 * 1/1 * ? *"; // Run every 30 minutes repeatedly
 
-        public SchedulerConfigurator(string name)
-        {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-        }
+        public abstract string Name { get; }
 
-        public string Name { get; }
-
-        public JobBuilder GetJobBuilder()
-        {
-            return JobBuilder.Create<T>();
-        }
+        public abstract JobBuilder GetJobBuilder();
 
         public async Task AddScheduledJob(IScheduler scheduler, ScheduledJobSetting scheduledJobSetting,
             CancellationToken cancellationToken = default)

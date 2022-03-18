@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Api.ScheduledJobs.Configurators;
-using EdFi.Ods.Api.ScheduledJobs.Jobs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,11 +12,12 @@ namespace EdFi.Ods.Api.ScheduledJobs.Providers
 {
     public class SchedulerConfiguratorProvider : ISchedulerConfiguratorProvider
     {
-        private readonly List<ISchedulerConfigurator> _configurators = new()
+        private readonly IEnumerable<ISchedulerConfigurator> _configurators;
+
+        public SchedulerConfiguratorProvider(IEnumerable<ISchedulerConfigurator> configurators)
         {
-            new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>("DeleteExpiredTokens"),
-            new SchedulerConfigurator<SchedulerStatusScheduledJob>("SchedulerStatus")
-        };
+            _configurators = configurators ?? throw new ArgumentNullException(nameof(configurators));
+        }
 
         public ISchedulerConfigurator GetSchedulerConfigurator(string name)
         {

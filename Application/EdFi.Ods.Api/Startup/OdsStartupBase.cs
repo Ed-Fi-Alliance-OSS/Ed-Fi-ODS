@@ -25,6 +25,7 @@ using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.MediaTypeFormatters;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Api.ScheduledJobs.Configurators;
 using EdFi.Ods.Api.ScheduledJobs.Providers;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
@@ -55,6 +56,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Quartz;
+using EdFi.Ods.Api.ScheduledJobs.Extensions;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -198,17 +200,7 @@ namespace EdFi.Ods.Api.Startup
             }
 
             services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(databaseEngine));
-
-            services.AddQuartz(
-                q =>
-                {
-                    q.UseMicrosoftDependencyInjectionJobFactory();
-                });
-
-            services.AddQuartzServer(options =>
-            {
-                options.WaitForJobsToComplete = true;
-            });
+            services.AddScheduledJobs(ApiSettings, _logger);
         }
 
         private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.InvariantCultureIgnoreCase);
@@ -312,7 +304,7 @@ namespace EdFi.Ods.Api.Startup
 
             RunExternalTasks();
 
-            ConfigureScheduledJobs(app);
+            app.ConfigureScheduledJobs(ApiSettings, Container, _logger);
 
             void RunExternalTasks()
             {
@@ -367,41 +359,7 @@ namespace EdFi.Ods.Api.Startup
                 NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
         }
-
-        // The purpose of the ConfigureScheduleJobs method is to wire-up background tasks to be handled by quartz-scheduler.net
-        private async void ConfigureScheduledJobs(IApplicationBuilder app)
-        {
-            var enabledDistinctScheduledJobs =
-                ApiSettings.ScheduledJobs
-                    .Where(a => a.IsEnabled)
-                    .GroupBy(a => a.Name)
-                    .Select(a => a.First()).ToList();
-
-            if (!enabledDistinctScheduledJobs.Any())
-            {
-                return;
-            }
-
-            var schedulerFactory = app.ApplicationServices.GetService<ISchedulerFactory>();
-            var scheduler = await schedulerFactory.GetScheduler();
-
-            ISchedulerConfiguratorProvider schedulerConfiguratorProvider = Container.Resolve<ISchedulerConfiguratorProvider>();
-            enabledDistinctScheduledJobs.ForEach(async scheduledJobSetting =>
-            {
-                var configurator = schedulerConfiguratorProvider.GetSchedulerConfigurator(scheduledJobSetting.Name);
-
-                if (configurator != null)
-                {
-                    _logger.Debug($"Scheduled job: {scheduledJobSetting.Name} added to background task scheduling service");
-                    await configurator.AddScheduledJob(scheduler, scheduledJobSetting);
-                }
-                else
-                {
-                    _logger.Warn($"Scheduled job: {scheduledJobSetting.Name} is not available in the background task scheduling service");
-                }
-            });
-        }
-
+        
         private string GetPluginFolder()
         {
             if (string.IsNullOrWhiteSpace(Plugin.Folder))
