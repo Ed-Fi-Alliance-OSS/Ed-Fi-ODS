@@ -66,7 +66,7 @@ namespace EdFi.Ods.Api.Startup
 
         public OdsStartupBase(IWebHostEnvironment env, IConfiguration configuration)
         {
-            Configuration = (IConfigurationRoot)configuration;
+            Configuration = (IConfigurationRoot) configuration;
 
             ApiSettings = new ApiSettings();
 
@@ -198,7 +198,7 @@ namespace EdFi.Ods.Api.Startup
             }
 
             services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(databaseEngine));
-            
+
             services.AddQuartz(
                 q =>
                 {
@@ -313,7 +313,7 @@ namespace EdFi.Ods.Api.Startup
             RunExternalTasks();
 
             ConfigureScheduledJobs(app);
-            
+
             void RunExternalTasks()
             {
                 foreach (IExternalTask externalTask in Container.Resolve<IEnumerable<IExternalTask>>())
@@ -389,8 +389,9 @@ namespace EdFi.Ods.Api.Startup
             enabledDistinctScheduledJobs.ForEach(async scheduledJobSetting =>
             {
                 var configurator = schedulerConfiguratorProvider.GetSchedulerConfigurator(scheduledJobSetting.Name);
-                
-                if (configurator != null){
+
+                if (configurator != null)
+                {
                     _logger.Debug($"Scheduled job: {scheduledJobSetting.Name} added to background task scheduling service");
                     await configurator.AddScheduledJob(scheduler, scheduledJobSetting);
                 }
