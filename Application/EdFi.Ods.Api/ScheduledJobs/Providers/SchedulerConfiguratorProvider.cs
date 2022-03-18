@@ -14,8 +14,8 @@ namespace EdFi.Ods.Api.ScheduledJobs.Providers
     {
         private readonly List<ISchedulerConfigurator> _configurators = new()
         {
-            new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>(),
-            new SchedulerConfigurator<SchedulerStatusScheduledJob>()
+            new SchedulerConfigurator<DeleteExpiredTokensScheduledJob>("DeleteExpiredTokens"),
+            new SchedulerConfigurator<SchedulerStatusScheduledJob>("SchedulerStatus")
         };
 
         public ISchedulerConfigurator GetSchedulerConfigurator(string name)

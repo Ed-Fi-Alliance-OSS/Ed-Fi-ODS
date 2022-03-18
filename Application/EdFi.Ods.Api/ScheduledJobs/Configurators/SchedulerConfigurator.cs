@@ -15,11 +15,12 @@ namespace EdFi.Ods.Api.ScheduledJobs.Configurators
     {
         public const string DefaultCronExpression = "0 0/30 * 1/1 * ? *"; // Run every 30 minutes repeatedly
 
-        public string Name
+        public SchedulerConfigurator(string name)
         {
-            get => typeof(T).FullName?.Replace(typeof(T).Namespace ?? string.Empty, string.Empty)
-                .Replace("ScheduledJob", string.Empty).Replace(".", string.Empty);
+            Name = name;
         }
+
+        public string Name { get; }
 
         public JobBuilder GetJobBuilder()
         {
