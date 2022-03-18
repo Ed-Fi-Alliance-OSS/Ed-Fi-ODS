@@ -242,11 +242,11 @@ namespace EdFi.Ods.Api.Startup
 
                     if (type.IsSubclassOf(typeof(ConditionalModule)))
                     {
-                        builder.RegisterModule((IModule)Activator.CreateInstance(type, ApiSettings));
+                        builder.RegisterModule((IModule) Activator.CreateInstance(type, ApiSettings));
                     }
                     else
                     {
-                        builder.RegisterModule((IModule)Activator.CreateInstance(type));
+                        builder.RegisterModule((IModule) Activator.CreateInstance(type));
                     }
                 }
             }
