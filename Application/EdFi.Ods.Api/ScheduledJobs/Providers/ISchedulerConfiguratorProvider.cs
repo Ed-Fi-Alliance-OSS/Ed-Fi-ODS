@@ -5,9 +5,10 @@
 
 using EdFi.Ods.Api.ScheduledJobs.Configurators;
 
-namespace EdFi.Ods.Api.ScheduledJobs.Providers;
-
-public interface ISchedulerConfiguratorProvider
+namespace EdFi.Ods.Api.ScheduledJobs.Providers
 {
-    ISchedulerConfigurator GetSchedulerConfigurator(string name);
+    public interface ISchedulerConfiguratorProvider
+    {
+        ISchedulerConfigurator GetSchedulerConfigurator(string name);
+    }
 }
