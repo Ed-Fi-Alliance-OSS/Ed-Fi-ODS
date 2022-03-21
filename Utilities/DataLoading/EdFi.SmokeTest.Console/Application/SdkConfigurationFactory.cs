@@ -27,7 +27,7 @@ namespace EdFi.SmokeTest.Console.Application
             var defaultHeader = new Dictionary<string, string>
                                 {
                                     {
-                                        EdFiConstants.Authorization, string.Empty
+                                        "Content-Type","application/json"
                                     }
                                 };
 
