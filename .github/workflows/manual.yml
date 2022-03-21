@@ -1,4 +1,4 @@
-name: Manually triggered build
+name: EdFi.Admin.DataAccess Manually triggered build
 
 on:
   workflow_dispatch:

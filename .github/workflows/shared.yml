@@ -1,4 +1,4 @@
-name: Shared workflow
+name: EdFi.Admin.DataAccess Shared workflow
 
 on:
   workflow_call:
