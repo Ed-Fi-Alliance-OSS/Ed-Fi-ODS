@@ -116,11 +116,11 @@ namespace EdFi.Ods.Sandbox.Provisioners
                             .ConfigureAwait(false);
 
 
-                        var changeLogicalDataName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME={logicalName}, NEWNAME={newDatabaseName})";
+                        var changeLogicalDataName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalName}', NEWNAME='{newDatabaseName}')";
                         await conn.ExecuteAsync(changeLogicalDataName, commandTimeout: CommandTimeout)
                                   .ConfigureAwait(false);
 
-                        var changeLogicalLogName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME={logicalName}_log, NEWNAME={newDatabaseName}_log)";
+                        var changeLogicalLogName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalName}_log', NEWNAME='{newDatabaseName}_log')";
                         await conn.ExecuteAsync(changeLogicalLogName, commandTimeout: CommandTimeout)
                                   .ConfigureAwait(false);
                     }
