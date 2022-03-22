@@ -97,6 +97,17 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
                         string logicalName = null;
 
+                        _logger.Debug($"dropping {newDatabaseName} it it exists.");
+                        var dropDbIfExists = $@"
+                            IF EXISTS (SELECT name from sys.databases WHERE (name = '{newDatabaseName}'))
+                                BEGIN
+                                    ALTER DATABASE [{newDatabaseName}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                                    DROP DATABASE [{newDatabaseName}];
+                                END;
+                        ";
+                        await conn.ExecuteAsync(dropDbIfExists, commandTimeout: CommandTimeout)
+                            .ConfigureAwait(false);
+
                         _logger.Debug($"restoring files from {backup}.");
 
                         using (var reader = await conn.ExecuteReaderAsync($@"RESTORE FILELISTONLY FROM DISK = '{backup}';", commandTimeout: CommandTimeout)
