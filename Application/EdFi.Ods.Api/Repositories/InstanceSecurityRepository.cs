@@ -213,5 +213,10 @@ namespace EdFi.Security.DataAccess.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void LoadGetManyResourcesMultipleAuthorizationData()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

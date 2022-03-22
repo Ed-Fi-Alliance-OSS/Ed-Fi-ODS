@@ -32,6 +32,74 @@ namespace EdFi.Security.DataAccess.Repositories
                 GetResourceClaimActionAuthorizations);
         }
 
+        public void LoadGetManyResourcesMultipleAuthorizationData()
+        {
+            using (var context = _securityContextFactory.CreateContext())
+            {
+
+                var authorizationStrategyNameList = new string[] {
+                    "OwnershipBased",
+                    "RelationshipsWithEdOrgsAndPeople",
+                    "RelationshipsWithStudentsOnlyThroughResponsibility"
+                };
+
+                var studentSectionAssociationResourceClaimId = context.ResourceClaims.FirstOrDefault(x => x.ClaimName.Equals("http://ed-fi.org/ods/identity/claims/studentSectionAssociation")).ResourceClaimId;
+                var readActionId = context.Actions.FirstOrDefault(a=>a.ActionName.ToLower()=="read").ActionId;
+
+                var edFiSandboxClaimSetId = context.ClaimSets.FirstOrDefault(a => a.ClaimSetName == "Ed-Fi Sandbox").ClaimSetId;
+                var AuthorizationStrategyList = context.AuthorizationStrategies.Where(a => authorizationStrategyNameList.Contains(a.AuthorizationStrategyName)).ToList();
+
+                var claimSetResourceClaimActions = new List<ClaimSetResourceClaimAction>();
+
+               if (!context.ClaimSetResourceClaimActions.Any(a => a.ActionId == readActionId && a.ResourceClaimId == studentSectionAssociationResourceClaimId
+                        && a.ClaimSetId == edFiSandboxClaimSetId))
+                        {
+                            claimSetResourceClaimActions.Add(
+                               new ClaimSetResourceClaimAction
+                               {
+                                   ResourceClaimId = studentSectionAssociationResourceClaimId,
+                                   ActionId = readActionId,
+                                   ClaimSetId = edFiSandboxClaimSetId
+                               });
+               }
+
+
+                if (claimSetResourceClaimActions.Any())
+                {
+                    context.ClaimSetResourceClaimActions.AddRange(claimSetResourceClaimActions);
+                    context.SaveChanges();
+                }
+
+                var claimSetResourceClaimActionId = context.ClaimSetResourceClaimActions.Where(x => x.ResourceClaimId== studentSectionAssociationResourceClaimId)
+                    .Where(x => x.ClaimSetId == edFiSandboxClaimSetId).Select(y=>y.ClaimSetResourceClaimActionId).Single();
+
+                var claimSetResourceClaimActionAuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>();
+
+                  AuthorizationStrategyList.ForEach(authorizationStrategy =>
+                    {
+
+                        if (!context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Any(a => a.ClaimSetResourceClaimActionId == claimSetResourceClaimActionId
+                        && a.AuthorizationStrategyId == authorizationStrategy.AuthorizationStrategyId))
+                        {
+                            claimSetResourceClaimActionAuthorizationStrategyOverrides.Add(
+                              new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+                              {
+                                  ClaimSetResourceClaimActionId = claimSetResourceClaimActionId,
+                                  AuthorizationStrategyId = authorizationStrategy.AuthorizationStrategyId
+                              });
+                        }
+                    });
+
+                if (claimSetResourceClaimActionAuthorizationStrategyOverrides.Any())
+                {
+                    context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.AddRange(claimSetResourceClaimActionAuthorizationStrategyOverrides);
+                    context.SaveChanges();
+                }
+            }
+
+            Reset();
+        }
+
         public void LoadRecordOwnershipData()
         {
             using (var context = _securityContextFactory.CreateContext())
