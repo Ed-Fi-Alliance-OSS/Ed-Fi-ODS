@@ -22,7 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
     - name: Setup .NET
-      uses: actions/setup-dotnet@dc30e5defeb4a0047e149c684eab597f5f37f67d # v1
+      uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
     - name: build
