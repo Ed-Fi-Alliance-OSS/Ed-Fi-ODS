@@ -874,7 +874,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 5001, 255901001 of types 'CommunityProviderId', 'SchoolId') and one of the following properties of the requested resource: 'EducationOrganizationId', 'StudentUniqueId'.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and one of the following properties of the requested resource: 'EducationOrganizationId', 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1382,7 +1382,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 5001, 255901001 of types 'CommunityProviderId', 'SchoolId') and the requested resource's 'SchoolId' value.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and the requested resource's 'SchoolId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1536,7 +1536,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 5001, 255901001 of types 'CommunityProviderId', 'SchoolId') and the requested resource's 'CommunityProviderId' value.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and the requested resource's 'CommunityProviderId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1753,7 +1753,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 51, 5001 of types 'CommunityProviderId', 'PostSecondaryInstitutionId') and one of the following properties of the requested resource: 'EducationOrganizationId', 'StudentUniqueId'.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (51, 5001) and one of the following properties of the requested resource: 'EducationOrganizationId', 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
