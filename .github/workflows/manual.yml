@@ -1,0 +1,15 @@
+name: EdFi.Admin.DataAccess Manually triggered build
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+
+jobs:
+  call-shared-workflow:
+    uses: ./.github/workflows/shared.yml
+    with:
+      publish: true
