@@ -351,7 +351,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var client = CreateApiClient(context, userId, name, sandboxType, key, secret);
+                var client = GetClient(key, secret) ?? CreateApiClient(context, userId, name, sandboxType, key, secret);
 
                 AddApplicationEducationOrganizations(context, applicationId, client);
 
