@@ -418,7 +418,7 @@
 					"response": []
 				},
 				{
-					"name": "Invalid SchoolID validation",
+					"name": "Non-existing SchoolID validation",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -445,17 +445,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3422f6b0-79da-47e4-b548-4131d04d6847",
 								"exec": [
 									"pm.test(\"Status code is 403\", () => {",
 									"    pm.expect(pm.response.code).to.equal(403);",
 									"});",
 									"",
-									"pm.test(\"Should return the item with Invalid SchoolId Validation string\", () => {",
-									"     ",
-									"     const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"Authorization denied. No relationships have been established between the caller's education organization id claim (value 255901 of type 'LocalEducationAgencyId') and the requested resource's 'SchoolId' value.\");",
-									"      ",
+									"const responseItem = pm.response.json();",
+									"",
+									"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
+									"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901) and the resource item's 'SchoolId' value.\");",
 									"});"
 								],
 								"type": "text/javascript"
