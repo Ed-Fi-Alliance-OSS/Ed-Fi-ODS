@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.21" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.22" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.12" />
     <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="Autofac.Extras.FakeItEasy" Version="7.0.0" />

@@ -40,7 +40,12 @@ namespace EdFi.Ods.Sandbox.Provisioners
         {
             using (var conn = CreateConnection())
             {
-                string sql = $"SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{originalDatabaseName}';CREATE DATABASE \"{newDatabaseName}\" TEMPLATE \"{originalDatabaseName}\";";
+                string sql = @$"
+                    SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{originalDatabaseName}'; 
+                    SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{newDatabaseName}'; 
+                    DROP DATABASE IF EXISTS ""{newDatabaseName}"";
+                    CREATE DATABASE ""{newDatabaseName}"" TEMPLATE ""{originalDatabaseName}""
+                ";
 
                 await conn.ExecuteAsync(sql, commandTimeout: CommandTimeout).ConfigureAwait(false);
             }
