@@ -75,9 +75,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             return JsonClaimHelper.CreateClaim("xyz", new EdFiResourceClaimValue("read", new List<int>(educationOrganizationIds)));
         }
 
-        private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(object entity)
+        private static EdFiAuthorizationContext Given_an_authorization_context_with_entity_data(ApiKeyContext apiKeyContext, object entity)
         {
-            return new EdFiAuthorizationContext(new ApiKeyContext(), new ClaimsPrincipal(), new[] { "resource" }, "action", entity);
+            return new EdFiAuthorizationContext(apiKeyContext, new ClaimsPrincipal(), new[] { "resource" }, "action", entity);
         }
 
         public class When_authorizing_a_multiple_item_request
@@ -99,7 +99,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 Supplied("entity", new object());
 
-                Supplied(Given_an_authorization_context_with_entity_data(Supplied("entity")));
+                Supplied(Given_an_authorization_context_with_entity_data(
+                    ApiKeyContextHelper.GetApiKeyContextWithEdOrgIds(Supplied<int>("LocalEducationAgencyId")),
+                    Supplied("entity")));
 
                 Supplied(
                     Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(
@@ -136,7 +138,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
 
                 Supplied("entity", new object());
 
-                Supplied(Given_an_authorization_context_with_entity_data(Supplied("entity")));
+                Supplied(Given_an_authorization_context_with_entity_data(
+                    ApiKeyContextHelper.GetApiKeyContextWithEdOrgIds(
+                        Supplied<int>("LocalEducationAgencyId"),
+                        Supplied<int>("SchoolId")),
+                    Supplied("entity")));
 
                 Supplied(
                     Given_a_claim_for_an_arbitrary_resource_for_EducationOrganization_identifiers(
@@ -203,6 +209,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     .that_given_entity(Supplied("entity"))
                     .Returns(Supplied<RelationshipsAuthorizationContextData>());
 
+                Supplied(Given_an_authorization_context_with_entity_data(
+                    ApiKeyContextHelper.GetApiKeyContextWithEdOrgIds(
+                        Supplied<int>("LocalEducationAgencyId")),
+                    Supplied("entity")));
+                
                 Given<context_data_provider_factory>()
                     .that_always_returns(Given<context_data_provider>());
 
@@ -215,7 +226,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             {
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
                     new[] { Supplied<Claim>() },
-                    Given_an_authorization_context_with_entity_data(Supplied("entity")));
+                    Supplied<EdFiAuthorizationContext>());
             }
 
             [Assert]
@@ -262,6 +273,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     .that_given_entity(Supplied("entity"))
                     .Returns(Supplied<RelationshipsAuthorizationContextData>());
 
+                Supplied(Given_an_authorization_context_with_entity_data(
+                    ApiKeyContextHelper.GetApiKeyContextWithEdOrgIds(
+                        Supplied<int>("LocalEducationAgencyId")),
+                    Supplied("entity")));
+                
                 Given<context_data_provider_factory>()
                     .that_always_returns(Given<context_data_provider>());
 
@@ -274,7 +290,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             {
                 SystemUnderTest.GetAuthorizationStrategyFiltering(
                     new[] { Supplied<Claim>() },
-                    Given_an_authorization_context_with_entity_data(Supplied("entity")));
+                    Supplied<EdFiAuthorizationContext>());
             }
         }
     }
