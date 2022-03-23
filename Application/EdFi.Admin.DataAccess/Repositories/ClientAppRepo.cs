@@ -369,7 +369,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             var attachedUser = context.Users.Find(userId);
 
-            return attachedUser.AddSandboxClient(name, sandboxType, key, secret);
+            return GetClient(key, secret) ?? attachedUser.AddSandboxClient(name, sandboxType, key, secret);
         }
 
         public void AddLeaIdsToApiClient(int userId, int apiClientId, IList<int> leaIds, int applicationId)
