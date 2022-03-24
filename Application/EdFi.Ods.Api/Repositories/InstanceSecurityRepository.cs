@@ -214,7 +214,7 @@ namespace EdFi.Security.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public void LoadGetManyResourcesMultipleAuthorizationData()
+        public void LoadMultipleAuthorizationStrategyData()
         {
             throw new NotImplementedException();
         }

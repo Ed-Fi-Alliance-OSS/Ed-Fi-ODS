@@ -37,6 +37,6 @@ namespace EdFi.Security.DataAccess.Repositories
 
         void LoadRecordOwnershipData();
 
-        void LoadGetManyResourcesMultipleAuthorizationData();
+        void LoadMultipleAuthorizationStrategyData();
     }
 }

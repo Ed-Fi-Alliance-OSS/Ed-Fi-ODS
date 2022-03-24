@@ -83,7 +83,7 @@ namespace Test.Common._Stubs
             throw new System.NotImplementedException();
         }
 
-        public void LoadGetManyResourcesMultipleAuthorizationData()
+        public void LoadMultipleAuthorizationStrategyData()
         {
             throw new System.NotImplementedException();
         }
