@@ -23,7 +23,13 @@ param(
     # .NET project build configuration, defaults to "Release". Options are: Debug, Release.
     [string]
     [ValidateSet("Debug", "Release")]
-    $Configuration = "Release"
+    $Configuration = "Release",
+
+    [string]
+    $NugetApiKey,
+
+    [string]
+    $EdFiNuGetFeed
 )
 
 $solution = "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln"
@@ -101,7 +107,18 @@ function Pack {
 
 function Publish {
     Invoke-Execute {
-        dotnet nuget push $packagePath -s $env:AZURE_ARTIFACT_URL -k $env:AZURE_ARTIFACT_NUGET_KEY --force-english-output
+
+        if (-not $NuGetApiKey) {
+            throw "Cannot push a NuGet package without providing an API key in the `NuGetApiKey` argument."
+        }
+
+        if (-not $EdFiNuGetFeed) {
+            throw "Cannot push a NuGet package without providing a feed in the `EdFiNuGetFeed` argument."
+        }
+
+        Write-Host "Pushing $packagePath to $EdFiNuGetFeed"
+
+        dotnet nuget push $packagePath --api-key $NuGetApiKey --source $EdFiNuGetFeed
     }
 }
 
