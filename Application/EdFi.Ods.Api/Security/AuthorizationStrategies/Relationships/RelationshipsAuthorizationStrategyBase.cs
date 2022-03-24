@@ -147,6 +147,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             
             string GetAuthorizationFilterName(string subjectEndpointName, string authorizationPathModifier)
             {
+                // NOTE: If a role-named subject endpoint happens to be used here, logic will be needed to build the filter name without the role name
+                // This logic was originally implemented in the private CreateSegment method of the AuthorizationBuilder class, last available in v5.3 
                 return _filterNameBySubjectAndPathModifier.GetOrAdd(
                     (subjectEndpointName, authorizationPathModifier),
                     (x) => $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{x.Item1}{x.Item2}");

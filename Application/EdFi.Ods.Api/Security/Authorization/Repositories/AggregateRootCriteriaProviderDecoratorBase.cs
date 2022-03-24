@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
@@ -110,7 +111,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     if (!TryApplyFilters(mainConjunction, andStrategy.Filters))
                     {
                         // All filters for AND strategies must be applied, and if not, this is an error condition
-                        throw new EdFiSecurityException(string.Join(" ", unsupportedAuthorizationFilters));
+                        throw new Exception($"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
                     }
 
                     conjunctionFiltersApplied = true;
@@ -141,7 +142,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 // If we have some OR strategies with filters defined, but no filters were applied, this is an error condition
                 if (orStrategies.SelectMany(s => s.Filters).Any() && !disjunctionFiltersApplied)
                 {
-                    throw new EdFiSecurityException(string.Join(" ", unsupportedAuthorizationFilters));
+                    throw new Exception($"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
                 }
                 
                 return disjunctionFiltersApplied;
