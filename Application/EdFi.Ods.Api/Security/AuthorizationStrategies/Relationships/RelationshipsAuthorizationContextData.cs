@@ -3,6 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
+
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
     /// <summary>
@@ -10,6 +13,23 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     /// </summary>
     public class RelationshipsAuthorizationContextData
     {
+        private static class PropertyNames
+        {
+            public const string EducationOrganizationId = "EducationOrganizationId";
+            public const string StateEducationAgencyId = "StateEducationAgencyId";
+            public const string EducationServiceCenterId = "EducationServiceCenterId";
+            public const string LocalEducationAgencyId = "LocalEducationAgencyId";
+            public const string SchoolId = "SchoolId";
+            public const string EducationOrganizationNetworkId = "EducationOrganizationNetworkId";
+            public const string CommunityOrganizationId = "CommunityOrganizationId";
+            public const string CommunityProviderId = "CommunityProviderId";
+            public const string OrganizationDepartmentId = "OrganizationDepartmentId";
+            public const string PostSecondaryInstitutionId = "PostSecondaryInstitutionId";
+            public const string StaffUSI = "StaffUSI";
+            public const string StudentUSI = "StudentUSI";
+            public const string ParentUSI = "ParentUSI";
+        }
+
         // Education Organizations
         public int? EducationOrganizationId { get; set; }
 
@@ -37,5 +57,91 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         public int? StudentUSI { get; set; }
 
         public int? ParentUSI { get; set; }
+
+        public IEnumerable<(string propertyName, object value)> GetAuthorizationContextTuples(
+            string[] authorizationContextPropertyNames)
+        {
+            foreach (string authorizationContextPropertyName in authorizationContextPropertyNames)
+            {
+                foreach ((string propertyName, object value) valueTuple in GetAuthorizationContextValueTuple(authorizationContextPropertyName))
+                {
+                    yield return valueTuple;
+                }
+            }
+        }
+
+        protected virtual IEnumerable<(string propertyName, object value)> GetAuthorizationContextValueTuple(string authorizationContextPropertyName)
+        {
+            switch (authorizationContextPropertyName)
+            {
+                case PropertyNames.EducationOrganizationId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.StateEducationAgencyId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.EducationServiceCenterId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.LocalEducationAgencyId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.SchoolId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.EducationOrganizationNetworkId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.CommunityOrganizationId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.CommunityProviderId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.OrganizationDepartmentId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.PostSecondaryInstitutionId:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.StaffUSI:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.StudentUSI:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                case PropertyNames.ParentUSI:
+                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+
+                    break;
+
+                default:
+                    throw new NotSupportedException($"Authorization context property '{authorizationContextPropertyName}' is not supported.");
+            }
+        }
     }
 }

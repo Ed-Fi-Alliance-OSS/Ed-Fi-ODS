@@ -96,31 +96,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 var authorizationContextData = authorizationContextDataProvider.GetContextData(authorizationContext.Data);
                 
-                // TODO: GKM - Would need optimization -- preferably would be provided by reimplementing code generated artifacts here
-                authorizationContextTuples = authorizationContextPropertyNames.Select(n => (n, (typeof(TContextData)).GetProperty(n).GetValue(authorizationContextData)));
+                authorizationContextTuples = authorizationContextData.GetAuthorizationContextTuples(authorizationContextPropertyNames);
             }
             // ---------------------------------------------------------------------
             
-            // // If present, extract the authorization context data for assembling the segments, with authorization subject's values
-            // var authorizationContextData = authorizationContext.Data == null 
-            //     ? null 
-            //     : authorizationContextDataProvider.GetContextData(authorizationContext.Data);
-
-            var authorizationSubjectEndpoints = 
-                GetAuthorizationSubjectEndpoints(authorizationContextTuples);
-
-            // Convert the segments to general-purpose filters
-            // var filters = 
-            //     authorizationSegmentEndpoints.Select(x => new AuthorizationFilterContext
-            //     {
-            //         ClaimEndpointNames = new []{ "EducationOrganizationId" },
-            //         ClaimEndpointValues = authorizationContext.ApiKeyContext.EducationOrganizationIds.Cast<object>().ToArray(),
-            //         ClaimParameterName = RelationshipAuthorizationConventions.ClaimsParameterName,
-            //         FilterName = 
-            //     })
+            var authorizationSubjectEndpoints = GetAuthorizationSubjectEndpoints(authorizationContextTuples);
 
             var filters = authorizationSubjectEndpoints
-                // .GroupBy( s => (s.Name, s.AuthorizationPathModifier))
                 .Select(subjectEndpoint =>
                     {
                         // Get the name of the filter to use for this segment
