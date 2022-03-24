@@ -72,7 +72,7 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                 if (profiles == null)
                 {
-                    context.Profiles.Add(new Profile {ProfileName = profileName});
+                    context.Profiles.Add(new Profile { ProfileName = profileName });
                     context.SaveChanges();
                 }
 
@@ -426,7 +426,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             using (var context = _contextFactory.CreateContext())
             {
                 _logger.Debug($"Creating API Client");
-                var client = CreateApiClient(context, userId, name, sandboxType, key, secret);
+                var client = GetClient(key, secret) ?? CreateApiClient(context, userId, name, sandboxType, key, secret);
 
                 _logger.Debug($"Adding Education Organization to client");
                 AddApplicationEducationOrganizations(context, applicationId, client);
@@ -473,8 +473,8 @@ namespace EdFi.Admin.DataAccess.Repositories
         public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName)
         {
             var namespacePrefix = "uri://" + userEmail.Split('@')[1].ToLower();
-            
-            SetDefaultVendorOnUserFromEmailAndName(userEmail, userName, new List<string>{ namespacePrefix });
+
+            SetDefaultVendorOnUserFromEmailAndName(userEmail, userName, new List<string> { namespacePrefix });
         }
 
         public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
@@ -483,7 +483,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             {
                 var vendor = FindOrCreateVendorByDomainName(userName, namespacePrefixes);
 
-                var user = context.Users.SingleOrDefault(u => u.Email.Equals(userEmail));
+                var user = context.Users.FirstOrDefault(u => u.Email.Equals(userEmail));
 
                 if (user == null)
                 {
@@ -511,8 +511,8 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                 if (vendor == null)
                 {
-                        vendor = Vendor.Create(vendorName, namespacePrefixes);
-                        context.SaveChanges();
+                    vendor = Vendor.Create(vendorName, namespacePrefixes);
+                    context.SaveChanges();
                 }
 
                 return vendor;
@@ -523,7 +523,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var vendor = context.Vendors.SingleOrDefault(v => v.VendorName == vendorName);
+                var vendor = context.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
 
                 if (vendor != null)
                 {
