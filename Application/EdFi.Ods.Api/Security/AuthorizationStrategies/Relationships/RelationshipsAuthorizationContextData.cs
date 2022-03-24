@@ -37,16 +37,5 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         public int? StudentUSI { get; set; }
 
         public int? ParentUSI { get; set; }
-
-        // Education Organization Type (set after resolved to concrete type id)
-        public string ConcreteEducationOrganizationIdPropertyName { get; set; }
-
-        public virtual RelationshipsAuthorizationContextData Clone()
-        {
-            var clone = new AuthorizationContextDataFactory()
-               .CreateContextData<RelationshipsAuthorizationContextData>(this);
-
-            return clone;
-        }
     }
 }

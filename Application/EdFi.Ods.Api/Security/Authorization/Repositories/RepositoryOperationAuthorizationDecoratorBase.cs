@@ -357,12 +357,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             string GetAuthorizationFailureMessage()
             {
-                string[] claimEndpointNames = resultsWithPendingExistenceChecks
-                    .SelectMany(asf => asf.FilterResults.SelectMany(f => f.FilterContext.ClaimEndpointNames))
-                    .Distinct()
-                    .OrderBy(n => n)
-                    .ToArray();
-
                 // NOTE: Embedded convention - UniqueId is suffix used for external representation of USI values
                 string[] subjectEndpointNames = resultsWithPendingExistenceChecks
                     .SelectMany(asf => asf.FilterResults

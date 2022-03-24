@@ -9,7 +9,6 @@ using NHibernate;
 using NHibernate.Criterion;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Providers.Criteria;
-using EdFi.Ods.Common.Security;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Infrastructure.Filtering;
@@ -30,20 +29,17 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IAggregateRootCriteriaProvider<TEntity> _decoratedInstance;
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
-        private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
 
         private readonly ILog _logger;
 
         protected AggregateRootCriteriaProviderAuthorizationDecoratorBase(
             IAggregateRootCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
-            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider)
         {
             _decoratedInstance = decoratedInstance;
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
-            _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
 
             // Log entries for the concrete type
             _logger = LogManager.GetLogger(GetType());
