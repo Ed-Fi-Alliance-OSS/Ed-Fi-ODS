@@ -21,7 +21,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="6.0.1" />
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.1" />
-       <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.22" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.26" />
     <PackageReference Include="EdFi.Suite3.Common" Version="5.4.11" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.12" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
