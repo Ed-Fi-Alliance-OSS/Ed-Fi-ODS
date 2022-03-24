@@ -80,62 +80,62 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     break;
 
                 case PropertyNames.StateEducationAgencyId:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, StateEducationAgencyId);
 
                     break;
 
                 case PropertyNames.EducationServiceCenterId:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, EducationServiceCenterId);
 
                     break;
 
                 case PropertyNames.LocalEducationAgencyId:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, LocalEducationAgencyId);
 
                     break;
 
                 case PropertyNames.SchoolId:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, SchoolId);
 
                     break;
 
                 case PropertyNames.EducationOrganizationNetworkId:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, EducationOrganizationNetworkId);
 
                     break;
 
                 case PropertyNames.CommunityOrganizationId:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, CommunityOrganizationId);
 
                     break;
 
                 case PropertyNames.CommunityProviderId:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, CommunityProviderId);
 
                     break;
 
                 case PropertyNames.OrganizationDepartmentId:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, OrganizationDepartmentId);
 
                     break;
 
                 case PropertyNames.PostSecondaryInstitutionId:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, PostSecondaryInstitutionId);
 
                     break;
 
                 case PropertyNames.StaffUSI:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, StaffUSI);
 
                     break;
 
                 case PropertyNames.StudentUSI:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, StudentUSI);
 
                     break;
 
                 case PropertyNames.ParentUSI:
-                    yield return (authorizationContextPropertyName, EducationOrganizationId);
+                    yield return (authorizationContextPropertyName, ParentUSI);
 
                     break;
 

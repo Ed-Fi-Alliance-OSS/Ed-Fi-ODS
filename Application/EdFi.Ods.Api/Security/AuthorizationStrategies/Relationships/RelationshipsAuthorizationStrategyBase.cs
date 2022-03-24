@@ -81,8 +81,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             var authorizationContextDataProvider = RelationshipsAuthorizationContextDataProviderFactory.GetProvider(authorizationContext.Type ?? authorizationContext.Data.GetType());
             var authorizationContextPropertyNames = authorizationContextDataProvider.GetAuthorizationContextPropertyNames();
 
-            // TODO: GKM - Modify codegen to produce this output directly rather than strongly typed context data
-            
             // ---------------------------------------------------------------------
             // Convert the authorization context to tuples
             // ---------------------------------------------------------------------
