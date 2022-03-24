@@ -111,7 +111,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         return new AuthorizationFilterContext
                         {
                             FilterName = filterName,
-                            ClaimEndpointNames = new [] { "EducationOrganizationId" },
                             ClaimEndpointValues = authorizationContext.ApiKeyContext.EducationOrganizationIds.Cast<object>().ToArray(),
                             SubjectEndpointName = subjectEndpoint.Name,
                             SubjectEndpointValue = subjectEndpoint.Value,

@@ -66,12 +66,6 @@ namespace EdFi.Ods.Common.Security.Authorization
         public Func<object, object> ClaimParameterValueMap { get; set; }
 
         /// <summary>
-        /// The names of the specific claims endpoints that are represented in the authorization filter details (primarily
-        /// useful for identifying concrete education organization ids associated with the API client). 
-        /// </summary>
-        public string[] ClaimEndpointNames { get; set; }
-
-        /// <summary>
         /// For single item authorization scenarios, gets or sets the value associated with the subject endpoint for authorization.
         /// </summary>
         public object SubjectEndpointValue { get; set; }
