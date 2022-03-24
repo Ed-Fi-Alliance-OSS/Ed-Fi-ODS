@@ -64,6 +64,24 @@ namespace EdFi.Ods.Sandbox.Provisioners
             }
         }
 
+        public override async Task DeleteSandboxesAsync(params string[] deletedClientKeys)
+        {
+            using (var conn = CreateConnection())
+            {
+                foreach (string key in deletedClientKeys)
+                {
+                    await conn.ExecuteAsync($@"
+                         IF EXISTS (SELECT name from sys.databases WHERE (name = '{_databaseNameBuilder.SandboxNameForKey(key)}'))
+                        BEGIN
+                            ALTER DATABASE [{_databaseNameBuilder.SandboxNameForKey(key)}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                            DROP DATABASE [{_databaseNameBuilder.SandboxNameForKey(key)}];
+                        END;
+                        ", commandTimeout: CommandTimeout)
+                        .ConfigureAwait(false);
+                }
+            }
+        }
+
         public override async Task CopySandboxAsync(string originalDatabaseName, string newDatabaseName)
         {
             using (var conn = CreateConnection())
@@ -96,17 +114,6 @@ namespace EdFi.Ods.Sandbox.Provisioners
                             commandTimeout: CommandTimeout).ConfigureAwait(false);
 
                         string logicalName = null;
-
-                        _logger.Debug($"dropping {newDatabaseName} it it exists.");
-                        var dropDbIfExists = $@"
-                            IF EXISTS (SELECT name from sys.databases WHERE (name = '{newDatabaseName}'))
-                                BEGIN
-                                    ALTER DATABASE [{newDatabaseName}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-                                    DROP DATABASE [{newDatabaseName}];
-                                END;
-                        ";
-                        await conn.ExecuteAsync(dropDbIfExists, commandTimeout: CommandTimeout)
-                            .ConfigureAwait(false);
 
                         _logger.Debug($"restoring files from {backup}.");
 

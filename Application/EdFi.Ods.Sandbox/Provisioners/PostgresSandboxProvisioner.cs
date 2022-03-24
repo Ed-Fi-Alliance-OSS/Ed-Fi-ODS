@@ -36,14 +36,27 @@ namespace EdFi.Ods.Sandbox.Provisioners
             }
         }
 
+        public override async Task DeleteSandboxesAsync(params string[] deletedClientKeys)
+        {
+            using (var conn = CreateConnection())
+            {
+                foreach (string key in deletedClientKeys)
+                {
+                   await conn.ExecuteAsync($@"
+                        SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{_databaseNameBuilder.SandboxNameForKey(key)}'; 
+                        DROP DATABASE IF EXISTS ""{_databaseNameBuilder.SandboxNameForKey(key)}"";
+                        ", commandTimeout: CommandTimeout)
+                        .ConfigureAwait(false);
+                }
+            }
+        }
+
         public override async Task CopySandboxAsync(string originalDatabaseName, string newDatabaseName)
         {
             using (var conn = CreateConnection())
             {
                 string sql = @$"
                     SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{originalDatabaseName}'; 
-                    SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='{newDatabaseName}'; 
-                    DROP DATABASE IF EXISTS ""{newDatabaseName}"";
                     CREATE DATABASE ""{newDatabaseName}"" TEMPLATE ""{originalDatabaseName}""
                 ";
 
