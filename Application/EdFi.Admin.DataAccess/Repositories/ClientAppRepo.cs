@@ -72,7 +72,7 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                 if (profiles == null)
                 {
-                    context.Profiles.Add(new Profile {ProfileName = profileName});
+                    context.Profiles.Add(new Profile { ProfileName = profileName });
                     context.SaveChanges();
                 }
 
@@ -351,7 +351,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var client = GetClient(key, secret) ?? CreateApiClient(context, userId, name, sandboxType, key, secret);
+                var client = CreateApiClient(context, userId, name, sandboxType, key, secret);
 
                 AddApplicationEducationOrganizations(context, applicationId, client);
 
@@ -369,7 +369,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             var attachedUser = context.Users.Find(userId);
 
-            return GetClient(key, secret) ?? attachedUser.AddSandboxClient(name, sandboxType, key, secret);
+            return attachedUser.AddSandboxClient(name, sandboxType, key, secret);
         }
 
         public void AddLeaIdsToApiClient(int userId, int apiClientId, IList<int> leaIds, int applicationId)
@@ -473,8 +473,8 @@ namespace EdFi.Admin.DataAccess.Repositories
         public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName)
         {
             var namespacePrefix = "uri://" + userEmail.Split('@')[1].ToLower();
-            
-            SetDefaultVendorOnUserFromEmailAndName(userEmail, userName, new List<string>{ namespacePrefix });
+
+            SetDefaultVendorOnUserFromEmailAndName(userEmail, userName, new List<string> { namespacePrefix });
         }
 
         public void SetDefaultVendorOnUserFromEmailAndName(string userEmail, string userName, IEnumerable<string> namespacePrefixes)
@@ -511,8 +511,8 @@ namespace EdFi.Admin.DataAccess.Repositories
 
                 if (vendor == null)
                 {
-                        vendor = Vendor.Create(vendorName, namespacePrefixes);
-                        context.SaveChanges();
+                    vendor = Vendor.Create(vendorName, namespacePrefixes);
+                    context.SaveChanges();
                 }
 
                 return vendor;
