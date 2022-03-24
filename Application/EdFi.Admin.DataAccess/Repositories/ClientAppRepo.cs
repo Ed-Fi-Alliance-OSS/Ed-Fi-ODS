@@ -483,7 +483,7 @@ namespace EdFi.Admin.DataAccess.Repositories
             {
                 var vendor = FindOrCreateVendorByDomainName(userName, namespacePrefixes);
 
-                var user = context.Users.SingleOrDefault(u => u.Email.Equals(userEmail));
+                var user = context.Users.FirstOrDefault(u => u.Email.Equals(userEmail));
 
                 if (user == null)
                 {
@@ -523,7 +523,7 @@ namespace EdFi.Admin.DataAccess.Repositories
         {
             using (var context = _contextFactory.CreateContext())
             {
-                var vendor = context.Vendors.SingleOrDefault(v => v.VendorName == vendorName);
+                var vendor = context.Vendors.FirstOrDefault(v => v.VendorName == vendorName);
 
                 if (vendor != null)
                 {
