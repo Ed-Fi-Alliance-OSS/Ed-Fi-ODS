@@ -2602,7 +2602,7 @@
 					]
 				},
 				{
-					"name": "Scenario 11  GET request to StudentDisciplineIncidentAssociations should return 403 with standard relationship authorization message even though there is no way the request could ever be authorized",
+					"name": "Scenario 11  GET request to StudentDisciplineIncidentAssociations should return 200 with empty array even though there is no way the request could ever be authorized with the types of EdOrg claims",
 					"item": [
 						{
 							"name": "Create Staff",
@@ -2854,14 +2854,14 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 403\", () => {",
-											"    pm.expect(pm.response.code).to.equal(403);",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
 											"});",
 											"",
-											"const responseItem = pm.response.json();",
+											"const responseItems = pm.response.json();",
 											"",
-											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (51, 5001) and the resource item's 'SchoolId' value.\");",
+											"pm.test(`Should return an empty array`, () => {",
+											"    pm.expect(responseItems).to.have.lengthOf(0);",
 											"});"
 										],
 										"type": "text/javascript"
