@@ -20,8 +20,6 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
     /// </summary>
     public class AuthorizationFilterDefinition
     {
-        // private static readonly Regex ParameterRegex = new Regex(@"\:(?<Parameter>\w+)", RegexOptions.Compiled);
-
         /// <summary>
         /// Creates a new filter definition, creating parameter definitions automatically using built-in conventions
         /// based on information parsed from the supplied condition.
@@ -56,11 +54,6 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         }
 
         public string FilterName { get; set; }
-
-        // /// <summary>
-        // /// Gets the NHibernate FilterDefinition to be added to the configuration.
-        // /// </summary>
-        // public FilterDefinition FilterDefinition { get; protected set; }
 
         /// <summary>
         /// Gets a format string containing the filter condition expressed as HQL rather than SQL, and with all new aliases assigned and the 'currentAlias' marker as the '{0}' format specifier.

@@ -23,7 +23,7 @@ namespace EdFi.Ods.Common.Security
         public ApiKeyContext(
             string apiKey,
             string claimSetName,
-            IEnumerable<int> educationOrganizationIds, // TODO: GKM - Consider use of IReadOnlyList here instead of IEnumerable
+            IEnumerable<int> educationOrganizationIds,
             IEnumerable<string> namespacePrefixes,
             IEnumerable<string> profiles,
             string studentIdentificationSystemDescriptor,

@@ -137,8 +137,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                 A.CallTo(() =>
                         Given<IAuthorizationFilteringProvider>()
                             .GetAuthorizationFiltering(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), A<AuthorizationBasisMetadata>.Ignored))
-                            // TODO: GKM - Review, and possibly expand this test with other mock verifications
-                            // .AuthorizeSingleItemAsync(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), CancellationToken.None))
                     .MustHaveHappened();
             }
 

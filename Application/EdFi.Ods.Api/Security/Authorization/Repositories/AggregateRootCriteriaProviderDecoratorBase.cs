@@ -176,10 +176,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                             filterDetails.FilterName,
                             out var ignored))
                     {
-                        // TODO: GKM - The presence of this item used to be determined by the presence in the NHibernate
-                        // meta attributes stored in the entity class' metadata -- based on ShouldApply, so a misconfigured
-                        // authorization strategy could end up being applied here -- less likely to hit this condition, more
-                        // likely to hit an exception downstream when executing the query.
                         unsupportedAuthorizationFilters.Add(filterDetails.FilterName);
 
                         allFiltersCanBeApplied = false;
@@ -220,22 +216,17 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         filterDetails.FilterName,
                         out var filterApplicationDetails);
 
-                    // TODO: GKM - Why was this an array? Is there something missing here?
                     var applicator = filterApplicationDetails.CriteriaApplicator;
                     
-                    // Invoke the filter applicators against the current query
-                    // foreach (var applicator in applicators)
+                    var parameterValues = new Dictionary<string, object>
                     {
-                        var parameterValues = new Dictionary<string, object>
-                        {
-                            { filterDetails.ClaimParameterName, filterDetails.ClaimParameterValues }
-                        };
+                        { filterDetails.ClaimParameterName, filterDetails.ClaimParameterValues }
+                    };
 
-                        // Apply the authorization strategy filter
-                        applicator(criteria, conjunction, parameterValues, joinType);
+                    // Apply the authorization strategy filter
+                    applicator(criteria, conjunction, parameterValues, joinType);
 
-                        filtersApplied = true;
-                    }
+                    filtersApplied = true;
                 }
                 
                 return filtersApplied;

@@ -84,7 +84,7 @@ namespace EdFi.Ods.Features.Composites
 
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
-                ClaimsPrincipal.Current, // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
+                ClaimsPrincipal.Current,
                 _resourceClaimUriProvider.GetResourceClaimUris(resource),
                 RequestActions.ReadActionUri,
                 entityType);
@@ -327,9 +327,6 @@ namespace EdFi.Ods.Features.Composites
 
                     if (!_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(filterName, out var filterApplicationDetails))
                     {
-                        // TODO: GKM - This exception would now be inaccurate, and the condition wouldn't actually be detected until
-                        // query execution failure since there is no specific determination whether the filter is applicable to a particular
-                        // entity type under the new implementation. This issue will need to be addressed here, and elsewhere.
                         throw new Exception(
                             $"Unable to apply authorization to query because filter '{filterName}' could not be found.");
                     }
@@ -338,14 +335,8 @@ namespace EdFi.Ods.Features.Composites
                     
                     if (string.IsNullOrWhiteSpace(filterHqlFormat))
                     {
-                        // TODO: GKM - This exception would now be inaccurate, and the condition wouldn't actually be detected until
-                        // query execution failure since there is no specific determination whether the filter is applicable to a particular
-                        // entity type under the new implementation. This issue will need to be addressed here, and elsewhere.
                         throw new Exception(
-                            string.Format(
-                                "Unable to apply authorization to query because filter '{0}' on entity '{1}' was found, but was null or empty.",
-                                filterName,
-                                entityType.Name));
+                            $"Unable to apply authorization to query because filter '{filterName}' on entity '{entityType.Name}' was found, but was null or empty.");
                     }
 
                     // Set the current alias for the contextual fields

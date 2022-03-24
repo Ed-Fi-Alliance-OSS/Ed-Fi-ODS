@@ -10,19 +10,6 @@ using NHibernate.Engine.Query;
 
 namespace EdFi.Ods.Common.Infrastructure.Filtering;
 
-// public interface IInstanceAuthorizationResult
-// {
-//     /// <summary>
-//     /// Indicates whether instance-based authorization could be performed.
-//     /// </summary>
-//     bool AuthorizationPerformed { get; }
-//
-//     /// <summary>
-//     /// Gets the Exception to be thrown, if necessary, to indicate authorization failure.
-//     /// </summary>
-//     Exception Exception { get; }
-// }
-
 public enum AuthorizationState
 {
     NotPerformed,
@@ -30,7 +17,7 @@ public enum AuthorizationState
     Failed,
 }
 
-public class InstanceAuthorizationResult //: IInstanceAuthorizationResult
+public class InstanceAuthorizationResult
 {
     /// <summary>
     /// An instance authorization result indicating instance-based authorization could not be performed.
@@ -112,33 +99,3 @@ public class InstanceAuthorizationResult //: IInstanceAuthorizationResult
         Exception = ex;
     }
 }
-
-// public class CompositeResolvableInstanceAuthorizationResult : IResolvableInstanceAuthorizationResult
-// {
-//     public bool AuthorizationPerformed
-//     {
-//         get => _authorizationResults.All(x => x.AuthorizationPerformed);
-//     }
-//
-//     public Exception Exception
-//     {
-//         get => _authorizationResults.FirstOrDefault(x => x.Exception != null)?.Exception;
-//     }
-//
-//     private List<IResolvableInstanceAuthorizationResult> _authorizationResults = new();
-//     
-//     public void AddAuthorizationResult(IResolvableInstanceAuthorizationResult authorizationResult)
-//     {
-//         _authorizationResults.Add(authorizationResult);
-//     }
-//
-//     public void ResolveSuccessful()
-//     {
-//         _authorizationResults.ForEach(x => x.ResolveSuccessful());
-//     }
-//
-//     public void ResolveWithFailure(Exception ex)
-//     {
-//         _authorizationResults.ForEach(x => x.ResolveWithFailure(ex));
-//     }
-// }

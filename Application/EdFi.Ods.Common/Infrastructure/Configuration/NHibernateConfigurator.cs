@@ -38,20 +38,15 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
         private readonly IExtensionNHibernateConfigurationProvider[] _extensionConfigurationProviders;
         private readonly IDictionary<string, HbmSubclass[]> _extensionDerivedEntityByEntityName;
         private readonly IDictionary<string, HbmJoinedSubclass[]> _extensionDescriptorByEntityName;
-        // private readonly IFilterCriteriaApplicatorProvider _filterCriteriaApplicatorProvider;
         private readonly IOrmMappingFileDataProvider _ormMappingFileDataProvider;
-        // private readonly IOdsDatabaseConnectionStringProvider _connectionStringProvider;
 
         public NHibernateConfigurator(IEnumerable<IExtensionNHibernateConfigurationProvider> extensionConfigurationProviders,
             IEnumerable<INHibernateBeforeBindMappingActivity> beforeBindMappingActivities,
             IEnumerable<IAuthorizationFilterDefinitionsFactory> authorizationStrategyConfigurators,
-            // IFilterCriteriaApplicatorProvider filterCriteriaApplicatorProvider,
             IEnumerable<INHibernateConfigurationActivity> configurationActivities,
             IOrmMappingFileDataProvider ormMappingFileDataProvider,
             IOdsDatabaseConnectionStringProvider connectionStringProvider)
         {
-            // _connectionStringProvider = connectionStringProvider;
-
             _ormMappingFileDataProvider = Preconditions.ThrowIfNull(
                 ormMappingFileDataProvider, nameof(ormMappingFileDataProvider));
 
@@ -66,9 +61,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
 
             _configurationActivities = Preconditions.ThrowIfNull(
                 configurationActivities.ToArray(), nameof(configurationActivities));
-
-            // _filterCriteriaApplicatorProvider = Preconditions.ThrowIfNull(
-            //     filterCriteriaApplicatorProvider, nameof(filterCriteriaApplicatorProvider));
 
             //Resolve all extensions to include in core mapping
             _entityExtensionHbmBagsByEntityName = _extensionConfigurationProviders
@@ -115,27 +107,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             // Add the configuration to the container
             configuration.BeforeBindMapping += Configuration_BeforeBindMapping;
 
-            // // Get all the filter definitions from all the configurators
-            // var allFilterDetails = _authorizationStrategyConfigurators
-            //     .SelectMany(c => c.GetFilters())
-            //     .Distinct()
-            //     .ToList();
-            //
-            // // Group the filters by name first (there can only be 1 "default" filter, but flexibility
-            // // to apply same filter name with same parameters to different entities should be supported
-            // // (and is in fact supported below when filters are applied to individual entity mappings)
-            // var allFilterDetailsGroupedByName = allFilterDetails
-            //     .GroupBy(f => f.FilterDefinition.FilterName)
-            //     .Select(g => g);
-            //
-            // // Add all the filter definitions to the NHibernate configuration
-            // foreach (var filterDetails in allFilterDetailsGroupedByName)
-            // {
-            //     configuration.AddFilterDefinition(
-            //         filterDetails.First()
-            //             .FilterDefinition);
-            // }
-
             // Configure the mappings
             var ormMappingFileData = _ormMappingFileDataProvider.OrmMappingFileData();
             configuration.AddResources(ormMappingFileData.MappingFileFullNames, ormMappingFileData.Assembly);
@@ -149,39 +120,6 @@ namespace EdFi.Ods.Common.Infrastructure.Configuration
             {
                 configurationActivity.Execute(configuration);
             }
-
-            // Apply the previously defined filters to the mappings
-            // foreach (var mapping in configuration.ClassMappings)
-            // {
-            //     Type entityType = mapping.MappedClass;
-            //     var properties = entityType.GetProperties();
-            //
-            //     var applicableFilters = allFilterDetails
-            //         .Where(filterDetails => filterDetails.ShouldApply(entityType, properties))
-            //         .ToList();
-            //
-            //     foreach (var filter in applicableFilters)
-            //     {
-            //         // var filterDefinition = filter.FilterDefinition;
-            //
-            //         // Save the filter criteria applicators
-            //         _filterCriteriaApplicatorProvider.AddCriteriaApplicator(
-            //             filter.FilterName,
-            //             entityType,
-            //             filter.CriteriaApplicator);
-            //
-            //         mapping.AddFilter(
-            //             filter.FilterName,
-            //             filter.FilterDefinition.DefaultFilterCondition);
-            //
-            //         var metaAttribute = new MetaAttribute(filter.FilterName);
-            //         metaAttribute.AddValue(filter.HqlConditionFormatString);
-            //
-            //         mapping.MetaAttributes.Add(
-            //             "HqlFilter_" + filter.FilterName,
-            //             metaAttribute);
-            //     }
-            // }
 
             configuration.AddCreateDateHooks();
 

@@ -135,8 +135,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
                         ClaimEndpointValues = claimNamespacePrefixes.Cast<object>().ToArray(),
                         ClaimParameterName = "Namespace",
                         ClaimParameterValueMap =  prefix => $"{prefix}%"
-                        // TODO: GKM - consider renaming to ClaimParameterRawValues and providing an optional ClaimParameterValuesMapper (a function that projects the raw values, according to the SQL parameter value requirements). Only makes sense if the values can also be used for instance-based authorization, which may not make sense.
-                        // SubjectEndpointValue = authorizationContext.Data
                     }
                 },
                 Operator = FilterOperator.And
@@ -145,7 +143,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 
         private static IReadOnlyList<string> GetClaimNamespacePrefixes(EdFiAuthorizationContext authorizationContext)
         {
-            // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
             var namespacePrefixes = authorizationContext.Principal.Claims
                 .Where(c => c.Type == EdFiOdsApiClaimTypes.NamespacePrefix)
                 .Select(c => c.Value)

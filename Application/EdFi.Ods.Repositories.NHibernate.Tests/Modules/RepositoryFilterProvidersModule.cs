@@ -14,16 +14,11 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
         {
             builder.RegisterGeneric(typeof(PagedAggregateIdsCriteriaProvider<>))
                 .As(typeof(IPagedAggregateIdsCriteriaProvider<>))
-                .SingleInstance(); // TODO: GKM - Double check that there's no problem with this being a singleton.
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(TotalCountCriteriaProvider<>))
                 .As(typeof(ITotalCountCriteriaProvider<>))
-                .SingleInstance(); // TODO: GKM - Double check that there's no problem with this being a singleton.
-
-            // This is a cache, and it needs to be a singleton
-            // builder.RegisterType<FilterCriteriaApplicatorProvider>()
-            //     .As<IFilterCriteriaApplicatorProvider>()
-            //     .SingleInstance();
+                .SingleInstance();
         }
     }
 }

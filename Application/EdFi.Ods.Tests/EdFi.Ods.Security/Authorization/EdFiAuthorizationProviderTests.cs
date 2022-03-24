@@ -32,8 +32,8 @@ using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 {
-    // TODO: GKM - Replace these tests, as necessary
-    #if GKM
+    // TODO: ODS-5356 - Update these tests
+    #if ODS_5356
     [TestFixture]
     public class Feature_Validating_the_incoming_AuthorizationContext
     {

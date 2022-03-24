@@ -114,7 +114,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             // Build the AuthorizationContext
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
-                ClaimsPrincipal.Current, // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
+                ClaimsPrincipal.Current,
                 _authorizationContextProvider.GetResourceUris(),
                 actionUri,
                 entity);
@@ -357,8 +357,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
 
             string GetAuthorizationFailureMessage()
             {
-                // TODO: GKM - Should this ultimately just be a constant EducationOrganizationId now?
-                // TODO: GKM - Also, this is slightly inefficient because it gets *all* claim endpoint names and applies distinct -- may include more endpoint names than relationship-based ones with multiple auth strategies in place
                 string[] claimEndpointNames = resultsWithPendingExistenceChecks
                     .SelectMany(asf => asf.FilterResults.SelectMany(f => f.FilterContext.ClaimEndpointNames))
                     .Distinct()
@@ -366,9 +364,9 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     .ToArray();
 
                 // NOTE: Embedded convention - UniqueId is suffix used for external representation of USI values
-                // TODO: GKM - This is inefficient because it gets *all* subject endpoint names and applies distinct -- may include more endpoint names than relationship-based ones with multiple auth strategies in place
-                string[] subjectEndpointNames = resultsWithPendingExistenceChecks.SelectMany(
-                        asf => asf.FilterResults.Select(f => f.FilterContext.SubjectEndpointName.ReplaceSuffix("USI", "UniqueId")))
+                string[] subjectEndpointNames = resultsWithPendingExistenceChecks
+                    .SelectMany(asf => asf.FilterResults
+                        .Select(f => f.FilterContext.SubjectEndpointName.ReplaceSuffix("USI", "UniqueId")))
                     .Distinct()
                     .OrderBy(n => n)
                     .ToArray();
@@ -417,7 +415,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         {
             // Make sure Authorization context is present before proceeding
             _authorizationContextProvider.VerifyAuthorizationContextExists();
-        
+
             // Build the AuthorizationContext
             var authorizationContext = new EdFiAuthorizationContext(
                 _apiKeyContextProvider.GetApiKeyContext(),
@@ -425,7 +423,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 _authorizationContextProvider.GetResourceUris(),
                 _authorizationContextProvider.GetAction(),
                 typeof(TEntity));
-        
+
             // Get authorization filters
             var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(authorizationContext);
 

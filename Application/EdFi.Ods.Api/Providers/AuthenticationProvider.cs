@@ -84,7 +84,6 @@ namespace EdFi.Ods.Api.Providers
                 return new AuthenticationResult {AuthenticateResult = AuthenticateResult.Fail(message)};
             }
 
-            // TODO: GKM - Consider elimination of the use of the ClaimsIdentity for these values -- it just introduces unnecessary serialization/deserialization. Suggest using CallContext instead.
             var identity = _claimsIdentityProvider.GetClaimsIdentity(
                 apiClientDetails.EducationOrganizationIds,
                 apiClientDetails.ClaimSetName,

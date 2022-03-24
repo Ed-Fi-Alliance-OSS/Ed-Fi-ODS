@@ -15,14 +15,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Filtering;
 /// </summary>
 public class AuthorizationFilteringProvider : IAuthorizationFilteringProvider
 {
-    // TODO: GKM - Review for possible removal of authorizationBasisMetadata from the GetAuthorizationFiltering signature.
-    // private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
-    //
-    // public AuthorizationFilteringProvider(IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector)
-    // {
-    //     _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
-    // }
-    
     /// <summary>
     /// Authorizes a multiple-item read request using the claims, resource, and action supplied in the <see cref="EdFiAuthorizationContext"/>.
     /// </summary>
@@ -33,9 +25,6 @@ public class AuthorizationFilteringProvider : IAuthorizationFilteringProvider
         EdFiAuthorizationContext authorizationContext, 
         AuthorizationBasisMetadata authorizationBasisMetadata)
     {
-        // TODO: GKM - Review for possible removal of authorizationBasisMetadata from the GetAuthorizationFiltering signature.
-        // authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(authorizationContext)
-        
         var relevantClaims = new[] { authorizationBasisMetadata.RelevantClaim };
 
         var authorizationFiltering = authorizationBasisMetadata.AuthorizationStrategies

@@ -74,9 +74,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
 
             if (contextData.CreatedByOwnershipTokenId != null)
             {
-                // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it with use of CallContext or EdFiAuthorizationContext object
-                var hasOwnershipToken = authorizationContext.Principal.Claims.Any(
-                    c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId
+                var hasOwnershipToken = authorizationContext.Principal.Claims
+                    .Any(c => 
+                        c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId
                         && c.Value == contextData.CreatedByOwnershipTokenId.ToString());
 
                 if (!hasOwnershipToken)
@@ -97,7 +97,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
         }
 
         /// <summary>
-        /// Get authorization filtering context to a multiple-item request.
+        /// Get authorization filtering context for a multiple-item request.
         /// </summary>
         /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
         /// <param name="authorizationContext">The authorization context.</param>
@@ -106,7 +106,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             IEnumerable<Claim> relevantClaims,
             EdFiAuthorizationContext authorizationContext)
         {
-            // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it with use of CallContext or EdFiAuthorizationContext object
             var ownershipTokens = authorizationContext.Principal.Claims
                 .Where(c => c.Type == EdFiOdsApiClaimTypes.OwnershipTokenId)
                 .Select(x => (object) x.Value)

@@ -17,34 +17,6 @@ using log4net;
 
 namespace EdFi.Ods.Api.Security.Authorization;
 
-public interface IAuthorizationBasisMetadataSelector
-{
-    /// <summary>
-    /// Performs authorization appropriate to the claims, resource, action and context data supplied in the <see cref="EdFiAuthorizationContextData"/>.
-    /// </summary>
-    /// <param name="authorizationContext">The authorization context to be used in making the authorization decision.</param>
-    AuthorizationBasisMetadata SelectAuthorizationBasisMetadata(EdFiAuthorizationContext authorizationContext);
-}
-
-public class AuthorizationBasisMetadata
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AuthorizationBasisMetadata"/> class.
-    /// </summary>
-    public AuthorizationBasisMetadata(IReadOnlyList<IAuthorizationStrategy> authorizationStrategies, Claim relevantClaim, string validationRuleSetName)
-    {
-        AuthorizationStrategies = authorizationStrategies;
-        RelevantClaim = relevantClaim;
-        ValidationRuleSetName = validationRuleSetName;
-    }
-
-    public IReadOnlyList<IAuthorizationStrategy> AuthorizationStrategies { get; }
-
-    public Claim RelevantClaim { get; }
-
-    public string ValidationRuleSetName { get; }
-}
-
 public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSelector
 {
     private readonly ILog _logger = LogManager.GetLogger(typeof(AuthorizationBasisMetadataSelector));
@@ -59,6 +31,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
     /// </summary>
     /// <param name="resourceAuthorizationMetadataProvider">The component that will be used to supply the claims/strategies that can be used to authorize the resource.</param>
     /// <param name="securityRepository"></param>
+    /// <param name="authorizationStrategies"></param>
     public AuthorizationBasisMetadataSelector(
         IResourceAuthorizationMetadataProvider resourceAuthorizationMetadataProvider,
         ISecurityRepository securityRepository,
@@ -147,14 +120,6 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
                 .Where(s => s.AuthorizationStrategies != null && s.AuthorizationStrategies.Any())
                 .Select(s => s.AuthorizationStrategies )
                 .FirstOrDefault();
-            
-        // TODO: GKM - When claimset-specific override support is added, use this logic
-        //string claimSpecificOverrideAuthorizationStrategyName =
-        //    resourceClaimAuthorizationStrategies
-        //        // Find the resource claim that matches the relevant principal claim
-        //        .SkipWhile(s => !s.ClaimName.EqualsIgnoreCase(relevantPrincipalClaim.Type))
-        //        .Select(s => s.AuthorizationStrategyOverride)
-        //        .FirstOrDefault();
 
         // Use the claim's override, if present
         var authorizationStrategyNames =

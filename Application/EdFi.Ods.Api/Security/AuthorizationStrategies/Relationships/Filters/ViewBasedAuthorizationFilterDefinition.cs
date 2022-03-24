@@ -47,7 +47,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             ViewTargetEndpointName = viewTargetEndpointName;
             SubjectEndpointName = subjectEndpointName ?? viewTargetEndpointName;
             ViewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
-            // GetItemExistenceSql = getItemExistenceSql;
         }
 
         public string ViewName { get; }
@@ -56,10 +55,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 
         public string SubjectEndpointName { get; }
 
-        // public Func<string, string, string, AuthorizationFilterContext, string> GetItemExistenceSql { get; }
-
         public IViewBasedSingleItemAuthorizationQuerySupport ViewBasedSingleItemAuthorizationQuerySupport { get; set; }
-        
+
         private static string GetFullNameForView(string viewName)
         {
             return Namespaces.Entities.NHibernate.QueryModels.GetViewNamespace(viewName);

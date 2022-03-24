@@ -27,7 +27,7 @@ public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedS
                 $"SELECT 1 FROM auth.{filterDefinition.ViewName} AS authvw WHERE authvw.{filterDefinition.ViewTargetEndpointName} = @{filterDefinition.SubjectEndpointName} AND authvw.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN ({edOrgIdsList})";  
         }
 
-        // Use TVP approach for
+        // Use TVP approach
         return $"SELECT 1 FROM auth.{filterDefinition.ViewName} AS authvw INNER JOIN @{RelationshipAuthorizationConventions.ClaimsParameterName} c ON authvw.{RelationshipAuthorizationConventions.ViewSourceColumnName} = c.Id AND authvw.{filterDefinition.ViewTargetEndpointName} = @{filterDefinition.SubjectEndpointName}";
     }
 
