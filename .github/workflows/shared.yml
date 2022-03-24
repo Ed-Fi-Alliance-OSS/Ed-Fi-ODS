@@ -39,6 +39,10 @@ jobs:
       run: |
         .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }}
       shell: pwsh
+    - name: Install-credential-handler
+      if: ${{inputs.publish == true}}
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: pwsh
     - name: publish
       if: ${{inputs.publish == true}}
       run: |
