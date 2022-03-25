@@ -9,7 +9,32 @@ on:
         default: 'warning'
 
 jobs:
-  call-shared-workflow:
-    uses: ./.github/workflows/shared.yml
-    with:
-      publish: true
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: build
+      run: |
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }}
+      shell: pwsh
+    - name: test
+      run: |
+        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }}
+      shell: pwsh
+    - name: pack
+      run: |
+        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }}
+      shell: pwsh
+    - name: Install-credential-handler
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: pwsh
+    - name: publish
+      run: |
+        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -DryRun $True -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACTS_FEED_URL}}
+      shell: pwsh      
