@@ -130,7 +130,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
                     .AssignsOutAndRefParameters(
                         new AuthorizationFilterDefinition(
                             SuppliedFilterName,
-                            null,
                             // This is how the HQL filter text is now obtained (with elimination of the INHibernateFilterTextProvider) 
                             suppliedFilterText,
                             (criteria, junction, arg3, arg4) => { },

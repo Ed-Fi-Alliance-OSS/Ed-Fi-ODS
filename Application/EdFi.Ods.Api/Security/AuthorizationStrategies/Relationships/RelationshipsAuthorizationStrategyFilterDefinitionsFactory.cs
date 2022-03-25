@@ -86,7 +86,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                     .Select(propertyName => 
                         new AuthorizationFilterDefinition(
                             $"{propertyName}To{propertyName}",
-                            $"{propertyName} IN (:{propertyName})",
                             $"{{currentAlias}}.{propertyName} IN (:{propertyName})",
                             (criteria, whereJunction, parameters, joinType) => whereJunction.ApplyPropertyFilters(parameters, propertyName),
                             AuthorizeInstance,

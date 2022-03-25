@@ -161,8 +161,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                         unsupportedAuthorizationFilters.Add(filterDetails.FilterName);
 
                         allFiltersCanBeApplied = false;
-
-                        continue;
                     }
                 }
 
