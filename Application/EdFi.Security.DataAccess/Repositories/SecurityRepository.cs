@@ -60,7 +60,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 var authorizationStrategyList = context.AuthorizationStrategies.ToList();
                 var authorizationStrategyReadList = authorizationStrategyList.Where(a => authorizationStrategyNameList.Contains(a.AuthorizationStrategyName)).ToList();
                 var relationshipsWithEdOrgsOnlyAuthorizationStrategy = authorizationStrategyList.Where(a => a.AuthorizationStrategyName.Equals("RelationshipsWithEdOrgsOnly")).Single();
-                var authorizationStrategyCreateList = authorizationStrategyList.Where(a => a.AuthorizationStrategyName.Equals("RelationshipsWithEdOrgsAndPeople") || a.AuthorizationStrategyName.Equals("RelationshipsWithStudentsOnlyThroughResponsibility")).ToList();
+                //var authorizationStrategyCreateList = authorizationStrategyList.Where(a => a.AuthorizationStrategyName.Equals("RelationshipsWithEdOrgsAndPeople") || a.AuthorizationStrategyName.Equals("RelationshipsWithStudentsOnlyThroughResponsibility")).ToList();
 
                 var claimSetResourceClaimActions = new List<ClaimSetResourceClaimAction>();
 
@@ -75,19 +75,22 @@ namespace EdFi.Security.DataAccess.Repositories
                                ClaimSetId = edFiSandboxClaimSetId
                            });
                 }
+                //To Do : This commented code will be used in later  for creating StudentEducationOrganizationResponsibilityAssociation without creating StudentSchoolAssociation for new student 
+                //when sets up multiple auth for put / post / delete and get single item ticket gets in 
+                //
 
-                if (!context.ClaimSetResourceClaimActions.Any(a => a.ActionId == createActionId && a.ResourceClaimId == studentSectionAssociationResourceClaimId
-                    && a.ClaimSetId == edFiSandboxClaimSetId))
-                {
-                    claimSetResourceClaimActions.Add(
-                       new ClaimSetResourceClaimAction
-                       {
-                           ResourceClaimId = studentSectionAssociationResourceClaimId,
-                           ActionId = createActionId,
-                           ClaimSetId = edFiSandboxClaimSetId
-                       });
-                }
-
+                /*  if (!context.ClaimSetResourceClaimActions.Any(a => a.ActionId == createActionId && a.ResourceClaimId == studentSectionAssociationResourceClaimId
+                      && a.ClaimSetId == edFiSandboxClaimSetId))
+                  {
+                      claimSetResourceClaimActions.Add(
+                         new ClaimSetResourceClaimAction
+                         {
+                             ResourceClaimId = studentSectionAssociationResourceClaimId,
+                             ActionId = createActionId,
+                             ClaimSetId = edFiSandboxClaimSetId
+                         });
+                  }
+                */
 
                 if (!context.ClaimSetResourceClaimActions.Any(a => a.ActionId == createActionId && a.ResourceClaimId == seoraResourceClaimId
                     && a.ClaimSetId == edFiSandboxClaimSetId))
@@ -130,6 +133,7 @@ namespace EdFi.Security.DataAccess.Repositories
                         }
                 });
 
+                /*
                 var claimSetResourceClaimActionCreate = context.ClaimSetResourceClaimActions.Where(x => x.ResourceClaimId == studentSectionAssociationResourceClaimId && x.ClaimSetId == edFiSandboxClaimSetId
                 && x.ActionId == createActionId).Single();
 
@@ -150,6 +154,8 @@ namespace EdFi.Security.DataAccess.Repositories
                           });
                     }
                 });
+
+                */
 
                 var claimSetSeoraResourceClaimAction = context.ClaimSetResourceClaimActions.Where(x => x.ResourceClaimId == seoraResourceClaimId && x.ClaimSetId == edFiSandboxClaimSetId
                     && x.ActionId == createActionId).Single();
@@ -253,8 +259,6 @@ namespace EdFi.Security.DataAccess.Repositories
                     context.SaveChanges();
                 }
             }
-
-            Reset();
         }
 
         private Application GetApplication()
