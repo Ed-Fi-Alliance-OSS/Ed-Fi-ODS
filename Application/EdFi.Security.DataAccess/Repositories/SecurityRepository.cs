@@ -59,7 +59,7 @@ namespace EdFi.Security.DataAccess.Repositories
                 var edFiSandboxClaimSetId = context.ClaimSets.FirstOrDefault(a => a.ClaimSetName == "Ed-Fi Sandbox").ClaimSetId;
                 var authorizationStrategyList = context.AuthorizationStrategies.ToList();
                 var authorizationStrategyReadList = authorizationStrategyList.Where(a => authorizationStrategyNameList.Contains(a.AuthorizationStrategyName)).ToList();
-                var relationshipsWithEdOrgsOnlyAuthorizationStrategy = authorizationStrategyList.Where(a => a.AuthorizationStrategyName.Equals("RelationshipsWithEdOrgsOnly")).Single();
+                var relationshipsWithEdOrgsOnlyAuthorizationStrategy = authorizationStrategyList.Single(a => a.AuthorizationStrategyName.Equals("RelationshipsWithEdOrgsOnly"));
                 //var authorizationStrategyCreateList = authorizationStrategyList.Where(a => a.AuthorizationStrategyName.Equals("RelationshipsWithEdOrgsAndPeople") || a.AuthorizationStrategyName.Equals("RelationshipsWithStudentsOnlyThroughResponsibility")).ToList();
 
                 var claimSetResourceClaimActions = new List<ClaimSetResourceClaimAction>();
@@ -75,9 +75,10 @@ namespace EdFi.Security.DataAccess.Repositories
                                ClaimSetId = edFiSandboxClaimSetId
                            });
                 }
+
                 //To Do : This commented code will be used in later  for creating StudentEducationOrganizationResponsibilityAssociation without creating StudentSchoolAssociation for new student 
-                //when sets up multiple auth for put / post / delete and get single item ticket gets in 
-                //
+                //when sets up multiple auth for put / post / delete and get single item ticket gets in https://tracker.ed-fi.org/browse/ODS-5276
+
 
                 /*  if (!context.ClaimSetResourceClaimActions.Any(a => a.ActionId == createActionId && a.ResourceClaimId == studentSectionAssociationResourceClaimId
                       && a.ClaimSetId == edFiSandboxClaimSetId))
@@ -111,8 +112,8 @@ namespace EdFi.Security.DataAccess.Repositories
                     context.SaveChanges();
                 }
 
-                var claimSetStudentSectionAssociationResourceClaimAction = context.ClaimSetResourceClaimActions.Where(x => x.ResourceClaimId== studentSectionAssociationResourceClaimId && x.ClaimSetId == edFiSandboxClaimSetId
-                    && x.ActionId== readActionId).Single();
+                var claimSetStudentSectionAssociationResourceClaimAction = context.ClaimSetResourceClaimActions.Single(x => x.ResourceClaimId== studentSectionAssociationResourceClaimId && x.ClaimSetId == edFiSandboxClaimSetId
+                    && x.ActionId== readActionId);
 
                 var claimSetResourceClaimActionAuthorizationStrategyOverrides = new List<ClaimSetResourceClaimActionAuthorizationStrategyOverrides>();
 
@@ -133,10 +134,12 @@ namespace EdFi.Security.DataAccess.Repositories
                         }
                 });
 
-                /*
-                var claimSetResourceClaimActionCreate = context.ClaimSetResourceClaimActions.Where(x => x.ResourceClaimId == studentSectionAssociationResourceClaimId && x.ClaimSetId == edFiSandboxClaimSetId
-                && x.ActionId == createActionId).Single();
+                //To Do : This commented code will be used in later  for creating StudentEducationOrganizationResponsibilityAssociation without creating StudentSchoolAssociation for new student 
+                //when sets up multiple auth for put / post / delete and get single item ticket gets in https://tracker.ed-fi.org/browse/ODS-5276
 
+                /*
+                var claimSetResourceClaimActionCreate = context.ClaimSetResourceClaimActions.
+                Single(x => x.ResourceClaimId == studentSectionAssociationResourceClaimId && x.ClaimSetId == edFiSandboxClaimSetId && x.ActionId == createActionId);
 
                 authorizationStrategyCreateList.ForEach(authorizationStrategy =>
                 {
@@ -154,16 +157,15 @@ namespace EdFi.Security.DataAccess.Repositories
                           });
                     }
                 });
-
                 */
 
-                var claimSetSeoraResourceClaimAction = context.ClaimSetResourceClaimActions.Where(x => x.ResourceClaimId == seoraResourceClaimId && x.ClaimSetId == edFiSandboxClaimSetId
-                    && x.ActionId == createActionId).Single();
+                var claimSetSeoraResourceClaimAction = context.ClaimSetResourceClaimActions.Single(x => x.ResourceClaimId == seoraResourceClaimId && x.ClaimSetId == edFiSandboxClaimSetId
+                    && x.ActionId == createActionId);
 
 
                 if (!context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Any(a => a.ClaimSetResourceClaimActionId == claimSetSeoraResourceClaimAction.ClaimSetResourceClaimActionId
                     && a.AuthorizationStrategyId == relationshipsWithEdOrgsOnlyAuthorizationStrategy.AuthorizationStrategyId))
-                    {
+                {
                         claimSetResourceClaimActionAuthorizationStrategyOverrides.Add(
                           new ClaimSetResourceClaimActionAuthorizationStrategyOverrides
                           {
