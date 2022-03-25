@@ -25,6 +25,9 @@ param(
     [ValidateSet("Debug", "Release")]
     $Configuration = "Release",
 
+    [bool]
+    $DryRun = $false,
+
     [string]
     $NugetApiKey,
 
@@ -116,9 +119,13 @@ function Publish {
             throw "Cannot push a NuGet package without providing a feed in the `EdFiNuGetFeed` argument."
         }
 
-        Write-Host "Pushing $packagePath to $EdFiNuGetFeed"
+        if($DryRun){
+            Write-Host "Dry run enabled, not pushing package."
+        } else {
+            Write-Host "Pushing $packagePath to $EdFiNuGetFeed"
 
-        dotnet nuget push $packagePath --api-key $NuGetApiKey --source $EdFiNuGetFeed
+            dotnet nuget push $packagePath --api-key $NuGetApiKey --source $EdFiNuGetFeed
+        }
     }
 }
 

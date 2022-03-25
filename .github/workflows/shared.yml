@@ -43,6 +43,10 @@ jobs:
       if: ${{inputs.publish == true}}
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: pwsh
+    - name: publishdryrun
+      run: |
+        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -DryRun $True -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACTS_FEED_URL}}
+      shell: pwsh            
     - name: publish
       if: ${{inputs.publish == true}}
       run: |
