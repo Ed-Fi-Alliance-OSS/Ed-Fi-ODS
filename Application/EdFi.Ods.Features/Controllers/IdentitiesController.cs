@@ -168,10 +168,19 @@ namespace EdFi.Ods.Features.Controllers
                 if ((_identitySubsystem.IdentityServiceCapabilities & IdentityServiceCapabilities.Find) != 0)
                 {
                     var result = await _identitySubsystem.Find(uniqueIds);
-
-                    if (result.StatusCode == IdentityStatusCode.Success)
+                    
+                    switch (result.StatusCode)
                     {
-                        return Ok(result.Data);
+                        case IdentityStatusCode.Success:
+                            return Ok(result.Data);
+                        case IdentityStatusCode.Incomplete:
+                            return StatusCode((int)HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
+                        case IdentityStatusCode.InvalidProperties:
+                            return StatusCode((int)HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
+                        case IdentityStatusCode.NotFound:
+                            return NotFound(InvalidServerResponse + "Not Found");
+                        default:
+                            return StatusCode((int)HttpStatusCode.BadGateway, InvalidServerResponse + "Unknown");
                     }
                 }
 
@@ -219,7 +228,20 @@ namespace EdFi.Ods.Features.Controllers
 
                 if ((_identitySubsystem.IdentityServiceCapabilities & IdentityServiceCapabilities.Search) != 0)
                 {
-                    return Ok((await _identitySubsystem.Search(criteria)).Data);
+                    var result = await _identitySubsystem.Search(criteria);
+                    switch (result.StatusCode)
+                    {
+                        case IdentityStatusCode.Success:
+                            return Ok(result.Data);
+                        case IdentityStatusCode.Incomplete:
+                            return StatusCode((int)HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
+                        case IdentityStatusCode.InvalidProperties:
+                            return StatusCode((int)HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
+                        case IdentityStatusCode.NotFound:
+                            return NotFound(InvalidServerResponse + "Not Found");
+                        default:
+                            return StatusCode((int)HttpStatusCode.BadGateway, InvalidServerResponse + "Unknown");
+                    }
                 }
 
                 return NotImplemented();
