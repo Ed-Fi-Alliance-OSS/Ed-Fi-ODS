@@ -164,7 +164,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 // We're authorized...
                 return;
             }
-            
+
             // We'll need to go to the database to check for relationship existence 
             var pendingOrStrategies = orResults
                 // Only check any strategies that have no failures
@@ -393,7 +393,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                     return $"Authorization denied. No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and the resource item's {subjectEndpointNamesText} value.";
                 }
 
-                return $"Authorization denied. No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and one of the following properties of the resource item: {subjectEndpointNamesText}.";
+                return $"Authorization denied. No relationships have been established between the caller's education organization id {claimOrClaims} ({claimEndpointValuesText}) and one or more of the following properties of the resource item: {subjectEndpointNamesText}.";
             }
         }
 

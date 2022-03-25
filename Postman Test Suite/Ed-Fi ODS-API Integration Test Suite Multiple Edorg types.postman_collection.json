@@ -874,7 +874,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and one of the following properties of the resource item: 'EducationOrganizationId', 'StudentUniqueId'.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and one or more of the following properties of the resource item: 'EducationOrganizationId', 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1753,7 +1753,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (51, 5001) and one of the following properties of the resource item: 'EducationOrganizationId', 'StudentUniqueId'.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (51, 5001) and one or more of the following properties of the resource item: 'EducationOrganizationId', 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
