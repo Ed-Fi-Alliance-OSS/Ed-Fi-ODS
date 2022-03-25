@@ -30,14 +30,3 @@ jobs:
       run: |
         .\build.ps1 test -Configuration ${{ env.CONFIGURATION }}
       shell: pwsh
-    - name: pack
-      run: |
-        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }}
-      shell: pwsh
-    - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: pwsh
-    - name: publish
-      run: |
-        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}}
-      shell: pwsh
