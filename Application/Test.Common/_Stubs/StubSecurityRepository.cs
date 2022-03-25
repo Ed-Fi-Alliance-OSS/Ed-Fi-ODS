@@ -82,5 +82,10 @@ namespace Test.Common._Stubs
         {
             throw new System.NotImplementedException();
         }
+
+        public void LoadMultipleAuthorizationStrategyData()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
