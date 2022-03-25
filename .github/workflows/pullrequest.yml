@@ -2,16 +2,28 @@ name: EdFi.Admin.DataAccess Pull request build and test
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
   INFORMATIONAL_VERSION: "5.4"
   CONFIGURATION: "Release"
-  AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
-  AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
 
 jobs:
-  call-shared-workflow:
-    uses: ./.github/workflows/shared.yml
-    with:
-      publish: false
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: build
+      run: |
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }}
+      shell: pwsh
+    - name: test
+      run: |
+        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }}
+      shell: pwsh
