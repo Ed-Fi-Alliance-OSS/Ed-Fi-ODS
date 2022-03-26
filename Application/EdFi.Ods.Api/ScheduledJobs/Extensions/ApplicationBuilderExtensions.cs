@@ -22,7 +22,7 @@ namespace EdFi.Ods.Api.ScheduledJobs.Extensions
 
             if (!enabledDistinctScheduledJobs.Any())
             {
-                logger.Debug($"No scheduled jobs add to background task scheduling service");
+                logger.Debug($"There are currently no enabled scheduled jobs");
                 return;
             }
 
