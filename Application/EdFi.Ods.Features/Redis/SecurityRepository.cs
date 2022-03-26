@@ -1,9 +1,11 @@
-// Copyright (c) 2021 Instructure Inc.
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Models;
 using EdFi.Security.DataAccess.Repositories;
 using Action = EdFi.Security.DataAccess.Models.Action;
@@ -17,11 +19,10 @@ namespace EdFi.Ods.Features.Redis
         public const string AuthorizationStrategiesHashField = "AuthorizationStrategies";
         public const string ClaimSetResourceClaimsHashField = "ClaimSetResourceClaims";
         public const string ResourceClaimsHashField = "ResourceClaims";
-        public const string ResourceClaimAuthorizationMetadataHashField =
-            "ResourceClaimAuthorizationMetadata";
+        public const string ResourceClaimActionsHashField = "ResourceClaimActions";
+        private readonly IRedisCacheProvider _cacheProvider;
 
         private readonly int _cacheTimeoutInMinutes;
-        private readonly IRedisCacheProvider _cacheProvider;
         private readonly ISecurityRepositoryInitializer _securityRepositoryInitializer;
 
         public SecurityRepository(
@@ -76,10 +77,10 @@ namespace EdFi.Ods.Features.Redis
                     .Equals(authorizationStrategyName, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public IEnumerable<ClaimSetResourceClaim> GetClaimsForClaimSet(string claimSetName)
+        IEnumerable<ClaimSetResourceClaimAction> ISecurityRepository.GetClaimsForClaimSet(string claimSetName)
         {
-            List<ClaimSetResourceClaim> claimSetResourceClaims =
-                GetCachedObjectWithRefreshIfNeeded<List<ClaimSetResourceClaim>>(
+            List<ClaimSetResourceClaimAction> claimSetResourceClaims =
+                GetCachedObjectWithRefreshIfNeeded<List<ClaimSetResourceClaimAction>>(
                     ClaimSetResourceClaimsHashField);
 
             return claimSetResourceClaims.Where(
@@ -96,24 +97,19 @@ namespace EdFi.Ods.Features.Redis
                 .Select(c => c.ClaimName);
         }
 
-        public IEnumerable<ResourceClaimAuthorizationMetadata> GetResourceClaimLineageMetadata(
-            string resourceClaimUri, string action)
+        IEnumerable<ResourceClaimAction> ISecurityRepository.GetResourceClaimLineageMetadata(
+            string resourceClaimUri,
+            string action)
         {
-            List<ResourceClaimAuthorizationMetadata> resourceClaimAuthorizationMetadata =
-                GetCachedObjectWithRefreshIfNeeded<List<ResourceClaimAuthorizationMetadata>>(
-                    ResourceClaimAuthorizationMetadataHashField);
+            List<ResourceClaimAction> resourceClaimActions =
+                GetCachedObjectWithRefreshIfNeeded<List<ResourceClaimAction>>(ResourceClaimActionsHashField);
 
             List<ResourceClaim> resourceClaims =
                 GetCachedObjectWithRefreshIfNeeded<List<ResourceClaim>>(ResourceClaimsHashField);
 
-            var strategies = new List<ResourceClaimAuthorizationMetadata>();
+            var strategies = new List<ResourceClaimAction>();
 
-            AddStrategiesForResourceClaimLineage(
-                strategies,
-                resourceClaimUri,
-                action,
-                resourceClaimAuthorizationMetadata,
-                resourceClaims);
+            AddStrategiesForResourceClaimLineage(strategies, resourceClaimUri, action, resourceClaimActions, resourceClaims);
 
             return strategies;
         }
@@ -127,8 +123,19 @@ namespace EdFi.Ods.Features.Redis
                 rc => rc.ResourceName.Equals(resourceName, StringComparison.InvariantCultureIgnoreCase));
         }
 
+        public void LoadRecordOwnershipData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void LoadMultipleAuthorizationStrategyData()
+        {
+            throw new NotImplementedException();
+        }
+
         private static IEnumerable<ResourceClaim> GetResourceClaimLineageForResourceClaim(
-            string resourceClaimUri, List<ResourceClaim> resourceClaims)
+            string resourceClaimUri,
+            List<ResourceClaim> resourceClaims)
         {
             var resourceClaimLineage = new List<ResourceClaim>();
 
@@ -137,15 +144,17 @@ namespace EdFi.Ods.Features.Redis
             try
             {
                 resourceClaim = resourceClaims
-                    .SingleOrDefault(rc => rc.ClaimName
-                        .Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase));
+                    .SingleOrDefault(
+                        rc => rc.ClaimName
+                            .Equals(resourceClaimUri, StringComparison.InvariantCultureIgnoreCase));
             }
             catch (InvalidOperationException ex)
             {
                 // Use InvalidOperationException wrapper with custom message over InvalidOperationException
                 // thrown by Linq to communicate back to caller the problem with the configuration.
                 throw new InvalidOperationException(
-                    $"Multiple resource claims with a claim name of '{resourceClaimUri}' were found in the Ed-Fi API's security configuration. Authorization cannot be performed.", ex);
+                    $"Multiple resource claims with a claim name of '{resourceClaimUri}' were found in the Ed-Fi API's security configuration. Authorization cannot be performed.",
+                    ex);
             }
 
             if (resourceClaim != null)
@@ -154,8 +163,10 @@ namespace EdFi.Ods.Features.Redis
 
                 if (resourceClaim.ParentResourceClaim != null)
                 {
-                    resourceClaimLineage.AddRange(GetResourceClaimLineageForResourceClaim(
-                        resourceClaim.ParentResourceClaim.ClaimName, resourceClaims));
+                    resourceClaimLineage.AddRange(
+                        GetResourceClaimLineageForResourceClaim(
+                            resourceClaim.ParentResourceClaim.ClaimName,
+                            resourceClaims));
                 }
             }
 
@@ -163,19 +174,20 @@ namespace EdFi.Ods.Features.Redis
         }
 
         private static void AddStrategiesForResourceClaimLineage(
-            List<ResourceClaimAuthorizationMetadata> strategies,
+            List<ResourceClaimAction> strategies,
             string resourceClaimUri,
             string action,
-            List<ResourceClaimAuthorizationMetadata> resourceClaimAuthorizationMetadata,
+            List<ResourceClaimAction> resourceClaimActions,
             List<ResourceClaim> resourceClaims)
         {
             //check for exact match on resource and action
-            var claimAndStrategy = resourceClaimAuthorizationMetadata
-                .SingleOrDefault(rcas =>
-                    rcas.ResourceClaim.ClaimName.Equals(
-                        resourceClaimUri, StringComparison.InvariantCultureIgnoreCase) &&
-                    rcas.Action.ActionUri.Equals(
-                        action, StringComparison.InvariantCultureIgnoreCase));
+            var claimAndStrategy = resourceClaimActions
+                .SingleOrDefault(
+                    rcas =>
+                        rcas.ResourceClaim.ClaimName.Equals(
+                            resourceClaimUri,
+                            StringComparison.InvariantCultureIgnoreCase) &&
+                        rcas.Action.ActionName.Equals(action, StringComparison.InvariantCultureIgnoreCase));
 
             // Add the claim/strategy if it was found
             if (claimAndStrategy != null)
@@ -193,7 +205,7 @@ namespace EdFi.Ods.Features.Redis
                     strategies,
                     resourceClaim.ParentResourceClaim.ClaimName,
                     action,
-                    resourceClaimAuthorizationMetadata,
+                    resourceClaimActions,
                     resourceClaims);
             }
         }

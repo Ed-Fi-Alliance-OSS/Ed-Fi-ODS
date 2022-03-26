@@ -79,15 +79,15 @@ namespace EdFi.Ods.Features.Redis
                 .Where(auth => auth.Application.ApplicationId.Equals(application.ApplicationId))
                 .ToList();
 
-            var claimSetResourceClaims = context.ClaimSetResourceClaims.Include(csrc => csrc.Action)
+            var claimSetResourceClaims = context.ClaimSetResourceClaimActions.Include(csrc => csrc.Action)
                 .Include(csrc => csrc.ClaimSet)
                 .Include(csrc => csrc.ResourceClaim)
                 .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(application.ApplicationId))
                 .ToList();
 
-            var resourceClaimAuthorizationMetadata =
-                context.ResourceClaimAuthorizationMetadatas.Include(rcas => rcas.Action)
-                    .Include(rcas => rcas.AuthorizationStrategy)
+            var resourceClaimActions =
+                context.ResourceClaimActions.Include(rcas => rcas.Action)
+                    .Include(rcas => rcas.AuthorizationStrategies)
                     .Include(rcas => rcas.ResourceClaim)
                     .Where(
                         rcas =>
@@ -100,7 +100,7 @@ namespace EdFi.Ods.Features.Redis
                 { SecurityRepository.ResourceClaimsHashField, resourceClaims },
                 { SecurityRepository.AuthorizationStrategiesHashField, authorizationStrategies },
                 { SecurityRepository.ClaimSetResourceClaimsHashField, claimSetResourceClaims },
-                { SecurityRepository.ResourceClaimAuthorizationMetadataHashField, resourceClaimAuthorizationMetadata }
+                { SecurityRepository.ResourceClaimActionsHashField, resourceClaimActions }
             };
 
             _cacheProvider.Insert(
