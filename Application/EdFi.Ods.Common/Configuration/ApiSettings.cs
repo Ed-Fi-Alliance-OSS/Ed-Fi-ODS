@@ -58,8 +58,5 @@ namespace EdFi.Ods.Common.Configuration
 
         public bool IsFeatureEnabled(string featureName)
             => Features.SingleOrDefault(x => x.Name.EqualsIgnoreCase(featureName) && x.IsEnabled) != null;
-
-        public bool IsJobEnabled(string quartzJobName)
-            => ScheduledJobs.SingleOrDefault(x => x.Name.EqualsIgnoreCase(quartzJobName) && x.IsEnabled) != null;
     }
 }

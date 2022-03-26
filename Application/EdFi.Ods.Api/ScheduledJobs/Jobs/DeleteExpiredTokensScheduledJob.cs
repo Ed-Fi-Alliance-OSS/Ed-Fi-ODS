@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Repositories;
+using EdFi.Common;
 using log4net;
 using Quartz;
 
@@ -13,7 +14,7 @@ namespace EdFi.Ods.Api.ScheduledJobs.Jobs
 
         public DeleteExpiredTokensScheduledJob(IAccessTokenClientRepo accessTokenClientRepo)
         {
-            _accessTokenClientRepo = accessTokenClientRepo ?? throw new ArgumentNullException(nameof(accessTokenClientRepo));
+            _accessTokenClientRepo = Preconditions.ThrowIfNull(accessTokenClientRepo, nameof(accessTokenClientRepo));
         }
 
         public async Task Execute(IJobExecutionContext context) 

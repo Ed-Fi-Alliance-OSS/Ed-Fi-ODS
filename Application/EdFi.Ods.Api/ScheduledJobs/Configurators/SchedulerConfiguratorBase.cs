@@ -20,18 +20,18 @@ namespace EdFi.Ods.Api.ScheduledJobs.Configurators
 
         public abstract string Name { get; }
 
-        public abstract JobBuilder GetJobBuilder();
+        public virtual JobBuilder GetJobBuilder() => JobBuilder.Create<T>();
 
         public async Task AddScheduledJob(IScheduler scheduler, ScheduledJobSetting scheduledJobSetting,
             CancellationToken cancellationToken = default)
         {
-            IJobDetail jobDetail = GetJobDetail(scheduledJobSetting);
-            ITrigger trigger = GetTrigger(scheduledJobSetting);
+            IJobDetail jobDetail = BuildJobDetail(scheduledJobSetting);
+            ITrigger trigger = BuildTrigger(scheduledJobSetting);
 
             await scheduler.ScheduleJob(jobDetail, trigger, cancellationToken);
         }
 
-        public IJobDetail GetJobDetail(ScheduledJobSetting scheduledJobSetting)
+        public IJobDetail BuildJobDetail(ScheduledJobSetting scheduledJobSetting)
         {
             return GetJobBuilder()
                 .WithIdentity($"{scheduledJobSetting.Name} Job")
@@ -39,7 +39,7 @@ namespace EdFi.Ods.Api.ScheduledJobs.Configurators
                 .Build();
         }
 
-        public ITrigger GetTrigger(ScheduledJobSetting scheduledJobSetting)
+        public ITrigger BuildTrigger(ScheduledJobSetting scheduledJobSetting)
         {
             string cronSchedule = GetCronExpression(scheduledJobSetting);
 

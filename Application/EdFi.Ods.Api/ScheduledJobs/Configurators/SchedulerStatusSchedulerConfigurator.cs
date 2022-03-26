@@ -11,10 +11,5 @@ namespace EdFi.Ods.Api.ScheduledJobs.Configurators
     public class SchedulerStatusSchedulerConfigurator : SchedulerConfiguratorBase<SchedulerStatusScheduledJob>
     {
         public override string Name { get => "SchedulerStatus"; }
-        
-        public override JobBuilder GetJobBuilder()
-        {
-            return JobBuilder.Create<SchedulerStatusScheduledJob>();
-        }
     }
 }

@@ -3,13 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.IO;
-using System.Linq;
-using System.Runtime.Loader;
-using System.Security.Claims;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
@@ -25,8 +18,7 @@ using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.MediaTypeFormatters;
 using EdFi.Ods.Api.Middleware;
-using EdFi.Ods.Api.ScheduledJobs.Configurators;
-using EdFi.Ods.Api.ScheduledJobs.Providers;
+using EdFi.Ods.Api.ScheduledJobs.Extensions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -55,8 +47,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Quartz;
-using EdFi.Ods.Api.ScheduledJobs.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
+using System.Linq;
+using System.Runtime.Loader;
+using System.Security.Claims;
 
 namespace EdFi.Ods.Api.Startup
 {

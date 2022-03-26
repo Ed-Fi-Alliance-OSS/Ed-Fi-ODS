@@ -57,7 +57,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
         }
 
         [Test]
-        public void ValidCronExpressionShouldApplyDefaultCronExpression()
+        public void ValidCronExpressionShouldApplyProvidedCronExpression()
         {
             string validCronSchedule = "0 0/20 * 1/1 * ? *";
             ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting() {CronExpression = validCronSchedule};
@@ -80,8 +80,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.ScheduledJobs
             ScheduledJobSetting scheduledJobSetting = new ScheduledJobSetting() {CronExpression = validCronSchedule};
 
             var configurator = new DeleteExpiredTokensSchedulerConfigurator();
-            IJobDetail jobDetail = configurator.GetJobDetail(scheduledJobSetting);
-            ITrigger trigger = configurator.GetTrigger(scheduledJobSetting);
+            IJobDetail jobDetail = configurator.BuildJobDetail(scheduledJobSetting);
+            ITrigger trigger = configurator.BuildTrigger(scheduledJobSetting);
 
             await configurator.AddScheduledJob(scheduler, scheduledJobSetting, cancellationToken);
 

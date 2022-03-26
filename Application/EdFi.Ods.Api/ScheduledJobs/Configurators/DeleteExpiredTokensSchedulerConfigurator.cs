@@ -14,10 +14,5 @@ namespace EdFi.Ods.Api.ScheduledJobs.Configurators
         {
             get => "DeleteExpiredTokens";
         }
-
-        public override JobBuilder GetJobBuilder()
-        {
-            return JobBuilder.Create<DeleteExpiredTokensScheduledJob>();
-        }
     }
 }
