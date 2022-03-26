@@ -14,9 +14,20 @@ namespace EdFi.Ods.Api.ScheduledJobs.Extensions
         // The purpose of the ConfigureScheduleJobs method is to wire-up background tasks to be handled by quartz-scheduler.net
         public static async void ConfigureScheduledJobs(this IApplicationBuilder app, ApiSettings apiSettings, ILifetimeScope container, ILog logger)
         {
+            var duplicateScheduledJobs =
+                apiSettings.ScheduledJobs
+                    .GroupBy(a => a.Name)
+                    .Where(a=>a.Count() > 1)
+                    .Select(a => a.First().Name).ToList();
+
+            if (duplicateScheduledJobs.Any())
+            {
+                logger.Warn($"The following scheduled jobs have duplicate names: {string.Join(", ", duplicateScheduledJobs)}");
+            }
+
             var enabledDistinctScheduledJobs =
                 apiSettings.ScheduledJobs
-                    .Where(a => a.IsEnabled)
+                    .Where(a=>a.IsEnabled)
                     .GroupBy(a => a.Name)
                     .Select(a => a.First()).ToList();
 
