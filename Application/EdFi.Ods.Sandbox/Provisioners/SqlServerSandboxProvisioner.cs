@@ -64,6 +64,24 @@ namespace EdFi.Ods.Sandbox.Provisioners
             }
         }
 
+        public override async Task DeleteSandboxesAsync(params string[] deletedClientKeys)
+        {
+            using (var conn = CreateConnection())
+            {
+                foreach (string key in deletedClientKeys)
+                {
+                    await conn.ExecuteAsync($@"
+                         IF EXISTS (SELECT name from sys.databases WHERE (name = '{_databaseNameBuilder.SandboxNameForKey(key)}'))
+                        BEGIN
+                            ALTER DATABASE [{_databaseNameBuilder.SandboxNameForKey(key)}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                            DROP DATABASE [{_databaseNameBuilder.SandboxNameForKey(key)}];
+                        END;
+                        ", commandTimeout: CommandTimeout)
+                        .ConfigureAwait(false);
+                }
+            }
+        }
+
         public override async Task CopySandboxAsync(string originalDatabaseName, string newDatabaseName)
         {
             using (var conn = CreateConnection())
@@ -116,11 +134,11 @@ namespace EdFi.Ods.Sandbox.Provisioners
                             .ConfigureAwait(false);
 
 
-                        var changeLogicalDataName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME={logicalName}, NEWNAME={newDatabaseName})";
+                        var changeLogicalDataName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalName}', NEWNAME='{newDatabaseName}')";
                         await conn.ExecuteAsync(changeLogicalDataName, commandTimeout: CommandTimeout)
                                   .ConfigureAwait(false);
 
-                        var changeLogicalLogName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME={logicalName}_log, NEWNAME={newDatabaseName}_log)";
+                        var changeLogicalLogName = $"ALTER DATABASE[{newDatabaseName}] MODIFY FILE(NAME='{logicalName}_log', NEWNAME='{newDatabaseName}_log')";
                         await conn.ExecuteAsync(changeLogicalLogName, commandTimeout: CommandTimeout)
                                   .ConfigureAwait(false);
                     }

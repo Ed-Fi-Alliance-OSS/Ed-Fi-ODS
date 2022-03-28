@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
+
 namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 {
     public class EffectiveActionAndStrategy
@@ -21,7 +23,7 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
         public bool ActionInherited { get; private set; }
 
-        public string AuthorizationStrategy { get; private set; }
+        public HashSet<string> AuthorizationStrategy { get; private set; }
 
         public string AuthorizationStrategyOriginatingClaimName { get; private set; }
 
@@ -29,15 +31,13 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
         public bool AuthorizationStrategyIsDefault { get; private set; }
 
-        //public bool AuthorizationStrategyDefaulted { private set; get; }
-
-        public string OverriddenClaimSetAuthorizationStrategy { get; private set; }
+        public HashSet<string> OverriddenClaimSetAuthorizationStrategy { get; private set; }
 
         public string OverriddenClaimSetAuthorizationStrategyOriginatingClaimName { get; private set; }
 
         public bool OverriddenClaimSetAuthorizationStrategyInherited { get; private set; }
 
-        public string OverriddenDefaultAuthorizationStrategy { get; private set; }
+        public HashSet<string> OverriddenDefaultAuthorizationStrategy { get; private set; }
 
         public string OverriddenDefaultAuthorizationStrategyOriginatingClaimName { get; private set; }
 
@@ -56,22 +56,20 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
             return true;
         }
 
-        // This method must be called in increasing order of significance
-
-        public bool TrySetAuthorizationStrategy(string strategyName, string originatingClaimName, bool inherited, bool isDefault)
+        /// <summary>
+        /// Sets the effective authorization strategy.
+        /// This method must be called in increasing order of significance.
+        /// </summary>
+        public bool TrySetAuthorizationStrategy(HashSet<string> strategyName, string originatingClaimName, bool inherited, bool isDefault)
         {
             // Strategy name is required
-            if (string.IsNullOrEmpty(strategyName))
+            if (strategyName == null || strategyName.Count == 0)
             {
                 return false;
             }
 
-            // Check for no change in strategy name...
-            //if (AuthorizationStrategy == strategyName)
-            //    return false;
-
             // If we already have a strategy, where should it go?
-            if (!string.IsNullOrEmpty(AuthorizationStrategy))
+            if (AuthorizationStrategy != null)
             {
                 if (AuthorizationStrategyIsDefault)
                 {
@@ -107,35 +105,14 @@ namespace GenerateSecurityGraphs.Models.AuthorizationMetadata
 
         public bool IsIndeterminate()
         {
-            if (ActionGranted != true // We're not dealing with an actual claim grant
-                && (AuthorizationStrategy == null || AuthorizationStrategy != null && AuthorizationStrategyInherited)) // No local authorization
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool TrySetOverriddenDefaultAuthorizationStrategy(string authorizationStrategy)
-        {
-            if (OverriddenDefaultAuthorizationStrategy != null || AuthorizationStrategy == authorizationStrategy)
-            {
-                return false;
-            }
-
-            OverriddenDefaultAuthorizationStrategy = authorizationStrategy;
-            return true;
+            return ActionGranted != true // We're not dealing with an actual claim grant
+                && (AuthorizationStrategy == null || AuthorizationStrategy != null && AuthorizationStrategyInherited); // No local authorization
         }
 
         public override string ToString()
         {
-            return ActionGranted == true
-                ? "Granted - "
-                  + (string.IsNullOrEmpty(AuthorizationStrategy)
-                      ? "*No Strategy*"
-                      : AuthorizationStrategy)
-                  + " (inherited=" + AuthorizationStrategyInherited
-                  + "; isDefault=" + AuthorizationStrategyIsDefault + ")"
+            return ActionGranted == true 
+                ? $"Granted - {(AuthorizationStrategy == null ? "*No Strategy*" : string.Join(", ", AuthorizationStrategy))} (inherited={AuthorizationStrategyInherited}; isDefault={AuthorizationStrategyIsDefault})"
                 : "Not Granted";
         }
     }

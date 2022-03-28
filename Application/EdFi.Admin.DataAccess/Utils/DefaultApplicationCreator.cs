@@ -79,7 +79,7 @@ namespace EdFi.Admin.DataAccess.Utils
         {
             if (vendor.Applications.Any(x => x.ApplicationName == applicationName))
             {
-                return vendor.Applications.Single(x => x.ApplicationName == applicationName);
+                return vendor.Applications.First(x => x.ApplicationName == applicationName);
             }
 
             var defaultClaimSetName = _configuration.GetSection("DefaultClaimSetName").Value;

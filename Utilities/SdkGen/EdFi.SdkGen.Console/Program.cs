@@ -5,7 +5,6 @@
 
 using System;
 using System.IO;
-using System.Net;
 using System.Reflection;
 using CommandLine;
 using CommandLine.Text;
@@ -17,7 +16,6 @@ namespace EdFi.SdkGen.Console
     internal static class Program
     {
         private const int Success = 0;
-        private const int ParseError = 1;
         private const int Error = 2;
         private static readonly ILog _log = LogManager.GetLogger(typeof(Program));
         private static void Main(string[] args)
@@ -30,8 +28,8 @@ namespace EdFi.SdkGen.Console
             {
                 try
                 {
-                    var cliUpdater = new SwaggerCodgenCliUpdater(options);
-                    var cliRunner = new SwaggerCodeGenCliRunner(options);
+                    var cliUpdater = new OpenApiCodgenCliUpdater(options);
+                    var cliRunner = new OpenApiCodeGenCliRunner(options);
 
                     cliUpdater.Run();
                     cliRunner.Run();

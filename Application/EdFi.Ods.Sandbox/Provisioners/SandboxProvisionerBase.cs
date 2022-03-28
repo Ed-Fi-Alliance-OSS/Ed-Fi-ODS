@@ -56,6 +56,8 @@ namespace EdFi.Ods.Sandbox.Provisioners
 
         public async Task AddSandboxAsync(string sandboxKey, SandboxType sandboxType)
         {
+            await DeleteSandboxesAsync(sandboxKey).ConfigureAwait(false);
+            
             switch (sandboxType)
             {
                 case SandboxType.Minimal:
@@ -77,17 +79,7 @@ namespace EdFi.Ods.Sandbox.Provisioners
             }
         }
 
-        public async Task DeleteSandboxesAsync(params string[] deletedClientKeys)
-        {
-            using (var conn = CreateConnection())
-            {
-                foreach (string key in deletedClientKeys)
-                {
-                    await conn.ExecuteAsync($"DROP DATABASE IF EXISTS {_databaseNameBuilder.SandboxNameForKey(key)};", commandTimeout: CommandTimeout)
-                        .ConfigureAwait(false);
-                }
-            }
-        }
+        public abstract Task DeleteSandboxesAsync(params string[] deletedClientKeys);
 
         public abstract Task<SandboxStatus> GetSandboxStatusAsync(string clientKey);
 

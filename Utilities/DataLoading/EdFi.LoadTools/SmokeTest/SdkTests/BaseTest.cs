@@ -142,7 +142,8 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             var @params = new object[]
             {
                 id,
-                string.Empty
+                Type.Missing,
+                Type.Missing
             };
 
             try
