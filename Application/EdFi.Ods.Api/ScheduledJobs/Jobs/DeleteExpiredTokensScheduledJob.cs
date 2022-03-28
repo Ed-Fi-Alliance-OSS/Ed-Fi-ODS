@@ -22,6 +22,8 @@ namespace EdFi.Ods.Api.ScheduledJobs.Jobs
             try
             {
                 await _accessTokenClientRepo.DeleteExpiredTokensAsync();
+                _logger.Debug("Expired client access tokens have been deleted");
+
             }
             catch (Exception e)
             {
