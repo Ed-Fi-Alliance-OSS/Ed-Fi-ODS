@@ -3,13 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.IO;
-using System.Linq;
-using System.Runtime.Loader;
-using System.Security.Claims;
 using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
@@ -25,6 +18,7 @@ using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Api.InversionOfControl;
 using EdFi.Ods.Api.MediaTypeFormatters;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Api.ScheduledJobs.Extensions;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -53,6 +47,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.IO;
+using System.Linq;
+using System.Runtime.Loader;
+using System.Security.Claims;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -196,6 +197,7 @@ namespace EdFi.Ods.Api.Startup
             }
 
             services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(databaseEngine));
+            services.AddScheduledJobs(ApiSettings, _logger);
         }
 
         private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.InvariantCultureIgnoreCase);
@@ -288,8 +290,8 @@ namespace EdFi.Ods.Api.Startup
             }
 
             // required to get the base controller working
-            app.UseEndpoints(endpoints => 
-            { 
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
 
                 endpoints.MapHealthChecks("/health");
@@ -298,6 +300,8 @@ namespace EdFi.Ods.Api.Startup
             SetStaticResolvers();
 
             RunExternalTasks();
+
+            app.ConfigureScheduledJobs(ApiSettings, Container, _logger);
 
             void RunExternalTasks()
             {
@@ -352,7 +356,7 @@ namespace EdFi.Ods.Api.Startup
                 NHibernate.Cfg.Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
             }
         }
-
+        
         private string GetPluginFolder()
         {
             if (string.IsNullOrWhiteSpace(Plugin.Folder))

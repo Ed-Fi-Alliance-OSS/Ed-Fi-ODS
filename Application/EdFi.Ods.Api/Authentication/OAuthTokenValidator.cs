@@ -38,9 +38,6 @@ namespace EdFi.Ods.Api.Authentication
                 return new ApiClientDetails();
             }
 
-            // TODO SF ODS-3459: this ought to be running as an independent task, scheduled multiple times a day.
-            await _accessTokenClientRepo.DeleteExpiredTokensAsync();
-
             var clientForToken = await _accessTokenClientRepo.GetClientForTokenAsync(tokenAsGuid);
 
             return ApiClientDetails.Create(clientForToken);

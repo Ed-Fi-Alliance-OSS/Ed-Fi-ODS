@@ -44,6 +44,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public List<Feature> Features { get; set; } = new List<Feature>();
 
+        public List<ScheduledJobSetting> ScheduledJobs { get; set; } = new List<ScheduledJobSetting>();
+
         public List<string> ExcludedExtensions { get; set; } = new List<string>();
 
         public bool? UseReverseProxyHeaders { get; set; }

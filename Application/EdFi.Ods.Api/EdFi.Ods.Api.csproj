@@ -39,6 +39,7 @@
     <PackageReference Include="NHibernate" Version="5.2.7" />
     <PackageReference Include="Npgsql" Version="6.0.3" />
     <PackageReference Include="Polly" Version="7.2.2" />
+    <PackageReference Include="Quartz.AspNetCore" Version="3.3.3" />
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
     <PackageReference Include="Sandwych.QuickGraph.Core" Version="1.0.0" />
