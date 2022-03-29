@@ -6,11 +6,12 @@
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using EdFi.Ods.Api.Middleware;
+using Microsoft.AspNetCore.Authentication;
 
 namespace EdFi.Ods.Api.Providers
 {
     public interface IAuthenticationProvider
     {
-        Task<AuthenticationResult> GetAuthenticationResultAsync(AuthenticationHeaderValue authHeader);
+        Task<AuthenticateResult> AuthenticateAsync(AuthenticationHeaderValue authHeader);
     }
 }

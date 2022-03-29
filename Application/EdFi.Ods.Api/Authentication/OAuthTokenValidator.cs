@@ -42,6 +42,5 @@ namespace EdFi.Ods.Api.Authentication
 
             return ApiClientDetails.Create(clientForToken);
         }
-
     }
 }

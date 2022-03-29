@@ -12,6 +12,7 @@ using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
 {
@@ -45,14 +46,25 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                     null));
         }
 
-        public Task<AuthenticationResult> GetAuthenticationResultAsync(AuthenticationHeaderValue authHeader)
+        public Task<AuthenticateResult> AuthenticateAsync(AuthenticationHeaderValue authHeader)
         {
-            return Task.FromResult(
-                new AuthenticationResult
+            var principal = new ClaimsPrincipal(_identity.Value);
+            var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), authHeader.Scheme);
+            return Task.FromResult(AuthenticateResult.Success(ticket));
+
+            AuthenticationProperties CreateAuthenticationProperties()
+            {
+                var parameters = new Dictionary<string, object?>()
                 {
-                    ClaimsIdentity = _identity.Value,
-                    ApiKeyContext = _apiKeyContext.Value
-                });
+                    {
+                        "ApiKeyContext", _apiKeyContext.Value
+                    }
+                };
+
+                var items = new Dictionary<string, string?>() { { ".expires", DateTime.UtcNow.AddYears(1).ToString("O") } };
+
+                return new AuthenticationProperties(items, parameters);
+            }
         }
     }
 }

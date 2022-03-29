@@ -87,17 +87,24 @@ namespace EdFi.Ods.Api.Authentication
             // Try to load API client details from cache
             if (_cacheProvider.TryGetCachedObject(cacheKey, out object apiClientDetailsAsObject))
             {
-                return (ApiClientDetails) apiClientDetailsAsObject;
+                var apiClientDetailsFromCache = (ApiClientDetails) apiClientDetailsAsObject;
+
+                if (apiClientDetailsFromCache.IsTokenValid)
+                {
+                    return apiClientDetailsFromCache;
+                }
+
+                return null;
             }
 
-            // Pass call through to implementation
+            // No entry present, so pass call through to implementation
             var apiClientDetails = await _next.GetClientDetailsForTokenAsync(token);
 
             // If token is valid, insert API client details into the cache for **half** the duration of the externally managed expiration period
             if (apiClientDetails.IsTokenValid)
             {
                 _cacheProvider.Insert(
-                    cacheKey, apiClientDetails, DateTime.Now.AddMinutes(_bearerTokenTimeoutMinutes.Value / 2.0), TimeSpan.Zero);
+                    cacheKey, apiClientDetails, apiClientDetails.ExpiresUtc, TimeSpan.Zero);
             }
 
             return apiClientDetails;
