@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Infrastructure.Filtering;
-using EdFi.Ods.Security.AuthorizationStrategies.Relationships.Filters;
 
 namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
 {
@@ -20,6 +20,11 @@ namespace EdFi.Ods.Security.AuthorizationStrategies.Relationships
         {
             var filters = new List<FilterApplicationDetails>
             {
+                // Education Service Center to Person relationships
+                RelationshipsAuthorizationFilters.EducationServiceCenterIdToStudentUSIIncludingDeletes,
+                RelationshipsAuthorizationFilters.EducationServiceCenterIdToStaffUSIIncludingDeletes,
+                RelationshipsAuthorizationFilters.EducationServiceCenterIdToParentUSIIncludingDeletes,
+
                 // Local Education Agency to Person relationships
                 RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSIIncludingDeletes,
                 RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStaffUSIIncludingDeletes,
