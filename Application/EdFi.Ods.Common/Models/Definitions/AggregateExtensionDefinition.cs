@@ -38,5 +38,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         /// Gets the full names of the extension entities to be added to the aggregate.
         /// </summary>
         public FullName[] ExtensionEntityNames { get; set; }
+
+        public override string ToString() => $"{AggregateRootEntityName} (extensions)";
     }
 }

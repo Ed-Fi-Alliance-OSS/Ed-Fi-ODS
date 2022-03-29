@@ -45,5 +45,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         public bool IsUpdatable { get; set; }
 
         public IDictionary<string, string> ConstraintNames { get; set; }
+
+        public override string ToString() => $"{IdentifierName} ({string.Join(", ", IdentifyingPropertyNames)})";
     }
 }

@@ -31,7 +31,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
             _properties = new Lazy<IReadOnlyList<ResourceProperty>>(
                 () => association.ThisProperties
-                    .Select(p => new ResourceProperty(resourceClass, p))
+                    .Select(p => new ResourceProperty(this, resourceClass, p))
                     .ToList());
 
             _referenceTypeProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
@@ -96,7 +96,7 @@ namespace EdFi.Ods.Common.Models.Resource
                     return false;
 
                 return
-                    (Parent.Entity.InheritedNavigableOneToOnes.Contains(Association, ModelComparers.AssociationView));
+                    (Parent.Entity.InheritedNonNavigableParents.Contains(Association, ModelComparers.AssociationView));
             }
         }
 

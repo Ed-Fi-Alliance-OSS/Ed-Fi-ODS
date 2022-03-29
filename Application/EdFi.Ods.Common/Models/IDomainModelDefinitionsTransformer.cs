@@ -4,16 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
-using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Definitions;
 
-namespace EdFi.Ods.Common.Models.Resource
+namespace EdFi.Ods.Common.Models
 {
-    public interface IResourceSelector
+    public interface IDomainModelDefinitionsTransformer
     {
-        IReadOnlyList<Resource> GetAll();
-
-        Resource GetByName(FullName fullName);
-
-        Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
+        void TransformDefinitions(IEnumerable<DomainModelDefinitions> definitions);
     }
 }
