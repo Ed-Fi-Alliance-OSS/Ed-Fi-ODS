@@ -13,15 +13,15 @@ namespace EdFi.Ods.Generator.Database.NamingConventions
 
         string TableName(Entity entity);
 
-        string ColumnName(EntityProperty property, string suffix = null);
+        string ColumnName(EntityProperty property, string contextualSuffix = null);
 
-        string ColumnName(string name, string suffix = null);
+        string ColumnName(string name, string contextualSuffix = null);
 
         string PrimaryKeyConstraintName(Entity entity);
         
-        string ForeignKeyConstraintName(AssociationView association, string suffix = null);
+        string ForeignKeyConstraintName(AssociationView association, string context = null);
         
-        string ForeignKeyIndexName(AssociationView association, string suffix);
+        string ForeignKeyIndexName(AssociationView association, string context);
 
         string DefaultConstraintName(EntityProperty property);
 
@@ -29,8 +29,15 @@ namespace EdFi.Ods.Generator.Database.NamingConventions
         
         string DefaultGuidConstraintValue();
 
-        string GetUniqueIndexName(Entity entity, string suffix = null);
+        string GetUniqueIndexName(Entity entity, string contextualSuffix = null);
 
         string GetAlternateKeyConstraintName(Entity entity);
+
+        string IdentifierName(string coreName, string prefix = null, string suffix = null);
+        
+        /// <summary>
+        /// Gets a short code representing the database engine.
+        /// </summary>
+        string DatabaseEngineCode { get; }
     }
 }
