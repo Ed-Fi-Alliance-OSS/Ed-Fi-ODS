@@ -13,6 +13,8 @@ using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Generator.Database.Engines.SqlServer;
+using EdFi.Ods.Generator.Database.NamingConventions;
 using SqlKata.Compilers;
 
 namespace EdFi.Ods.Api.Container.Modules
@@ -42,6 +44,11 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<DbProviderFactory>();
             
             builder.Register<Compiler>(ctx => new SqlServerCompiler());
+            
+            // Register SQL Server SQL naming convention
+            builder.RegisterType<SqlServerDatabaseNamingConvention>()
+                .As<IDatabaseNamingConvention>()
+                .SingleInstance();
         }
     }
 }
