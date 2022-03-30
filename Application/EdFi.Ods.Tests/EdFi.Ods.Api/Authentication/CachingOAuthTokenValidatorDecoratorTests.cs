@@ -22,7 +22,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
     [TestFixture]
     public class CachingOAuthTokenValidatorDecoratorTests
     {
-        public class When_requesting_API_client_details_for_a_valid_token_that_are_not_in_cache : TestFixtureBase
+        public class When_requesting_API_client_details_for_a_valid_token_that_are_not_in_cache : TestFixtureAsyncBase
         {
             // Supplied values
             private readonly string _suppliedApiToken = Guid.NewGuid()
@@ -37,9 +37,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             private IOAuthTokenValidator _decoratedValidator;
             private ICacheProvider _cacheProvider;
             private ApiSettings _apiSettings;
-            private IConfigurationRoot _configuration;
 
-            protected override void Arrange()
+            protected override Task ArrangeAsync()
             {
                 // Initialize dependencies
                 _suppliedClientDetails = new ApiClientDetails
@@ -54,23 +53,16 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
 
                 _cacheProvider = Stub<ICacheProvider>();
                 _apiSettings =new ApiSettings { Engine = ApiConfigurationConstants.SqlServer, Mode = ApiConfigurationConstants.Sandbox };
-                _configuration = Stub<IConfigurationRoot>();
 
-                A.CallTo(() => _configuration.GetSection("BearerTokenTimeoutMinutes").Value)
-                    .Returns(_suppliedDurationMinutes.ToString());
+                return Task.CompletedTask;
             }
 
-            protected override void Act()
+            protected override async Task ActAsync()
             {
                 // Execute code under test
-                var validator = new CachingOAuthTokenValidatorDecorator(
-                    _decoratedValidator,
-                    _cacheProvider,
-                    _configuration,
-                    _apiSettings);
+                var validator = new CachingOAuthTokenValidatorDecorator(_decoratedValidator, _cacheProvider, _apiSettings);
 
-                _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedApiToken)
-                                          .GetResultSafely();
+                _actualDetails = await validator.GetClientDetailsForTokenAsync(_suppliedApiToken).ConfigureAwait(false);
             }
 
             [Assert]
@@ -102,12 +94,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             }
         }
 
-        public class When_requesting_API_client_details_for_an_INVALID_token_that_are_not_in_cache : TestFixtureBase
+        public class When_requesting_API_client_details_for_an_INVALID_token_that_are_not_in_cache : TestFixtureAsyncBase
         {
             // Supplied values
-            private readonly string _suppliedInvalidApiToken = Guid.NewGuid()
-                                                                   .ToString();
-            private readonly int _suppliedDurationMinutes = 100;
+            private readonly string _suppliedInvalidApiToken = Guid.NewGuid().ToString();
             private ApiClientDetails _suppliedInvalidClientDetails;
 
             // Actual values
@@ -117,9 +107,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             private IOAuthTokenValidator _decoratedValidator;
             private ICacheProvider _cacheProvider;
             private ApiSettings _apiSettings;
-            private IConfigurationRoot _configuration;
 
-            protected override void Arrange()
+            protected override Task ArrangeAsync()
             {
                 // Initialize dependencies
 
@@ -135,30 +124,23 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
 
                 // Mock config file to return duration
                 _apiSettings =new ApiSettings { Engine = ApiConfigurationConstants.SqlServer, Mode = ApiConfigurationConstants.Sandbox };
-                _configuration = Stub<IConfigurationRoot>();
-
-                A.CallTo(() => _configuration.GetSection("BearerTokenTimeoutMinutes").Value)
-                    .Returns(_suppliedDurationMinutes.ToString());
+                
+                return Task.CompletedTask;
             }
 
-            protected override void Act()
+            protected override async Task ActAsync()
             {
                 // Execute code under test
-                var validator = new CachingOAuthTokenValidatorDecorator(
-                    _decoratedValidator,
-                    _cacheProvider,
-                    _configuration,
-                    _apiSettings);
+                var validator = new CachingOAuthTokenValidatorDecorator(_decoratedValidator, _cacheProvider, _apiSettings);
 
-                _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedInvalidApiToken)
-                                          .GetResultSafely();
+                _actualDetails = await validator.GetClientDetailsForTokenAsync(_suppliedInvalidApiToken).ConfigureAwait(false);
             }
 
             [Assert]
             public void Should_check_the_cache_for_the_details()
             {
-                object outobject=null;
-                A.CallTo(()=> _cacheProvider.TryGetCachedObject(A<string>._,out outobject)).MustHaveHappened();
+                object outObject = null;
+                A.CallTo(() => _cacheProvider.TryGetCachedObject(A<string>._, out outObject)).MustHaveHappened();
             }
 
             [Assert]
@@ -182,61 +164,80 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             }
         }
 
-        public class When_requesting_API_client_details_that_are_already_in_cache : TestFixtureBase
+        public class When_requesting_API_client_details_with_valid_token_that_are_already_in_cache : TestFixtureAsyncBase
         {
             // Supplied values
-            private readonly string _suppliedApiToken = Guid.NewGuid()
-                                                            .ToString();
-            private readonly int _suppliedDurationMinutes = 100;
-            private ApiClientDetails _suppliedCachedClientDetails;
+            private readonly string _suppliedValidApiToken = Guid.NewGuid().ToString();
+            private readonly string _suppliedExpiredApiToken = Guid.NewGuid().ToString();
+            
+            private ApiClientDetails _suppliedCachedClientDetailsForValidToken;
+            private ApiClientDetails _suppliedCachedClientDetailsForExpiredToken;
 
             // Actual values
-            private ApiClientDetails _actualDetails;
+            private ApiClientDetails _actualClientDetailsForValidToken;
+            private ApiClientDetails _actualClientDetailsForExpiredToken;
 
             // Dependencies
             private IOAuthTokenValidator _decoratedValidator;
             private ICacheProvider _cacheProvider;
             private ApiSettings _apiSettings;
-            private IConfigurationRoot _configuration;
 
-            protected override void Arrange()
+            protected override Task ArrangeAsync()
             {
                 // Initialize dependencies
-                _suppliedCachedClientDetails = new ApiClientDetails();
+                _suppliedCachedClientDetailsForValidToken = new ApiClientDetails
+                {
+                    // Valid token
+                    ApiKey = Guid.NewGuid().ToString("n"),
+                    ExpiresUtc = DateTime.Now.AddDays(1)
+                };
+
+                _suppliedCachedClientDetailsForExpiredToken = new ApiClientDetails
+                {
+                    // Expired token
+                    ApiKey = Guid.NewGuid().ToString("n"),
+                    ExpiresUtc = DateTime.Now.AddDays(-1)
+                };
 
                 _decoratedValidator = Stub<IOAuthTokenValidator>();
 
                 // Fake the cache to return the details
                 _cacheProvider = Stub<ICacheProvider>();
-                object outobject = _suppliedCachedClientDetails;
-                A.CallTo(()=> _cacheProvider.TryGetCachedObject(A<string>._,out outobject)).Returns(true);
+
+                // Valid token
+                string cacheKeyForValidToken = string.Format(CachingOAuthTokenValidatorDecorator.CacheKeyFormat, _suppliedValidApiToken);
+                object outApiClientWithValidToken = _suppliedCachedClientDetailsForValidToken;
+                A.CallTo(() => _cacheProvider.TryGetCachedObject(cacheKeyForValidToken, out outApiClientWithValidToken)).Returns(true);
+
+                // Expired token
+                string cacheKeyForExpiredToken = string.Format(CachingOAuthTokenValidatorDecorator.CacheKeyFormat, _suppliedExpiredApiToken);
+                object outApiClientWithExpiredToken = _suppliedCachedClientDetailsForExpiredToken;
+                A.CallTo(() => _cacheProvider.TryGetCachedObject(cacheKeyForExpiredToken, out outApiClientWithExpiredToken)).Returns(true);
 
                 // Mock config file to return duration
-                _apiSettings =new ApiSettings { Engine = ApiConfigurationConstants.SqlServer, Mode = ApiConfigurationConstants.Sandbox };
-                _configuration = Stub<IConfigurationRoot>();
+                _apiSettings = new ApiSettings
+                {
+                    Engine = ApiConfigurationConstants.SqlServer,
+                    Mode = ApiConfigurationConstants.Sandbox
+                };
 
-                A.CallTo(() => _configuration.GetSection("BearerTokenTimeoutMinutes").Value)
-                    .Returns(_suppliedDurationMinutes.ToString());
+                return Task.CompletedTask;
             }
 
-            protected override void Act()
+            protected override async Task ActAsync()
             {
                 // Execute code under test
-                var validator = new CachingOAuthTokenValidatorDecorator(
-                    _decoratedValidator,
-                    _cacheProvider,
-                    _configuration,
-                    _apiSettings);
+                var validator = new CachingOAuthTokenValidatorDecorator(_decoratedValidator, _cacheProvider, _apiSettings);
 
-                _actualDetails = validator.GetClientDetailsForTokenAsync(_suppliedApiToken)
-                                          .GetResultSafely();
+                _actualClientDetailsForValidToken = await validator.GetClientDetailsForTokenAsync(_suppliedValidApiToken).ConfigureAwait(false);
+                _actualClientDetailsForExpiredToken = await validator.GetClientDetailsForTokenAsync(_suppliedExpiredApiToken).ConfigureAwait(false);
             }
 
             [Assert]
-            public void Should_check_the_cache_for_the_details()
+            public void Should_check_the_cache_for_the_details_for_each_of_the_tokens()
             {
-                object outobject = null;
-                A.CallTo(()=> _cacheProvider.TryGetCachedObject(A<string>._,out outobject)).MustHaveHappened();
+                object outObject = null;
+                A.CallTo(()=> _cacheProvider.TryGetCachedObject(A<string>._, out outObject)).MustHaveHappenedTwiceExactly();
             }
 
             [Assert]
@@ -252,9 +253,15 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
             }
 
             [Assert]
-            public void Should_return_the_cached_ApiClientDetails()
+            public void Should_return_the_cached_ApiClientDetails_for_the_valid_token()
             {
-                _actualDetails.ShouldBeSameAs(_suppliedCachedClientDetails);
+                _actualClientDetailsForValidToken.ShouldBeSameAs(_suppliedCachedClientDetailsForValidToken);
+            }
+
+            [Assert]
+            public void Should_return_a_null_reference_for_the_ApiClientDetails_for_the_expired_token()
+            {
+                _actualClientDetailsForExpiredToken.ShouldBeNull();
             }
         }
     }

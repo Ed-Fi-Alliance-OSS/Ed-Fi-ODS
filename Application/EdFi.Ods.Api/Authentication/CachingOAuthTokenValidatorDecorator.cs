@@ -18,13 +18,12 @@ namespace EdFi.Ods.Api.Authentication
     /// </summary>
     public class CachingOAuthTokenValidatorDecorator : IOAuthTokenValidator
     {
-        private const string CacheKeyFormat = "OAuthTokenValidator.ApiClientDetails.{0}";
+        public const string CacheKeyFormat = "OAuthTokenValidator.ApiClientDetails.{0}";
 
         private readonly ApiSettings _apiSettings;
         private readonly IInstanceIdContextProvider _instanceIdContextProvider;
 
         // Lazy initialized fields
-        private readonly Lazy<int> _bearerTokenTimeoutMinutes;
         private readonly ICacheProvider _cacheProvider;
 
         // Dependencies
@@ -35,13 +34,11 @@ namespace EdFi.Ods.Api.Authentication
         /// </summary>
         /// <param name="next">The decorated implementation.</param>
         /// <param name="cacheProvider">The cache provider.</param>
-        /// <param name="configuration"></param>
         /// <param name="apiSettings"></param>
         /// <param name="instanceIdContextProvider"></param>
         public CachingOAuthTokenValidatorDecorator(
             IOAuthTokenValidator next,
             ICacheProvider cacheProvider,
-            IConfigurationRoot configuration,
             ApiSettings apiSettings,
             IInstanceIdContextProvider instanceIdContextProvider = null)
         {
@@ -50,12 +47,6 @@ namespace EdFi.Ods.Api.Authentication
 
             _next = next;
             _cacheProvider = cacheProvider;
-
-            // Lazy initialization
-            _bearerTokenTimeoutMinutes = new Lazy<int>(
-                () => int.TryParse(configuration.GetSection("BearerTokenTimeoutMinutes").Value, out int bearerTokenTimeoutMinutes)
-                    ? bearerTokenTimeoutMinutes
-                    : 30);
         }
 
         /// <summary>
