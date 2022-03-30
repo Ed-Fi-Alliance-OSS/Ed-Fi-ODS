@@ -518,6 +518,25 @@ GO
 
 ALTER TABLE [edfi].[AttendanceEventCategoryDescriptor] ENABLE TRIGGER [edfi_AttendanceEventCategoryDescriptor_TR_DeleteTracking]
 GO
+DROP TRIGGER IF EXISTS [edfi].[edfi_BarrierToInternetAccessInResidenceDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_BarrierToInternetAccessInResidenceDescriptor_TR_DeleteTracking] ON [edfi].[BarrierToInternetAccessInResidenceDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.BarrierToInternetAccessInResidenceDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.BarrierToInternetAccessInResidenceDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.BarrierToInternetAccessInResidenceDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[BarrierToInternetAccessInResidenceDescriptor] ENABLE TRIGGER [edfi_BarrierToInternetAccessInResidenceDescriptor_TR_DeleteTracking]
+GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_BehaviorDescriptor_TR_DeleteTracking]
 GO
 
@@ -2294,6 +2313,44 @@ GO
 
 ALTER TABLE [edfi].[InternetAccessDescriptor] ENABLE TRIGGER [edfi_InternetAccessDescriptor_TR_DeleteTracking]
 GO
+DROP TRIGGER IF EXISTS [edfi].[edfi_InternetAccessTypeInResidenceDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_InternetAccessTypeInResidenceDescriptor_TR_DeleteTracking] ON [edfi].[InternetAccessTypeInResidenceDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.InternetAccessTypeInResidenceDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.InternetAccessTypeInResidenceDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.InternetAccessTypeInResidenceDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[InternetAccessTypeInResidenceDescriptor] ENABLE TRIGGER [edfi_InternetAccessTypeInResidenceDescriptor_TR_DeleteTracking]
+GO
+DROP TRIGGER IF EXISTS [edfi].[edfi_InternetPerformanceInResidenceDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_InternetPerformanceInResidenceDescriptor_TR_DeleteTracking] ON [edfi].[InternetPerformanceInResidenceDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.InternetPerformanceInResidenceDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.InternetPerformanceInResidenceDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.InternetPerformanceInResidenceDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[InternetPerformanceInResidenceDescriptor] ENABLE TRIGGER [edfi_InternetPerformanceInResidenceDescriptor_TR_DeleteTracking]
+GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_Intervention_TR_DeleteTracking]
 GO
 
@@ -3213,6 +3270,63 @@ END
 GO
 
 ALTER TABLE [edfi].[PostSecondaryInstitutionLevelDescriptor] ENABLE TRIGGER [edfi_PostSecondaryInstitutionLevelDescriptor_TR_DeleteTracking]
+GO
+DROP TRIGGER IF EXISTS [edfi].[edfi_PrimaryLearningDeviceAccessDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PrimaryLearningDeviceAccessDescriptor_TR_DeleteTracking] ON [edfi].[PrimaryLearningDeviceAccessDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.PrimaryLearningDeviceAccessDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.PrimaryLearningDeviceAccessDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PrimaryLearningDeviceAccessDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PrimaryLearningDeviceAccessDescriptor] ENABLE TRIGGER [edfi_PrimaryLearningDeviceAccessDescriptor_TR_DeleteTracking]
+GO
+DROP TRIGGER IF EXISTS [edfi].[edfi_PrimaryLearningDeviceAwayFromSchoolDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PrimaryLearningDeviceAwayFromSchoolDescriptor_TR_DeleteTracking] ON [edfi].[PrimaryLearningDeviceAwayFromSchoolDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.PrimaryLearningDeviceAwayFromSchoolDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PrimaryLearningDeviceAwayFromSchoolDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PrimaryLearningDeviceAwayFromSchoolDescriptor] ENABLE TRIGGER [edfi_PrimaryLearningDeviceAwayFromSchoolDescriptor_TR_DeleteTracking]
+GO
+DROP TRIGGER IF EXISTS [edfi].[edfi_PrimaryLearningDeviceProviderDescriptor_TR_DeleteTracking]
+GO
+
+CREATE TRIGGER [edfi].[edfi_PrimaryLearningDeviceProviderDescriptor_TR_DeleteTracking] ON [edfi].[PrimaryLearningDeviceProviderDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_changes_edfi].[Descriptor](OldDescriptorId, OldCodeValue, OldNamespace, Id, Discriminator, ChangeVersion)
+    SELECT  d.PrimaryLearningDeviceProviderDescriptorId, b.CodeValue, b.Namespace, b.Id, 'edfi.PrimaryLearningDeviceProviderDescriptor', (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PrimaryLearningDeviceProviderDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [edfi].[PrimaryLearningDeviceProviderDescriptor] ENABLE TRIGGER [edfi_PrimaryLearningDeviceProviderDescriptor_TR_DeleteTracking]
 GO
 DROP TRIGGER IF EXISTS [edfi].[edfi_ProficiencyDescriptor_TR_DeleteTracking]
 GO
