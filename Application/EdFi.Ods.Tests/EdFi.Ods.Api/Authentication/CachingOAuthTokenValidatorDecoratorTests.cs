@@ -189,14 +189,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Authorization
                 {
                     // Valid token
                     ApiKey = Guid.NewGuid().ToString("n"),
-                    ExpiresUtc = DateTime.Now.AddDays(1)
+                    ExpiresUtc = DateTime.UtcNow.AddDays(1)
                 };
 
                 _suppliedCachedClientDetailsForExpiredToken = new ApiClientDetails
                 {
                     // Expired token
                     ApiKey = Guid.NewGuid().ToString("n"),
-                    ExpiresUtc = DateTime.Now.AddDays(-1)
+                    ExpiresUtc = DateTime.UtcNow.AddDays(-1)
                 };
 
                 _decoratedValidator = Stub<IOAuthTokenValidator>();
