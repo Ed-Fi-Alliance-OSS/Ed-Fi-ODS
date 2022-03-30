@@ -20,20 +20,20 @@ using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Api.Providers
 {
-    public class AuthenticationProvider : IAuthenticationProvider
+    public class OAuthTokenAuthenticator : IOAuthTokenAuthenticator
     {
         private const string ExpectedUseSandboxValue = "ExpectedUseSandboxValue";
 
         private readonly IClaimsIdentityProvider _claimsIdentityProvider;
         private readonly Lazy<bool?> _expectedUseSandboxValue;
-        private readonly ILog _logger = LogManager.GetLogger(typeof(AuthenticationProvider));
-        private readonly IOAuthTokenValidator _oAuthTokenValidator;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(OAuthTokenAuthenticator));
+        private readonly IApiClientDetailsProvider _apiClientDetailsProvider;
 
-        public AuthenticationProvider(IOAuthTokenValidator oAuthTokenValidator,
+        public OAuthTokenAuthenticator(IApiClientDetailsProvider apiClientDetailsProvider,
             IClaimsIdentityProvider claimsIdentityProvider,
             IConfigurationRoot config)
         {
-            _oAuthTokenValidator = oAuthTokenValidator;
+            _apiClientDetailsProvider = apiClientDetailsProvider;
             _claimsIdentityProvider = claimsIdentityProvider;
 
             _expectedUseSandboxValue = new Lazy<bool?>(
@@ -42,18 +42,17 @@ namespace EdFi.Ods.Api.Providers
                     : Convert.ToBoolean(config.GetSection(ExpectedUseSandboxValue).Value));
         }
 
-        public async Task<AuthenticateResult> AuthenticateAsync(AuthenticationHeaderValue authHeader)
+        /// <inheritdoc cref="IOAuthTokenAuthenticator.AuthenticateAsync" />
+        public async Task<AuthenticateResult> AuthenticateAsync(string token, string authorizationScheme)
         {
             ApiClientDetails apiClientDetails;
-
-            var authenticationScheme = authHeader.Scheme;
 
             try
             {
                 // If there are credentials that the filter understands, try to validate them.
-                apiClientDetails = await _oAuthTokenValidator.GetClientDetailsForTokenAsync(authHeader.Parameter);
+                apiClientDetails = await _apiClientDetailsProvider.GetClientDetailsForTokenAsync(token);
                 
-                if (apiClientDetails?.ApiKey == null || !apiClientDetails.IsTokenValid)
+                if (!apiClientDetails.IsTokenValid)
                 {
                     return AuthenticateResult.Fail("Invalid token");
                 }
@@ -82,12 +81,12 @@ namespace EdFi.Ods.Api.Providers
                 apiClientDetails.OwnershipTokenIds.ToList());
 
             var principal = new ClaimsPrincipal(identity);
-            var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), authenticationScheme);
+            var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), authorizationScheme);
             return AuthenticateResult.Success(ticket);
 
             AuthenticationProperties CreateAuthenticationProperties()
             {
-                var parameters = new Dictionary<string, object?>()
+                var parameters = new Dictionary<string, object>()
                 {
                     {
                         "ApiKeyContext", 
@@ -103,7 +102,7 @@ namespace EdFi.Ods.Api.Providers
                     }
                 };
 
-                var items = new Dictionary<string, string?>() { { ".expires", apiClientDetails.ExpiresUtc.ToString("O") } };
+                var items = new Dictionary<string, string>() { { ".expires", apiClientDetails.ExpiresUtc.ToString("O") } };
 
                 return new AuthenticationProperties(items, parameters);
             }

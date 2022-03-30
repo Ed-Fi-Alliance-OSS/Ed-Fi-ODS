@@ -10,7 +10,7 @@ namespace EdFi.Ods.Api.Authentication
     /// <summary>
     /// Defines a method for obtaining the API client's details from their OAuth security token.
     /// </summary>
-    public interface IOAuthTokenValidator
+    public interface IApiClientDetailsProvider
     {
         /// <summary>
         /// Gets the API client details for the supplied OAuth security token.

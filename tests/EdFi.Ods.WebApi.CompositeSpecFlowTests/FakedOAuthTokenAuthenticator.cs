@@ -14,9 +14,9 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 
-namespace EdFi.Ods.WebApi.IntegrationTests
+namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 {
-    public class FakedAuthenticationProvider : IAuthenticationProvider
+    public class FakedOAuthTokenAuthenticator : IOAuthTokenAuthenticator
     {
         private const string ClaimSetName = "Ed-Fi Sandbox";
         private readonly Lazy<ApiKeyContext> _apiKeyContext;
@@ -24,10 +24,10 @@ namespace EdFi.Ods.WebApi.IntegrationTests
         private readonly Lazy<ClaimsIdentity> _identity;
         private readonly Lazy<List<string>> _namespacePrefixes;
 
-        public FakedAuthenticationProvider(IClaimsIdentityProvider claimsIdentityProvider)
+        public FakedOAuthTokenAuthenticator(IClaimsIdentityProvider claimsIdentityProvider)
         {
-            _namespacePrefixes = new Lazy<List<string>>(() => new List<string> { "uri://ed-fi.org" });
-            _educationOrganizationIds = new Lazy<List<int>>(() => new List<int> { 255901 });
+            _namespacePrefixes = new Lazy<List<string>>(() => new List<string> {"uri://ed-fi.org"});
+            _educationOrganizationIds = new Lazy<List<int>>(() => new List<int> {255901});
 
             _identity = new Lazy<ClaimsIdentity>(
                 () => claimsIdentityProvider
@@ -46,10 +46,10 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                     null));
         }
 
-        public Task<AuthenticateResult> AuthenticateAsync(AuthenticationHeaderValue authHeader)
+        public Task<AuthenticateResult> AuthenticateAsync(string token, string authorizationScheme)
         {
             var principal = new ClaimsPrincipal(_identity.Value);
-            var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), authHeader.Scheme);
+            var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), authorizationScheme);
             return Task.FromResult(AuthenticateResult.Success(ticket));
 
             AuthenticationProperties CreateAuthenticationProperties()

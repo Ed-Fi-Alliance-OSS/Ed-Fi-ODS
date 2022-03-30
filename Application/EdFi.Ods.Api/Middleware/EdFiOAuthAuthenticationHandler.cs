@@ -24,7 +24,7 @@ namespace EdFi.Ods.Api.Middleware
         private const string MissingAuthorizationHeaderBearerTokenValue = "Missing Authorization header bearer token value";
         private const string InvalidAuthorizationHeader = "Invalid Authorization header";
 
-        private readonly IAuthenticationProvider _authenticationProvider;
+        private readonly IOAuthTokenAuthenticator _oauthTokenAuthenticator;
 
         private readonly ILogger _logger;
 
@@ -33,11 +33,11 @@ namespace EdFi.Ods.Api.Middleware
             ILoggerFactory loggerFactory,
             UrlEncoder encoder,
             ISystemClock clock,
-            IAuthenticationProvider authenticationProvider)
+            IOAuthTokenAuthenticator oauthTokenAuthenticator)
             : base(options, loggerFactory, encoder, clock)
         {
             _logger = loggerFactory.CreateLogger(typeof(EdFiOAuthAuthenticationHandler).FullName!);
-            _authenticationProvider = authenticationProvider;
+            _oauthTokenAuthenticator = oauthTokenAuthenticator;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
@@ -78,7 +78,7 @@ namespace EdFi.Ods.Api.Middleware
 
             try
             {
-                var result = await _authenticationProvider.AuthenticateAsync(authHeader);
+                var result = await _oauthTokenAuthenticator.AuthenticateAsync(authHeader.Parameter, authHeader.Scheme);
 
                 return result;
             }
