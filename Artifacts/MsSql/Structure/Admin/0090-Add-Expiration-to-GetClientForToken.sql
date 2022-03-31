@@ -52,4 +52,5 @@ RETURN
         p.[ProfileId] = ap.[Profile_ProfileId]
     LEFT OUTER JOIN [dbo].[ApiClientOwnershipTokens] acot ON
         ac.ApiClientId = acot.ApiClient_ApiClientId
+    WHERE cat.Expiration > GETUTCDATE()
 GO
