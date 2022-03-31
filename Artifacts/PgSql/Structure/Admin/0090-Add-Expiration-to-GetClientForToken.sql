@@ -55,8 +55,7 @@ BEGIN
         p.ProfileId = ap.Profile_ProfileId
         LEFT OUTER JOIN dbo.ApiClientOwnershipTokens acot ON
         ac.ApiClientId = acot.ApiClient_ApiClientId
-    WHERE cat.Expiration > CURRENT_TIMESTAMP
-;
+    WHERE cat.Expiration > CURRENT_TIMESTAMP;
 END
 $$
 LANGUAGE plpgsql;
