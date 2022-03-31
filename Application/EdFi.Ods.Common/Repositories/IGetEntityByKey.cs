@@ -13,7 +13,7 @@ namespace EdFi.Ods.Common.Repositories
     /// </summary>
     /// <typeparam name="TEntity">The Type of the entity to be retrieved.</typeparam>
     public interface IGetEntityByKey<TEntity>
-        where TEntity : IHasIdentifier // TODO: GKM: Pulled during addition of GetByKey pipeline. Needed? --> IDateVersionedEntity
+        where TEntity : IHasIdentifier
     {
         /// <summary>
         /// Gets a single entity by its composite primary key values.

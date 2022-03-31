@@ -17,7 +17,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <summary>
         /// Gets or sets the filters to be applied.
         /// </summary>
-        public IReadOnlyList<AuthorizationFilterDetails> Filters { get; set; }
+        public IReadOnlyList<AuthorizationFilterContext> Filters { get; set; }
 
         /// <summary>
         /// Indicates which logical operator ('AND' or 'OR') should be used when combining this authorization strategy with others. 

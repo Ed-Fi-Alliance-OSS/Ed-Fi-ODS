@@ -14,18 +14,8 @@ namespace EdFi.Ods.Common.Security.Authorization
     /// <summary>
     /// Defines methods for authorizing both single-item requests, and multiple item requests (requiring filtering).
     /// </summary>
-    public interface IEdFiAuthorizationStrategy
+    public interface IAuthorizationStrategy
     {
-        /// <summary>
-        /// Authorize the request for a single item.
-        /// </summary>
-        /// <param name="relevantClaims">The subset of the caller's claims that are relevant for the authorization decision.</param>
-        /// <param name="authorizationContext">The authorization context, including the entity's data.</param>
-        Task AuthorizeSingleItemAsync(
-            IEnumerable<Claim> relevantClaims, 
-            EdFiAuthorizationContext authorizationContext, 
-            CancellationToken cancellationToken);
-
         /// <summary>
         /// Applies filtering to a multiple-item request.
         /// </summary>

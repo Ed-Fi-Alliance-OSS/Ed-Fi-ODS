@@ -116,9 +116,9 @@ from
 		left join comp_aao.StaffClassificationDescriptor comp_aap 
 	join comp_aao.EducationOrganization comp_aaq
 where comp_aaa.StaffUSI IN (:BaseEntityId) AND (comp_aao.EducationOrganizationId IN (
-                    SELECT fltr_aah.TargetEducationOrganizationId 
-                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aah 
-                    WHERE fltr_aah.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aao.StaffUSI IN (
+                    SELECT fltr_aaf.TargetEducationOrganizationId 
+                    FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aaf 
+                    WHERE fltr_aaf.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aao.StaffUSI IN (
                     SELECT fltr_aab.StaffUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aab 
                     WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))

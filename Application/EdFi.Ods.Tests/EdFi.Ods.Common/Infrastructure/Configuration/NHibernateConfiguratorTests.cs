@@ -41,8 +41,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
             {
                 var extensionConfigurationProviders = A.Fake<IEnumerable<ExtensionNHibernateConfigurationProvider>>();
                 var beforeBindMappingActivities = A.Fake<IEnumerable<INHibernateBeforeBindMappingActivity>>();
-                var authorizationStrategyConfigurators = A.Fake<IEnumerable<INHibernateFilterConfigurator>>();
-                var filterCriteriaApplicatorProvider = A.Fake<IFilterCriteriaApplicatorProvider>();
+                var authorizationStrategyConfigurators = A.Fake<IEnumerable<IAuthorizationFilterDefinitionsFactory>>();
                 var configurationActivities = A.Fake<IEnumerable<INHibernateConfigurationActivity>>();
 
                 var connectionStringProvider = A.Fake<IOdsDatabaseConnectionStringProvider>();
@@ -51,7 +50,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Infrastructure.Configuration
                 var ormMappingFileDataProvider = new OrmMappingFileDataProvider(assembliesProvider, engine, OrmMappingFileConventions.OrmMappingAssembly);
 
                 var nHibernateConfigurator = new NHibernateConfigurator(extensionConfigurationProviders, beforeBindMappingActivities,
-                    authorizationStrategyConfigurators, filterCriteriaApplicatorProvider, configurationActivities, ormMappingFileDataProvider, connectionStringProvider);
+                    authorizationStrategyConfigurators, configurationActivities, ormMappingFileDataProvider, connectionStringProvider);
                 _configuration = nHibernateConfigurator.Configure();
 
                 _persistentClasses = _configuration.ClassMappings

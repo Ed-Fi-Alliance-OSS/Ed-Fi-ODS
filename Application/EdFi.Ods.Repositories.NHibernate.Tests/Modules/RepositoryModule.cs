@@ -14,35 +14,41 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(NHibernateRepository<>))
-                .As(typeof(IRepository<>));
-
             builder.RegisterGeneric(typeof(CreateEntity<>))
-                .As(typeof(ICreateEntity<>));
+                .As(typeof(ICreateEntity<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(DeleteEntityById<>))
-                .As(typeof(IDeleteEntityById<>));
+                .As(typeof(IDeleteEntityById<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(DeleteEntityByKey<>))
-                .As(typeof(IDeleteEntityByKey<>));
+                .As(typeof(IDeleteEntityByKey<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntitiesByIds<>))
-                .As(typeof(IGetEntitiesByIds<>));
+                .As(typeof(IGetEntitiesByIds<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntitiesBySpecification<>))
-                .As(typeof(IGetEntitiesBySpecification<>));
+                .As(typeof(IGetEntitiesBySpecification<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntityById<>))
-                .As(typeof(IGetEntityById<>));
+                .As(typeof(IGetEntityById<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(GetEntityByKey<>))
-                .As(typeof(IGetEntityByKey<>));
+                .As(typeof(IGetEntityByKey<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(UpdateEntity<>))
-                .As(typeof(IUpdateEntity<>));
+                .As(typeof(IUpdateEntity<>))
+                .SingleInstance();
 
             builder.RegisterGeneric(typeof(UpsertEntity<>))
-                .As(typeof(IUpsertEntity<>));
+                .As(typeof(IUpsertEntity<>))
+                .SingleInstance();
         }
     }
 }

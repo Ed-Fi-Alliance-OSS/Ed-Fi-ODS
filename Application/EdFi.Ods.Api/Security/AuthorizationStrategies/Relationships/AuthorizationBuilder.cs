@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -24,13 +25,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
     /// Builds segments of endpoints that must be related for making an authorization decision.
     /// </summary>
     /// <typeparam name="TContextData">The Type of <see cref="RelationshipsAuthorizationContextData"/> to be used in the authorization decision.</typeparam>
+    [SuppressMessage("ReSharper", "StaticMemberInGenericType")]
     public class AuthorizationBuilder<TContextData>
         where TContextData : RelationshipsAuthorizationContextData
     {
         // By making this static, each closed generic version will have its own accessors
         // which is appropriate if we're dealing with different types of TContextData
-        private static readonly ConcurrentDictionary<string, object> _propertyAccessorsByName
-            = new ConcurrentDictionary<string, object>();
+        private static readonly ConcurrentDictionary<string, object> _propertyAccessorsByName = new();
 
         private static readonly IDictionary<string, PropertyInfo> _propertyInfoByName;
         

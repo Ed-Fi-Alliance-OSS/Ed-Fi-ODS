@@ -57,19 +57,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Filtering
                     new AuthorizationStrategyFiltering()
                     {
                         AuthorizationStrategyName = "Test",
-                        Filters = new List<AuthorizationFilterDetails>
+                        Filters = new List<AuthorizationFilterContext>
                         {
-                            new AuthorizationFilterDetails
+                            new AuthorizationFilterContext
                             {
                                 FilterName = "key1",
+                                ClaimEndpointValues = new object[] { 1 },
                                 ClaimParameterName = "prop1",
-                                ClaimValues = new object[] { 1 }
                             },
-                            new AuthorizationFilterDetails
+                            new AuthorizationFilterContext
                             {
                                 FilterName = "key1",
-                                ClaimParameterName = "prop2",
-                                ClaimValues = new object[] { 2 }
+                                ClaimEndpointValues = new object[] { 2 },
+                                ClaimParameterName = "prop2"
                             }
                         }
                     }
