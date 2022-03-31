@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+
 namespace EdFi.Admin.DataAccess.Models
 {
     public class OAuthTokenClient
@@ -24,5 +26,7 @@ namespace EdFi.Admin.DataAccess.Models
         public short? CreatorOwnershipTokenId { get; set; }
 
         public short? OwnershipTokenId { get; set; }
+        
+        public DateTime Expiration { get; set; }
     }
 }

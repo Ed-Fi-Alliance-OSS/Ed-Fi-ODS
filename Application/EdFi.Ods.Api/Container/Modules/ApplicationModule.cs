@@ -170,14 +170,18 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<ITokenRequestProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<OAuthTokenValidator>()
-                .As<IOAuthTokenValidator>()
+            builder.RegisterType<ApiClientDetailsProvider>()
+                .As<IApiClientDetailsProvider>()
                 .SingleInstance();
 
-            builder.RegisterDecorator<CachingOAuthTokenValidatorDecorator, IOAuthTokenValidator>();
+            builder.RegisterType<ApiClientDetailsCacheKeyProvider>()
+                .As<IApiClientDetailsCacheKeyProvider>()
+                .SingleInstance();
+            
+            builder.RegisterDecorator<CachingApiClientDetailsProviderDecorator, IApiClientDetailsProvider>();
 
-            builder.RegisterType<AuthenticationProvider>()
-                .As<IAuthenticationProvider>()
+            builder.RegisterType<OAuthTokenAuthenticator>()
+                .As<IOAuthTokenAuthenticator>()
                 .SingleInstance();
 
             builder.RegisterType<PersonIdentifiersProvider>()
