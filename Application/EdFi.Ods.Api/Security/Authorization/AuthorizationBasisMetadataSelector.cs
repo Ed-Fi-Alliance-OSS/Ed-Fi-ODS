@@ -194,7 +194,7 @@ public class AuthorizationBasisMetadataSelector : IAuthorizationBasisMetadataSel
 
         string requestedAction = authorizationContext.Action.Single().Value;
 
-        // TODO: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
+        // NOTE: GKM - Review all use of the ClaimsPrincipal, and consider eliminating it for CallContext
         var principal = authorizationContext.Principal;
 
         // Obtain the resource claim/authorization strategy pairs that could be used for authorizing this particular request

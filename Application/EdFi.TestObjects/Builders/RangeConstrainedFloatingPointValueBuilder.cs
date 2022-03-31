@@ -27,7 +27,7 @@ namespace EdFi.TestObjects.Builders
             //}
 
             if (buildContext.TargetType != typeof(decimal)
-                && buildContext.TargetType != typeof(double)) // TODO: GKM - because SDK uses doubles. Not a great choice.
+                && buildContext.TargetType != typeof(double)) // NOTE: This is needed because SDK uses doubles -- not a great choice.
             {
                 return ValueBuildResult.NotHandled;
             }

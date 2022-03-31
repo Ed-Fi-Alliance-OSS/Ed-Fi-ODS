@@ -41,7 +41,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             return CreateAllEducationOrganizationToPersonFilters()
                 .Concat(CreateAllEducationOrganizationToEducationOrganizationFilters())
-                .Concat(CreateEducationOrganizationToSelfPropertyValueFilters()) // TODO: GKM - These may not actually be used (and if so, could be removed)
+                .Concat(CreateEducationOrganizationToSelfPropertyValueFilters()) // NOTE: These may not actually be used (and if so, could be removed)
                 .ToArray();
             
             IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToPersonFilters()
@@ -88,7 +88,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                             $"{propertyName}To{propertyName}",
                             $"{propertyName} IN (:{propertyName})",
                             $"{{currentAlias}}.{propertyName} IN (:{propertyName})",
-                            (c, w, p, jt) => w.ApplyPropertyFilters(p, propertyName),
+                            (criteria, whereJunction, parameters, joinType) => whereJunction.ApplyPropertyFilters(parameters, propertyName),
                             AuthorizeInstance,
                             (t, p) => p.HasPropertyNamed(propertyName)));
             }

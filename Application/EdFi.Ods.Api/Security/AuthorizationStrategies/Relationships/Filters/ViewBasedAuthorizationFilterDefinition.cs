@@ -9,7 +9,6 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
 {
@@ -39,7 +38,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     subjectEndpointName,
                     viewTargetEndpointName,
                     joinType,
-                    Guid.NewGuid().ToString("N")), // TODO: GKM - review usage of alias generator here instead of generating GUIDs
+                    Guid.NewGuid().ToString("N")),
                 authorizeInstance,
                 (t, p) => p.HasPropertyNamed(subjectEndpointName ?? viewTargetEndpointName))
         {

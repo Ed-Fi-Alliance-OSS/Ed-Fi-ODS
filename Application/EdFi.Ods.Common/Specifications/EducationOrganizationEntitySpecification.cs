@@ -10,7 +10,7 @@ using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Common.Specifications
 {
-    // TODO: GKM - This is not an extensible structure.  For extensibility around EdOrg types, we'll eventually want to introduce an interface for this (CoR?), for defining what the valid EdOrgs are, their relationships, and their identifiers.
+    // NOTE: This class should be deprecated in factor of a model-driven approach.
     public class EducationOrganizationEntitySpecification
     {
         private const string EducationOrganizationBaseTypeName = "EducationOrganization";

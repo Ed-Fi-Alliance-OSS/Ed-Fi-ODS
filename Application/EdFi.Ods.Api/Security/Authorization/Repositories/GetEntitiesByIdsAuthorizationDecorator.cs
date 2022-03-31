@@ -8,12 +8,11 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Repositories;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
 {
-    // TODO: GKM - Remove this class completely.  It does not perform any authorization.
+    // NOTE: Consider removing this class completely.  It does not perform any authorization.
 
     /// <summary>
     /// Authorizes calls to the "GetByIds" repository method.

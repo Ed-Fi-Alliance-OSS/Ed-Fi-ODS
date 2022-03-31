@@ -5,18 +5,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading;
-using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Caching;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
-using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
-using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Caching;
+using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Tests._Extensions;
 using EdFi.TestFixture;
 using FakeItEasy;
