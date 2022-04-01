@@ -1056,11 +1056,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
 
             [Test]
-            public void Should_return_HTTP_status_of_Ok()
+            public void Should_return_HTTP_status_of_Unauthorized()
             {
                 AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                    () => _actionResult.ShouldBeOfType<UnauthorizedObjectResult>(),
+                    () => ((UnauthorizedObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
             }
 
             [Test]
@@ -1178,11 +1178,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
 
             [Test]
-            public void Should_return_HTTP_status_of_BadRequest()
+            public void Should_return_HTTP_status_of_Unauthorized()
             {
                 AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                    () => _actionResult.ShouldBeOfType<UnauthorizedObjectResult>(),
+                    () => ((UnauthorizedObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
             }
 
             [Test]

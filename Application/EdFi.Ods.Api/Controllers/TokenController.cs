@@ -26,6 +26,7 @@ namespace EdFi.Ods.Api.Controllers
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(TokenController));
         private readonly ITokenRequestProvider _requestProvider;
+        private const string InvalidClientValue = "invalid_client";
 
         public TokenController(ITokenRequestProvider provider)
         {
@@ -173,6 +174,11 @@ namespace EdFi.Ods.Api.Controllers
             }
 
             var authenticationResult = await _requestProvider.HandleAsync(tokenRequest);
+
+            if (authenticationResult.TokenError != null && authenticationResult.TokenError.Error.EqualsIgnoreCase(InvalidClientValue))
+            {
+                return Unauthorized(authenticationResult.TokenError);
+            }
 
             if (authenticationResult.TokenError != null)
             {
