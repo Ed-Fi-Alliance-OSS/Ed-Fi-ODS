@@ -79,11 +79,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
 
             [Test]
-            public void Should_return_HTTP_status_of_UnAuthorised()
+            public void Should_return_HTTP_status_of_BadRequest()
             {
                 AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<UnauthorizedResult>(),
-                    () => ((UnauthorizedResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
+                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                    () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
             }
 
             [Test]
@@ -898,9 +898,65 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
 
             [Test]
-            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
+            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
             {
-                _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                _tokenError.Error.ShouldBe(TokenErrorType.InvalidRequest);
+            }
+        }
+
+
+        public class Using_basic_authorization_with_unacceptable_format_value : TestFixtureAsyncBase
+        {
+            private IAccessTokenClientRepo _accessTokenClientRepo;
+            private IApiClientAuthenticator _apiClientAuthenticator;
+            private TokenController _controller;
+
+            private IActionResult _actionResult;
+            private TokenError _tokenError;
+
+            protected override Task ArrangeAsync()
+            {
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
+                _apiClientAuthenticator = Stub<IApiClientAuthenticator>();
+
+                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                    .Returns(
+                        Task.FromResult(
+                            new ApiClientAuthenticator.AuthenticationResult
+                            {
+                                IsAuthenticated = true,
+                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId" }
+                            }));
+
+                _controller = ControllerHelper.CreateTokenController(_apiClientAuthenticator, _accessTokenClientRepo);
+
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _controller.ControllerContext =
+                    ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0 Y2xpZW50SWQ6Y2xpZW50U2VjcmV0" } });
+
+                _actionResult = await _controller.PostAsync(
+                    new TokenRequest { Grant_type = "client_credentials" });
+
+                _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
+            }
+
+            [Test]
+            public void Should_return_HTTP_status_of_BadRequest()
+            {
+                AssertHelper.All(
+                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
+                    () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+            }
+
+            [Test]
+            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
+            {
+                _tokenError.Error.ShouldBe(TokenErrorType.InvalidRequest);
             }
         }
 
@@ -1186,9 +1242,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
 
             [Test]
-            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_client()
+            public void Should_return_a_single_valued_response_with_an_error_indicating_invalid_request()
             {
-                _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient);
+                _tokenError.Error.ShouldBe(TokenErrorType.InvalidRequest);
             }
         }
     }
