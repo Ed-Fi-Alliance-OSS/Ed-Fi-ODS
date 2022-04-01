@@ -43,7 +43,7 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterInstance(SqlClientFactory.Instance)
                 .As<DbProviderFactory>();
             
-            builder.Register<Compiler>(ctx => new SqlServerCompiler());
+            builder.Register<Compiler>(ctx => new SqlServerCompiler() { UseLegacyPagination = false});
             
             // Register SQL Server SQL naming convention
             builder.RegisterType<SqlServerDatabaseNamingConvention>()
