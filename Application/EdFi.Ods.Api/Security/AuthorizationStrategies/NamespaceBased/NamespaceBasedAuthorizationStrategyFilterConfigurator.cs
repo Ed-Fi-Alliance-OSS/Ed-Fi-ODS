@@ -25,11 +25,11 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
     {
         private const string FilterPropertyName = "Namespace";
 
-        private readonly IDatabaseNamingConvention _databaseNamingConvention;
+        private readonly string _oldNamespaceColumnName;
 
         public NamespaceBasedAuthorizationStrategyFilterConfigurator(IDatabaseNamingConvention databaseNamingConvention)
         {
-            _databaseNamingConvention = databaseNamingConvention;
+            _oldNamespaceColumnName = databaseNamingConvention.ColumnName($"OldNamespace");
         }
         
         /// <summary>
@@ -87,11 +87,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
             int filterIndex,
             Query query)
         {
-            string namespaceColumnName = _databaseNamingConvention.ColumnName($"OldNamespace");
-
             if (filterContext.ClaimValues.Length == 1)
             {
-                query.WhereLike(namespaceColumnName, filterContext.ClaimValues.Single());
+                query.WhereLike(_oldNamespaceColumnName, filterContext.ClaimValues.Single());
             }
             else if (filterContext.ClaimValues.Length > 1)
             {
@@ -99,7 +97,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
                     q => q.Where(
                         q2 =>
                         {
-                            filterContext.ClaimValues.ForEach(ns => q2.OrWhereLike(namespaceColumnName, ns));
+                            filterContext.ClaimValues.ForEach(ns => q2.OrWhereLike(_oldNamespaceColumnName, ns));
 
                             return q2;
                         }));
