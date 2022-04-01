@@ -56,13 +56,19 @@ namespace EdFi.Ods.Api.Controllers
                 if (encodedClientAndSecret.Length != 2)
                 {
                     _logger.Debug("Header is not in the form of Basic <encoded credentials>");
-                    return Unauthorized();
+                    return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
                 }
 
                 if (!encodedClientAndSecret[0].EqualsIgnoreCase("Basic"))
                 {
                     _logger.Debug("Authorization scheme is not Basic");
                     return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
+                }
+
+                if (string.IsNullOrWhiteSpace(encodedClientAndSecret[1]))
+                {
+                    _logger.Debug("Header does not have <encoded credentials> value");
+                    return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
                 }
 
                 try
@@ -79,10 +85,15 @@ namespace EdFi.Ods.Api.Controllers
                     return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
                 }
             }
+            else if (!Request.Headers.ContainsKey("Authorization"))
+            {
+                _logger.Debug("Authorization Header missing with  form of Basic <encoded credentials>");
+                return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
+            }
 
             if (clientIdAndSecret.Length == 2)
             {
-                if (tokenRequest.Client_id != null || tokenRequest.Client_secret != null)
+                if (!string.IsNullOrWhiteSpace(tokenRequest.Client_id) || !string.IsNullOrWhiteSpace(tokenRequest.Client_secret))
                 {
                     return BadRequest(new TokenError(TokenErrorType.InvalidClient));
                 }
@@ -93,13 +104,19 @@ namespace EdFi.Ods.Api.Controllers
                 tokenRequest.Client_secret = clientIdAndSecret[1];
             }
 
-            if (tokenRequest.Client_id == null && tokenRequest.Client_secret == null)
+            if (string.IsNullOrWhiteSpace(tokenRequest.Client_id) || string.IsNullOrWhiteSpace(tokenRequest.Client_secret))
             {
-                return Unauthorized();
+                return Unauthorized(new TokenError(TokenErrorType.InvalidRequest));
             }
 
             // Handle token request
             var authenticationResult = await _requestProvider.HandleAsync(tokenRequest);
+
+
+            if (authenticationResult.TokenError != null && authenticationResult.TokenError.Error.EqualsIgnoreCase(TokenErrorType.InvalidClient))
+            {
+                return Unauthorized(new TokenError(TokenErrorType.InvalidClient));
+            }
 
             if (authenticationResult.TokenError != null)
             {
