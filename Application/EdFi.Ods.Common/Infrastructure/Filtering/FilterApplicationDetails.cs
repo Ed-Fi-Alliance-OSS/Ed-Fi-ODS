@@ -9,11 +9,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
+using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Security.Authorization;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.Engine;
 using NHibernate.SqlCommand;
 using NHibernate.Type;
+using SqlKata;
 
 namespace EdFi.Ods.Common.Infrastructure.Filtering
 {
@@ -32,6 +35,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// <param name="friendlyDefaultConditionFormat">The default condition (as SQL) for the filter with named format specifiers marking where distinct aliases are required (e.g. "(Column1 LIKE :Parm1 OR Column2 IN (SELECT {newAlias1}.Column2 FROM Table1 {newAlias1})").</param>
         /// <param name="friendlyHqlConditionFormat">The default condition (as HQL) for the filter with named format specifiers marking where distinct aliases are required, with {currentAlias} being the alias for the current entity in the context of the HQL query (e.g. "({currentAlias}.Property1 LIKE :Parm1 OR {currentAlias}.Property2 IN (SELECT {newAlias1}.Property2 FROM EntityOneQ {newAlias1})").</param>
         /// <param name="criteriaApplicator">A function to apply the filter to the query using NHibernate's <see cref="NHibernate.ICriteria"/> API.</param>
+        /// <param name="trackedChangesCriteriaApplicator">A function for applying the appropriate criteria for tracked key changes and/or deletes to the supplied <see cref="Query" /> instance.</param>
         /// <param name="shouldApply">A predicate function using a mapped entity's <see cref="System.Type"/> and properties used to determine whether the filter should be applied to a particular entity.</param>
         /// <remarks>This constructor makes some base level assumptions to simplify the declaration of the filters, but
         /// it could lead to incorrect results.  For parameters with names equal to "Id" or with names ending with "Id",
@@ -46,10 +50,12 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             string friendlyDefaultConditionFormat,
             string friendlyHqlConditionFormat,
             Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator,
+            Action<FilterApplicationDetails, AuthorizationFilterDetails, Resource, int, Query> trackedChangesCriteriaApplicator,
             Func<Type, PropertyInfo[], bool> shouldApply)
         {
             ShouldApply = shouldApply;
             CriteriaApplicator = criteriaApplicator;
+            TrackedChangesCriteriaApplicator = trackedChangesCriteriaApplicator;
 
             string defaultCondition = ProcessFormatStringForAliases(friendlyDefaultConditionFormat);
 
@@ -129,6 +135,11 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// Gets the function for applying the filter using NHibernate's <see cref="NHibernate.ICriteria"/> API.
         /// </summary>
         public Action<ICriteria, Junction, IDictionary<string, object>, JoinType> CriteriaApplicator { get; }
+
+        /// <summary>
+        /// Gets the function for applying the appropriate criteria for tracked key changes and/or deletes to the supplied <see cref="Query" /> instance. 
+        /// </summary>
+        public Action<FilterApplicationDetails, AuthorizationFilterDetails, Resource, int, Query> TrackedChangesCriteriaApplicator { get; }
 
         /// <summary>
         /// Gets the predicate functional for determining whether the filter should be applied to a particular entity.

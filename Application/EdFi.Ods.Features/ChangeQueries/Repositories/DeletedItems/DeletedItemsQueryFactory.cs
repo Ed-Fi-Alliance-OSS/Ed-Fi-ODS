@@ -14,14 +14,15 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
     public class DeletedItemsQueryFactory : IDeletedItemsQueryFactory
     {
-        private readonly IDatabaseNamingConvention _namingConvention;
-        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
-
         private const string SourceTableAlias = "src";
+        private readonly IDatabaseNamingConvention _namingConvention;
 
         private readonly ConcurrentDictionary<FullName, Query> _queryByResourceName = new ConcurrentDictionary<FullName, Query>();
+        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
 
-        public DeletedItemsQueryFactory(IDatabaseNamingConvention namingConvention, ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
+        public DeletedItemsQueryFactory(
+            IDatabaseNamingConvention namingConvention,
+            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
         {
             _namingConvention = namingConvention;
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
@@ -39,15 +40,16 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
         private Query CreateTemplateQuery(Resource resource)
         {
             var entity = resource.Entity;
-            
+
             var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
             var templateQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_namingConvention, entity)
                 .Select(
-                    $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}", 
+                    $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}",
                     $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}")
                 .Select(QueryFactoryHelper.IdentifyingColumns(identifierProjections, columnGroups: ColumnGroups.OldValue))
-                .OrderBy($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
+                .OrderBy(
+                    $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
 
             QueryFactoryHelper.ApplyDiscriminatorCriteriaForDerivedEntities(templateQuery, entity, _namingConvention);
 
@@ -74,7 +76,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                         return @join;
                     });
 
-                templateQuery.WhereNull(string.Concat(SourceTableAlias, ".", identifierProjections.First().SourceTableJoinColumnName));
+                templateQuery.WhereNull(
+                    string.Concat(SourceTableAlias, ".", identifierProjections.First().SourceTableJoinColumnName));
             }
 
             void ApplyDeletesOnlyCriteria()
