@@ -11,33 +11,12 @@ using System.Linq;
 using System.Security.Claims;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Extensions;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
-    public class SubjectEndpoint
-    {
-        public SubjectEndpoint((string name, object value) tuple)
-        {
-            Name = tuple.name;
-            Value = tuple.value;
-        }
-        
-        public SubjectEndpoint((string name, object value) tuple, string authorizationPathModifier)
-        {
-            Name = tuple.name;
-            Value = tuple.value;
-            AuthorizationPathModifier = authorizationPathModifier;
-        }
-
-        public string Name { get; set; }
-        public string AuthorizationPathModifier { get; set; }
-        public object Value { get; set; }
-    }
-    
     public abstract class RelationshipsAuthorizationStrategyBase<TContextData> : IAuthorizationStrategy
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
