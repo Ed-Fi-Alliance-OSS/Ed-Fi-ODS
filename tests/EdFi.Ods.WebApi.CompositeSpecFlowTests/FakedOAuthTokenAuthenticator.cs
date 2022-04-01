@@ -54,14 +54,14 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
             AuthenticationProperties CreateAuthenticationProperties()
             {
-                var parameters = new Dictionary<string, object?>()
+                var parameters = new Dictionary<string, object>()
                 {
                     {
                         "ApiKeyContext", _apiKeyContext.Value
                     }
                 };
 
-                var items = new Dictionary<string, string?>() { { ".expires", DateTime.UtcNow.AddYears(1).ToString("O") } };
+                var items = new Dictionary<string, string>() { { ".expires", DateTime.UtcNow.AddYears(1).ToString("O") } };
 
                 return new AuthenticationProperties(items, parameters);
             }

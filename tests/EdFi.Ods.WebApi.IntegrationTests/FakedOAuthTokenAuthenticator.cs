@@ -54,7 +54,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 
             AuthenticationProperties CreateAuthenticationProperties()
             {
-                var parameters = new Dictionary<string, object?>()
+                var parameters = new Dictionary<string, object>()
                 {
                     {
                         "ApiKeyContext", _apiKeyContext.Value
