@@ -7,6 +7,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using Autofac;
 using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Activities;
@@ -14,8 +15,7 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
-using EdFi.Ods.Generator.Database.Engines.SqlServer;
-using EdFi.Ods.Generator.Database.NamingConventions;
+using EdFi.Ods.Common.Database.NamingConventions;
 using SqlKata.Compilers;
 
 namespace EdFi.Ods.Api.Container.Modules

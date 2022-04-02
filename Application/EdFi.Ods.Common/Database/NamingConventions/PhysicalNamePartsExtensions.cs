@@ -8,7 +8,7 @@ using System.Collections.Concurrent;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EdFi.Ods.Generator.Database.NamingConventions
+namespace EdFi.Ods.Common.Database.NamingConventions
 {
     public static class PhysicalNamePartsExtensions
     {

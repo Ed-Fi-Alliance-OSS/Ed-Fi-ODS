@@ -5,9 +5,9 @@
 
 using System.Collections.Concurrent;
 using System.Linq;
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Generator.Database.NamingConventions;
 using SqlKata;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems

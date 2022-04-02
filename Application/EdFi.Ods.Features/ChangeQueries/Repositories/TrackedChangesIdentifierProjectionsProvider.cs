@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Generator.Database.NamingConventions;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
