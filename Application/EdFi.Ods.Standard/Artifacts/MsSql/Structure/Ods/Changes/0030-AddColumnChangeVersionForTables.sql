@@ -9,11 +9,11 @@ ALTER TABLE [edfi].[AcademicWeek] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VAL
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Account]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Account] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
-IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AccountabilityRating]') AND name = 'ChangeVersion')
-ALTER TABLE [edfi].[AccountabilityRating] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
-
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AccountCode]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[AccountCode] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[AccountabilityRating]') AND name = 'ChangeVersion')
+ALTER TABLE [edfi].[AccountabilityRating] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[edfi].[Actual]') AND name = 'ChangeVersion')
 ALTER TABLE [edfi].[Actual] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
