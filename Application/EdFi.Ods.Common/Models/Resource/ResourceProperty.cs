@@ -64,14 +64,12 @@ namespace EdFi.Ods.Common.Models.Resource
             
             EntityProperty = entityProperty;
 
-            string personType;
-
             // Assign property characteristics
             IsDescriptorUsage = entityProperty.IsDescriptorUsage;
             IsDirectDescriptorUsage = entityProperty.IsDirectDescriptorUsage;
 
             IsIdentifying = entityProperty.IsIdentifying
-                            || UniqueIdSpecification.TryGetUniqueIdPersonType(entityProperty.PropertyName, out personType)
+                            || UniqueIdSpecification.TryGetUniqueIdPersonType(entityProperty.PropertyName, out string personType)
                             && personType == resourceClass.Name;
 
             IsLocallyDefined = entityProperty.IsLocallyDefined;
@@ -241,15 +239,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private static PropertyType GetBasePersonUniqueIdPropertyType(EntityProperty property)
         {
-            //we need to go find the correct PropertyType information by looking through
-            //the incoming associations for the ones that have the USI property
-            //and walking those entities until we find the person type that is the base of this
-            //property, then return the entity's unique id property's property type from there.
-            return GetNestedPersonEntityProperty(property, property.PropertyName)
-                  .Entity.Properties
-                  .Where(x => !UniqueIdSpecification.IsUSI(x.PropertyName) && PersonEntitySpecification.IsPersonIdentifier(x.PropertyName))
-                  .Select(x => x.PropertyType)
-                  .Single();
+            return property.DefiningProperty.PropertyType;
         }
 
         private static string GetResourcePropertyName(EntityProperty property)
@@ -268,28 +258,6 @@ namespace EdFi.Ods.Common.Models.Resource
             }
 
             return property.PropertyName;
-        }
-
-        private static EntityProperty GetNestedPersonEntityProperty(EntityProperty entityProperty, string entityPropertyName)
-        {
-            if (PersonEntitySpecification.IsPersonEntity(entityProperty.Entity.Name))
-            {
-                return entityProperty;
-            }
-
-            var interestingProperties = entityProperty.IncomingAssociations
-                                                      .Select(
-                                                           x => x.PropertyMappingByThisName[entityPropertyName]
-                                                                 .OtherProperty)
-                                                      .ToList();
-
-            if (interestingProperties.None())
-            {
-                return null;
-            }
-
-            return interestingProperties.Select(x => GetNestedPersonEntityProperty(x, x.PropertyName))
-                                        .FirstOrDefault(x => x != null);
         }
 
         private bool IsUsiWithTransformedResourcePropertyName(EntityProperty property)
