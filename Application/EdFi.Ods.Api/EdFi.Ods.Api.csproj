@@ -53,7 +53,6 @@
     <EmbeddedResource Include="Services\Metadata\Resources\*.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Utilities\Generator\EdFi.Ods.Generator\EdFi.Ods.Generator.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
   </ItemGroup>
     <ItemGroup>
