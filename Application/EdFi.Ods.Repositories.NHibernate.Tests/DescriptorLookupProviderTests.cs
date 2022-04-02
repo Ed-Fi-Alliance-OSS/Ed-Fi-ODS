@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Data;
 using System.Linq;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Models;
@@ -74,15 +75,34 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             domainModelBuilder.AddAggregate(
                 new AggregateDefinition(
-                    new FullName("edfi", "AssessmentPeriodDescriptor"),
+                    new FullName("edfi", "Descriptor"),
                     new FullName[] { }));
 
+            domainModelBuilder.AddEntity(
+                new EntityDefinition(
+                    "edfi",
+                    "Descriptor",
+                    new[]
+                    {
+                        new EntityPropertyDefinition("DescriptorId", new PropertyType(DbType.Int32), isIdentifying: true, isServerAssigned: true)
+                    },
+                    new EntityIdentifierDefinition[] { },
+                    isAbstract: true));
+
+            domainModelBuilder.AddAggregate(
+                new AggregateDefinition(
+                    new FullName("edfi", "AssessmentPeriodDescriptor"),
+                    new FullName[] { }));
+            
             domainModelBuilder.AddEntity(
                 new EntityDefinition(
                     "edfi",
                     "AssessmentPeriodDescriptor",
                     new EntityPropertyDefinition[] { },
                     new EntityIdentifierDefinition[] { }));
+
+            domainModelBuilder.AddAssociation(
+                CreateDescriptorInheritanceAssociation("AssessmentPeriodDescriptor"));
 
             domainModelBuilder.AddAggregate(
                 new AggregateDefinition(
@@ -96,13 +116,30 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     new EntityPropertyDefinition[] { },
                     new EntityIdentifierDefinition[] { }));
 
+            domainModelBuilder.AddAssociation(
+                CreateDescriptorInheritanceAssociation("CountryDescriptor"));
+
+            var domainModel = domainModelBuilder.Build();
+
             var domainModelProvider = A.Fake<IDomainModelProvider>();
 
             A.CallTo(() => domainModelProvider.GetDomainModel())
-                .Returns(domainModelBuilder.Build());
+                .Returns(domainModel);
 
             DescriptorLookupProvider = new DescriptorLookupProvider(
                 SessionFactory, new EdFiDescriptorReflectionProvider(domainModelProvider));
+
+            AssociationDefinition CreateDescriptorInheritanceAssociation(string descriptorName)
+            {
+                return new AssociationDefinition(new FullName("edfi", $"FK_Descriptor_{descriptorName}"),
+                    Cardinality.OneToOneInheritance,
+                    new FullName("edfi", "Descriptor"),
+                    new[] { new EntityPropertyDefinition("DescriptorId", new PropertyType(DbType.Int32), isIdentifying: true, isServerAssigned: true) },
+                    new FullName("edfi", descriptorName),
+                    new[] { new EntityPropertyDefinition($"{descriptorName}Id", new PropertyType(DbType.Int32), isIdentifying: true, isServerAssigned: false) },
+                    isIdentifying: true,
+                    isRequired: true);
+            }
         }
 
         private const string CountryDescriptorName = "CountryDescriptor";
