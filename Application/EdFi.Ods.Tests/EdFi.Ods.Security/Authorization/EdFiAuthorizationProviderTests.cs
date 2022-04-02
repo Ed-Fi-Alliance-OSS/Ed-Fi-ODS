@@ -399,6 +399,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                             ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
                         });
 
+                A.CallTo(() => securityRepository.GetActionByName("ReadChanges"))
+                    .Returns(
+                        new Action
+                        {
+                            ActionId = 1, ActionName = "ReadChanges", ActionUri = "http://ACTIONS/readChanges"
+                        });
+
                 A.CallTo(() => securityRepository.GetResourceClaimLineage(Resource1ClaimUri))
                     .Returns(
                         new[]
@@ -2057,6 +2064,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
                     new Action
                     {
                         ActionId = 1, ActionName = "Delete", ActionUri = "http://ACTIONS/delete"
+                    });
+            
+            A.CallTo(() => securityRepository.GetActionByName("ReadChanges"))
+                .Returns(
+                    new Action
+                    {
+                        ActionId = 1, ActionName = "ReadChanges", ActionUri = "http://ACTIONS/readChanges"
                     });
 
             return securityRepository;
