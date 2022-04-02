@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Resource;
-using EdFi.Ods.Generator.Database.NamingConventions;
 using SqlKata;
 using SqlKata.Execution;
 

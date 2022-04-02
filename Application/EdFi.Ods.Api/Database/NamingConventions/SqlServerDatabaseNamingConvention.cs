@@ -3,9 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Generator.Database.NamingConventions;
+using EdFi.Ods.Common.Database.NamingConventions;
 
-namespace EdFi.Ods.Generator.Database.Engines.SqlServer
+namespace EdFi.Ods.Api.Database.NamingConventions
 {
     public class SqlServerDatabaseNamingConvention : DatabaseNamingConventionBase
     {

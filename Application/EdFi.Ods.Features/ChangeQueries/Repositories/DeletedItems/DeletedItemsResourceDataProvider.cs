@@ -8,9 +8,9 @@ using System.Data.Common;
 using System.Threading.Tasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.ChangeQueries.Resources;
-using EdFi.Ods.Generator.Database.NamingConventions;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {

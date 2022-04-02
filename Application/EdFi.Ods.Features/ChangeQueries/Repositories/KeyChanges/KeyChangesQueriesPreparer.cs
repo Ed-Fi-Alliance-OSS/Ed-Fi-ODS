@@ -1,8 +1,8 @@
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
-using EdFi.Ods.Generator.Database.NamingConventions;
 using log4net;
 using SqlKata;
 using SqlKata.Compilers;

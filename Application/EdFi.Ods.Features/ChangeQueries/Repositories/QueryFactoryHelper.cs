@@ -1,6 +1,6 @@
 using System.Linq;
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Generator.Database.NamingConventions;
 using SqlKata;
 using static EdFi.Ods.Features.ChangeQueries.ChangeQueriesDatabaseConstants;
 
