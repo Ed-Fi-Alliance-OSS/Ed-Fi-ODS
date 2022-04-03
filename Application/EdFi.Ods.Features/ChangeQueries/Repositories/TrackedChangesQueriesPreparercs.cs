@@ -115,7 +115,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 query.Variables["@MinChangeVersion"] = queryParameters.MinChangeVersion;
             }
 
-            if (queryParameters.MinChangeVersion.HasValue)
+            if (queryParameters.MaxChangeVersion.HasValue)
             {
                 query.Variables["@MaxChangeVersion"] = queryParameters.MaxChangeVersion;
             }
