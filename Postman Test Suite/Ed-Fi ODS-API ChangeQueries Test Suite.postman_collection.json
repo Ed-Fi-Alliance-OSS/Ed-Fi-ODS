@@ -20,7 +20,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -56,7 +55,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													""
 												],
@@ -101,7 +99,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -117,7 +114,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													""
 												],
@@ -162,7 +158,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 201\", () => {",
 													"    pm.expect(pm.response.code).to.equal(201);",
@@ -176,7 +171,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													"const uuid = require('uuid');",
 													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -228,7 +222,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -245,7 +238,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													""
 												],
@@ -294,7 +286,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 201\", () => {",
 													"    pm.expect(pm.response.code).to.equal(201);",
@@ -308,7 +299,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													"const uuid = require('uuid');",
 													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -357,7 +347,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -374,7 +363,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													""
 												],
@@ -423,7 +411,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 201\", () => {",
 													"    pm.expect(pm.response.code).to.equal(201);",
@@ -437,7 +424,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													"const uuid = require('uuid');",
 													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -489,7 +475,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -505,7 +490,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													""
 												],
@@ -554,7 +538,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -582,7 +565,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													""
 												],
@@ -627,7 +609,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -660,7 +641,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													""
 												],
@@ -705,7 +685,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 												"exec": [
 													"pm.test(\"Status code is 200\", () => {",
 													"    pm.expect(pm.response.code).to.equal(200);",
@@ -737,7 +716,6 @@
 										{
 											"listen": "prerequest",
 											"script": {
-												"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 												"exec": [
 													""
 												],
@@ -780,13 +758,9 @@
 									},
 									"response": []
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "GetDeletedResource",
@@ -883,7 +857,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 204\", () => {",
 															"    pm.expect(pm.response.code).to.equal(204);",
@@ -896,7 +869,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1034,7 +1006,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "2183f236-529a-485e-8d08-0a873513ffac",
 														"exec": [
 															""
 														],
@@ -1088,7 +1059,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 201\", () => {",
 															"    pm.expect(pm.response.code).to.equal(201);",
@@ -1102,7 +1072,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															"const uuid = require('uuid');",
 															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1156,7 +1125,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 204\", () => {",
 															"    pm.expect(pm.response.code).to.equal(204);",
@@ -1169,7 +1137,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1209,7 +1176,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 200\", () => {",
 															"    pm.expect(pm.response.code).to.equal(200);",
@@ -1226,7 +1192,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1275,7 +1240,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 201\", () => {",
 															"    pm.expect(pm.response.code).to.equal(201);",
@@ -1289,7 +1253,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															"",
 															""
@@ -1333,7 +1296,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 204\", () => {",
 															"    pm.expect(pm.response.code).to.equal(204);",
@@ -1346,7 +1308,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1403,7 +1364,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1483,7 +1443,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1527,13 +1486,9 @@
 											},
 											"response": []
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						},
 						{
 							"name": "When_retrieving_deleted_items",
@@ -1547,7 +1502,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 201\", () => {",
 															"    pm.expect(pm.response.code).to.equal(201);",
@@ -1561,7 +1515,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															"const uuid = require('uuid');",
 															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1615,7 +1568,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 204\", () => {",
 															"    pm.expect(pm.response.code).to.equal(204);",
@@ -1628,7 +1580,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1668,7 +1619,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 200\", () => {",
 															"    pm.expect(pm.response.code).to.equal(200);",
@@ -1685,7 +1635,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1734,7 +1683,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 201\", () => {",
 															"    pm.expect(pm.response.code).to.equal(201);",
@@ -1748,7 +1696,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															"const uuid = require('uuid');",
 															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1800,7 +1747,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 204\", () => {",
 															"    pm.expect(pm.response.code).to.equal(204);",
@@ -1813,7 +1759,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1853,7 +1798,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 200\", () => {",
 															"    pm.expect(pm.response.code).to.equal(200);",
@@ -1870,7 +1814,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -1919,7 +1862,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 201\", () => {",
 															"    pm.expect(pm.response.code).to.equal(201);",
@@ -1933,7 +1875,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															"const uuid = require('uuid');",
 															"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -1985,7 +1926,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 204\", () => {",
 															"    pm.expect(pm.response.code).to.equal(204);",
@@ -1998,7 +1938,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -2038,7 +1977,6 @@
 												{
 													"listen": "test",
 													"script": {
-														"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 														"exec": [
 															"pm.test(\"Status code is 200\", () => {",
 															"    pm.expect(pm.response.code).to.equal(200);",
@@ -2054,7 +1992,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -2127,7 +2064,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -2198,7 +2134,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "efa771e6-e188-4765-b79e-d53835786fed",
 														"exec": [
 															""
 														],
@@ -2268,7 +2203,6 @@
 												{
 													"listen": "prerequest",
 													"script": {
-														"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 														"exec": [
 															""
 														],
@@ -2312,24 +2246,17 @@
 											},
 											"response": []
 										}
-									],
-									"protocolProfileBehavior": {},
-									"_postman_isSubFolder": true
+									]
 								}
-							],
-							"protocolProfileBehavior": {},
-							"_postman_isSubFolder": true
+							]
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
 			],
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "10a7dd29-5e09-48f6-869a-d87a94a84f0f",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -2339,15 +2266,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e4440567-4106-4fbb-94de-f5feba0ad518",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Full Life Cycle with Change Queries",
@@ -2361,7 +2286,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2376,7 +2300,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -2428,7 +2351,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const __ = require('lodash');",
 											"const scenarioId = pm.environment.get('scenarioId');",
@@ -2446,7 +2368,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -2494,7 +2415,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2519,7 +2439,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -2568,7 +2487,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const __ = require('lodash');",
 											"const scenarioId = pm.environment.get('scenarioId');",
@@ -2582,7 +2500,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"    pm.expect(pm.response.code).to.equal(204);",
@@ -2630,7 +2547,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2649,7 +2565,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -2698,7 +2613,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											""
 										],
@@ -2708,7 +2622,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2751,7 +2664,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											""
 										],
@@ -2761,7 +2673,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"    pm.expect(pm.response.code).to.equal(204);",
@@ -2804,7 +2715,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2823,7 +2733,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -2872,7 +2781,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5593687f-7959-4934-88a6-942358f71be8",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2902,7 +2810,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2183f236-529a-485e-8d08-0a873513ffac",
 										"exec": [
 											""
 										],
@@ -2947,9 +2854,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Derived Resource Local Education Agency",
@@ -2960,7 +2865,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const uuid = require('uuid');\r",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
@@ -2978,7 +2882,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -3025,7 +2928,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3040,7 +2942,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -3089,7 +2990,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const __ = require('lodash');",
 											"const scenarioId = pm.environment.get('scenarioId');",
@@ -3106,7 +3006,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -3154,7 +3053,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3174,7 +3072,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -3223,7 +3120,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											"const __ = require('lodash');",
 											"const scenarioId = pm.environment.get('scenarioId');",
@@ -3239,7 +3135,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"    pm.expect(pm.response.code).to.equal(204);",
@@ -3286,7 +3181,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3306,7 +3200,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -3355,7 +3248,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											""
 										],
@@ -3365,7 +3257,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3408,7 +3299,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											""
 										],
@@ -3418,7 +3308,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"    pm.expect(pm.response.code).to.equal(204);",
@@ -3461,7 +3350,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3479,7 +3367,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -3528,7 +3415,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5593687f-7959-4934-88a6-942358f71be8",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3557,7 +3443,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2183f236-529a-485e-8d08-0a873513ffac",
 										"exec": [
 											""
 										],
@@ -3602,9 +3487,7 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Regular Resource Course",
@@ -3615,7 +3498,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3630,7 +3512,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3682,7 +3563,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -3696,7 +3576,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const uuid = require('uuid');",
@@ -3752,7 +3631,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3772,7 +3650,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -3821,7 +3698,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"    pm.expect(pm.response.code).to.equal(204);",
@@ -3833,7 +3709,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.environment.set('supplied:'+scenarioId+':courseDefinedByDescriptor',\"uri://ed-fi.org/CourseDefinedByDescriptor#National Organization\");",
@@ -3884,7 +3759,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3902,7 +3776,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -3951,7 +3824,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											""
 										],
@@ -3961,7 +3833,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -4004,7 +3875,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "64c9b944-cedb-4e13-8897-195b24f081b2",
 										"exec": [
 											""
 										],
@@ -4014,7 +3884,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9c2af725-2ea5-433b-b390-9ac1293b0443",
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"    pm.expect(pm.response.code).to.equal(204);",
@@ -4057,7 +3926,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "2ceed769-2e79-4cb3-93c0-123bcb213366",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -4075,7 +3943,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f6b3d716-aa54-4236-8f15-8c11d3330a0a",
 										"exec": [
 											""
 										],
@@ -4124,7 +3991,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "5593687f-7959-4934-88a6-942358f71be8",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -4145,7 +4011,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "2183f236-529a-485e-8d08-0a873513ffac",
 										"exec": [
 											""
 										],
@@ -4190,12 +4055,9 @@
 							},
 							"response": []
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Clean Up Test Data",
@@ -4206,7 +4068,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "112271e1-3ff0-4379-8cab-170739feb315",
 								"exec": [
 									"const __ = require('lodash');\r",
 									"\r",
@@ -4236,8 +4097,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"auth": {
@@ -4254,7 +4114,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "1968cd71-f440-42fc-9a12-ae5ce85610f9",
 				"type": "text/javascript",
 				"exec": [
 					"CreateAccessToken(\"TokenExpiry_255901\",\"AccessToken_255901\",\"ApiKey_255901\",\"ApiSecret_255901\")",
@@ -4325,13 +4184,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "1db543c6-134e-4523-8eae-9a427147544b",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
