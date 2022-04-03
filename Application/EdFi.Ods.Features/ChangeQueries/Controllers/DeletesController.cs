@@ -76,9 +76,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
 
             // TODO: Validate the parameter here rather than deeper in the call stack
-            var queryParameter = new QueryParameters(urlQueryParametersRequest);
+            var queryParameters = new QueryParameters(urlQueryParametersRequest);
 
-            var deletedItemsResponse = await _deletedItemsResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameter);
+            var deletedItemsResponse = await _deletedItemsResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameters);
 
             // Add the total count, if requested
             if (urlQueryParametersRequest.TotalCount)
