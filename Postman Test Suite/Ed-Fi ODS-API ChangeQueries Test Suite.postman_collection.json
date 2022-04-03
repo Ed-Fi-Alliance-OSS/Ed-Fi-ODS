@@ -1129,6 +1129,17 @@
 															"pm.environment.set('supplied:' + scenarioId + ':studentUniqueId', pm.variables.replaceIn('{{$guid}}').replace(/-/g, \"\"));",
 															"pm.environment.set('supplied:' + scenarioId + ':lastSurname', pm.variables.replaceIn('{{$randomLastName}}'));",
 															"pm.environment.set('supplied:' + scenarioId + ':firstName', pm.variables.replaceIn('{{$randomFirstName}}'));",
+															"",
+															"const moment = require('moment');",
+															"let birthDate = new Date();",
+															"birthDate = birthDate.addYears(-20);",
+															"birthDate = moment(birthDate).format(\"YYYY-MM-DD\");",
+															"pm.environment.set('supplied:' + scenarioId + ':birthDate', birthDate);",
+															"",
+															"let enteredUSDate = new Date();",
+															"enteredUSDate = enteredUSDate.addMonths(-20);",
+															"enteredUSDate = moment(enteredUSDate).format(\"YYYY-MM-DD\");",
+															"pm.environment.set('supplied:' + scenarioId + ':enteredUSDate', enteredUSDate);",
 															""
 														],
 														"type": "text/javascript"
@@ -4446,8 +4457,8 @@
 											"});",
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.test(\"Should return the minimum change version in the first item returned \", () => {",
-											"     pm.expect(responseItems[0].ChangeVersion).to.equal(pm.environment.get('known:'+scenarioId+':deletedversion'));  ",
-											"     pm.expect(responseItems[0].Id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':courseGuid'));   ",
+											"     pm.expect(responseItems[0].changeVersion).to.equal(pm.environment.get('known:'+scenarioId+':deletedversion'));  ",
+											"     pm.expect(responseItems[0].id.replace(/\\-/g,'')).to.equal(pm.environment.get('known:'+scenarioId+':courseGuid'));   ",
 											"});"
 										],
 										"type": "text/javascript"
