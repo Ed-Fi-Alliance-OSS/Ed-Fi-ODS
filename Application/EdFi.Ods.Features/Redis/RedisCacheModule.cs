@@ -25,6 +25,11 @@ namespace EdFi.Ods.Features.Redis
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
+            // TODO - add and configure redis server configuration to ApiSettings
+            builder.Register(cx => ConnectionMultiplexer.Connect("localhost"))
+                .As<IConnectionMultiplexer>()
+                .SingleInstance();
+
             builder.RegisterType<DescriptorsCache>()
                 .WithParameter(
                     new ResolvedParameter(
@@ -38,7 +43,7 @@ namespace EdFi.Ods.Features.Redis
                                     "Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
 
                             return new RedisCacheProvider(
-                                c.Resolve<IConnectionMultiplexer>(),
+                                c.Resolve<Lazy<IConnectionMultiplexer>>().Value,
                                 TimeSpan.FromSeconds(expirationPeriod));
                         }))
                 .As<IDescriptorsCache>()

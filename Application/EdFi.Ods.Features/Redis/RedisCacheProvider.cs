@@ -24,11 +24,14 @@ namespace EdFi.Ods.Features.Redis
         private readonly TimeSpan _defaultExpiration;
         private readonly ILog _logger = LogManager.GetLogger(typeof(RedisCacheProvider));
 
+        private static readonly JsonSerializerSettings _defaultSerializerSettings =
+            new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+
         private static readonly JsonSerializerSettings _nonGenericSerializerSettings =
-            new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects };
+            new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Objects, ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
 
         private static readonly JsonSerializerSettings _customContractSerializerSettings =
-            new JsonSerializerSettings { ContractResolver = new CustomContractResolver() };
+            new JsonSerializerSettings { ContractResolver = new CustomContractResolver(), ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
 
         public RedisCacheProvider(IConnectionMultiplexer redis, TimeSpan defaultExpiration)
         {
@@ -96,7 +99,7 @@ namespace EdFi.Ods.Features.Redis
             TimeSpan slidingExpiration)
         {
             HashEntry[] hashFields = dictionary
-                .Select(kvp => new HashEntry(kvp.Key, JsonConvert.SerializeObject(kvp.Value)))
+                .Select(kvp => new HashEntry(kvp.Key, JsonConvert.SerializeObject(kvp.Value, _defaultSerializerSettings)))
                 .ToArray();
 
             TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
@@ -182,7 +185,7 @@ namespace EdFi.Ods.Features.Redis
 
         private static TimeSpan DetermineEarlier(DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
-            TimeSpan timeUntilAbsolute = absoluteExpiration.Subtract(SystemClock.Now());
+            TimeSpan timeUntilAbsolute = absoluteExpiration.Subtract(DateTime.Now);
 
             if (slidingExpiration <= TimeSpan.Zero)
             {

@@ -187,7 +187,7 @@ namespace EdFi.Ods.Features.Redis
                         rcas.ResourceClaim.ClaimName.Equals(
                             resourceClaimUri,
                             StringComparison.InvariantCultureIgnoreCase) &&
-                        rcas.Action.ActionName.Equals(action, StringComparison.InvariantCultureIgnoreCase));
+                        rcas.Action.ActionUri.Equals(action, StringComparison.InvariantCultureIgnoreCase));
 
             // Add the claim/strategy if it was found
             if (claimAndStrategy != null)
