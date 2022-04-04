@@ -10,6 +10,7 @@ using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
 using SqlKata;
@@ -63,7 +64,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                         filterContext.FilterName,
                         out var filterApplicationDetails))
                 {
-                    throw new ApiSecurityConfigurationException($"Filter '{filterContext.FilterName}' was not found.");
+                    throw new EdFiSecurityException($"Filter '{filterContext.FilterName}' was not found. Are you using the correct authorization strategy for the '{resource.FullName}' resource and the API client's claim set?");
                 }
 
                 filterApplicationDetails.TrackedChangesCriteriaApplicator(

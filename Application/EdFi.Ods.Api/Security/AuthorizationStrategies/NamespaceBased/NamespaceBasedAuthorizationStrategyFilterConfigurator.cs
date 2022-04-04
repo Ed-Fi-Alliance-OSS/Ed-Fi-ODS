@@ -13,6 +13,7 @@ using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Resource;
+using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using NHibernate;
 using NHibernate.Criterion;
@@ -105,7 +106,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
             else
             {
                 // This should never happen
-                throw new ApiSecurityConfigurationException("No namespaces found in claims.");
+                throw new EdFiSecurityException("No namespaces found in claims.");
             }
         }
     }
