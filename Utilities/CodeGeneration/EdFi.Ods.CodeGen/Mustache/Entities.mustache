@@ -118,17 +118,7 @@ namespace {{AggregateNamespace}}
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                }
-
-                return hashCode;
+                return string.Join(";", keyValues.Values).GetHashCode();
             }
         }
         #endregion
@@ -610,24 +600,7 @@ namespace {{AggregateNamespace}}
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
-                }
-
-                return hashCode;
+                return string.Join(";", keyValues.Values).GetHashCode();
             }
         }
         #endregion
