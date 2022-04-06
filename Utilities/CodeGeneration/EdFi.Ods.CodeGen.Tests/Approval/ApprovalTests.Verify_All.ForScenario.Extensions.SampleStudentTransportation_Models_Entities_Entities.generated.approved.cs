@@ -86,7 +86,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -97,14 +97,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -302,7 +299,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -313,21 +310,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;

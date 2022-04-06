@@ -82,7 +82,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -93,14 +93,11 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -223,7 +220,7 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -234,21 +231,11 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -336,7 +323,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -347,14 +334,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -597,7 +581,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -608,21 +592,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -794,7 +768,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -805,21 +779,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -993,7 +957,7 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -1004,21 +968,11 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -1108,7 +1062,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -1119,14 +1073,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -1328,7 +1279,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -1339,21 +1290,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -1510,7 +1451,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -1521,21 +1462,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -1632,7 +1563,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -1643,14 +1574,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -1770,7 +1698,7 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -1781,21 +1709,11 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -1883,7 +1801,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -1894,14 +1812,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -2142,7 +2057,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -2153,21 +2068,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -2339,7 +2244,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -2350,21 +2255,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -2538,7 +2433,7 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -2549,21 +2444,11 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -2655,7 +2540,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -2666,14 +2551,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -2887,7 +2769,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -2898,21 +2780,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -3077,7 +2949,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -3088,21 +2960,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -3196,7 +3058,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -3207,14 +3069,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
@@ -3386,7 +3245,7 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -3397,21 +3256,11 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                int hashCode = this.GetType().GetHashCode();
+                int hashCode = 17;
 
                 foreach (DictionaryEntry entry in keyValues)
                 {
-                    if (entry.Value == null)
-                        continue;
-
-                    if (entry.Value is string)
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ ((string) entry.Value).ToLower().GetHashCode();
-                    }
-                    else
-                    {
-                        hashCode = (hashCode*HashMultiplier) ^ entry.Value.GetHashCode();
-                    }
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
                 }
 
                 return hashCode;
