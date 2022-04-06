@@ -15,21 +15,18 @@ namespace EdFi.Ods.Common.Models.Domain
     /// <summary>
     ///     Provides a standard base class for facilitating comparison of objects.
     ///     For a discussion of the implementation of Equals/GetHashCode, see
-    ///     http://devlicio.us/blogs/billy_mccafferty/archive/2007/04/25/using-equals-gethashcode-effectively.aspx
-    ///     and http://groups.google.com/group/sharp-architecture/browse_thread/thread/f76d1678e68e3ece?hl=en for
-    ///     an in depth and conclusive resolution.
+    ///     https://stackoverflow.com/a/263416.
     /// </summary>
     [Serializable]
     public abstract class DomainObjectBase
     {
         /// <summary>
         ///     To help ensure hashcode uniqueness, a carefully selected random number multiplier
-        ///     is used within the calculation.  Goodrich and Tamassia's Data Structures and
-        ///     Algorithms in Java asserts that 31, 33, 37, 39 and 41 will produce the fewest number
-        ///     of collissions.  See http://computinglife.wordpress.com/2008/11/20/why-do-hash-functions-use-prime-numbers/
+        ///     is used within the calculation. Hans-Peter Storr asserts that 486187739 will produce 
+        ///     the fewest number of collissions. See https://stackoverflow.com/a/2816747
         ///     for more information.
         /// </summary>
-        private const int HashMultiplier = 31;
+        private const int HashMultiplier = 486187739;
 
         /// <summary>
         ///     This static member caches the domain signature properties to avoid looking them up for
@@ -84,15 +81,10 @@ namespace EdFi.Ods.Common.Models.Domain
             {
                 var signatureProperties = GetSignatureProperties();
 
-                // It's possible for two objects to return the same hash code based on 
-                // identically valued properties, even if they're of two different types, 
-                // so we include the object's type in the hash calculation
-                var hashCode = GetType()
-                   .GetHashCode();
+                var hashCode = 17;
 
                 hashCode = signatureProperties.Select(property => property.GetValue(this, null))
-                                              .Where(value => value != null)
-                                              .Aggregate(hashCode, (current, value) => (current * HashMultiplier) ^ value.GetHashCode());
+                                              .Aggregate(hashCode, (current, value) => (current * HashMultiplier) + (value?.GetHashCode() ?? 0));
 
                 if (signatureProperties.Any())
                 {

@@ -14,19 +14,18 @@ namespace EdFi.Ods.Common.Models.Domain
 {
     /// <summary>
     ///     For a discussion of this object, see
-    ///     http://devlicio.us/blogs/billy_mccafferty/archive/2007/04/25/using-equals-gethashcode-effectively.aspx
+    ///     https://stackoverflow.com/a/263416
     /// </summary>
     [Serializable]
     public abstract class EntityWithCompositeKey : DomainObjectBase //ValidatableObject
     {
         /// <summary>
         ///     To help ensure hashcode uniqueness, a carefully selected random number multiplier
-        ///     is used within the calculation.  Goodrich and Tamassia's Data Structures and
-        ///     Algorithms in Java asserts that 31, 33, 37, 39 and 41 will produce the fewest number
-        ///     of collissions.  See http://computinglife.wordpress.com/2008/11/20/why-do-hash-functions-use-prime-numbers/
+        ///     is used within the calculation. Hans-Peter Storr asserts that 486187739 will produce 
+        ///     the fewest number of collissions. See https://stackoverflow.com/a/2816747
         ///     for more information.
         /// </summary>
-        private const int HashMultiplier = 31;
+        private const int HashMultiplier = 486187739;
 
         private int? cachedHashcode;
 
@@ -91,42 +90,14 @@ namespace EdFi.Ods.Common.Models.Domain
                 return cachedHashcode.Value;
             }
 
-            //if (this.IsTransient())
-            //{
-            //    this.cachedHashcode = base.GetHashCode();
-            //}
-            //else
-            {
-                unchecked
-                {
-                    // It's possible for two objects to return the same hash code based on
-                    // identically valued properties, even if they're of two different types,
-                    // so we include the object's type in the hash calculation
-                    var hashCode = GetType()
-                       .GetHashCode();
-
-                    cachedHashcode = (hashCode * HashMultiplier) ^ GetSignatureHashCode();
-                }
-            }
-
-            return cachedHashcode.Value;
-        }
-
-        private int GetSignatureHashCode()
-        {
             unchecked
             {
                 var signatureProperties = GetSignatureProperties();
 
-                // It's possible for two objects to return the same hash code based on
-                // identically valued properties, even if they're of two different types,
-                // so we include the object's type in the hash calculation
-                var hashCode = GetType()
-                   .GetHashCode();
+                var hashCode = 17;
 
                 hashCode = signatureProperties.Select(property => property.GetValue(this, null))
-                                              .Where(value => value != null)
-                                              .Aggregate(hashCode, (current, value) => (current * HashMultiplier) ^ value.GetHashCode());
+                                              .Aggregate(hashCode, (current, value) => (current * HashMultiplier) + (value?.GetHashCode() ?? 0));
 
                 if (signatureProperties.Any())
                 {
@@ -135,8 +106,10 @@ namespace EdFi.Ods.Common.Models.Domain
 
                 // If no properties were flagged as being part of the signature of the object,
                 // then simply return the hashcode of the base object as the hashcode.
-                return base.GetHashCode();
+                cachedHashcode = base.GetHashCode();
             }
+
+            return cachedHashcode.Value;
         }
 
         // <summary>

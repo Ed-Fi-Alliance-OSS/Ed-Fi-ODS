@@ -107,7 +107,7 @@ namespace {{AggregateNamespace}}
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -118,7 +118,14 @@ namespace {{AggregateNamespace}}
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                return string.Join(";", keyValues.Values).GetHashCode();
+                int hashCode = 17;
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
+                }
+
+                return hashCode;
             }
         }
         #endregion
@@ -589,7 +596,7 @@ namespace {{AggregateNamespace}}
             return true;
         }
 
-        private const int HashMultiplier = 31; // or 33, 37, 39, 41
+        private const int HashMultiplier = 486187739;
 
         public override int GetHashCode()
         {
@@ -600,7 +607,14 @@ namespace {{AggregateNamespace}}
                 if (keyValues.Count == 0)
                     return base.GetHashCode();
 
-                return string.Join(";", keyValues.Values).GetHashCode();
+                int hashCode = 17;
+
+                foreach (DictionaryEntry entry in keyValues)
+                {
+                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
+                }
+
+                return hashCode;
             }
         }
         #endregion
