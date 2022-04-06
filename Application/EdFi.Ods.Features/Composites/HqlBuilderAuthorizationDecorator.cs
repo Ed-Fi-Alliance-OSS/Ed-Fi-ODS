@@ -19,9 +19,11 @@ using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.Composites.Infrastructure;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Common.Conventions;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
 using log4net;
 
@@ -29,42 +31,32 @@ namespace EdFi.Ods.Features.Composites
 {
     public class HqlBuilderAuthorizationDecorator : ICompositeItemBuilder<HqlBuilderContext, CompositeQuery>
     {
+        private readonly IAuthorizationBasisMetadataSelector _authorizationBasisMetadataSelector;
+        private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly IEdFiAuthorizationProvider _authorizationProvider;
+        private readonly IAuthorizationFilteringProvider _authorizationFilteringProvider;
 
         private readonly ConcurrentDictionary<string, Type> _entityTypeByName
             = new ConcurrentDictionary<string, Type>(StringComparer.InvariantCultureIgnoreCase);
         private readonly ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> _next;
-        private readonly INHibernateFilterTextProvider _nHibernateFilterTextProvider;
+        private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
         private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
-        private readonly Lazy<List<string>> _sortedEducationOrganizationIdNames;
 
         public HqlBuilderAuthorizationDecorator(
             ICompositeItemBuilder<HqlBuilderContext, CompositeQuery> next,
-            IEdFiAuthorizationProvider authorizationProvider,
-            INHibernateFilterTextProvider nHibernateFilterTextProvider,
+            IAuthorizationFilteringProvider authorizationFilteringProvider,
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
             IResourceClaimUriProvider resourceClaimUriProvider,
-            IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
+            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
+            IApiKeyContextProvider apiKeyContextProvider)
         {
-
-            _sortedEducationOrganizationIdNames =
-                new Lazy<List<string>>(
-                    () =>
-                    {
-                        var sortedEdOrgNames = new List<string>(educationOrganizationIdNamesProvider.GetAllNames());
-                        sortedEdOrgNames.Sort();
-
-                        return sortedEdOrgNames;
-                    });
-                
             _next = Preconditions.ThrowIfNull(next, nameof(next));
-            _authorizationProvider = Preconditions.ThrowIfNull(authorizationProvider, nameof(authorizationProvider));
-
-            _nHibernateFilterTextProvider = Preconditions.ThrowIfNull(
-                nHibernateFilterTextProvider, nameof(nHibernateFilterTextProvider));
-
+            _authorizationFilteringProvider = Preconditions.ThrowIfNull(authorizationFilteringProvider, nameof(authorizationFilteringProvider));
+            _authorizationFilterDefinitionProvider = Preconditions.ThrowIfNull(authorizationFilterDefinitionProvider, nameof(authorizationFilterDefinitionProvider));
             _resourceClaimUriProvider = Preconditions.ThrowIfNull(resourceClaimUriProvider, nameof(resourceClaimUriProvider));
+            _authorizationBasisMetadataSelector = authorizationBasisMetadataSelector;
+            _apiKeyContextProvider = apiKeyContextProvider;
         }
 
         /// <summary>
@@ -91,6 +83,7 @@ namespace EdFi.Ods.Features.Composites
             var entityType = GetEntityType(resource);
 
             var authorizationContext = new EdFiAuthorizationContext(
+                _apiKeyContextProvider.GetApiKeyContext(),
                 ClaimsPrincipal.Current,
                 _resourceClaimUriProvider.GetResourceClaimUris(resource),
                 RequestActions.ReadActionUri,
@@ -101,8 +94,10 @@ namespace EdFi.Ods.Features.Composites
 
             try
             {
+                var authorizationBasisMetadata = _authorizationBasisMetadataSelector.SelectAuthorizationBasisMetadata(authorizationContext);
+                
                 // NOTE: Possible performance optimization - Allow for "Try" semantics (so no exceptions are thrown here)
-                authorizationFiltering = _authorizationProvider.GetAuthorizationFiltering(authorizationContext);
+                authorizationFiltering = _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
             }
             catch (EdFiSecurityException ex)
             {
@@ -329,24 +324,19 @@ namespace EdFi.Ods.Features.Composites
                 {
                     // Get the filter text
                     string filterName = filterInfo.Key;
-                    string filterHqlFormat;
 
-                    if (!_nHibernateFilterTextProvider.TryGetHqlFilterText(entityType, filterName, out filterHqlFormat))
+                    if (!_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(filterName, out var filterApplicationDetails))
                     {
                         throw new Exception(
-                            string.Format(
-                                "Unable to apply authorization to query because filter '{0}' could not be found on entity '{1}'.",
-                                filterName,
-                                entityType.Name));
+                            $"Unable to apply authorization to query because filter '{filterName}' could not be found.");
                     }
 
+                    string filterHqlFormat = filterApplicationDetails.HqlConditionFormatString;
+                    
                     if (string.IsNullOrWhiteSpace(filterHqlFormat))
                     {
                         throw new Exception(
-                            string.Format(
-                                "Unable to apply authorization to query because filter '{0}' on entity '{1}' was found, but was null or empty.",
-                                filterName,
-                                entityType.Name));
+                            $"Unable to apply authorization to query because filter '{filterName}' on entity '{entityType.Name}' was found, but was null or empty.");
                     }
 
                     // Set the current alias for the contextual fields
@@ -367,15 +357,15 @@ namespace EdFi.Ods.Features.Composites
 
                         if (filterHql.Contains($":{parameterName}"))
                         {
-                            if (authorizationFilterDetails.ClaimValues.Length == 1)
+                            if (authorizationFilterDetails.ClaimParameterValues.Length == 1)
                             {
                                 builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
-                                    authorizationFilterDetails.ClaimValues.Single();
+                                    authorizationFilterDetails.ClaimParameterValues.Single();
                             }
                             else
                             {
                                 builderContext.CurrentQueryFilterParameterValueByName[parameterName] =
-                                    authorizationFilterDetails.ClaimValues;
+                                    authorizationFilterDetails.ClaimParameterValues;
                             }
                         }
                     }

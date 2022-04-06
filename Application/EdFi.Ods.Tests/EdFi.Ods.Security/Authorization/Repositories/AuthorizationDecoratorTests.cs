@@ -12,6 +12,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Authentication;
+using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Repositories;
@@ -133,8 +135,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization.Repositories
             public void Should_invoke_authorization_on_the_item()
             {
                 A.CallTo(() =>
-                        Given<IEdFiAuthorizationProvider>()
-                            .AuthorizeSingleItemAsync(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), CancellationToken.None))
+                        Given<IAuthorizationFilteringProvider>()
+                            .GetAuthorizationFiltering(A<EdFiAuthorizationContext>.That.Matches(ctx => CompareContexts(ctx)), A<AuthorizationBasisMetadata>.Ignored))
                     .MustHaveHappened();
             }
 

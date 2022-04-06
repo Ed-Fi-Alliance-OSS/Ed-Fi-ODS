@@ -28,9 +28,6 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Steps
             _repository = repository;
         }
 
-        public void Execute(TContext context, TResult result)
-            => ExecuteAsync(context, result, CancellationToken.None).WaitSafely();
-
         public async Task ExecuteAsync(TContext context, TResult result, CancellationToken cancellationToken)
         {
             try

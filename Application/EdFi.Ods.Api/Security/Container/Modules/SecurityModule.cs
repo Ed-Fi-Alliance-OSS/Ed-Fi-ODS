@@ -16,6 +16,7 @@ using EdFi.Ods.Api.Security.AuthorizationStrategies;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Api.Security.Utilities;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace EdFi.Ods.Api.Security.Container.Modules
 {
@@ -31,8 +32,12 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IAuthorizationFilterContextProvider>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<EdFiAuthorizationProvider>()
-                .As<IEdFiAuthorizationProvider>()
+            builder.RegisterType<AuthorizationFilteringProvider>()
+                .As<IAuthorizationFilteringProvider>()
+                .SingleInstance();
+
+            builder.RegisterType<AuthorizationBasisMetadataSelector>()
+                .As<IAuthorizationBasisMetadataSelector>()
                 .SingleInstance();
 
             builder.RegisterType<AuthorizationSegmentsVerifier>()
@@ -50,7 +55,7 @@ namespace EdFi.Ods.Api.Security.Container.Modules
             var assembly = typeof(Marker_EdFi_Ods_Api).Assembly;
 
             var strategyTypes = assembly.GetTypes()
-                .Where(t => typeof(IEdFiAuthorizationStrategy).IsAssignableFrom(t) && !t.IsAbstract).ToList();
+                .Where(t => typeof(IAuthorizationStrategy).IsAssignableFrom(t) && !t.IsAbstract).ToList();
 
             foreach (Type strategyType in strategyTypes)
             {
@@ -60,24 +65,24 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                     // Property injection is used for RelationshipsAuthorizationStrategyBase<>
                     builder.RegisterType(strategyType.MakeGenericType(typeof(RelationshipsAuthorizationContextData)))
                         .PropertiesAutowired()
-                        .As<IEdFiAuthorizationStrategy>()
+                        .As<IAuthorizationStrategy>()
                         .SingleInstance();
                 }
                 else
                 {
                     builder.RegisterType(strategyType)
-                        .As<IEdFiAuthorizationStrategy>()
+                        .As<IAuthorizationStrategy>()
                         .SingleInstance();
                 }
             }
 
             builder.RegisterAssemblyTypes(typeof(Marker_EdFi_Ods_Api).Assembly)
-                .Where(t => typeof(INHibernateFilterConfigurator).IsAssignableFrom(t))
-                .As<INHibernateFilterConfigurator>()
+                .Where(t => typeof(IAuthorizationFilterDefinitionsFactory).IsAssignableFrom(t))
+                .As<IAuthorizationFilterDefinitionsFactory>()
                 .SingleInstance();
 
-            builder.RegisterType<FilterApplicationDetailsProvider>()
-                .As<IFilterApplicationDetailsProvider>()
+            builder.RegisterType<AuthorizationFilterDefinitionProvider>()
+                .As<IAuthorizationFilterDefinitionProvider>()
                 .SingleInstance();
             
             builder.RegisterType<AuthorizationTablesAndViewsProvider>()
@@ -105,14 +110,6 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                     typeof(RelationshipsAuthorizationContextDataProviderFactory<>).MakeGenericType(
                         GetRelationshipBasedAuthorizationStrategyContextDataType())).As(
                     typeof(IRelationshipsAuthorizationContextDataProviderFactory<>).MakeGenericType(
-                        GetRelationshipBasedAuthorizationStrategyContextDataType()))
-                .SingleInstance();
-
-            // ConcreteEducationOrganizationIdAuthorizationContextDataTransformer
-            builder.RegisterType(
-                    typeof(ConcreteEducationOrganizationIdAuthorizationContextDataTransformer<>).MakeGenericType(
-                        GetRelationshipBasedAuthorizationStrategyContextDataType())).As(
-                    typeof(IConcreteEducationOrganizationIdAuthorizationContextDataTransformer<>).MakeGenericType(
                         GetRelationshipBasedAuthorizationStrategyContextDataType()))
                 .SingleInstance();
 

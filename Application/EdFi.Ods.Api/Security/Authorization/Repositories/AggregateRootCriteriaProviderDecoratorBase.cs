@@ -30,8 +30,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
     {
         private readonly IAggregateRootCriteriaProvider<TEntity> _decoratedInstance;
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
-        private readonly IFilterCriteriaApplicatorProvider _authorizationCriteriaApplicatorProvider;
-        private readonly IFilterApplicationDetailsProvider _filterApplicationDetailsProvider;
+        private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
         private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
         private readonly Lazy<List<string>> _sortedEducationOrganizationIdNames;
 
@@ -40,14 +39,12 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         protected AggregateRootCriteriaProviderAuthorizationDecoratorBase(
             IAggregateRootCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
-            IFilterCriteriaApplicatorProvider authorizationCriteriaApplicatorProvider,
-            IFilterApplicationDetailsProvider filterApplicationDetailsProvider,
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
         {
             _decoratedInstance = decoratedInstance;
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
-            _authorizationCriteriaApplicatorProvider = authorizationCriteriaApplicatorProvider;
-            _filterApplicationDetailsProvider = filterApplicationDetailsProvider;
+            _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
             _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
 
             _sortedEducationOrganizationIdNames =
@@ -100,7 +97,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 var countOfAuthorizationFiltersWithViewBasedFilters = authorizationFiltering.Count(
                     af => af.Filters.Select(afd =>
                         {
-                            if (_filterApplicationDetailsProvider.TryGetFilterApplicationDetails(afd.FilterName, out var filterDetails))
+                            if (_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(afd.FilterName, out var filterDetails))
                             {
                                 return filterDetails;
                             };
@@ -110,7 +107,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                             return null;
                         })
                         .Where(x => x != null)
-                        .OfType<ViewFilterApplicationDetails>()
+                        .OfType<ViewBasedAuthorizationFilterDefinition>()
                         .Any());
 
                 return countOfAuthorizationFiltersWithViewBasedFilters > 1
@@ -169,16 +166,15 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 return disjunctionFiltersApplied;
             }
 
-            bool TryApplyFilters(Conjunction conjunction, IReadOnlyList<AuthorizationFilterDetails> filters)
+            bool TryApplyFilters(Conjunction conjunction, IReadOnlyList<AuthorizationFilterContext> filters)
             {
                 bool allFiltersCanBeApplied = true;
                 
                 foreach (var filterDetails in filters)
                 {
-                    if (!_authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
+                    if (!_authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
                             filterDetails.FilterName,
-                            typeof(TEntity),
-                            out IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators))
+                            out var ignored))
                     {
                         unsupportedAuthorizationFilters.Add(filterDetails.FilterName);
 
@@ -216,24 +212,21 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
                 
                 foreach (var filterDetails in filters)
                 {
-                    _authorizationCriteriaApplicatorProvider.TryGetCriteriaApplicator(
+                    _authorizationFilterDefinitionProvider.TryGetAuthorizationFilterDefinition(
                         filterDetails.FilterName,
-                        typeof(TEntity),
-                        out IReadOnlyList<Action<ICriteria, Junction, IDictionary<string, object>, JoinType>> applicators);
+                        out var filterApplicationDetails);
+
+                    var applicator = filterApplicationDetails.CriteriaApplicator;
                     
-                    // Invoke the filter applicators against the current query
-                    foreach (var applicator in applicators)
+                    var parameterValues = new Dictionary<string, object>
                     {
-                        var parameterValues = new Dictionary<string, object>
-                        {
-                            { filterDetails.ClaimParameterName, filterDetails.ClaimValues }
-                        };
+                        { filterDetails.ClaimParameterName, filterDetails.ClaimParameterValues }
+                    };
 
-                        // Apply the authorization strategy filter
-                        applicator(criteria, conjunction, parameterValues, joinType);
+                    // Apply the authorization strategy filter
+                    applicator(criteria, conjunction, parameterValues, joinType);
 
-                        filtersApplied = true;
-                    }
+                    filtersApplied = true;
                 }
                 
                 return filtersApplied;

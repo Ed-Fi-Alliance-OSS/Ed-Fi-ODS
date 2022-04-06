@@ -8,14 +8,14 @@ using System.Collections.Generic;
 namespace EdFi.Ods.Common.Infrastructure.Filtering
 {
     /// <summary>
-    /// Provides methods for defining and applying NHibernate parameterized filters to entity mappings.
+    /// Defines a method for creating named filters for use in authorization.
     /// </summary>
-    public interface INHibernateFilterConfigurator
+    public interface IAuthorizationFilterDefinitionsFactory
     {
         /// <summary>
         /// Gets the NHibernate filter definitions and a functional delegate for determining when to apply them.
         /// </summary>
         /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and entity mappings.</returns>
-        IReadOnlyList<FilterApplicationDetails> GetFilters();
+        IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions();
     }
 }

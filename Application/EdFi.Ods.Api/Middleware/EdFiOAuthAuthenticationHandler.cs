@@ -3,14 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
+using System;
 using System.Configuration;
 using System.Net.Http.Headers;
-using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Providers;
-using EdFi.Ods.Common.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -19,72 +18,73 @@ namespace EdFi.Ods.Api.Middleware
 {
     public class EdFiOAuthAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        private readonly IAuthenticationProvider _authenticationProvider;
+        private const string BearerHeaderScheme = "Bearer";
+        
+        private const string UnknownAuthorizationHeaderScheme = "Unknown Authorization header scheme";
+        private const string MissingAuthorizationHeaderBearerTokenValue = "Missing Authorization header bearer token value";
+        private const string InvalidAuthorizationHeader = "Invalid Authorization header";
+
+        private readonly IOAuthTokenAuthenticator _oauthTokenAuthenticator;
+
+        private readonly ILogger _logger;
 
         public EdFiOAuthAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
-            ILoggerFactory logger,
+            ILoggerFactory loggerFactory,
             UrlEncoder encoder,
             ISystemClock clock,
-            IAuthenticationProvider authenticationProvider)
-            : base(options, logger, encoder, clock)
+            IOAuthTokenAuthenticator oauthTokenAuthenticator)
+            : base(options, loggerFactory, encoder, clock)
         {
-            _authenticationProvider = authenticationProvider;
+            _logger = loggerFactory.CreateLogger(typeof(EdFiOAuthAuthenticationHandler).FullName!);
+            _oauthTokenAuthenticator = oauthTokenAuthenticator;
         }
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            AuthenticationResult authenticationResult;
-
+            AuthenticationHeaderValue authHeader;
+            
             try
             {
-                if (!AuthenticationHeaderValue.TryParse(Request.Headers["Authorization"], out AuthenticationHeaderValue authHeader))
+                if (!AuthenticationHeaderValue.TryParse(Request.Headers["Authorization"], out authHeader))
                 {
                     return AuthenticateResult.NoResult();
                 }
 
-                authenticationResult = await _authenticationProvider.GetAuthenticationResultAsync(authHeader);
-
-                if (authenticationResult == null)
+                // If there is an authorization header, but we do not recognize the authentication scheme, do nothing.
+                if (!authHeader.Scheme.EqualsIgnoreCase(BearerHeaderScheme))
                 {
+                    _logger.LogDebug(UnknownAuthorizationHeaderScheme);
                     return AuthenticateResult.NoResult();
                 }
 
-                if (authenticationResult.ClaimsIdentity == null && authenticationResult.AuthenticateResult == null)
+                // If the token value is missing, fail authentication
+                if (string.IsNullOrEmpty(authHeader.Parameter))
                 {
-                    return AuthenticateResult.NoResult();
-                }
-
-                if (authenticationResult.AuthenticateResult != null)
-                {
-                    return authenticationResult.AuthenticateResult;
+                    _logger.LogDebug(MissingAuthorizationHeaderBearerTokenValue);
+                    return AuthenticateResult.Fail(MissingAuthorizationHeaderBearerTokenValue);
                 }
             }
-            catch(ConfigurationException)
+            catch (ConfigurationException)
             {
                 // The Security repository couldn't open a connection to the Security database
                 throw;
             }
-            catch
+            catch (Exception ex)
             {
-                return AuthenticateResult.Fail("Invalid Authorization Header");
+                _logger.LogError(ex, "Token authentication failed...");
+                return AuthenticateResult.Fail(InvalidAuthorizationHeader);
             }
 
-            var principal = new ClaimsPrincipal(authenticationResult.ClaimsIdentity);
-
-            var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), Scheme.Name);
-
-            return AuthenticateResult.Success(ticket);
-
-            AuthenticationProperties CreateAuthenticationProperties()
+            try
             {
-                var properties = new Dictionary<string, string>();
-                var parameters = new Dictionary<string, object>()
-                {
-                    {"ApiKeyContext", authenticationResult.ApiKeyContext}
-                };
+                var result = await _oauthTokenAuthenticator.AuthenticateAsync(authHeader.Parameter, authHeader.Scheme);
 
-                return new AuthenticationProperties(properties, parameters);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return AuthenticateResult.Fail(ex);
             }
         }
     }

@@ -12,10 +12,11 @@ using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
 {
-    public class FakedAuthenticationProvider : IAuthenticationProvider
+    public class FakedOAuthTokenAuthenticator : IOAuthTokenAuthenticator
     {
         private const string ClaimSetName = "Ed-Fi Sandbox";
         private readonly Lazy<ApiKeyContext> _apiKeyContext;
@@ -23,7 +24,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
         private readonly Lazy<ClaimsIdentity> _identity;
         private readonly Lazy<List<string>> _namespacePrefixes;
 
-        public FakedAuthenticationProvider(IClaimsIdentityProvider claimsIdentityProvider)
+        public FakedOAuthTokenAuthenticator(IClaimsIdentityProvider claimsIdentityProvider)
         {
             _namespacePrefixes = new Lazy<List<string>>(() => new List<string> { "uri://ed-fi.org" });
             _educationOrganizationIds = new Lazy<List<int>>(() => new List<int> { 255901 });
@@ -45,14 +46,25 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                     null));
         }
 
-        public Task<AuthenticationResult> GetAuthenticationResultAsync(AuthenticationHeaderValue authHeader)
+        public Task<AuthenticateResult> AuthenticateAsync(string token, string authorizationScheme)
         {
-            return Task.FromResult(
-                new AuthenticationResult
+            var principal = new ClaimsPrincipal(_identity.Value);
+            var ticket = new AuthenticationTicket(principal, CreateAuthenticationProperties(), authorizationScheme);
+            return Task.FromResult(AuthenticateResult.Success(ticket));
+
+            AuthenticationProperties CreateAuthenticationProperties()
+            {
+                var parameters = new Dictionary<string, object?>()
                 {
-                    ClaimsIdentity = _identity.Value,
-                    ApiKeyContext = _apiKeyContext.Value
-                });
+                    {
+                        "ApiKeyContext", _apiKeyContext.Value
+                    }
+                };
+
+                var items = new Dictionary<string, string>() { { ".expires", DateTime.UtcNow.AddYears(1).ToString("O") } };
+
+                return new AuthenticationProperties(items, parameters);
+            }
         }
     }
 }

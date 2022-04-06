@@ -17,7 +17,8 @@ namespace EdFi.Ods.Api.Security.Authorization
     {
         private readonly Lazy<BidirectionalGraph<string, Edge<string>>> _edOrgIdGraph;
         private readonly Lazy<string[]> _concreteEducationOrganizationIdNames;
-        private Lazy<HashSet<(string, string)>> _accessibleSegments;
+        private readonly Lazy<HashSet<(string, string)>> _accessibleSegments;
+        private readonly Lazy<List<string>> _sortedEducationOrganizationIdNames; 
 
         public EducationOrganizationIdNamesProvider(IDomainModelProvider domainModelProvider)
         {
@@ -92,6 +93,16 @@ namespace EdFi.Ods.Api.Security.Authorization
                 });
 
             _concreteEducationOrganizationIdNames = new Lazy<string[]>(() => _edOrgIdGraph.Value.Vertices.ToArray());
+            
+            _sortedEducationOrganizationIdNames =
+                new Lazy<List<string>>(
+                    () =>
+                    {
+                        var sortedEdOrgNames = new List<string>(GetAllNames());
+                        sortedEdOrgNames.Sort();
+
+                        return sortedEdOrgNames;
+                    });
         }
 
         /// <inheritdoc cref="IEducationOrganizationIdNamesProvider.GetAllNames" />
@@ -117,6 +128,11 @@ namespace EdFi.Ods.Api.Security.Authorization
             }
             
             return _accessibleSegments.Value.Contains((sourceEducationOrganizationIdPropertyName, targetEducationOrganizationId));
+        }
+
+        public bool IsEducationOrganizationIdName(string candidateName)
+        {
+            return _sortedEducationOrganizationIdNames.Value.BinarySearch(candidateName) >= 0;
         }
     }
 }

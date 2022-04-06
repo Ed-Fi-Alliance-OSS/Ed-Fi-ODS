@@ -22,20 +22,24 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <summary>
         /// Initializes a new instance of the <see cref="EdFiAuthorizationContext"/> class using the principal, resource, action and Ed-Fi authorization context data.
         /// </summary>
+        /// <param name="apiKeyContext">Direct information about the current API client, typically presented as claims.</param>
         /// <param name="principal">The <see cref="ClaimsPrincipal" /> containing the claims.</param>
         /// <param name="resourceClaimUris">The URI representations of the resource claims being authorized.</param>
         /// <param name="action">The action being taken on the resource.</param>
         /// <param name="data">An object containing the data available for authorization which implements one of the
         /// model interfaces (e.g. IStudent).</param>
         public EdFiAuthorizationContext(
+            ApiKeyContext apiKeyContext,
             ClaimsPrincipal principal,
             string[] resourceClaimUris,
             string action,
             object data)
         {
+            Preconditions.ThrowIfNull(apiKeyContext, nameof(apiKeyContext));
             Preconditions.ThrowIfNull(resourceClaimUris, nameof(resourceClaimUris));
             Preconditions.ThrowIfNull(action, nameof(action));
 
+            ApiKeyContext = apiKeyContext;
             Principal = principal;
             Data = data;
 
@@ -54,20 +58,24 @@ namespace EdFi.Ods.Common.Security.Claims
         /// <summary>
         /// Initializes a new instance of the <see cref="EdFiAuthorizationContext"/> class using the principal, resource, action and Ed-Fi entity type.
         /// </summary>
+        /// <param name="apiKeyContext">Direct information about the current API client, typically presented as claims.</param>
         /// <param name="principal">The <see cref="ClaimsPrincipal" /> containing the claims.</param>
         /// <param name="resourceClaimUris">The URI representations of the resource claims being authorized.</param>
         /// <param name="action">The action being taken on the resource.</param>
         /// <param name="type">The entity type which implements one of the model interfaces (e.g. IStudent) which is the subject of a multiple-item request.</param>
         public EdFiAuthorizationContext(
+            ApiKeyContext apiKeyContext,
             ClaimsPrincipal principal,
             string[] resourceClaimUris,
             string action,
             Type type)
         {
+            Preconditions.ThrowIfNull(apiKeyContext, nameof(apiKeyContext));
             Preconditions.ThrowIfNull(resourceClaimUris, nameof(resourceClaimUris));
             Preconditions.ThrowIfNull(action, nameof(action));
             Preconditions.ThrowIfNull(type, nameof(type));
 
+            ApiKeyContext = apiKeyContext;
             Principal = principal;
             Type = type;
 
@@ -77,6 +85,8 @@ namespace EdFi.Ods.Common.Security.Claims
 
             Action.Add(new Claim(ClaimsName, action));
         }
+
+        public ApiKeyContext ApiKeyContext { get; }
 
         public ClaimsPrincipal Principal { get; }
 

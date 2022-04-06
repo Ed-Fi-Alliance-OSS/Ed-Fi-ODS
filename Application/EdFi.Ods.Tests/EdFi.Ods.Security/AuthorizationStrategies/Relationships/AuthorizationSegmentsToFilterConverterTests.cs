@@ -85,7 +85,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         public class When_converting_to_filters_from_an_empty_segments_collection
             : ScenarioFor<AuthorizationSegmentsToFiltersConverter>
         {
-            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+            private IReadOnlyList<AuthorizationFilterContext> _actualFilters;
 
             protected override void Act()
             {
@@ -102,7 +102,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         public class When_converting_to_filters_from_a_single_segment_for_a_LocalEducationAgency_claim_to_SchoolId
             : ScenarioFor<AuthorizationSegmentsToFiltersConverter>
         {
-            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+            private IReadOnlyList<AuthorizationFilterContext> _actualFilters;
 
             // Actual values
             protected override void Arrange()
@@ -144,7 +144,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             public void Should_assign_parameter_value_matching_the_claim_education_organization_type_and_value()
             {
                 var actualFilter = _actualFilters.Single();
-                var parameterValues = actualFilter.ClaimValues as object[];
+                var parameterValues = actualFilter.ClaimParameterValues as object[];
 
                 parameterValues.Count().ShouldBe(1);
 
@@ -160,7 +160,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             When_converting_to_filters_from_a_single_segment_for_a_LocalEducationAgency_claim_to_a_StudentUSI_using_an_authorization_path_modifier
             : ScenarioFor<AuthorizationSegmentsToFiltersConverter>
         {
-            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+            private IReadOnlyList<AuthorizationFilterContext> _actualFilters;
 
             // Actual values
             protected override void Arrange()
@@ -204,7 +204,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             public void Should_assign_parameter_value_matching_the_claim_education_organization_type_and_value()
             {
                 var actualFilter = _actualFilters.Single();
-                var parameterValues = actualFilter.ClaimValues as object[];
+                var parameterValues = actualFilter.ClaimParameterValues as object[];
 
                 parameterValues.Count().ShouldBe(1);
 
@@ -222,7 +222,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             // Supplied values
 
             // Actual values
-            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+            private IReadOnlyList<AuthorizationFilterContext> _actualFilters;
 
             // Dependencies
 
@@ -266,14 +266,14 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
                     () => _actualFilters[0].FilterName.ShouldBe($"{RelationshipAuthorizationConventions.FilterNamePrefix}ToSchoolId"),
                     () => _actualFilters[0].ClaimParameterName.ShouldBe(RelationshipAuthorizationConventions.ClaimsParameterName),
                     () => _actualFilters[0].SubjectEndpointName.ShouldBe("SchoolId"),
-                    () => _actualFilters[0].ClaimValues.ShouldBe(new object[] { 999, 1000 }));
+                    () => _actualFilters[0].ClaimParameterValues.ShouldBe(new object[] { 999, 1000 }));
             }
         }
 
         public class When_converting_to_filters_from_a_segment_that_have_the_same_endpoint_types
             : ScenarioFor<AuthorizationSegmentsToFiltersConverter>
         {
-            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+            private IReadOnlyList<AuthorizationFilterContext> _actualFilters;
 
             protected override void Arrange()
             {
@@ -309,7 +309,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             public void Should_assign_parameter_value_matching_the_claim_education_organization_type_and_value()
             {
                 var actualFilter = _actualFilters.Single();
-                var parameterValues = actualFilter.ClaimValues as object[];
+                var parameterValues = actualFilter.ClaimParameterValues as object[];
 
                 parameterValues.Count().ShouldBe(1);
 
@@ -324,7 +324,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         public class When_converting_to_filters_from_multiple_segments_with_the_same_target_types
             : ScenarioFor<AuthorizationSegmentsToFiltersConverter>
         {
-            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+            private IReadOnlyList<AuthorizationFilterContext> _actualFilters;
 
             protected override void Arrange()
             {
@@ -352,7 +352,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             public void Should_not_include_redundant_values_in_the_filter_values()
             {
                 var actualFilter = _actualFilters.Single();
-                var parameterValues = actualFilter.ClaimValues;
+                var parameterValues = actualFilter.ClaimParameterValues;
 
                 parameterValues.Count().ShouldBe(1);
 
@@ -368,7 +368,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             When_converting_to_filters_from_a_segment_with_a_target_endpoint_that_is_a_uniqueId_for_an_entity_WITHOUT_a_uniqueId_property
             : ScenarioFor<AuthorizationSegmentsToFiltersConverter>
         {
-            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+            private IReadOnlyList<AuthorizationFilterContext> _actualFilters;
 
             protected override void Arrange()
             {
@@ -406,7 +406,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
         [TestFixture]
         public class When_converting_to_filters_with_multiple_types_of_EdOrgs : TestFixtureBase
         {
-            private IReadOnlyList<AuthorizationFilterDetails> _actualFilters;
+            private IReadOnlyList<AuthorizationFilterContext> _actualFilters;
 
             protected override void Act()
             {
@@ -442,7 +442,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.AuthorizationStrategies.Relations
             [Test]
             public void Should_combine_the_EdOrgIds_into_a_single_array()
             {
-                var claimValues = _actualFilters.Single().ClaimValues;
+                var claimValues = _actualFilters.Single().ClaimParameterValues;
                     
                 claimValues.ShouldBe(new object[] { 12456, 987654 });
             }

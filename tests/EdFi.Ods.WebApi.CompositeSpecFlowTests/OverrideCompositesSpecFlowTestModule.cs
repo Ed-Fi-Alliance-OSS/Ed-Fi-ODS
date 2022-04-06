@@ -16,7 +16,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             builder.RegisterType<SpecFlowOdsConnectionStringProvider>().As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<FakedAuthenticationProvider>().As<IAuthenticationProvider>();
+            builder.RegisterType<FakedOAuthTokenAuthenticator>().As<IOAuthTokenAuthenticator>();
         }
     }
 }

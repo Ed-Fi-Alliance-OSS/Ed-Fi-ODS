@@ -7,55 +7,108 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
+using EdFi.Ods.Common.Specifications;
+using NHibernate;
+using NHibernate.Criterion;
+using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 {
-    public class NamespaceBasedAuthorizationStrategy : IEdFiAuthorizationStrategy
+    public class NamespaceBasedAuthorizationStrategy : IAuthorizationStrategy, IAuthorizationFilterDefinitionsFactory
     {
-        private readonly AuthorizationContextDataFactory _authorizationContextDataFactory
-            = new AuthorizationContextDataFactory();
+        private readonly AuthorizationContextDataFactory _authorizationContextDataFactory = new();
 
         private const string AuthorizationStrategyName = "NamespaceBased";
-
-        public Task AuthorizeSingleItemAsync(
-            IEnumerable<Claim> relevantClaims,
-            EdFiAuthorizationContext authorizationContext,
-            CancellationToken cancellationToken)
+        private const string FilterPropertyName = "Namespace";
+        
+        /// <summary>
+        /// Gets the authorization strategy's NHibernate filter definitions and a functional delegate for determining when to apply them.
+        /// </summary>
+        /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and mappings.</returns>
+        public IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
         {
-            var claimNamespacePrefixes = GetClaimNamespacePrefixes(authorizationContext);
+            var filters = new List<AuthorizationFilterDefinition>
+            {
+                new (
+                    "Namespace",
+                    @"(Namespace IS NOT NULL AND Namespace LIKE :Namespace)",
+                    @"({currentAlias}.Namespace IS NOT NULL AND {currentAlias}.Namespace LIKE :Namespace)",
+                    ApplyAuthorizationCriteria,
+                    AuthorizeInstance, 
+                    (t, p) => !DescriptorEntitySpecification.IsEdFiDescriptorEntity(t) && p.HasPropertyNamed("Namespace")),
+            }.AsReadOnly();
 
-            var contextData = _authorizationContextDataFactory
-               .CreateContextData<NamespaceBasedAuthorizationContextData>(
+            return filters;
+        }
+
+        private static void ApplyAuthorizationCriteria(
+            ICriteria criteria,
+            Junction @where,
+            IDictionary<string, object> parameters,
+            JoinType joinType)
+        {
+            // Defensive check to ensure required parameter is present
+            if (!parameters.TryGetValue(FilterPropertyName, out var parameterValue))
+            {
+                throw new Exception(
+                    $"Unable to find parameter '{FilterPropertyName}' for applying namespace-based authorization. Available parameters: '{string.Join("', '", parameters.Keys)}'");
+            }
+
+            // Ensure the Namespace parameter is represented as an object array
+            var namespacePrefixes = parameterValue as object[] ?? new[] { parameterValue };
+
+            // Combine the namespace filters using OR (only one must match to grant authorization)
+            var namespacesDisjunction = new Disjunction();
+
+            foreach (var namespacePrefix in namespacePrefixes)
+            {
+                namespacesDisjunction.Add(Restrictions.Like("Namespace", namespacePrefix));
+            }
+
+            // Add the final namespaces criteria to the supplied WHERE clause (junction)
+            @where.Add(new AndExpression(Restrictions.IsNotNull("Namespace"), namespacesDisjunction));
+        }
+        
+        private InstanceAuthorizationResult AuthorizeInstance(
+            EdFiAuthorizationContext authorizationContext,
+            AuthorizationFilterContext authorizationFilterContext)
+        {
+            var contextData =
+                _authorizationContextDataFactory.CreateContextData<NamespaceBasedAuthorizationContextData>(
                     authorizationContext.Data);
 
             if (contextData == null)
             {
-                throw new NotSupportedException(
-                    "No 'Namespace' property could be found on the resource in order to perform authorization. Should a different authorization strategy be used?");
+                return InstanceAuthorizationResult.Failed(
+                    new NotSupportedException(
+                        "No 'Namespace' property could be found on the resource in order to perform authorization. Should a different authorization strategy be used?"));
             }
 
             if (string.IsNullOrWhiteSpace(contextData.Namespace))
             {
-                throw new EdFiSecurityException(
-                    "Access to the resource item could not be authorized because the Namespace of the resource is empty.");
+                return InstanceAuthorizationResult.Failed(
+                    new EdFiSecurityException(
+                    "Access to the resource item could not be authorized because the Namespace of the resource is empty."));
             }
+
+            var claimNamespacePrefixes = GetClaimNamespacePrefixes(authorizationContext);
 
             if (!claimNamespacePrefixes.Any(ns => contextData.Namespace.StartsWithIgnoreCase(ns)))
             {
                 string claimNamespacePrefixesText = string.Join("', '", claimNamespacePrefixes);
 
-                throw new EdFiSecurityException(
-                    $"Access to the resource item with namespace '{contextData.Namespace}' could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'.");
+                return InstanceAuthorizationResult.Failed(
+                    new EdFiSecurityException(
+                    $"Access to the resource item with namespace '{contextData.Namespace}' could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'."));
             }
 
-            return Task.CompletedTask;
+            return InstanceAuthorizationResult.Success();
         }
 
         /// <summary>
@@ -75,12 +128,13 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
                 AuthorizationStrategyName = AuthorizationStrategyName,
                 Filters = new []
                 {
-                    new AuthorizationFilterDetails
+                    new AuthorizationFilterContext
                     {
                         FilterName = "Namespace",
                         SubjectEndpointName = "Namespace",
+                        ClaimEndpointValues = claimNamespacePrefixes.Cast<object>().ToArray(),
                         ClaimParameterName = "Namespace",
-                        ClaimValues = claimNamespacePrefixes.Select(prefix => $"{prefix}%").Cast<object>().ToArray(),
+                        ClaimParameterValueMap =  prefix => $"{prefix}%"
                     }
                 },
                 Operator = FilterOperator.And

@@ -5,12 +5,16 @@
 
 using System.Threading;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Security.DataAccess.Repositories;
-using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security;
+using NHibernate;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
 {
@@ -31,13 +35,34 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="next">The decorated instance for which authorization is being performed.</param>
         /// <param name="securityRepository">Provides access to the repository where the claims/actions are stored.</param>
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
-        /// <param name="authorizationProvider">The component capable of authorizing the request, given necessary context.</param>
+        /// <param name="authorizationFilteringProvider"></param>
+        /// <param name="authorizationFilterDefinitionProvider"></param>
+        /// <param name="explicitObjectValidators"></param>
+        /// <param name="authorizationBasisMetadataSelector"></param>
+        /// <param name="sessionFactory"></param>
+        /// <param name="apiKeyContextProvider"></param>
+        /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         public CreateEntityAuthorizationDecorator(
             ICreateEntity<T> next,
             ISecurityRepository securityRepository,
             IAuthorizationContextProvider authorizationContextProvider,
-            IEdFiAuthorizationProvider authorizationProvider)
-            : base(authorizationContextProvider, authorizationProvider)
+            IAuthorizationFilteringProvider authorizationFilteringProvider,
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
+            IExplicitObjectValidator[] explicitObjectValidators,
+            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
+            ISessionFactory sessionFactory,
+            IApiKeyContextProvider apiKeyContextProvider,
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
+            : base(
+                authorizationContextProvider,
+                authorizationFilteringProvider,
+                authorizationFilterDefinitionProvider,
+                explicitObjectValidators,
+                authorizationBasisMetadataSelector,
+                securityRepository,
+                sessionFactory,
+                apiKeyContextProvider,
+                viewBasedSingleItemAuthorizationQuerySupport)
         {
             _next = next;
             _securityRepository = securityRepository;

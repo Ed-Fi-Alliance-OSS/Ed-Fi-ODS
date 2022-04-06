@@ -11,6 +11,10 @@ using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
+using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Security;
+using EdFi.Security.DataAccess.Repositories;
 using NHibernate;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
@@ -24,6 +28,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         where TEntity : class, IHasIdentifier, IDateVersionedEntity
     {
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
+        private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
         private readonly IGetEntitiesBySpecification<TEntity> _next;
         private readonly ISessionFactory _sessionFactory;
 
@@ -34,18 +39,40 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         /// <param name="sessionFactory">The NHibernate session factory used to manage session (database connection) context.</param>
         /// <param name="authorizationFilterContextProvider">Applies authorization-related filters for the entity on the current NHiberate session.</param>
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
-        /// <param name="authorizationProvider">The component capable of authorizing the request, given necessary context.</param>
+        /// <param name="authorizationFilteringProvider">The component capable of authorizing the request, given necessary context.</param>
+        /// <param name="authorizationFilterDefinitionProvider"></param>
+        /// <param name="explicitObjectValidators"></param>
+        /// <param name="authorizationBasisMetadataSelector"></param>
+        /// <param name="securityRepository"></param>
+        /// <param name="apiKeyContextProvider"></param>
+        /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         public GetEntitiesBySpecificationAuthorizationDecorator(
             IGetEntitiesBySpecification<TEntity> next,
             ISessionFactory sessionFactory,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
             IAuthorizationContextProvider authorizationContextProvider,
-            IEdFiAuthorizationProvider authorizationProvider)
-            : base(authorizationContextProvider, authorizationProvider)
+            IAuthorizationFilteringProvider authorizationFilteringProvider,
+            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
+            IExplicitObjectValidator[] explicitObjectValidators,
+            IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
+            ISecurityRepository securityRepository,
+            IApiKeyContextProvider apiKeyContextProvider,
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
+            : base(
+                authorizationContextProvider,
+                authorizationFilteringProvider,
+                authorizationFilterDefinitionProvider,
+                explicitObjectValidators,
+                authorizationBasisMetadataSelector,
+                securityRepository,
+                sessionFactory,
+                apiKeyContextProvider,
+                viewBasedSingleItemAuthorizationQuerySupport)
         {
             _next = next;
             _sessionFactory = sessionFactory;
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
+            _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
         }
 
         /// <summary>
@@ -61,7 +88,7 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             CancellationToken cancellationToken)
         {
             // Use the authorization subsystem to set filtering context
-            var authorizationFiltering = GetAuthorizationFiltering<TEntity>();
+            var authorizationFiltering = GetAuthorizationFiltering();
 
             // Ensure we've bound an NHibernate session to the current context
             using (new SessionScope(_sessionFactory))

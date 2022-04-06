@@ -24,8 +24,8 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                 .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<FakedAuthenticationProvider>()
-                .As<IAuthenticationProvider>()
+            builder.RegisterType<FakedOAuthTokenAuthenticator>()
+                .As<IOAuthTokenAuthenticator>()
                 .InstancePerLifetimeScope();
         }
     }

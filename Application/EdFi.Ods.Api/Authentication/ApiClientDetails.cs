@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Admin.DataAccess.Models;
@@ -33,11 +34,16 @@ namespace EdFi.Ods.Api.Authentication
         public string ApiKey { get; set; }
 
         /// <summary>
-        /// Indicates whether the API bearer token was valid.
+        /// Gets or sets the UTC expiration time of the token.
+        /// </summary>
+        public DateTime ExpiresUtc { get; set; }
+        
+        /// <summary>
+        /// Indicates whether the API bearer token is valid and hasn't expired.
         /// </summary>
         public bool IsTokenValid
         {
-            get => !string.IsNullOrWhiteSpace(ApiKey);
+            get => !string.IsNullOrWhiteSpace(ApiKey) && DateTime.UtcNow < ExpiresUtc;
         }
 
         /// <summary>
@@ -116,7 +122,8 @@ namespace EdFi.Ods.Api.Authentication
                     ClaimSetName = input.ClaimSetName,
                     IsSandboxClient = input.UseSandbox,
                     StudentIdentificationSystemDescriptor = input.StudentIdentificationSystemDescriptor,
-                    CreatorOwnershipTokenId = input.CreatorOwnershipTokenId
+                    CreatorOwnershipTokenId = input.CreatorOwnershipTokenId,
+                    ExpiresUtc = input.Expiration
                 };
 
                 return dto;
