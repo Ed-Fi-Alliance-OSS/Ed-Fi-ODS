@@ -2717,9 +2717,5 @@ BEGIN
     DELETE FROM @claimIdStack WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
 
 
-    --COMMIT TRANSACTION
-
-    -- TODO: Remove - For interactive development only
-	SELECT dbo.GetAuthorizationMetadataDocument();
-    ROLLBACK TRANSACTION
+    COMMIT TRANSACTION
 END
