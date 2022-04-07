@@ -1,0 +1,26 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+      <Claims>
+        <Claim claimId="322" name="http://ed-fi.org/ods/identity/claims/sample/studentArtProgramAssociation">
+          <DefaultAuthorization>
+            <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
+          </DefaultAuthorization>
+        </Claim>
+        <Claim claimId="323" name="http://ed-fi.org/ods/identity/claims/sample/studentGraduationPlanAssociation">
+          <DefaultAuthorization>
+            <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
+          </DefaultAuthorization>
+        </Claim>
+      </Claims>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
