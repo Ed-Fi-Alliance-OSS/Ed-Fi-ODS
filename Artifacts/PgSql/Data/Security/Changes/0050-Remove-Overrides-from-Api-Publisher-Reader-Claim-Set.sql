@@ -73,6 +73,57 @@ BEGIN
         END IF;
     END IF;
   
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Ed-Fi API Publisher - Reader'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Ed-Fi API Publisher - Reader';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
+        VALUES (claim_set_name, application_id)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+    DELETE FROM dbo.ClaimSetResourceClaims
+    WHERE ClaimSet_ClaimSetId = claim_set_id AND ResourceClaim_ResourceClaimId = claim_id;
+    
+
+    -- Claim set-specific Read authorization
+    authorization_strategy_id := NULL;
+    
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+    ELSE
+        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+    END IF;
+
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (claim_id, claim_set_id, Read_action_id, authorization_strategy_id); -- Read
+
+    -- Claim set-specific ReadChanges authorization
+    authorization_strategy_id := NULL;
+    
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    ELSE
+        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+    END IF;
+
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id, authorization_strategy_id); -- ReadChanges
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -102,6 +153,57 @@ BEGIN
         END IF;
     END IF;
   
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/managedDescriptors
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Ed-Fi API Publisher - Reader'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Ed-Fi API Publisher - Reader';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
+        VALUES (claim_set_name, application_id)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+    DELETE FROM dbo.ClaimSetResourceClaims
+    WHERE ClaimSet_ClaimSetId = claim_set_id AND ResourceClaim_ResourceClaimId = claim_id;
+    
+
+    -- Claim set-specific Read authorization
+    authorization_strategy_id := NULL;
+    
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+    ELSE
+        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+    END IF;
+
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (claim_id, claim_set_id, Read_action_id, authorization_strategy_id); -- Read
+
+    -- Claim set-specific ReadChanges authorization
+    authorization_strategy_id := NULL;
+    
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    ELSE
+        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+    END IF;
+
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id, authorization_strategy_id); -- ReadChanges
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -845,4 +947,8 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     COMMIT;
+
+    -- TODO: Remove - For interactive development only
+    -- SELECT dbo.GetAuthorizationMetadataDocument();
+    -- ROLLBACK;
 END $$;
