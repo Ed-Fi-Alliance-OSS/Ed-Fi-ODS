@@ -1,0 +1,57 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/tpdm">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+      <Claims>
+        <Claim claimId="325" name="http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation">
+          <DefaultAuthorization>
+            <Action name="Create" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnlyIncludingDeletes" />
+          </DefaultAuthorization>
+          <Claims>
+            <Claim claimId="334" name="http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating">
+              <DefaultAuthorization>
+                <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
+                <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
+                <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
+                <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
+                <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
+              </DefaultAuthorization>
+            </Claim>
+          </Claims>
+        </Claim>
+        <Claim claimId="335" name="http://ed-fi.org/ods/identity/claims/domains/tpdm/noFurtherAuthorizationRequiredData">
+          <DefaultAuthorization>
+            <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
+          </DefaultAuthorization>
+        </Claim>
+        <Claim claimId="340" name="http://ed-fi.org/ods/identity/claims/tpdm/educatorPreparationProgram">
+          <DefaultAuthorization>
+            <Action name="Create" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnlyIncludingDeletes" />
+          </DefaultAuthorization>
+        </Claim>
+      </Claims>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
