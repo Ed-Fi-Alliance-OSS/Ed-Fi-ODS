@@ -845,8 +845,4 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     COMMIT;
-
-    -- TODO: Remove - For interactive development only
-    -- SELECT dbo.GetAuthorizationMetadataDocument();
-    -- ROLLBACK;
 END $$;
