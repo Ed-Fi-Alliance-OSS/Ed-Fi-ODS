@@ -168,26 +168,21 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
             return true;
         }
 
-        private const int HashMultiplier = 486187739;
-
         public override int GetHashCode()
         {
-            unchecked
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
             {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = 17;
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
-                }
-
-                return hashCode;
+                hashCode.Add(entry.Value);
             }
+
+            return hashCode.ToHashCode();
         }
         #endregion
         bool ISynchronizable.Synchronize(object target)
@@ -405,26 +400,21 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
             return true;
         }
 
-        private const int HashMultiplier = 486187739;
-
         public override int GetHashCode()
         {
-            unchecked
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
             {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = 17;
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
-                }
-
-                return hashCode;
+                hashCode.Add(entry.Value);
             }
+
+            return hashCode.ToHashCode();
         }
         #endregion
         bool ISynchronizable.Synchronize(object target)
@@ -555,26 +545,21 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
             return true;
         }
 
-        private const int HashMultiplier = 486187739;
-
         public override int GetHashCode()
         {
-            unchecked
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
             {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = 17;
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
-                }
-
-                return hashCode;
+                hashCode.Add(entry.Value);
             }
+
+            return hashCode.ToHashCode();
         }
         #endregion
     }
@@ -763,26 +748,21 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
             return true;
         }
 
-        private const int HashMultiplier = 486187739;
-
         public override int GetHashCode()
         {
-            unchecked
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
             {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = 17;
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
-                }
-
-                return hashCode;
+                hashCode.Add(entry.Value);
             }
+
+            return hashCode.ToHashCode();
         }
         #endregion
         bool ISynchronizable.Synchronize(object target)
@@ -972,26 +952,21 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
             return true;
         }
 
-        private const int HashMultiplier = 486187739;
-
         public override int GetHashCode()
         {
-            unchecked
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
             {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = 17;
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
-                }
-
-                return hashCode;
+                hashCode.Add(entry.Value);
             }
+
+            return hashCode.ToHashCode();
         }
         #endregion
         bool ISynchronizable.Synchronize(object target)
@@ -1239,26 +1214,21 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
             return true;
         }
 
-        private const int HashMultiplier = 486187739;
-
         public override int GetHashCode()
         {
-            unchecked
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
             {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = 17;
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
-                }
-
-                return hashCode;
+                hashCode.Add(entry.Value);
             }
+
+            return hashCode.ToHashCode();
         }
         #endregion
         bool ISynchronizable.Synchronize(object target)
@@ -1449,26 +1419,21 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
             return true;
         }
 
-        private const int HashMultiplier = 486187739;
-
         public override int GetHashCode()
         {
-            unchecked
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
             {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = 17;
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
-                }
-
-                return hashCode;
+                hashCode.Add(entry.Value);
             }
+
+            return hashCode.ToHashCode();
         }
         #endregion
         bool ISynchronizable.Synchronize(object target)
@@ -1648,26 +1613,21 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
             return true;
         }
 
-        private const int HashMultiplier = 486187739;
-
         public override int GetHashCode()
         {
-            unchecked
+            var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
+
+            if (keyValues.Count == 0)
+                return base.GetHashCode();
+
+            var hashCode = new HashCode();
+
+            foreach (DictionaryEntry entry in keyValues)
             {
-                var keyValues = (this as IHasPrimaryKeyValues).GetPrimaryKeyValues();
-
-                if (keyValues.Count == 0)
-                    return base.GetHashCode();
-
-                int hashCode = 17;
-
-                foreach (DictionaryEntry entry in keyValues)
-                {
-                    hashCode = (hashCode * HashMultiplier) + (entry.Value?.GetHashCode() ?? 0);
-                }
-
-                return hashCode;
+                hashCode.Add(entry.Value);
             }
+
+            return hashCode.ToHashCode();
         }
         #endregion
         bool ISynchronizable.Synchronize(object target)
