@@ -12,21 +12,9 @@ using Newtonsoft.Json.Linq;
 
 namespace EdFi.Ods.Common.Models.Domain
 {
-    /// <summary>
-    ///     For a discussion of this object, see
-    ///     https://stackoverflow.com/a/263416
-    /// </summary>
     [Serializable]
     public abstract class EntityWithCompositeKey : DomainObjectBase //ValidatableObject
     {
-        /// <summary>
-        ///     To help ensure hashcode uniqueness, a carefully selected random number multiplier
-        ///     is used within the calculation. Hans-Peter Storr asserts that 486187739 will produce 
-        ///     the fewest number of collissions. See https://stackoverflow.com/a/2816747
-        ///     for more information.
-        /// </summary>
-        private const int HashMultiplier = 486187739;
-
         private int? cachedHashcode;
 
         public override bool Equals(object obj)
@@ -90,24 +78,18 @@ namespace EdFi.Ods.Common.Models.Domain
                 return cachedHashcode.Value;
             }
 
-            unchecked
+            var signatureProperties = GetSignatureProperties();
+
+            var hashCode = new HashCode();
+
+            foreach (var signatureProperty in signatureProperties)
             {
-                var signatureProperties = GetSignatureProperties();
-
-                var hashCode = 17;
-
-                hashCode = signatureProperties.Select(property => property.GetValue(this, null))
-                                              .Aggregate(hashCode, (current, value) => (current * HashMultiplier) + (value?.GetHashCode() ?? 0));
-
-                if (signatureProperties.Any())
-                {
-                    return hashCode;
-                }
-
-                // If no properties were flagged as being part of the signature of the object,
-                // then simply return the hashcode of the base object as the hashcode.
-                cachedHashcode = base.GetHashCode();
+                hashCode.Add(signatureProperty.GetValue(this, null));
             }
+
+            // If no properties were flagged as being part of the signature of the object,
+            // then simply return the hashcode of the base object as the hashcode.
+            cachedHashcode = signatureProperties.Any() ? hashCode.ToHashCode() : base.GetHashCode();
 
             return cachedHashcode.Value;
         }
