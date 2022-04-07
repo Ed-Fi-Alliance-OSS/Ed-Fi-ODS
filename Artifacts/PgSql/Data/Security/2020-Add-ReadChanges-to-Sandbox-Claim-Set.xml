@@ -46,7 +46,7 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-        <Action name="ReadChanges" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
+        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
       </DefaultAuthorization>
@@ -74,7 +74,7 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
-        <Action name="ReadChanges" authorizationStrategyOverride="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+        <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
         <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
         <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
       </DefaultAuthorization>
@@ -94,7 +94,7 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
         <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
-        <Action name="ReadChanges" authorizationStrategyOverride="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+        <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
         <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
         <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
       </DefaultAuthorization>
@@ -133,7 +133,7 @@
           <DefaultAuthorization>
             <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
             <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="ReadChanges" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
+            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
             <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
             <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
           </DefaultAuthorization>
@@ -173,7 +173,7 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NamespaceBased" />
         <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-        <Action name="ReadChanges" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
+        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Update" authorizationStrategy="NamespaceBased" />
         <Action name="Delete" authorizationStrategy="NamespaceBased" />
       </DefaultAuthorization>

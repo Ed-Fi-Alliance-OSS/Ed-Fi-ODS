@@ -534,11 +534,11 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = ''
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
         THROW 50000, @msg, 1
     END
 
@@ -787,11 +787,11 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = ''
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
         THROW 50000, @msg, 1
     END
 
@@ -992,11 +992,11 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = ''
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
         THROW 50000, @msg, 1
     END
 
@@ -1404,11 +1404,11 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = ''
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
         THROW 50000, @msg, 1
     END
 
@@ -1853,11 +1853,11 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = ''
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
         THROW 50000, @msg, 1
     END
 

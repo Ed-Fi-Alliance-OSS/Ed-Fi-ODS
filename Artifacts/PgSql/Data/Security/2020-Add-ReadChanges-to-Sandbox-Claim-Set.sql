@@ -499,10 +499,10 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = '';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
@@ -743,10 +743,10 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = '';
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
@@ -937,10 +937,10 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = '';
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
@@ -1339,10 +1339,10 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = '';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
@@ -1745,10 +1745,10 @@ BEGIN
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = '';
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''''';
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
