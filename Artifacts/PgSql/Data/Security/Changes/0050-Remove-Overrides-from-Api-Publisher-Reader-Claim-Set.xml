@@ -1,20 +1,24 @@
 <SecurityMetadata>
   <Claims>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
-      <ClaimSet name="Ed-Fi API Publisher - Reader">
-        <Actions>
-          <Action name="Read" />
-          <Action name="ReadChanges" />
-        </Actions>
-      </ClaimSet>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
     </Claim>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/managedDescriptors">
-      <ClaimSet name="Ed-Fi API Publisher - Reader">
-        <Actions>
-          <Action name="Read" />
-          <Action name="ReadChanges" />
-        </Actions>
-      </ClaimSet>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
     </Claim>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/educationOrganizations">
       <ClaimSets>

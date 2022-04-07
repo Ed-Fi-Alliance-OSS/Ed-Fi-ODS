@@ -82,6 +82,55 @@ BEGIN
             END
         END
   
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Ed-Fi API Publisher - Reader'
+    ----------------------------------------------------------------------------------------------------------------------------
+    SET @claimSetName = 'Ed-Fi API Publisher - Reader'
+    SET @claimSetId = NULL
+
+    SELECT @claimSetId = ClaimSetId
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = @claimSetName
+
+    IF @claimSetId IS NULL
+    BEGIN
+        PRINT 'Creating new claim set: ' + @claimSetName
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
+        VALUES (@claimSetName, @applicationId)
+
+        SET @claimSetId = SCOPE_IDENTITY()
+    END
+  
+    PRINT 'Deleting existing actions for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ') on resource claim ''' + @claimName + '''.'
+    DELETE FROM dbo.ClaimSetResourceClaims
+    WHERE ClaimSet_ClaimSetId = @claimSetId AND ResourceClaim_ResourceClaimId = @claimId
+    
+
+    -- Claim set-specific Read authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
+    ELSE
+        PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @ReadActionId, @authorizationStrategyId) -- Read
+
+    -- Claim set-specific ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ').'
+    ELSE
+        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @ReadChangesActionId, @authorizationStrategyId) -- ReadChanges
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/managedDescriptors'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -117,6 +166,55 @@ BEGIN
             END
         END
   
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/managedDescriptors
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Ed-Fi API Publisher - Reader'
+    ----------------------------------------------------------------------------------------------------------------------------
+    SET @claimSetName = 'Ed-Fi API Publisher - Reader'
+    SET @claimSetId = NULL
+
+    SELECT @claimSetId = ClaimSetId
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = @claimSetName
+
+    IF @claimSetId IS NULL
+    BEGIN
+        PRINT 'Creating new claim set: ' + @claimSetName
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
+        VALUES (@claimSetName, @applicationId)
+
+        SET @claimSetId = SCOPE_IDENTITY()
+    END
+  
+    PRINT 'Deleting existing actions for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ') on resource claim ''' + @claimName + '''.'
+    DELETE FROM dbo.ClaimSetResourceClaims
+    WHERE ClaimSet_ClaimSetId = @claimSetId AND ResourceClaim_ResourceClaimId = @claimId
+    
+
+    -- Claim set-specific Read authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
+    ELSE
+        PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @ReadActionId, @authorizationStrategyId) -- Read
+
+    -- Claim set-specific ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ').'
+    ELSE
+        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @ReadChangesActionId, @authorizationStrategyId) -- ReadChanges
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations'
     ----------------------------------------------------------------------------------------------------------------------------
