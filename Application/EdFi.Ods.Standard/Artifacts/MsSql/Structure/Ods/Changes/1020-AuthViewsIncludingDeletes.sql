@@ -21,35 +21,35 @@ DROP VIEW IF EXISTS auth.EducationOrganizationIdToStaffUSIIncludingDeletes
 GO
 
 CREATE VIEW auth.EducationOrganizationIdToStaffUSIIncludingDeletes AS
-	SELECT	SourceEducationOrganizationId, StaffUSI
-	FROM	auth.EducationOrganizationIdToStaffUSI edOrgToStaff
-	
-	UNION
+    SELECT	SourceEducationOrganizationId, StaffUSI
+    FROM	auth.EducationOrganizationIdToStaffUSI edOrgToStaff
+    
+    UNION
 
     -- Deleted employment
     SELECT	edOrgs.SourceEducationOrganizationId, emp_tc.OldStaffUSI as StaffUSI
     FROM	auth.EducationOrganizationIdToEducationOrganizationId edOrgs
-			JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
-				ON edOrgs.TargetEducationOrganizationId = emp_tc.OldEducationOrganizationId
+            JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
+                ON edOrgs.TargetEducationOrganizationId = emp_tc.OldEducationOrganizationId
 
-	UNION
+    UNION
 
     -- Deleted assignments
     SELECT	edOrgs.SourceEducationOrganizationId, assgn_tc.OldStaffUSI as StaffUSI
     FROM	auth.EducationOrganizationIdToEducationOrganizationId edOrgs
-			JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
-				ON edOrgs.TargetEducationOrganizationId = assgn_tc.OldEducationOrganizationId
+            JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
+                ON edOrgs.TargetEducationOrganizationId = assgn_tc.OldEducationOrganizationId
 GO
 
 DROP VIEW IF EXISTS auth.EducationOrganizationIdToParentUSIIncludingDeletes;
 GO
 
 CREATE VIEW auth.EducationOrganizationIdToParentUSIIncludingDeletes AS
-	-- Intact StudentSchoolAssociation and intact StudentParentAssociation
-	SELECT	SourceEducationOrganizationId, ParentUSI
-	FROM	auth.EducationOrganizationIdToParentUSI
+    -- Intact StudentSchoolAssociation and intact StudentParentAssociation
+    SELECT	SourceEducationOrganizationId, ParentUSI
+    FROM	auth.EducationOrganizationIdToParentUSI
 
-	UNION
+    UNION
 
     -- Intact StudentSchoolAssociation and deleted StudentParentAssociation
     SELECT edOrgs.SourceEducationOrganizationId, spa_tc.OldParentUSI as ParentUSI
