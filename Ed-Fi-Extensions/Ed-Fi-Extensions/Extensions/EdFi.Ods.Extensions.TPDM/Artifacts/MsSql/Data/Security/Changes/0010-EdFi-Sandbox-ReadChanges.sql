@@ -280,11 +280,11 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnlyIncludingDeletes'
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnly'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnlyIncludingDeletes''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
         THROW 50000, @msg, 1
     END
 
@@ -648,11 +648,11 @@ BEGIN
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
     FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnlyIncludingDeletes'
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsOnly'
 
     IF @authorizationStrategyId IS NULL
     BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnlyIncludingDeletes''';
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
         THROW 50000, @msg, 1
     END
 

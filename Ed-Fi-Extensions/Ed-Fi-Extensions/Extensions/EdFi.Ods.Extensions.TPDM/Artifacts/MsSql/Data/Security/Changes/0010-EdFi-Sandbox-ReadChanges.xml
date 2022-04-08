@@ -19,16 +19,16 @@
             <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
             <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
             <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnlyIncludingDeletes" />
+            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
           </DefaultAuthorization>
           <Claims>
             <Claim claimId="334" name="http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating">
               <DefaultAuthorization>
-                <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
-                <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-                <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
-                <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
-                <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
+                <Action name="Create" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+                <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+                <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+                <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+                <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
               </DefaultAuthorization>
             </Claim>
           </Claims>
@@ -48,7 +48,7 @@
             <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
             <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
             <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnlyIncludingDeletes" />
+            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
           </DefaultAuthorization>
         </Claim>
       </Claims>
