@@ -209,18 +209,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationCategory).EducationOrganizationCategoryDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationCategory).EducationOrganizationCategoryDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -443,18 +440,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIdentificationCode).EducationOrganizationIdentificationSystemDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIdentificationCode).EducationOrganizationIdentificationSystemDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -689,18 +683,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1013,18 +1004,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganizationIndicator != null)
-                    hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganizationIndicator != null)
+                hash.Add(_educationOrganizationIndicator);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1255,18 +1243,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone).InstitutionTelephoneNumberTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone).InstitutionTelephoneNumberTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1497,18 +1482,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationInternationalAddress).AddressTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationInternationalAddress).AddressTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1898,15 +1880,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.EdFi.ISchool).SchoolId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.EdFi.ISchool).SchoolId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2540,18 +2519,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.ISchoolGradeLevel).GradeLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.ISchoolGradeLevel).GradeLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2767,14 +2743,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3077,17 +3050,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3313,14 +3283,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3645,14 +3612,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4050,34 +4014,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).AddressTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).AddressTypeDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).City.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).City);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).PostalCode.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).PostalCode);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).StateAbbreviationDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).StateAbbreviationDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).StreetNumberName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).StreetNumberName);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4430,18 +4391,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganizationAddress != null)
-                    hash = hash * 23 + _educationOrganizationAddress.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganizationAddress != null)
+                hash.Add(_educationOrganizationAddress);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddressPeriod).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddressPeriod).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4672,18 +4630,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationCategory).EducationOrganizationCategoryDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationCategory).EducationOrganizationCategoryDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4906,18 +4861,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIdentificationCode).EducationOrganizationIdentificationSystemDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIdentificationCode).EducationOrganizationIdentificationSystemDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -5152,18 +5104,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -5476,18 +5425,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganizationIndicator != null)
-                    hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganizationIndicator != null)
+                hash.Add(_educationOrganizationIndicator);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -5718,18 +5664,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone).InstitutionTelephoneNumberTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone).InstitutionTelephoneNumberTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -6087,15 +6030,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.EdFi.ISchool).SchoolId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.EdFi.ISchool).SchoolId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -6748,18 +6688,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.ISchoolCategory).SchoolCategoryDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.ISchoolCategory).SchoolCategoryDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -6975,14 +6912,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7285,17 +7219,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7521,14 +7452,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7853,14 +7781,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8258,34 +8183,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).AddressTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).AddressTypeDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).City.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).City);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).PostalCode.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).PostalCode);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).StateAbbreviationDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).StateAbbreviationDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).StreetNumberName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).StreetNumberName);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8638,18 +8560,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganizationAddress != null)
-                    hash = hash * 23 + _educationOrganizationAddress.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganizationAddress != null)
+                hash.Add(_educationOrganizationAddress);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddressPeriod).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddressPeriod).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8971,15 +8890,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.EdFi.ISchool).SchoolId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.EdFi.ISchool).SchoolId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -9513,18 +9429,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.ISchoolCategory).SchoolCategoryDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.ISchoolCategory).SchoolCategoryDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -9838,18 +9751,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationInternationalAddress).AddressTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationInternationalAddress).AddressTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -10202,15 +10112,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.EdFi.ISchool).SchoolId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.EdFi.ISchool).SchoolId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -10725,18 +10632,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.ISchoolGradeLevel).GradeLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.ISchoolGradeLevel).GradeLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11102,34 +11006,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).AddressTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).AddressTypeDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).City.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).City);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).PostalCode.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).PostalCode);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).StateAbbreviationDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).StateAbbreviationDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).StreetNumberName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).StreetNumberName);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11482,18 +11383,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganizationAddress != null)
-                    hash = hash * 23 + _educationOrganizationAddress.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganizationAddress != null)
+                hash.Add(_educationOrganizationAddress);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddressPeriod).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddressPeriod).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11724,18 +11622,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationCategory).EducationOrganizationCategoryDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationCategory).EducationOrganizationCategoryDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11958,18 +11853,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIdentificationCode).EducationOrganizationIdentificationSystemDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIdentificationCode).EducationOrganizationIdentificationSystemDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -12204,18 +12096,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -12528,18 +12417,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganizationIndicator != null)
-                    hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganizationIndicator != null)
+                hash.Add(_educationOrganizationIndicator);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -12770,18 +12656,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone).InstitutionTelephoneNumberTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone).InstitutionTelephoneNumberTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -13012,18 +12895,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationInternationalAddress).AddressTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationInternationalAddress).AddressTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -13447,15 +13327,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.EdFi.ISchool).SchoolId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.EdFi.ISchool).SchoolId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -14170,18 +14047,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.ISchoolCategory).SchoolCategoryDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.ISchoolCategory).SchoolCategoryDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -14404,18 +14278,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.ISchoolGradeLevel).GradeLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.ISchoolGradeLevel).GradeLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -14631,14 +14502,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -14941,17 +14809,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -15177,14 +15042,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -15509,14 +15371,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -15914,34 +15773,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).AddressTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).AddressTypeDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).City.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).City);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).PostalCode.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).PostalCode);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).StateAbbreviationDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).StateAbbreviationDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddress).StreetNumberName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddress).StreetNumberName);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -16294,18 +16150,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganizationAddress != null)
-                    hash = hash * 23 + _educationOrganizationAddress.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganizationAddress != null)
+                hash.Add(_educationOrganizationAddress);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationAddressPeriod).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationAddressPeriod).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -16536,18 +16389,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationCategory).EducationOrganizationCategoryDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationCategory).EducationOrganizationCategoryDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -16770,18 +16620,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIdentificationCode).EducationOrganizationIdentificationSystemDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIdentificationCode).EducationOrganizationIdentificationSystemDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17016,18 +16863,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIndicator).IndicatorDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17340,18 +17184,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganizationIndicator != null)
-                    hash = hash * 23 + _educationOrganizationIndicator.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganizationIndicator != null)
+                hash.Add(_educationOrganizationIndicator);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationIndicatorPeriod).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17582,18 +17423,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone).InstitutionTelephoneNumberTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationInstitutionTelephone).InstitutionTelephoneNumberTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17824,18 +17662,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educationOrganization != null)
-                    hash = hash * 23 + _educationOrganization.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educationOrganization != null)
+                hash.Add(_educationOrganization);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.IEducationOrganizationInternationalAddress).AddressTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.IEducationOrganizationInternationalAddress).AddressTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -18259,15 +18094,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.EdFi.ISchool).SchoolId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.EdFi.ISchool).SchoolId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -18982,18 +18814,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.ISchoolCategory).SchoolCategoryDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.ISchoolCategory).SchoolCategoryDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -19216,18 +19045,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.EdFi.ISchoolGradeLevel).GradeLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.EdFi.ISchoolGradeLevel).GradeLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -19443,14 +19269,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -19753,17 +19576,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -19989,14 +19809,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -20321,14 +20138,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 

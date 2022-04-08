@@ -204,19 +204,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Homograph.IName).FirstName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Homograph.IName).FirstName);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Homograph.IName).LastSurname.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Homograph.IName).LastSurname);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -599,17 +596,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IParent).ParentFirstName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IParent).ParentFirstName);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IParent).ParentLastSurname.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IParent).ParentLastSurname);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -955,18 +949,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parent != null)
-                    hash = hash * 23 + _parent.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_parent != null)
+                hash.Add(_parent);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Homograph.IParentAddress).City.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Homograph.IParentAddress).City);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1297,23 +1288,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parent != null)
-                    hash = hash * 23 + _parent.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_parent != null)
+                hash.Add(_parent);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).SchoolName);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentFirstName);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IParentStudentSchoolAssociation).StudentLastSurname);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1650,15 +1638,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Homograph.ISchool).SchoolName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Homograph.ISchool).SchoolName);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1925,14 +1910,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2230,15 +2212,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Homograph.ISchoolYearType).SchoolYear.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Homograph.ISchoolYearType).SchoolYear);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2621,17 +2600,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStaff).StaffFirstName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStaff).StaffFirstName);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStaff).StaffLastSurname.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStaff).StaffLastSurname);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2977,18 +2953,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_staff != null)
-                    hash = hash * 23 + _staff.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_staff != null)
+                hash.Add(_staff);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Homograph.IStaffAddress).City.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Homograph.IStaffAddress).City);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3319,23 +3292,20 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_staff != null)
-                    hash = hash * 23 + _staff.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_staff != null)
+                hash.Add(_staff);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).SchoolName);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentFirstName);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStaffStudentSchoolAssociation).StudentLastSurname);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3759,17 +3729,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStudent).StudentFirstName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStudent).StudentFirstName);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStudent).StudentLastSurname.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStudent).StudentLastSurname);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4107,18 +4074,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_student != null)
-                    hash = hash * 23 + _student.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_student != null)
+                hash.Add(_student);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Homograph.IStudentAddress).City.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Homograph.IStudentAddress).City);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4557,20 +4521,17 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStudentSchoolAssociation).SchoolName);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentFirstName);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Homograph.IStudentSchoolAssociation).StudentLastSurname);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
