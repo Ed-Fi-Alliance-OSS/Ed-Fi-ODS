@@ -226,7 +226,14 @@ namespace EdFi.Ods.Entities.NHibernate.NameAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -577,7 +584,14 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -759,7 +773,14 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -943,7 +964,14 @@ namespace EdFi.Ods.Entities.NHibernate.ParentAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -1255,7 +1283,14 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -1422,7 +1457,14 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -1659,7 +1701,14 @@ namespace EdFi.Ods.Entities.NHibernate.SchoolYearTypeAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -2008,7 +2057,14 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -2190,7 +2246,14 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -2374,7 +2437,14 @@ namespace EdFi.Ods.Entities.NHibernate.StaffAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -2700,7 +2770,14 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -2875,7 +2952,14 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAggregate.Homograph
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -3161,7 +3245,14 @@ namespace EdFi.Ods.Entities.NHibernate.StudentSchoolAssociationAggregate.Homogra
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();

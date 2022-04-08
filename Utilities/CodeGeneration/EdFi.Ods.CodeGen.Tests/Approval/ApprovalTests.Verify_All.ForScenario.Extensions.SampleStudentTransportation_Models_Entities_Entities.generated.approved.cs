@@ -305,7 +305,14 @@ namespace EdFi.Ods.Entities.NHibernate.StudentTransportationAggregate.SampleStud
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();

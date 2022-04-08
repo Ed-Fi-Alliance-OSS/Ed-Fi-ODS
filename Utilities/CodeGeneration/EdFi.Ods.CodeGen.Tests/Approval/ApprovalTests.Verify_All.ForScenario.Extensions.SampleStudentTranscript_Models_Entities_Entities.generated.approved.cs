@@ -179,7 +179,14 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionControlDescriptorAggregate.Sam
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -411,7 +418,14 @@ namespace EdFi.Ods.Entities.NHibernate.InstitutionLevelDescriptorAggregate.Sampl
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -759,7 +773,14 @@ namespace EdFi.Ods.Entities.NHibernate.PostSecondaryOrganizationAggregate.Sample
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -963,7 +984,14 @@ namespace EdFi.Ods.Entities.NHibernate.SpecialEducationGraduationStatusDescripto
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -1225,7 +1253,14 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -1430,7 +1465,14 @@ namespace EdFi.Ods.Entities.NHibernate.StudentAcademicRecordAggregate.SampleStud
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
@@ -1624,7 +1666,14 @@ namespace EdFi.Ods.Entities.NHibernate.SubmissionCertificationDescriptorAggregat
 
             foreach (DictionaryEntry entry in keyValues)
             {
-                hashCode.Add(entry.Value);
+                if (entry.Value is string)
+                {
+                    hashCode.Add(entry.Value as string, StringComparer.InvariantCultureIgnoreCase);
+                }
+                else
+                {
+                    hashCode.Add(entry.Value);
+                }
             }
 
             return hashCode.ToHashCode();
