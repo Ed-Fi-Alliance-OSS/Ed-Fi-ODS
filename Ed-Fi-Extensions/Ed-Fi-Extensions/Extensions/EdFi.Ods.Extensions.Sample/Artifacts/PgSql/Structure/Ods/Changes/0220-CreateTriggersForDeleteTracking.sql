@@ -100,8 +100,8 @@ CREATE OR REPLACE FUNCTION tracked_changes_sample.studentgraduationplanassociati
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 sample.descriptor%ROWTYPE;
-    dj1 sample.student%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.student%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.graduationplantypedescriptorid;
 

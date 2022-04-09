@@ -63,7 +63,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.candidateeducatorpreparationprog
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.programtypedescriptorid;
 
@@ -138,7 +138,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.educatorpreparationprogram_delet
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.programtypedescriptorid;
 
@@ -213,9 +213,9 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluation_deleted()
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.descriptor%ROWTYPE;
-    dj2 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.descriptor%ROWTYPE;
+    dj2 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.evaluationperioddescriptorid;
 
@@ -243,9 +243,9 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationelement_deleted()
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.descriptor%ROWTYPE;
-    dj2 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.descriptor%ROWTYPE;
+    dj2 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.evaluationperioddescriptorid;
 
@@ -273,10 +273,10 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationelementrating_deleted(
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.descriptor%ROWTYPE;
-    dj2 tpdm.descriptor%ROWTYPE;
-    dj3 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.descriptor%ROWTYPE;
+    dj2 edfi.descriptor%ROWTYPE;
+    dj3 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.evaluationperioddescriptorid;
 
@@ -323,9 +323,9 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationobjective_deleted()
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.descriptor%ROWTYPE;
-    dj2 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.descriptor%ROWTYPE;
+    dj2 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.evaluationperioddescriptorid;
 
@@ -353,10 +353,10 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationobjectiverating_delete
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.descriptor%ROWTYPE;
-    dj2 tpdm.descriptor%ROWTYPE;
-    dj3 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.descriptor%ROWTYPE;
+    dj2 edfi.descriptor%ROWTYPE;
+    dj3 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.evaluationperioddescriptorid;
 
@@ -403,10 +403,10 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationrating_deleted()
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.descriptor%ROWTYPE;
-    dj2 tpdm.descriptor%ROWTYPE;
-    dj3 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.descriptor%ROWTYPE;
+    dj2 edfi.descriptor%ROWTYPE;
+    dj3 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.evaluationperioddescriptorid;
 
@@ -487,8 +487,8 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.financialaid_deleted()
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.student%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.student%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.aidtypedescriptorid;
 
@@ -548,9 +548,9 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.performanceevaluation_deleted()
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.descriptor%ROWTYPE;
-    dj2 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.descriptor%ROWTYPE;
+    dj2 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.evaluationperioddescriptorid;
 
@@ -578,10 +578,10 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.performanceevaluationrating_dele
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.descriptor%ROWTYPE;
-    dj2 tpdm.descriptor%ROWTYPE;
-    dj3 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.descriptor%ROWTYPE;
+    dj2 edfi.descriptor%ROWTYPE;
+    dj3 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.evaluationperioddescriptorid;
 
@@ -645,9 +645,9 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.rubricdimension_deleted()
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
-    dj1 tpdm.descriptor%ROWTYPE;
-    dj2 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
+    dj1 edfi.descriptor%ROWTYPE;
+    dj2 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.evaluationperioddescriptorid;
 
@@ -692,7 +692,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.surveyresponsepersontargetassoci
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.sourcesystemdescriptorid;
 
@@ -716,7 +716,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.surveysectionresponsepersontarge
     RETURNS trigger AS
 $BODY$
 DECLARE
-    dj0 tpdm.descriptor%ROWTYPE;
+    dj0 edfi.descriptor%ROWTYPE;
 BEGIN
     SELECT INTO dj0 * FROM edfi.descriptor j0 WHERE descriptorid = old.sourcesystemdescriptorid;
 
