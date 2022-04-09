@@ -7,7 +7,7 @@ DO $$
 BEGIN
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'tracked_changes_sample') THEN
-CREATE SCHEMA tracked_changes_edfi;
+CREATE SCHEMA tracked_changes_sample;
 END IF;
 
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_sample' AND table_name = 'bus') THEN
