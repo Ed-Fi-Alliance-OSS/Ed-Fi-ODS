@@ -22,7 +22,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         public string FilterName { get; set; }
         
         /// <summary>
-        /// The property/column of the authorization subject.
+        /// The name of the property that is the subject of the authorization filter (may contain a role name).
         /// </summary>
         public string SubjectEndpointName { get; set; }
 
@@ -61,15 +61,9 @@ namespace EdFi.Ods.Common.Security.Authorization
         }
 
         /// <summary>
-        /// Gets or sets a map function to convert raw claim values to database parameter values.
+        /// Gets or sets a map function to convert the raw claim values to database parameter values.
         /// </summary>
         public Func<object, object> ClaimParameterValueMap { get; set; }
-
-        /// <summary>
-        /// The names of the specific claims endpoints that are represented in the authorization filter details (primarily
-        /// useful for identifying concrete education organization ids associated with the API client). 
-        /// </summary>
-        public string[] ClaimEndpointNames { get; set; }
 
         /// <summary>
         /// For single item authorization scenarios, gets or sets the value associated with the subject endpoint for authorization.

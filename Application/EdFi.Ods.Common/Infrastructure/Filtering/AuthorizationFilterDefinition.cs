@@ -25,7 +25,6 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// based on information parsed from the supplied condition.
         /// </summary>
         /// <param name="filterName">The name of the filter.</param>
-        /// <param name="friendlyDefaultConditionFormat">The default condition (as SQL) for the filter with named format specifiers marking where distinct aliases are required (e.g. "(Column1 LIKE :Parm1 OR Column2 IN (SELECT {newAlias1}.Column2 FROM Table1 {newAlias1})").</param>
         /// <param name="friendlyHqlConditionFormat">The default condition (as HQL) for the filter with named format specifiers marking where distinct aliases are required, with {currentAlias} being the alias for the current entity in the context of the HQL query (e.g. "({currentAlias}.Property1 LIKE :Parm1 OR {currentAlias}.Property2 IN (SELECT {newAlias1}.Property2 FROM EntityOneQ {newAlias1})").</param>
         /// <param name="criteriaApplicator">A function to apply the filter to the query using NHibernate's <see cref="NHibernate.ICriteria"/> API.</param>
         /// <param name="authorizeInstance">A function that authorizes the instance contained in the authorization context data, or indicates that authorization cannot be performed without a trip to the database.</param>
@@ -40,7 +39,6 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// </remarks>
         public AuthorizationFilterDefinition(
             string filterName,
-            string friendlyDefaultConditionFormat, // TODO: GKM - Eliminate if truly unused
             string friendlyHqlConditionFormat,
             Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator,
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,

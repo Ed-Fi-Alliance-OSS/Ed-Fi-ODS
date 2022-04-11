@@ -30,7 +30,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(new ApiKeyContext(ApiKey,
                         string.Empty,
-                        Enumerable.Empty<int>(),
+                        Array.Empty<int>(),
                         Enumerable.Empty<string>(),
                         Enumerable.Empty<string>(),
                         string.Empty,
@@ -74,7 +74,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(new ApiKeyContext(ApiKey,
                     string.Empty,
-                    Enumerable.Empty<int>(),
+                    Array.Empty<int>(),
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
@@ -107,7 +107,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(new ApiKeyContext(null,
                     string.Empty,
-                    Enumerable.Empty<int>(),
+                    Array.Empty<int>(),
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
@@ -140,7 +140,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(new ApiKeyContext(string.Empty,
                     string.Empty,
-                    Enumerable.Empty<int>(),
+                    Array.Empty<int>(),
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
@@ -173,7 +173,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(new ApiKeyContext(null,
                     string.Empty,
-                    Enumerable.Empty<int>(),
+                    Array.Empty<int>(),
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,
@@ -206,7 +206,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database
             A.CallTo(() => apiKeyContextProvider.GetApiKeyContext())
                 .Returns(new ApiKeyContext(string.Empty,
                     string.Empty,
-                    Enumerable.Empty<int>(),
+                    Array.Empty<int>(),
                     Enumerable.Empty<string>(),
                     Enumerable.Empty<string>(),
                     string.Empty,

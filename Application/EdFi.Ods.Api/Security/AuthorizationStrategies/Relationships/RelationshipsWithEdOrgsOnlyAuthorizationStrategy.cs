@@ -3,9 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
+using System.Collections.Generic;
 using System.Linq;
-using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Api.Security.Authorization;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
@@ -14,14 +13,20 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         : RelationshipsAuthorizationStrategyBase<TContextData>
         where TContextData : RelationshipsAuthorizationContextData, new()
     {
-        protected override void BuildAuthorizationSegments(
-            AuthorizationBuilder<TContextData> authorizationBuilder,
-            string[] authorizationContextPropertyNames)
+        private readonly IEducationOrganizationIdNamesProvider _educationOrganizationIdNamesProvider;
+
+        public RelationshipsWithEdOrgsOnlyAuthorizationStrategy(IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider)
         {
-            authorizationBuilder.ClaimsMustBeAssociatedWith(
-                authorizationContextPropertyNames
-                   .Where(EducationOrganizationEntitySpecification.IsEducationOrganizationIdentifier)
-                   .ToArray());
+            _educationOrganizationIdNamesProvider = educationOrganizationIdNamesProvider;
+        }
+
+        protected override SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
+            IEnumerable<(string name, object value)> authorizationContextTuples)
+        {
+            return authorizationContextTuples
+                .Where(nv => _educationOrganizationIdNamesProvider.IsEducationOrganizationIdName(nv.name))
+                .Select(nv => new SubjectEndpoint(nv))
+                .ToArray();
         }
     }
 }

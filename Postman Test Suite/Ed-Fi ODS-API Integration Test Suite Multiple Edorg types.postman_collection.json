@@ -874,7 +874,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 5001, 255901001 of types 'CommunityProviderId', 'SchoolId') and one of the following properties of the requested resource: 'EducationOrganizationId', 'StudentUniqueId'.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and one or more of the following properties of the resource item: 'EducationOrganizationId', 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1382,7 +1382,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 5001, 255901001 of types 'CommunityProviderId', 'SchoolId') and the requested resource's 'SchoolId' value.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and the resource item's 'SchoolId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1536,7 +1536,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 5001, 255901001 of types 'CommunityProviderId', 'SchoolId') and the requested resource's 'CommunityProviderId' value.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (5001, 255901001) and the resource item's 'CommunityProviderId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1753,7 +1753,7 @@
 											"const responseItem = pm.response.json();",
 											"",
 											"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
-											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (values 51, 5001 of types 'CommunityProviderId', 'PostSecondaryInstitutionId') and one of the following properties of the requested resource: 'EducationOrganizationId', 'StudentUniqueId'.\");",
+											"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claims (51, 5001) and one or more of the following properties of the resource item: 'EducationOrganizationId', 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2602,7 +2602,7 @@
 					]
 				},
 				{
-					"name": "Scenario 11  GET request to StudentDisciplineIncidentAssociations should return 403 indicating there's no way to authorize the request",
+					"name": "Scenario 11  GET request to StudentDisciplineIncidentAssociations should return 200 with empty array even though there is no way the request could ever be authorized with the types of EdOrg claims",
 					"item": [
 						{
 							"name": "Create Staff",
@@ -2854,12 +2854,14 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 403\", () => {",
-											"    pm.expect(pm.response.code).to.equal(403);",
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
 											"});",
+											"",
 											"const responseItems = pm.response.json();",
-											"pm.test(\"Should match with Error Message Response \", () => {    ",
-											"        pm.expect(responseItems.message).to.equal(\"Unable to authorize the request because there is no authorization support for associating the API client's associated education organization claim values (of type 'CommunityProviderId', 'PostSecondaryInstitutionId') with the 'SchoolId' of the 'StudentDisciplineIncidentAssociation' resource.\");",
+											"",
+											"pm.test(`Should return an empty array`, () => {",
+											"    pm.expect(responseItems).to.have.lengthOf(0);",
 											"});"
 										],
 										"type": "text/javascript"

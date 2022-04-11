@@ -20,14 +20,14 @@ namespace EdFi.Ods.WebApi.IntegrationTests
     {
         private const string ClaimSetName = "Ed-Fi Sandbox";
         private readonly Lazy<ApiKeyContext> _apiKeyContext;
-        private readonly Lazy<List<int>> _educationOrganizationIds;
+        private readonly Lazy<int[]> _educationOrganizationIds;
         private readonly Lazy<ClaimsIdentity> _identity;
         private readonly Lazy<List<string>> _namespacePrefixes;
 
         public FakedOAuthTokenAuthenticator(IClaimsIdentityProvider claimsIdentityProvider)
         {
             _namespacePrefixes = new Lazy<List<string>>(() => new List<string> { "uri://ed-fi.org" });
-            _educationOrganizationIds = new Lazy<List<int>>(() => new List<int> { 255901 });
+            _educationOrganizationIds = new Lazy<int[]>(() => new [] { 255901 });
 
             _identity = new Lazy<ClaimsIdentity>(
                 () => claimsIdentityProvider
@@ -54,7 +54,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 
             AuthenticationProperties CreateAuthenticationProperties()
             {
-                var parameters = new Dictionary<string, object?>()
+                var parameters = new Dictionary<string, object>()
                 {
                     {
                         "ApiKeyContext", _apiKeyContext.Value
