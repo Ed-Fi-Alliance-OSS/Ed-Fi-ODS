@@ -24,11 +24,7 @@
           <Claims>
             <Claim claimId="334" name="http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating">
               <DefaultAuthorization>
-                <Action name="Create" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-                <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-                <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-                <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-                <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+                <!-- Removed all explicit defaults here -->
               </DefaultAuthorization>
             </Claim>
           </Claims>
