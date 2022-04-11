@@ -33,7 +33,7 @@ namespace EdFi.Ods.Api.Validation
 
         public DescriptorNamespaceValidator()
         {
-            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
+            ValidatorOptions.Global.CascadeMode = CascadeMode.StopOnFirstFailure;
 
             RuleFor(x => x.Namespace)
                .Must(NotBeNullOrWhitespace)
