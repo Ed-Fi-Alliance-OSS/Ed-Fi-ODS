@@ -50,15 +50,6 @@ namespace EdFi.Ods.Common.Caching
         }
 
         public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((UniqueId != null
-                    ? UniqueId.GetHashCode()
-                    : 0) * 397) ^ (AssigningOrganizationIdentificationCode != null
-                    ? AssigningOrganizationIdentificationCode.GetHashCode()
-                    : 0);
-            }
-        }
+            => HashCode.Combine(UniqueId, AssigningOrganizationIdentificationCode);
     }
 }

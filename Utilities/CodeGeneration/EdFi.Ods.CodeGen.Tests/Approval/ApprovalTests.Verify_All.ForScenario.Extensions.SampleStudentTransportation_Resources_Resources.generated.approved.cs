@@ -334,25 +334,22 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).AMBusNumber);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).PMBusNumber);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).SchoolId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).SchoolId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.SampleStudentTransportation.IStudentTransportation).StudentUniqueId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 

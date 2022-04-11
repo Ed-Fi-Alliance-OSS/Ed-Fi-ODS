@@ -150,7 +150,8 @@ namespace EdFi.LoadTools.ApiClient.XsdMetadata
                     throw new ArgumentOutOfRangeException("XsdMetadataUrl", "Unable to find xsd file information.");
                 }
 
-                if (xsdMetadataInformations.Count > 2 && string.IsNullOrEmpty(_extension))
+                if ((xsdMetadataInformations.Count > 2 && string.IsNullOrEmpty(_extension)) ||
+                    (xsdMetadataInformations.Count > 2 && !xsdMetadataInformations.Any(y => y.Name.EqualsIgnoreCase(_extension))))
                 {
                     var availableExtensions = xsdMetadataInformations
                         .Select(x => x.Name)

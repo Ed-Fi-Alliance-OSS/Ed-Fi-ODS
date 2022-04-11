@@ -115,15 +115,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.Sample.IArtMediumDescriptor).ArtMediumDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -473,15 +470,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IBus).BusId.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IBus).BusId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -831,19 +825,16 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRoute).BusId.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IBusRoute).BusId);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRoute).BusRouteNumber.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IBusRoute).BusRouteNumber);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1527,18 +1518,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_busRoute != null)
-                    hash = hash * 23 + _busRoute.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_busRoute != null)
+                hash.Add(_busRoute);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteBusYear).BusYear.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IBusRouteBusYear).BusYear);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1865,24 +1853,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_busRoute != null)
-                    hash = hash * 23 + _busRoute.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_busRoute != null)
+                hash.Add(_busRoute);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IBusRouteProgram).EducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).ProgramName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IBusRouteProgram).ProgramName);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.Sample.IBusRouteProgram).ProgramTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2116,18 +2101,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_busRoute != null)
-                    hash = hash * 23 + _busRoute.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_busRoute != null)
+                hash.Add(_busRoute);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IBusRouteServiceAreaPostalCode).ServiceAreaPostalCode);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2347,18 +2329,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_busRoute != null)
-                    hash = hash * 23 + _busRoute.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_busRoute != null)
+                hash.Add(_busRoute);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteStartTime).StartTime.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IBusRouteStartTime).StartTime);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2590,22 +2569,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_busRoute != null)
-                    hash = hash * 23 + _busRoute.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_busRoute != null)
+                hash.Add(_busRoute);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumber);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IBusRouteTelephone).TelephoneNumberTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2845,15 +2821,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.Sample.IFavoriteBookCategoryDescriptor).FavoriteBookCategoryDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3129,15 +3102,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.Sample.IMembershipTypeDescriptor).MembershipTypeDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3415,14 +3385,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentAddress != null)
-                    hash = hash * 23 + _parentAddress.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentAddress != null)
+                hash.Add(_parentAddress);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3766,18 +3733,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentAddressExtension != null)
-                    hash = hash * 23 + _parentAddressExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentAddressExtension != null)
+                hash.Add(_parentAddressExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IParentAddressSchoolDistrict).SchoolDistrict);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3997,18 +3961,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentAddressExtension != null)
-                    hash = hash * 23 + _parentAddressExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentAddressExtension != null)
+                hash.Add(_parentAddressExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IParentAddressTerm).TermDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4228,18 +4189,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentExtension != null)
-                    hash = hash * 23 + _parentExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentExtension != null)
+                hash.Add(_parentExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IParentAuthor).Author.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IParentAuthor).Author);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4459,18 +4417,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentExtension != null)
-                    hash = hash * 23 + _parentExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentExtension != null)
+                hash.Add(_parentExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IParentCeilingHeight).CeilingHeight);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4678,14 +4633,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentExtension != null)
-                    hash = hash * 23 + _parentExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentExtension != null)
+                hash.Add(_parentExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4988,17 +4940,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentExtension != null)
-                    hash = hash * 23 + _parentExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentExtension != null)
+                hash.Add(_parentExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IParentEducationContent).ContentIdentifier);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -5228,14 +5177,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parent != null)
-                    hash = hash * 23 + _parent.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_parent != null)
+                hash.Add(_parent);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -5827,18 +5773,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentExtension != null)
-                    hash = hash * 23 + _parentExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentExtension != null)
+                hash.Add(_parentExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IParentFavoriteBookTitle).FavoriteBookTitle);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -6255,33 +6198,30 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentExtension != null)
-                    hash = hash * 23 + _parentExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentExtension != null)
+                hash.Add(_parentExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IParentStudentProgramAssociation).BeginDate);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IParentStudentProgramAssociation).EducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramEducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramName);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.Sample.IParentStudentProgramAssociation).ProgramTypeDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IParentStudentProgramAssociation).StudentUniqueId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -6496,14 +6436,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_parentExtension != null)
-                    hash = hash * 23 + _parentExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_parentExtension != null)
+                hash.Add(_parentExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -6740,14 +6677,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7050,17 +6984,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_schoolExtension != null)
-                    hash = hash * 23 + _schoolExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_schoolExtension != null)
+                hash.Add(_schoolExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.ISchoolDirectlyOwnedBus).DirectlyOwnedBusId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7286,14 +7217,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7589,14 +7517,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_staff != null)
-                    hash = hash * 23 + _staff.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_staff != null)
+                hash.Add(_staff);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7895,18 +7820,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_staffExtension != null)
-                    hash = hash * 23 + _staffExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_staffExtension != null)
+                hash.Add(_staffExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStaffPet).PetName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStaffPet).PetName);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8122,14 +8044,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_staffExtension != null)
-                    hash = hash * 23 + _staffExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_staffExtension != null)
+                hash.Add(_staffExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8382,22 +8301,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentExtension != null)
-                    hash = hash * 23 + _studentExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentExtension != null)
+                hash.Add(_studentExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentAquaticPet).MimimumTankVolume);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentAquaticPet).PetName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentAquaticPet).PetName);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8619,14 +8535,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_student != null)
-                    hash = hash * 23 + _student.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_student != null)
+                hash.Add(_student);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -9021,18 +8934,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentExtension != null)
-                    hash = hash * 23 + _studentExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentExtension != null)
+                hash.Add(_studentExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentFavoriteBook).FavoriteBookCategoryDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -9318,18 +9228,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentFavoriteBook != null)
-                    hash = hash * 23 + _studentFavoriteBook.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentFavoriteBook != null)
+                hash.Add(_studentFavoriteBook);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentFavoriteBookArtMedium).ArtMediumDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -9557,18 +9464,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentExtension != null)
-                    hash = hash * 23 + _studentExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentExtension != null)
+                hash.Add(_studentExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentPet).PetName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentPet).PetName);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -9784,14 +9688,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.EdFi.Extensions.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentExtension != null)
-                    hash = hash * 23 + _studentExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentExtension != null)
+                hash.Add(_studentExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -10340,31 +10241,28 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociation).BeginDate);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociation).EducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramEducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramName);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociation).ProgramTypeDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociation).StudentUniqueId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11000,18 +10898,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentArtProgramAssociation != null)
-                    hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentArtProgramAssociation != null)
+                hash.Add(_studentArtProgramAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociationArtMedium).ArtMediumDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11231,18 +11126,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentArtProgramAssociation != null)
-                    hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentArtProgramAssociation != null)
+                hash.Add(_studentArtProgramAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociationPortfolioYears).PortfolioYears);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11462,18 +11354,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentArtProgramAssociation != null)
-                    hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentArtProgramAssociation != null)
+                hash.Add(_studentArtProgramAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociationService).ServiceDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11717,18 +11606,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentArtProgramAssociation != null)
-                    hash = hash * 23 + _studentArtProgramAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentArtProgramAssociation != null)
+                hash.Add(_studentArtProgramAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentArtProgramAssociationStyle).Style);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11941,14 +11827,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentCTEProgramAssociation.EdFi
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentCTEProgramAssociation != null)
-                    hash = hash * 23 + _studentCTEProgramAssociation.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentCTEProgramAssociation != null)
+                hash.Add(_studentCTEProgramAssociation);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -12182,14 +12065,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentEducationOrganizationAssociationAddress != null)
-                    hash = hash * 23 + _studentEducationOrganizationAssociationAddress.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentEducationOrganizationAssociationAddress != null)
+                hash.Add(_studentEducationOrganizationAssociationAddress);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -12533,18 +12413,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentEducationOrganizationAssociationAddressExtension != null)
-                    hash = hash * 23 + _studentEducationOrganizationAssociationAddressExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentEducationOrganizationAssociationAddressExtension != null)
+                hash.Add(_studentEducationOrganizationAssociationAddressExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressSchoolDistrict).SchoolDistrict);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -12764,18 +12641,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentEducationOrganizationAssociationAddressExtension != null)
-                    hash = hash * 23 + _studentEducationOrganizationAssociationAddressExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentEducationOrganizationAssociationAddressExtension != null)
+                hash.Add(_studentEducationOrganizationAssociationAddressExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationAddressTerm).TermDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -12987,14 +12861,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentEducationOrganizationAssociationStudentCharacteristic != null)
-                    hash = hash * 23 + _studentEducationOrganizationAssociationStudentCharacteristic.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentEducationOrganizationAssociationStudentCharacteristic != null)
+                hash.Add(_studentEducationOrganizationAssociationStudentCharacteristic);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -13272,18 +13143,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentEducationOrganizationAssoc
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentEducationOrganizationAssociationStudentCharacteristicExtension != null)
-                    hash = hash * 23 + _studentEducationOrganizationAssociationStudentCharacteristicExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentEducationOrganizationAssociationStudentCharacteristicExtension != null)
+                hash.Add(_studentEducationOrganizationAssociationStudentCharacteristicExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentEducationOrganizationAssociationStudentCharacteristicStudentNeed).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -13809,24 +13677,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).EducationOrganizationId);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationPlanTypeDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).GraduationSchoolYear);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociation).StudentUniqueId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -14555,18 +14420,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentGraduationPlanAssociation != null)
-                    hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentGraduationPlanAssociation != null)
+                hash.Add(_studentGraduationPlanAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociationAcademicSubject).AcademicSubjectDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -14786,18 +14648,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentGraduationPlanAssociation != null)
-                    hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentGraduationPlanAssociation != null)
+                hash.Add(_studentGraduationPlanAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociationCareerPathwayCode).CareerPathwayCode);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -15005,14 +14864,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentGraduationPlanAssociation != null)
-                    hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentGraduationPlanAssociation != null)
+                hash.Add(_studentGraduationPlanAssociation);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -15264,18 +15120,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentGraduationPlanAssociation != null)
-                    hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentGraduationPlanAssociation != null)
+                hash.Add(_studentGraduationPlanAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDescription).Description);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -15495,18 +15348,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentGraduationPlanAssociation != null)
-                    hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentGraduationPlanAssociation != null)
+                hash.Add(_studentGraduationPlanAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociationDesignatedBy).DesignatedBy);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -15726,18 +15576,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentGraduationPlanAssociation != null)
-                    hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentGraduationPlanAssociation != null)
+                hash.Add(_studentGraduationPlanAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociationIndustryCredential).IndustryCredential);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -16128,17 +15975,14 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentGraduationPlanAssociation != null)
-                    hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentGraduationPlanAssociation != null)
+                hash.Add(_studentGraduationPlanAssociation);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociationStudentParentAssociation).ParentUniqueId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -16402,18 +16246,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentGraduationPlanAssociation != null)
-                    hash = hash * 23 + _studentGraduationPlanAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentGraduationPlanAssociation != null)
+                hash.Add(_studentGraduationPlanAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentGraduationPlanAssociationYearsAttended).YearsAttended);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -16638,18 +16479,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentParentAssociationExtension != null)
-                    hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentParentAssociationExtension != null)
+                hash.Add(_studentParentAssociationExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentParentAssociationDiscipline).DisciplineDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -16898,14 +16736,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentParentAssociation != null)
-                    hash = hash * 23 + _studentParentAssociation.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentParentAssociation != null)
+                hash.Add(_studentParentAssociation);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17554,18 +17389,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentParentAssociationExtension != null)
-                    hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentParentAssociationExtension != null)
+                hash.Add(_studentParentAssociationExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentParentAssociationFavoriteBookTitle).FavoriteBookTitle);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17785,18 +17617,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentParentAssociationExtension != null)
-                    hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentParentAssociationExtension != null)
+                hash.Add(_studentParentAssociationExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentParentAssociationHoursPerWeek).HoursPerWeek);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -18016,18 +17845,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentParentAssociationExtension != null)
-                    hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentParentAssociationExtension != null)
+                hash.Add(_studentParentAssociationExtension);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.Sample.IStudentParentAssociationPagesRead).PagesRead);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -18384,27 +18210,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentParentAssociationExtension != null)
-                    hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentParentAssociationExtension != null)
+                hash.Add(_studentParentAssociationExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EducationOrganizationId);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).EmploymentStatusDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).HireDate);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentParentAssociationStaffEducationOrganizationEmploymentAssociation).StaffUniqueId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -18626,14 +18449,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentParentAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentParentAssociationExtension != null)
-                    hash = hash * 23 + _studentParentAssociationExtension.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentParentAssociationExtension != null)
+                hash.Add(_studentParentAssociationExtension);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -18886,14 +18706,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.EdFi.Ext
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentSchoolAssociation != null)
-                    hash = hash * 23 + _studentSchoolAssociation.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentSchoolAssociation != null)
+                hash.Add(_studentSchoolAssociation);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -19118,14 +18935,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentSectionAssociation != null)
-                    hash = hash * 23 + _studentSectionAssociation.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentSectionAssociation != null)
+                hash.Add(_studentSectionAssociation);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -19706,30 +19520,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSectionAssociation.EdFi.Ex
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentSectionAssociationExtension != null)
-                    hash = hash * 23 + _studentSectionAssociationExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentSectionAssociationExtension != null)
+                hash.Add(_studentSectionAssociationExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedBeginDate.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedBeginDate);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedEducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedEducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramEducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramEducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramName);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.Sample.IStudentSectionAssociationRelatedGeneralStudentProgramAssociation).RelatedProgramTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 

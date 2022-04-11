@@ -38,7 +38,7 @@ namespace EdFi.Ods.Api.Providers
             // Verify client_id and client_secret are present
             if (!HasIdAndSecret())
             {
-                return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.InvalidClient)};
+                return new AuthenticationResponse {TokenError = new TokenError(TokenErrorType.InvalidRequest)};
             }
 
             // authenticate the client and get client information
