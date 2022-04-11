@@ -30,7 +30,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="DatabaseSchemaReader" Version="2.7.11" />
-    <PackageReference Include="FluentValidation" Version="8.6.3" />
+    <PackageReference  Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
