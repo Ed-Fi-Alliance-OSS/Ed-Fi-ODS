@@ -9,7 +9,6 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
-using EdFi.Ods.Api.Security.Authorization;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 {

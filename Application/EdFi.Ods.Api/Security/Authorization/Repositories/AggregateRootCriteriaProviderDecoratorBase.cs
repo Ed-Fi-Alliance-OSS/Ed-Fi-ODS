@@ -14,7 +14,6 @@ using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security.Authorization;
-using log4net;
 using NHibernate.SqlCommand;
 
 namespace EdFi.Ods.Api.Security.Authorization.Repositories
@@ -31,8 +30,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
         private readonly IAuthorizationFilterContextProvider _authorizationFilterContextProvider;
         private readonly IAuthorizationFilterDefinitionProvider _authorizationFilterDefinitionProvider;
 
-        private readonly ILog _logger;
-
         protected AggregateRootCriteriaProviderAuthorizationDecoratorBase(
             IAggregateRootCriteriaProvider<TEntity> decoratedInstance,
             IAuthorizationFilterContextProvider authorizationFilterContextProvider,
@@ -41,9 +38,6 @@ namespace EdFi.Ods.Api.Security.Authorization.Repositories
             _decoratedInstance = decoratedInstance;
             _authorizationFilterContextProvider = authorizationFilterContextProvider;
             _authorizationFilterDefinitionProvider = authorizationFilterDefinitionProvider;
-
-            // Log entries for the concrete type
-            _logger = LogManager.GetLogger(GetType());
         }
 
         /// <summary>

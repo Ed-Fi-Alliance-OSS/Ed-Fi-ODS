@@ -6,14 +6,11 @@
 using System;
 using System.Collections.Generic;
 using Autofac;
-using Autofac.Core;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Repositories;
-using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Providers.Criteria;
 using EdFi.Ods.Common.Repositories;
-using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Pipeline;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Security.DataAccess.Contexts;

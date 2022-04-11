@@ -8,8 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
-using EdFi.Ods.Common.Models.Domain;
-using QuickGraph;
 
 namespace EdFi.Ods.Api.Security.Authorization
 {
