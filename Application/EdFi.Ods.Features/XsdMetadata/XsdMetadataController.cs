@@ -67,7 +67,7 @@ namespace EdFi.Ods.Features.XsdMetadata
                                 description = xsdFileInformation.IsCore()
                                     ? $"Core schema ({xsdFileInformation.SchemaNameMap.LogicalName}) files for the data model"
                                     : $"Extension {xsdFileInformation.SchemaNameMap.LogicalName} blended with Core schema files for the data model",
-                                name = xsdFileInformation.SchemaNameMap.UriSegment,
+                                name = xsdFileInformation.SchemaNameMap.LogicalName,
                                 version = xsdFileInformation.Version,
                                 files = new Uri(
                                     GetMetadataAbsoluteUrl("files", xsdFileInformation.SchemaNameMap.UriSegment))
