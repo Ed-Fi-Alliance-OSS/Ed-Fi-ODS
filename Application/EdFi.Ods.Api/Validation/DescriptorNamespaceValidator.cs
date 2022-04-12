@@ -33,13 +33,18 @@ namespace EdFi.Ods.Api.Validation
 
         public DescriptorNamespaceValidator()
         {
-            ValidatorOptions.Global.CascadeMode = CascadeMode.StopOnFirstFailure;
+            ValidatorOptions.Global.CascadeMode = CascadeMode.Continue;
 
             RuleFor(x => x.Namespace)
                .Must(NotBeNullOrWhitespace)
                .WithMessage(RequiredMessage)
-               .Must(BeValidNamespaceFormat)
-               .WithMessage(InvalidFormatMessage + ValidNamespaceFormatMessage);
+               .DependentRules(
+                   () =>
+                   {
+                       RuleFor(x => x.Namespace)
+                           .Must(BeValidNamespaceFormat)
+                           .WithMessage(InvalidFormatMessage + ValidNamespaceFormatMessage);
+                   });
 
             RuleFor(
                     x => CaptureNamespaceGroups.Match(x.Namespace)
