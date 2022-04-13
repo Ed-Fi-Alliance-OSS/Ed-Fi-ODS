@@ -33,24 +33,20 @@ namespace EdFi.Ods.Api.Validation
 
         public DescriptorNamespaceValidator()
         {
-            ValidatorOptions.Global.CascadeMode = CascadeMode.Continue;
-
             RuleFor(x => x.Namespace)
-               .Must(NotBeNullOrWhitespace)
-               .WithMessage(RequiredMessage)
-               .DependentRules(
-                   () =>
-                   {
-                       RuleFor(x => x.Namespace)
-                           .Must(BeValidNamespaceFormat)
-                           .WithMessage(InvalidFormatMessage + ValidNamespaceFormatMessage);
-                   });
+                .Cascade(CascadeMode.Stop)
+                .Must(NotBeNullOrWhitespace)
+                .WithMessage(RequiredMessage)
+                .Must(BeValidNamespaceFormat)
+                .WithMessage(InvalidFormatMessage + ValidNamespaceFormatMessage);
+
 
             RuleFor(
                     x => CaptureNamespaceGroups.Match(x.Namespace)
                                                .Groups["scheme"]
                                                .Value)
-               .Must(NotBeNullOrWhitespace)
+                .Cascade(CascadeMode.Stop)
+                .Must(NotBeNullOrWhitespace)
                .When(IsValidDescriptorNamespaceFormat)
                .WithMessage(RequiredMessage + ValidNamespaceFormatMessage)
                .Must(x => ValidScheme.IsMatch(x))
@@ -62,7 +58,8 @@ namespace EdFi.Ods.Api.Validation
                     x => CaptureNamespaceGroups.Match(x.Namespace)
                                                .Groups["organizationName"]
                                                .Value)
-               .Must(NotBeNullOrWhitespace)
+                .Cascade(CascadeMode.Stop)
+                .Must(NotBeNullOrWhitespace)
                .When(IsValidDescriptorNamespaceFormat)
                .WithMessage(RequiredMessage + ValidNamespaceFormatMessage)
                .Must(x => !InvalidOrganizationNameCharacters.IsMatch(x))
@@ -74,7 +71,8 @@ namespace EdFi.Ods.Api.Validation
                     x => CaptureNamespaceGroups.Match(x.Namespace)
                                                .Groups["descriptorName"]
                                                .Value)
-               .Must(NotBeNullOrWhitespace)
+                .Cascade(CascadeMode.Stop)
+                .Must(NotBeNullOrWhitespace)
                .When(IsValidDescriptorNamespaceFormat)
                .WithMessage(RequiredMessage + ValidNamespaceFormatMessage)
                .Must(x => !InvalidDescriptorNameCharacters.IsMatch(x))
@@ -83,10 +81,11 @@ namespace EdFi.Ods.Api.Validation
                .WithMessage(InvalidDescriptorNameMessage);
 
             RuleFor(x => x.CodeValue)
-               .Must(NotBeNullOrWhitespace)
-               .WithMessage(RequiredMessage)
-               .Must(x => !InvalidCodeValueCharacters.IsMatch(x))
-               .WithMessage(InvalidCodeValueMessage);
+                .Cascade(CascadeMode.Stop)
+                .Must(NotBeNullOrWhitespace)
+                .WithMessage(RequiredMessage)
+                .Must(x => !InvalidCodeValueCharacters.IsMatch(x))
+                .WithMessage(InvalidCodeValueMessage);
         }
 
         private bool NotBeNullOrWhitespace(string s) => !string.IsNullOrWhiteSpace(s);
