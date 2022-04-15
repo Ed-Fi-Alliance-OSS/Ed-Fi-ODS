@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
@@ -100,20 +101,27 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
         protected override bool CheckResult(dynamic result)
         {
             var location = result.Headers["Location"];
-            var resource = GetResourceFromLocation(location);
+            var code = result.StatusCode;
+            var resource = GetResourceFromLocation(location, code);
 
             if (ResultsDictionary.ContainsKey(ResourceApi.ModelType.Name))
             {
                 ResultsDictionary[ResourceApi.ModelType.Name].Add(resource);
             }
 
+
             return true;
         }
 
-        private object GetResourceFromLocation(List<string>  location)
+        private object GetResourceFromLocation(List<string> location, HttpStatusCode statusCode)
         {
             var resourceUri = new Uri(location[0]);
-            _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
+
+            if (statusCode == HttpStatusCode.Created)
+            {
+                _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
+            }
+
             return GetResourceFromUri(resourceUri);
         }
     }
