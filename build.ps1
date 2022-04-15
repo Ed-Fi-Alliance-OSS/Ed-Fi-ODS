@@ -32,16 +32,26 @@ param(
     $NugetApiKey,
 
     [string]
-    $EdFiNuGetFeed
+    $EdFiNuGetFeed,
+
+    # .Net Project Solution Name
+    [string]
+    $Solution,
+
+    # .Net Project Name
+    [string]
+    $ProjectFile,
+
+    [string]
+    [ValidateSet("EdFi.Suite3.Admin.DataAccess", "EdFi.Suite3.Security.DataAccess")]
+    $PackageName
+
 )
 
-$solution = "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln"
-$projectFile = "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj"
 $newRevision = ([int]$BuildCounter) + 10
 $version = "$InformationalVersion.$newRevision"
-$packageName = "EdFi.Suite3.Admin.DataAccess"
 $packageOutput = "$PSScriptRoot/NugetPackages"
-$packagePath = "$packageOutput/$packageName.$version.nupkg"
+$packagePath = "$packageOutput/$PackageName.$version.nupkg"
 
 function Invoke-Execute {
     param (
@@ -92,19 +102,19 @@ function Invoke-Main {
 }
 
 function Clean {
-    Invoke-Execute { dotnet clean $solution -c $Configuration --nologo -v minimal }
+    Invoke-Execute { dotnet clean $Solution -c $Configuration --nologo -v minimal }
 }
 
 function Compile {
     Invoke-Execute {
         dotnet --info
-        dotnet build $solution -c $Configuration -p:AssemblyVersion=$version -p:FileVersion=$version -p:InformationalVersion=$InformationalVersion
+        dotnet build $Solution -c $Configuration -p:AssemblyVersion=$version -p:FileVersion=$version -p:InformationalVersion=$InformationalVersion
     }
 }
 
 function Pack {
     Invoke-Execute {
-        dotnet pack $projectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$packageName
+        dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
     }
 }
 
