@@ -28,20 +28,20 @@ jobs:
         dotnet-version: 6.0.x
     - name: build
       run: |
-        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -Solution "Application/EdFi.Security.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
       shell: pwsh
     - name: test
       run: |
-        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Security.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
+        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
       shell: pwsh
     - name: pack
       run: |
-        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Application/EdFi.Security.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
+        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
       shell: pwsh
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: pwsh
     - name: publish
       run: |
-        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -Solution "Application/EdFi.Security.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
+        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
       shell: pwsh      

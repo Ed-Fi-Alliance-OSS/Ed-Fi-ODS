@@ -25,5 +25,5 @@ jobs:
       shell: pwsh
     - name: test
       run: |
-        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Security.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
+        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
       shell: pwsh
