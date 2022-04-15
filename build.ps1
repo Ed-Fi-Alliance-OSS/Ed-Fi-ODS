@@ -36,15 +36,15 @@ param(
 
     # .Net Project Solution Name
     [string]
-    $Solution = "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln",
+    $Solution,
 
     # .Net Project Name
     [string]
-    $ProjectFile = "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj",
+    $ProjectFile,
 
     [string]
     [ValidateSet("EdFi.Suite3.Admin.DataAccess", "EdFi.Suite3.Security.DataAccess")]
-    $PackageName = "EdFi.Suite3.Admin.DataAccess"
+    $PackageName
 
 )
 
