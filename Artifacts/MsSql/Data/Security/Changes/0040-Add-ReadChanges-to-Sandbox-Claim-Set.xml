@@ -4,9 +4,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NamespaceBased" />
         <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Update" authorizationStrategy="NamespaceBased" />
         <Action name="Delete" authorizationStrategy="NamespaceBased" />
+        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
       </DefaultAuthorization>
       <ClaimSets>
         <!-- Remove explicit authorization strategy override for ReadChanges action -->
@@ -25,9 +25,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NamespaceBased" />
         <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Update" authorizationStrategy="NamespaceBased" />
         <Action name="Delete" authorizationStrategy="NamespaceBased" />
+        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
       </DefaultAuthorization>
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">
@@ -46,9 +46,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
+        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
       </DefaultAuthorization>
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">
@@ -74,9 +74,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
-        <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
         <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
         <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
+        <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
       </DefaultAuthorization>
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">
@@ -94,9 +94,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
         <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
-        <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
         <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
         <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
+        <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
       </DefaultAuthorization>
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">
@@ -116,9 +116,9 @@
               <Actions>
                 <Action name="Create" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
                 <Action name="Read" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
-                <Action name="ReadChanges" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
                 <Action name="Update" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
                 <Action name="Delete" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
+                <Action name="ReadChanges" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
               </Actions>
             </ClaimSet>
             <ClaimSet name="Ed-Fi API Publisher - Reader">
@@ -133,18 +133,18 @@
           <DefaultAuthorization>
             <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
             <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
             <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
             <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
           </DefaultAuthorization>
         </Claim>
         <Claim claimId="272" name="http://ed-fi.org/ods/identity/claims/studentParentAssociation">
           <DefaultAuthorization>
             <Action name="Create" authorizationStrategy="RelationshipsWithStudentsOnly" />
             <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
-            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
             <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
             <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
+            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
           </DefaultAuthorization>
         </Claim>
       </Claims>
@@ -153,9 +153,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NamespaceBased" />
         <Action name="Read" authorizationStrategy="NamespaceBased" />
-        <Action name="ReadChanges" authorizationStrategy="NamespaceBased" />
         <Action name="Update" authorizationStrategy="NamespaceBased" />
         <Action name="Delete" authorizationStrategy="NamespaceBased" />
+        <Action name="ReadChanges" authorizationStrategy="NamespaceBased" />
       </DefaultAuthorization>
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">
@@ -173,9 +173,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NamespaceBased" />
         <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
         <Action name="Update" authorizationStrategy="NamespaceBased" />
         <Action name="Delete" authorizationStrategy="NamespaceBased" />
+        <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
       </DefaultAuthorization>
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">
@@ -193,9 +193,9 @@
           <DefaultAuthorization>
             <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
             <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
             <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
             <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
           </DefaultAuthorization>
         </Claim>
       </Claims>
@@ -204,9 +204,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
         <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
-        <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
         <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
         <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsAndPeople" />
+        <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
       </DefaultAuthorization>
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">
@@ -224,9 +224,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NamespaceBased" />
         <Action name="Read" authorizationStrategy="NamespaceBased" />
-        <Action name="ReadChanges" authorizationStrategy="NamespaceBased" />
         <Action name="Update" authorizationStrategy="NamespaceBased" />
         <Action name="Delete" authorizationStrategy="NamespaceBased" />
+        <Action name="ReadChanges" authorizationStrategy="NamespaceBased" />
       </DefaultAuthorization>
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">
@@ -235,6 +235,7 @@
             <Action name="Read" />
             <Action name="Update" />
             <Action name="Delete" />
+            <Action name="ReadChanges" />
           </Actions>
         </ClaimSet>
       </ClaimSets>
@@ -243,9 +244,9 @@
       <DefaultAuthorization>
         <Action name="Create" authorizationStrategy="NamespaceBased" />
         <Action name="Read" authorizationStrategy="NamespaceBased" />
-        <Action name="ReadChanges" authorizationStrategy="NamespaceBased" />
         <Action name="Update" authorizationStrategy="NamespaceBased" />
         <Action name="Delete" authorizationStrategy="NamespaceBased" />
+        <Action name="ReadChanges" authorizationStrategy="NamespaceBased" />
       </DefaultAuthorization>
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">

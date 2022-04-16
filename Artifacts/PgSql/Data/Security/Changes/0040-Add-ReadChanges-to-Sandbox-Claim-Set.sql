@@ -106,20 +106,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -147,6 +133,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
     ----------------------------------------------------------------------------------------------------------------------------
@@ -300,20 +300,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -341,6 +327,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/managedDescriptors
     ----------------------------------------------------------------------------------------------------------------------------
@@ -494,20 +494,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -535,6 +521,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/educationOrganizations
     ----------------------------------------------------------------------------------------------------------------------------
@@ -738,20 +738,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -779,6 +765,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/people
     ----------------------------------------------------------------------------------------------------------------------------
@@ -932,20 +932,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -973,6 +959,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1159,24 +1159,6 @@ BEGIN
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
     VALUES (claim_id, claim_set_id, Read_action_id, authorization_strategy_id); -- Read
 
-    -- Claim set-specific ReadChanges authorization
-    authorization_strategy_id := NULL;
-    
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-    
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id, authorization_strategy_id); -- ReadChanges
-
     -- Claim set-specific Update authorization
     authorization_strategy_id := NULL;
     
@@ -1212,6 +1194,24 @@ BEGIN
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
     VALUES (claim_id, claim_set_id, Delete_action_id, authorization_strategy_id); -- Delete
+
+    -- Claim set-specific ReadChanges authorization
+    authorization_strategy_id := NULL;
+    
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+    
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    ELSE
+        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+    END IF;
+
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id, authorization_strategy_id); -- ReadChanges
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1334,20 +1334,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -1375,6 +1361,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentParentAssociation'
@@ -1438,20 +1438,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -1479,6 +1465,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
 
     -- Pop the stack
@@ -1546,20 +1546,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -1587,6 +1573,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1740,20 +1740,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -1781,6 +1767,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/educationStandards
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1938,20 +1938,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -1979,6 +1965,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
 
     -- Pop the stack
@@ -2046,20 +2046,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -2087,6 +2073,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/primaryRelationships
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2240,20 +2240,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -2281,6 +2267,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/surveyDomain
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2359,6 +2359,19 @@ BEGIN
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
     VALUES (claim_id, claim_set_id, Delete_action_id, authorization_strategy_id); -- Delete
+
+    -- Claim set-specific ReadChanges authorization
+    authorization_strategy_id := NULL;
+    
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+    ELSE
+        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+    END IF;
+
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id, authorization_strategy_id); -- ReadChanges
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educationContent'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2421,20 +2434,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
-    -- Default ReadChanges authorization
-    authorization_strategy_id := NULL;
-
-    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
-    END IF;
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
-
     -- Default Update authorization
     authorization_strategy_id := NULL;
 
@@ -2462,6 +2461,20 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+
+    -- Default ReadChanges authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NamespaceBased';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/educationContent
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2558,4 +2571,8 @@ BEGIN
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     COMMIT;
+
+    -- TODO: Remove - For interactive development only
+    -- SELECT dbo.GetAuthorizationMetadataDocument();
+    -- ROLLBACK;
 END $$;

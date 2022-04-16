@@ -119,22 +119,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -166,6 +150,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
     ----------------------------------------------------------------------------------------------------------------------------
@@ -324,22 +324,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -371,6 +355,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/managedDescriptors
     ----------------------------------------------------------------------------------------------------------------------------
@@ -529,22 +529,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -576,6 +560,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/educationOrganizations
     ----------------------------------------------------------------------------------------------------------------------------
@@ -782,22 +782,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -829,6 +813,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/people
     ----------------------------------------------------------------------------------------------------------------------------
@@ -987,22 +987,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -1034,6 +1018,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1219,23 +1219,6 @@ BEGIN
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
     VALUES (@claimId, @claimSetId, @ReadActionId, @authorizationStrategyId) -- Read
 
-    -- Claim set-specific ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-    
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-    
-
-    IF @authorizationStrategyId IS NULL
-        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ').'
-    ELSE
-        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
-        
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (@claimId, @claimSetId, @ReadChangesActionId, @authorizationStrategyId) -- ReadChanges
-
     -- Claim set-specific Update authorization
     SET @authorizationStrategyId = NULL
     
@@ -1269,6 +1252,23 @@ BEGIN
         
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
     VALUES (@claimId, @claimSetId, @DeleteActionId, @authorizationStrategyId) -- Delete
+
+    -- Claim set-specific ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ').'
+    ELSE
+        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @ReadChangesActionId, @authorizationStrategyId) -- ReadChanges
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi API Publisher - Reader'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1399,22 +1399,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -1446,6 +1430,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentParentAssociation'
@@ -1519,22 +1519,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -1566,6 +1550,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
 
     -- Pop the stack
@@ -1643,22 +1643,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -1690,6 +1674,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NamespaceBased'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1848,22 +1848,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -1895,6 +1879,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/educationStandards
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2057,22 +2057,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -2104,6 +2088,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NoFurtherAuthorizationRequired'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
 
     -- Pop the stack
@@ -2181,22 +2181,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -2228,6 +2212,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'RelationshipsWithEdOrgsAndPeopleIncludingDeletes'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsAndPeopleIncludingDeletes''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/primaryRelationships
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2386,22 +2386,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -2433,6 +2417,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NamespaceBased'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/surveyDomain
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2507,6 +2507,18 @@ BEGIN
         
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
     VALUES (@claimId, @claimSetId, @DeleteActionId, @authorizationStrategyId) -- Delete
+
+    -- Claim set-specific ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ').'
+    ELSE
+        PRINT 'Creating ''ReadChanges'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadChangesActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @ReadChangesActionId, @authorizationStrategyId) -- ReadChanges
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/educationContent'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2579,22 +2591,6 @@ BEGIN
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
 
-    -- Default ReadChanges authorization
-    SET @authorizationStrategyId = NULL
-
-    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
-    FROM    dbo.AuthorizationStrategies a
-    WHERE   a.AuthorizationStrategyName = 'NamespaceBased'
-
-    IF @authorizationStrategyId IS NULL
-    BEGIN
-        SET @msg = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
-        THROW 50000, @msg, 1
-    END
-
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
-
     -- Default Update authorization
     SET @authorizationStrategyId = NULL
 
@@ -2626,6 +2622,22 @@ BEGIN
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
     VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+
+    -- Default ReadChanges authorization
+    SET @authorizationStrategyId = NULL
+
+    SELECT @authorizationStrategyId = a.AuthorizationStrategyId
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.AuthorizationStrategyName = 'NamespaceBased'
+
+    IF @authorizationStrategyId IS NULL
+    BEGIN
+        SET @msg = 'AuthorizationStrategy does not exist: ''NamespaceBased''';
+        THROW 50000, @msg, 1
+    END
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
 
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/educationContent
     ----------------------------------------------------------------------------------------------------------------------------
