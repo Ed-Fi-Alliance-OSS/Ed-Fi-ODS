@@ -27,7 +27,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="FakeItEasy" Version="7.3.0" />
-    <PackageReference Include="FluentValidation" Version="8.6.3" />
+    <PackageReference  Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NUnit" Version="3.13.2" />

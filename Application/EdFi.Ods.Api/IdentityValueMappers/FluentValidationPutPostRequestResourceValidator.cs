@@ -75,7 +75,8 @@ namespace EdFi.Ods.Api.IdentityValueMappers
                 return new List<ValidationResult>();
             }
 
-            var result = validator.Validate(resource);
+            var context = new ValidationContext<object>(resource);
+            var result = validator.Validate(context);
 
             var validationResults = result.Errors
                 .Select( e => e.ErrorMessage)
