@@ -34,7 +34,7 @@
     <PackageReference Include="EdFi.Suite3.Common" Version="5.4.11" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="FakeItEasy" Version="7.3.0" />
-    <PackageReference Include="FluentValidation" Version="8.6.3" />
+    <PackageReference  Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Gherkin" Version="22.0.0" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
     <PackageReference Include="log4net" Version="2.0.13" />
