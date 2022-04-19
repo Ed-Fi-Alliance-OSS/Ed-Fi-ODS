@@ -58,7 +58,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                 A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders())
                     .Returns(_domainModelDefinitionsProviders);
 
-                _templateContextProvider = new TemplateContextProvider(_domainModelDefinitionsProviderProvider, new IDomainModelDefinitionsTransformer[0]);
+                _templateContextProvider = new TemplateContextProvider(_domainModelDefinitionsProviderProvider);
             }
 
             protected override void Act()
@@ -109,7 +109,7 @@ namespace EdFi.Ods.CodeGen.Tests.UnitTests.Processing
                 A.CallTo(() => _domainModelDefinitionsProviderProvider.DomainModelDefinitionProviders())
                     .Returns(_domainModelDefinitionsProviders);
 
-                _templateContextProvider = new TemplateContextProvider(_domainModelDefinitionsProviderProvider, new IDomainModelDefinitionsTransformer[0]);
+                _templateContextProvider = new TemplateContextProvider(_domainModelDefinitionsProviderProvider);
             }
 
             protected override void Act()

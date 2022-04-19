@@ -141,16 +141,16 @@ namespace EdFi.Ods.CodeGen.Metadata
                     throw new MissingPropertyException(propertyName, profile);
                 }
 
-                if (resourceProperty.IsLookup)
+                if (resourceProperty.IsDescriptorUsage)
                 {
-                    var invalidPropertyReference = !resourceProperty.IsIdentifying && resourceProperty.IsLookup &&
+                    var invalidPropertyReference = !resourceProperty.IsIdentifying && resourceProperty.IsDescriptorUsage &&
                                                    resourceProperty.EntityProperty.Entity.IncomingAssociations
                                                        .Concat(resourceProperty.EntityProperty.Entity.OutgoingAssociations)
                                                        .Any(
                                                            association
                                                                => association.ThisProperties.Contains(
                                                                       resourceProperty.EntityProperty) &&
-                                                                  !resourceProperty.IsDirectLookup);
+                                                                  !resourceProperty.IsDirectDescriptorUsage);
 
                     if (invalidPropertyReference)
                     {

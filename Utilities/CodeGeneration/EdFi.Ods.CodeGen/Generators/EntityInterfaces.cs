@@ -77,7 +77,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                   PersonEntitySpecification
                                                       .IsPersonEntity(
                                                           r.Name),
-                                            p.IsLookup,
+                                            IsLookup = p.IsDescriptorUsage,
                                             CSharpType
                                                 = p
                                                     .PropertyType
@@ -106,7 +106,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                         p =>
                                             new
                                             {
-                                                p.IsLookup,
+                                                IsLookup = p.IsDescriptorUsage,
                                                 CSharpType = p.PropertyType.ToCSharp(true),
                                                 Name = p.PropertyName,
                                                 LookupName = p.PropertyName.TrimSuffix("Id")
@@ -121,7 +121,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                     p =>
                                         new
                                         {
-                                            p.IsLookup,
+                                            IsLookup = p.IsDescriptorUsage,
                                             CSharpType =
                                                 p.PropertyType.ToCSharp(true),
                                             Name = p.PropertyName,
