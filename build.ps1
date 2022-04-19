@@ -43,7 +43,6 @@ param(
     $ProjectFile,
 
     [string]
-    [ValidateSet("EdFi.Suite3.Admin.DataAccess", "EdFi.Suite3.Security.DataAccess")]
     $PackageName
 
 )
@@ -113,8 +112,14 @@ function Compile {
 }
 
 function Pack {
-    Invoke-Execute {
-        dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
+    if (-not $PackageName){
+        Invoke-Execute {
+            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
+        }
+    } else {
+        Invoke-Execute {
+            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
+        }
     }
 }
 
