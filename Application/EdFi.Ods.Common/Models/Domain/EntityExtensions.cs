@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -154,7 +154,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <param name="entity"></param>
         /// <returns><b>true</b> if the type has a EducationOrganization Derived Entity; otherwise <b>false</b>.</returns>
         public static bool IsEducationOrganizationDerivedEntity(this Entity entity)
-            => entity.BaseEntity?.FullName == new FullName(EdFiConventions.PhysicalSchemaName, "EducationOrganization");
+            => entity.BaseEntity?.FullName.Equals(EdFiConventions.EducationOrganizationFullName);
 
         /// <summary>
         /// Indicates whether the supplied <see cref="Entity"/> has a discriminator.
