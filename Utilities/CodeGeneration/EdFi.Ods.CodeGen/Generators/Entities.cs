@@ -266,7 +266,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                                   : _notRendered,
                                                               IsDateTime = IsDateTimeProperty(p), IsString = p.PropertyType.ToCSharp() == "string",
                                                               NoWhitespaceEnforced = p.PropertyType.ToCSharp() == "string", p.PropertyType.MaxLength,
-                                                              IsStandardProperty = !(p.IsLookup
+                                                              IsStandardProperty = !(p.IsDescriptorUsage
                                                                                      || UniqueIdSpecification.IsUSI(p.PropertyName)
                                                                                      || IsUniqueIdPropertyOnPersonEntity(entity, p)
                                                                                      || IsNonDerivedDateProperty(entity, p)
@@ -282,10 +282,10 @@ namespace EdFi.Ods.CodeGen.Generators
                                     .Select(
                                          p => new
                                               {
-                                                  BaseClassName = entity.BaseEntity.Name, PropertyName = p.IsLookup
+                                                  BaseClassName = entity.BaseEntity.Name, PropertyName = p.IsDescriptorUsage
                                                       ? p.GetLookupValuePropertyName()
                                                       : p.PropertyName,
-                                                  CSharpType = p.IsLookup
+                                                  CSharpType = p.IsDescriptorUsage
                                                       ? "string"
                                                       : p.PropertyType.ToCSharp(includeNullability: true)
                                               })
@@ -341,7 +341,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                         }
                                                       : _notRendered,
                                                   IsStandardProperty =
-                                                      !(p.IsLookup
+                                                      !(p.IsDescriptorUsage
                                                         || UniqueIdSpecification.IsUSI(p.PropertyName)
                                                         || IsUniqueIdPropertyOnPersonEntity(entity, p)
                                                         || IsNonDerivedDateProperty(entity, p)
@@ -406,7 +406,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                                             SchemaName = properCaseSchemaName
                                                                         }),
                         LookupProperties = entity.Properties
-                                                 .Where(p => p.IsLookup)
+                                                 .Where(p => p.IsDescriptorUsage)
                                                  .OrderBy(p => p.PropertyName)
                                                  .Select(
                                                       p => new
@@ -600,10 +600,10 @@ namespace EdFi.Ods.CodeGen.Generators
         {
             return new
                    {
-                       LookupProperty = p.IsLookup
+                       LookupProperty = p.IsDescriptorUsage
                            ? new
                              {
-                                 LookupValuePropertyName = p.GetLookupValuePropertyName(), LookupEntityName = p.LookupEntity.Name,
+                                 LookupValuePropertyName = p.GetLookupValuePropertyName(), LookupEntityName = p.DescriptorEntity.Name,
                                  p.PropertyType.IsNullable, IdFieldName = "_" + p.PropertyName.ToCamelCase(), ValueFieldName =
                                      "_" + p.GetLookupValuePropertyName()
                                             .ToCamelCase(),
