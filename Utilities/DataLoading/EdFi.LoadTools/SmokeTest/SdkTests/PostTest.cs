@@ -123,12 +123,12 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             // that actually result in a new resource being created and no longer adding existing resources to the _createdDictionary
             // This results in skipping DELETE requests that would fail but it also has the side effect of skipping PUT and DELETE requests
             // that would succeed.  At this time the following PUT and DELETE requests are skipped:
-            // Put & Delete[EdFiStudentParentAssociation]
-            // Put & Delete[EdFiStudentEducationOrganizationAssociation]
-            // Put & Delete[EdFiEducationOrganizationInterventionPrescriptionAssociation]
-            // Put & Delete[EdFiStudentGradebookEntry]
-            // Put & Delete[EdFiSurveyQuestionResponse]
-            // Put[EdFiSurveySectionResponse]
+            //  Put & Delete[EdFiStudentParentAssociation]
+            //  Put & Delete[EdFiStudentEducationOrganizationAssociation]
+            //  Put & Delete[EdFiEducationOrganizationInterventionPrescriptionAssociation]
+            //  Put & Delete[EdFiStudentGradebookEntry]
+            //  Put & Delete[EdFiSurveyQuestionResponse]
+            //  Put[EdFiSurveySectionResponse]
             if (statusCode == HttpStatusCode.Created)
             {
                 _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
