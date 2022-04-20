@@ -239,7 +239,12 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private static PropertyType GetBasePersonUniqueIdPropertyType(EntityProperty property)
         {
-            return property.DefiningProperty.PropertyType;
+            return property.DefiningProperty.Entity.Properties
+                .Where(
+                    x => !UniqueIdSpecification.IsUSI(x.PropertyName)
+                        && PersonEntitySpecification.IsPersonIdentifier(x.PropertyName))
+                .Select(x => x.PropertyType)
+                .Single();
         }
 
         private static string GetResourcePropertyName(EntityProperty property)
