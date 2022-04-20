@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using EdFi.LoadTools.Common;
 using EdFi.LoadTools.Engine;
@@ -100,7 +101,8 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
         protected override bool CheckResult(dynamic result)
         {
             var location = result.Headers["Location"];
-            var resource = GetResourceFromLocation(location);
+            var code = result.StatusCode;
+            var resource = GetResourceFromLocation(location, code);
 
             if (ResultsDictionary.ContainsKey(ResourceApi.ModelType.Name))
             {
@@ -110,10 +112,27 @@ namespace EdFi.LoadTools.SmokeTest.SdkTests
             return true;
         }
 
-        private object GetResourceFromLocation(List<string>  location)
+        private object GetResourceFromLocation(List<string> location, HttpStatusCode statusCode)
         {
             var resourceUri = new Uri(location[0]);
-            _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
+
+            // NOTE - Depending on the state of the test DB, the payload of the POST request may represent a resource that already exists even though a create is expected.
+            // This existing resource could have dependencies that a newly created resource would not have
+            // In order to prevent attempting to delete resources that have dependencies, we are only adding the results from a POST
+            // that actually result in a new resource being created and no longer adding existing resources to the _createdDictionary
+            // This results in skipping DELETE requests that would fail but it also has the side effect of skipping PUT and DELETE requests
+            // that would succeed.  At this time the following PUT and DELETE requests are skipped:
+            //  Put & Delete[EdFiStudentParentAssociation]
+            //  Put & Delete[EdFiStudentEducationOrganizationAssociation]
+            //  Put & Delete[EdFiEducationOrganizationInterventionPrescriptionAssociation]
+            //  Put & Delete[EdFiStudentGradebookEntry]
+            //  Put & Delete[EdFiSurveyQuestionResponse]
+            //  Put[EdFiSurveySectionResponse]
+            if (statusCode == HttpStatusCode.Created)
+            {
+                _createdDictionary.Add(ResourceApi.ModelType.Name, resourceUri);
+            }
+
             return GetResourceFromUri(resourceUri);
         }
     }
