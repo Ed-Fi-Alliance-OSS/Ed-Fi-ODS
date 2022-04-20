@@ -406,7 +406,11 @@ namespace EdFi.Ods.CodeGen.Generators
                                                                             SchemaName = properCaseSchemaName
                                                                         }),
                         LookupProperties = entity.Properties
-                                                 .Where(p => p.IsDescriptorUsage)
+                                                 .Where(p => p.IsDescriptorUsage 
+                                                     // NOTE: This condition isn't necessarily correct, but is necessary for matching
+                                                     // "approved" generated output after removing original convention-based IsLookup
+                                                     // implementation for the model-driven IsDescriptorUsage implementation.
+                                                     && !(p.Entity.IsEntityExtension && p.IsFromParent))
                                                  .OrderBy(p => p.PropertyName)
                                                  .Select(
                                                       p => new
@@ -521,7 +525,7 @@ namespace EdFi.Ods.CodeGen.Generators
                                                ReferenceAggregateRelativeNamespace =
                                                    x.InheritanceRootEntity.GetRelativeAggregateNamespace(
                                                        x.InheritanceRootEntity.SchemaProperCaseName()),
-                                               ReferenceDataClassName = x.InheritanceRootEntity + "ReferenceData",
+                                               ReferenceDataClassName = x.InheritanceRootEntity.Name + "ReferenceData",
                                                ReferenceDataPropertyName = x.AssociationName + "ReferenceData",
                                                ReferenceAssociationName = x.AssociationName,
                                                MappedReferenceDataHasDiscriminator = x.OtherEntity.HasDiscriminator(),
