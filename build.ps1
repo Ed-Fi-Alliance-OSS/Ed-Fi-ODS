@@ -43,7 +43,10 @@ param(
     $ProjectFile,
 
     [string]
-    $PackageName
+    $PackageName,
+
+    [string]
+    $TestFilter
 
 )
 
@@ -145,7 +148,11 @@ function Publish {
 }
 
 function Test {
-    Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal }
+    if(-not $TestFilter) {
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal }
+    } else {
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter TestCategory!~"$TestFilter" }
+    }
 }
 
 function Invoke-Build {
