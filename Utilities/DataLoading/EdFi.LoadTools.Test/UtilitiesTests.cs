@@ -37,7 +37,7 @@ namespace EdFi.LoadTools.Test
             Assert.IsTrue(queryStr.Contains("FirstName=Test"));
             Assert.IsTrue(queryStr.Contains("LastName=User"));
             Assert.IsTrue(queryStr.Contains("Spaces=This%20string%20has%20spaces"));
-            Assert.IsTrue(queryStr.Contains("Birthdate=11%2F28%2F2000%2012"));
+            Assert.IsTrue(queryStr.Contains("Birthdate=11%2F28%2F2000"));
         }
     }
 }
