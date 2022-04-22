@@ -6,9 +6,9 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using EdFi.Ods.Common.Database.NamingConventions;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
-using SqlKata;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
@@ -27,7 +27,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
         {
             // Optimize by caching the constructed query
             var templateQuery = _templateQueryByResourceName.GetOrAdd(resource.FullName, fn => CreateTemplateQuery(resource));
-
+            
             // Copy the query before returning it (to preserve original)
             return templateQuery.Clone();
         }

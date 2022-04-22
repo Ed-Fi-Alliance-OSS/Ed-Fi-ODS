@@ -16,7 +16,8 @@ using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.NamingConventions;
-using SqlKata.Compilers;
+using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Database.Querying.Compilers;
 
 namespace EdFi.Ods.Api.Container.Modules
 {

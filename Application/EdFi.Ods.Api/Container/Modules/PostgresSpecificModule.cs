@@ -14,8 +14,9 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.PostgreSql;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Database.NamingConventions;
+using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Database.Querying.Compilers;
 using Npgsql;
-using SqlKata.Compilers;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
