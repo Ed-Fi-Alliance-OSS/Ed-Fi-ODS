@@ -7,9 +7,8 @@ using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.NamingConventions;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Resource;
-using SqlKata;
-using SqlKata.Execution;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
@@ -16,7 +17,6 @@ using NHibernate.Criterion;
 using NHibernate.Engine;
 using NHibernate.SqlCommand;
 using NHibernate.Type;
-using SqlKata;
 
 namespace EdFi.Ods.Common.Infrastructure.Filtering
 {

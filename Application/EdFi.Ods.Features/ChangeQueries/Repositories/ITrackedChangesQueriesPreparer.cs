@@ -5,9 +5,9 @@
 
 using System.Data.Common;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
-using SqlKata;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {

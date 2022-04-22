@@ -11,6 +11,7 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Common.Database.NamingConventions;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
@@ -18,7 +19,6 @@ using EdFi.Ods.Common.Security.Authorization;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
-using SqlKata;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 {

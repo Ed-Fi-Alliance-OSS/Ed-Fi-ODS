@@ -6,12 +6,12 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using NHibernate;
 using NHibernate.Criterion;
 using NHibernate.SqlCommand;
-using SqlKata;
 
 namespace EdFi.Ods.Common.Infrastructure.Filtering
 {

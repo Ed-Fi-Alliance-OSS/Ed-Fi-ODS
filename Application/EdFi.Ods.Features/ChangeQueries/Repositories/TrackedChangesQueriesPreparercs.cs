@@ -8,12 +8,11 @@ using System.Data.Common;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database.NamingConventions;
+using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Database.Querying.Compilers;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 using log4net;
-using SqlKata;
-using SqlKata.Compilers;
-using SqlKata.Execution;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
