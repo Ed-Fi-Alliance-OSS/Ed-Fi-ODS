@@ -85,7 +85,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             if (queryParameters.MinChangeVersion.HasValue || queryParameters.MaxChangeVersion.HasValue)
             {
                 query.Where(
-                    q => q.Where(
+                    q => q.OrWhere(
                             q2 =>
                             {
                                 if (queryParameters.MinChangeVersion.HasValue)
@@ -93,7 +93,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                                     q2.Where(
                                         $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}",
                                         ">=",
-                                        new Variable("@MinChangeVersion"));
+                                        new Parameter("@MinChangeVersion", queryParameters.MinChangeVersion));
                                 }
 
                                 if (queryParameters.MaxChangeVersion.HasValue)
@@ -101,22 +101,12 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                                     q2.Where(
                                         $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}",
                                         "<=",
-                                        new Variable("@MaxChangeVersion"));
+                                        new Parameter("@MaxChangeVersion", queryParameters.MaxChangeVersion));
                                 }
 
                                 return q2;
                             })
                         .OrWhereNull($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}"));
-            }
-
-            if (queryParameters.MinChangeVersion.HasValue)
-            {
-                query.Variables["@MinChangeVersion"] = queryParameters.MinChangeVersion;
-            }
-
-            if (queryParameters.MaxChangeVersion.HasValue)
-            {
-                query.Variables["@MaxChangeVersion"] = queryParameters.MaxChangeVersion;
             }
         }
     }
