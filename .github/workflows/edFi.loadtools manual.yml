@@ -34,30 +34,30 @@ jobs:
       run: |
         .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Utilities/DataLoading/LoadTools.sln" -TestFilter "RunManually"
       shell: pwsh
-    - name: pack
+    - name: pack load tools
       run: |
         .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.LoadTools/EdFi.LoadTools.csproj" -PackageName "EdFi.Suite3.LoadTools"
       shell: pwsh
-    - name: pack
+    - name: pack bulk load client
       run: |
         .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/EdFi.BulkLoadClient.Console.csproj" -PackageName "EdFi.Suite3.BulkLoadClient.Console"
       shell: pwsh
-    - name: pack
+    - name: pack smoke test console
       run: |
         .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName "EdFi.Suite3.SmokeTestConsole"
       shell: pwsh          
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: pwsh
-    - name: publish 
+    - name: publish load tools
       run: |
         .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.LoadTools/EdFi.LoadTools.csproj"  -PackageName "EdFi.Suite3.LoadTools"
       shell: pwsh      
-    - name: publish 
+    - name: publish bulk load client
       run: |
         .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/EdFi.BulkLoadClient.Console.csproj" -PackageName "EdFi.Suite3.BulkLoadClient.Console"
       shell: pwsh
-    - name: publish 
+    - name: publish smoke test console
       run: |
         .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName "EdFi.Suite3.SmokeTestConsole"
       shell: pwsh      
