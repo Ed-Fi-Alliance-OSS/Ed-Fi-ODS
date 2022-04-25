@@ -43,8 +43,10 @@ param(
     $ProjectFile,
 
     [string]
-    [ValidateSet("EdFi.Suite3.Admin.DataAccess", "EdFi.Suite3.Security.DataAccess")]
-    $PackageName
+    $PackageName,
+
+    [string]
+    $TestFilter
 
 )
 
@@ -113,8 +115,14 @@ function Compile {
 }
 
 function Pack {
-    Invoke-Execute {
-        dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
+    if (-not $PackageName){
+        Invoke-Execute {
+            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
+        }
+    } else {
+        Invoke-Execute {
+            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
+        }
     }
 }
 
@@ -140,7 +148,11 @@ function Publish {
 }
 
 function Test {
-    Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal }
+    if(-not $TestFilter) {
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal }
+    } else {
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter TestCategory!~"$TestFilter" }
+    }
 }
 
 function Invoke-Build {
