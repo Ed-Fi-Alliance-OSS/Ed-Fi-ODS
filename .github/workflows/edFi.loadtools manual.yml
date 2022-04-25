@@ -36,15 +36,15 @@ jobs:
       shell: pwsh
     - name: pack load tools
       run: |
-        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.LoadTools/EdFi.LoadTools.csproj" -PackageName "EdFi.Suite3.LoadTools"
+        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Utilities/DataLoading/EdFi.LoadTools/EdFi.LoadTools.csproj" -PackageName "EdFi.Suite3.LoadTools"
       shell: pwsh
     - name: pack bulk load client
       run: |
-        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.BulkLoadClient.Console/EdFi.BulkLoadClient.Console.csproj" -PackageName "EdFi.Suite3.BulkLoadClient.Console"
+        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Utilities/DataLoading/EdFi.BulkLoadClient.Console/EdFi.BulkLoadClient.Console.csproj" -PackageName "EdFi.Suite3.BulkLoadClient.Console"
       shell: pwsh
     - name: pack smoke test console
       run: |
-        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName "EdFi.Suite3.SmokeTestConsole"
+        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln" -ProjectFile "Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName "EdFi.Suite3.SmokeTestConsole"
       shell: pwsh          
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
