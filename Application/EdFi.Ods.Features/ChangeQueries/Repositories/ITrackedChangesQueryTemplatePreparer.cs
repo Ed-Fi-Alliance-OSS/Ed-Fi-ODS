@@ -14,11 +14,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
     /// <summary>
     /// Defines a method for preparing the queries for a tracked changes request.
     /// </summary>
-    public interface ITrackedChangesQueriesPreparer
+    public interface ITrackedChangesQueryTemplatePreparer
     {
-        TrackedChangesQueries PrepareQueries(
-            DbConnection connection,
-            Query mainQuery,
+        TrackedChangesQueryTemplates PrepareQueryTemplates(
             IQueryParameters queryParameters,
             Resource resource);
     }

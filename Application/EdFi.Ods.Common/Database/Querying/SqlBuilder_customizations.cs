@@ -7,31 +7,36 @@ namespace EdFi.Ods.Common.Database.Querying
 {
     public partial class SqlBuilder
     {
-        protected internal SqlBuilder LimitOffset(string sql, dynamic parameters = null)
+        /// <summary>
+        /// Sets a clause that should only appear once within the resulting query (e.g. paging).
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        protected SqlBuilder SetClause(string name, string sql, object parameters)
         {
-            if (sql != null)
+            if (!_data.TryGetValue(name, out var clauses))
             {
-                if (_data.TryGetValue("paging", out var clauses))
-                {
-                    // Clear existing paging
-                    clauses.Clear();
-                }
-                
-                AddClause("paging", sql, parameters, "", "\n ", "\n", false);
+                clauses = new Clauses(string.Empty, "\n", "\n");
+                _data[name] = clauses;
+            }
+            else
+            {
+                // Clear existing clause
+                clauses.Clear();
             }
 
+            clauses.Add(new Clause(sql, parameters, isInclusive: false));
+            _seq++;
             return this;
         }
-        
-        protected internal SqlBuilder With(string sql, dynamic parameters = null)
-        {
-            if (sql != null)
-            {
-                AddClause("with", sql, parameters, ", ", "WITH ", "\n", false);
-            }
 
-            return this;
-        }
+        public SqlBuilder LimitOffset(string sql, dynamic parameters = null) =>
+            SetClause("paging", sql, parameters);
+
+        public SqlBuilder With(string sql, dynamic parameters = null) =>
+            AddClause("with", sql, parameters, ", ", "WITH ", "\n", false);
 
         public SqlBuilder Clone()
         {
@@ -51,6 +56,9 @@ namespace EdFi.Ods.Common.Database.Querying
             return newBuilder;
         }
 
+        /// <summary>
+        /// Clones the intrinsic state and immutable clauses contained within this instance.
+        /// </summary>
         private partial class Clauses
         {
             public Clauses Clone()

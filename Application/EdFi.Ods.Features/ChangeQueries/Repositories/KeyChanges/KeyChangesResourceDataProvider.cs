@@ -17,41 +17,37 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
     public class KeyChangesResourceDataProvider
         : TrackedChangesResourceDataProviderBase<KeyChange>, IKeyChangesResourceDataProvider
     {
-        private readonly IDatabaseNamingConvention _namingConvention;
-        private readonly IKeyChangesQueryFactory _keyChangesQueryFactory;
+        // private readonly IKeyChangesQueryBuilderFactory _keyChangesQueryBuilderFactory;
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
 
         public KeyChangesResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
-            IKeyChangesQueriesPreparer keyChangesQueriesPreparer,
+            IKeyChangesQueryTemplatePreparer keyChangesQueryTemplatePreparer,
             IDatabaseNamingConvention namingConvention,
-            IKeyChangesQueryFactory keyChangesQueryFactory,
+            // IKeyChangesQueryBuilderFactory keyChangesQueryBuilderFactory,
             ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
-            : base(dbProviderFactory, odsDatabaseConnectionStringProvider, keyChangesQueriesPreparer, namingConvention)
+            : base(dbProviderFactory, odsDatabaseConnectionStringProvider, keyChangesQueryTemplatePreparer, namingConvention)
         {
-            _namingConvention = namingConvention;
-            _keyChangesQueryFactory = keyChangesQueryFactory;
+            // _keyChangesQueryBuilderFactory = keyChangesQueryBuilderFactory;
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
         }
 
         public async Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
-            var changeWindowCteQuery = _keyChangesQueryFactory.CreateMainQuery(resource);
+            // var keyChangesQueryBuilder = _keyChangesQueryBuilderFactory.CreateQueryBuilder(resource);
+            
             var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
-            string changeVersionColumnName = _namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName);
-            string idColumnName = _namingConvention.ColumnName("Id");
-            
             return await base.GetResourceDataAsync(
                 resource,
                 queryParameters,
-                changeWindowCteQuery,
+                // keyChangesQueryBuilder,
                 itemData => 
                     new KeyChange
                     {
-                        Id = (Guid)itemData[idColumnName],
-                        ChangeVersion = (long) itemData[changeVersionColumnName],
+                        Id = (Guid)itemData[IdColumnName],
+                        ChangeVersion = (long) itemData[ChangeVersionColumnName],
                         OldKeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroups.OldValue),
                         NewKeyValues = GetIdentifierKeyValues(identifierProjections, itemData, ColumnGroups.NewValue),
                     });

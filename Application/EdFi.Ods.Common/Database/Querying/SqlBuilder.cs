@@ -10,8 +10,8 @@ using Dapper;
 
 namespace EdFi.Ods.Common.Database.Querying
 {
-    // NOTE: Copied from commit 5c87dc9 (from May 1, 2020) from GitHub repository
-    // Modified to make Clause immutable 
+    // NOTE: Copied from commit 5c87dc9 (modified on May 1, 2020) from Dapper GitHub repository and modified
+    // to make Clause immutable. 
     // Add functionality to this class by adding code to the partial class SqlBuilder_customizations.cs
     // See: https://github.com/DapperLib/Dapper/blob/5c87dc97382aa79422ff05b29abbadd035a72b62/Dapper.SqlBuilder/SqlBuilder.cs
     

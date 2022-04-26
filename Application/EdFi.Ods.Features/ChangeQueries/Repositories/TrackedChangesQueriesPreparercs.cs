@@ -4,94 +4,85 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Data.Common;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
-using EdFi.Ods.Common.Database.Querying.Compilers;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
-using log4net;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
-    public abstract class TrackedChangesQueriesPreparerBase : ITrackedChangesQueriesPreparer
+    public abstract class TrackedChangesQueryTemplatePreparerBase : ITrackedChangesQueryTemplatePreparer
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(TrackedChangesQueriesPreparerBase));
-
-        private readonly Compiler _sqlCompiler;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
-        private readonly IDatabaseNamingConvention _namingConvention;
+        private readonly ITrackedChangesQueryBuilderFactory _queryBuilderFactory;
+        protected readonly string ChangeVersionColumnName;
 
-        protected TrackedChangesQueriesPreparerBase(
-            Compiler sqlCompiler, 
+        protected readonly string IdColumnName;
+
+        protected TrackedChangesQueryTemplatePreparerBase(
+            ITrackedChangesQueryBuilderFactory queryBuilderFactory,
             IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
             IDatabaseNamingConvention namingConvention)
         {
-            _sqlCompiler = sqlCompiler;
+            _queryBuilderFactory = queryBuilderFactory;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
-            _namingConvention = namingConvention;
+
+            IdColumnName = namingConvention.ColumnName("Id");
+            ChangeVersionColumnName = namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName);
         }
 
-        public TrackedChangesQueries PrepareQueries(
-            DbConnection connection,
-            Query mainQuery,
-            IQueryParameters queryParameters,
-            Resource resource)
+        public TrackedChangesQueryTemplates PrepareQueryTemplates(IQueryParameters queryParameters, Resource resource)
         {
-            var db = new QueryFactory(connection, _sqlCompiler);
+            var queryBuilder = _queryBuilderFactory.CreateQueryBuilder(resource);
 
-            if (_logger.IsDebugEnabled)
-            {
-                db.Logger = compiled => { _logger.Debug(compiled.ToString()); };
-            }
+            // Finalize the query builders, cloning them and then applying request-specific parameters
+            var dataQueryBuilder = FinalizeDataQueryBuilder(queryBuilder.Clone(), queryParameters, resource);
 
-            // Prepare the queries
-            var queries = new TrackedChangesQueries(
-                PrepareDataQuery(db, mainQuery, queryParameters, resource), 
-                PrepareCountQuery(db, mainQuery, queryParameters));
+            // Prepare a count query, if requested
+            var countQueryBuilder = queryParameters.TotalCount
+                ? FinalizeCountQueryBuilder(queryBuilder.Clone(), queryParameters)
+                : null;
+
+            var queries = new TrackedChangesQueryTemplates(
+                dataQueryBuilder.BuildTemplate(),
+                countQueryBuilder?.BuildCountTemplate());
 
             return queries;
         }
 
-        protected abstract Query PrepareDataQuery(
-            QueryFactory db,
-            Query mainQuery,
+        protected abstract QueryBuilder FinalizeDataQueryBuilder(
+            QueryBuilder queryBuilder,
             IQueryParameters queryParameters,
             Resource resource);
-        
-        protected virtual Query PrepareCountQuery(QueryFactory db, Query mainQuery, IQueryParameters queryParameters)
+
+        protected virtual QueryBuilder FinalizeCountQueryBuilder(QueryBuilder countQueryBuilder, IQueryParameters queryParameters)
         {
-            if (queryParameters.TotalCount)
-            {
-                var countQuery = db.FromQuery(mainQuery);
-                ApplyChangeVersionCriteria(countQuery, queryParameters);
+            ApplyChangeVersionCriteria(countQueryBuilder, queryParameters);
 
-                return countQuery;
-            }
-
-            return null;
+            return countQueryBuilder;
         }
 
-        protected void ApplyPaging(Query query, IQueryParameters queryParameters)
+        protected void ApplyPaging(QueryBuilder queryBuilder, IQueryParameters queryParameters)
         {
-            query.Offset(queryParameters.Offset ?? 0);
-            query.Limit(Math.Min(queryParameters.Limit ?? 25, _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit()));
+            queryBuilder.LimitOffset(
+                limit: Math.Min(queryParameters.Limit ?? 25, _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit()),
+                offset: queryParameters.Offset ?? 0);
         }
 
-        protected void ApplyChangeVersionCriteria(Query query, IQueryParameters queryParameters)
+        protected void ApplyChangeVersionCriteria(QueryBuilder queryBuilder, IQueryParameters queryParameters)
         {
             if (queryParameters.MinChangeVersion.HasValue || queryParameters.MaxChangeVersion.HasValue)
             {
-                query.Where(
+                queryBuilder.Where(
                     q => q.OrWhere(
                             q2 =>
                             {
                                 if (queryParameters.MinChangeVersion.HasValue)
                                 {
                                     q2.Where(
-                                        $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}",
+                                        $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{ChangeVersionColumnName}",
                                         ">=",
                                         new Parameter("@MinChangeVersion", queryParameters.MinChangeVersion));
                                 }
@@ -99,14 +90,14 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                                 if (queryParameters.MaxChangeVersion.HasValue)
                                 {
                                     q2.Where(
-                                        $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}",
+                                        $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{ChangeVersionColumnName}",
                                         "<=",
                                         new Parameter("@MaxChangeVersion", queryParameters.MaxChangeVersion));
                                 }
 
                                 return q2;
                             })
-                        .OrWhereNull($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}"));
+                        .OrWhereNull($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{ChangeVersionColumnName}"));
             }
         }
     }

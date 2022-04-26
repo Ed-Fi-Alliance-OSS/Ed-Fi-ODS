@@ -3,22 +3,24 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers;
+using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 using EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges;
-using EdFi.Ods.Generator.Database.NamingConventions;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
-    public class KeyChangesQueryFactoryAuthorizationDecorator : TrackedChangesQueryFactoryAuthorizationDecoratorBase, IKeyChangesQueryFactory
+    public class DeletedItemsQueryBuilderFactoryAuthorizationDecorator
+        : TrackedChangesQueryFactoryAuthorizationDecoratorBase, IDeletedItemsQueryBuilderFactory
     {
-        private readonly IKeyChangesQueryFactory _next;
+        private readonly IDeletedItemsQueryBuilderFactory _next;
 
-        public KeyChangesQueryFactoryAuthorizationDecorator(
-            IKeyChangesQueryFactory next,
+        public DeletedItemsQueryBuilderFactoryAuthorizationDecorator(
+            IDeletedItemsQueryBuilderFactory next,
             IAuthorizationContextProvider authorizationContextProvider,
             IEdFiAuthorizationProvider edFiAuthorizationProvider,
             IDatabaseNamingConvention namingConvention,
@@ -28,14 +30,14 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
         {
             _next = next;
         }
-        
-        public Query CreateMainQuery(Resource resource)
-        {
-            var mainQuery = _next.CreateMainQuery(resource);
-            
-            ApplyAuthorizationFilters(resource, mainQuery);
 
-            return mainQuery;
+        public QueryBuilder CreateQueryBuilder(Resource resource)
+        {
+            var queryBuilder = _next.CreateQueryBuilder(resource);
+
+            ApplyAuthorizationFilters(resource, queryBuilder);
+
+            return queryBuilder;
         }
     }
 }

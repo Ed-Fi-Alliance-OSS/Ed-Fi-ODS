@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using EdFi.Ods.Common.Database.NamingConventions;
@@ -12,41 +13,49 @@ using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 {
-    public class KeyChangesQueryFactory : IKeyChangesQueryFactory
+    public class KeyChangesQueryBuilderFactory : IKeyChangesQueryBuilderFactory
     {
         private readonly IDatabaseNamingConvention _namingConvention;
+        private readonly Func<QueryBuilder> _createQueryBuilder;
 
-        private readonly ConcurrentDictionary<FullName, Query> _templateQueryByResourceName = new ConcurrentDictionary<FullName, Query>();
+        private readonly ConcurrentDictionary<FullName, QueryBuilder> _queryBuilderByResourceName =
+            new ConcurrentDictionary<FullName, QueryBuilder>();
 
-        public KeyChangesQueryFactory(IDatabaseNamingConvention namingConvention)
+        public KeyChangesQueryBuilderFactory(IDatabaseNamingConvention namingConvention, Func<QueryBuilder> createQueryBuilder)
         {
             _namingConvention = namingConvention;
+            _createQueryBuilder = createQueryBuilder;
         }
 
-        public Query CreateMainQuery(Resource resource)
+        public QueryBuilder CreateQueryBuilder(Resource resource)
         {
             // Optimize by caching the constructed query
-            var templateQuery = _templateQueryByResourceName.GetOrAdd(resource.FullName, fn => CreateTemplateQuery(resource));
-            
-            // Copy the query before returning it (to preserve original)
-            return templateQuery.Clone();
+            var baselineQueryBuilder = _queryBuilderByResourceName.GetOrAdd(
+                resource.FullName,
+                fn => CreateBaselineQueryBuilder(resource));
+
+            // Copy the baseline query builder before returning it (to preserve original for future use)
+            return baselineQueryBuilder.Clone();
         }
 
-        private Query CreateTemplateQuery(Resource resource)
+        private QueryBuilder CreateBaselineQueryBuilder(Resource resource)
         {
             // Derive column names
             string idColumnFqn = $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}";
-            var changeVersionColumnFqn = $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}";
+
+            var changeVersionColumnFqn =
+                $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}";
+
             string initialChangeVersionColumnName = _namingConvention.ColumnName("InitialChangeVersion");
             string finalChangeVersionColumnName = _namingConvention.ColumnName("FinalChangeVersion");
 
             var entity = resource.Entity;
 
             // Build the CTE query
-            var changeWindowVersionsCteQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_namingConvention, entity)
+            var changeWindowVersionsCteQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_createQueryBuilder, _namingConvention, entity)
                 .Select(idColumnFqn)
-                .SelectRaw( $"MIN({changeVersionColumnFqn}) AS {initialChangeVersionColumnName}")
-                .SelectRaw( $"MAX({changeVersionColumnFqn}) AS {finalChangeVersionColumnName}")
+                .SelectRaw($"MIN({changeVersionColumnFqn}) AS {initialChangeVersionColumnName}")
+                .SelectRaw($"MAX({changeVersionColumnFqn}) AS {finalChangeVersionColumnName}")
                 .GroupBy(idColumnFqn);
 
             QueryFactoryHelper.ApplyDiscriminatorCriteriaForDerivedEntities(
@@ -55,8 +64,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
                 _namingConvention);
 
             // Apply criteria for only including key changes
-            var firstIdentifierProperty = (entity.IsDerived ? entity.BaseEntity : entity)
-                .Identifier.Properties.First();
+            var firstIdentifierProperty = (entity.IsDerived
+                ? entity.BaseEntity
+                : entity).Identifier.Properties.First();
 
             string columnName = _namingConvention.ColumnName(
                 $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");

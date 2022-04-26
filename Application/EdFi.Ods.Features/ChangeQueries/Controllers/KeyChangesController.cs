@@ -32,15 +32,15 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
     [Route("{schema}/{resource}/keyChanges")]
     public class KeyChangesController : ControllerBase
     {
-        private readonly IDomainModelProvider _domainModelProvider;
-        private readonly IKeyChangesResourceDataProvider _keyChangesResourceDataProvider;
         private readonly IAuthorizationContextProvider _authorizationContextProvider;
-        private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
-        private readonly ISecurityRepository _securityRepository;
         private readonly int _defaultPageLimitSize;
+        private readonly IDomainModelProvider _domainModelProvider;
+        private readonly bool _isEnabled;
+        private readonly IKeyChangesResourceDataProvider _keyChangesResourceDataProvider;
 
         private readonly ILog _logger = LogManager.GetLogger(typeof(KeyChangesController));
-        private readonly bool _isEnabled;
+        private readonly IResourceClaimUriProvider _resourceClaimUriProvider;
+        private readonly ISecurityRepository _securityRepository;
 
         public KeyChangesController(
             IDomainModelProvider domainModelProvider,
@@ -58,12 +58,15 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             _securityRepository = securityRepository;
 
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
-            
+
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string schema, string resource, [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest)
+        public async Task<IActionResult> Get(
+            string schema,
+            string resource,
+            [FromQuery] UrlQueryParametersRequest urlQueryParametersRequest)
         {
             if (!_isEnabled)
             {
@@ -71,8 +74,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
 
                 return ControllerHelpers.NotFound();
             }
-            
-            var resourceClass = _domainModelProvider.GetDomainModel().ResourceModel.GetResourceByApiCollectionName(schema, resource);
+
+            var resourceClass = _domainModelProvider.GetDomainModel()
+                .ResourceModel.GetResourceByApiCollectionName(schema, resource);
 
             if (resourceClass == null)
             {
@@ -86,20 +90,20 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 return BadRequest(ErrorTranslator.GetErrorMessage(string.Join(" ", parameterMessages)));
             }
 
-            var queryParameter = new QueryParameters(urlQueryParametersRequest);
+            var queryParameters = new QueryParameters(urlQueryParametersRequest);
 
             // Set authorization context (should this be moved to an authorization component?)
             _authorizationContextProvider.SetResourceUris(_resourceClaimUriProvider.GetResourceClaimUris(resourceClass));
             _authorizationContextProvider.SetAction(_securityRepository.GetActionByName("ReadChanges").ActionUri);
 
-            var keyChangesResponse = await _keyChangesResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameter);
+            var keyChangesResponse = await _keyChangesResourceDataProvider.GetResourceDataAsync(resourceClass, queryParameters);
 
             // Add the total count, if requested
             if (urlQueryParametersRequest.TotalCount)
             {
                 Response.Headers.Add("Total-Count", keyChangesResponse.Count.ToString());
             }
-            
+
             // Explicitly serialize the response to remain backwards compatible with .NET Framework implementation responses
             return new ContentResult
             {

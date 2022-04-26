@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
 using EdFi.Ods.Common.Database.Querying;
-using EdFi.Ods.Common.Database.Querying.Compilers;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 using Newtonsoft.Json;
 using Npgsql;
 using NUnit.Framework;
@@ -24,19 +24,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
         [TestCase(DatabaseEngine.PgSql)]
         public void Should_select_columns(DatabaseEngine databaseEngine)
         {
-            var q = new Query("edfi.EducationOrganization")
+            var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                .From("edfi.EducationOrganization")
                 .Select("NameOfInstitution", "WebSite");
 
-            var result = GetCompilerFor(databaseEngine).Compile(q);
+            var template = q.BuildTemplate();
 
-            result.Sql.NormalizeSql()
+            template.RawSql.NormalizeSql()
                 .ShouldBe("SELECT NameOfInstitution, WebSite FROM edfi.EducationOrganization");
             
-            ExecuteQueryAndWriteResults(databaseEngine, result);
+            ExecuteQueryAndWriteResults(databaseEngine, template);
             
             // Check the cloned query results
-            var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-            result.Sql.ShouldBe(clonedQueryResult.Sql);
+            var clonedQueryResult = q.Clone().BuildTemplate();
+            template.RawSql.ShouldBe(clonedQueryResult.RawSql);
         }
 
         public class With_group_by
@@ -45,33 +46,35 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_group_by_with_raw_aggregates(DatabaseEngine databaseEngine)
             {
-                var q = new Query("tracked_changes_edfi.student AS c")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("tracked_changes_edfi.student AS c")
                     .Select("c.Id")
                     .SelectRaw($"MIN(c.ChangeVersion) AS initialChangeVersion")
                     .SelectRaw($"MAX(c.ChangeVersion) AS finalChangeVersion")
                     .GroupBy("c.Id");
                 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                result.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql()
+                template.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql()
                         .ShouldBe(@"
                     SELECT  c.Id, MIN(c.ChangeVersion) AS initialChangeVersion, MAX(c.ChangeVersion) AS finalChangeVersion 
                     FROM    tracked_changes_edfi.student AS c
                     GROUP BY c.Id".NormalizeSql()));
                 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_group_by_on_multiple_columns(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.student")
                     .Select("FirstName")
                     .Select("LastSurname")
                     .SelectRaw("COUNT(1) AS RecordCount")
@@ -79,21 +82,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     .GroupBy("FirstName")
                     .OrderBy("LastSurname DESC");
                 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                result.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql()
+                template.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql()
                         .ShouldBe(@"
                     SELECT  FirstName, LastSurname, COUNT(1) AS RecordCount 
                     FROM    edfi.student
                     GROUP BY LastSurname, FirstName
                     ORDER BY LastSurname DESC".NormalizeSql()));
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
         }
 
@@ -103,67 +106,71 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_null(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname")
                     .Where("BirthCity", "Chicago")
                     .WhereNull("MiddleName");
                 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                result.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql()
+                template.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql()
                         .ShouldBe(@"
                     SELECT  FirstName, LastSurname 
                     FROM    edfi.Student
                     WHERE   BirthCity = @p0
                             AND MiddleName IS NULL".NormalizeSql()));
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_not_null(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname", "BirthCity")
                     .WhereLike("LastSurname", "Le%")
                     .WhereNotNull("BirthCity");
                 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                result.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql()
+                template.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql()
                         .ShouldBe(@"
                     SELECT  FirstName, LastSurname, BirthCity 
                     FROM    edfi.Student
                     WHERE   LastSurname LIKE @p0 AND BirthCity IS NOT NULL".NormalizeSql()));
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_exact_match_Date_value(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname")
                     .Where("BirthDate", new DateTime(2016,09,01));
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@"
+                    () => template.RawSql.NormalizeSql()
+                        .ShouldBe(@"
                     SELECT  FirstName, LastSurname 
                     FROM    edfi.Student
                     WHERE   BirthDate = @p0".NormalizeSql()),
@@ -172,27 +179,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => actualParameters.Get<DateTime>("@p0").ShouldBe(new DateTime(2016,09,01))
                     );
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
 
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_exact_match_string_value(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname")
                     .Where("BirthCity", "Chicago");
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@"
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname 
                     FROM    edfi.Student
                     WHERE   BirthCity = @p0".NormalizeSql()),
@@ -200,28 +208,29 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => actualParameters.ParameterNames.ShouldContain("p0"),
                     () => actualParameters.Get<string>("@p0").ShouldBe("Chicago"));
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_like_with_implicit_parameter(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname")
                     .WhereLike("BirthCity", "%ago%")
                     .WhereLike("BirthCity", "Chi%");
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@"
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname 
                     FROM    edfi.Student
                     WHERE   BirthCity LIKE @p0 AND BirthCity LIKE @p1".NormalizeSql()),
@@ -231,30 +240,31 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => actualParameters.ParameterNames.ShouldContain("p1"),
                     () => actualParameters.Get<string>("@p1").ShouldBe("Chi%"));
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_any_like_with_implicit_parameter(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname")
                     .Select("BirthCity")
                     .WhereLike("BirthCity", "Chi%")
                     .OrWhereLike("BirthCity", "%ago%")
                     .OrWhereLike("BirthCity", "%na");
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@"
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname, BirthCity 
                     FROM    edfi.Student
                     WHERE   BirthCity LIKE @p0 AND (BirthCity LIKE @p1 OR BirthCity LIKE @p2)".NormalizeSql()),
@@ -266,27 +276,28 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => actualParameters.ParameterNames.ShouldContain("p2"),
                     () => actualParameters.Get<string>("@p2").ShouldBe("%na"));
                 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
             [TestCase(DatabaseEngine.MsSql, "@p0")]
             [TestCase(DatabaseEngine.PgSql, "(VALUES (@p0_0), (@p0_1), (@p0_2), (@p0_3))")]
             public void Should_apply_where_with_IN(DatabaseEngine databaseEngine, string expectedInClause)
             {
-                var q = new Query("edfi.StudentSchoolAssociation")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.StudentSchoolAssociation")
                     .Select("StudentUSI", "SchoolId", "EntryDate")
                     .WhereIn("StudentUSI", new [] { 12, 34, 56, 78 });
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@$"
+                    () => template.RawSql.NormalizeSql().ShouldBe(@$"
                     SELECT  StudentUSI, SchoolId, EntryDate 
                     FROM    edfi.StudentSchoolAssociation
                     WHERE   StudentUSI IN {expectedInClause}".NormalizeSql()) //,
@@ -296,29 +307,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     // () => actualParameters.Get<int[]>("@p0").ShouldBe(new [] {12, 34, 56, 78})
                     );
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
 
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_where_with_explicit_comparison_operators(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname")
                     .Select("ChangeVersion")
                     .Where("ChangeVersion", ">", 10000)
                     .Where("ChangeVersion", "<", 11000);
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@"
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname, ChangeVersion 
                     FROM    edfi.Student
                     WHERE   ChangeVersion > @p0
@@ -330,29 +342,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => actualParameters.Get<int>("@p1").ShouldBe(11000)
                     );
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
 
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_nested_conjunction_combined_with_a_disjunction(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname", "ChangeVersion")
                     .Where(
                         q => q.OrWhere(q2 => q2.Where("ChangeVersion", ">=", 10000).Where("ChangeVersion", "<=", 11000))
                             .OrWhereNull("ChangeVersion"));
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@"
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname, ChangeVersion
                     FROM    edfi.Student
                     WHERE   (((ChangeVersion >= @p0 AND ChangeVersion <= @p1) 
@@ -364,29 +377,30 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => actualParameters.Get<int>("@p1").ShouldBe(11000)
                     );
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_nested_conjunction_combined_with_a_disjunction_with_auto_named_parameters(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname", "ChangeVersion")
                     .Where(
                         q => q.OrWhere(q2 => q2.Where("ChangeVersion", ">=", 10000).Where("ChangeVersion", "<=", 11000))
                             .OrWhereNull("ChangeVersion"));
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@"
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname, ChangeVersion
                     FROM    edfi.Student
                     WHERE   (((ChangeVersion >= @p0 AND ChangeVersion <= @p1) 
@@ -398,18 +412,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => actualParameters.Get<int>("@p1").ShouldBe(11000)
                     );
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
 
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_nested_conjunction_combined_with_a_disjunction_with_explicitly_named_parameters(DatabaseEngine databaseEngine)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("FirstName", "LastSurname", "ChangeVersion")
                     .Where(
                         q => q.OrWhere(q2 =>
@@ -417,12 +432,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                                     .Where("ChangeVersion", "<=", new Parameter( "@MaxChangeVersion", 11000)))
                             .OrWhereNull("ChangeVersion"));
                 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@"
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
                     SELECT  FirstName, LastSurname, ChangeVersion 
                     FROM    edfi.Student
                     WHERE   (((ChangeVersion >= @MinChangeVersion AND ChangeVersion <= @MaxChangeVersion) 
@@ -434,11 +449,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     () => actualParameters.Get<int>("@MaxChangeVersion").ShouldBe(11000)
                     );
                 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
         }
 
@@ -448,22 +463,22 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             [TestCase(DatabaseEngine.PgSql, "LIMIT 5 OFFSET 50")]
             public void Should_page_using_limit_and_offset_correctly(DatabaseEngine databaseEngine, string pagingSql)
             {
-                var q = new Query("edfi.Student")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
                     .Select("*")
                     .OrderBy("LastSurname DESC", "FirstName")
-                    .Limit(5)
-                    .Offset(50);
+                    .LimitOffset(5 ,50);
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
             
-                result.Sql.NormalizeSql()
+                template.RawSql.NormalizeSql()
                     .ShouldBe($"SELECT * FROM edfi.Student ORDER BY LastSurname DESC, FirstName {pagingSql}");
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
         }
         
@@ -473,17 +488,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             [TestCase(DatabaseEngine.PgSql, "LIMIT 5 OFFSET 25")]
             public void Should_apply_single_column_inner_joins(DatabaseEngine databaseEngine, string pagingSql)
             {
-                var q = new Query("edfi.StudentSchoolAssociation AS ssa")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.StudentSchoolAssociation AS ssa")
                     .Select("s.FirstName", "s.LastSurname", "edOrg.NameOfInstitution", "ssa.EntryDate")
                     .Join("edfi.Student s", "ssa.StudentUSI", "s.StudentUSI")
                     .Join("edfi.EducationOrganization edOrg", "ssa.SchoolId", "edOrg.EducationOrganizationId")
                     .OrderBy("s.LastSurname")
-                    .Limit(5)
-                    .Offset(25);
+                    .LimitOffset(5, 25);
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
 
-                result.Sql.NormalizeSql()
+                template.RawSql.NormalizeSql()
                     .ShouldBe(@$"
                     SELECT  s.FirstName, s.LastSurname, edOrg.NameOfInstitution, ssa.EntryDate 
                     FROM    edfi.StudentSchoolAssociation AS ssa 
@@ -492,18 +507,19 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     ORDER BY s.LastSurname
                     {pagingSql}".NormalizeSql());
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
             
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_multiple_column_left_join(DatabaseEngine databaseEngine)
             {
-                var q = new Query("tracked_changes_edfi.CalendarDate AS c")
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("tracked_changes_edfi.CalendarDate AS c")
                     .Select("c.Id", "c.ChangeVersion")
                     .LeftJoin("edfi.CalendarDate src", joiner => 
                         joiner.On("c.OldCalendarCode", "src.CalendarCode")
@@ -511,9 +527,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                             .On("c.OldSchoolId", "src.SchoolId")
                             .On("c.OldSchoolYear", "src.SchoolYear"));
 
-                var result = GetCompilerFor(databaseEngine).Compile(q);
+                var template = q.BuildTemplate();
             
-                result.Sql.NormalizeSql()
+                template.RawSql.NormalizeSql()
                     .ShouldBe(@$"
                     SELECT  c.Id, c.ChangeVersion 
                     FROM    tracked_changes_edfi.CalendarDate AS c 
@@ -523,11 +539,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                             AND c.OldSchoolId = src.SchoolId
                             AND c.OldSchoolYear = src.SchoolYear".NormalizeSql());
 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(q.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
         }
 
@@ -540,7 +556,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 string initialChangeVersionColumnName = "initialChangeVersion";
                 string finalChangeVersionColumnName = "finalChangeVersion";
                 
-                var changeWindowVersionsCteQuery = new Query("tracked_changes_edfi.Calendar AS c")
+                var changeWindowVersionsCteQuery = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("tracked_changes_edfi.Calendar AS c")
                     .Select("c.Id")
                     .SelectRaw($"MIN(c.ChangeVersion) AS {initialChangeVersionColumnName}")
                     .SelectRaw($"MAX(c.ChangeVersion) AS {finalChangeVersionColumnName}")
@@ -555,7 +572,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
 
                 string idColumnName = "Id";
                 
-                var dataQuery = new Query($"{changeWindowCteName} AS {changeWindowAlias}")
+                var dataQuery = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From($"{changeWindowCteName} AS {changeWindowAlias}")
                     .With(changeWindowCteName, changeWindowVersionsCteQuery)
                     .Join(
                         $"{changeQueriesTableName} AS {oldAlias}",
@@ -572,12 +590,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     .Select($"{newAlias}.NewCalendarCode", $"{newAlias}.NewSchoolId", $"{newAlias}.NewSchoolYear")
                     .OrderBy($"{changeWindowAlias}.{finalChangeVersionColumnName}");
                 
-                var result = GetCompilerFor(databaseEngine).Compile(dataQuery);
+                var template = dataQuery.BuildTemplate();
 
-                var actualParameters = result.Template.Parameters as DynamicParameters;
+                var actualParameters = template.Parameters as DynamicParameters;
                 
                 actualParameters.ShouldSatisfyAllConditions(
-                    () => result.Sql.NormalizeSql().ShouldBe(@"
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
                     WITH ChangeWindow AS (
                         SELECT  c.Id, MIN(c.ChangeVersion) AS initialChangeVersion, MAX(c.ChangeVersion) AS finalChangeVersion
                         FROM    tracked_changes_edfi.Calendar AS c
@@ -595,11 +613,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     ".NormalizeSql())
                 );
                 
-                ExecuteQueryAndWriteResults(databaseEngine, result);
+                ExecuteQueryAndWriteResults(databaseEngine, template);
                 
                 // Check the cloned query results
-                var clonedQueryResult = GetCompilerFor(databaseEngine).Compile(dataQuery.Clone());
-                result.Sql.ShouldBe(clonedQueryResult.Sql);
+                var clonedQueryResult = dataQuery.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
         }
 
@@ -609,20 +627,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             PgSql
         }
 
-        private static Compiler GetCompilerFor(DatabaseEngine databaseEngine)
+        private static Dialect GetDialectFor(DatabaseEngine databaseEngine)
         {
             switch (databaseEngine)
             {
                 case DatabaseEngine.MsSql:
-                    return new SqlServerCompiler();
+                    return new SqlServerDialect();
                 case DatabaseEngine.PgSql:
-                    return new PostgresCompiler();
+                    return new PostgreSqlDialect();
                 default:
                     throw new NotSupportedException($"Unsupported database engine '{databaseEngine.ToString()}'.");
             }
         }
         
-        private static void ExecuteQueryAndWriteResults(DatabaseEngine databaseEngine, SqlResult result)
+        private static void ExecuteQueryAndWriteResults(DatabaseEngine databaseEngine, SqlBuilder.Template template)
         {
             IEnumerable<dynamic> results;
 
@@ -630,20 +648,20 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             {
                 case DatabaseEngine.MsSql:
                 {
-                    using var db = new SqlConnection(
+                    using var conn = new SqlConnection(
                         "Server=(local); Database=EdFi_Ods_Populated_Template; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;");
 
-                    results = db.Query(result.Template.RawSql, result.Template.Parameters);
+                    results = conn.Query(template.RawSql, template.Parameters);
                 }
 
                     break;
 
                 case DatabaseEngine.PgSql:
                 {
-                    using var db = new NpgsqlConnection(
+                    using var conn = new NpgsqlConnection(
                         "host=localhost;port=6432;username=postgres;database=EdFi_Ods_Populated_Template_Test;pooling=true;minimum pool size=10;maximum pool size=50;Application Name=EdFi.Ods.Api.IntegrationTests");
 
-                    results = db.Query(result.Template.RawSql, result.Template.Parameters);
+                    results = conn.Query(template.RawSql, template.Parameters);
                 }
 
                     break;
@@ -652,9 +670,25 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     return;
             }
 
+            bool hasResults = false;
+            int rowNumber = 0;
+            
             foreach (dynamic item in results)
             {
+                if (++rowNumber > 5)
+                {
+                    Console.WriteLine("...");
+
+                    break;
+                }
+                
+                hasResults = true;
                 Console.WriteLine(JsonConvert.SerializeObject(item));
+            }
+            
+            if (!hasResults)
+            {
+                Console.WriteLine("Query executed successfully but returned no data.");
             }
         }
     }
