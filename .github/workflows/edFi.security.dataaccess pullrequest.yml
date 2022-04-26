@@ -6,6 +6,7 @@ on:
 
 env:
   INFORMATIONAL_VERSION: "5.4"
+  BUILD_INCREMENTER: "10"
   CONFIGURATION: "Release"
 
 jobs:
@@ -21,7 +22,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: build
       run: |
-        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -Solution "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln" -ProjectFile "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.csproj"
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.sln" -ProjectFile "Application/EdFi.Security.DataAccess/EdFi.Security.DataAccess.csproj"
       shell: pwsh
     - name: test
       run: |
