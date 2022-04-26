@@ -17,6 +17,7 @@ using EdFi.Ods.Features.ChangeQueries.DatabaseNaming;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Features.ChangeQueries.ExceptionHandling;
 using EdFi.Ods.Api.ExceptionHandling;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.ChangeQueries.Conventions;
@@ -42,6 +43,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                 .As<INHibernateBeforeBindMappingActivity>()
                 .SingleInstance();
 
+            builder.RegisterType<QueryBuilder>();
+            
             AddSupportForAvailableChanges();
             AddSupportForSnapshots();
             AddSupportForDeletes();
@@ -104,12 +107,12 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                     .As<IDeletedItemsResourceDataProvider>()
                     .SingleInstance();
             
-                builder.RegisterType<DeletedItemsQueryFactory>()
-                    .As<IDeletedItemsQueryFactory>()
+                builder.RegisterType<DeletedItemsQueryBuilderFactory>()
+                    .As<IDeletedItemsQueryBuilderFactory>()
                     .SingleInstance();
                 
-                builder.RegisterType<DeletedItemsQueriesPreparer>()
-                    .As<IDeletedItemsQueriesPreparer>()
+                builder.RegisterType<DeletedItemsQueryTemplatePreparer>()
+                    .As<IDeletedItemsQueryTemplatePreparer>()
                     .SingleInstance();
             }
 
@@ -124,12 +127,12 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                     .As<IKeyChangesResourceDataProvider>()
                     .SingleInstance();
             
-                builder.RegisterType<KeyChangesQueryFactory>()
-                    .As<IKeyChangesQueryFactory>()
+                builder.RegisterType<KeyChangesQueryBuilderFactory>()
+                    .As<IKeyChangesQueryBuilderFactory>()
                     .SingleInstance();
                 
-                builder.RegisterType<KeyChangesQueriesPreparer>()
-                    .As<IKeyChangesQueriesPreparer>()
+                builder.RegisterType<KeyChangesQueryTemplatePreparer>()
+                    .As<IKeyChangesQueryTemplatePreparer>()
                     .SingleInstance();
             }
             
@@ -140,8 +143,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Modules
                     .As<IDomainModelEnhancer>()
                     .SingleInstance();
             
-                builder.RegisterDecorator<KeyChangesQueryFactoryAuthorizationDecorator, IKeyChangesQueryFactory>();
-                builder.RegisterDecorator<DeletedItemsQueryFactoryAuthorizationDecorator, IDeletedItemsQueryFactory>();
+                builder.RegisterDecorator<KeyChangesQueryBuilderFactoryAuthorizationDecorator, IKeyChangesQueryBuilderFactory>();
+                builder.RegisterDecorator<DeletedItemsQueryBuilderFactoryAuthorizationDecorator, IDeletedItemsQueryBuilderFactory>();
             }
         }
     }

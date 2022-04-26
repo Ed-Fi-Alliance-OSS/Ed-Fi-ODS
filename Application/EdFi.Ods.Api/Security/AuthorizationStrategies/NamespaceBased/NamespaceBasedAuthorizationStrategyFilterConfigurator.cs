@@ -12,7 +12,6 @@ using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
-using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
@@ -86,22 +85,22 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
             AuthorizationFilterDetails filterContext,
             Resource resource,
             int filterIndex,
-            Query query)
+            QueryBuilder queryBuilder)
         {
             if (filterContext.ClaimValues.Length == 1)
             {
-                query.WhereLike(_oldNamespaceColumnName, filterContext.ClaimValues.Single());
+                queryBuilder.WhereLike(_oldNamespaceColumnName, filterContext.ClaimValues.Single());
             }
             else if (filterContext.ClaimValues.Length > 1)
             {
-                query.Where(
-                    q => q.Where(
-                        q2 =>
+                queryBuilder.Where(
+                        q =>
                         {
-                            filterContext.ClaimValues.ForEach(ns => q2.OrWhereLike(_oldNamespaceColumnName, ns));
+                            filterContext.ClaimValues.ForEach(ns => q.OrWhereLike(_oldNamespaceColumnName, ns));
 
-                            return q2;
-                        }));
+                            return q;
+                        })
+                    ;
             }
             else
             {

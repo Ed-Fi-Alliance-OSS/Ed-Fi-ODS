@@ -3,7 +3,7 @@ using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories
 {
-    public interface ITrackedChangesQueryFactory
+    public interface ITrackedChangesQueryBuilderFactory
     {
         /// <summary>
         /// Gets the query that determines basis for inclusion/exclusion of records in the query (and where authorization
@@ -11,6 +11,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         /// </summary>
         /// <param name="resource">The resource that is the subject of the query.</param>
         /// <returns>The Query for further modification and execution.</returns>
-        Query CreateMainQuery(Resource resource);
+        QueryBuilder CreateQueryBuilder(Resource resource);
     }
 }

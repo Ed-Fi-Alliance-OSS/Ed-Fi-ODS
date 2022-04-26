@@ -13,13 +13,13 @@ using EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
-    public class KeyChangesQueryFactoryAuthorizationDecorator
-        : TrackedChangesQueryFactoryAuthorizationDecoratorBase, IKeyChangesQueryFactory
+    public class KeyChangesQueryBuilderFactoryAuthorizationDecorator
+        : TrackedChangesQueryFactoryAuthorizationDecoratorBase, IKeyChangesQueryBuilderFactory
     {
-        private readonly IKeyChangesQueryFactory _next;
+        private readonly IKeyChangesQueryBuilderFactory _next;
 
-        public KeyChangesQueryFactoryAuthorizationDecorator(
-            IKeyChangesQueryFactory next,
+        public KeyChangesQueryBuilderFactoryAuthorizationDecorator(
+            IKeyChangesQueryBuilderFactory next,
             IAuthorizationContextProvider authorizationContextProvider,
             IEdFiAuthorizationProvider edFiAuthorizationProvider,
             IDomainModelProvider domainModelProvider,
@@ -35,13 +35,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             _next = next;
         }
 
-        public Query CreateMainQuery(Resource resource)
+        public QueryBuilder CreateQueryBuilder(Resource resource)
         {
-            var mainQuery = _next.CreateMainQuery(resource);
+            var queryBuilder = _next.CreateQueryBuilder(resource);
 
-            ApplyAuthorizationFilters(resource, mainQuery);
+            ApplyAuthorizationFilters(resource, queryBuilder);
 
-            return mainQuery;
+            return queryBuilder;
         }
     }
 }

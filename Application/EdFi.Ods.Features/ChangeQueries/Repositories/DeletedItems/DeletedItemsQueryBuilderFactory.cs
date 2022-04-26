@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using EdFi.Ods.Common.Database.NamingConventions;
@@ -12,38 +13,45 @@ using EdFi.Ods.Common.Models.Resource;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
-    public class DeletedItemsQueryFactory : IDeletedItemsQueryFactory
+    public class DeletedItemsQueryBuilderFactory : IDeletedItemsQueryBuilderFactory
     {
         private const string SourceTableAlias = "src";
         private readonly IDatabaseNamingConvention _namingConvention;
 
-        private readonly ConcurrentDictionary<FullName, Query> _queryByResourceName = new ConcurrentDictionary<FullName, Query>();
-        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
+        private readonly ConcurrentDictionary<FullName, QueryBuilder> _queryBuilderByResourceName =
+            new ConcurrentDictionary<FullName, QueryBuilder>();
 
-        public DeletedItemsQueryFactory(
+        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
+        private readonly Func<QueryBuilder> _createQueryBuilder;
+
+        public DeletedItemsQueryBuilderFactory(
             IDatabaseNamingConvention namingConvention,
-            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
+            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider,
+            Func<QueryBuilder> createQueryBuilder)
         {
             _namingConvention = namingConvention;
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
+            _createQueryBuilder = createQueryBuilder;
         }
 
-        public Query CreateMainQuery(Resource resource)
+        public QueryBuilder CreateQueryBuilder(Resource resource)
         {
             // Optimize by caching the constructed query
-            var templateQuery = _queryByResourceName.GetOrAdd(resource.FullName, fn => CreateTemplateQuery(resource));
+            var baselineQueryBuilder = _queryBuilderByResourceName.GetOrAdd(
+                resource.FullName,
+                fn => CreateBaselineQueryBuilder(resource));
 
-            // Copy the query before returning it (to preserve original)
-            return templateQuery.Clone();
+            // Copy the baseline query builder before returning it (to preserve original for future use)
+            return baselineQueryBuilder.Clone();
         }
 
-        private Query CreateTemplateQuery(Resource resource)
+        private QueryBuilder CreateBaselineQueryBuilder(Resource resource)
         {
             var entity = resource.Entity;
 
             var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
-            var templateQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_namingConvention, entity)
+            var baselineDeletedItemsQuery = QueryFactoryHelper.CreateBaseTrackedChangesQuery(_createQueryBuilder, _namingConvention, entity)
                 .Select(
                     $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName("Id")}",
                     $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}")
@@ -51,18 +59,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                 .OrderBy(
                     $"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{_namingConvention.ColumnName(ChangeQueriesDatabaseConstants.ChangeVersionColumnName)}");
 
-            QueryFactoryHelper.ApplyDiscriminatorCriteriaForDerivedEntities(templateQuery, entity, _namingConvention);
+            QueryFactoryHelper.ApplyDiscriminatorCriteriaForDerivedEntities(baselineDeletedItemsQuery, entity, _namingConvention);
 
             // Deletes-specific query filters
             ApplySourceTableExclusionForUndeletedItems();
             ApplyDeletesOnlyCriteria();
 
-            return templateQuery;
+            return baselineDeletedItemsQuery;
 
             void ApplySourceTableExclusionForUndeletedItems()
             {
                 // Source table exclusion to prevent items that have been re-added during the same change window from showing up as deletes
-                templateQuery.LeftJoin(
+                baselineDeletedItemsQuery.LeftJoin(
                     $"{_namingConvention.Schema(entity)}.{_namingConvention.TableName(entity)} AS {SourceTableAlias}",
                     join =>
                     {
@@ -76,7 +84,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                         return @join;
                     });
 
-                templateQuery.WhereNull(
+                baselineDeletedItemsQuery.WhereNull(
                     string.Concat(SourceTableAlias, ".", identifierProjections.First().SourceTableJoinColumnName));
             }
 
@@ -90,7 +98,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
                 string columnName = _namingConvention.ColumnName(
                     $"{ChangeQueriesDatabaseConstants.NewKeyValueColumnPrefix}{firstIdentifierProperty.PropertyName}");
 
-                templateQuery.WhereNull($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{columnName}");
+                baselineDeletedItemsQuery.WhereNull($"{ChangeQueriesDatabaseConstants.TrackedChangesAlias}.{columnName}");
             }
         }
     }

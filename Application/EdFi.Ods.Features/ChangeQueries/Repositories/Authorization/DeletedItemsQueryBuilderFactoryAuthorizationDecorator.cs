@@ -13,13 +13,13 @@ using EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
 {
-    public class DeletedItemsQueryFactoryAuthorizationDecorator
-        : TrackedChangesQueryFactoryAuthorizationDecoratorBase, IDeletedItemsQueryFactory
+    public class DeletedItemsQueryBuilderFactoryAuthorizationDecorator
+        : TrackedChangesQueryFactoryAuthorizationDecoratorBase, IDeletedItemsQueryBuilderFactory
     {
-        private readonly IDeletedItemsQueryFactory _next;
+        private readonly IDeletedItemsQueryBuilderFactory _next;
 
-        public DeletedItemsQueryFactoryAuthorizationDecorator(
-            IDeletedItemsQueryFactory next,
+        public DeletedItemsQueryBuilderFactoryAuthorizationDecorator(
+            IDeletedItemsQueryBuilderFactory next,
             IAuthorizationContextProvider authorizationContextProvider,
             IEdFiAuthorizationProvider edFiAuthorizationProvider,
             IDomainModelProvider domainModelProvider,
@@ -35,13 +35,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             _next = next;
         }
 
-        public Query CreateMainQuery(Resource resource)
+        public QueryBuilder CreateQueryBuilder(Resource resource)
         {
-            var mainQuery = _next.CreateMainQuery(resource);
+            var queryBuilder = _next.CreateQueryBuilder(resource);
 
-            ApplyAuthorizationFilters(resource, mainQuery);
+            ApplyAuthorizationFilters(resource, queryBuilder);
 
-            return mainQuery;
+            return queryBuilder;
         }
     }
 }

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Linq;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Database.Querying;
@@ -15,14 +16,14 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
     public static class QueryFactoryHelper
     {
         public static void ApplyDiscriminatorCriteriaForDerivedEntities(
-            Query query,
+            QueryBuilder queryBuilder,
             Entity entity,
             IDatabaseNamingConvention namingConvention)
         {
             // Add discriminator criteria, for derived types with a Discriminator on the base type only
             if (entity.IsDerived)
             {
-                query.Where($"{TrackedChangesAlias}.{namingConvention.ColumnName("Discriminator")}", entity.FullName.ToString());
+                queryBuilder.Where($"{TrackedChangesAlias}.{namingConvention.ColumnName("Discriminator")}", entity.FullName.ToString());
             }
         }
         
@@ -40,7 +41,10 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             return selectColumns;
         }
         
-        public static Query CreateBaseTrackedChangesQuery(IDatabaseNamingConvention namingConvention, Entity entity)
+        public static QueryBuilder CreateBaseTrackedChangesQuery(
+            Func<QueryBuilder> createQueryBuilder,
+            IDatabaseNamingConvention namingConvention,
+            Entity entity)
         {
             var (changeTableSchema, changeTableName) = entity.IsDerived
                 ? (TrackedChangesSchemaPrefix + namingConvention.Schema(entity.BaseEntity),
@@ -48,8 +52,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                 : (TrackedChangesSchemaPrefix + namingConvention.Schema(entity),
                     namingConvention.TableName(entity));
 
-            var templateQuery =
-                new Query($"{changeTableSchema}.{changeTableName} AS {TrackedChangesAlias}");
+            var templateQuery = createQueryBuilder().From($"{changeTableSchema}.{changeTableName} AS {TrackedChangesAlias}");
 
             return templateQuery;
         }

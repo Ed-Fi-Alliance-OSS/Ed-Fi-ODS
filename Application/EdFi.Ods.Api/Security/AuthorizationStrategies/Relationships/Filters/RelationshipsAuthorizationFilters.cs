@@ -41,7 +41,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             AuthorizationFilterDetails filterContext, 
             Resource resource, 
             int filterIndex,
-            Query query)
+            QueryBuilder queryBuilder)
         {
             // If the endpoint names do not match, then use an authorization view join
             if (filterContext.ClaimEndpointName != filterContext.SubjectEndpointName)
@@ -60,18 +60,18 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
                     : filterContext.SubjectEndpointName;
 
                 // Generalize relationships-based naming convention
-                query.Join(
+                queryBuilder.Join(
                     $"auth.{viewName} AS rba{filterIndex}",
                     $"c.Old{trackedChangesPropertyName}",
                     $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
 
                 // Apply claim value criteria
-                query.WhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimValues);
+                queryBuilder.WhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimValues);
             }
             else
             {
                 // Apply claim value criteria directly to the column value
-                query.WhereIn($"c.Old{filterContext.ClaimEndpointName}", filterContext.ClaimValues);
+                queryBuilder.WhereIn($"c.Old{filterContext.ClaimEndpointName}", filterContext.ClaimValues);
             }
             
             string GetBasePropertyNameForSubjectEndpointName()

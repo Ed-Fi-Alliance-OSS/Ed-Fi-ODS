@@ -6,7 +6,6 @@
 using System;
 using System.Security;
 using System.Security.Claims;
-using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Models;
@@ -37,7 +36,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             domainModelEnhancer.Enhance(domainModelProvider.GetDomainModel());
         }
 
-        protected void ApplyAuthorizationFilters(Resource resource, Query query)
+        protected void ApplyAuthorizationFilters(Resource resource, QueryBuilder queryBuilder)
         {
             Type entityType = ((dynamic)resource.Entity).NHibernateEntityType;
 
@@ -72,7 +71,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                     filterContext,
                     resource,
                     filterIndex,
-                    query);
+                    queryBuilder);
 
                 filterIndex++;
             }

@@ -22,7 +22,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             string friendlyDefaultConditionFormat,
             string friendlyHqlConditionFormat,
             Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator,
-            Action<FilterApplicationDetails, AuthorizationFilterDetails, Resource, int, Query> trackedChangesCriteriaApplicator,
+            Action<FilterApplicationDetails, AuthorizationFilterDetails, Resource, int, QueryBuilder> trackedChangesCriteriaApplicator,
             Func<Type, PropertyInfo[], bool> shouldApply,
             string viewName,
             string viewTargetEndpointName,

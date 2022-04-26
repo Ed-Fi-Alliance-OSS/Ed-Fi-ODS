@@ -7,22 +7,22 @@ using EdFi.Ods.Common.Database.Querying;
 
 namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
 {
-    public class TrackedChangesQueries
+    public class TrackedChangesQueryTemplates
     {
-        public TrackedChangesQueries(Query mainQuery, Query countQuery)
+        public TrackedChangesQueryTemplates(SqlBuilder.Template dataQueryTemplate, SqlBuilder.Template countQueryTemplate)
         {
-            MainQuery = mainQuery;
-            CountQuery = countQuery;
+            DataQueryTemplate = dataQueryTemplate;
+            CountQueryTemplate = countQueryTemplate;
         }
 
         /// <summary>
         /// Gets the main driving query for the results (i.e. a query that should be filtered for authorization purposes).
         /// </summary>
-        public Query MainQuery { get; }
+        public SqlBuilder.Template DataQueryTemplate { get; }
         
         /// <summary>
         /// Gets the count query for the results (i.e. a query that should be filtered for authorization purposes).
         /// </summary>
-        public Query CountQuery { get; }
+        public SqlBuilder.Template CountQueryTemplate { get; }
     }
 }

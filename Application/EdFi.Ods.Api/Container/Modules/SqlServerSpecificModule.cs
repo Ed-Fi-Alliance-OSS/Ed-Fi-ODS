@@ -15,8 +15,7 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Common.Database.NamingConventions;
-using EdFi.Ods.Common.Database.Querying;
-using EdFi.Ods.Common.Database.Querying.Compilers;
+using EdFi.Ods.Common.Database.Querying.Dialects;
 
 namespace EdFi.Ods.Api.Container.Modules
 {
@@ -44,7 +43,7 @@ namespace EdFi.Ods.Api.Container.Modules
             builder.RegisterInstance(SqlClientFactory.Instance)
                 .As<DbProviderFactory>();
             
-            builder.Register<Compiler>(ctx => new SqlServerCompiler());
+            builder.Register<Dialect>(ctx => new SqlServerDialect());
             
             // Register SQL Server SQL naming convention
             builder.RegisterType<SqlServerDatabaseNamingConvention>()
