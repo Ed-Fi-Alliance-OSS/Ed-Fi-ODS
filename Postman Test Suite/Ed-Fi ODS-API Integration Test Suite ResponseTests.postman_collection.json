@@ -7668,7 +7668,7 @@
 					"        let jsonResponse = response.json(),",
 					"            newAccessToken = jsonResponse.access_token;",
 					"    ",
-					"        console.log({ err, jsonResponse, newAccessToken })",
+					"        // console.log({ err, jsonResponse, newAccessToken })",
 					"    ",
 					"        pm.environment.set(\"AccessToken\", newAccessToken);",
 					"    ",
