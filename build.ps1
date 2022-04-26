@@ -20,6 +20,9 @@ param(
     [string]
     $BuildCounter = "1",
 
+    [string]
+    $BuildIncrementer = "0",
+
     # .NET project build configuration, defaults to "Release". Options are: Debug, Release.
     [string]
     [ValidateSet("Debug", "Release")]
@@ -50,7 +53,7 @@ param(
 
 )
 
-$newRevision = ([int]$BuildCounter) + 10
+$newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
 $version = "$InformationalVersion.$newRevision"
 $packageOutput = "$PSScriptRoot/NugetPackages"
 $packagePath = "$packageOutput/$PackageName.$version.nupkg"

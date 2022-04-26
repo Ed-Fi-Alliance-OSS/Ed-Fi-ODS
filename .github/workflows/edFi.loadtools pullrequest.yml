@@ -6,6 +6,7 @@ on:
 
 env:
   INFORMATIONAL_VERSION: "5.4"
+  BUILD_INCREMENTER: "17"
   CONFIGURATION: "Release"
 
 jobs:
@@ -21,7 +22,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: build
       run: |
-        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -Solution "Utilities/DataLoading/LoadTools.sln"
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/DataLoading/LoadTools.sln"
       shell: pwsh
     - name: test
       run: |
