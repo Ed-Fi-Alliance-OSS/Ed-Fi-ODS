@@ -18,7 +18,7 @@ using Shouldly;
 namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
 {
     [TestFixture]
-    public class When_building_sql
+    public partial class When_building_sql
     {
         [TestCase(DatabaseEngine.MsSql)]
         [TestCase(DatabaseEngine.PgSql)]
@@ -639,57 +639,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                     throw new NotSupportedException($"Unsupported database engine '{databaseEngine.ToString()}'.");
             }
         }
-        
-        private static void ExecuteQueryAndWriteResults(DatabaseEngine databaseEngine, SqlBuilder.Template template)
-        {
-            IEnumerable<dynamic> results;
 
-            switch (databaseEngine)
-            {
-                case DatabaseEngine.MsSql:
-                {
-                    using var conn = new SqlConnection(
-                        "Server=(local); Database=EdFi_Ods_Populated_Template; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;");
-
-                    results = conn.Query(template.RawSql, template.Parameters);
-                }
-
-                    break;
-
-                case DatabaseEngine.PgSql:
-                {
-                    using var conn = new NpgsqlConnection(
-                        "host=localhost;port=6432;username=postgres;database=EdFi_Ods_Populated_Template_Test;pooling=true;minimum pool size=10;maximum pool size=50;Application Name=EdFi.Ods.Api.IntegrationTests");
-
-                    results = conn.Query(template.RawSql, template.Parameters);
-                }
-
-                    break;
-                
-                default:
-                    return;
-            }
-
-            bool hasResults = false;
-            int rowNumber = 0;
-            
-            foreach (dynamic item in results)
-            {
-                if (++rowNumber > 5)
-                {
-                    Console.WriteLine("...");
-
-                    break;
-                }
-                
-                hasResults = true;
-                Console.WriteLine(JsonConvert.SerializeObject(item));
-            }
-            
-            if (!hasResults)
-            {
-                Console.WriteLine("Query executed successfully but returned no data.");
-            }
-        }
+        static partial void ExecuteQueryAndWriteResults(DatabaseEngine databaseEngine, SqlBuilder.Template template);
     }
 }
