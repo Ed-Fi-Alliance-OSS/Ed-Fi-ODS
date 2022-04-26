@@ -10,7 +10,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.accreditationstatusdescriptor_de
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.AccreditationStatusDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.accreditationstatusdescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.AccreditationStatusDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.AccreditationStatusDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.AccreditationStatusDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -27,7 +27,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.aidtypedescriptor_deleted()
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.AidTypeDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.aidtypedescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.AidTypeDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.AidTypeDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.AidTypeDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -88,7 +88,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.certificationroutedescriptor_del
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.CertificationRouteDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.certificationroutedescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.CertificationRouteDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.CertificationRouteDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.CertificationRouteDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -105,7 +105,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.coteachingstyleobserveddescripto
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.CoteachingStyleObservedDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.coteachingstyleobserveddescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.CoteachingStyleObservedDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.CoteachingStyleObservedDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.CoteachingStyleObservedDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -122,7 +122,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.credentialstatusdescriptor_delet
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.CredentialStatusDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.credentialstatusdescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.CredentialStatusDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.CredentialStatusDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.CredentialStatusDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -163,7 +163,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.educatorroledescriptor_deleted()
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EducatorRoleDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.educatorroledescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.EducatorRoleDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.EducatorRoleDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.EducatorRoleDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -180,7 +180,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.englishlanguageexamdescriptor_de
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EnglishLanguageExamDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.englishlanguageexamdescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.EnglishLanguageExamDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.EnglishLanguageExamDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.EnglishLanguageExamDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -197,7 +197,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.eppprogrampathwaydescriptor_dele
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EPPProgramPathwayDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.eppprogrampathwaydescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.EPPProgramPathwayDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.EPPProgramPathwayDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.EPPProgramPathwayDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -307,7 +307,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationelementratingleveldesc
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EvaluationElementRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.evaluationelementratingleveldescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.EvaluationElementRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.EvaluationElementRatingLevelDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.EvaluationElementRatingLevelDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -387,7 +387,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationperioddescriptor_delet
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EvaluationPeriodDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.evaluationperioddescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.EvaluationPeriodDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.EvaluationPeriodDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.EvaluationPeriodDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -437,7 +437,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationratingleveldescriptor_
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EvaluationRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.evaluationratingleveldescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.EvaluationRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.EvaluationRatingLevelDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.EvaluationRatingLevelDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -454,7 +454,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationratingstatusdescriptor
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EvaluationRatingStatusDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.evaluationratingstatusdescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.EvaluationRatingStatusDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.EvaluationRatingStatusDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.EvaluationRatingStatusDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -471,7 +471,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.evaluationtypedescriptor_deleted
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.EvaluationTypeDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.evaluationtypedescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.EvaluationTypeDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.EvaluationTypeDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.EvaluationTypeDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -515,7 +515,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.genderdescriptor_deleted()
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.GenderDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.genderdescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.GenderDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.GenderDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.GenderDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -532,7 +532,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.objectiveratingleveldescriptor_d
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.ObjectiveRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.objectiveratingleveldescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.ObjectiveRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.ObjectiveRatingLevelDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.ObjectiveRatingLevelDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -612,7 +612,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.performanceevaluationratinglevel
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.PerformanceEvaluationRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.performanceevaluationratingleveldescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.PerformanceEvaluationRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.PerformanceEvaluationRatingLevelDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.PerformanceEvaluationRatingLevelDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -629,7 +629,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.performanceevaluationtypedescrip
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.PerformanceEvaluationTypeDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.performanceevaluationtypedescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.PerformanceEvaluationTypeDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.PerformanceEvaluationTypeDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.PerformanceEvaluationTypeDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -676,7 +676,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_tpdm.rubricratingleveldescriptor_dele
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.RubricRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.rubricratingleveldescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.RubricRatingLevelDescriptorId, b.codevalue, b.namespace, b.id, 'tpdm.RubricRatingLevelDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.RubricRatingLevelDescriptorId = b.descriptorid ;
 
     RETURN NULL;

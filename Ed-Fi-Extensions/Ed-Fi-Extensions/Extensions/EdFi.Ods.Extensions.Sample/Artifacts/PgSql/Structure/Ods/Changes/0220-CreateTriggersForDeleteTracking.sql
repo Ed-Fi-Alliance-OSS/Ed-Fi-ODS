@@ -10,7 +10,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_sample.artmediumdescriptor_deleted()
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.ArtMediumDescriptorId, b.codevalue, b.namespace, b.id, 'sample.artmediumdescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.ArtMediumDescriptorId, b.codevalue, b.namespace, b.id, 'sample.ArtMediumDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.ArtMediumDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -67,7 +67,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_sample.favoritebookcategorydescriptor
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.FavoriteBookCategoryDescriptorId, b.codevalue, b.namespace, b.id, 'sample.favoritebookcategorydescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.FavoriteBookCategoryDescriptorId, b.codevalue, b.namespace, b.id, 'sample.FavoriteBookCategoryDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.FavoriteBookCategoryDescriptorId = b.descriptorid ;
 
     RETURN NULL;
@@ -84,7 +84,7 @@ CREATE OR REPLACE FUNCTION tracked_changes_sample.membershiptypedescriptor_delet
 $BODY$
 BEGIN
     INSERT INTO tracked_changes_edfi.descriptor(olddescriptorid, oldcodevalue, oldnamespace, id, discriminator, changeversion)
-    SELECT OLD.MembershipTypeDescriptorId, b.codevalue, b.namespace, b.id, 'sample.membershiptypedescriptor', nextval('changes.ChangeVersionSequence')
+    SELECT OLD.MembershipTypeDescriptorId, b.codevalue, b.namespace, b.id, 'sample.MembershipTypeDescriptor', nextval('changes.ChangeVersionSequence')
     FROM edfi.descriptor b WHERE old.MembershipTypeDescriptorId = b.descriptorid ;
 
     RETURN NULL;
