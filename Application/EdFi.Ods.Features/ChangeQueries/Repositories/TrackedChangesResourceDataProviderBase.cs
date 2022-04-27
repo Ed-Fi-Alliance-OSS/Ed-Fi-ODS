@@ -49,7 +49,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         protected async Task<ResourceData<TItem>> GetResourceDataAsync(
             Resource resource,
             IQueryParameters queryParameters,
-            Func<IDictionary<string, object>, TItem> createItem)
+            Func<IDictionary<string, object>, TItem> mapResponseItem)
         {
             await using var conn = _dbProviderFactory.CreateConnection();
 
@@ -80,7 +80,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     
                     var rawData = (List<object>) await conn.QueryAsync(templateRawSql, dataQueryTemplate.Parameters);
 
-                    var items = rawData.Cast<IDictionary<string, object>>().Select(createItem).ToList();
+                    var items = rawData.Cast<IDictionary<string, object>>().Select(mapResponseItem).ToList();
 
                     return items;
                 }

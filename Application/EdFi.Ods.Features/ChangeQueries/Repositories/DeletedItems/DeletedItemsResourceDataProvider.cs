@@ -17,32 +17,26 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.DeletedItems
     public class DeletedItemsResourceDataProvider 
         : TrackedChangesResourceDataProviderBase<DeletedResourceItem>, IDeletedItemsResourceDataProvider
     {
-        // private readonly IDeletedItemsQueryBuilderFactory _deletedItemsQueryBuilderFactory;
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
 
         public DeletedItemsResourceDataProvider(
             DbProviderFactory dbProviderFactory,
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IDeletedItemsQueryTemplatePreparer deletedItemsQueryTemplatePreparer,
-            // IDeletedItemsQueryBuilderFactory deletedItemsQueryBuilderFactory,
             IDatabaseNamingConvention namingConvention,
             ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
             : base(dbProviderFactory, odsDatabaseConnectionStringProvider, deletedItemsQueryTemplatePreparer, namingConvention)
         {
-            // _deletedItemsQueryBuilderFactory = deletedItemsQueryBuilderFactory;
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
         }
 
         public async Task<ResourceData<DeletedResourceItem>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
-            // var deletedItemsQueryBuilder = _deletedItemsQueryBuilderFactory.CreateQueryBuilder(resource);
-            
             var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
             return await base.GetResourceDataAsync(
                 resource, 
                 queryParameters, 
-                // deletedItemsQueryBuilder, 
                 itemData => 
                     new DeletedResourceItem
                     { 
