@@ -53,6 +53,9 @@ param(
 
 )
 
+if(-not $Solution){
+    $Solution = $ProjectFile
+}
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
 $version = "$InformationalVersion.$newRevision"
 $packageOutput = "$PSScriptRoot/NugetPackages"
