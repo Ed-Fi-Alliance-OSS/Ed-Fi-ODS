@@ -25,5 +25,5 @@ jobs:
       shell: pwsh
     - name: test
       run: |
-        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln" -ProjectFile "Application/EdFi.Ods.Api/EdFi.Ods.Api.csproj"
+        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Ods.Api/EdFi.Ods.Api.sln" 
       shell: pwsh
