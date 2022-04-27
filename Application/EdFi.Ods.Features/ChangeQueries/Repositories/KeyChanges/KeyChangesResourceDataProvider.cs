@@ -17,7 +17,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
     public class KeyChangesResourceDataProvider
         : TrackedChangesResourceDataProviderBase<KeyChange>, IKeyChangesResourceDataProvider
     {
-        // private readonly IKeyChangesQueryBuilderFactory _keyChangesQueryBuilderFactory;
         private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
 
         public KeyChangesResourceDataProvider(
@@ -25,24 +24,19 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
             IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
             IKeyChangesQueryTemplatePreparer keyChangesQueryTemplatePreparer,
             IDatabaseNamingConvention namingConvention,
-            // IKeyChangesQueryBuilderFactory keyChangesQueryBuilderFactory,
             ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider)
             : base(dbProviderFactory, odsDatabaseConnectionStringProvider, keyChangesQueryTemplatePreparer, namingConvention)
         {
-            // _keyChangesQueryBuilderFactory = keyChangesQueryBuilderFactory;
             _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
         }
 
         public async Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
-            // var keyChangesQueryBuilder = _keyChangesQueryBuilderFactory.CreateQueryBuilder(resource);
-            
             var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
             return await base.GetResourceDataAsync(
                 resource,
                 queryParameters,
-                // keyChangesQueryBuilder,
                 itemData => 
                     new KeyChange
                     {
