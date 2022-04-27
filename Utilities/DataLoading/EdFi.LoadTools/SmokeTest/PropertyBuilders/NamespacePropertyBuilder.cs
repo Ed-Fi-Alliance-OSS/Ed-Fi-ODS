@@ -11,13 +11,13 @@ using EdFi.LoadTools.Engine;
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
     /// <summary>
-    ///     Build an appropriate Descriptor Namespace. Adjust using command line parameter.
+    ///     Build an appropriate Namespace. Adjust using command line parameter.
     /// </summary>
-    public class DescriptorNamespacePropertyBuilder : BaseBuilder
+    public class NamespacePropertyBuilder : BaseBuilder
     {
         private readonly IDestructiveTestConfiguration _configuration;
 
-        public DescriptorNamespacePropertyBuilder(IDestructiveTestConfiguration configuration, IPropertyInfoMetadataLookup metadataLookup)
+        public NamespacePropertyBuilder(IDestructiveTestConfiguration configuration, IPropertyInfoMetadataLookup metadataLookup)
             : base(metadataLookup)
         {
             _configuration = configuration;
@@ -27,17 +27,16 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
         {
             var typeName = obj.GetType().Name;
 
-            if (propertyInfo.PropertyType != typeof(string) || !typeName.EndsWith(EdFiConstants.Descriptor)
-                                                            || propertyInfo.Name != EdFiConstants.Namespace)
+            if (propertyInfo.PropertyType != typeof(string) || propertyInfo.Name != EdFiConstants.Namespace)
             {
                 return false;
             }
 
-            var descriptorUri = !string.IsNullOrEmpty(_configuration.NamespacePrefix)
+            var namespaceUri = !string.IsNullOrEmpty(_configuration.NamespacePrefix)
                 ? new Uri(_configuration.NamespacePrefix)
-                : EdFiConstants.DefaultDescriptorUri;
+                : EdFiConstants.DefaultNamespaceUri;
 
-            propertyInfo.SetValue(obj, descriptorUri.ToString());
+            propertyInfo.SetValue(obj, namespaceUri.ToString());
 
             return true;
         }
