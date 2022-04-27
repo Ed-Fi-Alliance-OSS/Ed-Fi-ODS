@@ -65,7 +65,7 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
             var descriptorValue = uri != null &&  !string.IsNullOrEmpty(uri.ToString())
                 ? new Uri(new Uri(uri.ToString()), $"#{codeValue}")
-                : new Uri(EdFiConstants.DefaultDescriptorUri, $"{propertyInfo.Name}#{codeValue}");
+                : new Uri(EdFiConstants.DefaultNamespaceUri, $"{propertyInfo.Name}#{codeValue}");
 
             propertyInfo.SetValue(obj, descriptorValue.ToString());
             return true;
