@@ -21,9 +21,9 @@ jobs:
         dotnet-version: 6.0.x
     - name: build
       run: |
-        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln" -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"
       shell: pwsh
     - name: test
       run: |
-        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"
+        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Ods.Common/EdFi.Ods.Common.sln" -ProjectFile "Application/EdFi.Ods.Common/EdFi.Ods.Common.csproj"
       shell: pwsh
