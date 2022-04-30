@@ -30,8 +30,6 @@ public class AuthorizationFilteringProvider : IAuthorizationFilteringProvider
         var authorizationFiltering = authorizationBasisMetadata.AuthorizationStrategies
             .Distinct()
             .Select(x => x.GetAuthorizationStrategyFiltering(relevantClaims, authorizationContext))
-            // Sort authorizations so that those that use system-assigned values are processed after others to avoid disclosing item existence to otherwise unauthorized clients
-            .OrderBy(x => x.UsesSystemAssignedValues)
             .ToArray();
 
         return authorizationFiltering;

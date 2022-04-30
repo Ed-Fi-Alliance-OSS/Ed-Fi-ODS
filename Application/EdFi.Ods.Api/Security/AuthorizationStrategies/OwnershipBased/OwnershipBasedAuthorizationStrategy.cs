@@ -123,8 +123,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
                         ClaimParameterName = "CreatedByOwnershipTokenId",
                     }
                 },
-                Operator = FilterOperator.And,
-                UsesSystemAssignedValues = true
+                Operator = FilterOperator.And
             };
         }
     }
