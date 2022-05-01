@@ -823,7 +823,354 @@
 					]
 				},
 				{
-					"name": "Multiple Authorization Strategy Verification",
+					"name": "Multiple Authorization Strategy Namespace/Ownership",
+					"item": [
+						{
+							"name": "Create EducationContent (ed-fi namespace)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"  pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											"",
+											"pm.environment.set(`known:educationContent:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set(`supplied:educationContentIdentifier`, pm.variables.replaceIn('{{$guid}}'));\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Main Namespace Content\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Attempt to update EducationContent (matching namespace prefix but different ownership)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", () => {",
+											"  pm.expect(pm.response.code).to.equal(403);",
+											"});",
+											"",
+											"const message = pm.response.json().message;",
+											"",
+											"pm.test(\"Message should indicate that the caller doesn't own the record\", () => {",
+											"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901001}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Update attempt by different client with needed namespace prefix\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Attempt to update EducationContent (mismatched namespace prefix and ownership)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", () => {",
+											"  pm.expect(pm.response.code).to.equal(403);",
+											"});",
+											"",
+											"const message = pm.response.json().message;",
+											"",
+											"pm.test(\"Message should not reveal that the item exists by indicating that the ownership token doesn't match, instead the error should indicate that the caller doesn't have the necessary namespace prefix\", () => {",
+											"  // Should not contain the error indicating the ownership token doesn't match",
+											"  pm.expect(message).to.not.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+											"",
+											"  // Should contain the namespace prefix error message",
+											"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Other_Namespace}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Update attempt by different client WITHOUT needed namespace prefix\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Attempt to create Education Content (mismatched namespace)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 403\", () => {",
+											"  pm.expect(pm.response.code).to.equal(403);",
+											"});",
+											"",
+											"const message = pm.response.json().message;",
+											"",
+											"pm.test(\"Message should indicate that the caller doesn't have the necessary namespace prefix\", () => {",
+											"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Other_Namespace}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"contentIdentifier\": \"{{$guid}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Exploring for possible existing item\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Education Content (ed-fi namespace) Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents",
+										"{{known:educationContent:id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Multiple Authorization Strategy Relationships/Ownership",
 					"item": [
 						{
 							"name": "Get StudentSectionAssociations",
@@ -2481,72 +2828,80 @@
 				"type": "text/javascript",
 				"exec": [
 					"CreateAccessToken(\"TokenExpiry_255901\",",
-					"                  \"AccessToken_255901\",",
-					"                  \"ApiKey_255901\", ",
-					"                  \"ApiSecret_255901\")",
-					"                  ",
+					"  \"AccessToken_255901\",",
+					"  \"ApiKey_255901\",",
+					"  \"ApiSecret_255901\")",
+					"",
 					"CreateAccessToken(\"TokenExpiry_255901-C\",",
-					"                  \"AccessToken_255901-C\",",
-					"                  \"ApiKey_255901-C\", ",
-					"                  \"ApiSecret_255901-C\")",
+					"  \"AccessToken_255901-C\",",
+					"  \"ApiKey_255901-C\",",
+					"  \"ApiSecret_255901-C\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_Other_Namespace\",",
+					"  \"AccessToken_Other_Namespace\",",
+					"  \"ApiKey_Other_Namespace\",",
+					"  \"ApiSecret_Other_Namespace\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_255901001\",",
+					"  \"AccessToken_255901001\",",
+					"  \"ApiKey_255901001\",",
+					"  \"ApiSecret_255901001\")",
 					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
 					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
 					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
-					"function CreateAccessToken(TokenExpiry,AccessToken,ApiKey, ApiSecret)",
-					"                  {",
-					"let tokenExpiration = pm.environment.get(TokenExpiry);",
-					"let currentToken = pm.environment.get(AccessToken);",
-					"let  getToken = true;",
-					"if (!tokenExpiration || ",
+					"function CreateAccessToken(TokenExpiry, AccessToken, ApiKey, ApiSecret) {",
+					"  let tokenExpiration = pm.environment.get(TokenExpiry);",
+					"  let currentToken = pm.environment.get(AccessToken);",
+					"  let getToken = true;",
+					"  if (!tokenExpiration ||",
 					"    !currentToken) {",
 					"    console.log('Token or expiry date are missing, retrieving new token')",
-					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"  } else if (tokenExpiration <= (new Date()).getTime()) {",
 					"    console.log('Token is expired, retrieving new token')",
-					"} else {",
+					"  } else {",
 					"    getToken = false;",
-					"    console.log('Token and expiration date are still valid');",
-					"}",
-					"if (getToken === true) {",
+					"  }",
+					"  if (getToken === true) {",
 					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
 					"    let clientId = pm.environment.get(ApiKey);",
 					"    let clientSecret = pm.environment.get(ApiSecret);",
 					"    let grantType = 'client_credentials';",
-					"    ",
+					"",
 					"    let getTokenRequest = {",
-					"        method: 'POST',",
-					"        url: tokenUrl,",
-					"        auth: {",
-					"            type: \"basic\",",
-					"            basic: [",
-					"                { key: \"username\", value: clientId },",
-					"                { key: \"password\", value: clientSecret }",
-					"            ]",
-					"        },",
-					"        header: [",
-					"            \"content-type:application/x-www-form-urlencoded\"",
-					"        ],",
-					"        body: {",
-					"            mode: \"urlencoded\",",
-					"            urlencoded: [{key: \"grant_type\", value: grantType}]",
-					"        }",
+					"      method: 'POST',",
+					"      url: tokenUrl,",
+					"      auth: {",
+					"        type: \"basic\",",
+					"        basic: [",
+					"          { key: \"username\", value: clientId },",
+					"          { key: \"password\", value: clientSecret }",
+					"        ]",
+					"      },",
+					"      header: [",
+					"        \"content-type:application/x-www-form-urlencoded\"",
+					"      ],",
+					"      body: {",
+					"        mode: \"urlencoded\",",
+					"        urlencoded: [{ key: \"grant_type\", value: grantType }]",
+					"      }",
 					"    };",
-					"    ",
+					"",
 					"    pm.sendRequest(getTokenRequest, (err, response) => {",
-					"        let jsonResponse = response.json(),",
-					"            newAccessToken = jsonResponse.access_token;",
-					"    ",
-					"        console.log({ err, jsonResponse, newAccessToken })",
-					"    ",
-					"        pm.environment.set(AccessToken, newAccessToken);",
-					"    ",
-					"        let expiryDate = new Date();",
-					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
-					"        pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"      let jsonResponse = response.json(),",
+					"        newAccessToken = jsonResponse.access_token;",
+					"",
+					"      console.log({ err, jsonResponse, newAccessToken })",
+					"",
+					"      pm.environment.set(AccessToken, newAccessToken);",
+					"",
+					"      let expiryDate = new Date();",
+					"      expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"      pm.environment.set(TokenExpiry, expiryDate.getTime());",
 					"    });",
-					"}",
+					"  }",
 					"}",
 					""
 				]
