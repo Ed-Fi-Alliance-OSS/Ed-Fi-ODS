@@ -12,16 +12,23 @@ namespace EdFi.Ods.Common.Security.Authorization
         /// <summary>
         /// Gets or sets the name of the authorization strategy that created this filter.
         /// </summary>
-        public string AuthorizationStrategyName { get; set; }
+        public string AuthorizationStrategyName { get; init; }
 
         /// <summary>
         /// Gets or sets the filters to be applied.
         /// </summary>
-        public IReadOnlyList<AuthorizationFilterContext> Filters { get; set; }
+        public IReadOnlyList<AuthorizationFilterContext> Filters { get; init; }
 
         /// <summary>
         /// Indicates which logical operator ('AND' or 'OR') should be used when combining this authorization strategy with others. 
         /// </summary>
-        public FilterOperator Operator { get; set; } = FilterOperator.Or;
+        public FilterOperator Operator { get; init; } = FilterOperator.Or;
+
+        /// <summary>
+        /// Indicates whether the authorization strategy filtering that is performed relies on system-assigned values, indicating
+        /// that it should be processed after other strategies to avoid exposing the existence or presence of items in the database
+        /// to unauthorized callers.
+        /// </summary>
+        public bool UsesSystemAssignedValues { get; set; }
     }
 }
