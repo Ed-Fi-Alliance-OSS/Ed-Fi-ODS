@@ -1125,6 +1125,15 @@
 											"pm.test(\"Status code is 204\", () => {",
 											"  pm.expect(pm.response.code).to.equal(204);",
 											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
 											""
 										],
 										"type": "text/javascript"
@@ -1747,7 +1756,7 @@
 											"",
 											"const message = pm.response.json().message;",
 											"",
-											"pm.test(\"Message should indicate that client doesn't own the record\", () => {",
+											"pm.test(`Message of '${message}' should indicate that client doesn't own the record`, () => {",
 											"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
 											"});"
 										],
@@ -1818,7 +1827,7 @@
 											"",
 											"const message = pm.response.json().message;",
 											"",
-											"pm.test(\"Message should indicate that client does not have any established relationship with the item\", () => {",
+											"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
 											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901) and one or more of the following properties of the resource item: 'SchoolId', 'StudentUniqueId'.\");",
 											"});"
 										],
@@ -1848,7 +1857,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-01\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
@@ -1888,7 +1897,7 @@
 											"",
 											"const message = pm.response.json().message;",
 											"",
-											"pm.test(\"Message should indicate that client does not have any established relationship with the item\", () => {",
+											"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
 											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901) and one or more of the following properties of the resource item: 'SchoolId', 'StudentUniqueId'.\");",
 											"});"
 										],
@@ -1918,7 +1927,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-01\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
@@ -2271,7 +2280,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Owned StudentSchoolAssociation for A",
+							"name": "Delete Owned StudentSectionAssociation for A",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2288,7 +2297,17 @@
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"  pm.expect(pm.response.code).to.equal(204);",
-											"});"
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -2343,7 +2362,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Unowned StudentSchoolAssociation for A",
+							"name": "Delete Unowned StudentSectionAssociation for A",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2360,7 +2379,17 @@
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"  pm.expect(pm.response.code).to.equal(204);",
-											"});"
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -2415,7 +2444,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Owned StudentSchoolAssociation for B",
+							"name": "Delete Owned StudentSectionAssociation for B",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2432,7 +2461,17 @@
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"  pm.expect(pm.response.code).to.equal(204);",
-											"});"
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -2487,7 +2526,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Unowned StudentSchoolAssociation for B",
+							"name": "Delete Unowned StudentSectionAssociation for B",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2504,7 +2543,17 @@
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"  pm.expect(pm.response.code).to.equal(204);",
-											"});"
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -2576,7 +2625,17 @@
 										"exec": [
 											"pm.test(\"Status code is 204\", () => {",
 											"  pm.expect(pm.response.code).to.equal(204);",
-											"});"
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -2642,6 +2701,15 @@
 											"pm.test(\"Status code is 204\", () => {",
 											"  pm.expect(pm.response.code).to.equal(204);",
 											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
 											""
 										],
 										"type": "text/javascript"
@@ -2708,6 +2776,15 @@
 											"pm.test(\"Status code is 204\", () => {",
 											"  pm.expect(pm.response.code).to.equal(204);",
 											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
 											""
 										],
 										"type": "text/javascript"
@@ -2720,7 +2797,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901-C}}",
+											"value": "{{AccessToken_255901}}",
 											"type": "string"
 										}
 									]
