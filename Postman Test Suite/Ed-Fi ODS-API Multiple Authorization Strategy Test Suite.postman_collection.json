@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ceecda93-b832-4ed0-abba-b8aa1de4dd5f",
+		"_postman_id": "126df023-8cd6-4d25-bf16-6c9c57349df5",
 		"name": "Ed-Fi ODS/API  Multiple Authorization Strategy Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -65,7 +65,7 @@
 									"response": []
 								},
 								{
-									"name": "Initial Section Data",
+									"name": "Initialize Section Data",
 									"event": [
 										{
 											"listen": "test",
@@ -165,8 +165,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
 													"",
-													"const scenarioId = pm.environment.get('scenarioId');",
-													"pm.environment.set(`known:${scenarioId}:student:registered:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"pm.environment.set(`known:student:registered:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -287,7 +286,7 @@
 									"response": []
 								},
 								{
-									"name": "Create  StudentSectionAssociation Ownership",
+									"name": "Create StudentSectionAssociation Ownership",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -353,7 +352,7 @@
 									"response": []
 								},
 								{
-									"name": "Create  StudentSectionAssociation without Ownership",
+									"name": "Create StudentSectionAssociation without Ownership",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -371,6 +370,15 @@
 													"pm.test(\"Status code is 201\", () => {",
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
+													"",
+													"// Ensure response body is logged in Newman",
+													"if (pm.response.code >= 400) {",
+													"  const message = pm.response.json().message;",
+													"",
+													"  pm.test(`Error message of '${message}' should not be present`, () => {",
+													"    pm.expect(message).to.be.empty();",
+													"  });",
+													"}",
 													"",
 													"pm.environment.set(`known:studentSectionAssociation:AAAAAA:unowned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
@@ -434,8 +442,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
 													"",
-													"const scenarioId = pm.environment.get('scenarioId');",
-													"pm.environment.set(`known:${scenarioId}:student:responsibility:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"pm.environment.set(`known:student:responsibility:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -1103,7 +1110,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Education Content (ed-fi namespace) Copy",
+							"name": "Delete EducationContent (ed-fi namespace)",
 							"event": [
 								{
 									"listen": "test",
@@ -1378,7 +1385,7 @@
 							"response": []
 						},
 						{
-							"name": "Update Associated / Unowned StudentSectionAssociation Copy",
+							"name": "Update Associated / Unowned StudentSectionAssociation (PUT)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1715,7 +1722,7 @@
 							"response": []
 						},
 						{
-							"name": "Update Unassociated / Unowned StudentSectionAssociation Copy",
+							"name": "Update Unassociated / Unowned StudentSectionAssociation (PUT)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1856,7 +1863,7 @@
 							"response": []
 						},
 						{
-							"name": "Update Unassociated / Owned StudentSectionAssociation",
+							"name": "Update Unassociated / Owned StudentSectionAssociation (PUT)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2332,7 +2339,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Unowned StudentSchoolAssociation for AAAAAA Copy",
+							"name": "Delete Unowned StudentSchoolAssociation for AAAAAA",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2361,7 +2368,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901-C}}",
+											"value": "{{AccessToken_255901}}",
 											"type": "string"
 										}
 									]
