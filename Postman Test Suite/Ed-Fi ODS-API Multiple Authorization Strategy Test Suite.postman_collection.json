@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "126df023-8cd6-4d25-bf16-6c9c57349df5",
-		"name": "Ed-Fi ODS/API  Multiple Authorization Strategy Test Suite",
+		"name": "Ed-Fi ODS/API Multiple Authorization Strategy Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -16,7 +16,7 @@
 							"name": "Initialize EdOrgs and Sections",
 							"item": [
 								{
-									"name": "Initialize Education Organization Ids",
+									"name": "Initialize Known/Supplied Values",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -36,7 +36,11 @@
 													"\r",
 													"pm.environment.set('known:localEducationAgencyId', 255901);\r",
 													"pm.environment.set('known:schoolId', 255901001);\r",
-													"pm.environment.set('known:schoolId2', 255901044);"
+													"pm.environment.set('known:schoolId2', 255901044);\r",
+													"\r",
+													"pm.environment.set('supplied:student:registered:uniqueId', pm.variables.replaceIn('{{$guid}}').substring(0, 5));\r",
+													"pm.environment.set('supplied:student:responsibility:uniqueId', pm.variables.replaceIn('{{$guid}}').substring(0, 5));\r",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -48,7 +52,7 @@
 											"bearer": [
 												{
 													"key": "token",
-													"value": "{{AccessToken_255901-A}}",
+													"value": "{{AccessToken_255901}}",
 													"type": "string"
 												}
 											]
@@ -155,7 +159,7 @@
 							"name": "Student accessible only via StudentSchoolAssociation",
 							"item": [
 								{
-									"name": "Create Student AAAAAA",
+									"name": "Create Student A (Registered)",
 									"event": [
 										{
 											"listen": "test",
@@ -165,6 +169,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
 													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
 													"pm.environment.set(`known:student:registered:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
@@ -202,7 +207,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"studentUniqueId\": \"AAAAAA\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Registered\"\r\n}"
+											"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:student:registered:uniqueId}}\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Registered\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -220,7 +225,7 @@
 									"response": []
 								},
 								{
-									"name": "Create Student School Association",
+									"name": "Create Student School Association for A",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -239,7 +244,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
 													"",
-													"pm.environment.set('known:studentSchoolAssociation:AAAAAA:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"pm.environment.set('known:studentSchoolAssociation:registered:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -267,7 +272,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:registered:uniqueId}}\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
@@ -305,7 +310,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
 													"",
-													"pm.environment.set(`known:studentSectionAssociation:AAAAAA:owned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"pm.environment.set(`known:studentSectionAssociation:registered:owned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -333,7 +338,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-01\"\r\n}"
+											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:registered:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-01-01\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
@@ -380,7 +385,7 @@
 													"  });",
 													"}",
 													"",
-													"pm.environment.set(`known:studentSectionAssociation:AAAAAA:unowned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"pm.environment.set(`known:studentSectionAssociation:registered:unowned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -408,7 +413,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-02\"\r\n}"
+											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:registered:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-01-02\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
@@ -432,7 +437,7 @@
 							"name": "Student accessible only via Responsibility",
 							"item": [
 								{
-									"name": "Create Student BBBBBB",
+									"name": "Create Student B (Responsibility)",
 									"event": [
 										{
 											"listen": "test",
@@ -442,6 +447,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
 													"",
+													"const scenarioId = pm.environment.get('scenarioId');",
 													"pm.environment.set(`known:student:responsibility:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
@@ -479,7 +485,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"studentUniqueId\": \"BBBBBB\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Responsibility\"\r\n}"
+											"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Responsibility\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
@@ -497,7 +503,7 @@
 									"response": []
 								},
 								{
-									"name": "Create Student School Association BBBBBB",
+									"name": "Create Student School Association for B",
 									"event": [
 										{
 											"listen": "prerequest",
@@ -516,7 +522,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
 													"",
-													"pm.environment.set('known:studentSchoolAssociation:BBBBBB:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"pm.environment.set('known:studentSchoolAssociation:responsibility:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -544,7 +550,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
@@ -610,7 +616,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"beginDate\": \"2022-02-22\",\r\n  \"responsibilityDescriptor\": \"uri://ed-fi.org/ResponsibilityDescriptor#Residency\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  }\r\n}"
+											"raw": "{\r\n  \"beginDate\": \"2022-02-22\",\r\n  \"responsibilityDescriptor\": \"uri://ed-fi.org/ResponsibilityDescriptor#Residency\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId2}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  }\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentEducationOrganizationResponsibilityAssociations",
@@ -648,7 +654,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
 													"",
-													"pm.environment.set(`known:studentSectionAssociation:BBBBBB:owned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"pm.environment.set('known:studentSectionAssociation:responsibility:owned:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -676,7 +682,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-01\"\r\n}"
+											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-01\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
@@ -714,7 +720,7 @@
 													"  pm.expect(pm.response.code).to.equal(201);",
 													"});",
 													"",
-													"pm.environment.set(`known:studentSectionAssociation:BBBBBB:unowned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+													"pm.environment.set(`known:studentSectionAssociation:responsibility:unowned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
 												],
 												"type": "text/javascript"
 											}
@@ -742,7 +748,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
 										},
 										"url": {
 											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
@@ -809,7 +815,7 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:studentSchoolAssociation:BBBBBB:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:studentSchoolAssociation:responsibility:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -818,7 +824,7 @@
 												"v3",
 												"ed-fi",
 												"StudentSchoolAssociations",
-												"{{known:studentSchoolAssociation:BBBBBB:id}}"
+												"{{known:studentSchoolAssociation:responsibility:id}}"
 											]
 										},
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -1194,13 +1200,11 @@
 											"",
 											"pm.test(\"Should only return owned studentSectionAssociations\", () => {",
 											"  responseItems.forEach(responseItem => {",
-											"    if (responseItem.studentReference.studentUniqueId == \"AAAAAA\") {",
+											"    if (responseItem.studentReference.studentUniqueId == pm.environment.get('supplied:student:registered:uniqueId')) {",
 											"      pm.expect(responseItem.beginDate).to.equal(\"2022-01-01\");",
-											"      pm.expect(responseItem.studentReference.studentUniqueId).to.equal(\"AAAAAA\");",
 											"    }",
-											"    else if (responseItem.studentReference.studentUniqueId == \"BBBBBB\") {",
+											"    else if (responseItem.studentReference.studentUniqueId == pm.environment.get('supplied:student:responsibility:uniqueId')) {",
 											"      pm.expect(responseItem.beginDate).to.equal(\"2022-02-01\");",
-											"      pm.expect(responseItem.studentReference.studentUniqueId).to.equal(\"BBBBBB\");",
 											"    }",
 											"    else {",
 											"      // if any other record then it's failure use case",
@@ -1366,7 +1370,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
@@ -1436,10 +1440,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:BBBBBB:unowned:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1448,7 +1452,7 @@
 										"v3",
 										"ed-fi",
 										"studentSectionAssociations",
-										"{{known:studentSectionAssociation:BBBBBB:unowned:id}}"
+										"{{known:studentSectionAssociation:responsibility:unowned:id}}"
 									]
 								},
 								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -1456,7 +1460,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Student School Association BBBBBB (for cleanup)",
+							"name": "Create Student School Association for B (for cleanup)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1475,7 +1479,7 @@
 											"  pm.expect(pm.response.code).to.equal(201);",
 											"});",
 											"",
-											"pm.environment.set('known:studentSchoolAssociation:BBBBBB:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+											"pm.environment.set('known:studentSchoolAssociation:responsibility:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -1503,7 +1507,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
@@ -1522,7 +1526,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Student EdOrg Responsibility for BBBBBB",
+							"name": "Delete Student EdOrg Responsibility for B",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -1635,7 +1639,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:studentSchoolAssociation:BBBBBB:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:studentSchoolAssociation:responsibility:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1644,7 +1648,7 @@
 										"v3",
 										"ed-fi",
 										"StudentSchoolAssociations",
-										"{{known:studentSchoolAssociation:BBBBBB:id}}"
+										"{{known:studentSchoolAssociation:responsibility:id}}"
 									]
 								},
 								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -1673,8 +1677,8 @@
 											"",
 											"const message = pm.response.json().message;",
 											"",
-											"pm.test(\"Message should indicate that client does not have any established relationship with the item\", () => {",
-											"  pm.expect(message).to.contain(\"You don't have any relationships with this item.\");",
+											"pm.test(\"Message should indicate that client doesn't own the record\", () => {",
+											"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1703,7 +1707,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
@@ -1773,10 +1777,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:BBBBBB:unowned:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1785,7 +1789,7 @@
 										"v3",
 										"ed-fi",
 										"studentSectionAssociations",
-										"{{known:studentSectionAssociation:BBBBBB:unowned:id}}"
+										"{{known:studentSectionAssociation:responsibility:unowned:id}}"
 									]
 								},
 								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -1844,7 +1848,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
@@ -1914,10 +1918,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:BBBBBB:unowned:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1926,7 +1930,7 @@
 										"v3",
 										"ed-fi",
 										"studentSectionAssociations",
-										"{{known:studentSectionAssociation:BBBBBB:unowned:id}}"
+										"{{known:studentSectionAssociation:responsibility:unowned:id}}"
 									]
 								},
 								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -1948,7 +1952,7 @@
 											"",
 											"pm.test(\"Should only return the owned section associated with the still registered student\", () => {",
 											"  responseItems.forEach(responseItem => {",
-											"    pm.expect(responseItem.studentReference.studentUniqueId).to.equal(\"AAAAAA\");",
+											"    pm.expect(responseItem.studentReference.studentUniqueId).to.equal(pm.environment.get('supplied:student:registered:uniqueId'));",
 											"    pm.expect(responseItem.beginDate).to.equal(\"2022-01-01\");",
 											"  });",
 											"});",
@@ -2000,7 +2004,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete  StudentSchoolAssociation for AAAAAA",
+							"name": "Delete  StudentSchoolAssociation for A",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2048,7 +2052,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:AAAAAA:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:registered:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2057,12 +2061,12 @@
 										"v3",
 										"ed-fi",
 										"studentSchoolAssociations",
-										"{{known:studentSchoolAssociation:AAAAAA:id}}"
+										"{{known:studentSchoolAssociation:registered:id}}"
 									],
 									"query": [
 										{
 											"key": "studentUniqueId",
-											"value": "AAAAAA",
+											"value": "{{supplied:student:registered:uniqueId}}",
 											"disabled": true
 										}
 									]
@@ -2135,7 +2139,7 @@
 					"name": "Clean Up Test Data",
 					"item": [
 						{
-							"name": "Recreate Student School Association AAAAAA",
+							"name": "Recreate Student School Association for A",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2154,7 +2158,7 @@
 											"  pm.expect(pm.response.code).to.equal(201);",
 											"});",
 											"",
-											"pm.environment.set('known:studentSchoolAssociation:AAAAAA:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+											"pm.environment.set('known:studentSchoolAssociation:registered:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -2182,7 +2186,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:registered:uniqueId}}\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
@@ -2201,7 +2205,7 @@
 							"response": []
 						},
 						{
-							"name": "Recreate Student School Association BBBBBB",
+							"name": "Recreate Student School Association for B",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2220,7 +2224,7 @@
 											"  pm.expect(pm.response.code).to.equal(201);",
 											"});",
 											"",
-											"pm.environment.set('known:studentSchoolAssociation:AAAAAA:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+											"pm.environment.set('known:studentSchoolAssociation:responsibility:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
 										],
 										"type": "text/javascript"
 									}
@@ -2248,7 +2252,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
 								},
 								"url": {
 									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
@@ -2267,7 +2271,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Owned StudentSchoolAssociation for AAAAAA",
+							"name": "Delete Owned StudentSchoolAssociation for A",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2315,7 +2319,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:AAAAAA:owned:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:owned:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2324,12 +2328,12 @@
 										"v3",
 										"ed-fi",
 										"studentSectionAssociations",
-										"{{known:studentSectionAssociation:AAAAAA:owned:id}}"
+										"{{known:studentSectionAssociation:registered:owned:id}}"
 									],
 									"query": [
 										{
 											"key": "studentUniqueId",
-											"value": "AAAAAA",
+											"value": "{{supplied:student:registered:uniqueId}}",
 											"disabled": true
 										}
 									]
@@ -2339,7 +2343,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Unowned StudentSchoolAssociation for AAAAAA",
+							"name": "Delete Unowned StudentSchoolAssociation for A",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2387,7 +2391,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:AAAAAA:unowned:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:unowned:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2396,12 +2400,12 @@
 										"v3",
 										"ed-fi",
 										"studentSectionAssociations",
-										"{{known:studentSectionAssociation:AAAAAA:unowned:id}}"
+										"{{known:studentSectionAssociation:registered:unowned:id}}"
 									],
 									"query": [
 										{
 											"key": "studentUniqueId",
-											"value": "AAAAAA",
+											"value": "{{supplied:student:registered:uniqueId}}",
 											"disabled": true
 										}
 									]
@@ -2411,7 +2415,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Owned StudentSchoolAssociation for BBBBBB",
+							"name": "Delete Owned StudentSchoolAssociation for B",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2459,7 +2463,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:BBBBBB:owned:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:owned:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2468,12 +2472,12 @@
 										"v3",
 										"ed-fi",
 										"studentSectionAssociations",
-										"{{known:studentSectionAssociation:BBBBBB:owned:id}}"
+										"{{known:studentSectionAssociation:responsibility:owned:id}}"
 									],
 									"query": [
 										{
 											"key": "studentUniqueId",
-											"value": "AAAAAA",
+											"value": "{{supplied:student:responsibility:uniqueId}}",
 											"disabled": true
 										}
 									]
@@ -2483,7 +2487,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Unowned StudentSchoolAssociation for BBBBBB",
+							"name": "Delete Unowned StudentSchoolAssociation for B",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2531,7 +2535,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:BBBBBB:unowned:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2540,12 +2544,12 @@
 										"v3",
 										"ed-fi",
 										"studentSectionAssociations",
-										"{{known:studentSectionAssociation:BBBBBB:unowned:id}}"
+										"{{known:studentSectionAssociation:responsibility:unowned:id}}"
 									],
 									"query": [
 										{
 											"key": "studentUniqueId",
-											"value": "AAAAAA",
+											"value": "{{supplied:student:responsibility:uniqueId}}",
 											"disabled": true
 										}
 									]
@@ -2555,7 +2559,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Student EdOrg Responsibility for BBBBBB",
+							"name": "Delete Student EdOrg Responsibility for B",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2620,7 +2624,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete StudentSchoolAssociation for AAAAAA",
+							"name": "Delete StudentSchoolAssociation for A",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2669,7 +2673,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:AAAAAA:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:registered:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2678,7 +2682,7 @@
 										"v3",
 										"ed-fi",
 										"studentSchoolAssociations",
-										"{{known:studentSchoolAssociation:AAAAAA:id}}"
+										"{{known:studentSchoolAssociation:registered:id}}"
 									]
 								},
 								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -2686,7 +2690,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete StudentSchoolAssociation for BBBBBB",
+							"name": "Delete StudentSchoolAssociation for B",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2735,7 +2739,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:BBBBBB:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:responsibility:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2744,7 +2748,7 @@
 										"v3",
 										"ed-fi",
 										"studentSchoolAssociations",
-										"{{known:studentSchoolAssociation:BBBBBB:id}}"
+										"{{known:studentSchoolAssociation:responsibility:id}}"
 									]
 								},
 								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
