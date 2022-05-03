@@ -167,6 +167,13 @@ namespace EdFi.Security.DataAccess.Repositories
                         claimSetStudentSectionAssociationResourceClaimActions.ForEach(
                             resourceClaimAction =>
                             {
+                                // Don't add OwnershipBased authorization for creation of items
+                                if (resourceClaimAction.ActionId == createActionId
+                                    && authorizationStrategy.AuthorizationStrategyName == "OwnershipBased")
+                                {
+                                    return;
+                                }
+                                
                                 if (!context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Any(
                                         a => a.ClaimSetResourceClaimActionId == resourceClaimAction.ClaimSetResourceClaimActionId
                                             && a.AuthorizationStrategyId == authorizationStrategy.AuthorizationStrategyId))
@@ -206,6 +213,13 @@ namespace EdFi.Security.DataAccess.Repositories
                         claimSetEducationContentResourceClaimActions.ForEach(
                             resourceClaimAction =>
                             {
+                                // Don't add OwnershipBased authorization for creation of items
+                                if (resourceClaimAction.ActionId == createActionId
+                                    && authorizationStrategy.AuthorizationStrategyName == "OwnershipBased")
+                                {
+                                    return;
+                                }
+
                                 if (!context.ClaimSetResourceClaimActionAuthorizationStrategyOverrides.Any(
                                         a => a.ClaimSetResourceClaimActionId == resourceClaimAction.ClaimSetResourceClaimActionId
                                             && a.AuthorizationStrategyId == authorizationStrategy.AuthorizationStrategyId))
