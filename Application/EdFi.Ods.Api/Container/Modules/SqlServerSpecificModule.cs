@@ -45,7 +45,9 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<DbProviderFactory>()
                 .SingleInstance();
             
-            builder.Register<Dialect>(ctx => new SqlServerDialect());
+            builder.RegisterType<SqlServerDialect>()
+                .As<Dialect>()
+                .SingleInstance();
             
             // Register SQL Server SQL naming convention
             builder.RegisterType<SqlServerDatabaseNamingConvention>()

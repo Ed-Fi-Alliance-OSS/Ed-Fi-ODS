@@ -44,7 +44,9 @@ namespace EdFi.Ods.Api.Container.Modules
                 .As<DbProviderFactory>()
                 .SingleInstance();
 
-            builder.Register<Dialect>(ctx => new PostgreSqlDialect());
+            builder.RegisterType<PostgreSqlDialect>()
+                .As<Dialect>()
+                .SingleInstance();
 
             // Register PostgreSQL naming convention
             builder.RegisterType<PostgreSqlDatabaseNamingConvention>()
