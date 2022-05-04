@@ -1325,6 +1325,137 @@
 							"response": []
 						},
 						{
+							"name": "Update Associated / Owned StudentSectionAssociation",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901001}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:registered:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-01-01\",\r\n  \"endDate\": \"2022-07-07\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSectionAssociations"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Update Associated / Owned StudentSectionAssociation (PUT)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901001}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:registered:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-01-01\",\r\n  \"endDate\": \"2022-08-08\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSectionAssociations",
+										"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
 							"name": "Update Associated / Unowned StudentSectionAssociation",
 							"event": [
 								{
@@ -1629,7 +1760,7 @@
 											"const message = pm.response.json().message;",
 											"",
 											"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
-											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'StudentUniqueId'.\");",
+											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'StudentUniqueId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1699,7 +1830,7 @@
 											"const message = pm.response.json().message;",
 											"",
 											"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
-											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'StudentUniqueId'.\");",
+											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'StudentUniqueId' value.\");",
 											"});"
 										],
 										"type": "text/javascript"
