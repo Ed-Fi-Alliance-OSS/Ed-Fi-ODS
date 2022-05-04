@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 env:
-  INFORMATIONAL_VERSION: "5.4"
-  BUILD_INCREMENTER: "16"
+  INFORMATIONAL_VERSION: "6.0"
+  BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
 
 jobs:
