@@ -1340,8 +1340,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 204\", () => {",
-											"  pm.expect(pm.response.code).to.equal(204);",
+											"pm.test(\"Status code is 200\", () => {",
+											"  pm.expect(pm.response.code).to.equal(200);",
 											"});",
 											""
 										],
@@ -1439,7 +1439,7 @@
 									"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:registered:uniqueId}}\"\r\n  },\r\n  \"beginDate\": \"2022-01-01\",\r\n  \"endDate\": \"2022-08-08\"\r\n}"
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:owned:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -1448,7 +1448,7 @@
 										"v3",
 										"ed-fi",
 										"studentSectionAssociations",
-										"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+										"{{known:studentSectionAssociation:registered:owned:id}}"
 									]
 								},
 								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
