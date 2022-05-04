@@ -1207,17 +1207,14 @@
 											"",
 											"const responseItems = pm.response.json();",
 											"",
-											"pm.test(\"Should only return owned studentSectionAssociations\", () => {",
+											"pm.test(\"Should only return the owned and associated studentSectionAssociations\", () => {",
 											"  responseItems.forEach(responseItem => {",
 											"    if (responseItem.studentReference.studentUniqueId == pm.environment.get('supplied:student:registered:uniqueId')) {",
 											"      pm.expect(responseItem.beginDate).to.equal(\"2022-01-01\");",
 											"    }",
-											"    else if (responseItem.studentReference.studentUniqueId == pm.environment.get('supplied:student:responsibility:uniqueId')) {",
-											"      pm.expect(responseItem.beginDate).to.equal(\"2022-02-01\");",
-											"    }",
 											"    else {",
 											"      // if any other record then it's failure use case",
-											"      pm.expect(true).to.be.equals(false, \"Unexpected 'owned' item found in response data.\");",
+											"      pm.expect(true).to.be.equals(false, \"Unexpected only 'owned' and associated items to be found in response data.\");",
 											"    }",
 											"  });",
 											"});",
@@ -1245,7 +1242,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901-C}}",
+											"value": "{{AccessToken_255901001}}",
 											"type": "string"
 										}
 									]
@@ -1304,7 +1301,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901-C}}",
+											"value": "{{AccessToken_255901001}}",
 											"type": "string"
 										}
 									]
@@ -1462,202 +1459,6 @@
 										"ed-fi",
 										"studentSectionAssociations",
 										"{{known:studentSectionAssociation:responsibility:unowned:id}}"
-									]
-								},
-								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-							},
-							"response": []
-						},
-						{
-							"name": "Create Student School Association for B (for cleanup)",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 201\", () => {",
-											"  pm.expect(pm.response.code).to.equal(201);",
-											"});",
-											"",
-											"pm.environment.set('known:studentSchoolAssociation:responsibility:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_255901}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"{{supplied:student:responsibility:uniqueId}}\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"StudentSchoolAssociations"
-									]
-								},
-								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Student EdOrg Responsibility for B",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 204\", () => {",
-											"  pm.expect(pm.response.code).to.equal(204);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_255901}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentEducationOrganizationResponsibilityAssociations/{{known:studentEducationOrganizationResponsibilityAssociation:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"StudentEducationOrganizationResponsibilityAssociations",
-										"{{known:studentEducationOrganizationResponsibilityAssociation:id}}"
-									]
-								},
-								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-							},
-							"response": []
-						},
-						{
-							"name": "Clean Up Student School Association used for initialization (for cleanup)",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 204\", () => {",
-											"  pm.expect(pm.response.code).to.equal(204);",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_255901}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:studentSchoolAssociation:responsibility:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"StudentSchoolAssociations",
-										"{{known:studentSchoolAssociation:responsibility:id}}"
 									]
 								},
 								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -1828,7 +1629,7 @@
 											"const message = pm.response.json().message;",
 											"",
 											"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
-											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'SchoolId', 'StudentUniqueId'.\");",
+											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1898,7 +1699,7 @@
 											"const message = pm.response.json().message;",
 											"",
 											"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
-											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'SchoolId', 'StudentUniqueId'.\");",
+											"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and one or more of the following properties of the resource item: 'StudentUniqueId'.\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -1989,7 +1790,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901-C}}",
+											"value": "{{AccessToken_255901001}}",
 											"type": "string"
 										}
 									]
@@ -2042,7 +1843,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901-C}}",
+											"value": "{{AccessToken_255901}}",
 											"type": "string"
 										}
 									]
@@ -2119,7 +1920,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901-C}}",
+											"value": "{{AccessToken_255901001}}",
 											"type": "string"
 										}
 									]
@@ -2280,6 +2081,71 @@
 							"response": []
 						},
 						{
+							"name": "Delete Student EdOrg Responsibility for B",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentEducationOrganizationResponsibilityAssociations/{{known:studentEducationOrganizationResponsibilityAssociation:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentEducationOrganizationResponsibilityAssociations",
+										"{{known:studentEducationOrganizationResponsibilityAssociation:id}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
 							"name": "Delete Owned StudentSectionAssociation for A",
 							"event": [
 								{
@@ -2319,7 +2185,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901-C}}",
+											"value": "{{AccessToken_255901001}}",
 											"type": "string"
 										}
 									]
@@ -2483,7 +2349,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "{{AccessToken_255901-C}}",
+											"value": "{{AccessToken_255901001}}",
 											"type": "string"
 										}
 									]
@@ -2844,11 +2710,6 @@
 					"  \"AccessToken_255901\",",
 					"  \"ApiKey_255901\",",
 					"  \"ApiSecret_255901\")",
-					"",
-					"CreateAccessToken(\"TokenExpiry_255901-C\",",
-					"  \"AccessToken_255901-C\",",
-					"  \"ApiKey_255901-C\",",
-					"  \"ApiSecret_255901-C\")",
 					"",
 					"CreateAccessToken(\"TokenExpiry_Other_Namespace\",",
 					"  \"AccessToken_Other_Namespace\",",
