@@ -8,17 +8,19 @@ using System.Collections.Generic;
 using System.Reflection;
 using EdFi.Ods.Common.Attributes;
 using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Security.Claims;
 using log4net;
 using NHibernate;
 using NHibernate.Metadata;
 
 namespace EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers
 {
-    public interface IDomainModelEnhancer
-    {
-        void Enhance(DomainModel domainModel);
-    }
-    
+    /// <summary>
+    /// Implements a domain model enhancer that provides access to the <see cref="Type" /> of the NHibernate entity class
+    /// that corresponds to the Entity in the API semantic model.
+    /// </summary>
+    /// <remarks>This is used to provide the entity type when build the <see cref="EdFiAuthorizationContext" /> for
+    /// Change Queries request authorization.</remarks>
     public class NHibernateEntityTypeDomainModelEnhancer : IDomainModelEnhancer
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(NHibernateEntityTypeDomainModelEnhancer));
@@ -29,7 +31,8 @@ namespace EdFi.Ods.Features.ChangeQueries.DomainModelEnhancers
         {
             _sessionFactory = sessionFactory;
         }
-        
+
+        /// <inheritdoc cref="IDomainModelEnhancer.Enhance" />
         public void Enhance(DomainModel domainModel)
         {
             var allClassMetadata = _sessionFactory.GetAllClassMetadata();
