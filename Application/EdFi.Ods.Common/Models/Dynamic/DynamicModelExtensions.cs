@@ -1,6 +1,6 @@
 namespace EdFi.Ods.Common.Models.Dynamic
 {
-    public static class IDynamicModelExtensions
+    public static class DynamicModelExtensions
     {
         public static void CopyDynamicPropertiesFrom(this IDynamicModel target, IDynamicModel source)
         {
