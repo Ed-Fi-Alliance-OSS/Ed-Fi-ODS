@@ -28,7 +28,7 @@ namespace Test.Common
             };
 
         public static IDomainModelProvider DomainModelProvider =
-            new DomainModelProvider(DefinitionProviders);
+            new DomainModelProvider(DefinitionProviders, new IDomainModelDefinitionsTransformer[0]);
 
         public static IResourceModelProvider ResourceModelProvider =
             new ResourceModelProvider(DomainModelProvider);

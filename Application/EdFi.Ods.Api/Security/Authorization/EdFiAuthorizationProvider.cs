@@ -69,26 +69,11 @@ namespace EdFi.Ods.Api.Security.Authorization
             _bitValuesByAction = new Lazy<Dictionary<string, int>>(
                 () => new Dictionary<string, int>
                       {
-                          {
-                              _securityRepository.GetActionByName("Create")
-                                                 .ActionUri,
-                              0x1
-                          },
-                          {
-                              _securityRepository.GetActionByName("Read")
-                                                 .ActionUri,
-                              0x2
-                          },
-                          {
-                              _securityRepository.GetActionByName("Update")
-                                                 .ActionUri,
-                              0x4
-                          },
-                          {
-                              _securityRepository.GetActionByName("Delete")
-                                                 .ActionUri,
-                              0x8
-                          }
+                          { _securityRepository.GetActionByName("Create") .ActionUri, 0x1 },
+                          { _securityRepository.GetActionByName("Read") .ActionUri, 0x2 },
+                          { _securityRepository.GetActionByName("Update") .ActionUri, 0x4 },
+                          { _securityRepository.GetActionByName("Delete") .ActionUri, 0x8 },
+                          { _securityRepository.GetActionByName("ReadChanges") .ActionUri, 0x10 },
                       });
         }
 

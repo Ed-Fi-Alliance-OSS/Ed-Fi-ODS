@@ -83,6 +83,11 @@ namespace EdFi.Ods.Common.Models.Resource
         /// A string that represents the current object.
         /// </returns>
         public override string ToString() => PropertyName;
+
+        public virtual string JsonPath
+        {
+            get => $"{Parent.JsonPath}.{JsonPropertyName}";
+        }
     }
 
     public static class JsonNamingConvention

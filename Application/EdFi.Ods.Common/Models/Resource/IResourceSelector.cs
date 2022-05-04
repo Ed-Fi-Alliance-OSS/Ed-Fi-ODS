@@ -13,5 +13,7 @@ namespace EdFi.Ods.Common.Models.Resource
         IReadOnlyList<Resource> GetAll();
 
         Resource GetByName(FullName fullName);
+
+        Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName);
     }
 }

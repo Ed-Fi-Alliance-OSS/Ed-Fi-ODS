@@ -22,12 +22,15 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                           {
                               // Local Education Agency/School to Person relationships
                               RelationshipsAuthorizationFilters.EducationServiceCenterIdToStudentUSI,
-                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSI,
-                              RelationshipsAuthorizationFilters.SchoolIdToStudentUSI,
                               RelationshipsAuthorizationFilters.EducationServiceCenterIdToStaffUSI,
+                              RelationshipsAuthorizationFilters.EducationServiceCenterIdToParentUSI,
+                              
+                              RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStudentUSI,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToStaffUSI,
-                              RelationshipsAuthorizationFilters.SchoolIdToStaffUSI,
                               RelationshipsAuthorizationFilters.LocalEducationAgencyIdToParentUSI,
+
+                              RelationshipsAuthorizationFilters.SchoolIdToStudentUSI,
+                              RelationshipsAuthorizationFilters.SchoolIdToStaffUSI,
                               RelationshipsAuthorizationFilters.ParentUSIToSchoolId
                           };
 

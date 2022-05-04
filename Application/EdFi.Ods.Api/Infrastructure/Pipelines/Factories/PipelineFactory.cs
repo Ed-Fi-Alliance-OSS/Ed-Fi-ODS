@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -8,86 +8,73 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
-using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
-using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
+using NHibernate;
 
 namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
 {
     public class PipelineFactory : IPipelineFactory
     {
         private readonly IServiceLocator _locator;
-        private readonly IDeletePipelineStepsProvider deletePipelineStepsProvider;
-        private readonly IGetBySpecificationPipelineStepsProvider getBySpecificationPipelineStepsProvider;
-        private readonly IGetPipelineStepsProvider getPipelineStepsProvider;
-        private readonly IGetDeletedResourceIdsPipelineStepsProvider getDeletedResourceIdsPipelineStepsProvider;
-        private readonly IPutPipelineStepsProvider putPipelineStepsProvider;
+        private readonly IDeletePipelineStepsProvider _deletePipelineStepsProvider;
+        private readonly IGetBySpecificationPipelineStepsProvider _getBySpecificationPipelineStepsProvider;
+        private readonly IGetPipelineStepsProvider _getPipelineStepsProvider;
+        private readonly IPutPipelineStepsProvider _putPipelineStepsProvider;
+        private readonly ISessionFactory _sessionFactory;
 
         public PipelineFactory(
             IServiceLocator locator,
             IGetPipelineStepsProvider getPipelineStepsProvider,
             IGetBySpecificationPipelineStepsProvider getBySpecificationPipelineStepsProvider,
-            IGetDeletedResourceIdsPipelineStepsProvider getDeletedResourceIdsPipelineStepsProvider,
             IPutPipelineStepsProvider putPipelineStepsProvider,
-            IDeletePipelineStepsProvider deletePipelineStepsProvider)
+            IDeletePipelineStepsProvider deletePipelineStepsProvider,
+            ISessionFactory sessionFactory)
         {
             _locator = locator;
-            this.getPipelineStepsProvider = getPipelineStepsProvider;
-            this.getBySpecificationPipelineStepsProvider = getBySpecificationPipelineStepsProvider;
-            this.getDeletedResourceIdsPipelineStepsProvider = getDeletedResourceIdsPipelineStepsProvider;
-            this.putPipelineStepsProvider = putPipelineStepsProvider;
-            this.deletePipelineStepsProvider = deletePipelineStepsProvider;
+            _getPipelineStepsProvider = getPipelineStepsProvider;
+            _getBySpecificationPipelineStepsProvider = getBySpecificationPipelineStepsProvider;
+            _putPipelineStepsProvider = putPipelineStepsProvider;
+            _deletePipelineStepsProvider = deletePipelineStepsProvider;
+            _sessionFactory = sessionFactory;
         }
 
         public GetPipeline<TResourceModel, TEntityModel> CreateGetPipeline<TResourceModel, TEntityModel>()
             where TResourceModel : IHasETag
             where TEntityModel : class
         {
-            var stepTypes = getPipelineStepsProvider.GetSteps();
+            var stepTypes = _getPipelineStepsProvider.GetSteps();
 
             var steps =
                 ResolvePipelineSteps<GetContext<TEntityModel>, GetResult<TResourceModel>, TResourceModel, TEntityModel>(
                     stepTypes);
 
-            return new GetPipeline<TResourceModel, TEntityModel>(steps);
+            return new GetPipeline<TResourceModel, TEntityModel>(steps, _sessionFactory);
         }
 
         public GetManyPipeline<TResourceModel, TEntityModel> CreateGetManyPipeline<TResourceModel, TEntityModel>()
             where TResourceModel : IHasETag
             where TEntityModel : class
         {
-            var stepTypes = getBySpecificationPipelineStepsProvider.GetSteps();
+            var stepTypes = _getBySpecificationPipelineStepsProvider.GetSteps();
 
             var steps =
                 ResolvePipelineSteps<GetManyContext<TResourceModel, TEntityModel>, GetManyResult<TResourceModel>, TResourceModel,
                     TEntityModel>(
                     stepTypes);
 
-            return new GetManyPipeline<TResourceModel, TEntityModel>(steps);
-        }
-
-        public GetDeletedResourcePipeline<TEntityModel> CreateGetDeletedResourcePipeline<TResourceModel, TEntityModel>()
-            where TEntityModel : class
-        {
-            var stepsTypes = getDeletedResourceIdsPipelineStepsProvider.GetSteps();
-
-            var steps =
-                ResolvePipelineSteps<GetDeletedResourceContext<TEntityModel>, GetDeletedResourceResult, TResourceModel,
-                    TEntityModel>(stepsTypes);
-
-            return new GetDeletedResourcePipeline<TEntityModel>(steps);
+            return new GetManyPipeline<TResourceModel, TEntityModel>(steps, _sessionFactory);
         }
 
         public PutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()
             where TEntityModel : class, IHasIdentifier, new()
             where TResourceModel : IHasETag
         {
-            var stepTypes = putPipelineStepsProvider.GetSteps();
+            var stepTypes = _putPipelineStepsProvider.GetSteps();
 
             var steps =
                 ResolvePipelineSteps<PutContext<TResourceModel, TEntityModel>, PutResult, TResourceModel, TEntityModel>(
@@ -98,7 +85,7 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
 
         public DeletePipeline CreateDeletePipeline<TResourceModel, TEntityModel>()
         {
-            var stepTypes = deletePipelineStepsProvider.GetSteps();
+            var stepTypes = _deletePipelineStepsProvider.GetSteps();
             var steps = ResolvePipelineSteps<DeleteContext, DeleteResult, TResourceModel, TEntityModel>(stepTypes);
             return new DeletePipeline(steps);
         }

@@ -64,6 +64,11 @@ namespace EdFi.Ods.Common.Models.Resource
             return _resourceSelector.GetAll();
         }
 
+        public Resource GetResourceByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
+        {
+            return _resourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
+        }
+
         /// <summary>
         /// Gets a provider capable of mapping schema names between logical, physical, proper case name and URI segment representations.
         /// </summary>
@@ -95,9 +100,25 @@ namespace EdFi.Ods.Common.Models.Resource
 
             public Resource GetByName(FullName fullName)
             {
+                return GetByName(fullName, model => model.ResourceByName)
+                    // No resources means there's no Profile in play so we should return the main ResourceModel's resource
+                    ??  UnderlyingResourceSelector.GetByName(fullName);               
+            }
+
+            public Resource GetByApiCollectionName(string schemaUriSegment, string resourceCollectionName)
+            {
+                return GetByName(
+                        new FullName(schemaUriSegment, resourceCollectionName),
+                        model => model.ResourceByApiCollectionName)
+                    // No resources means there's no Profile in play so we should return the main ResourceModel's resource
+                    ?? UnderlyingResourceSelector.GetByApiCollectionName(schemaUriSegment, resourceCollectionName);
+            }
+
+            private Resource GetByName(FullName fullName, Func<ProfileResourceModel, IReadOnlyDictionary<FullName, ProfileResourceContentTypes>> getContentTypesByFullName)
+            {
                 var allProfileResources =
                     (from m in _profileResourceModels
-                     let ct = m.ResourceByName.GetValueOrDefault(fullName)
+                     let ct = getContentTypesByFullName(m).GetValueOrDefault(fullName)
                      where ct != null
                      select _usage == ContentTypeUsage.Readable
                          ? ct.Readable
@@ -123,8 +144,7 @@ namespace EdFi.Ods.Common.Models.Resource
                                            .ToArray());
                 }
 
-                // No resources means there's no Profile in play so we should return the main ResourceModel's resource
-                return UnderlyingResourceSelector.GetByName(fullName);
+                return null;
             }
         }
     }

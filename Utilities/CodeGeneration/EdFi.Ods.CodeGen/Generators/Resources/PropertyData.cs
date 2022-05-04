@@ -216,7 +216,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             var data = new PropertyData(property);
             data[ResourceRenderer.RenderType] = ResourceRenderer.RenderStandard;
 
-            data[ResourceRenderer.MiscellaneousComment] = property.IsLookup
+            data[ResourceRenderer.MiscellaneousComment] = property.IsDescriptorUsage
                 ? "// NOT in a reference, IS a lookup column "
                 : "// NOT in a reference, NOT a lookup column ";
 
@@ -228,7 +228,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             var data = new PropertyData(property);
             data[ResourceRenderer.RenderType] = ResourceRenderer.RenderDerived;
 
-            data[ResourceRenderer.MiscellaneousComment] = property.IsLookup
+            data[ResourceRenderer.MiscellaneousComment] = property.IsDescriptorUsage
                 ? "// NOT in a reference, IS a lookup column "
                 : "// NOT in a reference, NOT a lookup column ";
 
@@ -275,7 +275,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 : null;
 
             string parentPropertyName = parent != null
-                ? property.IsLookup
+                ? property.IsDescriptorUsage
                     ? parent.PropertyName.TrimSuffix("Id")
                     : UniqueIdSpecification.GetUniqueIdPropertyName(parent.PropertyName)
                 : property.ParentFullName.Name;
@@ -297,7 +297,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 propertyData.Associations.AddRange(associations);
             }
 
-            if (property.IsLookup)
+            if (property.IsDescriptorUsage)
             {
                 propertyData[ResourceRenderer.RenderType] = ResourceRenderer.RenderUnified;
 
@@ -330,7 +330,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
             var propertyData = CreateStandardProperty(property);
 
             propertyData[ResourceRenderer.RenderType] =
-                property.IsLookup
+                property.IsDescriptorUsage
                     ? ResourceRenderer.RenderNullLookup
                     : ResourceRenderer.RenderNull;
 

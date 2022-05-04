@@ -13,18 +13,24 @@ namespace EdFi.Ods.Features.ChangeQueries
         public const string SchemaName = "changes";
 
         /// <summary>
-        /// Gets the logical schema name for Change Events.
-        /// </summary>
-        public const string LogicalSchemaName = "ChangeQueries";
-
-        /// <summary>
         /// Gets the column name used for tracking changed records
         /// </summary>
         public const string ChangeVersionColumnName = "ChangeVersion";
 
         /// <summary>
-        /// Prefix applied to the schema name holding the tracked delete tables for a data standard schema.
+        /// Prefix applied to the schema name holding the tracked change tables for a data standard schema.
         /// </summary>
-        public const string TrackedDeletesSchemaPrefix = "Tracked_Deletes_";
+        public const string TrackedChangesSchemaPrefix = "tracked_changes_";
+
+        /// <summary>
+        /// Prefix applied to the identifier column name containing the previous value.
+        /// </summary>
+        public const string OldKeyValueColumnPrefix = "Old";
+        
+        /// <summary>
+        /// Prefix applied to the identifier column name containing the new value.
+        /// </summary>
+        public const string NewKeyValueColumnPrefix = "New";
+        public const string TrackedChangesAlias = "c";
     }
 }

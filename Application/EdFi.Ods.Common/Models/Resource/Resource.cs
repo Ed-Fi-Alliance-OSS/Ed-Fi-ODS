@@ -125,5 +125,10 @@ namespace EdFi.Ods.Common.Models.Resource
             return base.LazyInitializeAllMembers()
                        .Concat(LinkedCollections);
         }
+
+        public override string JsonPath
+        {
+            get => "$";
+        }
     }
 }

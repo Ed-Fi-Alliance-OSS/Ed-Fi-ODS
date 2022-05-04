@@ -15,7 +15,6 @@ namespace EdFi.Ods.Common.Models.Domain
     public class EntityIdentifier
     {
         private readonly Lazy<IReadOnlyList<EntityProperty>> _identifyingProperties;
-        private readonly IReadOnlyList<string> _identifyingPropertyNames;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityIdentifier"/> class using the supplied name and properties.
@@ -25,14 +24,14 @@ namespace EdFi.Ods.Common.Models.Domain
         {
             Name = entityIdentifierDefinition.IdentifierName;
 
-            _identifyingPropertyNames = entityIdentifierDefinition.IdentifyingPropertyNames.ToReadOnlyList();
             IsPrimary = entityIdentifierDefinition.IsPrimary;
             IsUpdatable = entityIdentifierDefinition.IsUpdatable;
 
             _identifyingProperties = new Lazy<IReadOnlyList<EntityProperty>>(
                 () =>
-                    _identifyingPropertyNames.Select(x => Entity.PropertyByName.GetValueOrThrow(x, "Identifying property '{0}' not found on entity."))
-                                             .ToList());
+                    entityIdentifierDefinition.IdentifyingPropertyNames
+                        .Select(x => Entity.PropertyByName.GetValueOrThrow(x, $"Identifying property '{{0}}' not found on entity '{Entity.Name}' (available properties are: '{string.Join("', '", Entity.PropertyByName.Keys)}')."))
+                        .ToList());
 
             ConstraintByDatabaseEngine = entityIdentifierDefinition.ConstraintNames;
         }

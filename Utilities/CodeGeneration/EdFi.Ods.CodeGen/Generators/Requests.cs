@@ -219,7 +219,7 @@ namespace EdFi.Ods.CodeGen.Generators
 
         private string GetPropertyDatatype(ResourceProperty property)
         {
-            return property.IsLookup || property.PropertyName.EndsWith("UniqueId")
+            return property.IsDescriptorUsage || property.PropertyName.EndsWith("UniqueId")
                 ? "string"
                 : property.PropertyType.ToCSharp();
         }

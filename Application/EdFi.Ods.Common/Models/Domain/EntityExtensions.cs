@@ -140,6 +140,14 @@ namespace EdFi.Ods.Common.Models.Domain
         public static bool IsDescriptorBaseEntity(this Entity entity)
             => entity.FullName.Equals(new FullName(EdFiConventions.PhysicalSchemaName, "Descriptor"));
 
+        private static readonly FullName _educationOrganizationFullName = new FullName(EdFiConventions.PhysicalSchemaName, "EducationOrganization");
+
+        public static bool IsEducationOrganizationBaseEntity(this Entity entity)
+            => entity.FullName.Equals(_educationOrganizationFullName);
+
+        public static bool IsEducationOrganizationDerivedEntity(this Entity entity)
+            => entity.BaseEntity?.FullName == _educationOrganizationFullName;
+
         /// <summary>
         /// Indicates whether the supplied <see cref="Entity"/> has a discriminator.
         /// </summary>
@@ -255,6 +263,36 @@ namespace EdFi.Ods.Common.Models.Domain
                 : entity.TableNameByDatabaseEngine.TryGetValue(databaseEngine, out string tableName)
                     ? tableName
                     : explicitTableName ?? entity.Name;
+        }
+
+        /// <summary>
+        /// Gets domain-meaningful identifying properties for the entity (which will be from an alternate identifier for entities
+        /// identified using a surrogate identifier).
+        /// </summary>
+        /// <param name="entity">The <see cref="Entity" /> to be evaluated.</param>
+        /// <returns>A list of domain-meaningful identifying properties or an empty list if entity has a surrogate identifier and no available alternate identifier is defined.</returns>
+        public static IReadOnlyList<EntityProperty> NaturalIdentifyingProperties(this Entity entity)
+        {
+            // If this entity has a surrogate identifier, use the first alternate key's properties (if present)
+            if (entity.Identifier.IsSurrogateIdentifier())
+            {
+                // Get the FIRST available alternate identifier (that is not defined for the "Id" property)
+                var alternateIdentifier = entity
+                    .InheritedAlternateIdentifiers
+                    .Concat(entity.AlternateIdentifiers)
+                    .FirstOrDefault(ak => !ak.IsResourceIdentifier());
+
+                if (alternateIdentifier == null)
+                {
+                    // No alternate identifier defined, return an empty array
+                    return new EntityProperty[0];
+                }
+
+                return alternateIdentifier.Properties;
+            }
+
+            // Just return the PK properties
+            return entity.Identifier.Properties;
         }
     }
 }
