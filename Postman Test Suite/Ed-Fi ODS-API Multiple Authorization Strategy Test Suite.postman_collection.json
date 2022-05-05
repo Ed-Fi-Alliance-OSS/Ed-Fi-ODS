@@ -1878,6 +1878,136 @@
 							"name": "StudentSectionAssociation",
 							"item": [
 								{
+									"name": "Get Many",
+									"item": [
+										{
+											"name": "Get StudentSectionAssociations",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"const responseItems = pm.response.json();",
+															"",
+															"pm.test(\"Should only return the owned section associated with the still registered student\", () => {",
+															"  responseItems.forEach(responseItem => {",
+															"    pm.expect(responseItem.studentReference.studentUniqueId).to.equal('AAAAAA');",
+															"    pm.expect(responseItem.beginDate).to.equal(\"2022-01-01\");",
+															"  });",
+															"});",
+															"",
+															"pm.test(\"Should return some items for verification\", () => {",
+															"  pm.expect(responseItems.length).to.be.greaterThan(0);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														""
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get StudentSectionAttendanceEvents",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"var items = pm.response.json();",
+															"",
+															"pm.test(\"Items were returned\", () => {",
+															"  pm.expect(items.length).is.greaterThan(0);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents/",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAttendanceEvents",
+														""
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
 									"name": "Non-owner with relationship",
 									"item": [
 										{
@@ -3047,266 +3177,6 @@
 													]
 												},
 												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-											},
-											"response": []
-										}
-									]
-								},
-								{
-									"name": "Read requests",
-									"item": [
-										{
-											"name": "Get StudentSectionAssociations",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"pm.test(\"Status code is 200\", () => {",
-															"  pm.expect(pm.response.code).to.equal(200);",
-															"});",
-															"",
-															"const responseItems = pm.response.json();",
-															"",
-															"pm.test(\"Should only return the owned section associated with the still registered student\", () => {",
-															"  responseItems.forEach(responseItem => {",
-															"    pm.expect(responseItem.studentReference.studentUniqueId).to.equal('AAAAAA');",
-															"    pm.expect(responseItem.beginDate).to.equal(\"2022-01-01\");",
-															"  });",
-															"});",
-															"",
-															"pm.test(\"Should return some items for verification\", () => {",
-															"  pm.expect(responseItems.length).to.be.greaterThan(0);",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												},
-												{
-													"listen": "prerequest",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken_255901001}}",
-															"type": "string"
-														}
-													]
-												},
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"studentSectionAssociations",
-														""
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Get StudentSectionAttendanceEvents",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"pm.test(\"Status code is 200\", () => {",
-															"  pm.expect(pm.response.code).to.equal(200);",
-															"});",
-															"",
-															"var items = pm.response.json();",
-															"",
-															"pm.test(\"Items were returned\", () => {",
-															"  pm.expect(items.length).is.greaterThan(0);",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												},
-												{
-													"listen": "prerequest",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken_255901001}}",
-															"type": "string"
-														}
-													]
-												},
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents/",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"studentSectionAttendanceEvents",
-														""
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Delete  StudentSchoolAssociation for A",
-											"event": [
-												{
-													"listen": "prerequest",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												},
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"pm.test(\"Status code is 204\", () => {",
-															"  pm.expect(pm.response.code).to.equal(204);",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken_255901}}",
-															"type": "string"
-														}
-													]
-												},
-												"method": "DELETE",
-												"header": [
-													{
-														"key": "Content-Type",
-														"name": "Content-Type",
-														"type": "text",
-														"value": "application/json"
-													}
-												],
-												"body": {
-													"mode": "raw",
-													"raw": ""
-												},
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:registered:id}}",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"studentSchoolAssociations",
-														"{{known:studentSchoolAssociation:registered:id}}"
-													],
-													"query": [
-														{
-															"key": "studentUniqueId",
-															"value": "AAAAAA",
-															"disabled": true
-														}
-													]
-												},
-												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-											},
-											"response": []
-										},
-										{
-											"name": "Get StudentSectionAssociations",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"pm.test(\"Status code is 200\", () => {",
-															"  pm.expect(pm.response.code).to.equal(200);",
-															"});",
-															"",
-															"pm.test(\"Should return no items\", () => {",
-															"  const responseItems = pm.response.json();",
-															"  pm.expect(responseItems.length).to.be.equal(0);",
-															"});"
-														],
-														"type": "text/javascript"
-													}
-												},
-												{
-													"listen": "prerequest",
-													"script": {
-														"exec": [
-															""
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"auth": {
-													"type": "bearer",
-													"bearer": [
-														{
-															"key": "token",
-															"value": "{{AccessToken_255901001}}",
-															"type": "string"
-														}
-													]
-												},
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/",
-													"host": [
-														"{{ApiBaseUrl}}"
-													],
-													"path": [
-														"data",
-														"v3",
-														"ed-fi",
-														"studentSectionAssociations",
-														""
-													]
-												}
 											},
 											"response": []
 										}
