@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "126df023-8cd6-4d25-bf16-6c9c57349df5",
+		"_postman_id": "a093fe1e-bbe6-4012-92f3-a914c0737d04",
 		"name": "Ed-Fi ODS/API Multiple Authorization Strategy Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -975,6 +975,80 @@
 									"name": "Non-owner without Namespace Claim",
 									"item": [
 										{
+											"name": "GetById by non-owner without namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
+															"  // Should contain the namespace prefix error message",
+															"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_Other_Namespace}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
 											"name": "Update by non-owner without namespace claim",
 											"event": [
 												{
@@ -1133,7 +1207,7 @@
 													"script": {
 														"exec": [
 															"pm.test(\"Status code is 403\", () => {",
-															"  pm.expect(pm.response.code).to.equal(204);",
+															"  pm.expect(pm.response.code).to.equal(403);",
 															"});",
 															"",
 															"const message = pm.response.json().message;",
@@ -1206,6 +1280,79 @@
 								{
 									"name": "Non-Owner with Namespace Claim",
 									"item": [
+										{
+											"name": "GetById by non-owner with namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't own the resource item`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										},
 										{
 											"name": "Update by non-owner with namespace claim",
 											"event": [
@@ -1353,7 +1500,7 @@
 													"script": {
 														"exec": [
 															"pm.test(\"Status code is 403\", () => {",
-															"  pm.expect(pm.response.code).to.equal(204);",
+															"  pm.expect(pm.response.code).to.equal(403);",
 															"});",
 															"",
 															"const message = pm.response.json().message;",
@@ -1421,27 +1568,104 @@
 									"name": "Owner with namespace claim",
 									"item": [
 										{
+											"name": "GetById by owner with namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"pm.test(\"Content identifier returned matches item created earlier\", () => {",
+															"  pm.expect(pm.response.json().contentIdentifier).to.equal(pm.environment.get('supplied:educationContentIdentifier'));",
+															"});",
+															"",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
+															"",
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
 											"name": "Update by owner with namespace claim",
 											"event": [
 												{
 													"listen": "test",
 													"script": {
 														"exec": [
-															"pm.test(\"Status code is 403\", () => {",
-															"  pm.expect(pm.response.code).to.equal(403);",
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
 															"});",
 															"",
-															"const message = pm.response.json().message;",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
 															"",
-															"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
-															"  // Should contain the namespace prefix error message",
-															"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
-															"});",
-															"",
-															"pm.test(`Message of '${message}' should not reveal that the item exists by indicating that the ownership token doesn't match`, () => {",
-															"  // Should not contain the error indicating the ownership token doesn't match",
-															"  pm.expect(message).to.not.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-															"});"
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}"
 														],
 														"type": "text/javascript"
 													}
@@ -1478,7 +1702,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Update attempt owner WITH matching namespace claim\"\r\n}"
+													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Updated by owner WITH matching namespace claim\"\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
@@ -1502,21 +1726,18 @@
 													"listen": "test",
 													"script": {
 														"exec": [
-															"pm.test(\"Status code is 403\", () => {",
-															"  pm.expect(pm.response.code).to.equal(403);",
+															"pm.test(\"Status code is 204\", () => {",
+															"  pm.expect(pm.response.code).to.equal(204);",
 															"});",
 															"",
-															"const message = pm.response.json().message;",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
 															"",
-															"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
-															"  // Should contain the namespace prefix error message",
-															"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
-															"});",
-															"",
-															"pm.test(`Message of '${message}' should not reveal that the item exists by indicating that the ownership token doesn't match`, () => {",
-															"  // Should not contain the error indicating the ownership token doesn't match",
-															"  pm.expect(message).to.not.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
-															"});"
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}"
 														],
 														"type": "text/javascript"
 													}
@@ -1553,7 +1774,7 @@
 												],
 												"body": {
 													"mode": "raw",
-													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Update (PUT) attempt by owner WITH matching namespace claim\"\r\n}"
+													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Updated (PUT) by owner WITH matching namespace claim\"\r\n}"
 												},
 												"url": {
 													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
@@ -1589,8 +1810,7 @@
 															"  pm.test(`Error message of '${message}' should not be present`, () => {",
 															"    pm.expect(message).to.be.empty();",
 															"  });",
-															"}",
-															""
+															"}"
 														],
 														"type": "text/javascript"
 													}
@@ -1661,7 +1881,81 @@
 									"name": "Non-owner with relationship",
 									"item": [
 										{
-											"name": "Update Associated / Unowned StudentSectionAssociation",
+											"name": "GetById by non-owner with relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(\"Message should indicate that client doesn't own the record\", () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner with relationship",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -1731,7 +2025,7 @@
 											"response": []
 										},
 										{
-											"name": "Update Associated / Unowned StudentSectionAssociation (PUT)",
+											"name": "Update by non-owner with relationship (PUT)",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -1802,7 +2096,7 @@
 											"response": []
 										},
 										{
-											"name": "Delete Associated / Unowned StudentSectionAssociation",
+											"name": "Delete by non-owner with relationship",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -1878,7 +2172,81 @@
 									"name": "Non-owner without relationship",
 									"item": [
 										{
-											"name": "Update Unassociated / Unowned StudentSectionAssociation",
+											"name": "GetById by non-owner without relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client doesn't own the record`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner without relationship",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -1948,7 +2316,7 @@
 											"response": []
 										},
 										{
-											"name": "Update Unassociated / Unowned StudentSectionAssociation (PUT)",
+											"name": "Update by non-owner without relationship (PUT)",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -2019,7 +2387,7 @@
 											"response": []
 										},
 										{
-											"name": "Delete Unassociated / Unowned StudentSectionAssociation",
+											"name": "Delete by non-owner without relationship",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -2095,7 +2463,81 @@
 									"name": "Owner without relationship",
 									"item": [
 										{
-											"name": "Update Unassociated / Owned StudentSectionAssociation",
+											"name": "GetById by owner without relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
+															"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'StudentUniqueId' value.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:owned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:owned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by owner without relationship",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -2165,7 +2607,7 @@
 											"response": []
 										},
 										{
-											"name": "Update Unassociated / Owned StudentSectionAssociation (PUT)",
+											"name": "Update by owner without relationship (PUT)",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -2236,7 +2678,7 @@
 											"response": []
 										},
 										{
-											"name": "Delete Unassociated / Owned StudentSectionAssociation",
+											"name": "Delete by owner without relationship",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -2312,7 +2754,91 @@
 									"name": "Owner with relationship",
 									"item": [
 										{
-											"name": "Update Associated / Owned StudentSectionAssociation",
+											"name": "GetById by owner with relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"pm.test(\"Item returned matches the values created earlier\", () => {",
+															"  const response = pm.response.json();",
+															"",
+															"  pm.expect(response.studentReference.studentUniqueId).to.equal(\"AAAAAA\");",
+															"  pm.expect(response.beginDate).to.equal(\"2022-01-01\");",
+															"});",
+															"",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
+															"",
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:owned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:registered:owned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by owner with relationship",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -2377,7 +2903,7 @@
 											"response": []
 										},
 										{
-											"name": "Update Associated / Owned StudentSectionAssociation (PUT)",
+											"name": "Update by owner with relationship (PUT)",
 											"event": [
 												{
 													"listen": "prerequest",
@@ -2436,6 +2962,88 @@
 														"ed-fi",
 														"studentSectionAssociations",
 														"{{known:studentSectionAssociation:registered:owned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Delete by owner with relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"  pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															"",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
+															"",
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:owned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:registered:owned:id}}"
+													],
+													"query": [
+														{
+															"key": "studentUniqueId",
+															"value": "AAAAAA",
+															"disabled": true
+														}
 													]
 												},
 												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -2902,88 +3510,6 @@
 										"ed-fi",
 										"StudentEducationOrganizationResponsibilityAssociations",
 										"{{known:studentEducationOrganizationResponsibilityAssociation:id}}"
-									]
-								},
-								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Owned StudentSectionAssociation for A",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 204\", () => {",
-											"  pm.expect(pm.response.code).to.equal(204);",
-											"});",
-											"",
-											"// Ensure response body is logged in Newman",
-											"if (pm.response.code >= 400) {",
-											"  const message = pm.response.json().message;",
-											"",
-											"  pm.test(`Error message of '${message}' should not be present`, () => {",
-											"    pm.expect(message).to.be.empty();",
-											"  });",
-											"}",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{AccessToken_255901001}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:owned:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"studentSectionAssociations",
-										"{{known:studentSectionAssociation:registered:owned:id}}"
-									],
-									"query": [
-										{
-											"key": "studentUniqueId",
-											"value": "AAAAAA",
-											"disabled": true
-										}
 									]
 								},
 								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
