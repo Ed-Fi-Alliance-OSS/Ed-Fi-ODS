@@ -2,7 +2,7 @@ DO $$
 DECLARE
     application_id INTEGER;
 BEGIN
-    IF NOT EXISTS (SELECT 1 FROM dbo.Actions WHERE ActionUril = 'http://ed-fi.org/odsapi/actions/readChanges') THEN
+    IF NOT EXISTS (SELECT 1 FROM dbo.Actions WHERE ActionUri = 'http://ed-fi.org/odsapi/actions/readChanges') THEN
         INSERT INTO dbo.Actions (ActionName, ActionUri) VALUES ('ReadChanges', 'http://ed-fi.org/odsapi/actions/readChanges');
     END IF;
 
