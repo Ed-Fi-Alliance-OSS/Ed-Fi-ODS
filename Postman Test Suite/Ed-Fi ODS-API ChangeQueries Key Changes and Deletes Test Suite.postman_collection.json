@@ -8899,6 +8899,636 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Students",
+					"item": [
+						{
+							"name": "Get AvailableChangeVersions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const responseItem = pm.response.json();",
+											"pm.environment.set('known:newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"availableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create School",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:school:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n      \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": 255901777,\r\n    \"nameOfInstitution\": \"School to be Deleted\",\r\n    \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n    \"shortNameOfInstitution\": \"GBMS\",\r\n    \"webSite\": \"http://www.GBISD.edu/GBMS/\",\r\n    \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\",\r\n    \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#Not a Charter School\",\r\n    \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n    \"titleIPartASchoolDesignationDescriptor\": \"uri://ed-fi.org/TitleIPartASchoolDesignationDescriptor#Not A Title I School\",\r\n    \"addresses\": [\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Mailing\",\r\n        \"city\": \"Grand Bend\",\r\n        \"postalCode\": \"73334-3393\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"P.O. Box 3393\",\r\n        \"nameOfCounty\": \"Williston\",\r\n        \"periods\": []\r\n      },\r\n      {\r\n        \"addressTypeDescriptor\": \"uri://ed-fi.org/AddressTypeDescriptor#Physical\",\r\n        \"city\": \"Grand Bend\",\r\n        \"postalCode\": \"73334\",\r\n        \"stateAbbreviationDescriptor\": \"uri://ed-fi.org/StateAbbreviationDescriptor#TX\",\r\n        \"streetNumberName\": \"9993 Space Blvd.\",\r\n        \"nameOfCounty\": \"Williston\",\r\n        \"periods\": []\r\n      }\r\n    ],\r\n    \"educationOrganizationCategories\": [\r\n      {\r\n        \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n      }\r\n    ],\r\n    \"identificationCodes\": [\r\n      {\r\n        \"educationOrganizationIdentificationSystemDescriptor\": \"uri://ed-fi.org/EducationOrganizationIdentificationSystemDescriptor#SEA\",\r\n        \"identificationCode\": \"255901044\"\r\n      }\r\n    ],\r\n    \"indicators\": [\r\n      {\r\n        \"indicatorDescriptor\": \"uri://gbisd.edu/IndicatorDescriptor#Retention Rate\",\r\n        \"indicatorGroupDescriptor\": \"uri://gbisd.edu/IndicatorGroupDescriptor#Staff Indicator\",\r\n        \"indicatorLevelDescriptor\": \"uri://gbisd.edu/IndicatorLevelDescriptor#Medium Retention\",\r\n        \"indicatorValue\": \"87\",\r\n        \"periods\": [\r\n          {\r\n            \"beginDate\": \"2010-08-29\",\r\n            \"endDate\": \"2011-06-30\"\r\n          }\r\n        ]\r\n      }\r\n    ],\r\n    \"institutionTelephones\": [\r\n      {\r\n        \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Fax\",\r\n        \"telephoneNumber\": \"(950) 366-9374\"\r\n      },\r\n      {\r\n        \"institutionTelephoneNumberTypeDescriptor\": \"uri://ed-fi.org/InstitutionTelephoneNumberTypeDescriptor#Main\",\r\n        \"telephoneNumber\": \"(950) 325-3164\"\r\n      }\r\n    ],\r\n    \"internationalAddresses\": [],\r\n    \"schoolCategories\": [\r\n      {\r\n        \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#Middle School\"\r\n      }\r\n    ],\r\n    \"gradeLevels\": [\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Seventh grade\"\r\n      },\r\n      {\r\n        \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Sixth grade\"\r\n      }\r\n    ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Student",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('supplied:studentUniqueId', pm.variables.replaceIn('{{$guid}}').substring(0, 5));"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:student:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:studentUniqueId}}\",\r\n  \"birthDate\": \"2008-09-13\",\r\n  \"firstName\": \"John\",\r\n  \"lastSurname\": \"Doe\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Student School Association",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:studentSchoolAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"schoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"{{supplied:studentUniqueId}}\"\r\n    },\r\n    \"entryDate\": \"2010-08-23\",\r\n    \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eighth grade\",\r\n    \"alternativeGraduationPlans\": [],\r\n    \"educationPlans\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change StudentUniqueId and First Name",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"studentUniqueId\": \"{{supplied:studentUniqueId}}-Changed\",\r\n  \"birthDate\": \"2008-09-13\",\r\n  \"firstName\": \"Johnny\",\r\n  \"lastSurname\": \"Doe\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students",
+										"{{known:student:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Students Changes",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Single item with the updated key is returned\", () => {\r",
+											"  pm.expect(items.length).equal(1);\r",
+											"  pm.expect(item.id).equal(pm.environment.get(`known:student:id`));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Values reflect the changes\", () => {\r",
+											"  pm.expect(item.firstName).equals('Johnny');\r",
+											"  pm.expect(item.studentUniqueId).equals(`${pm.environment.get('supplied:studentUniqueId')}-Changed`);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students?minChangeVersion={{known:newestChangeVersion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:newestChangeVersion}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Key Changes",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Single item with the updated key is returned\", () => {\r",
+											"  pm.expect(items.length).equal(1);\r",
+											"  pm.expect(item.id).equal(pm.environment.get(`known:student:id`));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+											"  pm.expect(Object.keys(item.oldKeyValues).length).equal(1);\r",
+											"  pm.expect(Object.keys(item.newKeyValues).length).equal(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Old key value reports the original value\", () => {\r",
+											"  pm.expect(item.oldKeyValues.studentUniqueId).equal(pm.environment.get('supplied:studentUniqueId'));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"New key value reports the most recent update\", () => {\r",
+											"  pm.expect(item.newKeyValues.studentUniqueId).equal(`${pm.environment.get('supplied:studentUniqueId')}-Changed`);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/keyChanges?minChangeVersion={{known:newestChangeVersion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students",
+										"keyChanges"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:newestChangeVersion}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Student School Association",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations",
+										"{{known:studentSchoolAssociation:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Student",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students/{{known:student:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"students",
+										"{{known:student:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete School",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:school:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:school:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const __ = require('lodash');\r",
+											"\r",
+											"const keys = __.keys(pm.environment.toObject());\r",
+											"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+											"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+											"\r",
+											"// const remainingKeys = __.keys(pm.environment.toObject());\r",
+											"// console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}

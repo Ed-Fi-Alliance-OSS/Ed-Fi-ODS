@@ -367,6 +367,31 @@ IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'up
         FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.parent_keychg()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+BEGIN
+
+    -- Handle key changes
+    INSERT INTO tracked_changes_edfi.parent(
+        oldparentusi, oldparentuniqueid, 
+        newparentusi, newparentuniqueid, 
+        id, changeversion)
+    VALUES (
+        old.parentusi, old.parentuniqueid, 
+        new.parentusi, new.parentuniqueid, 
+        old.id, (nextval('changes.changeversionsequence')));
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'parent') THEN
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF parentuniqueid ON edfi.parent
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.parent_keychg();
+END IF;
+
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'payroll') THEN
     CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.payroll
         FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
@@ -497,6 +522,31 @@ IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'up
         FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 END IF;
 
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.staff_keychg()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+BEGIN
+
+    -- Handle key changes
+    INSERT INTO tracked_changes_edfi.staff(
+        oldstaffusi, oldstaffuniqueid, 
+        newstaffusi, newstaffuniqueid, 
+        id, changeversion)
+    VALUES (
+        old.staffusi, old.staffuniqueid, 
+        new.staffusi, new.staffuniqueid, 
+        old.id, (nextval('changes.changeversionsequence')));
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'staff') THEN
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF staffuniqueid ON edfi.staff
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.staff_keychg();
+END IF;
+
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'staffabsenceevent') THEN
     CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.staffabsenceevent
         FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
@@ -579,6 +629,31 @@ END IF;
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'student') THEN
     CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON edfi.student
         FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+END IF;
+
+CREATE OR REPLACE FUNCTION tracked_changes_edfi.student_keychg()
+    RETURNS trigger AS
+$BODY$
+DECLARE
+BEGIN
+
+    -- Handle key changes
+    INSERT INTO tracked_changes_edfi.student(
+        oldstudentusi, oldstudentuniqueid, 
+        newstudentusi, newstudentuniqueid, 
+        id, changeversion)
+    VALUES (
+        old.studentusi, old.studentuniqueid, 
+        new.studentusi, new.studentuniqueid, 
+        old.id, (nextval('changes.changeversionsequence')));
+
+    RETURN null;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'handlekeychanges' AND event_object_schema = 'edfi' AND event_object_table = 'student') THEN
+    CREATE TRIGGER HandleKeyChanges AFTER UPDATE OF studentuniqueid ON edfi.student
+        FOR EACH ROW EXECUTE PROCEDURE tracked_changes_edfi.student_keychg();
 END IF;
 
 IF NOT EXISTS(SELECT 1 FROM information_schema.triggers WHERE trigger_name = 'updatechangeversion' AND event_object_schema = 'edfi' AND event_object_table = 'studentacademicrecord') THEN

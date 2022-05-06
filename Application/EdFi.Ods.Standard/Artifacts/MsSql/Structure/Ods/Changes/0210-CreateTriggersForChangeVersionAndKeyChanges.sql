@@ -662,6 +662,18 @@ BEGIN
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[Parent] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+
+    ---- Add key change entry when UniqueId is modified
+    INSERT INTO [tracked_changes_edfi].[Parent] (
+        OldParentUSI, OldParentUniqueId, 
+        NewParentUSI, NewParentUniqueId,
+        Id, ChangeVersion)
+    SELECT
+        old.ParentUSI, old.ParentUniqueId, 
+        new.ParentUSI, new.ParentUniqueId,
+        old.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM deleted old INNER JOIN inserted new ON old.ParentUSI = new.ParentUSI
+    WHERE new.ParentUniqueId <> old.ParentUniqueId;
 END	
 GO
 
@@ -844,6 +856,18 @@ BEGIN
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[Staff] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+
+    ---- Add key change entry when UniqueId is modified
+    INSERT INTO [tracked_changes_edfi].[Staff] (
+        OldStaffUSI, OldStaffUniqueId, 
+        NewStaffUSI, NewStaffUniqueId,
+        Id, ChangeVersion)
+    SELECT
+        old.StaffUSI, old.StaffUniqueId, 
+        new.StaffUSI, new.StaffUniqueId,
+        old.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM deleted old INNER JOIN inserted new ON old.StaffUSI = new.StaffUSI
+    WHERE new.StaffUniqueId <> old.StaffUniqueId;
 END	
 GO
 
@@ -1004,6 +1028,18 @@ BEGIN
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [edfi].[Student] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+
+    ---- Add key change entry when UniqueId is modified
+    INSERT INTO [tracked_changes_edfi].[Student] (
+        OldStudentUSI, OldStudentUniqueId, 
+        NewStudentUSI, NewStudentUniqueId,
+        Id, ChangeVersion)
+    SELECT
+        old.StudentUSI, old.StudentUniqueId, 
+        new.StudentUSI, new.StudentUniqueId,
+        old.Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM deleted old INNER JOIN inserted new ON old.StudentUSI = new.StudentUSI
+    WHERE new.StudentUniqueId <> old.StudentUniqueId;
 END	
 GO
 
