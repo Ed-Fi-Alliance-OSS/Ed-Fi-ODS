@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.4",
+  "odsApiVersion": "6.0",
   "schemaDefinition": {
     "logicalName": "TPDM",
     "physicalName": "tpdm",
