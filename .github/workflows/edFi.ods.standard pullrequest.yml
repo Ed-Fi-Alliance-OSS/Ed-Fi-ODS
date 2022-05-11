@@ -15,6 +15,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@9211491ffb35dd6a6657ca4f45d43dfe6e97c829 # v2
+      with:
+        dotnet-version: 6.0.x
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
@@ -32,11 +37,7 @@ jobs:
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
           Invoke-CodeGen -Engine SQLServer
-    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@9211491ffb35dd6a6657ca4f45d43dfe6e97c829 # v2
-      with:
-        dotnet-version: 6.0.x
+
     - name: build
       run: |
         .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
