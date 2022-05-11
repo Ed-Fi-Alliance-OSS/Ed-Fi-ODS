@@ -22,6 +22,7 @@ jobs:
           path: Ed-Fi-ODS-Implementation/
     - name: CodeGen
       shell: pwsh
+      working-directory: Ed-Fi-ODS-Implementation
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
