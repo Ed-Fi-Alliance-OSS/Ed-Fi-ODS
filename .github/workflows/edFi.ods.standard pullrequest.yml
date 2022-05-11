@@ -16,12 +16,12 @@ jobs:
 
     steps:
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@v3
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
     - name: CodeGen
-      shell: powershell
+      shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
