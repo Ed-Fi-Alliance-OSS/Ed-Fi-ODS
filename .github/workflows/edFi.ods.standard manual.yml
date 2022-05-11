@@ -29,7 +29,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: build
       run: |
-        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -ProjectFile "Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
       shell: pwsh
     - name: test
       run: |
@@ -44,5 +44,5 @@ jobs:
       shell: pwsh
     - name: publish 
       run: |
-        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}}  -ProjectFile "Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" -PackageName  "EdFi.Suite3.Ods.Standard"
+        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -ProjectFile "Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" -PackageName  "EdFi.Suite3.Ods.Standard"
       shell: pwsh      
