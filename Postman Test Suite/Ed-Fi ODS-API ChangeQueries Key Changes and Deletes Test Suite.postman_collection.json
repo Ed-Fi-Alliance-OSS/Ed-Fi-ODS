@@ -851,6 +851,737 @@
 					]
 				},
 				{
+					"name": "EducationContent (Non-Key Namespace Based)",
+					"item": [
+						{
+							"name": "Get AvailableChangeVersions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {",
+											"    pm.expect(pm.response.code).to.equal(200);",
+											"});",
+											"",
+											"const responseItem = pm.response.json();",
+											"const scenarioId = pm.environment.get('scenarioId');",
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"function createScenarioId() { return newGuid().substring(0,5); }\r",
+											"pm.environment.set('scenarioId', createScenarioId());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"changeQueries",
+										"v1",
+										"availableChangeVersions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "* Get EducationContents",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"if (items.length > 0) {\r",
+											"    pm.environment.set(`known:${scenarioId}:assessment:id`, items[0].id);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents"
+									],
+									"query": [
+										{
+											"key": "shortDescription",
+											"value": "To Be Deleted",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create EducationContent (Ed-Fi)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const {Property} = require('postman-collection');\r",
+											"\r",
+											"const randomUuid = Property.replaceSubstitutions(\"{{$randomUUID}}\");\r",
+											"\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('known:'+scenarioId+':educationContent:contentIdentifier', randomUuid); \r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('known:'+scenarioId+':educationContent:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"contentIdentifier\": \"{{known:{{scenarioId}}:educationContent:contentIdentifier}}\",\r\n  \"contentClassDescriptor\": \"uri://ed-fi.org/ContentClassDescriptor#Education Research\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"publicationYear\": 1999,\r\n  \"publisher\": \"To Be Deleted Press\",\r\n  \"shortDescription\": \"Doing stuff.\",\r\n  \"appropriateGradeLevels\": [],\r\n  \"appropriateSexes\": [],\r\n  \"authors\": [\r\n    {\r\n      \"author\": \"Doe, John\"\r\n    },\r\n    {\r\n      \"author\": \"Doe, Jane\"\r\n    }\r\n  ],\r\n  \"derivativeSourceEducationContents\": [],\r\n  \"derivativeSourceLearningResourceMetadataURIs\": [],\r\n  \"derivativeSourceURIs\": [],\r\n  \"languages\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create EducationContent (Other)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.environment.set('known:otherNamespace', \"uri://other.org\"); \r",
+											"\r",
+											"const {Property} = require('postman-collection');\r",
+											"const randomUuid = Property.replaceSubstitutions(\"{{$randomUUID}}\");\r",
+											"\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('known:'+scenarioId+':educationContent:other:contentIdentifier', randomUuid); \r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"    \r",
+											"});\r",
+											"\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('known:'+scenarioId+':educationContent:other:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Other_Namespace}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"contentIdentifier\": \"{{known:{{scenarioId}}:educationContent:other:contentIdentifier}}\",\r\n  \"contentClassDescriptor\": \"uri://ed-fi.org/ContentClassDescriptor#Education Research\",\r\n  \"namespace\": \"{{known:otherNamespace}}\",\r\n  \"publicationYear\": 1999,\r\n  \"publisher\": \"To Be Deleted Press\",\r\n  \"shortDescription\": \"Doing stuff.\",\r\n  \"appropriateGradeLevels\": [],\r\n  \"appropriateSexes\": [],\r\n  \"authors\": [\r\n    {\r\n      \"author\": \"Doe, John\"\r\n    },\r\n    {\r\n      \"author\": \"Doe, Jane\"\r\n    }\r\n  ],\r\n  \"derivativeSourceEducationContents\": [],\r\n  \"derivativeSourceLearningResourceMetadataURIs\": [],\r\n  \"derivativeSourceURIs\": [],\r\n  \"languages\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete EducationContent",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:{{scenarioId}}:educationContent:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents",
+										"{{known:{{scenarioId}}:educationContent:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete EducationContent (Other)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Other_Namespace}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:{{scenarioId}}:educationContent:other:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents",
+										"{{known:{{scenarioId}}:educationContent:other:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deleted EducationContent",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Only returns 1 deleted item (even though another one with a different namespace was deleted)\", () => {\r",
+											"    pm.expect(items.length).equal(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Deleted item id matches item just deleted\", () => {\r",
+											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:educationContent:id`));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"KeyValues contains the correct number of properties\", () => {\r",
+											"    pm.expect(Object.keys(item.keyValues).length).equal(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"ContentIdentifier value is correctly reflected in key values\", () => {\r",
+											"    pm.expect(item.keyValues.contentIdentifier).equal(pm.environment.get(`known:${scenarioId}:educationContent:contentIdentifier`));\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+										},
+										{
+											"key": "minChangeVersion",
+											"value": "123456",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deleted EducationContent (Other)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Only returns 1 deleted item (even though another one with a different namespace was deleted)\", () => {\r",
+											"    pm.expect(items.length).equal(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Deleted item id matches item just deleted\", () => {\r",
+											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:educationContent:other:id`));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"KeyValues contains the correct number of properties\", () => {\r",
+											"    pm.expect(Object.keys(item.keyValues).length).equal(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"ContentIdentifier value is correctly reflected in key values\", () => {\r",
+											"    pm.expect(item.keyValues.contentIdentifier).equal(pm.environment.get(`known:${scenarioId}:educationContent:other:contentIdentifier`));\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_Other_Namespace}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+										},
+										{
+											"key": "minChangeVersion",
+											"value": "123456",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deleted EducationContents Count",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"One item should be returned\", () => {\r",
+											"    pm.expect(items.length).equal(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Total-Count header should be present\", () => {\r",
+											"    pm.response.to.have.header(\"Total-Count\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Total-Count header should have a value of 1\", () => {\r",
+											"    const totalCount = parseInt(pm.response.headers.one('Total-Count').value);\r",
+											"    pm.expect(totalCount).equal(1);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&totalCount=true",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+										},
+										{
+											"key": "minChangeVersion",
+											"value": "1234",
+											"disabled": true
+										},
+										{
+											"key": "totalCount",
+											"value": "true"
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deleted EducationContents Count (Other)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"One item should be returned\", () => {\r",
+											"    pm.expect(items.length).equal(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Total-Count header should be present\", () => {\r",
+											"    pm.response.to.have.header(\"Total-Count\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Total-Count header should have a value of 1\", () => {\r",
+											"    const totalCount = parseInt(pm.response.headers.one('Total-Count').value);\r",
+											"    pm.expect(totalCount).equal(1);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&totalCount=true",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"educationContents",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+										},
+										{
+											"key": "minChangeVersion",
+											"value": "1234",
+											"disabled": true
+										},
+										{
+											"key": "totalCount",
+											"value": "true"
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Derived Resource (Single Key Column)",
 					"item": [
 						{
@@ -2151,7 +2882,7 @@
 							"response": []
 						},
 						{
-							"name": "Create StudentProgramAssociation",
+							"name": "Create StudentProgramAssociation (LEA Client)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2206,7 +2937,72 @@
 							"response": []
 						},
 						{
-							"name": "Delete StudentProgramAssociation",
+							"name": "Create StudentProgramAssociation (School Client)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('known:'+scenarioId+':studentProgramAssociation:schoolClient:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"educationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901044\r\n    },\r\n    \"programReference\": {\r\n        \"educationOrganizationId\": 255901,\r\n        \"programName\": \"Bilingual\",\r\n        \"programTypeDescriptor\": \"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\"\r\n    },\r\n    \"studentReference\": {\r\n        \"studentUniqueId\": \"604824\"\r\n    },\r\n    \"beginDate\": \"2021-10-20\",\r\n    \"servedOutsideOfRegularSession\": true,\r\n    \"programParticipationStatuses\": [],\r\n    \"services\": []\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentProgramAssociations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete StudentProgramAssociation (LEA Client)",
 							"event": [
 								{
 									"listen": "test",
@@ -2241,7 +3037,169 @@
 							"response": []
 						},
 						{
-							"name": "Get Deleted StudentProgramAssociations",
+							"name": "Delete StudentProgramAssociation (School Client)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/{{known:{{scenarioId}}:studentProgramAssociation:schoolClient:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentProgramAssociations",
+										"{{known:{{scenarioId}}:studentProgramAssociation:schoolClient:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deleted StudentProgramAssociations (LEA Client)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return both deleted items (one each deleted by LEA and School client)\", () => {\r",
+											"    pm.expect(items.length).equal(2);\r",
+											"});\r",
+											"\r",
+											"const item1 = items[0];\r",
+											"const item2 = items[1];\r",
+											"\r",
+											"pm.test(\"Deleted item ids match the items deleted by both clients\", () => {\r",
+											"    pm.expect(item1.id).equal(pm.environment.get(`known:${scenarioId}:studentProgramAssociation:id`));\r",
+											"    pm.expect(item2.id).equal(pm.environment.get(`known:${scenarioId}:studentProgramAssociation:schoolClient:id`));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"KeyValues contains the correct number of properties\", () => {\r",
+											"    pm.expect(Object.keys(item1.keyValues).length).equal(6);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"EducationOrganizationId values are correctly reflected in key values\", () => {\r",
+											"    pm.expect(item1.keyValues.educationOrganizationId).equal(255901001);\r",
+											"    pm.expect(item2.keyValues.educationOrganizationId).equal(255901044);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"ProgramEducationOrganizationId values are correctly reflected in key values\", () => {\r",
+											"    pm.expect(item1.keyValues.programEducationOrganizationId).equal(255901);\r",
+											"    pm.expect(item2.keyValues.programEducationOrganizationId).equal(255901);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"ProgramName values are correctly reflected in key values\", () => {\r",
+											"    pm.expect(item1.keyValues.programName).equal(\"Bilingual\");\r",
+											"    pm.expect(item2.keyValues.programName).equal(\"Bilingual\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"ProgramTypeDescriptor values are correctly reflected in key values\", () => {\r",
+											"    pm.expect(item1.keyValues.programTypeDescriptor).equal(\"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\");\r",
+											"    pm.expect(item2.keyValues.programTypeDescriptor).equal(\"uri://ed-fi.org/ProgramTypeDescriptor#Bilingual\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"BeginDate values are correctly reflected (and formatted without time portion) in key values\", () => {\r",
+											"    pm.expect(item1.keyValues.beginDate).equal(\"2021-10-19\");\r",
+											"    pm.expect(item2.keyValues.beginDate).equal(\"2021-10-20\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"StudentUniqueId value are correctly reflected in key values\", () => {\r",
+											"    pm.expect(item1.keyValues.studentUniqueId).equal(\"604822\");\r",
+											"    pm.expect(item2.keyValues.studentUniqueId).equal(\"604824\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentProgramAssociations",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+										},
+										{
+											"key": "minChangeVersion",
+											"value": "112250",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deleted StudentProgramAssociations (School Client)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2265,9 +3223,12 @@
 											"const items = pm.response.json();\r",
 											"const item = items[0];\r",
 											"\r",
-											"pm.test(\"Deleted item id matches item just deleted\", () => {\r",
+											"pm.test(\"Should only return 1 deleted item\", () => {\r",
 											"    pm.expect(items.length).equal(1);\r",
-											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:studentProgramAssociation:id`));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Deleted item id matches item just deleted by school client\", () => {\r",
+											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:studentProgramAssociation:schoolClient:id`));\r",
 											"});\r",
 											"\r",
 											"pm.test(\"KeyValues contains the correct number of properties\", () => {\r",
@@ -2275,7 +3236,7 @@
 											"});\r",
 											"\r",
 											"pm.test(\"EducationOrganizationId value is correctly reflected in key values\", () => {\r",
-											"    pm.expect(item.keyValues.educationOrganizationId).equal(255901001);\r",
+											"    pm.expect(item.keyValues.educationOrganizationId).equal(255901044);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"ProgramEducationOrganizationId value is correctly reflected in key values\", () => {\r",
@@ -2291,11 +3252,11 @@
 											"});\r",
 											"\r",
 											"pm.test(\"BeginDate value is correctly reflected (and formatted without time portion) in key values\", () => {\r",
-											"    pm.expect(item.keyValues.beginDate).equal(\"2021-10-19\");\r",
+											"    pm.expect(item.keyValues.beginDate).equal(\"2021-10-20\");\r",
 											"});\r",
 											"\r",
 											"pm.test(\"StudentUniqueId value is correctly reflected in key values\", () => {\r",
-											"    pm.expect(item.keyValues.studentUniqueId).equal(\"604822\");\r",
+											"    pm.expect(item.keyValues.studentUniqueId).equal(\"604824\");\r",
 											"});\r",
 											""
 										],
@@ -2346,7 +3307,100 @@
 							"response": []
 						},
 						{
-							"name": "Get Deleted StudentProgramAssociations Count",
+							"name": "Get Deleted StudentProgramAssociations Count (LEA Client)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"One item should be returned due to limit parameter\", () => {\r",
+											"    pm.expect(items.length).equal(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Total-Count header should be present\", () => {\r",
+											"    pm.response.to.have.header(\"Total-Count\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Total-Count header should have a value of 2\", () => {\r",
+											"    const totalCount = parseInt(pm.response.headers.one('Total-Count').value);\r",
+											"    pm.expect(totalCount).equal(2);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations/deletes?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&totalCount=true&limit=1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentProgramAssociations",
+										"deletes"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+										},
+										{
+											"key": "minChangeVersion",
+											"value": "1234",
+											"disabled": true
+										},
+										{
+											"key": "totalCount",
+											"value": "true"
+										},
+										{
+											"key": "limit",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Deleted StudentProgramAssociations Count (School Client)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2392,6 +3446,16 @@
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901044}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"body": {
@@ -5821,6 +6885,278 @@
 							"response": []
 						},
 						{
+							"name": "Obtain CourseOffering for LEA client",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return an item for use in the test\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"if (items.length > 0) {\r",
+											"  const item = items[0];\r",
+											"  pm.environment.set('known:' + scenarioId + ':courseOffering:localCourseCode', item.localCourseCode);\r",
+											"  pm.environment.set('known:' + scenarioId + ':courseOffering:schoolId', item.sessionReference.schoolId);\r",
+											"  pm.environment.set('known:' + scenarioId + ':courseOffering:schoolYear', item.sessionReference.schoolYear);\r",
+											"  pm.environment.set('known:' + scenarioId + ':courseOffering:sessionName', item.sessionReference.sessionName);\r",
+											"  pm.environment.set('supplied:' + scenarioId + ':section:sectionIdentifier', pm.variables.replaceIn('{{$guid}}'));\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?schoolId=255901001&limit=1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"courseOfferings"
+									],
+									"query": [
+										{
+											"key": "schoolId",
+											"value": "255901001"
+										},
+										{
+											"key": "limit",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtain ClassPeriod for LEA client",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return an item for use in the test\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"})\r",
+											"\r",
+											"if (items.length > 0) {\r",
+											"  const item = items[0];\r",
+											"  pm.environment.set('known:' + scenarioId + ':classPeriod:classPeriodName', item.classPeriodName);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods?schoolId=255901001&limit=1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"classPeriods"
+									],
+									"query": [
+										{
+											"key": "schoolId",
+											"value": "255901001"
+										},
+										{
+											"key": "limit",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtain CourseOffering for School client",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return an item for use in the test\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"})\r",
+											"\r",
+											"if (items.length > 0) {\r",
+											"  const item = items[0];\r",
+											"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:localCourseCode', item.localCourseCode);\r",
+											"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:schoolId', item.sessionReference.schoolId);\r",
+											"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:schoolYear', item.sessionReference.schoolYear);\r",
+											"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:sessionName', item.sessionReference.sessionName);\r",
+											"  pm.environment.set('supplied:' + scenarioId + ':schoolClient:section:sectionIdentifier', pm.variables.replaceIn('{{$guid}}'));\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?schoolId=255901044&limit=1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"courseOfferings"
+									],
+									"query": [
+										{
+											"key": "schoolId",
+											"value": "255901044"
+										},
+										{
+											"key": "limit",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtain ClassPeriod for School client",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return an item for use in the test\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"})\r",
+											"\r",
+											"if (items.length > 0) {\r",
+											"  const item = items[0];\r",
+											"  pm.environment.set('known:' + scenarioId + ':schoolClient:classPeriod:classPeriodName', item.classPeriodName);\r",
+											"}\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods?schoolId=255901044&limit=1",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"classPeriods"
+									],
+									"query": [
+										{
+											"key": "schoolId",
+											"value": "255901044"
+										},
+										{
+											"key": "limit",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "* Get Sections",
 							"event": [
 								{
@@ -5872,7 +7208,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Section",
+							"name": "Create Section (LEA client)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5905,7 +7241,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"ABC123\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": 255901001,\r\n                \"classPeriodName\": \"02 - Traditional\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"{{supplied:{{scenarioId}}:section:sectionIdentifier}}\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5928,7 +7264,73 @@
 							"response": []
 						},
 						{
-							"name": "Change Section Key",
+							"name": "Create Section (School client)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:'+scenarioId+':schoolClient:section:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"{{supplied:{{scenarioId}}:schoolClient:section:sectionIdentifier}}\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sections"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Section Key (LEA client)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -5959,7 +7361,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"XYZ789\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": 255901001,\r\n                \"classPeriodName\": \"02 - Traditional\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"XYZ789\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5983,7 +7385,72 @@
 							"response": []
 						},
 						{
-							"name": "Get Key Changes",
+							"name": "Change Section Key (School client)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"XYZ789\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sections",
+										"{{known:{{scenarioId}}:schoolClient:section:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Key Changes (LEA client)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -6005,24 +7472,35 @@
 											"});\r",
 											"\r",
 											"const items = pm.response.json();\r",
-											"const item = items[0];\r",
 											"\r",
-											"pm.test(\"Single item with the updated key is returned\", () => {\r",
-											"    pm.expect(items.length).equal(1);\r",
-											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:section:id`));\r",
+											"pm.test(\"Should return the 2 key changes made by both clients\", () => {\r",
+											"  pm.expect(items.length).to.equal(2);\r",
+											"});\r",
+											"\r",
+											"const item1 = items[0];\r",
+											"const item2 = items[1];\r",
+											"\r",
+											"pm.test(\"Expected items are returned\", () => {\r",
+											"    pm.expect(item1.id).equal(pm.environment.get(`known:${scenarioId}:section:id`));\r",
+											"    pm.expect(item2.id).equal(pm.environment.get(`known:${scenarioId}:schoolClient:section:id`));\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(5);\r",
-											"    pm.expect(Object.keys(item.newKeyValues).length).equal(5);\r",
+											"    pm.expect(Object.keys(item1.oldKeyValues).length).equal(5);\r",
+											"    pm.expect(Object.keys(item1.newKeyValues).length).equal(5);\r",
+											"\r",
+											"    pm.expect(Object.keys(item2.oldKeyValues).length).equal(5);\r",
+											"    pm.expect(Object.keys(item2.newKeyValues).length).equal(5);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Old key values are correctly reported\", () => {\r",
-											"    pm.expect(item.oldKeyValues.sectionIdentifier).equal(\"ABC123\");\r",
+											"    pm.expect(item1.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:section:sectionIdentifier`));\r",
+											"    pm.expect(item2.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:schoolClient:section:sectionIdentifier`));\r",
 											"});\r",
 											"\r",
 											"pm.test(\"New key values are correctly reported\", () => {\r",
-											"    pm.expect(item.newKeyValues.sectionIdentifier).equal(\"XYZ789\");\r",
+											"    pm.expect(item1.newKeyValues.sectionIdentifier).equal(\"XYZ789\");\r",
+											"    pm.expect(item2.newKeyValues.sectionIdentifier).equal(\"XYZ789\");\r",
 											"});\r",
 											""
 										],
@@ -6068,7 +7546,106 @@
 							"response": []
 						},
 						{
-							"name": "Delete Section",
+							"name": "Get Key Changes (School client)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 200\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return the one key change made by the school-level client\", () => {\r",
+											"  pm.expect(items.length).to.equal(1);\r",
+											"});\r",
+											"\r",
+											"const item = items[0];\r",
+											"\r",
+											"pm.test(\"Expected item is returned\", () => {\r",
+											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:schoolClient:section:id`));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(5);\r",
+											"    pm.expect(Object.keys(item.newKeyValues).length).equal(5);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Old key values are correctly reported\", () => {\r",
+											"    pm.expect(item.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:schoolClient:section:sectionIdentifier`));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"New key values are correctly reported\", () => {\r",
+											"    pm.expect(item.newKeyValues.sectionIdentifier).equal(\"XYZ789\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sections",
+										"keyChanges"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Section (LEA client)",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -6117,6 +7694,71 @@
 										"ed-fi",
 										"sections",
 										"{{known:{{scenarioId}}:section:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Section (School client)",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901044}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"sections",
+										"{{known:{{scenarioId}}:schoolClient:section:id}}"
 									]
 								}
 							},
@@ -7247,10 +8889,6 @@
 							"response": []
 						}
 					]
-				},
-				{
-					"name": "StudentSectionAssociations",
-					"item": []
 				}
 			]
 		}
@@ -7272,6 +8910,10 @@
 				"type": "text/javascript",
 				"exec": [
 					"CreateAccessToken(\"TokenExpiry_255901\",\"AccessToken_255901\",\"ApiKey_255901\",\"ApiSecret_255901\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_Other_Namespace\",\"AccessToken_Other_Namespace\",\"ApiKey_Other_Namespace\",\"ApiSecret_Other_Namespace\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_255901044\",\"AccessToken_255901044\",\"ApiKey_255901044\",\"ApiSecret_255901044\")",
 					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
