@@ -9,13 +9,16 @@ using System.Linq;
 using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
+using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Utils.Profiles;
+using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
@@ -36,6 +39,42 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
         protected static ISchemaNameMapProvider
             SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
+
+        private static ApiSettings CreateApiSettings()
+        {
+            return new ApiSettings
+            {
+                Mode = "sandbox",
+                Features = new List<Feature>
+                {
+                    new Feature
+                    {
+                        Name = "Composites",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "Profiles",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "Extensions",
+                        IsEnabled = true
+                    },
+                    new Feature
+                    {
+                        Name = "ChangeQueries",
+                        IsEnabled = false
+                    },
+                    new Feature
+                    {
+                        Name = "OpenApiMetadata",
+                        IsEnabled = true
+                    }
+                }
+            };
+        }
 
         public class
             When_creating_definitions_for_list_of_resources_using_a_single_instance_or_year_specific_ods : TestFixtureBase
@@ -66,7 +105,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                         new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
                         {
                             RenderType = RenderType.GeneralizedExtensions
-                        }).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
+                        }, new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        CreateApiSettings()).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
 
                 _actualEdfiResourceDefinitions = _resources.Where(r => r.IsEdFiStandardResource).Select(r => r.Name.ToCamelCase())
                     .Where(_actualDefinitions.ContainsKey).Select(r => _actualDefinitions[r]).ToList();
@@ -236,7 +276,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(_openApiMetadataDocumentContext)
+                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
+                        _openApiMetadataDocumentContext,
+                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        CreateApiSettings())
                     .Create(_openApiMetadataResources);
             }
 
@@ -344,7 +387,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(_openApiMetadataDocumentContext)
+                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
+                        _openApiMetadataDocumentContext,
+                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        CreateApiSettings())
                     .Create(_openApiMetadataResources);
             }
 
