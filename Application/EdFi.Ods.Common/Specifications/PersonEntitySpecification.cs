@@ -10,11 +10,15 @@ using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.Common.Specifications
 {
-    public class PersonEntitySpecification
+    public static class PersonEntitySpecification
     {
+        public const string Staff = "Staff";
+        public const string Student = "Student";
+        public const string Parent = "Parent";
+        
         public static string[] ValidPersonTypes { get; } =
             {
-                "Staff", "Student", "Parent"
+                Staff, Student, Parent
             };
 
         /// <summary>
