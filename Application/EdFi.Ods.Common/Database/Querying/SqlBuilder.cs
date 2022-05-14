@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -49,8 +50,16 @@ namespace EdFi.Ods.Common.Database.Querying
             {
                 foreach (var item in this)
                 {
-                    p.AddDynamicParams(item.Parameters);
+                    try
+                    {
+                        p.AddDynamicParams(item.Parameters);
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        throw new ArgumentException($"Parameter processing failed while resolving SqlBuilder clauses (consider using explicit parameter names in CTE queries to avoid name conflicts). Clause SQL: {item.Sql}", ex);
+                    }
                 }
+
                 return this.Any(a => a.IsInclusive)
                     ? _prefix +
                       string.Join(_joiner,
@@ -97,7 +106,7 @@ namespace EdFi.Ods.Common.Database.Querying
                     parameters = p;
 
                     // replace all that is left with empty
-                    rawSql = _regex.Replace(rawSql, "");
+                    rawSql = _regex.Replace(rawSql, string.Empty);
 
                     _dataSeq = _builder._seq;
                 }
@@ -155,10 +164,10 @@ namespace EdFi.Ods.Common.Database.Querying
             AddClause("orderby", sql, parameters, " , ", "ORDER BY ", "\n", false);
 
         public SqlBuilder Select(string sql, dynamic parameters = null) =>
-            AddClause("select", sql, parameters, " , ", "", "\n", false);
+            AddClause("select", sql, parameters, " , ", string.Empty, "\n", false);
 
         public SqlBuilder AddParameters(dynamic parameters) =>
-            AddClause("--parameters", "", parameters, "", "", "", false);
+            AddClause("--parameters", string.Empty, parameters, string.Empty, string.Empty, string.Empty, false);
 
         public SqlBuilder Join(string sql, dynamic parameters = null) =>
             AddClause("join", sql, parameters, "\nJOIN ", "\nJOIN ", "\n", false);

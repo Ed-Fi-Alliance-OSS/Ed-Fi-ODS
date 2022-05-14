@@ -198,15 +198,11 @@ namespace EdFi.Ods.Common.Database.Querying
             return this;
         }
 
-        public QueryBuilder With(string cteName, QueryBuilder cteQueryBuilder, object parameters = null)
+        public QueryBuilder With(string cteName, QueryBuilder cteQueryBuilder)
         {
-            var cteTemplate = cteQueryBuilder._sqlBuilder.AddTemplate(
-                _dialect.GetTemplateString(cteQueryBuilder),
-                parameters);
-            
-            _sqlBuilder.With($"{cteName} AS ({cteTemplate.RawSql})", cteTemplate.Parameters);
-
-            // _ctes.Add(new Cte(cteName, cteQueryBuilder, parameters));
+            // Apply the nested query builder as a WITH clause to this query builder
+            string templateString = _dialect.GetTemplateString(cteQueryBuilder);
+            _sqlBuilder.With(cteName, cteQueryBuilder._sqlBuilder, templateString, _dialect.GetCteString);
 
             return this;
         }
@@ -317,25 +313,24 @@ namespace EdFi.Ods.Common.Database.Querying
 
         public SqlBuilder.Template BuildCountTemplate()
         {
-            // Build the template
-            string template = _dialect.GetTemplateString(this, countQuery: true);
-
             var parameters = Parameters.Any()
                 ? new DynamicParameters(Parameters)
                 : null;
 
-            return _sqlBuilder.AddTemplate(template, parameters);
-        }
+            // Build the Count SQL builder
+            var countSqlBuilder = new SqlBuilder();
 
-        // public Task<dynamic> GetAsync()
-        // {
-        //     return Task.FromResult((dynamic)null);
-        // }
-        //
-        // public Task<T> CountAsync<T>()
-        // {
-        //     return Task.FromResult(default(T));
-        // }
+            // Wrap main query with the count query builder as a CTE expression
+            string countableTemplateString = _dialect.GetTemplateString(this)
+                .Replace("/**orderby**/", string.Empty)
+                .Replace("/**paging**/", string.Empty);
+            
+            countSqlBuilder.With("__count_data", _sqlBuilder, countableTemplateString, _dialect.GetCteString);
+            countSqlBuilder.Select(_dialect.GetSelectCountString());
+
+            // Return the template for the count query 
+            return countSqlBuilder.AddTemplate("/**with**/ SELECT /**select**/ FROM __count_data");
+        }
 
         public class Cte
         {
