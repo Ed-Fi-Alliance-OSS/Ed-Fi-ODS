@@ -40,14 +40,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             // Finalize the query builders, cloning them and then applying request-specific parameters
             var dataQueryBuilder = FinalizeDataQueryBuilder(queryBuilder.Clone(), queryParameters, resource);
 
-            // Prepare a count query, if requested
-            var countQueryBuilder = queryParameters.TotalCount
-                ? FinalizeCountQueryBuilder(queryBuilder.Clone(), queryParameters)
-                : null;
-
             var queries = new TrackedChangesQueryTemplates(
                 dataQueryBuilder.BuildTemplate(),
-                countQueryBuilder?.BuildCountTemplate());
+                queryParameters.TotalCount ? dataQueryBuilder.BuildCountTemplate() : null);
 
             return queries;
         }
