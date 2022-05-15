@@ -54,6 +54,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         public IDictionary<string, Schema> Create(IList<OpenApiMetadataResource> openApiMetadataResources)
         {
             var definitions = BoilerPlateDefinitions();
+            var isChangeQueriesEnabled = _apiSettings.IsFeatureEnabled("ChangeQueries");
 
             openApiMetadataResources
                 .Where(x => _openApiMetadataFactoryResourceFilterStrategy.ShouldInclude(x.Resource))
@@ -65,21 +66,21 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             key = _openApiMetadataDefinitionsFactoryNamingStrategy.GetResourceName(r.Resource, r),
                             schema = CreateResourceSchema(r)
                         },
-                        _apiSettings.IsFeatureEnabled("ChangeQueries")
+                        isChangeQueriesEnabled
                             ? new
                             {
                                 key = GetTrackedChangesResourceKeyName(r.Resource, r),
                                 schema = CreateTrackedChangesKeySchema(r)
                             }
                             : null,
-                        _apiSettings.IsFeatureEnabled("ChangeQueries")
+                        isChangeQueriesEnabled
                             ? new
                             {
                                 key = GetTrackedChangesResourceDeleteName(r.Resource, r),
                                 schema = CreateTrackedChangesDeletesSchema(r)
                             }
                             : null,
-                        _apiSettings.IsFeatureEnabled("ChangeQueries")
+                        isChangeQueriesEnabled
                             ? new
                             {
                                 key = GetTrackedChangesResourceKeyChangeName(r.Resource, r),
@@ -234,8 +235,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             throw new Exception(
                                 $"The identifying property '{p}' of the resource '{resource.FullName}' wasn't found in its model.")
                         )
-                    })
-                .ToList();
+                    });
 
             return new Schema
             {

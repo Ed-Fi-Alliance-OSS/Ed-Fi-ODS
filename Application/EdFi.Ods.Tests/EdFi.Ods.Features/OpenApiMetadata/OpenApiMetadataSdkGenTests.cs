@@ -297,7 +297,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                         x.Name)
                                     .ToUpperInvariant())
                             .Concat(
-                                new[] {"LINK", "DELETEDRESOURCE" }));
+                                new[] {"LINK"}));
 
                 Assert.That(nonBelongingDefinitions, Is.Empty);
             }
