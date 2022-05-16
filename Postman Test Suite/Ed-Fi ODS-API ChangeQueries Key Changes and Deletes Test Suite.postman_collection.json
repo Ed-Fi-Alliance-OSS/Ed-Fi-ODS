@@ -9973,6 +9973,164 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Descriptors",
+					"item": [
+						{
+							"name": "Get Key Changes",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return an empty array\", () => {\r",
+											"  pm.expect(items.length).to.equal(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should not return a total count header\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Total-Count')).is.undefined;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradeLevelDescriptors/keyChanges",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"gradeLevelDescriptors",
+										"keyChanges"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}",
+											"disabled": true
+										},
+										{
+											"key": "totalCount",
+											"value": "true",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Key Changes with count",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", () => {\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
+											"});\r",
+											"\r",
+											"const items = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Should return an empty array\", () => {\r",
+											"  pm.expect(items.length).to.equal(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Should return a total count header with a 0 value\", () => {\r",
+											"  pm.expect(parseInt(pm.response.headers.get('Total-Count'))).equal(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/gradeLevelDescriptors/keyChanges?totalCount=true",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"gradeLevelDescriptors",
+										"keyChanges"
+									],
+									"query": [
+										{
+											"key": "minChangeVersion",
+											"value": "{{known:{{scenarioId}}:newestChangeVersion}}",
+											"disabled": true
+										},
+										{
+											"key": "totalCount",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
