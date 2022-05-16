@@ -620,6 +620,157 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
         }
+        
+        public class With_nested_CTEs
+        {
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
+            public void Should_flatten_and_combine_nested_CTEs(DatabaseEngine databaseEngine)
+            {
+                string initialChangeVersionColumnName = "initialChangeVersion";
+                string finalChangeVersionColumnName = "finalChangeVersion";
+
+                var rawDataQuery = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("tracked_changes_edfi.Calendar")
+                    .Select("*");
+                
+                var changeWindowVersionsCteQuery = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .With("RawData", rawDataQuery)
+                    .From("RawData AS c")
+                    .Select("c.Id")
+                    .SelectRaw($"MIN(c.ChangeVersion) AS {initialChangeVersionColumnName}")
+                    .SelectRaw($"MAX(c.ChangeVersion) AS {finalChangeVersionColumnName}")
+                    .GroupBy("c.Id");
+
+                string changeWindowCteName = "ChangeWindow";
+                string changeWindowAlias = "cw";
+
+                string changeQueriesTableName = "tracked_changes_edfi.Calendar";
+                string oldAlias = "old";
+                string newAlias = "new";
+
+                string idColumnName = "Id";
+                
+                var dataQuery = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .With(changeWindowCteName, changeWindowVersionsCteQuery)
+                    .From($"{changeWindowCteName} AS {changeWindowAlias}")
+                    .Join(
+                        $"{changeQueriesTableName} AS {oldAlias}",
+                        j => j.On($"{changeWindowAlias}.{idColumnName}", $"{oldAlias}.{idColumnName}")
+                            .On($"{changeWindowAlias}.{initialChangeVersionColumnName}", $"{oldAlias}.ChangeVersion"))
+                    .Join(
+                        $"{changeQueriesTableName} AS {newAlias}",
+                        j => j.On($"{changeWindowAlias}.{idColumnName}", $"{newAlias}.{idColumnName}")
+                            .On($"{changeWindowAlias}.{finalChangeVersionColumnName}", $"{newAlias}.ChangeVersion"))
+                    .Select(
+                        $"{changeWindowAlias}.{idColumnName}",
+                        $"{changeWindowAlias}.{finalChangeVersionColumnName} AS ChangeVersion")
+                    .Select($"{oldAlias}.OldCalendarCode", $"{oldAlias}.OldSchoolId", $"{oldAlias}.OldSchoolYear")
+                    .Select($"{newAlias}.NewCalendarCode", $"{newAlias}.NewSchoolId", $"{newAlias}.NewSchoolYear")
+                    .OrderBy($"{changeWindowAlias}.{finalChangeVersionColumnName}");
+                
+                var template = dataQuery.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+                
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
+                    WITH RawData AS (
+                        SELECT * FROM tracked_changes_edfi.Calendar),
+                    ChangeWindow AS (
+                        SELECT  c.Id, MIN(c.ChangeVersion) AS initialChangeVersion, MAX(c.ChangeVersion) AS finalChangeVersion
+                        FROM    RawData AS c
+                        GROUP BY c.Id
+                    )
+                    SELECT  cw.Id, cw.finalChangeVersion AS ChangeVersion,
+                            old.OldCalendarCode, old.OldSchoolId, old.OldSchoolYear,
+                            new.NewCalendarCode, new.NewSchoolId, new.NewSchoolYear
+                    FROM    ChangeWindow AS cw
+                            INNER JOIN tracked_changes_edfi.Calendar AS old
+                                ON cw.Id = old.Id AND cw.initialChangeVersion = old.ChangeVersion 
+                            INNER JOIN tracked_changes_edfi.Calendar AS new
+                                ON cw.Id = new.Id AND cw.finalChangeVersion = new.ChangeVersion
+                    ORDER BY cw.finalChangeVersion
+                    ".NormalizeSql())
+                );
+                
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = dataQuery.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+        }
+
+        public class For_Count_Query
+        {
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
+            public void Should_apply_CTEs(DatabaseEngine databaseEngine)
+            {
+                var dataQuery = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .Select("*")
+                    .From("edfi.Student")
+                    .WhereLike("LastSurname", "B%")
+                    .OrderBy("FirstName", "LastSurname");
+
+                var countTemplate = dataQuery.BuildCountTemplate();
+
+                var actualParameters = countTemplate.Parameters as DynamicParameters;
+
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => countTemplate.RawSql.NormalizeSql().ShouldBe(@"
+                    WITH __count_data AS (
+                        SELECT * FROM edfi.Student
+                        WHERE LastSurname LIKE @p0
+                    )
+                    SELECT COUNT(1) FROM __count_data
+                    ".NormalizeSql()),
+                    () => actualParameters.ShouldNotBeNull(),
+                    () => actualParameters.ParameterNames.ShouldContain("p0"),
+                    () => actualParameters.Get<string>("@p0").ShouldBe("B%"));
+            }
+        }
+        
+        public class For_Count_Query_for_Query_with_CTE
+        {
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
+            public void Should_apply_CTEs(DatabaseEngine databaseEngine)
+            {
+                var rawDataQuery = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .Select("*")
+                    .From("edfi.Student")
+                    .WhereLike("FirstName", new Parameter("@firstName", "A%"));
+
+                var groupingQuery = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .With("rawData", rawDataQuery)
+                    .From("rawData")
+                    .Select("FirstName", "COUNT(1) AS record_count")
+                    // .Where("LEN(FirstName)", 6)
+                    .Where("LEN(FirstName)", new Parameter("@length", 6))
+                    .GroupBy("FirstName")
+                    .OrderBy("COUNT(1)");
+
+                var countTemplate = groupingQuery.BuildCountTemplate();
+
+                var actualParameters = countTemplate.Parameters as DynamicParameters;
+
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => countTemplate.RawSql.NormalizeSql().ShouldBe(@"
+                    WITH rawData AS (
+                        SELECT * FROM edfi.Student
+                        WHERE FirstName LIKE @firstName),
+                    __count_data AS ( 
+                        SELECT FirstName, COUNT(1) AS record_count
+                        FROM rawData
+                        WHERE LEN(FirstName) = @length
+                        GROUP BY FirstName
+                    )
+                    SELECT COUNT(1) FROM __count_data
+                    ".NormalizeSql()));
+            }
+        }
 
         public enum DatabaseEngine
         {

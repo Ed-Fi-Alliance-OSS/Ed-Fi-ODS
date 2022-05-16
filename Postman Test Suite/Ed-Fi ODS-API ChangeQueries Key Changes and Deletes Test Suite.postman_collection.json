@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0fdffa4f-1e76-4722-8a77-e9ba9eb08d1f",
+		"_postman_id": "2ff11b72-abca-43e6-bb7e-38b1de6920e0",
 		"name": "Ed-Fi ODS/API ChangeQueries Key Changes and Deletes Test Suite",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -6828,951 +6828,2185 @@
 					"name": "Sections",
 					"item": [
 						{
-							"name": "Get AvailableChangeVersions",
-							"event": [
+							"name": "Initialization",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", () => {",
-											"    pm.expect(pm.response.code).to.equal(200);",
-											"});",
-											"",
-											"const responseItem = pm.response.json();",
-											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											"const uuid = require('uuid');\r",
-											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
-											"function createScenarioId() { return newGuid().substring(0,5); }\r",
-											"pm.environment.set('scenarioId', createScenarioId());\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"type": "text",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"changeQueries",
-										"v1",
-										"availableChangeVersions"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Obtain CourseOffering for LEA client",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 200\", () => {\r",
-											"  pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Should return an item for use in the test\", () => {\r",
-											"  pm.expect(items.length).to.equal(1);\r",
-											"});\r",
-											"\r",
-											"if (items.length > 0) {\r",
-											"  const item = items[0];\r",
-											"  pm.environment.set('known:' + scenarioId + ':courseOffering:localCourseCode', item.localCourseCode);\r",
-											"  pm.environment.set('known:' + scenarioId + ':courseOffering:schoolId', item.sessionReference.schoolId);\r",
-											"  pm.environment.set('known:' + scenarioId + ':courseOffering:schoolYear', item.sessionReference.schoolYear);\r",
-											"  pm.environment.set('known:' + scenarioId + ':courseOffering:sessionName', item.sessionReference.sessionName);\r",
-											"  pm.environment.set('supplied:' + scenarioId + ':section:sectionIdentifier', pm.variables.replaceIn('{{$guid}}'));\r",
-											"}\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?schoolId=255901001&limit=1",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"courseOfferings"
-									],
-									"query": [
+									"name": "Get AvailableChangeVersions",
+									"event": [
 										{
-											"key": "schoolId",
-											"value": "255901001"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"    pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItem = pm.response.json();",
+													"const scenarioId = pm.environment.get('scenarioId');",
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+												],
+												"type": "text/javascript"
+											}
 										},
 										{
-											"key": "limit",
-											"value": "1"
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const uuid = require('uuid');\r",
+													"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+													"function createScenarioId() { return newGuid().substring(0,5); }\r",
+													"pm.environment.set('scenarioId', createScenarioId());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Obtain ClassPeriod for LEA client",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
 										],
-										"type": "text/javascript"
-									}
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/changeQueries/v1/availableChangeVersions",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"changeQueries",
+												"v1",
+												"availableChangeVersions"
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 200\", () => {\r",
-											"  pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Should return an item for use in the test\", () => {\r",
-											"  pm.expect(items.length).to.equal(1);\r",
-											"})\r",
-											"\r",
-											"if (items.length > 0) {\r",
-											"  const item = items[0];\r",
-											"  pm.environment.set('known:' + scenarioId + ':classPeriod:classPeriodName', item.classPeriodName);\r",
-											"}\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods?schoolId=255901001&limit=1",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods"
-									],
-									"query": [
+									"name": "Obtain CourseOffering for LEA client",
+									"event": [
 										{
-											"key": "schoolId",
-											"value": "255901001"
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
 										},
 										{
-											"key": "limit",
-											"value": "1"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an item for use in the test\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"if (items.length > 0) {\r",
+													"  const item = items[0];\r",
+													"  pm.environment.set('known:' + scenarioId + ':courseOffering:localCourseCode', item.localCourseCode);\r",
+													"  pm.environment.set('known:' + scenarioId + ':courseOffering:schoolId', item.sessionReference.schoolId);\r",
+													"  pm.environment.set('known:' + scenarioId + ':courseOffering:schoolYear', item.sessionReference.schoolYear);\r",
+													"  pm.environment.set('known:' + scenarioId + ':courseOffering:sessionName', item.sessionReference.sessionName);\r",
+													"  pm.environment.set('supplied:' + scenarioId + ':section:sectionIdentifier', pm.variables.replaceIn('{{$guid}}'));\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Obtain CourseOffering for School client",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?schoolId=255901001&limit=1",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901001"
+												},
+												{
+													"key": "limit",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 200\", () => {\r",
-											"  pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Should return an item for use in the test\", () => {\r",
-											"  pm.expect(items.length).to.equal(1);\r",
-											"})\r",
-											"\r",
-											"if (items.length > 0) {\r",
-											"  const item = items[0];\r",
-											"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:localCourseCode', item.localCourseCode);\r",
-											"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:schoolId', item.sessionReference.schoolId);\r",
-											"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:schoolYear', item.sessionReference.schoolYear);\r",
-											"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:sessionName', item.sessionReference.sessionName);\r",
-											"  pm.environment.set('supplied:' + scenarioId + ':schoolClient:section:sectionIdentifier', pm.variables.replaceIn('{{$guid}}'));\r",
-											"}\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?schoolId=255901044&limit=1",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"courseOfferings"
-									],
-									"query": [
+									"name": "Obtain ClassPeriod for LEA client",
+									"event": [
 										{
-											"key": "schoolId",
-											"value": "255901044"
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
 										},
 										{
-											"key": "limit",
-											"value": "1"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an item for use in the test\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"})\r",
+													"\r",
+													"if (items.length > 0) {\r",
+													"  const item = items[0];\r",
+													"  pm.environment.set('known:' + scenarioId + ':classPeriod:classPeriodName', item.classPeriodName);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Obtain ClassPeriod for School client",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods?schoolId=255901001&limit=1",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901001"
+												},
+												{
+													"key": "limit",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 200\", () => {\r",
-											"  pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Should return an item for use in the test\", () => {\r",
-											"  pm.expect(items.length).to.equal(1);\r",
-											"})\r",
-											"\r",
-											"if (items.length > 0) {\r",
-											"  const item = items[0];\r",
-											"  pm.environment.set('known:' + scenarioId + ':schoolClient:classPeriod:classPeriodName', item.classPeriodName);\r",
-											"}\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods?schoolId=255901044&limit=1",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"classPeriods"
-									],
-									"query": [
+									"name": "Obtain CourseOffering for School client",
+									"event": [
 										{
-											"key": "schoolId",
-											"value": "255901044"
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
 										},
 										{
-											"key": "limit",
-											"value": "1"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an item for use in the test\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"})\r",
+													"\r",
+													"if (items.length > 0) {\r",
+													"  const item = items[0];\r",
+													"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:localCourseCode', item.localCourseCode);\r",
+													"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:schoolId', item.sessionReference.schoolId);\r",
+													"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:schoolYear', item.sessionReference.schoolYear);\r",
+													"  pm.environment.set('known:' + scenarioId + ':schoolClient:courseOffering:sessionName', item.sessionReference.sessionName);\r",
+													"  pm.environment.set('supplied:' + scenarioId + ':schoolClient:section:sectionIdentifier', pm.variables.replaceIn('{{$guid}}'));\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "* Get Sections",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"const item = items[0];\r",
-											"\r",
-											"if (items.length > 0) {\r",
-											"    pm.environment.set('known:'+scenarioId+':section:id', item.id);\r",
-											"}"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
-									"host": [
-										"{{ApiBaseUrl}}"
 									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"sections"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create Section (LEA client)",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 201\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(201);\r",
-											"});\r",
-											"\r",
-											"pm.environment.set('known:'+scenarioId+':section:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"{{supplied:{{scenarioId}}:section:sectionIdentifier}}\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/courseOfferings?schoolId=255901044&limit=1",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"courseOfferings"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901044"
+												},
+												{
+													"key": "limit",
+													"value": "1"
+												}
+											]
 										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"sections"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create Section (School client)",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
+									},
+									"response": []
 								},
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 201\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(201);\r",
-											"});\r",
-											"\r",
-											"pm.environment.set('known:'+scenarioId+':schoolClient:section:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
+									"name": "Obtain ClassPeriod for School client",
+									"event": [
 										{
-											"key": "token",
-											"value": "{{AccessToken_255901044}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"{{supplied:{{scenarioId}}:schoolClient:section:sectionIdentifier}}\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"sections"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Change Section Key (LEA client)",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 204\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"XYZ789\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:section:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"sections",
-										"{{known:{{scenarioId}}:section:id}}"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Change Section Key (School client)",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 204\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
 										{
-											"key": "token",
-											"value": "{{AccessToken_255901044}}",
-											"type": "string"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return an item for use in the test\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"})\r",
+													"\r",
+													"if (items.length > 0) {\r",
+													"  const item = items[0];\r",
+													"  pm.environment.set('known:' + scenarioId + ':schoolClient:classPeriod:classPeriodName', item.classPeriodName);\r",
+													"}\r",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"XYZ789\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
 									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"sections",
-										"{{known:{{scenarioId}}:schoolClient:section:id}}"
-									]
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/classPeriods?schoolId=255901044&limit=1",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"classPeriods"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "255901044"
+												},
+												{
+													"key": "limit",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "* Get Sections",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"const item = items[0];\r",
+													"\r",
+													"if (items.length > 0) {\r",
+													"    pm.environment.set('known:'+scenarioId+':section:id', item.id);\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Section (LEA client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:'+scenarioId+':section:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"{{supplied:{{scenarioId}}:section:sectionIdentifier}}\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Section (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:'+scenarioId+':schoolClient:section:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"{{supplied:{{scenarioId}}:schoolClient:section:sectionIdentifier}}\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Section AAA (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:'+scenarioId+':schoolClient:section:AAA:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"AAA\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Section BBB (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:'+scenarioId+':schoolClient:section:BBB:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"BBB\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Section CCC (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 201\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:'+scenarioId+':schoolClient:section:CCC:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"CCC\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Get Key Changes (LEA client)",
-							"event": [
+							"name": "Change a Key",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Should return the 2 key changes made by both clients\", () => {\r",
-											"  pm.expect(items.length).to.equal(2);\r",
-											"});\r",
-											"\r",
-											"const item1 = items[0];\r",
-											"const item2 = items[1];\r",
-											"\r",
-											"pm.test(\"Expected items are returned\", () => {\r",
-											"    pm.expect(item1.id).equal(pm.environment.get(`known:${scenarioId}:section:id`));\r",
-											"    pm.expect(item2.id).equal(pm.environment.get(`known:${scenarioId}:schoolClient:section:id`));\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-											"    pm.expect(Object.keys(item1.oldKeyValues).length).equal(5);\r",
-											"    pm.expect(Object.keys(item1.newKeyValues).length).equal(5);\r",
-											"\r",
-											"    pm.expect(Object.keys(item2.oldKeyValues).length).equal(5);\r",
-											"    pm.expect(Object.keys(item2.newKeyValues).length).equal(5);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old key values are correctly reported\", () => {\r",
-											"    pm.expect(item1.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:section:sectionIdentifier`));\r",
-											"    pm.expect(item2.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:schoolClient:section:sectionIdentifier`));\r",
-											"});\r",
-											"\r",
-											"pm.test(\"New key values are correctly reported\", () => {\r",
-											"    pm.expect(item1.newKeyValues.sectionIdentifier).equal(\"XYZ789\");\r",
-											"    pm.expect(item2.newKeyValues.sectionIdentifier).equal(\"XYZ789\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"sections",
-										"keyChanges"
-									],
-									"query": [
+									"name": "Change SectionIdentifier to XYZ (LEA client)",
+									"event": [
 										{
-											"key": "minChangeVersion",
-											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"XYZ\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Change SectionIdentifier to XYZ (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"XYZ\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Key Changes (LEA client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the 2 key changes made by both clients\", () => {\r",
+													"  pm.expect(items.length).to.equal(2);\r",
+													"});\r",
+													"\r",
+													"const item1 = items[0];\r",
+													"const item2 = items[1];\r",
+													"\r",
+													"pm.test(\"Expected items are returned\", () => {\r",
+													"    pm.expect(item1.id).equal(pm.environment.get(`known:${scenarioId}:section:id`));\r",
+													"    pm.expect(item2.id).equal(pm.environment.get(`known:${scenarioId}:schoolClient:section:id`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+													"    pm.expect(Object.keys(item1.oldKeyValues).length).equal(5);\r",
+													"    pm.expect(Object.keys(item1.newKeyValues).length).equal(5);\r",
+													"\r",
+													"    pm.expect(Object.keys(item2.oldKeyValues).length).equal(5);\r",
+													"    pm.expect(Object.keys(item2.newKeyValues).length).equal(5);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old key values are correctly reported\", () => {\r",
+													"    pm.expect(item1.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:section:sectionIdentifier`));\r",
+													"    pm.expect(item2.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:schoolClient:section:sectionIdentifier`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"New key values are correctly reported\", () => {\r",
+													"    pm.expect(item1.newKeyValues.sectionIdentifier).equal(\"XYZ\");\r",
+													"    pm.expect(item2.newKeyValues.sectionIdentifier).equal(\"XYZ\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Total count is correctly reported\", () => {\r",
+													"    pm.expect(parseInt(pm.response.headers.get('Total-Count'))).equal(2);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&totalCount=true",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+												},
+												{
+													"key": "totalCount",
+													"value": "true"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Key Changes (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the one key change made by the school-level client\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"const item = items[0];\r",
+													"\r",
+													"pm.test(\"Expected item is returned\", () => {\r",
+													"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:schoolClient:section:id`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+													"    pm.expect(Object.keys(item.oldKeyValues).length).equal(5);\r",
+													"    pm.expect(Object.keys(item.newKeyValues).length).equal(5);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old key values are correctly reported\", () => {\r",
+													"    pm.expect(item.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:schoolClient:section:sectionIdentifier`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"New key values are correctly reported\", () => {\r",
+													"    pm.expect(item.newKeyValues.sectionIdentifier).equal(\"XYZ\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Total count is correctly reported\", () => {\r",
+													"    pm.expect(parseInt(pm.response.headers.get('Total-Count'))).equal(1);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&totalCount=true",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+												},
+												{
+													"key": "totalCount",
+													"value": "true"
+												}
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Get Key Changes (School client)",
-							"event": [
+							"name": "Make additional changes to same Section",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
+									"name": "Change SectionIdentifier to ABC (LEA client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"ABC\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:section:id}}"
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Should return the one key change made by the school-level client\", () => {\r",
-											"  pm.expect(items.length).to.equal(1);\r",
-											"});\r",
-											"\r",
-											"const item = items[0];\r",
-											"\r",
-											"pm.test(\"Expected item is returned\", () => {\r",
-											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:schoolClient:section:id`));\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(5);\r",
-											"    pm.expect(Object.keys(item.newKeyValues).length).equal(5);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Old key values are correctly reported\", () => {\r",
-											"    pm.expect(item.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:schoolClient:section:sectionIdentifier`));\r",
-											"});\r",
-											"\r",
-											"pm.test(\"New key values are correctly reported\", () => {\r",
-											"    pm.expect(item.newKeyValues.sectionIdentifier).equal(\"XYZ789\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
+									"name": "Change SectionIdentifier to ABC (School client)",
+									"event": [
 										{
-											"key": "token",
-											"value": "{{AccessToken_255901044}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"sections",
-										"keyChanges"
-									],
-									"query": [
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
 										{
-											"key": "minChangeVersion",
-											"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"ABC\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Key Changes (LEA client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the 2 key changes made by both clients\", () => {\r",
+													"  pm.expect(items.length).to.equal(2);\r",
+													"});\r",
+													"\r",
+													"const item1 = items[0];\r",
+													"const item2 = items[1];\r",
+													"\r",
+													"pm.test(\"Expected items are returned\", () => {\r",
+													"    pm.expect(item1.id).equal(pm.environment.get(`known:${scenarioId}:section:id`));\r",
+													"    pm.expect(item2.id).equal(pm.environment.get(`known:${scenarioId}:schoolClient:section:id`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+													"    pm.expect(Object.keys(item1.oldKeyValues).length).equal(5);\r",
+													"    pm.expect(Object.keys(item1.newKeyValues).length).equal(5);\r",
+													"\r",
+													"    pm.expect(Object.keys(item2.oldKeyValues).length).equal(5);\r",
+													"    pm.expect(Object.keys(item2.newKeyValues).length).equal(5);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old key values are correctly reported\", () => {\r",
+													"    pm.expect(item1.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:section:sectionIdentifier`));\r",
+													"    pm.expect(item2.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:schoolClient:section:sectionIdentifier`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"New key values are correctly reported\", () => {\r",
+													"    pm.expect(item1.newKeyValues.sectionIdentifier).equal(\"ABC\");\r",
+													"    pm.expect(item2.newKeyValues.sectionIdentifier).equal(\"ABC\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Total count is correctly reported\", () => {\r",
+													"    pm.expect(parseInt(pm.response.headers.get('Total-Count'))).equal(2);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&totalCount=true",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+												},
+												{
+													"key": "totalCount",
+													"value": "true"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Key Changes (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return the one key change made by the school-level client\", () => {\r",
+													"  pm.expect(items.length).to.equal(1);\r",
+													"});\r",
+													"\r",
+													"const item = items[0];\r",
+													"\r",
+													"pm.test(\"Expected item is returned\", () => {\r",
+													"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:schoolClient:section:id`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
+													"    pm.expect(Object.keys(item.oldKeyValues).length).equal(5);\r",
+													"    pm.expect(Object.keys(item.newKeyValues).length).equal(5);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Old key values are correctly reported\", () => {\r",
+													"    pm.expect(item.oldKeyValues.sectionIdentifier).equal(pm.environment.get(`supplied:${scenarioId}:schoolClient:section:sectionIdentifier`));\r",
+													"});\r",
+													"\r",
+													"pm.test(\"New key values are correctly reported\", () => {\r",
+													"    pm.expect(item.newKeyValues.sectionIdentifier).equal(\"ABC\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Total count is correctly reported\", () => {\r",
+													"    pm.expect(parseInt(pm.response.headers.get('Total-Count'))).equal(1);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&totalCount=true",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+												},
+												{
+													"key": "totalCount",
+													"value": "true"
+												}
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Delete Section (LEA client)",
-							"event": [
+							"name": "Make changes to other Sections",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 204\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
+									"name": "Expand SectionIdentifier AAA (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:section:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
 									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"sections",
-										"{{known:{{scenarioId}}:section:id}}"
-									]
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"AAAA\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:AAA:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:AAA:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Expand SectionIdentifier BBB (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"BBBB\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:BBB:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:BBB:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Expand SectionIdentifier BBB (School client) Copy",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"BBBBB\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:BBB:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:BBB:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Key Changes (LEA client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return a page of 3 key changes (made by either client)\", () => {\r",
+													"  pm.expect(items.length).to.equal(3);\r",
+													"});\r",
+													"\r",
+													"const knownIds = [\r",
+													"  pm.environment.get(`known:${scenarioId}:section:id`),\r",
+													"  pm.environment.get(`known:${scenarioId}:schoolClient:section:id`),\r",
+													"  pm.environment.get(`known:${scenarioId}:schoolClient:section:AAA:id`),\r",
+													"  pm.environment.get(`known:${scenarioId}:schoolClient:section:BBB:id`),\r",
+													"];\r",
+													"\r",
+													"pm.test(\"Items returned in the requested page are a subset of known items\", () => {\r",
+													"  items.forEach(item => {\r",
+													"    pm.expect(knownIds).contains(item.id);\r",
+													"  });\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Total count is correctly reported as total number of items affected by key changes, rather than a count of tracked key change operations\", () => {\r",
+													"    pm.expect(parseInt(pm.response.headers.get('Total-Count'))).to.equal(4);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&totalCount=true&limit=3",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+												},
+												{
+													"key": "totalCount",
+													"value": "true"
+												},
+												{
+													"key": "limit",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Expand SectionIdentifier CCC (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"courseOfferingReference\": {\r\n        \"localCourseCode\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:localCourseCode}}\",\r\n        \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n        \"schoolYear\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolYear}}\",\r\n        \"sessionName\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:sessionName}}\"\r\n    },\r\n    \"locationReference\": {\r\n        \"classroomIdentificationCode\": \"220\",\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"locationSchoolReference\": {\r\n        \"schoolId\": 255901001\r\n    },\r\n    \"sectionIdentifier\": \"CCCC\",\r\n    \"availableCredits\": 1.000,\r\n    \"educationalEnvironmentDescriptor\": \"uri://ed-fi.org/EducationalEnvironmentDescriptor#Classroom\",\r\n    \"sectionName\": \"Algebra 1\",\r\n    \"sequenceOfCourse\": 1,\r\n    \"characteristics\": [],\r\n    \"classPeriods\": [\r\n        {\r\n            \"classPeriodReference\": {\r\n                \"schoolId\": \"{{known:{{scenarioId}}:schoolClient:courseOffering:schoolId}}\",\r\n                \"classPeriodName\": \"{{known:{{scenarioId}}:schoolClient:classPeriod:classPeriodName}}\"\r\n            }\r\n        }\r\n    ],\r\n    \"courseLevelCharacteristics\": [],\r\n    \"offeredGradeLevels\": [],\r\n    \"programs\": []\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:CCC:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:CCC:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Key Changes (LEA client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 200\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const items = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Should return a page of 3 key changes (made by either client)\", () => {\r",
+													"  pm.expect(items.length).to.equal(3);\r",
+													"});\r",
+													"\r",
+													"const knownIds = [\r",
+													"  pm.environment.get(`known:${scenarioId}:section:id`),\r",
+													"  pm.environment.get(`known:${scenarioId}:schoolClient:section:id`),\r",
+													"  pm.environment.get(`known:${scenarioId}:schoolClient:section:AAA:id`),\r",
+													"  pm.environment.get(`known:${scenarioId}:schoolClient:section:BBB:id`),\r",
+													"  pm.environment.get(`known:${scenarioId}:schoolClient:section:CCC:id`)\r",
+													"];\r",
+													"\r",
+													"pm.test(\"Items returned in the requested page are a subset of known items\", () => {\r",
+													"  items.forEach(item => {\r",
+													"    pm.expect(knownIds).contains(item.id);\r",
+													"  });\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Total count is correctly reported as total number of items affected by key changes, rather than a count of tracked key change operations\", () => {\r",
+													"    pm.expect(parseInt(pm.response.headers.get('Total-Count'))).to.equal(5);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/keyChanges?minChangeVersion={{known:{{scenarioId}}:newestChangeVersion}}&totalCount=true&limit=3",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"keyChanges"
+											],
+											"query": [
+												{
+													"key": "minChangeVersion",
+													"value": "{{known:{{scenarioId}}:newestChangeVersion}}"
+												},
+												{
+													"key": "totalCount",
+													"value": "true"
+												},
+												{
+													"key": "limit",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Delete Section (School client)",
-							"event": [
+							"name": "Teardown",
+							"item": [
 								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 204\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(204);\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
+									"name": "Delete Section (LEA client)",
+									"event": [
 										{
-											"key": "token",
-											"value": "{{AccessToken_255901044}}",
-											"type": "string"
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
 										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:id}}",
-									"host": [
-										"{{ApiBaseUrl}}"
 									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"sections",
-										"{{known:{{scenarioId}}:schoolClient:section:id}}"
-									]
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Section (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Section AAA (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:AAA:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:AAA:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Section BBB (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:BBB:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:BBB:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete Section CCC (School client)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const scenarioId = pm.environment.get('scenarioId');\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections/{{known:{{scenarioId}}:schoolClient:section:CCC:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections",
+												"{{known:{{scenarioId}}:schoolClient:section:CCC:id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Environment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const __ = require('lodash');\r",
+													"\r",
+													"const keys = __.keys(pm.environment.toObject());\r",
+													"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+													"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+													"\r",
+													"// const remainingKeys = __.keys(pm.environment.toObject());\r",
+													"// console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						}
 					]
 				},
