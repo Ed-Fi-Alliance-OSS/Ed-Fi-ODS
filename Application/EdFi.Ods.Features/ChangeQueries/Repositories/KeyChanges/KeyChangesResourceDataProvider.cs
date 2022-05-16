@@ -10,6 +10,7 @@ using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.ChangeQueries.Resources;
 
@@ -34,7 +35,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
         public async Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
             // If key changes aren't supported, return an empty array.
-            if (!resource.Entity.Identifier.IsUpdatable)
+            if (!resource.Entity.Identifier.IsUpdatable && !resource.Entity.IsPersonEntity())
             {
                 return new ResourceData<KeyChange>()
                 {
