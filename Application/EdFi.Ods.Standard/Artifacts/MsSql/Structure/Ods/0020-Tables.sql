@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Table [edfi].[AbsenceEventCategoryDescriptor] --
 CREATE TABLE [edfi].[AbsenceEventCategoryDescriptor] (
     [AbsenceEventCategoryDescriptorId] [INT] NOT NULL,
@@ -259,7 +254,7 @@ CREATE TABLE [edfi].[Assessment] (
     [AssessmentVersion] [INT] NULL,
     [RevisionDate] [DATE] NULL,
     [MaxRawScore] [DECIMAL](15, 5) NULL,
-    [Nomenclature] [NVARCHAR](35) NULL,
+    [Nomenclature] [NVARCHAR](100) NULL,
     [AssessmentFamily] [NVARCHAR](60) NULL,
     [EducationOrganizationId] [INT] NULL,
     [AdaptiveAssessment] [BIT] NULL,
@@ -397,7 +392,7 @@ CREATE TABLE [edfi].[AssessmentItem] (
     [ItemText] [NVARCHAR](1024) NULL,
     [CorrectResponse] [NVARCHAR](20) NULL,
     [ExpectedTimeAssessed] [NVARCHAR](30) NULL,
-    [Nomenclature] [NVARCHAR](35) NULL,
+    [Nomenclature] [NVARCHAR](100) NULL,
     [AssessmentItemURI] [NVARCHAR](255) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -3837,7 +3832,7 @@ CREATE TABLE [edfi].[LearningObjective] (
     [Namespace] [NVARCHAR](255) NOT NULL,
     [Objective] [NVARCHAR](60) NOT NULL,
     [Description] [NVARCHAR](1024) NULL,
-    [Nomenclature] [NVARCHAR](35) NULL,
+    [Nomenclature] [NVARCHAR](100) NULL,
     [SuccessCriteria] [NVARCHAR](150) NULL,
     [ParentLearningObjectiveId] [NVARCHAR](60) NULL,
     [ParentNamespace] [NVARCHAR](255) NULL,
@@ -4327,7 +4322,7 @@ CREATE TABLE [edfi].[ObjectiveAssessment] (
     [Namespace] [NVARCHAR](255) NOT NULL,
     [MaxRawScore] [DECIMAL](15, 5) NULL,
     [PercentOfAssessment] [DECIMAL](5, 4) NULL,
-    [Nomenclature] [NVARCHAR](35) NULL,
+    [Nomenclature] [NVARCHAR](100) NULL,
     [Description] [NVARCHAR](1024) NULL,
     [ParentIdentificationCode] [NVARCHAR](60) NULL,
     [AcademicSubjectDescriptorId] [INT] NULL,

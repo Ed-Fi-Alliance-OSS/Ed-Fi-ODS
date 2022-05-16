@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Table edfi.AbsenceEventCategoryDescriptor --
 CREATE TABLE edfi.AbsenceEventCategoryDescriptor (
     AbsenceEventCategoryDescriptorId INT NOT NULL,
@@ -177,7 +172,7 @@ CREATE TABLE edfi.Assessment (
     AssessmentVersion INT NULL,
     RevisionDate DATE NULL,
     MaxRawScore DECIMAL(15, 5) NULL,
-    Nomenclature VARCHAR(35) NULL,
+    Nomenclature VARCHAR(100) NULL,
     AssessmentFamily VARCHAR(60) NULL,
     EducationOrganizationId INT NULL,
     AdaptiveAssessment BOOLEAN NULL,
@@ -273,7 +268,7 @@ CREATE TABLE edfi.AssessmentItem (
     ItemText VARCHAR(1024) NULL,
     CorrectResponse VARCHAR(20) NULL,
     ExpectedTimeAssessed VARCHAR(30) NULL,
-    Nomenclature VARCHAR(35) NULL,
+    Nomenclature VARCHAR(100) NULL,
     AssessmentItemURI VARCHAR(255) NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -2540,7 +2535,7 @@ CREATE TABLE edfi.LearningObjective (
     Namespace VARCHAR(255) NOT NULL,
     Objective VARCHAR(60) NOT NULL,
     Description VARCHAR(1024) NULL,
-    Nomenclature VARCHAR(35) NULL,
+    Nomenclature VARCHAR(100) NULL,
     SuccessCriteria VARCHAR(150) NULL,
     ParentLearningObjectiveId VARCHAR(60) NULL,
     ParentNamespace VARCHAR(255) NULL,
@@ -2879,7 +2874,7 @@ CREATE TABLE edfi.ObjectiveAssessment (
     Namespace VARCHAR(255) NOT NULL,
     MaxRawScore DECIMAL(15, 5) NULL,
     PercentOfAssessment DECIMAL(5, 4) NULL,
-    Nomenclature VARCHAR(35) NULL,
+    Nomenclature VARCHAR(100) NULL,
     Description VARCHAR(1024) NULL,
     ParentIdentificationCode VARCHAR(60) NULL,
     AcademicSubjectDescriptorId INT NULL,
