@@ -9,19 +9,29 @@ namespace EdFi.Ods.Common.Database.Querying.Dialects
 {
     public abstract class Dialect
     {
-        public virtual string GetTemplateString(QueryBuilder queryBuilder, bool countQuery = false)
+        public virtual string GetTemplateString(string sourceTableName)
         {
             return
-                $"/**with**/ SELECT {(countQuery ? GetSelectCountString() : "/**select**/")} FROM {queryBuilder.TableName}/**innerjoin**/ /**leftjoin**/ /**rightjoin**/ /**where**/ /**groupby**/ {(countQuery ? string.Empty : "/**orderby**/" )} /**paging**/";
+                $"/**with**/ SELECT /**select**/ FROM {sourceTableName}/**innerjoin**/ /**leftjoin**/ /**rightjoin**/ /**where**/ /**groupby**/ /**orderby**/ /**paging**/";
         }
 
-        public abstract string GetLimitOffsetString(int? limit, int? offset);
-        
+        public virtual string GetCountTemplateString(string countTableCteName)
+        {
+            return $"/**with**/ SELECT /**select**/ FROM {countTableCteName}";
+        }
+
         public virtual string GetSelectCountString()
         {
             return "COUNT(1)";
         }
 
+        public abstract string GetLimitOffsetString(int? limit, int? offset);
+
         public abstract (string sql, object parameters) GetInClause(string columnName, string parameterName, IList values);
+
+        public virtual string GetCteString(string cteName, string sql)
+        {
+            return $"{cteName} AS ({sql})";
+        }
     }
 }

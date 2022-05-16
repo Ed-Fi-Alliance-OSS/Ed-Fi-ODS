@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+
 namespace EdFi.Ods.Common.Database.Querying
 {
     public partial class SqlBuilder
@@ -54,6 +56,42 @@ namespace EdFi.Ods.Common.Database.Querying
         
             // Return the cloned builder
             return newBuilder;
+        }
+
+        /// <summary>
+        /// Adds the supplied query builder as a CTE entry in the current <see cref="SqlBuilder" /> instance, flattening any
+        /// contained CTE expressions as necessary.
+        /// </summary>
+        /// <param name="cteName">The name for the CTE expression.</param>
+        /// <param name="cteSqlBuilder">The <see cref="SqlBuilder" /> instance representing the query to be added as a CTE expression.</param>
+        /// <param name="templateString">The SQL template to be applied to the supplied <see cref="SqlBuilder" /> to produce the raw SQL for the query.</param>
+        /// <param name="createCteRawSql">A function that takes the CTE name and the raw query SQL and returns the final raw SQL for use in the CTE expression.</param>
+        /// <returns>The current <see cref="SqlBuilder" />.</returns>
+        // /// <param name="parameters">Parameters to be applied.</param>
+        public SqlBuilder With(
+            string cteName,
+            SqlBuilder cteSqlBuilder,
+            string templateString,
+            Func<string, string, string> createCteRawSql)
+        {
+            // Copy WITH clauses from the supplied SqlBuilder for the CTE up to the main SqlBuilder (this one)
+            if (cteSqlBuilder._data.TryGetValue("with", out var withClauses))
+            {
+                // Copy with clauses up to the current SqlBuilder
+                foreach (Clause withClause in withClauses)
+                {
+                    With(withClause.Sql);
+                }
+            }
+
+            // Apply supplied template to the nested SqlBuilder (stripping the WITH and ORDER BY clauses, if present)
+            string templateStringWithoutWith = templateString.Replace("/**with**/", string.Empty);
+
+            // Apply the query of the nested SqlBuilder as another CTE
+            var nestedTemplate = cteSqlBuilder.AddTemplate(templateStringWithoutWith);
+            string cteRawSql = createCteRawSql(cteName, nestedTemplate.RawSql);
+
+            return With(cteRawSql, nestedTemplate.Parameters);
         }
 
         /// <summary>
