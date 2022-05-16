@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Database.NamingConventions;
+using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Features.ChangeQueries.Resources;
 
@@ -32,6 +33,16 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.KeyChanges
 
         public async Task<ResourceData<KeyChange>> GetResourceDataAsync(Resource resource, IQueryParameters queryParameters)
         {
+            // We won't support keyChanges for descriptors (which would require special query handling anyway), so we just return an empty result with count of 0.
+            if (resource.Entity.IsDescriptorEntity)
+            {
+                return new ResourceData<KeyChange>()
+                {
+                    Items = Array.Empty<KeyChange>(),
+                    Count = 0
+                };
+            }
+            
             var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
 
             return await base.GetResourceDataAsync(
