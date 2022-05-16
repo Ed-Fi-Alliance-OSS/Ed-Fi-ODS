@@ -52,13 +52,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
             IQueryParameters queryParameters,
             Resource resource);
 
-        protected virtual QueryBuilder FinalizeCountQueryBuilder(QueryBuilder countQueryBuilder, IQueryParameters queryParameters)
-        {
-            ApplyChangeVersionCriteria(countQueryBuilder, queryParameters);
-
-            return countQueryBuilder;
-        }
-
         protected void ApplyPaging(QueryBuilder queryBuilder, IQueryParameters queryParameters)
         {
             queryBuilder.LimitOffset(

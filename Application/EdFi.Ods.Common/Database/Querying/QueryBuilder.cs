@@ -201,7 +201,7 @@ namespace EdFi.Ods.Common.Database.Querying
         public QueryBuilder With(string cteName, QueryBuilder cteQueryBuilder)
         {
             // Apply the nested query builder as a WITH clause to this query builder
-            string templateString = _dialect.GetTemplateString(cteQueryBuilder);
+            string templateString = _dialect.GetTemplateString(cteQueryBuilder.TableName);
             _sqlBuilder.With(cteName, cteQueryBuilder._sqlBuilder, templateString, _dialect.GetCteString);
 
             return this;
@@ -289,20 +289,8 @@ namespace EdFi.Ods.Common.Database.Querying
 
         public SqlBuilder.Template BuildTemplate()
         {
-            // Apply CTEs
-            // _ctes.ForEach(
-            //     cte =>
-            //     {
-            //         var cteTemplate = cte.QueryBuilder._sqlBuilder.AddTemplate(
-            //             _dialect.GetTemplateString(cte.QueryBuilder),
-            //             cte.Parameters);
-            //
-            //         // NOTE: We may want to build these at the moment to avoid unexpected side effects of building multiple times
-            //         _sqlBuilder.With($"{cte.Name} AS ({cteTemplate.RawSql})", cteTemplate.Parameters);
-            //     });
-
             // Build the template
-            string template = _dialect.GetTemplateString(this);
+            string template = _dialect.GetTemplateString(TableName);
 
             var parameters = Parameters.Any()
                 ? new DynamicParameters(Parameters)
@@ -321,15 +309,18 @@ namespace EdFi.Ods.Common.Database.Querying
             var countSqlBuilder = new SqlBuilder();
 
             // Wrap main query with the count query builder as a CTE expression
-            string countableTemplateString = _dialect.GetTemplateString(this)
+            string countableTemplateString = _dialect.GetTemplateString(TableName)
                 .Replace("/**orderby**/", string.Empty)
                 .Replace("/**paging**/", string.Empty);
+
+            const string CountQueryCteName = "__count_data";
             
-            countSqlBuilder.With("__count_data", _sqlBuilder, countableTemplateString, _dialect.GetCteString);
+            countSqlBuilder.With(CountQueryCteName, _sqlBuilder, countableTemplateString, _dialect.GetCteString);
             countSqlBuilder.Select(_dialect.GetSelectCountString());
+            countSqlBuilder.AddParameters(parameters);
 
             // Return the template for the count query 
-            return countSqlBuilder.AddTemplate("/**with**/ SELECT /**select**/ FROM __count_data");
+            return countSqlBuilder.AddTemplate(_dialect.GetCountTemplateString(CountQueryCteName));
         }
 
         public class Cte
