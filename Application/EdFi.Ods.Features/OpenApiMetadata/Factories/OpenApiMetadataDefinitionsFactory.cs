@@ -80,7 +80,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                 schema = CreateTrackedChangesDeletesSchema(r)
                             }
                             : null,
-                        isChangeQueriesEnabled && (r.Resource.Entity.Identifier.IsUpdatable || Common.Models.Domain.EntitySpecification.IsPersonEntity(r.Resource.Entity))
+                        isChangeQueriesEnabled
                             ? new
                             {
                                 key = GetTrackedChangesResourceKeyChangeName(r.Resource, r),
@@ -212,7 +212,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         }
 
         /// <summary>
-        /// Creates a schema that only contains the natural keys of a resource.
+        /// Creates an schema that only contains the natural keys of a resource.
         /// </summary>
         private Schema CreateTrackedChangesKeySchema(OpenApiMetadataResource openApiMetadataResource)
         {
@@ -233,7 +233,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         Schema = OpenApiMetadataDocumentHelper.CreatePropertySchema(
                             resource.AllProperties.FirstOrDefault(rp => p == rp.JsonPropertyName) ??
                             throw new Exception(
-                                $"The natural key '{p}' of the resource '{resource.FullName}' wasn't found in its model.")
+                                $"The identifying property '{p}' of the resource '{resource.FullName}' wasn't found in its model.")
                         )
                     });
 

@@ -85,13 +85,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                         Path = $"{resourcePath}/deletes",
                                         PathItem = CreatePathItemForTrackedChangesDeleteOperation(r)
                                     },
-                                    r.Resource.Entity.Identifier.IsUpdatable || r.Resource.Entity.IsPersonEntity()
-                                        ? new
-                                        {
-                                            Path = $"{resourcePath}/keyChanges",
-                                            PathItem = CreatePathItemForTrackedChangesKeyChangeOperation(r)
-                                        }
-                                        : null
+                                    new
+                                    {
+                                        Path = $"{resourcePath}/keyChanges",
+                                        PathItem = CreatePathItemForTrackedChangesKeyChangeOperation(r)
+                                    }
                                 });
                         }
 
