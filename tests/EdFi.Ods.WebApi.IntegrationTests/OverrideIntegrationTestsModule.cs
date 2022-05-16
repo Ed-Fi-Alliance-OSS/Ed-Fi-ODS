@@ -7,7 +7,6 @@ using Autofac;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Features.IdentityManagement.Models;
-using EdFi.TestObjects;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
 {
