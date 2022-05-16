@@ -1,0 +1,29 @@
+name: EdFi.Common Pull request build and test
+
+on:
+  pull_request:
+    branches: [main]
+
+env:
+  INFORMATIONAL_VERSION: "6.0"
+  CONFIGURATION: "Release"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@9211491ffb35dd6a6657ca4f45d43dfe6e97c829 # v2
+      with:
+        dotnet-version: 6.0.x
+    - name: build
+      run: |
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -Solution "Application/EdFi.Common/EdFi.Common.sln" -ProjectFile "Application/EdFi.Common/EdFi.Common.csproj"
+      shell: pwsh
+    - name: test
+      run: |
+        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Common/EdFi.Common.sln" -ProjectFile "Application/EdFi.Common/EdFi.Common.csproj"
+      shell: pwsh

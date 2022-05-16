@@ -6,7 +6,6 @@
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Linq;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 
@@ -34,7 +33,7 @@ public class SqlServerViewBasedSingleItemAuthorizationQuerySupport : IViewBasedS
     public void ApplyClaimsParametersToCommand(DbCommand cmd, EdFiAuthorizationContext authorizationContext)
     {
         // No parameters needed if less than 2,000 EdOrgIds present
-        if (authorizationContext.ApiKeyContext.EducationOrganizationIds.Count() < SqlServerParameterCountThreshold)
+        if (authorizationContext.ApiKeyContext.EducationOrganizationIds.Length < SqlServerParameterCountThreshold)
         {
             return;
         }

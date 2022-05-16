@@ -681,85 +681,82 @@ namespace {{ResourceClassesNamespace}}
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                {{#Properties}}
-                {{#HasParent}}
-                //Parent Property
-                if (_{{ParentFieldName}} != null)
-                    hash = hash * 23 + _{{ParentFieldName}}.GetHashCode();
-                {{/HasParent}}
-                {{#Usi}}
-                {{#Property}}
+            var hash = new HashCode();
+            {{#Properties}}
+            {{#HasParent}}
+            //Parent Property
+            if (_{{ParentFieldName}} != null)
+                hash.Add(_{{ParentFieldName}});
+            {{/HasParent}}
+            {{#Usi}}
+            {{#Property}}
 
-                //Property
-                {{#IsNullable}}
-                 if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
-                    hash = hash * 23 + (this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.GetHashCode();
-                {{/IsNullable}}
-                {{^IsNullable}}
-                hash = hash * 23 + (this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}}.GetHashCode();
-                {{/IsNullable}}
+            //Property
+            {{#IsNullable}}
+            if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
+                hash.Add((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}});
+            {{/IsNullable}}
+            {{^IsNullable}}
+            hash.Add((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}});
+            {{/IsNullable}}
 
-                {{/Property}}
-                {{/Usi}}
-                {{#Standard}}
-                {{#Property}}
+            {{/Property}}
+            {{/Usi}}
+            {{#Standard}}
+            {{#Property}}
 
-                // Standard Property
-                {{#IsNullable}}
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}} != null)
-                    hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{CSharpSafePropertyName}}.GetHashCode();
-                {{/IsNullable}}
-                {{^IsNullable}}
-                 hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{CSharpSafePropertyName}}.GetHashCode();
-                {{/IsNullable}}
+            // Standard Property
+            {{#IsNullable}}
+            if ((this as {{NamespacePrefix}}I{{ClassName}}).{{CSharpSafePropertyName}} != null)
+                hash.Add((this as {{NamespacePrefix}}I{{{ClassName}}}).{{CSharpSafePropertyName}});
+            {{/IsNullable}}
+            {{^IsNullable}}
+                hash.Add((this as {{NamespacePrefix}}I{{{ClassName}}}).{{CSharpSafePropertyName}});
+            {{/IsNullable}}
 
-                {{/Property}}
-                {{/Standard}}
-                {{#Referenced}}
-                {{#Property}}
+            {{/Property}}
+            {{/Standard}}
+            {{#Referenced}}
+            {{#Property}}
 
-                //Referenced Property
-                {{#IsNullable}}
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
-                    hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
-                {{/IsNullable}}
-                hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
-                {{/Property}}
-                {{/Referenced}}
-                {{#UnifiedType}}
-                {{#Property}}
+            //Referenced Property
+            {{#IsNullable}}
+            if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
+                hash.Add((this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}});
+            {{/IsNullable}}
+            hash.Add((this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}});
+            {{/Property}}
+            {{/Referenced}}
+            {{#UnifiedType}}
+            {{#Property}}
 
-                //Unified Type Property
-                {{#IsNullalbe}}
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
-                    hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
-                {{/IsNullalbe}}
-                {{^IsNullable}}
-                hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
-                {{/IsNullable}}
+            //Unified Type Property
+            {{#IsNullalbe}}
+            if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
+                hash.Add((this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}});
+            {{/IsNullalbe}}
+            {{^IsNullable}}
+            hash.Add((this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}});
+            {{/IsNullable}}
 
-                {{/Property}}
-                {{/UnifiedType}}
-                {{#Derived}}
-                {{#Property}}
+            {{/Property}}
+            {{/UnifiedType}}
+            {{#Derived}}
+            {{#Property}}
 
-                //Derived Property
-                {{#IsNullable}}
-                if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
-                    hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
-                {{/IsNullable}}
-                {{^IsNullable}}
-                hash = hash * 23 + (this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}}.GetHashCode();
-                {{/IsNullable}}
+            //Derived Property
+            {{#IsNullable}}
+            if ((this as {{NamespacePrefix}}I{{ClassName}}).{{PropertyName}} != null)
+                hash.Add((this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}});
+            {{/IsNullable}}
+            {{^IsNullable}}
+            hash.Add((this as {{NamespacePrefix}}I{{{ClassName}}}).{{PropertyName}});
+            {{/IsNullable}}
 
-                {{/Property}}
-                {{/Derived}}
-                {{/Properties}}
-                return hash;
-            }
+            {{/Property}}
+            {{/Derived}}
+            {{/Properties}}
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
         {{/Identifiers}}

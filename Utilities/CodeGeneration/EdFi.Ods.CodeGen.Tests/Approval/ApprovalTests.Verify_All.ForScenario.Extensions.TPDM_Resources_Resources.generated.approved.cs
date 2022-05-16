@@ -115,15 +115,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IAccreditationStatusDescriptor).AccreditationStatusDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -399,15 +396,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IAidTypeDescriptor).AidTypeDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -801,15 +795,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidate).CandidateIdentifier.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidate).CandidateIdentifier);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1735,34 +1726,31 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidate != null)
-                    hash = hash * 23 + _candidate.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidate != null)
+                hash.Add(_candidate);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).AddressTypeDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).City.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).City);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).PostalCode.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).PostalCode);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).StateAbbreviationDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddress).StreetNumberName);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2112,18 +2100,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidateAddress != null)
-                    hash = hash * 23 + _candidateAddress.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidateAddress != null)
+                hash.Add(_candidateAddress);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateAddressPeriod).BeginDate);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2355,18 +2340,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidate != null)
-                    hash = hash * 23 + _candidate.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidate != null)
+                hash.Add(_candidate);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateDisability).DisabilityDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2668,18 +2650,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidateDisability != null)
-                    hash = hash * 23 + _candidateDisability.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidateDisability != null)
+                hash.Add(_candidateDisability);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateDisabilityDesignation).DisabilityDesignationDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -2911,22 +2890,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidate != null)
-                    hash = hash * 23 + _candidate.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidate != null)
+                hash.Add(_candidate);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailAddress);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateElectronicMail).ElectronicMailTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3166,18 +3142,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidate != null)
-                    hash = hash * 23 + _candidate.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidate != null)
+                hash.Add(_candidate);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateLanguage).LanguageDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3455,18 +3428,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidateLanguage != null)
-                    hash = hash * 23 + _candidateLanguage.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidateLanguage != null)
+                hash.Add(_candidateLanguage);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateLanguageUse).LanguageUseDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3686,18 +3656,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidate != null)
-                    hash = hash * 23 + _candidate.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidate != null)
+                hash.Add(_candidate);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateOtherName).OtherNameTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -3969,22 +3936,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidate != null)
-                    hash = hash * 23 + _candidate.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidate != null)
+                hash.Add(_candidate);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).IdentificationDocumentUseDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidatePersonalIdentificationDocument).PersonalInformationVerificationDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4244,18 +4208,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidate != null)
-                    hash = hash * 23 + _candidate.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidate != null)
+                hash.Add(_candidate);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateRace).RaceDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -4487,22 +4448,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidate != null)
-                    hash = hash * 23 + _candidate.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidate != null)
+                hash.Add(_candidate);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumber);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateTelephone).TelephoneNumberTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -5014,28 +4972,25 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).BeginDate);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).CandidateIdentifier);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).EducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramName);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation).ProgramTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -5482,21 +5437,18 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidateEducatorPreparationProgramAssociation != null)
-                    hash = hash * 23 + _candidateEducatorPreparationProgramAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidateEducatorPreparationProgramAssociation != null)
+                hash.Add(_candidateEducatorPreparationProgramAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).CohortYearTypeDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationCohortYear).SchoolYear);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -5731,18 +5683,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_candidateEducatorPreparationProgramAssociation != null)
-                    hash = hash * 23 + _candidateEducatorPreparationProgramAssociation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_candidateEducatorPreparationProgramAssociation != null)
+                hash.Add(_candidateEducatorPreparationProgramAssociation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationDegreeSpecialization).MajorSpecialization);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -5974,15 +5923,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.ICertificationRouteDescriptor).CertificationRouteDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -6258,15 +6204,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.ICoteachingStyleObservedDescriptor).CoteachingStyleObservedDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -6576,14 +6519,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_credential != null)
-                    hash = hash * 23 + _credential.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_credential != null)
+                hash.Add(_credential);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7112,27 +7052,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Credential.EdFi.Extensions.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_credentialExtension != null)
-                    hash = hash * 23 + _credentialExtension.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_credentialExtension != null)
+                hash.Add(_credentialExtension);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).EducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).SchoolYear);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).StudentUniqueId);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.ICredentialStudentAcademicRecord).TermDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7362,15 +7299,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.ICredentialStatusDescriptor).CredentialStatusDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -7805,22 +7739,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEducatorPreparationProgram).EducationOrganizationId);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramName);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEducatorPreparationProgram).ProgramTypeDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8132,18 +8063,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_educatorPreparationProgram != null)
-                    hash = hash * 23 + _educatorPreparationProgram.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_educatorPreparationProgram != null)
+                hash.Add(_educatorPreparationProgram);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEducatorPreparationProgramGradeLevel).GradeLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8359,15 +8287,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IEducatorRoleDescriptor).EducatorRoleDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8643,15 +8568,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IEnglishLanguageExamDescriptor).EnglishLanguageExamDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -8927,15 +8849,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IEPPProgramPathwayDescriptor).EPPProgramPathwayDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -9508,36 +9427,33 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).EducationOrganizationId);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).EvaluationPeriodDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).EvaluationTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluation).EvaluationTitle);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).PerformanceEvaluationTypeDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).SchoolYear.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).SchoolYear);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluation).TermDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluation).TermDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -9873,18 +9789,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_evaluation != null)
-                    hash = hash * 23 + _evaluation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_evaluation != null)
+                hash.Add(_evaluation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingLevel).EvaluationRatingLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -10479,42 +10392,39 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EducationOrganizationId);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EvaluationElementTitle);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EvaluationObjectiveTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor.GetHashCode();
-
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle.GetHashCode();
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle.GetHashCode();
-
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EvaluationPeriodDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).SchoolYear.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).EvaluationTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTitle);
 
-                return hash;
-            }
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).PerformanceEvaluationTypeDescriptor);
+
+
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).SchoolYear);
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElement).TermDescriptor);
+
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -10842,18 +10752,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_evaluationElement != null)
-                    hash = hash * 23 + _evaluationElement.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_evaluationElement != null)
+                hash.Add(_evaluationElement);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationElementRatingLevel).EvaluationRatingLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -11616,51 +11523,48 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationDate);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationElementTitle);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationObjectiveTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationPeriodDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).EvaluationTitle);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
-
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).PersonId.GetHashCode();
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear.GetHashCode();
-
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).PerformanceEvaluationTypeDescriptor);
 
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).PersonId);
 
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).SchoolYear);
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).SourceSystemDescriptor);
+
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRating).TermDescriptor);
+
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -12238,22 +12142,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_evaluationElementRating != null)
-                    hash = hash * 23 + _evaluationElementRating.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_evaluationElementRating != null)
+                hash.Add(_evaluationElementRating);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationElementRatingResult).Rating);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationElementRatingResult).RatingResultTitle);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -12477,15 +12378,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor).EvaluationElementRatingLevelDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -13091,39 +12989,36 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).EducationOrganizationId);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationObjectiveTitle);
 
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationPeriodDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).EvaluationTitle);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).PerformanceEvaluationTypeDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).SchoolYear);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjective).TermDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -13459,18 +13354,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_evaluationObjective != null)
-                    hash = hash * 23 + _evaluationObjective.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_evaluationObjective != null)
+                hash.Add(_evaluationObjective);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRatingLevel).EvaluationRatingLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -14196,48 +14088,45 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationDate);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationObjectiveTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationPeriodDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).EvaluationTitle);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
-
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId.GetHashCode();
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear.GetHashCode();
-
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PerformanceEvaluationTypeDescriptor);
 
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).PersonId);
 
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).SchoolYear);
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).SourceSystemDescriptor);
+
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRating).TermDescriptor);
+
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -14764,22 +14653,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_evaluationObjectiveRating != null)
-                    hash = hash * 23 + _evaluationObjectiveRating.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_evaluationObjectiveRating != null)
+                hash.Add(_evaluationObjectiveRating);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).Rating);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationObjectiveRatingResult).RatingResultTitle);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -15003,15 +14889,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationPeriodDescriptor).EvaluationPeriodDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -15763,46 +15646,43 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).EducationOrganizationId);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRating).EvaluationDate);
 
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).EvaluationPeriodDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).EvaluationTitle);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
-
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).PersonId.GetHashCode();
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).SchoolYear.GetHashCode();
-
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).PerformanceEvaluationTypeDescriptor);
 
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).PersonId);
 
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).SchoolYear);
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).SourceSystemDescriptor);
+
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRating).TermDescriptor);
+
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -16486,22 +16366,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_evaluationRating != null)
-                    hash = hash * 23 + _evaluationRating.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_evaluationRating != null)
+                hash.Add(_evaluationRating);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingResult).Rating.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingResult).Rating);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingResult).RatingResultTitle);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -16774,22 +16651,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_evaluationRating != null)
-                    hash = hash * 23 + _evaluationRating.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_evaluationRating != null)
+                hash.Add(_evaluationRating);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingReviewer).FirstName);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IEvaluationRatingReviewer).LastSurname);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17076,14 +16950,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_evaluationRatingReviewer != null)
-                    hash = hash * 23 + _evaluationRatingReviewer.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_evaluationRatingReviewer != null)
+                hash.Add(_evaluationRatingReviewer);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17315,15 +17186,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRatingLevelDescriptor).EvaluationRatingLevelDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17599,15 +17467,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationRatingStatusDescriptor).EvaluationRatingStatusDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -17883,15 +17748,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IEvaluationTypeDescriptor).EvaluationTypeDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -18322,22 +18184,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IFinancialAid).AidTypeDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IFinancialAid).BeginDate.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IFinancialAid).BeginDate);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IFinancialAid).StudentUniqueId);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -18603,15 +18462,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IGenderDescriptor).GenderDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -18887,15 +18743,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IObjectiveRatingLevelDescriptor).ObjectiveRatingLevelDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -19426,33 +19279,30 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).EducationOrganizationId);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).EvaluationPeriodDescriptor);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTitle);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).PerformanceEvaluationTypeDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).SchoolYear);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluation).TermDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -19821,18 +19671,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_performanceEvaluation != null)
-                    hash = hash * 23 + _performanceEvaluation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_performanceEvaluation != null)
+                hash.Add(_performanceEvaluation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationGradeLevel).GradeLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -20052,18 +19899,15 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_performanceEvaluation != null)
-                    hash = hash * 23 + _performanceEvaluation.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_performanceEvaluation != null)
+                hash.Add(_performanceEvaluation);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevel).EvaluationRatingLevelDescriptor);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -20672,39 +20516,36 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).EducationOrganizationId);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).EvaluationPeriodDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor.GetHashCode();
-
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId.GetHashCode();
-
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear.GetHashCode();
-
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PerformanceEvaluationTypeDescriptor);
 
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).PersonId);
 
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).SchoolYear);
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).SourceSystemDescriptor);
+
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRating).TermDescriptor);
+
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -21140,22 +20981,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_performanceEvaluationRating != null)
-                    hash = hash * 23 + _performanceEvaluationRating.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_performanceEvaluationRating != null)
+                hash.Add(_performanceEvaluationRating);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).Rating);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingResult).RatingResultTitle);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -21428,22 +21266,19 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_performanceEvaluationRating != null)
-                    hash = hash * 23 + _performanceEvaluationRating.GetHashCode();
+            var hash = new HashCode();
+            //Parent Property
+            if (_performanceEvaluationRating != null)
+                hash.Add(_performanceEvaluationRating);
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).FirstName);
 
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingReviewer).LastSurname);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -21730,14 +21565,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_performanceEvaluationRatingReviewer != null)
-                    hash = hash * 23 + _performanceEvaluationRatingReviewer.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_performanceEvaluationRatingReviewer != null)
+                hash.Add(_performanceEvaluationRatingReviewer);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -21969,15 +21801,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor).PerformanceEvaluationRatingLevelDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -22253,15 +22082,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor).PerformanceEvaluationTypeDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -22929,45 +22755,42 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EducationOrganizationId);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EvaluationElementTitle);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EvaluationObjectiveTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EvaluationPeriodDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).EvaluationTitle);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTitle);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor.GetHashCode();
-
-
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).RubricRating.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).PerformanceEvaluationTypeDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).SchoolYear.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.TPDM.IRubricDimension).RubricRating);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricDimension).TermDescriptor.GetHashCode();
 
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).SchoolYear);
+
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.IRubricDimension).TermDescriptor);
+
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -23225,15 +23048,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.TPDM.IRubricRatingLevelDescriptor).RubricRatingLevelDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -23539,14 +23359,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Extensions.TPDM
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_school != null)
-                    hash = hash * 23 + _school.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_school != null)
+                hash.Add(_school);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -23827,14 +23644,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponse.EdFi.Extensions.TP
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_surveyResponse != null)
-                    hash = hash * 23 + _surveyResponse.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_surveyResponse != null)
+                hash.Add(_surveyResponse);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -24401,27 +24215,24 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).Namespace);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).PersonId);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SourceSystemDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyIdentifier);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation).SurveyResponseIdentifier);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -24987,30 +24798,27 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).Namespace);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).PersonId);
 
-                //Unified Type Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor.GetHashCode();
+            //Unified Type Property
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SourceSystemDescriptor);
 
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyIdentifier);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier.GetHashCode();
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveyResponseIdentifier);
 
-                //Referenced Property
-                hash = hash * 23 + (this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle.GetHashCode();
-                return hash;
-            }
+            //Referenced Property
+            hash.Add((this as Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation).SurveySectionTitle);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 

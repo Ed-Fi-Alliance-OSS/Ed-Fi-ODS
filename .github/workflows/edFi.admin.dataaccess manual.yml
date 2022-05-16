@@ -1,0 +1,48 @@
+name: EdFi.Admin.DataAccess Manually triggered build
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+
+env:
+  INFORMATIONAL_VERSION: "6.0"
+  BUILD_INCREMENTER: "1"
+  CONFIGURATION: "Release"
+  AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+  AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
+  VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@9211491ffb35dd6a6657ca4f45d43dfe6e97c829 # v2
+      with:
+        dotnet-version: 6.0.x
+    - name: build
+      run: |
+        .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj"
+      shell: pwsh
+    - name: test
+      run: |
+        .\build.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj"
+      shell: pwsh
+    - name: pack
+      run: |
+        .\build.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
+      shell: pwsh
+    - name: Install-credential-handler
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: pwsh
+    - name: publish
+      run: |
+        .\build.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -Solution "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.sln" -ProjectFile "Application/EdFi.Admin.DataAccess/EdFi.Admin.DataAccess.csproj" -PackageName  "EdFi.Suite3.Admin.DataAccess"
+      shell: pwsh      

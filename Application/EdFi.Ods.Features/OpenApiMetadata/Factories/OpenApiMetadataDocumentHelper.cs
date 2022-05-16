@@ -153,7 +153,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                                                             type = PropertyType(x),
                                                             format = PropertyFormat(x),
                                                             description = PropertyDescription(x),
-                                                            maxLength = GetMaxLength(x)
+                                                            maxLength = GetMaxLength(x),
+                                                            isIdentity = GetIsIdentity(x)
                                                         }
                                            })
                                       .OrderBy(x => x.PropertyName)

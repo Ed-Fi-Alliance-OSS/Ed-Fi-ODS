@@ -37,7 +37,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
             {
                 new (
                     "Namespace",
-                    @"(Namespace IS NOT NULL AND Namespace LIKE :Namespace)",
                     @"({currentAlias}.Namespace IS NOT NULL AND {currentAlias}.Namespace LIKE :Namespace)",
                     ApplyAuthorizationCriteria,
                     AuthorizeInstance, 

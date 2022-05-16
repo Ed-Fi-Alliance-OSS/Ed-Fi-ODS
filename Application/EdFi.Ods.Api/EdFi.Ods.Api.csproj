@@ -21,11 +21,11 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="6.0.1" />
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.1" />
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.29" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.11" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.15" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.0.3" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="6.0.3" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.0.11" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
-    <PackageReference Include="FluentValidation" Version="8.6.3" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.19.0" />
@@ -36,7 +36,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="NHibernate" Version="5.2.7" />
+    <PackageReference Include="NHibernate" Version="5.3.11" />
     <PackageReference Include="Npgsql" Version="6.0.3" />
     <PackageReference Include="Polly" Version="7.2.2" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.3.3" />

@@ -115,15 +115,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor).InstitutionControlDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor).InstitutionControlDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -399,15 +396,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor).InstitutionLevelDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor).InstitutionLevelDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -757,15 +751,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                // Standard Property
-                 hash = hash * 23 + (this as Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization).NameOfInstitution.GetHashCode();
+            // Standard Property
+                hash.Add((this as Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization).NameOfInstitution);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1009,15 +1000,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor).SpecialEducationGraduationStatusDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor).SpecialEducationGraduationStatusDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1290,14 +1278,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentAcademicRecordClassRanking != null)
-                    hash = hash * 23 + _studentAcademicRecordClassRanking.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentAcademicRecordClassRanking != null)
+                hash.Add(_studentAcademicRecordClassRanking);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1546,14 +1531,11 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentAcademicRecord.EdFi.Extens
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                //Parent Property
-                if (_studentAcademicRecord != null)
-                    hash = hash * 23 + _studentAcademicRecord.GetHashCode();
-                return hash;
-            }
+            var hash = new HashCode();
+            //Parent Property
+            if (_studentAcademicRecord != null)
+                hash.Add(_studentAcademicRecord);
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 
@@ -1819,15 +1801,12 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
         /// </returns>
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
+            var hash = new HashCode();
 
-                //Derived Property
-                hash = hash * 23 + (this as Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor).SubmissionCertificationDescriptorId.GetHashCode();
+            //Derived Property
+            hash.Add((this as Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor).SubmissionCertificationDescriptorId);
 
-                return hash;
-            }
+            return hash.ToHashCode();
         }
         // -------------------------------------------------------------
 

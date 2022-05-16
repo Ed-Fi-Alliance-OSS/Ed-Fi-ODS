@@ -15,7 +15,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3a194cbc-1794-4604-88de-f09172283ace",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -54,9 +53,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {},
-			"_postman_isSubFolder": true
+			]
 		},
 		{
 			"name": "Initialize Known Data",
@@ -67,7 +64,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "42274885-9457-44c7-8b35-c3e048fec194",
 								"exec": [
 									"const __ = require('lodash');",
 									"const schools = pm.response.json();",
@@ -104,8 +100,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "AcademicWeeks",
@@ -116,7 +111,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "424f96b2-3237-4383-8ff1-98f3d9c8f98f",
 								"exec": [
 									"const __ = require('lodash');",
 									"",
@@ -142,7 +136,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f72a51c1-5c24-422c-b927-e01c88b78619",
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {",
 									"    pm.expect(pm.response.code).to.equal(400);",
@@ -196,7 +189,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "5302a112-ba7b-49b2-aea0-dd191d149b50",
 								"exec": [
 									"const __ = require('lodash');",
 									"",
@@ -223,7 +215,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9a64fee2-3377-403d-aeb8-a5391feb521c",
 								"exec": [
 									"pm.test(\"Status code is 403\", () => {",
 									"    pm.expect(pm.response.code).to.equal(403);",
@@ -278,7 +269,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1045d951-f036-49f7-a178-abce705c9670",
 								"exec": [
 									"const __ = require('lodash');",
 									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
@@ -304,7 +294,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c6dff620-5883-41a6-a99b-75dfbe50a79b",
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {",
 									"    pm.expect(pm.response.code).to.equal(400);",
@@ -359,7 +348,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "b51e4bdd-0c72-45cb-b006-7faefdbe05ea",
 								"exec": [
 									"const __ = require('lodash');",
 									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
@@ -383,7 +371,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2db630fa-58f9-4868-a96e-ffd322158276",
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {",
 									"    pm.expect(pm.response.code).to.equal(400);",
@@ -431,12 +418,11 @@
 					"response": []
 				},
 				{
-					"name": "Invalid SchoolID validation",
+					"name": "Non-existing SchoolID validation",
 					"event": [
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "a4a2c4e0-7414-4c89-af5c-10252424c2c8",
 								"exec": [
 									"const __ = require('lodash');",
 									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
@@ -459,17 +445,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3422f6b0-79da-47e4-b548-4131d04d6847",
 								"exec": [
 									"pm.test(\"Status code is 403\", () => {",
 									"    pm.expect(pm.response.code).to.equal(403);",
 									"});",
 									"",
-									"pm.test(\"Should return the item with Invalid SchoolId Validation string\", () => {",
-									"     ",
-									"     const responseItem = pm.response.json();",
-									"     pm.expect(responseItem.message).to.include(\"Authorization denied. No relationships have been established between the caller's education organization id claim (value 255901 of type 'LocalEducationAgencyId') and the requested resource's 'SchoolId' value.\");",
-									"      ",
+									"const responseItem = pm.response.json();",
+									"",
+									"pm.test(`Error message of '${responseItem.message}' should match expected`, () => {",
+									"    pm.expect(responseItem.message).to.equal(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901) and the resource item's 'SchoolId' value.\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -512,7 +496,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "943ca9dc-f5ea-490b-8114-4074529717d1",
 								"exec": [
 									"const __ = require('lodash');",
 									"",
@@ -527,7 +510,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0bfe670a-6163-4d35-8bc0-68977645dd24",
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {",
 									"    pm.expect(pm.response.code).to.equal(400);",
@@ -585,7 +567,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "99db2ddb-7b72-4579-985f-b51d132fd46f",
 								"exec": [
 									"pm.test(\"Status code is 201\", () => {",
 									"    pm.expect(pm.response.code).to.equal(201);",
@@ -635,7 +616,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "b20f759a-66a4-4594-ac58-ee811391523d",
 								"exec": [
 									"const __ = require('lodash');",
 									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
@@ -694,7 +674,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f64b868a-e318-4f14-ae61-942262c41d9c",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -746,7 +725,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "08280d7c-5a44-4ddc-807e-99207bc4851f",
 								"exec": [
 									"const __ = require('lodash');",
 									"const schoolIds =pm.environment.get(\"known:schoolIds\");",
@@ -774,7 +752,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "5dbaeabc-5d3f-4607-9ff2-1d83fcbba5ef",
 								"exec": [
 									"pm.test(\"Status code is 201\", () => {",
 									"    pm.expect(pm.response.code).to.equal(201);",
@@ -867,7 +844,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7de341e2-84fc-40db-aaff-b7665edd0625",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -915,7 +891,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "00d849f1-a39f-44d5-8128-535f61d98105",
 								"exec": [
 									"const __ = require('lodash');",
 									"pm.environment.set(\"known:id\",pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
@@ -936,7 +911,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "37deba23-b302-4134-b423-e9b50825a6f1",
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {",
 									"    pm.expect(pm.response.code).to.equal(400);",
@@ -989,7 +963,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "188b1925-ba6e-4f9f-9594-8601a2a7a073",
 								"exec": [
 									"const __ = require('lodash');",
 									"pm.environment.set(\"known:id\",pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
@@ -1008,7 +981,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b39152b2-104e-4511-ac8d-8df104c5f63d",
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {",
 									"    pm.expect(pm.response.code).to.equal(400);",
@@ -1060,7 +1032,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "22d431f1-23db-45ad-9269-1637f3e8ce6b",
 								"exec": [
 									"const __ = require('lodash');",
 									"pm.environment.set(\"known:id\",pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
@@ -1072,7 +1043,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "680ba94d-f234-4545-8f68-d09a72f65f31",
 								"exec": [
 									"pm.test(\"Status code is 400\", () => {",
 									"    pm.expect(pm.response.code).to.equal(400);",
@@ -1129,7 +1099,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "359ed4aa-7615-4bce-9182-2a06e40c5933",
 								"exec": [
 									"const __ = require('lodash');",
 									"pm.environment.set(\"known:id\",pm.environment.get(\"known:academicWeeksReferenceIdforSchool\"));",
@@ -1148,7 +1117,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "482d6826-b5e2-43f8-9fb4-7e41d073438d",
 								"exec": [
 									"pm.test(\"Status code is 204\",() => {",
 									"    pm.response.to.have.status(204);",
@@ -1224,7 +1192,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8ad361f4-3dd3-41cc-b64f-09c1122156a9",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1279,7 +1246,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "cfd3b682-b98b-4011-93eb-db9c38a74d1d",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1341,7 +1307,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "a21384d9-e5bf-4310-a7d8-ccb91d381c15",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1403,7 +1368,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "24a5b06b-0b2b-4f76-b1c5-553c289ce56b",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1467,7 +1431,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "40a3c833-0bbd-4306-87b0-f05b1628e0ea",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1531,7 +1494,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0456ace6-36b7-4a5b-a385-3e4a05b99aa2",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1594,7 +1556,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6e4e24c4-db75-4889-8cb1-5ea24c14d862",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1658,7 +1619,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "6b843de3-a45e-4975-b617-abef2fb6135b",
 								"exec": [
 									"",
 									"pm.test(\"Status code is 204\", () => {",
@@ -1728,7 +1688,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "96d20f08-d432-4f7e-b0c7-e5362359cadc",
 								"exec": [
 									"",
 									"pm.test(\"Status code is 204\", () => {",
@@ -1792,7 +1751,6 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "8c9c63be-1191-4ccb-bae3-e5a2a44325bd",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1802,15 +1760,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7754d8fb-196a-4231-9bbe-bebd53ec985b",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Limit/Offset/Total Count",
@@ -1821,7 +1777,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "83693567-6739-426c-aba4-1009af9ad79a",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1872,7 +1827,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "83842e29-86da-47b1-a177-ec9fe7c5e482",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1922,7 +1876,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "1dd41890-53b6-4c6a-9726-a2fd148bd67d",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1981,7 +1934,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e781c675-b74c-4366-a911-79a080f9d5be",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -1999,7 +1951,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "63538ef2-6e39-4698-a6cc-a9e45a18a264",
 								"exec": [
 									"const totalCount =pm.environment.get(\"known:totalCount\");",
 									"pm.environment.set(\"known:offset\", Number(totalCount) -1);"
@@ -2038,7 +1989,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "16544956-4bec-48cc-b162-cda6c0e7c12e",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -2062,7 +2012,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "a932ee78-f8f5-42a2-b6db-9d581d30c873",
 								"exec": [
 									"const totalCount =pm.environment.get(\"known:totalCount\");",
 									"pm.environment.set(\"known:offset\", Number(totalCount) -25);"
@@ -2099,8 +2048,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Person Entity",
@@ -2114,7 +2062,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "f0ab693b-dd5b-4713-b7e2-a615a1cab51c",
 										"exec": [
 											"const __ = require('lodash');\r",
 											"const uuid = require('uuid');\r",
@@ -2130,7 +2077,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d3f3becd-8f62-4212-a358-3f914f82f4d1",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2183,7 +2129,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "1ee30d33-e0cb-4131-a707-92fdb0b6330b",
 										"exec": [
 											"const __ = require('lodash');\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
@@ -2196,7 +2141,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "cafa236c-3701-46ff-8294-a37ef1d82cc7",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2251,7 +2195,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "fb517979-7e27-48fe-8950-8900a05aec5c",
 										"exec": [
 											"const __ = require('lodash');\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
@@ -2263,7 +2206,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "7262d462-dc3a-4d67-b32c-69128798c2b6",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2318,7 +2260,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ad230c77-d8cc-4290-888f-65e13d0fb9eb",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -2330,7 +2271,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "887e3e23-ebb8-4611-a86f-812e5165befb",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -2380,7 +2320,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "31901af7-90e9-4c5b-aeab-2a7acfa32962",
 										"exec": [
 											""
 										],
@@ -2390,7 +2329,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "82c45f1f-c334-4799-94fe-e145f81b065b",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2458,7 +2396,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "3061211b-be4f-4e11-8493-baf1741e26be",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -2468,16 +2405,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "ad7f7e87-3a55-471a-a599-16d257b1da10",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 2 - Create same Person With  different  sourceSystemDescriptor and associate with Staff",
@@ -2488,7 +2422,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "31ca2fee-c387-4e35-af44-0671cfaa2912",
 										"exec": [
 											"const uuid = require('uuid');\r",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
@@ -2503,7 +2436,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "12609b47-b9aa-40f1-85a9-a18893ed0267",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2556,7 +2488,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "26cba63a-fbe6-4675-bdb4-543e34fd1a8f",
 										"exec": [
 											"const __ = require('lodash');\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
@@ -2569,7 +2500,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f3e67cc6-0414-42d7-8e3e-e4a72f1092e8",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2624,7 +2554,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "77999905-33f3-4471-aa8d-0f4b6a66f2a8",
 										"exec": [
 											"const uuid = require('uuid');\r",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
@@ -2637,7 +2566,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f87c7cc4-4199-4835-b665-db83087c45dc",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2690,7 +2618,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "7133e3d3-f951-4bd1-ab64-3d60e4503aca",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');\r",
 											"pm.environment.set('supplied:'+scenarioId+':secondsourceSystemDescriptor','uri://ed-fi.org/SourceSystemDescriptor#'+ pm.environment.get('supplied:'+scenarioId+':seconddescription'));"
@@ -2701,7 +2628,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "eb3b6a80-9a1f-4fdf-994b-b02fbccba163",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2756,7 +2682,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "36cee28e-243a-4ba3-8d42-f9f2a689b120",
 										"exec": [
 											""
 										],
@@ -2766,7 +2691,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "59d0c901-8d7c-42ae-8dd8-8409c24c6c7f",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -2832,7 +2756,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "0cf0db40-5d51-4954-a614-d25fb1d539d4",
 										"exec": [
 											"const __ = require('lodash');\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
@@ -2844,7 +2767,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "904a9076-0abb-48f7-a4a3-b45067e1a2c2",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -2899,7 +2821,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "8714c536-40f6-4c82-93f3-37d10832825b",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -2911,7 +2832,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "6555a714-8147-49bf-b07e-cf760c1ada19",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -2961,7 +2881,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "98085c18-b66d-49be-b7cd-eddbd1bc0549",
 										"exec": [
 											""
 										],
@@ -2971,7 +2890,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "09524f09-4a7b-426d-9280-3d711d62267a",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"    pm.expect(pm.response.code).to.equal(200);",
@@ -3038,7 +2956,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "7ee6493c-b411-49c5-b13c-a86c12682f03",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3048,16 +2965,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e794e846-c34c-4929-8624-9a0dde4a7759",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 3 - Create Person With  District  sourceSystemDescriptor and associate with Student",
@@ -3068,7 +2982,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "60d1c8fb-0e4a-43e3-a732-134de17d3aa0",
 										"exec": [
 											"const uuid = require('uuid');\r",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
@@ -3083,7 +2996,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "fca9c62e-2782-4246-b004-353c594d30ef",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -3136,7 +3048,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "29d36e12-c20b-49ec-a2fe-0a14f0434718",
 										"exec": [
 											"const __ = require('lodash');\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
@@ -3149,7 +3060,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6cc5eccb-3b97-4f43-abf4-5ba16faecf58",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -3204,7 +3114,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "ab62ab91-9fde-4952-a83a-794b393baf54",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
@@ -3218,7 +3127,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "c4598054-e81b-4436-83ae-b63802e288f0",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3274,7 +3182,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e459a183-89aa-4be9-858a-a580b7b8137c",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -3291,7 +3198,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9ad5a753-cb17-4f07-a805-1c2f44e6f5db",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -3338,7 +3244,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1354598e-5824-4ed9-abc3-5d328fbe2125",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
@@ -3363,7 +3268,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "0bb53baf-872d-4a38-a25b-4737f8b8b6a6",
 										"exec": [
 											""
 										],
@@ -3412,7 +3316,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "917ce301-6fd1-4451-9ace-43137f491b20",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3422,16 +3325,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "36c7e0c2-38fe-4982-97d9-2862ad47d7cb",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 4 - Create Person With  District  sourceSystemDescriptor and associate the same person with multiple Student",
@@ -3442,7 +3342,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "bde7f382-33c3-46df-a8d5-6dd4da458ae5",
 										"exec": [
 											"const uuid = require('uuid');\r",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
@@ -3457,7 +3356,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "30c11d13-1889-4f09-ac1c-b5f1670427a5",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -3510,7 +3408,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "9c603f57-0c3c-4045-a15f-b4f24d7c0355",
 										"exec": [
 											"const __ = require('lodash');\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
@@ -3523,7 +3420,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "6cd266cb-6a26-4d1d-b981-3e0a71494081",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -3578,7 +3474,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "4695d5bf-9d77-476e-b469-113119c17fc9",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
@@ -3592,7 +3487,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "c7b6c921-32cf-459c-b767-667a6783a9a7",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3647,7 +3541,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "b0ea4281-b283-48b4-8aa8-58d931357335",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -3664,7 +3557,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "864820cf-4a1b-4dc4-a0ce-c8a94b46c606",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -3711,7 +3603,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "bf7bf0fc-6798-40f0-9b5e-1cc61c48fba8",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"        pm.expect(pm.response.code).to.equal(201);",
@@ -3725,7 +3616,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "83d327f1-9109-4a3c-bd83-f751f92b0c33",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -3780,7 +3670,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "58144cdc-f218-4c3d-8a0b-d0d205d374ce",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -3797,7 +3686,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "d116c509-9913-4c19-b27f-dc6f5e1a2e47",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -3844,7 +3732,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "1735fb8d-81a2-4104-b36e-93dcdecdeac0",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
@@ -3869,7 +3756,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "41141b3c-7544-4b18-9220-fff9df8b3815",
 										"exec": [
 											""
 										],
@@ -3914,7 +3800,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "87d06731-6090-416c-98f1-d28d2144ae5b",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -3924,16 +3809,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "60578304-8203-4bb8-b0da-b11f9bed04a4",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				},
 				{
 					"name": "Scenario 5 - Create Person With \"District\" sourceSystemDescriptor and Associate with Parent",
@@ -3944,7 +3826,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "e4042f4d-8f09-44d5-a373-d6db20d8335a",
 										"exec": [
 											"const uuid = require('uuid');\r",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
@@ -3959,7 +3840,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f2512460-5eac-43a8-bf93-ee59767b11bb",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -4012,7 +3892,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "feebad7e-aa0c-4aad-b88b-6a1210876204",
 										"exec": [
 											"const __ = require('lodash');\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
@@ -4025,7 +3904,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "c8adae54-f835-47d7-9741-1fedd279a1bc",
 										"exec": [
 											"pm.test(\"Status code is 200 or 201\", () => {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
@@ -4080,7 +3958,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "297b0c0c-8a93-431a-9e55-57139f824866",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -4100,7 +3977,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "ff4e5d58-06aa-4c73-a6a4-80149d790f69",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -4161,7 +4037,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "907c8156-06c4-4234-8703-f1d716ea3894",
 										"exec": [
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"const moment = require('moment');",
@@ -4178,7 +4053,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "a10f12de-7aa5-495a-ac6d-82bb0621f09f",
 										"exec": [
 											"pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -4225,7 +4099,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "f9dbe213-df00-4a61-8b05-a2cfbdd9f441",
 										"exec": [
 											" pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -4243,7 +4116,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "bf883636-788b-46fb-926c-7f5ee52a125e",
 										"exec": [
 											"const uuid = require('uuid');",
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }",
@@ -4301,7 +4173,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "e03a4bd0-fc6b-4f42-b180-2c2abefc0ce6",
 										"exec": [
 											" pm.test(\"Status code is 201\", () => {",
 											"    pm.expect(pm.response.code).to.equal(201);",
@@ -4314,7 +4185,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "136cbe28-7946-4ccc-adfb-7c1761b1f7c7",
 										"exec": [
 											""
 										],
@@ -4362,7 +4232,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"id": "9916134f-f8ff-4b92-9e00-4bbf862db944",
 										"exec": [
 											"pm.test(\"Status code is 200\", () => {",
 											"        pm.expect(pm.response.code).to.equal(200);",
@@ -4388,7 +4257,6 @@
 								{
 									"listen": "prerequest",
 									"script": {
-										"id": "4958366a-4cba-4ef4-b8da-dfbd6d96349c",
 										"exec": [
 											""
 										],
@@ -4437,7 +4305,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "1db5d57d-9e5b-41c5-a2cc-bf8ebeea7559",
 								"type": "text/javascript",
 								"exec": [
 									""
@@ -4447,19 +4314,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "be4dab82-e7a6-4bdd-b560-5b66736a36fe",
 								"type": "text/javascript",
 								"exec": [
 									""
 								]
 							}
 						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Limit/Offset/Total Count - Student",
@@ -4470,7 +4333,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d9dc2ff5-043b-4eb6-85c2-3335eb9fd49f",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -4521,7 +4383,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "0f50d07c-5195-4ab5-bc56-d44dcd8a8a12",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -4571,7 +4432,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9ea2c5bf-a304-4c78-9c66-65ab24f939b5",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -4630,7 +4490,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e781c675-b74c-4366-a911-79a080f9d5be",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -4648,7 +4507,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "4b286932-9164-459e-bfaa-1cd9004d8286",
 								"exec": [
 									"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
 									"pm.environment.set(\"known:studentOffset\", Number(totalCount) -1);"
@@ -4687,7 +4545,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "911e5ae2-9acd-4c57-94d5-bc1ffcd81e5d",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -4711,7 +4568,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ebd02d96-0183-4ac6-9c88-e5d16f4a2fce",
 								"exec": [
 									"const totalCount =pm.environment.get(\"known:studentTotalCount\");",
 									"pm.environment.set(\"known:studentOffset\", 100 - 25);"
@@ -4748,8 +4604,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Limit/Offset/Total Count - Staff",
@@ -4760,7 +4615,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7a523c94-426c-4024-be94-a771e4053852",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -4811,7 +4665,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8d3be372-4f03-4d5f-b63d-a7148e3d3866",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -4861,7 +4714,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "815406f7-6b7d-4472-ada6-b8e3741696e2",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -4920,7 +4772,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "4cb90f3b-549a-4819-a69e-60a28855d57b",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -4938,7 +4789,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "d884f43f-2dc0-4327-a510-0377afdc7755",
 								"exec": [
 									"const totalCount =pm.environment.get(\"known:staffTotalCount\");",
 									"pm.environment.set(\"known:staffOffset\", Number(totalCount) -1);"
@@ -4977,7 +4827,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7b98fb0f-2212-4ad9-a444-6fb57d2128cb",
 								"exec": [
 									"pm.test(\"Status code is 200\", () => {",
 									"    pm.expect(pm.response.code).to.equal(200);",
@@ -5001,7 +4850,6 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "ebe3fbff-1d75-4edd-8162-98a95f4fa292",
 								"exec": [
 									"const totalCount =pm.environment.get(\"known:staffTotalCount\");",
 									"pm.environment.set(\"known:staffOffset\", Number(totalCount) -25);"
@@ -5038,8 +4886,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
 	],
 	"auth": {
@@ -5056,7 +4903,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "20976f5f-b0f2-4c13-b3f7-2641a8d505ff",
 				"type": "text/javascript",
 				"exec": [
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
@@ -5120,13 +4966,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "a9c1b0ae-1f01-499a-b23b-1fd9eddd88b0",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

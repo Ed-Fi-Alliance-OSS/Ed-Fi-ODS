@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Common", "EdFi.Ods.Common.csproj", "{ECB13DD5-3240-4FA1-A6E9-C00EBB13B912}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECB13DD5-3240-4FA1-A6E9-C00EBB13B912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB13DD5-3240-4FA1-A6E9-C00EBB13B912}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB13DD5-3240-4FA1-A6E9-C00EBB13B912}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB13DD5-3240-4FA1-A6E9-C00EBB13B912}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {874592A4-B44E-41C3-B8B0-1DDC3CEF2F31}
+	EndGlobalSection
+EndGlobal

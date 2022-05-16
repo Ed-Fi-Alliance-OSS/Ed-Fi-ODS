@@ -40,17 +40,9 @@ namespace EdFi.Ods.Api.Security.Container.Modules
                 .As<IAuthorizationBasisMetadataSelector>()
                 .SingleInstance();
 
-            builder.RegisterType<AuthorizationSegmentsVerifier>()
-                .As<IAuthorizationSegmentsVerifier>()
-                .SingleInstance();
-
             builder.RegisterType<ResourceAuthorizationMetadataProvider>()
                 .As<IResourceAuthorizationMetadataProvider>()
                 .InstancePerLifetimeScope();
-
-            builder.RegisterType<AuthorizationSegmentsToFiltersConverter>()
-                .As<IAuthorizationSegmentsToFiltersConverter>()
-                .SingleInstance();
 
             var assembly = typeof(Marker_EdFi_Ods_Api).Assembly;
 
@@ -95,14 +87,6 @@ namespace EdFi.Ods.Api.Security.Container.Modules
 
             builder.RegisterType<ResourceClaimUriProvider>()
                 .As<IResourceClaimUriProvider>()
-                .SingleInstance();
-
-            builder.RegisterType<EducationOrganizationIdHierarchyProvider>()
-                .As<IEducationOrganizationIdHierarchyProvider>()
-                .SingleInstance();
-            
-            builder.RegisterType<EducationOrganizationAuthorizationSegmentsValidator>()
-                .As<IEducationOrganizationAuthorizationSegmentsValidator>()
                 .SingleInstance();
 
             // RelationshipsAuthorizationContextDataProviderFactory

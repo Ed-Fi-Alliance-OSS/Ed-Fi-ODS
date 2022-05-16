@@ -22,11 +22,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
-                filterName,
-                $@"{subjectEndpointName} IN (
-                    SELECT {{newAlias1}}.{viewTargetEndpointName} 
-                    FROM auth.{viewName} {{newAlias1}} 
-                    WHERE {{newAlias1}}.{RelationshipAuthorizationConventions.ViewSourceColumnName} IN (:{RelationshipAuthorizationConventions.ClaimsParameterName}))", 
+                filterName, 
                 $@"{{currentAlias}}.{subjectEndpointName} IN (
                     SELECT {{newAlias1}}.{viewTargetEndpointName} 
                     FROM " + GetFullNameForView($"auth_{viewName}") + $@" {{newAlias1}} 

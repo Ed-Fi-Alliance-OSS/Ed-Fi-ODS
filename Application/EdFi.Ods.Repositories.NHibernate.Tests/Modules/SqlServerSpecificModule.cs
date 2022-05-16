@@ -9,7 +9,6 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Activities;
 using EdFi.Ods.Common.Infrastructure.SqlServer;
-using EdFi.Ods.Api.Security.Authorization;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
 {
@@ -24,9 +23,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules
         {
             builder.RegisterType<SqlServerTableValuedParameterListSetter>()
                 .As<IParameterListSetter>();
-
-            builder.RegisterType<SqlServerAuthorizationSegmentSqlProvider>()
-                .As<IAuthorizationSegmentsSqlProvider>();
         }
     }
 }

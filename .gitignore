@@ -96,3 +96,5 @@ Application/EdFi.Ods.CodeGen/App_Packages
 Utilities/SdkGen/EdFi.SdkGen.Console/csharp
 
 *.log
+
+NugetPackages/

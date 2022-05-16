@@ -6,7 +6,7 @@
 namespace EdFi.Ods.Api.Security.Authorization
 {
     /// <summary>
-    /// Defines a method for obtaining the names of the concrete education organization ids in the current model.
+    /// Defines a method for obtaining and testing matches with the names of the all types of education organization ids in the current model.
     /// </summary>
     public interface IEducationOrganizationIdNamesProvider
     {
@@ -21,17 +21,6 @@ namespace EdFi.Ods.Api.Security.Authorization
         /// </summary>
         /// <returns>An array containing the concrete property names.</returns>
         string[] GetConcreteNames();
-
-        /// <summary>
-        /// Indicates whether the supplied source and target education organization id property names are accessible through
-        /// the Ed-Fi model, and thus valid for authorization purposes.
-        /// </summary>
-        /// <param name="sourceEducationOrganizationIdPropertyName">The property name of the source education organization id endpoint.</param>
-        /// <param name="targetEducationOrganizationId">The property name of the target education organization id endpoint.</param>
-        /// <returns><b>true</b> if the target property is accessible from the source; otherwise <b>false</b>.</returns>
-        bool IsEducationOrganizationIdAccessible(
-            string sourceEducationOrganizationIdPropertyName,
-            string targetEducationOrganizationId);
 
         /// <summary>
         /// Indicates whether the supplied name is a known education organization id.

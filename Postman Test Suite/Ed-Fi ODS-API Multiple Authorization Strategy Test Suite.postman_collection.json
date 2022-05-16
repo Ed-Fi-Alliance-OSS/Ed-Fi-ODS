@@ -1,0 +1,3894 @@
+{
+	"info": {
+		"_postman_id": "a093fe1e-bbe6-4012-92f3-a914c0737d04",
+		"name": "Ed-Fi ODS/API Multiple Authorization Strategy Test Suite",
+		"description": "Localhost integration testing using Postman Scripts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Multiple Authorization Strategy",
+			"item": [
+				{
+					"name": "Initial Setup",
+					"item": [
+						{
+							"name": "Initialize EdOrgs and Sections",
+							"item": [
+								{
+									"name": "Initialize Known/Supplied Values",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.environment.set('known:schoolId', 255901001);",
+													"pm.environment.set('known:schoolId:responsibility', 255901044);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Initialize Section Data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {",
+													"  pm.expect(pm.response.code).to.equal(200);",
+													"});",
+													"",
+													"const responseItems = pm.response.json();",
+													"",
+													"const sectionRecord = responseItems[0];",
+													"const courseOffering = sectionRecord.courseOfferingReference;",
+													"",
+													"pm.environment.set('known:section:sectionIdentifier', sectionRecord.sectionIdentifier);",
+													"",
+													"pm.environment.set('known:section:localCourseCode', courseOffering.localCourseCode);",
+													"pm.environment.set('known:section:schoolId', courseOffering.schoolId);",
+													"pm.environment.set('known:section:schoolYear', courseOffering.schoolYear);",
+													"pm.environment.set('known:section:sessionName', courseOffering.sessionName);",
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/sections?schoolId={{known:schoolId}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"sections"
+											],
+											"query": [
+												{
+													"key": "schoolId",
+													"value": "{{known:schoolId}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Student accessible only via StudentSchoolAssociation",
+							"item": [
+								{
+									"name": "Create Student A (Registered)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set(`known:student:registered:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"studentUniqueId\": \"AAAAAA\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Registered\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Student School Association for A",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:studentSchoolAssociation:registered:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Create StudentSectionAssociation Ownership",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set(`known:studentSectionAssociation:registered:owned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-01\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSectionAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Create StudentSectionAssociation without Ownership",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"// Ensure response body is logged in Newman",
+													"if (pm.response.code >= 400) {",
+													"  const message = pm.response.json().message;",
+													"",
+													"  pm.test(`Error message of '${message}' should not be present`, () => {",
+													"    pm.expect(message).to.be.empty();",
+													"  });",
+													"}",
+													"",
+													"pm.environment.set(`known:studentSectionAssociation:registered:unowned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-02\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSectionAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Student accessible only via Responsibility",
+							"item": [
+								{
+									"name": "Create Student B (Responsibility)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set(`known:student:responsibility:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"studentUniqueId\": \"BBBBBB\",\r\n  \"birthDate\": \"2010-01-01\",\r\n  \"firstName\": \"Joe\",\r\n  \"lastSurname\": \"Responsibility\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/students",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"students"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create Student School Association for B",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:studentSchoolAssociation:responsibility:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Create Student EdOrg ResponsibilityAssociation",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:studentEducationOrganizationResponsibilityAssociation:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"beginDate\": \"2022-02-22\",\r\n  \"responsibilityDescriptor\": \"uri://ed-fi.org/ResponsibilityDescriptor#Residency\",\r\n  \"educationOrganizationReference\": {\r\n    \"educationOrganizationId\": \"{{known:schoolId:responsibility}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  }\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentEducationOrganizationResponsibilityAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentEducationOrganizationResponsibilityAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Create  StudentSectionAssociation Ownership",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set('known:studentSectionAssociation:responsibility:owned:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-01\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSectionAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Create  StudentSectionAssociation without Ownership",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {",
+													"  pm.expect(pm.response.code).to.equal(201);",
+													"});",
+													"",
+													"pm.environment.set(`known:studentSectionAssociation:responsibility:unowned:id`, pm.response.headers.one('Location').value.split(\"/\").pop());"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"studentSectionAssociations"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "Clean Up Student School Association used for initialization",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													""
+												],
+												"type": "text/javascript"
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {",
+													"  pm.expect(pm.response.code).to.equal(204);",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations/{{known:studentSchoolAssociation:responsibility:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"StudentSchoolAssociations",
+												"{{known:studentSchoolAssociation:responsibility:id}}"
+											]
+										},
+										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Multiple Authorization Strategy Namespace/Ownership",
+					"item": [
+						{
+							"name": "EducationContents",
+							"item": [
+								{
+									"name": "Create",
+									"item": [
+										{
+											"name": "Attempt create (mismatched namespace)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_Other_Namespace}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"contentIdentifier\": \"{{$guid}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Exploring for possible existing item\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Create test EducationContent (ed-fi namespace)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 201\", () => {",
+															"  pm.expect(pm.response.code).to.equal(201);",
+															"});",
+															"",
+															"pm.environment.set('known:educationContent:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"pm.environment.set(`supplied:educationContentIdentifier`, pm.variables.replaceIn('{{$guid}}'));\r",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Main Namespace Content\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Non-owner without Namespace Claim",
+									"item": [
+										{
+											"name": "GetById by non-owner without namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
+															"  // Should contain the namespace prefix error message",
+															"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_Other_Namespace}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner without namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
+															"  // Should contain the namespace prefix error message",
+															"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+															"});",
+															"",
+															"pm.test(`Message of '${message}' should not reveal that the item exists by indicating that the ownership token doesn't match`, () => {",
+															"  // Should not contain the error indicating the ownership token doesn't match",
+															"  pm.expect(message).to.not.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_Other_Namespace}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://not-their-namespace.org\",\r\n  \"shortDescription\": \"Update attempt by different client WITHOUT matching namespace claim\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner without namespace claim (PUT)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
+															"  // Should contain the namespace prefix error message",
+															"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+															"});",
+															"",
+															"pm.test(`Message of '${message}' should not reveal that the item exists by indicating that the ownership token doesn't match`, () => {",
+															"  // Should not contain the error indicating the ownership token doesn't match",
+															"  pm.expect(message).to.not.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_Other_Namespace}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://not-their-namespace.org\",\r\n  \"shortDescription\": \"Update attempt by different client WITHOUT matching namespace claim\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete by non-owner without namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
+															"  // Should contain the namespace prefix error message",
+															"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+															"});",
+															"",
+															"pm.test(`Message of '${message}' should not reveal that the item exists by indicating that the ownership token doesn't match`, () => {",
+															"  // Should not contain the error indicating the ownership token doesn't match",
+															"  pm.expect(message).to.not.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_Other_Namespace}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Non-Owner with Namespace Claim",
+									"item": [
+										{
+											"name": "GetById by non-owner with namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't own the resource item`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner with namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't own the resource item`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Update attempt by different client with matching namespace claim\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner with namespace claim (PUT)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't own the resource item`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Update attempt by different client with matching namespace claim\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete by non-owner with namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that the caller doesn't own the resource item`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Owner with namespace claim",
+									"item": [
+										{
+											"name": "GetById by owner with namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"pm.test(\"Content identifier returned matches item created earlier\", () => {",
+															"  pm.expect(pm.response.json().contentIdentifier).to.equal(pm.environment.get('supplied:educationContentIdentifier'));",
+															"});",
+															"",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
+															"",
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update by owner with namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
+															"",
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Updated by owner WITH matching namespace claim\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update by owner with namespace claim (PUT)",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"  pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															"",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
+															"",
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"contentIdentifier\": \"{{supplied:educationContentIdentifier}}\",\r\n  \"namespace\": \"uri://ed-fi.org\",\r\n  \"shortDescription\": \"Updated (PUT) by owner WITH matching namespace claim\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete by owner with namespace claim",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"  pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															"",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
+															"",
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/educationContents/{{known:educationContent:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"educationContents",
+														"{{known:educationContent:id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Multiple Authorization Strategy Relationships/Ownership",
+					"item": [
+						{
+							"name": "StudentSectionAssociation",
+							"item": [
+								{
+									"name": "Get Many",
+									"item": [
+										{
+											"name": "Get StudentSectionAssociations",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"const responseItems = pm.response.json();",
+															"",
+															"pm.test(\"Should only return the owned section associated with the still registered student\", () => {",
+															"  responseItems.forEach(responseItem => {",
+															"    pm.expect(responseItem.studentReference.studentUniqueId).to.equal('AAAAAA');",
+															"    pm.expect(responseItem.beginDate).to.equal(\"2022-01-01\");",
+															"  });",
+															"});",
+															"",
+															"pm.test(\"Should return some items for verification\", () => {",
+															"  pm.expect(responseItems.length).to.be.greaterThan(0);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														""
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get StudentSectionAttendanceEvents",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"var items = pm.response.json();",
+															"",
+															"pm.test(\"Items were returned\", () => {",
+															"  pm.expect(items.length).is.greaterThan(0);",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAttendanceEvents/",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAttendanceEvents",
+														""
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Non-owner with relationship",
+									"item": [
+										{
+											"name": "GetById by non-owner with relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(\"Message should indicate that client doesn't own the record\", () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner with relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(\"Message should indicate that client doesn't own the record\", () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner with relationship (PUT)",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(\"Message should indicate that client doesn't own the record\", () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Delete by non-owner with relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(\"Message should indicate that client doesn't own the record\", () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Non-owner without relationship",
+									"item": [
+										{
+											"name": "GetById by non-owner without relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client doesn't own the record`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner without relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client doesn't own the record`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by non-owner without relationship (PUT)",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client doesn't own the record`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-02\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Delete by non-owner without relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client doesn't own the record`, () => {",
+															"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized using any of the caller's ownership tokens.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Owner without relationship",
+									"item": [
+										{
+											"name": "GetById by owner without relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
+															"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'StudentUniqueId' value.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:owned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:owned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by owner without relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
+															"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'StudentUniqueId' value.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by owner without relationship (PUT)",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
+															"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'StudentUniqueId' value.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"beginDate\": \"2022-02-01\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:owned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:owned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Delete by owner without relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 403\", () => {",
+															"  pm.expect(pm.response.code).to.equal(403);",
+															"});",
+															"",
+															"const message = pm.response.json().message;",
+															"",
+															"pm.test(`Message of '${message}' should indicate that client does not have any established relationship with the item`, () => {",
+															"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'StudentUniqueId' value.\");",
+															"});"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:owned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:responsibility:owned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Owner with relationship",
+									"item": [
+										{
+											"name": "GetById by owner with relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"pm.test(\"Item returned matches the values created earlier\", () => {",
+															"  const response = pm.response.json();",
+															"",
+															"  pm.expect(response.studentReference.studentUniqueId).to.equal(\"AAAAAA\");",
+															"  pm.expect(response.beginDate).to.equal(\"2022-01-01\");",
+															"});",
+															"",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
+															"",
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:owned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:registered:owned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by owner with relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "POST",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-01\",\r\n  \"endDate\": \"2022-07-07\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Update by owner with relationship (PUT)",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"  pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "PUT",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-01\",\r\n  \"endDate\": \"2022-08-08\"\r\n}"
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:owned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:registered:owned:id}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										},
+										{
+											"name": "Delete by owner with relationship",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 204\", () => {",
+															"  pm.expect(pm.response.code).to.equal(204);",
+															"});",
+															"",
+															"// Ensure response body is logged in Newman",
+															"if (pm.response.code >= 400) {",
+															"  const message = pm.response.json().message;",
+															"",
+															"  pm.test(`Error message of '${message}' should not be present`, () => {",
+															"    pm.expect(message).to.be.empty();",
+															"  });",
+															"}",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "{{AccessToken_255901001}}",
+															"type": "string"
+														}
+													]
+												},
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Content-Type",
+														"name": "Content-Type",
+														"type": "text",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:owned:id}}",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentSectionAssociations",
+														"{{known:studentSectionAssociation:registered:owned:id}}"
+													],
+													"query": [
+														{
+															"key": "studentUniqueId",
+															"value": "AAAAAA",
+															"disabled": true
+														}
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Clean Up Test Data",
+					"item": [
+						{
+							"name": "Recreate Student School Association for B",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {",
+											"  pm.expect(pm.response.code).to.equal(201);",
+											"});",
+											"",
+											"pm.environment.set('known:studentSchoolAssociation:responsibility:id', pm.response.headers.one('Location').value.split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"schoolReference\": {\r\n    \"schoolId\": \"{{known:schoolId}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"BBBBBB\"\r\n  },\r\n  \"entryDate\": \"2022-02-22\",\r\n  \"entryGradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Fourth grade\"\r\n}"
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentSchoolAssociations",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentSchoolAssociations"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Student EdOrg Responsibility for B",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/StudentEducationOrganizationResponsibilityAssociations/{{known:studentEducationOrganizationResponsibilityAssociation:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"StudentEducationOrganizationResponsibilityAssociations",
+										"{{known:studentEducationOrganizationResponsibilityAssociation:id}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Unowned StudentSectionAssociation for A",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:unowned:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSectionAssociations",
+										"{{known:studentSectionAssociation:registered:unowned:id}}"
+									],
+									"query": [
+										{
+											"key": "studentUniqueId",
+											"value": "AAAAAA",
+											"disabled": true
+										}
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Owned StudentSectionAssociation for B",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901001}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:owned:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSectionAssociations",
+										"{{known:studentSectionAssociation:responsibility:owned:id}}"
+									],
+									"query": [
+										{
+											"key": "studentUniqueId",
+											"value": "BBBBBB",
+											"disabled": true
+										}
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Unowned StudentSectionAssociation for B",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSectionAssociations",
+										"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+									],
+									"query": [
+										{
+											"key": "studentUniqueId",
+											"value": "BBBBBB",
+											"disabled": true
+										}
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete StudentSchoolAssociation for A",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:registered:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations",
+										"{{known:studentSchoolAssociation:registered:id}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete StudentSchoolAssociation for B",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", () => {",
+											"  pm.expect(pm.response.code).to.equal(204);",
+											"});",
+											"",
+											"// Ensure response body is logged in Newman",
+											"if (pm.response.code >= 400) {",
+											"  const message = pm.response.json().message;",
+											"",
+											"  pm.test(`Error message of '${message}' should not be present`, () => {",
+											"    pm.expect(message).to.be.empty();",
+											"  });",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{AccessToken_255901}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSchoolAssociations/{{known:studentSchoolAssociation:responsibility:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"studentSchoolAssociations",
+										"{{known:studentSchoolAssociation:responsibility:id}}"
+									]
+								},
+								"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+							},
+							"response": []
+						},
+						{
+							"name": "Clean up Environment Variables",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const __ = require('lodash');\r",
+											"\r",
+											"const keys = __.keys(pm.environment.toObject());\r",
+											"console.log('Initial keys: ' + JSON.stringify(keys));\r",
+											"\r",
+											"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+											"\r",
+											"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+											"\r",
+											"const remainingKeys = __.keys(pm.environment.toObject());\r",
+											"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{ApiBaseUrl}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"/*Prepare Sandbox environment by running the SQL Server script below against the populated sandbox ODS -- which performs the following activities:",
+							" * Create an ownership token in EdFi_Admin database.",
+							" * Add the ownership token to the collection of ownership tokens associated with the Populated sandbox API client.",
+							" * INSERT two students (Joe Registered, and Joe Responsibility)",
+							" * INSERT a StudentSchoolAssociation record for Joe Registered.",
+							" * INSERT a StudentEdOrgResponsibilityAssociation record for Joe Responsibility.",
+							" * INSERT two StudentSectionAssociations for each student – one matching the ownership token, and one _not_ matching the ownership token.",
+							" */"
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{AccessToken_255901}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"CreateAccessToken(\"TokenExpiry_255901\",",
+					"  \"AccessToken_255901\",",
+					"  \"ApiKey_255901\",",
+					"  \"ApiSecret_255901\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_Other_Namespace\",",
+					"  \"AccessToken_Other_Namespace\",",
+					"  \"ApiKey_Other_Namespace\",",
+					"  \"ApiSecret_Other_Namespace\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_255901001\",",
+					"  \"AccessToken_255901001\",",
+					"  \"ApiKey_255901001\",",
+					"  \"ApiSecret_255901001\")",
+					"",
+					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
+					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
+					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
+					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
+					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
+					"function CreateAccessToken(TokenExpiry, AccessToken, ApiKey, ApiSecret) {",
+					"  let tokenExpiration = pm.environment.get(TokenExpiry);",
+					"  let currentToken = pm.environment.get(AccessToken);",
+					"  let getToken = true;",
+					"  if (!tokenExpiration ||",
+					"    !currentToken) {",
+					"    console.log('Token or expiry date are missing, retrieving new token')",
+					"  } else if (tokenExpiration <= (new Date()).getTime()) {",
+					"    console.log('Token is expired, retrieving new token')",
+					"  } else {",
+					"    getToken = false;",
+					"  }",
+					"  if (getToken === true) {",
+					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
+					"    let clientId = pm.environment.get(ApiKey);",
+					"    let clientSecret = pm.environment.get(ApiSecret);",
+					"    let grantType = 'client_credentials';",
+					"",
+					"    let getTokenRequest = {",
+					"      method: 'POST',",
+					"      url: tokenUrl,",
+					"      auth: {",
+					"        type: \"basic\",",
+					"        basic: [",
+					"          { key: \"username\", value: clientId },",
+					"          { key: \"password\", value: clientSecret }",
+					"        ]",
+					"      },",
+					"      header: [",
+					"        \"content-type:application/x-www-form-urlencoded\"",
+					"      ],",
+					"      body: {",
+					"        mode: \"urlencoded\",",
+					"        urlencoded: [{ key: \"grant_type\", value: grantType }]",
+					"      }",
+					"    };",
+					"",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"      let jsonResponse = response.json(),",
+					"        newAccessToken = jsonResponse.access_token;",
+					"",
+					"      console.log({ err, jsonResponse, newAccessToken })",
+					"",
+					"      pm.environment.set(AccessToken, newAccessToken);",
+					"",
+					"      let expiryDate = new Date();",
+					"      expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"      pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"    });",
+					"  }",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"/*Prepare Sandbox environment by running the SQL Server script below against the populated sandbox ODS -- which performs the following activities:",
+					" * Create an ownership token in EdFi_Admin database.",
+					" * Add the ownership token to the collection of ownership tokens associated with the Populated sandbox API client.",
+					" * INSERT two students (Joe Registered, and Joe Responsibility)",
+					" * INSERT a StudentSchoolAssociation record for Joe Registered.",
+					" * INSERT a StudentEdOrgResponsibilityAssociation record for Joe Responsibility.",
+					" * INSERT two StudentSectionAssociations for each student – one matching the ownership token, and one _not_ matching the ownership token.",
+					" */"
+				]
+			}
+		}
+	]
+}

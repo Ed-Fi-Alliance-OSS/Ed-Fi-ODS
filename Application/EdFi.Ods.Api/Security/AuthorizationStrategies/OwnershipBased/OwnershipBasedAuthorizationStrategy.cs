@@ -32,7 +32,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             {
                 new AuthorizationFilterDefinition(
                     "CreatedByOwnershipTokenId",
-                    @"(CreatedByOwnershipTokenId IS NOT NULL AND CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
                     @"({currentAlias}.CreatedByOwnershipTokenId IS NOT NULL AND {currentAlias}.CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
                     ApplyAuthorizationCriteria,
                     AuthorizeInstance,
@@ -124,7 +123,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
                         ClaimParameterName = "CreatedByOwnershipTokenId",
                     }
                 },
-                Operator = FilterOperator.And
+                Operator = FilterOperator.And,
+                UsesSystemAssignedValues = true
             };
         }
     }
