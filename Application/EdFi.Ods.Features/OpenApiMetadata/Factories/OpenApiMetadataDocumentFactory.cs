@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Constants;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.ResourceStrategies;
@@ -21,11 +22,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataDocumentFactory));
         private readonly ApiSettings _apiSettings;
         private readonly IDefaultPageSizeLimitProvider _defaultPageSizeLimitProvider;
+        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
 
-        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
+        public OpenApiMetadataDocumentFactory(ApiSettings apiSettings, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider = null)
         {
             _apiSettings = apiSettings;
             _defaultPageSizeLimitProvider = defaultPageSizeLimitProvider;
+            _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
         }
 
         public string Create(IOpenApiMetadataResourceStrategy resourceStrategy, OpenApiMetadataDocumentContext documentContext)
@@ -35,7 +39,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                 var parametersFactory = new OpenApiMetadataParametersFactory(_defaultPageSizeLimitProvider);
 
                 var definitionsFactory =
-                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(documentContext);
+                    OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(documentContext, 
+                        _trackedChangesIdentifierProjectionsProvider, _apiSettings);
 
                 var responsesFactory = new OpenApiMetadataResponsesFactory();
 

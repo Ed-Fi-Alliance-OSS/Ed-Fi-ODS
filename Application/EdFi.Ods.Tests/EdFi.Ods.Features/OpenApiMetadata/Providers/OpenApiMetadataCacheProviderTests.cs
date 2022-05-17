@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Api.Models;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Api.Routing;
@@ -17,6 +18,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Composites.Test;
+using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.Composites;
 using EdFi.Ods.Features.Extensions;
 using EdFi.Ods.Features.IdentityManagement;
@@ -127,7 +129,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(apiSettings, defaultPageSieLimitProvider);
+                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    apiSettings, defaultPageSieLimitProvider,
+                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
                     compositesMetadataProvider, ResourceModelProvider, openApiMetadataDocumentFactory);
@@ -221,7 +225,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(apiSettings, defaultPageSieLimitProvider);
+                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    apiSettings, defaultPageSieLimitProvider,
+                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 
@@ -290,7 +296,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(), defaultPageSieLimitProvider);
+                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    CreateApiSettings(), defaultPageSieLimitProvider,
+                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var openApiMetadataRouteInformation = new List<IOpenApiMetadataRouteInformation>();
 
@@ -359,7 +367,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSizeLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(), defaultPageSizeLimitProvider);
+                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    CreateApiSettings(), defaultPageSizeLimitProvider,
+                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 
@@ -446,7 +456,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(apiSettings, defaultPageSieLimitProvider);
+                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    apiSettings, defaultPageSieLimitProvider,
+                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
                     compositemetadataprovider, ResourceModelProvider, openApiMetadataDocumentFactory);
@@ -544,7 +556,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(apiSettings, defaultPageSieLimitProvider);
+                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    apiSettings, defaultPageSieLimitProvider,
+                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var compositeOpenApiContentProvider = new CompositesOpenApiContentProvider(
                     compositemetadataprovider, ResourceModelProvider, openApiMetadataDocumentFactory);
@@ -619,7 +633,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Providers
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(), defaultPageSieLimitProvider);
+                var openApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    CreateApiSettings(), defaultPageSieLimitProvider,
+                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 var resourceModelProvider = Stub<IResourceModelProvider>();
 
