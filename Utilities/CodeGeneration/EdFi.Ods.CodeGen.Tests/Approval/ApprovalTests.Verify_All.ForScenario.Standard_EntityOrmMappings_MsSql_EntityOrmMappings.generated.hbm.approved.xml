@@ -347,7 +347,7 @@
     <property name="AssessmentVersion" column="AssessmentVersion" type="int" />
     <property name="EducationOrganizationId" column="EducationOrganizationId" type="int" />
     <property name="MaxRawScore" column="MaxRawScore" type="decimal" />
-    <property name="Nomenclature" column="Nomenclature" type="string" length="35" />
+    <property name="Nomenclature" column="Nomenclature" type="string" length="100" />
     <property name="RevisionDate" column="RevisionDate" type="date" />
 
     <!-- One-to-one child mappings -->
@@ -842,7 +842,7 @@
     <property name="ExpectedTimeAssessed" column="ExpectedTimeAssessed" type="string" length="30" />
     <property name="ItemText" column="ItemText" type="string" length="1024" />
     <property name="MaxRawScore" column="MaxRawScore" type="decimal" />
-    <property name="Nomenclature" column="Nomenclature" type="string" length="35" />
+    <property name="Nomenclature" column="Nomenclature" type="string" length="100" />
 
     <!-- Aggregate references -->
     <many-to-one name="AssessmentReferenceData" class="EdFi.Ods.Entities.NHibernate.AssessmentAggregate.EdFi.AssessmentReferenceData" fetch="join" insert="false" update="false" cascade="none" lazy="proxy">
@@ -9064,7 +9064,7 @@
 
     <!-- Properties -->
     <property name="Description" column="Description" type="string" length="1024" />
-    <property name="Nomenclature" column="Nomenclature" type="string" length="35" />
+    <property name="Nomenclature" column="Nomenclature" type="string" length="100" />
     <property name="Objective" column="Objective" type="string" length="60" not-null="true" />
     <property name="ParentLearningObjectiveId" column="ParentLearningObjectiveId" type="string" length="60" />
     <property name="ParentNamespace" column="ParentNamespace" type="string" length="255" />
@@ -9721,7 +9721,7 @@
     <property name="AcademicSubjectDescriptorId" column="AcademicSubjectDescriptorId" type="int" />
     <property name="Description" column="Description" type="string" length="1024" />
     <property name="MaxRawScore" column="MaxRawScore" type="decimal" />
-    <property name="Nomenclature" column="Nomenclature" type="string" length="35" />
+    <property name="Nomenclature" column="Nomenclature" type="string" length="100" />
     <property name="ParentIdentificationCode" column="ParentIdentificationCode" type="string" length="60" />
     <property name="PercentOfAssessment" column="PercentOfAssessment" type="decimal" />
 
