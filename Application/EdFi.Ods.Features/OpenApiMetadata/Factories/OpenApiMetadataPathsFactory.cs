@@ -223,7 +223,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     "410",
                     new Response
                     {
-                        description =
+                        description = 
                             "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
                     });
             }
@@ -422,7 +422,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Response
                     {
                         description =
-                                                        "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
+                            "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
                     });
 
                 parameters.Add(new Parameter {
@@ -442,7 +442,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         .ToCamelCase()
                 },
                 summary = "Retrieves deleted resources based on change version.",
-                description = "The DELETES operation is used to retrieve deleted resources.",
+                description = "This operation is used to retrieve identifying information about resources that have been deleted.",
                 operationId = $"deletes{openApiMetadataResource.Resource.PluralName}",
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
@@ -478,7 +478,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                     new Response
                     {
                         description =
-                                                        "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
+                            "Gone. An attempt to connect to the database for the snapshot specified by the Snapshot-Identifier header was unsuccessful (indicating the snapshot may have been removed)."
                     });
 
                 parameters.Add(new Parameter
@@ -499,7 +499,7 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                         .ToCamelCase()
                 },
                 summary = "Retrieves resources key changes based on change version.",
-                description = "The operation is used to retrieve resources key changes.",
+                description = "This operation is used to retrieve identifying information about resources whose key values have been changed.",
                 operationId = $"keyChanges{openApiMetadataResource.Resource.PluralName}",
                 deprecated = openApiMetadataResource.IsDeprecated,
                 consumes = new[]
