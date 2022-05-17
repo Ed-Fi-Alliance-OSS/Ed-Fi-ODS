@@ -20,7 +20,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A candidate is
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'CandidateIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A prefix used to denote the title, degree, position, or seniority of the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'PersonalTitlePrefix'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A prefix used to denote the title, degree, position, or seniority of the individual.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'PersonalTitlePrefix'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'FirstName'
 GO
@@ -30,7 +30,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An appendage, if any, used to denote an individual''s generation in his family (e.g., Jr., Sr., III).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'GenerationCodeSuffix'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The person''s maiden name.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'MaidenName'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The individual''s maiden name.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'MaidenName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The sex of the candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Candidate', @level2type=N'COLUMN', @level2name=N'SexDescriptorId'
 GO
@@ -129,11 +129,11 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The disability
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisability', @level2type=N'COLUMN', @level2name=N'CandidateIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A disability category that describes a child''s impairment.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisability', @level2type=N'COLUMN', @level2name=N'DisabilityDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A disability category that describes a individual''s impairment.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisability', @level2type=N'COLUMN', @level2name=N'DisabilityDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the disability diagnosis.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisability', @level2type=N'COLUMN', @level2name=N'DisabilityDiagnosis'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The order by severity of student''s disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisability', @level2type=N'COLUMN', @level2name=N'OrderOfDisability'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The order by severity of individual''s disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisability', @level2type=N'COLUMN', @level2name=N'OrderOfDisability'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The source that provided the disability determination.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisability', @level2type=N'COLUMN', @level2name=N'DisabilityDeterminationSourceTypeDescriptorId'
 GO
@@ -143,7 +143,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Whether the di
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisabilityDesignation', @level2type=N'COLUMN', @level2name=N'CandidateIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A disability category that describes a child''s impairment.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisabilityDesignation', @level2type=N'COLUMN', @level2name=N'DisabilityDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A disability category that describes a individual''s impairment.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisabilityDesignation', @level2type=N'COLUMN', @level2name=N'DisabilityDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Whether the disability is IDEA, Section 504, or other disability designation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateDisabilityDesignation', @level2type=N'COLUMN', @level2name=N'DisabilityDesignationDescriptorId'
 GO
@@ -245,9 +245,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Other names (e
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateOtherName', @level2type=N'COLUMN', @level2name=N'CandidateIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The types of alternate names for a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateOtherName', @level2type=N'COLUMN', @level2name=N'OtherNameTypeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The types of alternate names for an individual.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateOtherName', @level2type=N'COLUMN', @level2name=N'OtherNameTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A prefix used to denote the title, degree, position, or seniority of the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateOtherName', @level2type=N'COLUMN', @level2name=N'PersonalTitlePrefix'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A prefix used to denote the title, degree, position, or seniority of the individual.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateOtherName', @level2type=N'COLUMN', @level2name=N'PersonalTitlePrefix'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CandidateOtherName', @level2type=N'COLUMN', @level2name=N'FirstName'
 GO
@@ -721,7 +721,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local iden
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'SessionName'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'SessionName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'SchoolId'
 GO
@@ -1131,7 +1131,7 @@ GO
 -- Extended Properties [tpdm].[SurveyResponseExtension] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Survey.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension', @level2type=N'COLUMN', @level2name=N'Namespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the survey.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique survey identifier from the survey tool.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension', @level2type=N'COLUMN', @level2name=N'SurveyIdentifier'
 GO
@@ -1145,7 +1145,7 @@ GO
 -- Extended Properties [tpdm].[SurveyResponsePersonTargetAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The association provides information about the survey being taken and who the survey is about.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponsePersonTargetAssociation'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Survey.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponsePersonTargetAssociation', @level2type=N'COLUMN', @level2name=N'Namespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the survey.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponsePersonTargetAssociation', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponsePersonTargetAssociation', @level2type=N'COLUMN', @level2name=N'PersonId'
 GO
@@ -1159,7 +1159,7 @@ GO
 -- Extended Properties [tpdm].[SurveySectionResponsePersonTargetAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This association provides information about the survey section and the person the survey section is about.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionResponsePersonTargetAssociation'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Survey.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionResponsePersonTargetAssociation', @level2type=N'COLUMN', @level2name=N'Namespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the survey.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionResponsePersonTargetAssociation', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionResponsePersonTargetAssociation', @level2type=N'COLUMN', @level2name=N'PersonId'
 GO
