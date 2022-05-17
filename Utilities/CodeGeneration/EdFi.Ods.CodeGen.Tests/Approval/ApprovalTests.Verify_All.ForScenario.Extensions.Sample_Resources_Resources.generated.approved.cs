@@ -10286,21 +10286,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
         // -------------------------------------------------------------
 
         /// <summary>
-        /// The month, day, and year on which the Student exited the Program or stopped receiving services.
+        /// The month, day, and year on which the student exited the program or stopped receiving services.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
-        /// The reason the child left the Program within a school or district.
+        /// The reason the student left the program within a school or district.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="reasonExitedDescriptor")]
         public string ReasonExitedDescriptor { get; set; }
 
         /// <summary>
-        /// Indicates whether the Student received services during the summer session or between sessions.
+        /// Indicates whether the student received services during the summer session or between sessions.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="servedOutsideOfRegularSession")]

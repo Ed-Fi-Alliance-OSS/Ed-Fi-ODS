@@ -1532,7 +1532,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string AddressLine4 { get; set; }
 
         /// <summary>
-        /// The first date the address is valid. For physical addresses, the date the person moved to that address.
+        /// The first date the address is valid. For physical addresses, the date the individual moved to that address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -1546,7 +1546,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string CountryDescriptor { get; set; }
 
         /// <summary>
-        /// The last date the address is valid. For physical addresses, this would be the date the person moved from that address.
+        /// The last date the address is valid. For physical addresses, the date the individual moved from that address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -1915,7 +1915,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string ShortNameOfInstitution { get; set; }
 
         /// <summary>
-        /// The public web site address (URL) for the EducationOrganization.
+        /// The public web site address (URL) for the education organization.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="webSite")]
@@ -4111,7 +4111,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -6646,7 +6646,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
 
         /// <summary>
-        /// The one or more categories of school. For example: High School, Middle School, and/or Elementary School.
+        /// The one or more categories of school.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="schoolCategoryDescriptor"), NaturalKeyMember]
@@ -8283,7 +8283,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -8917,7 +8917,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string NameOfInstitution { get; set; }
 
         /// <summary>
-        /// The current operational status of the EducationOrganization (e.g., active, inactive).
+        /// The current operational status of the education organization (e.g., active, inactive).
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="operationalStatusDescriptor")]
@@ -9390,7 +9390,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
 
         /// <summary>
-        /// The one or more categories of school. For example: High School, Middle School, and/or Elementary School.
+        /// The one or more categories of school.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="schoolCategoryDescriptor"), NaturalKeyMember]
@@ -9810,7 +9810,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string AddressLine4 { get; set; }
 
         /// <summary>
-        /// The first date the address is valid. For physical addresses, the date the person moved to that address.
+        /// The first date the address is valid. For physical addresses, the date the individual moved to that address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -9824,7 +9824,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string CountryDescriptor { get; set; }
 
         /// <summary>
-        /// The last date the address is valid. For physical addresses, this would be the date the person moved from that address.
+        /// The last date the address is valid. For physical addresses, the date the individual moved from that address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -10142,7 +10142,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
 
         /// <summary>
-        /// The current operational status of the EducationOrganization (e.g., active, inactive).
+        /// The current operational status of the education organization (e.g., active, inactive).
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="operationalStatusDescriptor")]
@@ -10156,7 +10156,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string ShortNameOfInstitution { get; set; }
 
         /// <summary>
-        /// The public web site address (URL) for the EducationOrganization.
+        /// The public web site address (URL) for the education organization.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="webSite")]
@@ -11112,7 +11112,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -12957,7 +12957,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string AddressLine4 { get; set; }
 
         /// <summary>
-        /// The first date the address is valid. For physical addresses, the date the person moved to that address.
+        /// The first date the address is valid. For physical addresses, the date the individual moved to that address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -12971,7 +12971,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string CountryDescriptor { get; set; }
 
         /// <summary>
-        /// The last date the address is valid. For physical addresses, this would be the date the person moved from that address.
+        /// The last date the address is valid. For physical addresses, the date the individual moved from that address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -13360,7 +13360,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string NameOfInstitution { get; set; }
 
         /// <summary>
-        /// The current operational status of the EducationOrganization (e.g., active, inactive).
+        /// The current operational status of the education organization (e.g., active, inactive).
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="operationalStatusDescriptor")]
@@ -13374,7 +13374,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string ShortNameOfInstitution { get; set; }
 
         /// <summary>
-        /// The public web site address (URL) for the EducationOrganization.
+        /// The public web site address (URL) for the education organization.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="webSite")]
@@ -14014,7 +14014,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
 
         /// <summary>
-        /// The one or more categories of school. For example: High School, Middle School, and/or Elementary School.
+        /// The one or more categories of school.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="schoolCategoryDescriptor"), NaturalKeyMember]
@@ -15882,7 +15882,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string Longitude { get; set; }
 
         /// <summary>
-        /// The name of the county, parish, borough, or comparable unit (within a state) in                      'which an address is located.
+        /// The name of the county, parish, borough, or comparable unit (within a state) in                       'which an address is located.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="nameOfCounty")]
@@ -17727,7 +17727,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string AddressLine4 { get; set; }
 
         /// <summary>
-        /// The first date the address is valid. For physical addresses, the date the person moved to that address.
+        /// The first date the address is valid. For physical addresses, the date the individual moved to that address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="beginDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -17741,7 +17741,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducationOrganization.EdFi.Test_P
         public string CountryDescriptor { get; set; }
 
         /// <summary>
-        /// The last date the address is valid. For physical addresses, this would be the date the person moved from that address.
+        /// The last date the address is valid. For physical addresses, the date the individual moved from that address.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="endDate")][JsonConverter(typeof(Iso8601UtcDateOnlyConverter))]
@@ -18130,7 +18130,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string NameOfInstitution { get; set; }
 
         /// <summary>
-        /// The current operational status of the EducationOrganization (e.g., active, inactive).
+        /// The current operational status of the education organization (e.g., active, inactive).
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="operationalStatusDescriptor")]
@@ -18144,7 +18144,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string ShortNameOfInstitution { get; set; }
 
         /// <summary>
-        /// The public web site address (URL) for the EducationOrganization.
+        /// The public web site address (URL) for the education organization.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="webSite")]
@@ -18784,7 +18784,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         }
 
         /// <summary>
-        /// The one or more categories of school. For example: High School, Middle School, and/or Elementary School.
+        /// The one or more categories of school.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="schoolCategoryDescriptor"), NaturalKeyMember]
