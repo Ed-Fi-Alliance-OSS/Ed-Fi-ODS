@@ -20,7 +20,6 @@
     <ProjectReference Include="..\..\Application\EdFi.Ods.Profiles.Test\EdFi.Ods.Profiles.Test.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
     <ProjectReference Include="..\..\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
-    <ProjectReference Include="..\..\Application\EdFi.TestObjects\EdFi.TestObjects.csproj" />
     <ProjectReference Include="..\..\Application\Test.Common\Test.Common.csproj" />
     <ProjectReference Include="..\EdFi.TestFixture\EdFi.TestFixture.csproj" />
   </ItemGroup>
