@@ -3,11 +3,11 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
@@ -22,8 +22,6 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         public const string ContentType = "application/json";
 
         public const string Json = "swagger.json";
-
-        private const string DeletedResource = "deletedResource";
 
         public static string GetResourcePluralName(ResourceClassBase resourceClassBase) => resourceClassBase.PluralName;
 
@@ -179,25 +177,30 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             };
         }
 
-        public static Dictionary<string, Response> GetReadOperationResponses(string resourceName, bool isArray, bool isChangeQueryDeletes = false)
+        public static Dictionary<string, Response> GetReadOperationResponses(string resourceName, bool isArray, bool isChangeQueryDeletes = false, bool isChangeQueryKeyChanges = false)
         {
+            if (isChangeQueryDeletes && isChangeQueryKeyChanges)
+            {
+                throw new ArgumentException(
+                    $"{nameof(isChangeQueryDeletes)} and {nameof(isChangeQueryKeyChanges)} cannot be both true.");
+            }
+
+            var schemaRef = new Schema
+            {
+                @ref = isChangeQueryDeletes
+                    ? GetDefinitionReference($"trackedChanges_{resourceName}Delete")
+                    : isChangeQueryKeyChanges
+                        ? GetDefinitionReference($"trackedChanges_{resourceName}KeyChange")
+                        : GetDefinitionReference(resourceName)
+            };
+
             var schema = isArray
                 ? new Schema
                 {
                     type = "array",
-                    items = new Schema
-                    {
-                        @ref = isChangeQueryDeletes ? 
-                            GetDefinitionReference(DeletedResource) : 
-                            GetDefinitionReference(resourceName)
-                    }
+                    items = schemaRef
                 }
-                : new Schema
-                {
-                    @ref = isChangeQueryDeletes ? 
-                        GetDefinitionReference(DeletedResource) :
-                        GetDefinitionReference(resourceName)
-                };
+                : schemaRef;
 
             return new Dictionary<string, Response>
                    {
