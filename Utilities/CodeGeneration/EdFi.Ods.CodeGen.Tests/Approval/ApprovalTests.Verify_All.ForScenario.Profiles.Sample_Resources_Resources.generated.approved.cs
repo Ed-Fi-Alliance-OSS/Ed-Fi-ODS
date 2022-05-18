@@ -2771,21 +2771,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
-        /// Number and description of the CIP Code associated with the student's CTEProgram.
+        /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the Student has completed the CTEProgram.
+        /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cteProgramCompletionIndicator")]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.
+        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="primaryCTEProgramIndicator")]
@@ -6943,21 +6943,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
-        /// Number and description of the CIP Code associated with the student's CTEProgram.
+        /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the Student has completed the CTEProgram.
+        /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cteProgramCompletionIndicator")]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.
+        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="primaryCTEProgramIndicator")]
@@ -14542,21 +14542,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
-        /// Number and description of the CIP Code associated with the student's CTEProgram.
+        /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the Student has completed the CTEProgram.
+        /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cteProgramCompletionIndicator")]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.
+        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="primaryCTEProgramIndicator")]
@@ -19312,21 +19312,21 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
         public string CareerPathwayDescriptor { get; set; }
 
         /// <summary>
-        /// Number and description of the CIP Code associated with the student's CTEProgram.
+        /// Number and description of the CIP code associated with the student's CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cipCode")]
         public string CIPCode { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether the Student has completed the CTEProgram.
+        /// A boolean indicator of whether the student has completed the CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="cteProgramCompletionIndicator")]
         public bool? CTEProgramCompletionIndicator { get; set; }
 
         /// <summary>
-        /// A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.
+        /// A boolean indicator of whether this CTE program is the student's primary CTE program.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="primaryCTEProgramIndicator")]
