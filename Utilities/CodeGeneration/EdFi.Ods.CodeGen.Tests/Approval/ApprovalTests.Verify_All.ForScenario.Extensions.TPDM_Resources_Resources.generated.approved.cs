@@ -939,7 +939,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         public string LimitedEnglishProficiencyDescriptor { get; set; }
 
         /// <summary>
-        /// The person's maiden name.
+        /// The individual's maiden name.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="maidenName")]
@@ -960,7 +960,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         public bool? MultipleBirthStatus { get; set; }
 
         /// <summary>
-        /// A prefix used to denote the title, degree, position, or seniority of the person.
+        /// A prefix used to denote the title, degree, position, or seniority of the individual.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="personalTitlePrefix")]
@@ -2301,7 +2301,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
 
         /// <summary>
-        /// A disability category that describes a child's impairment.
+        /// A disability category that describes a individual's impairment.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="disabilityDescriptor"), NaturalKeyMember]
@@ -2385,7 +2385,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         public string DisabilityDiagnosis { get; set; }
 
         /// <summary>
-        /// The order by severity of student's disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.
+        /// The order by severity of individual's disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="orderOfDisability")]
@@ -3617,7 +3617,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         }
 
         /// <summary>
-        /// The types of alternate names for a person.
+        /// The types of alternate names for an individual.
         /// </summary>
         // NOT in a reference, IS a lookup column 
         [DataMember(Name="otherNameTypeDescriptor"), NaturalKeyMember]
@@ -3715,7 +3715,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
         public string MiddleName { get; set; }
 
         /// <summary>
-        /// A prefix used to denote the title, degree, position, or seniority of the person.
+        /// A prefix used to denote the title, degree, position, or seniority of the individual.
         /// </summary>
         // NOT in a reference, NOT a lookup column 
         [DataMember(Name="personalTitlePrefix")]
@@ -15845,7 +15845,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
         }
 
         /// <summary>
-        /// The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).
+        /// The identifier for the calendar for the academic session.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         string Entities.Common.TPDM.IEvaluationRating.SessionName
@@ -24130,7 +24130,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
         // -------------------------------------------------------------
 
         /// <summary>
-        /// Namespace for the Survey.
+        /// Namespace for the survey.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         string Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation.Namespace
@@ -24686,7 +24686,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
         // -------------------------------------------------------------
 
         /// <summary>
-        /// Namespace for the Survey.
+        /// Namespace for the survey.
         /// </summary>
         // IS in a reference, NOT a lookup column 
         string Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation.Namespace
