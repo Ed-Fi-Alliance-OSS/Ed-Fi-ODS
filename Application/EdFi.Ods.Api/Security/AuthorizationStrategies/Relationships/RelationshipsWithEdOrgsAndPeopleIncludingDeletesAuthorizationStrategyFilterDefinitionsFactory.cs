@@ -21,14 +21,8 @@ public class RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrate
         IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
         : base(educationOrganizationIdNamesProvider, apiKeyContextProvider, viewBasedSingleItemAuthorizationQuerySupport) { }
 
-    /// <summary>
-    /// Gets the NHibernate filter definitions and a functional delegate for determining when to apply them.
-    /// </summary>
-    /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and entity mappings.</returns>
     public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
     {
-        return CreateAllEducationOrganizationToPersonFilters(authorizationPathModifier: "IncludingDeletes")
-            .Concat(CreateAllEducationOrganizationToEducationOrganizationFilters())
-            .ToArray();
+        return CreateAllEducationOrganizationToPersonFilters(authorizationPathModifier: "IncludingDeletes").ToArray();
     }
 }

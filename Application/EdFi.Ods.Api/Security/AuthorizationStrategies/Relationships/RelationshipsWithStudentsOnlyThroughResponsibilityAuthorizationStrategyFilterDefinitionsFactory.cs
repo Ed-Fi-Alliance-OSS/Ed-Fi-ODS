@@ -6,8 +6,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Authorization;
-using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Specifications;
 
@@ -20,12 +20,7 @@ public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStra
         IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
         IApiKeyContextProvider apiKeyContextProvider,
         IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
-        : base(educationOrganizationIdNamesProvider, apiKeyContextProvider, viewBasedSingleItemAuthorizationQuerySupport)
-    {
-        _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
-    }
-
-    private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
+        : base(educationOrganizationIdNamesProvider, apiKeyContextProvider, viewBasedSingleItemAuthorizationQuerySupport) { }
 
     public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
     {

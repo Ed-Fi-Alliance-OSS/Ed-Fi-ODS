@@ -64,7 +64,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             AuthorizationFilterContext filterContext,
             Resource resource,
             int filterIndex,
-            QueryBuilder queryBuilder)
+            QueryBuilder queryBuilder,
+            bool useOuterJoins)
         {
             throw new NotSupportedException("The ownership-based authorization strategy is not supported for authorizing requests for tracked deletes or key changes.");
         }

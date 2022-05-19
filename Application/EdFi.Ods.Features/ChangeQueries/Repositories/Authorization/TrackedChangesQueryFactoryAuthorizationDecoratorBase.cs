@@ -132,8 +132,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                                     return filterDetails;
                                 }
 
-                                ;
-
                                 unsupportedAuthorizationFilters.Add(afd.FilterName);
 
                                 return null;
@@ -246,7 +244,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                     // };
 
                     // Apply the authorization strategy filter
-                    applicator(filterDefinition, filterContext, resource, filterIndex, nestedQueryBuilder);
+                    applicator(
+                        filterDefinition,
+                        filterContext,
+                        resource,
+                        filterIndex,
+                        nestedQueryBuilder,
+                        joinType != JoinType.InnerJoin);
 
                     filterIndex++;
                     filtersApplied = true;

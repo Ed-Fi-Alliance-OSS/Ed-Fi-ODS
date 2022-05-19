@@ -44,7 +44,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             string filterName,
             string friendlyHqlConditionFormat,
             Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator,
-            Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder> trackedChangesCriteriaApplicator, 
+            Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator, 
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,
             Func<Type, PropertyInfo[], bool> shouldApply)
         {
@@ -71,7 +71,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// <summary>
         /// Gets the function for applying the filter to the <see cref="QueryBuilder" /> for tracked changes queries.
         /// </summary>
-        public Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder> TrackedChangesCriteriaApplicator
+        public Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> TrackedChangesCriteriaApplicator
         {
             get;
             protected set;

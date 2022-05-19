@@ -28,7 +28,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         private readonly IApiKeyContextProvider _apiKeyContextProvider;
         private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
 
-        protected RelationshipsAuthorizationStrategyFilterDefinitionsFactory(
+        public RelationshipsAuthorizationStrategyFilterDefinitionsFactory(
             IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
@@ -68,6 +68,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 ));
         }
 
+        // TODO: Is this even necessary anymore with the EdOrg generalization in authorization?
         protected IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToEducationOrganizationFilters()
         {
             string[] concreteEdOrgIdNames = _educationOrganizationIdNamesProvider.GetAllNames(); 
@@ -117,7 +118,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             AuthorizationFilterContext filterContext, 
             Resource resource, 
             int filterIndex,
-            QueryBuilder queryBuilder)
+            QueryBuilder queryBuilder,
+            bool useOuterJoins)
         {
             var viewBasedFilterDefinition = (ViewBasedAuthorizationFilterDefinition) filterDefinition;
 
@@ -132,14 +134,27 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                 ? GetBasePropertyNameForSubjectEndpointName() 
                 : filterContext.SubjectEndpointName;
 
-            // Generalize relationships-based naming convention
-            queryBuilder.Join(
-                $"auth.{viewName} AS rba{filterIndex}",
-                $"c.Old{trackedChangesPropertyName}",
-                $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
+            if (useOuterJoins)
+            {
+                queryBuilder.LeftJoin(
+                    $"auth.{viewName} AS rba{filterIndex}",
+                    $"c.Old{trackedChangesPropertyName}",
+                    $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
 
-            // Apply claim value criteria
-            queryBuilder.WhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimParameterValues);
+                // Apply claim value criteria
+                queryBuilder.OrWhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimParameterValues);
+                queryBuilder.OrWhereNull($"rba{filterIndex}.SourceEducationOrganizationId");
+            }
+            else
+            {
+                queryBuilder.Join(
+                    $"auth.{viewName} AS rba{filterIndex}",
+                    $"c.Old{trackedChangesPropertyName}",
+                    $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
+
+                // Apply claim value criteria
+                queryBuilder.WhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimParameterValues);
+            }
             
             string GetBasePropertyNameForSubjectEndpointName()
             {

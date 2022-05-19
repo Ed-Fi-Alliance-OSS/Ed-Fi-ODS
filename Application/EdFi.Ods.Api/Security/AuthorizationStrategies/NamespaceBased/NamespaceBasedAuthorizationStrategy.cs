@@ -156,7 +156,8 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
             AuthorizationFilterContext filterContext,
             Resource resource,
             int filterIndex,
-            QueryBuilder queryBuilder)
+            QueryBuilder queryBuilder,
+            bool useOuterJoins)
         {
             if (filterContext.ClaimParameterValues.Length == 1)
             {

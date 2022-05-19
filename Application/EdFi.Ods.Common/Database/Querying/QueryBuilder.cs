@@ -119,9 +119,8 @@ namespace EdFi.Ods.Common.Database.Querying
         public QueryBuilder Where(Func<QueryBuilder, QueryBuilder> nestedWhereApplicator)
         {
             var childScope = new QueryBuilder(_dialect, _parameterIndexer);
-            nestedWhereApplicator(childScope);
 
-            var template = childScope._sqlBuilder.AddTemplate(
+            var template = nestedWhereApplicator(childScope)._sqlBuilder.AddTemplate(
                 "/**where**/",
                 childScope.Parameters.Any()
                     ? new DynamicParameters(childScope.Parameters)
@@ -135,9 +134,8 @@ namespace EdFi.Ods.Common.Database.Querying
         public QueryBuilder OrWhere(Func<QueryBuilder, QueryBuilder> nestedWhereApplicator)
         {
             var childScope = new QueryBuilder(_dialect, _parameterIndexer);
-            nestedWhereApplicator(childScope);
 
-            var template = childScope._sqlBuilder.AddTemplate(
+            var template = nestedWhereApplicator(childScope)._sqlBuilder.AddTemplate(
                 "/**where**/",
                 childScope.Parameters.Any()
                     ? new DynamicParameters(childScope.Parameters)
@@ -194,6 +192,17 @@ namespace EdFi.Ods.Common.Database.Querying
             var (sql, parameters) = _dialect.GetInClause(columnName, parameterName, values);
 
             _sqlBuilder.Where(sql, parameters);
+
+            return this;
+        }
+
+        public QueryBuilder OrWhereIn(string columnName, IList values)
+        {
+            string parameterName = $"@p{_parameterIndexer.Increment()}";
+
+            var (sql, parameters) = _dialect.GetInClause(columnName, parameterName, values);
+
+            _sqlBuilder.OrWhere(sql, parameters);
 
             return this;
         }

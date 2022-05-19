@@ -21,7 +21,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters
             string viewName,
             string viewTargetEndpointName,
             string subjectEndpointName,
-            Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder> trackedChangesCriteriaApplicator,
+            Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator,
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
             : base(
