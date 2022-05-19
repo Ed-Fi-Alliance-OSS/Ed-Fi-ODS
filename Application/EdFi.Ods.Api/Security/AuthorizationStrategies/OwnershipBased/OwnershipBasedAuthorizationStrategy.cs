@@ -7,7 +7,9 @@ using System.Linq;
 using System.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 using NHibernate;
 using NHibernate.Criterion;
@@ -34,6 +36,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
                     "CreatedByOwnershipTokenId",
                     @"({currentAlias}.CreatedByOwnershipTokenId IS NOT NULL AND {currentAlias}.CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
                     ApplyAuthorizationCriteria,
+                    ApplyTrackedChangesAuthorizationCriteria,
                     AuthorizeInstance,
                     (t, p) => !DescriptorEntitySpecification.IsEdFiDescriptorEntity(t) && p.HasPropertyNamed("CreatedByOwnershipTokenId")),
             };
@@ -54,6 +57,16 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.OwnershipBased
             }
 
             @where.ApplyPropertyFilters(parameters, FilterPropertyName);
+        }
+
+        private void ApplyTrackedChangesAuthorizationCriteria(
+            AuthorizationFilterDefinition filterDefinition,
+            AuthorizationFilterContext filterContext,
+            Resource resource,
+            int filterIndex,
+            QueryBuilder queryBuilder)
+        {
+            throw new NotSupportedException("The ownership-based authorization strategy is not supported for authorizing requests for tracked deletes or key changes.");
         }
 
         private InstanceAuthorizationResult AuthorizeInstance(

@@ -61,7 +61,7 @@ namespace EdFi.Ods.Common.Security.Authorization
         }
 
         /// <summary>
-        /// Gets or sets a map function to convert the raw claim values to database parameter values.
+        /// Gets or sets a map function to convert the raw claim values to database parameter values (e.g. for values used in a LIKE statement).
         /// </summary>
         public Func<object, object> ClaimParameterValueMap { get; set; }
 

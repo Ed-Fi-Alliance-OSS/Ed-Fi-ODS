@@ -6,32 +6,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Authorization;
-using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Ods.Common.Security;
-using EdFi.Ods.Common.Specifications;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships;
 
-public class RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterDefinitionsFactory
+public class RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategyFilterDefinitionsFactory
     : RelationshipsAuthorizationStrategyFilterDefinitionsFactory
 {
-    public RelationshipsWithStudentsOnlyThroughResponsibilityAuthorizationStrategyFilterDefinitionsFactory(
+    public RelationshipsWithEdOrgsAndPeopleIncludingDeletesAuthorizationStrategyFilterDefinitionsFactory(
         IEducationOrganizationIdNamesProvider educationOrganizationIdNamesProvider,
         IApiKeyContextProvider apiKeyContextProvider,
         IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
-        : base(educationOrganizationIdNamesProvider, apiKeyContextProvider, viewBasedSingleItemAuthorizationQuerySupport)
-    {
-        _viewBasedSingleItemAuthorizationQuerySupport = viewBasedSingleItemAuthorizationQuerySupport;
-    }
+        : base(educationOrganizationIdNamesProvider, apiKeyContextProvider, viewBasedSingleItemAuthorizationQuerySupport) { }
 
-    private readonly IViewBasedSingleItemAuthorizationQuerySupport _viewBasedSingleItemAuthorizationQuerySupport;
-
+    /// <summary>
+    /// Gets the NHibernate filter definitions and a functional delegate for determining when to apply them.
+    /// </summary>
+    /// <returns>A read-only list of filter application details to be applied to the NHibernate configuration and entity mappings.</returns>
     public override IReadOnlyList<AuthorizationFilterDefinition> CreateAuthorizationFilterDefinitions()
     {
-        return CreateAllEducationOrganizationToPersonFilters(
-                shouldIncludePersonType: pt => pt == PersonEntitySpecification.Student,
-                authorizationPathModifier: "ThroughResponsibility")
+        return CreateAllEducationOrganizationToPersonFilters(authorizationPathModifier: "IncludingDeletes")
+            .Concat(CreateAllEducationOrganizationToEducationOrganizationFilters())
             .ToArray();
     }
 }

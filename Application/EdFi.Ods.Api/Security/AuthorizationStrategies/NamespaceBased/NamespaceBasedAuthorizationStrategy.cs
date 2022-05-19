@@ -8,8 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using EdFi.Common.Extensions;
+using EdFi.Common.Utils.Extensions;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
+using EdFi.Ods.Common.Database.NamingConventions;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -26,6 +30,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
 
         private const string AuthorizationStrategyName = "NamespaceBased";
         private const string FilterPropertyName = "Namespace";
+        private readonly string _oldNamespaceColumnName;
+
+        public NamespaceBasedAuthorizationStrategy(IDatabaseNamingConvention databaseNamingConvention)
+        {
+            _oldNamespaceColumnName = databaseNamingConvention.ColumnName($"OldNamespace");
+        }
         
         /// <summary>
         /// Gets the authorization strategy's NHibernate filter definitions and a functional delegate for determining when to apply them.
@@ -39,6 +49,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
                     "Namespace",
                     @"({currentAlias}.Namespace IS NOT NULL AND {currentAlias}.Namespace LIKE :Namespace)",
                     ApplyAuthorizationCriteria,
+                    ApplyTrackedChangesAuthorizationCriteria,
                     AuthorizeInstance, 
                     (t, p) => !DescriptorEntitySpecification.IsEdFiDescriptorEntity(t) && p.HasPropertyNamed("Namespace")),
             }.AsReadOnly();
@@ -138,6 +149,34 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased
                 },
                 Operator = FilterOperator.And
             };
+        }
+
+        private void ApplyTrackedChangesAuthorizationCriteria(
+            AuthorizationFilterDefinition filterDefinition,
+            AuthorizationFilterContext filterContext,
+            Resource resource,
+            int filterIndex,
+            QueryBuilder queryBuilder)
+        {
+            if (filterContext.ClaimParameterValues.Length == 1)
+            {
+                queryBuilder.WhereLike(_oldNamespaceColumnName, filterContext.ClaimParameterValues.Single());
+            }
+            else if (filterContext.ClaimParameterValues.Length > 1)
+            {
+                queryBuilder.Where(
+                    q =>
+                    {
+                        filterContext.ClaimParameterValues.ForEach(ns => q.OrWhereLike(_oldNamespaceColumnName, ns));
+
+                        return q;
+                    });
+            }
+            else
+            {
+                // This should never happen
+                throw new EdFiSecurityException("No namespaces found in claims.");
+            }
         }
 
         private static IReadOnlyList<string> GetClaimNamespacePrefixes(EdFiAuthorizationContext authorizationContext)
