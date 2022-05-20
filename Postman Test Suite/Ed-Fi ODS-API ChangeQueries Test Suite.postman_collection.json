@@ -230,7 +230,7 @@
 													"",
 													"const responseItem = pm.response.json();",
 													"const scenarioId = pm.environment.get('scenarioId');",
-													"pm.environment.set('known:'+scenarioId+':newestChangeVersion1', responseItem.NewestChangeVersion);"
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion1', responseItem.newestChangeVersion);"
 												],
 												"type": "text/javascript"
 											}
@@ -355,7 +355,7 @@
 													"",
 													"const responseItem = pm.response.json();",
 													"const scenarioId = pm.environment.get('scenarioId');",
-													"pm.environment.set('known:'+scenarioId+':newestChangeVersion2', responseItem.NewestChangeVersion);"
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion2', responseItem.newestChangeVersion);"
 												],
 												"type": "text/javascript"
 											}
@@ -482,7 +482,7 @@
 													"",
 													"const responseItem = pm.response.json();",
 													"const scenarioId = pm.environment.get('scenarioId');",
-													"pm.environment.set('known:'+scenarioId+':newestChangeVersion3', responseItem.NewestChangeVersion);"
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion3', responseItem.newestChangeVersion);"
 												],
 												"type": "text/javascript"
 											}
@@ -784,7 +784,7 @@
 															"",
 															"const responseItem = pm.response.json();",
 															"const scenarioId = pm.environment.get('scenarioId');",
-															"pm.environment.set('known:' + scenarioId + ':newestChangeVersion', responseItem.NewestChangeVersion);",
+															"pm.environment.set('known:' + scenarioId + ':newestChangeVersion', responseItem.newestChangeVersion);",
 															""
 														],
 														"type": "text/javascript"
@@ -1045,7 +1045,7 @@
 															"",
 															"const responseItem = pm.response.json();",
 															"const scenarioId = pm.environment.get('scenarioId');",
-															"pm.environment.set('known:' + scenarioId + ':newestChangeVersion', responseItem.NewestChangeVersion);",
+															"pm.environment.set('known:' + scenarioId + ':newestChangeVersion', responseItem.newestChangeVersion);",
 															""
 														],
 														"type": "text/javascript"
@@ -1625,7 +1625,7 @@
 															"",
 															"const responseItem = pm.response.json();",
 															"const scenarioId = pm.environment.get('scenarioId');",
-															"pm.environment.set('known:'+scenarioId+':newestChangeVersion1', responseItem.NewestChangeVersion);"
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion1', responseItem.newestChangeVersion);"
 														],
 														"type": "text/javascript"
 													}
@@ -1795,7 +1795,7 @@
 															"",
 															"const responseItem = pm.response.json();",
 															"const scenarioId = pm.environment.get('scenarioId');",
-															"pm.environment.set('known:' + scenarioId + ':newestChangeVersion2', responseItem.NewestChangeVersion);"
+															"pm.environment.set('known:' + scenarioId + ':newestChangeVersion2', responseItem.newestChangeVersion);"
 														],
 														"type": "text/javascript"
 													}
@@ -2080,7 +2080,7 @@
 															"",
 															"const responseItem = pm.response.json();",
 															"const scenarioId = pm.environment.get('scenarioId');",
-															"pm.environment.set('known:'+scenarioId+':newestChangeVersion1', responseItem.NewestChangeVersion);"
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion1', responseItem.newestChangeVersion);"
 														],
 														"type": "text/javascript"
 													}
@@ -2259,7 +2259,7 @@
 															"",
 															"const responseItem = pm.response.json();",
 															"const scenarioId = pm.environment.get('scenarioId');",
-															"pm.environment.set('known:'+scenarioId+':newestChangeVersion2', responseItem.NewestChangeVersion);"
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion2', responseItem.newestChangeVersion);"
 														],
 														"type": "text/javascript"
 													}
@@ -2437,7 +2437,7 @@
 															"",
 															"const responseItem = pm.response.json();",
 															"const scenarioId = pm.environment.get('scenarioId');",
-															"pm.environment.set('known:'+scenarioId+':newestChangeVersion3', responseItem.NewestChangeVersion);"
+															"pm.environment.set('known:'+scenarioId+':newestChangeVersion3', responseItem.newestChangeVersion);"
 														],
 														"type": "text/javascript"
 													}
@@ -2749,7 +2749,7 @@
 											"});",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':precreateversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':precreateversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -2881,12 +2881,12 @@
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"",
 											"pm.test(\"Should created version greater than pre create version\", () => {",
-											"    console.log(responseItem.NewestChangeVersion);",
+											"    console.log(responseItem.newestChangeVersion);",
 											"    console.log(parseInt(pm.environment.get('known:'+scenarioId+':precreateversion'),10));",
-											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':precreateversion'));",
+											"    pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':precreateversion'));",
 											"});",
 											"",
-											"pm.environment.set('known:'+scenarioId+':createdversion', responseItem.NewestChangeVersion);",
+											"pm.environment.set('known:'+scenarioId+':createdversion', responseItem.newestChangeVersion);",
 											"",
 											""
 										],
@@ -3012,9 +3012,9 @@
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.test(\"Should updated version greater than created version\", () => {",
 											"    ",
-											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':createdversion'));",
+											"    pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':createdversion'));",
 											"});",
-											"pm.environment.set('known:'+scenarioId+':updatedversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':updatedversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -3180,9 +3180,9 @@
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.test(\"Should deleted version greater than updated version\", () => {",
 											"    ",
-											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':updatedversion'));",
+											"    pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':updatedversion'));",
 											"});",
-											"pm.environment.set('known:'+scenarioId+':deletedversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':deletedversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -3391,7 +3391,7 @@
 											"});",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':precreateversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':precreateversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -3517,11 +3517,11 @@
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.test(\"Should created version greater than pre create version\", () => {",
-											"    console.log(responseItem.NewestChangeVersion);",
+											"    console.log(responseItem.newestChangeVersion);",
 											"    console.log(parseInt(pm.environment.get('known:'+scenarioId+':precreateversion'),10));",
-											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':precreateversion'));",
+											"    pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':precreateversion'));",
 											"});",
-											"pm.environment.set('known:'+scenarioId+':createdversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':createdversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -3647,9 +3647,9 @@
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.test(\"Should updated version greater than created version\", () => {",
 											"    ",
-											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':createdversion'));",
+											"    pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':createdversion'));",
 											"});",
-											"pm.environment.set('known:'+scenarioId+':updatedversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':updatedversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -3814,9 +3814,9 @@
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.test(\"Should deleted version greater than updated version\", () => {",
-											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':updatedversion'));",
+											"    pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':updatedversion'));",
 											"});",
-											"pm.environment.set('known:'+scenarioId+':deletedversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':deletedversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -3961,7 +3961,7 @@
 											"});",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':precreateversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':precreateversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -4095,11 +4095,11 @@
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.test(\"Should created version greater than pre create version\", () => {",
-											"    console.log(responseItem.NewestChangeVersion);",
+											"    console.log(responseItem.newestChangeVersion);",
 											"    console.log(parseInt(pm.environment.get('known:'+scenarioId+':precreateversion'),10));",
-											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':precreateversion'));",
+											"    pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':precreateversion'));",
 											"});",
-											"pm.environment.set('known:'+scenarioId+':createdversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':createdversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -4223,9 +4223,9 @@
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.test(\"Should updated version greater than created version\", () => {",
-											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':createdversion'));",
+											"    pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':createdversion'));",
 											"});",
-											"pm.environment.set('known:'+scenarioId+':updatedversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':updatedversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
@@ -4390,9 +4390,9 @@
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
 											"pm.test(\"Should deleted version greater than updated version\", () => {",
-											"    pm.expect(responseItem.NewestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':updatedversion'));",
+											"    pm.expect(responseItem.newestChangeVersion).to.be.gt(pm.environment.get('known:'+scenarioId+':updatedversion'));",
 											"});",
-											"pm.environment.set('known:'+scenarioId+':deletedversion', responseItem.NewestChangeVersion);"
+											"pm.environment.set('known:'+scenarioId+':deletedversion', responseItem.newestChangeVersion);"
 										],
 										"type": "text/javascript"
 									}
