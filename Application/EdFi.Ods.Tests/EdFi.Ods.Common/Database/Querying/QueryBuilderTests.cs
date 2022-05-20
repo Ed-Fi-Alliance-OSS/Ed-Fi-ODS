@@ -455,6 +455,94 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
                 var clonedQueryResult = q.Clone().BuildTemplate();
                 template.RawSql.ShouldBe(clonedQueryResult.RawSql);
             }
+            
+            [TestCase(DatabaseEngine.MsSql, "@p0", "@p1", new[] {"p0", "p1"})]
+            [TestCase(DatabaseEngine.PgSql, "(VALUES (@p0_0), (@p0_1))",  "(VALUES (@p1_0), (@p1_1))", new[] { "p0_0", "p0_1", "p1_0", "p1_1"})]
+            public void Should_apply_nested_disjunction_introducing_joins_combined_by_a_conjunction(DatabaseEngine databaseEngine, 
+                string expectedInClause1, string expectedInClause2, string[] expectedParameterNames)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student AS s")
+                    .Select("FirstName", "LastSurname", "ChangeVersion")
+                    .Where(
+                        q => q.OrWhere( // <-- OrWhere with nested builder is the behavior being tested
+                                q2 => q2
+                                    .Join("auth.EducationOrganizationIdToStudentUSI AS rba0", "s.StudentUSI", "rba0.StudentUSI")
+                                    .WhereIn($"rba0.SourceEducationOrganizationId", new[] {255901001, 255901044}))
+                            .OrWhere( // <-- OrWhere with nested builder is the behavior being tested
+                                q2 => q2
+                                    .Join("auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS rba1", "s.StudentUSI", "rba1.StudentUSI" )
+                                    .WhereIn("rba1.SourceEducationOrganizationId", new[] {255901001, 255901044})));
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+                
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@$"
+                    SELECT  FirstName, LastSurname, ChangeVersion
+                    FROM    edfi.Student AS s
+                    INNER JOIN auth.EducationOrganizationIdToStudentUSI AS rba0
+                        ON s.StudentUSI = rba0.StudentUSI
+                    INNER JOIN auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS rba1
+                        ON s.StudentUSI = rba1.StudentUSI
+                    WHERE (((rba0.SourceEducationOrganizationId IN {expectedInClause1}) 
+                               OR (rba1.SourceEducationOrganizationId IN {expectedInClause2})))
+                    ".NormalizeSql()),
+                    () => actualParameters.ShouldNotBeNull(),
+                    () => actualParameters.ParameterNames.ShouldBe(expectedParameterNames)
+                );
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+
+            [TestCase(DatabaseEngine.MsSql, "@p0", "@p1", new[] {"p0", "p1"})]
+            [TestCase(DatabaseEngine.PgSql, "(VALUES (@p0_0), (@p0_1))",  "(VALUES (@p1_0), (@p1_1))", new[] { "p0_0", "p0_1", "p1_0", "p1_1"})]
+            public void Should_apply_nested_conjunction_introducing_joins_combined_by_a_conjunction(DatabaseEngine databaseEngine, 
+                string expectedInClause1, string expectedInClause2, string[] expectedParameterNames)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student AS s")
+                    .Select("FirstName", "LastSurname", "ChangeVersion")
+                    .Where(
+                        q => q.Where( // <-- Where with nested builder is the behavior being tested
+                                q2 => q2
+                                    .Join("auth.EducationOrganizationIdToStudentUSI AS rba0", "s.StudentUSI", "rba0.StudentUSI")
+                                    .WhereIn($"rba0.SourceEducationOrganizationId", new[] {255901001, 255901044}))
+                            .Where( // <-- Where with nested builder is the behavior being tested
+                                q2 => q2
+                                    .Join("auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS rba1", "s.StudentUSI", "rba1.StudentUSI" )
+                                    .WhereIn("rba1.SourceEducationOrganizationId", new[] {255901001, 255901044})));
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+                
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@$"
+                    SELECT  FirstName, LastSurname, ChangeVersion
+                    FROM    edfi.Student AS s
+                    INNER JOIN auth.EducationOrganizationIdToStudentUSI AS rba0
+                        ON s.StudentUSI = rba0.StudentUSI
+                    INNER JOIN auth.EducationOrganizationIdToStudentUSIThroughResponsibility AS rba1
+                        ON s.StudentUSI = rba1.StudentUSI
+                    WHERE ((rba0.SourceEducationOrganizationId IN {expectedInClause1}) 
+                               AND (rba1.SourceEducationOrganizationId IN {expectedInClause2}))
+                    ".NormalizeSql()),
+                    () => actualParameters.ShouldNotBeNull(),
+                    () => actualParameters.ParameterNames.ShouldBe(expectedParameterNames)
+                );
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
         }
 
         public class With_paging

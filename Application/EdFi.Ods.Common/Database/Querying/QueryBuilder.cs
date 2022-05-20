@@ -126,7 +126,11 @@ namespace EdFi.Ods.Common.Database.Querying
                     ? new DynamicParameters(childScope.Parameters)
                     : null);
 
+            // Wrap the WHERE clause directly
             _sqlBuilder.Where($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+
+            // Incorporate the JOINs into this builder
+            _sqlBuilder.CopyDataFrom(childScope._sqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
 
             return this;
         }
@@ -141,7 +145,11 @@ namespace EdFi.Ods.Common.Database.Querying
                     ? new DynamicParameters(childScope.Parameters)
                     : null);
 
+            // Wrap the WHERE clause directly
             _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
+
+            // Incorporate the JOINs into this builder
+            _sqlBuilder.CopyDataFrom(childScope._sqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
 
             return this;
         }
