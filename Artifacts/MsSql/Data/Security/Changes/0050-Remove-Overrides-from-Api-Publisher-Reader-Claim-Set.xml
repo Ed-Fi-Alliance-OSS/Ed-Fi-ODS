@@ -54,8 +54,16 @@
           <ClaimSets>
             <ClaimSet name="Ed-Fi API Publisher - Reader">
               <Actions>
-                <Action name="Read" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
-                <Action name="ReadChanges" authorizationStrategyOverride="NoFurtherAuthorizationRequired" />
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                  </Action>
               </Actions>
             </ClaimSet>
           </ClaimSets>
