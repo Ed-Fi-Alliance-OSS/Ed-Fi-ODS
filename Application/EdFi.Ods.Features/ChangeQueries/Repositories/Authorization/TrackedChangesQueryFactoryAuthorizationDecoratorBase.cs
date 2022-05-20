@@ -152,24 +152,27 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 // Combine 'AND' strategies
                 bool conjunctionFiltersApplied = false;
 
-                queryBuilder.Where(
-                    nestedAndQueryBuilder =>
-                    {
-                        foreach (var andStrategy in andStrategies)
+                if (andStrategies.Any())
+                {
+                    queryBuilder.Where(
+                        nestedAndQueryBuilder =>
                         {
-                            if (!TryApplyFilters(nestedAndQueryBuilder, andStrategy.Filters))
+                            foreach (var andStrategy in andStrategies)
                             {
-                                // All filters for AND strategies must be applied, and if not, this is an error condition
-                                throw new Exception(
-                                    $"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
+                                if (!TryApplyFilters(nestedAndQueryBuilder, andStrategy.Filters))
+                                {
+                                    // All filters for AND strategies must be applied, and if not, this is an error condition
+                                    throw new Exception(
+                                        $"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
+                                }
+
+                                conjunctionFiltersApplied = true;
                             }
 
-                            conjunctionFiltersApplied = true;
-                        }
-
-                        return nestedAndQueryBuilder;
-                    });
-
+                            return nestedAndQueryBuilder;
+                        });
+                }
+                
                 return conjunctionFiltersApplied;
             }
 
@@ -180,22 +183,25 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 // Combine 'OR' strategies
                 bool disjunctionFiltersApplied = false;
 
-                queryBuilder.OrWhere(
-                    nestedOrQueryBuilder =>
-                    {
-                        foreach (var orStrategy in orStrategies)
+                if (orStrategies.Any())
+                {
+                    queryBuilder.OrWhere(
+                        nestedOrQueryBuilder =>
                         {
-                            // var filtersConjunction = new Conjunction(); // Combine filters with 'OR'
-
-                            if (TryApplyFilters(nestedOrQueryBuilder, orStrategy.Filters))
+                            foreach (var orStrategy in orStrategies)
                             {
-                                // mainDisjunction.Add(filtersConjunction);
-                                disjunctionFiltersApplied = true;
-                            }
-                        }
+                                // var filtersConjunction = new Conjunction(); // Combine filters with 'OR'
 
-                        return nestedOrQueryBuilder;
-                    });
+                                if (TryApplyFilters(nestedOrQueryBuilder, orStrategy.Filters))
+                                {
+                                    // mainDisjunction.Add(filtersConjunction);
+                                    disjunctionFiltersApplied = true;
+                                }
+                            }
+
+                            return nestedOrQueryBuilder;
+                        });
+                }
 
                 // If we have some OR strategies with filters defined, but no filters were applied, this is an error condition
                 if (orStrategies.SelectMany(s => s.Filters).Any() && !disjunctionFiltersApplied)
