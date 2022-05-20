@@ -103,7 +103,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -447,7 +447,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -866,7 +866,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -1597,7 +1597,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -1937,7 +1937,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -2350,7 +2350,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -2769,7 +2769,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -3530,7 +3530,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -3933,7 +3933,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -4358,7 +4358,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -4699,7 +4699,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -5045,7 +5045,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -5592,7 +5592,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -5978,7 +5978,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -6354,7 +6354,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -6843,7 +6843,7 @@
 													"",
 													"const responseItem = pm.response.json();",
 													"const scenarioId = pm.environment.get('scenarioId');",
-													"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+													"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 												],
 												"type": "text/javascript"
 											}
@@ -9026,7 +9026,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -9400,7 +9400,7 @@
 											"",
 											"const responseItem = pm.response.json();",
 											"const scenarioId = pm.environment.get('scenarioId');",
-											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+											"pm.environment.set('known:'+scenarioId+':newestChangeVersion', responseItem.newestChangeVersion + 1);"
 										],
 										"type": "text/javascript"
 									}
@@ -10152,7 +10152,7 @@
 													"});",
 													"",
 													"const responseItem = pm.response.json();",
-													"pm.environment.set('known:newestChangeVersion', responseItem.NewestChangeVersion + 1);"
+													"pm.environment.set('known:newestChangeVersion', responseItem.newestChangeVersion + 1);"
 												],
 												"type": "text/javascript"
 											}
