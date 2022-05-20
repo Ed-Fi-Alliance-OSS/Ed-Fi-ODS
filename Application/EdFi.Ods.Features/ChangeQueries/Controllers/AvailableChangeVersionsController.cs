@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Net.Http.Json;
 using System.Net.Mime;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -42,13 +43,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 return NotFound();
             }
 
-            // Explicitly serialize the response to remain backwards compatible with pre .net core
-            return new ContentResult
-            {
-                Content = JsonConvert.SerializeObject(_availableChangeVersionProvider.GetAvailableChangeVersion()),
-                ContentType = MediaTypeNames.Application.Json,
-                StatusCode = StatusCodes.Status200OK
-            };
+            return new ObjectResult(_availableChangeVersionProvider.GetAvailableChangeVersion());
         }
     }
 }
