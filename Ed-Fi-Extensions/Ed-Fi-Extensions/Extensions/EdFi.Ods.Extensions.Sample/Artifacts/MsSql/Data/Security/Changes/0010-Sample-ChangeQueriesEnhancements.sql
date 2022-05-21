@@ -19,7 +19,9 @@ BEGIN
         @readActionId AS INT,
         @updateActionId AS INT,
         @deleteActionId AS INT,
-        @readChangesActionId AS INT
+        @readChangesActionId AS INT,
+        @resourceClaimActionId AS INT,
+        @claimSetResourceClaimActionId AS INT
 
     DECLARE @claimIdStack AS TABLE (Id INT IDENTITY, ResourceClaimId INT)
 
@@ -123,10 +125,21 @@ BEGIN
   
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = @claimId
+    
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionId IN (SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions WHERE ResourceClaimId = @claimId);
+
+    DELETE FROM dbo.ResourceClaimActions
+    WHERE ResourceClaimId = @claimId
     
     -- Default Create authorization
+    PRINT 'Creating action ''Create'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @CreateActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -139,10 +152,19 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @CreateActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
     -- Default Read authorization
+    PRINT 'Creating action ''Read'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @ReadActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -155,10 +177,19 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
     -- Default Update authorization
+    PRINT 'Creating action ''Update'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @UpdateActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -171,10 +202,19 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @UpdateActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
     -- Default Delete authorization
+    PRINT 'Creating action ''Delete'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @DeleteActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -187,10 +227,19 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
     -- Default ReadChanges authorization
+    PRINT 'Creating action ''ReadChanges'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @ReadChangesActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -203,8 +252,10 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/sample/studentGraduationPlanAssociation'
@@ -243,10 +294,21 @@ BEGIN
   
     -- Setting default authorization metadata
     PRINT 'Deleting default action authorizations for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = @claimId
+    
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionId IN (SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions WHERE ResourceClaimId = @claimId);
+
+    DELETE FROM dbo.ResourceClaimActions
+    WHERE ResourceClaimId = @claimId
     
     -- Default Create authorization
+    PRINT 'Creating action ''Create'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @CreateActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -259,10 +321,19 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @CreateActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
     -- Default Read authorization
+    PRINT 'Creating action ''Read'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @ReadActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -275,10 +346,19 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
     -- Default Update authorization
+    PRINT 'Creating action ''Update'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @UpdateActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -291,10 +371,19 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @UpdateActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
     -- Default Delete authorization
+    PRINT 'Creating action ''Delete'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @DeleteActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -307,10 +396,19 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @DeleteActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
     -- Default ReadChanges authorization
+    PRINT 'Creating action ''ReadChanges'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (@claimId, @ReadChangesActionId)
+
+    SET @resourceClaimActionId = SCOPE_IDENTITY()
+
+    
     SET @authorizationStrategyId = NULL
 
     SELECT @authorizationStrategyId = a.AuthorizationStrategyId
@@ -323,8 +421,10 @@ BEGIN
         THROW 50000, @msg, 1
     END
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (@claimId, @ReadChangesActionId, @authorizationStrategyId)
+    PRINT 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' + @claimName + ''' (claimId=' + CONVERT(nvarchar, @claimId) + ').'
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (@resourceClaimActionId, @authorizationStrategyId)
+
 
 
     -- Pop the stack

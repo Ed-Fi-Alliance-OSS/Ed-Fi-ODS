@@ -4,20 +4,60 @@
       <Claims>
         <Claim claimId="322" name="http://ed-fi.org/ods/identity/claims/sample/studentArtProgramAssociation">
           <DefaultAuthorization>
-            <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
           </DefaultAuthorization>
         </Claim>
         <Claim claimId="323" name="http://ed-fi.org/ods/identity/claims/sample/studentGraduationPlanAssociation">
           <DefaultAuthorization>
-            <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
           </DefaultAuthorization>
         </Claim>
       </Claims>
