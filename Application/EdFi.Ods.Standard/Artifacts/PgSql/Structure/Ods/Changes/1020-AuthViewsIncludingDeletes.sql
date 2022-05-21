@@ -3,84 +3,73 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-DROP VIEW IF EXISTS auth.educationorganizationidtostudentusiincludingdeletes;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToStudentUSIIncludingDeletes;
 
-CREATE VIEW auth.educationorganizationidtostudentusiincludingdeletes(sourceeducationorganizationid, studentusi) AS
-    -- TODO: Remove this statement and UNION and compose in security metadata, when available (but must ensure uniqueness is retained)
-    SELECT a.sourceeducationorganizationid, a.studentusi
-    FROM auth.educationorganizationidtostudentusi a
-
-    UNION
-
-    SELECT  edOrgs.sourceeducationorganizationid, ssa_tc.oldstudentusi AS studentusi
-    FROM    auth.educationorganizationidtoeducationorganizationid edOrgs
-        INNER JOIN tracked_changes_edfi.studentschoolassociation ssa_tc
-            ON edOrgs.targeteducationorganizationid = ssa_tc.oldschoolid
-    GROUP BY edOrgs.sourceeducationorganizationid, ssa_tc.oldstudentusi;
-
-ALTER TABLE auth.educationorganizationidtostudentusiincludingdeletes OWNER TO postgres;
-
-DROP VIEW IF EXISTS auth.educationorganizationidtostaffusiincludingdeletes;
-
-CREATE VIEW auth.educationorganizationidtostaffusiincludingdeletes(sourceeducationorganizationid, staffusi) AS
-    -- TODO: Remove this statement and UNION and compose in security metadata, when available (but must ensure uniqueness is retained)
-    SELECT a.sourceeducationorganizationid, a.staffusi
-    FROM auth.educationorganizationidtostaffusi a
+CREATE VIEW auth.EducationOrganizationIdToStudentUSIIncludingDeletes(SourceEducationOrganizationId, StudentUSI) AS
+    SELECT SourceEducationOrganizationId, StudentUSI
+    FROM auth.EducationOrganizationIdToStudentUSI
 
     UNION
 
-    -- EdOrg Assignments
-    SELECT  edOrgs.sourceeducationorganizationid, seo_assign_tc.oldstaffusi AS staffusi
-    FROM    auth.educationorganizationidtoeducationorganizationid edOrgs
-            INNER JOIN tracked_changes_edfi.staffeducationorganizationassignmentassociation seo_assign_tc
-                ON edOrgs.targeteducationorganizationid = seo_assign_tc.oldeducationorganizationid
+    SELECT edOrgs.SourceEducationOrganizationId, ssa_tc.OldStudentUSI as StudentUSI
+    FROM auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+        JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON edOrgs.TargetEducationOrganizationId = ssa_tc.OldSchoolId;
+
+ALTER TABLE auth.EducationOrganizationIdToStudentUSIIncludingDeletes OWNER TO postgres;
+
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToStaffUSIIncludingDeletes;
+
+CREATE VIEW auth.EducationOrganizationIdToStaffUSIIncludingDeletes(SourceEducationOrganizationId, StaffUSI) AS
+    SELECT	SourceEducationOrganizationId, StaffUSI
+    FROM	auth.EducationOrganizationIdToStaffUSI edOrgToStaff
     
     UNION
 
-    -- EdOrg Employment
-    SELECT  edOrgs.sourceeducationorganizationid, seo_empl_tc.oldstaffusi AS staffusi
-    FROM    auth.educationorganizationidtoeducationorganizationid edOrgs
-            INNER JOIN tracked_changes_edfi.staffeducationorganizationemploymentassociation seo_empl_tc
-                ON edOrgs.targeteducationorganizationid = seo_empl_tc.oldeducationorganizationid;
+    -- Deleted employment
+    SELECT	edOrgs.SourceEducationOrganizationId, emp_tc.OldStaffUSI as StaffUSI
+    FROM	auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            JOIN tracked_changes_edfi.StaffEducationOrganizationEmploymentAssociation emp_tc
+                ON edOrgs.TargetEducationOrganizationId = emp_tc.OldEducationOrganizationId
 
-ALTER TABLE auth.educationorganizationidtostaffusiincludingdeletes OWNER TO postgres;
+    UNION
 
-DROP VIEW IF EXISTS auth.educationorganizationidtoparentusiincludingdeletes;
+    -- Deleted assignments
+    SELECT	edOrgs.SourceEducationOrganizationId, assgn_tc.OldStaffUSI as StaffUSI
+    FROM	auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+            JOIN tracked_changes_edfi.StaffEducationOrganizationAssignmentAssociation assgn_tc
+                ON edOrgs.TargetEducationOrganizationId = assgn_tc.OldEducationOrganizationId;
 
-CREATE VIEW auth.educationorganizationidtoparentusiincludingdeletes(sourceeducationorganizationid, parentusi) AS
-    -- TODO: Remove this statement and UNION and compose in security metadata, when available (but must ensure uniqueness is retained)
+ALTER TABLE auth.EducationOrganizationIdToStaffUSIIncludingDeletes OWNER TO postgres;
+
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToParentUSIIncludingDeletes;
+
+CREATE VIEW auth.EducationOrganizationIdToParentUSIIncludingDeletes(SourceEducationOrganizationId, ParentUSI) AS
     -- Intact StudentSchoolAssociation and intact StudentParentAssociation
-    SELECT  a.sourceeducationorganizationid, a.parentusi
-    FROM    auth.educationorganizationidtoparentusi a
+    SELECT	SourceEducationOrganizationId, ParentUSI
+    FROM	auth.EducationOrganizationIdToParentUSI
 
     UNION
 
     -- Intact StudentSchoolAssociation and deleted StudentParentAssociation
-    SELECT  edOrgs.sourceeducationorganizationid, spa_tc.oldparentusi AS parentusi
-    FROM    auth.educationorganizationidtoeducationorganizationid edOrgs
-            INNER JOIN edfi.studentschoolassociation ssa 
-                ON edOrgs.targeteducationorganizationid = ssa.schoolid
-            INNER JOIN tracked_changes_edfi.studentparentassociation spa_tc
-                ON ssa.studentusi = spa_tc.oldstudentusi
+    SELECT edOrgs.SourceEducationOrganizationId, spa_tc.OldParentUSI as ParentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+        JOIN edfi.StudentSchoolAssociation ssa ON edOrgs.TargetEducationOrganizationId = ssa.SchoolId
+        JOIN tracked_changes_edfi.StudentParentAssociation spa_tc ON ssa.StudentUSI = spa_tc.OldStudentUSI
 
     UNION
 
     -- Deleted StudentSchoolAssociation and intact StudentParentAssociation
-    SELECT  edOrgs.sourceeducationorganizationid, spa.parentusi
-    FROM    auth.educationorganizationidtoeducationorganizationid edOrgs
-            INNER JOIN tracked_changes_edfi.studentschoolassociation ssa_tc
-                ON edOrgs.targeteducationorganizationid = ssa_tc.oldschoolid
-            INNER JOIN edfi.studentparentassociation spa 
-                ON ssa_tc.oldstudentusi = spa.studentusi
-                
+    SELECT	edOrgs.SourceEducationOrganizationId, spa.ParentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+        JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON edOrgs.TargetEducationOrganizationId = ssa_tc.OldSchoolId
+        JOIN edfi.StudentParentAssociation spa ON ssa_tc.OldStudentUSI = spa.StudentUSI
+
     UNION
 
-    -- Deleted StudentSchoolAssociation and deleted StudentParentAssociation
-    SELECT  edOrgs.sourceeducationorganizationid, spa_tc.oldparentusi AS parentusi
-    FROM    auth.educationorganizationidtoeducationorganizationid edOrgs
-            INNER JOIN tracked_changes_edfi.studentschoolassociation ssa_tc
-                ON edOrgs.targeteducationorganizationid = ssa_tc.oldschoolid
-            INNER JOIN tracked_changes_edfi.studentparentassociation spa_tc
-                ON ssa_tc.oldstudentusi = spa_tc.oldstudentusi;
+    -- Deleted StudentSchoolAssociation and StudentParentAssociation
+    SELECT	edOrgs.SourceEducationOrganizationId, spa_tc.OldParentUSI as ParentUSI
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+        JOIN tracked_changes_edfi.StudentSchoolAssociation ssa_tc ON edOrgs.TargetEducationOrganizationId = ssa_tc.OldSchoolId
+        JOIN tracked_changes_edfi.StudentParentAssociation spa_tc ON ssa_tc.OldStudentUSI = spa_tc.OldStudentUSI;
 
-ALTER TABLE auth.educationorganizationidtoparentusiincludingdeletes OWNER TO postgres;
+ALTER TABLE auth.EducationOrganizationIdToParentUSIIncludingDeletes OWNER TO postgres;

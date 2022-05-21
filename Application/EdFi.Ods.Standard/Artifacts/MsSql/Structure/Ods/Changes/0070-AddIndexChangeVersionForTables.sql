@@ -16,14 +16,14 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AccountabilityRating') AND name = N'UX_AccountabilityRating_ChangeVersion')
-    CREATE INDEX [UX_AccountabilityRating_ChangeVersion] ON [edfi].[AccountabilityRating] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AccountCode') AND name = N'UX_AccountCode_ChangeVersion')
+    CREATE INDEX [UX_AccountCode_ChangeVersion] ON [edfi].[AccountCode] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AccountCode') AND name = N'UX_AccountCode_ChangeVersion')
-    CREATE INDEX [UX_AccountCode_ChangeVersion] ON [edfi].[AccountCode] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'edfi.AccountabilityRating') AND name = N'UX_AccountabilityRating_ChangeVersion')
+    CREATE INDEX [UX_AccountabilityRating_ChangeVersion] ON [edfi].[AccountabilityRating] ([ChangeVersion] ASC)
     GO
 COMMIT
 
