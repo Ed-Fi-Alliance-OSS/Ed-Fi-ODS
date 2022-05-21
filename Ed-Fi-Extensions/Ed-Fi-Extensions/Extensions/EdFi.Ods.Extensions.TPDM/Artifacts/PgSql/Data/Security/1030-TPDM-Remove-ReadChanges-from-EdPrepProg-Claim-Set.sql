@@ -13,5 +13,5 @@ BEGIN
     SELECT ClaimSetId INTO claim_set_id FROM dbo.ClaimSets WHERE ClaimSetName = 'Education Preparation Program';
 
     DELETE FROM dbo.ClaimSetResourceClaimActions
-    WHERE Action_ActionId = action_id AND ClaimSet_ClaimSetId = claim_set_id;
+    WHERE ActionId = action_id AND ClaimSetId = claim_set_id;
 END $$;
