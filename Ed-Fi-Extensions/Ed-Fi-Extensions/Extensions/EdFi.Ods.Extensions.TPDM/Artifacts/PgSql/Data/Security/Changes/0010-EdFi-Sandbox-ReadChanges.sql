@@ -19,6 +19,8 @@ DECLARE
     update_action_id INTEGER;
     delete_action_id INTEGER;
     readchanges_action_id INTEGER;
+    resource_claim_action_id INTEGER;
+    claim_set_resource_claim_action_id INTEGER;
     claim_id_stack INTEGER ARRAY;
 BEGIN
     SELECT applicationid INTO application_id
@@ -95,74 +97,70 @@ BEGIN
 
   
     RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
-    DELETE FROM dbo.ClaimSetResourceClaims
-    WHERE ClaimSet_ClaimSetId = claim_set_id AND ResourceClaim_ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides
+    WHERE ClaimSetResourceClaimActionId IN (
+        SELECT ClaimSetResourceClaimActionId FROM dbo.ClaimSetResourceClaimActions WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id);
+    
+    DELETE FROM dbo.ClaimSetResourceClaimActions
+    WHERE ClaimSetId = claim_set_id AND ResourceClaimId = claim_id;
+
     
 
     -- Claim set-specific Create authorization
-    authorization_strategy_id := NULL;
+    RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Create_action_id) -- Create
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
     
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, Create_action_id, authorization_strategy_id); -- Create
+    
 
     -- Claim set-specific Read authorization
-    authorization_strategy_id := NULL;
+    RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Read_action_id) -- Read
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
     
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, Read_action_id, authorization_strategy_id); -- Read
+    
 
     -- Claim set-specific Update authorization
-    authorization_strategy_id := NULL;
+    RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Update_action_id) -- Update
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
     
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, Update_action_id, authorization_strategy_id); -- Update
+    
 
     -- Claim set-specific Delete authorization
-    authorization_strategy_id := NULL;
+    RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, Delete_action_id) -- Delete
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
     
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, Delete_action_id, authorization_strategy_id); -- Delete
+    
 
     -- Claim set-specific ReadChanges authorization
-    authorization_strategy_id := NULL;
+    RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
+
+    INSERT INTO dbo.ClaimSetResourceClaimActions(ResourceClaimId, ClaimSetId, ActionId)
+    VALUES (claim_id, claim_set_id, ReadChanges_action_id) -- ReadChanges
+    RETURNING ClaimSetResourceClaimActionId
+    INTO claim_set_resource_claim_action_id;
+
     
-
-    IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''ReadChanges'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || ReadChanges_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, ReadChanges_action_id, authorization_strategy_id); -- ReadChanges
+    
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
@@ -198,10 +196,23 @@ BEGIN
   
     -- Setting default authorization metadata
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionId IN (SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id);
+
+    DELETE FROM dbo.ResourceClaimActions
+    WHERE ResourceClaimId = claim_id;
+
     
     -- Default Create authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Create'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Create_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -212,10 +223,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Create_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Read'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Read_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -226,10 +246,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Read_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Update authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Update'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Update_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -240,10 +269,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Update_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Delete'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Delete_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -254,10 +292,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default ReadChanges authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''ReadChanges'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, ReadChanges_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -268,8 +315,9 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -306,8 +354,13 @@ BEGIN
   
     -- Setting default authorization metadata
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionId IN (SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id);
+
+    DELETE FROM dbo.ResourceClaimActions
+    WHERE ResourceClaimId = claim_id;
+
     
 
     -- Pop the stack
@@ -344,10 +397,23 @@ BEGIN
   
     -- Setting default authorization metadata
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionId IN (SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id);
+
+    DELETE FROM dbo.ResourceClaimActions
+    WHERE ResourceClaimId = claim_id;
+
     
     -- Default Create authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Create'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Create_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -358,10 +424,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Create_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Read'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Read_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -372,10 +447,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Read_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Update authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Update'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Update_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -386,10 +470,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Update_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Delete'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Delete_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -400,10 +493,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default ReadChanges authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''ReadChanges'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, ReadChanges_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -414,8 +516,9 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''NoFurtherAuthorizationRequired''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''NoFurtherAuthorizationRequired'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/educatorPreparationProgram'
@@ -448,10 +551,23 @@ BEGIN
   
     -- Setting default authorization metadata
     RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
-    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = claim_id;
+
+    DELETE FROM dbo.ResourceClaimActionAuthorizationStrategies
+    WHERE ResourceClaimActionId IN (SELECT ResourceClaimActionId FROM dbo.ResourceClaimActions WHERE ResourceClaimId = claim_id);
+
+    DELETE FROM dbo.ResourceClaimActions
+    WHERE ResourceClaimId = claim_id;
+
     
     -- Default Create authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Create'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Create_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -462,10 +578,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Create_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Read authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Read'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Read_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -476,10 +601,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Read_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Update authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Update'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Update_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -490,10 +624,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Update_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''Delete'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, Delete_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -504,10 +647,19 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
     -- Default ReadChanges authorization
+    RAISE NOTICE USING MESSAGE = 'Creating action ''ReadChanges'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+
+    INSERT INTO dbo.ResourceClaimActions(ResourceClaimId, ActionId)
+    VALUES (claim_id, ReadChanges_action_id)
+    RETURNING ResourceClaimActionId
+    INTO resource_claim_action_id;
+
+    
     authorization_strategy_id := NULL;
 
     SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
@@ -518,8 +670,9 @@ BEGIN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''RelationshipsWithEdOrgsOnly''';
     END IF;
 
-    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, ReadChanges_action_id, authorization_strategy_id);
+    RAISE NOTICE USING MESSAGE = 'Adding authorization strategy ''RelationshipsWithEdOrgsOnly'' for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    INSERT INTO dbo.ResourceClaimActionAuthorizationStrategies(ResourceClaimActionId, AuthorizationStrategyId)
+    VALUES (resource_claim_action_id, authorization_strategy_id);
 
 
     -- Pop the stack

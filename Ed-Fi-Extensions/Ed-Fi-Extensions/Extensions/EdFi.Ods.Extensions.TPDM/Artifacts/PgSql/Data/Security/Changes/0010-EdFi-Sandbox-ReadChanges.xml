@@ -15,11 +15,31 @@
       <Claims>
         <Claim claimId="325" name="http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation">
           <DefaultAuthorization>
-            <Action name="Create" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
           </DefaultAuthorization>
           <Claims>
             <Claim claimId="334" name="http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating">
@@ -31,20 +51,60 @@
         </Claim>
         <Claim claimId="335" name="http://ed-fi.org/ods/identity/claims/domains/tpdm/noFurtherAuthorizationRequiredData">
           <DefaultAuthorization>
-            <Action name="Create" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="Read" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="Update" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="Delete" authorizationStrategy="NoFurtherAuthorizationRequired" />
-            <Action name="ReadChanges" authorizationStrategy="NoFurtherAuthorizationRequired" />
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
           </DefaultAuthorization>
         </Claim>
         <Claim claimId="340" name="http://ed-fi.org/ods/identity/claims/tpdm/educatorPreparationProgram">
           <DefaultAuthorization>
-            <Action name="Create" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="Read" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="Update" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="Delete" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
-            <Action name="ReadChanges" authorizationStrategy="RelationshipsWithEdOrgsOnly" />
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+              </AuthorizationStrategies>
+            </Action>
           </DefaultAuthorization>
         </Claim>
       </Claims>
