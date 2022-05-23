@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.1-b" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.3.1-b" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/4.0.0-a" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/4.0.0-a" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="Ed-Fi-Core.xsd" />
   <xs:annotation>
-    <xs:documentation>===== Ed-Fi 3.3.1-b Extensions =====</xs:documentation>
+    <xs:documentation>===== Ed-Fi 4.0.0-a Extensions =====</xs:documentation>
   </xs:annotation>
   <xs:annotation>
     <xs:documentation>===== Domain Entities =====</xs:documentation>
@@ -603,12 +603,12 @@
         <xs:sequence>
           <xs:element name="StudentReference" type="StudentReferenceType">
             <xs:annotation>
-              <xs:documentation>A reference to the Student.</xs:documentation>
+              <xs:documentation>A reference to the student.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
             <xs:annotation>
-              <xs:documentation>A reference to the Education Organization representing the context of the student information.</xs:documentation>
+              <xs:documentation>A reference to the education organization representing the context of the student information.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="StudentIdentificationCode" type="StudentIdentificationCode" minOccurs="0" maxOccurs="unbounded">
@@ -651,7 +651,7 @@
           </xs:element>
           <xs:element name="OldEthnicity" type="OldEthnicityDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Previous definition of Ethnicity combining Hispanic/Latino and race:
+              <xs:documentation>Previous definition of ethnicity combining Hispanic/Latino and race:
                       1 - American Indian or Alaskan Native
                       2 - Asian or Pacific Islander
                       3 - Black, not of Hispanic origin
@@ -1127,12 +1127,12 @@
     <xs:sequence>
       <xs:element name="StudentReference" type="StudentReferenceType">
         <xs:annotation>
-          <xs:documentation>The Student associated with the Program.</xs:documentation>
+          <xs:documentation>The student associated with the program.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="ProgramReference" type="ProgramReferenceType">
         <xs:annotation>
-          <xs:documentation>The Program associated with the Student.</xs:documentation>
+          <xs:documentation>The program associated with the student.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="BeginDate" type="xs:date">
@@ -1142,7 +1142,7 @@
       </xs:element>
       <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
         <xs:annotation>
-          <xs:documentation>The EducationOrganization where the Student is participating in or receiving the Program services.</xs:documentation>
+          <xs:documentation>The education organization where the student is participating in or receiving the program services.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
