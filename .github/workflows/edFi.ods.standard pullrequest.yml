@@ -38,7 +38,7 @@ jobs:
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+          . $env:GITHUB_WORKSPACE/OSS-Workspace_Implementation/Initialize-PowershellForDevelopment.ps1
           Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE/OSS-Workspace/
     - name: build
       run: |
