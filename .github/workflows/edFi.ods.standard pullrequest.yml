@@ -8,6 +8,7 @@ env:
   INFORMATIONAL_VERSION: "6.0"
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
+  GITHUB.WORKSPACE: "D:\a"
 
 jobs:
   build:
