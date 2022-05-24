@@ -36,7 +36,7 @@ jobs:
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Invoke-CodeGen -Engine SQLServer -RepositoryPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS/      
+          Invoke-CodeGen -Engine SQLServer -RepositoryPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS/   
     - name: build
       run: |
         .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
