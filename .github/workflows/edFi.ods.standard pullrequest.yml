@@ -2,7 +2,7 @@ name: EdFi.Ods.Standard Pull request build and test
 
 on:
   pull_request:
-    branches: [main]
+    branches: [ODS-5353]
 
 env:
   INFORMATIONAL_VERSION: "6.0"
