@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess.UnitT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Common", "..\EdFi.Common\EdFi.Common.csproj", "{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Admin.DataAccess.IntegrationTests", "..\EdFi.Admin.DataAccess.IntegrationTests\EdFi.Admin.DataAccess.IntegrationTests.csproj", "{79439E63-73DF-4ED9-8067-BDE542BB8C11}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79439E63-73DF-4ED9-8067-BDE542BB8C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79439E63-73DF-4ED9-8067-BDE542BB8C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79439E63-73DF-4ED9-8067-BDE542BB8C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79439E63-73DF-4ED9-8067-BDE542BB8C11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
