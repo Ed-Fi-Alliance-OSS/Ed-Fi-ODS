@@ -12,7 +12,7 @@ using NUnit.Framework;
 using Shouldly;
 using System.Linq;
 
-namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
+namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
 {
     [TestFixture]
     public class SqlServerUserContextFactoryTests
