@@ -17,7 +17,7 @@ namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
     [TestFixture]
     public class PostgreSQLUserContextFactoryTests
     {
-        [Test]
+        [Test, Explicit]
         public void Given_configured_for_Postgres_then_create_PostgresUsersContext_make_a_change_and_save_it()
         {
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();

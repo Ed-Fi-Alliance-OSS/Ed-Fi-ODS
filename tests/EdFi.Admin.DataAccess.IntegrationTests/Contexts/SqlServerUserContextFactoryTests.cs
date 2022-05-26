@@ -3,29 +3,23 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Data.Common;
-using System.Data.Entity;
-using System.Linq;
 using EdFi.Admin.DataAccess.Contexts;
-using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
 using FakeItEasy;
-using Npgsql;
 using NUnit.Framework;
 using Shouldly;
+using System.Linq;
 
 namespace EdFi.Admin.DataAccess.IntegrationTests.Contexts
 {
     [TestFixture]
     public class SqlServerUserContextFactoryTests
     {
-        [Test]
+        [Test, Explicit]
         public void Given_configured_for_SqlServer_then_create_SqlServerUsersContext_make_a_change_and_save_it()
         {
-            
-
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
             A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Integrated Security=SSPI;");
             
