@@ -9,6 +9,7 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NCrunch.Framework;
@@ -35,7 +36,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             [Test]
             public void Should_persist_the_user_to_the_database()
             {
-                using (var context = new SqlServerUsersContext(ConnectionString))
+                using (var context = GetUsersContextTest())
                 {
                     //Arrange
                     var user = new User {Email = emailAddress};
@@ -68,7 +69,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             [Test]
             public void Should_persist_the_lea_mapping_without_explicitly_adding_that_mapping_to_the_databaseContext()
             {
-                using (var context = new SqlServerUsersContext(ConnectionString))
+                using (var context = GetUsersContextTest())
                 {
                     //Arrange
                     var lea = new ApplicationEducationOrganization {EducationOrganizationId = leaId};
@@ -112,7 +113,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
             [Test]
             public void Should_persist_the_lea_mapping_without_explicitly_adding_that_mapping_to_the_databaseContext()
             {
-                using (var context = new SqlServerUsersContext(ConnectionString))
+                using (var context = GetUsersContextTest())
                 {
                     //Arrange
                     var lea = new ApplicationEducationOrganization {EducationOrganizationId = leaId};
@@ -163,7 +164,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                 var vendor = new Vendor {VendorName = vendorName};
 
                 vendor.CreateApplication(appName, ClaimSetName);
-                using (var context = new SqlServerUsersContext(ConnectionString))
+                using (var context = GetUsersContextTest())
                 {
                     vendor.Applications.AsEnumerable()
                         .ElementAt(0)
@@ -215,7 +216,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                     .ElementAt(0)
                     .CreateApplicationEducationOrganization(leaId);
 
-                using (var context = new SqlServerUsersContext(ConnectionString))
+                using (var context = GetUsersContextTest())
                 {
                     vendor.Applications.AsEnumerable()
                         .ElementAt(0)
