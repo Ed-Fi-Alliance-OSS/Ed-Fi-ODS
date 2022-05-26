@@ -5,6 +5,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common;
 using EdFi.Common.Configuration;
@@ -33,6 +35,7 @@ namespace EdFi.Admin.DataAccess.Contexts
         {
             if (_usersContextTypeByDatabaseEngine.TryGetValue(_databaseEngine, out Type contextType))
             {
+                DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(_databaseEngine));
                 return Activator.CreateInstance(contextType, _connectionStringsProvider.GetConnectionString()) as IUsersContext;
             }
 
