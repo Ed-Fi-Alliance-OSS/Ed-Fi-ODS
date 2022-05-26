@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.960
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess", "EdFi.Admin.DataAccess.csproj", "{D2A9D9A2-A4DB-4E65-82C3-C7E9F6DBA1E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess.UnitTests", "..\..\tests\EdFi.Admin.DataAccess.UnitTests\EdFi.Admin.DataAccess.UnitTests.csproj", "{7BEC38BB-C538-40C8-83BA-C45CE192A088}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Common", "..\EdFi.Common\EdFi.Common.csproj", "{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Admin.DataAccess.IntegrationTests", "..\EdFi.Admin.DataAccess.IntegrationTests\EdFi.Admin.DataAccess.IntegrationTests.csproj", "{79439E63-73DF-4ED9-8067-BDE542BB8C11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92A9A0CD-0AE6-433D-9673-EB88E52D88C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79439E63-73DF-4ED9-8067-BDE542BB8C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79439E63-73DF-4ED9-8067-BDE542BB8C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79439E63-73DF-4ED9-8067-BDE542BB8C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79439E63-73DF-4ED9-8067-BDE542BB8C11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
