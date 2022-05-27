@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 {
@@ -27,7 +28,9 @@ namespace EdFi.LoadTools.SmokeTest.PropertyBuilders
 
         public override bool BuildProperty(object obj, PropertyInfo propertyInfo)
         {
-            return IgnoredPropertyNames.Contains(propertyInfo.Name, StringComparer.OrdinalIgnoreCase);
+            return IgnoredPropertyNames.Contains(propertyInfo.Name, StringComparer.OrdinalIgnoreCase)
+                   // Ignore properties that are marked as optional in the model
+                   || (!propertyInfo.GetCustomAttribute<DataMemberAttribute>()?.IsRequired ?? false);
         }
     }
 }
