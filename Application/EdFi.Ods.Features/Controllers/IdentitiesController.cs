@@ -74,9 +74,11 @@ namespace EdFi.Ods.Features.Controllers
                             ? (IActionResult) Ok(identity)
                             : NotFound(new NotFoundException());
                     case IdentityStatusCode.Incomplete:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
+                        var incompleteErrorResponse = (IdentityResponseErrorStatus<IdentitySearchResponse>)identitySearchResponse;
+                        return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Incomplete: " + incompleteErrorResponse.Error, StatusCode = incompleteErrorResponse.StatusCode });
                     case IdentityStatusCode.InvalidProperties:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
+                        var invalidPropertiesErrorResponse = (IdentityResponseErrorStatus<IdentitySearchResponse>) identitySearchResponse;
+                        return StatusCode((int) HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode});
                     case IdentityStatusCode.NotFound:
                         return NotFound(new NotFoundException());
                     default:
