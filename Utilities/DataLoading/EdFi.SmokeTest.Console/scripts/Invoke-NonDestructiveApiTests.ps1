@@ -23,11 +23,11 @@ Param(
 )
 $ErrorActionPreference = 'Stop'
 
-$exe = ".\bin\debug\EdFi.SmokeTest.Console.exe"
+$exe = "./bin/debug/EdFi.SmokeTest.Console.exe"
 
 if (-not(Test-Path($exe)))
 {
     Throw "Build the solution in debug mode first"
 }
 
-&$exe -k $key -s $secret -a $apiUrl -o $tokenUrl -m $metadataUrl -t NonDestructiveApi | Write-Host
+& $exe -k $key -s $secret -a $apiUrl -o $tokenUrl -m $metadataUrl -t NonDestructiveApi | Write-Host
