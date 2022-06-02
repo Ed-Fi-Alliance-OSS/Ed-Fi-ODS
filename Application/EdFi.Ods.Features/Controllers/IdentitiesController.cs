@@ -118,9 +118,11 @@ namespace EdFi.Ods.Features.Controllers
                         var route = Url.Link("IdentitiesGetById", new {id = result.Data});
                         return Created(new Uri(route), result.Data);
                     case IdentityStatusCode.InvalidProperties:
-                        return StatusCode((int) HttpStatusCode.BadRequest, result.Data);
+                        var invalidPropertiesErrorResponse = (IdentityResponseErrorStatus<string>)result;
+                        return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode });
                     case IdentityStatusCode.Incomplete:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
+                        var incompleteErrorResponse = (IdentityResponseErrorStatus<string>)result;
+                        return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Incomplete: " + incompleteErrorResponse.Error, StatusCode = incompleteErrorResponse.StatusCode });
                     case IdentityStatusCode.NotFound:
                         return NotFound(new NotFoundException());
                     default:
@@ -157,9 +159,11 @@ namespace EdFi.Ods.Features.Controllers
                             var route = Url.Link("IdentitiesSearchResult", new {id = result.Data});
                             return Accepted(route);
                         case IdentityStatusCode.Incomplete:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
+                            var incompleteErrorResponse = (IdentityResponseErrorStatus<string>)result;
+                            return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Incomplete: " + incompleteErrorResponse.Error, StatusCode = incompleteErrorResponse.StatusCode });
                         case IdentityStatusCode.InvalidProperties:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
+                            var invalidPropertiesErrorResponse = (IdentityResponseErrorStatus<string>)result;
+                            return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode });
                         case IdentityStatusCode.NotFound:
                             return NotFound(InvalidServerResponse + "Not Found");
                         default:
@@ -209,9 +213,11 @@ namespace EdFi.Ods.Features.Controllers
                             var route = Url.Link("IdentitiesSearchResult", new {id = result.Data});
                             return Accepted(route);
                         case IdentityStatusCode.Incomplete:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
+                            var incompleteErrorResponse = (IdentityResponseErrorStatus<string>)result;
+                            return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Incomplete: " + incompleteErrorResponse.Error, StatusCode = incompleteErrorResponse.StatusCode });
                         case IdentityStatusCode.InvalidProperties:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
+                            var invalidPropertiesErrorResponse = (IdentityResponseErrorStatus<string>)result;
+                            return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode });
                         case IdentityStatusCode.NotFound:
                             return NotFound(InvalidServerResponse + "Not Found");
                         default:
@@ -263,7 +269,8 @@ namespace EdFi.Ods.Features.Controllers
                     case IdentityStatusCode.NotFound:
                         return NotFound("No identity search matching the provided search token was found.");
                     case IdentityStatusCode.InvalidProperties:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
+                        var invalidPropertiesErrorResponse = (IdentityResponseErrorStatus<IdentitySearchResponse>)result;
+                        return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode });
                     default:
                         return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Unknown");
                 }
