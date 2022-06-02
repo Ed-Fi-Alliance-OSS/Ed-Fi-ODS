@@ -181,7 +181,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 var orStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.Or).ToArray();
 
                 // Combine 'OR' strategies
-                bool disjunctionFiltersApplied = false;
+                bool orFiltersApplied = false;
 
                 if (orStrategies.Any())
                 {
@@ -190,12 +190,9 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                         {
                             foreach (var orStrategy in orStrategies)
                             {
-                                // var filtersConjunction = new Conjunction(); // Combine filters with 'OR'
-
                                 if (TryApplyFilters(nestedOrQueryBuilder, orStrategy.Filters))
                                 {
-                                    // mainDisjunction.Add(filtersConjunction);
-                                    disjunctionFiltersApplied = true;
+                                    orFiltersApplied = true;
                                 }
                             }
 
@@ -204,13 +201,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                 }
 
                 // If we have some OR strategies with filters defined, but no filters were applied, this is an error condition
-                if (orStrategies.SelectMany(s => s.Filters).Any() && !disjunctionFiltersApplied)
+                if (orStrategies.SelectMany(s => s.Filters).Any() && !orFiltersApplied)
                 {
                     throw new Exception(
                         $"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
                 }
 
-                return disjunctionFiltersApplied;
+                return orFiltersApplied;
             }
 
             bool TryApplyFilters(QueryBuilder nestedQueryBuilder, IReadOnlyList<AuthorizationFilterContext> filterContexts)

@@ -386,6 +386,66 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Database.Querying
             
             [TestCase(DatabaseEngine.MsSql)]
             [TestCase(DatabaseEngine.PgSql)]
+            public void Should_not_apply_an_empty_nested_disjunction(DatabaseEngine databaseEngine)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
+                    .Select("FirstName", "LastSurname", "ChangeVersion")
+                    .OrWhere(q => q) // Empty nested disjunction using child scoped QueryBuilder
+                    .OrWhereNull("ChangeVersion");
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+                
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
+                    SELECT  FirstName, LastSurname, ChangeVersion
+                    FROM    edfi.Student
+                    WHERE   (ChangeVersion IS NULL)".NormalizeSql()),
+                    () => actualParameters.ShouldNotBeNull(),
+                    () => actualParameters.ParameterNames.ShouldBeEmpty()
+                    );
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+            
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
+            public void Should_not_apply_an_empty_nested_conjunction(DatabaseEngine databaseEngine)
+            {
+                var q = new QueryBuilder(GetDialectFor(databaseEngine))
+                    .From("edfi.Student")
+                    .Select("FirstName", "LastSurname", "ChangeVersion")
+                    .Where(q => q) // Empty nested conjunction using child scoped QueryBuilder
+                    .WhereNull("ChangeVersion");
+
+                var template = q.BuildTemplate();
+
+                var actualParameters = template.Parameters as DynamicParameters;
+                
+                actualParameters.ShouldSatisfyAllConditions(
+                    () => template.RawSql.NormalizeSql().ShouldBe(@"
+                    SELECT  FirstName, LastSurname, ChangeVersion
+                    FROM    edfi.Student
+                    WHERE   ChangeVersion IS NULL".NormalizeSql()),
+                    () => actualParameters.ShouldNotBeNull(),
+                    () => actualParameters.ParameterNames.ShouldBeEmpty()
+                    );
+
+                ExecuteQueryAndWriteResults(databaseEngine, template);
+                
+                // Check the cloned query results
+                var clonedQueryResult = q.Clone().BuildTemplate();
+                template.RawSql.ShouldBe(clonedQueryResult.RawSql);
+            }
+            
+            [TestCase(DatabaseEngine.MsSql)]
+            [TestCase(DatabaseEngine.PgSql)]
             public void Should_apply_nested_conjunction_combined_with_a_disjunction_with_auto_named_parameters(DatabaseEngine databaseEngine)
             {
                 var q = new QueryBuilder(GetDialectFor(databaseEngine))

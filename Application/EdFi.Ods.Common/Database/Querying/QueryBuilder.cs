@@ -120,7 +120,18 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             var childScope = new QueryBuilder(_dialect, _parameterIndexer);
 
-            var template = nestedWhereApplicator(childScope)._sqlBuilder.AddTemplate(
+            // Execute supplied criteria applicator against the child scope
+            nestedWhereApplicator(childScope);
+
+            SqlBuilder childScopeSqlBuilder = childScope._sqlBuilder;
+
+            // If no changes were made to the child scope, don't generate any SQL
+            if (childScopeSqlBuilder.IsEmpty())
+            {
+                return this;
+            }
+
+            var template = childScopeSqlBuilder.AddTemplate(
                 "/**where**/",
                 childScope.Parameters.Any()
                     ? new DynamicParameters(childScope.Parameters)
@@ -130,7 +141,7 @@ namespace EdFi.Ods.Common.Database.Querying
             _sqlBuilder.Where($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
 
             // Incorporate the JOINs into this builder
-            _sqlBuilder.CopyDataFrom(childScope._sqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
+            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
 
             return this;
         }
@@ -139,7 +150,18 @@ namespace EdFi.Ods.Common.Database.Querying
         {
             var childScope = new QueryBuilder(_dialect, _parameterIndexer);
 
-            var template = nestedWhereApplicator(childScope)._sqlBuilder.AddTemplate(
+            // Execute supplied criteria applicator against the child scope
+            nestedWhereApplicator(childScope);
+
+            SqlBuilder childScopeSqlBuilder = childScope._sqlBuilder;
+
+            // If no changes were made to the child scope, don't generate any SQL
+            if (childScopeSqlBuilder.IsEmpty())
+            {
+                return this;
+            }
+            
+            var template = childScopeSqlBuilder.AddTemplate(
                 "/**where**/",
                 childScope.Parameters.Any()
                     ? new DynamicParameters(childScope.Parameters)
@@ -149,7 +171,7 @@ namespace EdFi.Ods.Common.Database.Querying
             _sqlBuilder.OrWhere($"({template.RawSql.Replace("WHERE ", string.Empty)})", template.Parameters);
 
             // Incorporate the JOINs into this builder
-            _sqlBuilder.CopyDataFrom(childScope._sqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
+            _sqlBuilder.CopyDataFrom(childScopeSqlBuilder, "innerjoin", "leftjoin", "rightjoin", "join");
 
             return this;
         }

@@ -135,5 +135,10 @@ namespace EdFi.Ods.Common.Database.Querying
                 return newClauses;
             }
         }
+
+        public bool IsEmpty()
+        {
+            return _data.Count == 0;
+        }
     }
 }
