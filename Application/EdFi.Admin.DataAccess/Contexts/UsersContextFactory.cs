@@ -5,8 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common;
 using EdFi.Common.Configuration;
