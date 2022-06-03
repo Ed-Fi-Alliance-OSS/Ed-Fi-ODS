@@ -16,10 +16,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="DbConfigurations\NpgSqlConfiguration.cs" />
-    <Compile Remove="DbConfigurations\SqlServerConfiguration.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Common" Version="6.0.3" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.3" />
