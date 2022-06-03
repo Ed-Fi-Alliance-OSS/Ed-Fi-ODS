@@ -10,6 +10,7 @@ using System.Transactions;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Configuration;
 using EdFi.Ods.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
@@ -44,6 +45,8 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
                 .Build();
 
             var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
+
+            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(TestDatabaseEngine));
             var userContextFactory = new UsersContextFactory(connectionStringProvider, TestDatabaseEngine);
             _userContext = userContextFactory.CreateContext() as UsersContext;
         }

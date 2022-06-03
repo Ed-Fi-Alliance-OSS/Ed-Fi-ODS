@@ -21,6 +21,7 @@ using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Common.Configuration;
 using EdFi.Common.Database;
 using Microsoft.Extensions.Configuration.Json;
+using EdFi.Ods.Api.Configuration;
 
 // ReSharper disable InconsistentNaming
 
@@ -61,6 +62,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                 .Build();
 
             var connectionStringProvider = new AdminDatabaseConnectionStringProvider(new ConfigConnectionStringsProvider(config));
+            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(_databaseEngine));
             var userContextFactory = new UsersContextFactory(connectionStringProvider, _databaseEngine);
             TestFixtureContext = userContextFactory.CreateContext();
             SystemUnderTest = new AccessTokenClientRepo(userContextFactory, config);
