@@ -4,10 +4,10 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Admin.DataAccess.Contexts;
-using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Configuration;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
