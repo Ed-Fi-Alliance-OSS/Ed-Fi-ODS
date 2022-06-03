@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.32112.339
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.960
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess", "EdFi.Admin.DataAccess.csproj", "{D2A9D9A2-A4DB-4E65-82C3-C7E9F6DBA1E2}"
 EndProject
