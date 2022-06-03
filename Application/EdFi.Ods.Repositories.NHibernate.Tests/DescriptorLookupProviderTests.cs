@@ -13,7 +13,10 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Entities.NHibernate.AssessmentPeriodDescriptorAggregate.EdFi;
 using EdFi.Ods.Entities.NHibernate.CountryDescriptorAggregate.EdFi;
+using EdFi.Ods.Entities.NHibernate.PersonAggregate.EdFi;
 using FakeItEasy;
+using NHibernate.Engine;
+using Npgsql;
 using NUnit.Framework;
 using Shouldly;
 
@@ -33,14 +36,14 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 Description = "Test Country Descriptor 1",
                 EffectiveBeginDate = DateTime.Now
             };
-
+            
             CountryTestDescriptor2 = new CountryDescriptor
             {
                 Namespace = "uri://namespace1/CountryDescriptor",
                 CodeValue = "Test Country Descriptor 2",
                 ShortDescription = "Test Country Descriptor 2",
                 Description = "Test Country Descriptor 2",
-                EffectiveBeginDate = DateTime.Now
+                EffectiveBeginDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM- dd"))
             };
 
             CountryTestDescriptor3 = new CountryDescriptor
@@ -49,7 +52,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 CodeValue = "Test Country Descriptor 1",
                 ShortDescription = "Test Country Descriptor 1",
                 Description = "Test Country Descriptor 1",
-                EffectiveBeginDate = DateTime.Now
+                EffectiveBeginDate = DateTime.Parse(DateTime.Now.ToString("yyyy-MM- dd"))
             };
 
             AssessmentPeriodTestDescriptor1 = new AssessmentPeriodDescriptor
@@ -58,7 +61,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 CodeValue = "Test Assessment Period Descriptor 1",
                 ShortDescription = "Test Assessment Period Descriptor 1",
                 Description = "Test Assessment Period Descriptor 1",
-                EffectiveBeginDate = DateTime.Now
+                EffectiveBeginDate = DateTime.Now,
+                CreateDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now
             };
 
             using (var session = SessionFactory.OpenSession())

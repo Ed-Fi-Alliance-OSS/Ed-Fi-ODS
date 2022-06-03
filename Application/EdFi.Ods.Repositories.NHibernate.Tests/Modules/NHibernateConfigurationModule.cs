@@ -9,6 +9,7 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Providers;
 using NHibernate;
 using System;
+using EdFi.Ods.Common.Infrastructure.PostgreSql;
 using NHibernate.Cfg;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests.Modules

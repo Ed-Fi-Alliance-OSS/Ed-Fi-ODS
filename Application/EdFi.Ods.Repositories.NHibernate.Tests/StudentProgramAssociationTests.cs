@@ -13,6 +13,7 @@ using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
+using EdFi.Ods.Api.Container.Modules;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
@@ -34,7 +35,9 @@ using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
 using Test.Common.DataConstants;
-
+using PostgresSpecificModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.PostgresSpecificModule;
+using SandboxDatabaseReplacementTokenProviderModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.SandboxDatabaseReplacementTokenProviderModule;
+using SqlServerSpecificModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.SqlServerSpecificModule;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
@@ -78,6 +81,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             protected override void Arrange()
             {
+                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
                 RegisterDependencies();
                 IDescriptorsCache cache = null;
                 DescriptorsCache.GetCache = () => cache ??= _container.Resolve<IDescriptorsCache>();
@@ -175,12 +179,13 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     IsModified = studentProgramAssociationUpsertResult.IsModified
                 };
 
+                var databaseEngine = DbHelper.GetDatabaseEngine();
                 // Verify the service got removed
                 using (var conn = GetSqlConnectionForOds())
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(
+                    var cmd = DbHelper.GetCommand(databaseEngine,
                         $"SELECT COUNT(*) FROM edfi.StudentProgramAssociationService WHERE ProgramName = '{_program1.ProgramName}'",
                         conn);
 
@@ -265,7 +270,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(
+                    var cmd = DbHelper.GetCommand(
+                        databaseEngine,
                         $"SELECT COUNT(*) FROM edfi.StudentProgramAssociationService WHERE ProgramName = '{_program2.ProgramName}'",
                         conn);
 
@@ -292,7 +298,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(
+                    var cmd = DbHelper.GetCommand(
+                        databaseEngine,
                         $"SELECT COUNT(*) FROM edfi.StudentProgramAssociationService WHERE ProgramName = '{_program1.ProgramName}'",
                         conn);
 
@@ -319,7 +326,8 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(
+                    var cmd = DbHelper.GetCommand(
+                        databaseEngine,
                         $"SELECT COUNT(*) FROM edfi.StudentProgramAssociationService WHERE ProgramName = '{_program2.ProgramName}'",
                         conn);
 
@@ -327,11 +335,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 }
             }
 
-            private SqlConnection GetSqlConnectionForOds()
+            private IDbConnection GetSqlConnectionForOds()
             {
                 var databaseConnectionString = _container.Resolve<IConfiguration>().GetConnectionString("EdFi_Ods");
-
-                return new SqlConnection(databaseConnectionString);
+                return DbHelper.GetConnection(databaseConnectionString);
             }
 
             private ServiceDescriptor GetTestServiceDescriptor()
@@ -384,10 +391,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 //builder.RegisterInstance(apiSettings).As<ApiSettings>()
                 //    .SingleInstance();
 
-                var config = new ConfigurationBuilder()
-                    .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                    .AddJsonFile("appsettings.json", optional: true)
-                    .Build();
+                var databaseEngine = DbHelper.GetDatabaseEngine();
+
+                var config = DbHelper.GetDatabaseEngineSpecificConfiguration(databaseEngine);
 
                 config.GetSection("ConnectionStrings").GetSection("EdFi_Ods").Value =
                     config.GetConnectionString("EdFi_Ods")
@@ -405,7 +411,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
                 var apiSettings = new ApiSettings
                 {
-                    Engine = ApiConfigurationConstants.SqlServer,
+                    Engine = databaseEngine == DatabaseEngine.SqlServer ? ApiConfigurationConstants.SqlServer : ApiConfigurationConstants.PostgreSQL,
                     Mode = ApiConfigurationConstants.Sandbox
                 };
 
@@ -423,6 +429,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new PersonIdentifiersModule());
                 builder.RegisterModule(new DomainModelModule());
                 builder.RegisterModule(new SqlServerSpecificModule(apiSettings));
+                builder.RegisterModule(new PostgresSpecificModule(apiSettings));
                 builder.RegisterModule(new DescriptorLookupProviderModule());
                 builder.RegisterModule(new EdFiDescriptorReflectionModule());
 
@@ -455,7 +462,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 using (var conn = GetSqlConnectionForOds())
                 {
                     conn.Open();
-                    var cmd = new SqlCommand("SELECT EducationOrganizationId FROM edfi.EducationOrganization", conn);
+                    var cmd = DbHelper.GetCommand(
+                        DbHelper.GetDatabaseEngine(),
+                        "SELECT EducationOrganizationId FROM edfi.EducationOrganization", 
+                        conn);
 
                     using (var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
