@@ -35,7 +35,6 @@ namespace EdFi.Admin.DataAccess.Contexts
         {
             if (_usersContextTypeByDatabaseEngine.TryGetValue(_databaseEngine, out Type contextType))
             {
-                DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(_databaseEngine));
                 return Activator.CreateInstance(contextType, _connectionStringsProvider.GetConnectionString()) as IUsersContext;
             }
 

@@ -4,12 +4,14 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Admin.DataAccess.DbConfigurations;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Common.Configuration;
 using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
+using System.Data.Entity;
 using System.Linq;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
@@ -22,7 +24,8 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Contexts
         {
             var connectionStringsProvider = A.Fake<IAdminDatabaseConnectionStringProvider>();
             A.CallTo(() => connectionStringsProvider.GetConnectionString()).Returns("Server=.;Database=EdFi_Admin_Test;Integrated Security=SSPI;");
-            
+
+            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(DatabaseEngine.SqlServer));
             var context = new UsersContextFactory(connectionStringsProvider, DatabaseEngine.SqlServer)
                 .CreateContext();
 
