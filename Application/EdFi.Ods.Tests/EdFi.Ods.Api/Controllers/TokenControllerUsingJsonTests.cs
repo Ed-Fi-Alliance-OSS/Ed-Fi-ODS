@@ -78,12 +78,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 protected override async Task ActAsync()
                 {
-                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}" } });
-
                     _actionResult = await _controller.PostFromJsonAsync(
                         new TokenRequest
                         {
-                            Grant_type = "client_credentials"
+                            Grant_type = "client_credentials",
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret"
                         });
 
                     _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
@@ -194,14 +194,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 protected override async Task ActAsync()
                 {
-                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(
-                        new HeaderDictionary {{"Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}"}});
-
                     _actionResult = await _controller.PostFromJsonAsync(
                         new TokenRequest
                         {
                             Grant_type = "client_credentials",
-                            Scope = _requestedScope
+                            Scope = _requestedScope,
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret"
                         });
 
                     _tokenResponse = ((ObjectResult) _actionResult).Value as TokenResponse;
@@ -296,13 +295,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 protected override async Task ActAsync()
                 {
-                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0" } });
-
                     _actionResult = await _controller.PostFromJsonAsync(
                         new TokenRequest
                         {
                             Grant_type = "client_credentials",
-                            Scope = _requestedScope
+                            Scope = _requestedScope,
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret"
                         });
 
                     _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
@@ -369,30 +368,31 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 protected override async Task ActAsync()
                 {
-                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0 Y2xpZW50SWQ6Y2xpZW50U2VjcmV0" } });
-
                     _actionResult = await _controller.PostFromJsonAsync(
                         new TokenRequest
                         {
-                            Grant_type = "client_credentials"
+                            Grant_type = "client_credentials",
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret"
+
                         });
 
                     _tokenError = ((ObjectResult)_actionResult).Value as TokenError;
                 }
 
                 [Test]
-                public void Should_return_HTTP_status_of_BadRequest()
+                public void Should_return_HTTP_status_of_Unauthorized()
                 {
                     AssertHelper.All(
-                        () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                        () => ((BadRequestObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                        () => _actionResult.ShouldBeOfType<UnauthorizedObjectResult>(),
+                        () => ((UnauthorizedObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
                 }
 
                 [Test]
                 public void Should_return_an_error_body_indicating_an_invalid_request()
                 {
                     AssertHelper.All(
-                        () => _tokenError.Error.ShouldBe(TokenErrorType.InvalidRequest));
+                        () => _tokenError.Error.ShouldBe(TokenErrorType.InvalidClient));
                 }
 
                 [Test]
@@ -447,13 +447,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 protected override async Task ActAsync()
                 {
-                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", "Basic Y2xpZW50SWQ6Y2xpZW50U2VjcmV0" } });
-
                     _actionResult = await _controller.PostFromJsonAsync(
                         new TokenRequest
                         {
                             Grant_type = "client_credentials",
-                            Scope = _requestedScope
+                            Scope = _requestedScope,
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret"
                         });
 
                     _tokenError = ((ObjectResult) _actionResult).Value as TokenError;
@@ -541,10 +541,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
 
                 protected override async Task ActAsync()
                 {
-                    _controller.ControllerContext = ControllerHelper.CreateControllerContext(new HeaderDictionary { { "Authorization", $"Basic {ControllerHelper.CreateEncodedAuthentication()}" } });
-
                     _actionResult = await _controller.PostFromJsonAsync(
-                        new TokenRequest {Grant_type = "client_credentials"});
+                        new TokenRequest {Grant_type = "client_credentials",
+                            Client_id = "clientId",
+                            Client_secret = "clientSecret"
+                        });
                 }
 
                 [Test]

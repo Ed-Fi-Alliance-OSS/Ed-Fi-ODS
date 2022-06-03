@@ -85,11 +85,6 @@ namespace EdFi.Ods.Api.Controllers
                     return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
                 }
             }
-            else if (!Request.Headers.ContainsKey("Authorization"))
-            {
-                _logger.Debug("Authorization Header missing with form of Basic <encoded credentials>");
-                return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
-            }
 
             if (clientIdAndSecret.Length == 2)
             {
@@ -175,11 +170,6 @@ namespace EdFi.Ods.Api.Controllers
                 {
                     return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
                 }
-            }
-            else if (!Request.Headers.ContainsKey("Authorization"))
-            {
-                _logger.Debug("Authorization Header missing with form of Basic <encoded credentials>");
-                return BadRequest(new TokenError(TokenErrorType.InvalidRequest));
             }
 
             if (clientIdAndSecret.Length == 2)
