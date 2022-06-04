@@ -34,7 +34,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
     public NamespaceBasedAuthorizationFilterDefinitionsFactory(IDatabaseNamingConvention databaseNamingConvention)
     {
-        _oldNamespaceQueryColumnExpression = $"{TrackedChangesAlias}{databaseNamingConvention.ColumnName($"OldNamespace")}";
+        _oldNamespaceQueryColumnExpression = $"{TrackedChangesAlias}.{databaseNamingConvention.ColumnName($"OldNamespace")}";
     }
         
     /// <summary>
