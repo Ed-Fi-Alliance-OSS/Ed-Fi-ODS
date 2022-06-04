@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "2ff11b72-abca-43e6-bb7e-38b1de6920e0",
 		"name": "Ed-Fi ODS/API ChangeQueries Key Changes and Deletes Test Suite",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1213570"
 	},
 	"item": [
 		{
@@ -1992,59 +1993,7 @@
 							"response": []
 						},
 						{
-							"name": "* Get OrganizationDepartments",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"const item = items[0];\r",
-											"\r",
-											"if (items.length > 0) {\r",
-											"    pm.environment.set('known:'+scenarioId+':organizationDepartment:id', item.id);\r",
-											"}\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"organizationDepartments"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create OrganizationDepartment",
+							"name": "Create OrganizationDepartment 777",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2065,7 +2014,7 @@
 											"    pm.expect(pm.response.code).to.equal(201);\r",
 											"});\r",
 											"\r",
-											"pm.environment.set('known:'+scenarioId+':organizationDepartment:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											"pm.environment.set('known:'+scenarioId+':organizationDepartment:777:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
 											""
 										],
 										"type": "text/javascript"
@@ -2100,7 +2049,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete OrganizationDepartment",
+							"name": "Delete OrganizationDepartment 777",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2139,7 +2088,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:{{scenarioId}}:organizationDepartment:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:{{scenarioId}}:organizationDepartment:777:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2148,7 +2097,118 @@
 										"v3",
 										"ed-fi",
 										"organizationDepartments",
-										"{{known:{{scenarioId}}:organizationDepartment:id}}"
+										"{{known:{{scenarioId}}:organizationDepartment:777:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create OrganizationDepartment 888",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:'+scenarioId+':organizationDepartment:888:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"organizationDepartmentId\": 255901888,\r\n    \"nameOfInstitution\": \"To Be Deleted Department\",\r\n    \"parentEducationOrganizationReference\": {\r\n        \"educationOrganizationId\": 255901001\r\n    },\r\n    \"categories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"organizationDepartments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete OrganizationDepartment 888",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:{{scenarioId}}:organizationDepartment:888:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"organizationDepartments",
+										"{{known:{{scenarioId}}:organizationDepartment:888:id}}"
 									]
 								}
 							},
@@ -2173,23 +2233,27 @@
 											"const scenarioId = pm.environment.get('scenarioId');\r",
 											"\r",
 											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
 											"const items = pm.response.json();\r",
-											"const item = items[0];\r",
+											"const item1 = items[0];\r",
+											"const item2 = items[1];\r",
 											"\r",
-											"pm.test(\"Deleted item id matches item just deleted\", () => {\r",
-											"    pm.expect(items.length).equal(1);\r",
-											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:organizationDepartment:id`));\r",
+											"pm.test(\"Deleted item ids match items just deleted\", () => {\r",
+											"  pm.expect(items.length).equal(2);\r",
+											"  pm.expect(item1.id).equal(pm.environment.get(`known:${scenarioId}:organizationDepartment:777:id`));\r",
+											"  pm.expect(item2.id).equal(pm.environment.get(`known:${scenarioId}:organizationDepartment:888:id`));\r",
 											"});\r",
 											"\r",
 											"pm.test(\"KeyValues contains the correct number of properties\", () => {\r",
-											"    pm.expect(Object.keys(item.keyValues).length).equal(1);\r",
+											"  pm.expect(Object.keys(item1.keyValues).length).equal(1);\r",
+											"  pm.expect(Object.keys(item2.keyValues).length).equal(1);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"OrganizationDepartmentId value is correctly reflected in key values\", () => {\r",
-											"    pm.expect(item.keyValues.organizationDepartmentId).equal(255901777);\r",
+											"  pm.expect(item1.keyValues.organizationDepartmentId).equal(255901777);\r",
+											"  pm.expect(item2.keyValues.organizationDepartmentId).equal(255901888);\r",
 											"});\r",
 											""
 										],
@@ -2258,23 +2322,24 @@
 											"const scenarioId = pm.environment.get('scenarioId');\r",
 											"\r",
 											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
 											"const items = pm.response.json();\r",
 											"const item = items[0];\r",
 											"\r",
-											"pm.test(\"One item should be returned\", () => {\r",
-											"    pm.expect(items.length).equal(1);\r",
+											"pm.test(\"One item should be returned due to supplied limit\", () => {\r",
+											"  pm.expect(items.length).equal(1);\r",
+											"  pm.expect(item.keyValues.organizationDepartmentId).equal(255901777);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Total-Count header should be present\", () => {\r",
-											"    pm.response.to.have.header(\"Total-Count\");\r",
+											"  pm.response.to.have.header(\"Total-Count\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Total-Count header should have a value of 1\", () => {\r",
-											"    const totalCount = parseInt(pm.response.headers.one('Total-Count').value);\r",
-											"    pm.expect(totalCount).equal(1);\r",
+											"pm.test(\"Total-Count header should have a value of 2\", () => {\r",
+											"  const totalCount = parseInt(pm.response.headers.one('Total-Count').value);\r",
+											"  pm.expect(totalCount).equal(2);\r",
 											"});\r",
 											""
 										],
@@ -2405,65 +2470,7 @@
 							"response": []
 						},
 						{
-							"name": "* Get Schools",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"exec": [
-											""
-										],
-										"type": "text/javascript"
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"\r",
-											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
-											"});\r",
-											"\r",
-											"const items = pm.response.json();\r",
-											"const item = items[0];\r",
-											"\r",
-											"if (items.length > 0) {\r",
-											"    pm.environment.set('known:'+scenarioId+':school:id', item.id);\r",
-											"}\r",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools?schoolId=255901002",
-									"host": [
-										"{{ApiBaseUrl}}"
-									],
-									"path": [
-										"data",
-										"v3",
-										"ed-fi",
-										"schools"
-									],
-									"query": [
-										{
-											"key": "schoolId",
-											"value": "255901002"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create School",
+							"name": "Create School 002",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2484,7 +2491,7 @@
 											"    pm.expect(pm.response.code).to.equal(201);\r",
 											"});\r",
 											"\r",
-											"pm.environment.set('known:'+scenarioId+':school:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											"pm.environment.set('known:'+scenarioId+':school:002:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
 											""
 										],
 										"type": "text/javascript"
@@ -2519,7 +2526,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete School",
+							"name": "Delete School 002",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2558,7 +2565,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:{{scenarioId}}:school:id}}",
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:{{scenarioId}}:school:002:id}}",
 									"host": [
 										"{{ApiBaseUrl}}"
 									],
@@ -2567,7 +2574,118 @@
 										"v3",
 										"ed-fi",
 										"schools",
-										"{{known:{{scenarioId}}:school:id}}"
+										"{{known:{{scenarioId}}:school:002:id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create School 003",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 201\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('known:'+scenarioId+':school:003:id', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"localEducationAgencyReference\": {\r\n        \"localEducationAgencyId\": 255901\r\n    },\r\n    \"schoolId\": 255901003,\r\n    \"nameOfInstitution\": \"To Be Deleted School\",\r\n    \"operationalStatusDescriptor\": \"uri://ed-fi.org/OperationalStatusDescriptor#Active\",\r\n    \"shortNameOfInstitution\": \"TBDS\",\r\n    \"webSite\": \"http://www.GBISD.edu/GBHS/\",\r\n    \"administrativeFundingControlDescriptor\": \"uri://ed-fi.org/AdministrativeFundingControlDescriptor#Public School\",\r\n    \"charterStatusDescriptor\": \"uri://ed-fi.org/CharterStatusDescriptor#Not a Charter School\",\r\n    \"schoolTypeDescriptor\": \"uri://ed-fi.org/SchoolTypeDescriptor#Regular\",\r\n    \"titleIPartASchoolDesignationDescriptor\": \"uri://ed-fi.org/TitleIPartASchoolDesignationDescriptor#Not A Title I School\",\r\n    \"addresses\": [],\r\n    \"educationOrganizationCategories\": [\r\n        {\r\n            \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#School\"\r\n        }\r\n    ],\r\n    \"identificationCodes\": [],\r\n    \"indicators\": [],\r\n    \"institutionTelephones\": [],\r\n    \"internationalAddresses\": [],\r\n    \"schoolCategories\": [\r\n        {\r\n            \"schoolCategoryDescriptor\": \"uri://ed-fi.org/SchoolCategoryDescriptor#High School\"\r\n        }\r\n    ],\r\n    \"gradeLevels\": [\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Ninth grade\"\r\n        },\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Tenth grade\"\r\n        },\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Eleventh grade\"\r\n        },\r\n        {\r\n            \"gradeLevelDescriptor\": \"uri://ed-fi.org/GradeLevelDescriptor#Twelfth grade\"\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete School 003",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"\r",
+											"pm.test(\"Status code is 204\", () => {\r",
+											"    pm.expect(pm.response.code).to.equal(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/schools/{{known:{{scenarioId}}:school:003:id}}",
+									"host": [
+										"{{ApiBaseUrl}}"
+									],
+									"path": [
+										"data",
+										"v3",
+										"ed-fi",
+										"schools",
+										"{{known:{{scenarioId}}:school:003:id}}"
 									]
 								}
 							},
@@ -2592,25 +2710,28 @@
 											"const scenarioId = pm.environment.get('scenarioId');\r",
 											"\r",
 											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
 											"const items = pm.response.json();\r",
-											"const item = items[0];\r",
+											"const item1 = items[0];\r",
+											"const item2 = items[1];\r",
 											"\r",
-											"pm.test(\"Deleted item id matches item just deleted\", () => {\r",
-											"    pm.expect(items.length).equal(1);\r",
-											"    pm.expect(item.id).equal(pm.environment.get(`known:${scenarioId}:school:id`));\r",
+											"pm.test(\"Deleted item ids match items just deleted\", () => {\r",
+											"  pm.expect(items.length).equal(2);\r",
+											"  pm.expect(item1.id).equal(pm.environment.get(`known:${scenarioId}:school:002:id`));\r",
+											"  pm.expect(item2.id).equal(pm.environment.get(`known:${scenarioId}:school:003:id`));\r",
 											"});\r",
 											"\r",
 											"pm.test(\"KeyValues contains the correct number of properties\", () => {\r",
-											"    pm.expect(Object.keys(item.keyValues).length).equal(1);\r",
+											"  pm.expect(Object.keys(item1.keyValues).length).equal(1);\r",
+											"  pm.expect(Object.keys(item2.keyValues).length).equal(1);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"OrganizationDepartmentId value is correctly reflected in key values\", () => {\r",
-											"    pm.expect(item.keyValues.schoolId).equal(255901002);\r",
-											"});\r",
-											""
+											"pm.test(\"SchoolId value is correctly reflected in key values\", () => {\r",
+											"  pm.expect(item1.keyValues.schoolId).equal(255901002);\r",
+											"  pm.expect(item2.keyValues.schoolId).equal(255901003);\r",
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -2677,23 +2798,24 @@
 											"const scenarioId = pm.environment.get('scenarioId');\r",
 											"\r",
 											"pm.test(\"Status code is 200\", () => {\r",
-											"    pm.expect(pm.response.code).to.equal(200);\r",
+											"  pm.expect(pm.response.code).to.equal(200);\r",
 											"});\r",
 											"\r",
 											"const items = pm.response.json();\r",
 											"const item = items[0];\r",
 											"\r",
-											"pm.test(\"One item should be returned\", () => {\r",
-											"    pm.expect(items.length).equal(1);\r",
+											"pm.test(\"One item should be returned due to supplied limit\", () => {\r",
+											"  pm.expect(items.length).equal(1);\r",
+											"  pm.expect(item.keyValues.schoolId).equal(255901002);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Total-Count header should be present\", () => {\r",
-											"    pm.response.to.have.header(\"Total-Count\");\r",
+											"  pm.response.to.have.header(\"Total-Count\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Total-Count header should have a value of 1\", () => {\r",
-											"    const totalCount = parseInt(pm.response.headers.one('Total-Count').value);\r",
-											"    pm.expect(totalCount).equal(1);\r",
+											"pm.test(\"Total-Count header should have a value of 2\", () => {\r",
+											"  const totalCount = parseInt(pm.response.headers.one('Total-Count').value);\r",
+											"  pm.expect(totalCount).equal(2);\r",
 											"});\r",
 											""
 										],
