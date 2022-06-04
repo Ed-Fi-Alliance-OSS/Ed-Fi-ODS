@@ -29,7 +29,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public void NamespaceBasedAuthorization_EmptyNamespaceClaim()
         {
             //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy(A.Fake<IDatabaseNamingConvention>());
+            var strategy = new NamespaceBasedAuthorizationStrategy();
 
             var claims = new List<Claim>
             {
@@ -64,7 +64,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public void NamespaceBasedAuthorization_EmptyResourceNamespace()
         {
             //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy(A.Fake<IDatabaseNamingConvention>());
+            var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
 
             var claims = new List<Claim>
             {
@@ -83,7 +83,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             };
 
             //Act
-            var filterDefinition = strategy.CreateAuthorizationFilterDefinitions().Single();
+            var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
 
             var result = filterDefinition.AuthorizeInstance(
                 new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data),
@@ -98,7 +98,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public void NamespaceBasedAuthorization_MatchOnNamespace_ShouldThrowNoExceptions()
         {
             //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy(A.Fake<IDatabaseNamingConvention>());
+            var strategy = new NamespaceBasedAuthorizationStrategy();
 
             var claims = new List<Claim>
             {
@@ -128,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public void NamespaceBasedAuthorization_MismatchedNamespaces()
         {
             //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy(A.Fake<IDatabaseNamingConvention>());
+            var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
 
             var claims = new List<Claim>
             {
@@ -147,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             };
 
             //Act
-            var filterDefinition = strategy.CreateAuthorizationFilterDefinitions().Single();
+            var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
 
             var result = filterDefinition.AuthorizeInstance(
                 new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data),
@@ -162,7 +162,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public void NamespaceBasedAuthorization_NoNamespaceClaim()
         {
             //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy(A.Fake<IDatabaseNamingConvention>());
+            var strategy = new NamespaceBasedAuthorizationStrategy();
 
             var claims = new List<Claim>();
             ClaimsPrincipal principal = new ClaimsPrincipal(new ClaimsIdentity(claims, EdFiAuthenticationTypes.OAuth));
