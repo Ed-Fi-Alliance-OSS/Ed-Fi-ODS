@@ -75,10 +75,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             var authorizationFiltering =
                 _authorizationFilteringProvider.GetAuthorizationFiltering(authorizationContext, authorizationBasisMetadata);
 
-            // TODO: Include or remove, as needed. Copied from main repo base class.
-            // Apply authorization filtering to the entity for the current session
-            // _authorizationFilterContextProvider.SetFilterContext(authorizationFiltering);
-
             var unsupportedAuthorizationFilters = new HashSet<string>();
 
             // If there are multiple authorization strategies with views, we must use left outer joins and null/not null checks
@@ -89,35 +85,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
             ApplyAuthorizationStrategiesCombinedWithAndLogic();
             ApplyAuthorizationStrategiesCombinedWithOrLogic();
 
-            // ApplyJunctionsToCriteriaQuery();
-
-            return; // criteria;
-
-            // ================================================================================================
-            // ORIGINAL CODE
-            // ================================================================================================
-            // var filterIndex = 0;
-            //
-            // // Apply authorization filters
-            // foreach (var filterContext in authorizationFiltering)
-            // {
-            //     if (!_authorizationFilterApplicationDetailsProvider.TryGetAuthorizationFilterDefinition(
-            //             filterContext.FilterName,
-            //             out var filterApplicationDetails))
-            //     {
-            //         throw new EdFiSecurityException($"Filter '{filterContext.FilterName}' was not found. Are you using the correct authorization strategy for the '{resource.FullName}' resource and the API client's claim set?");
-            //     }
-            //
-            //     filterApplicationDetails.TrackedChangesCriteriaApplicator(
-            //         filterApplicationDetails,
-            //         filterContext,
-            //         resource,
-            //         filterIndex,
-            //         queryBuilder);
-            //
-            //     filterIndex++;
-            // }
-            // ================================================================================================
+            return;
 
             JoinType DetermineJoinType()
             {
@@ -145,13 +113,11 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                     : JoinType.InnerJoin;
             }
 
-            bool ApplyAuthorizationStrategiesCombinedWithAndLogic()
+            void ApplyAuthorizationStrategiesCombinedWithAndLogic()
             {
                 var andStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.And).ToArray();
 
                 // Combine 'AND' strategies
-                bool conjunctionFiltersApplied = false;
-
                 if (andStrategies.Any())
                 {
                     queryBuilder.Where(
@@ -165,18 +131,14 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                                     throw new Exception(
                                         $"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
                                 }
-
-                                conjunctionFiltersApplied = true;
                             }
 
                             return nestedAndQueryBuilder;
                         });
                 }
-                
-                return conjunctionFiltersApplied;
             }
 
-            bool ApplyAuthorizationStrategiesCombinedWithOrLogic()
+            void ApplyAuthorizationStrategiesCombinedWithOrLogic()
             {
                 var orStrategies = authorizationFiltering.Where(x => x.Operator == FilterOperator.Or).ToArray();
 
@@ -206,8 +168,6 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Authorization
                     throw new Exception(
                         $"The following authorization filters are not recognized: {string.Join(" ", unsupportedAuthorizationFilters)}");
                 }
-
-                return orFiltersApplied;
             }
 
             bool TryApplyFilters(QueryBuilder nestedQueryBuilder, IReadOnlyList<AuthorizationFilterContext> filterContexts)
