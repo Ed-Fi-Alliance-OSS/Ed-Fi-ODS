@@ -3,12 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Reflection;
 using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Container.Modules;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure.Configuration;
@@ -16,6 +13,7 @@ using EdFi.Ods.Repositories.NHibernate.Tests.Modules;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
 using NUnit.Framework;
+using System.Reflection;
 using Environment = NHibernate.Cfg.Environment;
 using PostgresSpecificModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.PostgresSpecificModule;
 using SandboxDatabaseReplacementTokenProviderModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.SandboxDatabaseReplacementTokenProviderModule;
