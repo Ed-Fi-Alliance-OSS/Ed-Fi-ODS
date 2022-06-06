@@ -6,8 +6,11 @@
 using EdFi.Admin.DataAccess;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Providers;
+using EdFi.Admin.DataAccess.Repositories;
+using EdFi.Common.Configuration;
+using EdFi.Ods.Api.Configuration;
 using EdFi.TestFixture;
-using FakeItEasy;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
@@ -16,12 +19,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Transactions;
-using EdFi.Admin.DataAccess.Providers;
-using EdFi.Admin.DataAccess.Repositories;
-using EdFi.Common.Configuration;
-using EdFi.Common.Database;
-using Microsoft.Extensions.Configuration.Json;
-using EdFi.Ods.Api.Configuration;
 
 // ReSharper disable InconsistentNaming
 
