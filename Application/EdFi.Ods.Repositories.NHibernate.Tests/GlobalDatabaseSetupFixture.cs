@@ -26,6 +26,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
         [OneTimeSetUp]
         public void Setup()
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             var databaseEngine = DbHelper.GetDatabaseEngine();
 
             Configuration = DbHelper.GetDatabaseEngineSpecificConfiguration(databaseEngine);
