@@ -40,6 +40,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
         protected override void Arrange()
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             _transaction = new TransactionScope();
 
             var engineConfig = new ConfigurationBuilder()
@@ -186,12 +187,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     var vendor = LoadAVendor();
                     var application = LoadAnApplication(vendor, "whatever");
                     var apiClient = LoadAnApiClient(application);
-
-                    //Postgres expiration timestamp does not currently support UTC
-                    var expiration = _databaseEngine == DatabaseEngine.SqlServer
-                        ? DateTime.UtcNow.AddSeconds(-10)
-                        : DateTime.Now.AddSeconds(-10);
-                    _accessToken = LoadAnAccessToken(apiClient, expiration);
+                    _accessToken = LoadAnAccessToken(apiClient, DateTime.UtcNow.AddSeconds(-10));
                 }
 
                 [Test]
@@ -218,12 +214,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     base.Arrange();
 
                     Client = LoadAnApiClient(null);
-
-                    //Postgres expiration timestamp does not currently support UTC
-                    var expiration = _databaseEngine == DatabaseEngine.SqlServer
-                        ? DateTime.UtcNow.AddSeconds(100)
-                        : DateTime.Now.AddSeconds(100);
-                    AccessToken = LoadAnAccessToken(Client, expiration);
+                    AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
                 protected override void Act()
@@ -270,11 +261,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
                     LoadAProfile(application, profileName1);
                     LoadAProfile(application, profileName2);
 
-                    //Postgres expiration timestamp does not currently support UTC
-                    var expiration = _databaseEngine == DatabaseEngine.SqlServer
-                        ? DateTime.UtcNow.AddSeconds(100)
-                        : DateTime.Now.AddSeconds(100);
-                    AccessToken = LoadAnAccessToken(Client, expiration);
+                    AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
                 protected override void Act()
@@ -366,11 +353,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Repositories
 
                     var application = LoadAnApplication(null, "Sandbox");
                     Client = LoadAnApiClient(application);
-                    //Postgres expiration timestamp does not currently support UTC
-                    var expiration = _databaseEngine == DatabaseEngine.SqlServer
-                        ? DateTime.UtcNow.AddSeconds(100)
-                        : DateTime.Now.AddSeconds(100);
-                    AccessToken = LoadAnAccessToken(Client, expiration);
+                    AccessToken = LoadAnAccessToken(Client, DateTime.UtcNow.AddSeconds(100));
                 }
 
                 protected override void Act()

@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
+using System;
 using System.Data.Entity;
 using System.Transactions;
 
@@ -25,6 +26,7 @@ namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             var engineConfig = new ConfigurationBuilder()
                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                 .AddJsonFile("appsettings.json", optional: true)
