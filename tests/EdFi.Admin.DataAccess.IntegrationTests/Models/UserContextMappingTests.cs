@@ -3,18 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Common.Configuration;
 using EdFi.TestFixture;
 using Microsoft.Extensions.Configuration;
 using NCrunch.Framework;
 using NUnit.Framework;
 using Shouldly;
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
 using Test.Common;
 
 namespace EdFi.Ods.Admin.DataAccess.IntegrationTests.Models
