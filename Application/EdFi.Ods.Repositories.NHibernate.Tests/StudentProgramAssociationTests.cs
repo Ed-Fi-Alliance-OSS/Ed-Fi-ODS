@@ -3,21 +3,13 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Reflection;
-using System.Security.Claims;
-using System.Threading;
 using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Caching;
-using EdFi.Ods.Api.Container.Modules;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Specifications;
@@ -34,6 +26,11 @@ using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
+using System;
+using System.Data;
+using System.Reflection;
+using System.Security.Claims;
+using System.Threading;
 using Test.Common.DataConstants;
 using PostgresSpecificModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.PostgresSpecificModule;
 using SandboxDatabaseReplacementTokenProviderModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.SandboxDatabaseReplacementTokenProviderModule;
