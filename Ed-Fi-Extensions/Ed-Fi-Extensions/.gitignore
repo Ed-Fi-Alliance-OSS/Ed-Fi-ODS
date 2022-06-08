@@ -47,7 +47,7 @@ packages/
 *.nupkg
 
 # AppSettings
-appsettings.development.json
+appsettings.Development.json
 appsettings.user.json
 
 # nDevConfig
