@@ -31,7 +31,11 @@ namespace EdFi.SmokeTest.Console.Application
 
         public int? SchoolYear { get; set; }
 
+        public string InstanceId { get; set; }
+
         public string MetadataUrl { get; set; }
+
+        public string XsdMetadataUrl { get; set; }
 
         public string SdkLibraryPath { get; set; }
 

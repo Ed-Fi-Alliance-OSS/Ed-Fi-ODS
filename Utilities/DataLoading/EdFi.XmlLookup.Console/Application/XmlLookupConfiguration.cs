@@ -161,12 +161,25 @@ namespace EdFi.XmlLookup.Console.Application
 
             string ResolvedUrl(string url)
             {
-                return apiMode == ApiMode.YearSpecific
-                    ? Regex.Replace(
+                if (apiMode == ApiMode.YearSpecific)
+                {
+                    // https://regex101.com/r/KywmUK/1
+                    return Regex.Replace(
+                        url,
+                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
+                    );
+                }
+                else if (apiMode == ApiMode.InstanceYearSpecific)
+                {
+                    url = Regex.Replace(
+                        url,
+                        @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None
+                    );
 
-                        // https://regex101.com/r/KywmUK/1
-                        url, @"\/(?<year>\b\d{4}\b)", $"/{configuration.GetValue<string>("OdsApi:SchoolYear")}", RegexOptions.None)
-                    : url;
+                    return url.Replace("{instance}", configuration.GetValue<string>("OdsApi:InstanceId"));
+                }
+                else
+                    return url;
             }
         }
     }
