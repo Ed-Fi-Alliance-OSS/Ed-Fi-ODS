@@ -5,6 +5,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Exceptions;
@@ -74,11 +75,13 @@ namespace EdFi.Ods.Features.Controllers
                             ? (IActionResult) Ok(identity)
                             : NotFound(new NotFoundException());
                     case IdentityStatusCode.Incomplete:
-                        var incompleteErrorResponse = (IdentityResponseErrorStatus<IdentitySearchResponse>)identitySearchResponse;
-                        return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Incomplete: " + incompleteErrorResponse.Error, StatusCode = incompleteErrorResponse.StatusCode });
+                        return StatusCode((int)HttpStatusCode.BadGateway, new ControllerResponse{ Message = InvalidServerResponse + "Incomplete: " + identitySearchResponse.Error, StatusCode = identitySearchResponse.StatusCode });
                     case IdentityStatusCode.InvalidProperties:
-                        var invalidPropertiesErrorResponse = (IdentityResponseErrorStatus<IdentitySearchResponse>) identitySearchResponse;
-                        return StatusCode((int) HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode});
+                        var propertyErrorMessages = string.Join(
+                            "; ",
+                            identitySearchResponse.Error.Select(
+                                x => "ErrorCode: " + x.Code + ", ErrorDescription: " + x.Description));
+                        return StatusCode((int) HttpStatusCode.BadGateway, new ControllerResponse{ Message = InvalidServerResponse + "Invalid Properties: " + propertyErrorMessages, StatusCode = identitySearchResponse.StatusCode});
                     case IdentityStatusCode.NotFound:
                         return NotFound(new NotFoundException());
                     default:
@@ -285,5 +288,11 @@ namespace EdFi.Ods.Features.Controllers
         {
             return StatusCode((int) HttpStatusCode.NotImplemented, NoIdentitySystem);
         }
+    }
+
+    public class ControllerResponse
+    {
+        public string Message { get; set; }
+        public IdentityStatusCode StatusCode { get; set; }
     }
 }

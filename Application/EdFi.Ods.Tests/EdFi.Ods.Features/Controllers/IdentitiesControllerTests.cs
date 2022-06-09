@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Features.Controllers;
 using EdFi.Ods.Features.IdentityManagement.Models;
@@ -23,7 +22,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
         public class InvalidGetByIdRequest : TestFixtureAsyncBase
         {
             private IdentitiesController _controller;
-            private IActionResult _actionResult;
+            private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
@@ -35,16 +34,17 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override async Task ActAsync()
             {
-                _actionResult = await _controller.GetById("123456");
+                _actionResult = (ObjectResult) await _controller.GetById("invalid");
             }
 
             [Test]
             public void Should_return_invalid_details()
             {
+                var response = (ControllerResponse) _actionResult.Value;
                 AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<ObjectResult>(),
-                    () => ((ObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
-                    () => ((ObjectResult) _actionResult).Value.ShouldBe(new { message = "Invalid properties: blah", StatusCode = IdentityStatusCode.Incomplete}));
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => response.Message.ShouldBe("Invalid response from identity service: Invalid Properties: ErrorCode: InvalidId, ErrorDescription: Invalid Id specified"),
+                    () => response.StatusCode.ShouldBe(IdentityStatusCode.InvalidProperties));
             }
         }
     }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Features.IdentityManagement.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
 {
@@ -47,6 +48,21 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 
         public Task<IdentityResponseStatus<IdentitySearchResponse>> Find(params string[] findRequest)
         {
+            if (findRequest.All(x => x == "invalid"))
+            {
+                return Task.FromResult(
+                    new IdentityResponseStatus<IdentitySearchResponse>
+                    {
+                        Error = new []{new IdentityError { Code = "InvalidId", Description = "Invalid Id specified"}},
+                        Data = new IdentitySearchResponse
+                        {
+                            Status = SearchResponseStatus.Complete,
+                            SearchResponses = new [] { new IdentitySearchResponses { Responses = new[]{ new IdentityResponse()}}}
+            },
+                        StatusCode = IdentityStatusCode.InvalidProperties
+                    });
+            }
+
             var results = findRequest.Select(
                                           x =>
                                           {
