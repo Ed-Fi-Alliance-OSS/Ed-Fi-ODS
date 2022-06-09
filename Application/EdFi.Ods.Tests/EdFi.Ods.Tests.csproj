@@ -27,7 +27,7 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFrameworkTesting.FakeItEasy" Version="1.3.0" />
     <PackageReference Include="FakeItEasy" Version="7.3.0" />
-    <PackageReference  Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="Iesi.Collections" Version="4.0.4" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
@@ -49,6 +49,7 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\tests\EdFi.Ods.WebApi.IntegrationTests\EdFi.Ods.WebApi.IntegrationTests.csproj" />
     <ProjectReference Include="..\..\tests\EdFi.TestFixture\EdFi.TestFixture.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />

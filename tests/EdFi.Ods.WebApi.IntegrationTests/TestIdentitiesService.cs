@@ -25,7 +25,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 
         static TestIdentitiesService()
         {
-            _mapperConfig = new MapperConfiguration(x => x.CreateMap<IdentityCreateRequest, IdentityResponse>());
+            //_mapperConfig = new MapperConfiguration(x => x.CreateMap<IdentityCreateRequest, IdentityResponse>());
         }
 
         public IdentityServiceCapabilities IdentityServiceCapabilities => IdentityServiceCapabilities.Create
