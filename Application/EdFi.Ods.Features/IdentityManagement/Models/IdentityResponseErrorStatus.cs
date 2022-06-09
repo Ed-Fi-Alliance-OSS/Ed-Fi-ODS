@@ -4,6 +4,5 @@ namespace EdFi.Ods.Features.IdentityManagement.Models
 {
     public class IdentityResponseErrorStatus<TResponse> : IdentityResponseStatus<TResponse>
     {
-        public IdentityError[] Error { get; set; }
     }
 }
