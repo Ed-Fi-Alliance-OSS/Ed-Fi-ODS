@@ -128,7 +128,7 @@ namespace EdFi.Ods.Features.Controllers
                         return Created(new Uri(test), result.Data);
                     case IdentityStatusCode.InvalidProperties:
                         var invalidPropertiesErrorResponse = (IdentityResponseErrorStatus<string>)result;
-                        return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode });
+                        return StatusCode((int)HttpStatusCode.BadRequest, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode });
                     case IdentityStatusCode.Incomplete:
                         var incompleteErrorResponse = (IdentityResponseErrorStatus<string>)result;
                         return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Incomplete: " + incompleteErrorResponse.Error, StatusCode = incompleteErrorResponse.StatusCode });
