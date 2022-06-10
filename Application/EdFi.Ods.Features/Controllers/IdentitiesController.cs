@@ -168,11 +168,17 @@ namespace EdFi.Ods.Features.Controllers
                             var route = Url.Link("IdentitiesSearchResult", new {id = result.Data});
                             return Accepted(route);
                         case IdentityStatusCode.Incomplete:
-                            var incompleteErrorResponse = (IdentityResponseErrorStatus<string>)result;
-                            return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Incomplete: " + incompleteErrorResponse.Error, StatusCode = incompleteErrorResponse.StatusCode });
+                            var incompleteErrorResponse = string.Join(
+                                "; ",
+                                result.Error.Select(
+                                    x => "ErrorCode: " + x.Code + ", ErrorDescription: " + x.Description));
+                            return StatusCode((int)HttpStatusCode.BadGateway, new ControllerResponse { Message = InvalidServerResponse + "Incomplete: " + incompleteErrorResponse, StatusCode = result.StatusCode });
                         case IdentityStatusCode.InvalidProperties:
-                            var invalidPropertiesErrorResponse = (IdentityResponseErrorStatus<string>)result;
-                            return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode });
+                            var invalidPropertiesErrorResponse = string.Join(
+                                "; ",
+                                result.Error.Select(
+                                    x => "ErrorCode: " + x.Code + ", ErrorDescription: " + x.Description));
+                            return StatusCode((int)HttpStatusCode.BadGateway, new ControllerResponse { Message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse, StatusCode = result.StatusCode });
                         case IdentityStatusCode.NotFound:
                             return NotFound(InvalidServerResponse + "Not Found");
                         default:

@@ -196,6 +196,52 @@ namespace EdFi.Ods.WebApi.IntegrationTests
             var token = "findToken" + _findIndex++;
             Finds.Add(token, findRequest);
 
+            if (findRequest.All(x => x == "invalid"))
+            {
+                return Task.FromResult(
+                    new IdentityResponseStatus<string>
+                    {
+                        Error = new[]
+                        {
+                            new IdentityError
+                            {
+                                Code = "InvalidId",
+                                Description = "Invalid Id specified"
+                            }
+                        },
+                        Data = token,
+                        StatusCode = IdentityStatusCode.InvalidProperties
+                    });
+            }
+
+            if (findRequest.All(x => x == "incomplete"))
+            {
+                return Task.FromResult(
+                    new IdentityResponseStatus<string>
+                    {
+                        Error = new[]
+                        {
+                            new IdentityError
+                            {
+                                Code = "Incomplete",
+                                Description = "The search results are not ready yet"
+                            }
+                        },
+                        Data = token,
+                        StatusCode = IdentityStatusCode.Incomplete
+                    });
+            }
+
+            if (findRequest.All(x => x == "notfound"))
+            {
+                return Task.FromResult(
+                    new IdentityResponseStatus<string>
+                    {
+                        Data = token,
+                        StatusCode = IdentityStatusCode.NotFound
+                    });
+            }
+
             return Task.FromResult(
                 new IdentityResponseStatus<string>
                 {
