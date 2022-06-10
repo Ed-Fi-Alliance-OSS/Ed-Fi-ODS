@@ -3,6 +3,9 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_Candidate_TR_UpdateChangeVersion]
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_Candidate_TR_UpdateChangeVersion] ON [tpdm].[Candidate] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -11,6 +14,9 @@ BEGIN
     FROM [tpdm].[Candidate] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
+GO
+
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_CandidateEducatorPreparationProgramAssociation_TR_UpdateChangeVersion]
 GO
 
 CREATE TRIGGER [tpdm].[tpdm_CandidateEducatorPreparationProgramAssociation_TR_UpdateChangeVersion] ON [tpdm].[CandidateEducatorPreparationProgramAssociation] AFTER UPDATE AS
@@ -23,6 +29,9 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_EducatorPreparationProgram_TR_UpdateChangeVersion]
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_EducatorPreparationProgram_TR_UpdateChangeVersion] ON [tpdm].[EducatorPreparationProgram] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -31,6 +40,9 @@ BEGIN
     FROM [tpdm].[EducatorPreparationProgram] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
+GO
+
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_Evaluation_TR_UpdateChangeVersion]
 GO
 
 CREATE TRIGGER [tpdm].[tpdm_Evaluation_TR_UpdateChangeVersion] ON [tpdm].[Evaluation] AFTER UPDATE AS
@@ -43,6 +55,9 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_EvaluationElement_TR_UpdateChangeVersion]
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_EvaluationElement_TR_UpdateChangeVersion] ON [tpdm].[EvaluationElement] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -51,6 +66,9 @@ BEGIN
     FROM [tpdm].[EvaluationElement] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
+GO
+
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_EvaluationElementRating_TR_UpdateChangeVersion]
 GO
 
 CREATE TRIGGER [tpdm].[tpdm_EvaluationElementRating_TR_UpdateChangeVersion] ON [tpdm].[EvaluationElementRating] AFTER UPDATE AS
@@ -63,6 +81,9 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_EvaluationObjective_TR_UpdateChangeVersion]
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_EvaluationObjective_TR_UpdateChangeVersion] ON [tpdm].[EvaluationObjective] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -71,6 +92,9 @@ BEGIN
     FROM [tpdm].[EvaluationObjective] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
+GO
+
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_EvaluationObjectiveRating_TR_UpdateChangeVersion]
 GO
 
 CREATE TRIGGER [tpdm].[tpdm_EvaluationObjectiveRating_TR_UpdateChangeVersion] ON [tpdm].[EvaluationObjectiveRating] AFTER UPDATE AS
@@ -83,6 +107,9 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_EvaluationRating_TR_UpdateChangeVersion]
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_EvaluationRating_TR_UpdateChangeVersion] ON [tpdm].[EvaluationRating] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -91,6 +118,9 @@ BEGIN
     FROM [tpdm].[EvaluationRating] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
+GO
+
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_FinancialAid_TR_UpdateChangeVersion]
 GO
 
 CREATE TRIGGER [tpdm].[tpdm_FinancialAid_TR_UpdateChangeVersion] ON [tpdm].[FinancialAid] AFTER UPDATE AS
@@ -103,6 +133,9 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_PerformanceEvaluation_TR_UpdateChangeVersion]
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_PerformanceEvaluation_TR_UpdateChangeVersion] ON [tpdm].[PerformanceEvaluation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -111,6 +144,9 @@ BEGIN
     FROM [tpdm].[PerformanceEvaluation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
+GO
+
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_PerformanceEvaluationRating_TR_UpdateChangeVersion]
 GO
 
 CREATE TRIGGER [tpdm].[tpdm_PerformanceEvaluationRating_TR_UpdateChangeVersion] ON [tpdm].[PerformanceEvaluationRating] AFTER UPDATE AS
@@ -123,6 +159,9 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_RubricDimension_TR_UpdateChangeVersion]
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_RubricDimension_TR_UpdateChangeVersion] ON [tpdm].[RubricDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -133,6 +172,9 @@ BEGIN
 END	
 GO
 
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_SurveyResponsePersonTargetAssociation_TR_UpdateChangeVersion]
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_SurveyResponsePersonTargetAssociation_TR_UpdateChangeVersion] ON [tpdm].[SurveyResponsePersonTargetAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -141,6 +183,9 @@ BEGIN
     FROM [tpdm].[SurveyResponsePersonTargetAssociation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
+GO
+
+DROP TRIGGER IF EXISTS [tpdm].[tpdm_SurveySectionResponsePersonTargetAssociation_TR_UpdateChangeVersion]
 GO
 
 CREATE TRIGGER [tpdm].[tpdm_SurveySectionResponsePersonTargetAssociation_TR_UpdateChangeVersion] ON [tpdm].[SurveySectionResponsePersonTargetAssociation] AFTER UPDATE AS
