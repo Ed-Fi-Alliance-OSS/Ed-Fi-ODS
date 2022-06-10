@@ -165,8 +165,10 @@ namespace EdFi.Ods.Features.Controllers
                     switch (result.StatusCode)
                     {
                         case IdentityStatusCode.Success:
-                            var route = Url.Link("IdentitiesSearchResult", new {id = result.Data});
-                            return Accepted(route);
+                            var test = "http://www.contoso.com/";
+                            //TODO: Fix this
+                            //var route = Url.Link("IdentitiesSearchResult", new {id = result.Data});
+                            return Accepted(new Uri(test), new {id = result.Data});
                         case IdentityStatusCode.Incomplete:
                             var incompleteErrorResponse = string.Join(
                                 "; ",

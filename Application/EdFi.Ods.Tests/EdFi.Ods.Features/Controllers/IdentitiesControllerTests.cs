@@ -226,5 +226,49 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.ShouldBeOfType<NotFoundObjectResult>());
             }
         }
+
+        public class SuccessFindRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+            private string _uniqueId1;
+            private string _uniqueId2;
+
+            protected override async Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService();
+                var identityServiceAsync = new TestIdentitiesService();
+                _controller = new IdentitiesController(identityService, identityServiceAsync);
+
+                var firstResult = await _controller.Create(
+                    new IdentityCreateRequest
+                    {
+                        BirthDate = DateTime.MinValue,
+
+                    });
+
+                _uniqueId1 = ((ObjectResult)firstResult).Value?.ToString();
+
+                var secondResult = await _controller.Create(
+                    new IdentityCreateRequest
+                    {
+                        BirthDate = DateTime.MinValue,
+
+                    });
+
+                _uniqueId2 = ((ObjectResult)secondResult).Value?.ToString();
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Find(new []{ _uniqueId1, _uniqueId2 });
+            }
+
+            [Test]
+            public void Should_return_success_details()
+            {
+                _actionResult.StatusCode.ShouldBe(StatusCodes.Status202Accepted);
+            }
+        }
     }
 }
