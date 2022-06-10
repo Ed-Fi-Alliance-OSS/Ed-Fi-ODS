@@ -14,15 +14,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 {
     public class DbHelper
     {
-        public static IConfigurationRoot GetDatabaseEngineSpecificConfiguration(DatabaseEngine databaseEngine)
-        {
-            return new ConfigurationBuilder()
-                .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                .AddJsonFile($"appsettings.{(databaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true)
-                .AddEnvironmentVariables()
-                .Build();
-        }
-
         public static IDbConnection GetConnection(DatabaseEngine databaseEngine, string connectionString)
         {
             var connection = databaseEngine == DatabaseEngine.SqlServer ?
