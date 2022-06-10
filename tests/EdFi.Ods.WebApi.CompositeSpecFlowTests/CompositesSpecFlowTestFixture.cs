@@ -8,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using EdFi.Common.Configuration;
 using log4net;
 using log4net.Config;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +26,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
 
         public static IHost Host { get; private set; }
 
-        public static MsSqlDatabaseHelper DatabaseHelper { get; private set; }
+        public static IDatabaseHelper DatabaseHelper { get; private set; }
 
         public static IServiceProvider ServiceProvider { get; private set; }
 
@@ -39,8 +40,14 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
             var executableAbsoluteDirectory = AppContext.BaseDirectory;
             ConfigureLogging(executableAbsoluteDirectory);
 
+            var databaseEngine = DbHelper.GetDatabaseEngine();
+            
             // Create and start up the host
             Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration(configurationBuilder => {
+                    configurationBuilder.SetBasePath(TestContext.CurrentContext.TestDirectory);
+                    configurationBuilder.AddJsonFile($"appsettings.{(databaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true);
+                })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
                     webBuilder =>
@@ -51,7 +58,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 .Build();
 
             ServiceProvider = Host.Services;
-
+            
             var configuration = (IConfigurationRoot) ServiceProvider.GetService(typeof(IConfiguration));
 
             var populatedTemplateDatabaseName = configuration.GetSection("TestDatabaseTemplateName").Value;
@@ -62,7 +69,17 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
             }
 
-            DatabaseHelper = new MsSqlDatabaseHelper(configuration);
+            
+            
+            if (databaseEngine == DatabaseEngine.SqlServer)
+            {
+                DatabaseHelper = new MsSqlDatabaseHelper(configuration);
+            }
+            else
+            {
+                DatabaseHelper = new PgSqlDatabaseHelper(configuration);
+            }
+            
             DatabaseHelper.CopyDatabase(populatedTemplateDatabaseName, SpecFlowDatabaseName);
 
             await Host.StartAsync();

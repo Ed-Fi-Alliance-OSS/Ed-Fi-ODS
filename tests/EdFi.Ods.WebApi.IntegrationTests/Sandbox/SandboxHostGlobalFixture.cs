@@ -7,6 +7,7 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using EdFi.Common.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -18,7 +19,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
     [SetUpFixture]
     public class SandboxHostGlobalFixture
     {
-        private MsSqlDatabaseHelper _databaseHelper;
+        private IDatabaseHelper _databaseHelper;
 
         public static IHost Host { get; set; }
 
@@ -29,7 +30,13 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
         [OneTimeSetUp]
         public async Task OneTimeSetup()
         {
+            var databaseEngine = DbHelper.GetDatabaseEngine();
+
             Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+                 .ConfigureAppConfiguration(configurationBuilder => {
+                     configurationBuilder.SetBasePath(TestContext.CurrentContext.TestDirectory);
+                     configurationBuilder.AddJsonFile($"appsettings.{(databaseEngine == DatabaseEngine.SqlServer ? "mssql" : "pgsql")}.json", true);
+                 })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
                     webBuilder =>
@@ -57,7 +64,15 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
                         "Invalid configuration for integration tests. Verify a valid source database name is provided in the App Setting \"TestDatabaseTemplateName\"");
                 }
 
-                _databaseHelper = new MsSqlDatabaseHelper((IConfigurationRoot) Configuration);
+                if (databaseEngine == DatabaseEngine.SqlServer)
+                {
+                    _databaseHelper = new MsSqlDatabaseHelper((IConfigurationRoot)Configuration);
+                }
+                else
+                {
+                    _databaseHelper = new PgSqlDatabaseHelper((IConfigurationRoot)Configuration);
+                }
+                
 
                 // sandbox databases
                 _databaseHelper.CopyDatabase(populatedTemplateDatabaseName, GlobalWebApiIntegrationTestFixture.DatabaseName);
@@ -72,7 +87,7 @@ namespace EdFi.Ods.WebApi.IntegrationTests.Sandbox
             await Host?.StopAsync();
             Host?.Dispose();
 
-            _databaseHelper.DropDatabase(GlobalWebApiIntegrationTestFixture.DatabaseName);
+            _databaseHelper.DropMatchingDatabases(GlobalWebApiIntegrationTestFixture.DatabaseName);
         }
     }
 }
