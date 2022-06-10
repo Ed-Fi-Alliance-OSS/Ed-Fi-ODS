@@ -44,8 +44,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 var response = (ControllerResponse) _actionResult.Value;
                 AssertHelper.All(
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
-                    () => response.Message.ShouldBe("Invalid response from identity service: Invalid Properties: ErrorCode: InvalidId, ErrorDescription: Invalid Id specified"),
-                    () => response.StatusCode.ShouldBe(IdentityStatusCode.InvalidProperties));
+                    () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Properties: ErrorCode: InvalidId, ErrorDescription: Invalid Id specified"),
+                    () => response!.StatusCode.ShouldBe(IdentityStatusCode.InvalidProperties));
             }
         }
 
@@ -73,8 +73,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 var response = (ControllerResponse)_actionResult.Value;
                 AssertHelper.All(
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
-                    () => response.Message.ShouldBe("Invalid response from identity service: Incomplete: ErrorCode: Incomplete, ErrorDescription: The search results are not ready yet"),
-                    () => response.StatusCode.ShouldBe(IdentityStatusCode.Incomplete));
+                    () => response!.Message.ShouldBe("Invalid response from identity service: Incomplete: ErrorCode: Incomplete, ErrorDescription: The search results are not ready yet"),
+                    () => response!.StatusCode.ShouldBe(IdentityStatusCode.Incomplete));
             }
         }
 
@@ -136,7 +136,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             public void Should_return_success_details()
             {
                 AssertHelper.All(
-                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK));
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK),
+                    () => ((IdentityResponse)_actionResult.Value)!.UniqueId.ShouldBe(_uniqueId));
             }
         }
     }
