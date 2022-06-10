@@ -15,8 +15,6 @@ using NHibernate;
 using NUnit.Framework;
 using System.Reflection;
 using Environment = NHibernate.Cfg.Environment;
-using PostgresSpecificModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.PostgresSpecificModule;
-using SandboxDatabaseReplacementTokenProviderModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.SandboxDatabaseReplacementTokenProviderModule;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
