@@ -75,13 +75,17 @@ namespace EdFi.Ods.Features.Controllers
                             ? (IActionResult) Ok(identity)
                             : NotFound(new NotFoundException());
                     case IdentityStatusCode.Incomplete:
-                        return StatusCode((int)HttpStatusCode.BadGateway, new ControllerResponse{ Message = InvalidServerResponse + "Incomplete: " + identitySearchResponse.Error, StatusCode = identitySearchResponse.StatusCode });
-                    case IdentityStatusCode.InvalidProperties:
-                        var propertyErrorMessages = string.Join(
+                        var incompleteErrorResponse = string.Join(
                             "; ",
                             identitySearchResponse.Error.Select(
                                 x => "ErrorCode: " + x.Code + ", ErrorDescription: " + x.Description));
-                        return StatusCode((int) HttpStatusCode.BadGateway, new ControllerResponse{ Message = InvalidServerResponse + "Invalid Properties: " + propertyErrorMessages, StatusCode = identitySearchResponse.StatusCode});
+                        return StatusCode((int)HttpStatusCode.BadGateway, new ControllerResponse{ Message = InvalidServerResponse + "Incomplete: " + incompleteErrorResponse, StatusCode = identitySearchResponse.StatusCode });
+                    case IdentityStatusCode.InvalidProperties:
+                        var invalidErrorResponse = string.Join(
+                            "; ",
+                            identitySearchResponse.Error.Select(
+                                x => "ErrorCode: " + x.Code + ", ErrorDescription: " + x.Description));
+                        return StatusCode((int) HttpStatusCode.BadGateway, new ControllerResponse{ Message = InvalidServerResponse + "Invalid Properties: " + invalidErrorResponse, StatusCode = identitySearchResponse.StatusCode});
                     case IdentityStatusCode.NotFound:
                         return NotFound(new NotFoundException());
                     default:
