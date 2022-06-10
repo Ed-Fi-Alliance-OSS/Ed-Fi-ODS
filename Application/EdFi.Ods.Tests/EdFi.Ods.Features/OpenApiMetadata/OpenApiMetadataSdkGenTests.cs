@@ -7,11 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
+using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
@@ -95,7 +97,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(),defaultPageSieLimitProvider);
+                _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    CreateApiSettings(), defaultPageSieLimitProvider,
+                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
             }
@@ -204,7 +208,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
 
                 var defaultPageSieLimitProvider = new DefaultPageSizeLimitProvider(GetConfiguration());
 
-                _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(CreateApiSettings(), defaultPageSieLimitProvider);
+                _extensionOnlyOpenApiMetadataDocumentFactory = new OpenApiMetadataDocumentFactory(
+                    CreateApiSettings(), defaultPageSieLimitProvider,
+                    new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()));
 
                 _resourceStrategy = new SdkGenExtensionResourceStrategy();
             }
@@ -291,7 +297,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                                         x.Name)
                                     .ToUpperInvariant())
                             .Concat(
-                                new[] {"LINK", "DELETEDRESOURCE" }));
+                                new[] {"LINK"}));
 
                 Assert.That(nonBelongingDefinitions, Is.Empty);
             }
@@ -316,7 +322,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
 
                 _genericOpenApiMetadataDefinitionFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
-                        _openApiMetadataDocumentContext);
+                        _openApiMetadataDocumentContext,
+                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        CreateApiSettings());
             }
 
             protected override void Act()
@@ -340,8 +348,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
 
                 AssertHelper.All(
                     _actualDefinitions.Keys
+                        .Where(
+                            d =>
+                                !d.StartsWithIgnoreCase(
+                                    "TrackedChanges"))
                         .Except(
-                            new[] {"link", "deletedResource" })
+                            new[] {"link"})
                         .Select(
                             d =>
                                 (Action)
@@ -396,7 +408,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
 
                 _genericOpenApiMetadataDefinitionFactory =
                     OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
-                        _openApiMetadataDocumentContext);
+                        _openApiMetadataDocumentContext,
+                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        CreateApiSettings());
 
                 _domainModelProvider = DomainModelDefinitionsProviderHelper.DomainModelProvider;
 
@@ -431,8 +445,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata
                         d =>
                             !d.EndsWithIgnoreCase(
                                 "Extensions"))
+                    .Where(
+                        d =>
+                            !d.StartsWithIgnoreCase(
+                                "TrackedChanges"))
                     .Except(
-                        new[] {"link", "deletedResource" })
+                        new[] {"link" })
                     .Select(
                         d => d.Split('_')
                             .First())

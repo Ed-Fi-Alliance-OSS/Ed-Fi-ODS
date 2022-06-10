@@ -6,10 +6,11 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Queries;
-using EdFi.Ods.Features.ChangeQueries.Repositories;
+using EdFi.Ods.Features.ChangeQueries.Repositories.Snapshots;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,10 +44,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 _logger.Debug($"{nameof(SnapshotsController)} was matched to handle the request, but the '{ApiFeature.ChangeQueries}' feature is disabled.");
 
                 // Not Found
-                return new ObjectResult(null)
-                {
-                    StatusCode = (int) HttpStatusCode.NotFound,
-                };
+                return ControllerHelpers.NotFound();
             }
 
             var snapshots = await _getSnapshots.GetAllAsync(new QueryParameters(urlQueryParametersRequest));
@@ -61,10 +59,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
                 _logger.Debug($"{nameof(SnapshotsController)} was matched to handle the request, but the '{ApiFeature.ChangeQueries}' feature is disabled.");
 
                 // Not Found
-                return new ObjectResult(null)
-                {
-                    StatusCode = (int) HttpStatusCode.NotFound,
-                };
+                return ControllerHelpers.NotFound();
             }
 
             var snapshot = await _getSnapshots.GetByIdAsync(id);
@@ -72,10 +67,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
             if (snapshot == null)
             {
                 // Not Found
-                return new ObjectResult(null)
-                {
-                    StatusCode = (int) HttpStatusCode.NotFound,
-                };
+                return ControllerHelpers.NotFound();
             }
             
             return Ok(snapshot);

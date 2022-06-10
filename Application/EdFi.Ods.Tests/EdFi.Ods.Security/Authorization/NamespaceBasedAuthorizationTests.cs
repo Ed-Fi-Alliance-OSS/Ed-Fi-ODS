@@ -8,12 +8,15 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.NamespaceBased;
+using EdFi.Ods.Common.Database.NamingConventions;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Tests._Extensions;
+using FakeItEasy;
 using NUnit.Framework;
 using Shouldly;
 
@@ -61,7 +64,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public void NamespaceBasedAuthorization_EmptyResourceNamespace()
         {
             //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy();
+            var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
 
             var claims = new List<Claim>
             {
@@ -80,7 +83,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             };
 
             //Act
-            var filterDefinition = strategy.CreateAuthorizationFilterDefinitions().Single();
+            var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
 
             var result = filterDefinition.AuthorizeInstance(
                 new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data),
@@ -125,7 +128,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
         public void NamespaceBasedAuthorization_MismatchedNamespaces()
         {
             //Arrange
-            var strategy = new NamespaceBasedAuthorizationStrategy();
+            var filterDefinitionsFactory = new NamespaceBasedAuthorizationFilterDefinitionsFactory(A.Fake<IDatabaseNamingConvention>());
 
             var claims = new List<Claim>
             {
@@ -144,7 +147,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
             };
 
             //Act
-            var filterDefinition = strategy.CreateAuthorizationFilterDefinitions().Single();
+            var filterDefinition = filterDefinitionsFactory.CreateAuthorizationFilterDefinitions().Single();
 
             var result = filterDefinition.AuthorizeInstance(
                 new EdFiAuthorizationContext(new ApiKeyContext(), principal, new[] { resource }, action, data),

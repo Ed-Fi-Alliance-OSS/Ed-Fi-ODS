@@ -120,7 +120,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         props.Add(
                             property.IsPersonOrUsi() && !templateContext.IsExtension
                                 ? PropertyData.CreateUsiPrimaryKey(property)
-                                : property.HasAssociations() && !property.IsDirectLookup
+                                : property.HasAssociations() && !property.IsDirectDescriptorUsage
                                     ? PropertyData.CreateReferencedProperty(property, resource: filteredResource)
                                     : PropertyData.CreateStandardProperty(property));
                     }
@@ -144,7 +144,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                         }
 
                         props.Add(
-                            property.HasAssociations() && !property.IsDirectLookup
+                            property.HasAssociations() && !property.IsDirectDescriptorUsage
                                 ? PropertyData.CreateReferencedProperty(property)
                                 : PropertyData.CreateStandardProperty(property));
                     }
@@ -448,7 +448,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                             yield return AssembleDerivedProperty(property);
                         }
                     }
-                    else if (property.IsDirectLookup)
+                    else if (property.IsDirectDescriptorUsage)
                     {
                         yield return PropertyData.CreateStandardProperty(property);
                     }
@@ -464,7 +464,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 {
                     if (property.HasAssociations())
                     {
-                        yield return property.IsLookup
+                        yield return property.IsDescriptorUsage
                             ? PropertyData.CreateStandardProperty(property)
                             : PropertyData.CreateReferencedProperty(property);
                     }

@@ -1,0 +1,552 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <!-- Remove explicit authorization strategy override for ReadChanges action -->
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/managedDescriptors">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <!-- Remove explicit authorization strategy override for ReadChanges action -->
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/educationOrganizations">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <!-- Remove explicit authorization strategy override for ReadChanges action -->
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+        <ClaimSet name="Ed-Fi API Publisher - Reader">
+          <!-- Remove explicit authorization strategy override for ReadChanges action -->
+          <Actions>
+            <Action name="Read" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/people">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+      <Claims>
+        <Claim claimId="59" name="http://ed-fi.org/ods/identity/claims/communityProviderLicense">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+            <ClaimSet name="Ed-Fi API Publisher - Reader">
+              <Actions>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim claimId="178" name="http://ed-fi.org/ods/identity/claims/person">
+          <DefaultAuthorization>
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+          </DefaultAuthorization>
+        </Claim>
+        <Claim claimId="272" name="http://ed-fi.org/ods/identity/claims/studentParentAssociation">
+          <DefaultAuthorization>
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithStudentsOnly" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+              </AuthorizationStrategies>
+            </Action>
+          </DefaultAuthorization>
+        </Claim>
+      </Claims>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/educationStandards">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+      <Claims>
+        <Claim claimId="77" name="http://ed-fi.org/ods/identity/claims/credential">
+          <DefaultAuthorization>
+            <Action name="Create">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategies>
+                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+              </AuthorizationStrategies>
+            </Action>
+          </DefaultAuthorization>
+        </Claim>
+      </Claims>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/primaryRelationships">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/surveyDomain">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/educationContent">
+      <DefaultAuthorization>
+        <Action name="Create">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Read">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Update">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="Delete">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+        <Action name="ReadChanges">
+          <AuthorizationStrategies>
+            <AuthorizationStrategy name="NamespaceBased" />
+          </AuthorizationStrategies>
+        </Action>
+      </DefaultAuthorization>
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create" />
+            <Action name="Read" />
+            <Action name="Update" />
+            <Action name="Delete" />
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+  </Claims>
+</SecurityMetadata>

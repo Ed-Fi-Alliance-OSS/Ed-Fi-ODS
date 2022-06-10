@@ -276,5 +276,12 @@ namespace EdFi.Ods.Common.Conventions
         public static readonly FullName EducationOrganizationFullName = new FullName(
             EdFiConventions.PhysicalSchemaName,
             "EducationOrganization");
+
+        /// <summary>
+        /// Gets the full name of the Ed-Fi Descriptor base entity. 
+        /// </summary>
+        public static readonly FullName DescriptorFullName = new FullName(
+            EdFiConventions.PhysicalSchemaName,
+            "Descriptor");
     }
 }

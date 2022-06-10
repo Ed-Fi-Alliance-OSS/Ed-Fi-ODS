@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Common;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Models.Domain;
 
@@ -14,13 +15,18 @@ namespace EdFi.Ods.Common.Models.Resource
     // Resource (non-top-level) only
     public class ResourceChildItem : ResourceClassBase, IHasParent
     {
-        internal ResourceChildItem(IResourceModel resourceModel, Entity entity, FilterContext childContext, ResourceClassBase parentResource)
+        private readonly ResourceMemberBase _containingMember;
+
+        internal ResourceChildItem(ResourceMemberBase containingMember, IResourceModel resourceModel, Entity entity, FilterContext childContext, ResourceClassBase parentResource)
             : base(resourceModel, entity, childContext)
         {
+            _containingMember = Preconditions.ThrowIfNull(containingMember, nameof(containingMember));
+
             Parent = parentResource;
         }
 
         internal ResourceChildItem(
+            ResourceMemberBase containingMember,
             IResourceModel resourceModel,
             Entity entity,
             FilterContext childContext,
@@ -29,6 +35,8 @@ namespace EdFi.Ods.Common.Models.Resource
             Func<IEnumerable<AssociationView>> embeddedObjectAssociations)
             : base(resourceModel, entity, childContext, collectionAssociations, embeddedObjectAssociations)
         {
+            _containingMember = Preconditions.ThrowIfNull(containingMember, nameof(containingMember));
+
             Parent = parentResource;
         }
 
@@ -53,6 +61,7 @@ namespace EdFi.Ods.Common.Models.Resource
         }
 
         public ResourceChildItem(
+            ResourceMemberBase containingMember,
             IResourceModel resourceModel,
             FullName fullName,
             ResourceClassBase parentResource,
@@ -61,7 +70,14 @@ namespace EdFi.Ods.Common.Models.Resource
             FilterContext filterContext)
             : base(resourceModel, fullName, collectionAssociations, embeddedObjectAssociations, filterContext)
         {
+            _containingMember = Preconditions.ThrowIfNull(containingMember, nameof(containingMember));
+            
             Parent = parentResource;
+        }
+
+        public ResourceMemberBase ContainingMember
+        {
+            get => _containingMember;
         }
 
         /// <summary>
@@ -70,6 +86,19 @@ namespace EdFi.Ods.Common.Models.Resource
         public override Resource ResourceRoot => GetLineage()
                                                 .Cast<Resource>()
                                                 .First();
+
+        public override string JsonPath
+        {
+            get
+            {
+                if (_containingMember == null)
+                {
+                    throw new NullReferenceException($"The containing member for ResourceChildItem '{FullName}' has not been initialized.");
+                }
+                
+                return _containingMember.JsonPath;
+            }
+        }
 
         /// <summary>
         /// Indicates whether the resource class is part of an extension to an Ed-Fi standard resource (i.e. a "resource extension" as opposed to being part of a new "extension resource").

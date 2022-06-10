@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -8,13 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.InversionOfControl;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Get;
-using EdFi.Ods.Api.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Api.Infrastructure.Pipelines.GetMany;
 using EdFi.Ods.Api.Infrastructure.Pipelines.Put;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Infrastructure.Pipelines;
 using EdFi.Ods.Common.Infrastructure.Pipelines.Delete;
-using EdFi.Ods.Common.Infrastructure.Pipelines.GetDeletedResource;
 using EdFi.Ods.Common.Infrastructure.Pipelines.GetMany;
 using NHibernate;
 
@@ -26,7 +24,6 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
         private readonly IDeletePipelineStepsProvider _deletePipelineStepsProvider;
         private readonly IGetBySpecificationPipelineStepsProvider _getBySpecificationPipelineStepsProvider;
         private readonly IGetPipelineStepsProvider _getPipelineStepsProvider;
-        private readonly IGetDeletedResourceIdsPipelineStepsProvider _getDeletedResourceIdsPipelineStepsProvider;
         private readonly IPutPipelineStepsProvider _putPipelineStepsProvider;
         private readonly ISessionFactory _sessionFactory;
 
@@ -34,7 +31,6 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
             IServiceLocator locator,
             IGetPipelineStepsProvider getPipelineStepsProvider,
             IGetBySpecificationPipelineStepsProvider getBySpecificationPipelineStepsProvider,
-            IGetDeletedResourceIdsPipelineStepsProvider getDeletedResourceIdsPipelineStepsProvider,
             IPutPipelineStepsProvider putPipelineStepsProvider,
             IDeletePipelineStepsProvider deletePipelineStepsProvider,
             ISessionFactory sessionFactory)
@@ -42,7 +38,6 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
             _locator = locator;
             _getPipelineStepsProvider = getPipelineStepsProvider;
             _getBySpecificationPipelineStepsProvider = getBySpecificationPipelineStepsProvider;
-            _getDeletedResourceIdsPipelineStepsProvider = getDeletedResourceIdsPipelineStepsProvider;
             _putPipelineStepsProvider = putPipelineStepsProvider;
             _deletePipelineStepsProvider = deletePipelineStepsProvider;
             _sessionFactory = sessionFactory;
@@ -73,18 +68,6 @@ namespace EdFi.Ods.Api.Infrastructure.Pipelines.Factories
                     stepTypes);
 
             return new GetManyPipeline<TResourceModel, TEntityModel>(steps, _sessionFactory);
-        }
-
-        public GetDeletedResourcePipeline<TEntityModel> CreateGetDeletedResourcePipeline<TResourceModel, TEntityModel>()
-            where TEntityModel : class
-        {
-            var stepsTypes = _getDeletedResourceIdsPipelineStepsProvider.GetSteps();
-
-            var steps =
-                ResolvePipelineSteps<GetDeletedResourceContext<TEntityModel>, GetDeletedResourceResult, TResourceModel,
-                    TEntityModel>(stepsTypes);
-
-            return new GetDeletedResourcePipeline<TEntityModel>(steps);
         }
 
         public PutPipeline<TResourceModel, TEntityModel> CreatePutPipeline<TResourceModel, TEntityModel>()

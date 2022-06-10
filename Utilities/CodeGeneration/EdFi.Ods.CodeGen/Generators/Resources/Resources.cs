@@ -87,7 +87,7 @@ namespace EdFi.Ods.CodeGen.Generators.Resources
                 .Select(
                     x =>
                     {
-                        string propertyName = x.IsLookup
+                        string propertyName = x.IsDescriptorUsage
                             ? x.PropertyName + "Id"
                             : x.PropertyName;
 

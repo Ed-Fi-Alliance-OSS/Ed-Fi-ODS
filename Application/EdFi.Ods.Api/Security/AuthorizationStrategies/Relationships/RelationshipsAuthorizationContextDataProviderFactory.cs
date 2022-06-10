@@ -53,7 +53,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 throw new NotSupportedException(
                     string.Format(
-                        "Unable to locate a relationships authorization context data provider for entity type '{0}'.  Does it have any properties related to relationship-based authorization, and should it be getting authorized using a relationships-based authorization strategy?",
+                        "Unable to locate a relationships authorization context data provider for entity type '{0}'.  Does it actually have any properties related to relationship-based authorization, and should it really be getting authorized using a relationships-based authorization strategy?",
                         entityType.FullName),
                     ex);
             }

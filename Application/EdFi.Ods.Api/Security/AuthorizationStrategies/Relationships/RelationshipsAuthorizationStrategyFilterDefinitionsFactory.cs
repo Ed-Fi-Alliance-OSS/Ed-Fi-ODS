@@ -3,12 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Ods.Api.Security.Authorization;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.NHibernateConfiguration;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Database.Querying;
 using EdFi.Ods.Common.Infrastructure.Filtering;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
@@ -40,59 +42,52 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             return CreateAllEducationOrganizationToPersonFilters()
                 .Concat(CreateAllEducationOrganizationToEducationOrganizationFilters())
-                .Concat(CreateEducationOrganizationToSelfPropertyValueFilters()) // NOTE: These may not actually be used (and if so, could be removed)
+                .ToArray();
+        }
+
+        protected IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToPersonFilters(
+            string authorizationPathModifier = null,
+            Func<string, bool> shouldIncludePersonType = null)
+        {
+            string[] personUsiNames = PersonEntitySpecification.ValidPersonTypes
+                .Where(usiName => shouldIncludePersonType == null || shouldIncludePersonType(usiName))
+                // Sort the person types to ensure a determinate alias generation during filter definition
+                .OrderBy(p => p)
+                .Select(personType => $"{personType}USI")
                 .ToArray();
             
-            IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToPersonFilters()
-            {
-                string[] personUsiNames = PersonEntitySpecification.ValidPersonTypes
-                    // Sort the person types to ensure a determinate alias generation during filter definition
-                    .OrderBy(p => p)
-                    .Select(personType => $"{personType}USI")
-                    .ToArray();
-            
-                return personUsiNames.Select(usiName => 
-                    new ViewBasedAuthorizationFilterDefinition(
-                        $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{usiName}",
-                        $"EducationOrganizationIdTo{usiName}",
-                        usiName,
-                        usiName,
-                        AuthorizeInstance,
-                        _viewBasedSingleItemAuthorizationQuerySupport
-                    ));
-            }
+            return personUsiNames.Select(usiName => 
+                new ViewBasedAuthorizationFilterDefinition(
+                    $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{usiName}{authorizationPathModifier}",
+                    $"EducationOrganizationIdTo{usiName}{authorizationPathModifier}",
+                    usiName,
+                    usiName,
+                    ApplyTrackedChangesAuthorizationCriteria,
+                    AuthorizeInstance,
+                    _viewBasedSingleItemAuthorizationQuerySupport
+                ));
+        }
 
-            IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToEducationOrganizationFilters()
-            {
-                string[] concreteEdOrgIdNames = _educationOrganizationIdNamesProvider.GetAllNames(); 
+        // TODO: Is this even necessary anymore with the EdOrg generalization in authorization?
+        protected IEnumerable<ViewBasedAuthorizationFilterDefinition> CreateAllEducationOrganizationToEducationOrganizationFilters()
+        {
+            string[] concreteEdOrgIdNames = _educationOrganizationIdNamesProvider.GetAllNames(); 
             
-                return concreteEdOrgIdNames
-                    // Sort the edorg id names to ensure a determinate alias generation during filter definition
-                    .OrderBy(n => n)
-                    .Select(concreteEdOrgId => 
+            return concreteEdOrgIdNames
+                // Sort the edorg id names to ensure a determinate alias generation during filter definition
+                .OrderBy(n => n)
+                .Select(concreteEdOrgId => 
                     new ViewBasedAuthorizationFilterDefinition(
                         $"{RelationshipAuthorizationConventions.FilterNamePrefix}To{concreteEdOrgId}",
                         "EducationOrganizationIdToEducationOrganizationId",
                         "TargetEducationOrganizationId",
                         concreteEdOrgId,
+                        ApplyTrackedChangesAuthorizationCriteria,
                         AuthorizeInstance,
                         _viewBasedSingleItemAuthorizationQuerySupport));
-            }
-
-            IEnumerable<AuthorizationFilterDefinition> CreateEducationOrganizationToSelfPropertyValueFilters()
-            {
-                return _educationOrganizationIdNamesProvider.GetConcreteNames()
-                    .Select(propertyName => 
-                        new AuthorizationFilterDefinition(
-                            $"{propertyName}To{propertyName}",
-                            $"{{currentAlias}}.{propertyName} IN (:{propertyName})",
-                            (criteria, whereJunction, parameters, joinType) => whereJunction.ApplyPropertyFilters(parameters, propertyName),
-                            AuthorizeInstance,
-                            (t, p) => p.HasPropertyNamed(propertyName)));
-            }
         }
 
-        protected InstanceAuthorizationResult AuthorizeInstance(
+        private InstanceAuthorizationResult AuthorizeInstance(
             EdFiAuthorizationContext authorizationContext,
             AuthorizationFilterContext filterContext)
         {
@@ -116,6 +111,61 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             }
 
             return InstanceAuthorizationResult.NotPerformed();
+        }
+
+        private static void ApplyTrackedChangesAuthorizationCriteria(
+            AuthorizationFilterDefinition filterDefinition, 
+            AuthorizationFilterContext filterContext, 
+            Resource resource, 
+            int filterIndex,
+            QueryBuilder queryBuilder,
+            bool useOuterJoins)
+        {
+            var viewBasedFilterDefinition = (ViewBasedAuthorizationFilterDefinition) filterDefinition;
+
+            if (viewBasedFilterDefinition == null)
+            {
+                 throw new Exception($"Expected a view-based filter definition of type '{typeof(ViewBasedAuthorizationFilterDefinition)}'.");
+            }
+
+            string viewName = viewBasedFilterDefinition.ViewName;
+
+            string trackedChangesPropertyName = resource.Entity.IsDerived 
+                ? GetBasePropertyNameForSubjectEndpointName() 
+                : filterContext.SubjectEndpointName;
+
+            if (useOuterJoins)
+            {
+                queryBuilder.LeftJoin(
+                    $"auth.{viewName} AS rba{filterIndex}",
+                    $"c.Old{trackedChangesPropertyName}",
+                    $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
+
+                // Apply claim value criteria
+                queryBuilder.OrWhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimParameterValues);
+                queryBuilder.OrWhereNull($"rba{filterIndex}.SourceEducationOrganizationId");
+            }
+            else
+            {
+                queryBuilder.Join(
+                    $"auth.{viewName} AS rba{filterIndex}",
+                    $"c.Old{trackedChangesPropertyName}",
+                    $"rba{filterIndex}.{viewBasedFilterDefinition.ViewTargetEndpointName}");
+
+                // Apply claim value criteria
+                queryBuilder.WhereIn($"rba{filterIndex}.SourceEducationOrganizationId", filterContext.ClaimParameterValues);
+            }
+            
+            string GetBasePropertyNameForSubjectEndpointName()
+            {
+                if (!resource.Entity.PropertyByName.TryGetValue(filterContext.SubjectEndpointName, out var entityProperty))
+                {
+                    throw new Exception(
+                        $"Unable to find property '{filterContext.SubjectEndpointName}' on entity '{resource.Entity.FullName}'.");
+                }
+
+                return entityProperty.BaseProperty.PropertyName;
+            }
         }
     }
 }

@@ -19,8 +19,10 @@ namespace EdFi.Ods.Common.Models.Domain
     /// </summary>
     public class EntityProperty : DomainPropertyBase
     {
-        private Lazy<Entity> _lookupEntity;
+        private Lazy<Entity> _descriptorEntity;
         private Lazy<bool> _isUnified;
+        private Lazy<EntityProperty> _definingProperty;
+        private Lazy<EntityProperty> _definingConcreteProperty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityProperty" /> class using the specified property definition.
@@ -66,93 +68,45 @@ namespace EdFi.Ods.Common.Models.Domain
             _isUnified = new Lazy<bool>(
                 () => IncomingAssociations.Count > 1);
 
-            _lookupEntity = new Lazy<Entity>(
+            _definingProperty = new Lazy<EntityProperty>(() => GetDefiningProperty(restrictToConcreteEntity: false));
+            
+            _definingConcreteProperty = new Lazy<EntityProperty>(() => GetDefiningProperty(restrictToConcreteEntity: true));
+            
+            _descriptorEntity = new Lazy<Entity>(
                 () =>
                 {
-                    // Detached properties are not lookup properties
-                    if (Entity == null)
+                    if (DefiningConcreteProperty?.Entity?.IsDescriptorEntity == true && DefiningConcreteProperty.Entity != Entity)
                     {
-                        return null;
+                        return DefiningConcreteProperty.Entity;
                     }
 
-                    // Is this property a TypeId or DescriptorId on the table?  If so, it's not a lookup property.
-                    if (DescriptorEntitySpecification.IsEdFiDescriptorEntity(Entity.Name)
-                        && PropertyName == Entity.Name + "Id") // TODO: Embedded convention - Types/descriptor properties use entity name + "Id" suffix
-                    {
-                        return null;
-                    }
-
-                    var currentAssociation = IncomingAssociations.FirstOrDefault(
-                        x =>
-                            x.AssociationType == AssociationViewType.FromBase
-                            || x.AssociationType == AssociationViewType.OneToOneIncoming
-                            || x.AssociationType == AssociationViewType.ManyToOne
-
-                            // Prevent processing self-recursive relationships with key unification on current property (prevent endless loop)
-                            && !(x.IsSelfReferencing && PropertyName.EqualsIgnoreCase(
-                                     x.PropertyMappingByThisName[PropertyName]
-                                      .OtherProperty.PropertyName)));
-
-                    if (currentAssociation == null)
-                    {
-                        return null;
-                    }
-
-                    var currentThisProperty = this;
-
-                    while (currentAssociation != null)
-                    {
-                        var otherProperty = currentAssociation.PropertyMappingByThisName[currentThisProperty.PropertyName]
-                                                              .OtherProperty;
-
-                        if (ModelComparers.EntityProperty.Equals(currentThisProperty, otherProperty))
-                        {
-                            throw new Exception(
-                                "Association property mapping endpoints refer to the same property.");
-                        }
-
-                        currentThisProperty = otherProperty;
-
-                        // Stop looking if we've hit a lookup table (Type or Descriptor)
-                        if (currentThisProperty.Entity.IsLookup)
-                        {
-                            break;
-                        }
-
-                        currentAssociation = otherProperty.IncomingAssociations.FirstOrDefault(
-                            x =>
-                                x.AssociationType == AssociationViewType.FromBase
-                                || x.AssociationType == AssociationViewType.OneToOneIncoming
-                                || x.AssociationType == AssociationViewType.ManyToOne
-                                && !(x.IsSelfReferencing && currentThisProperty.PropertyName.EqualsIgnoreCase(
-                                         x.PropertyMappingByThisName[
-                                               currentThisProperty
-                                                  .PropertyName]
-                                          .OtherProperty
-                                          .PropertyName)));
-                    }
-
-                    return
-                        currentThisProperty.Entity.IsLookup
-                        && currentThisProperty.Entity.Aggregate != Entity.Aggregate
-                            ? currentThisProperty.Entity
-                            : null;
+                    return null;
                 });
         }
 
+        [Obsolete("Use IsDescriptorUsage.")]
         public bool IsLookup
+        {
+            get => IsDescriptorUsage;
+        }
+        
+        /// <summary>
+        /// Indicates whether the property represents the usage of a descriptor.
+        /// </summary>
+        public bool IsDescriptorUsage
         {
             get
             {
-                // This prevents a known inconsistency in the Ed-Fi ODS from being reported as a descriptor lookup
-                if (PropertyName == "PriorDescriptorId") // TODO: Embedded convention - hardcoded logic
-                {
-                    return false;
-                }
-
-                return LookupEntity != null
-                       && DescriptorEntitySpecification.IsEdFiDescriptorEntity(LookupEntity.Name);
+                return DescriptorEntity != null && !IncomingAssociations.Any(a => a.IsSelfReferencing);
             }
+        }
+
+        /// <summary>
+        /// Gets the corresponding property in the base entity, if current entity is derived; otherwise <b>null</b>.
+        /// </summary>
+        public EntityProperty BaseProperty
+        {
+            get => Entity.BaseAssociation?.PropertyMappingByThisName[PropertyName].OtherProperty;
         }
 
         /// <summary>
@@ -167,12 +121,26 @@ namespace EdFi.Ods.Common.Models.Domain
         /// from the corresponding lookup entity (as opposed to migrated into the entity via an association
         /// from a non-lookup entity).
         /// </summary>
-        public bool IsDirectLookup => IsLookup && IncomingAssociations.Any(x => x.OtherEntity == LookupEntity);
+        [Obsolete("Use IsDirectDescriptorUsage instead.")]
+        public bool IsDirectLookup => IsDirectDescriptorUsage;
 
         /// <summary>
-        /// Gets the type or descriptor lookup entity (if applicable); otherwise null.
+        /// Indicates whether the the property is a descriptor value that is directly referenced
+        /// from the corresponding descriptor entity (as opposed to migrated into the entity via an association
+        /// from a non-descriptor entity).
         /// </summary>
-        public Entity LookupEntity => _lookupEntity.Value;
+        public bool IsDirectDescriptorUsage => IsDescriptorUsage && IncomingAssociations.Any(x => x.OtherEntity == DescriptorEntity);
+
+        /// <summary>
+        /// Gets the corresponding descriptor entity (if applicable); otherwise null.
+        /// </summary>
+        [Obsolete("Use DescriptorEntity instead.")]
+        public Entity LookupEntity => DescriptorEntity;
+        
+        /// <summary>
+        /// Gets the corresponding descriptor entity (if applicable); otherwise null.
+        /// </summary>
+        public Entity DescriptorEntity => _descriptorEntity.Value;
 
         /// <summary>
         /// Gets the associations that contribute the property to the current entity.
@@ -247,6 +215,64 @@ namespace EdFi.Ods.Common.Models.Domain
         public bool IsLocallyDefined { get; internal set; }
 
         /// <summary>
+        /// Gets the <see cref="EntityProperty" /> where the property was originally defined in a concrete entity (i.e. it will not
+        /// return the property of the abstract base entity). If the property is part of a foreign key relationship, the property
+        /// returned will be a property associated with a different <see cref="Entity" />. 
+        /// </summary>
+        /// <remarks>
+        /// For properties that are identifying properties of an abstract base type (e.g. descriptors,
+        /// education organizations, student program associations, etc.), this will return the property of the concrete (derived)
+        /// <see cref="Entity" />.
+        /// </remarks>
+        /// <seealso cref="DefiningProperty"/>
+        public EntityProperty DefiningConcreteProperty
+        {
+            get => _definingConcreteProperty.Value;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="EntityProperty" /> where the property was originally defined in the model regardless of whether
+        /// the original definition is in a concrete or abstract entity. If the property is part of a foreign key relationship, the property returned will be a property associated
+        /// with a different <see cref="Entity" />. 
+        /// </summary>
+        /// <remarks>
+        /// For properties that are identifying properties of an abstract base type (e.g. descriptors,
+        /// education organizations, student program associations, etc.), this will return that property (rather than the property
+        /// as it is represented in the concrete (derived) <see cref="Entity" />.
+        /// </remarks>
+        /// <seealso cref="DefiningConcreteProperty"/>
+        public EntityProperty DefiningProperty
+        {
+            get => _definingProperty.Value;
+        }
+
+        private EntityProperty GetDefiningProperty(bool restrictToConcreteEntity)
+        {
+            if (IsLocallyDefined)
+            {
+                return this;
+            }
+            
+            var currentProperty = this;
+
+            while (currentProperty.IncomingAssociations.Any(a => 
+                a.AssociationType == AssociationViewType.ManyToOne 
+                || a.AssociationType == AssociationViewType.OneToOneIncoming
+                // Follow relationship into the core Ed-Fi model from an extension
+                || a.AssociationType == AssociationViewType.FromCore
+                // Follow base type relationships if they don't originate there, or are explicitly allowed by caller
+                || (a.AssociationType == AssociationViewType.FromBase 
+                    && (a.OtherProperties.Any(p => !p.IsLocallyDefined) || !restrictToConcreteEntity))))
+            {
+                currentProperty = currentProperty.IncomingAssociations.First()
+                    .PropertyMappingByThisName[currentProperty.PropertyName]
+                    .OtherProperty;
+            }
+
+            return currentProperty;
+        }
+        
+        /// <summary>
         /// Indicates whether the current property is deprecated.
         /// </summary>
         public bool IsDeprecated { get; set; }
@@ -255,5 +281,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// Indicates reasons over the property when it is deprecated.
         /// </summary>
         public string[] DeprecationReasons { get; set; }
+
+        public override string ToString() => PropertyName;
     }
 }

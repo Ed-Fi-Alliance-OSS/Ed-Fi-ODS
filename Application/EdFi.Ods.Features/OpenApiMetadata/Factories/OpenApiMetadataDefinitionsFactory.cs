@@ -3,14 +3,16 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Common.Utils.Extensions;
+using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
 using EdFi.Ods.Features.OpenApiMetadata.Strategies.FactoryStrategies;
@@ -24,16 +26,22 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         private readonly IOpenApiMetadataDefinitionsFactoryEntityExtensionStrategy _definitionsFactoryEntityExtensionStrategy;
         private readonly IOpenApiMetadataDefinitionsFactoryNamingStrategy _openApiMetadataDefinitionsFactoryNamingStrategy;
         private readonly IOpenApiMetadataFactoryResourceFilterStrategy _openApiMetadataFactoryResourceFilterStrategy;
+        private readonly ITrackedChangesIdentifierProjectionsProvider _trackedChangesIdentifierProjectionsProvider;
+        private readonly ApiSettings _apiSettings;
 
         public OpenApiMetadataDefinitionsFactory(IOpenApiMetadataDefinitionsFactoryEntityExtensionStrategy entityExtensionStrategy,
             IOpenApiMetadataDefinitionsFactoryEdFiExtensionBridgeStrategy edFiExtensionBridgeStrategy,
             IOpenApiMetadataDefinitionsFactoryNamingStrategy openApiMetadataDefinitionsFactoryNamingStrategy,
-            IOpenApiMetadataFactoryResourceFilterStrategy openApiMetadataFactoryResourceFilterStrategy)
+            IOpenApiMetadataFactoryResourceFilterStrategy openApiMetadataFactoryResourceFilterStrategy,
+            ITrackedChangesIdentifierProjectionsProvider trackedChangesIdentifierProjectionsProvider,
+            ApiSettings apiSettings)
         {
             _definitionsFactoryEntityExtensionStrategy = entityExtensionStrategy;
             _definitionsFactoryEdFiExtensionBridgeStrategy = edFiExtensionBridgeStrategy;
             _openApiMetadataDefinitionsFactoryNamingStrategy = openApiMetadataDefinitionsFactoryNamingStrategy;
             _openApiMetadataFactoryResourceFilterStrategy = openApiMetadataFactoryResourceFilterStrategy;
+            _trackedChangesIdentifierProjectionsProvider = trackedChangesIdentifierProjectionsProvider;
+            _apiSettings = apiSettings;
         }
 
         private static Schema EtagSchema
@@ -46,20 +54,43 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
         public IDictionary<string, Schema> Create(IList<OpenApiMetadataResource> openApiMetadataResources)
         {
             var definitions = BoilerPlateDefinitions();
+            var isChangeQueriesEnabled = _apiSettings.IsFeatureEnabled("ChangeQueries");
 
-            openApiMetadataResources.Where(x => _openApiMetadataFactoryResourceFilterStrategy.ShouldInclude(x.Resource)).Select(
-                r => new
-                {
-                    key = _openApiMetadataDefinitionsFactoryNamingStrategy.GetResourceName(r.Resource, r),
-                    schema = CreateResourceSchema(r)
-                }).GroupBy(d => d?.key).Select(g => g.First()).ForEach(
-                d =>
-                {
-                    if (d != null)
+            openApiMetadataResources
+                .Where(x => _openApiMetadataFactoryResourceFilterStrategy.ShouldInclude(x.Resource))
+                .SelectMany(
+                    r => new[]
                     {
-                        definitions.Add(d.key, d.schema);
-                    }
-                });
+                        new
+                        {
+                            key = _openApiMetadataDefinitionsFactoryNamingStrategy.GetResourceName(r.Resource, r),
+                            schema = CreateResourceSchema(r)
+                        },
+                        isChangeQueriesEnabled
+                            ? new
+                            {
+                                key = GetTrackedChangesResourceKeyName(r.Resource, r),
+                                schema = CreateTrackedChangesKeySchema(r)
+                            }
+                            : null,
+                        isChangeQueriesEnabled
+                            ? new
+                            {
+                                key = GetTrackedChangesResourceDeleteName(r.Resource, r),
+                                schema = CreateTrackedChangesDeletesSchema(r)
+                            }
+                            : null,
+                        isChangeQueriesEnabled
+                            ? new
+                            {
+                                key = GetTrackedChangesResourceKeyChangeName(r.Resource, r),
+                                schema = CreateTrackedChangesKeyChangesSchema(r)
+                            }
+                            : null
+                    })
+                .Where(d => d != null)
+                .GroupBy(d => d.key).Select(g => g.First())
+                .ForEach(d => definitions.Add(d.key, d.schema));
 
             openApiMetadataResources.SelectMany(
                 r => r.Resource.AllContainedItemTypes.Where(x => _openApiMetadataFactoryResourceFilterStrategy.ShouldInclude(x))
@@ -177,6 +208,98 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
             {
                 @ref = OpenApiMetadataDocumentHelper.GetDefinitionReference(
                     _openApiMetadataDefinitionsFactoryNamingStrategy.GetEmbeddedObjectReferenceName(openApiMetadataResource, embeddedObject))
+            };
+        }
+
+        /// <summary>
+        /// Creates a schema that only contains the natural keys of a resource.
+        /// </summary>
+        private Schema CreateTrackedChangesKeySchema(OpenApiMetadataResource openApiMetadataResource)
+        {
+            var resource = openApiMetadataResource.Resource;
+
+            var identifierProjections = _trackedChangesIdentifierProjectionsProvider.GetIdentifierProjections(resource);
+
+            var identifierProperties = identifierProjections
+                .SelectMany(
+                    p => p.IsDescriptorUsage
+                        ? new[] {p.JsonPropertyName}
+                        : p.SelectColumns.Select(i => i.JsonPropertyName))
+                .Distinct()
+                .Select(
+                    p => new PropertySchemaInfo
+                    {
+                        PropertyName = p,
+                        Schema = OpenApiMetadataDocumentHelper.CreatePropertySchema(
+                            resource.AllProperties.FirstOrDefault(rp => p == rp.JsonPropertyName) ??
+                            throw new Exception(
+                                $"The natural key '{p}' of the resource '{resource.FullName}' wasn't found in its model.")
+                        )
+                    });
+
+            return new Schema
+            {
+                type = "object",
+                properties = identifierProperties.ToDictionary(x => x.PropertyName.ToCamelCase(), x => x.Schema)
+            };
+        }
+
+        private Schema CreateTrackedChangesDeletesSchema(OpenApiMetadataResource openApiMetadataResource)
+        {
+            return new Schema
+            {
+                type = "object",
+                properties = new Dictionary<string, Schema>
+                {
+                    {
+                        "id", new Schema
+                        {
+                            type = "string",
+                            description = "Resource identifier"
+                        }
+                    },
+                    {
+                        "changeVersion", new Schema
+                        {
+                            type = "number",
+                            description = "Change version"
+                        }
+                    },
+                    {
+                        "keyValues", RefSchema(GetTrackedChangesResourceKeyName(openApiMetadataResource.Resource, openApiMetadataResource))
+                    }
+                }
+            };
+        }
+
+        private Schema CreateTrackedChangesKeyChangesSchema(OpenApiMetadataResource openApiMetadataResource)
+        {
+            return new Schema
+            {
+                type = "object",
+                properties = new Dictionary<string, Schema>
+                {
+                    {
+                        "id", new Schema
+                        {
+                            type = "string",
+                            description = "Resource identifier"
+                        }
+                    },
+                    {
+                        "changeVersion", new Schema
+                        {
+                            type = "number",
+                            description = "Change version"
+                        }
+                    },
+                    {
+                        "oldKeyValues", RefSchema(GetTrackedChangesResourceKeyName(openApiMetadataResource.Resource, openApiMetadataResource))
+                    },
+                    {
+                        "newKeyValues", RefSchema(GetTrackedChangesResourceKeyName(openApiMetadataResource.Resource, openApiMetadataResource))
+                    }
+                }
             };
         }
 
@@ -315,32 +438,18 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Factories
                             }
                         }
                     }
-                },
-                {
-                    "deletedResource", new Schema
-                    {
-                        type = "object",
-                        properties = new Dictionary<string, Schema>
-                        {
-                            {
-                                "id", new Schema
-                                {
-                                    type = "string",
-                                    description = "Resource identifier"
-                                }
-                            },
-                            {
-                                "changeVersion", new Schema
-                                {
-                                    type = "number",
-                                    description = "Change version"
-                                }
-                            }
-                        }
-                    }
                 }
             };
         }
+
+        private string GetTrackedChangesResourceKeyName(Resource resource, IOpenApiMetadataResourceContext resourceContext)
+            => $"trackedChanges_{_openApiMetadataDefinitionsFactoryNamingStrategy.GetResourceName(resource, resourceContext)}Key";
+
+        private string GetTrackedChangesResourceDeleteName(Resource resource, IOpenApiMetadataResourceContext resourceContext)
+            => $"trackedChanges_{_openApiMetadataDefinitionsFactoryNamingStrategy.GetResourceName(resource, resourceContext)}Delete";
+
+        private string GetTrackedChangesResourceKeyChangeName(Resource resource, IOpenApiMetadataResourceContext resourceContext)
+            => $"trackedChanges_{_openApiMetadataDefinitionsFactoryNamingStrategy.GetResourceName(resource, resourceContext)}KeyChange";
 
         private class PropertySchemaInfo
         {

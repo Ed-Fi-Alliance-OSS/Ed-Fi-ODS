@@ -333,7 +333,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Common.Models.Resource
                 domainCoreDefinitionProvider, extensionDefinitionProvider
             };
 
-            DomainModelProvider ddm = new DomainModelProvider(providerList);
+            DomainModelProvider ddm = new DomainModelProvider(providerList,
+                new IDomainModelDefinitionsTransformer[0]);
 
             var domainModel = ddm.GetDomainModel();
 

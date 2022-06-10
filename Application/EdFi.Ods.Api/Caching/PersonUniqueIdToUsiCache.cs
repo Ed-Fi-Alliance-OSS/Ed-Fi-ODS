@@ -120,9 +120,9 @@ namespace EdFi.Ods.Api.Caching
                 return default(string);
             }
 
-            if ((_suppressStudentCache && personType == "Student")
-                || (_suppressStaffCache && personType == "Staff")
-                || (_suppressParentCache && personType == "Parent"))
+            if ((_suppressStudentCache && personType == PersonEntitySpecification.Student)
+                || (_suppressStaffCache && personType == PersonEntitySpecification.Staff)
+                || (_suppressParentCache && personType == PersonEntitySpecification.Parent))
             {
                 // Call the value mapper for the individual value
                 var valueMapForParent = GetUniqueIdValueMap(personType, usi);
@@ -372,9 +372,9 @@ namespace EdFi.Ods.Api.Caching
                     : default(int);
             }
 
-            if ((_suppressStudentCache && personType == "Student")
-                || (_suppressStaffCache && personType == "Staff")
-                || (_suppressParentCache && personType == "Parent"))
+            if ((_suppressStudentCache && personType == PersonEntitySpecification.Student)
+                || (_suppressStaffCache && personType == PersonEntitySpecification.Staff)
+                || (_suppressParentCache && personType == PersonEntitySpecification.Parent))
             {
                 var valueMapForParent = GetUsiValueMap(personType, uniqueId);
 

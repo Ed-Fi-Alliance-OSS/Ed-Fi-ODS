@@ -1,0 +1,32 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/people">
+      <ClaimSets>
+        <ClaimSet name="Ownership Based Test">
+          <Actions>
+            <Action name="Create">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
