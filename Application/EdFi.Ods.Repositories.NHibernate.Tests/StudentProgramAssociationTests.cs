@@ -32,9 +32,6 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Threading;
 using Test.Common.DataConstants;
-using PostgresSpecificModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.PostgresSpecificModule;
-using SandboxDatabaseReplacementTokenProviderModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.SandboxDatabaseReplacementTokenProviderModule;
-using SqlServerSpecificModule = EdFi.Ods.Repositories.NHibernate.Tests.Modules.SqlServerSpecificModule;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
