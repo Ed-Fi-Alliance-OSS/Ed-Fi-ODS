@@ -62,7 +62,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentEducationOrganizationAssociation")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentEducationOrganizationAssociation()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -80,7 +80,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a school with student and staff associations")]
         public async Task GivenTheSubjectOfTheRequestIsASchoolWithStudentAndStaffAssociations()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -111,7 +111,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a student with a StudentAcademicRecord")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithAStudentAcademicRecord()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -136,7 +136,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a student with values in all name properties")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithValuesInAllNameProperties()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -170,7 +170,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentSchoolAssociation")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentSchoolAssociation()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -199,7 +199,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentSchoolAssociation with StudentAssessment")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentSchoolAssociationWithStudentAssessment()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -230,7 +230,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentSchoolAssociation with School")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentSchoolAssociationWithSchool()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -262,7 +262,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentAssessment with ObjectAssessmentScoreResults")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentAssessmentWithObjectAssessmentScoreResults()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -294,7 +294,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentAssessment with StudentAssessmentStudentObjectiveAssessment")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentAssessmentWithStudentAssessmentStudentObjectiveAssessment()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -338,7 +338,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a student with a StudentSchoolAssociation")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithAStudentSchoolAssociation()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -369,7 +369,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a student with a StudentEducationOrganizationAssociation")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithAStudentEducationOrganizationAssociation()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
@@ -395,7 +395,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentSchoolAssociation with School and StudentAssessment")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentSchoolAssociationWithSchoolAndStudentAssessment()
         {
-            string query = string.Empty;
+            string query;
 
             if (_databaseEngine == DatabaseEngine.SqlServer)
             {
