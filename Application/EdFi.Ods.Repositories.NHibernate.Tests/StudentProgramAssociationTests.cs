@@ -178,7 +178,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
                 var databaseEngine = DbHelper.GetDatabaseEngine();
                 // Verify the service got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
 
@@ -263,7 +263,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 };
 
                 // Verify the service got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
 
@@ -291,7 +291,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 }
 
                 // Verify the program association got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
 
@@ -319,7 +319,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 }
 
                 // Verify the TitleI program association got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
 
@@ -332,7 +332,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 }
             }
 
-            private IDbConnection GetSqlConnectionForOds()
+            private IDbConnection GetDbConnectionForOds()
             {
                 var databaseConnectionString = _container.Resolve<IConfiguration>().GetConnectionString("EdFi_Ods");
                 return DbHelper.GetConnection(databaseConnectionString);
@@ -456,7 +456,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             private void InitializeEducationOrganizationIdsForTest()
             {
                 // Verify the service got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
                     var cmd = DbHelper.GetCommand(
