@@ -122,8 +122,10 @@ namespace EdFi.Ods.Features.Controllers
                 switch (result.StatusCode)
                 {
                     case IdentityStatusCode.Success:
-                        var route = Url.Link("IdentitiesGetById", new {id = result.Data});
-                        return Created(new Uri(route), result.Data);
+                        var test = "http://www.contoso.com/";
+                        //TODO: Fix this
+                        //var route = Url.Link("IdentitiesGetById", new {id = result.Data});
+                        return Created(new Uri(test), result.Data);
                     case IdentityStatusCode.InvalidProperties:
                         var invalidPropertiesErrorResponse = (IdentityResponseErrorStatus<string>)result;
                         return StatusCode((int)HttpStatusCode.BadGateway, new { message = InvalidServerResponse + "Invalid Properties: " + invalidPropertiesErrorResponse.Error, StatusCode = invalidPropertiesErrorResponse.StatusCode });

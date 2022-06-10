@@ -58,8 +58,37 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                         {
                             Status = SearchResponseStatus.Complete,
                             SearchResponses = new [] { new IdentitySearchResponses { Responses = new[]{ new IdentityResponse()}}}
-            },
+                        },
                         StatusCode = IdentityStatusCode.InvalidProperties
+                    });
+            }
+            
+            if (findRequest.All(x => x == "incomplete"))
+            {
+                return Task.FromResult(
+                    new IdentityResponseStatus<IdentitySearchResponse>
+                    {
+                        Error = new[] { new IdentityError { Code = "Incomplete", Description = "The search results are not ready yet" } },
+                        Data = new IdentitySearchResponse
+                        {
+                            Status = SearchResponseStatus.Complete,
+                            SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
+                        },
+                        StatusCode = IdentityStatusCode.Incomplete
+                    });
+            }
+
+            if (findRequest.All(x => x == "notfound"))
+            {
+                return Task.FromResult(
+                    new IdentityResponseStatus<IdentitySearchResponse>
+                    {
+                        Data = new IdentitySearchResponse
+                        {
+                            Status = SearchResponseStatus.Complete,
+                            SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
+                        },
+                        StatusCode = IdentityStatusCode.NotFound
                     });
             }
 
@@ -77,8 +106,21 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                                                          };
                                               }
 
-                                              var mapper = _mapperConfig.CreateMapper();
-                                              var tmp = mapper.Map<IdentityResponse>(Identities[x]);
+                                              //TODO: bring back mapping
+                                              //var mapper = _mapperConfig.CreateMapper();
+                                              //var tmp = mapper.Map<IdentityResponse>(Identities[x]);
+                                              var tmp = new IdentityResponse
+                                              {
+                                                  BirthDate = Identities[x].BirthDate,
+                                                  BirthLocation = Identities[x].BirthLocation,
+                                                  BirthOrder = Identities[x].BirthOrder,
+                                                  FirstName = Identities[x].FirstName,
+                                                  GenerationCodeSuffix = Identities[x].GenerationCodeSuffix,
+                                                  LastSurname = Identities[x].LastSurname,
+                                                  MiddleName = Identities[x].MiddleName,
+                                                  SexType = Identities[x].SexType,
+                                                  Properties = Identities[x].Properties
+                                              };
                                               tmp.Score = 100;
                                               tmp.UniqueId = x;
 

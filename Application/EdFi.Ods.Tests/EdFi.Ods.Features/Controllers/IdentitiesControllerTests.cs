@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Threading.Tasks;
 using EdFi.Ods.Features.Controllers;
 using EdFi.Ods.Features.IdentityManagement.Models;
@@ -45,6 +46,97 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
                     () => response.Message.ShouldBe("Invalid response from identity service: Invalid Properties: ErrorCode: InvalidId, ErrorDescription: Invalid Id specified"),
                     () => response.StatusCode.ShouldBe(IdentityStatusCode.InvalidProperties));
+            }
+        }
+
+        public class IncompleteGetByIdRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService();
+                var identityServiceAsync = new TestIdentitiesService();
+                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.GetById("incomplete");
+            }
+
+            [Test]
+            public void Should_return_incomplete_details()
+            {
+                var response = (ControllerResponse)_actionResult.Value;
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => response.Message.ShouldBe("Invalid response from identity service: Incomplete: ErrorCode: Incomplete, ErrorDescription: The search results are not ready yet"),
+                    () => response.StatusCode.ShouldBe(IdentityStatusCode.Incomplete));
+            }
+        }
+
+        public class NotFoundGetByIdRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService();
+                var identityServiceAsync = new TestIdentitiesService();
+                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.GetById("notfound");
+            }
+
+            [Test]
+            public void Should_return_notfound_details()
+            {
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status404NotFound),
+                    () => _actionResult.ShouldBeOfType<NotFoundObjectResult>());
+            }
+        }
+
+        public class SuccessGetByIdRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+            private string _uniqueId;
+
+            protected override async Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService();
+                var identityServiceAsync = new TestIdentitiesService();
+                _controller = new IdentitiesController(identityService, identityServiceAsync);
+
+                var result = await _controller.Create(
+                    new IdentityCreateRequest
+                    {
+                        BirthDate = DateTime.MinValue,
+
+                    });
+
+                _uniqueId = ((ObjectResult) result).Value?.ToString();
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.GetById(_uniqueId);
+            }
+
+            [Test]
+            public void Should_return_success_details()
+            {
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK));
             }
         }
     }
