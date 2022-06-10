@@ -50,46 +50,17 @@ namespace EdFi.Ods.WebApi.IntegrationTests
         {
             if (findRequest.All(x => x == "invalid"))
             {
-                return Task.FromResult(
-                    new IdentityResponseStatus<IdentitySearchResponse>
-                    {
-                        Error = new []{new IdentityError { Code = "InvalidId", Description = "Invalid Id specified"}},
-                        Data = new IdentitySearchResponse
-                        {
-                            Status = SearchResponseStatus.Complete,
-                            SearchResponses = new [] { new IdentitySearchResponses { Responses = new[]{ new IdentityResponse()}}}
-                        },
-                        StatusCode = IdentityStatusCode.InvalidProperties
-                    });
+                return ReturnInvalidResponse();
             }
             
             if (findRequest.All(x => x == "incomplete"))
             {
-                return Task.FromResult(
-                    new IdentityResponseStatus<IdentitySearchResponse>
-                    {
-                        Error = new[] { new IdentityError { Code = "Incomplete", Description = "The search results are not ready yet" } },
-                        Data = new IdentitySearchResponse
-                        {
-                            Status = SearchResponseStatus.Complete,
-                            SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
-                        },
-                        StatusCode = IdentityStatusCode.Incomplete
-                    });
+                return ReturnIncompleteResponse();
             }
 
             if (findRequest.All(x => x == "notfound"))
             {
-                return Task.FromResult(
-                    new IdentityResponseStatus<IdentitySearchResponse>
-                    {
-                        Data = new IdentitySearchResponse
-                        {
-                            Status = SearchResponseStatus.Complete,
-                            SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
-                        },
-                        StatusCode = IdentityStatusCode.NotFound
-                    });
+                return ReturnNotFoundResponse();
             }
 
             var results = findRequest.Select(
@@ -229,6 +200,64 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                 new IdentityResponseStatus<string>
                 {
                     Data = token, StatusCode = IdentityStatusCode.Success
+                });
+        }
+
+        private static Task<IdentityResponseStatus<IdentitySearchResponse>> ReturnNotFoundResponse()
+        {
+            return Task.FromResult(
+                new IdentityResponseStatus<IdentitySearchResponse>
+                {
+                    Data = new IdentitySearchResponse
+                    {
+                        Status = SearchResponseStatus.Complete,
+                        SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
+                    },
+                    StatusCode = IdentityStatusCode.NotFound
+                });
+        }
+
+        private static Task<IdentityResponseStatus<IdentitySearchResponse>> ReturnIncompleteResponse()
+        {
+            return Task.FromResult(
+                new IdentityResponseStatus<IdentitySearchResponse>
+                {
+                    Error = new[]
+                    {
+                        new IdentityError
+                        {
+                            Code = "Incomplete",
+                            Description = "The search results are not ready yet"
+                        }
+                    },
+                    Data = new IdentitySearchResponse
+                    {
+                        Status = SearchResponseStatus.Complete,
+                        SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
+                    },
+                    StatusCode = IdentityStatusCode.Incomplete
+                });
+        }
+
+        private static Task<IdentityResponseStatus<IdentitySearchResponse>> ReturnInvalidResponse()
+        {
+            return Task.FromResult(
+                new IdentityResponseStatus<IdentitySearchResponse>
+                {
+                    Error = new[]
+                    {
+                        new IdentityError
+                        {
+                            Code = "InvalidId",
+                            Description = "Invalid Id specified"
+                        }
+                    },
+                    Data = new IdentitySearchResponse
+                    {
+                        Status = SearchResponseStatus.Complete,
+                        SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
+                    },
+                    StatusCode = IdentityStatusCode.InvalidProperties
                 });
         }
     }
