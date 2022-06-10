@@ -15,6 +15,12 @@ namespace EdFi.Ods.Common.Models.Domain
             return entity.IsDescriptorEntity();
         }
 
+        /// <summary>
+        /// Indicates whether the specific type name matches the convention for an entity derived from the abstract Descriptor
+        /// entity, but does not represent the abstract Descriptor entity itself.
+        /// </summary>
+        /// <param name="typeName">The name of the type to be evaluated.</param>
+        /// <returns><b>true</b> if the type name matches the convention for a Descriptor-derived entity; otherwise <b>false</b>.</returns>
         public static bool IsDescriptorEntity(this Entity entity)
         {
             return DescriptorEntitySpecification.IsEdFiDescriptorEntity(entity.Name);
@@ -23,16 +29,6 @@ namespace EdFi.Ods.Common.Models.Domain
         public static bool IsPersonEntity(this Entity entity)
         {
             return PersonEntitySpecification.IsPersonEntity(entity.Name);
-        }
-
-        public static bool HasServerAssignedSurrogateId(this Entity entity)
-        {
-            //People and the base descriptors have server assigned surrogate ids.
-            return entity.Identifier.Properties.Any(
-                p =>
-                    p.IsServerAssigned
-                    && !p.Entity.IsDerived
-                    && p.Entity.IsAggregateRoot);
         }
     }
 }

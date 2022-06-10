@@ -37,5 +37,10 @@ namespace EdFi.Ods.Common.Models.Resource
         {
             get { return Resource.Entity.FullName; }
         }
+        
+        public override string JsonPath
+        {
+            get => $"{Parent.JsonPath}.{JsonPropertyName}[*]";
+        }
     }
 }

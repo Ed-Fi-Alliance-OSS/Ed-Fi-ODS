@@ -56,11 +56,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
 
             [Test]
-            public void Should_return_HTTP_status_of_BadRequest()
+            public void Should_return_HTTP_status_of_Unauthorized()
             {
                 AssertHelper.All(
-                    () => _actionResult.ShouldBeOfType<BadRequestObjectResult>(),
-                    () => ((BadRequestObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+                    () => _actionResult.ShouldBeOfType<UnauthorizedObjectResult>(),
+                    () => ((UnauthorizedObjectResult) _actionResult).StatusCode.ShouldBe(StatusCodes.Status401Unauthorized));
             }
 
             [Test]
@@ -237,6 +237,106 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Controllers
             }
         }
 
+        public class With_valid_key_and_secret_in_request_body : TestFixtureAsyncBase
+        {
+            private IAccessTokenClientRepo _accessTokenClientRepo;
+            private IApiClientAuthenticator _apiClientAuthenticator;
+            private TokenController _controller;
+
+            private ApiClient _suppliedClient;
+            private Guid _suppliedAccessToken;
+
+            private TimeSpan _suppliedTTL;
+            private IActionResult _actionResult;
+            private TokenResponse _tokenResponse;
+
+            protected override Task ArrangeAsync()
+            {
+                _suppliedClient = new ApiClient { ApiClientId = 1 };
+
+                _suppliedAccessToken = Guid.NewGuid();
+                _suppliedTTL = TimeSpan.FromMinutes(30);
+
+                _accessTokenClientRepo = Stub<IAccessTokenClientRepo>();
+
+                _apiClientAuthenticator = A.Fake<IApiClientAuthenticator>();
+
+                var accessToken = new ClientAccessToken(_suppliedTTL)
+                {
+                    ApiClient = _suppliedClient,
+                    Id = _suppliedAccessToken
+                };
+
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(A<int>._, A<string>._))
+                    .Returns(accessToken);
+
+                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync(A<string>._, A<string>._))
+                    .Returns(
+                        Task.FromResult(
+                            new ApiClientAuthenticator.AuthenticationResult
+                            {
+                                IsAuthenticated = true,
+                                ApiClientIdentity = new ApiClientIdentity { Key = "clientId", ApiClientId = _suppliedClient.ApiClientId },
+                            }));
+
+                _controller = ControllerHelper.CreateTokenController(_apiClientAuthenticator, _accessTokenClientRepo);
+
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = await _controller.PostAsync(new TokenRequest { Grant_type = "client_credentials" ,Client_id ="clientId", Client_secret = "clientSecret" });
+
+                _tokenResponse = ((ObjectResult)_actionResult).Value as TokenResponse;
+            }
+
+            [Test]
+            public void Should_return_HTTP_status_of_OK()
+            {
+                AssertHelper.All(
+                    () => _actionResult.ShouldBeOfType<OkObjectResult>(),
+                    () => ((OkObjectResult)_actionResult).StatusCode.ShouldBe(StatusCodes.Status200OK));
+            }
+
+            [Test]
+            public void Should_include_the_generated_access_token_value_in_the_response()
+            {
+                Guid.Parse(_tokenResponse.Access_token).ShouldBe(_suppliedAccessToken);
+            }
+
+            [Test]
+            public void Should_indicate_the_access_token_is_a_bearer_token()
+            {
+                _tokenResponse.Token_type.ShouldBe("bearer");
+            }
+
+            [Test]
+            public void Should_indicate_the_access_token_expires_within_1_second_of_the_supplied_expiration_time()
+            {
+                var actualTTL = TimeSpan.FromSeconds(Convert.ToDouble(_tokenResponse.Expires_in));
+
+                var expectedBegin = _suppliedTTL.Add(TimeSpan.FromSeconds(-1));
+
+                var expectedEnd = _suppliedTTL;
+
+                Assert.That(actualTTL, Is.InRange(expectedBegin, expectedEnd));
+            }
+
+            [Test]
+            public void Should_call_try_authenticate_from_the_database_once()
+            {
+                A.CallTo(() => _apiClientAuthenticator.TryAuthenticateAsync("clientId", "clientSecret"))
+                    .MustHaveHappenedOnceExactly();
+            }
+
+            [Test]
+            public void Should_use_AccessTokenClientRepo_to_create_token_using_the_supplied_ApiClientId()
+            {
+                A.CallTo(() => _accessTokenClientRepo.AddClientAccessTokenAsync(_suppliedClient.ApiClientId, null))
+                    .MustHaveHappened();
+            }
+        }
         public class With_a_scope_matching_an_associated_EdOrgId : TestFixtureAsyncBase
         {
             private IAccessTokenClientRepo _accessTokenClientRepo;

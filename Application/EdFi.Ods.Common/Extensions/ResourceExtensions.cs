@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -199,8 +200,10 @@ namespace EdFi.Ods.Common.Extensions
         /// </summary>
         /// <param name="resourceClass">The resource class that is being inspected.</param>
         /// <returns><b>true</b> if the resource class has a discriminator; otherwise <b>false</b>.</returns>
+        [Obsolete("This extension method doesn't make sense in the context of a resource that is derived and combines multiple entities. The Discriminator is an Entity-specific concept. Be explicit, and use the Entity's HasDiscriminator extension method instead.")]
         public static bool HasDiscriminator(this ResourceClassBase resourceClass)
         {
+            // NOTE: This returns unexpected values for resources that are derived.
             return resourceClass.Entity?.HasDiscriminator() == true;
         }
 

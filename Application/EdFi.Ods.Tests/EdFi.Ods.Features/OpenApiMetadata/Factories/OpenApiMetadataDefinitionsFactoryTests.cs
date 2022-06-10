@@ -9,13 +9,16 @@ using System.Linq;
 using System.Xml.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
+using EdFi.Ods.Api.Database.NamingConventions;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Metadata;
 using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Specifications;
 using EdFi.Ods.Common.Utils.Profiles;
+using EdFi.Ods.Features.ChangeQueries.Repositories;
 using EdFi.Ods.Features.OpenApiMetadata.Dtos;
 using EdFi.Ods.Features.OpenApiMetadata.Factories;
 using EdFi.Ods.Features.OpenApiMetadata.Models;
@@ -36,6 +39,21 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             ResourceModelProvider = DomainModelDefinitionsProviderHelper.ResourceModelProvider;
         protected static ISchemaNameMapProvider
             SchemaNameMapProvider = DomainModelDefinitionsProviderHelper.SchemaNameMapProvider;
+
+        private static ApiSettings CreateApiSettings()
+        {
+            return new ApiSettings
+            {
+                Features = new List<Feature>
+                {
+                    new Feature
+                    {
+                        Name = "ChangeQueries",
+                        IsEnabled = true
+                    }
+                }
+            };
+        }
 
         public class
             When_creating_definitions_for_list_of_resources_using_a_single_instance_or_year_specific_ods : TestFixtureBase
@@ -66,7 +84,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                         new OpenApiMetadataDocumentContext(ResourceModelProvider.GetResourceModel())
                         {
                             RenderType = RenderType.GeneralizedExtensions
-                        }).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
+                        }, new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        CreateApiSettings()).Create(_resources.Select(r => new OpenApiMetadataResource(r)).ToList());
 
                 _actualEdfiResourceDefinitions = _resources.Where(r => r.IsEdFiStandardResource).Select(r => r.Name.ToCamelCase())
                     .Where(_actualDefinitions.ContainsKey).Select(r => _actualDefinitions[r]).ToList();
@@ -103,7 +122,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             public void Should_contain_a_definition_for_all_resources_and_children()
             {
                 Assert.That(
-                    _actualDefinitions.Keys.Except(new[] {"link", "deletedResource" }), Is.EquivalentTo(_expectedPropertyNamesByDefinitionName.Keys));
+                    _actualDefinitions.Keys.Where(
+                        d =>
+                            !d.StartsWithIgnoreCase(
+                                "TrackedChanges")).Except(new[] {"link"}),
+                    Is.EquivalentTo(_expectedPropertyNamesByDefinitionName.Keys));
             }
 
             [Assert]
@@ -236,7 +259,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(_openApiMetadataDocumentContext)
+                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
+                        _openApiMetadataDocumentContext,
+                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        CreateApiSettings())
                     .Create(_openApiMetadataResources);
             }
 
@@ -250,11 +276,12 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
             public void Should_return_a_list_of_definitions_with_a_content_type_usage_appended_to_name()
             {
                 AssertHelper.All(
-                    _actualDefinitions.Keys.Where(k => !k.EndsWith("Reference")).Except(new[] {"link", "deletedResource" }).Select(
-                        k => (Action) (() => Assert.That(
-                            k.EndsWithIgnoreCase($"_{ContentTypeUsage.Readable}") ||
-                            k.EndsWithIgnoreCase($"_{ContentTypeUsage.Writable}"), Is.True,
-                            $@"Definition name {k} does not end with a content type usage"))).ToArray());
+                    _actualDefinitions.Keys.Where(k => !k.EndsWith("Reference") && !k.StartsWithIgnoreCase("TrackedChanges"))
+                        .Except(new[] {"link"}).Select(
+                            k => (Action) (() => Assert.That(
+                                k.EndsWithIgnoreCase($"_{ContentTypeUsage.Readable}") ||
+                                k.EndsWithIgnoreCase($"_{ContentTypeUsage.Writable}"), Is.True,
+                                $@"Definition name {k} does not end with a content type usage"))).ToArray());
             }
 
             [Assert]
@@ -344,7 +371,10 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
 
             protected override void Act()
             {
-                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(_openApiMetadataDocumentContext)
+                _actualDefinitions = OpenApiMetadataDocumentFactoryHelper.CreateOpenApiMetadataDefinitionsFactory(
+                        _openApiMetadataDocumentContext,
+                        new TrackedChangesIdentifierProjectionsProvider(new SqlServerDatabaseNamingConvention()),
+                        CreateApiSettings())
                     .Create(_openApiMetadataResources);
             }
 

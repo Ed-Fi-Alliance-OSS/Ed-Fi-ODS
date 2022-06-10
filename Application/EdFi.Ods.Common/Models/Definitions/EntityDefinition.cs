@@ -7,13 +7,15 @@ using System;
 using System.Collections.Generic;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Models.Dynamic;
 using EdFi.Ods.Common.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace EdFi.Ods.Common.Models.Definitions
 {
-    public class EntityDefinition
+    public class EntityDefinition : DynamicModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EntityDefinition" /> class.
@@ -45,7 +47,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         {
             Schema = schema;
             Name = name;
-            TableNames = tableNameByDatabaseEngine ?? new Dictionary<DatabaseEngine, string>();
+            TableNames = tableNameByDatabaseEngine ?? new Dictionary<DatabaseEngine, string> { { DatabaseEngine.SqlServer, name } };
             LocallyDefinedProperties = locallyDefinedProperties;
             Identifiers = identifiers;
             IsAbstract = isAbstract;
@@ -58,8 +60,25 @@ namespace EdFi.Ods.Common.Models.Definitions
 
         public string Name { get; set; }
 
+        private IDictionary<DatabaseEngine, string> _tableNames;
+
         [JsonConverter(typeof(DictionaryStringByDatabaseEngine))]
-        public IDictionary<DatabaseEngine, string> TableNames { get; set; }
+        public IDictionary<DatabaseEngine, string> TableNames
+        {
+            get
+            {
+                if (_tableNames == null)
+                {
+                    _tableNames = new Dictionary<DatabaseEngine, string> {{DatabaseEngine.SqlServer, Name}};
+                }
+
+                return _tableNames;
+            }
+            set
+            {
+                _tableNames = value;
+            }
+        }
 
         public EntityPropertyDefinition[] LocallyDefinedProperties { get; set; }
 
@@ -72,5 +91,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         public bool IsDeprecated { get; set; }
 
         public string[] DeprecationReasons { get; set; }
+
+        public override string ToString() => new FullName(Schema, Name).ToString();
     }
 }

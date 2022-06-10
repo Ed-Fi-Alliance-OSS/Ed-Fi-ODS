@@ -14,12 +14,13 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Definitions;
+using EdFi.Ods.Common.Models.Dynamic;
 using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Ods.Common.Models.Domain
 {
-    public class Entity
+    public class Entity : DynamicModel
     {
         private readonly Lazy<AssociationView[]> _aggregateExtensionChildren;
         private readonly Lazy<AssociationView[]> _aggregateExtensionOneToOnes;
@@ -48,6 +49,8 @@ namespace EdFi.Ods.Common.Models.Domain
         /// <param name="entityDefinition">The incoming <seealso cref="EntityDefinition"/></param>
         internal Entity(DomainModel domainModel, EntityDefinition entityDefinition)
         {
+            this.CopyDynamicPropertiesFrom(entityDefinition);
+            
             DomainModel = domainModel;
 
             Schema = entityDefinition.Schema;
@@ -399,6 +402,24 @@ namespace EdFi.Ods.Common.Models.Domain
         public AssociationView EdFiStandardEntityAssociation => _edFiStandardEntityAssociation.Value;
 
         /// <summary>
+        /// Gets the alternate key identifiers logically inherited from the entity's base type hierarchy. 
+        /// </summary>
+        public IReadOnlyList<EntityIdentifier> InheritedAlternateIdentifiers
+        {
+            get
+            {
+                if (BaseEntity == null)
+                {
+                    return new EntityIdentifier[0];
+                }
+
+                return BaseEntity.InheritedAlternateIdentifiers
+                    .Concat(BaseEntity.AlternateIdentifiers)
+                    .ToList();
+            }
+        }
+        
+        /// <summary>
         /// Gets all the properties logically inherited via the entity's base type hierarchy, with the identifying properties first, followed by non-identifying properties.
         /// </summary>
         public IReadOnlyList<EntityProperty> InheritedProperties
@@ -668,6 +689,9 @@ namespace EdFi.Ods.Common.Models.Domain
 
         public bool IsAggregateRoot => DomainModel.AggregateFullNameByEntityFullName[FullName] == FullName;
 
+        /// <summary>
+        /// Indicates whether the entity represents a descriptor.
+        /// </summary>
         public bool IsLookup => this.IsLookupEntity();
 
         /// <summary>
@@ -691,7 +715,10 @@ namespace EdFi.Ods.Common.Models.Domain
         public IReadOnlyList<AssociationView> SelfReferencingAssociations => OutgoingAssociations.Where(a => a.IsSelfReferencing)
                                                                                                  .ToList();
 
-        public bool IsDescriptorEntity => this.IsDescriptorEntity();
+        /// <summary>
+        /// Indicates whether the entity is a concrete descriptor entity (i.e. an entity derived from the abstract base descriptor).
+        /// </summary>
+        public bool IsDescriptorEntity => IsDerived && BaseEntity?.IsDescriptorBaseEntity() == true;
 
         public string Description { get; }
 
@@ -790,7 +817,7 @@ namespace EdFi.Ods.Common.Models.Domain
         /// </returns>
         public override string ToString()
         {
-            return Name;
+            return FullName.ToString();
         }
     }
 }

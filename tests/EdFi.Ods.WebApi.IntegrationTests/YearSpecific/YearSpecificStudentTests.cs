@@ -124,9 +124,9 @@ namespace EdFi.Ods.WebApi.IntegrationTests.YearSpecific
             string connectionString = string.Format(
                 _connectionStringTemplate, $"{GlobalWebApiIntegrationTestFixture.DatabaseName}_{schoolYear}");
 
-            await using var conn = new SqlConnection(connectionString);
+            using var conn = DbHelper.GetConnection(connectionString);
 
-            await conn.OpenAsync(_cancellationToken);
+            conn.Open();
 
             return await conn.QuerySingleOrDefaultAsync<int?>(
                 $"SELECT 1 FROM edfi.Student WHERE StudentUniqueId = '{uniqueId}'", _cancellationToken);

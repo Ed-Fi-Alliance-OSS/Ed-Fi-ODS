@@ -11,6 +11,7 @@ using EdFi.Ods.CodeGen.Metadata;
 using EdFi.Ods.CodeGen.Providers;
 using EdFi.Ods.CodeGen.Tests.IntegrationTests._Helpers;
 using EdFi.Ods.Common.Metadata.Schemas;
+using EdFi.Ods.Common.Models;
 using EdFi.Ods.Common.Models.Domain;
 using NUnit.Framework;
 
@@ -27,8 +28,9 @@ namespace EdFi.Ods.CodeGen.Tests.IntegrationTests.Profiles
 
             _domainModel = new DomainModelProvider(
                 container.Resolve<IDomainModelDefinitionsProviderProvider>()
-                    .DomainModelDefinitionProviders()
-                    .ToList()).GetDomainModel();
+                    .DomainModelDefinitionProviders(),
+                new IDomainModelDefinitionsTransformer[0])
+                .GetDomainModel();
 
             Validator = GetValidator(fileName);
         }

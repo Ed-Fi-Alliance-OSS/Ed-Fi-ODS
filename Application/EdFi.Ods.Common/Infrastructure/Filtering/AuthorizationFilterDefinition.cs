@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using EdFi.Ods.Common.Database.Querying;
+using EdFi.Ods.Common.Models.Resource;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using NHibernate;
@@ -27,6 +29,7 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// <param name="filterName">The name of the filter.</param>
         /// <param name="friendlyHqlConditionFormat">The default condition (as HQL) for the filter with named format specifiers marking where distinct aliases are required, with {currentAlias} being the alias for the current entity in the context of the HQL query (e.g. "({currentAlias}.Property1 LIKE :Parm1 OR {currentAlias}.Property2 IN (SELECT {newAlias1}.Property2 FROM EntityOneQ {newAlias1})").</param>
         /// <param name="criteriaApplicator">A function to apply the filter to the query using NHibernate's <see cref="NHibernate.ICriteria"/> API.</param>
+        /// <param name="trackedChangesCriteriaApplicator">A function for applying the filter to the <see cref="QueryBuilder" /> for tracked changes queries.</param>
         /// <param name="authorizeInstance">A function that authorizes the instance contained in the authorization context data, or indicates that authorization cannot be performed without a trip to the database.</param>
         /// <param name="shouldApply">A predicate function using a mapped entity's <see cref="System.Type"/> and properties used to determine whether the filter should be applied to a particular entity.</param>
         /// <remarks>This constructor makes some base level assumptions to simplify the declaration of the filters, but
@@ -41,12 +44,14 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
             string filterName,
             string friendlyHqlConditionFormat,
             Action<ICriteria, Junction, IDictionary<string, object>, JoinType> criteriaApplicator,
+            Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> trackedChangesCriteriaApplicator, 
             Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> authorizeInstance,
             Func<Type, PropertyInfo[], bool> shouldApply)
         {
             FilterName = filterName;
             HqlConditionFormatString = ProcessFormatStringForAliases(friendlyHqlConditionFormat);
             CriteriaApplicator = criteriaApplicator;
+            TrackedChangesCriteriaApplicator = trackedChangesCriteriaApplicator;
             AuthorizeInstance = authorizeInstance;
             ShouldApply = shouldApply;
         }
@@ -63,14 +68,27 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         /// </summary>
         public Action<ICriteria, Junction, IDictionary<string, object>, JoinType> CriteriaApplicator { get; protected set; }
 
+        /// <summary>
+        /// Gets the function for applying the filter to the <see cref="QueryBuilder" /> for tracked changes queries.
+        /// </summary>
+        public Action<AuthorizationFilterDefinition, AuthorizationFilterContext, Resource, int, QueryBuilder, bool> TrackedChangesCriteriaApplicator
+        {
+            get;
+            protected set;
+        }
+
         public Func<EdFiAuthorizationContext, AuthorizationFilterContext, InstanceAuthorizationResult> AuthorizeInstance { get; }
 
         /// <summary>
-        /// Gets the predicate functional for determining whether the filter should be applied to a particular entity.
+        /// Gets the predicate function for determining whether the filter should be applied to a particular entity.
         /// </summary>
         public Func<Type, PropertyInfo[], bool> ShouldApply { get; protected set; }
 
-        private static string ProcessFormatStringForAliases(string format)
+        // NOTE: The ShouldApply property is a legacy artifact related to the NHibernate filter configuration, but with it
+        // now disengaged, we may need to review behavior of authorization system if there's a misconfiguration (i.e. a relationship
+        // based authorization without the necessary properties available on the subject resource/entity).
+        
+        protected static string ProcessFormatStringForAliases(string format)
         {
             Func<int, string> getFriendlyAliasKey = n => "{newAlias" + n + "}";
             var aliasGenerator = new AliasGenerator("fltr_", useSharedState: true);

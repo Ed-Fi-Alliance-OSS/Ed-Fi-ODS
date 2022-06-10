@@ -19,7 +19,7 @@ namespace EdFi.Ods.Common.Models.Resource
             Association = association;
             FilterContext = filterContext ?? FilterContext.NullFilterContext;
 
-            ItemType = new ResourceChildItem(resourceClass.ResourceModel, association.OtherEntity, FilterContext, resourceClass);
+            ItemType = new ResourceChildItem(this, resourceClass.ResourceModel, association.OtherEntity, FilterContext, resourceClass);
 
             if (FilterContext.Definition != null)
             {
@@ -139,6 +139,11 @@ namespace EdFi.Ods.Common.Models.Resource
                         "All collections supplied for a composite collection must be derived from the same Association.  Associations found: '{0}'",
                         string.Join("', '", distinctAssociations.Select(a => a.Name))));
             }
+        }
+
+        public override string JsonPath
+        {
+            get => $"{Parent.JsonPath}.{JsonPropertyName}[*]";
         }
     }
 }

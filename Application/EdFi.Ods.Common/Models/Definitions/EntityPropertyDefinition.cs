@@ -51,9 +51,23 @@ namespace EdFi.Ods.Common.Models.Definitions
             DeprecationReasons = deprecationReasons;
         }
 
-        [JsonConverter(typeof(DictionaryStringByDatabaseEngine))]
-        public IDictionary<DatabaseEngine, string> ColumnNames { get; set; }
+        private IDictionary<DatabaseEngine, string> _columnNames;
 
+        [JsonConverter(typeof(DictionaryStringByDatabaseEngine))]
+        public IDictionary<DatabaseEngine, string> ColumnNames
+        {
+            get
+            {
+                if (_columnNames == null)
+                {
+                    _columnNames = new Dictionary<DatabaseEngine, string> {{DatabaseEngine.SqlServer, PropertyName}};
+                }
+
+                return _columnNames;
+            }
+            set => _columnNames = value;
+        }
+        
         public string PropertyName { get; set; }
 
         public PropertyType PropertyType { get; set; }
@@ -67,5 +81,7 @@ namespace EdFi.Ods.Common.Models.Definitions
         public bool IsDeprecated { get; set; }
 
         public string[] DeprecationReasons { get; set; }
+
+        public override string ToString() => PropertyName;
     }
 }

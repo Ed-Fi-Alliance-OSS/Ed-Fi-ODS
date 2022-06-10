@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Reflection;
 using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Api.Caching;
@@ -13,8 +12,9 @@ using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Repositories.NHibernate.Tests.Modules;
 using Microsoft.Extensions.Configuration;
 using NHibernate;
-using NHibernate.Cfg;
 using NUnit.Framework;
+using System.Reflection;
+using Environment = NHibernate.Cfg.Environment;
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
@@ -46,7 +46,6 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     => personUniqueIdToUsiCache ??= Container.Resolve<IPersonUniqueIdToUsiCache>();
 
             Environment.ObjectsFactory = new NHibernateAutofacObjectsFactory(Container);
-
             SessionFactory = Container.Resolve<ISessionFactory>();
         }
 
@@ -56,17 +55,20 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             var builder = new ContainerBuilder();
 
-            var config = new ConfigurationBuilder()
-                   .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                   .AddJsonFile("appsettings.json", optional: true)
-                   .Build();
+            var databaseEngine = DbHelper.GetDatabaseEngine();
 
+            var config = DbHelper.GetDatabaseEngineSpecificConfiguration(databaseEngine);
+            
             config.GetSection("ConnectionStrings").GetSection("EdFi_Ods").Value =
                 config.GetConnectionString("EdFi_Ods")
                     .Replace(GlobalDatabaseSetupFixture.PopulatedDatabaseName, GlobalDatabaseSetupFixture.TestPopulatedDatabaseName);
             builder.RegisterInstance(config).As<IConfiguration>();
 
-            var apiSettings = new ApiSettings { Engine = ApiConfigurationConstants.SqlServer, Mode = ApiConfigurationConstants.Sandbox };
+            var apiSettings = new ApiSettings
+            {
+                Engine = databaseEngine == DatabaseEngine.SqlServer ?  ApiConfigurationConstants.SqlServer : ApiConfigurationConstants.PostgreSQL, 
+                Mode = ApiConfigurationConstants.Sandbox
+            };
             builder.RegisterInstance(apiSettings).As<ApiSettings>()
                 .SingleInstance();
 
@@ -83,6 +85,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             builder.RegisterModule(new ContextStorageModule());
             builder.RegisterModule(new ContextProviderModule());
             builder.RegisterModule(new DbConnnectionStringBuilderAdapterFactoryModule());
+            builder.RegisterModule(new PostgresSpecificModule(apiSettings));
             builder.RegisterModule(new SandboxDatabaseReplacementTokenProviderModule(apiSettings));
 
             Container = builder.Build();

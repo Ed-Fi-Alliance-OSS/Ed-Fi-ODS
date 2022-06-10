@@ -3,12 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Reflection;
-using System.Security.Claims;
-using System.Threading;
 using Autofac;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
@@ -16,7 +10,6 @@ using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Specifications;
@@ -33,8 +26,12 @@ using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using Shouldly;
+using System;
+using System.Data;
+using System.Reflection;
+using System.Security.Claims;
+using System.Threading;
 using Test.Common.DataConstants;
-
 
 namespace EdFi.Ods.Repositories.NHibernate.Tests
 {
@@ -78,6 +75,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
             protected override void Arrange()
             {
+                AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
                 RegisterDependencies();
                 IDescriptorsCache cache = null;
                 DescriptorsCache.GetCache = () => cache ??= _container.Resolve<IDescriptorsCache>();
@@ -175,12 +173,13 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                     IsModified = studentProgramAssociationUpsertResult.IsModified
                 };
 
+                var databaseEngine = DbHelper.GetDatabaseEngine();
                 // Verify the service got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(
+                    var cmd = DbHelper.GetCommand(databaseEngine,
                         $"SELECT COUNT(*) FROM edfi.StudentProgramAssociationService WHERE ProgramName = '{_program1.ProgramName}'",
                         conn);
 
@@ -261,11 +260,12 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 };
 
                 // Verify the service got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(
+                    var cmd = DbHelper.GetCommand(
+                        databaseEngine,
                         $"SELECT COUNT(*) FROM edfi.StudentProgramAssociationService WHERE ProgramName = '{_program2.ProgramName}'",
                         conn);
 
@@ -288,11 +288,12 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 }
 
                 // Verify the program association got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(
+                    var cmd = DbHelper.GetCommand(
+                        databaseEngine,
                         $"SELECT COUNT(*) FROM edfi.StudentProgramAssociationService WHERE ProgramName = '{_program1.ProgramName}'",
                         conn);
 
@@ -315,11 +316,12 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 }
 
                 // Verify the TitleI program association got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(
+                    var cmd = DbHelper.GetCommand(
+                        databaseEngine,
                         $"SELECT COUNT(*) FROM edfi.StudentProgramAssociationService WHERE ProgramName = '{_program2.ProgramName}'",
                         conn);
 
@@ -327,11 +329,10 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 }
             }
 
-            private SqlConnection GetSqlConnectionForOds()
+            private IDbConnection GetDbConnectionForOds()
             {
                 var databaseConnectionString = _container.Resolve<IConfiguration>().GetConnectionString("EdFi_Ods");
-
-                return new SqlConnection(databaseConnectionString);
+                return DbHelper.GetConnection(databaseConnectionString);
             }
 
             private ServiceDescriptor GetTestServiceDescriptor()
@@ -384,10 +385,9 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 //builder.RegisterInstance(apiSettings).As<ApiSettings>()
                 //    .SingleInstance();
 
-                var config = new ConfigurationBuilder()
-                    .SetBasePath(TestContext.CurrentContext.TestDirectory)
-                    .AddJsonFile("appsettings.json", optional: true)
-                    .Build();
+                var databaseEngine = DbHelper.GetDatabaseEngine();
+
+                var config = DbHelper.GetDatabaseEngineSpecificConfiguration(databaseEngine);
 
                 config.GetSection("ConnectionStrings").GetSection("EdFi_Ods").Value =
                     config.GetConnectionString("EdFi_Ods")
@@ -405,7 +405,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
 
                 var apiSettings = new ApiSettings
                 {
-                    Engine = ApiConfigurationConstants.SqlServer,
+                    Engine = databaseEngine == DatabaseEngine.SqlServer ? ApiConfigurationConstants.SqlServer : ApiConfigurationConstants.PostgreSQL,
                     Mode = ApiConfigurationConstants.Sandbox
                 };
 
@@ -423,6 +423,7 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
                 builder.RegisterModule(new PersonIdentifiersModule());
                 builder.RegisterModule(new DomainModelModule());
                 builder.RegisterModule(new SqlServerSpecificModule(apiSettings));
+                builder.RegisterModule(new PostgresSpecificModule(apiSettings));
                 builder.RegisterModule(new DescriptorLookupProviderModule());
                 builder.RegisterModule(new EdFiDescriptorReflectionModule());
 
@@ -452,10 +453,13 @@ namespace EdFi.Ods.Repositories.NHibernate.Tests
             private void InitializeEducationOrganizationIdsForTest()
             {
                 // Verify the service got removed
-                using (var conn = GetSqlConnectionForOds())
+                using (var conn = GetDbConnectionForOds())
                 {
                     conn.Open();
-                    var cmd = new SqlCommand("SELECT EducationOrganizationId FROM edfi.EducationOrganization", conn);
+                    var cmd = DbHelper.GetCommand(
+                        DbHelper.GetDatabaseEngine(),
+                        "SELECT EducationOrganizationId FROM edfi.EducationOrganization", 
+                        conn);
 
                     using (var reader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {

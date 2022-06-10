@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
+using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
@@ -37,9 +38,9 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            await using var conn = new SqlConnection(connectionString);
+            using var conn = DbHelper.GetConnection(connectionString);
 
-            await conn.OpenAsync(cancellationToken);
+            conn.Open();
             return await conn.QuerySingleOrDefaultAsync<T>(query, cancellationToken);
         }
 
@@ -59,14 +60,29 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                         ? kvp.Value.ToString().SingleQuoted()
                         : kvp.Value)));
 
-            await using var conn = new SqlConnection(connectionString);
 
-            await conn.OpenAsync(cancellationToken);
+            var databaseEngine = DbHelper.GetDatabaseEngine();
+            using var conn = DbHelper.GetConnection(databaseEngine, connectionString);
 
-            string query = $@"
-                  SELECT Id
-                  FROM  [edfi].[{tableName}]
-                  WHERE {whereClause}";
+            conn.Open();
+
+            string query = String.Empty;
+            
+            if (databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = $@"
+                SELECT Id
+                FROM  [edfi].[{tableName}]
+                WHERE {whereClause}";
+            }
+            else
+            {
+                query = $@"
+                SELECT Id
+                FROM  edfi.""{tableName.ToLowerInvariant()}""
+                WHERE {whereClause}";
+            }
+            
 
             return await conn.QuerySingleOrDefaultAsync<Guid>(query, cancellationToken);
         }

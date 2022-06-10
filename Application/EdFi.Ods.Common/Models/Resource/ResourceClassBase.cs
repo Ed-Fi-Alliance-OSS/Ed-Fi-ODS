@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using EdFi.Common.Extensions;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Common.Conventions;
@@ -34,6 +35,7 @@ namespace EdFi.Ods.Common.Models.Resource
         private Lazy<IReadOnlyList<ResourceMemberBase>> _allMembers;
 
         private Lazy<IReadOnlyList<ResourceProperty>> _allProperties;
+        private Lazy<IReadOnlyList<ResourceProperty>> _allIdentifyingProperties;
 
         private Lazy<IReadOnlyDictionary<string, ResourceProperty>> _allPropertyByName;
         private Lazy<IReadOnlyDictionary<string, Collection>> _collectionByName;
@@ -48,6 +50,9 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private Lazy<IReadOnlyDictionary<string, ResourceProperty>> _propertyByName;
         private Lazy<IReadOnlyDictionary<string, Reference>> _referenceByName;
+        private IEnumerable<ResourceProperty> _allPropertiesRaw;
+        
+        internal Lazy<IDictionary<string, IReadOnlyList<ResourceProperty>>> UnifiedPropertiesByPropertyName;
 
         protected internal ResourceClassBase(IResourceModel resourceModel, Entity entity)
             : this(resourceModel, entity, null) { }
@@ -67,7 +72,7 @@ namespace EdFi.Ods.Common.Models.Resource
             Entity entity,
             FilterContext filterContext,
             Func<IEnumerable<AssociationView>> collectionAssociations,
-            Func<IEnumerable<AssociationView>> embbededObjectAssociations)
+            Func<IEnumerable<AssociationView>> embeddedObjectAssociations)
         {
             Entity = entity;
             FullName = new FullName(entity.Schema, entity.Name);
@@ -80,7 +85,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
             // Initialize lists
             _properties = LazyInitializeProperties(Entity);
-            _embeddedObjects = LazyInitializeEmbeddedObjects(embbededObjectAssociations);
+            _embeddedObjects = LazyInitializeEmbeddedObjects(embeddedObjectAssociations);
             _collections = LazyInitializeCollections(collectionAssociations);
             _references = LazyInitializeReferences(Entity);
             _containedItemTypes = LazyInitializeContainedTypes();
@@ -254,6 +259,11 @@ namespace EdFi.Ods.Common.Models.Resource
         public Entity Entity { get; }
 
         /// <summary>
+        /// Gets all the identifying properties defined on, or introduced by references to this resource class (with identifying properties listed before non-identifying properties).
+        /// </summary>
+        public virtual IReadOnlyList<ResourceProperty> AllIdentifyingProperties => _allIdentifyingProperties.Value;
+
+        /// <summary>
         /// Gets the identifying properties of the resource that are introduced in the local context, including those in references, as necessary.
         /// </summary>
         public IReadOnlyList<ResourceProperty> IdentifyingProperties => AllProperties
@@ -367,7 +377,7 @@ namespace EdFi.Ods.Common.Models.Resource
                                entity.BaseEntity != null
                                    ? entity.BaseEntity.NonNavigableParents
                                    : new AssociationView[0])
-                          .Where(a => !a.OtherEntity.IsLookupEntity()) // Don't generate references associations to Types/Descriptors
+                          .Where(a => !a.OtherEntity.IsDescriptorEntity) // Don't generate references associations to Types/Descriptors
                           .Select(
                                a => new Reference(
                                    this,
@@ -469,18 +479,31 @@ namespace EdFi.Ods.Common.Models.Resource
 
                                                             // Create an implicit extension class
                                                            .Select(
-                                                                x => new Extension(
-                                                                    this,
-                                                                    new ResourceChildItem(
-                                                                        ResourceModel,
-                                                                        new FullName(x.SchemaPhysicalName, $"{entity.Name}Extension"),
+                                                                x =>
+                                                                {
+                                                                    Extension extension = null;
+                                                                    
+                                                                    extension = new Extension(
                                                                         this,
-                                                                        () => extensionCollections.Where(
-                                                                            a => a.OtherEntity.Schema == x.SchemaPhysicalName),
-                                                                        () => extensionOneToOnes.Where(
-                                                                            a => a.OtherEntity.Schema == x.SchemaPhysicalName),
-                                                                        FilterContext.GetExtensionContext(x.SchemaProperCaseName)),
-                                                                    x.SchemaProperCaseName));
+                                                                        () => new ResourceChildItem(
+                                                                            extension,
+                                                                            ResourceModel,
+                                                                            new FullName(
+                                                                                x.SchemaPhysicalName,
+                                                                                $"{entity.Name}Extension"),
+                                                                            this,
+                                                                            () => extensionCollections.Where(
+                                                                                a => a.OtherEntity.Schema
+                                                                                    == x.SchemaPhysicalName),
+                                                                            () => extensionOneToOnes.Where(
+                                                                                a => a.OtherEntity.Schema
+                                                                                    == x.SchemaPhysicalName),
+                                                                            FilterContext.GetExtensionContext(
+                                                                                x.SchemaProperCaseName)),
+                                                                        x.SchemaProperCaseName);
+
+                                                                    return extension;
+                                                                });
 
                     extensions.AddRange(implicitExtensionsFromCollections);
 
@@ -501,18 +524,31 @@ namespace EdFi.Ods.Common.Models.Resource
                                                                                                  .PhysicalName
                                                                                       })
                                                                .Select(
-                                                                    x => new Extension(
-                                                                        this,
-                                                                        new ResourceChildItem(
-                                                                            ResourceModel,
-                                                                            new FullName(x.SchemaPhysicalName, $"{entity.Name}Extension"),
+                                                                    x =>
+                                                                    {
+                                                                        Extension extension = null;
+                                                                        
+                                                                        extension = new Extension(
                                                                             this,
-                                                                            () => extensionCollections.Where(
-                                                                                a => a.OtherEntity.Schema == x.SchemaPhysicalName),
-                                                                            () => extensionOneToOnes.Where(
-                                                                                a => a.OtherEntity.Schema == x.SchemaPhysicalName),
-                                                                            FilterContext.GetExtensionContext(x.SchemaProperCaseName)),
-                                                                        x.SchemaProperCaseName));
+                                                                            () => new ResourceChildItem(
+                                                                                extension,
+                                                                                ResourceModel,
+                                                                                new FullName(
+                                                                                    x.SchemaPhysicalName,
+                                                                                    $"{entity.Name}Extension"),
+                                                                                this,
+                                                                                () => extensionCollections.Where(
+                                                                                    a => a.OtherEntity.Schema
+                                                                                        == x.SchemaPhysicalName),
+                                                                                () => extensionOneToOnes.Where(
+                                                                                    a => a.OtherEntity.Schema
+                                                                                        == x.SchemaPhysicalName),
+                                                                                FilterContext.GetExtensionContext(
+                                                                                    x.SchemaProperCaseName)),
+                                                                            x.SchemaProperCaseName);
+
+                                                                        return extension;
+                                                                    });
 
                     extensions.AddRange(implicitExtensionsFromEmbeddedObjects);
 
@@ -544,7 +580,7 @@ namespace EdFi.Ods.Common.Models.Resource
                                 : new EntityProperty[0])
                        .Concat(
                             entity.Properties
-                                  .Where(p => p.IsLocallyDefined || p.IsDirectLookup))
+                                  .Where(p => p.IsLocallyDefined || p.IsDirectDescriptorUsage))
                        .Select(p => new ResourceProperty(this, p))
                        .Where(p => ResourceSpecification.IsAllowableResourceProperty(p.PropertyName))
                        .Where(rp => FilterContext.MemberFilter.ShouldInclude(rp.PropertyName))
@@ -556,29 +592,41 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private void LazyInitializeDerivedCollections()
         {
+            _allPropertiesRaw = 
+                // Add locally defined identifying properties first
+                Properties.Where(p => p.IsIdentifying)
+
+                    // Add reference properties, identifying references first, followed by required, and then optional
+                    .Concat(
+                        References
+                            .OrderByDescending(
+                                r => (r.Association.IsIdentifying ? 100: 0)
+                                    + (r.IsRequired ? 10 : 0))
+                            .SelectMany(r => r.Properties))
+
+                    // Add non-identifying properties
+                    .Concat(Properties.Where(p => !p.IsIdentifying))
+                    .ToArray();
+
             _allProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
-                () =>
-
-                    // Add locally defined identifying properties first
-                    Properties.Where(p => p.IsIdentifying)
-
-                               // Add reference properties, identifying references first, followed by required, and then optional
-                              .Concat(
-                                   References
-                                      .OrderByDescending(
-                                           r => (r.Association.IsIdentifying ? 100: 0)
-                                                + (r.IsRequired ? 10 : 0))
-                                      .SelectMany(r => r.Properties))
-
-                               // Add non-identifying properties
-                              .Concat(Properties.Where(p => !p.IsIdentifying))
-                              .Distinct(ModelComparers.ResourcePropertyNameOnly)
-                              .ToList());
-
+                () => _allPropertiesRaw
+                    .Distinct(ModelComparers.ResourcePropertyNameOnly)
+                    .ToList());
+            
             _allPropertyByName = new Lazy<IReadOnlyDictionary<string, ResourceProperty>>(
                 () =>
                     AllProperties.ToDictionary(x => x.PropertyName, x => x, StringComparer.InvariantCultureIgnoreCase));
 
+            UnifiedPropertiesByPropertyName = new Lazy<IDictionary<string, IReadOnlyList<ResourceProperty>>>(
+                () => _allPropertiesRaw.GroupBy(rp => rp.PropertyName)
+                    .Where(g => g.Count() > 1)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => (IReadOnlyList<ResourceProperty>) g.ToArray(),
+                        StringComparer.OrdinalIgnoreCase));
+            
+            _allIdentifyingProperties = new Lazy<IReadOnlyList<ResourceProperty>>(() => _allProperties.Value.Where(p => p.IsIdentifying).ToArray());
+            
             _propertyByName = new Lazy<IReadOnlyDictionary<string, ResourceProperty>>(
                 () =>
                     Properties
@@ -726,5 +774,7 @@ namespace EdFi.Ods.Common.Models.Resource
         public bool IsDeprecated { get; set; }
 
         public string[] DeprecationReasons { get; set; }
+        
+        public abstract string JsonPath { get; }
     }
 }

@@ -3,15 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Xml;
 using EdFi.Common.Extensions;
 using EdFi.Common.Utils.Extensions;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Common.Utils.Extensions;
 
 namespace EdFi.Ods.Common.Models.Resource
 {
@@ -51,31 +50,32 @@ namespace EdFi.Ods.Common.Models.Resource
 
     public class ResourceProperty : ResourceMemberBase
     {
+        private ResourceMemberBase _containingMember;
+        private Lazy<IReadOnlyList<ResourceProperty>> _unifiedProperties;
+        private Lazy<Resource> _descriptorResource;
+
         public ResourceProperty(ResourceClassBase resourceClass, EntityProperty entityProperty)
+            : this(null, resourceClass, entityProperty) { }
+
+        public ResourceProperty(ResourceMemberBase containingMember, ResourceClassBase resourceClass, EntityProperty entityProperty)
             : base(resourceClass, GetResourcePropertyName(entityProperty))
         {
+            _containingMember = containingMember;
+            
             EntityProperty = entityProperty;
 
-            string personType;
-
             // Assign property characteristics
-            IsLookup = entityProperty.IsLookup;
-            IsDirectLookup = entityProperty.IsDirectLookup;
+            IsDescriptorUsage = entityProperty.IsDescriptorUsage;
+            IsDirectDescriptorUsage = entityProperty.IsDirectDescriptorUsage;
 
             IsIdentifying = entityProperty.IsIdentifying
-                            || UniqueIdSpecification.TryGetUniqueIdPersonType(entityProperty.PropertyName, out personType)
+                            || UniqueIdSpecification.TryGetUniqueIdPersonType(entityProperty.PropertyName, out string personType)
                             && personType == resourceClass.Name;
 
             IsLocallyDefined = entityProperty.IsLocallyDefined;
             IsServerAssigned = entityProperty.IsServerAssigned;
 
-            LookupTypeName = entityProperty.LookupEntity == null
-                ? null
-                : entityProperty.LookupEntity.Name;
-
-            DescriptorResource = entityProperty.LookupEntity == null
-                ? null
-                : resourceClass?.ResourceModel?.GetResourceByFullName(entityProperty.LookupEntity.FullName);
+            DescriptorName = entityProperty.DescriptorEntity?.Name;
 
             PropertyType = GetResourcePropertyType(entityProperty);
             Description = entityProperty.Description;
@@ -86,6 +86,8 @@ namespace EdFi.Ods.Common.Models.Resource
             // produces a different result.  Base class properties should retain their lineage
             // when "merged" into the resource model.
             ParentFullName = EntityProperty.Entity.FullName;
+
+            InitializeLazyMembers();
         }
 
         public ResourceProperty(
@@ -102,32 +104,50 @@ namespace EdFi.Ods.Common.Models.Resource
             DeprecationReasons = resourceClass.DeprecationReasons;
 
             // Assign property characteristics
-            IsDirectLookup = characteristics.IsDirectLookup;
+            IsDirectDescriptorUsage = characteristics.IsDirectLookup;
             IsIdentifying = characteristics.IsIdentifying;
             IsLocallyDefined = characteristics.IsLocallyDefined;
             IsServerAssigned = characteristics.IsServerAssigned;
 
-            LookupTypeName = characteristics.LookupEntityName == null
-                ? null
-                : characteristics.LookupEntityName.Value.Name;
+            DescriptorName = characteristics.LookupEntityName?.Name;
 
-            DescriptorResource = characteristics.LookupEntityName == null
-                ? null
-                : resourceClass?.ResourceModel?.GetResourceByFullName(characteristics.LookupEntityName.GetValueOrDefault());
-            
             if (resourceClass.Entity != null)
             {
                 ParentFullName = resourceClass.Entity.FullName;
             }
+
+            InitializeLazyMembers();
         }
 
-        public string LookupTypeName { get; }
+        private void InitializeLazyMembers()
+        {
+            _unifiedProperties = new Lazy<IReadOnlyList<ResourceProperty>>(
+                () =>
+                {
+                    if (ResourceClass.UnifiedPropertiesByPropertyName.Value.TryGetValue(PropertyName, out var unifiedProperties))
+                    {
+                        return unifiedProperties.Except(new[] {this}).ToArray();
+                    }
+
+                    return new ResourceProperty[0];
+                });
+
+            _descriptorResource = new Lazy<Resource>(
+                () => EntityProperty.DescriptorEntity == null
+                    ? null
+                    : ResourceClass?.ResourceModel?.GetResourceByFullName(EntityProperty.DescriptorEntity.FullName));
+        }
+        
+        public string DescriptorName { get; }
+
+        [Obsolete("Use DescriptorName instead.")]
+        public string LookupTypeName => DescriptorName;
         
         /// <summary>
         /// For descriptors, gets the <see cref="Resource" /> representing the descriptor referenced by the property;
         /// otherwise <b>null</b>.
         /// </summary>
-        public Resource DescriptorResource { get; }
+        public Resource DescriptorResource { get => _descriptorResource.Value; }
 
         public EntityProperty EntityProperty { get; }
 
@@ -139,7 +159,13 @@ namespace EdFi.Ods.Common.Models.Resource
 
         public string[] DeprecationReasons { get; set; }
 
-        public bool IsDirectLookup { get; }
+        public bool IsDirectDescriptorUsage { get; }
+        
+        [Obsolete("Use IsDirectDescriptorUsage instead.")]
+        public bool IsDirectLookup
+        {
+            get => IsDirectDescriptorUsage;
+        }
 
         /// <summary>
         /// Indicates whether the property is part of the identity of the resource.
@@ -150,8 +176,17 @@ namespace EdFi.Ods.Common.Models.Resource
 
         public bool IsLocallyDefined { get; }
 
-        public bool IsLookup { get; }
+        [Obsolete("Use IsDescriptorUsage instead.")]
+        public bool IsLookup
+        {
+            get => IsDescriptorUsage;
+        }
 
+        /// <summary>
+        /// Indicates whether the property represents the usage of a descriptor.
+        /// </summary>
+        public bool IsDescriptorUsage { get; }
+        
         public bool IsServerAssigned { get; }
 
         /// <summary>
@@ -180,7 +215,7 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private PropertyType GetResourcePropertyType(EntityProperty property)
         {
-            if (property.IsLookup)
+            if (property.IsDescriptorUsage)
             {
                 // NOTE: the property length for lookups has changed in data standard 3.0.
                 // The new formula is:  255 (namespace max length) + 1 (separator length) + 50 (code value max length), or 306
@@ -204,21 +239,18 @@ namespace EdFi.Ods.Common.Models.Resource
 
         private static PropertyType GetBasePersonUniqueIdPropertyType(EntityProperty property)
         {
-            //we need to go find the correct PropertyType information by looking through
-            //the incoming associations for the ones that have the USI property
-            //and walking those entities until we find the person type that is the base of this
-            //property, then return the entity's unique id property's property type from there.
-            return GetNestedPersonEntityProperty(property, property.PropertyName)
-                  .Entity.Properties
-                  .Where(x => !UniqueIdSpecification.IsUSI(x.PropertyName) && PersonEntitySpecification.IsPersonIdentifier(x.PropertyName))
-                  .Select(x => x.PropertyType)
-                  .Single();
+            return property.DefiningProperty.Entity.Properties
+                .Where(
+                    x => !UniqueIdSpecification.IsUSI(x.PropertyName)
+                        && PersonEntitySpecification.IsPersonIdentifier(x.PropertyName))
+                .Select(x => x.PropertyType)
+                .Single();
         }
 
         private static string GetResourcePropertyName(EntityProperty property)
         {
             // Simplistic conversion using conventions
-            if (property.IsLookup)
+            if (property.IsDescriptorUsage)
             {
                 return property.PropertyName.TrimSuffix("Id");
             }
@@ -233,28 +265,6 @@ namespace EdFi.Ods.Common.Models.Resource
             return property.PropertyName;
         }
 
-        private static EntityProperty GetNestedPersonEntityProperty(EntityProperty entityProperty, string entityPropertyName)
-        {
-            if (PersonEntitySpecification.IsPersonEntity(entityProperty.Entity.Name))
-            {
-                return entityProperty;
-            }
-
-            var interestingProperties = entityProperty.IncomingAssociations
-                                                      .Select(
-                                                           x => x.PropertyMappingByThisName[entityPropertyName]
-                                                                 .OtherProperty)
-                                                      .ToList();
-
-            if (interestingProperties.None())
-            {
-                return null;
-            }
-
-            return interestingProperties.Select(x => GetNestedPersonEntityProperty(x, x.PropertyName))
-                                        .FirstOrDefault(x => x != null);
-        }
-
         private bool IsUsiWithTransformedResourcePropertyName(EntityProperty property)
         {
             //Not: Use C# 7 '_' wildcard instead when available.
@@ -263,6 +273,29 @@ namespace EdFi.Ods.Common.Models.Resource
             //If the resource property name was flipped to a UniqueId for this USI property
             return UniqueIdSpecification.IsUSI(property.PropertyName)
                    && UniqueIdSpecification.TryGetUniqueIdPersonType(PropertyName, out notUsed);
+        }
+
+        public override string JsonPath
+        {
+            get
+            {
+                if (_containingMember == null)
+                {
+                    return base.JsonPath;
+                }
+
+                return $"{_containingMember?.JsonPath ?? Parent.JsonPath}.{JsonPropertyName}";
+            }
+        }
+
+        /// <summary>
+        /// Gets any other <see cref="ResourceProperty" /> instances present on other references
+        /// that are <em>unifying properties</em> -- properties whose values (if present) must all
+        /// match because they are unified into a single database column for persistence.
+        /// </summary>
+        public IReadOnlyList<ResourceProperty> UnifiedProperties 
+        {
+            get => _unifiedProperties.Value;
         }
     }
 }

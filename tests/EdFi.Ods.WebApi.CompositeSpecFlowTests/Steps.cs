@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ApprovalTests;
 using ApprovalTests.Reporters;
+using EdFi.Common.Configuration;
 using EdFi.Common.Inflection;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Database;
@@ -35,7 +36,7 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         private readonly ScenarioContext _scenarioContext;
         private readonly Lazy<CancellationToken> _cancellationToken;
         private EdFiTestUriHelper _edFiTestUriHelper;
-
+        private DatabaseEngine _databaseEngine;
         public Steps(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
             _featureContext = featureContext;
@@ -55,12 +56,22 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                 });
 
             _edFiTestUriHelper = new EdFiTestUriHelper(CompositesTestConstants.BaseUrl);
+            _databaseEngine = DbHelper.GetDatabaseEngine();
         }
 
         [Given(@"the subject of the request is a StudentEducationOrganizationAssociation")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentEducationOrganizationAssociation()
         {
-            const string query = @"SELECT TOP 1 Id FROM edfi.StudentEducationOrganizationAssociation;";
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"SELECT TOP 1 Id FROM edfi.StudentEducationOrganizationAssociation;";
+            }
+            else
+            {
+                query = @"SELECT Id FROM edfi.StudentEducationOrganizationAssociation LIMIT 1;";
+            }
 
             await SetIdAsync(query);
             SetResource("StudentEducationOrganizationAssociation");
@@ -69,13 +80,29 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a school with student and staff associations")]
         public async Task GivenTheSubjectOfTheRequestIsASchoolWithStudentAndStaffAssociations()
         {
-            const string query = @"
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
                     SELECT  TOP 1 eo.Id
                     FROM edfi.School s
                     INNER JOIN edfi.EducationOrganization eo ON s.SchoolId = eo.EducationOrganizationId
                     INNER JOIN edfi.SchoolCategory sc ON s.SchoolId = sc.SchoolId
                     INNER JOIN edfi.StudentSchoolAssociation ssa ON s.SchoolId = ssa.SchoolId
                     INNER JOIN edfi.StaffSchoolAssociation stsa ON s.SchoolId = stsa.SchoolId";
+            }
+            else
+            {
+                query = @"
+                    SELECT  eo.Id
+                    FROM edfi.School s
+                    INNER JOIN edfi.EducationOrganization eo ON s.SchoolId = eo.EducationOrganizationId
+                    INNER JOIN edfi.SchoolCategory sc ON s.SchoolId = sc.SchoolId
+                    INNER JOIN edfi.StudentSchoolAssociation ssa ON s.SchoolId = ssa.SchoolId
+                    INNER JOIN edfi.StaffSchoolAssociation stsa ON s.SchoolId = stsa.SchoolId
+                    LIMIT 1";
+            }
 
             await SetIdAsync(query);
             SetResource("School");
@@ -84,10 +111,23 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a student with a StudentAcademicRecord")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithAStudentAcademicRecord()
         {
-            const string query = @"
-                    SELECT  TOP 1 s.Id
-                    FROM    edfi.Student s
-                    INNER JOIN edfi.StudentAcademicRecord sar ON s.StudentUSI = sar.StudentUSI";
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
+                SELECT  TOP 1 s.Id
+                FROM    edfi.Student s
+                INNER JOIN edfi.StudentAcademicRecord sar ON s.StudentUSI = sar.StudentUSI";
+            }
+            else
+            {
+                query = @"
+                SELECT  s.Id
+                FROM    edfi.Student s
+                INNER JOIN edfi.StudentAcademicRecord sar ON s.StudentUSI = sar.StudentUSI
+                LIMIT 1";
+            }
 
             await SetIdAsync(query);
             SetResource("Student");
@@ -96,7 +136,11 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a student with values in all name properties")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithValuesInAllNameProperties()
         {
-            const string query = @"
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
                     SELECT  TOP 1 Id
                     FROM    edfi.Student
                     WHERE   PersonalTitlePrefix IS NOT NULL
@@ -104,6 +148,20 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                             AND MiddleName IS NOT NULL
                             AND LastSurname IS NOT NULL
                             AND GenerationCodeSuffix IS NOT NULL";
+            }
+            else
+            {
+                query = @"
+                    SELECT  Id
+                    FROM    edfi.Student
+                    WHERE   PersonalTitlePrefix IS NOT NULL
+                            AND FirstName IS NOT NULL
+                            AND MiddleName IS NOT NULL
+                            AND LastSurname IS NOT NULL
+                            AND GenerationCodeSuffix IS NOT NULL
+                    LIMIT 1";
+
+            }
 
             await SetIdAsync(query);
             SetResource("Student");
@@ -112,12 +170,27 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentSchoolAssociation")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentSchoolAssociation()
         {
-            const string query = @"
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
                     SELECT  TOP 1 sa.Id
                     FROM    edfi.StudentSchoolAssociation sa
                     INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId edOrgs
                             ON sa.SchoolId = edOrgs.TargetEducationOrganizationId
                     WHERE edOrgs.SourceEducationOrganizationId = 255901";
+            }
+            else
+            {
+                query = @"
+                    SELECT  sa.Id
+                    FROM    edfi.StudentSchoolAssociation sa
+                    INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+                            ON sa.SchoolId = edOrgs.TargetEducationOrganizationId
+                    WHERE edOrgs.SourceEducationOrganizationId = 255901
+                    LIMIT 1";
+            }
 
             await SetIdAsync(query);
             SetResource("StudentSchoolAssociation");
@@ -126,13 +199,29 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentSchoolAssociation with StudentAssessment")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentSchoolAssociationWithStudentAssessment()
         {
-            const string query = @"
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
                     SELECT  TOP 1 ssa.Id, stu.StudentUniqueId, ssa.SchoolId, ssa.EntryDate
                     FROM edfi.StudentSchoolAssociation ssa
                     INNER JOIN edfi.Student stu 
                         ON ssa.StudentUSI = stu.StudentUSI
                     INNER JOIN edfi.StudentAssessment sa
                         ON ssa.StudentUSI = sa.StudentUSI";
+            }
+            else
+            {
+                query = @"
+                    SELECT  ssa.Id, stu.StudentUniqueId, ssa.SchoolId, ssa.EntryDate
+                    FROM edfi.StudentSchoolAssociation ssa
+                    INNER JOIN edfi.Student stu 
+                        ON ssa.StudentUSI = stu.StudentUSI
+                    INNER JOIN edfi.StudentAssessment sa
+                        ON ssa.StudentUSI = sa.StudentUSI
+                    LIMIT 1";
+            }
 
             await SetStudentSchoolAssociationKeyInformationAsync(query);
             SetResource("StudentSchoolAssociation");
@@ -141,7 +230,11 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentSchoolAssociation with School")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentSchoolAssociationWithSchool()
         {
-            const string query = @"
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
                     SELECT  TOP 1 ssa.Id, stu.StudentUniqueId, ssa.SchoolId, ssa.EntryDate
                     FROM    edfi.StudentSchoolAssociation ssa
                         INNER JOIN edfi.School sc 
@@ -149,7 +242,19 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                         INNER JOIN edfi.Student stu
                             ON ssa.StudentUSI = stu.StudentUSI
                     WHERE LocalEducationAgencyId IS NOT NULL";
-
+            }
+            else
+            {
+                query = @"
+                    SELECT  ssa.Id, stu.StudentUniqueId, ssa.SchoolId, ssa.EntryDate
+                    FROM    edfi.StudentSchoolAssociation ssa
+                        INNER JOIN edfi.School sc 
+                            ON ssa.SchoolId = sc.SchoolId
+                        INNER JOIN edfi.Student stu
+                            ON ssa.StudentUSI = stu.StudentUSI
+                    WHERE LocalEducationAgencyId IS NOT NULL
+                    LIMIT 1";
+            }
             await SetStudentSchoolAssociationKeyInformationAsync(query);
             SetResource("StudentSchoolAssociation");
         }
@@ -157,7 +262,11 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentAssessment with ObjectAssessmentScoreResults")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentAssessmentWithObjectAssessmentScoreResults()
         {
-            const string query = @"
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
                     SELECT  TOP 1 sa.Id
                     FROM    edfi.StudentAssessment sa 
                     INNER JOIN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult sr
@@ -165,7 +274,19 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                     AND sa.Namespace = sr.Namespace
                     AND sa.StudentAssessmentIdentifier = sr.StudentAssessmentIdentifier
                     AND sa.StudentUSI = sr.StudentUSI";
-
+            }
+            else
+            {
+                query = @"
+                    SELECT  sa.Id
+                    FROM    edfi.StudentAssessment sa 
+                    INNER JOIN edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult sr
+                    ON sa.AssessmentIdentifier = sr.AssessmentIdentifier
+                    AND sa.Namespace = sr.Namespace
+                    AND sa.StudentAssessmentIdentifier = sr.StudentAssessmentIdentifier
+                    AND sa.StudentUSI = sr.StudentUSI
+                    LIMIT 1";
+            }
             await SetIdAsync(query);
             SetResource("StudentAssessment");
         }
@@ -173,7 +294,11 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentAssessment with StudentAssessmentStudentObjectiveAssessment")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentAssessmentWithStudentAssessmentStudentObjectiveAssessment()
         {
-            const string query = @"
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
                     SELECT  TOP 1 sa.Id, 
                             sa.StudentAssessmentIdentifier,
                             sa.AssessmentIdentifier,
@@ -187,7 +312,25 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                                 AND sa.AssessmentIdentifier = oa.AssessmentIdentifier
                                 AND sa.Namespace = oa.Namespace
                                 AND sa.StudentUSI = oa.StudentUSI";
-
+            }
+            else
+            {
+                query = @"
+                    SELECT  sa.Id, 
+                            sa.StudentAssessmentIdentifier,
+                            sa.AssessmentIdentifier,
+                            sa.Namespace,
+                            s.StudentUniqueId
+                    FROM    edfi.StudentAssessment sa 
+                        INNER JOIN edfi.Student s
+                            ON sa.StudentUSI = s.StudentUSI
+                        INNER JOIN edfi.StudentAssessmentStudentObjectiveAssessment oa
+                            ON sa.StudentAssessmentIdentifier = oa.StudentAssessmentIdentifier
+                                AND sa.AssessmentIdentifier = oa.AssessmentIdentifier
+                                AND sa.Namespace = oa.Namespace
+                                AND sa.StudentUSI = oa.StudentUSI
+                    LIMIT 1";
+            }
             await SetAssessmentKeyInformationAsync(query);
             SetResource("StudentAssessment");
         }
@@ -195,13 +338,29 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a student with a StudentSchoolAssociation")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithAStudentSchoolAssociation()
         {
-            const string query = @"
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
                     SELECT  TOP 1 s.Id
                     FROM    edfi.Student s
                     INNER JOIN edfi.StudentSchoolAssociation sa ON s.StudentUSI = sa.StudentUSI
                     INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId edOrgs
                             ON sa.SchoolId = edOrgs.TargetEducationOrganizationId
                     WHERE edOrgs.SourceEducationOrganizationId = 255901";
+            }
+            else
+            {
+                query = @"
+                    SELECT  s.Id
+                    FROM    edfi.Student s
+                    INNER JOIN edfi.StudentSchoolAssociation sa ON s.StudentUSI = sa.StudentUSI
+                    INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId edOrgs
+                            ON sa.SchoolId = edOrgs.TargetEducationOrganizationId
+                    WHERE edOrgs.SourceEducationOrganizationId = 255901
+                    LIMIT 1";
+            }
 
             await SetIdAsync(query);
             SetResource("Student");
@@ -210,10 +369,24 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a student with a StudentEducationOrganizationAssociation")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentWithAStudentEducationOrganizationAssociation()
         {
-            const string query = @"
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
                     SELECT  TOP 1 s.Id
                     FROM    edfi.Student s
                     INNER JOIN edfi.StudentEducationOrganizationAssociation ssa ON s.StudentUSI = ssa.StudentUSI";
+            }
+            else
+            {
+                query = @"
+                    SELECT  s.Id
+                    FROM    edfi.Student s
+                    INNER JOIN edfi.StudentEducationOrganizationAssociation ssa ON s.StudentUSI = ssa.StudentUSI
+                    LIMIT 1";
+            }
+            
 
             await SetIdAsync(query);
             SetResource("Student");
@@ -222,8 +395,12 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
         [Given(@"the subject of the request is a StudentSchoolAssociation with School and StudentAssessment")]
         public async Task GivenTheSubjectOfTheRequestIsAStudentSchoolAssociationWithSchoolAndStudentAssessment()
         {
-            const string query = @"
-                    SELECT  TOP 1 ssa.Id, stu.StudentUniqueId, ssa.SchoolId, ssa.EntryDate
+            string query;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                query = @"
+                SELECT  TOP 1 ssa.Id, stu.StudentUniqueId, ssa.SchoolId, ssa.EntryDate
                     FROM    edfi.StudentSchoolAssociation ssa
                         INNER JOIN edfi.School sc 
                             ON ssa.SchoolId = sc.SchoolId
@@ -233,6 +410,23 @@ namespace EdFi.Ods.WebApi.CompositeSpecFlowTests
                             ON ssa.StudentUSI = sa.StudentUSI
                     WHERE sc.LocalEducationAgencyId IS NOT NULL
                         AND sa.AssessmentIdentifier IS NOT NULL";
+
+            }
+            else
+            {
+                query = @"
+                SELECT  ssa.Id, stu.StudentUniqueId, ssa.SchoolId, ssa.EntryDate
+                    FROM    edfi.StudentSchoolAssociation ssa
+                        INNER JOIN edfi.School sc 
+                            ON ssa.SchoolId = sc.SchoolId
+                        INNER JOIN edfi.Student stu
+                            ON ssa.StudentUSI = stu.StudentUSI
+                        INNER JOIN edfi.StudentAssessment sa
+                            ON ssa.StudentUSI = sa.StudentUSI
+                    WHERE sc.LocalEducationAgencyId IS NOT NULL
+                        AND sa.AssessmentIdentifier IS NOT NULL
+                    LIMIT 1";
+            }
 
             await SetStudentSchoolAssociationKeyInformationAsync(query);
             SetResource("StudentSchoolAssociation");
