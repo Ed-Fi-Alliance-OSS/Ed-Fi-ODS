@@ -30,7 +30,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class InstitutionControlDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport
+    public class InstitutionControlDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.IInstitutionControlDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -219,6 +219,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionControlDescriptor.Samp
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -311,7 +314,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class InstitutionLevelDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport
+    public class InstitutionLevelDescriptor : Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.IInstitutionLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -500,6 +503,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.InstitutionLevelDescriptor.Sample
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -672,7 +678,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport
+    public class PostSecondaryOrganization : Entities.Common.SampleStudentTranscript.IPostSecondaryOrganization, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.IPostSecondaryOrganizationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -827,6 +833,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PostSecondaryOrganization.SampleS
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -915,7 +924,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SpecialEducationGraduationStatusDescriptor : Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport
+    public class SpecialEducationGraduationStatusDescriptor : Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.ISpecialEducationGraduationStatusDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1104,6 +1113,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SpecialEducationGraduationStatusD
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -1716,7 +1728,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SubmissionCertificationDescriptor : Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport
+    public class SubmissionCertificationDescriptor : Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTranscript.ISubmissionCertificationDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1905,6 +1917,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SubmissionCertificationDescriptor
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 

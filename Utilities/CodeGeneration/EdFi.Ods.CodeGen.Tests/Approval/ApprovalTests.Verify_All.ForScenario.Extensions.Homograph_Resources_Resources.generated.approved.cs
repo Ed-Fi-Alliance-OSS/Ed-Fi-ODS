@@ -113,7 +113,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Name : Entities.Common.Homograph.IName, IHasETag, Entities.Common.Homograph.INameSynchronizationSourceSupport
+    public class Name : Entities.Common.Homograph.IName, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.INameSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -263,6 +263,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Name.Homograph
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -431,7 +434,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Parent : Entities.Common.Homograph.IParent, IHasETag, Entities.Common.Homograph.IParentSynchronizationSourceSupport
+    public class Parent : Entities.Common.Homograph.IParent, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IParentSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -711,6 +714,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Parent.Homograph
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -1526,7 +1532,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.Homograph.ISchool, IHasETag, Entities.Common.Homograph.ISchoolSynchronizationSourceSupport
+    public class School : Entities.Common.Homograph.ISchool, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.ISchoolSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1732,6 +1738,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.Homograph
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -2133,7 +2142,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, Entities.Common.Homograph.ISchoolYearTypeSynchronizationSourceSupport
+    public class SchoolYearType : Entities.Common.Homograph.ISchoolYearType, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.ISchoolYearTypeSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2267,6 +2276,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SchoolYearType.Homograph
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -2435,7 +2447,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Staff : Entities.Common.Homograph.IStaff, IHasETag, Entities.Common.Homograph.IStaffSynchronizationSourceSupport
+    public class Staff : Entities.Common.Homograph.IStaff, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IStaffSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2715,6 +2727,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Staff.Homograph
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -3533,7 +3548,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Student : Entities.Common.Homograph.IStudent, IHasETag, Entities.Common.Homograph.IStudentSynchronizationSourceSupport
+    public class Student : Entities.Common.Homograph.IStudent, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IStudentSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3842,6 +3857,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Student.Homograph
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -4299,7 +4317,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, Entities.Common.Homograph.IStudentSchoolAssociationSynchronizationSourceSupport
+    public class StudentSchoolAssociation : Entities.Common.Homograph.IStudentSchoolAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Homograph.IStudentSchoolAssociationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -4581,6 +4599,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentSchoolAssociation.Homograp
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 

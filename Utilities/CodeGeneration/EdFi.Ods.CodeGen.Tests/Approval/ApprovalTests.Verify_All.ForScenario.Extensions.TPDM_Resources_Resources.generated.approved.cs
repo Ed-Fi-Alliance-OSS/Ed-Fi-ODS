@@ -30,7 +30,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class AccreditationStatusDescriptor : Entities.Common.TPDM.IAccreditationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport
+    public class AccreditationStatusDescriptor : Entities.Common.TPDM.IAccreditationStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IAccreditationStatusDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -219,6 +219,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AccreditationStatusDescriptor.TPD
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -311,7 +314,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class AidTypeDescriptor : Entities.Common.TPDM.IAidTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport
+    public class AidTypeDescriptor : Entities.Common.TPDM.IAidTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IAidTypeDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -500,6 +503,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.AidTypeDescriptor.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -672,7 +678,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Candidate : Entities.Common.TPDM.ICandidate, IHasETag, Entities.Common.TPDM.ICandidateSynchronizationSourceSupport
+    public class Candidate : Entities.Common.TPDM.ICandidate, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICandidateSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1286,6 +1292,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Candidate.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -4707,7 +4716,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CandidateEducatorPreparationProgramAssociation : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasETag, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport
+    public class CandidateEducatorPreparationProgramAssociation : Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICandidateEducatorPreparationProgramAssociationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -5119,6 +5128,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CandidateEducatorPreparationProgr
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -5838,7 +5850,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CertificationRouteDescriptor : Entities.Common.TPDM.ICertificationRouteDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport
+    public class CertificationRouteDescriptor : Entities.Common.TPDM.ICertificationRouteDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICertificationRouteDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6027,6 +6039,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CertificationRouteDescriptor.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -6119,7 +6134,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CoteachingStyleObservedDescriptor : Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport
+    public class CoteachingStyleObservedDescriptor : Entities.Common.TPDM.ICoteachingStyleObservedDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICoteachingStyleObservedDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6308,6 +6323,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CoteachingStyleObservedDescriptor
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -7214,7 +7232,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class CredentialStatusDescriptor : Entities.Common.TPDM.ICredentialStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport
+    public class CredentialStatusDescriptor : Entities.Common.TPDM.ICredentialStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ICredentialStatusDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7403,6 +7421,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.CredentialStatusDescriptor.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -7581,7 +7602,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EducatorPreparationProgram : Entities.Common.TPDM.IEducatorPreparationProgram, IHasETag, Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport
+    public class EducatorPreparationProgram : Entities.Common.TPDM.IEducatorPreparationProgram, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEducatorPreparationProgramSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -7844,6 +7865,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorPreparationProgram.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -8202,7 +8226,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EducatorRoleDescriptor : Entities.Common.TPDM.IEducatorRoleDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport
+    public class EducatorRoleDescriptor : Entities.Common.TPDM.IEducatorRoleDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEducatorRoleDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8391,6 +8415,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EducatorRoleDescriptor.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -8483,7 +8510,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EnglishLanguageExamDescriptor : Entities.Common.TPDM.IEnglishLanguageExamDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport
+    public class EnglishLanguageExamDescriptor : Entities.Common.TPDM.IEnglishLanguageExamDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEnglishLanguageExamDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8672,6 +8699,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EnglishLanguageExamDescriptor.TPD
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -8764,7 +8794,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EPPProgramPathwayDescriptor : Entities.Common.TPDM.IEPPProgramPathwayDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport
+    public class EPPProgramPathwayDescriptor : Entities.Common.TPDM.IEPPProgramPathwayDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEPPProgramPathwayDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -8953,6 +8983,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EPPProgramPathwayDescriptor.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -9143,7 +9176,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Evaluation : Entities.Common.TPDM.IEvaluation, IHasETag, Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport
+    public class Evaluation : Entities.Common.TPDM.IEvaluation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9567,6 +9600,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Evaluation.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -10048,7 +10084,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElement : Entities.Common.TPDM.IEvaluationElement, IHasETag, Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport
+    public class EvaluationElement : Entities.Common.TPDM.IEvaluationElement, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationElementSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10531,6 +10567,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElement.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -11020,7 +11059,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRating : Entities.Common.TPDM.IEvaluationElementRating, IHasETag, Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport
+    public class EvaluationElementRating : Entities.Common.TPDM.IEvaluationElementRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationElementRatingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -11678,6 +11717,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRating.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -12293,7 +12335,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationElementRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport
+    public class EvaluationElementRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationElementRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -12482,6 +12524,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationElementRatingLevelDescr
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -12675,7 +12720,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjective : Entities.Common.TPDM.IEvaluationObjective, IHasETag, Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport
+    public class EvaluationObjective : Entities.Common.TPDM.IEvaluationObjective, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationObjectiveSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13132,6 +13177,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjective.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -13619,7 +13667,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationObjectiveRating : Entities.Common.TPDM.IEvaluationObjectiveRating, IHasETag, Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport
+    public class EvaluationObjectiveRating : Entities.Common.TPDM.IEvaluationObjectiveRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationObjectiveRatingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14219,6 +14267,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationObjectiveRating.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -14804,7 +14855,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationPeriodDescriptor : Entities.Common.TPDM.IEvaluationPeriodDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport
+    public class EvaluationPeriodDescriptor : Entities.Common.TPDM.IEvaluationPeriodDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationPeriodDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14993,6 +15044,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationPeriodDescriptor.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -15192,7 +15246,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRating : Entities.Common.TPDM.IEvaluationRating, IHasETag, Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport
+    public class EvaluationRating : Entities.Common.TPDM.IEvaluationRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationRatingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -15912,6 +15966,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRating.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -17101,7 +17158,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport
+    public class EvaluationRatingLevelDescriptor : Entities.Common.TPDM.IEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17290,6 +17347,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingLevelDescriptor.T
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -17382,7 +17442,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationRatingStatusDescriptor : Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport
+    public class EvaluationRatingStatusDescriptor : Entities.Common.TPDM.IEvaluationRatingStatusDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationRatingStatusDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17571,6 +17631,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationRatingStatusDescriptor.
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -17663,7 +17726,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class EvaluationTypeDescriptor : Entities.Common.TPDM.IEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport
+    public class EvaluationTypeDescriptor : Entities.Common.TPDM.IEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IEvaluationTypeDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -17852,6 +17915,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.EvaluationTypeDescriptor.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -18030,7 +18096,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class FinancialAid : Entities.Common.TPDM.IFinancialAid, IHasETag, Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport
+    public class FinancialAid : Entities.Common.TPDM.IFinancialAid, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IFinancialAidSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18274,6 +18340,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FinancialAid.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -18377,7 +18446,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class GenderDescriptor : Entities.Common.TPDM.IGenderDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport
+    public class GenderDescriptor : Entities.Common.TPDM.IGenderDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IGenderDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18566,6 +18635,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.GenderDescriptor.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -18658,7 +18730,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ObjectiveRatingLevelDescriptor : Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport
+    public class ObjectiveRatingLevelDescriptor : Entities.Common.TPDM.IObjectiveRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IObjectiveRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18847,6 +18919,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ObjectiveRatingLevelDescriptor.TP
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -19034,7 +19109,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluation : Entities.Common.TPDM.IPerformanceEvaluation, IHasETag, Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport
+    public class PerformanceEvaluation : Entities.Common.TPDM.IPerformanceEvaluation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -19424,6 +19499,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluation.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -20155,7 +20233,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRating : Entities.Common.TPDM.IPerformanceEvaluationRating, IHasETag, Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport
+    public class PerformanceEvaluationRating : Entities.Common.TPDM.IPerformanceEvaluationRating, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationRatingSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -20709,6 +20787,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRating.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -21716,7 +21797,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationRatingLevelDescriptor : Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport
+    public class PerformanceEvaluationRatingLevelDescriptor : Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -21905,6 +21986,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationRatingLevelD
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -21997,7 +22081,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class PerformanceEvaluationTypeDescriptor : Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport
+    public class PerformanceEvaluationTypeDescriptor : Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IPerformanceEvaluationTypeDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -22186,6 +22270,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.PerformanceEvaluationTypeDescript
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -22385,7 +22472,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport
+    public class RubricDimension : Entities.Common.TPDM.IRubricDimension, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IRubricDimensionSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -22861,6 +22948,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricDimension.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -22963,7 +23053,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class RubricRatingLevelDescriptor : Entities.Common.TPDM.IRubricRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport
+    public class RubricRatingLevelDescriptor : Entities.Common.TPDM.IRubricRatingLevelDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.IRubricRatingLevelDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -23152,6 +23242,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.RubricRatingLevelDescriptor.TPDM
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -23937,7 +24030,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveyResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasETag, Entities.Common.TPDM.ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport
+    public class SurveyResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveyResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ISurveyResponsePersonTargetAssociationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -24282,6 +24375,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveyResponsePersonTargetAssocia
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -24490,7 +24586,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class SurveySectionResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasETag, Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport
+    public class SurveySectionResponsePersonTargetAssociation : Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociation, IHasETag, IDateVersionedEntity, Entities.Common.TPDM.ISurveySectionResponsePersonTargetAssociationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -24868,6 +24964,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.SurveySectionResponsePersonTarget
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
