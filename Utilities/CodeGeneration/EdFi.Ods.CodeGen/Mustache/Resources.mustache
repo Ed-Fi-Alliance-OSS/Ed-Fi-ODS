@@ -268,7 +268,7 @@ namespace {{ResourceClassesNamespace}}
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag{{/IsAggregateRoot}}, {{NamespacePrefix}}I{{EntityName}}SynchronizationSourceSupport
+    public {{#IsAbstract}}abstract {{/IsAbstract}}class {{ClassName}} : {{NamespacePrefix}}I{{EntityName}}{{DerivedName}}{{#IsAggregateRoot}}, IHasETag, IDateVersionedEntity{{/IsAggregateRoot}}, {{NamespacePrefix}}I{{EntityName}}SynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1175,13 +1175,16 @@ namespace {{ResourceClassesNamespace}}
         // -------------------------------------------------------------
 
         // =============================================================
-        //                         Versioning
+        //                  Versioning / Metadata
         // -------------------------------------------------------------
         {{#Versioning}}
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
-
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
+            
         {{/Versioning}}
         // -------------------------------------------------------------
 
