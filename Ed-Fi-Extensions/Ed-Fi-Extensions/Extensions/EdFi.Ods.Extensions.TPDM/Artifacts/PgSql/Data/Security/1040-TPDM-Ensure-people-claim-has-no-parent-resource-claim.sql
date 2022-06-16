@@ -7,15 +7,14 @@
 -- This was previously (inadvertently) performed in 1010-TPDM-ResourceClaims.sql, starting at line 1769.
 
 DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/people' AND ParentResourceClaimId IS NOT NULL) THEN
 
-IF EXISTS (SELECT 1 FROM dbo.ResourceClaims WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/people' AND ParentResourceClaimId IS NOT NULL) THEN
+        RAISE NOTICE USING MESSAGE = 'Moving ''people'' resource claim to top of the hierarchy...';
 
-    RAISE NOTICE USING MESSAGE = 'Moving ''people'' resource claim to top of the hierarchy...'
+        UPDATE  dbo.ResourceClaims
+        SET     ParentResourceClaimId = NULL
+        WHERE   ResourceClaimId = (SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/people');
 
-    UPDATE  dbo.ResourceClaims
-    SET     ParentResourceClaimId = NULL
-    WHERE   ResourceClaimId = (SELECT ResourceClaimId FROM dbo.ResourceClaims WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/domains/people')
-
-END IF;
-
+    END IF;
 END $$;
