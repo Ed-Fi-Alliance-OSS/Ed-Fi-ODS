@@ -2290,7 +2290,7 @@
 															"  pm.expect(responseItem.studentUniqueId).to.equal(pm.environment.get('known:' + scenarioId + ':studentUniqueId'));",
 															"});",
 															"",
-															"const lastModifiedDate = responseItems[0]._lastModifiedDate;",
+															"const lastModifiedDate = responseItem._lastModifiedDate;",
 															"",
 															"pm.test('Should include last modified date as a metadata property', () => {",
 															"  pm.expect(lastModifiedDate).to.not.equal(undefined);",
