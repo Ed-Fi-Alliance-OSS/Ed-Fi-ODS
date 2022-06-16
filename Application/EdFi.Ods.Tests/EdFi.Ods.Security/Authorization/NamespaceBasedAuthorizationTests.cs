@@ -155,7 +155,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Security.Authorization
 
             //Assert
             result.Exception.ShouldBeExceptionType<EdFiSecurityException>();
-            result.Exception.Message.ShouldBe("Access to the resource item with namespace 'uri://www.TEST.org/' could not be authorized based on the caller's NamespacePrefix claims: 'uri://ed-fi.org/', 'uri://ed-fi-2.org/'.");
+            result.Exception.Message.ShouldBe("Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: 'uri://ed-fi.org/', 'uri://ed-fi-2.org/'.");
         }
 
         [Test]
