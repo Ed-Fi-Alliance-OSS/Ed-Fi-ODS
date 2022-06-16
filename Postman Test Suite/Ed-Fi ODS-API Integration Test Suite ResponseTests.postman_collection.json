@@ -2297,7 +2297,7 @@
 															"});",
 															"",
 															"pm.test(`Last modified date of '${lastModifiedDate}' should be in UTC format according ISO-8601`, () => {",
-															"  pm.expect(lastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{7}Z/);",
+															"  pm.expect(lastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{1,7}Z/);",
 															"});",
 															""
 														],
@@ -2370,7 +2370,7 @@
 															"});",
 															"",
 															"pm.test(`Last modified date of '${lastModifiedDate}' should be in UTC format according ISO-8601`, () => {",
-															"  pm.expect(lastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{7}Z/);",
+															"  pm.expect(lastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{1,7}Z/);",
 															"});",
 															""
 														],
