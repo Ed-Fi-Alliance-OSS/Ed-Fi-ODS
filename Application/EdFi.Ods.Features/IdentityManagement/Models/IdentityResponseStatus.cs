@@ -8,6 +8,6 @@ namespace EdFi.Ods.Features.IdentityManagement.Models
 
         public IdentityStatusCode StatusCode { get; set; }
 
-        public IdentityError[] Error { get; set; }
+        public IdentityError[] Errors { get; set; }
     }
 }
