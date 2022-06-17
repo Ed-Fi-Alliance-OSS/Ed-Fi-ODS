@@ -3,11 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Threading.Tasks;
-using AutoMapper;
-using EdFi.Common.Extensions;
 using EdFi.Ods.Features.IdentityManagement.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -15,18 +12,12 @@ namespace EdFi.Ods.WebApi.IntegrationTests
 {
     public class TestIdentitiesService : IIdentityService, IIdentityServiceAsync
     {
-        private int _findIndex;
-        private int _identityIndex;
-        private int _searchIndex;
-        public Dictionary<string, string[]> Finds = new Dictionary<string, string[]>();
-
-        public Dictionary<string, IdentityCreateRequest> Identities = new Dictionary<string, IdentityCreateRequest>();
-        public Dictionary<string, IdentitySearchRequest[]> Searches = new Dictionary<string, IdentitySearchRequest[]>();
-        private static MapperConfiguration _mapperConfig;
-
-        static TestIdentitiesService()
+        public enum ResponseBehaviour
         {
-            //_mapperConfig = new MapperConfiguration(x => x.CreateMap<IdentityCreateRequest, IdentityResponse>());
+            Success,
+            InvalidProperties,
+            Incomplete,
+            NotFound
         }
 
         public IdentityServiceCapabilities IdentityServiceCapabilities => IdentityServiceCapabilities.Create
@@ -34,241 +25,120 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                                                                           | IdentityServiceCapabilities.Search
                                                                           | IdentityServiceCapabilities.Results;
 
+        private readonly ResponseBehaviour _responseBehaviour;
+
+        public TestIdentitiesService(ResponseBehaviour responseBehaviour)
+        {
+            _responseBehaviour = responseBehaviour;
+        }
+
         public Task<IdentityResponseStatus<string>> Create(IdentityCreateRequest createRequest)
         {
-            var id = string.Format("identity{0}", _identityIndex++);
-            Identities.Add(id, createRequest);
-
-            return Task.FromResult(
-                new IdentityResponseStatus<string>
-                {
-                    Data = id, StatusCode = IdentityStatusCode.Success
-                });
-        }
-
-        public Task<IdentityResponseStatus<IdentitySearchResponse>> Find(params string[] findRequest)
-        {
-            if (findRequest.All(x => x == "invalid"))
+            return _responseBehaviour switch
             {
-                return ReturnInvalidResponse();
-            }
-            
-            if (findRequest.All(x => x == "incomplete"))
-            {
-                return ReturnIncompleteResponse();
-            }
-
-            if (findRequest.All(x => x == "notfound"))
-            {
-                return ReturnNotFoundResponse();
-            }
-
-            var results = findRequest.Select(
-                                          x =>
-                                          {
-                                              if (!Identities.ContainsKey(x))
-                                              {
-                                                  return new IdentitySearchResponses
-                                                         {
-                                                             Responses = new[]
-                                                                         {
-                                                                             new IdentityResponse()
-                                                                         }
-                                                         };
-                                              }
-
-                                              //TODO: bring back mapping
-                                              //var mapper = _mapperConfig.CreateMapper();
-                                              //var tmp = mapper.Map<IdentityResponse>(Identities[x]);
-                                              var tmp = new IdentityResponse
-                                              {
-                                                  BirthDate = Identities[x].BirthDate,
-                                                  BirthLocation = Identities[x].BirthLocation,
-                                                  BirthOrder = Identities[x].BirthOrder,
-                                                  FirstName = Identities[x].FirstName,
-                                                  GenerationCodeSuffix = Identities[x].GenerationCodeSuffix,
-                                                  LastSurname = Identities[x].LastSurname,
-                                                  MiddleName = Identities[x].MiddleName,
-                                                  SexType = Identities[x].SexType,
-                                                  Properties = Identities[x].Properties
-                                              };
-                                              tmp.Score = 100;
-                                              tmp.UniqueId = x;
-
-                                              return new IdentitySearchResponses
-                                                     {
-                                                         Responses = new[]
-                                                                     {
-                                                                         tmp
-                                                                     }
-                                                     };
-                                          })
-                                     .ToArray();
-
-            return Task.FromResult(
-                new IdentityResponseStatus<IdentitySearchResponse>
-                {
-                    Data = new IdentitySearchResponse
-                           {
-                               Status = SearchResponseStatus.Complete, SearchResponses = results
-                           },
-                    StatusCode = IdentityStatusCode.Success
-                });
-        }
-
-        public Task<IdentityResponseStatus<IdentitySearchResponse>> Search(params IdentitySearchRequest[] searchRequest)
-        {
-            var results = searchRequest.Select(
-                                            x =>
-                                            {
-                                                var identities = Identities.Where(y => y.Value.FirstName == x.FirstName);
-
-                                                return new IdentitySearchResponses
-                                                       {
-                                                           Responses = identities.Select(
-                                                                                      y =>
-                                                                                      {
-                                                                                          var mapper =
-                                                                                              _mapperConfig.CreateMapper();
-                                                                                          var tmp = mapper.Map<IdentityResponse>(y.Value);
-                                                                                          tmp.Score = 100;
-                                                                                          tmp.UniqueId = y.Key;
-                                                                                          return tmp;
-                                                                                      })
-                                                                                 .ToArray()
-                                                       };
-                                            })
-                                       .ToArray();
-
-            return Task.FromResult(
-                new IdentityResponseStatus<IdentitySearchResponse>
-                {
-                    Data = new IdentitySearchResponse
-                           {
-                               Status = SearchResponseStatus.Complete, SearchResponses = results
-                           },
-                    StatusCode = IdentityStatusCode.Success
-                });
-        }
-
-        Task<IdentityResponseStatus<string>> IIdentityServiceAsync.Search(params IdentitySearchRequest[] searchRequest)
-        {
-            var token = "searchToken" + _searchIndex++;
-            Searches.Add(token, searchRequest);
-
-            return Task.FromResult(
-                new IdentityResponseStatus<string>
-                {
-                    Data = token, StatusCode = IdentityStatusCode.Success
-                });
-        }
-
-        public Task<IdentityResponseStatus<IdentitySearchResponse>> Response(string requestToken)
-        {
-            if (Finds.ContainsKey(requestToken))
-            {
-                var findResult = Find(Finds[requestToken])
-                   .GetResultSafely();
-
-                Finds.Remove(requestToken);
-                return Task.FromResult(findResult);
-            }
-
-            if (Searches.ContainsKey(requestToken))
-            {
-                var searchResult = Search(Searches[requestToken])
-                   .GetResultSafely();
-
-                Searches.Remove(requestToken);
-                return Task.FromResult(searchResult);
-            }
-
-            return
-                Task.FromResult(
-                    (IdentityResponseStatus<IdentitySearchResponse>) new IdentityResponseErrorStatus<IdentitySearchResponse>
-                                                                     {
-                                                                         StatusCode = IdentityStatusCode.NotFound
-                                                                     });
+                ResponseBehaviour.Success => Task.FromResult(
+                    new IdentityResponseStatus<string> { StatusCode = IdentityStatusCode.Success }),
+                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<string>(),
+                ResponseBehaviour.Incomplete => BuildIncompleteResponse<string>(),
+                ResponseBehaviour.NotFound => BuildNotFoundResponse<string>(),
+                _ => throw new NotImplementedException()
+            };
         }
 
         Task<IdentityResponseStatus<string>> IIdentityServiceAsync.Find(params string[] findRequest)
         {
-            var token = "findToken" + _findIndex++;
-            Finds.Add(token, findRequest);
-
-            if (findRequest.All(x => x == "invalid"))
+            return _responseBehaviour switch
             {
-                return Task.FromResult(
-                    new IdentityResponseStatus<string>
-                    {
-                        Error = new[]
-                        {
-                            new IdentityError
-                            {
-                                Code = "InvalidId",
-                                Description = "Invalid Id specified"
-                            }
-                        },
-                        Data = token,
-                        StatusCode = IdentityStatusCode.InvalidProperties
-                    });
-            }
-
-            if (findRequest.All(x => x == "incomplete"))
-            {
-                return Task.FromResult(
-                    new IdentityResponseStatus<string>
-                    {
-                        Error = new[]
-                        {
-                            new IdentityError
-                            {
-                                Code = "Incomplete",
-                                Description = "The search results are not ready yet"
-                            }
-                        },
-                        Data = token,
-                        StatusCode = IdentityStatusCode.Incomplete
-                    });
-            }
-
-            if (findRequest.All(x => x == "notfound"))
-            {
-                return Task.FromResult(
-                    new IdentityResponseStatus<string>
-                    {
-                        Data = token,
-                        StatusCode = IdentityStatusCode.NotFound
-                    });
-            }
-
-            return Task.FromResult(
-                new IdentityResponseStatus<string>
-                {
-                    Data = token, StatusCode = IdentityStatusCode.Success
-                });
+                ResponseBehaviour.Success => Task.FromResult(
+                    new IdentityResponseStatus<string> { StatusCode = IdentityStatusCode.Success }),
+                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<string>(),
+                ResponseBehaviour.Incomplete => BuildIncompleteResponse<string>(),
+                ResponseBehaviour.NotFound => BuildNotFoundResponse<string>(),
+                _ => throw new NotImplementedException()
+            };
         }
 
-        private static Task<IdentityResponseStatus<IdentitySearchResponse>> ReturnNotFoundResponse()
+        public Task<IdentityResponseStatus<IdentitySearchResponse>> Find(params string[] findRequest)
+        {
+            return _responseBehaviour switch
+            {
+                ResponseBehaviour.Success => Task.FromResult(
+                    new IdentityResponseStatus<IdentitySearchResponse>
+                    {
+                        Data = new IdentitySearchResponse
+                        {
+                            Status = SearchResponseStatus.Complete,
+                            SearchResponses = new IdentitySearchResponses[]
+                                {
+                                    new() {Responses = new[] {new IdentityResponse {Score = 100}}}
+                                }
+                        },
+                        StatusCode = IdentityStatusCode.Success
+                    }),
+                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<IdentitySearchResponse>(),
+                ResponseBehaviour.Incomplete => BuildIncompleteResponse<IdentitySearchResponse>(),
+                ResponseBehaviour.NotFound => BuildNotFoundResponse<IdentitySearchResponse>(),
+                _ => throw new NotImplementedException()
+            };
+        }
+
+        Task<IdentityResponseStatus<string>> IIdentityServiceAsync.Search(params IdentitySearchRequest[] searchRequest)
+        {
+            return _responseBehaviour switch
+            {
+                ResponseBehaviour.Success => Task.FromResult(
+                    new IdentityResponseStatus<string> { StatusCode = IdentityStatusCode.Success }),
+                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<string>(),
+                ResponseBehaviour.Incomplete => BuildIncompleteResponse<string>(),
+                ResponseBehaviour.NotFound => BuildNotFoundResponse<string>(),
+                _ => throw new NotImplementedException()
+            };
+        }
+
+        public Task<IdentityResponseStatus<IdentitySearchResponse>> Search(params IdentitySearchRequest[] searchRequest)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IdentityResponseStatus<IdentitySearchResponse>> Response(string requestToken)
+        {
+            return _responseBehaviour switch
+            {
+                ResponseBehaviour.Success => Task.FromResult(
+                    new IdentityResponseStatus<IdentitySearchResponse>
+                    {
+                        Data = new IdentitySearchResponse
+                        {
+                            Status = SearchResponseStatus.Complete,
+                            SearchResponses = new IdentitySearchResponses[]
+                            {
+                                new() {Responses = new[] {new IdentityResponse {Score = 100}}}
+                            }
+                        },
+                        StatusCode = IdentityStatusCode.Success
+                    }),
+                ResponseBehaviour.InvalidProperties => BuildInvalidResponse<IdentitySearchResponse>(),
+                ResponseBehaviour.Incomplete => BuildIncompleteResponse<IdentitySearchResponse>(),
+                ResponseBehaviour.NotFound => BuildNotFoundResponse<IdentitySearchResponse>(),
+                _ => throw new NotImplementedException()
+            };
+        }
+
+        private static Task<IdentityResponseStatus<T>> BuildNotFoundResponse<T>()
         {
             return Task.FromResult(
-                new IdentityResponseStatus<IdentitySearchResponse>
+                new IdentityResponseStatus<T>
                 {
-                    Data = new IdentitySearchResponse
-                    {
-                        Status = SearchResponseStatus.Complete,
-                        SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
-                    },
                     StatusCode = IdentityStatusCode.NotFound
                 });
         }
 
-        private static Task<IdentityResponseStatus<IdentitySearchResponse>> ReturnIncompleteResponse()
+        private static Task<IdentityResponseStatus<T>> BuildIncompleteResponse<T>()
         {
             return Task.FromResult(
-                new IdentityResponseStatus<IdentitySearchResponse>
+                new IdentityResponseStatus<T>
                 {
-                    Error = new[]
+                    Errors = new[]
                     {
                         new IdentityError
                         {
@@ -276,32 +146,22 @@ namespace EdFi.Ods.WebApi.IntegrationTests
                             Description = "The search results are not ready yet"
                         }
                     },
-                    Data = new IdentitySearchResponse
-                    {
-                        Status = SearchResponseStatus.Complete,
-                        SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
-                    },
                     StatusCode = IdentityStatusCode.Incomplete
                 });
         }
 
-        private static Task<IdentityResponseStatus<IdentitySearchResponse>> ReturnInvalidResponse()
+        private static Task<IdentityResponseStatus<T>> BuildInvalidResponse<T>()
         {
             return Task.FromResult(
-                new IdentityResponseStatus<IdentitySearchResponse>
+                new IdentityResponseStatus<T>
                 {
-                    Error = new[]
+                    Errors = new[]
                     {
                         new IdentityError
                         {
                             Code = "InvalidId",
                             Description = "Invalid Id specified"
                         }
-                    },
-                    Data = new IdentitySearchResponse
-                    {
-                        Status = SearchResponseStatus.Complete,
-                        SearchResponses = new[] { new IdentitySearchResponses { Responses = new[] { new IdentityResponse() } } }
                     },
                     StatusCode = IdentityStatusCode.InvalidProperties
                 });
