@@ -118,7 +118,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentTransportation : Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasETag, Entities.Common.SampleStudentTransportation.IStudentTransportationSynchronizationSourceSupport
+    public class StudentTransportation : Entities.Common.SampleStudentTransportation.IStudentTransportation, IHasETag, IDateVersionedEntity, Entities.Common.SampleStudentTransportation.IStudentTransportationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -406,6 +406,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentTransportation.SampleStude
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
