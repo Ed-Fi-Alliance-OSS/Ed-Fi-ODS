@@ -93,7 +93,12 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             if (filterContext.SubjectEndpointValue == null)
             {
-                // This should never happen
+                if (filterContext.SubjectEndpointName.EndsWith("USI"))
+                {
+                    throw new EdFiSecurityConflictException(
+                        $"Access to the resource item could not be authorized because the '{filterContext.SubjectEndpointName.Substring(0, filterContext.SubjectEndpointName.Length - 3)}' was not found.");
+                }
+                
                 throw new EdFiSecurityException(
                     $"Access to the resource item could not be authorized because the '{filterContext.SubjectEndpointName}' of the resource is empty.");
             }
