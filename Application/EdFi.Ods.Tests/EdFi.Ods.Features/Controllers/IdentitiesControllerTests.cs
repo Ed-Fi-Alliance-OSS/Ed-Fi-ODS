@@ -47,7 +47,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
                     () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.InvalidProperties)),
                     () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Id specified."),
-                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Count().ShouldBe(1),
                     () => response!.IdentitySystemErrors.Single().Code.ShouldBe("InvalidId"),
                     () => response!.IdentitySystemErrors.Single().Description.ShouldBe("Invalid Id specified"));
             }
@@ -78,7 +78,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
                     () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
                     () => response!.Message.ShouldBe("Invalid response from identity service: The search results are not ready yet."),
-                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Count().ShouldBe(1),
                     () => response!.IdentitySystemErrors.Single().Code.ShouldBe("Incomplete"),
                     () => response!.IdentitySystemErrors.Single().Description.ShouldBe("The search results are not ready yet"));
             }
@@ -188,7 +188,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
                     () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
                     () => response!.Message.ShouldBe("Invalid response from identity service: The search results are not ready yet."),
-                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Count().ShouldBe(1),
                     () => response!.IdentitySystemErrors.Single().Code.ShouldBe("Incomplete"),
                     () => response!.IdentitySystemErrors.Single().Description.ShouldBe("The search results are not ready yet"));
             }
@@ -273,7 +273,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
                     () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.InvalidProperties)),
                     () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Id specified."),
-                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Count().ShouldBe(1),
                     () => response!.IdentitySystemErrors.Single().Code.ShouldBe("InvalidId"),
                     () => response!.IdentitySystemErrors.Single().Description.ShouldBe("Invalid Id specified"));
             }
@@ -304,7 +304,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
                     () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
                     () => response!.Message.ShouldBe("Invalid response from identity service: The search results are not ready yet."),
-                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Count().ShouldBe(1),
                     () => response!.IdentitySystemErrors.Single().Code.ShouldBe("Incomplete"),
                     () => response!.IdentitySystemErrors.Single().Description.ShouldBe("The search results are not ready yet"));
             }
@@ -388,7 +388,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
                     () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.InvalidProperties)),
                     () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Id specified."),
-                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Count().ShouldBe(1),
                     () => response!.IdentitySystemErrors.Single().Code.ShouldBe("InvalidId"),
                     () => response!.IdentitySystemErrors.Single().Description.ShouldBe("Invalid Id specified"));
             }
@@ -419,7 +419,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
                     () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
                     () => response!.Message.ShouldBe("Invalid response from identity service: The search results are not ready yet."),
-                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Count().ShouldBe(1),
                     () => response!.IdentitySystemErrors.Single().Code.ShouldBe("Incomplete"),
                     () => response!.IdentitySystemErrors.Single().Description.ShouldBe("The search results are not ready yet"));
             }
@@ -503,7 +503,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
                     () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.InvalidProperties)),
                     () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Id specified."),
-                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Count().ShouldBe(1),
                     () => response!.IdentitySystemErrors.Single().Code.ShouldBe("InvalidId"),
                     () => response!.IdentitySystemErrors.Single().Description.ShouldBe("Invalid Id specified"));
             }

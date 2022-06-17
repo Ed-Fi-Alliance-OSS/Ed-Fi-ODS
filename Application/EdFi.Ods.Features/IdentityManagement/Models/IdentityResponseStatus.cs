@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace EdFi.Ods.Features.IdentityManagement.Models
 {
@@ -8,6 +9,6 @@ namespace EdFi.Ods.Features.IdentityManagement.Models
 
         public IdentityStatusCode StatusCode { get; set; }
 
-        public IdentityError[] Errors { get; set; }
+        public IEnumerable<IdentityError> Errors { get; set; }
     }
 }

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net;
@@ -288,6 +289,6 @@ namespace EdFi.Ods.Features.Controllers
     {
         public string Message { get; set; }
         public string IdentitySystemStatusCode { get; set; }
-        public IdentityError[] IdentitySystemErrors { get; set; }
+        public IEnumerable<IdentityError> IdentitySystemErrors { get; set; }
     }
 }
