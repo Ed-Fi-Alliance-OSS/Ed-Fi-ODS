@@ -4,11 +4,13 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Features.Controllers;
 using EdFi.Ods.Features.IdentityManagement.Models;
 using EdFi.Ods.WebApi.IntegrationTests;
 using EdFi.TestFixture;
+using FakeItEasy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
@@ -20,32 +22,34 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
     [TestFixture]
     public class IdentitiesControllerTests
     {
-        public class InvalidGetByIdRequest : TestFixtureAsyncBase
+        public class InvalidPropertiesGetByIdRequest : TestFixtureAsyncBase
         {
             private IdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
-                var identityService = new TestIdentitiesService();
-                var identityServiceAsync = new TestIdentitiesService();
-                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
+                _controller = new IdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
             protected override async Task ActAsync()
             {
-                _actionResult = (ObjectResult) await _controller.GetById("invalid");
+                _actionResult = (ObjectResult) await _controller.GetById("ignored");
             }
 
             [Test]
-            public void Should_return_invalid_details()
+            public void Should_return_invalid_properties_details()
             {
-                var response = (ControllerResponse) _actionResult.Value;
+                var response = (ErrorResponse) _actionResult.Value;
                 AssertHelper.All(
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
-                    () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Properties: ErrorCode: InvalidId, ErrorDescription: Invalid Id specified"),
-                    () => response!.StatusCode.ShouldBe(IdentityStatusCode.InvalidProperties));
+                    () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.InvalidProperties)),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Id specified."),
+                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Single().Code.ShouldBe("InvalidId"),
+                    () => response!.IdentitySystemErrors.Single().Description.ShouldBe("Invalid Id specified"));
             }
         }
 
@@ -56,25 +60,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override Task ArrangeAsync()
             {
-                var identityService = new TestIdentitiesService();
-                var identityServiceAsync = new TestIdentitiesService();
-                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
+                _controller = new IdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
             protected override async Task ActAsync()
             {
-                _actionResult = (ObjectResult)await _controller.GetById("incomplete");
+                _actionResult = (ObjectResult)await _controller.GetById("ignored");
             }
 
             [Test]
             public void Should_return_incomplete_details()
             {
-                var response = (ControllerResponse)_actionResult.Value;
+                var response = (ErrorResponse)_actionResult.Value;
                 AssertHelper.All(
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
-                    () => response!.Message.ShouldBe("Invalid response from identity service: Incomplete: ErrorCode: Incomplete, ErrorDescription: The search results are not ready yet"),
-                    () => response!.StatusCode.ShouldBe(IdentityStatusCode.Incomplete));
+                    () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: The search results are not ready yet."),
+                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Single().Code.ShouldBe("Incomplete"),
+                    () => response!.IdentitySystemErrors.Single().Description.ShouldBe("The search results are not ready yet"));
             }
         }
 
@@ -85,19 +91,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override Task ArrangeAsync()
             {
-                var identityService = new TestIdentitiesService();
-                var identityServiceAsync = new TestIdentitiesService();
-                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
+                _controller = new IdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
             protected override async Task ActAsync()
             {
-                _actionResult = (ObjectResult)await _controller.GetById("notfound");
+                _actionResult = (ObjectResult)await _controller.GetById("ignored");
             }
 
             [Test]
-            public void Should_return_notfound_details()
+            public void Should_return_not_found_details()
             {
                 AssertHelper.All(
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status404NotFound),
@@ -109,65 +114,168 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
         {
             private IdentitiesController _controller;
             private ObjectResult _actionResult;
-            private string _uniqueId;
 
-            protected override async Task ArrangeAsync()
+            protected override Task ArrangeAsync()
             {
-                var identityService = new TestIdentitiesService();
-                var identityServiceAsync = new TestIdentitiesService();
-                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                var urlHelper = A.Fake<IUrlHelper>();
+                A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
 
-                var result = await _controller.Create(
-                    new IdentityCreateRequest
-                    {
-                        BirthDate = DateTime.MinValue,
-
-                    });
-
-                _uniqueId = ((ObjectResult) result).Value?.ToString();
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
+                _controller = new IdentitiesController(identityService, identityService) { Url = urlHelper };
+                return Task.CompletedTask;
             }
 
             protected override async Task ActAsync()
             {
-                _actionResult = (ObjectResult)await _controller.GetById(_uniqueId);
+                _actionResult = (ObjectResult)await _controller.GetById("ignored");
             }
 
             [Test]
             public void Should_return_success_details()
             {
                 AssertHelper.All(
-                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK),
-                    () => ((IdentityResponse)_actionResult.Value)!.UniqueId.ShouldBe(_uniqueId));
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK));
             }
         }
 
-        public class InvalidFindRequest : TestFixtureAsyncBase
+        public class InvalidPropertiesCreateRequest : TestFixtureAsyncBase
         {
             private IdentitiesController _controller;
             private ObjectResult _actionResult;
 
             protected override Task ArrangeAsync()
             {
-                var identityService = new TestIdentitiesService();
-                var identityServiceAsync = new TestIdentitiesService();
-                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
+                _controller = new IdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
             protected override async Task ActAsync()
             {
-                var test = await _controller.Find(new[] { "invalid" });
-                _actionResult = (ObjectResult)await _controller.Find(new []{"invalid"});
+                _actionResult = (ObjectResult)await _controller.Create(new IdentityCreateRequest());
             }
 
             [Test]
-            public void Should_return_invalid_details()
+            public void Should_return_invalid_properties_details()
             {
-                var response = (ControllerResponse)_actionResult.Value;
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status400BadRequest));
+            }
+        }
+
+        public class IncompleteCreateRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Create(new IdentityCreateRequest());
+            }
+
+            [Test]
+            public void Should_return_incomplete_details()
+            {
+                var response = (ErrorResponse)_actionResult.Value;
                 AssertHelper.All(
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
-                    () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Properties: ErrorCode: InvalidId, ErrorDescription: Invalid Id specified"),
-                    () => response!.StatusCode.ShouldBe(IdentityStatusCode.InvalidProperties));
+                    () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: The search results are not ready yet."),
+                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Single().Code.ShouldBe("Incomplete"),
+                    () => response!.IdentitySystemErrors.Single().Description.ShouldBe("The search results are not ready yet"));
+            }
+        }
+
+        public class NotFoundCreateRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Create(new IdentityCreateRequest());
+            }
+
+            [Test]
+            public void Should_return_not_found_details()
+            {
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status404NotFound),
+                    () => _actionResult.ShouldBeOfType<NotFoundObjectResult>());
+            }
+        }
+
+        public class SuccessCreateRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var urlHelper = A.Fake<IUrlHelper>();
+                A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
+
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
+                _controller = new IdentitiesController(identityService, identityService) { Url = urlHelper };
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Create(new IdentityCreateRequest());
+            }
+
+            [Test]
+            public void Should_return_success_details()
+            {
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status201Created));
+            }
+        }
+
+        public class InvalidPropertiesFindRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult) await _controller.Find(new[] { "ignored" });
+            }
+
+            [Test]
+            public void Should_return_invalid_properties_details()
+            {
+                var response = (ErrorResponse)_actionResult.Value;
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.InvalidProperties)),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Id specified."),
+                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Single().Code.ShouldBe("InvalidId"),
+                    () => response!.IdentitySystemErrors.Single().Description.ShouldBe("Invalid Id specified"));
             }
         }
 
@@ -178,25 +286,27 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override Task ArrangeAsync()
             {
-                var identityService = new TestIdentitiesService();
-                var identityServiceAsync = new TestIdentitiesService();
-                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
+                _controller = new IdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
             protected override async Task ActAsync()
             {
-                _actionResult = (ObjectResult)await _controller.Find(new[] { "incomplete" });
+                _actionResult = (ObjectResult)await _controller.Find(new[] { "ignored" });
             }
 
             [Test]
             public void Should_return_incomplete_details()
             {
-                var response = (ControllerResponse)_actionResult.Value;
+                var response = (ErrorResponse)_actionResult.Value;
                 AssertHelper.All(
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
-                    () => response!.Message.ShouldBe("Invalid response from identity service: Incomplete: ErrorCode: Incomplete, ErrorDescription: The search results are not ready yet"),
-                    () => response!.StatusCode.ShouldBe(IdentityStatusCode.Incomplete));
+                    () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: The search results are not ready yet."),
+                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Single().Code.ShouldBe("Incomplete"),
+                    () => response!.IdentitySystemErrors.Single().Description.ShouldBe("The search results are not ready yet"));
             }
         }
 
@@ -207,19 +317,18 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override Task ArrangeAsync()
             {
-                var identityService = new TestIdentitiesService();
-                var identityServiceAsync = new TestIdentitiesService();
-                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
+                _controller = new IdentitiesController(identityService, identityService);
                 return Task.CompletedTask;
             }
 
             protected override async Task ActAsync()
             {
-                _actionResult = (ObjectResult)await _controller.Find(new [] { "notfound" });
+                _actionResult = (ObjectResult)await _controller.Find(new [] { "ignored" });
             }
 
             [Test]
-            public void Should_return_notfound_details()
+            public void Should_return_not_found_details()
             {
                 AssertHelper.All(
                     () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status404NotFound),
@@ -231,43 +340,263 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
         {
             private IdentitiesController _controller;
             private ObjectResult _actionResult;
-            private string _uniqueId1;
-            private string _uniqueId2;
 
-            protected override async Task ArrangeAsync()
+            protected override Task ArrangeAsync()
             {
-                var identityService = new TestIdentitiesService();
-                var identityServiceAsync = new TestIdentitiesService();
-                _controller = new IdentitiesController(identityService, identityServiceAsync);
+                var urlHelper = A.Fake<IUrlHelper>();
+                A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
 
-                var firstResult = await _controller.Create(
-                    new IdentityCreateRequest
-                    {
-                        BirthDate = DateTime.MinValue,
-
-                    });
-
-                _uniqueId1 = ((ObjectResult)firstResult).Value?.ToString();
-
-                var secondResult = await _controller.Create(
-                    new IdentityCreateRequest
-                    {
-                        BirthDate = DateTime.MinValue,
-
-                    });
-
-                _uniqueId2 = ((ObjectResult)secondResult).Value?.ToString();
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
+                _controller = new IdentitiesController(identityService, identityService) {Url = urlHelper};
+                return Task.CompletedTask;
             }
 
             protected override async Task ActAsync()
             {
-                _actionResult = (ObjectResult)await _controller.Find(new []{ _uniqueId1, _uniqueId2 });
+                _actionResult = (ObjectResult)await _controller.Find(new []{ "ignored" });
             }
 
             [Test]
             public void Should_return_success_details()
             {
                 _actionResult.StatusCode.ShouldBe(StatusCodes.Status202Accepted);
+            }
+        }
+
+        public class InvalidPropertiesSearchRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult) await _controller.Search(new IdentitySearchRequest[] { });
+            }
+
+            [Test]
+            public void Should_return_invalid_properties_details()
+            {
+                var response = (ErrorResponse)_actionResult.Value;
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.InvalidProperties)),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Id specified."),
+                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Single().Code.ShouldBe("InvalidId"),
+                    () => response!.IdentitySystemErrors.Single().Description.ShouldBe("Invalid Id specified"));
+            }
+        }
+
+        public class IncompleteSearchRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Search(new IdentitySearchRequest[] { });
+            }
+
+            [Test]
+            public void Should_return_incomplete_details()
+            {
+                var response = (ErrorResponse)_actionResult.Value;
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: The search results are not ready yet."),
+                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Single().Code.ShouldBe("Incomplete"),
+                    () => response!.IdentitySystemErrors.Single().Description.ShouldBe("The search results are not ready yet"));
+            }
+        }
+
+        public class NotFoundSearchRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Search(new IdentitySearchRequest[] { });
+            }
+
+            [Test]
+            public void Should_return_not_found_details()
+            {
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status404NotFound),
+                    () => _actionResult.ShouldBeOfType<NotFoundObjectResult>());
+            }
+        }
+
+        public class SuccessSearchRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var urlHelper = A.Fake<IUrlHelper>();
+                A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
+
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
+                _controller = new IdentitiesController(identityService, identityService) { Url = urlHelper };
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Search(new IdentitySearchRequest[] { });
+            }
+
+            [Test]
+            public void Should_return_success_details()
+            {
+                _actionResult.StatusCode.ShouldBe(StatusCodes.Status202Accepted);
+            }
+        }
+        
+        public class InvalidPropertiesResultRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.InvalidProperties);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult) await _controller.Result("ignored");
+            }
+
+            [Test]
+            public void Should_return_invalid_properties_details()
+            {
+                var response = (ErrorResponse)_actionResult.Value;
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.InvalidProperties)),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: Invalid Id specified."),
+                    () => response!.IdentitySystemErrors.Length.ShouldBe(1),
+                    () => response!.IdentitySystemErrors.Single().Code.ShouldBe("InvalidId"),
+                    () => response!.IdentitySystemErrors.Single().Description.ShouldBe("Invalid Id specified"));
+            }
+        }
+
+        public class IncompleteResultRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var controllerContext =
+                    new ControllerContext
+                    {
+                        HttpContext = new DefaultHttpContext()
+                        {
+                            Request =
+                            {
+                                Scheme = "http",
+                                Host = HostString.FromUriComponent("localhost")
+                            }
+                        }
+                    };
+
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Incomplete);
+                _controller = new IdentitiesController(identityService, identityService) {ControllerContext = controllerContext};
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Result("ignored");
+            }
+
+            [Test]
+            public void Should_return_incomplete_details()
+            {
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK));
+            }
+        }
+
+        public class NotFoundResultRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NotFound);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Result("ignored");
+            }
+
+            [Test]
+            public void Should_return_not_found_details()
+            {
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status404NotFound),
+                    () => _actionResult.ShouldBeOfType<NotFoundObjectResult>());
+            }
+        }
+
+        public class SuccessResultRequest : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var urlHelper = A.Fake<IUrlHelper>();
+                A.CallTo(() => urlHelper.Link(A<string>.Ignored, A<object>.Ignored)).Returns("https://localhost");
+
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.Success);
+                _controller = new IdentitiesController(identityService, identityService) { Url = urlHelper };
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Result("ignored");
+            }
+
+            [Test]
+            public void Should_return_success_details()
+            {
+                _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK);
             }
         }
     }
