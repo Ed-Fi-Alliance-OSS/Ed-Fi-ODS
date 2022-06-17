@@ -133,8 +133,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             [Test]
             public void Should_return_success_details()
             {
+                var response = (IdentityResponse)_actionResult.Value;
+
                 AssertHelper.All(
-                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK));
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK),
+                    () => response!.UniqueId.ShouldBe("ignored"));
             }
         }
 
@@ -243,8 +246,11 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             [Test]
             public void Should_return_success_details()
             {
+                var response = (string)_actionResult.Value;
+
                 AssertHelper.All(
-                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status201Created));
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status201Created),
+                    () => response!.ShouldBe("ignored"));
             }
         }
 
@@ -596,7 +602,71 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             [Test]
             public void Should_return_success_details()
             {
-                _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK);
+                var response = (IdentitySearchResponse)_actionResult.Value;
+
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status200OK),
+                    () => response!.SearchResponses[0].Responses[0].UniqueId.ShouldBe("ignored"));
+            }
+        }
+
+        public class UnknownResult : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.UnknownStatusCode);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Create(new IdentityCreateRequest());
+            }
+
+            [Test]
+            public void Should_return_success_details()
+            {
+                var response = (ErrorResponse)_actionResult.Value;
+
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => response!.IdentitySystemStatusCode.ShouldBe("Unknown"),
+                    () => response!.IdentitySystemErrors.Count().ShouldBe(2),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: An unknown error occurred, An second unknown error occurred."));
+            }
+        }
+
+        public class NullErrorListResult : TestFixtureAsyncBase
+        {
+            private IdentitiesController _controller;
+            private ObjectResult _actionResult;
+
+            protected override Task ArrangeAsync()
+            {
+                var identityService = new TestIdentitiesService(TestIdentitiesService.ResponseBehaviour.NullErrorList);
+                _controller = new IdentitiesController(identityService, identityService);
+                return Task.CompletedTask;
+            }
+
+            protected override async Task ActAsync()
+            {
+                _actionResult = (ObjectResult)await _controller.Create(new IdentityCreateRequest());
+            }
+
+            [Test]
+            public void Should_return_success_details()
+            {
+                var response = (ErrorResponse)_actionResult.Value;
+
+                AssertHelper.All(
+                    () => _actionResult.StatusCode.ShouldBe(StatusCodes.Status502BadGateway),
+                    () => response!.IdentitySystemStatusCode.ShouldBe(Enum.GetName(IdentityStatusCode.Incomplete)),
+                    () => response!.IdentitySystemErrors.ShouldBe(null),
+                    () => response!.Message.ShouldBe("Invalid response from identity service: ."));
             }
         }
     }
