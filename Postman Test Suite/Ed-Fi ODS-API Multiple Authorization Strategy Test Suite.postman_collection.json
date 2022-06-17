@@ -845,7 +845,7 @@
 													"const message = pm.response.json().message;",
 													"",
 													"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
-													"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+													"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims:\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -986,7 +986,7 @@
 													"",
 													"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
 													"  // Should contain the namespace prefix error message",
-													"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+													"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims:\");",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1060,7 +1060,7 @@
 													"",
 													"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
 													"  // Should contain the namespace prefix error message",
-													"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+													"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims:\");",
 													"});",
 													"",
 													"pm.test(`Message of '${message}' should not reveal that the item exists by indicating that the ownership token doesn't match`, () => {",
@@ -1135,7 +1135,7 @@
 													"",
 													"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
 													"  // Should contain the namespace prefix error message",
-													"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+													"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims:\");",
 													"});",
 													"",
 													"pm.test(`Message of '${message}' should not reveal that the item exists by indicating that the ownership token doesn't match`, () => {",
@@ -1211,7 +1211,7 @@
 													"",
 													"pm.test(`Message of '${message}' should indicate that the caller doesn't have the necessary namespace prefix`, () => {",
 													"  // Should contain the namespace prefix error message",
-													"  pm.expect(message).to.contain(\"Access to the resource item with namespace 'uri://ed-fi.org' could not be authorized based on the caller's NamespacePrefix claims:\");",
+													"  pm.expect(message).to.contain(\"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims:\");",
 													"});",
 													"",
 													"pm.test(`Message of '${message}' should not reveal that the item exists by indicating that the ownership token doesn't match`, () => {",

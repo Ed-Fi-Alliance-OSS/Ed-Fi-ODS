@@ -115,7 +115,7 @@ public class NamespaceBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
 
             return InstanceAuthorizationResult.Failed(
                 new EdFiSecurityException(
-                    $"Access to the resource item with namespace '{contextData.Namespace}' could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'."));
+                    $"Access to the resource item could not be authorized based on the caller's NamespacePrefix claims: '{claimNamespacePrefixesText}'."));
         }
 
         return InstanceAuthorizationResult.Success();
