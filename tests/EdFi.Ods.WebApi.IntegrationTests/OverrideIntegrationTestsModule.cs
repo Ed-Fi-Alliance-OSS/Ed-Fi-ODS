@@ -6,7 +6,6 @@
 using Autofac;
 using EdFi.Ods.Api.Providers;
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.Features.IdentityManagement.Models;
 
 namespace EdFi.Ods.WebApi.IntegrationTests
 {
@@ -14,11 +13,6 @@ namespace EdFi.Ods.WebApi.IntegrationTests
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<TestIdentitiesService>()
-                .As<IIdentityService>()
-                .As<IIdentityServiceAsync>()
-                .SingleInstance();
-
             builder.RegisterType<IntegrationTestOdsConnectionStringProvider>()
                 .As<IOdsDatabaseConnectionStringProvider>()
                 .SingleInstance();

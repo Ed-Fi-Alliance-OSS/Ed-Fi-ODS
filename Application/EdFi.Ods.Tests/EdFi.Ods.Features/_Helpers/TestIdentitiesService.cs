@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using EdFi.Ods.Features.IdentityManagement.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace EdFi.Ods.WebApi.IntegrationTests
+namespace EdFi.Ods.Tests.EdFi.Ods.Features.Helpers
 {
     public class TestIdentitiesService : IIdentityService, IIdentityServiceAsync
     {

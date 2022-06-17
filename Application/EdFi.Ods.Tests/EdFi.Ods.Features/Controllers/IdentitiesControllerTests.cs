@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EdFi.Ods.Features.Controllers;
 using EdFi.Ods.Features.IdentityManagement.Models;
-using EdFi.Ods.WebApi.IntegrationTests;
+using EdFi.Ods.Tests.EdFi.Ods.Features.Helpers;
 using EdFi.TestFixture;
 using FakeItEasy;
 using Microsoft.AspNetCore.Http;
