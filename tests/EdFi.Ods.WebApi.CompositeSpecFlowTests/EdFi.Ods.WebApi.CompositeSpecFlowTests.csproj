@@ -25,7 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.0.3" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.0.12" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.0.14" />
     <PackageReference Include="NHibernate" Version="5.3.11" />
     <PackageReference Include="ApprovalTests" Version="5.7.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />

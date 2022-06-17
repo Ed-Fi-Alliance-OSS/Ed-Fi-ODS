@@ -54,6 +54,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
 using System.Security.Claims;
+using EdFi.Ods.Common;
 
 namespace EdFi.Ods.Api.Startup
 {
@@ -317,6 +318,7 @@ namespace EdFi.Ods.Api.Startup
                 // Make this dependency available to generated artifacts
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IResourceModelProvider>());
                 GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IAuthorizationContextProvider>());
+                GeneratedArtifactStaticDependencies.Resolvers.Set(() => Container.Resolve<IETagProvider>());
 
                 // netcore has removed the claims principal from the thread, to be on the controller.
                 // as a workaround for our current application we can resolve the IHttpContextAccessor.

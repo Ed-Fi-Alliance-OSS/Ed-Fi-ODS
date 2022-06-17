@@ -30,7 +30,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class ArtMediumDescriptor : Entities.Common.Sample.IArtMediumDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport
+    public class ArtMediumDescriptor : Entities.Common.Sample.IArtMediumDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IArtMediumDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -219,6 +219,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.ArtMediumDescriptor.Sample
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -391,7 +394,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class Bus : Entities.Common.Sample.IBus, IHasETag, Entities.Common.Sample.IBusSynchronizationSourceSupport
+    public class Bus : Entities.Common.Sample.IBus, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IBusSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -525,6 +528,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.Bus.Sample
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -693,7 +699,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, Entities.Common.Sample.IBusRouteSynchronizationSourceSupport
+    public class BusRoute : Entities.Common.Sample.IBusRoute, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IBusRouteSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -1203,6 +1209,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.BusRoute.Sample
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -2736,7 +2745,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class FavoriteBookCategoryDescriptor : Entities.Common.Sample.IFavoriteBookCategoryDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport
+    public class FavoriteBookCategoryDescriptor : Entities.Common.Sample.IFavoriteBookCategoryDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IFavoriteBookCategoryDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2925,6 +2934,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.FavoriteBookCategoryDescriptor.Sa
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -3017,7 +3029,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class MembershipTypeDescriptor : Entities.Common.Sample.IMembershipTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport
+    public class MembershipTypeDescriptor : Entities.Common.Sample.IMembershipTypeDescriptor, Entities.Common.EdFi.IDescriptor, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IMembershipTypeDescriptorSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -3206,6 +3218,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.MembershipTypeDescriptor.Sample
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -9909,7 +9924,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport
+    public class StudentArtProgramAssociation : Entities.Common.Sample.IStudentArtProgramAssociation, Entities.Common.EdFi.IGeneralStudentProgramAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IStudentArtProgramAssociationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10558,6 +10573,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentArtProgramAssociation.Samp
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -13387,7 +13405,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport
+    public class StudentGraduationPlanAssociation : Entities.Common.Sample.IStudentGraduationPlanAssociation, IHasETag, IDateVersionedEntity, Entities.Common.Sample.IStudentGraduationPlanAssociationSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -14039,6 +14057,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.StudentGraduationPlanAssociation.
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 

@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "520e7933-9f53-4c1c-8f78-a13d5450f542",
+		"_postman_id": "aecc2c8a-5e04-4d78-9855-a49424bd1e3e",
 		"name": "Ed-Fi ODS/API Integration Test Suite ResponseTests",
 		"description": "Localhost integration testing using Postman Scripts",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1213570"
 	},
 	"item": [
 		{
@@ -2279,12 +2280,24 @@
 													"script": {
 														"exec": [
 															"pm.test(\"Status code is 200\", () => {",
-															"    pm.expect(pm.response.code).to.equal(200);",
+															"  pm.expect(pm.response.code).to.equal(200);",
 															"});",
+															"",
+															"const responseItem = pm.response.json();",
+															"",
 															"pm.test(\"Should return 1 item for verification\", () => {",
-															"     const responseItem = pm.response.json();",
-															"     const scenarioId = pm.environment.get('scenarioId');",
-															"     pm.expect(responseItem.studentUniqueId).to.equal(pm.environment.get('known:'+scenarioId+':studentUniqueId'));",
+															"  const scenarioId = pm.environment.get('scenarioId');",
+															"  pm.expect(responseItem.studentUniqueId).to.equal(pm.environment.get('known:' + scenarioId + ':studentUniqueId'));",
+															"});",
+															"",
+															"const lastModifiedDate = responseItem._lastModifiedDate;",
+															"",
+															"pm.test('Should include last modified date as a metadata property', () => {",
+															"  pm.expect(lastModifiedDate).to.not.equal(undefined);",
+															"});",
+															"",
+															"pm.test(`Last modified date of '${lastModifiedDate}' should be in UTC format according ISO-8601`, () => {",
+															"  pm.expect(lastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{1,7}Z/);",
 															"});",
 															""
 														],
@@ -2313,6 +2326,84 @@
 														"ed-fi",
 														"Students",
 														"{{known:{{scenarioId}}:studentGuid}}"
+													]
+												},
+												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "when_getting_a_derived_resource",
+							"item": [
+								{
+									"name": "api_should_succeed_with_200_code",
+									"item": [
+										{
+											"name": "api_should_succeed_with_200_code",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															""
+														],
+														"type": "text/javascript"
+													}
+												},
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"pm.test(\"Status code is 200\", () => {",
+															"  pm.expect(pm.response.code).to.equal(200);",
+															"});",
+															"",
+															"const responseItems = pm.response.json();",
+															"const lastModifiedDate = responseItems[0]._lastModifiedDate;",
+															"",
+															"pm.test('Should include last modified date as a metadata property', () => {",
+															"  pm.expect(lastModifiedDate).to.not.equal(undefined);",
+															"});",
+															"",
+															"pm.test(`Last modified date of '${lastModifiedDate}' should be in UTC format according ISO-8601`, () => {",
+															"  pm.expect(lastModifiedDate).to.match(/\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{1,7}Z/);",
+															"});",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": ""
+												},
+												"url": {
+													"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentProgramAssociations?limit=1",
+													"host": [
+														"{{ApiBaseUrl}}"
+													],
+													"path": [
+														"data",
+														"v3",
+														"ed-fi",
+														"studentProgramAssociations"
+													],
+													"query": [
+														{
+															"key": "limit",
+															"value": "1"
+														}
 													]
 												},
 												"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"

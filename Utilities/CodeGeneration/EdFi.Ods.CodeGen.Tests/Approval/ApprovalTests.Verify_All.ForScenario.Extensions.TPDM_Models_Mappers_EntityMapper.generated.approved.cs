@@ -154,20 +154,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AccreditationStatusDescriptorAggregat
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -333,20 +337,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.AidTypeDescriptorAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -906,20 +914,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -1169,20 +1181,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -1263,20 +1279,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -1395,20 +1415,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -1471,20 +1495,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -1571,20 +1599,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -1668,20 +1700,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -1741,20 +1777,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -1872,20 +1912,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -2013,20 +2057,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -2089,20 +2137,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -2201,20 +2253,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -2396,20 +2452,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -2497,20 +2557,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -2593,20 +2657,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CandidateEducatorPreparationProgramAs
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -2767,20 +2835,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CertificationRouteDescriptorAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -2946,20 +3018,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CoteachingStyleObservedDescriptorAggr
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -3159,20 +3235,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -3262,20 +3342,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -3434,20 +3518,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.CredentialStatusDescriptorAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -3585,20 +3673,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -3660,20 +3752,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorPreparationProgramAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -3832,20 +3928,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EducatorRoleDescriptorAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -4011,20 +4111,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EnglishLanguageExamDescriptorAggregat
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -4190,20 +4294,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EPPProgramPathwayDescriptorAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -4397,20 +4505,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -4499,20 +4611,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -4699,20 +4815,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -4800,20 +4920,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -5029,20 +5153,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -5124,20 +5252,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -5297,20 +5429,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationElementRatingLevelDescripto
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -5509,20 +5645,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -5611,20 +5751,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -5799,20 +5943,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -5891,20 +6039,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationObjectiveRatingAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -6064,20 +6216,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationPeriodDescriptorAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -6326,20 +6482,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -6424,20 +6584,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -6588,20 +6752,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -6681,20 +6849,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -6855,20 +7027,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingLevelDescriptorAggreg
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -7034,20 +7210,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationRatingStatusDescriptorAggre
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -7213,20 +7393,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.EvaluationTypeDescriptorAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -7364,20 +7548,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.FinancialAidAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -7540,20 +7728,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.GenderDescriptorAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -7719,20 +7911,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.ObjectiveRatingLevelDescriptorAggrega
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -7910,20 +8106,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -7987,20 +8187,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -8082,20 +8286,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -8351,20 +8559,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             }
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -8451,20 +8663,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -8615,20 +8831,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -8708,20 +8928,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -8882,20 +9106,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationRatingLevelDescr
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -9061,20 +9289,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.PerformanceEvaluationTypeDescriptorAg
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -9235,20 +9467,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricDimensionAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -9410,20 +9646,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.RubricRatingLevelDescriptorAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -9511,20 +9751,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SchoolAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -9619,20 +9863,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponseAggregate
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -9729,20 +9977,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveyResponsePersonTargetAssociation
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 
@@ -9842,20 +10094,24 @@ namespace EdFi.Ods.Entities.Common.TPDM //.SurveySectionResponsePersonTargetAsso
             // Map lists
 
 
-            var eTagProvider = new ETagProvider();
+            // Convert source to an ETag, if appropriate
+            if (target is IHasETag entityWithETag)
+                entityWithETag.ETag = GeneratedArtifactStaticDependencies.ETagProvider.GetETag(source);
 
-            // Convert value to ETag, if appropriate
-            var entityWithETag = target as IHasETag;
-
-            if (entityWithETag != null)
-                entityWithETag.ETag = eTagProvider.GetETag(source);
-
-            // Convert value to LastModifiedDate, if appropriate
-            var dateVersionedEntity = target as IDateVersionedEntity;
-            var etagSource = source as IHasETag;
-
-            if (dateVersionedEntity != null && etagSource != null)
-                dateVersionedEntity.LastModifiedDate = eTagProvider.GetDateTime(etagSource.ETag);
+            // Copy/assign LastModifiedDate, if appropriate
+            if (target is IDateVersionedEntity targetDateVersionedEntity)
+            {
+                if (source is IHasETag etagSource)
+                {
+                    // Convert resource's supplied eTag value to entity's LastModifiedDate
+                    targetDateVersionedEntity.LastModifiedDate = GeneratedArtifactStaticDependencies.ETagProvider.GetDateTime(etagSource.ETag);
+                }
+                else if (source is IDateVersionedEntity sourceDateVersionedEntity)
+                {
+                    // Copy LastModifiedDate, when mapping from entities to resources/entities
+                    targetDateVersionedEntity.LastModifiedDate = sourceDateVersionedEntity.LastModifiedDate;
+                }
+            }
         }
     }
 

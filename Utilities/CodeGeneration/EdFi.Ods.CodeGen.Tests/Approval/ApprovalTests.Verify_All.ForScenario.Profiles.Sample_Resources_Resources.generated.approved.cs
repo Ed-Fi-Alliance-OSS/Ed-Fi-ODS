@@ -1751,7 +1751,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
+    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, IDateVersionedEntity, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -2186,6 +2186,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -5869,7 +5872,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
+    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, IDateVersionedEntity, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -6356,6 +6359,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -8765,7 +8771,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
+    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, IDateVersionedEntity, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -9140,6 +9146,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -10020,7 +10029,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
+    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, IDateVersionedEntity, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -10342,6 +10351,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -13164,7 +13176,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
+    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, IDateVersionedEntity, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -13689,6 +13701,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 
@@ -17931,7 +17946,7 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
     /// </summary>
     [Serializable, DataContract]
     [ExcludeFromCodeCoverage]
-    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
+    public class School : Entities.Common.EdFi.ISchool, Entities.Common.EdFi.IEducationOrganization, IHasETag, IDateVersionedEntity, Entities.Common.EdFi.ISchoolSynchronizationSourceSupport
     {
 #pragma warning disable 414
         private bool _SuspendReferenceAssignmentCheck = false;
@@ -18456,6 +18471,9 @@ namespace EdFi.Ods.Api.Common.Models.Resources.School.EdFi.Test_Profile_Resource
 
         [DataMember(Name="_etag")]
         public virtual string ETag { get; set; }
+            
+        [DataMember(Name="_lastModifiedDate")]
+        public virtual DateTime LastModifiedDate { get; set; }
 
         // -------------------------------------------------------------
 

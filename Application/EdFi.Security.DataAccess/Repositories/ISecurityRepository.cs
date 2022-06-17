@@ -34,9 +34,5 @@ namespace EdFi.Security.DataAccess.Repositories
         IEnumerable<ResourceClaimAction> GetResourceClaimLineageMetadata(string resourceClaimUri, string action);
 
         ResourceClaim GetResourceByResourceName(string resourceName);
-
-        void LoadRecordOwnershipData();
-
-        void LoadMultipleAuthorizationStrategyData();
     }
 }
