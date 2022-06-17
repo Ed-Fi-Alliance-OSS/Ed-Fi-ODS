@@ -93,7 +93,6 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         {
             if (filterContext.SubjectEndpointValue == null)
             {
-                // This should never happen
                 if (filterContext.SubjectEndpointName.EndsWith("USI"))
                 {
                     throw new EdFiSecurityConflictException(
