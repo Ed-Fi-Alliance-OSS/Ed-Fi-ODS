@@ -4,7 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using EdFi.Ods.Common.Exceptions;
@@ -12,6 +14,7 @@ using EdFi.Ods.Features.IdentityManagement.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.Features.Controllers
@@ -51,7 +54,7 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="502">The underlying identity system returned an error.</response>
         /// <returns>The identity information for the provided Unique Id</returns>
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id}", Name = "IdentitiesGetById")]
         public async Task<IActionResult> GetById([FromRoute(Name = "id")] string uniqueId)
         {
             try
@@ -71,16 +74,14 @@ namespace EdFi.Ods.Features.Controllers
                             .Responses[0];
 
                         return identity.Score == 100
-                            ? (IActionResult) Ok(identity)
+                            ? Ok(identity)
                             : NotFound(new NotFoundException());
-                    case IdentityStatusCode.Incomplete:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
-                    case IdentityStatusCode.InvalidProperties:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
                     case IdentityStatusCode.NotFound:
                         return NotFound(new NotFoundException());
+                    case IdentityStatusCode.Incomplete:
+                    case IdentityStatusCode.InvalidProperties:
                     default:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Unknown");
+                        return StatusCode((int)HttpStatusCode.BadGateway, BuildErrorResponse(identitySearchResponse));
                 }
             }
             catch (Exception ex)
@@ -113,16 +114,15 @@ namespace EdFi.Ods.Features.Controllers
                 switch (result.StatusCode)
                 {
                     case IdentityStatusCode.Success:
-                        var route = Url.Link("IdentitiesGetById", new {id = result.Data});
+                        var route = Url.Link("IdentitiesGetById", new { id = result.Data });
                         return Created(new Uri(route), result.Data);
-                    case IdentityStatusCode.InvalidProperties:
-                        return StatusCode((int) HttpStatusCode.BadRequest, result.Data);
-                    case IdentityStatusCode.Incomplete:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
                     case IdentityStatusCode.NotFound:
                         return NotFound(new NotFoundException());
+                    case IdentityStatusCode.InvalidProperties:
+                        return StatusCode((int)HttpStatusCode.BadRequest, result.Data);
+                    case IdentityStatusCode.Incomplete:
                     default:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Unknown");
+                        return StatusCode((int)HttpStatusCode.BadGateway, BuildErrorResponse(result));
                 }
             }
             catch (Exception ex)
@@ -152,16 +152,14 @@ namespace EdFi.Ods.Features.Controllers
                     switch (result.StatusCode)
                     {
                         case IdentityStatusCode.Success:
-                            var route = Url.Link("IdentitiesSearchResult", new {id = result.Data});
+                            var route = Url.Link("IdentitiesSearchResult", new { id = result.Data });
                             return Accepted(route);
-                        case IdentityStatusCode.Incomplete:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
-                        case IdentityStatusCode.InvalidProperties:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
                         case IdentityStatusCode.NotFound:
                             return NotFound(InvalidServerResponse + "Not Found");
+                        case IdentityStatusCode.Incomplete:
+                        case IdentityStatusCode.InvalidProperties:
                         default:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Unknown");
+                            return StatusCode((int)HttpStatusCode.BadGateway, BuildErrorResponse(result));
                     }
                 }
 
@@ -204,16 +202,14 @@ namespace EdFi.Ods.Features.Controllers
                     switch (result.StatusCode)
                     {
                         case IdentityStatusCode.Success:
-                            var route = Url.Link("IdentitiesSearchResult", new {id = result.Data});
+                            var route = Url.Link("IdentitiesSearchResult", new { id = result.Data });
                             return Accepted(route);
-                        case IdentityStatusCode.Incomplete:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Incomplete");
-                        case IdentityStatusCode.InvalidProperties:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
                         case IdentityStatusCode.NotFound:
                             return NotFound(InvalidServerResponse + "Not Found");
+                        case IdentityStatusCode.Incomplete:
+                        case IdentityStatusCode.InvalidProperties:
                         default:
-                            return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Unknown");
+                            return StatusCode((int)HttpStatusCode.BadGateway, BuildErrorResponse(result));
                     }
                 }
 
@@ -239,7 +235,7 @@ namespace EdFi.Ods.Features.Controllers
         /// <response code="501">The server does not support the requested function.</response>
         /// <response code="502">The underlying identity system returned an error.</response>
         [HttpGet]
-        [Route("results/{id}")]
+        [Route("results/{id}", Name = "IdentitiesSearchResult")]
         public async Task<IActionResult> Result([FromRoute(Name = "id")] string searchToken)
         {
             try
@@ -261,9 +257,8 @@ namespace EdFi.Ods.Features.Controllers
                     case IdentityStatusCode.NotFound:
                         return NotFound("No identity search matching the provided search token was found.");
                     case IdentityStatusCode.InvalidProperties:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Invalid Properties");
                     default:
-                        return StatusCode((int) HttpStatusCode.BadGateway, InvalidServerResponse + "Unknown");
+                        return StatusCode((int) HttpStatusCode.BadGateway, BuildErrorResponse(result));
                 }
             }
             catch (Exception ex)
@@ -276,5 +271,24 @@ namespace EdFi.Ods.Features.Controllers
         {
             return StatusCode((int) HttpStatusCode.NotImplemented, NoIdentitySystem);
         }
+
+        private static ErrorResponse BuildErrorResponse<T>(IdentityResponseStatus<T> identityResponse)
+        {
+            var errorsText = string.Join(", ", identityResponse.Errors?.Select(e => e.Description) ?? Array.Empty<string>());
+
+            return new ErrorResponse
+            {
+                Message = $"{InvalidServerResponse}{errorsText}.",
+                IdentitySystemStatusCode = Enum.GetName(identityResponse.StatusCode) ?? "Unknown",
+                IdentitySystemErrors = identityResponse.Errors
+            };
+        }
+    }
+
+    public class ErrorResponse
+    {
+        public string Message { get; set; }
+        public string IdentitySystemStatusCode { get; set; }
+        public IEnumerable<IdentityError> IdentitySystemErrors { get; set; }
     }
 }
