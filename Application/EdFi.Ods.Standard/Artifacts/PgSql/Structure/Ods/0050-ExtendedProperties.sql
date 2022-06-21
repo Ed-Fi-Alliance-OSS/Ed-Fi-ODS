@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Extended Properties [edfi].[AbsenceEventCategoryDescriptor] --
 COMMENT ON TABLE edfi.AbsenceEventCategoryDescriptor IS 'This descriptor describes the type of absence';
 COMMENT ON COLUMN edfi.AbsenceEventCategoryDescriptor.AbsenceEventCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -167,7 +162,6 @@ COMMENT ON COLUMN edfi.AssessmentItem.Namespace IS 'Namespace for the assessment
 COMMENT ON COLUMN edfi.AssessmentItem.AssessmentItemCategoryDescriptorId IS 'Category or type of the assessment item.';
 COMMENT ON COLUMN edfi.AssessmentItem.MaxRawScore IS 'The maximum raw score achievable across all assessment items that are correct and scored at the maximum.';
 COMMENT ON COLUMN edfi.AssessmentItem.ItemText IS 'The text of the item.';
-COMMENT ON COLUMN edfi.AssessmentItem.CorrectResponse IS 'The correct response for the assessment item.';
 COMMENT ON COLUMN edfi.AssessmentItem.ExpectedTimeAssessed IS 'The duration of time allotted for the assessment item.';
 COMMENT ON COLUMN edfi.AssessmentItem.Nomenclature IS 'Reflects the specific nomenclature used for assessment item.';
 COMMENT ON COLUMN edfi.AssessmentItem.AssessmentItemURI IS 'The URI (typical a URL) pointing to the entry in an assessment item bank, which describes this content item.';
@@ -215,6 +209,7 @@ COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.PerformanceLevelDescriptorId I
 COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.MinimumScore IS 'The minimum score required to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.MaximumScore IS 'The maximum score to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+COMMENT ON COLUMN edfi.AssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[AssessmentPeriod] --
 COMMENT ON TABLE edfi.AssessmentPeriod IS 'The period or window in which an assessment is supposed to be administered.';
@@ -281,6 +276,10 @@ COMMENT ON COLUMN edfi.AssessmentSection.SchoolId IS 'The identifier assigned to
 COMMENT ON COLUMN edfi.AssessmentSection.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN edfi.AssessmentSection.SectionIdentifier IS 'The local identifier assigned to a section.';
 COMMENT ON COLUMN edfi.AssessmentSection.SessionName IS 'The identifier for the calendar for the academic session.';
+
+-- Extended Properties [edfi].[AssignmentLateStatusDescriptor] --
+COMMENT ON TABLE edfi.AssignmentLateStatusDescriptor IS 'Status of whether the assignment was submitted after the due date and/or marked as.';
+COMMENT ON COLUMN edfi.AssignmentLateStatusDescriptor.AssignmentLateStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[AttemptStatusDescriptor] --
 COMMENT ON TABLE edfi.AttemptStatusDescriptor IS 'This descriptor describes a student''s completion status for a section.';
@@ -1174,44 +1173,33 @@ COMMENT ON COLUMN edfi.Grade.LetterGradeEarned IS 'A final or interim (grading p
 COMMENT ON COLUMN edfi.Grade.NumericGradeEarned IS 'A final or interim (grading period) indicator of student performance in a class as submitted by the instructor.';
 COMMENT ON COLUMN edfi.Grade.DiagnosticStatement IS 'A statement provided by the teacher that provides information in addition to the grade or assessment score.';
 COMMENT ON COLUMN edfi.Grade.PerformanceBaseConversionDescriptorId IS 'A conversion of the level to a standard set of performance levels.';
+COMMENT ON COLUMN edfi.Grade.CurrentGradeIndicator IS 'An indicator that the posted grade is an interim grade for the grading period and not the final grade.';
+COMMENT ON COLUMN edfi.Grade.CurrentGradeAsOfDate IS 'As-Of date for a grade posted as the current grade.';
 
 -- Extended Properties [edfi].[GradebookEntry] --
 COMMENT ON TABLE edfi.GradebookEntry IS 'This entity represents an assignment, homework, or classroom assessment to be recorded in a gradebook.';
-COMMENT ON COLUMN edfi.GradebookEntry.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
-COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryTitle IS 'The name or title of the activity to be recorded in the gradebook entry.';
-COMMENT ON COLUMN edfi.GradebookEntry.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.GradebookEntry.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.GradebookEntry.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
+COMMENT ON COLUMN edfi.GradebookEntry.SourceSystemNamespace IS 'Namespace URI for the source of the gradebook entry.';
 COMMENT ON COLUMN edfi.GradebookEntry.SectionIdentifier IS 'The local identifier assigned to a section.';
+COMMENT ON COLUMN edfi.GradebookEntry.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN edfi.GradebookEntry.SessionName IS 'The identifier for the calendar for the academic session.';
-COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryTypeDescriptorId IS 'The type of the gradebook entry.';
+COMMENT ON COLUMN edfi.GradebookEntry.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN edfi.GradebookEntry.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
+COMMENT ON COLUMN edfi.GradebookEntry.Title IS 'The name or title of the activity to be recorded in the gradebook entry.';
 COMMENT ON COLUMN edfi.GradebookEntry.Description IS 'A description of the assignment, homework, or classroom assessment.';
+COMMENT ON COLUMN edfi.GradebookEntry.DueDate IS 'The date the assignment, homework, or assessment is due.';
+COMMENT ON COLUMN edfi.GradebookEntry.DueTime IS 'The time the assignment, homework, or assessment is due.';
+COMMENT ON COLUMN edfi.GradebookEntry.GradebookEntryTypeDescriptorId IS 'The type of the gradebook entry.';
+COMMENT ON COLUMN edfi.GradebookEntry.MaxPoints IS 'The maximum number of points  that can be earned for the submission.';
 COMMENT ON COLUMN edfi.GradebookEntry.GradingPeriodDescriptorId IS 'The name of the period for which grades are reported.';
 COMMENT ON COLUMN edfi.GradebookEntry.PeriodSequence IS 'The sequential order of this period relative to other periods.';
-COMMENT ON COLUMN edfi.GradebookEntry.DueDate IS 'The date the assignment, homework, or assessment is due.';
-
--- Extended Properties [edfi].[GradebookEntryLearningObjective] --
-COMMENT ON TABLE edfi.GradebookEntryLearningObjective IS 'Learning objectives associated with the gradebook entry.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.GradebookEntryTitle IS 'The name or title of the activity to be recorded in the gradebook entry.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.Namespace IS 'Namespace for the learning objective.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningObjective.SessionName IS 'The identifier for the calendar for the academic session.';
+COMMENT ON COLUMN edfi.GradebookEntry.SchoolYear IS 'The identifier for the school year.';
 
 -- Extended Properties [edfi].[GradebookEntryLearningStandard] --
-COMMENT ON TABLE edfi.GradebookEntryLearningStandard IS 'Learning standard(s) associated with the gradebook entry.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.GradebookEntryTitle IS 'The name or title of the activity to be recorded in the gradebook entry.';
+COMMENT ON TABLE edfi.GradebookEntryLearningStandard IS 'LearningStandard(s) associated with the gradebook entry.';
+COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
 COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.LearningStandardId IS 'The identifier for the specific learning standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SessionName IS 'The identifier for the calendar for the academic session.';
+COMMENT ON COLUMN edfi.GradebookEntryLearningStandard.SourceSystemNamespace IS 'Namespace URI for the source of the gradebook entry.';
 
 -- Extended Properties [edfi].[GradebookEntryTypeDescriptor] --
 COMMENT ON TABLE edfi.GradebookEntryTypeDescriptor IS 'The type of the gradebook entry; for example, homework, assignment, quiz, unit test, oral presentation, etc.';
@@ -1332,6 +1320,7 @@ COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.Assessme
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.MinimumScore IS 'The minimum score required to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.MaximumScore IS 'The maximum score to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+COMMENT ON COLUMN edfi.GraduationPlanRequiredAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[GraduationPlanRequiredAssessmentScore] --
 COMMENT ON TABLE edfi.GraduationPlanRequiredAssessmentScore IS 'Score required to be met or exceeded.';
@@ -1411,6 +1400,7 @@ COMMENT ON COLUMN edfi.Intervention.BeginDate IS 'The start date for the interve
 COMMENT ON COLUMN edfi.Intervention.EndDate IS 'The end date for the intervention implementation.';
 COMMENT ON COLUMN edfi.Intervention.MinDosage IS 'The minimum duration of time in minutes that may be assigned for the intervention.';
 COMMENT ON COLUMN edfi.Intervention.MaxDosage IS 'The maximum duration of time in minutes that may be assigned for the intervention.';
+COMMENT ON COLUMN edfi.Intervention.Namespace IS 'Namespace for the intervention.';
 
 -- Extended Properties [edfi].[InterventionAppropriateGradeLevel] --
 COMMENT ON TABLE edfi.InterventionAppropriateGradeLevel IS 'Grade levels for the intervention. If omitted, considered generally applicable.';
@@ -1478,6 +1468,7 @@ COMMENT ON COLUMN edfi.InterventionPrescription.InterventionClassDescriptorId IS
 COMMENT ON COLUMN edfi.InterventionPrescription.DeliveryMethodDescriptorId IS 'The way in which an intervention was implemented: individual, small group, whole class, or whole school.';
 COMMENT ON COLUMN edfi.InterventionPrescription.MinDosage IS 'The minimum duration of time in minutes that is recommended for the intervention.';
 COMMENT ON COLUMN edfi.InterventionPrescription.MaxDosage IS 'The maximum duration of time in minutes that is recommended for the intervention.';
+COMMENT ON COLUMN edfi.InterventionPrescription.Namespace IS 'Namespace for the intervention.';
 
 -- Extended Properties [edfi].[InterventionPrescriptionAppropriateGradeLevel] --
 COMMENT ON TABLE edfi.InterventionPrescriptionAppropriateGradeLevel IS 'Grade levels for the prescribed intervention. If omitted, considered generally applicable.';
@@ -1840,14 +1831,6 @@ COMMENT ON COLUMN edfi.ObjectiveAssessmentAssessmentItem.AssessmentItemIdentific
 COMMENT ON COLUMN edfi.ObjectiveAssessmentAssessmentItem.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentAssessmentItem.Namespace IS 'Namespace for the assessment.';
 
--- Extended Properties [edfi].[ObjectiveAssessmentLearningObjective] --
-COMMENT ON TABLE edfi.ObjectiveAssessmentLearningObjective IS 'References the learning objective(s) the objective assessment tests.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.IdentificationCode IS 'A unique number or alphanumeric code assigned to an objective assessment by a school, school system, a state, or other agency or entity.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.LearningObjectiveId IS 'The identifier for the specific learning objective in the context of a standard (e.g., 111.15.3.1.A).';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.LearningObjectiveNamespace IS 'Namespace for the learning objective.';
-COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningObjective.Namespace IS 'Namespace for the assessment.';
-
 -- Extended Properties [edfi].[ObjectiveAssessmentLearningStandard] --
 COMMENT ON TABLE edfi.ObjectiveAssessmentLearningStandard IS 'Learning standard tested by this objective assessment.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentLearningStandard.AssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment.';
@@ -1865,6 +1848,7 @@ COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.PerformanceLevelDescr
 COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.MinimumScore IS 'The minimum score required to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.MaximumScore IS 'The maximum score to make the indicated level of performance.';
 COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+COMMENT ON COLUMN edfi.ObjectiveAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[ObjectiveAssessmentScore] --
 COMMENT ON TABLE edfi.ObjectiveAssessmentScore IS 'Definition of the scores to be expected from this objective assessment.';
@@ -2545,8 +2529,8 @@ COMMENT ON COLUMN edfi.Staff.OldEthnicityDescriptorId IS 'Previous definition of
         5 - White, not of Hispanic origin.';
 COMMENT ON COLUMN edfi.Staff.CitizenshipStatusDescriptorId IS 'An indicator of whether or not the person is a U.S. citizen.';
 COMMENT ON COLUMN edfi.Staff.HighestCompletedLevelOfEducationDescriptorId IS 'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).';
-COMMENT ON COLUMN edfi.Staff.YearsOfPriorProfessionalExperience IS 'The total number of years that an individual has previously held a similar professional position in one or more education institutions.';
-COMMENT ON COLUMN edfi.Staff.YearsOfPriorTeachingExperience IS 'The total number of years that an individual has previously held a teaching position in one or more education institutions.';
+COMMENT ON COLUMN edfi.Staff.YearsOfPriorProfessionalExperience IS 'The total number of years that an individual has previously held a similar professional position in one or more education institutions prior to the current school year.';
+COMMENT ON COLUMN edfi.Staff.YearsOfPriorTeachingExperience IS 'The total number of years that an individual has previously held a teaching position in one or more education institutions prior to the current school year.';
 COMMENT ON COLUMN edfi.Staff.LoginId IS 'The login ID for the user; used for security access control interface.';
 COMMENT ON COLUMN edfi.Staff.HighlyQualifiedTeacher IS 'An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught.';
 COMMENT ON COLUMN edfi.Staff.PersonId IS 'A unique alphanumeric code assigned to a person.';
@@ -3087,6 +3071,7 @@ COMMENT ON COLUMN edfi.StudentAssessmentItem.ResponseIndicatorDescriptorId IS 'I
 COMMENT ON COLUMN edfi.StudentAssessmentItem.AssessmentItemResultDescriptorId IS 'The analyzed result of a student''s response to an assessment item.';
 COMMENT ON COLUMN edfi.StudentAssessmentItem.RawScoreResult IS 'A meaningful raw score of the performance of a student on an assessment item.';
 COMMENT ON COLUMN edfi.StudentAssessmentItem.TimeAssessed IS 'The overall time a student actually spent during the assessment item.';
+COMMENT ON COLUMN edfi.StudentAssessmentItem.ItemNumber IS 'The test question number for this student''s test item.';
 
 -- Extended Properties [edfi].[StudentAssessmentPerformanceLevel] --
 COMMENT ON TABLE edfi.StudentAssessmentPerformanceLevel IS 'The performance level(s) achieved for the student assessment.';
@@ -3097,6 +3082,7 @@ COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.PerformanceLevelDescrip
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.PerformanceLevelMet IS 'Indicator of whether the performance level was met.';
+COMMENT ON COLUMN edfi.StudentAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[StudentAssessmentScoreResult] --
 COMMENT ON TABLE edfi.StudentAssessmentScoreResult IS 'A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.';
@@ -3126,6 +3112,7 @@ COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLev
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.StudentAssessmentIdentifier IS 'A unique number or alphanumeric code assigned to an assessment administered to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.PerformanceLevelMet IS 'Indicator of whether the performance level was met.';
+COMMENT ON COLUMN edfi.StudentAssessmentStudentObjectiveAssessmentPerformanceLevel.PerformanceLevelIndicatorName IS 'The name of the indicator being measured for a collection of performance level values.';
 
 -- Extended Properties [edfi].[StudentAssessmentStudentObjectiveAssessmentScoreResult] --
 COMMENT ON TABLE edfi.StudentAssessmentStudentObjectiveAssessmentScoreResult IS 'A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.';
@@ -3514,20 +3501,18 @@ COMMENT ON COLUMN edfi.StudentEducationOrganizationResponsibilityAssociation.End
 
 -- Extended Properties [edfi].[StudentGradebookEntry] --
 COMMENT ON TABLE edfi.StudentGradebookEntry IS 'This entity holds a student''s grade or competency level for a gradebook entry.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.GradebookEntryTitle IS 'The name or title of the activity to be recorded in the gradebook entry.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.SessionName IS 'The identifier for the calendar for the academic session.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.GradebookEntryIdentifier IS 'A unique number or alphanumeric code assigned to a gradebook entry by the source system.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.SourceSystemNamespace IS 'Namespace URI for the source of the gradebook entry.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.CompetencyLevelDescriptorId IS 'The competency level assessed for the student for the referenced learning objective.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.DateFulfilled IS 'The date an assignment was turned in or the date of an assessment.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.TimeFulfilled IS 'The time an assignment was turned in on the date fulfilled.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.DiagnosticStatement IS 'A statement provided by the teacher that provides information in addition to the grade or assessment score.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.PointsEarned IS 'The points earned for the submission. With extra credit, the points earned may exceed the max points.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.LetterGradeEarned IS 'A final or interim (grading period) indicator of student performance in a class as submitted by the instructor.';
 COMMENT ON COLUMN edfi.StudentGradebookEntry.NumericGradeEarned IS 'A final or interim (grading period) indicator of student performance in a class as submitted by the instructor.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.CompetencyLevelDescriptorId IS 'The competency level assessed for the student for the referenced learning objective.';
-COMMENT ON COLUMN edfi.StudentGradebookEntry.DiagnosticStatement IS 'A statement provided by the teacher that provides information in addition to the grade or assessment score.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.SubmissionStatusDescriptorId IS 'The status of the student''s submission.';
+COMMENT ON COLUMN edfi.StudentGradebookEntry.AssignmentLateStatusDescriptorId IS 'Status of whether the assignment was submitted after the due date and/or marked as.';
 
 -- Extended Properties [edfi].[StudentHomelessProgramAssociation] --
 COMMENT ON TABLE edfi.StudentHomelessProgramAssociation IS 'This association represents the McKinney-Vento Homeless Program program(s) that a student participates in or from which the student receives services.';
@@ -4073,6 +4058,10 @@ COMMENT ON COLUMN edfi.StudentTitleIPartAProgramAssociationTitleIPartAProgramSer
 COMMENT ON TABLE edfi.StudentVisa IS 'An indicator of a non-US citizen''s Visa type.';
 COMMENT ON COLUMN edfi.StudentVisa.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN edfi.StudentVisa.VisaDescriptorId IS 'An indicator of a non-US citizen''s Visa type.';
+
+-- Extended Properties [edfi].[SubmissionStatusDescriptor] --
+COMMENT ON TABLE edfi.SubmissionStatusDescriptor IS 'The status of the student''s submission.';
+COMMENT ON COLUMN edfi.SubmissionStatusDescriptor.SubmissionStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [edfi].[Survey] --
 COMMENT ON TABLE edfi.Survey IS 'A survey to identified or anonymous respondents.';

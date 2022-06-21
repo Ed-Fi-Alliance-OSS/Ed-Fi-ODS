@@ -389,11 +389,6 @@
               <xs:documentation>A possible response to an assessment item.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="CorrectResponse" type="CorrectResponse" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The correct response for the assessment item.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="ExpectedTimeAssessed" type="TimeInterval" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The duration of time allotted for the assessment item.</xs:documentation>
@@ -1786,6 +1781,16 @@
               <xs:documentation>A collection of learning standards associated with the grade.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="CurrentGradeIndicator" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indicator that the posted grade is an interim grade for the grading period and not the final grade.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CurrentGradeAsOfDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>As-Of date for a grade posted as the current grade.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1800,9 +1805,49 @@
     <xs:complexContent>
       <xs:extension base="ComplexObjectType">
         <xs:sequence>
-          <xs:element name="GradebookEntryTitle" type="GradebookEntryTitle">
+          <xs:element name="GradebookEntryIdentifier" type="GradebookEntryIdentifier">
+            <xs:annotation>
+              <xs:documentation>A unique number or alphanumeric code assigned to a gradebook entry by the source system.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SourceSystemNamespace" type="URI">
+            <xs:annotation>
+              <xs:documentation>Namespace URI for the source of the gradebook entry.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SectionIdentifier" type="SectionIdentifier">
+            <xs:annotation>
+              <xs:documentation>The local identifier assigned to a section.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SectionReference" type="SectionReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The section associated with the gradebook entry.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DateAssigned" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date the assignment, homework, or assessment was assigned or executed.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Title" type="Title">
             <xs:annotation>
               <xs:documentation>The name or title of the activity to be recorded in the gradebook entry.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Description" type="Description" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of the assignment, homework, or classroom assessment.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DueDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The date the assignment, homework, or assessment is due.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DueTime" type="xs:time" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The time the assignment, homework, or assessment is due.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="GradebookEntryType" type="GradebookEntryTypeDescriptorReferenceType" minOccurs="0">
@@ -1813,29 +1858,9 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="DateAssigned" type="xs:date">
+          <xs:element name="MaxPoints" type="MaxPoints" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The date the assignment, homework, or assessment was assigned or executed.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="Description" type="Description" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>A description of the assignment, homework, or classroom assessment.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="LearningStandardReference" type="LearningStandardReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Learning standard(s) associated with the gradebook entry.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="LearningObjectiveReference" type="LearningObjectiveReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Learning objectives associated with the gradebook entry.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SectionReference" type="SectionReferenceType">
-            <xs:annotation>
-              <xs:documentation>The section associated with the gradebook entry.</xs:documentation>
+              <xs:documentation>The maximum number of points  that can be earned for the submission.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="GradingPeriodReference" type="GradingPeriodReferenceType" minOccurs="0">
@@ -1843,9 +1868,9 @@
               <xs:documentation>Identifies the grading period for the gradebook entry.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="DueDate" type="xs:date" minOccurs="0">
+          <xs:element name="LearningStandardReference" type="LearningStandardReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
-              <xs:documentation>The date the assignment, homework, or assessment is due.</xs:documentation>
+              <xs:documentation>LearningStandard(s) associated with the gradebook entry.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2074,6 +2099,11 @@
               <xs:documentation>The maximum duration of time in minutes that may be assigned for the intervention.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="Namespace" type="URI" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Namespace for the intervention.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -2159,6 +2189,11 @@
           <xs:element name="MaxDosage" type="Dosage" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The maximum duration of time in minutes that is recommended for the intervention.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Namespace" type="URI" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Namespace for the intervention.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2570,11 +2605,6 @@
           <xs:element name="AssessmentItemReference" type="AssessmentItemReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>References individual test items, if appropriate.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="LearningObjectiveReference" type="LearningObjectiveReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>References the learning objective(s) the objective assessment tests.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="LearningStandardReference" type="LearningStandardReferenceType" minOccurs="0" maxOccurs="unbounded">
@@ -3575,12 +3605,12 @@
           </xs:element>
           <xs:element name="YearsOfPriorProfessionalExperience" type="NumberOfYears" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The total number of years that an individual has previously held a similar professional position in one or more education institutions.</xs:documentation>
+              <xs:documentation>The total number of years that an individual has previously held a similar professional position in one or more education institutions prior to the current school year.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="YearsOfPriorTeachingExperience" type="NumberOfYears" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The total number of years that an individual has previously held a teaching position in one or more education institutions.</xs:documentation>
+              <xs:documentation>The total number of years that an individual has previously held a teaching position in one or more education institutions prior to the current school year.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="LoginId" type="IdentificationCode" minOccurs="0">
@@ -4109,9 +4139,42 @@
     <xs:complexContent>
       <xs:extension base="ComplexObjectType">
         <xs:sequence>
+          <xs:element name="GradebookEntryReference" type="GradebookEntryReferenceType">
+            <xs:annotation>
+              <xs:documentation>The gradebook entry associated with the student grade or score.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>The student associated with the student gradebook entry.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CompetencyLevel" type="CompetencyLevelDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The competency level assessed for the student for the referenced learning objective.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>CompetencyLevelDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="DateFulfilled" type="xs:date" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The date an assignment was turned in or the date of an assessment.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TimeFulfilled" type="xs:time" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The time an assignment was turned in on the date fulfilled.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DiagnosticStatement" type="DiagnosticStatement" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A statement provided by the teacher that provides information in addition to the grade or assessment score.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PointsEarned" type="NumericGrade" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The points earned for the submission. With extra credit, the points earned may exceed the max points.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="LetterGradeEarned" type="GradeEarned" minOccurs="0">
@@ -4124,27 +4187,20 @@
               <xs:documentation>A final or interim (grading period) indicator of student performance in a class as submitted by the instructor.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="CompetencyLevel" type="CompetencyLevelDescriptorReferenceType" minOccurs="0">
+          <xs:element name="SubmissionStatus" type="SubmissionStatusDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The competency level assessed for the student for the referenced learning objective.</xs:documentation>
+              <xs:documentation>The status of the student's submission.</xs:documentation>
               <xs:appinfo>
-                <ann:Descriptor>CompetencyLevelDescriptor</ann:Descriptor>
+                <ann:Descriptor>SubmissionStatusDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="DiagnosticStatement" type="DiagnosticStatement" minOccurs="0">
+          <xs:element name="AssignmentLateStatus" type="AssignmentLateStatusDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>A statement provided by the teacher that provides information in addition to the grade or assessment score.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="StudentSectionAssociationReference" type="StudentSectionAssociationReferenceType">
-            <xs:annotation>
-              <xs:documentation>Relates the student associated with the gradebook entry.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="GradebookEntryReference" type="GradebookEntryReferenceType">
-            <xs:annotation>
-              <xs:documentation>The gradebook entry associated with the student grade or score.</xs:documentation>
+              <xs:documentation>Status of whether the assignment was submitted after the due date and/or marked as.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>AssignmentLateStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -4842,6 +4898,17 @@
   <xs:complexType name="AssessmentReportingMethodDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor defines the method that the instructor of the class uses to report the performance and achievement of all students. It may be a qualitative method such as individualized teacher comments or a quantitative method such as a letter or a numerical grade.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AssignmentLateStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>Status of whether the assignment was submitted after the due date and/or marked as.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -6525,6 +6592,17 @@
   <xs:complexType name="StudentParticipationCodeDescriptor">
     <xs:annotation>
       <xs:documentation>The role or type of participation of a student in a discipline incident; for example: Victim, Perpetrator, Witness, Reporter.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SubmissionStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>The status of the student's submission.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -10210,19 +10288,14 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="GradebookEntryTitle" type="GradebookEntryTitle">
+      <xs:element name="GradebookEntryIdentifier" type="GradebookEntryIdentifier">
         <xs:annotation>
-          <xs:documentation>The name or title of the activity to be recorded in the gradebook entry.</xs:documentation>
+          <xs:documentation>A unique number or alphanumeric code assigned to a gradebook entry by the source system.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="DateAssigned" type="xs:date">
+      <xs:element name="SourceSystemNamespace" type="URI">
         <xs:annotation>
-          <xs:documentation>The date the assignment, homework, or assessment was assigned or executed.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SectionReference" type="SectionReferenceType">
-        <xs:annotation>
-          <xs:documentation>The section associated with the gradebook entry.</xs:documentation>
+          <xs:documentation>Namespace URI for the source of the gradebook entry.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -10235,27 +10308,12 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="GradebookEntryTitle" type="GradebookEntryTitle" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The name or title of the activity to be recorded in the gradebook entry.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
       <xs:element name="GradebookEntryType" type="GradebookEntryTypeDescriptorReferenceType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>The type of the gradebook entry.</xs:documentation>
           <xs:appinfo>
             <ann:Descriptor>GradebookEntryTypeDescriptor</ann:Descriptor>
           </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="DateAssigned" type="xs:date" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The date the assignment, homework, or assessment was assigned or executed.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SectionReference" type="SectionReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The section associated with the gradebook entry.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="GradingPeriodReference" type="GradingPeriodReferenceType" minOccurs="0">
@@ -12721,14 +12779,14 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="StudentSectionAssociationReference" type="StudentSectionAssociationReferenceType">
-        <xs:annotation>
-          <xs:documentation>Relates the student associated with the gradebook entry.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
       <xs:element name="GradebookEntryReference" type="GradebookEntryReferenceType">
         <xs:annotation>
           <xs:documentation>The gradebook entry associated with the student grade or score.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StudentReference" type="StudentReferenceType">
+        <xs:annotation>
+          <xs:documentation>The student associated with the student gradebook entry.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -14329,6 +14387,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="AssignmentLateStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Status of whether the assignment was submitted after the due date and/or marked as.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="AttemptStatusDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes a student's completion status for a section.</xs:documentation>
@@ -15706,6 +15773,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="SubmissionStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The status of the student's submission.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="SurveyCategoryDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The descriptor holds the category or type of survey.</xs:documentation>
@@ -16111,6 +16187,11 @@
           <xs:appinfo>
             <ann:Descriptor>ResultDatatypeTypeDescriptor</ann:Descriptor>
           </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PerformanceLevelIndicatorName" type="PerformanceLevelIndicatorName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the indicator being measured for a collection of performance level values.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -17947,6 +18028,11 @@
           </xs:appinfo>
         </xs:annotation>
       </xs:element>
+      <xs:element name="PerformanceLevelIndicatorName" type="PerformanceLevelIndicatorName" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The name of the indicator being measured for a collection of performance level values.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="Period">
@@ -18426,6 +18512,11 @@
       <xs:element name="AssessmentItemReference" type="AssessmentItemReferenceType">
         <xs:annotation>
           <xs:documentation>The assessment item responded to by the student.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ItemNumber" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The test question number for this student's test item.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -19440,18 +19531,6 @@
       <xs:maxLength value="20" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="CorrectResponse">
-    <xs:annotation>
-      <xs:documentation>The correct response for the assessment item.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Simple</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="xs:string">
-      <xs:minLength value="1" />
-      <xs:maxLength value="20" />
-    </xs:restriction>
-  </xs:simpleType>
   <xs:simpleType name="CountyFIPSCode">
     <xs:annotation>
       <xs:documentation>Definition The Federal Information Processing Standards (FIPS) numeric code for the county issued by the National Institute of Standards and Technology (NIST). Counties are considered to be the "first-order subdivisions" of each State and statistically equivalent entity, regardless of their local designations (county, parish, borough, etc.) Counties in different States will have the same code. A unique county number is created when combined with the 2-digit FIPS State Code.</xs:documentation>
@@ -19629,7 +19708,7 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:minLength value="1" />
-      <xs:maxLength value="20" />
+      <xs:maxLength value="32" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="DocumentTitle">
@@ -19702,9 +19781,9 @@
       <xs:maxLength value="10" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="GradebookEntryTitle">
+  <xs:simpleType name="GradebookEntryIdentifier">
     <xs:annotation>
-      <xs:documentation>The name or title of the activity to be recorded in the gradebook entry.</xs:documentation>
+      <xs:documentation>A unique number or alphanumeric code assigned to a gradebook entry by the source system.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Simple</ann:TypeGroup>
       </xs:appinfo>
@@ -19968,6 +20047,18 @@
   <xs:simpleType name="Objective">
     <xs:annotation>
       <xs:documentation>The designated title of the learning objective.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="60" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PerformanceLevelIndicatorName">
+    <xs:annotation>
+      <xs:documentation>The name of the indicator being measured for a collection of performance level values.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Simple</ann:TypeGroup>
       </xs:appinfo>
@@ -20346,6 +20437,17 @@
     </xs:annotation>
     <xs:restriction base="xs:duration" />
   </xs:simpleType>
+  <xs:simpleType name="Title">
+    <xs:annotation>
+      <xs:documentation>The name or title of the activity to be recorded in the gradebook entry.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="UniqueId">
     <xs:annotation>
       <xs:documentation>A unique alphanumeric code assigned to a person by a system managing unique identifiers.</xs:documentation>
@@ -20586,6 +20688,18 @@
     </xs:annotation>
     <xs:restriction base="xs:int">
       <xs:minInclusive value="1" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MaxPoints">
+    <xs:annotation>
+      <xs:documentation>The maximum number of points  that can be earned for the submission.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="9" />
+      <xs:fractionDigits value="2" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="MaxRawScore">

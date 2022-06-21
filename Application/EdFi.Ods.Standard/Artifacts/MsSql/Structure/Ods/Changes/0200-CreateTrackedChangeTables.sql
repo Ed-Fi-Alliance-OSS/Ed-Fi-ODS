@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'tracked_changes_edfi')
 EXEC sys.sp_executesql N'CREATE SCHEMA [tracked_changes_edfi]'
 GO
@@ -373,11 +368,11 @@ CREATE TABLE [tracked_changes_edfi].[Descriptor]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[DisciplineAction]'))
 CREATE TABLE [tracked_changes_edfi].[DisciplineAction]
 (
-       OldDisciplineActionIdentifier [NVARCHAR](20) NOT NULL,
+       OldDisciplineActionIdentifier [NVARCHAR](32) NOT NULL,
        OldDisciplineDate [DATE] NOT NULL,
        OldStudentUSI [INT] NOT NULL,
        OldStudentUniqueId [NVARCHAR](32) NOT NULL,
-       NewDisciplineActionIdentifier [NVARCHAR](20) NULL,
+       NewDisciplineActionIdentifier [NVARCHAR](32) NULL,
        NewDisciplineDate [DATE] NULL,
        NewStudentUSI [INT] NULL,
        NewStudentUniqueId [NVARCHAR](32) NULL,
@@ -550,20 +545,10 @@ CREATE TABLE [tracked_changes_edfi].[Grade]
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[GradebookEntry]'))
 CREATE TABLE [tracked_changes_edfi].[GradebookEntry]
 (
-       OldDateAssigned [DATE] NOT NULL,
-       OldGradebookEntryTitle [NVARCHAR](60) NOT NULL,
-       OldLocalCourseCode [NVARCHAR](60) NOT NULL,
-       OldSchoolId [INT] NOT NULL,
-       OldSchoolYear [SMALLINT] NOT NULL,
-       OldSectionIdentifier [NVARCHAR](255) NOT NULL,
-       OldSessionName [NVARCHAR](60) NOT NULL,
-       NewDateAssigned [DATE] NULL,
-       NewGradebookEntryTitle [NVARCHAR](60) NULL,
-       NewLocalCourseCode [NVARCHAR](60) NULL,
-       NewSchoolId [INT] NULL,
-       NewSchoolYear [SMALLINT] NULL,
-       NewSectionIdentifier [NVARCHAR](255) NULL,
-       NewSessionName [NVARCHAR](60) NULL,
+       OldGradebookEntryIdentifier [NVARCHAR](60) NOT NULL,
+       OldSourceSystemNamespace [NVARCHAR](255) NOT NULL,
+       NewGradebookEntryIdentifier [NVARCHAR](60) NULL,
+       NewSourceSystemNamespace [NVARCHAR](255) NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        Discriminator [NVARCHAR](128) NULL,
@@ -1362,24 +1347,12 @@ CREATE TABLE [tracked_changes_edfi].[StudentEducationOrganizationResponsibilityA
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE object_id = OBJECT_ID(N'[tracked_changes_edfi].[StudentGradebookEntry]'))
 CREATE TABLE [tracked_changes_edfi].[StudentGradebookEntry]
 (
-       OldBeginDate [DATE] NOT NULL,
-       OldDateAssigned [DATE] NOT NULL,
-       OldGradebookEntryTitle [NVARCHAR](60) NOT NULL,
-       OldLocalCourseCode [NVARCHAR](60) NOT NULL,
-       OldSchoolId [INT] NOT NULL,
-       OldSchoolYear [SMALLINT] NOT NULL,
-       OldSectionIdentifier [NVARCHAR](255) NOT NULL,
-       OldSessionName [NVARCHAR](60) NOT NULL,
+       OldGradebookEntryIdentifier [NVARCHAR](60) NOT NULL,
+       OldSourceSystemNamespace [NVARCHAR](255) NOT NULL,
        OldStudentUSI [INT] NOT NULL,
        OldStudentUniqueId [NVARCHAR](32) NOT NULL,
-       NewBeginDate [DATE] NULL,
-       NewDateAssigned [DATE] NULL,
-       NewGradebookEntryTitle [NVARCHAR](60) NULL,
-       NewLocalCourseCode [NVARCHAR](60) NULL,
-       NewSchoolId [INT] NULL,
-       NewSchoolYear [SMALLINT] NULL,
-       NewSectionIdentifier [NVARCHAR](255) NULL,
-       NewSessionName [NVARCHAR](60) NULL,
+       NewGradebookEntryIdentifier [NVARCHAR](60) NULL,
+       NewSourceSystemNamespace [NVARCHAR](255) NULL,
        NewStudentUSI [INT] NULL,
        NewStudentUniqueId [NVARCHAR](32) NULL,
        Id uniqueidentifier NOT NULL,

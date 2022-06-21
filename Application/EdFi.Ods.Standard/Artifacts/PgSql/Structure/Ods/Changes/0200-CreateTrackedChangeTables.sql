@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 DO $$
 BEGIN
 
@@ -420,11 +415,11 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'disciplineaction') THEN
 CREATE TABLE tracked_changes_edfi.disciplineaction
 (
-       olddisciplineactionidentifier VARCHAR(20) NOT NULL,
+       olddisciplineactionidentifier VARCHAR(32) NOT NULL,
        olddisciplinedate DATE NOT NULL,
        oldstudentusi INT NOT NULL,
        oldstudentuniqueid VARCHAR(32) NOT NULL,
-       newdisciplineactionidentifier VARCHAR(20) NULL,
+       newdisciplineactionidentifier VARCHAR(32) NULL,
        newdisciplinedate DATE NULL,
        newstudentusi INT NULL,
        newstudentuniqueid VARCHAR(32) NULL,
@@ -617,20 +612,10 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'gradebookentry') THEN
 CREATE TABLE tracked_changes_edfi.gradebookentry
 (
-       olddateassigned DATE NOT NULL,
-       oldgradebookentrytitle VARCHAR(60) NOT NULL,
-       oldlocalcoursecode VARCHAR(60) NOT NULL,
-       oldschoolid INT NOT NULL,
-       oldschoolyear SMALLINT NOT NULL,
-       oldsectionidentifier VARCHAR(255) NOT NULL,
-       oldsessionname VARCHAR(60) NOT NULL,
-       newdateassigned DATE NULL,
-       newgradebookentrytitle VARCHAR(60) NULL,
-       newlocalcoursecode VARCHAR(60) NULL,
-       newschoolid INT NULL,
-       newschoolyear SMALLINT NULL,
-       newsectionidentifier VARCHAR(255) NULL,
-       newsessionname VARCHAR(60) NULL,
+       oldgradebookentryidentifier VARCHAR(60) NOT NULL,
+       oldsourcesystemnamespace VARCHAR(255) NOT NULL,
+       newgradebookentryidentifier VARCHAR(60) NULL,
+       newsourcesystemnamespace VARCHAR(255) NULL,
        id uuid NOT NULL,
        changeversion bigint NOT NULL,
        discriminator varchar(128) NULL,
@@ -1517,24 +1502,12 @@ END IF;
 IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_edfi' AND table_name = 'studentgradebookentry') THEN
 CREATE TABLE tracked_changes_edfi.studentgradebookentry
 (
-       oldbegindate DATE NOT NULL,
-       olddateassigned DATE NOT NULL,
-       oldgradebookentrytitle VARCHAR(60) NOT NULL,
-       oldlocalcoursecode VARCHAR(60) NOT NULL,
-       oldschoolid INT NOT NULL,
-       oldschoolyear SMALLINT NOT NULL,
-       oldsectionidentifier VARCHAR(255) NOT NULL,
-       oldsessionname VARCHAR(60) NOT NULL,
+       oldgradebookentryidentifier VARCHAR(60) NOT NULL,
+       oldsourcesystemnamespace VARCHAR(255) NOT NULL,
        oldstudentusi INT NOT NULL,
        oldstudentuniqueid VARCHAR(32) NOT NULL,
-       newbegindate DATE NULL,
-       newdateassigned DATE NULL,
-       newgradebookentrytitle VARCHAR(60) NULL,
-       newlocalcoursecode VARCHAR(60) NULL,
-       newschoolid INT NULL,
-       newschoolyear SMALLINT NULL,
-       newsectionidentifier VARCHAR(255) NULL,
-       newsessionname VARCHAR(60) NULL,
+       newgradebookentryidentifier VARCHAR(60) NULL,
+       newsourcesystemnamespace VARCHAR(255) NULL,
        newstudentusi INT NULL,
        newstudentuniqueid VARCHAR(32) NULL,
        id uuid NOT NULL,
