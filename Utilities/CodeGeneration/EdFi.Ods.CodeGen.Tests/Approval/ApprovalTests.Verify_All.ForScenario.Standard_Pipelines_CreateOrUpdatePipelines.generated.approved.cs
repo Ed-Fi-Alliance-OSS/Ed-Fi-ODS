@@ -155,6 +155,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     }
 
     [ExcludeFromCodeCoverage]
+    public class AssignmentLateStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AssignmentLateStatusDescriptor.EdFi.AssignmentLateStatusDescriptor, Entities.NHibernate.AssignmentLateStatusDescriptorAggregate.EdFi.AssignmentLateStatusDescriptor>
+    {
+        public AssignmentLateStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
     public class AttemptStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.AttemptStatusDescriptor.EdFi.AttemptStatusDescriptor, Entities.NHibernate.AttemptStatusDescriptorAggregate.EdFi.AttemptStatusDescriptor>
     {
         public AttemptStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
@@ -1628,6 +1634,12 @@ namespace EdFi.Ods.Api.Pipelines.EdFi
     public class StudentTitleIPartAProgramAssociationCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.StudentTitleIPartAProgramAssociation.EdFi.StudentTitleIPartAProgramAssociation, Entities.NHibernate.StudentTitleIPartAProgramAssociationAggregate.EdFi.StudentTitleIPartAProgramAssociation>
     {
         public StudentTitleIPartAProgramAssociationCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
+    }
+
+    [ExcludeFromCodeCoverage]
+    public class SubmissionStatusDescriptorCreateOrUpdatePipeline : CreateOrUpdatePipeline<Common.Models.Resources.SubmissionStatusDescriptor.EdFi.SubmissionStatusDescriptor, Entities.NHibernate.SubmissionStatusDescriptorAggregate.EdFi.SubmissionStatusDescriptor>
+    {
+        public SubmissionStatusDescriptorCreateOrUpdatePipeline(IPipelineFactory factory) : base(factory) { }
     }
 
     [ExcludeFromCodeCoverage]

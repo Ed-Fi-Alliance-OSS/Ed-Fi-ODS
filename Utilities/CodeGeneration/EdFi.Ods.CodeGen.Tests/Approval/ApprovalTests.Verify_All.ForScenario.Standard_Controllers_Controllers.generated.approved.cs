@@ -672,7 +672,6 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentItems.EdFi
             specification.AssessmentIdentifier = request.AssessmentIdentifier;
             specification.AssessmentItemCategoryDescriptor = request.AssessmentItemCategoryDescriptor;
             specification.AssessmentItemURI = request.AssessmentItemURI;
-            specification.CorrectResponse = request.CorrectResponse;
             specification.ExpectedTimeAssessed = request.ExpectedTimeAssessed;
             specification.Id = request.Id;
             specification.IdentificationCode = request.IdentificationCode;
@@ -842,6 +841,37 @@ namespace EdFi.Ods.Api.Services.Controllers.AssessmentScoreRangeLearningStandard
             specification.MinimumScore = request.MinimumScore;
             specification.Namespace = request.Namespace;
             specification.ScoreRangeId = request.ScoreRangeId;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.AssignmentLateStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/assignmentLateStatusDescriptors")]
+    public partial class AssignmentLateStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.AssignmentLateStatusDescriptor.EdFi.AssignmentLateStatusDescriptor,
+        Api.Common.Models.Resources.AssignmentLateStatusDescriptor.EdFi.AssignmentLateStatusDescriptor,
+        Entities.Common.EdFi.IAssignmentLateStatusDescriptor,
+        Entities.NHibernate.AssignmentLateStatusDescriptorAggregate.EdFi.AssignmentLateStatusDescriptor,
+        Api.Common.Models.Requests.AssignmentLateStatusDescriptors.EdFi.AssignmentLateStatusDescriptorPut,
+        Api.Common.Models.Requests.AssignmentLateStatusDescriptors.EdFi.AssignmentLateStatusDescriptorPost,
+        Api.Common.Models.Requests.AssignmentLateStatusDescriptors.EdFi.AssignmentLateStatusDescriptorDelete,
+        Api.Common.Models.Requests.AssignmentLateStatusDescriptors.EdFi.AssignmentLateStatusDescriptorGetByExample>
+    {
+        public AssignmentLateStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.AssignmentLateStatusDescriptors.EdFi.AssignmentLateStatusDescriptorGetByExample request, Entities.Common.EdFi.IAssignmentLateStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.AssignmentLateStatusDescriptorId = request.AssignmentLateStatusDescriptorId;
         }
     }
 }
@@ -3406,6 +3436,8 @@ namespace EdFi.Ods.Api.Services.Controllers.Grades.EdFi
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
             specification.BeginDate = request.BeginDate;
+            specification.CurrentGradeAsOfDate = request.CurrentGradeAsOfDate;
+            specification.CurrentGradeIndicator = request.CurrentGradeIndicator;
             specification.DiagnosticStatement = request.DiagnosticStatement;
             specification.GradeTypeDescriptor = request.GradeTypeDescriptor;
             specification.GradingPeriodDescriptor = request.GradingPeriodDescriptor;
@@ -3454,16 +3486,20 @@ namespace EdFi.Ods.Api.Services.Controllers.GradebookEntries.EdFi
             specification.DateAssigned = request.DateAssigned;
             specification.Description = request.Description;
             specification.DueDate = request.DueDate;
-            specification.GradebookEntryTitle = request.GradebookEntryTitle;
+            specification.DueTime = request.DueTime;
+            specification.GradebookEntryIdentifier = request.GradebookEntryIdentifier;
             specification.GradebookEntryTypeDescriptor = request.GradebookEntryTypeDescriptor;
             specification.GradingPeriodDescriptor = request.GradingPeriodDescriptor;
             specification.Id = request.Id;
             specification.LocalCourseCode = request.LocalCourseCode;
+            specification.MaxPoints = request.MaxPoints;
             specification.PeriodSequence = request.PeriodSequence;
             specification.SchoolId = request.SchoolId;
             specification.SchoolYear = request.SchoolYear;
             specification.SectionIdentifier = request.SectionIdentifier;
             specification.SessionName = request.SessionName;
+            specification.SourceSystemNamespace = request.SourceSystemNamespace;
+            specification.Title = request.Title;
         }
     }
 }
@@ -4168,6 +4204,7 @@ namespace EdFi.Ods.Api.Services.Controllers.Interventions.EdFi
             specification.InterventionIdentificationCode = request.InterventionIdentificationCode;
             specification.MaxDosage = request.MaxDosage;
             specification.MinDosage = request.MinDosage;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -4267,6 +4304,7 @@ namespace EdFi.Ods.Api.Services.Controllers.InterventionPrescriptions.EdFi
             specification.InterventionPrescriptionIdentificationCode = request.InterventionPrescriptionIdentificationCode;
             specification.MaxDosage = request.MaxDosage;
             specification.MinDosage = request.MinDosage;
+            specification.Namespace = request.Namespace;
         }
     }
 }
@@ -8466,21 +8504,19 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentGradebookEntries.EdFi
         {
             // Copy all existing values
             specification.SuspendReferenceAssignmentCheck();
-            specification.BeginDate = request.BeginDate;
+            specification.AssignmentLateStatusDescriptor = request.AssignmentLateStatusDescriptor;
             specification.CompetencyLevelDescriptor = request.CompetencyLevelDescriptor;
-            specification.DateAssigned = request.DateAssigned;
             specification.DateFulfilled = request.DateFulfilled;
             specification.DiagnosticStatement = request.DiagnosticStatement;
-            specification.GradebookEntryTitle = request.GradebookEntryTitle;
+            specification.GradebookEntryIdentifier = request.GradebookEntryIdentifier;
             specification.Id = request.Id;
             specification.LetterGradeEarned = request.LetterGradeEarned;
-            specification.LocalCourseCode = request.LocalCourseCode;
             specification.NumericGradeEarned = request.NumericGradeEarned;
-            specification.SchoolId = request.SchoolId;
-            specification.SchoolYear = request.SchoolYear;
-            specification.SectionIdentifier = request.SectionIdentifier;
-            specification.SessionName = request.SessionName;
+            specification.PointsEarned = request.PointsEarned;
+            specification.SourceSystemNamespace = request.SourceSystemNamespace;
             specification.StudentUniqueId = request.StudentUniqueId;
+            specification.SubmissionStatusDescriptor = request.SubmissionStatusDescriptor;
+            specification.TimeFulfilled = request.TimeFulfilled;
         }
     }
 }
@@ -9243,6 +9279,37 @@ namespace EdFi.Ods.Api.Services.Controllers.StudentTitleIPartAProgramAssociation
             specification.ProgramTypeDescriptor = request.ProgramTypeDescriptor;
             specification.StudentUniqueId = request.StudentUniqueId;
             specification.TitleIPartAParticipantDescriptor = request.TitleIPartAParticipantDescriptor;
+        }
+    }
+}
+
+namespace EdFi.Ods.Api.Services.Controllers.SubmissionStatusDescriptors.EdFi
+{
+    [ApiExplorerSettings(IgnoreApi = true)]
+    [ExcludeFromCodeCoverage]
+    [ApiController]
+    [Authorize]
+    [Route("ed-fi/submissionStatusDescriptors")]
+    public partial class SubmissionStatusDescriptorsController : DataManagementControllerBase<
+        Api.Common.Models.Resources.SubmissionStatusDescriptor.EdFi.SubmissionStatusDescriptor,
+        Api.Common.Models.Resources.SubmissionStatusDescriptor.EdFi.SubmissionStatusDescriptor,
+        Entities.Common.EdFi.ISubmissionStatusDescriptor,
+        Entities.NHibernate.SubmissionStatusDescriptorAggregate.EdFi.SubmissionStatusDescriptor,
+        Api.Common.Models.Requests.SubmissionStatusDescriptors.EdFi.SubmissionStatusDescriptorPut,
+        Api.Common.Models.Requests.SubmissionStatusDescriptors.EdFi.SubmissionStatusDescriptorPost,
+        Api.Common.Models.Requests.SubmissionStatusDescriptors.EdFi.SubmissionStatusDescriptorDelete,
+        Api.Common.Models.Requests.SubmissionStatusDescriptors.EdFi.SubmissionStatusDescriptorGetByExample>
+    {
+        public SubmissionStatusDescriptorsController(IPipelineFactory pipelineFactory, ISchoolYearContextProvider schoolYearContextProvider, IRESTErrorProvider restErrorProvider, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider, ApiSettings apiSettings)
+            : base(pipelineFactory, schoolYearContextProvider, restErrorProvider, defaultPageSizeLimitProvider, apiSettings)
+        {
+        }
+
+        protected override void MapAll(Api.Common.Models.Requests.SubmissionStatusDescriptors.EdFi.SubmissionStatusDescriptorGetByExample request, Entities.Common.EdFi.ISubmissionStatusDescriptor specification)
+        {
+            // Copy all existing values
+            specification.SuspendReferenceAssignmentCheck();
+            specification.SubmissionStatusDescriptorId = request.SubmissionStatusDescriptorId;
         }
     }
 }
