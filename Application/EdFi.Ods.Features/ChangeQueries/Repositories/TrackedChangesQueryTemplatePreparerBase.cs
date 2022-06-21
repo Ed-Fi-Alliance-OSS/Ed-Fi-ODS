@@ -55,7 +55,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
         protected void ApplyPaging(QueryBuilder queryBuilder, IQueryParameters queryParameters)
         {
             queryBuilder.LimitOffset(
-                limit: Math.Min(queryParameters.Limit ?? 25, _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit()),
+                limit: queryParameters.Limit ?? _defaultPageSizeLimitProvider.GetDefaultPageSizeLimit(),
                 offset: queryParameters.Offset ?? 0);
         }
 
