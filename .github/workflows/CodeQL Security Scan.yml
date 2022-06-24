@@ -16,6 +16,7 @@ env:
   INFORMATIONAL_VERSION: "6.0"
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
+  CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
 
 jobs:
   analyze:
