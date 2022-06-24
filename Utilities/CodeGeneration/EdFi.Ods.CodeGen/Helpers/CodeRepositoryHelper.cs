@@ -32,11 +32,14 @@ namespace EdFi.Ods.CodeGen.Helpers
                 Path.DirectorySeparatorChar,
                 dirList.TakeWhile(x => !x.EqualsIgnoreCase(CodeRepositoryConventions.EdFiOdsFolderName)));
 
-            bool IsEdFiOdsFolderExist = Directory.GetDirectories(codeRepositoryPath).Where(s => s.Equals(codeRepositoryPath + CodeRepositoryConventions.EdFiOdsFolderName)).Any();
-
-            if(IsEdFiOdsFolderExist)
+            if (Directory.Exists(codeRepositoryPath))
             {
-                root = codeRepositoryPath;
+                bool IsEdFiOdsFolderExist = Directory.GetDirectories(codeRepositoryPath).Where(s => s.Equals(codeRepositoryPath + CodeRepositoryConventions.EdFiOdsFolderName)).Any();
+
+                if (IsEdFiOdsFolderExist)
+                {
+                    root = codeRepositoryPath;
+                }
             }
             
             _repositoryByName.Add(CodeRepositoryConventions.Root, root);
