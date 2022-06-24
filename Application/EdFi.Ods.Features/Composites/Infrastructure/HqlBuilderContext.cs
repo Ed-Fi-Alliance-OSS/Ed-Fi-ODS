@@ -101,7 +101,7 @@ namespace EdFi.Ods.Features.Composites.Infrastructure
         public IDictionary<string, object> CurrentQueryFilterParameterValueByName { get; } =
             new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
 
-        public IDictionary<string, AuthorizationFilterContext> CurrentQueryFilterByName { get; set; }
+        public IReadOnlyList<AuthorizationStrategyFiltering> CurrentQueryAuthorizationFiltering { get; set; }
 
         /// <summary>
         /// Gets or sets an ordered list of the property projections for this context.

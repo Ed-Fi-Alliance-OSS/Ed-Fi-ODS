@@ -130,10 +130,7 @@ namespace EdFi.Ods.Features.Composites
             }
 
             // Save the filters to be applied to this query for use later in the process
-            builderContext.CurrentQueryFilterByName = authorizationFiltering
-                // Flattens the filters as per legacy code (effectively combining them using "AND" logic), but we still need to implement support for combining multiple authorization strategies correctly
-                .SelectMany(x => x.Filters)
-                .ToDictionary(x => x.FilterName, x => x);
+            builderContext.CurrentQueryAuthorizationFiltering = authorizationFiltering;
 
             return true;
         }
@@ -313,14 +310,14 @@ namespace EdFi.Ods.Features.Composites
             HqlBuilderContext builderContext)
         {
             var entityType = GetEntityType(processorContext.CurrentResourceClass);
-            var filters = builderContext.CurrentQueryFilterByName;
+            var authorizationFiltering = builderContext.CurrentQueryAuthorizationFiltering;
 
             // --------------------------
             //   Add security filtering
             // --------------------------
-            if (filters != null && filters.Any())
+            if (authorizationFiltering?.Any() ?? false)
             {
-                foreach (var filterInfo in filters)
+                foreach (var filterInfo in authorizationFiltering)
                 {
                     // Get the filter text
                     string filterName = filterInfo.Key;
