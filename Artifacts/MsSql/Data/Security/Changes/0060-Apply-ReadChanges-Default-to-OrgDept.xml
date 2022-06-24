@@ -6,7 +6,7 @@
           <DefaultAuthorization>
             <Action name="Create">
               <AuthorizationStrategies>
-                <AuthorizationStrategy name="NoFurtherAuthorizationRequired" />
+                <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
               </AuthorizationStrategies>
             </Action>
             <Action name="Read">
