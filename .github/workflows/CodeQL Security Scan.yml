@@ -39,10 +39,6 @@ jobs:
         uses: github/codeql-action/init@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
         with:
           languages: ${{ matrix.language }}
-      - name: Setup .NET
-        uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
-        with:
-          dotnet-version: 6.0.x
       - name: Support longpaths
         run: git config --system core.longpaths true
       - name: Checkout Ed-Fi-ODS-Implementation
@@ -50,28 +46,51 @@ jobs:
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
             path: Ed-Fi-ODS-Implementation/
-            ref: main
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
+            Write-Host "Pattern Name is " $patternName -fore GREEN
+            $is_pull_request_branch = 'False'
+            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+            Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
+            if ($is_pull_request_branch -eq $true) {
+              Write-Host "pull request branch " + ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
+              git fetch origin ${{ env.CURRENT_BRANCH }}
+              git checkout ${{ env.CURRENT_BRANCH }}
+            }
       - name: Checkout Ed-Fi-ODS
         uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
             path: Ed-Fi-ODS/
-            ref: main
-      - name: CodeGen
+      - name: Is pull request branch exists in Ed-Fi-ODS
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
+            Write-Host "Pattern Name is " $patternName -fore GREEN
+            $is_pull_request_branch = 'False'
+            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+            Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
+            if ($is_pull_request_branch -eq $true) {
+              Write-Host "pull request branch "+ ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
+              git fetch origin ${{ env.CURRENT_BRANCH }}
+              git checkout ${{ env.CURRENT_BRANCH }}
+            }
+      - name: CodeGen    
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+            $ErrorActionPreference = 'Stop'
+            $PSVersionTable
+            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+            Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE
+      - name: build
         shell: pwsh
         working-directory: ./Ed-Fi-ODS-Implementation/
         run: |
-              $ErrorActionPreference = 'Stop'
-              $PSVersionTable
-              . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-              Invoke-NewDevelopmentAppSettings
-              Install-CodeGenUtility
-              Install-Plugins
-              Invoke-CodeGen -Engine SQLServer  -RepositoryRoot $env:GITHUB_WORKSPACE/
-      - name: build
-        shell: pwsh      
-        working-directory: ./Ed-Fi-ODS-Implementation/
-        run: |
-             .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
+             .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
