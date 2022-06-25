@@ -4148,6 +4148,740 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "OrganizationDepartment Authorization Tests",
+					"item": [
+						{
+							"name": "Setup",
+							"item": [
+								{
+									"name": "Create OrgDept in accessible School 001",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:orgDeptId:001', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"organizationDepartmentId\": 2559015,\r\n  \"nameOfInstitution\": \"Test Office - School 001\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Create OrgDept in accessible School 044",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:orgDeptId:044', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901044\r\n  },\r\n  \"organizationDepartmentId\": 2559016,\r\n  \"nameOfInstitution\": \"Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "When creating OrgDepts",
+							"item": [
+								{
+									"name": "Create OrgDept in inaccessible School 044",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {\r",
+													"    pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901044\r\n  },\r\n  \"organizationDepartmentId\": 2559017,\r\n  \"nameOfInstitution\": \"Unauthorized Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "When moving with POST requests",
+							"item": [
+								{
+									"name": "Move accessible OrgDept to inaccessible School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901044\r\n  },\r\n  \"organizationDepartmentId\": 2559015,\r\n  \"nameOfInstitution\": \"Test Office - School 001\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Move inaccessible OrgDept to accessible School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"organizationDepartmentId\": 2559016,\r\n  \"nameOfInstitution\": \"Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Move inaccessible OrgDept to inaccessible School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"organizationDepartmentId\": 2559016,\r\n  \"nameOfInstitution\": \"Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Move accessible OrgDept to accessible School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901044\r\n  },\r\n  \"organizationDepartmentId\": 2559015,\r\n  \"nameOfInstitution\": \"Test Office - School 001\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "When moving with PUT requests",
+							"item": [
+								{
+									"name": "Move accessible OrgDept to inaccessible School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"organizationDepartmentId\": 2559016,\r\n  \"nameOfInstitution\": \"Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:044}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments",
+												"{{known:orgDeptId:044}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Move inaccessible OrgDept to accessible School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"organizationDepartmentId\": 2559016,\r\n  \"nameOfInstitution\": \"Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:044}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments",
+												"{{known:orgDeptId:044}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Move inaccessible OrgDept to inaccessible School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"organizationDepartmentId\": 2559016,\r\n  \"nameOfInstitution\": \"Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:044}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments",
+												"{{known:orgDeptId:044}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Move accessible OrgDept to accessible School",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"// Implementation Note: Use 255901 client to move the OrgDept for 255901001 to 255901044 school. Expected 200 (or 204?).\r",
+													"\r",
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901001\r\n  },\r\n  \"organizationDepartmentId\": 2559016,\r\n  \"nameOfInstitution\": \"Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:044}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments",
+												"{{known:orgDeptId:044}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "When deleting OrgDepts",
+							"item": [
+								{
+									"name": "Delete inaccessible OrgDept",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 403\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901044}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:044}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments",
+												"{{known:orgDeptId:044}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Teardown",
+							"item": [
+								{
+									"name": "Delete OrgDept for School 001",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:001}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments",
+												"{{known:orgDeptId:001}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete OrgDept for School 044",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:044}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments",
+												"{{known:orgDeptId:044}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Clean up Envirnoment Variables",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"const __ = require('lodash');\r",
+													"\r",
+													"const keys = __.keys(pm.environment.toObject());\r",
+													"console.log('Initial keys: ' + JSON.stringify(keys));\r",
+													"\r",
+													"const keysToRemove = __.filter(keys, x => __.startsWith(x, 'known:') || __.startsWith(x, 'supplied:'));\r",
+													"\r",
+													"__.each(keysToRemove, k => pm.environment.unset(k));\r",
+													"\r",
+													"const remainingKeys = __.keys(pm.environment.toObject());\r",
+													"console.log('Remaining keys:' + JSON.stringify(remainingKeys));"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
 				}
 			]
 		}
@@ -4168,61 +4902,68 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"CreateAccessToken(\"TokenExpiry\", \"AccessToken\", \"ApiKey_255901\", \"ApiSecret_255901\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_255901001\", \"AccessToken_255901001\", \"ApiKey_255901001\", \"ApiSecret_255901001\")",
+					"",
+					"CreateAccessToken(\"TokenExpiry_255901044\", \"AccessToken_255901044\", \"ApiKey_255901044\", \"ApiSecret_255901044\")",
+					"",
 					"// Adapted from: https://marcin-chwedczuk.github.io/automatically-generate-new-oauth2-tokens-when-using-postman",
 					"// Assumes Environment with Environment Variables: ApiBaseUrl, ApiKey, ApiSecret",
 					"// See https://gist.github.com/blmeyers/21138bbe6f80b8c35701a8754bfe59d5 for an environment sample for Local (NOTE: environment variable names have been changed from the gist -- you must adjust accordingly)",
 					"// Handles auto refreshing based on provided expiration, but doesn't handle the token being revoked early",
 					"// If stuck with \"Bad Token\" or \"Not Authenticated\", just delete the Token or TokenExpiry variables to force a new token",
-					"let tokenExpiration = pm.environment.get('TokenExpiry');",
-					"let currentToken = pm.environment.get('AccessToken');",
-					"let  getToken = true;",
-					"if (!tokenExpiration || ",
+					"function CreateAccessToken(TokenExpiry, AccessToken, ApiKey, ApiSecret) {",
+					"  let tokenExpiration = pm.environment.get(TokenExpiry);",
+					"  let currentToken = pm.environment.get(AccessToken);",
+					"  let getToken = true;",
+					"  if (!tokenExpiration ||",
 					"    !currentToken) {",
 					"    console.log('Token or expiry date are missing, retrieving new token')",
-					"} else if (tokenExpiration <= (new Date()).getTime()) {",
+					"  } else if (tokenExpiration <= (new Date()).getTime()) {",
 					"    console.log('Token is expired, retrieving new token')",
-					"} else {",
+					"  } else {",
 					"    getToken = false;",
-					"}",
-					"if (getToken === true) {",
+					"  }",
+					"  if (getToken === true) {",
 					"    let tokenUrl = pm.environment.get('ApiBaseUrl') + '/oauth/token';",
-					"    let clientId = pm.environment.get('ApiKey_255901');",
-					"    let clientSecret = pm.environment.get('ApiSecret_255901');",
+					"    let clientId = pm.environment.get(ApiKey);",
+					"    let clientSecret = pm.environment.get(ApiSecret);",
 					"    let grantType = 'client_credentials';",
-					"    ",
-					"    let getTokenRequest = {",
-					"        method: 'POST',",
-					"        url: tokenUrl,",
-					"        auth: {",
-					"            type: \"basic\",",
-					"            basic: [",
-					"                { key: \"username\", value: clientId },",
-					"                { key: \"password\", value: clientSecret }",
-					"            ]",
-					"        },",
-					"        header: [",
-					"            \"content-type:application/x-www-form-urlencoded\"",
-					"        ],",
-					"        body: {",
-					"            mode: \"urlencoded\",",
-					"            urlencoded: [{key: \"grant_type\", value: grantType}]",
-					"        }",
-					"    };",
-					"    ",
-					"    pm.sendRequest(getTokenRequest, (err, response) => {",
-					"        let jsonResponse = response.json(),",
-					"            newAccessToken = jsonResponse.access_token;",
-					"    ",
-					"        // console.log({ err, jsonResponse, newAccessToken })",
-					"    ",
-					"        pm.environment.set(\"AccessToken\", newAccessToken);",
-					"    ",
-					"        let expiryDate = new Date();",
-					"        expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
-					"        pm.environment.set('TokenExpiry', expiryDate.getTime());",
-					"    });",
-					"}",
 					"",
+					"    let getTokenRequest = {",
+					"      method: 'POST',",
+					"      url: tokenUrl,",
+					"      auth: {",
+					"        type: \"basic\",",
+					"        basic: [",
+					"          { key: \"username\", value: clientId },",
+					"          { key: \"password\", value: clientSecret }",
+					"        ]",
+					"      },",
+					"      header: [",
+					"        \"content-type:application/json\"",
+					"      ],",
+					"      body: {",
+					"        mode: \"raw\",",
+					"        raw: JSON.stringify({ Grant_type: grantType })",
+					"      }",
+					"    };",
+					"",
+					"    pm.sendRequest(getTokenRequest, (err, response) => {",
+					"      let jsonResponse = response.json(),",
+					"        newAccessToken = jsonResponse.access_token;",
+					"",
+					"      // console.log({ err, jsonResponse, newAccessToken })",
+					"",
+					"      pm.environment.set(AccessToken, newAccessToken);",
+					"",
+					"      let expiryDate = new Date();",
+					"      expiryDate.setSeconds(expiryDate.getSeconds() + jsonResponse.expires_in);",
+					"      pm.environment.set(TokenExpiry, expiryDate.getTime());",
+					"    });",
+					"  }",
+					"}",
 					""
 				]
 			}
