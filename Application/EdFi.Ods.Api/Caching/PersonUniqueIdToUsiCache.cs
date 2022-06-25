@@ -16,6 +16,7 @@ using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Specifications;
 using log4net;
+using Newtonsoft.Json;
 
 namespace EdFi.Ods.Api.Caching
 {
@@ -433,7 +434,7 @@ namespace EdFi.Ods.Api.Caching
             return string.Format((string) "from_{0}", (object) _edFiOdsInstanceIdentificationProvider.GetInstanceIdentification());
         }
 
-        private class IdentityValueMaps
+        public class IdentityValueMaps
         {
             private readonly ReaderWriterLockSlim _mapLock = new ReaderWriterLockSlim();
 
@@ -497,6 +498,11 @@ namespace EdFi.Ods.Api.Caching
                 {
                     _mapLock.ExitWriteLock();
                 }
+            }
+
+            public string Serialize()
+            {
+                return JsonConvert.SerializeObject(new { UsiByUniqueId, UniqueIdByUsi} );
             }
         }
     }

@@ -1,17 +1,17 @@
 // Copyright (c) 2021 Instructure Inc.
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
 using EdFi.Common;
-using EdFi.Common.Utils;
+using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
 using log4net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using StackExchange.Redis;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Reflection;
 
 namespace EdFi.Ods.Features.Redis
 {
@@ -123,6 +123,11 @@ namespace EdFi.Ods.Features.Redis
                 return $"{IntPrefix}{@int.ToString(CultureInfo.InvariantCulture)}";
             }
 
+            if (@object is PersonUniqueIdToUsiCache.IdentityValueMaps identityValueMaps)
+            {
+                return identityValueMaps.Serialize();
+            }
+
             return JsonConvert.SerializeObject(@object, _nonGenericSerializerSettings);
         }
 
@@ -155,7 +160,7 @@ namespace EdFi.Ods.Features.Redis
         {
             TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
 
-            _redis.GetDatabase(db).StringSet(key, JsonConvert.SerializeObject(value), expiry);
+            _redis.GetDatabase(db).StringSet(key, Serialize(value), expiry);
         }
 
         private object Deserialize(string @string)

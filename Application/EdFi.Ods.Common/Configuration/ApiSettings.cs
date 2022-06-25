@@ -61,6 +61,8 @@ namespace EdFi.Ods.Common.Configuration
 
         public string PathBase { get; set; }
 
+        public ApiCacheSettings ApiCacheFeature { get; set; } = new ApiCacheSettings();
+
         public DatabaseEngine GetDatabaseEngine() => _databaseEngine.Value;
 
         public ApiMode GetApiMode() => _apiMode.Value;
