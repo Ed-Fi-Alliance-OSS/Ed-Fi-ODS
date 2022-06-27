@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
+
 jobs:
   scan-actions:
     name: Scan Actions
@@ -23,6 +26,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
-
+      - name: Support longpaths
+        run: git config --system core.longpaths true
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+            path: Ed-Fi-ODS-Implementation/
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
+            Write-Host "Pattern Name is " $patternName -fore GREEN
+            $is_pull_request_branch = 'False'
+            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+            Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
+            if ($is_pull_request_branch -eq $true) {
+              Write-Host "pull request branch " + ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
+              git fetch origin ${{ env.CURRENT_BRANCH }}
+              git checkout ${{ env.CURRENT_BRANCH }}
+            }
       - name: Dependency Review ("Dependabot on PR")
         uses: actions/dependency-review-action@a9c83d3af6b9031e20feba03b904645bb23d1dab  # v1.0.2
