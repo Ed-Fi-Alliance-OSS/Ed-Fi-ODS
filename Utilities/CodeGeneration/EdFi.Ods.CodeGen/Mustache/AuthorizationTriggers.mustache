@@ -1,0 +1,210 @@
+-- SPDX-License-Identifier: Apache-2.0
+-- Licensed to the Ed-Fi Alliance under one or more agreements.
+-- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+-- See the LICENSE and NOTICES files in the project root for more information.
+
+{{#Tables}}
+    {{#IsEducationOrganizationDerivedTable}}
+-- {{Schema}}.{{TableName}}
+        {{#Authorization}}
+CREATE OR ALTER TRIGGER {{Schema}}.{{InsertTriggerName}} ON {{Schema}}.{{TableName}} AFTER INSERT AS
+BEGIN
+    SET NOCOUNT ON
+
+            {{#PrimaryKeyColumns}}
+    -- Add new tuple for current record
+    INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId(SourceEducationOrganizationId, TargetEducationOrganizationId)
+    SELECT  new.{{ColumnName}} AS SourceEducationOrganizationId, 
+            new.{{ColumnName}} AS TargetEducationOrganizationId
+    FROM    inserted new;
+            {{/PrimaryKeyColumns}}
+
+            {{#HasParentEducationOrganizationColumns}}
+    INSERT INTO auth.EducationOrganizationIdToEducationOrganizationId(SourceEducationOrganizationId, TargetEducationOrganizationId)
+    SELECT sources.SourceEducationOrganizationId, targets.TargetEducationOrganizationId
+    FROM (
+                {{#ParentEducationOrganizationColumns}}
+                    {{#Authorization}}
+                        {{^IsFirst}}
+
+                        UNION
+
+                        {{/IsFirst}}
+                    {{/Authorization}}
+        -- Find ancestors that need to have tuples inserted due to assignment of the {{ColumnName}}
+        SELECT  tuples.SourceEducationOrganizationId, new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+        FROM    inserted new
+                INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuples
+                    ON new.{{ColumnName}} = tuples.TargetEducationOrganizationId 
+        WHERE   new.{{ColumnName}} IS NOT NULL
+                {{/ParentEducationOrganizationColumns}}
+        ) AS sources
+    CROSS JOIN
+        -- Get all the existing targets/descendants (to be cross joined with all the affected ancestor sources)
+        (
+            SELECT  new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}, tuples.TargetEducationOrganizationId
+            FROM    inserted new
+                    INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuples
+                        ON new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = tuples.SourceEducationOrganizationId
+        ) as targets
+    WHERE sources.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = targets.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+
+            {{/HasParentEducationOrganizationColumns}}
+END
+GO
+
+            {{#HasParentEducationOrganizationColumns}}
+CREATE OR ALTER TRIGGER {{Schema}}.{{UpdateTriggerName}} ON {{Schema}}.{{TableName}} AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON
+
+    -- Remove all tuples impacted by the clearing or changing of the parent education organizations
+    DELETE  tbd
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId AS tbd
+            INNER JOIN (
+                SELECT d1.SourceEducationOrganizationId, d2.TargetEducationOrganizationId
+                FROM (
+                {{#ParentEducationOrganizationColumns}}
+                    {{#Authorization}}
+                        {{^IsFirst}}
+
+                        UNION
+
+                        {{/IsFirst}}
+                    {{/Authorization}}
+                    -- Find ancestors to be deleted by clearing or changing the {{ColumnName}}
+                    SELECT  tuples.SourceEducationOrganizationId, new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                    FROM    inserted new
+                            INNER JOIN deleted old 
+                                ON old.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                            INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuples
+                                ON old.{{ColumnName}} = tuples.TargetEducationOrganizationId 
+                    WHERE   old.{{ColumnName}} IS NOT NULL 
+                            AND (new.{{ColumnName}} IS NULL OR old.{{ColumnName}} <> new.{{ColumnName}})
+                {{/ParentEducationOrganizationColumns}}
+                {{#ParentEducationOrganizationColumns}}
+                    {{#Authorization}}
+                        
+                        EXCEPT
+                        
+                    -- Find ancestors that should remain due to new value for the {{ColumnName}} 
+                    SELECT  tuples.SourceEducationOrganizationId, new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                    FROM    inserted new
+                            INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuples
+                                ON new.{{ColumnName}} = tuples.TargetEducationOrganizationId 
+                    {{/Authorization}}
+                {{/ParentEducationOrganizationColumns}}
+                    ) AS d1
+    
+                CROSS JOIN
+                    -- Get all the descendants of the {{TableName}} (to be cross joined with all the affected ancestor sources)
+                    (SELECT	tuples.TargetEducationOrganizationId, new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                    FROM    inserted new
+                            INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuples
+                                ON new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = tuples.SourceEducationOrganizationId
+                    ) as d2
+                WHERE d1.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = d2.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                ) AS cj
+                ON tbd.SourceEducationOrganizationId = cj.SourceEducationOrganizationId
+                    and tbd.TargetEducationOrganizationId = cj.TargetEducationOrganizationId;
+    
+    -- Add new tuples resulting from the changes/initializations of parent Education Organization ids
+    MERGE INTO auth.EducationOrganizationIdToEducationOrganizationId target
+    USING (
+        SELECT sources.SourceEducationOrganizationId, targets.TargetEducationOrganizationId
+        FROM    (
+                -- Determine the source ancestors affected by this change
+                {{#ParentEducationOrganizationColumns}}
+                    {{#Authorization}}
+                        {{^IsFirst}}
+    
+                    UNION
+
+                        {{/IsFirst}}
+                    {{/Authorization}}
+    
+                    -- Find ancestors to be inserted by initializing or changing the {{ColumnName}}
+                    SELECT  tuples.SourceEducationOrganizationId, new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                    FROM    inserted new
+                            INNER JOIN deleted old 
+                                ON new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = old.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                            INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuples
+                                ON new.{{ColumnName}} = tuples.TargetEducationOrganizationId 
+                    WHERE   (old.{{ColumnName}} IS NULL AND new.{{ColumnName}} IS NOT NULL)
+                            OR old.{{ColumnName}} <> new.{{ColumnName}}
+                {{/ParentEducationOrganizationColumns}}
+                    ) AS sources
+                CROSS JOIN
+                    -- Get all the descendants of the {{TableName}} (to be cross joined with all the affected ancestor sources)
+                    (SELECT	tuples.TargetEducationOrganizationId, new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                    FROM    inserted new
+                            INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuples
+                                ON new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = tuples.SourceEducationOrganizationId
+                    ) as targets
+                WHERE
+                    sources.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = targets.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+        ) AS source
+        ON target.SourceEducationOrganizationId = source.SourceEducationOrganizationId 
+            AND target.TargetEducationOrganizationId = source.TargetEducationOrganizationId
+    WHEN NOT MATCHED BY TARGET THEN
+        INSERT(SourceEducationOrganizationId, TargetEducationOrganizationId)
+        VALUES(source.SourceEducationOrganizationId, source.TargetEducationOrganizationId);
+
+END
+GO
+
+            {{/HasParentEducationOrganizationColumns}}
+CREATE OR ALTER TRIGGER {{Schema}}.{{DeleteTriggerName}} ON {{Schema}}.{{TableName}} AFTER DELETE AS
+BEGIN
+    SET NOCOUNT ON
+
+            {{#HasParentEducationOrganizationColumns}}
+    -- Remove affected tuples
+    DELETE  tbd
+    FROM    auth.EducationOrganizationIdToEducationOrganizationId AS tbd
+            INNER JOIN (
+                SELECT sources.SourceEducationOrganizationId, targets.TargetEducationOrganizationId
+                FROM (
+                    -- Determine the source ancestors affected by this change
+                {{#ParentEducationOrganizationColumns}}
+                    {{#Authorization}}
+                        {{^IsFirst}}
+    
+                    UNION
+
+                        {{/IsFirst}}
+                    {{/Authorization}}
+                    -- Find ancestors to be deleted by clearing or changing the {{ColumnName}}
+                    SELECT  tuples.SourceEducationOrganizationId, old.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                    FROM    deleted old 
+                            INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuples
+                                ON old.{{ColumnName}} = tuples.TargetEducationOrganizationId 
+                    WHERE   old.{{ColumnName}} IS NOT NULL
+                {{/ParentEducationOrganizationColumns}}
+                    ) AS sources
+                CROSS JOIN
+                    -- Get all the descendants of the {{TableName}} (to be cross joined with all the affected ancestor sources)
+                    (SELECT tuples.TargetEducationOrganizationId, old.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                    FROM    deleted old
+                            INNER JOIN auth.EducationOrganizationIdToEducationOrganizationId tuples
+                                ON old.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = tuples.SourceEducationOrganizationId
+                    ) as targets
+                WHERE sources.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = targets.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                ) AS cj
+                ON tbd.SourceEducationOrganizationId = cj.SourceEducationOrganizationId
+                    and tbd.TargetEducationOrganizationId = cj.TargetEducationOrganizationId;
+            {{/HasParentEducationOrganizationColumns}}
+
+        -- Delete self-referencing tuple
+        DELETE  tuples
+        FROM    auth.EducationOrganizationIdToEducationOrganizationId AS tuples
+                INNER JOIN deleted old
+                    ON SourceEducationOrganizationId = old.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+                    AND TargetEducationOrganizationId = old.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+
+END
+GO
+
+        {{/Authorization}}
+    {{/IsEducationOrganizationDerivedTable}}
+{{/Tables}}

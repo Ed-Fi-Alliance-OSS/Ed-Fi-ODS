@@ -1,0 +1,214 @@
+-- SPDX-License-Identifier: Apache-2.0
+-- Licensed to the Ed-Fi Alliance under one or more agreements.
+-- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+-- See the LICENSE and NOTICES files in the project root for more information.
+
+{{#Tables}}
+    {{#IsEducationOrganizationDerivedTable}}
+-- {{Schema}}.{{TableName}}
+        {{#Authorization}}
+DROP TRIGGER IF EXISTS InsertAuthTuples ON {{Schema}}.{{TableName}};
+
+DROP FUNCTION IF EXISTS {{Schema}}.{{InsertTriggerName}};
+
+CREATE FUNCTION {{Schema}}.{{InsertTriggerName}}()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+            {{#PrimaryKeyColumns}}
+    -- Add new tuple for current record
+    INSERT INTO auth.educationorganizationidtoeducationorganizationid(SourceEducationOrganizationId, targeteducationorganizationid)
+    SELECT  NEW.{{ColumnName}} AS SourceEducationOrganizationId, 
+            NEW.{{ColumnName}} AS targeteducationorganizationid;
+            {{/PrimaryKeyColumns}}
+
+            {{#HasParentEducationOrganizationColumns}}
+    INSERT INTO auth.educationorganizationidtoeducationorganizationid(SourceEducationOrganizationId, targeteducationorganizationid)
+    SELECT sources.SourceEducationOrganizationId, targets.targeteducationorganizationid
+    FROM (
+                {{#ParentEducationOrganizationColumns}}
+                    {{#Authorization}}
+                        {{^IsFirst}}
+
+                        UNION
+
+                        {{/IsFirst}}
+                    {{/Authorization}}
+        -- Find ancestors that need to have tuples inserted due to assignment of the {{ColumnName}}
+        SELECT  tuples.SourceEducationOrganizationId, NEW.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+        FROM    auth.educationorganizationidtoeducationorganizationid tuples
+        WHERE   tuples.targeteducationorganizationid = NEW.{{ColumnName}}  
+                AND NEW.{{ColumnName}} IS NOT NULL
+                {{/ParentEducationOrganizationColumns}}
+        ) AS sources
+    CROSS JOIN
+        -- Get all the existing targets/descendants (to be cross joined with all the affected ancestor sources)
+        (
+            SELECT  NEW.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}, tuples.targeteducationorganizationid
+            FROM    auth.educationorganizationidtoeducationorganizationid tuples
+            WHERE   tuples.SourceEducationOrganizationId = NEW.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+        ) as targets
+    WHERE sources.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = targets.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}};
+
+            {{/HasParentEducationOrganizationColumns}}
+    
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER InsertAuthTuples AFTER INSERT ON {{Schema}}.{{TableName}}
+    FOR EACH ROW EXECUTE PROCEDURE {{Schema}}.{{InsertTriggerName}}();
+
+            {{#HasParentEducationOrganizationColumns}}
+DROP TRIGGER IF EXISTS UpdateAuthTuples ON {{Schema}}.{{TableName}};
+
+DROP FUNCTION IF EXISTS {{Schema}}.{{UpdateTriggerName}};
+
+CREATE FUNCTION {{Schema}}.{{UpdateTriggerName}}()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    -- Remove all tuples impacted by the clearing or changing of the parent education organizations
+    WITH cj AS (
+        SELECT d1.sourceeducationorganizationid, d2.targeteducationorganizationid
+        FROM (
+        {{#ParentEducationOrganizationColumns}}
+            {{#Authorization}}
+                {{^IsFirst}}
+
+                UNION
+
+                {{/IsFirst}}
+            {{/Authorization}}
+            -- Find ancestors to be deleted by clearing or changing the {{ColumnName}}
+            SELECT  tuples.sourceeducationorganizationid, new.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+            FROM    auth.educationorganizationidtoeducationorganizationid tuples
+            WHERE   tuples.targeteducationorganizationid = OLD.{{ColumnName}}  
+                    AND OLD.{{ColumnName}} IS NOT NULL 
+                    AND (NEW.{{ColumnName}} IS NULL OR OLD.{{ColumnName}} <> NEW.{{ColumnName}})
+        {{/ParentEducationOrganizationColumns}}
+        {{#ParentEducationOrganizationColumns}}
+            {{#Authorization}}
+                
+                EXCEPT
+                
+            -- Find ancestors that should remain due to new value for the {{ColumnName}} 
+            SELECT  tuples.sourceeducationorganizationid, NEW.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+            FROM    auth.educationorganizationidtoeducationorganizationid tuples
+            WHERE   tuples.targeteducationorganizationid = NEW.{{ColumnName}} 
+            {{/Authorization}}
+        {{/ParentEducationOrganizationColumns}}
+            ) AS d1
+
+        CROSS JOIN
+            -- Get all the descendants of the {{TableName}} (to be cross joined with all the affected ancestor sources)
+            (SELECT	tuples.targeteducationorganizationid, NEW.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+            FROM    auth.educationorganizationidtoeducationorganizationid tuples
+            WHERE   NEW.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = tuples.sourceeducationorganizationid
+            ) as d2
+        WHERE d1.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = d2.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+    )
+    DELETE FROM auth.educationorganizationidtoeducationorganizationid AS tbd USING cj
+    WHERE tbd.sourceeducationorganizationid = cj.sourceeducationorganizationid
+        AND tbd.targeteducationorganizationid = cj.targeteducationorganizationid;
+    
+    -- Add new tuples resulting from the changes/initializations of parent Education Organization ids
+    WITH source(sourceeducationorganizationid, targeteducationorganizationid) AS (
+        SELECT  sources.sourceeducationorganizationid, targets.targeteducationorganizationid
+        FROM (
+        -- Determine the source ancestors affected by this change
+        {{#ParentEducationOrganizationColumns}}
+            {{#Authorization}}
+                {{^IsFirst}}
+
+            UNION
+
+                {{/IsFirst}}
+            {{/Authorization}}
+            -- Find ancestors to be inserted by initializing or changing the {{ColumnName}}
+            SELECT  tuples.sourceeducationorganizationid
+            FROM    auth.educationorganizationidtoeducationorganizationid tuples
+            WHERE   tuples.targeteducationorganizationid = NEW.{{ColumnName}}
+                AND ((OLD.{{ColumnName}} IS NULL AND NEW.{{ColumnName}} IS NOT NULL)
+                OR OLD.{{ColumnName}} <> NEW.{{ColumnName}})
+        {{/ParentEducationOrganizationColumns}}
+        ) as sources
+        CROSS JOIN (
+            -- Get all the descendants of the {{TableName}} (to be cross joined with all the affected ancestor sources)
+            SELECT  tuples.targeteducationorganizationid
+            FROM    auth.educationorganizationidtoeducationorganizationid tuples
+            WHERE   tuples.sourceeducationorganizationid = NEW.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+        ) AS targets
+    )
+    INSERT INTO auth.educationorganizationidtoeducationorganizationid(sourceeducationorganizationid, targeteducationorganizationid)
+    SELECT source.sourceeducationorganizationid, source.targeteducationorganizationid
+    FROM source
+    ON CONFLICT DO NOTHING;
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER UpdateAuthTuples AFTER UPDATE ON {{Schema}}.{{TableName}}
+    FOR EACH ROW EXECUTE PROCEDURE {{Schema}}.{{UpdateTriggerName}}();
+
+            {{/HasParentEducationOrganizationColumns}}
+DROP TRIGGER IF EXISTS DeleteAuthTuples ON {{Schema}}.{{TableName}};
+
+DROP FUNCTION IF EXISTS {{Schema}}.{{DeleteTriggerName}};
+
+CREATE FUNCTION {{Schema}}.{{DeleteTriggerName}}()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+            {{#HasParentEducationOrganizationColumns}}
+    -- Remove affected tuples
+    WITH cj AS (
+        SELECT sources.sourceeducationorganizationid, targets.targeteducationorganizationid
+        FROM (
+            -- Determine the source ancestors affected by this change
+        {{#ParentEducationOrganizationColumns}}
+            {{#Authorization}}
+                {{^IsFirst}}
+
+            UNION
+
+                {{/IsFirst}}
+            {{/Authorization}}
+            -- Find ancestors to be deleted by clearing or changing the {{ColumnName}}
+            SELECT  tuples.sourceeducationorganizationid, OLD.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+            FROM    auth.educationorganizationidtoeducationorganizationid tuples
+            WHERE   tuples.targeteducationorganizationid = OLD.{{ColumnName}} 
+                    AND OLD.{{ColumnName}} IS NOT NULL
+        {{/ParentEducationOrganizationColumns}}
+            ) AS sources
+        CROSS JOIN
+            -- Get all the descendants of the {{TableName}} (to be cross joined with all the affected ancestor sources)
+            (SELECT tuples.targeteducationorganizationid, OLD.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+            FROM    auth.educationorganizationidtoeducationorganizationid tuples
+            WHERE   tuples.sourceeducationorganizationid = OLD.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+            ) as targets
+        WHERE sources.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}} = targets.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+    )
+    DELETE FROM auth.educationorganizationidtoeducationorganizationid AS tbd USING cj
+    WHERE tbd.sourceeducationorganizationid = cj.sourceeducationorganizationid
+        AND tbd.targeteducationorganizationid = cj.targeteducationorganizationid;
+
+            {{/HasParentEducationOrganizationColumns}}
+    -- Delete self-referencing tuple
+    DELETE
+    FROM    auth.educationorganizationidtoeducationorganizationid
+    WHERE   sourceeducationorganizationid = OLD.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}}
+            AND targeteducationorganizationid = OLD.{{#PrimaryKeyColumns}}{{ColumnName}}{{/PrimaryKeyColumns}};
+
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER DeleteAuthTuples AFTER DELETE ON {{Schema}}.{{TableName}}
+    FOR EACH ROW EXECUTE PROCEDURE {{Schema}}.{{DeleteTriggerName}}();
+
+
+        {{/Authorization}}
+    {{/IsEducationOrganizationDerivedTable}}
+{{/Tables}}

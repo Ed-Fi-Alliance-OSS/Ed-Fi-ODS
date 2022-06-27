@@ -95,6 +95,18 @@
       "Driver": "EntityOrmMappingsForViews",
       "DatabaseEngine": "postgreSql",
       "OutputPath": "EntityOrmMappings/PgSql/EntityOrmMappingsForViews.generated.hbm.xml"
+    },
+    {
+      "Name": "AuthorizationTriggers",
+      "Driver": "AuthorizationTriggers",
+      "DatabaseEngine": "sqlServer",
+      "OutputPath": "Artifacts/MsSql/Structure/Ods/0060-EdOrg-Authorization-Triggers.generated.sql"
+    },
+    {
+      "Name": "AuthorizationTriggers",
+      "Driver": "AuthorizationTriggers",
+      "DatabaseEngine": "postgreSql",
+      "OutputPath": "Artifacts/PgSql/Structure/Ods/0060-EdOrg-Authorization-Triggers.generated.sql"
     }
   ],
   "database": [

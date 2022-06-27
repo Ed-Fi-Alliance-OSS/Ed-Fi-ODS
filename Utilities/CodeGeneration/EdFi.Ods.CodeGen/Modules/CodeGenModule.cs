@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using EdFi.Ods.Generator.Common.Database;
 
 namespace EdFi.Ods.CodeGen.Modules
 {
@@ -14,6 +15,8 @@ namespace EdFi.Ods.CodeGen.Modules
             builder.RegisterModule(new ProvidersModule());
             builder.RegisterModule(new ProcessingModule());
 
+            builder.RegisterModule(new DatabaseTemplateModelModule());
+            
             builder.RegisterType<ApplicationRunner>()
                 .As<IApplicationRunner>();
         }
