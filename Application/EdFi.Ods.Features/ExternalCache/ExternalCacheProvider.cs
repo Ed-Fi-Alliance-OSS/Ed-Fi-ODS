@@ -64,30 +64,11 @@ namespace EdFi.Ods.Features.ExternalCache
         {
             TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
 
-            _distributedCache.SetStringAsync(key, Serialize(value), new DistributedCacheEntryOptions()
+            _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
             {
                 SlidingExpiration = expiry
             });
         }
-
-        //bool IExternalCacheProvider.TryGetCachedObjectFromHash<T>(string key, string hashField, out T value)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //void IExternalCacheProvider.InsertToHash(string key, string hashField, object value)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //void IExternalCacheProvider.Insert<T>(
-        //    string key,
-        //    IDictionary<string, T> dictionary,
-        //    DateTime absoluteExpiration,
-        //    TimeSpan slidingExpiration)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         bool IExternalCacheProvider.KeyExists(string key) => _distributedCache.Get(key).Any();
 
