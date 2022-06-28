@@ -40,6 +40,14 @@
       "maximum": 500,
       "minimum": 0,
       "type": "integer"
+    },
+    "totalCount": {
+      "description": "Indicates if the total number of items available should be returned in the 'Total-Count' header of the response.  If set to false, 'Total-Count' header will not be provided.",
+      "in": "query",
+      "name": "totalCount",
+      "required": false,
+      "default": false,
+      "type": "boolean"
     }
   },
   "paths": {
@@ -92,6 +100,9 @@
           },
           {
             "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/totalCount"
           }
         ],
         "responses": {
