@@ -21,7 +21,6 @@ namespace EdFi.Ods.Common.Configuration
 
     public enum ExternalCacheProviders
     {
-        NCache,
         Redis,
         SqlServer
     }
