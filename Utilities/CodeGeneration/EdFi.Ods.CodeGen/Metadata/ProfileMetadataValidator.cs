@@ -192,7 +192,7 @@ namespace EdFi.Ods.CodeGen.Metadata
                 ? propertyName.TrimSuffix("Id")
                 : propertyName;
 
-        private Common.Models.Resource.Resource GetDomainResourceFor(Resource resource)
+        private EdFi.Ods.Common.Models.Resource.Resource GetDomainResourceFor(Resource resource)
         {
             string schemaProperCaseNameOrDefault =
                 ExtensionsConventions.GetProperCaseNameForLogicalName(resource.logicalSchema ?? EdFiConventions.ProperCaseName);
