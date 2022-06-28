@@ -15,6 +15,8 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Snapshots
     {
         Task<IList<Snapshot>> GetAllAsync(IQueryParameters queryParameters);
 
+        Task<long> GetTotalCountAsync();
+
         Task<Snapshot> GetByIdAsync(Guid id);
     }
 }

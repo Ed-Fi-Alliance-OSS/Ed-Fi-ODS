@@ -4,12 +4,15 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using EdFi.Ods.Api.ExceptionHandling;
 using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Models.Queries;
+using EdFi.Ods.Common.Models.Validation;
 using EdFi.Ods.Features.ChangeQueries.Repositories.Snapshots;
 using log4net;
 using Microsoft.AspNetCore.Authorization;
@@ -26,14 +29,18 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
         private readonly IGetSnapshots _getSnapshots;
         private readonly ILog _logger = LogManager.GetLogger(typeof(SnapshotsController));
         private readonly bool _isEnabled;
+        private readonly int _defaultPageLimitSize;
 
         // NOTE: The optional dependency is necessary to be able to return a 404 Not Found
         // instead of a 500 Internal Server Error if the route is requested by the API client
         // when the feature is disabled (and the IGetSnapshots service is not registered).
-        public SnapshotsController(ApiSettings apiSettings, IGetSnapshots getSnapshots = null)
+        public SnapshotsController(ApiSettings apiSettings,
+            IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider,
+            IGetSnapshots getSnapshots = null)
         {
             _getSnapshots = getSnapshots;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName());
+            _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
         }
 
         [HttpGet]
@@ -45,6 +52,19 @@ namespace EdFi.Ods.Features.ChangeQueries.Controllers
 
                 // Not Found
                 return ControllerHelpers.NotFound();
+            }
+
+            var parameterMessages = urlQueryParametersRequest.Validate(_defaultPageLimitSize).ToArray();
+
+            if (parameterMessages.Any())
+            {
+                return BadRequest(ErrorTranslator.GetErrorMessage(string.Join(" ", parameterMessages)));
+            }
+
+            if (urlQueryParametersRequest.TotalCount)
+            {
+                var count = await _getSnapshots.GetTotalCountAsync();
+                Response.Headers.Add("Total-Count", count.ToString());
             }
 
             var snapshots = await _getSnapshots.GetAllAsync(new QueryParameters(urlQueryParametersRequest));
