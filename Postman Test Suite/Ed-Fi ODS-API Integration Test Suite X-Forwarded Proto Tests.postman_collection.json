@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "a9ff6762-df35-4191-a9ce-98934a86be0d",
+		"name": "Ed-Fi ODS/API Integration Test Suite X-Forwarded Proto Tests",
+		"description": "This set of tests validates aspects of reverse proxy forwarding. Before running them, ensure that the following value is set in the appsettings file:\n\n```\n\"ApiSettings\": {\n        \"UseReverseProxyHeaders\": true\n }\n```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Accepts X-Forwarded-Proto: https, http",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Forwarded-Proto",
+						"value": "https, http",
+						"type": "default"
+					},
+					{
+						"key": "X-Forwarded-Host",
+						"value": "whatever",
+						"type": "default"
+					},
+					{
+						"key": "X-Forwarded-Port",
+						"value": "443",
+						"type": "default"
+					},
+					{
+						"key": "X-Forwarded-For",
+						"value": "localhost",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{ApiBaseUrl}}",
+					"host": [
+						"{{ApiBaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Does not require port-forwarding protocols when using http",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{ApiBaseUrl}}",
+					"host": [
+						"{{ApiBaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Accepts X-Forwarded-Proto: https",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Forwarded-Proto",
+						"value": "https",
+						"type": "default"
+					},
+					{
+						"key": "X-Forwarded-Host",
+						"value": "whatever",
+						"type": "default"
+					},
+					{
+						"key": "X-Forwarded-Port",
+						"value": "443",
+						"type": "default"
+					},
+					{
+						"key": "X-Forwarded-For",
+						"value": "localhost",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{ApiBaseUrl}}",
+					"host": [
+						"{{ApiBaseUrl}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

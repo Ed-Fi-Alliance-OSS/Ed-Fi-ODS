@@ -7,7 +7,6 @@ using System;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
-using EdFi.Ods.Common.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 
@@ -43,7 +42,12 @@ namespace EdFi.Ods.Api.Extensions
                 scheme = proxyHeaderValue;
             }
 
-            return scheme;
+            // The x-forwarded-proto header can contain a single originating protocol or, in some 
+            // cases, multiple protocols. Seee ODS-5481 for more information. We care about the
+            // _first_ protocol listed.
+            if (scheme == null) { return "http";  }
+
+            return scheme.Split(',')[0];
         }
 
         public static string Host(this HttpRequest request, bool useProxyHeaders = false)
