@@ -16,7 +16,6 @@ namespace EdFi.Ods.Common.Configuration
         public bool EnableForAvailableChangeVersionCache { get; set; }
         public bool EnableForDescriptorsCache { get; set; }
         public bool EnablePersonUniqueIdToUsiCache { get; set; }
-        public bool EnableForSecurityCache { get; set; }
     }
 
     public enum ExternalCacheProviders
