@@ -1,28 +1,28 @@
 // Copyright (c) 2021 Instructure Inc.
 
 using EdFi.Common;
-using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
 using log4net;
+using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace EdFi.Ods.Features.Redis
+namespace EdFi.Ods.Features.ExternalCache
 {
-    public class RedisCacheProvider : IRedisCacheProvider
+    public class ExternalCacheProvider : IExternalCacheProvider
     {
         private const string GuidPrefix = "(Guid)";
         private const string IntPrefix = "(int)";
 
-        private readonly IConnectionMultiplexer _redis;
+        //private readonly IConnectionMultiplexer _redis;
+        private readonly IDistributedCache _distributedCache;
         private readonly TimeSpan _defaultExpiration;
-        private readonly ILog _logger = LogManager.GetLogger(typeof(RedisCacheProvider));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(ExternalCacheProvider));
 
         private static readonly JsonSerializerSettings _defaultSerializerSettings =
             new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
@@ -33,17 +33,16 @@ namespace EdFi.Ods.Features.Redis
         private static readonly JsonSerializerSettings _customContractSerializerSettings =
             new JsonSerializerSettings { ContractResolver = new CustomContractResolver(), ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
 
-        public RedisCacheProvider(IConnectionMultiplexer redis, TimeSpan defaultExpiration)
+        public ExternalCacheProvider(IDistributedCache distributedCache, TimeSpan defaultExpiration)
         {
-            _redis = redis;
+            _distributedCache = distributedCache;
             _defaultExpiration = defaultExpiration;
         }
-
         bool ICacheProvider.TryGetCachedObject(string key, out object value)
         {
-            var cachedValue = _redis.GetDatabase().StringGet(key);
+            var cachedValue = _distributedCache.GetString(key);
 
-            if (!cachedValue.IsNull)
+            if (!string.IsNullOrEmpty(cachedValue))
             {
                 value = Deserialize(cachedValue);
                 return true;
@@ -55,61 +54,42 @@ namespace EdFi.Ods.Features.Redis
 
         void ICacheProvider.SetCachedObject(string keyName, object obj)
         {
-            _redis.GetDatabase().StringSet(keyName, Serialize(obj), _defaultExpiration);
+            _distributedCache.SetString(keyName, Serialize(obj), new DistributedCacheEntryOptions()
+            {
+                SlidingExpiration = _defaultExpiration
+            });
         }
 
-        void ICacheProvider.Insert(
-            string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
+        void ICacheProvider.Insert(string key, object value, DateTime absoluteExpiration, TimeSpan slidingExpiration)
         {
             TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
 
-            _redis.GetDatabase().StringSet(key, Serialize(value), expiry);
-        }
-
-        bool IRedisCacheProvider.TryGetCachedObjectFromHash<T>(string key, string hashField, out T value)
-        {
-            var cachedValue = _redis.GetDatabase().HashGet(key, hashField);
-
-            if (!cachedValue.IsNull)
+            _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
             {
-                try
-                {
-                    value = JsonConvert.DeserializeObject<T>(cachedValue, _customContractSerializerSettings);
-                    return true;
-                }
-                catch (JsonException e)
-                {
-                    _logger.Warn($"Exception during deserialization of the string \"{cachedValue}\". Message: \"{e.Message}\"");
-                }
-            }
-
-            value = default;
-            return false;
+                SlidingExpiration = expiry
+            });
         }
 
-        void IRedisCacheProvider.InsertToHash(string key, string hashField, object value)
+        bool IExternalCacheProvider.TryGetCachedObjectFromHash<T>(string key, string hashField, out T value)
         {
-            _redis.GetDatabase().HashSet(key, hashField, JsonConvert.SerializeObject(value));
+            throw new NotImplementedException();
         }
 
-        void IRedisCacheProvider.Insert<T>(
+        void IExternalCacheProvider.InsertToHash(string key, string hashField, object value)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IExternalCacheProvider.Insert<T>(
             string key,
             IDictionary<string, T> dictionary,
             DateTime absoluteExpiration,
             TimeSpan slidingExpiration)
         {
-            HashEntry[] hashFields = dictionary
-                .Select(kvp => new HashEntry(kvp.Key, JsonConvert.SerializeObject(kvp.Value, _defaultSerializerSettings)))
-                .ToArray();
-
-            TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
-
-            IDatabase db = _redis.GetDatabase();
-            db.HashSet(key, hashFields);
-            db.KeyExpire(key, expiry);
+            throw new NotImplementedException();
         }
 
-        bool IRedisCacheProvider.KeyExists(string key) => _redis.GetDatabase().KeyExists(key);
+        bool IExternalCacheProvider.KeyExists(string key) => _distributedCache.Get(key).Any();
 
         private static string Serialize(object @object)
         {
@@ -123,19 +103,14 @@ namespace EdFi.Ods.Features.Redis
                 return $"{IntPrefix}{@int.ToString(CultureInfo.InvariantCulture)}";
             }
 
-            if (@object is PersonUniqueIdToUsiCache.IdentityValueMaps identityValueMaps)
-            {
-                return identityValueMaps.Serialize();
-            }
-
             return JsonConvert.SerializeObject(@object, _nonGenericSerializerSettings);
         }
 
-        bool IRedisCacheProvider.TryGetCachedObject<T>(string key, out T value, int db)
+        bool IExternalCacheProvider.TryGetCachedObject<T>(string key, out T value, int db)
         {
-            var cachedValue = _redis.GetDatabase(db).StringGet(key);
+            var cachedValue = _distributedCache.GetString(key);
 
-            if (!cachedValue.IsNull)
+            if (!string.IsNullOrEmpty(cachedValue))
             {
                 try
                 {
@@ -152,15 +127,18 @@ namespace EdFi.Ods.Features.Redis
             return false;
         }
 
-        void IRedisCacheProvider.Insert(string key,
-            object value,
-            DateTime absoluteExpiration,
-            TimeSpan slidingExpiration,
-            int db)
+        void IExternalCacheProvider.Insert(string key,
+           object value,
+           DateTime absoluteExpiration,
+           TimeSpan slidingExpiration,
+           int db)
         {
             TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
 
-            _redis.GetDatabase(db).StringSet(key, Serialize(value), expiry);
+            _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
+            {
+                SlidingExpiration = expiry
+            });
         }
 
         private object Deserialize(string @string)

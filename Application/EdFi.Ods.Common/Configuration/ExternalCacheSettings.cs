@@ -5,10 +5,13 @@
 
 namespace EdFi.Ods.Common.Configuration
 {
-    public class ApiCacheSettings
+    public class ExternalCacheSettings
     {
-        public CacheProviders CacheProvider { get; set; }
+        public ExternalCacheProviders CacheProvider { get; set; }
         public string Configuration { get; set; }
+        public string SchemaName { get; set; }
+        public string TableName { get; set; }
+        public int DefaultExpirationSeconds { get; set; }
         public bool EnableForApiClientDetailsCache { get; set; }
         public bool EnableForAvailableChangeVersionCache { get; set; }
         public bool EnableForDescriptorsCache { get; set; }
@@ -16,9 +19,10 @@ namespace EdFi.Ods.Common.Configuration
         public bool EnableForSecurityCache { get; set; }
     }
 
-    public enum CacheProviders
+    public enum ExternalCacheProviders
     {
-        Default,
-        Redis
+        NCache,
+        Redis,
+        SqlServer
     }
 }

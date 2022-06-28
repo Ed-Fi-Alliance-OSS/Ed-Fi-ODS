@@ -7,14 +7,14 @@ using EdFi.Ods.Common.Caching;
 
 namespace EdFi.Ods.Features.ChangeQueries.Providers
 {
-    public class CachedAvailableChangeVersionProvider : IAvailableChangeVersionProvider
+    public class CachingAvailableChangeVersionProviderDecorator : IAvailableChangeVersionProvider
     {
         private const string AvailableChangeVersionCacheKey = "AvailableChangeVersion";
         private readonly ICacheProvider _availableChangeVersionCache;
         private readonly IAvailableChangeVersionProvider _availableChangeVersionProvider;
         private readonly object _cacheLock = new object();
 
-        public CachedAvailableChangeVersionProvider(
+        public CachingAvailableChangeVersionProviderDecorator(
             IAvailableChangeVersionProvider availableChangeVersionProvider,
             ICacheProvider availableChangeVersionCache)
         {

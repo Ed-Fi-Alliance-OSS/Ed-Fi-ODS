@@ -130,7 +130,7 @@ namespace EdFi.Ods.Api.Caching
 
                 return valueMapForParent.UniqueId;
             }
-            
+
             string context = GetUsiKeyTokenContext();
 
             string uniqueId;
@@ -381,7 +381,7 @@ namespace EdFi.Ods.Api.Caching
 
                 return valueMapForParent.Usi;
             }
-            
+
             string context = GetUsiKeyTokenContext();
 
             int usi;
@@ -431,15 +431,17 @@ namespace EdFi.Ods.Api.Caching
 
         private string GetUsiKeyTokenContext()
         {
-            return string.Format((string) "from_{0}", (object) _edFiOdsInstanceIdentificationProvider.GetInstanceIdentification());
+            return string.Format((string)"from_{0}", (object)_edFiOdsInstanceIdentificationProvider.GetInstanceIdentification());
         }
 
-        public class IdentityValueMaps
+        private class IdentityValueMaps
         {
             private readonly ReaderWriterLockSlim _mapLock = new ReaderWriterLockSlim();
 
+            [JsonProperty]
             private ConcurrentDictionary<int, string> _uniqueIdByUsi;
 
+            [JsonProperty]
             private ConcurrentDictionary<string, int> _usiByUniqueId;
 
             public ConcurrentDictionary<int, string> UniqueIdByUsi
@@ -482,6 +484,7 @@ namespace EdFi.Ods.Api.Caching
                 }
             }
 
+            [JsonIgnore]
             public Task InitializationTask { get; set; }
 
             public void SetMaps(
@@ -498,11 +501,6 @@ namespace EdFi.Ods.Api.Caching
                 {
                     _mapLock.ExitWriteLock();
                 }
-            }
-
-            public string Serialize()
-            {
-                return JsonConvert.SerializeObject(new { UsiByUniqueId, UniqueIdByUsi} );
             }
         }
     }

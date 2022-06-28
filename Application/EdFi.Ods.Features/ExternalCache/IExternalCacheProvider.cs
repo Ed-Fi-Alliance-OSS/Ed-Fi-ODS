@@ -7,9 +7,9 @@ using System;
 using System.Collections.Generic;
 using EdFi.Ods.Common.Caching;
 
-namespace EdFi.Ods.Features.Redis
+namespace EdFi.Ods.Features.ExternalCache
 {
-    public interface IRedisCacheProvider : ICacheProvider
+    public interface IExternalCacheProvider : ICacheProvider
     {
         bool TryGetCachedObjectFromHash<T>(string key, string hashField, out T value);
 

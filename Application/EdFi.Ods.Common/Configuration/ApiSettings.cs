@@ -61,7 +61,7 @@ namespace EdFi.Ods.Common.Configuration
 
         public string PathBase { get; set; }
 
-        public ApiCacheSettings ApiCacheFeature { get; set; } = new ApiCacheSettings();
+        public ExternalCacheSettings ExternalCache { get; set; } = new ExternalCacheSettings();
 
         public DatabaseEngine GetDatabaseEngine() => _databaseEngine.Value;
 

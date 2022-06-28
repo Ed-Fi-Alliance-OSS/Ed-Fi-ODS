@@ -1,102 +1,109 @@
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using Autofac;
 using Autofac.Core;
 using EdFi.Ods.Api.Authentication;
 using EdFi.Ods.Api.Caching;
 using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Security.DataAccess.Repositories;
+using EdFi.Ods.Features.ChangeQueries.Providers;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
-using StackExchange.Redis;
+using System;
 
-namespace EdFi.Ods.Features.Redis
+namespace EdFi.Ods.Features.ExternalCache
 {
-    public class RedisCacheModule : ConditionalModule
+    public abstract class ExternalCacheModule : ConditionalModule, IExternalCacheModule
     {
-        public RedisCacheModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(RedisCacheModule)) { }
+        public ExternalCacheModule(ApiSettings apiSettings, string moduleName)
+           : base(apiSettings, moduleName) { }
 
-        public override bool IsSelected() => ApiSettings.ApiCacheFeature.CacheProvider == CacheProviders.Redis;
+        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.ExternalCache);
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.Register(cx => ConnectionMultiplexer.Connect(new ConfigurationOptions {
-                EndPoints = { { ApiSettings.ApiCacheFeature.Configuration, 6379 } },
-                AbortOnConnectFail = true
-                }, Console.Out))
-                .As<IConnectionMultiplexer>()
-                .SingleInstance();
+            RegisterDistributedCache(builder);
+            
+            RegisterProvider(builder);
 
-            builder.RegisterType<RedisCacheProvider>()
-            .WithParameter(
-                new ResolvedParameter(
-                (p, c) => p.ParameterType == typeof(TimeSpan),
-                (p, c) => GetRedisDefaultExpiration(c)))
-            .As<IRedisCacheProvider>()
-            .SingleInstance();
-
-            if (ApiSettings.ApiCacheFeature.EnableForApiClientDetailsCache)
+            if (ApiSettings.ExternalCache.EnableForApiClientDetailsCache)
             {
                 OverrideApiClientDetailsCache(builder);
             }
 
-            if (ApiSettings.ApiCacheFeature.EnableForDescriptorsCache)
+            if (ApiSettings.ExternalCache.EnableForAvailableChangeVersionCache)
+            {
+                OverrideAvailableChangeVersionCache(builder);
+            }
+
+            if (ApiSettings.ExternalCache.EnableForDescriptorsCache)
             {
                 OverrideDescriptorsCache(builder);
             }
 
-            if (ApiSettings.ApiCacheFeature.EnablePersonUniqueIdToUsiCache)
+            if (ApiSettings.ExternalCache.EnablePersonUniqueIdToUsiCache)
             {
                 OverridePersonUniqueIdtoUsiCache(builder);
             }
-
-            if (ApiSettings.ApiCacheFeature.EnableForSecurityCache)
-            {
-                OverrideSecurityRepository(builder);
-            }
         }
 
-        private static TimeSpan GetRedisDefaultExpiration(IComponentContext componentContext)
+        public abstract ExternalCacheProviders ExternalCacheProvider { get; }
+        
+        public bool IsProviderSelected(ExternalCacheProviders externalCacheProvider)
         {
-            int defaultExpirationSeconds =
-                componentContext.Resolve<IConfiguration>()
-                    .GetValue<int>("Redis:DefaultExpirationSeconds");
+            return ExternalCacheProvider == externalCacheProvider;
+        }
+
+        public void RegisterProvider(ContainerBuilder builder)
+        {
+            builder.RegisterType<ExternalCacheProvider>()
+            .WithParameter(
+                new ResolvedParameter(
+                (p, c) => p.ParameterType == typeof(TimeSpan),
+                (p, c) => GetDefaultExpiration(c)))
+            .As<IExternalCacheProvider>()
+            .SingleInstance();
+        }
+
+        private TimeSpan GetDefaultExpiration(IComponentContext componentContext)
+        {
+            int defaultExpirationSeconds = ApiSettings.ExternalCache.DefaultExpirationSeconds;
 
             return defaultExpirationSeconds > 0
                 ? TimeSpan.FromSeconds(defaultExpirationSeconds)
                 : TimeSpan.FromHours(8);
         }
 
-        private static void OverrideSecurityRepository(ContainerBuilder builder)
+        public abstract void RegisterDistributedCache(ContainerBuilder builder);
+        public void OverrideApiClientDetailsCache(ContainerBuilder builder)
         {
-            builder.RegisterType<SecurityRepository>()
-                .As<ISecurityRepository>()
-                .WithParameter(
-                    new ResolvedParameter(
-                        (p, c) => p.Name == "cacheTimeoutInMinutes",
-                        (p, c) =>
-                        {
-                            var configuration = c.Resolve<IConfiguration>();
-
-                            int period = configuration.GetValue<int?>(
-                                "Caching:Security:AbsoluteExpirationMinutes") ?? 10;
-
-                            return period;
-                        }))
-                .SingleInstance();
-
-            builder.RegisterType<SecurityRepositoryInitializer>()
-                .As<ISecurityRepositoryInitializer>()
-                .SingleInstance();
+            builder.RegisterDecorator<IApiClientDetailsProvider>((context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));
         }
 
-        private static void OverrideDescriptorsCache(ContainerBuilder builder)
+        private static CachingApiClientDetailsProviderDecorator GetCachingApiClientDetailsProviderDecorator(IComponentContext componentContext, IApiClientDetailsProvider apiClientDetailsProvider)
+        {
+            return new CachingApiClientDetailsProviderDecorator(apiClientDetailsProvider,
+                componentContext.Resolve<IExternalCacheProvider>(),
+                componentContext.Resolve<IApiClientDetailsCacheKeyProvider>());
+        }
+
+        public void OverrideAvailableChangeVersionCache(ContainerBuilder builder)
+        {
+            builder.RegisterDecorator<IAvailableChangeVersionProvider>((context, parameters, instance) => GetCachingAvailableChangeVersionProviderDecorator(context, instance));
+        }
+
+        private static CachingAvailableChangeVersionProviderDecorator GetCachingAvailableChangeVersionProviderDecorator(IComponentContext componentContext, IAvailableChangeVersionProvider availableChangeVersionProvider)
+        {
+            return new CachingAvailableChangeVersionProviderDecorator(availableChangeVersionProvider,
+                componentContext.Resolve<IExternalCacheProvider>());
+        }
+
+        public void OverrideDescriptorsCache(ContainerBuilder builder)
         {
             builder.RegisterType<DescriptorsCache>()
                 .WithParameter(
@@ -108,29 +115,15 @@ namespace EdFi.Ods.Features.Redis
 
                             int expirationPeriod =
                                 configuration.GetValue<int?>(
-                                    "Caching:Descriptors:AbsoluteExpirationSeconds") ?? 60;
+                                    "Caching:Descriptors:AbsoluteExpirationSeconds") ?? 1800;
 
-                            return new RedisCacheProvider(
-                                c.Resolve<Lazy<IConnectionMultiplexer>>().Value,
-                                TimeSpan.FromSeconds(expirationPeriod));
+                            return c.Resolve<IExternalCacheProvider>();
                         }))
                 .As<IDescriptorsCache>()
                 .SingleInstance();
         }
 
-        private static void OverrideApiClientDetailsCache(ContainerBuilder builder)
-        {
-            builder.RegisterDecorator<IApiClientDetailsProvider>((context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));
-        }
-
-        private static CachingApiClientDetailsProviderDecorator GetCachingApiClientDetailsProviderDecorator(IComponentContext componentContext, IApiClientDetailsProvider apiClientDetailsProvider)
-        {
-            return new CachingApiClientDetailsProviderDecorator(apiClientDetailsProvider,
-                componentContext.Resolve<IRedisCacheProvider>(),
-                componentContext.Resolve<IApiClientDetailsCacheKeyProvider>());
-        }
-
-        private static void OverridePersonUniqueIdtoUsiCache(ContainerBuilder builder)
+        public void OverridePersonUniqueIdtoUsiCache(ContainerBuilder builder)
         {
             builder.RegisterType<PersonUniqueIdToUsiCache>()
             .WithParameter(new NamedParameter("synchronousInitialization", false))
@@ -138,16 +131,16 @@ namespace EdFi.Ods.Features.Redis
                 new ResolvedParameter(
                   (p, c) => p.Name.Equals("cacheProvider", StringComparison.InvariantCultureIgnoreCase),
                   (p, c) =>
-                    {
-                        var configuration = c.Resolve<IConfiguration>();
+                  {
+                      var configuration = c.Resolve<IConfiguration>();
 
-                        int expirationPeriod =
-                            configuration.GetValue<int?>(
-                                "Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ?? 60;
+                      int expirationPeriod =
+                          configuration.GetValue<int?>(
+                              "Caching:PersonUniqueIdToUsi:AbsoluteExpirationSeconds") ?? 60;
 
-                        return new RedisCacheProvider(
-                            c.Resolve<Lazy<IConnectionMultiplexer>>().Value,
-                            TimeSpan.FromSeconds(expirationPeriod));
+                      return new ExternalCacheProvider(
+                              c.Resolve<IDistributedCache>(),
+                              TimeSpan.FromSeconds(expirationPeriod));
                   }))
           .WithParameter(
               new ResolvedParameter(
