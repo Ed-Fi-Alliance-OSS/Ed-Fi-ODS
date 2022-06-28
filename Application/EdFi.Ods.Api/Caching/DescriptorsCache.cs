@@ -3,9 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Linq;
-using System.Threading;
 using EdFi.Common.Utils;
 using EdFi.Ods.Api.Dtos;
 using EdFi.Ods.Api.Extensions;
@@ -14,7 +11,9 @@ using EdFi.Ods.Common.Caching;
 using EdFi.Ods.Common.Exceptions;
 using EdFi.Ods.Common.Providers;
 using EdFi.Ods.Common.Specifications;
-using EdFi.Ods.Common.Utils;
+using System;
+using System.Linq;
+using System.Threading;
 
 namespace EdFi.Ods.Api.Caching
 {

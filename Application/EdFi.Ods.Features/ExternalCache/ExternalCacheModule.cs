@@ -80,6 +80,7 @@ namespace EdFi.Ods.Features.ExternalCache
         }
 
         public abstract void RegisterDistributedCache(ContainerBuilder builder);
+        
         public void OverrideApiClientDetailsCache(ContainerBuilder builder)
         {
             builder.RegisterDecorator<IApiClientDetailsProvider>((context, parameters, instance) => GetCachingApiClientDetailsProviderDecorator(context, instance));

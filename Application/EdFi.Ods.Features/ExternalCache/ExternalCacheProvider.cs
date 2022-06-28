@@ -64,30 +64,30 @@ namespace EdFi.Ods.Features.ExternalCache
         {
             TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
 
-            _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
+            _distributedCache.SetStringAsync(key, Serialize(value), new DistributedCacheEntryOptions()
             {
                 SlidingExpiration = expiry
             });
         }
 
-        bool IExternalCacheProvider.TryGetCachedObjectFromHash<T>(string key, string hashField, out T value)
-        {
-            throw new NotImplementedException();
-        }
+        //bool IExternalCacheProvider.TryGetCachedObjectFromHash<T>(string key, string hashField, out T value)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        void IExternalCacheProvider.InsertToHash(string key, string hashField, object value)
-        {
-            throw new NotImplementedException();
-        }
+        //void IExternalCacheProvider.InsertToHash(string key, string hashField, object value)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        void IExternalCacheProvider.Insert<T>(
-            string key,
-            IDictionary<string, T> dictionary,
-            DateTime absoluteExpiration,
-            TimeSpan slidingExpiration)
-        {
-            throw new NotImplementedException();
-        }
+        //void IExternalCacheProvider.Insert<T>(
+        //    string key,
+        //    IDictionary<string, T> dictionary,
+        //    DateTime absoluteExpiration,
+        //    TimeSpan slidingExpiration)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         bool IExternalCacheProvider.KeyExists(string key) => _distributedCache.Get(key).Any();
 
@@ -106,7 +106,7 @@ namespace EdFi.Ods.Features.ExternalCache
             return JsonConvert.SerializeObject(@object, _nonGenericSerializerSettings);
         }
 
-        bool IExternalCacheProvider.TryGetCachedObject<T>(string key, out T value, int db)
+        bool IExternalCacheProvider.TryGetCachedObject<T>(string key, out T value)
         {
             var cachedValue = _distributedCache.GetString(key);
 
@@ -126,21 +126,7 @@ namespace EdFi.Ods.Features.ExternalCache
             value = default;
             return false;
         }
-
-        void IExternalCacheProvider.Insert(string key,
-           object value,
-           DateTime absoluteExpiration,
-           TimeSpan slidingExpiration,
-           int db)
-        {
-            TimeSpan? expiry = DetermineEarlier(absoluteExpiration, slidingExpiration);
-
-            _distributedCache.SetString(key, Serialize(value), new DistributedCacheEntryOptions()
-            {
-                SlidingExpiration = expiry
-            });
-        }
-
+        
         private object Deserialize(string @string)
         {
             if (@string.StartsWith(GuidPrefix, StringComparison.InvariantCulture) &&
