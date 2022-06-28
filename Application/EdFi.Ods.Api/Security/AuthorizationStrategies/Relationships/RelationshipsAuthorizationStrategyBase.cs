@@ -18,7 +18,6 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Security.Authorization;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Common.Validation;
-using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
 {
