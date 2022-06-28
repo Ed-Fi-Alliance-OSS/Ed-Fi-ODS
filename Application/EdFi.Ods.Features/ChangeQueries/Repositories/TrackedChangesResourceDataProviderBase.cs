@@ -68,7 +68,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
 
             async Task<IReadOnlyList<TItem>> GetDataAsync(SqlBuilder.Template dataQueryTemplate)
             {
-                if (dataQueryTemplate != null)
+                if (dataQueryTemplate != null && queryParameters.Limit is null or > 0)
                 {
                     // Execute query, casting to strong type to avoid use of dynamic
                     string templateRawSql = dataQueryTemplate.RawSql;
@@ -85,7 +85,7 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories
                     return items;
                 }
 
-                return null;
+                return Enumerable.Empty<TItem>().ToList();
             }
 
             async Task<long?> GetCountAsync(SqlBuilder.Template countQueryTemplate)
