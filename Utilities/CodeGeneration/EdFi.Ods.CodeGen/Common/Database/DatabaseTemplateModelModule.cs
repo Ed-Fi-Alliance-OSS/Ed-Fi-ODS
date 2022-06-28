@@ -39,7 +39,8 @@ namespace EdFi.Ods.Generator.Common.Database
             
             // Domain model components
             containerBuilder.RegisterType<ModelPathsDomainDefinitionsProviderSource>()
-                .As<IDomainModelDefinitionsProviderSource>();
+                .As<IDomainModelDefinitionsProviderSource>()
+                .PreserveExistingDefaults();
             
             // Register enhancers for Database artifacts generation
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())

@@ -18,7 +18,6 @@ using EdFi.Ods.Generator.Common.Database.DataTypes;
 using EdFi.Ods.Generator.Common.Database.Domain;
 using EdFi.Ods.Generator.Common.Database.NamingConventions;
 using EdFi.Ods.Generator.Common.Options;
-// using EdFi.Ods.Generator.Common.Rendering;
 using EdFi.Ods.Generator.Common.Templating;
 using log4net;
 
@@ -28,16 +27,14 @@ namespace EdFi.Ods.Generator.Common.Database.TemplateModelProviders
     {
         private readonly IList<ITableEnhancer> _tableEnhancers;
         private readonly IList<IColumnEnhancer> _columnEnhancers;
+        private readonly IDatabaseOptions _databaseOptions;
         private readonly ILog _logger = LogManager.GetLogger(typeof(DatabaseTemplateModelProvider));
 
         private readonly IDatabaseTypeTranslatorFactory _databaseTypeTranslatorFactory;
         private readonly IDatabaseNamingConventionFactory _databaseNamingConventionFactory;
         private readonly Lazy<DomainModel> _domainModel;
 
-        private readonly string _databaseEngine;
-        private readonly string _schema;
-
-        private bool ShouldRenderEntityForSchema(Entity entity) => string.IsNullOrEmpty(_schema) || _schema.Equals(entity.Schema, StringComparison.OrdinalIgnoreCase);
+        private bool ShouldRenderEntityForSchema(Entity entity) => string.IsNullOrEmpty(_databaseOptions.Schema) || _databaseOptions.Schema.Equals(entity.Schema, StringComparison.OrdinalIgnoreCase);
 
         public DatabaseTemplateModelProvider(
             IDatabaseTypeTranslatorFactory databaseTypeTranslatorFactory,
@@ -51,6 +48,7 @@ namespace EdFi.Ods.Generator.Common.Database.TemplateModelProviders
         {
             _tableEnhancers = tableEnhancers;
             _columnEnhancers = columnEnhancers;
+            _databaseOptions = databaseOptions;
             _databaseTypeTranslatorFactory = Preconditions.ThrowIfNull(databaseTypeTranslatorFactory, nameof(databaseTypeTranslatorFactory));
             _databaseNamingConventionFactory = Preconditions.ThrowIfNull(databaseNamingConventionFactory, nameof(databaseNamingConventionFactory));
 
@@ -72,8 +70,8 @@ namespace EdFi.Ods.Generator.Common.Database.TemplateModelProviders
                 return domainModel;
             });
             
-            _databaseEngine = databaseOptions.DatabaseEngine;
-            _schema = databaseOptions.Schema;
+            // _databaseEngine = databaseOptions.DatabaseEngine;
+            // _schema = databaseOptions.Schema;
         }
 
         private readonly IDictionary<FullName, IList<FullName>> _updatableAncestorsByEntity 
@@ -83,7 +81,7 @@ namespace EdFi.Ods.Generator.Common.Database.TemplateModelProviders
 
         public object GetTemplateModel(IDictionary<string, string> properties)
         {
-            var databaseEngine = _databaseEngine;
+            var databaseEngine = _databaseOptions.DatabaseEngine;
 
             var databaseNamingConvention = _databaseNamingConventionFactory.CreateNamingConvention(databaseEngine);
             var databaseTypeTranslator = _databaseTypeTranslatorFactory.CreateTranslator(databaseEngine);
@@ -159,14 +157,6 @@ namespace EdFi.Ods.Generator.Common.Database.TemplateModelProviders
                     Schema = databaseNamingConvention.Schema(entity),
                     TableName = databaseNamingConvention.TableName(entity),
                     FullName = entity.FullName,
-
-                    // TODO: ODS-5296 - Move LDS plugin
-                    // HashKey = new HashKey
-                    // {
-                    //     ColumnName = databaseNamingConvention.ColumnName(entity.Name, "HashKey"),
-                    //     IndexName = databaseNamingConvention.GetUniqueIndexName(entity, "HashKey")
-                    // },
-                    
                     PrimaryKeyConstraintName = databaseNamingConvention.PrimaryKeyConstraintName(entity),
                     PrimaryKeyColumns = entity.Identifier.Properties.Select(
                         (p, i) => CreateColumn(p, i, entity.Identifier.Properties)).ToArray(),
@@ -207,10 +197,10 @@ namespace EdFi.Ods.Generator.Common.Database.TemplateModelProviders
                         .Where(p => !p.IsIdentifying && !p.IsBoilerplate())
                         .Select( (p, i) => CreateColumn(p, i))
                         .ToArray(),
-                    // TODO: Think about whether and where this should be applied to the model through a transform. 
+                    // NOTE: Consider whether this should be applied to the model through a model transformation. 
                     DiscriminatorColumn = entity.HasDiscriminator() ? ColumnHelper.CreateDiscriminatorColumn(databaseNamingConvention, databaseTypeTranslator) : null,
                     BoilerplateColumns = GetBoilerplateColumns(ordered: true).ToArray(),
-                    // TODO: Review usage of this property and consider removal
+                    // NOTE: Review usage of this property and consider removal
                     BoilerplateColumnsUnsorted = GetBoilerplateColumns().ToArray(),
                     ForeignKeys = entity.IncomingAssociations
                         .GroupBy(association => databaseNamingConvention.ForeignKeyConstraintName(association), a => a)
@@ -246,14 +236,12 @@ namespace EdFi.Ods.Generator.Common.Database.TemplateModelProviders
                     IdIndexName = databaseNamingConvention.GetUniqueIndexName(entity, "Id"),
                     // TODO: Move to ChangeQueries plugin as dynamic enhancement?
                     KeyValuesCanChange = entity.Identifier.IsUpdatable || (entity.IncomingAssociations.Any(a => a.IsIdentifying && IsAssociationUpdatable(a))),
-                    // TODO: Move to LDS plugin as dynamic enhancement
-                    IsTemporalTable = (entityAsDynamic.ReadHistory == true),
                 };
 
                 // Enhance the table
                 var enhancedTable = table;
                 
-                foreach (var tableEnhancer in _tableEnhancers) // TODO: For future implementation - attribute-based filtering --> .Where(e => RenderingHelper.ShouldRunEnhancer(e, _renderingContext)))
+                foreach (var tableEnhancer in _tableEnhancers) // NOTE: For possible future support of attribute-based filtering --> .Where(e => RenderingHelper.ShouldRunEnhancer(e, _renderingContext)))
                 {
                     enhancedTable = tableEnhancer.EnhanceTable(entity, enhancedTable, enhancedTable);
                 }
@@ -390,7 +378,7 @@ namespace EdFi.Ods.Generator.Common.Database.TemplateModelProviders
                 // Enhance the table
                 var enhancedColumn = column;
 
-                foreach (var columnEnhancer in _columnEnhancers) // TODO: For future implementation - attribute-based filtering --> .Where(e => RenderingHelper.ShouldRunEnhancer(e, _renderingContext)))
+                foreach (var columnEnhancer in _columnEnhancers) // NOTE: For possible future support of attribute-based filtering --> .Where(e => RenderingHelper.ShouldRunEnhancer(e, _renderingContext)))
                 {
                     enhancedColumn = columnEnhancer.EnhanceColumn(property, enhancedColumn, enhancedColumn);
                 }
