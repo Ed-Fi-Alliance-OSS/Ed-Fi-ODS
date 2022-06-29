@@ -241,6 +241,97 @@
 			]
 		},
 		{
+			"name": "X-Forwarded-Port",
+			"item": [
+				{
+					"name": "Uses Forward Port in URLs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Uses the X-Forwarded-Host name in the URLs\", () => {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.urls.dependencies).to.eql(\"http://whatever:589/metadata/data/v3/dependencies\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Forwarded-Port",
+								"value": "589",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-Host",
+								"value": "whatever",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Falls Back to configured port in URls",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Uses the X-Forwarded-Host name in the URLs\", () => {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    const apiPort = pm.environment.get(\"ApiPort\");\r",
+									"    pm.expect(jsonData.urls.dependencies).to.eql(`http://whatever:${apiPort}/metadata/data/v3/dependencies`);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Forwarded-Host",
+								"value": "whatever",
+								"type": "default"
+							},
+							{
+								"key": "X-Forwarded-For",
+								"value": "localhost",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{ApiBaseUrl}}",
+							"host": [
+								"{{ApiBaseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Uses X-Forwarded-XYZ headers to build URLs",
 			"event": [
 				{

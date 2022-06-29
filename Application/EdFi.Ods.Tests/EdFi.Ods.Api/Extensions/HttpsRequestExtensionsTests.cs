@@ -258,6 +258,33 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                         result.ShouldBe(defaultPort);
                     }
                 }
+
+                [TestFixture]
+                public class Given_x_fowarded_port_value_is_blank
+                {
+                    [Test]
+                    public void Then_it_returns_the_default_value()
+                    {
+                        const string requestHost = "myserver";
+                        const int requestPort = 554;
+                        const int defaultPort = 443;
+
+                        // Arrange
+                        var httpRequest = A.Fake<HttpRequest>();
+                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost, requestPort));
+                        A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                                {
+                                    { "X-Forwarded-Port", new StringValues("   ") }
+                                }
+                            ));
+
+                        // Act
+                        var result = httpRequest.Port(true, defaultPort);
+
+                        // Assert
+                        result.ShouldBe(defaultPort);
+                    }
+                }
             }
         }
     }

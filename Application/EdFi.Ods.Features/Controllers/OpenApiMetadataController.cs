@@ -35,6 +35,8 @@ namespace EdFi.Ods.Features.Controllers
 
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
         private readonly bool _useProxyHeaders;
+        private readonly string _defaultForwardingHostServer;
+        private readonly int _defaultForwardingHostPort;
 
         public OpenApiMetadataController(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
@@ -43,6 +45,9 @@ namespace EdFi.Ods.Features.Controllers
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             _useProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName());
+
+            this._defaultForwardingHostServer = apiSettings.DefaultForwardingHostServer;
+            this._defaultForwardingHostPort = apiSettings.DefaultForwardingHostPort;
         }
 
         [HttpGet]
@@ -86,11 +91,13 @@ namespace EdFi.Ods.Features.Controllers
 
             OpenApiMetadataSectionDetails GetSwaggerSectionDetailsForCacheItem(OpenApiContent apiContent)
             {
+                var rootUrl = Request.RootUrl(this._useProxyHeaders, this._defaultForwardingHostServer, this._defaultForwardingHostPort);
+
                 // Construct fully qualified metadata url
                 var url =
                     new Uri(
                         new Uri(
-                            new Uri(Request.RootUrl(_useProxyHeaders).EnsureSuffixApplied("/")),
+                            new Uri(rootUrl.EnsureSuffixApplied("/")),
                             "metadata/"),
                         GetMetadataUrlSegmentForCacheItem(apiContent, request.SchoolYearFromRoute, request.InstanceIdFromRoute));
 

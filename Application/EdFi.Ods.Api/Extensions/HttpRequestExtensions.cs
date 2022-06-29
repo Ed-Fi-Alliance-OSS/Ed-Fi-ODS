@@ -44,7 +44,7 @@ namespace EdFi.Ods.Api.Extensions
             }
 
             // The x-forwarded-proto header can contain a single originating protocol or, in some 
-            // cases, multiple protocols. Seee ODS-5481 for more information. We care about the
+            // cases, multiple protocols. See ODS-5481 for more information. We care about the
             // _first_ protocol listed.
             if (scheme == null) { return "http"; }
 
@@ -83,7 +83,7 @@ namespace EdFi.Ods.Api.Extensions
 
             if (proxyHeaderValue != null)
             {
-                return !int.TryParse(proxyHeaderValue, out int port) ? request.Host.Port ?? getDefaultPort() : port;
+                return !int.TryParse(proxyHeaderValue, out int port) ? defaultForwardedHostPort : port;
             }
 
             // Fallback to appsettings value, if available

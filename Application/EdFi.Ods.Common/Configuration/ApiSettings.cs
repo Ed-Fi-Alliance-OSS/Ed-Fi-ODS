@@ -16,6 +16,9 @@ namespace EdFi.Ods.Common.Configuration
         private readonly Lazy<DatabaseEngine> _databaseEngine;
         private readonly Lazy<ApiMode> _apiMode;
 
+        private string _defaultForwardingHostServer;
+        private int _defaultForwardingPort;
+
         public ApiSettings()
         {
             _databaseEngine = new Lazy<DatabaseEngine>(() => DatabaseEngine.TryParseEngine(Engine));
@@ -50,9 +53,26 @@ namespace EdFi.Ods.Common.Configuration
 
         public bool? UseReverseProxyHeaders { get; set; }
 
-        public string DefaultForwardingHostServer { get; set;  }
+        public string DefaultForwardingHostServer
+        {
+            get
+            {
+                return _defaultForwardingHostServer ?? "localhost";
+            }
+            set
+            {
+                _defaultForwardingHostServer = value;
+            }
+        }
 
-        public int DefaultForwardingHostPort { get; set; }
+        public int DefaultForwardingHostPort
+        {
+            get
+            {
+                return _defaultForwardingPort == 0 ? 80 : _defaultForwardingPort;
+            }
+            set { _defaultForwardingPort = value; }
+        }
 
         public string PathBase { get; set; }
 

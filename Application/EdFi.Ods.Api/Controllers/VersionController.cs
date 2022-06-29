@@ -141,7 +141,7 @@ namespace EdFi.Ods.Api.Controllers
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.GetConfigKeyName()))
                 {
-                    urlsByName["changeQueries"] = Request.RootUrl(useReverseProxyHeaders) +
+                    urlsByName["changeQueries"] = rootUrl +
                                                   $"/changeQueries/v{ApiVersionConstants.ChangeQuery}/" +
                                                   (isInstanceYearSpecific
                                                       ? $"{instance}/"
@@ -153,7 +153,7 @@ namespace EdFi.Ods.Api.Controllers
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.Composites.GetConfigKeyName()))
                 {
-                    urlsByName["composites"] = Request.RootUrl(useReverseProxyHeaders) +
+                    urlsByName["composites"] = rootUrl +
                                                        $"/composites/v{ApiVersionConstants.Composite}/" +
                                                        (isInstanceYearSpecific
                                                            ? $"{instance}/"
@@ -165,7 +165,7 @@ namespace EdFi.Ods.Api.Controllers
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.IdentityManagement.GetConfigKeyName()))
                 {
-                    urlsByName["identity"] = Request.RootUrl(useReverseProxyHeaders) +
+                    urlsByName["identity"] = rootUrl +
                                              $"/identity/v{ApiVersionConstants.Identity}/" +
                                              (isInstanceYearSpecific
                                                  ? $"{instance}/"
