@@ -67,5 +67,198 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                 }
             }
         }
+
+        [TestFixture]
+        public class When_extracting_proxy_forwarded_host_from_an_http_request
+        {
+
+            [TestFixture]
+            public class Given_proxy_headers_are_not_being_enforced
+            {
+                [Test]
+                public void Then_it_returns_the_request_host()
+                {
+                    const string requestHost = "myserver";
+                    const string defaultHost = "workstation";
+
+                    // Arrange
+                    var httpRequest = A.Fake<HttpRequest>();
+                    A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
+
+                    // Act
+                    var result = httpRequest.Host(false, defaultHost);
+
+                    // Assert
+                    result.ShouldBe(requestHost);
+                }
+
+            }
+
+
+            [TestFixture]
+            public class Given_proxy_headers_are_being_enforced
+            {
+                [TestFixture]
+                public class Given_x_fowarded_host_value_exists
+                {
+                    [Test]
+                    public void Then_it_returns_the_x_fowarded_host_value()
+                    {
+                        const string requestHost = "myserver";
+                        const string forwardedHost = "public.server";
+                        const string defaultHost = "workstation";
+
+                        // Arrange
+                        var httpRequest = A.Fake<HttpRequest>();
+                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
+                        A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                                {
+                                    { "X-Forwarded-Host", new StringValues(forwardedHost) }
+                                }
+                        ));
+
+                        // Act
+                        var result = httpRequest.Host(true, defaultHost);
+
+                        // Assert
+                        result.ShouldBe(forwardedHost);
+
+                    }
+                }
+
+                [TestFixture]
+                public class Given_x_fowarded_host_value_is_blank
+                {
+                    [Test]
+                    public void Then_it_returns_the_default_value()
+                    {
+                        const string requestHost = "myserver";
+                        const string forwardedHost = "";
+                        const string defaultHost = "workstation";
+
+                        // Arrange
+                        var httpRequest = A.Fake<HttpRequest>();
+                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
+                        A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                                {
+                                    { "X-Forwarded-Host", new StringValues(forwardedHost) }
+                                }
+                        ));
+
+                        // Act
+                        var result = httpRequest.Host(true, defaultHost);
+
+                        // Assert
+                        result.ShouldBe(defaultHost);
+
+                    }
+                }
+
+                [TestFixture]
+                public class Given_x_fowarded_host_value_is_missing
+                {
+                    [Test]
+                    public void Then_it_returns_the_default_value()
+                    {
+                        const string requestHost = "myserver";
+                        const string defaultHost = "workstation";
+
+                        // Arrange
+                        var httpRequest = A.Fake<HttpRequest>();
+                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
+
+                        // Act
+                        var result = httpRequest.Host(true, defaultHost);
+
+                        // Assert
+                        result.ShouldBe(defaultHost);
+
+                    }
+                }
+            }
+        }
+
+        [TestFixture]
+        public class When_extracting_proxy_forwarded_port_from_an_http_request
+        {
+
+            [TestFixture]
+            public class Given_proxy_headers_are_not_being_enforced
+            {
+                [Test]
+                public void Then_it_returns_the_request_host()
+                {
+                    const string requestHost = "myserver";
+                    const int requestPort = 554;
+                    const int defaultPort = 443;
+
+                    // Arrange
+                    var httpRequest = A.Fake<HttpRequest>();
+                    A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost, requestPort));
+
+                    // Act
+                    var result = httpRequest.Port(false, defaultPort);
+
+                    // Assert
+                    result.ShouldBe(requestPort);
+                }
+
+            }
+
+
+            [TestFixture]
+            public class Given_proxy_headers_are_being_enforced
+            {
+                [TestFixture]
+                public class Given_x_fowarded_port_value_exists
+                {
+                    [Test]
+                    public void Then_it_returns_the_x_fowarded_host_value()
+                    {
+                        const string requestHost = "myserver";
+                        const int requestPort = 554;
+                        const int defaultPort = 443;
+                        const int forwardedPort = 665;
+
+                        // Arrange
+                        var httpRequest = A.Fake<HttpRequest>();
+                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost, requestPort));
+                        A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                                {
+                                    { "X-Forwarded-Port", new StringValues(forwardedPort.ToString()) }
+                                }
+                        ));
+
+                        // Act
+                        var result = httpRequest.Port(true, defaultPort);
+
+                        // Assert
+                        result.ShouldBe(forwardedPort);
+                    }
+                }
+
+                [TestFixture]
+                public class Given_x_fowarded_port_value_is_missing
+                {
+                    [Test]
+                    public void Then_it_returns_the_default_value()
+                    {
+                        const string requestHost = "myserver";
+                        const int requestPort = 554;
+                        const int defaultPort = 443;
+
+                        // Arrange
+                        var httpRequest = A.Fake<HttpRequest>();
+                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost, requestPort));
+
+                        // Act
+                        var result = httpRequest.Port(true, defaultPort);
+
+                        // Assert
+                        result.ShouldBe(defaultPort);
+                    }
+                }
+            }
+        }
     }
 }

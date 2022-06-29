@@ -86,7 +86,8 @@ namespace EdFi.Ods.Api.Controllers
 
                 var urlsByName = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
-                var rootUrl = Request.RootUrl(useReverseProxyHeaders);
+                var rootUrl = Request.RootUrl(useReverseProxyHeaders, _apiSettings.DefaultForwardingHostServer, 
+                    _apiSettings.DefaultForwardingHostPort);
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName()))
                 {
