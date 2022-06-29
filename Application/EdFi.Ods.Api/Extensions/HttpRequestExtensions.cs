@@ -53,7 +53,7 @@ namespace EdFi.Ods.Api.Extensions
 
         public static string Host(this HttpRequest request, bool useProxyHeaders = false, string defaultForwardedHostServer = "localhost")
         {
-            // User actual request host when not configured for use behind a reverse proxy
+            // Use actual request host when not configured for use behind a reverse proxy
             if (!useProxyHeaders)
             {
                 return request.Host.Host;
