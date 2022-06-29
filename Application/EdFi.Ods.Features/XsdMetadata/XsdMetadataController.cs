@@ -115,7 +115,11 @@ namespace EdFi.Ods.Features.XsdMetadata
 
             bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
 
-            string basicPath = Request.RootUrl(useReverseProxyHeaders) + "/metadata/" +
+            var defaultForwardingHostServer = this._apiSettings.DefaultForwardingHostServer;
+            var defaultForwardingHostPort = this._apiSettings.DefaultForwardingHostPort;
+
+            string basicPath = Request.RootUrl(useReverseProxyHeaders, defaultForwardingHostServer, defaultForwardingHostPort) 
+                                + "/metadata/" +
                                (isInstanceYearSpecific
                                    ? $"{_instanceIdContextProvider.GetInstanceId()}/"
                                    : string.Empty) +

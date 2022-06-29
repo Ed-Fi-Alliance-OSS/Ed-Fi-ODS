@@ -29,6 +29,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         private readonly IList<IOpenApiMetadataRouteInformation> _routeInformations;
         private readonly bool _useReverseProxyHeaders;
         private readonly Lazy<IReadOnlyList<SchemaNameMap>> _schemaNameMaps;
+        private readonly string _defaultForwardingHostServer;
+        private readonly int _defaultForwardingHostPort;
 
         public EnabledOpenApiMetadataDocumentProvider(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
@@ -41,6 +43,9 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
             _useReverseProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
 
             _schemaNameMaps = new Lazy<IReadOnlyList<SchemaNameMap>>(schemaNameMapProvider.GetSchemaNameMaps);
+
+            this._defaultForwardingHostServer = apiSettings.DefaultForwardingHostServer;
+            this._defaultForwardingHostPort = apiSettings.DefaultForwardingHostPort;
         }
 
         public bool TryGetSwaggerDocument(HttpRequest request, out string document)
@@ -78,7 +83,11 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 .Replace("%BASE_PATH%", basePath)
                 .Replace("%SCHEME%", request.Scheme(_useReverseProxyHeaders));
 
-            string TokenUrl() => $"{request.RootUrl(_useReverseProxyHeaders)}/{instanceId}oauth/token";
+            string TokenUrl() {
+                var rootUrl = request.RootUrl(this._useReverseProxyHeaders, this._defaultForwardingHostServer,
+                    this._defaultForwardingHostPort);
+                return $"{rootUrl}/{instanceId}oauth/token";
+            }
 
             string Host() => $"{request.Host(_useReverseProxyHeaders)}:{request.Port(_useReverseProxyHeaders)}";
         }
