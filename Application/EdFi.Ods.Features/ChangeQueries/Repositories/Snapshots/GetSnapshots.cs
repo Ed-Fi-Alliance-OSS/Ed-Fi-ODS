@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using EdFi.Common.Configuration;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Infrastructure;
 using EdFi.Ods.Common.Infrastructure.Repositories;
 using EdFi.Ods.Features.ChangeQueries.Resources;
@@ -19,11 +20,13 @@ namespace EdFi.Ods.Features.ChangeQueries.Repositories.Snapshots
     public class GetSnapshots : NHibernateRepositoryOperationBase, IGetSnapshots
     {
         private readonly ISessionFactory _sessionFactory;
+        private readonly int _defaultPageSizeLimit;
 
-        public GetSnapshots(ISessionFactory sessionFactory, DatabaseEngine databaseEngine)
+        public GetSnapshots(ISessionFactory sessionFactory, DatabaseEngine databaseEngine, IDefaultPageSizeLimitProvider defaultPageSizeLimitProvider)
             : base(sessionFactory)
         {
             _sessionFactory = sessionFactory;
+            _defaultPageSizeLimit = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
         }
 
         public async Task<IList<Snapshot>> GetAllAsync(IQueryParameters queryParameters)
@@ -37,10 +40,25 @@ ORDER BY SnapshotDateTime DESC";
             {
                 var query = sessionScope.Session.CreateSQLQuery(cmdSql)
                     .SetFirstResult(queryParameters.Offset ?? 0)
-                    .SetMaxResults(queryParameters.Limit ?? 25)
+                    .SetMaxResults(queryParameters.Limit ?? _defaultPageSizeLimit)
                     .SetResultTransformer(Transformers.AliasToBean<Snapshot>());
 
                 return await query.ListAsync<Snapshot>().ConfigureAwait(false);
+            }
+        }
+
+        public async Task<long> GetTotalCountAsync()
+        {
+            var cmdSql = $@"
+SELECT   COUNT(1)
+FROM     changes.Snapshot";
+
+            using (var sessionScope = new SessionScope(_sessionFactory))
+            {
+                var count = await sessionScope.Session.CreateSQLQuery(cmdSql)
+                    .UniqueResultAsync().ConfigureAwait(false);
+
+                return Convert.ToInt64(count);
             }
         }
 
