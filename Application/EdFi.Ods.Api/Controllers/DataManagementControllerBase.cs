@@ -59,7 +59,8 @@ namespace EdFi.Ods.Api.Controllers
         private readonly IRESTErrorProvider _restErrorProvider;
         private readonly int _defaultPageLimitSize;
         private readonly bool _useProxyHeaders;
-
+        private readonly string _defaultForwardingHostServer;
+        private readonly int _defaultForwardingHostPort;
         private ILog _logger;
         protected Lazy<DeletePipeline> DeletePipeline;
         protected Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>> GetByIdPipeline;
@@ -106,6 +107,8 @@ namespace EdFi.Ods.Api.Controllers
             _restErrorProvider = restErrorProvider;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
             _useProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
+            this._defaultForwardingHostServer = apiSettings.DefaultForwardingHostServer;
+            this._defaultForwardingHostPort = apiSettings.DefaultForwardingHostPort;
 
             GetByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);

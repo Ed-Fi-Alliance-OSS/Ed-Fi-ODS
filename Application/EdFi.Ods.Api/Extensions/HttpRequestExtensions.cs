@@ -14,12 +14,13 @@ namespace EdFi.Ods.Api.Extensions
 {
     public static class HttpRequestExtensions
     {
-        public static string RootUrl(this HttpRequest request, bool useProxyHeaders = false)
+        public static string RootUrl(this HttpRequest request, bool useProxyHeaders = false, 
+            string defaultForwardedHostServer = "localhost", int defaultForwardedHostPort = 443)
         {
             var uriBuilder = new UriBuilder(
                 request.Scheme(useProxyHeaders),
-                request.Host(useProxyHeaders),
-                request.Port(useProxyHeaders),
+                request.Host(useProxyHeaders, defaultForwardedHostServer),
+                request.Port(useProxyHeaders, defaultForwardedHostPort),
                 request.PathBase);
 
             return uriBuilder.Uri.AbsoluteUri.TrimEnd('/');
@@ -45,47 +46,53 @@ namespace EdFi.Ods.Api.Extensions
             // The x-forwarded-proto header can contain a single originating protocol or, in some 
             // cases, multiple protocols. Seee ODS-5481 for more information. We care about the
             // _first_ protocol listed.
-            if (scheme == null) { return "http";  }
+            if (scheme == null) { return "http"; }
 
             return scheme.Split(',')[0];
         }
 
-        public static string Host(this HttpRequest request, bool useProxyHeaders = false)
+        public static string Host(this HttpRequest request, bool useProxyHeaders = false, string defaultForwardedHostServer = "localhost")
         {
-            string host = request.Host.Host;
-
+            // User actual request host when not configured for use behind a reverse proxy
             if (!useProxyHeaders)
             {
-                return host;
+                return request.Host.Host;
             }
 
+            // Try to extract a X-Forwarded-Host value
             request.TryGetRequestHeader(HeaderConstants.XForwardedHost, out string proxyHeaderValue);
-
-            // Pass through for any value provided, null means header wasn't found so default to request
-            if (proxyHeaderValue != null)
+            if (!string.IsNullOrWhiteSpace(proxyHeaderValue))
             {
-                host = proxyHeaderValue;
+                return proxyHeaderValue;
             }
 
-            return host;
+            // Fallback to appsettings value, if available
+            return defaultForwardedHostServer;
         }
 
-        public static int Port(this HttpRequest request, bool useProxyHeaders = false)
+        public static int Port(this HttpRequest request, bool useProxyHeaders = false, int defaultForwardedHostPort = 443)
         {
-            var defaultPortForScheme = Scheme(request, useProxyHeaders) == "https"
-                ? 443
-                : 80;
-
+            // User actual request host when not configured for use behind a reverse proxy
             if (!useProxyHeaders)
             {
-                return request.Host.Port ?? defaultPortForScheme;
+                return request.Host.Port ?? getDefaultPort();
             }
 
+            // Try to extract a X-Forwarded-Port value
             request.TryGetRequestHeader(HeaderConstants.XForwardedPort, out string proxyHeaderValue);
 
-            return !int.TryParse(proxyHeaderValue, out int port)
-                ? request.Host.Port ?? defaultPortForScheme
-                : port;
+            if (proxyHeaderValue != null)
+            {
+                return !int.TryParse(proxyHeaderValue, out int port) ? request.Host.Port ?? getDefaultPort() : port;
+            }
+
+            // Fallback to appsettings value, if available
+            return defaultForwardedHostPort;
+
+            int getDefaultPort()
+            {
+                return Scheme(request, useProxyHeaders) == "https" ? 443 : 80;
+            }
         }
 
         public static string VirtualPath(this HttpRequest request)
