@@ -26,9 +26,18 @@ namespace EdFi.Ods.Features.Redis
                 return;
             }
 
+            var configurationOptions = new StackExchange.Redis.ConfigurationOptions();
+            
+            foreach(var hostAndPort in ApiSettings.ExternalCache.Configuration.Split(","))
+            {
+                configurationOptions.EndPoints.Add(hostAndPort.Trim());
+            }
+            
+            configurationOptions.Password = ApiSettings.ExternalCache.Password;
+
             builder.Register<IDistributedCache>((c, d) => new RedisCache(new RedisCacheOptions()
             {
-                Configuration = ApiSettings.ExternalCache.Configuration
+                ConfigurationOptions = configurationOptions
             }
            ))
            .SingleInstance();

@@ -8,7 +8,13 @@ namespace EdFi.Ods.Common.Configuration
     public class ExternalCacheSettings
     {
         public ExternalCacheProviders CacheProvider { get; set; }
+        
+        // Connection string in SQL Server
+        // Server and port in Redis
         public string Configuration { get; set; }
+
+        // AUTH Passwrod in Redis
+        public string Password { get; set; }
         public string SchemaName { get; set; }
         public string TableName { get; set; }
         public int DefaultExpirationSeconds { get; set; }
@@ -20,6 +26,7 @@ namespace EdFi.Ods.Common.Configuration
 
     public enum ExternalCacheProviders
     {
+        None, 
         Redis,
         SqlServer
     }
