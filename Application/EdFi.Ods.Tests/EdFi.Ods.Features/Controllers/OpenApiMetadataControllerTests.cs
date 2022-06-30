@@ -117,6 +117,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             {
                 var configValueProvider = new ApiSettings();
                 configValueProvider.UseReverseProxyHeaders = true;
+                configValueProvider.DefaultForwardingHostPort = 80;
+                configValueProvider.DefaultForwardingHostServer = "localhost";
+
                 Feature item = new Feature();
                 item.IsEnabled = true;
                 item.Name = "openApiMetadata";
@@ -205,8 +208,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override void Arrange()
             {
-                var configValueProvider = new ApiSettings();
-                configValueProvider.UseReverseProxyHeaders = true;
+                var configValueProvider = new ApiSettings
+                {
+                    UseReverseProxyHeaders = true,
+                    DefaultForwardingHostPort = 80,
+                    DefaultForwardingHostServer = "localhost"
+                };
+
                 Feature item = new Feature();
                 item.IsEnabled = true;
                 item.Name = "openApiMetadata";

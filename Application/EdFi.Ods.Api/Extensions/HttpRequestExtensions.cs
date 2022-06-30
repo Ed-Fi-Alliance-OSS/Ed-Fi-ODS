@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Api.Constants;
+using EdFi.Ods.Common.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 
@@ -14,23 +15,22 @@ namespace EdFi.Ods.Api.Extensions
 {
     public static class HttpRequestExtensions
     {
-        public static string RootUrl(this HttpRequest request, bool useProxyHeaders = false, 
-            string defaultForwardedHostServer = "localhost", int defaultForwardedHostPort = 443)
+        public static string RootUrl(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
             var uriBuilder = new UriBuilder(
-                request.Scheme(useProxyHeaders),
-                request.Host(useProxyHeaders, defaultForwardedHostServer),
-                request.Port(useProxyHeaders, defaultForwardedHostPort),
+                request.Scheme(reverseProxySettings),
+                request.Host(reverseProxySettings),
+                request.Port(reverseProxySettings),
                 request.PathBase);
 
             return uriBuilder.Uri.AbsoluteUri.TrimEnd('/');
         }
 
-        public static string Scheme(this HttpRequest request, bool useProxyHeaders = false)
+        public static string Scheme(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
             string scheme = request.Scheme;
 
-            if (!useProxyHeaders)
+            if (!reverseProxySettings.UseReverseProxyHeaders)
             {
                 return scheme;
             }
@@ -51,10 +51,10 @@ namespace EdFi.Ods.Api.Extensions
             return scheme.Split(',')[0];
         }
 
-        public static string Host(this HttpRequest request, bool useProxyHeaders = false, string defaultForwardedHostServer = "localhost")
+        public static string Host(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
             // Use actual request host when not configured for use behind a reverse proxy
-            if (!useProxyHeaders)
+            if (!reverseProxySettings.UseReverseProxyHeaders)
             {
                 return request.Host.Host;
             }
@@ -67,13 +67,13 @@ namespace EdFi.Ods.Api.Extensions
             }
 
             // Fallback to appsettings value, if available
-            return defaultForwardedHostServer;
+            return reverseProxySettings.DefaultForwardingHostServer;
         }
 
-        public static int Port(this HttpRequest request, bool useProxyHeaders = false, int defaultForwardedHostPort = 443)
+        public static int Port(this HttpRequest request, ReverseProxySettings reverseProxySettings)
         {
             // User actual request host when not configured for use behind a reverse proxy
-            if (!useProxyHeaders)
+            if (!reverseProxySettings.UseReverseProxyHeaders)
             {
                 return request.Host.Port ?? getDefaultPort();
             }
@@ -83,15 +83,15 @@ namespace EdFi.Ods.Api.Extensions
 
             if (proxyHeaderValue != null)
             {
-                return !int.TryParse(proxyHeaderValue, out int port) ? defaultForwardedHostPort : port;
+                return !int.TryParse(proxyHeaderValue, out int port) ? reverseProxySettings.DefaultForwardingHostPort : port;
             }
 
             // Fallback to appsettings value, if available
-            return defaultForwardedHostPort;
+            return reverseProxySettings.DefaultForwardingHostPort;
 
             int getDefaultPort()
             {
-                return Scheme(request, useProxyHeaders) == "https" ? 443 : 80;
+                return Scheme(request, reverseProxySettings) == "https" ? 443 : 80;
             }
         }
 

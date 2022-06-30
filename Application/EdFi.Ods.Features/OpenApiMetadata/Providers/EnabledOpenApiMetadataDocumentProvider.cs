@@ -27,10 +27,8 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
 
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
         private readonly IList<IOpenApiMetadataRouteInformation> _routeInformations;
-        private readonly bool _useReverseProxyHeaders;
+        private readonly ReverseProxySettings _reverseProxySettings;
         private readonly Lazy<IReadOnlyList<SchemaNameMap>> _schemaNameMaps;
-        private readonly string _defaultForwardingHostServer;
-        private readonly int _defaultForwardingHostPort;
 
         public EnabledOpenApiMetadataDocumentProvider(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
@@ -40,12 +38,10 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
         {
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
             _routeInformations = routeInformations;
-            _useReverseProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
+            this._reverseProxySettings = apiSettings.GetReverseProxySettings();
 
             _schemaNameMaps = new Lazy<IReadOnlyList<SchemaNameMap>>(schemaNameMapProvider.GetSchemaNameMaps);
 
-            this._defaultForwardingHostServer = apiSettings.DefaultForwardingHostServer;
-            this._defaultForwardingHostPort = apiSettings.DefaultForwardingHostPort;
         }
 
         public bool TryGetSwaggerDocument(HttpRequest request, out string document)
@@ -81,15 +77,14 @@ namespace EdFi.Ods.Features.OpenApiMetadata.Providers
                 .Replace("%HOST%", Host())
                 .Replace("%TOKEN_URL%", TokenUrl())
                 .Replace("%BASE_PATH%", basePath)
-                .Replace("%SCHEME%", request.Scheme(_useReverseProxyHeaders));
+                .Replace("%SCHEME%", request.Scheme(this._reverseProxySettings));
 
             string TokenUrl() {
-                var rootUrl = request.RootUrl(this._useReverseProxyHeaders, this._defaultForwardingHostServer,
-                    this._defaultForwardingHostPort);
+                var rootUrl = request.RootUrl(this._reverseProxySettings);
                 return $"{rootUrl}/{instanceId}oauth/token";
             }
 
-            string Host() => $"{request.Host(_useReverseProxyHeaders)}:{request.Port(_useReverseProxyHeaders)}";
+            string Host() => $"{request.Host(this._reverseProxySettings)}:{request.Port(this._reverseProxySettings)}";
         }
 
         private OpenApiMetadataRequest CreateOpenApiMetadataRequest(string path)

@@ -59,7 +59,7 @@ namespace EdFi.Ods.Api.Controllers
 
         private readonly IRESTErrorProvider _restErrorProvider;
         private readonly int _defaultPageLimitSize;
-        private readonly bool _useProxyHeaders;
+        private readonly ReverseProxySettings _reverseProxySettings;
         private ILog _logger;
         protected Lazy<DeletePipeline> DeletePipeline;
         protected Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>> GetByIdPipeline;
@@ -106,7 +106,7 @@ namespace EdFi.Ods.Api.Controllers
             SchoolYearContextProvider = schoolYearContextProvider;
             _restErrorProvider = restErrorProvider;
             _defaultPageLimitSize = defaultPageSizeLimitProvider.GetDefaultPageSizeLimit();
-            _useProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
+            _reverseProxySettings = apiSettings.GetReverseProxySettings();
 
             GetByIdPipeline = new Lazy<GetPipeline<TResourceReadModel, TAggregateRoot>>
                 (pipelineFactory.CreateGetPipeline<TResourceReadModel, TAggregateRoot>);
@@ -368,9 +368,9 @@ namespace EdFi.Ods.Api.Controllers
             try
             {
                 var uriBuilder = new UriBuilder(
-                    Request.Scheme(_useProxyHeaders),
-                    Request.Host(_useProxyHeaders),
-                    Request.Port(_useProxyHeaders),
+                    Request.Scheme(this._reverseProxySettings),
+                    Request.Host(this._reverseProxySettings),
+                    Request.Port(this._reverseProxySettings),
                     Request.Path);
 
                 return uriBuilder.Uri.ToString().TrimEnd('/');

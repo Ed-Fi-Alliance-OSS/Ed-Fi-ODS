@@ -82,12 +82,9 @@ namespace EdFi.Ods.Api.Controllers
                 bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific)
                                       || isInstanceYearSpecific;
 
-                bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
-
                 var urlsByName = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
 
-                var rootUrl = Request.RootUrl(useReverseProxyHeaders, _apiSettings.DefaultForwardingHostServer, 
-                    _apiSettings.DefaultForwardingHostPort);
+                var rootUrl = Request.RootUrl(_apiSettings.GetReverseProxySettings());
 
                 if (_apiSettings.IsFeatureEnabled(ApiFeature.AggregateDependencies.GetConfigKeyName()))
                 {
