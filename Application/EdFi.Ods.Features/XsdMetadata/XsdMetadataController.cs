@@ -113,12 +113,7 @@ namespace EdFi.Ods.Features.XsdMetadata
             bool isYearSpecific = _apiSettings.GetApiMode().Equals(ApiMode.YearSpecific)
                                   || isInstanceYearSpecific;
 
-            bool useReverseProxyHeaders = _apiSettings.UseReverseProxyHeaders ?? false;
-
-            var defaultForwardingHostServer = this._apiSettings.DefaultForwardingHostServer;
-            var defaultForwardingHostPort = this._apiSettings.DefaultForwardingHostPort;
-
-            string basicPath = Request.RootUrl(useReverseProxyHeaders, defaultForwardingHostServer, defaultForwardingHostPort) 
+            string basicPath = Request.RootUrl(_apiSettings.GetReverseProxySettings()) 
                                 + "/metadata/" +
                                (isInstanceYearSpecific
                                    ? $"{_instanceIdContextProvider.GetInstanceId()}/"

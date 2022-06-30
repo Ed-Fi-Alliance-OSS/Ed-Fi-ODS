@@ -34,20 +34,15 @@ namespace EdFi.Ods.Features.Controllers
         private readonly ILog _logger = LogManager.GetLogger(typeof(OpenApiMetadataController));
 
         private readonly IOpenApiMetadataCacheProvider _openApiMetadataCacheProvider;
-        private readonly bool _useProxyHeaders;
-        private readonly string _defaultForwardingHostServer;
-        private readonly int _defaultForwardingHostPort;
+        private readonly ReverseProxySettings _reverseProxySettings;
 
         public OpenApiMetadataController(
             IOpenApiMetadataCacheProvider openApiMetadataCacheProvider,
             ApiSettings apiSettings)
         {
             _openApiMetadataCacheProvider = openApiMetadataCacheProvider;
-            _useProxyHeaders = apiSettings.UseReverseProxyHeaders.HasValue && apiSettings.UseReverseProxyHeaders.Value;
+            _reverseProxySettings = apiSettings.GetReverseProxySettings();
             _isEnabled = apiSettings.IsFeatureEnabled(ApiFeature.OpenApiMetadata.GetConfigKeyName());
-
-            this._defaultForwardingHostServer = apiSettings.DefaultForwardingHostServer;
-            this._defaultForwardingHostPort = apiSettings.DefaultForwardingHostPort;
         }
 
         [HttpGet]
@@ -91,7 +86,7 @@ namespace EdFi.Ods.Features.Controllers
 
             OpenApiMetadataSectionDetails GetSwaggerSectionDetailsForCacheItem(OpenApiContent apiContent)
             {
-                var rootUrl = Request.RootUrl(this._useProxyHeaders, this._defaultForwardingHostServer, this._defaultForwardingHostPort);
+                var rootUrl = Request.RootUrl(this._reverseProxySettings);
 
                 // Construct fully qualified metadata url
                 var url =

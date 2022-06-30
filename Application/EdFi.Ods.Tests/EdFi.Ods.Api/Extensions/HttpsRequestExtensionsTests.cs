@@ -5,6 +5,7 @@ using EdFi.Ods.Api.Extensions;
 using Shouldly;
 using System.Collections.Generic;
 using Microsoft.Extensions.Primitives;
+using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
 {
@@ -26,7 +27,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                     A.CallTo(() => httpRequest.Scheme).Returns(requestProtocol);
 
                     // Act
-                    var result = httpRequest.Scheme(false);
+                    var result = httpRequest.Scheme(new ReverseProxySettings(false, null, null));
 
                     // Assert
                     result.ShouldBe(requestProtocol);
@@ -60,7 +61,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                     ));
 
                     // Act
-                    var result = httpRequest.Scheme(true);
+                    var result = httpRequest.Scheme(new ReverseProxySettings(true, "localhost", 80));
 
                     // Assert
                     result.ShouldBe(expectedProtocol);
@@ -79,14 +80,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                 public void Then_it_returns_the_request_host()
                 {
                     const string requestHost = "myserver";
-                    const string defaultHost = "workstation";
 
                     // Arrange
                     var httpRequest = A.Fake<HttpRequest>();
                     A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
 
                     // Act
-                    var result = httpRequest.Host(false, defaultHost);
+                    var result = httpRequest.Host(new ReverseProxySettings(false, null, null));
 
                     // Assert
                     result.ShouldBe(requestHost);
@@ -118,7 +118,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                         ));
 
                         // Act
-                        var result = httpRequest.Host(true, defaultHost);
+                        var result = httpRequest.Host(new ReverseProxySettings(true, defaultHost, 80));
 
                         // Assert
                         result.ShouldBe(forwardedHost);
@@ -146,7 +146,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                         ));
 
                         // Act
-                        var result = httpRequest.Host(true, defaultHost);
+                        var result = httpRequest.Host(new ReverseProxySettings(true, defaultHost, 80));
 
                         // Assert
                         result.ShouldBe(defaultHost);
@@ -168,7 +168,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                         A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
 
                         // Act
-                        var result = httpRequest.Host(true, defaultHost);
+                        var result = httpRequest.Host(new ReverseProxySettings(true, defaultHost, 80));
 
                         // Assert
                         result.ShouldBe(defaultHost);
@@ -190,14 +190,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                 {
                     const string requestHost = "myserver";
                     const int requestPort = 554;
-                    const int defaultPort = 443;
 
                     // Arrange
                     var httpRequest = A.Fake<HttpRequest>();
                     A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost, requestPort));
 
                     // Act
-                    var result = httpRequest.Port(false, defaultPort);
+                    var result = httpRequest.Port(new ReverseProxySettings(false, null, null));
 
                     // Assert
                     result.ShouldBe(requestPort);
@@ -230,7 +229,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                         ));
 
                         // Act
-                        var result = httpRequest.Port(true, defaultPort);
+                        var result = httpRequest.Port(new ReverseProxySettings(true, "localhost", defaultPort));
 
                         // Assert
                         result.ShouldBe(forwardedPort);
@@ -252,7 +251,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                         A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost, requestPort));
 
                         // Act
-                        var result = httpRequest.Port(true, defaultPort);
+                        var result = httpRequest.Port(new ReverseProxySettings(true, "localhost", defaultPort));
 
                         // Assert
                         result.ShouldBe(defaultPort);
@@ -279,7 +278,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
                             ));
 
                         // Act
-                        var result = httpRequest.Port(true, defaultPort);
+                        var result = httpRequest.Port(new ReverseProxySettings(true, "localhost", defaultPort));
 
                         // Assert
                         result.ShouldBe(defaultPort);
