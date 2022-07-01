@@ -59,15 +59,21 @@ namespace EdFi.Ods.Api.Extensions
                 return request.Host.Host;
             }
 
-            // Try to extract a X-Forwarded-Host value
-            request.TryGetRequestHeader(HeaderConstants.XForwardedHost, out string proxyHeaderValue);
-            if (!string.IsNullOrWhiteSpace(proxyHeaderValue))
+            // Use override value if available
+            if (!string.IsNullOrWhiteSpace(reverseProxySettings.OverrideForForwardingHostServer))
             {
+                return reverseProxySettings.OverrideForForwardingHostServer;
+            }
+
+            // Try to extract a X-Forwarded-Host value
+            if (request.TryGetRequestHeader(HeaderConstants.XForwardedHost, out string proxyHeaderValue) &&
+             !string.IsNullOrWhiteSpace(proxyHeaderValue))
+            {
+                // Return the forwarding host
                 return proxyHeaderValue;
             }
 
-            // Fallback to appsettings value, if available
-            return reverseProxySettings.DefaultForwardingHostServer;
+            return request.Host.Host;
         }
 
         public static int Port(this HttpRequest request, ReverseProxySettings reverseProxySettings)
@@ -78,16 +84,27 @@ namespace EdFi.Ods.Api.Extensions
                 return request.Host.Port ?? getDefaultPort();
             }
 
-            // Try to extract a X-Forwarded-Port value
-            request.TryGetRequestHeader(HeaderConstants.XForwardedPort, out string proxyHeaderValue);
-
-            if (proxyHeaderValue != null)
+            // Use override value if available
+            if (reverseProxySettings.OverrideForForwardingHostPort.HasValue)
             {
-                return !int.TryParse(proxyHeaderValue, out int port) ? reverseProxySettings.DefaultForwardingHostPort : port;
+                return reverseProxySettings.OverrideForForwardingHostPort.Value;
             }
 
-            // Fallback to appsettings value, if available
-            return reverseProxySettings.DefaultForwardingHostPort;
+            // Try to extract a X-Forwarded-Port value
+            if (request.TryGetRequestHeader(HeaderConstants.XForwardedPort, out string proxyHeaderValue) &&
+                int.TryParse(proxyHeaderValue, out int port))
+            {
+                // Return the forwarding port
+                return port;
+            }
+
+            // Try to send the requested port
+            if (request.Host.Port.HasValue)
+            {
+                return request.Host.Port.Value;
+            }
+
+            return getDefaultPort();             
 
             int getDefaultPort()
             {
