@@ -58,7 +58,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                                   <Property name='AssessmentCategoryDescriptor' />
                                   <Property name='AssessmentForm' />
                                   <Property name='AssessmentFamily' />
-                                  <LinkedCollection name='ObjectiveAssessments'>
+                                  <LinkedCollection name='ObjectiveAssessments' useHierarchy='true'>
                                     <Property name='Id' />
                                     <Property name='IdentificationCode' />
                                     <Property name='Description' />
@@ -72,22 +72,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                                       <Property name='MaximumScore' />
                                       <Property name='ResultDatatypeTypeDescriptor' />
                                     </Collection>
-<Collection name='LearningObjectiveLearningStandards' displayName='learningStandards'>
-                                          <ReferencedResource name='LearningStandardReference' flatten='true'>
-                                            <Property name='Id' />
-                                            <Property name='Description' />
-                                            <Property name='LearningStandardId' />
-                                            <Property name='Namespace' />
-                                            <Property name='CourseTitle' />
-                                            <Collection name='LearningStandardIdentificationCodes' displayName='learningStandardIdentificationCodes'>
-                                              <Property name='IdentificationCode' />
-                                              <Property name='ContentStandardName' />
-                                            </Collection>
-                                            <Property name='LearningStandardItemCode' />
-                                            <Property name='SuccessCriteria' />
-                                            <Property name='URI' />
-                                          </ReferencedResource>
-                                        </Collection>
                                   </LinkedCollection>
                                 </BaseResource>
                               </Composite>
