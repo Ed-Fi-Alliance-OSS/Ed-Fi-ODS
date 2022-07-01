@@ -3,7 +3,7 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-ALTER TABLE [homograph].[StudentSchoolAssociation] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'tracked_changes_homograph')
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'tracked_changes_homograph')
 EXEC sys.sp_executesql N'CREATE SCHEMA [tracked_changes_homograph]'
 GO
 
