@@ -6278,8 +6278,8 @@
 											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
 											"\r",
 											"const scenarioId = pm.environment.get('scenarioId');\r",
-											"pm.environment.set('supplied:'+scenarioId+':gradebookEntryTitle', newGuid());\r",
-											"pm.environment.set('supplied:'+scenarioId+':GradebookEntryIdentifier', newGuid());\r",
+											"pm.environment.set('supplied:'+scenarioId+':gradebookEntryTitle2', newGuid());\r",
+											"pm.environment.set('supplied:'+scenarioId+':GradebookEntryIdentifier2', newGuid());\r",
 											""
 										],
 										"type": "text/javascript"
@@ -6305,7 +6305,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-07-04\",\r\n    \"gradebookEntryTitle\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle}}\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:{{scenarioId}}:GradebookEntryIdentifier}}\",\r\n    \"title\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle}}\"\r\n}",
+									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ART-01\",\r\n        \"schoolId\": 255901107,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590110705Trad504ART0112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-08-04\",\r\n    \"gradebookEntryTitle\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle2}}\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:{{scenarioId}}:GradebookEntryIdentifier2}}\",\r\n    \"title\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle2}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6359,18 +6359,18 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Old and new key values contain the correct number of properties\", () => {\r",
-											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(7);\r",
-											"    pm.expect(Object.keys(item.newKeyValues).length).equal(7);\r",
+											"    pm.expect(Object.keys(item.oldKeyValues).length).equal(2);\r",
+											"    pm.expect(Object.keys(item.newKeyValues).length).equal(2);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Old key values are correctly reported\", () => {\r",
-											"    pm.expect(item.oldKeyValues.dateAssigned).equal(\"2021-07-04\");\r",
-											"    pm.expect(item.oldKeyValues.gradebookEntryTitle).equal(\"Assignment 1\");\r",
+											"    pm.expect(item.oldKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:'+scenarioId+':GradebookEntryIdentifier'));\r",
+											"    pm.expect(item.oldKeyValues.sourceSystemNamespace).equal('uri://ed-fi.org/GradebookEntry/GradebookEntry.xml');\r",
 											"});\r",
 											"\r",
 											"pm.test(\"New key values are correctly reported\", () => {\r",
-											"    pm.expect(item.newKeyValues.dateAssigned).equal(\"2021-08-04\");\r",
-											"    pm.expect(item.newKeyValues.gradebookEntryTitle).equal(\"Assignment 2\");\r",
+											"    pm.expect(item.newKeyValues.gradebookEntryIdentifier).equal(pm.environment.get('supplied:'+scenarioId+':GradebookEntryIdentifier2'));\r",
+											"    pm.expect(item.oldKeyValues.sourceSystemNamespace).equal('uri://ed-fi.org/GradebookEntry/GradebookEntry.xml');\r",
 											"});\r",
 											""
 										],
