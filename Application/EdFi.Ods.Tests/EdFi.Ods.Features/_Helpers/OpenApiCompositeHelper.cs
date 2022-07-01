@@ -58,7 +58,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                                   <Property name='AssessmentCategoryDescriptor' />
                                   <Property name='AssessmentForm' />
                                   <Property name='AssessmentFamily' />
-                                  <LinkedCollection name='ObjectiveAssessments' useHierarchy='true'>
+                                  <LinkedCollection name='ObjectiveAssessments'>
                                     <Property name='Id' />
                                     <Property name='IdentificationCode' />
                                     <Property name='Description' />
@@ -72,21 +72,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                                       <Property name='MaximumScore' />
                                       <Property name='ResultDatatypeTypeDescriptor' />
                                     </Collection>
-                                    <Collection name='ObjectiveAssessmentLearningObjectives' displayName='learningObjectives'>
-                                      <ReferencedResource name='LearningObjectiveReference' flatten='true'>
-                                        <Property name='Id' />
-                                        <Property name='Objective' />
-                                        <Collection name='LearningObjectiveGradeLevels' displayName='gradeLevels'>
-                                          <Property name='GradeLevelDescriptor' />
-                                        </Collection>
-                                        <Collection name='LearningObjectiveAcademicSubjects' displayName='academicSubjects'>
-                                          <Property name='AcademicSubjectDescriptor' />
-                                        </Collection>
-                                        <Property name='Description' />
-                                        <Property name='LearningObjectiveId' />
-                                        <Property name='Nomenclature' />
-                                        <Property name='SuccessCriteria' />
-                                        <Collection name='LearningObjectiveLearningStandards' displayName='learningStandards'>
+<Collection name='LearningObjectiveLearningStandards' displayName='learningStandards'>
                                           <ReferencedResource name='LearningStandardReference' flatten='true'>
                                             <Property name='Id' />
                                             <Property name='Description' />
@@ -102,8 +88,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Services.Metadata.Helpers
                                             <Property name='URI' />
                                           </ReferencedResource>
                                         </Collection>
-                                      </ReferencedResource>
-                                    </Collection>
                                   </LinkedCollection>
                                 </BaseResource>
                               </Composite>

@@ -384,57 +384,6 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 Assert.That(_actualDefinitions, Is.Not.Empty);
             }
 
-            [Assert]
-            public void Should_return_a_correctly_constructed_linked_collection_definition()
-            {
-                // Linked collection definition names are constructed by compounding each collection level name.
-                var expectedLinkedCollectionDefinitionName =
-                    "assessment_objectiveAssessment_objectiveAssessmentLearningObjective_learningObjectiveLearningStandard_learningStandardIdentificationCode";
-
-                var actualCollectionsDefinition = _actualDefinitions[expectedLinkedCollectionDefinitionName];
-
-                var expectedCollectionProperties = new[]
-                {
-                    "contentStandardName",
-                    "identificationCode"
-                };
-
-                AssertHelper.All(
-                    () => Assert.That(
-                        actualCollectionsDefinition, Is.Not.Null,
-                        $"No definition found for expected linked collection definition {expectedLinkedCollectionDefinitionName}"),
-                    () => Assert.That(
-                        actualCollectionsDefinition.properties.Keys, Is.EquivalentTo(expectedCollectionProperties)));
-            }
-
-            [Assert]
-            public void Should_return_a_correctly_constructed_resource_reference_definition_specified_in_composite_definition()
-            {
-                var expectedReferenceDefinitionName =
-                    "assessment_objectiveAssessment_objectiveAssessmentLearningObjective_learningObjectiveLearningStandard";
-
-                var expectedReferenceProperties = new[]
-                {
-                    "id",
-                    "description",
-                    "learningStandardId",
-                    "namespace",
-                    "courseTitle",
-                    "learningStandardItemCode",
-                    "successCriteria",
-                    "uri",
-                    "learningStandardIdentificationCodes"
-                };
-
-                Schema actualReferenceDefinition;
-                _actualDefinitions.TryGetValue(expectedReferenceDefinitionName, out actualReferenceDefinition);
-
-                AssertHelper.All(
-                    () => Assert.That(
-                        actualReferenceDefinition, Is.Not.Null,
-                        $"No definition found for expected reference definition {expectedReferenceDefinitionName}"),
-                    () => Assert.That(actualReferenceDefinition.properties.Keys, Is.EquivalentTo(expectedReferenceProperties)));
-            }
         }
     }
 }
