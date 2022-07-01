@@ -3,7 +3,8 @@
 		"_postman_id": "5d73b7a7-81fd-4a05-b6f3-cdee50de85cd",
 		"name": "Ed-Fi ODS/API Multiple Authorization Strategy Test Suite",
 		"description": "Localhost integration testing using Postman Scripts",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1213570"
 	},
 	"item": [
 		{
@@ -73,8 +74,8 @@
 											"const sectionRecord = responseItems[0];",
 											"const courseOffering = sectionRecord.courseOfferingReference;",
 											"",
+											"pm.environment.set('known:section:id', sectionRecord.id);",
 											"pm.environment.set('known:section:sectionIdentifier', sectionRecord.sectionIdentifier);",
-											"",
 											"pm.environment.set('known:section:localCourseCode', courseOffering.localCourseCode);",
 											"pm.environment.set('known:section:schoolId', courseOffering.schoolId);",
 											"pm.environment.set('known:section:schoolYear', courseOffering.schoolYear);",
@@ -279,7 +280,7 @@
 							"response": []
 						},
 						{
-							"name": "Create StudentSectionAssociation Ownership",
+							"name": "Create StudentSectionAssociation owned by School client",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -345,7 +346,7 @@
 							"response": []
 						},
 						{
-							"name": "Create StudentSectionAssociation without Ownership",
+							"name": "Create StudentSectionAssociation owned by LEA client",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -622,7 +623,7 @@
 							"response": []
 						},
 						{
-							"name": "Create  StudentSectionAssociation Ownership",
+							"name": "Create  StudentSectionAssociation owned by School client",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -688,7 +689,7 @@
 							"response": []
 						},
 						{
-							"name": "Create  StudentSectionAssociation without Ownership",
+							"name": "Create  StudentSectionAssociation owned by LEA client",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -2065,7 +2066,7 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:unowned:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -2074,7 +2075,7 @@
 												"v3",
 												"ed-fi",
 												"studentSectionAssociations",
-												"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+												"{{known:studentSectionAssociation:registered:unowned:id}}"
 											]
 										},
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -2206,7 +2207,7 @@
 											"raw": "{\r\n  \"sectionReference\": {\r\n    \"localCourseCode\": \"{{known:section:localCourseCode}}\",\r\n    \"schoolId\": \"{{known:section:schoolId}}\",\r\n    \"schoolYear\": \"{{known:section:schoolYear}}\",\r\n    \"sectionIdentifier\": \"{{known:section:sectionIdentifier}}\",\r\n    \"sessionName\": \"{{known:section:sessionName}}\"\r\n  },\r\n  \"studentReference\": {\r\n    \"studentUniqueId\": \"AAAAAA\"\r\n  },\r\n  \"beginDate\": \"2022-01-02\"\r\n}"
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:unowned:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -2215,7 +2216,7 @@
 												"v3",
 												"ed-fi",
 												"studentSectionAssociations",
-												"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+												"{{known:studentSectionAssociation:registered:unowned:id}}"
 											]
 										},
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
@@ -2277,7 +2278,7 @@
 											"raw": ""
 										},
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:responsibility:unowned:id}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/studentSectionAssociations/{{known:studentSectionAssociation:registered:unowned:id}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -2286,10 +2287,70 @@
 												"v3",
 												"ed-fi",
 												"studentSectionAssociations",
-												"{{known:studentSectionAssociation:responsibility:unowned:id}}"
+												"{{known:studentSectionAssociation:registered:unowned:id}}"
 											]
 										},
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "GetById Composite by non-owner with relationship",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const students = pm.response.json().students;\r",
+													"\r",
+													"const compactId = pm.environment.get('known:studentSectionAssociation:registered:unowned:id');\r",
+													"\r",
+													"// Due to bug (ODS-5484), id must be formatted with hyphens to locate the student\r",
+													"const studentSectionAssociationId = `${compactId.substring(0, 8)}-${compactId.substring(8, 12)}-${compactId.substring(12, 16)}-${compactId.substring(16, 20)}-${compactId.substring(20, 32)}`;\r",
+													"\r",
+													"const student = _.find(students, { 'studentSectionAssociation_id': studentSectionAssociationId });\r",
+													"\r",
+													"pm.test(\"Section enrollments composite should include the related (but unowned) registered student (because Ownership-based authorization is not supported in Composites)\", () => {\r",
+													"  pm.expect(student).to.not.be.undefined;\r",
+													"  pm.expect(student.studentUniqueId).to.equal('BBBBBB');\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/sectionEnrollments/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"composites",
+												"v1",
+												"ed-fi",
+												"test",
+												"sectionEnrollments",
+												"{{known:section:id}}"
+											]
+										}
 									},
 									"response": []
 								}
@@ -2583,6 +2644,65 @@
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
 									},
 									"response": []
+								},
+								{
+									"name": "GetById Composite by non-owner without relationship",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const students = pm.response.json().students;\r",
+													"\r",
+													"const compactId = pm.environment.get('known:studentSectionAssociation:responsibility:unowned:id');\r",
+													"\r",
+													"// Due to bug (ODS-5484), id must be formatted with hyphens to locate the student\r",
+													"const studentSectionAssociationId = `${compactId.substring(0, 8)}-${compactId.substring(8, 12)}-${compactId.substring(12, 16)}-${compactId.substring(16, 20)}-${compactId.substring(20, 32)}`;\r",
+													"\r",
+													"const student = _.find(students, { 'studentSectionAssociation_id': studentSectionAssociationId });\r",
+													"\r",
+													"pm.test(\"Section enrollments composite should not include the unrelated (and unowned) student of responsibility\", () => {\r",
+													"  pm.expect(student).to.be.undefined;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/sectionEnrollments/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"composites",
+												"v1",
+												"ed-fi",
+												"test",
+												"sectionEnrollments",
+												"{{known:section:id}}"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -2872,6 +2992,65 @@
 											]
 										},
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "GetById Composite by owner without relationship",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const students = pm.response.json().students;\r",
+													"\r",
+													"const compactId = pm.environment.get('known:studentSectionAssociation:responsibility:owned:id');\r",
+													"\r",
+													"// Due to bug (ODS-5484), id must be formatted with hyphens to locate the student\r",
+													"const studentSectionAssociationId = `${compactId.substring(0, 8)}-${compactId.substring(8, 12)}-${compactId.substring(12, 16)}-${compactId.substring(16, 20)}-${compactId.substring(20, 32)}`;\r",
+													"\r",
+													"const student = _.find(students, { 'studentSectionAssociation_id': studentSectionAssociationId });\r",
+													"\r",
+													"pm.test(\"Section enrollments composite should not include the unrelated (but owned) student of responsibility\", () => {\r",
+													"  pm.expect(student).to.be.undefined;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/sectionEnrollments/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"composites",
+												"v1",
+												"ed-fi",
+												"test",
+												"sectionEnrollments",
+												"{{known:section:id}}"
+											]
+										}
 									},
 									"response": []
 								}
@@ -3174,6 +3353,66 @@
 											]
 										},
 										"description": "This api post method adds new academicWeeks for particular school .\nThis test method will throw WeekIdentifier is required error when WeekIdentifier is not passed"
+									},
+									"response": []
+								},
+								{
+									"name": "GetById Composite by owner with relationship",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"const students = pm.response.json().students;\r",
+													"\r",
+													"const compactId = pm.environment.get('known:studentSectionAssociation:registered:owned:id');\r",
+													"\r",
+													"// Due to bug (ODS-5484), id must be formatted with hyphens to locate the student\r",
+													"const studentSectionAssociationId = `${compactId.substring(0, 8)}-${compactId.substring(8, 12)}-${compactId.substring(12, 16)}-${compactId.substring(16, 20)}-${compactId.substring(20, 32)}`;\r",
+													"\r",
+													"const student = _.find(students, { 'studentSectionAssociation_id': studentSectionAssociationId });\r",
+													"\r",
+													"pm.test(\"Section enrollments composite should include the related (and owned) registered student\", () => {\r",
+													"  pm.expect(student).to.not.be.undefined;\r",
+													"  pm.expect(student.studentUniqueId).to.equal('AAAAAA');\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{AccessToken_255901001}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/composites/v1/ed-fi/test/sectionEnrollments/{{known:section:id}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"composites",
+												"v1",
+												"ed-fi",
+												"test",
+												"sectionEnrollments",
+												"{{known:section:id}}"
+											]
+										}
 									},
 									"response": []
 								}
