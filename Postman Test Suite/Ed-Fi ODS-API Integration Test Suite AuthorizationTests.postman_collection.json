@@ -4244,6 +4244,51 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Create OrgDept in accessible LEA 255901",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 201\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(201);\r",
+													"});\r",
+													"\r",
+													"pm.environment.set('known:orgDeptId:255901', pm.response.headers.one('Location').value.split(\"/\").pop());\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901\r\n  },\r\n  \"organizationDepartmentId\": 2559017,\r\n  \"nameOfInstitution\": \"Test Office - LEA 255901\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
@@ -4281,7 +4326,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901044\r\n  },\r\n  \"organizationDepartmentId\": 2559017,\r\n  \"nameOfInstitution\": \"Unauthorized Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
+											"raw": "{\r\n  \"parentEducationOrganizationReference\": {\r\n    \"educationOrganizationId\": 255901044\r\n  },\r\n  \"organizationDepartmentId\": 2559018,\r\n  \"nameOfInstitution\": \"Unauthorized Test Office - School 044\",\r\n  \"categories\": [\r\n    {\r\n      \"educationOrganizationCategoryDescriptor\": \"uri://ed-fi.org/EducationOrganizationCategoryDescriptor#Organization Department\"\r\n    }\r\n  ]\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -4756,7 +4801,7 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:044}}",
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:255901}}",
 											"host": [
 												"{{ApiBaseUrl}}"
 											],
@@ -4765,7 +4810,7 @@
 												"v3",
 												"ed-fi",
 												"organizationDepartments",
-												"{{known:orgDeptId:044}}"
+												"{{known:orgDeptId:255901}}"
 											]
 										}
 									},
@@ -4839,6 +4884,40 @@
 												"ed-fi",
 												"organizationDepartments",
 												"{{known:orgDeptId:044}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete OrgDept for LEA 255901",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", () => {\r",
+													"  pm.expect(pm.response.code).to.equal(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{ApiBaseUrl}}/data/v3/ed-fi/organizationDepartments/{{known:orgDeptId:255901}}",
+											"host": [
+												"{{ApiBaseUrl}}"
+											],
+											"path": [
+												"data",
+												"v3",
+												"ed-fi",
+												"organizationDepartments",
+												"{{known:orgDeptId:255901}}"
 											]
 										}
 									},
