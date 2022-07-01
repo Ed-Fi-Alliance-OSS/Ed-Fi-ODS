@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "2ff11b72-abca-43e6-bb7e-38b1de6920e0",
+		"_postman_id": "a688ff85-5f5d-47ff-bebb-960c705acccc",
 		"name": "Ed-Fi ODS/API ChangeQueries Key Changes and Deletes Test Suite",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1213570"
+		"_exporter_id": "1713280"
 	},
 	"item": [
 		{
@@ -6212,6 +6212,12 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':gradebookEntryTitle', newGuid());\r",
+											"pm.environment.set('supplied:'+scenarioId+':GradebookEntryIdentifier', newGuid());\r",
 											""
 										],
 										"type": "text/javascript"
@@ -6239,7 +6245,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-07-04\",\r\n    \"gradebookEntryTitle\": \"Assignment 1\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": []\r\n}",
+									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-07-04\",\r\n    \"gradebookEntryTitle\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle}}\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:{{scenarioId}}:GradebookEntryIdentifier}}\",\r\n    \"title\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6268,6 +6274,12 @@
 									"listen": "prerequest",
 									"script": {
 										"exec": [
+											"const uuid = require('uuid');\r",
+											"function newGuid() { return uuid.v4().toString().replace(/[^a-zA-Z0-9 ]/g,\"\"); }\r",
+											"\r",
+											"const scenarioId = pm.environment.get('scenarioId');\r",
+											"pm.environment.set('supplied:'+scenarioId+':gradebookEntryTitle', newGuid());\r",
+											"pm.environment.set('supplied:'+scenarioId+':GradebookEntryIdentifier', newGuid());\r",
 											""
 										],
 										"type": "text/javascript"
@@ -6293,7 +6305,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-08-04\",\r\n    \"gradebookEntryTitle\": \"Assignment 2\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": []\r\n}",
+									"raw": "{\r\n    \"sectionReference\": {\r\n        \"localCourseCode\": \"ALG-1\",\r\n        \"schoolId\": 255901001,\r\n        \"schoolYear\": 2022,\r\n        \"sectionIdentifier\": \"25590100102Trad220ALG112011\",\r\n        \"sessionName\": \"2021-2022 Fall Semester\"\r\n    },\r\n    \"dateAssigned\": \"2021-07-04\",\r\n    \"gradebookEntryTitle\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle}}\",\r\n    \"learningObjectives\": [],\r\n    \"learningStandards\": [],\r\n    \"SourceSystemNamespace\": \"uri://ed-fi.org/GradebookEntry/GradebookEntry.xml\",\r\n    \"GradebookEntryIdentifier\": \"{{supplied:{{scenarioId}}:GradebookEntryIdentifier}}\",\r\n    \"title\": \"{{supplied:{{scenarioId}}:gradebookEntryTitle}}\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
