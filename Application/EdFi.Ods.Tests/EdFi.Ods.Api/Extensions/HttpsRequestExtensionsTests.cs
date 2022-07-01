@@ -94,85 +94,102 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
 
             }
 
-
             [TestFixture]
             public class Given_proxy_headers_are_being_enforced
             {
                 [TestFixture]
-                public class Given_x_fowarded_host_value_exists
+                public class And_given_override_value_exists
                 {
-                    [Test]
-                    public void Then_it_returns_the_x_fowarded_host_value()
+                    [TestCase("forwardedHost")]
+                    [TestCase("")]
+                    [TestCase(null)]
+                    public void Then_always_use_the_override(string xForwardedHostValue)
                     {
                         const string requestHost = "myserver";
-                        const string forwardedHost = "public.server";
-                        const string defaultHost = "workstation";
+                        const string overrideForHost = "workstation";
 
                         // Arrange
                         var httpRequest = A.Fake<HttpRequest>();
                         A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
-                        A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
-                                {
-                                    { "X-Forwarded-Host", new StringValues(forwardedHost) }
-                                }
-                        ));
+
+                        if (xForwardedHostValue != null)
+                        {
+                            A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                                    {
+                                        { "X-Forwarded-Host", new StringValues(xForwardedHostValue) }
+                                    }
+                            ));
+                        }
 
                         // Act
-                        var result = httpRequest.Host(new ReverseProxySettings(true, defaultHost, 80));
+                        var result = httpRequest.Host(new ReverseProxySettings(true, overrideForHost, null));
 
                         // Assert
-                        result.ShouldBe(forwardedHost);
-
+                        result.ShouldBe(overrideForHost);
                     }
                 }
 
                 [TestFixture]
-                public class Given_x_fowarded_host_value_is_blank
+                public class And_given_override_was_not_set
                 {
-                    [Test]
-                    public void Then_it_returns_the_default_value()
+                    [TestFixture]
+                    public class And_given_forwarding_host_was_sent
                     {
-                        const string requestHost = "myserver";
-                        const string forwardedHost = "";
-                        const string defaultHost = "workstation";
+                        [Test]
+                        public void Then_use_the_forwarding_host()
+                        {
+                            const string requestHost = "myserver";
+                            const string xForwardedHostValue = "forwardedServer";
+                            const string overrideForHost = null;
 
-                        // Arrange
-                        var httpRequest = A.Fake<HttpRequest>();
-                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
-                        A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                            // Arrange
+                            var httpRequest = A.Fake<HttpRequest>();
+                            A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
+                            A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
                                 {
-                                    { "X-Forwarded-Host", new StringValues(forwardedHost) }
+                                    { "X-Forwarded-Host", new StringValues(xForwardedHostValue) }
                                 }
-                        ));
+                            ));
 
-                        // Act
-                        var result = httpRequest.Host(new ReverseProxySettings(true, defaultHost, 80));
+                            // Act
+                            var result = httpRequest.Host(new ReverseProxySettings(true, overrideForHost, null));
 
-                        // Assert
-                        result.ShouldBe(defaultHost);
+                            // Assert
+                            result.ShouldBe(xForwardedHostValue);
 
+                        }
                     }
-                }
 
-                [TestFixture]
-                public class Given_x_fowarded_host_value_is_missing
-                {
-                    [Test]
-                    public void Then_it_returns_the_default_value()
+                    [TestFixture]
+                    public class And_given_forwarding_host_is_not_sent
                     {
-                        const string requestHost = "myserver";
-                        const string defaultHost = "workstation";
+                        [TestCase("")]
+                        [TestCase(null)]
+                        public void Then_use_the_request_host(string xForwardedHostValue)
+                        {
+                            const string requestHost = "myserver";
+                            const string overrideForHost = null;
 
-                        // Arrange
-                        var httpRequest = A.Fake<HttpRequest>();
-                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
+                            // Arrange
+                            var httpRequest = A.Fake<HttpRequest>();
+                            A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
 
-                        // Act
-                        var result = httpRequest.Host(new ReverseProxySettings(true, defaultHost, 80));
+                            if (xForwardedHostValue != null)
+                            {
+                                A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                                    {
+                                        { "X-Forwarded-Host", new StringValues(xForwardedHostValue) }
+                                    }
+                                ));
+                            }
 
-                        // Assert
-                        result.ShouldBe(defaultHost);
+                            // Act
+                            var result = httpRequest.Host(new ReverseProxySettings(true, overrideForHost, null));
 
+                            // Assert
+                            result.ShouldBe(requestHost);
+
+                        }
                     }
                 }
             }
@@ -204,84 +221,103 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Api.Extensions
 
             }
 
-
             [TestFixture]
             public class Given_proxy_headers_are_being_enforced
             {
                 [TestFixture]
-                public class Given_x_fowarded_port_value_exists
+                public class And_given_override_value_exists
                 {
-                    [Test]
-                    public void Then_it_returns_the_x_fowarded_host_value()
+                    [TestCase("999")]
+                    [TestCase("")]
+                    [TestCase(null)]
+                    public void Then_always_use_the_override(string xForwardedPortValue)
                     {
                         const string requestHost = "myserver";
-                        const int requestPort = 554;
-                        const int defaultPort = 443;
-                        const int forwardedPort = 665;
+                        const int overrideForPort = 8983;
 
                         // Arrange
                         var httpRequest = A.Fake<HttpRequest>();
-                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost, requestPort));
-                        A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
-                                {
-                                    { "X-Forwarded-Port", new StringValues(forwardedPort.ToString()) }
-                                }
-                        ));
+                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
+
+                        if (xForwardedPortValue != null)
+                        {
+                            A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                                    {
+                                        { "X-Forwarded-Port", new StringValues(xForwardedPortValue) }
+                                    }
+                            ));
+                        }
 
                         // Act
-                        var result = httpRequest.Port(new ReverseProxySettings(true, "localhost", defaultPort));
+                        var result = httpRequest.Port(new ReverseProxySettings(true, null, overrideForPort));
 
                         // Assert
-                        result.ShouldBe(forwardedPort);
+                        result.ShouldBe(overrideForPort);
                     }
                 }
 
                 [TestFixture]
-                public class Given_x_fowarded_port_value_is_missing
+                public class And_given_override_was_not_set
                 {
-                    [Test]
-                    public void Then_it_returns_the_default_value()
+                    [TestFixture]
+                    public class And_given_forwarding_port_was_sent
                     {
-                        const string requestHost = "myserver";
-                        const int requestPort = 554;
-                        const int defaultPort = 443;
+                        [Test]
+                        public void Then_use_the_forwarding_port()
+                        {
+                            const string requestHost = "myserver";
+                            const int xForwardedPortValue = 9876;
 
-                        // Arrange
-                        var httpRequest = A.Fake<HttpRequest>();
-                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost, requestPort));
-
-                        // Act
-                        var result = httpRequest.Port(new ReverseProxySettings(true, "localhost", defaultPort));
-
-                        // Assert
-                        result.ShouldBe(defaultPort);
-                    }
-                }
-
-                [TestFixture]
-                public class Given_x_fowarded_port_value_is_blank
-                {
-                    [Test]
-                    public void Then_it_returns_the_default_value()
-                    {
-                        const string requestHost = "myserver";
-                        const int requestPort = 554;
-                        const int defaultPort = 443;
-
-                        // Arrange
-                        var httpRequest = A.Fake<HttpRequest>();
-                        A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost, requestPort));
-                        A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                            // Arrange
+                            var httpRequest = A.Fake<HttpRequest>();
+                            A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
+                            A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
                                 {
-                                    { "X-Forwarded-Port", new StringValues("   ") }
+                                    { "X-Forwarded-Port", new StringValues(xForwardedPortValue.ToString()) }
                                 }
                             ));
 
-                        // Act
-                        var result = httpRequest.Port(new ReverseProxySettings(true, "localhost", defaultPort));
+                            // Act
+                            var result = httpRequest.Port(new ReverseProxySettings(true, null, null));
 
-                        // Assert
-                        result.ShouldBe(defaultPort);
+                            // Assert
+                            result.ShouldBe(xForwardedPortValue);
+
+                        }
+                    }
+
+                    [TestFixture]
+                    public class And_given_forwarding_port_is_not_sent
+                    {
+                        [TestCase(true, "https", 443)]
+                        [TestCase(true, "http", 80)]
+                        [TestCase(false, "https", 443)]
+                        [TestCase(false, "http", 80)]
+                        public void Then_use_the_scheme_to_determine_port(bool blankHeaderWasSent, string scheme, int expectedPort)
+                        {
+                            const string requestHost = "myserver";
+
+                            // Arrange
+                            var httpRequest = A.Fake<HttpRequest>();
+                            A.CallTo(() => httpRequest.Scheme).Returns(scheme);
+                            A.CallTo(() => httpRequest.Host).Returns(new HostString(requestHost));
+
+                            if (blankHeaderWasSent)
+                            {
+                                A.CallTo(() => httpRequest.Headers).Returns(new HeaderDictionary(new Dictionary<string, StringValues>
+                                    {
+                                        { "X-Forwarded-Port", new StringValues("  ") }
+                                    }
+                                ));
+                            }
+
+                            // Act
+                            var result = httpRequest.Port(new ReverseProxySettings(true, null, null));
+
+                            // Assert
+                            result.ShouldBe(expectedPort);
+
+                        }
                     }
                 }
             }

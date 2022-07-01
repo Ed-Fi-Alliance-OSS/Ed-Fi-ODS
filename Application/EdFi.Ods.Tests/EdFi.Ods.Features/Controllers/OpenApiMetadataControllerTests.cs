@@ -117,8 +117,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             {
                 var configValueProvider = new ApiSettings();
                 configValueProvider.UseReverseProxyHeaders = true;
-                configValueProvider.DefaultForwardingHostPort = 80;
-                configValueProvider.DefaultForwardingHostServer = "localhost";
+                configValueProvider.OverrideForForwardingHostPort = 80;
+                configValueProvider.OverrideForForwardingHostServer = "localhost";
 
                 Feature item = new Feature();
                 item.IsEnabled = true;
@@ -211,8 +211,8 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 var configValueProvider = new ApiSettings
                 {
                     UseReverseProxyHeaders = true,
-                    DefaultForwardingHostPort = 80,
-                    DefaultForwardingHostServer = "localhost"
+                    OverrideForForwardingHostPort = 80,
+                    OverrideForForwardingHostServer = "localhost"
                 };
 
                 Feature item = new Feature();

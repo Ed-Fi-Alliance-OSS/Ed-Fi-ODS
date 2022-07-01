@@ -13,8 +13,6 @@ namespace EdFi.Ods.Common.Configuration
 {
     public class ApiSettings
     {
-        const string ForwardingConfigurationError = "UseReverseProxyHeaders has been set, but there is no appsettings value for one or both of DefaultForwardingHostServer and DefaultForwardingHostPort. Set these and re-run the application";
-
         private readonly Lazy<DatabaseEngine> _databaseEngine;
         private readonly Lazy<ApiMode> _apiMode;
 
@@ -50,13 +48,13 @@ namespace EdFi.Ods.Common.Configuration
 
         public bool? UseReverseProxyHeaders { get; set; }
 
-        public string DefaultForwardingHostServer { get; set; }
+        public string OverrideForForwardingHostServer { get; set; }
 
-        public int? DefaultForwardingHostPort { get; set; }
+        public int? OverrideForForwardingHostPort { get; set; }
 
         public ReverseProxySettings GetReverseProxySettings()
         {
-            return new ReverseProxySettings(this.UseReverseProxyHeaders, this.DefaultForwardingHostServer, this.DefaultForwardingHostPort);
+            return new ReverseProxySettings(this.UseReverseProxyHeaders, this.OverrideForForwardingHostServer, this.OverrideForForwardingHostPort);
         }
 
         public string PathBase { get; set; }
