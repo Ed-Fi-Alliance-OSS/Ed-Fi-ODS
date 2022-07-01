@@ -116,20 +116,26 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 //Look for the corresponding non - role named property on the model using its DefiningConcreteProperty
 
-                var schema = authorizationContext.Type.GetCustomAttribute<SchemaAttribute>(false)?.Schema;
-                var expectedEntityFullName = new FullName(schema, authorizationContext.Type.Name);
-
-                if (!_domainModel.EntityByFullName.TryGetValue(expectedEntityFullName, out var entity))
+                return _nonRoleNamedByRoleNamedPropertyName.GetOrAdd(propertyName, _ =>
                 {
-                    throw new Exception($"Unable to locate entity '{expectedEntityFullName}' in the model.");
-                }
+                    var schema = authorizationContext.Type.GetCustomAttribute<SchemaAttribute>(false)?.Schema ??
+                                 throw new Exception(
+                                     $"The {nameof(SchemaAttribute)} is required for the entity '{authorizationContext.Type.FullName}'.");
 
-                if (!entity.PropertyByName.TryGetValue(propertyName, out var property))
-                {
-                    throw new Exception($"Property {propertyName} not found in entity '{expectedEntityFullName}'.");
-                }
+                    var expectedEntityFullName = new FullName(schema, authorizationContext.Type.Name);
 
-                return property.DefiningConcreteProperty.PropertyName;
+                    if (!_domainModel.EntityByFullName.TryGetValue(expectedEntityFullName, out var entity))
+                    {
+                        throw new Exception($"Unable to locate entity '{expectedEntityFullName}' in the model.");
+                    }
+
+                    if (!entity.PropertyByName.TryGetValue(propertyName, out var property))
+                    {
+                        throw new Exception($"Property {propertyName} not found in entity '{expectedEntityFullName}'.");
+                    }
+
+                    return property.DefiningConcreteProperty.PropertyName;
+                });
             }
 
             string GetAuthorizationFilterName(string subjectEndpointName, string authorizationPathModifier)
@@ -141,6 +147,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         }
 
         private readonly ConcurrentDictionary<(string, string), string> _filterNameBySubjectAndPathModifier = new();
+        private readonly ConcurrentDictionary<string, string> _nonRoleNamedByRoleNamedPropertyName = new();
 
         protected abstract SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
             IEnumerable<(string name, object value)> authorizationContextTuples);
