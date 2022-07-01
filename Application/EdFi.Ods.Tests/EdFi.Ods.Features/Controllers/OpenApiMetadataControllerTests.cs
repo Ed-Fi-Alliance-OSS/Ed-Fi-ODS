@@ -117,6 +117,9 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
             {
                 var configValueProvider = new ApiSettings();
                 configValueProvider.UseReverseProxyHeaders = true;
+                configValueProvider.OverrideForForwardingHostPort = 80;
+                configValueProvider.OverrideForForwardingHostServer = "localhost";
+
                 Feature item = new Feature();
                 item.IsEnabled = true;
                 item.Name = "openApiMetadata";
@@ -189,7 +192,7 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
                 Assert.IsNotNull(response);
                 Assert.IsTrue(openapisectionlist.Count > 0);
                 Assert.AreEqual("Identity", openapisectionlist[0].Name);
-                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("api.com"));
+                Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("localhost"));
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("https"));
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("metadata"));
                 Assert.IsTrue(openapisectionlist[0].EndpointUri.Contains("2020"));
@@ -205,8 +208,13 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.Controllers
 
             protected override void Arrange()
             {
-                var configValueProvider = new ApiSettings();
-                configValueProvider.UseReverseProxyHeaders = true;
+                var configValueProvider = new ApiSettings
+                {
+                    UseReverseProxyHeaders = true,
+                    OverrideForForwardingHostPort = 80,
+                    OverrideForForwardingHostServer = "localhost"
+                };
+
                 Feature item = new Feature();
                 item.IsEnabled = true;
                 item.Name = "openApiMetadata";
