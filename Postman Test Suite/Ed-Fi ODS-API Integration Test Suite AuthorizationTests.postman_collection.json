@@ -4303,7 +4303,13 @@
 											"script": {
 												"exec": [
 													"pm.test(\"Status code is 403\", () => {\r",
-													"    pm.expect(pm.response.code).to.equal(403);\r",
+													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"pm.test(\"Message should indicate that client doesn't have access to the parent EdOrg\", () => {\r",
+													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
 													"});\r",
 													""
 												],
@@ -4363,6 +4369,12 @@
 													"pm.test(\"Status code is 403\", () => {\r",
 													"  pm.expect(pm.response.code).to.equal(403);\r",
 													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"pm.test(\"Message should indicate that client doesn't have access to the parent EdOrg\", () => {\r",
+													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
+													"});\r",
 													""
 												],
 												"type": "text/javascript"
@@ -4416,6 +4428,12 @@
 													"pm.test(\"Status code is 403\", () => {\r",
 													"  pm.expect(pm.response.code).to.equal(403);\r",
 													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"pm.test(\"Message should indicate that client doesn't have access to the parent EdOrg\", () => {\r",
+													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
+													"});\r",
 													""
 												],
 												"type": "text/javascript"
@@ -4468,6 +4486,12 @@
 												"exec": [
 													"pm.test(\"Status code is 403\", () => {\r",
 													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"pm.test(\"Message should indicate that client doesn't have access to the parent EdOrg\", () => {\r",
+													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
 													"});\r",
 													""
 												],
@@ -4570,6 +4594,12 @@
 													"pm.test(\"Status code is 403\", () => {\r",
 													"  pm.expect(pm.response.code).to.equal(403);\r",
 													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"pm.test(\"Message should indicate that client doesn't have access to the parent EdOrg\", () => {\r",
+													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901044) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
+													"});\r",
 													""
 												],
 												"type": "text/javascript"
@@ -4623,6 +4653,12 @@
 												"exec": [
 													"pm.test(\"Status code is 403\", () => {\r",
 													"  pm.expect(pm.response.code).to.equal(403);\r",
+													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"pm.test(\"Message should indicate that client doesn't have access to the parent EdOrg\", () => {\r",
+													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
 													"});\r",
 													""
 												],
@@ -4678,6 +4714,12 @@
 													"pm.test(\"Status code is 403\", () => {\r",
 													"  pm.expect(pm.response.code).to.equal(403);\r",
 													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"pm.test(\"Message should indicate that client doesn't have access to the parent EdOrg\", () => {\r",
+													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901001) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
+													"});\r",
 													""
 												],
 												"type": "text/javascript"
@@ -4729,11 +4771,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"// Implementation Note: Use 255901 client to move the OrgDept for 255901001 to 255901044 school. Expected 200 (or 204?).\r",
-													"\r",
 													"pm.test(\"Status code is 204\", () => {\r",
 													"  pm.expect(pm.response.code).to.equal(204);\r",
-													"});"
+													"});\r",
+													""
 												],
 												"type": "text/javascript"
 											}
@@ -4781,7 +4822,14 @@
 												"exec": [
 													"pm.test(\"Status code is 403\", () => {\r",
 													"  pm.expect(pm.response.code).to.equal(403);\r",
-													"});"
+													"});\r",
+													"\r",
+													"const message = pm.response.json().message;\r",
+													"\r",
+													"pm.test(\"Message should indicate that client doesn't have access to the parent EdOrg\", () => {\r",
+													"  pm.expect(message).to.contain(\"Authorization denied. No relationships have been established between the caller's education organization id claim (255901044) and the resource item's 'ParentEducationOrganizationId' value.\");\r",
+													"});\r",
+													""
 												],
 												"type": "text/javascript"
 											}
