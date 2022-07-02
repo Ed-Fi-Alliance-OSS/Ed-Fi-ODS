@@ -1,13 +1,13 @@
-﻿HQL:
+HQL:
 select 
 	comp_aaa.StudentUSI As __BaseEntityId__,
 	comp_aaa.StudentUSI as PK1a_StudentUSI
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
-where comp_aaa.Id = :Id AND (comp_aaa.StudentUSI IN (
+where comp_aaa.Id = :Id AND ( (comp_aaa.StudentUSI IN (
                     SELECT fltr_aac.StudentUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
-                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.StudentUSI
 HQL:
 select 
@@ -19,13 +19,13 @@ select
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
 	join comp_aaa.StudentAcademicRecords comp_aab
-where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aab.EducationOrganizationId IN (
+where comp_aaa.StudentUSI IN (:BaseEntityId) AND ( (comp_aab.EducationOrganizationId IN (
                     SELECT fltr_aaf.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aaf 
                     WHERE fltr_aaf.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aab.StudentUSI IN (
                     SELECT fltr_aac.StudentUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
-                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.StudentUSI,
 	comp_aab.EducationOrganizationId,
 	comp_aab.SchoolYear,
@@ -47,13 +47,13 @@ from
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentAggregate.EdFi.StudentQ comp_aaa
 	join comp_aaa.StudentAcademicRecords comp_aab
 	join comp_aab.CourseTranscripts comp_aac
-where comp_aaa.StudentUSI IN (:BaseEntityId) AND (comp_aac.EducationOrganizationId IN (
+where comp_aaa.StudentUSI IN (:BaseEntityId) AND ( (comp_aac.EducationOrganizationId IN (
                     SELECT fltr_aaf.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aaf 
                     WHERE fltr_aaf.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aac.StudentUSI IN (
                     SELECT fltr_aac.StudentUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
-                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.StudentUSI,
 	comp_aab.EducationOrganizationId,
 	comp_aab.SchoolYear,

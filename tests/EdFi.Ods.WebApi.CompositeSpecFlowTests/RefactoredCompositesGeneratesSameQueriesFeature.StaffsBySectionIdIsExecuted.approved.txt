@@ -1,4 +1,4 @@
-﻿HQL:
+HQL:
 select distinct 
 	comp_aaa.StaffUSI As __BaseEntityId__,
 	comp_aaa.StaffUSI as PK1a_StaffUSI,
@@ -16,10 +16,10 @@ from
 		left join comp_aaa.SexDescriptor comp_aad 
 	join comp_aaa.StaffSectionAssociations comp_aab
 	join comp_aab.Section comp_aac
-where comp_aac.Id = :Section_Id AND (comp_aaa.StaffUSI IN (
+where comp_aac.Id = :Section_Id AND ( (comp_aaa.StaffUSI IN (
                     SELECT fltr_aab.StaffUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aab 
-                    WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.StaffUSI
 HQL:
 select 
@@ -115,13 +115,13 @@ from
 	join comp_aaa.StaffEducationOrganizationAssignmentAssociations comp_aao
 		left join comp_aao.StaffClassificationDescriptor comp_aap 
 	join comp_aao.EducationOrganization comp_aaq
-where comp_aaa.StaffUSI IN (:BaseEntityId) AND (comp_aao.EducationOrganizationId IN (
+where comp_aaa.StaffUSI IN (:BaseEntityId) AND ( (comp_aao.EducationOrganizationId IN (
                     SELECT fltr_aaf.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aaf 
                     WHERE fltr_aaf.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aao.StaffUSI IN (
                     SELECT fltr_aab.StaffUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aab 
-                    WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.StaffUSI,
 	comp_aao.BeginDate,
 	comp_aao.EducationOrganizationId,

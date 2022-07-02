@@ -1,17 +1,17 @@
-﻿HQL:
+HQL:
 select 
 	comp_aaa.Id As __BaseEntityId__,
 	comp_aaa.EducationOrganizationId as PK1a_EducationOrganizationId,
 	comp_aaa.StudentUSI as PK1a_StudentUSI
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentEducationOrganizationAssociationAggregate.EdFi.StudentEducationOrganizationAssociationQ comp_aaa
-where comp_aaa.Id = :Id AND (comp_aaa.EducationOrganizationId IN (
+where comp_aaa.Id = :Id AND ( (comp_aaa.EducationOrganizationId IN (
                     SELECT fltr_aaf.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aaf 
                     WHERE fltr_aaf.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aaa.StudentUSI IN (
                     SELECT fltr_aac.StudentUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
-                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.EducationOrganizationId,
 	comp_aaa.StudentUSI
 HQL:

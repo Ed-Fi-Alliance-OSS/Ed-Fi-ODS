@@ -1,4 +1,4 @@
-﻿HQL:
+HQL:
 select 
 	comp_aaa.SchoolId As __BaseEntityId__,
 	comp_aaa.SchoolId as PK1a_SchoolId,
@@ -35,13 +35,13 @@ from
 	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
 	join comp_aaa.StudentSchoolAssociations comp_aae
 		left join comp_aae.EntryGradeLevelDescriptor comp_aaf 
-where comp_aaa.SchoolId IN (:BaseEntityId) AND (comp_aae.SchoolId IN (
+where comp_aaa.SchoolId IN (:BaseEntityId) AND ( (comp_aae.SchoolId IN (
                     SELECT fltr_aal.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
                     WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aae.StudentUSI IN (
                     SELECT fltr_aac.StudentUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
-                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.SchoolId,
 	comp_aae.EntryDate,
 	comp_aae.StudentUSI
@@ -54,13 +54,13 @@ select
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
 	join comp_aaa.StaffSchoolAssociations comp_aag
-where comp_aaa.SchoolId IN (:BaseEntityId) AND (comp_aag.SchoolId IN (
+where comp_aaa.SchoolId IN (:BaseEntityId) AND ( (comp_aag.SchoolId IN (
                     SELECT fltr_aal.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
                     WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aag.StaffUSI IN (
                     SELECT fltr_aab.StaffUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aab 
-                    WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.SchoolId,
 	comp_aag.ProgramAssignmentDescriptorId,
 	comp_aag.StaffUSI
@@ -75,10 +75,10 @@ from
 	EdFi.Ods.Entities.NHibernate.QueryModels.SchoolAggregate.EdFi.SchoolQ comp_aaa
 	join comp_aaa.StaffSchoolAssociations comp_aag
 	join comp_aag.Staff comp_aah
-where comp_aaa.SchoolId IN (:BaseEntityId) AND (comp_aah.StaffUSI IN (
+where comp_aaa.SchoolId IN (:BaseEntityId) AND ( (comp_aah.StaffUSI IN (
                     SELECT fltr_aab.StaffUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStaffUSI fltr_aab 
-                    WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aab.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.SchoolId,
 	comp_aag.ProgramAssignmentDescriptorId,
 	comp_aag.StaffUSI

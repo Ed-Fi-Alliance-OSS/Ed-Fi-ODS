@@ -1,4 +1,4 @@
-﻿HQL:
+HQL:
 select 
 	comp_aaa.Id As __BaseEntityId__,
 	comp_aaa.EntryDate as PK1a_EntryDate,
@@ -6,13 +6,13 @@ select
 	comp_aaa.StudentUSI as PK1a_StudentUSI
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ comp_aaa
-where comp_aaa.Id = :Id AND (comp_aaa.SchoolId IN (
+where comp_aaa.Id = :Id AND ( (comp_aaa.SchoolId IN (
                     SELECT fltr_aal.TargetEducationOrganizationId 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToEducationOrganizationId fltr_aal 
                     WHERE fltr_aal.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))) AND (comp_aaa.StudentUSI IN (
                     SELECT fltr_aac.StudentUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
-                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.EntryDate,
 	comp_aaa.SchoolId,
 	comp_aaa.StudentUSI
@@ -28,10 +28,10 @@ select
 from 
 	EdFi.Ods.Entities.NHibernate.QueryModels.StudentSchoolAssociationAggregate.EdFi.StudentSchoolAssociationQ comp_aaa
 	join comp_aaa.Student comp_aab
-where comp_aaa.Id IN (:BaseEntityId) AND (comp_aab.StudentUSI IN (
+where comp_aaa.Id IN (:BaseEntityId) AND ( (comp_aab.StudentUSI IN (
                     SELECT fltr_aac.StudentUSI 
                     FROM EdFi.Ods.Entities.NHibernate.QueryModels.Views.auth_EducationOrganizationIdToStudentUSI fltr_aac 
-                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds)))
+                    WHERE fltr_aac.SourceEducationOrganizationId IN (:ClaimEducationOrganizationIds))))
 order by comp_aaa.EntryDate,
 	comp_aaa.SchoolId,
 	comp_aaa.StudentUSI

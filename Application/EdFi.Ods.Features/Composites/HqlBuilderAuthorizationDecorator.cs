@@ -471,19 +471,19 @@ namespace EdFi.Ods.Features.Composites
                         // mainConjunction.Add(mainDisjunction);
 
                         // Apply grouped disjunction (OR criteria) to the conjunction (AND criteria) containing other strategies combined using AND
-                        mainConjunction.Append($"{AndIfNeeded(mainConjunction)} ({mainDisjunction})");
+                        mainConjunction.Append($"{AndIfNeeded(mainConjunction)}({mainDisjunction})");
                     }
                     else
                     {
                         // Apply grouped disjunction (OR criteria) to the top-level WHERE clause (using AND if needed)
-                        builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)} ({mainDisjunction})");
+                        builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}({mainDisjunction})");
                     }
                 }
                 // When only conjunction filters were applied (AND)
                 else if (conjunctionFiltersWereApplied)
                 {
                     // Add all the filters to the top level
-                    builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)} {mainConjunction}");
+                    builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{mainConjunction}");
                 }
             }
         }
