@@ -90,6 +90,11 @@ namespace EdFi.Ods.Common.Infrastructure.Filtering
         
         protected static string ProcessFormatStringForAliases(string format)
         {
+            if (format == null)
+            {
+                return null;
+            }
+            
             Func<int, string> getFriendlyAliasKey = n => "{newAlias" + n + "}";
             var aliasGenerator = new AliasGenerator("fltr_", useSharedState: true);
 

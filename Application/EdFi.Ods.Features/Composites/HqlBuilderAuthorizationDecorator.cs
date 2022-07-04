@@ -430,11 +430,11 @@ namespace EdFi.Ods.Features.Composites
 
                     string filterHqlFormat = filterApplicationDetails.HqlConditionFormatString;
 
-                    // Set the current alias for the contextual fields
-                    string filterHql = string.Format(filterHqlFormat, builderContext.CurrentAlias);
-
-                    if (!string.IsNullOrWhiteSpace(filterHql))
+                    if (!string.IsNullOrWhiteSpace(filterHqlFormat))
                     {
+                        // Set the current alias for the contextual fields
+                        string filterHql = string.Format(filterHqlFormat, builderContext.CurrentAlias);
+
                         // Add HQL to the current resource query's WHERE clause
                         conjunction.Append($"{AndIfNeeded(conjunction)}({filterHql})");
 
@@ -472,6 +472,8 @@ namespace EdFi.Ods.Features.Composites
 
                         // Apply grouped disjunction (OR criteria) to the conjunction (AND criteria) containing other strategies combined using AND
                         mainConjunction.Append($"{AndIfNeeded(mainConjunction)}({mainDisjunction})");
+
+                        builderContext.Where.Append($"{AndIfNeeded(builderContext.Where)}{mainConjunction}");
                     }
                     else
                     {

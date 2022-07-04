@@ -37,7 +37,7 @@ public class OwnershipBasedAuthorizationFilterDefinitionsFactory : IAuthorizatio
         {
             new AuthorizationFilterDefinition(
                 "CreatedByOwnershipTokenId",
-                @"({currentAlias}.CreatedByOwnershipTokenId IS NOT NULL AND {currentAlias}.CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
+                null, // NOTE: For future use --> @"({currentAlias}.CreatedByOwnershipTokenId IS NOT NULL AND {currentAlias}.CreatedByOwnershipTokenId IN (:CreatedByOwnershipTokenId))",
                 ApplyAuthorizationCriteria,
                 ApplyTrackedChangesAuthorizationCriteria,
                 AuthorizeInstance,
