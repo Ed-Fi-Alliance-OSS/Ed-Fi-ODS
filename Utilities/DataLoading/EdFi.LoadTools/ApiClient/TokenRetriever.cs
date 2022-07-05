@@ -41,7 +41,7 @@ namespace EdFi.LoadTools.ApiClient
             var requestMessage = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                Content = new StringContent("Grant_type=client_credentials", Encoding.UTF8, "application/x-www-form-urlencoded"),
+                Content = new StringContent("grant_type=client_credentials", Encoding.UTF8, "application/x-www-form-urlencoded"),
                 RequestUri = new Uri(_configuration.Url)
             };
 
