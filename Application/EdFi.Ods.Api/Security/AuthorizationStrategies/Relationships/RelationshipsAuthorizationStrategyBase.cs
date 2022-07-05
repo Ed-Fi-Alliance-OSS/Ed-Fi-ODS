@@ -116,7 +116,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
             {
                 //Look for the corresponding non - role named property on the model using its DefiningConcreteProperty
 
-                return _nonRoleNamedByRoleNamedPropertyName.GetOrAdd(propertyName, _ =>
+                return _nonRoleNamedByRawPropertyName.GetOrAdd(propertyName, x =>
                 {
                     var schema = authorizationContext.Type.GetCustomAttribute<SchemaAttribute>(false)?.Schema ??
                                  throw new Exception(
@@ -129,9 +129,9 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
                         throw new Exception($"Unable to locate entity '{expectedEntityFullName}' in the model.");
                     }
 
-                    if (!entity.PropertyByName.TryGetValue(propertyName, out var property))
+                    if (!entity.PropertyByName.TryGetValue(x, out var property))
                     {
-                        throw new Exception($"Property {propertyName} not found in entity '{expectedEntityFullName}'.");
+                        throw new Exception($"Property '{x}' not found in entity '{expectedEntityFullName}'.");
                     }
 
                     return property.DefiningConcreteProperty.PropertyName;
@@ -147,7 +147,7 @@ namespace EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships
         }
 
         private readonly ConcurrentDictionary<(string, string), string> _filterNameBySubjectAndPathModifier = new();
-        private readonly ConcurrentDictionary<string, string> _nonRoleNamedByRoleNamedPropertyName = new();
+        private readonly ConcurrentDictionary<string, string> _nonRoleNamedByRawPropertyName = new();
 
         protected abstract SubjectEndpoint[] GetAuthorizationSubjectEndpoints(
             IEnumerable<(string name, object value)> authorizationContextTuples);
