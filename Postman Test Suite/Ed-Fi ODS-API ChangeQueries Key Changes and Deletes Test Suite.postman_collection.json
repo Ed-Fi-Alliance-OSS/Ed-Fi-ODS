@@ -11552,7 +11552,7 @@
 					"        ],",
 					"        body: {",
 					"            mode: \"raw\",",
-					"            raw: JSON.stringify({ Grant_type: grantType })",
+								"            raw: JSON.stringify({ grant_type: grantType })",
 					"        }",
 					"    };",
 					"    ",

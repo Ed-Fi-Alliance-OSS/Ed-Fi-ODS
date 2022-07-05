@@ -48,7 +48,7 @@ namespace EdFi.OdsApi.SdkClient
             var bearerTokenRequest = new RestRequest("oauth/token", Method.POST);
             bearerTokenRequest.AddParameter("Client_id", clientKey);
             bearerTokenRequest.AddParameter("Client_secret", clientSecret);
-            bearerTokenRequest.AddParameter("Grant_type", "client_credentials");
+            bearerTokenRequest.AddParameter("grant_type", "client_credentials");
   
             var bearerTokenResponse = oauthClient.Execute<BearerTokenResponse>(bearerTokenRequest);
             if (bearerTokenResponse.StatusCode != HttpStatusCode.OK)
