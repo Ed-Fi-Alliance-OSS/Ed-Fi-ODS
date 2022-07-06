@@ -41,7 +41,7 @@ COMMENT ON TABLE sample.BusRouteProgram IS 'Programs served by the bus route.';
 COMMENT ON COLUMN sample.BusRouteProgram.BusId IS 'The unique identifier for the bus assigned to the bus route.';
 COMMENT ON COLUMN sample.BusRouteProgram.BusRouteNumber IS 'A unique identifier for the bus route.';
 COMMENT ON COLUMN sample.BusRouteProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.BusRouteProgram.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.BusRouteProgram.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN sample.BusRouteProgram.ProgramTypeDescriptorId IS 'The type of program.';
 
 -- Extended Properties [sample].[BusRouteServiceAreaPostalCode] --
@@ -119,13 +119,13 @@ COMMENT ON COLUMN sample.ParentCeilingHeight.ParentUSI IS 'A unique alphanumeric
 COMMENT ON TABLE sample.ParentCTEProgram IS 'A CTE program the parent has completed.';
 COMMENT ON COLUMN sample.ParentCTEProgram.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
 COMMENT ON COLUMN sample.ParentCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
-COMMENT ON COLUMN sample.ParentCTEProgram.CIPCode IS 'Number and description of the CIP Code associated with the student''s CTEProgram.';
-COMMENT ON COLUMN sample.ParentCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTEProgram, is the student''s primary CTEProgram.';
-COMMENT ON COLUMN sample.ParentCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the Student has completed the CTEProgram.';
+COMMENT ON COLUMN sample.ParentCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
+COMMENT ON COLUMN sample.ParentCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTE program is the student''s primary CTE program.';
+COMMENT ON COLUMN sample.ParentCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
 
 -- Extended Properties [sample].[ParentEducationContent] --
 COMMENT ON TABLE sample.ParentEducationContent IS 'Education content to which the parent has been referred.';
-COMMENT ON COLUMN sample.ParentEducationContent.ContentIdentifier IS 'A unique identifier for the EducationContent.';
+COMMENT ON COLUMN sample.ParentEducationContent.ContentIdentifier IS 'A unique identifier for the education content.';
 COMMENT ON COLUMN sample.ParentEducationContent.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
 
 -- Extended Properties [sample].[ParentExtension] --
@@ -154,7 +154,7 @@ COMMENT ON COLUMN sample.ParentStudentProgramAssociation.BeginDate IS 'The earli
 COMMENT ON COLUMN sample.ParentStudentProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.ParentStudentProgramAssociation.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
 COMMENT ON COLUMN sample.ParentStudentProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.ParentStudentProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.ParentStudentProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN sample.ParentStudentProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN sample.ParentStudentProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -169,9 +169,9 @@ COMMENT ON COLUMN sample.ParentTeacherConference.EndTime IS 'The end time the pa
 COMMENT ON TABLE sample.SchoolCTEProgram IS 'A CTE program the school is known for.';
 COMMENT ON COLUMN sample.SchoolCTEProgram.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN sample.SchoolCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
-COMMENT ON COLUMN sample.SchoolCTEProgram.CIPCode IS 'Number and description of the CIP Code associated with the student''s CTEProgram.';
-COMMENT ON COLUMN sample.SchoolCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTEProgram, is the student''s primary CTEProgram.';
-COMMENT ON COLUMN sample.SchoolCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the Student has completed the CTEProgram.';
+COMMENT ON COLUMN sample.SchoolCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
+COMMENT ON COLUMN sample.SchoolCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTE program is the student''s primary CTE program.';
+COMMENT ON COLUMN sample.SchoolCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
 
 -- Extended Properties [sample].[SchoolDirectlyOwnedBus] --
 COMMENT ON TABLE sample.SchoolDirectlyOwnedBus IS 'Buses owned by the School directly.';
@@ -212,7 +212,7 @@ COMMENT ON TABLE sample.StudentArtProgramAssociation IS 'This is an example of a
 COMMENT ON COLUMN sample.StudentArtProgramAssociation.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociation.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociation.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociation.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociation.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociation.IdentificationCode IS 'A unique identification code used to identify the student''s artwork produced in the program.';
@@ -233,7 +233,7 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ArtMediumDescript
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationArtMedium.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -243,7 +243,7 @@ COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.BeginDate IS
 COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.PortfolioYears IS 'The of year(s) of work included in the student''s portfolio.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationPortfolioYears.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -252,20 +252,20 @@ COMMENT ON TABLE sample.StudentArtProgramAssociationService IS 'Indicates the Se
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceDescriptorId IS 'Indicates the service being provided to the student by the program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationService.PrimaryIndicator IS 'True if service is a primary service.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceBeginDate IS 'First date the student was in this option for the current school year.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationService.ServiceEndDate IS 'Last date the student was in this option for the current school year.';
 
 -- Extended Properties [sample].[StudentArtProgramAssociationStyle] --
 COMMENT ON TABLE sample.StudentArtProgramAssociationStyle IS 'The art style(s) exhibited by the student in the program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentArtProgramAssociationStyle.Style IS 'The art style(s) exhibited by the student in the program.';
@@ -275,7 +275,7 @@ COMMENT ON TABLE sample.StudentCTEProgramAssociationExtension IS '';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.ProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.ProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentCTEProgramAssociationExtension.AnalysisCompleted IS 'A unique identification code used to identify the student''s artwork produced in the program.';
@@ -319,7 +319,7 @@ COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationAddressTerm.Term
 COMMENT ON TABLE sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152 IS 'The time period of student need.';
 COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152.BeginDate IS 'The month, day, and year for the start of the period.';
 COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152.StudentCharacteristicDescriptorId IS 'The characteristic designated for the Student.';
+COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152.StudentCharacteristicDescriptorId IS 'The characteristic designated for the student.';
 COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152.PrimaryStudentNeedIndicator IS 'Indicates the parent characteristic is a primary student need.';
 COMMENT ON COLUMN sample.StudentEducationOrganizationAssociationStudentCharacteri_17d152.EndDate IS 'The month, day, and year for the end of the period.';
@@ -340,7 +340,7 @@ COMMENT ON COLUMN sample.StudentFavoriteBookArtMedium.ArtPieces IS 'This is docu
 -- Extended Properties [sample].[StudentGraduationPlanAssociation] --
 COMMENT ON TABLE sample.StudentGraduationPlanAssociation IS 'This is an example of a new Association.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociation.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociation.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociation.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociation.EffectiveDate IS 'The date the plan went into effect.';
@@ -357,7 +357,7 @@ COMMENT ON COLUMN sample.StudentGraduationPlanAssociation.StaffUSI IS 'A unique 
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationAcademicSubject IS 'The student''s favorite academic subjects.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationAcademicSubject.AcademicSubjectDescriptorId IS 'The student''s favorite academic subjects.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationAcademicSubject.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationAcademicSubject.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationAcademicSubject.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationAcademicSubject.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationAcademicSubject.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -365,26 +365,26 @@ COMMENT ON COLUMN sample.StudentGraduationPlanAssociationAcademicSubject.Student
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationCareerPathwayCode IS 'The code representing the student''s intended career pathway after graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCareerPathwayCode.CareerPathwayCode IS 'The code representing the student''s intended career pathway after graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCareerPathwayCode.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCareerPathwayCode.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCareerPathwayCode.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCareerPathwayCode.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCareerPathwayCode.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [sample].[StudentGraduationPlanAssociationCTEProgram] --
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationCTEProgram IS 'The career and technical program in which the student participates.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.CareerPathwayDescriptorId IS 'A sequence of courses within an area of interest that is a student''s educational road map to a chosen career.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.CIPCode IS 'Number and description of the CIP Code associated with the student''s CTEProgram.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTEProgram, is the student''s primary CTEProgram.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the Student has completed the CTEProgram.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.CIPCode IS 'Number and description of the CIP code associated with the student''s CTE program.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.PrimaryCTEProgramIndicator IS 'A boolean indicator of whether this CTE program is the student''s primary CTE program.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationCTEProgram.CTEProgramCompletionIndicator IS 'A boolean indicator of whether the student has completed the CTE program.';
 
 -- Extended Properties [sample].[StudentGraduationPlanAssociationDescription] --
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationDescription IS 'A description of the graduation plan.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDescription.Description IS 'A description of the graduation plan.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDescription.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDescription.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDescription.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDescription.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDescription.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -392,14 +392,14 @@ COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDescription.StudentUSI 
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationDesignatedBy IS 'The entity governing this graduation plan.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDesignatedBy.DesignatedBy IS 'The entity governing this graduation plan.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDesignatedBy.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDesignatedBy.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDesignatedBy.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDesignatedBy.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationDesignatedBy.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [sample].[StudentGraduationPlanAssociationIndustryCredential] --
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationIndustryCredential IS 'Industry-recognized credentials the student will have earned at graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.IndustryCredential IS 'Industry-recognized credentials the student will have earned at graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
@@ -407,7 +407,7 @@ COMMENT ON COLUMN sample.StudentGraduationPlanAssociationIndustryCredential.Stud
 -- Extended Properties [sample].[StudentGraduationPlanAssociationStudentParentAssociation] --
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationStudentParentAssociation IS 'Parent responsible for graduation plan.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
@@ -415,7 +415,7 @@ COMMENT ON COLUMN sample.StudentGraduationPlanAssociationStudentParentAssociatio
 -- Extended Properties [sample].[StudentGraduationPlanAssociationYearsAttended] --
 COMMENT ON TABLE sample.StudentGraduationPlanAssociationYearsAttended IS 'The number of years the student will have attended high school by the time of graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN sample.StudentGraduationPlanAssociationYearsAttended.YearsAttended IS 'The number of years the student will have attended high school by the time of graduation.';
@@ -465,13 +465,7 @@ COMMENT ON COLUMN sample.StudentParentAssociationPagesRead.StudentUSI IS 'A uniq
 -- Extended Properties [sample].[StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c] --
 COMMENT ON TABLE sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c IS 'A reference to the staff member and education organization assigned to help track the student''s reading abilities with the parent''s involvement.';
 COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract; for example:
-        Probationary
-        Contractual
-        Substitute/temporary
-        Tenured or permanent
-        Volunteer/no contract
-        ...';
+COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract.';
 COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.HireDate IS 'The month, day, and year on which an individual was hired for a position.';
 COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.ParentUSI IS 'A unique alphanumeric code assigned to a parent.';
 COMMENT ON COLUMN sample.StudentParentAssociationStaffEducationOrganizationEmploy_c4af0c.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
@@ -508,16 +502,16 @@ COMMENT ON COLUMN sample.StudentSchoolAssociationExtension.MembershipTypeDescrip
 
 -- Extended Properties [sample].[StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02] --
 COMMENT ON TABLE sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02 IS 'Programs which this student is participating in that is supported by this coursework.';
-COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.BeginDate IS 'Month, day, and year of the student''s entry or assignment to the section.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedBeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedEducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedProgramName IS 'The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.RelatedProgramTypeDescriptorId IS 'The type of program.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SchoolId IS 'The identifier assigned to a school.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.SessionName IS 'The identifier for the calendar for the academic session.';
 COMMENT ON COLUMN sample.StudentSectionAssociationRelatedGeneralStudentProgramAss_c72e02.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 

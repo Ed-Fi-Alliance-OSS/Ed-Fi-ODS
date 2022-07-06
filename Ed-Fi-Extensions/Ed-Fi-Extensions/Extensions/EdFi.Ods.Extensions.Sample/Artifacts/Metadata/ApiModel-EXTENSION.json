@@ -1496,7 +1496,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Number and description of the CIP Code associated with the student's CTEProgram.",
+          "description": "Number and description of the CIP code associated with the student's CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1530,7 +1530,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether the Student has completed the CTEProgram.",
+          "description": "A boolean indicator of whether the student has completed the CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1547,7 +1547,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.",
+          "description": "A boolean indicator of whether this CTE program is the student's primary CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -2051,7 +2051,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Number and description of the CIP Code associated with the student's CTEProgram.",
+          "description": "Number and description of the CIP code associated with the student's CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -2085,7 +2085,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether the Student has completed the CTEProgram.",
+          "description": "A boolean indicator of whether the student has completed the CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -2102,7 +2102,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.",
+          "description": "A boolean indicator of whether this CTE program is the student's primary CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -2927,7 +2927,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "First date the Student was in this option for the current school year.",
+          "description": "First date the student was in this option for the current school year.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -2944,7 +2944,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Last date the Student was in this option for the current school year.",
+          "description": "Last date the student was in this option for the current school year.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -3900,7 +3900,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Number and description of the CIP Code associated with the student's CTEProgram.",
+          "description": "Number and description of the CIP code associated with the student's CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -3934,7 +3934,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether the Student has completed the CTEProgram.",
+          "description": "A boolean indicator of whether the student has completed the CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -3951,7 +3951,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A boolean indicator of whether this CTEProgram, is the student's primary CTEProgram.",
+          "description": "A boolean indicator of whether this CTE program is the student's primary CTE program.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -5688,7 +5688,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -5745,7 +5745,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -7275,7 +7275,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique identifier for the EducationContent.",
+          "description": "A unique identifier for the education content.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -7298,7 +7298,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A unique identifier for the EducationContent.",
+          "description": "A unique identifier for the education content.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -7685,7 +7685,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -7793,7 +7793,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -8513,7 +8513,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -8621,7 +8621,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -8802,7 +8802,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -8910,7 +8910,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -9032,7 +9032,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -9140,7 +9140,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -9234,7 +9234,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Indicates the Service being provided to the student by the Program.",
+          "description": "Indicates the service being provided to the student by the program.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -9322,7 +9322,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -9430,7 +9430,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -9552,7 +9552,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -9660,7 +9660,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -9782,7 +9782,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -9890,7 +9890,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -10829,7 +10829,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The characteristic designated for the Student.",
+          "description": "The characteristic designated for the student.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -10886,7 +10886,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The characteristic designated for the Student.",
+          "description": "The characteristic designated for the student.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -11231,7 +11231,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -11288,7 +11288,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -11539,7 +11539,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -11613,7 +11613,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -11701,7 +11701,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -11775,7 +11775,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -11923,7 +11923,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -11997,7 +11997,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12085,7 +12085,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12159,7 +12159,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12247,7 +12247,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12321,7 +12321,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12409,7 +12409,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12483,7 +12483,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12571,7 +12571,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12645,7 +12645,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12827,7 +12827,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -12901,7 +12901,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.",
+          "description": "The type of academic plan the student is following for graduation.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -13612,7 +13612,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -13686,7 +13686,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Reflects the type of employment or contract; for example:        Probationary        Contractual        Substitute/temporary        Tenured or permanent        Volunteer/no contract        ...",
+          "description": "Reflects the type of employment or contract.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -14363,7 +14363,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -14471,7 +14471,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "description": "The formal name of the program of instruction, training, services, or benefits available through federal, state, or local agencies.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -14542,7 +14542,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Month, day, and year of the Student's entry or assignment to the Section.",
+          "description": "Month, day, and year of the student's entry or assignment to the section.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -14627,7 +14627,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).",
+          "description": "The identifier for the calendar for the academic session.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -14667,7 +14667,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Month, day, and year of the Student's entry or assignment to the Section.",
+          "description": "Month, day, and year of the student's entry or assignment to the section.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -14752,7 +14752,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).",
+          "description": "The identifier for the calendar for the academic session.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {

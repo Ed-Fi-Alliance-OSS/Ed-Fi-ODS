@@ -845,7 +845,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The person's maiden name.",
+          "description": "The individual's maiden name.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -896,7 +896,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A prefix used to denote the title, degree, position, or seniority of the person.",
+          "description": "A prefix used to denote the title, degree, position, or seniority of the individual.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1303,7 +1303,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The order by severity of student's disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.",
+          "description": "The order by severity of individual's disabilities: 1- Primary, 2 -  Secondary, 3 - Tertiary, etc.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -1937,7 +1937,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "A prefix used to denote the title, degree, position, or seniority of the person.",
+          "description": "A prefix used to denote the title, degree, position, or seniority of the individual.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -7100,7 +7100,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A disability category that describes a child's impairment.",
+          "description": "A disability category that describes a individual's impairment.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -7214,7 +7214,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A disability category that describes a child's impairment.",
+          "description": "A disability category that describes a individual's impairment.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -7254,7 +7254,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "A disability category that describes a child's impairment.",
+          "description": "A disability category that describes a individual's impairment.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -8708,7 +8708,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The types of alternate names for a person.",
+          "description": "The types of alternate names for an individual.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -15638,7 +15638,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).",
+          "description": "The identifier for the calendar for the academic session.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -15729,7 +15729,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).",
+          "description": "The identifier for the calendar for the academic session.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -21115,7 +21115,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Namespace for the Survey.",
+          "description": "Namespace for the survey.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -21172,7 +21172,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Namespace for the Survey.",
+          "description": "Namespace for the survey.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -21336,7 +21336,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Namespace for the Survey.",
+          "description": "Namespace for the survey.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -21393,7 +21393,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Namespace for the Survey.",
+          "description": "Namespace for the survey.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -21558,7 +21558,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Namespace for the Survey.",
+          "description": "Namespace for the survey.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
@@ -21632,7 +21632,7 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Namespace for the Survey.",
+          "description": "Namespace for the survey.",
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
