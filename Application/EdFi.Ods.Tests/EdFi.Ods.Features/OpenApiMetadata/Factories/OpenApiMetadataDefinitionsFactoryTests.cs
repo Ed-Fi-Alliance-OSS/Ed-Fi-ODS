@@ -384,6 +384,59 @@ namespace EdFi.Ods.Tests.EdFi.Ods.Features.OpenApiMetadata.Factories
                 Assert.That(_actualDefinitions, Is.Not.Empty);
             }
 
+            [Assert]
+            public void Should_return_a_correctly_constructed_linked_collection_definition()
+            {
+                // Linked collection definition names are constructed by compounding each collection level name.
+                var expectedLinkedCollectionDefinitionName =
+                    "assessment_objectiveAssessment";
+
+                var actualCollectionsDefinition = _actualDefinitions[expectedLinkedCollectionDefinitionName];
+
+                var expectedCollectionProperties = new[]
+                {
+                    "id",
+                    "identificationCode",
+                    "description",
+                    "maxRawScore",
+                    "nomenclature",
+                    "percentOfAssessment",
+                    "objectiveAssessmentPerformanceLevels"
+                };
+
+                AssertHelper.All(
+                    () => Assert.That(
+                        actualCollectionsDefinition, Is.Not.Null,
+                        $"No definition found for expected linked collection definition {expectedLinkedCollectionDefinitionName}"),
+                    () => Assert.That(
+                        actualCollectionsDefinition.properties.Keys, Is.EquivalentTo(expectedCollectionProperties)));
+            }
+
+            [Assert]
+            public void Should_return_a_correctly_constructed_resource_reference_definition_specified_in_composite_definition()
+            {
+                // Linked collection definition names are constructed by compounding each collection level name.
+                var expectedLinkedCollectionDefinitionName =
+                    "assessment_objectiveAssessment_objectiveAssessmentPerformanceLevel";
+
+                var actualCollectionsDefinition = _actualDefinitions[expectedLinkedCollectionDefinitionName];
+
+                var expectedCollectionProperties = new[]
+                {
+                    "performanceLevelDescriptor",
+                    "assessmentReportingMethodDescriptor",
+                    "minimumScore",
+                    "maximumScore",
+                    "resultDatatypeTypeDescriptor"
+                };
+
+                AssertHelper.All(
+                    () => Assert.That(
+                        actualCollectionsDefinition, Is.Not.Null,
+                        $"No definition found for expected linked collection definition {expectedLinkedCollectionDefinitionName}"),
+                    () => Assert.That(
+                        actualCollectionsDefinition.properties.Keys, Is.EquivalentTo(expectedCollectionProperties)));
+            }
         }
     }
 }
